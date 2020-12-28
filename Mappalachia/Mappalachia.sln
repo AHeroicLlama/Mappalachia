@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mappalachia", "Mappalachia.csproj", "{4E44C396-6917-402E-A3E0-1AB2791624FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F216CE46-70A2-4CBD-88C7-BC074875C1C4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E44C396-6917-402E-A3E0-1AB2791624FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E44C396-6917-402E-A3E0-1AB2791624FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E44C396-6917-402E-A3E0-1AB2791624FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E44C396-6917-402E-A3E0-1AB2791624FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EA07550-3830-4B76-A619-62C0A68D05D9}
+	EndGlobalSection
+EndGlobal

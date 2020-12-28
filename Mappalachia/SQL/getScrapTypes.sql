@@ -1,0 +1,3 @@
+SELECT component
+FROM SeventySix_Quantified_Scrap
+GROUP BY component
