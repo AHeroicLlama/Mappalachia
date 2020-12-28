@@ -1,0 +1,7 @@
+.mode csv
+.import "../Preprocessor/Output/SeventySix_FormId.csv" SeventySix_FormId
+.import "../Preprocessor/Output/SeventySix_Interior.csv" SeventySix_Interior
+.import "../Preprocessor/Output/SeventySix_NPCSpawn.csv" SeventySix_NPCSpawn
+.import "../Preprocessor/Output/SeventySix_Quantified_Scrap.csv" SeventySix_Quantified_Scrap
+.import "../Preprocessor/Output/SeventySix_Worldspace.csv" SeventySix_Worldspace
+.dump

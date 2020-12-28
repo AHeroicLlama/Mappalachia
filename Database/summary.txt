@@ -1,0 +1,252 @@
+==Database checksum== 
+352ae286a107e7935a39329497245bec
+==Worldspace total placement count==
+212491
+==Worldspace unique placement count==
+4936
+==Interior total placement count==
+63492
+==Interior unique placement count==
+4409
+==Average interior placement count==
+547.344827586207
+==Average X Coord==
+-17918.156561925
+==Average Y Coord==
+9253.44700716736
+==Average X Bounds Width==
+161.75053531679
+==Average Y Bounds Width==
+160.603677332216
+==Total unique items by signature==
+ACTI|1355
+ALCH|84
+AMMO|12
+ARMO|98
+BOOK|611
+CONT|547
+DOOR|308
+FLOR|135
+FURN|535
+HAZD|42
+KEYM|68
+LVLI|586
+MISC|806
+NOTE|278
+NPC_|1098
+TACT|73
+TERM|535
+WEAP|73
+==Unique scrap-containing junk count==
+Acid|16
+Adhesive|10
+Aluminum|42
+Antiseptic|9
+Asbestos|16
+Ballistic Fiber|2
+Black Titanium|1
+Bone|43
+Ceramic|91
+Circuitry|11
+Cloth|96
+Coal|1
+Concrete|5
+Copper|36
+Cork|8
+Crystal|7
+Fertilizer|5
+Fiber Optics|4
+Fiberglass|13
+Gear|20
+Glass|85
+Gold|9
+Lead|43
+Leather|46
+Nuclear Material|12
+Oil|30
+Plastic|109
+Rubber|20
+Screw|39
+Silver|15
+Spring|28
+Steel|156
+Ultracite|2
+Wood|72
+==NPC per-class count==
+Angler|Main|21
+Angler|Sub|13
+Bloatfly|Main|9
+Bloatfly|Sub|17
+Bloodbug|Main|14
+Bloodbug|Sub|18
+Cave Cricket|Main|22
+Cave Cricket|Sub|25
+Deathclaw|Main|3
+Deathclaw|Sub|39
+Fog Crawler|Main|13
+Fog Crawler|Sub|8
+Ghoul|Main|139
+Ghoul|Sub|98
+Grafton Monster|Sub|1
+Gulper|Main|17
+Gulper|Sub|20
+Honey Beast|Main|2
+Honey Beast|Sub|3
+Insect|Main|33
+Insect|Sub|41
+Liberator|Main|67
+Liberator|Sub|68
+Mega Sloth|Main|1
+Mega Sloth|Sub|15
+Mirelurk|Main|34
+Mirelurk|Sub|26
+Mole Miner|Main|27
+Mole Miner|Sub|9
+Mole Rat|Main|73
+Mole Rat|Sub|89
+Rad Ant|Main|1
+Rad Ant|Sub|10
+Rad Rat|Main|45
+Rad Rat|Sub|61
+Rad Scorpion|Main|17
+Rad Scorpion|Sub|16
+Rad Toad|Main|13
+Rad Toad|Sub|10
+Radroach|Sub|2
+Robot|Main|65
+Robot|Sub|40
+Scorched|Main|144
+Scorched|Sub|76
+Snallygaster|Main|8
+Stingwing|Main|2
+Stingwing|Sub|9
+Super Mutant|Main|96
+Super Mutant|Sub|71
+Swamp|Main|2
+Tick|Main|2
+Tick|Sub|5
+Vicious Dog|Main|69
+Vicious Dog|Sub|71
+Wolf|Main|28
+Wolf|Sub|31
+Yao Guai|Main|25
+Yao Guai|Sub|21
+==Internal cells list==
+AMSHQ01
+AVRMedicalCenter01
+AlleghenyAsylum01
+ArktosPharmaLab01
+BelchingBetty01
+BigBendTunnel01
+BlackwaterMine01
+BlueRidgeOffice01
+BurdetteManorBasement01
+BurningMine01
+Burrows01
+CharlestonCapitolBuilding02
+CharlestonCapitolCourthouse01
+CraterWarRoom01
+CraterWatchstation01
+CultistCave01
+DaggersDen01
+DaggersDen02
+DuncanDuncanRobotics01
+DyerChemical01
+EasternRegionalPen01
+EmmettMountainDisposalSite01
+EnclaveResearchFacility01
+FortAtlas01
+FortAtlasDungeon01
+FoundationInt01
+FoundationSupplyRoom01
+FraternityHouse01
+FraternityHouse02
+FreeStatesBunker01
+FreeStatesBunker02
+FreeStatesBunker03
+FreeStatesBunker04
+FreeStatesBunker06
+FreeStatesBunker07
+GarrahanMiningHQ01
+GauleyMine01
+GlassedCavern01
+GraftonPawnShop01
+GraftonSteelUnderground01
+HornwrightHQ01
+HornwrightSafeRoom01
+KerwoodMine01
+LewisandSonsFarmingSupply01
+LousMine01
+MTR08LodeBaring01
+MTR08LodeBaring02
+MamaDolceProcessing01
+MonongahMine01
+MonongahMissileSilo01
+MonongahPowerPlant01
+MorgantownAirportTerminal02
+MorgantownApartment01
+MorgantownHighSchool01
+MountBlairWarehouseBasement01
+NukaColaQuantumPlant01
+OrwellOrchardsShelter01
+OverseersHome01
+PoseidonPlant01
+PoseidonPlant02
+RadioResearchCenter01
+RaiderCave01
+RaiderCave02
+RaiderCave03
+RaiderRaidTrailerInt
+RiversideManor01
+RobCoResearchCenter01
+RobcoExperimentalCache01
+RollinsLaborCamp01
+SamBlackwellBunker02
+SamBlackwellsDeathclawCave
+SettlerBugOutCave
+SheltersClaimCenter01
+SheltersVaultAtrium01
+SheltersVaultLivingQuarters01
+SheltersVaultReception01
+SheltersVaultStorageRoom01
+SpruceKnobCampground01
+SpruceKnobMissileSilo01
+SugarGrove01
+SugarGrove02
+SugarGroveMissileSilo01
+TheCraterCore01
+TheNukashine01
+TheRustyPick01
+TheWayward01
+ThunderMtPowerPlant01
+TopOfTheWorld01
+UCB01
+UCB02
+UncannyCaverns01
+VTecAgCenter01
+ValleyGalleria01
+VanLoweTaxidermy01
+Vault63Entrance
+Vault79Entrance
+Vault79GoldVaultOperations
+Vault79Main
+Vault94Dungeon
+Vault94DungeonGECK
+Vault94Entrance
+Vault96Dungeon
+VaultTecU01
+WVLumberCo01
+WatogaCivicCenter01
+WatogaCivicCenterDungeon
+WatogaEmergencyServices01
+WatogaHighSchool01
+WatogaMunicipalCenter01
+WatogaMunicipalCenter02
+WatogaTowers01
+WatogaUnderground01
+WendigoCave01
+WestTek01
+WhitespringBunker01
+WhitespringResort01
+==Internal cells count==
+116
