@@ -231,17 +231,10 @@ namespace Mappalachia
 			return scrapTypes;
 		}
 
-		//Indicate the spawn chance based on understandings of LVLI
+		//Indicate the spawn chance of a simple item based on understandings of LVLI
 		public static double GetSpawnChance(string signature)
 		{
-			if (signature == "LVLI")
-			{
-				return -1;
-			}
-			else
-			{
-				return 100;
-			}
+			return signature == "LVLI" ? -1 : 100;
 		}
 
 		//Return the coordinate locations and boundaries of instances of a FormID

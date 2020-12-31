@@ -316,7 +316,7 @@ namespace Mappalachia
 					}
 				}
 
-				//Fially now weights are calculated, draw a square for every HeatGripMapSquare in the array
+				//Finally now weights are calculated, draw a square for every HeatGripMapSquare in the array
 				for (int x = 0; x < resolution; x++)
 				{
 					int xCoord = x * pixelsPerSquare;
