@@ -32,7 +32,7 @@ Behind the scenes, Mappalachia is developed and produced in 4 key steps.
 1. Extract the raw data in CSV using FO76Edit
 2. Refine and preprocess the data
 3. Ingest the data into a database
-4. Development of the actual GUI/Progam itself
+4. Development of the actual GUI/Program itself
 
 If you fancy doing some data mining, or want to do your own thing with the raw data, then you may be interested in the following documentation;
 
