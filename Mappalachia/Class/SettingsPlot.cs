@@ -35,11 +35,11 @@ namespace Mappalachia.Class
 
 		public static readonly List<PlotIconShape> paletteShapeDefault = new List<PlotIconShape>
 		{
-			//				Diamond square circle inner outer
-			new PlotIconShape(false, false, true, false, true),
-			new PlotIconShape(true, false, false, false, false),
-			new PlotIconShape(false, false, false, true, false),
-			new PlotIconShape(false, true, true, false, false),
+			//				Diamond square circle inner outer  fill
+			new PlotIconShape(false, false, true, false, true, false),
+			new PlotIconShape(true, false, false, false, false, false),
+			new PlotIconShape(false, false, false, true, false, false),
+			new PlotIconShape(false, true, true, false, false, false),
 		};
 
 		public static readonly List<Color> paletteColorDefault = new List<Color>
