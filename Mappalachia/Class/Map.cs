@@ -126,16 +126,24 @@ namespace Mappalachia
 			//Reset the current image to the background layer
 			finalImage = (Image)backgroundLayer.Clone();
 
+			Graphics imageGraphic = Graphics.FromImage(finalImage);
+			Font font = new Font(fontCollection.Families[0], fontSize);
+
+			//Draw the game version onto the map
+			string versionText = "Game version " + AssemblyInfo.gameVersion;
+			Brush brushWhite = new SolidBrush(Color.White);
+			SizeF versionBounds = new SizeF(mapDimension, mapDimension);
+			int versionTextHeight = (int)imageGraphic.MeasureString(versionText, font, versionBounds).Height;
+			RectangleF versionTextPosition = new RectangleF(0, mapDimension - versionTextHeight, versionBounds.Width, versionBounds.Height);
+			imageGraphic.DrawString(versionText, font, brushWhite, versionTextPosition);
+
 			if (FormMaster.legendItems.Count == 0)
 			{
 				mapFrame.Image = finalImage;
 				return;
 			}
 
-			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			int totalLegendGroups = FormMaster.FindSumLegendGroups();
-
-			Font font = new Font(fontCollection.Families[0], fontSize);
 
 			if (SettingsPlot.mode == SettingsPlot.Mode.Icon)
 			{
@@ -343,15 +351,6 @@ namespace Mappalachia
 				GC.Collect();
 				GC.WaitForPendingFinalizers();
 			}
-
-			//Draw the game version onto the map
-			string versionText = "Game version " + AssemblyInfo.gameVersion;
-			Brush brushWhite = new SolidBrush(Color.White);
-			SizeF versionBounds = new SizeF(mapDimension, mapDimension);
-			int versionTextHeight = (int)imageGraphic.MeasureString(versionText, font, versionBounds).Height;
-			RectangleF versionTextPosition = new RectangleF(0, mapDimension - versionTextHeight, versionBounds.Width, versionBounds.Height);
-
-			imageGraphic.DrawString(versionText, font, brushWhite, versionTextPosition);
 
 			mapFrame.Image = finalImage;
 		}
