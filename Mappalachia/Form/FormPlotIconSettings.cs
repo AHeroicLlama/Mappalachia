@@ -55,7 +55,7 @@ namespace Mappalachia
 			foreach (ListViewItem shape in listViewShapePalette.Items)
 			{
 				shape.Selected = true;
-				tempShapePalette.Add(new PlotIconShape(checkBoxDiamond.Checked, checkBoxSquare.Checked, checkBoxCircle.Checked, checkBoxCrosshairInner.Checked, checkBoxCrosshairOuter.Checked));
+				tempShapePalette.Add(new PlotIconShape(checkBoxDiamond.Checked, checkBoxSquare.Checked, checkBoxCircle.Checked, checkBoxCrosshairInner.Checked, checkBoxCrosshairOuter.Checked, checkBoxFill.Checked));
 			}
 
 			SettingsPlotIcon.paletteShape = new List<PlotIconShape>(tempShapePalette);
@@ -198,6 +198,7 @@ namespace Mappalachia
 			checkBoxCircle.Enabled = isEnabled;
 			checkBoxCrosshairInner.Enabled = isEnabled;
 			checkBoxCrosshairOuter.Enabled = isEnabled;
+			checkBoxFill.Enabled = isEnabled;
 
 			if (!isEnabled)
 			{
@@ -206,6 +207,7 @@ namespace Mappalachia
 				checkBoxCircle.Checked = isEnabled;
 				checkBoxCrosshairInner.Checked = isEnabled;
 				checkBoxCrosshairOuter.Checked = isEnabled;
+				checkBoxFill.Checked = isEnabled;
 			}
 		}
 
@@ -272,7 +274,7 @@ namespace Mappalachia
 			if (listViewShapePalette.SelectedItems.Count == 0)
 			{
 				placeholderShapePalette[lastSelectedShapeIndex] =
-					new PlotIconShape(checkBoxDiamond.Checked, checkBoxSquare.Checked, checkBoxCircle.Checked, checkBoxCrosshairInner.Checked, checkBoxCrosshairOuter.Checked);
+					new PlotIconShape(checkBoxDiamond.Checked, checkBoxSquare.Checked, checkBoxCircle.Checked, checkBoxCrosshairInner.Checked, checkBoxCrosshairOuter.Checked, checkBoxFill.Checked);
 			}
 
 			//Re-selecting - load in the settings.
@@ -287,6 +289,7 @@ namespace Mappalachia
 				checkBoxCircle.Checked = selectedShape.circle;
 				checkBoxCrosshairInner.Checked = selectedShape.crosshairInner;
 				checkBoxCrosshairOuter.Checked = selectedShape.crosshairOuter;
+				checkBoxFill.Checked = selectedShape.fill;
 
 				lastSelectedShapeIndex = selectedShapeIndex;
 			}

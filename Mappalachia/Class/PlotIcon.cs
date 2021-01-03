@@ -15,6 +15,7 @@ namespace Mappalachia.Class
 		readonly float quartSize;
 		readonly float threeQuartSize;
 		readonly Pen pen;
+		readonly Brush brush;
 		readonly Bitmap bitmap;
 		readonly Graphics icon;
 
@@ -33,6 +34,7 @@ namespace Mappalachia.Class
 			threeQuartSize = quartSize * 3;
 
 			pen = new Pen(Color.White, lineWidth);
+			brush = new SolidBrush(Color.White);
 			bitmap = new Bitmap(size, size);
 			icon = Graphics.FromImage(bitmap);
 			icon.SmoothingMode = SmoothingMode.AntiAlias;
@@ -64,7 +66,15 @@ namespace Mappalachia.Class
 					new PointF(halfSize, threeQuartSize), //Left
 					new PointF(threeQuartSize, halfSize), //Right
 				};
-				icon.DrawPolygon(pen, diamondCorners);
+
+				if (shape.fill)
+				{
+					icon.FillPolygon(brush, diamondCorners);
+				}
+				else
+				{
+					icon.DrawPolygon(pen, diamondCorners);
+				}
 			}
 
 			if (shape.square || shape.circle)
@@ -73,12 +83,26 @@ namespace Mappalachia.Class
 
 				if (shape.square)
 				{
-					icon.DrawRectangle(pen, halfRadiusRect);
+					if (shape.fill)
+					{
+						icon.FillRectangle(brush, halfRadiusRect);
+					}
+					else
+					{
+						icon.DrawRectangle(pen, halfRadiusRect);
+					}
 				}
 
 				if (shape.circle)
 				{
-					icon.DrawEllipse(pen, halfRadiusRect);
+					if (shape.fill)
+					{
+						icon.FillEllipse(brush, halfRadiusRect);
+					}
+					else
+					{
+						icon.DrawEllipse(pen, halfRadiusRect);
+					}
 				}
 			}
 
