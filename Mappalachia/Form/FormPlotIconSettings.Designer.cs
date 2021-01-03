@@ -59,6 +59,7 @@
 			this.colorDialogPalette = new System.Windows.Forms.ColorDialog();
 			this.groupBoxGeneral = new System.Windows.Forms.GroupBox();
 			this.groupBoxIconPalette = new System.Windows.Forms.GroupBox();
+			this.checkBoxFill = new System.Windows.Forms.CheckBox();
 			this.groupBoxColorPalette.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarIconWidth)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarIconSize)).BeginInit();
@@ -250,7 +251,7 @@
 			this.trackBarIconWidth.Name = "trackBarIconWidth";
 			this.trackBarIconWidth.Size = new System.Drawing.Size(104, 45);
 			this.trackBarIconWidth.TabIndex = 1;
-			this.toolTipControls.SetToolTip(this.trackBarIconWidth, "The width of the lines which form the plot icon.");
+			this.toolTipControls.SetToolTip(this.trackBarIconWidth, "The width of the lines (and shadows) which form the plot icon.");
 			this.trackBarIconWidth.Value = 1;
 			// 
 			// labelIconWidth
@@ -262,7 +263,7 @@
 			this.labelIconWidth.Size = new System.Drawing.Size(59, 13);
 			this.labelIconWidth.TabIndex = 10;
 			this.labelIconWidth.Text = "Icon Width";
-			this.toolTipControls.SetToolTip(this.labelIconWidth, "The width of the lines which form the plot icon.");
+			this.toolTipControls.SetToolTip(this.labelIconWidth, "The width of the lines (and shadows) which form the plot icon.");
 			// 
 			// trackBarIconSize
 			// 
@@ -371,6 +372,7 @@
 			// 
 			// groupBoxIconPalette
 			// 
+			this.groupBoxIconPalette.Controls.Add(this.checkBoxFill);
 			this.groupBoxIconPalette.Controls.Add(this.listViewShapePalette);
 			this.groupBoxIconPalette.Controls.Add(this.checkBoxCrosshairOuter);
 			this.groupBoxIconPalette.Controls.Add(this.buttonRemoveShape);
@@ -385,6 +387,17 @@
 			this.groupBoxIconPalette.TabIndex = 2;
 			this.groupBoxIconPalette.TabStop = false;
 			this.groupBoxIconPalette.Text = "Shape Palette";
+			// 
+			// checkBoxFill
+			// 
+			this.checkBoxFill.AutoSize = true;
+			this.checkBoxFill.Location = new System.Drawing.Point(80, 141);
+			this.checkBoxFill.Name = "checkBoxFill";
+			this.checkBoxFill.Size = new System.Drawing.Size(72, 17);
+			this.checkBoxFill.TabIndex = 8;
+			this.checkBoxFill.Text = "Fill Shape";
+			this.toolTipControls.SetToolTip(this.checkBoxFill, "Fill hollow shapes with solid color.");
+			this.checkBoxFill.UseVisualStyleBackColor = true;
 			// 
 			// FormPlotIconSettings
 			// 
@@ -450,5 +463,6 @@
 		private System.Windows.Forms.TrackBar trackBarIconOpacity;
 		private System.Windows.Forms.TrackBar trackBarShadowOpacity;
 		private System.Windows.Forms.Button buttonReset;
+		private System.Windows.Forms.CheckBox checkBoxFill;
 	}
 }

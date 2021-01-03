@@ -10,16 +10,18 @@ namespace Mappalachia.Class
 		public readonly bool circle;
 		public readonly bool crosshairInner;
 		public readonly bool crosshairOuter;
+		public readonly bool fill;
 
 		static readonly Random rnd = new Random();
 
-		public PlotIconShape(bool diamond, bool square, bool circle, bool crosshairInner, bool crosshairOuter)
+		public PlotIconShape(bool diamond, bool square, bool circle, bool crosshairInner, bool crosshairOuter, bool fill)
 		{
 			this.diamond = diamond;
 			this.square = square;
 			this.circle = circle;
 			this.crosshairInner = crosshairInner;
 			this.crosshairOuter = crosshairOuter;
+			this.fill = fill;
 		}
 
 		//Instantiate with random shapes
@@ -30,6 +32,7 @@ namespace Mappalachia.Class
 			circle = rnd.Next(2) == 1;
 			crosshairInner = rnd.Next(2) == 1;
 			crosshairOuter = rnd.Next(2) == 1;
+			fill = false;
 
 			//Verify we have selected at least one option
 			if (!(diamond || square || circle || crosshairInner || crosshairOuter))
