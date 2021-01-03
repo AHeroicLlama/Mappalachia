@@ -16,7 +16,7 @@ namespace Mappalachia
 		static readonly string dataFolder = @"data\";
 		static readonly string fontFolder = @"font\";
 
-		static readonly string fontFileName = "futura_condensed_bold.otf";
+		static readonly string fontFileName = "futura_condensed_bold.ttf";
 		static readonly string databaseFileName = "mappalachia.db";
 		static readonly string imgFileNameMapNormal = "map_normal.jpg";
 		static readonly string imgFileNameMapMilitary = "map_military.jpg";

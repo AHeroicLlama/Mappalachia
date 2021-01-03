@@ -155,16 +155,19 @@ namespace Mappalachia
 		void UpdateResultsLockTypeColumnVisibility()
 		{
 			//Check if the lock type filter is in use - if it is we probably want to show the column.
-			foreach (ListViewItem lockType in listViewFilterLockTypes.Items)
+			if (tabControlSimpleNPCJunk.SelectedTab == tabPageSimple)
 			{
-				if (!lockType.Checked)
+				foreach (ListViewItem lockType in listViewFilterLockTypes.Items)
 				{
-					gridViewSearchResults.Columns["columnSearchLockLevel"].Visible = true;
-					return;
+					if (!lockType.Checked)
+					{
+						gridViewSearchResults.Columns["columnSearchLockLevel"].Visible = true;
+						return;
+					}
 				}
 			}
 
-			//If they are all checked, therefore not filtered - hide the column again
+			//If they are all checked, or this is not a search where filters apply - hide the column again
 			gridViewSearchResults.Columns["columnSearchLockLevel"].Visible = false;
 		}
 
@@ -407,7 +410,7 @@ namespace Mappalachia
 						searchResults.Add(new MapItem(
 							Type.NPC,
 							reader.GetString(0), //FormID
-							reader.GetString(0) + " (\u2265 " + spawnChance + "%)", //Editor ID
+							reader.GetString(0) + " (Up to " + spawnChance + "%)", //Editor ID
 							reader.GetString(0), //Display Name
 							signature,
 							lockTypes, //The Lock Types filtered for this set of items.
@@ -906,6 +909,7 @@ namespace Mappalachia
 		//Scrap search
 		void ButtonSearchScrap(object sender, EventArgs e)
 		{
+			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
 			searchResults.Clear();
 			GatherSearchResultsScrap(listBoxScrap.SelectedItem.ToString());
@@ -915,6 +919,7 @@ namespace Mappalachia
 		//NPC Search
 		void ButtonSearchNPC(object sender, EventArgs e)
 		{
+			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
 			searchResults.Clear();
 			GatherSearchResultsNPC(

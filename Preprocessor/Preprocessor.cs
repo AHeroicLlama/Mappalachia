@@ -30,7 +30,7 @@ namespace Mappalachia
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine("An error was reported Pre-Processing the data and the program cannot continue until this is resolved.\n" + e);
+				Console.WriteLine("An error was reported preprocessing the data and the program cannot continue until this is resolved.\n" + e);
 				Console.ReadKey();
 			}
 		}

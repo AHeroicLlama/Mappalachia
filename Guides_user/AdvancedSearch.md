@@ -1,7 +1,5 @@
 # Advanced Mappalachia Search functions
 
-This guide will assume you are comfortable with basic Mappalachia use.<br/>
-
 ## Search filters
 Under the 'Simple Search' tab, you will have noticed two filters - 'Category' and 'Lock Level'.<br/>
 By removing check marks from the boxes here, you can exclude certain types of items from your search. For example, searching "cat" with no filters can yield many different results, but if you press 'Deselect all' from the 'Category' group, and then re-check 'NPC' you will find a much narrower results set.<br/>
@@ -29,7 +27,7 @@ You will notice that there is no search field here but instead you must select t
 
 You should also select your minimum desired spawn chance. This value will filter search results to only those with a spawn chance greater than or equal to your provided odds.<br/>
 This intelligent NPC Search will also aggregrate the search results with a 'Simple Search' for the same name of the NPC category.<br/>
-For example, by selecting 'Bloatfly' and searching, you should see the top result on the results list will be the variable spawns where blotflies *may* spawn (alongside an indicated spawn chance). Then the rest of the results will be other matches for Bloatfly - these being non-variable, guaranteed spawns.
+For example, by selecting 'Bloatfly' and searching, you should see the top result on the results list will be the variable spawns where bloatflies *may* spawn (alongside an indicated spawn chance). Then the rest of the results will be other matches for Bloatfly - these being non-variable, guaranteed spawns.
 
 
 ## Scrap Search
