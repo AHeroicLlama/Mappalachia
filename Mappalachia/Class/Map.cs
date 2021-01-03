@@ -344,6 +344,15 @@ namespace Mappalachia
 				GC.WaitForPendingFinalizers();
 			}
 
+			//Draw the game version onto the map
+			string versionText = "Game version " + AssemblyInfo.gameVersion;
+			Brush brushWhite = new SolidBrush(Color.White);
+			SizeF versionBounds = new SizeF(mapDimension, mapDimension);
+			int versionTextHeight = (int)imageGraphic.MeasureString(versionText, font, versionBounds).Height;
+			RectangleF versionTextPosition = new RectangleF(0, mapDimension - versionTextHeight, versionBounds.Width, versionBounds.Height);
+
+			imageGraphic.DrawString(versionText, font, brushWhite, versionTextPosition);
+
 			mapFrame.Image = finalImage;
 		}
 
