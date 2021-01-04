@@ -371,7 +371,7 @@ namespace Mappalachia
 							reader.GetString(0), //Display Name
 							reader.GetString(2), //Signature
 							allowedLockTypes, //The Lock Types filtered for this set of items.
-							DataHelper.GetSpawnChance(reader.GetString(2)), //Spawn chance
+							DataHelper.GetSpawnChance(reader.GetString(2), reader.GetString(1)), //Spawn chance
 							reader.GetInt32(3), //Count
 							reader.GetString(6), //Cell Display Name/location
 							reader.GetString(7))); //Cell EditorID
@@ -459,7 +459,7 @@ namespace Mappalachia
 					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = DataHelper.ConvertSignature("MISC", false);
 					List<string> lockTypes = DataHelper.GetPermittedLockTypes();
-					double spawnChance = DataHelper.GetSpawnChance("MISC");
+					double spawnChance = DataHelper.GetSpawnChance("MISC", string.Empty);
 
 					while (reader.Read())
 					{
