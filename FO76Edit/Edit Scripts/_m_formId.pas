@@ -1,6 +1,6 @@
 //Rip every single entry in the ESM which is relevant for mapping as defined by _m_lib.shouldProcessRecord(). Gets each item's FormID, EdID and displayName.
 //This is cross referenced by the Preprocessor between the location data to assign names/EditorID's to FormIDs in the location data
-{Expected runtime: <5 sec}
+{Expected runtime: <10 sec}
 unit _m_formID;
 
 	uses _m_lib;
@@ -48,6 +48,7 @@ unit _m_formID;
 		displayName = DisplayName(item);
 	var
 		i : Integer;
+		bestDisplayName : String;
 	begin
 		if(FixedFormId(item) = 0) then begin //This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
@@ -55,9 +56,16 @@ unit _m_formID;
 			end;
 		end
 		else begin //This is an end-node
+			if (signature = 'LVLI') then begin
+				bestDisplayName := getNameforLvli(item);
+			end
+			else begin
+				bestDisplayName := displayName;
+			end;
+
 			outputStrings.Add(
 				IntToHex(FixedFormId(item), 8) + ',' +
-				sanitize(displayName) + ',' +
+				sanitize(bestDisplayName) + ',' +
 				sanitize(editorID) + ',' +
 				signature
 			);
