@@ -102,10 +102,72 @@ unit _m_lib;
 		else result := false;
 	end;
 
-	//Find the signature of a referenced entity by parsing the DisplayName of the reference
-	//EG "COCMarkerHeading [STAT:00000032]" becomes "STAT"
-	function sigFromRef(displayName: String): String;
+	//Find the signature of a referenced entity by parsing the reference
+	//EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "MISC"
+	function sigFromRef(reference: String): String;
 	begin
-		result := copy(displayName, (pos('[', displayName)) + 1, 4);
+		result := copy(reference, pos('[', reference) + 1, 4);
 	end;
+
+	//Find the display name of a referenced entity by parsing the reference
+	//EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "Pre-War Money"
+	function nameFromRef(reference: String): String;
+	const
+		len = Length(reference);
+		firstPos = pos('"', reference) + 1;
+		firstSubStr = copy(reference, firstPos, len - firstPos);
+		secondPos = pos('"', firstSubStr) - 1;
+	begin
+		result := copy(reference, firstPos, secondPos);
+	end;
+
+	//Finds a representative name for LVLIs without a displayName, by referring to their leveled lists
+	function getNameforLvli(item: IInterface): String;
+	const
+		leveledListEntries = ElementByName(item, 'Leveled List Entries');
+	var
+		i : integer;
+	begin
+		result := '';
+
+		//If this already has a display name, just use that
+		if (DisplayName(item) <> '') then begin
+			exit (DisplayName(item));
+		end;
+
+		//This item has just one entry in the leveled item list - we can only look here for a name.
+		if(DisplayName(item) = '') and (ElementCount(leveledListEntries) = 1) then begin
+			//Find the first and only entry and look under LVLO/Reference
+			result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByIndex(leveledListEntries, 0), 'LVLO - LVLO'), 'Reference')));
+
+			//If no item was found, try looking under LVLO/Base Data/Reference
+			if(result = '') then begin
+				result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByName(ElementByIndex(leveledListEntries, 0), 'LVLO - LVLO'), 'Base Data'), 'Reference')));
+			end;
+
+			//We've looked everywhere - return
+			exit(result);
+		end;
+
+		//This item must have multiple leveled item entries - while this normally means the list has multiple different items...
+		//It would seem that Flora or Vein items *can* provide a representative name since they only give themselves or a nuked version...
+		//So - starting with the bottom item, work upwards until we find a name
+		if(DisplayName(item) = '') and ((pos('LPI_Flora', EditorID(item)) <> 0) or (pos('LPI_Vein', EditorID(item)) <> 0)) then begin
+			for i := ElementCount(leveledListEntries) downto 0 do begin
+				//Find the end of the leveled item list, directly under LVLO/Reference
+				result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByIndex(leveledListEntries, i), 'LVLO - LVLO'), 'Reference')));
+
+				//If no item was found, try looking under LVLO/Base Data/Reference
+				if(result = '') then begin
+					result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByName(ElementByIndex(leveledListEntries, i), 'LVLO - LVLO'), 'Base Data'), 'Reference')));
+				end;
+
+				//If we found an item then return, otherwise continue looping
+				if(result <> '') then begin
+					exit(result);
+				end;
+			end;
+		end;
+	end;
+
 end.
