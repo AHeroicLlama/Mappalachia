@@ -15,7 +15,7 @@ It carries out several key steps;
 
 ## How to use the Preprcoessor
 You simply need to build and run the preprocessor exe. There are no arguments or inputs required. The preprocessor assumes you have run the export scripts and have left the outputted CSVs where they were exported to.<br/>
-The preprocessing should take around 10 seconds to complete and (much like the export scripts) will also generate a new folder, `Preprocessor\Output` in which the 5 preprocessed CSVs will be placed.<br/>
+The preprocessing should take around 10 seconds to complete and (much like the export scripts) will also generate a new folder, `\Preprocessor\Output\` in which the 5 preprocessed CSVs will be placed.<br/>
 If any issues arise (most likely due to failing validation, after a new game update changes something), they will be reported to the console via a raised Exception.
 
 ### Next steps
