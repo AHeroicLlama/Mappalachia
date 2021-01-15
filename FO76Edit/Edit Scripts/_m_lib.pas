@@ -153,7 +153,7 @@ unit _m_lib;
 		//It would seem that Flora or Vein items *can* provide a representative name since they only give themselves or a nuked version...
 		//So - starting with the bottom item, work upwards until we find a name
 		if(DisplayName(item) = '') and ((pos('LPI_Flora', EditorID(item)) <> 0) or (pos('LPI_Vein', EditorID(item)) <> 0)) then begin
-			for i := ElementCount(leveledListEntries) downto 0 do begin
+			for i := ElementCount(leveledListEntries) - 1 downto 0 do begin
 				//Find the end of the leveled item list, directly under LVLO/Reference
 				result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByIndex(leveledListEntries, i), 'LVLO - LVLO'), 'Reference')));
 
