@@ -40,7 +40,7 @@ namespace Mappalachia.Class
 			icon.SmoothingMode = SmoothingMode.AntiAlias;
 		}
 
-		//Draw the icon image and assign it to the image property
+		//Draw and return the icon image
 		public Image GetIconImage()
 		{
 			if (shape.crosshairInner)
