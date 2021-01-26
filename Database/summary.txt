@@ -1,25 +1,25 @@
 ==Database checksum== 
-e0e353921b8851efa7f34e0c0b3d2247
+4bfb1673b54990f80f5536d0fe0cb685
 ==Worldspace total placement count==
-212491
+212483
 ==Worldspace unique placement count==
-4936
+4935
 ==Interior total placement count==
-63492
+63493
 ==Interior unique placement count==
-4409
+4411
 ==Average interior placement count==
-547.344827586207
+547.353448275862
 ==Average X Coord==
--17918.156561925
+-17926.2221024741
 ==Average Y Coord==
-9253.44700716736
+9252.28270026308
 ==Average X Bounds Width==
-161.75053531679
+161.756018128509
 ==Average Y Bounds Width==
-160.603677332216
+160.609116964651
 ==Total unique items by signature==
-ACTI|1355
+ACTI|1354
 ALCH|84
 AMMO|12
 ARMO|98
@@ -33,7 +33,7 @@ KEYM|68
 LVLI|586
 MISC|806
 NOTE|278
-NPC_|1098
+NPC_|1099
 TACT|73
 TERM|535
 WEAP|73

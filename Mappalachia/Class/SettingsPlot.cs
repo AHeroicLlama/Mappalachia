@@ -44,7 +44,7 @@ namespace Mappalachia.Class
 
 		public static readonly List<Color> paletteColorDefault = new List<Color>
 		{
-			Color.Lime, Color.Red, Color.Cyan, Color.Yellow, Color.Magenta, Color.DarkGreen, Color.Coral, Color.RoyalBlue,
+			Color.Red, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.DarkGreen,
 		};
 
 		//Colorblind palettes credit: IBM, Bang Wong, and Paul Tol. From https://davidmathlogic.com/colorblind/
