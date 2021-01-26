@@ -575,6 +575,12 @@ namespace Mappalachia
 
 			UpdateLegendLockTypeColumnVisibility();
 			gridViewLegend.Enabled = true;
+
+			//scroll to bottom of list
+			if (gridViewLegend.RowCount >= 1)
+			{
+				gridViewLegend.FirstDisplayedScrollingRowIndex = gridViewLegend.RowCount - 1;
+			}
 		}
 
 		//Wipe away the legend items and update the UI. Doesn't re-draw the map
@@ -955,7 +961,11 @@ namespace Mappalachia
 				}
 			}
 
-			UpdateLegendGrid();
+			//Update the legend grid, as long as there's at least one item we didn't have to reject
+			if (rejectedItems.Count < gridViewSearchResults.SelectedRows.Count)
+			{
+				UpdateLegendGrid();
+			}
 
 			if (rejectedItems.Count > 0)
 			{
