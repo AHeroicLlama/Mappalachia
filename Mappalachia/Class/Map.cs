@@ -18,7 +18,7 @@ namespace Mappalachia
 		public static double yOffset = 5.2;
 
 		//Hidden settings
-		public static readonly int fontSize = 26;
+		public static readonly int fontSize = 36;
 		public static readonly int mapDimension = 4096; //All layer images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
@@ -127,7 +127,7 @@ namespace Mappalachia
 			finalImage = (Image)backgroundLayer.Clone();
 
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
-			Font font = new Font(fontCollection.Families[0], fontSize);
+			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 			//Draw the game version onto the map
 			string versionText = "Game version " + AssemblyInfo.gameVersion;
@@ -207,7 +207,7 @@ namespace Mappalachia
 					PlotIconShape shape = SettingsPlotIcon.paletteShape[shapeIndex];
 
 					//Draw the plot layer
-					imageGraphic.DrawImage(GenerateIconPlotLayer(mapItem, color, font, shape, legendCaretHeight, legendHeight, textOffset), 0, 0);
+					imageGraphic.DrawImage(GenerateIconPlotLayer(mapItem, color, font, shape, legendCaretHeight, legendHeight, textOffset), 0, 0, mapDimension, mapDimension);
 
 					legendCaretHeight += legendHeight; //Move the caret down for the next item, enough to fit the icon and the text
 
