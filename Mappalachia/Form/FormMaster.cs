@@ -1129,7 +1129,7 @@ namespace Mappalachia
 				hoveredCell.ToolTipText = DataHelper.GetSignatureDescription(hoveredCell.Value.ToString());
 			}
 
-			//Explain what is meant by "varies" under spawn chance
+			//Explain what is meant by "unknown" under spawn chance
 			else if (gridViewSearchResults.Columns[e.ColumnIndex].Name == "columnSearchChance")
 			{
 				if (hoveredCell.Value.ToString() == "Unknown")

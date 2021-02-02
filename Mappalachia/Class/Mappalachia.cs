@@ -4,7 +4,7 @@ using Mappalachia.Class;
 
 namespace Mappalachia
 {
-	static class Program
+	static class Mappalachia
 	{
 		[STAThread]
 		static void Main()
