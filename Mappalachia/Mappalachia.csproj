@@ -55,7 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Mappalachia.Program</StartupObject>
+    <StartupObject>Mappalachia.Mappalachia</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>favicon_small.ico</ApplicationIcon>
@@ -112,7 +112,7 @@
     <Compile Include="Class\IOManager.cs" />
     <Compile Include="Class\Map.cs" />
     <Compile Include="Class\MapItem.cs" />
-    <Compile Include="Class\Program.cs" />
+    <Compile Include="Class\Mappalachia.cs" />
     <Compile Include="Class\SettingsMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\Queries.cs" />

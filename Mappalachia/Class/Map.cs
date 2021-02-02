@@ -23,7 +23,7 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 
-		public static readonly int defaultBrightness = 30;
+		public static readonly int defaultBrightness = 50;
 
 		//Legend text positioning
 		static readonly int legendIconX = 141; //The X Coord of the plot icon that is drawn next to each legend string
