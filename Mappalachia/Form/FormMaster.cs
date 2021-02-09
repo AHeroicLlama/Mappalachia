@@ -28,14 +28,13 @@ namespace Mappalachia
 			InitializeComponent();
 
 			Map.progressBarMain = progressBarMain;
+			progressBar = progressBarMain;
 
 			//Cleanup on launch in case it didn't run last time
 			IOManager.Cleanup();
 
 			//Instantiate the DB connection
 			Queries.CreateConnection();
-
-			progressBar = progressBarMain;
 
 			//Populate UI elements
 			PopulateSignatureFilterList();
@@ -48,6 +47,9 @@ namespace Mappalachia
 			textBoxSearch.Select();
 			textBoxSearch.SelectAll();
 			AcceptButton = buttonSearch;
+
+			//Load settings from the preferences file, if applicable.
+			SettingsManager.LoadSettings();
 
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
@@ -191,7 +193,7 @@ namespace Mappalachia
 		//Update the map settings > draw volume check, based on current settings
 		void UpdateVolumeEnabledState()
 		{
-			drawVolumesMenuItem.Checked = SettingsPlot.volumeEnabled;
+			drawVolumesMenuItem.Checked = SettingsPlot.drawVolumes;
 		}
 
 		//Update tooltip on "amount" column header - as it changes depending on interior searching or not
@@ -824,7 +826,7 @@ namespace Mappalachia
 		//Plot Settings > Draw Volumes - Toggle drawing volumes
 		private void Plot_DrawVolumes(object sender, EventArgs e)
 		{
-			SettingsPlot.volumeEnabled = !SettingsPlot.volumeEnabled;
+			SettingsPlot.drawVolumes = !SettingsPlot.drawVolumes;
 			UpdateVolumeEnabledState();
 		}
 
@@ -1196,6 +1198,7 @@ namespace Mappalachia
 		void FormMain_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			IOManager.Cleanup();
+			SettingsManager.SaveSettings();
 		}
 	}
 }

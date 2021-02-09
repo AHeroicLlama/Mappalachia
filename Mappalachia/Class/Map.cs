@@ -379,7 +379,7 @@ namespace Mappalachia
 				}
 
 				//This is not suitable to be drawn as a volume - draw a simple plotIcon
-				if (!SettingsPlot.volumeEnabled || //Volume drawing is disabled
+				if (!SettingsPlot.drawVolumes || //Volume drawing is disabled
 					string.IsNullOrEmpty(point.primitiveShape) || //This is not a volume
 					((int)point.boundX * (int)point.boundY) <= minVolumeArea) //This is too small to be drawn as a volume
 				{

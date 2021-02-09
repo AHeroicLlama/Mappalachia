@@ -13,7 +13,7 @@ namespace Mappalachia.Class
 		}
 
 		public static Mode mode = Mode.Icon;
-		public static bool volumeEnabled = true; //Draw volumes when in icon mode
+		public static bool drawVolumes = true; //Draw volumes when in icon mode
 	}
 
 	//Plot Icon Settings and their defaults, used in FormPlotIconSettings
@@ -27,11 +27,21 @@ namespace Mappalachia.Class
 		public static List<Color> paletteColor;
 		public static List<PlotIconShape> paletteShape;
 
+		//Min/Maxes - these control the min/maxes on the form.
+		public static readonly int iconSizeMin = 10;
+		public static readonly int iconSizeMax = 100;
+		public static readonly int lineWidthMin = 1;
+		public static readonly int lineWidthMax = 8;
+		public static readonly int iconOpacityPercentMin = 10;
+		public static readonly int iconOpacityPercentMax = 100;
+		public static readonly int shadowOpacityPercentMin = 0;
+		public static readonly int shadowOpacityPercentMax = 100;
+
 		//Defaults
-		static readonly int iconSizeDefault = 40; //10-100
-		static readonly int lineWidthDefault = 3; //1-8
-		static readonly int iconOpacityPercentDefault = 100; //10-100
-		static readonly int shadowOpacityPercentDefault = 40; //0-100
+		static readonly int iconSizeDefault = 40;
+		static readonly int lineWidthDefault = 3;
+		static readonly int iconOpacityPercentDefault = 100;
+		static readonly int shadowOpacityPercentDefault = 40;
 
 		public static readonly List<PlotIconShape> paletteShapeDefault = new List<PlotIconShape>
 		{
@@ -109,8 +119,13 @@ namespace Mappalachia.Class
 			Duo,
 		}
 
-		public static int resolution = 256;
+		//Updating this? Check FormMaster.UpdateHeatMapResolution()
+		public static readonly List<int> validResolutions = new List<int> { 128, 256, 512, 1024 };
+
+		public static int resolution = validResolutions[1];
 		public static ColorMode colorMode = ColorMode.Mono;
+
+		//Not user-definable
 		public static readonly int blendDistance = 20;
 	}
 }

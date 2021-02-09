@@ -1,4 +1,6 @@
-﻿namespace Mappalachia.Forms
+﻿using System;
+
+namespace Mappalachia.Forms
 {
 	partial class FormSetBrightness
 	{
@@ -38,16 +40,6 @@
 			// numericUpDownBrightness
 			// 
 			this.numericUpDownBrightness.Location = new System.Drawing.Point(12, 12);
-			this.numericUpDownBrightness.Maximum = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
-			this.numericUpDownBrightness.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
 			this.numericUpDownBrightness.Name = "numericUpDownBrightness";
 			this.numericUpDownBrightness.Size = new System.Drawing.Size(75, 20);
 			this.numericUpDownBrightness.TabIndex = 0;
