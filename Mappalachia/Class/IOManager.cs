@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
+using System.Linq;
 using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
@@ -22,6 +24,7 @@ namespace Mappalachia
 		static readonly string imgFileNameMapMilitary = "map_military.jpg";
 		static readonly string imgFileNameLayerNWFlatwoods = "map_overlay_nw_flatwoods.png";
 		static readonly string imgFileNameLayerNWMorgantown = "map_overlay_nw_morgantown.png";
+		static readonly string settingsFileName = "mappalachia_prefs.ini";
 
 		static readonly string tempImageFolder = @"temp\";
 		static readonly string tempImageBaseFileName = "mappalachia_preview";
@@ -261,6 +264,48 @@ namespace Mappalachia
 
 				Environment.Exit(1);
 				return null;
+			}
+		}
+
+		//Read preferences from file
+		public static List<string> ReadPreferences()
+		{
+			try
+			{
+				if (File.Exists(settingsFileName))
+				{
+
+					return File.ReadAllLines(settingsFileName).ToList();
+				}
+				else
+				{
+					return null; //The prefs file did not exist
+				}
+			}
+			catch (Exception e)
+			{
+				Notify.Error(
+					"Mappalachia encountered an error while reading your user preferences file from " + settingsFileName + ". Your settings will be reset to default.\n" +
+					genericExceptionHelpText +
+					"\n\n" + e);
+
+				return null;
+			}
+		}
+
+		//Save preferences to file
+		public static void WritePreferences(List<string> prefs)
+		{
+			try
+			{
+				File.WriteAllLines(settingsFileName, prefs);
+			}
+			catch (Exception e)
+			{
+				Notify.Error(
+					"Mappalachia encountered an error while saving your preferences file to " + settingsFileName + ". Your settings will not be saved.\n" +
+					genericExceptionHelpText +
+					"\n\n" + e);
 			}
 		}
 
