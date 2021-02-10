@@ -43,11 +43,6 @@ namespace Mappalachia.Forms
 			this.numericUpDownBrightness.Name = "numericUpDownBrightness";
 			this.numericUpDownBrightness.Size = new System.Drawing.Size(75, 20);
 			this.numericUpDownBrightness.TabIndex = 0;
-			this.numericUpDownBrightness.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
 			// 
 			// buttonBrightnessConfirm
 			// 
