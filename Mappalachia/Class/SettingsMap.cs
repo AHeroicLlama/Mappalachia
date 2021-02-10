@@ -7,8 +7,10 @@
 		public static readonly int brightnessMin = 5;
 		public static readonly int brightnessMax = 300;
 
+		public static readonly int brightnessDefault = 50;
+
 		//User-definable settings
-		public static int brightness = Map.defaultBrightness;
+		public static int brightness = brightnessDefault;
 		public static bool layerMilitary = false;
 		public static bool layerNWMorgantown = false;
 		public static bool layerNWFlatwoods = false;

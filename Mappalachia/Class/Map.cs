@@ -23,8 +23,6 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 
-		public static readonly int defaultBrightness = 50;
-
 		//Legend text positioning
 		static readonly int legendIconX = 141; //The X Coord of the plot icon that is drawn next to each legend string
 		static readonly int legendXMax = 650; //Number of pixels in from the left of the map image where the player cannot reach
@@ -436,7 +434,7 @@ namespace Mappalachia
 		//Reset map-specific settings and redraw it
 		public static void Reset()
 		{
-			SettingsMap.brightness = defaultBrightness;
+			SettingsMap.brightness = SettingsMap.brightnessDefault;
 			SettingsMap.layerMilitary = false;
 			SettingsMap.layerNWFlatwoods = false;
 			SettingsMap.layerNWMorgantown = false;
