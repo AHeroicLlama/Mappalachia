@@ -16,6 +16,16 @@ namespace Mappalachia
 		public FormPlotIconSettings()
 		{
 			InitializeComponent();
+
+			trackBarIconSize.Minimum = SettingsPlotIcon.iconSizeMin / 10;
+			trackBarIconSize.Maximum = SettingsPlotIcon.iconSizeMax / 10;
+			trackBarIconWidth.Minimum = SettingsPlotIcon.lineWidthMin;
+			trackBarIconWidth.Maximum = SettingsPlotIcon.lineWidthMax;
+			trackBarIconOpacity.Minimum = SettingsPlotIcon.iconOpacityPercentMin / 10;
+			trackBarIconOpacity.Maximum = SettingsPlotIcon.iconOpacityPercentMax / 10;
+			trackBarShadowOpacity.Minimum = SettingsPlotIcon.iconOpacityPercentMin / 10;
+			trackBarShadowOpacity.Maximum = SettingsPlotIcon.iconOpacityPercentMax / 10;
+
 			LoadSettingsIntoForm();
 		}
 
