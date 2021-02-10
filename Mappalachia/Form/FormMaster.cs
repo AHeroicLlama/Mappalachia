@@ -649,12 +649,6 @@ namespace Mappalachia
 		//All Methods which represent responses to UI input
 		#region UI Controls
 
-		//Map > Plot - Draw the map
-		void Map_Plot(object sender, EventArgs e)
-		{
-			DrawMapFromUI();
-		}
-
 		//Map > View - Write the map image to disk and launch in default program
 		void Map_View(object sender, EventArgs e)
 		{
