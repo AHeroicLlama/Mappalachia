@@ -1,7 +1,7 @@
 @echo off
 
 set releaseBuildFolder=bin\Release
-set outputfile=Mappalachia.zip
+set outputFile=Mappalachia.zip
 set prefsFile=mappalachia_prefs.ini
 
 echo Checking for Release build...
@@ -15,7 +15,7 @@ echo Removing preferences file prior to zipping...
 del %releaseBuildFolder%\%prefsFile%
 
 echo Zipping release...
-powershell Compress-Archive %releaseBuildFolder%\* %outputfile% -Force
+powershell Compress-Archive %releaseBuildFolder%\* %outputFile% -Force
 
 echo done.
 PAUSE
