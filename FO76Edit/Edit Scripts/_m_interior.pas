@@ -66,7 +66,6 @@ unit _m_interior;
 
 	procedure ripItem(item : IInterface; cellFormID, cellEditorID, cellDisplayName : String);
 	const
-		position = GetPosition(item);
 		displayName = DisplayName(item);
 	begin
 		if(Assigned(displayName) and shouldProcessRecord(sigFromRef(displayName))) then begin //Skip records we don't care to map or can't refer to

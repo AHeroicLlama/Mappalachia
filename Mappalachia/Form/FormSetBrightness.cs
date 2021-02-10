@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using Mappalachia.Class;
 
 namespace Mappalachia.Forms
 {
@@ -9,6 +8,9 @@ namespace Mappalachia.Forms
 		public FormSetBrightness()
 		{
 			InitializeComponent();
+			numericUpDownBrightness.Minimum = SettingsMap.brightnessMin;
+			numericUpDownBrightness.Maximum = SettingsMap.brightnessMax;
+
 			numericUpDownBrightness.Value = SettingsMap.brightness;
 			numericUpDownBrightness.Select(0, 3);
 		}

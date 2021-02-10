@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+namespace Mappalachia
 {
 	//A single data point to be mapped (one totally unique instance of an object)
 	public class MapDataPoint

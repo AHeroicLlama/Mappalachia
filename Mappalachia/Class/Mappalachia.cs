@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using Mappalachia.Class;
 
 namespace Mappalachia
 {
-	static class Program
+	static class Mappalachia
 	{
 		[STAThread]
 		static void Main()
@@ -22,6 +22,7 @@ namespace Mappalachia
 					e);
 
 				IOManager.Cleanup();
+				//Choosing to not save settings, since we just crashed it's likely safer to not keep them.
 			}
 		}
 	}

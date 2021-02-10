@@ -28,14 +28,13 @@ namespace Mappalachia
 			InitializeComponent();
 
 			Map.progressBarMain = progressBarMain;
+			progressBar = progressBarMain;
 
 			//Cleanup on launch in case it didn't run last time
 			IOManager.Cleanup();
 
 			//Instantiate the DB connection
 			Queries.CreateConnection();
-
-			progressBar = progressBarMain;
 
 			//Populate UI elements
 			PopulateSignatureFilterList();
@@ -48,6 +47,9 @@ namespace Mappalachia
 			textBoxSearch.Select();
 			textBoxSearch.SelectAll();
 			AcceptButton = buttonSearch;
+
+			//Load settings from the preferences file, if applicable.
+			SettingsManager.LoadSettings();
 
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
@@ -191,7 +193,7 @@ namespace Mappalachia
 		//Update the map settings > draw volume check, based on current settings
 		void UpdateVolumeEnabledState()
 		{
-			drawVolumesMenuItem.Checked = SettingsPlot.volumeEnabled;
+			drawVolumesMenuItem.Checked = SettingsPlot.drawVolumes;
 		}
 
 		//Update tooltip on "amount" column header - as it changes depending on interior searching or not
@@ -647,12 +649,6 @@ namespace Mappalachia
 		//All Methods which represent responses to UI input
 		#region UI Controls
 
-		//Map > Plot - Draw the map
-		void Map_Plot(object sender, EventArgs e)
-		{
-			DrawMapFromUI();
-		}
-
 		//Map > View - Write the map image to disk and launch in default program
 		void Map_View(object sender, EventArgs e)
 		{
@@ -824,7 +820,7 @@ namespace Mappalachia
 		//Plot Settings > Draw Volumes - Toggle drawing volumes
 		private void Plot_DrawVolumes(object sender, EventArgs e)
 		{
-			SettingsPlot.volumeEnabled = !SettingsPlot.volumeEnabled;
+			SettingsPlot.drawVolumes = !SettingsPlot.drawVolumes;
 			UpdateVolumeEnabledState();
 		}
 
@@ -1129,7 +1125,7 @@ namespace Mappalachia
 				hoveredCell.ToolTipText = DataHelper.GetSignatureDescription(hoveredCell.Value.ToString());
 			}
 
-			//Explain what is meant by "varies" under spawn chance
+			//Explain what is meant by "unknown" under spawn chance
 			else if (gridViewSearchResults.Columns[e.ColumnIndex].Name == "columnSearchChance")
 			{
 				if (hoveredCell.Value.ToString() == "Unknown")
@@ -1196,6 +1192,7 @@ namespace Mappalachia
 		void FormMain_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			IOManager.Cleanup();
+			SettingsManager.SaveSettings();
 		}
 	}
 }
