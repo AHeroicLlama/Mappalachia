@@ -35,7 +35,6 @@ namespace Mappalachia
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
 			this.menuStripMain = new System.Windows.Forms.MenuStrip();
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.plotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerMilitaryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -149,7 +148,6 @@ namespace Mappalachia
 			// mapMenuItem
 			// 
 			this.mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.plotMenuItem,
             this.viewMenuItem,
             this.layerMenuItem,
             this.brightnessMenuItem,
@@ -161,18 +159,10 @@ namespace Mappalachia
 			this.mapMenuItem.Size = new System.Drawing.Size(43, 20);
 			this.mapMenuItem.Text = "Map";
 			// 
-			// plotMenuItem
-			// 
-			this.plotMenuItem.Name = "plotMenuItem";
-			this.plotMenuItem.Size = new System.Drawing.Size(175, 22);
-			this.plotMenuItem.Text = "Plot";
-			this.plotMenuItem.ToolTipText = "Map the currently selected items";
-			this.plotMenuItem.Click += new System.EventHandler(this.Map_Plot);
-			// 
 			// viewMenuItem
 			// 
 			this.viewMenuItem.Name = "viewMenuItem";
-			this.viewMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.viewMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.viewMenuItem.Text = "View...";
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
@@ -184,7 +174,7 @@ namespace Mappalachia
             this.layerNWFlatwoodsMenuItem,
             this.layerNWMorgantownMenuItem});
 			this.layerMenuItem.Name = "layerMenuItem";
-			this.layerMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.layerMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.layerMenuItem.Text = "Layer";
 			this.layerMenuItem.ToolTipText = "Add or remove a layer to the underlying map.";
 			// 
@@ -215,7 +205,7 @@ namespace Mappalachia
 			// brightnessMenuItem
 			// 
 			this.brightnessMenuItem.Name = "brightnessMenuItem";
-			this.brightnessMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.brightnessMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.brightnessMenuItem.Text = "Adjust Brightness...";
 			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
 			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
@@ -223,7 +213,7 @@ namespace Mappalachia
 			// grayscaleMenuItem
 			// 
 			this.grayscaleMenuItem.Name = "grayscaleMenuItem";
-			this.grayscaleMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.grayscaleMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.grayscaleMenuItem.Text = "Grayscale";
 			this.grayscaleMenuItem.ToolTipText = "Toggle if the underlying map image is in grayscale or full color.";
 			this.grayscaleMenuItem.Click += new System.EventHandler(this.Map_Grayscale);
@@ -231,7 +221,7 @@ namespace Mappalachia
 			// exportToFileMenuItem
 			// 
 			this.exportToFileMenuItem.Name = "exportToFileMenuItem";
-			this.exportToFileMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.exportToFileMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.exportToFileMenuItem.Text = "Export To File...";
 			this.exportToFileMenuItem.ToolTipText = "Save the current map image to a file.";
 			this.exportToFileMenuItem.Click += new System.EventHandler(this.Map_Export);
@@ -239,7 +229,7 @@ namespace Mappalachia
 			// clearMenuItem
 			// 
 			this.clearMenuItem.Name = "clearMenuItem";
-			this.clearMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.clearMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.clearMenuItem.Text = "Clear";
 			this.clearMenuItem.ToolTipText = "Remove all mapped items from the legend and update the map.";
 			this.clearMenuItem.Click += new System.EventHandler(this.Map_Clear);
@@ -247,7 +237,7 @@ namespace Mappalachia
 			// resetMenuItem
 			// 
 			this.resetMenuItem.Name = "resetMenuItem";
-			this.resetMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.resetMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.resetMenuItem.Text = "Reset";
 			this.resetMenuItem.ToolTipText = "Completely reset the map.";
 			this.resetMenuItem.Click += new System.EventHandler(this.Map_Reset);
@@ -435,7 +425,7 @@ namespace Mappalachia
 			// aboutMenuItem
 			// 
 			this.aboutMenuItem.Name = "aboutMenuItem";
-			this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.aboutMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.aboutMenuItem.Text = "About...";
 			this.aboutMenuItem.ToolTipText = "Information about Mappalachia.";
 			this.aboutMenuItem.Click += new System.EventHandler(this.Help_About);
@@ -443,7 +433,7 @@ namespace Mappalachia
 			// checkForUpdatesMenuItem
 			// 
 			this.checkForUpdatesMenuItem.Name = "checkForUpdatesMenuItem";
-			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.checkForUpdatesMenuItem.Text = "Check for Updates";
 			this.checkForUpdatesMenuItem.ToolTipText = "Check online for new versions of Mappalachia.";
 			this.checkForUpdatesMenuItem.Click += new System.EventHandler(this.Help_CheckForUpdates);
@@ -451,7 +441,7 @@ namespace Mappalachia
 			// userGuidesMenuItem
 			// 
 			this.userGuidesMenuItem.Name = "userGuidesMenuItem";
-			this.userGuidesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.userGuidesMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.userGuidesMenuItem.Text = "User Guides";
 			this.userGuidesMenuItem.ToolTipText = "View the user guide documentation online.";
 			this.userGuidesMenuItem.Click += new System.EventHandler(this.Help_UserGuides);
@@ -1083,7 +1073,6 @@ namespace Mappalachia
 		private System.Windows.Forms.Button buttonDrawMap;
 		private System.Windows.Forms.ToolStripMenuItem clearMenuItem;
 		private System.Windows.Forms.Label labelSearchResults;
-		private System.Windows.Forms.ToolStripMenuItem plotMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem plotSettingsMenuItem;
 		private System.Windows.Forms.TabControl tabControlSimpleNPCJunk;
 		private System.Windows.Forms.TabPage tabPageSimple;
