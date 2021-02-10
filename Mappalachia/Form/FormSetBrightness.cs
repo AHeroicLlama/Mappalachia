@@ -11,8 +11,8 @@ namespace Mappalachia.Forms
 			numericUpDownBrightness.Value = SettingsMap.brightness;
 			numericUpDownBrightness.Select(0, 3);
 
-			numericUpDownBrightness.Minimum = SettingsMap.minBrightness;
-			numericUpDownBrightness.Maximum = SettingsMap.minBrightness;
+			numericUpDownBrightness.Minimum = SettingsMap.brightnessMin;
+			numericUpDownBrightness.Maximum = SettingsMap.brightnessMin;
 		}
 
 		private void ButtonBrightnessConfirm_Click(object sender, EventArgs e)

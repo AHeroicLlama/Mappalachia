@@ -4,10 +4,11 @@ using System.Drawing;
 
 namespace Mappalachia.Class
 {
-	//Handles the loading and saving of settings between file and memory.
+	//Handles the parsing of settings between file and memory.
 	static class SettingsManager
 	{
-
+		//Keep a record on the prefs file of the preferences file version to assist future compatibility
+		static readonly int prefsIteration = 1;
 
 		//Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -15,44 +16,48 @@ namespace Mappalachia.Class
 			List<string> settings = new List<string>();
 			settings.Add("#Mappalachia Preferences file. Modify at your own risk. Edits will be overwritten.");
 
-			//Gather collections into single strings for later
-			string paletteColor = "";
-			string paletteShape = "";
+			//Gather collections into lists for later
+			List<string> colors = new List<string>();
+			List<string> shapes = new List<string>();
 
 			foreach (Color color in SettingsPlotIcon.paletteColor)
 			{
-				paletteColor += "(" + color.R + "," + color.G + "," + color.B + ")";
+				colors.Add(color.R + "," + color.G + "," + color.B);
 			}
 
 			foreach (PlotIconShape shape in SettingsPlotIcon.paletteShape)
 			{
-				paletteShape += "(" + 
-					BoolToInt(shape.diamond) +
-					BoolToInt(shape.square) +
-					BoolToInt(shape.circle) +
-					BoolToInt(shape.crosshairInner) +
-					BoolToInt(shape.crosshairOuter) +
-					BoolToInt(shape.fill) + ")";
+				shapes.Add(
+					BoolToIntStr(shape.diamond) +
+					BoolToIntStr(shape.square) +
+					BoolToIntStr(shape.circle) +
+					BoolToIntStr(shape.crosshairInner) +
+					BoolToIntStr(shape.crosshairOuter) +
+					BoolToIntStr(shape.fill));
 			}
+
+			//Preferences Version
+			settings.Add("[Versioning]");
+			settings.Add("version=" + prefsIteration);
 
 			//SettingsMap
 			settings.Add("[Map]");
 			settings.Add("brightness=" + SettingsMap.brightness);
-			settings.Add("layerMilitary=" + BoolToInt(SettingsMap.layerMilitary));
-			settings.Add("layerNWMorgantown=" + BoolToInt(SettingsMap.layerNWMorgantown));
-			settings.Add("layerNWFlatwoods=" + BoolToInt(SettingsMap.layerNWFlatwoods));
-			settings.Add("grayScale=" + BoolToInt(SettingsMap.grayScale));
+			settings.Add("layerMilitary=" + BoolToIntStr(SettingsMap.layerMilitary));
+			settings.Add("layerNWMorgantown=" + BoolToIntStr(SettingsMap.layerNWMorgantown));
+			settings.Add("layerNWFlatwoods=" + BoolToIntStr(SettingsMap.layerNWFlatwoods));
+			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 
 			//SettingsSearch
 			settings.Add("[Search]");
-			settings.Add("searchInterior=" + BoolToInt(SettingsSearch.searchInterior));
-			settings.Add("showFormID=" + BoolToInt(SettingsSearch.showFormID));
-			settings.Add("filterWarnings=" + BoolToInt(SettingsSearch.filterWarnings));
+			settings.Add("searchInterior=" + BoolToIntStr(SettingsSearch.searchInterior));
+			settings.Add("showFormID=" + BoolToIntStr(SettingsSearch.showFormID));
+			settings.Add("filterWarnings=" + BoolToIntStr(SettingsSearch.filterWarnings));
 
 			//SettingsPlot
 			settings.Add("[Plot]");
 			settings.Add("mode=" + SettingsPlot.mode);
-			settings.Add("drawVolumes=" + BoolToInt(SettingsPlot.drawVolumes));
+			settings.Add("drawVolumes=" + BoolToIntStr(SettingsPlot.drawVolumes));
 
 			//SettingsPlotIcon
 			settings.Add("[PlotIcon]");
@@ -60,8 +65,8 @@ namespace Mappalachia.Class
 			settings.Add("lineWidth=" + SettingsPlotIcon.lineWidth);
 			settings.Add("iconOpacityPercent=" + SettingsPlotIcon.iconOpacityPercent);
 			settings.Add("shadowOpacityPercent=" + SettingsPlotIcon.shadowOpacityPercent);
-			settings.Add("paletteColor=" + paletteColor.Trim());
-			settings.Add("paletteShape=" + paletteShape.Trim());
+			settings.Add("paletteColor=" + string.Join(":", colors));
+			settings.Add("paletteShape=" + string.Join(":", shapes));
 
 			//SettingsPlotHeatmap
 			settings.Add("[PlotHeatmap]");
@@ -114,40 +119,44 @@ namespace Mappalachia.Class
 
 					switch (key)
 					{
+						case "version":
+							//Nothing to do
+							break;
+
 						case "brightness":
 							int brightness = Convert.ToInt32(value);
-							if (ValidateWithinRange(brightness, SettingsMap.minBrightness, SettingsMap.maxBrightness))
+							if (ValidateWithinRange(brightness, SettingsMap.brightnessMin, SettingsMap.brightnessMax))
 							{
 								SettingsMap.brightness = brightness;
 							}
 							break;
 
 						case "layerMilitary":
-							SettingsMap.layerMilitary = StringIntToBool(value);
+							SettingsMap.layerMilitary = StrIntToBool(value);
 							break;
 
 						case "layerNWMorgantown":
-							SettingsMap.layerNWMorgantown = StringIntToBool(value);
+							SettingsMap.layerNWMorgantown = StrIntToBool(value);
 							break;
 
 						case "layerNWFlatwoods":
-							SettingsMap.layerNWFlatwoods = StringIntToBool(value);
+							SettingsMap.layerNWFlatwoods = StrIntToBool(value);
 							break;
 
 						case "grayScale":
-							SettingsMap.grayScale = StringIntToBool(value);
+							SettingsMap.grayScale = StrIntToBool(value);
 							break;
 
 						case "searchInterior":
-							SettingsSearch.searchInterior = StringIntToBool(value);
+							SettingsSearch.searchInterior = StrIntToBool(value);
 							break;
 
 						case "showFormID":
-							SettingsSearch.showFormID = StringIntToBool(value);
+							SettingsSearch.showFormID = StrIntToBool(value);
 							break;
 
 						case "filterWarnings":
-							SettingsSearch.filterWarnings = StringIntToBool(value);
+							SettingsSearch.filterWarnings = StrIntToBool(value);
 							break;
 
 						case "mode":
@@ -166,7 +175,7 @@ namespace Mappalachia.Class
 							break;
 
 						case "drawVolumes":
-							SettingsPlot.drawVolumes = StringIntToBool(value);
+							SettingsPlot.drawVolumes = StrIntToBool(value);
 							break;
 
 						case "iconSize":
@@ -202,11 +211,75 @@ namespace Mappalachia.Class
 							break;
 
 						case "paletteColor":
-							//TODO
+							string[] colors = value.Split(':');
+
+							if (colors.Length < 1)
+							{
+								throw new ArgumentException("Too few colors defined.");
+							}
+
+							List<Color> loadedColorPalette = new List<Color>();
+
+							foreach (string color in colors)
+							{
+								//Separate the RGB values
+								string[] rgbValues = color.Split(',');
+
+								if (rgbValues.Length != 3)
+								{
+									throw new ArgumentException("Malformed color \"" + color + "\".");
+								}
+
+								//Calculate the individual RGB values
+								int red = Convert.ToInt32(rgbValues[0]);
+								int green = Convert.ToInt32(rgbValues[1]);
+								int blue = Convert.ToInt32(rgbValues[2]);
+
+								loadedColorPalette.Add(Color.FromArgb(red, green, blue));
+							}
+
+							//Overwrite the default palette with our loaded palette
+							SettingsPlotIcon.paletteColor = new List<Color>(loadedColorPalette);
 							break;
 
 						case "paletteShape":
-							//TODO
+							string[] shapes = value.Split(':');
+
+							if (shapes.Length < 1)
+							{
+								throw new ArgumentException("Too few shapes defined.");
+							}
+
+							//The total variables which define a shape
+							int totalShapeOptions = 6;
+
+							List<PlotIconShape> loadedShapePalette = new List<PlotIconShape>();
+
+							foreach (string shape in shapes)
+							{
+								if (shape.Length != totalShapeOptions)
+								{
+									throw new ArgumentException("Malformed shape \"" + shape + "\".");
+								}
+
+								//First 5 digits represent the shape options. All 0 would be no shape, hence invisible
+								if (shape.StartsWith("00000"))
+								{
+									throw new ArgumentException("Shape cannot have false values for every shape type setting.");
+								}
+
+								bool diamond = StrIntToBool(shape[0]);
+								bool square = StrIntToBool(shape[1]);
+								bool circle = StrIntToBool(shape[2]);
+								bool crosshairInner = StrIntToBool(shape[3]);
+								bool crosshairOuter = StrIntToBool(shape[4]);
+								bool fill = StrIntToBool(shape[5]);
+
+								loadedShapePalette.Add(new PlotIconShape(diamond, square, circle, crosshairInner, crosshairOuter, fill));
+							}
+
+							//Overwrite the default palette with our loaded palette
+							SettingsPlotIcon.paletteShape = new List<PlotIconShape>(loadedShapePalette);
 							break;
 
 						case "resolution":
@@ -217,7 +290,7 @@ namespace Mappalachia.Class
 							}
 							else
 							{
-								throw new ArgumentException("Resolution " + resolution + " Not supported.");
+								throw new ArgumentException("Resolution " + resolution + " not supported.");
 							}
 							break;
 
@@ -244,20 +317,20 @@ namespace Mappalachia.Class
 				catch (Exception e)
 				{
 					Notify.Warn("Error loading preference from preferences file. Line: \"" + line + "\".\n" +
-						"If this line related to a setting, it will be restored to default, otherwise it will be ignored.\n\n" +
+						"If this line related to a setting, it will be restored to default. This line will be replaced or removed.\n\n" +
 						IOManager.genericExceptionHelpText + "\n" + e);
 				}
 			}
 		}
 
-		//Simply convert a boolean to an int representation
-		static int BoolToInt(bool variable)
+		//Convert a boolean to a string representation of an int
+		static string BoolToIntStr(bool variable)
 		{
-			return variable ? 1 : 0;
+			return variable ? "1" : "0";
 		}
 
-		//Convert a string representation of an integer into a boolean. Throw an exception if not 0 or 1
-		static bool StringIntToBool(string variable)
+		//Convert a string representation of an int into a boolean. Throw an exception if not 0 or 1
+		static bool StrIntToBool(string variable)
 		{
 			if (variable != "0" && variable != "1")
 			{
@@ -265,6 +338,12 @@ namespace Mappalachia.Class
 			}
 
 			return variable == "1";
+		}
+
+		//Overload
+		static bool StrIntToBool(char variable)
+		{
+			return StrIntToBool(Char.ToString(variable));
 		}
 
 		//Return if an int is between two values inclusive. Throw exception if outside

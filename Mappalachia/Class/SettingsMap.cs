@@ -4,8 +4,8 @@
 	class SettingsMap
 	{
 		//Min/maxes - these control the min/maxes on the form
-		public static readonly int minBrightness = 5;
-		public static readonly int maxBrightness = 300;
+		public static readonly int brightnessMin = 5;
+		public static readonly int brightnessMax = 300;
 
 		//User-definable settings
 		public static int brightness = Map.defaultBrightness;
