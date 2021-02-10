@@ -2,6 +2,7 @@
 
 set releaseBuildFolder=bin\Release
 set outputfile=Mappalachia.zip
+set prefsFile=mappalachia_prefs.ini
 
 echo Checking for Release build...
 for %%f in ("Mappalachia.exe" "data\mappalachia.db") do if not exist "%releaseBuildFolder%\%%~f" (
@@ -9,6 +10,9 @@ for %%f in ("Mappalachia.exe" "data\mappalachia.db") do if not exist "%releaseBu
 	PAUSE
 	EXIT
 )
+
+echo Removing preferences file prior to zipping...
+del %releaseBuildFolder%\%prefsFile%
 
 echo Zipping release...
 powershell Compress-Archive %releaseBuildFolder%\* %outputfile% -Force
