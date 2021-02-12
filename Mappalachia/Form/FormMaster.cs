@@ -70,6 +70,9 @@ namespace Mappalachia
 
 			//Draw and display the map
 			Map.DrawBaseLayer();
+
+			//Check for updates, only notify if update found
+			UpdateChecker.CheckForUpdate(false);
 		}
 
 		//All Methods not directly responding to UI input
@@ -837,10 +840,10 @@ namespace Mappalachia
 			Process.Start("https://github.com/AHeroicLlama/Mappalachia/tree/master/Guides_user");
 		}
 
-		//Help > Check for Updates - Open the releases at github master
+		//Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
 		private void Help_CheckForUpdates(object sender, EventArgs e)
 		{
-			Process.Start("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
+			UpdateChecker.CheckForUpdate(true);
 		}
 
 		//Donate to the Author - Launch donate URL
