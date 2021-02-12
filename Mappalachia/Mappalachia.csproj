@@ -85,6 +85,7 @@
     <Compile Include="Class\SettingsManager.cs" />
     <Compile Include="Class\SettingsPlot.cs" />
     <Compile Include="Class\SettingsSearch.cs" />
+    <Compile Include="Class\UpdateChecker.cs" />
     <Compile Include="Form\FormPlotIconSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,7 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">
-      <Version>5.0.2</Version>
+      <Version>5.0.3</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
       <Version>5.0.0</Version>
