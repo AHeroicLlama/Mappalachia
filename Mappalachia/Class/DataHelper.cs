@@ -98,7 +98,8 @@ namespace Mappalachia
 			}
 			catch (Exception)
 			{
-				return "Unsupported signature!";
+				//Unable to convert - just return it unconverted
+				return signature;
 			}
 		}
 
@@ -126,7 +127,8 @@ namespace Mappalachia
 			}
 			catch (Exception)
 			{
-				return "Unsupported lock level!";
+				//Unable to convert - just return it unconverted
+				return lockLevel;
 			}
 		}
 
@@ -246,7 +248,17 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, reader.GetString(2), reader.GetInt32(3), reader.GetInt32(4)));
+					string primitiveShape = reader.GetString(2);
+
+					//Identify if this item has a primitive shape and use the appropriate constructor
+					if (primitiveShape == string.Empty)
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d));
+					}
+					else
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4)));
+					}
 				}
 			}
 
@@ -263,7 +275,7 @@ namespace Mappalachia
 				while (reader.Read())
 				{
 					//Divide weighting by 100 as npc weighting is a percentage and we need 1=100%
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2) / 100d, null, null, null));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2) / 100d));
 				}
 			}
 
@@ -279,7 +291,7 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), null, null, null));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2)));
 				}
 			}
 

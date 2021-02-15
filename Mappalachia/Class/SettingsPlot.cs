@@ -19,23 +19,11 @@ namespace Mappalachia.Class
 	//Plot Icon Settings and their defaults, used in FormPlotIconSettings
 	static class SettingsPlotIcon
 	{
-		//Settings variables;
-		public static int iconSize;
-		public static int lineWidth;
-		public static int iconOpacityPercent;
-		public static int shadowOpacityPercent;
-		public static List<Color> paletteColor;
-		public static List<PlotIconShape> paletteShape;
-
-		//Min/Maxes - these control the min/maxes on the form.
-		public static readonly int iconSizeMin = 10;
-		public static readonly int iconSizeMax = 100;
-		public static readonly int lineWidthMin = 1;
-		public static readonly int lineWidthMax = 8;
-		public static readonly int iconOpacityPercentMin = 10;
-		public static readonly int iconOpacityPercentMax = 100;
-		public static readonly int shadowOpacityPercentMin = 0;
-		public static readonly int shadowOpacityPercentMax = 100;
+		//Constructor
+		static SettingsPlotIcon()
+		{
+			Initialise();
+		}
 
 		//Defaults
 		static readonly int iconSizeDefault = 40;
@@ -91,16 +79,27 @@ namespace Mappalachia.Class
 			Color.FromArgb(136, 34, 85),
 		};
 
-		//Constructor
-		static SettingsPlotIcon()
-		{
-			Initialise();
-		}
+		//Min/Maxes - these control the min/maxes on the form.
+		public static readonly int iconSizeMin = 10;
+		public static readonly int iconSizeMax = 100;
+		public static readonly int lineWidthMin = 1;
+		public static readonly int lineWidthMax = 8;
+		public static readonly int iconOpacityPercentMin = 10;
+		public static readonly int iconOpacityPercentMax = 100;
+		public static readonly int shadowOpacityPercentMin = 0;
+		public static readonly int shadowOpacityPercentMax = 100;
+
+		//Settings variables;
+		public static int iconSize;
+		public static int lineWidth;
+		public static int iconOpacityPercent ;
+		public static int shadowOpacityPercent;
+		public static List<Color> paletteColor;
+		public static List<PlotIconShape> paletteShape;
 
 		//Assign settings values their defaults
 		public static void Initialise()
 		{
-			//Settings
 			iconSize = iconSizeDefault;
 			lineWidth = lineWidthDefault;
 			iconOpacityPercent = iconOpacityPercentDefault;
@@ -119,13 +118,13 @@ namespace Mappalachia.Class
 			Duo,
 		}
 
+		//Not user-definable
+		public static readonly int blendDistance = 20;
+
 		//Updating this? Check FormMaster.UpdateHeatMapResolution()
 		public static readonly List<int> validResolutions = new List<int> { 128, 256, 512, 1024 };
 
 		public static int resolution = validResolutions[1];
 		public static ColorMode colorMode = ColorMode.Mono;
-
-		//Not user-definable
-		public static readonly int blendDistance = 20;
 	}
 }
