@@ -64,7 +64,6 @@ namespace Mappalachia
 			UpdateMapGrayscale(false);
 			UpdateSearchInterior();
 			UpdateShowFormID();
-			UpdateFilterWarnings();
 
 			Map.SetOutput(pictureBoxMapPreview);
 
@@ -315,12 +314,6 @@ namespace Mappalachia
 			gridViewSearchResults.Columns["columnSearchFormID"].Visible = SettingsSearch.showFormID;
 		}
 
-		//Update check mark in the UI for disable filter warnings option
-		void UpdateFilterWarnings()
-		{
-			disableFilterWarningsMenuItem.Checked = !SettingsSearch.filterWarnings;
-		}
-
 		//Unselect all resolution options under heatmap resolution. Used to remove any current selection
 		void UncheckAllResolutions()
 		{
@@ -505,24 +498,20 @@ namespace Mappalachia
 				return;
 			}
 
-			if (SettingsSearch.filterWarnings)
+			List<string> enabledSignatures = GetEnabledSignatures();
+			if (!enabledSignatures.Contains("LVLI"))
 			{
-				List<string> enabledSignatures = GetEnabledSignatures();
-				if (!enabledSignatures.Contains("LVLI"))
+				//A list of signatures that seem to typically be represented by LVLI
+				foreach (string signatureToWarn in new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" })
 				{
-					//A list of signatures that seem to typically be represented by LVLI
-					foreach (string signatureToWarn in new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" })
+					if (enabledSignatures.Contains(signatureToWarn))
 					{
-						if (enabledSignatures.Contains(signatureToWarn))
-						{
-							Notify.Info(
-								"Your search results may be restricted because you have 'Loot' unchecked under the categories filter.\n" +
-								"Confusingly, many items in Fallout 76 are categorized generically as 'Loot', rather than what you may expect.\n" +
-								"If you can't find what you're looking for, make sure to enable it and search again.\n\n" +
-								"You may disable this warning under 'Search Settings>Disable Filter Warnings'");
-							warnedLVLINotUsed = true;
-							return;
-						}
+						Notify.Info(
+							"Your search results may be restricted because you have 'Loot' unchecked under the categories filter.\n" +
+							"Confusingly, many items in Fallout 76 are categorized generically as 'Loot', rather than what you may expect.\n" +
+							"If you can't find what you're looking for, make sure to enable it and search again.");
+						warnedLVLINotUsed = true;
+						return;
 					}
 				}
 			}
@@ -748,13 +737,6 @@ namespace Mappalachia
 		{
 			SettingsSearch.showFormID = !SettingsSearch.showFormID;
 			UpdateShowFormID();
-		}
-
-		//Search Settings > Disable filter warnings - Disable warnings for Signature filter misuse
-		void Search_FilterWarnings(object sender, EventArgs e)
-		{
-			SettingsSearch.filterWarnings = !SettingsSearch.filterWarnings;
-			UpdateFilterWarnings();
 		}
 
 		//Plot Settings > Mode > Icon - Change plot mode to icon
