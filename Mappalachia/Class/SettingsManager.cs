@@ -52,7 +52,6 @@ namespace Mappalachia.Class
 			settings.Add("[Search]");
 			settings.Add("searchInterior=" + BoolToIntStr(SettingsSearch.searchInterior));
 			settings.Add("showFormID=" + BoolToIntStr(SettingsSearch.showFormID));
-			settings.Add("filterWarnings=" + BoolToIntStr(SettingsSearch.filterWarnings));
 
 			//SettingsPlot
 			settings.Add("[Plot]");
@@ -153,10 +152,6 @@ namespace Mappalachia.Class
 
 						case "showFormID":
 							SettingsSearch.showFormID = StrIntToBool(value);
-							break;
-
-						case "filterWarnings":
-							SettingsSearch.filterWarnings = StrIntToBool(value);
 							break;
 
 						case "mode":
@@ -307,6 +302,10 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Invalid color mode.");
 							}
+							break;
+
+						//Legacy settings - ignore
+						case "filterWarnings":
 							break;
 
 						default:

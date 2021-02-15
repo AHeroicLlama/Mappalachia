@@ -48,7 +48,6 @@ namespace Mappalachia
 			this.searchSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.interiorSearchMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showFormIDMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.disableFilterWarningsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.plotSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.plotModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modeIconMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -162,7 +161,7 @@ namespace Mappalachia
 			// viewMenuItem
 			// 
 			this.viewMenuItem.Name = "viewMenuItem";
-			this.viewMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.viewMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.viewMenuItem.Text = "View...";
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
@@ -174,7 +173,7 @@ namespace Mappalachia
             this.layerNWFlatwoodsMenuItem,
             this.layerNWMorgantownMenuItem});
 			this.layerMenuItem.Name = "layerMenuItem";
-			this.layerMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.layerMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.layerMenuItem.Text = "Layer";
 			this.layerMenuItem.ToolTipText = "Add or remove a layer to the underlying map.";
 			// 
@@ -205,7 +204,7 @@ namespace Mappalachia
 			// brightnessMenuItem
 			// 
 			this.brightnessMenuItem.Name = "brightnessMenuItem";
-			this.brightnessMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.brightnessMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.brightnessMenuItem.Text = "Adjust Brightness...";
 			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
 			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
@@ -213,7 +212,7 @@ namespace Mappalachia
 			// grayscaleMenuItem
 			// 
 			this.grayscaleMenuItem.Name = "grayscaleMenuItem";
-			this.grayscaleMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.grayscaleMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.grayscaleMenuItem.Text = "Grayscale";
 			this.grayscaleMenuItem.ToolTipText = "Toggle if the underlying map image is in grayscale or full color.";
 			this.grayscaleMenuItem.Click += new System.EventHandler(this.Map_Grayscale);
@@ -221,7 +220,7 @@ namespace Mappalachia
 			// exportToFileMenuItem
 			// 
 			this.exportToFileMenuItem.Name = "exportToFileMenuItem";
-			this.exportToFileMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.exportToFileMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.exportToFileMenuItem.Text = "Export To File...";
 			this.exportToFileMenuItem.ToolTipText = "Save the current map image to a file.";
 			this.exportToFileMenuItem.Click += new System.EventHandler(this.Map_Export);
@@ -229,7 +228,7 @@ namespace Mappalachia
 			// clearMenuItem
 			// 
 			this.clearMenuItem.Name = "clearMenuItem";
-			this.clearMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clearMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.clearMenuItem.Text = "Clear";
 			this.clearMenuItem.ToolTipText = "Remove all mapped items from the legend and update the map.";
 			this.clearMenuItem.Click += new System.EventHandler(this.Map_Clear);
@@ -237,7 +236,7 @@ namespace Mappalachia
 			// resetMenuItem
 			// 
 			this.resetMenuItem.Name = "resetMenuItem";
-			this.resetMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.resetMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.resetMenuItem.Text = "Reset";
 			this.resetMenuItem.ToolTipText = "Completely reset the map.";
 			this.resetMenuItem.Click += new System.EventHandler(this.Map_Reset);
@@ -246,8 +245,7 @@ namespace Mappalachia
 			// 
 			this.searchSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.interiorSearchMenuItem,
-            this.showFormIDMenuItem,
-            this.disableFilterWarningsMenuItem});
+            this.showFormIDMenuItem});
 			this.searchSettingsMenuItem.Name = "searchSettingsMenuItem";
 			this.searchSettingsMenuItem.Size = new System.Drawing.Size(99, 20);
 			this.searchSettingsMenuItem.Text = "Search Settings";
@@ -255,7 +253,7 @@ namespace Mappalachia
 			// interiorSearchMenuItem
 			// 
 			this.interiorSearchMenuItem.Name = "interiorSearchMenuItem";
-			this.interiorSearchMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.interiorSearchMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.interiorSearchMenuItem.Text = "Search Interiors";
 			this.interiorSearchMenuItem.ToolTipText = "Show search results from interiors in addition to just the surface world (such re" +
     "sults cannot be mapped).";
@@ -264,18 +262,10 @@ namespace Mappalachia
 			// showFormIDMenuItem
 			// 
 			this.showFormIDMenuItem.Name = "showFormIDMenuItem";
-			this.showFormIDMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.showFormIDMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.showFormIDMenuItem.Text = "Show FormID";
 			this.showFormIDMenuItem.ToolTipText = "Toggle visibility of the FormID column.";
 			this.showFormIDMenuItem.Click += new System.EventHandler(this.Search_FormID);
-			// 
-			// disableFilterWarningsMenuItem
-			// 
-			this.disableFilterWarningsMenuItem.Name = "disableFilterWarningsMenuItem";
-			this.disableFilterWarningsMenuItem.Size = new System.Drawing.Size(190, 22);
-			this.disableFilterWarningsMenuItem.Text = "Disable filter warnings";
-			this.disableFilterWarningsMenuItem.ToolTipText = "Disable warnings when Mappalachia detects you may be using filters incorrectly.";
-			this.disableFilterWarningsMenuItem.Click += new System.EventHandler(this.Search_FilterWarnings);
 			// 
 			// plotSettingsMenuItem
 			// 
@@ -1068,7 +1058,6 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem searchSettingsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem interiorSearchMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem userGuidesMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem disableFilterWarningsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showFormIDMenuItem;
 		private System.Windows.Forms.Button buttonDrawMap;
 		private System.Windows.Forms.ToolStripMenuItem clearMenuItem;
