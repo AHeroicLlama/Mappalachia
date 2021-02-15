@@ -315,10 +315,10 @@ namespace Mappalachia
 				{
 					for (int y = 0; y < resolution; y++)
 					{
-						HeatMapGridSquare square = squares[x, y];
-						if (square.GetTotalWeight() > largestWeight)
+						double weight = squares[x, y].GetTotalWeight();
+						if (weight > largestWeight)
 						{
-							largestWeight = square.GetTotalWeight();
+							largestWeight = weight;
 						}
 					}
 				}
@@ -337,9 +337,8 @@ namespace Mappalachia
 					for (int y = 0; y < resolution; y++)
 					{
 						int yCoord = y * pixelsPerSquare;
-						HeatMapGridSquare square = squares[x, y];
 
-						Color color = square.GetColor(largestWeight);
+						Color color = squares[x, y].GetColor(largestWeight);
 						Brush brush = new SolidBrush(color);
 
 						Rectangle heatMapSquare = new Rectangle(xCoord, yCoord, mapDimension / SettingsPlotHeatmap.resolution, mapDimension / SettingsPlotHeatmap.resolution);
