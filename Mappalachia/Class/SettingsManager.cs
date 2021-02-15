@@ -93,7 +93,7 @@ namespace Mappalachia.Class
 			{
 				try
 				{
-					//Skip lines which are commented, section headers, or empty 
+					//Skip lines which are commented, section headers, or empty
 					if (line.StartsWith("#") || line.StartsWith("[") || string.IsNullOrEmpty(line))
 					{
 						continue;

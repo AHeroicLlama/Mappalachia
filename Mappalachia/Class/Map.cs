@@ -135,6 +135,7 @@ namespace Mappalachia
 			RectangleF versionTextPosition = new RectangleF(0, mapDimension - versionTextHeight, versionBounds.Width, versionBounds.Height);
 			imageGraphic.DrawString(versionText, font, brushWhite, versionTextPosition);
 
+			//Nothing to plot - ensure we update for the background layer but then return
 			if (FormMaster.legendItems.Count == 0)
 			{
 				mapFrame.Image = finalImage;
