@@ -7,7 +7,7 @@ Once unzipped, run `Mappalachia.exe`, which has a yellow 'M' icon.
 
 ## First run
 It is possible due to Mappalachia being brand new and infrequently used, that certain antivirus software may block Mappalachia simply because it has not seen it before, and you may need to choose to allow Mappalachia to run. As always on the internet you should use your best judgement when running new software, however I would remind any users with doubts that Mappalachia is fully open-source and anyone is welcome and encouraged to validate my claim that Mappalachia is genuine.<br/>
-Developers are also free to compile Mappalachia themselves from source code, should you wish. Guides are available under `\Guides_dev`.<br/>
+Developers are also free to compile Mappalachia themselves from source code, should you wish. Guides are available under `\Developer Guides`.<br/>
 
 You may also be prompted by Windows to install the Microsoft .NET Framework 4.8 Runtime if you don't already have it. Mappalachia requires this to run so you'll need to proceed with the installer.
 If you're running an up-to-date and modern Windows installation, you probably already have this installed.
