@@ -2,7 +2,6 @@
 
 ### Prerequisites and assumptions
 * You have already run the [preprocessor](Preprocessor.md) to properly format the data
-* [sqlite-tools windows binary](https://www.sqlite.org/download.html) (sqlite3.exe)
 * (Optional) competency with SQLite SQL and Windows batch
 
 ## Mappalachia database
