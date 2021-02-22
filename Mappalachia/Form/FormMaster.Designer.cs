@@ -253,7 +253,7 @@ namespace Mappalachia
 			// interiorSearchMenuItem
 			// 
 			this.interiorSearchMenuItem.Name = "interiorSearchMenuItem";
-			this.interiorSearchMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.interiorSearchMenuItem.Size = new System.Drawing.Size(155, 22);
 			this.interiorSearchMenuItem.Text = "Search Interiors";
 			this.interiorSearchMenuItem.ToolTipText = "Show search results from interiors in addition to just the surface world (such re" +
     "sults cannot be mapped).";
@@ -262,7 +262,7 @@ namespace Mappalachia
 			// showFormIDMenuItem
 			// 
 			this.showFormIDMenuItem.Name = "showFormIDMenuItem";
-			this.showFormIDMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.showFormIDMenuItem.Size = new System.Drawing.Size(155, 22);
 			this.showFormIDMenuItem.Text = "Show FormID";
 			this.showFormIDMenuItem.ToolTipText = "Toggle visibility of the FormID column.";
 			this.showFormIDMenuItem.Click += new System.EventHandler(this.Search_FormID);
@@ -415,7 +415,7 @@ namespace Mappalachia
 			// aboutMenuItem
 			// 
 			this.aboutMenuItem.Name = "aboutMenuItem";
-			this.aboutMenuItem.Size = new System.Drawing.Size(171, 22);
+			this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.aboutMenuItem.Text = "About...";
 			this.aboutMenuItem.ToolTipText = "Information about Mappalachia.";
 			this.aboutMenuItem.Click += new System.EventHandler(this.Help_About);
@@ -423,15 +423,15 @@ namespace Mappalachia
 			// checkForUpdatesMenuItem
 			// 
 			this.checkForUpdatesMenuItem.Name = "checkForUpdatesMenuItem";
-			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(171, 22);
+			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.checkForUpdatesMenuItem.Text = "Check for Updates";
-			this.checkForUpdatesMenuItem.ToolTipText = "Check online for new versions of Mappalachia.";
+			this.checkForUpdatesMenuItem.ToolTipText = "Automatically check if a new version is available.";
 			this.checkForUpdatesMenuItem.Click += new System.EventHandler(this.Help_CheckForUpdates);
 			// 
 			// userGuidesMenuItem
 			// 
 			this.userGuidesMenuItem.Name = "userGuidesMenuItem";
-			this.userGuidesMenuItem.Size = new System.Drawing.Size(171, 22);
+			this.userGuidesMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.userGuidesMenuItem.Text = "User Guides";
 			this.userGuidesMenuItem.ToolTipText = "View the user guide documentation online.";
 			this.userGuidesMenuItem.Click += new System.EventHandler(this.Help_UserGuides);
