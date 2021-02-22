@@ -33,6 +33,6 @@ For example, by selecting 'Bloatfly' and searching, you should see the top resul
 ## Scrap Search
 By selecting the 'Scrap Search' tab you can instead search for junk items which contain a given scrap material.<br/>
 This feature does not search directly for *junk* but specifically the *scrap* contents of the junk, once they're broken down. The search accounts for both the contents of the junk, and crucially the *amount* of scrap that can be obtained.<br/>
-The scrap amount is best visualised in Heatmap mode. See [Advanced Mapping](AdvancedMapping.md) for info on Heatmap mode.<br/>
+The scrap amount is best visualised in Heatmap mode. See [Advanced Mapping](Advanced_mapping.md) for info on Heatmap mode.<br/>
 As you can see, this function is very simple - simply select your desired scrap and hit search, then add the result to your map as normal. Remember, if you're hunting a certain scrap type, it may be useful to enable interior searching, as often interior cells are rich in junk too. By default the search results will only show the scrap available on the surface world.<br/>
 Much like NPC Spawns, the list of available junk is generated dynamically from the in-game data, and any scrap not on the list would indicate that it does not exist naturally in the game world.
