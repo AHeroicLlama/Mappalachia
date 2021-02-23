@@ -7,7 +7,7 @@
 ## Mappalachia database
 Mappalchia's database exists as an SQLite database file. SQLite allows us to have a locally hosted, offline database file. This means there are no hosting requirements for Mappalachia to function, and end users can use it offline.
 
-## How is the databse built?
+## How is the database built?
 Using SQLite, a single batch file creates the empty database structure, then instructs SQLite to populate the empty tables with the preprocessed data. After this further SQL removes escaped characters, shrinks the database, indexes it, and generates a summary report.
 
 ## Building the database
