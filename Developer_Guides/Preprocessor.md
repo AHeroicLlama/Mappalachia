@@ -13,7 +13,7 @@ It carries out several key steps;
 * Data minimisation, removing junk data and excess precision, leaving the bare minimum required for Mappalachia to function.
 * Combination and transformation of certain tables - notably the final Junk and NPC tables are each formed from a combination of data points from originally exported CSVs
 
-## How to use the Preprcoessor
+## How to use the Preprocessor
 You simply need to build and run the preprocessor exe. There are no arguments or inputs required. The preprocessor assumes you have run the export scripts and have left the outputted CSVs where they were exported to.<br/>
 The preprocessing should take around 10 seconds to complete and (much like the export scripts) will also generate a new folder, `\Preprocessor\Output\` in which the 5 preprocessed CSVs will be placed.<br/>
 If any issues arise (most likely due to failing validation, after a new game update changes something), they will be reported to the console via a raised Exception.

@@ -1,7 +1,7 @@
 # Running Mappalachia export scripts
 
 ### Prerequisites and assumptions
-* A copy of Fallout76 installed on your machine
+* A copy of Fallout 76 installed on your machine
 
 ## Familiar with FO76Edit?
 If you know what you're doing with FO76Edit, you'll need to drop a FO76Edit installation onto the `\FO76Edit\` folder and then run the `_m_RUNALL.pas` script. This will run all Mappalachia export scripts consecutively and should take around 14 minutes.<br/>
@@ -21,8 +21,8 @@ For a more up to date version, user Eckserah has spent significant time maintain
 Once you have downloaded FO76Edit, you should simply be able to dump the contents of the zip into the `\FO76Edit\` folder. (You will note that the `Edit Scripts\` folder is already in place, populated with Mappalachia scripts).<br/>
 
 ### Launching FO76Edit
-If you only own Fallout76 through Steam, or installed Fallout76 in a non-default directory, you will need to launch FO76Edit with a launch parameter `-D:"<Path_to_FO76_Data_folder>"`.<br/>
-If you own Fallout76 via Bethesda.net and installed in the default location, you shouldn't need to take any extra steps.<br/>
+If you only own Fallout 76 through Steam, or installed Fallout 76 in a non-default directory, you will need to launch FO76Edit with a launch parameter `-D:"<Path_to_FO76_Data_folder>"`.<br/>
+If you own Fallout 76 via Bethesda.net and installed in the default location, you shouldn't need to take any extra steps.<br/>
 Once in FO76Edit you will be prompted with which ESM to load. Select SeventySix.esm and hit OK. Wait for the background loader to finish.<br/>
 
 ### Running the Mappalachia export scripts
