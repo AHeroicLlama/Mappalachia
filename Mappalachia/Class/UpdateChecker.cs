@@ -63,7 +63,8 @@ namespace Mappalachia.Class
 					}
 					else if (userTriggered)
 					{
-						Notify.Info("Mappalachia is up to date.");
+						Notify.Info("Mappalachia is up to date.\n" +
+							"(Version " + currentVersion + ")");
 					}
 				}
 				else
