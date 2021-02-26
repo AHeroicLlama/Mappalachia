@@ -52,6 +52,7 @@ namespace Mappalachia.Class
 			settings.Add("[Search]");
 			settings.Add("searchInterior=" + BoolToIntStr(SettingsSearch.searchInterior));
 			settings.Add("showFormID=" + BoolToIntStr(SettingsSearch.showFormID));
+			settings.Add("spawnChance=" + SettingsSearch.spawnChance);
 
 			//SettingsPlot
 			settings.Add("[Plot]");
@@ -152,6 +153,14 @@ namespace Mappalachia.Class
 
 						case "showFormID":
 							SettingsSearch.showFormID = StrIntToBool(value);
+							break;
+
+						case "spawnChance":
+							int spawnChance = Convert.ToInt32(value);
+							if (ValidateWithinRange(spawnChance, SettingsSearch.spawnChanceMin, SettingsSearch.spawnChanceMax))
+							{
+								SettingsSearch.spawnChance = spawnChance;
+							}
 							break;
 
 						case "mode":
