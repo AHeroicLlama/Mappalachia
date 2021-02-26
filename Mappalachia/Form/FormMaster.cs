@@ -408,7 +408,7 @@ namespace Mappalachia
 						searchResults.Add(new MapItem(
 							Type.NPC,
 							reader.GetString(0), //FormID
-							reader.GetString(0) + " (Up to " + spawnChance + "%)", //Editor ID
+							reader.GetString(0) + " (" + spawnChance + "% and up)", //Editor ID
 							reader.GetString(0), //Display Name
 							signature,
 							lockTypes, //The Lock Types filtered for this set of items.
