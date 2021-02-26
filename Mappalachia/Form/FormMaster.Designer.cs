@@ -415,7 +415,7 @@ namespace Mappalachia
 			// aboutMenuItem
 			// 
 			this.aboutMenuItem.Name = "aboutMenuItem";
-			this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.aboutMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.aboutMenuItem.Text = "About...";
 			this.aboutMenuItem.ToolTipText = "Information about Mappalachia.";
 			this.aboutMenuItem.Click += new System.EventHandler(this.Help_About);
@@ -423,7 +423,7 @@ namespace Mappalachia
 			// checkForUpdatesMenuItem
 			// 
 			this.checkForUpdatesMenuItem.Name = "checkForUpdatesMenuItem";
-			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.checkForUpdatesMenuItem.Text = "Check for Updates";
 			this.checkForUpdatesMenuItem.ToolTipText = "Automatically check if a new version is available.";
 			this.checkForUpdatesMenuItem.Click += new System.EventHandler(this.Help_CheckForUpdates);
@@ -431,7 +431,7 @@ namespace Mappalachia
 			// userGuidesMenuItem
 			// 
 			this.userGuidesMenuItem.Name = "userGuidesMenuItem";
-			this.userGuidesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.userGuidesMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.userGuidesMenuItem.Text = "User Guides";
 			this.userGuidesMenuItem.ToolTipText = "View the user guide documentation online.";
 			this.userGuidesMenuItem.Click += new System.EventHandler(this.Help_UserGuides);
@@ -757,11 +757,7 @@ namespace Mappalachia
 			this.numericUpDownNPCSpawnThreshold.Name = "numericUpDownNPCSpawnThreshold";
 			this.numericUpDownNPCSpawnThreshold.Size = new System.Drawing.Size(94, 20);
 			this.numericUpDownNPCSpawnThreshold.TabIndex = 1;
-			this.numericUpDownNPCSpawnThreshold.Value = new decimal(new int[] {
-            33,
-            0,
-            0,
-            0});
+			this.numericUpDownNPCSpawnThreshold.ValueChanged += new System.EventHandler(this.numericUpDownNPCSpawnThreshold_ValueChanged);
 			this.numericUpDownNPCSpawnThreshold.Enter += new System.EventHandler(this.NumericUpDownNPCSpawnThreshold_MouseEnter);
 			// 
 			// buttonSearchScrap

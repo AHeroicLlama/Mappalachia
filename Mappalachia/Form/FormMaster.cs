@@ -50,6 +50,10 @@ namespace Mappalachia
 			//Load settings from the preferences file, if applicable.
 			SettingsManager.LoadSettings();
 
+			//Apply min/max values according to current settings
+			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
+			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
+
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
@@ -63,6 +67,7 @@ namespace Mappalachia
 			UpdateMapGrayscale(false);
 			UpdateSearchInterior();
 			UpdateShowFormID();
+			UpdateSpawnChance();
 
 			Map.SetOutput(pictureBoxMapPreview);
 
@@ -311,6 +316,12 @@ namespace Mappalachia
 		{
 			showFormIDMenuItem.Checked = SettingsSearch.showFormID;
 			gridViewSearchResults.Columns["columnSearchFormID"].Visible = SettingsSearch.showFormID;
+		}
+
+		//Update the minimum spawn chance % value on the NPC Search tab
+		void UpdateSpawnChance()
+		{
+			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
 		}
 
 		//Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -776,7 +787,7 @@ namespace Mappalachia
 			searchResults.Clear();
 			searchResults = DataHelper.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
-				(int)numericUpDownNPCSpawnThreshold.Value);
+				SettingsSearch.spawnChance);
 			UpdateSearchResultsGrid();
 		}
 
@@ -1035,6 +1046,12 @@ namespace Mappalachia
 		void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			AcceptButton = tabControlSimpleNPCJunk.SelectedTab == tabPageSimple ? buttonSearch : buttonSearchNPC;
+		}
+
+		//User updated value in min spawn chance - update the setting too
+		private void numericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
+		{
+			SettingsSearch.spawnChance = (int)numericUpDownNPCSpawnThreshold.Value;
 		}
 
 		#endregion
