@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Mappalachia.Class;
 using Mappalachia.Forms;
-using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
 {
@@ -353,141 +352,7 @@ namespace Mappalachia
 			return lockTypes;
 		}
 
-		//Conduct the simple search with given parameters
-		void GatherSearchResultsSimple(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
-		{
-			try
-			{
-				using (SqliteDataReader reader = Queries.ExecuteQuerySimpleSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
-				{
-					while (reader.Read())
-					{
-						searchResults.Add(new MapItem(
-							Type.Simple,
-							reader.GetString(5), //FormID
-							reader.GetString(1), //Editor ID
-							reader.GetString(0), //Display Name
-							reader.GetString(2), //Signature
-							allowedLockTypes, //The Lock Types filtered for this set of items.
-							DataHelper.GetSpawnChance(reader.GetString(2), reader.GetString(1)), //Spawn chance
-							reader.GetInt32(3), //Count
-							reader.GetString(6), //Cell Display Name/location
-							reader.GetString(7))); //Cell EditorID
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
-				IOManager.genericExceptionHelpText +
-				e);
-			}
-		}
 
-		//Search for variable NPC Spawns of the given NPC, where their spawn chance is above the threshold
-		void GatherSearchResultsNPC(string searchTerm, int minChance)
-		{
-			try
-			{
-				using (SqliteDataReader reader = Queries.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
-				{
-					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
-					string signature = DataHelper.ConvertSignature("NPC_", false);
-					List<string> lockTypes = DataHelper.GetPermittedLockTypes();
-
-					while (reader.Read())
-					{
-						//Sub-query for interior can return null
-						if (reader.IsDBNull(0))
-						{
-							continue;
-						}
-
-						double spawnChance = Math.Round(reader.GetDouble(2), 2);
-
-						searchResults.Add(new MapItem(
-							Type.NPC,
-							reader.GetString(0), //FormID
-							reader.GetString(0) + " (" + spawnChance + "% and up)", //Editor ID
-							reader.GetString(0), //Display Name
-							signature,
-							lockTypes, //The Lock Types filtered for this set of items.
-							spawnChance,
-							reader.GetInt32(1), //Count
-							reader.GetString(3), //Cell Display Name/location
-							reader.GetString(4))); //Cell editorID
-					}
-				}
-
-				//Expand the NPC search, by also conducting a simple search of only NPC_, ignorant of lock filter
-				GatherSearchResultsSimple(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, DataHelper.GetPermittedLockTypes());
-
-				//Remove search results containing "corpse" as these are dead and not traditional NPCs
-				//This isn't perfect and won't remove all dead NPCs. Common pattern seems to be many prefixed with 'Enc' are dead, but not all
-				List<MapItem> itemsWithoutCorpse = new List<MapItem>();
-				foreach (MapItem item in searchResults)
-				{
-					if (item.editorID.Contains("corpse") || item.editorID.Contains("Corpse"))
-					{
-						continue;
-					}
-					else
-					{
-						itemsWithoutCorpse.Add(item);
-					}
-				}
-
-				searchResults = new List<MapItem>(itemsWithoutCorpse);
-			}
-			catch (Exception e)
-			{
-				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
-				IOManager.genericExceptionHelpText +
-				e);
-			}
-		}
-
-		//Search for junk items containing the given Scrap name
-		void GatherSearchResultsScrap(string searchTerm)
-		{
-			try
-			{
-				using (SqliteDataReader reader = Queries.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
-				{
-					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
-					string signature = DataHelper.ConvertSignature("MISC", false);
-					List<string> lockTypes = DataHelper.GetPermittedLockTypes();
-					double spawnChance = DataHelper.GetSpawnChance("MISC", string.Empty);
-
-					while (reader.Read())
-					{
-						//Sub-query for interior can return null
-						if (reader.IsDBNull(0))
-						{
-							continue;
-						}
-
-						searchResults.Add(new MapItem(
-							Type.Scrap,
-							reader.GetString(0), //FormID
-							reader.GetString(0) + " scraps from junk", //Editor ID
-							reader.GetString(0), //Display Name
-							signature,
-							lockTypes, //The Lock Types filtered for this set of items.
-							spawnChance,
-							reader.GetInt32(1), //Count
-							reader.GetString(2), //Cell Display Name/location
-							reader.GetString(3))); //Cell editorID
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
-				IOManager.genericExceptionHelpText +
-				e);
-			}
-		}
 
 		//Warn the user if they appear to be trying to search for something that might actually be in a LVLI, but they have unselected it
 		void WarnWhenLVLINotSelected()
@@ -881,7 +746,7 @@ namespace Mappalachia
 			searchResults.Clear();
 
 			//Execute the search
-			GatherSearchResultsSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+			searchResults = DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
@@ -899,7 +764,7 @@ namespace Mappalachia
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
 			searchResults.Clear();
-			GatherSearchResultsScrap(listBoxScrap.SelectedItem.ToString());
+			searchResults = DataHelper.SearchScrap(listBoxScrap.SelectedItem.ToString());
 			UpdateSearchResultsGrid();
 		}
 
@@ -909,7 +774,7 @@ namespace Mappalachia
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
 			searchResults.Clear();
-			GatherSearchResultsNPC(
+			searchResults = DataHelper.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
 				(int)numericUpDownNPCSpawnThreshold.Value);
 			UpdateSearchResultsGrid();
