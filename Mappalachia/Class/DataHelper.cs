@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
@@ -237,6 +238,167 @@ namespace Mappalachia
 		public static double GetSpawnChance(string signature, string editorID)
 		{
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
+		}
+
+		//Conducts the simple search and returns the found items
+		public static List<MapItem> SearchSimple(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				using (SqliteDataReader reader = Queries.ExecuteQuerySimpleSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
+				{
+					while (reader.Read())
+					{
+						string signature = reader.GetString(2);
+						string editorID = reader.GetString(1);
+
+						results.Add(new MapItem(
+							Type.Simple,
+							reader.GetString(5), //FormID
+							editorID, //Editor ID
+							reader.GetString(0), //Display Name
+							signature, //Signature
+							allowedLockTypes, //The Lock Types filtered for this set of items.
+							GetSpawnChance(signature, editorID), //Spawn chance
+							reader.GetInt32(3), //Count
+							reader.GetString(6), //Cell Display Name/location
+							reader.GetString(7))); //Cell EditorID
+					}
+				}
+
+				return results;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
+		//Conducts the scrap search and returns the found items
+		public static List<MapItem> SearchScrap(string searchTerm)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				using (SqliteDataReader reader = Queries.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
+				{
+					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
+					string signature = ConvertSignature("MISC", false);
+					List<string> lockTypes = GetPermittedLockTypes();
+					double spawnChance = GetSpawnChance("MISC", string.Empty);
+
+					while (reader.Read())
+					{
+						//Sub-query for interior can return null
+						if (reader.IsDBNull(0))
+						{
+							continue;
+						}
+
+						string name = reader.GetString(0);
+
+						results.Add(new MapItem(
+							Type.Scrap,
+							name, //FormID
+							name + " scraps from junk", //Editor ID
+							name, //Display Name
+							signature,
+							lockTypes, //The Lock Types filtered for this set of items.
+							spawnChance,
+							reader.GetInt32(1), //Count
+							reader.GetString(2), //Cell Display Name/location
+							reader.GetString(3))); //Cell editorID
+					}
+				}
+
+				return results;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
+		//Conducts the NPC search and returns the found items.
+		//Also merges results with simple search results for the same name, then drops items containing "Corpse"
+		public static List<MapItem> SearchNPC(string searchTerm, int minChance)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				using (SqliteDataReader reader = Queries.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
+				{
+					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
+					string signature = ConvertSignature("NPC_", false);
+					List<string> lockTypes = GetPermittedLockTypes();
+
+					while (reader.Read())
+					{
+						//Sub-query for interior can return null
+						if (reader.IsDBNull(0))
+						{
+							continue;
+						}
+
+						double spawnChance = Math.Round(reader.GetDouble(2), 2);
+						string name = reader.GetString(0);
+
+						results.Add(new MapItem(
+							Type.NPC,
+							name, //FormID
+							name + " (" + spawnChance + "% and up)", //Editor ID
+							name, //Display Name
+							signature,
+							lockTypes, //The Lock Types filtered for this set of items.
+							spawnChance,
+							reader.GetInt32(1), //Count
+							reader.GetString(3), //Cell Display Name/location
+							reader.GetString(4))); //Cell editorID
+					}
+				}
+
+				//Expand the NPC search, by also conducting a simple search of only NPC_, ignorant of lock filter
+				results.AddRange(SearchSimple(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, GetPermittedLockTypes()));
+
+				/*Copy out search results not containing "corpse", therefore dropping the dead "NPCs"
+				This isn't perfect and won't catch ALL dead NPCs.
+				A common pattern seems to be that things prefixed with 'Enc' are dead,
+				but this isn't a global truth and filtering these out would cause too many false positives*/
+				List<MapItem> itemsWithoutCorpse = new List<MapItem>();
+				foreach (MapItem item in results)
+				{
+					if (item.editorID.Contains("corpse") || item.editorID.Contains("Corpse"))
+					{
+						continue;
+					}
+					else
+					{
+						itemsWithoutCorpse.Add(item);
+					}
+				}
+
+				return itemsWithoutCorpse;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
 		}
 
 		//Return the coordinate locations and boundaries of instances of a FormID
