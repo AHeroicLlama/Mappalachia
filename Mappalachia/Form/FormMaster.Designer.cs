@@ -757,7 +757,7 @@ namespace Mappalachia
 			this.numericUpDownNPCSpawnThreshold.Name = "numericUpDownNPCSpawnThreshold";
 			this.numericUpDownNPCSpawnThreshold.Size = new System.Drawing.Size(94, 20);
 			this.numericUpDownNPCSpawnThreshold.TabIndex = 1;
-			this.numericUpDownNPCSpawnThreshold.ValueChanged += new System.EventHandler(this.numericUpDownNPCSpawnThreshold_ValueChanged);
+			this.numericUpDownNPCSpawnThreshold.ValueChanged += new System.EventHandler(this.NumericUpDownNPCSpawnThreshold_ValueChanged);
 			this.numericUpDownNPCSpawnThreshold.Enter += new System.EventHandler(this.NumericUpDownNPCSpawnThreshold_MouseEnter);
 			// 
 			// buttonSearchScrap
