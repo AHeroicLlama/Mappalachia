@@ -1049,7 +1049,7 @@ namespace Mappalachia
 		}
 
 		//User updated value in min spawn chance - update the setting too
-		private void numericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
+		private void NumericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
 		{
 			SettingsSearch.spawnChance = (int)numericUpDownNPCSpawnThreshold.Value;
 		}
