@@ -24,6 +24,12 @@ namespace Mappalachia
 			this.primitiveShape = primitiveShape;
 			this.boundX = boundX / Map.xScale;
 			this.boundY = boundY / Map.YScale;
+
+			//Special case to ensure Line volumes (Default width 16 units) have enough pixel width to still be drawn/visible
+			if (primitiveShape == "Line" && boundY == 16)
+			{
+				this.boundY = Map.minVolumeDimension;
+			}
 		}
 
 		void Initialize(int x, int y, double weight)
