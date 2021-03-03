@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -32,7 +33,8 @@ namespace Mappalachia
 
 		//Volume plots
 		public static readonly int volumeOpacity = 128;
-		public static readonly int minVolumeArea = 100; //Minimum Area in pixels below which a volume will use a plot icon instead
+		public static readonly uint minVolumeDimension = 8; //Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
+		public static readonly List<string> supportedVolumeShapes = new List<string> { "Sphere", "Ellipsoid", "Box", "Line" };
 
 		//Legend Font
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
@@ -376,10 +378,36 @@ namespace Mappalachia
 					continue;
 				}
 
-				//This is not suitable to be drawn as a volume - draw a simple plotIcon
-				if (!SettingsPlot.drawVolumes || //Volume drawing is disabled
-					string.IsNullOrEmpty(point.primitiveShape) || //This is not a volume
-					((int)point.boundX * (int)point.boundY) <= minVolumeArea) //This is too small to be drawn as a volume
+				//If this meets all the criteria to be suitable to be drawn as a volume
+				if (SettingsPlot.drawVolumes && //Volume drawing is enabled
+					supportedVolumeShapes.Contains(point.primitiveShape) && //This volume shape is supported
+					point.boundX >= minVolumeDimension && point.boundY >= minVolumeDimension) //This is large enough to be visible if drawn as a volume
+				{
+					Image volumeImage = new Bitmap((int)point.boundX, (int)point.boundY);
+					Graphics volumeGraphic = Graphics.FromImage(volumeImage);
+					volumeGraphic.SmoothingMode = SmoothingMode.AntiAlias;
+
+					switch (point.primitiveShape)
+					{
+						//Note: Box and Line shapes also depend on rotation, which Mappalachia does not currently store.
+						//These 2 shapes will NOT have proper rotation applied, but their dimensions will be correct.
+						case "Box":
+						case "Line":
+							volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
+							break;
+						case "Sphere":
+						case "Ellipsoid":
+							volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
+							break;
+						default:
+							NonBlockingNotify.Error("Unexpected volume primitive shape '" + point.primitiveShape + "'. This shape cannot be drawn yet.");
+							break;
+					}
+
+					plotLayer.DrawImage(volumeImage, (float)(point.x - (point.boundX / 2)), (float)(point.y - (point.boundY / 2)));
+				}
+				//This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon
+				else
 				{
 					//Skip plots that are placed outside the game world on the left/western side
 					//This prevents drawing plots over the legend text
@@ -389,29 +417,6 @@ namespace Mappalachia
 					}
 
 					plotLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
-				}
-
-				//This MapDataPoint is suitable to be drawn as a volume
-				else
-				{
-					Image volumeImage = new Bitmap((int)point.boundX, (int)point.boundY);
-					Graphics volumeGraphic = Graphics.FromImage(volumeImage);
-					volumeGraphic.SmoothingMode = SmoothingMode.AntiAlias;
-
-					switch (point.primitiveShape)
-					{
-						case "Box":
-							volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
-							break;
-						case "Sphere":
-							volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
-							break;
-						default:
-							NonBlockingNotify.Error("Unexpected volume primitive shape '" + point.primitiveShape + "'. This shape cannot be drawn yet.");
-							break;
-					}
-
-					plotLayer.DrawImage(volumeImage, (float)(point.x - (point.boundX / 2)), (float)(point.y - (point.boundY / 2)));
 				}
 			}
 
