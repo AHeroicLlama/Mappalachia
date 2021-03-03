@@ -24,7 +24,7 @@ unit _m_worldspace;
 		block, subBlock, cell, cellItem : IInterface;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('referenceFormID,x,y,locationFormID,lockLevel,primitiveShape,boundX,boundY'); //Write CSV column headers
+		outputStrings.add('referenceFormID,x,y,locationFormID,lockLevel,primitiveShape,boundX,boundY,rotZ'); //Write CSV column headers
 
 		for i := 0 to blockCount - 1 do begin //Iterate over all blocks within the worldspace
 			block := elementByIndex(blocks, i);
@@ -64,10 +64,17 @@ unit _m_worldspace;
 		displayName = DisplayName(item);
 	var
 		primitiveEntry, boundsEntry : IInterface;
+		primitiveShape, rotZ : String;
 	begin
 		if(Assigned(displayName) and Assigned(position) and shouldProcessRecord(sigFromRef(displayName))) then begin //Skip records we don't care to map or aren't useful
 			primitiveEntry := ElementBySignature(item, 'XPRM');
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
+			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));
+
+			//We only need the Z Rotation for primitive shapes
+			if(primitiveShape <> '') then begin
+				rotZ := FloatToStr(GetRotation(item).z);
+			end;
 
 			outputStrings.Add(
 				sanitize(displayName) + ',' +
@@ -75,9 +82,10 @@ unit _m_worldspace;
 				FloatToStr(position.y) + ',' +
 				sanitize(GetEditValue(ElementBySignature(item, 'XLCN'))) + ',' +
 				GetEditValue(ElementByName(ElementBySignature(item, 'XLOC'), 'Level')) + ',' +
-				GetEditValue(ElementByName(primitiveEntry, 'Type')) + ',' +
+				primitiveShape + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'Y'))
+				GetEditValue(ElementByName(boundsEntry, 'Y')) + ',' +
+				rotZ
 			);
 		end;
 	end;
