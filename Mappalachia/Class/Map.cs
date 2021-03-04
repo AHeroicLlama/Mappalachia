@@ -34,7 +34,7 @@ namespace Mappalachia
 		//Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; //Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
-		public static readonly List<string> supportedVolumeShapes = new List<string> { "Sphere", "Ellipsoid", "Box", "Line" };
+		public static readonly List<string> supportedVolumeShapes = new List<string> { "Box", "Line", "Sphere", "Ellipsoid", };
 
 		//Legend Font
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
@@ -389,8 +389,6 @@ namespace Mappalachia
 
 					switch (point.primitiveShape)
 					{
-						//Note: Box and Line shapes also depend on rotation, which Mappalachia does not currently store.
-						//These 2 shapes will NOT have proper rotation applied, but their dimensions will be correct.
 						case "Box":
 						case "Line":
 							volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
@@ -400,11 +398,11 @@ namespace Mappalachia
 							volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
 							break;
 						default:
-							NonBlockingNotify.Error("Unexpected volume primitive shape '" + point.primitiveShape + "'. This shape cannot be drawn yet.");
-							break;
+							continue; //This *shouldn't be reached, given that supportedVolumeShapes is maintained
 					}
 
-					plotLayer.DrawImage(volumeImage, (float)(point.x - (point.boundX / 2)), (float)(point.y - (point.boundY / 2)));
+					volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
+					plotLayer.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
 				}
 				//This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon
 				else

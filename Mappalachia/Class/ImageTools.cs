@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace Mappalachia.Class
@@ -80,6 +81,25 @@ namespace Mappalachia.Class
 			canvas.DrawImage(image, pad, pad, image.Width, image.Height);
 
 			return paddedImage;
+		}
+
+		//Return a bitmap rotated by given angle. May enlarge image in order to avoid shapes falling outside of the boundary
+		public static Image RotateImage(Image image, int angle)
+		{
+			//Pythagoras on the X and Y coord of the bitmap gives us the maximum possible boundary required when all rotations considered
+			int newDimension = (int)Math.Ceiling(Math.Sqrt(Math.Pow(image.Width, 2) + Math.Pow(image.Height, 2)));
+			Image newImage = new Bitmap(newDimension, newDimension);
+
+			Graphics graphic = Graphics.FromImage(newImage);
+
+			//Move the image to the center, rotate it, then move it back
+			graphic.TranslateTransform(newImage.Width / 2, newImage.Height / 2);
+			graphic.RotateTransform(angle);
+			graphic.TranslateTransform(-newImage.Width / 2, -newImage.Height / 2);
+
+			graphic.DrawImage(image, (newDimension - image.Width) / 2, (newDimension - image.Height) / 2, image.Width, image.Height);
+
+			return newImage;
 		}
 	}
 }

@@ -492,7 +492,7 @@ namespace Mappalachia
 					}
 					else
 					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4)));
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5)));
 					}
 				}
 			}
