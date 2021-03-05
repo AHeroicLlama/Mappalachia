@@ -84,7 +84,33 @@ namespace Mappalachia
 		//Dynamically fill the Signature filter with every signature present based on the data
 		void PopulateSignatureFilterList()
 		{
-			foreach (string signature in DataHelper.GetPermittedSignatures())
+			List<string> signatures = DataHelper.GetPermittedSignatures();
+			List<string> orderedSignatures = new List<string>();
+
+			//First run through the suggested order list. If any of our database signature items are in there, process them FIRST
+			//This ensures items are added to the list in order
+			foreach (string signature in DataHelper.suggestedSignatureSort)
+			{
+				//If this item is in the suggested sort - add it to the final items
+				if (signatures.Contains(signature))
+				{
+					orderedSignatures.Add(signature);
+				}
+			}
+
+			//Now we have processed some suggested sort items, any remaining signatures can be processed next
+			foreach (string signature in signatures)
+			{
+				//This item was NOT picked up when we passed through the suggested sort - so add it onto the end
+				if (!orderedSignatures.Contains(signature))
+				{
+					orderedSignatures.Add(signature);
+				}
+			}
+
+			//Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
+			//...We can add them to the ListView on the form
+			foreach (string signature in orderedSignatures)
 			{
 				ListViewItem thisItem = listViewFilterSignatures.Items.Add(signature);
 				thisItem.Text = DataHelper.ConvertSignature(thisItem.Text, false);
@@ -96,9 +122,36 @@ namespace Mappalachia
 		//Dynamically fill the Lock Type filter with every lock type present based on the data
 		void PopulateLockTypeFilterList()
 		{
-			foreach (string lockType in DataHelper.GetPermittedLockTypes())
+			List<string> lockLevels = DataHelper.GetPermittedLockTypes();
+			List<string> orderedLockLevels = new List<string>();
+
+			//First run through the suggested order list. If any of our database lock types are in there, process them FIRST
+			//This ensures items are added to the list in order
+			foreach (string lockLevel in DataHelper.suggestedLockLevelSort)
 			{
-				ListViewItem thisItem = listViewFilterLockTypes.Items.Add(DataHelper.ConvertLockLevel(lockType, false));
+				//If this item is in the suggested sort - add it to the final items
+				if (lockLevels.Contains(lockLevel))
+				{
+					orderedLockLevels.Add(lockLevel);
+				}
+			}
+
+			//Now we have processed some suggested sort items, any remaining lock types can be processed next
+			foreach (string lockLevel in lockLevels)
+			{
+				//This item was NOT picked up when we passed through the suggested sort - so add it onto the end
+				if (!orderedLockLevels.Contains(lockLevel))
+				{
+					orderedLockLevels.Add(lockLevel);
+				}
+			}
+
+			//Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
+			//...We can add them to the ListView on the form
+			foreach (string lockLevel in orderedLockLevels)
+			{
+				ListViewItem thisItem = listViewFilterLockTypes.Items.Add(lockLevel);
+				thisItem.Text = DataHelper.ConvertLockLevel(thisItem.Text, false);
 				thisItem.Checked = true;
 			}
 		}

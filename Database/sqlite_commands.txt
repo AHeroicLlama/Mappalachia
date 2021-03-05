@@ -4,4 +4,3 @@
 .import "../Preprocessor/Output/SeventySix_NPCSpawn.csv" SeventySix_NPCSpawn
 .import "../Preprocessor/Output/SeventySix_Quantified_Scrap.csv" SeventySix_Quantified_Scrap
 .import "../Preprocessor/Output/SeventySix_Worldspace.csv" SeventySix_Worldspace
-.dump
