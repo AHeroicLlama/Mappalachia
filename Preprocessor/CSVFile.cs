@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Mappalachia
 {
@@ -15,10 +16,10 @@ namespace Mappalachia
 		public CSVFile(string fileName)
 		{
 			this.fileName = fileName.Split('/').Last();
-			List<string> rawRows = new List<string>(File.ReadAllLines(fileName));
-			header = rawRows[0];
 
-			foreach (string row in rawRows.Skip(1))
+			header = File.ReadLines(fileName).First();
+
+			foreach (string row in File.ReadAllLines(fileName).Skip(1))
 			{
 				rows.Add(new CSVRow(row, header));
 			}
@@ -52,37 +53,37 @@ namespace Mappalachia
 		//Escape problematic SQL characters
 		public void Sanitize()
 		{
-			foreach (CSVRow row in rows)
+			Parallel.ForEach(rows, row =>
 			{
 				row.Sanitize();
-			}
+			});
 		}
 
 		//Reduce long references and names to just the data required in them - typically just the FormID
 		public void ReduceReferences()
 		{
-			foreach (CSVRow row in rows)
+			Parallel.ForEach(rows, row =>
 			{
 				row.ReduceReferences();
-			}
+			});
 		}
 
 		//Reduce large decimals to integers (The precision is unnecessary due to downscaling)
 		public void ReduceDecimals()
 		{
-			foreach (CSVRow row in rows)
+			Parallel.ForEach(rows, row =>
 			{
 				row.ReduceDecimals();
-			}
+			});
 		}
 
 		//Run basic data integrity checks on expected values in columns
 		public void Validate()
 		{
-			foreach (CSVRow row in rows)
+			Parallel.ForEach(rows, row =>
 			{
 				row.Validate();
-			}
+			});
 		}
 
 		public void WriteToFile(string filePath)

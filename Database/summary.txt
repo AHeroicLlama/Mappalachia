@@ -1,5 +1,5 @@
 ==Database checksum== 
-4bfb1673b54990f80f5536d0fe0cb685
+9661f4828c7859c9febc63ef36c4b7cc
 ==Total unique items by signature==
 ACTI|1354
 ALCH|84
@@ -31,6 +31,8 @@ WEAP|73
 161.756018128509
 ==Average Y Bounds Width==
 160.609116964651
+==Average Z Rotation==
+4.70095019366255
 ==Worldspace primitive shape types + count==
 |204501
 Box|5686

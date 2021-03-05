@@ -9,6 +9,7 @@ namespace Mappalachia
 		public string primitiveShape; //The name of the primitive shape which describes this item (only typically applicable to ACTI)
 		public double boundX; //The bounds of the primitiveShape
 		public double boundY;
+		public int rotationZ;
 
 		public MapDataPoint(int x, int y, double weight)
 		{
@@ -16,7 +17,7 @@ namespace Mappalachia
 		}
 
 		//Overload to include primitiveShape and bounds
-		public MapDataPoint(int x, int y, double weight, string primitiveShape, int boundX, int boundY)
+		public MapDataPoint(int x, int y, double weight, string primitiveShape, int boundX, int boundY, int zRotation)
 		{
 			Initialize(x, y, weight);
 
@@ -24,6 +25,13 @@ namespace Mappalachia
 			this.primitiveShape = primitiveShape;
 			this.boundX = boundX / Map.xScale;
 			this.boundY = boundY / Map.YScale;
+			this.rotationZ = zRotation;
+
+			//Special case to ensure Line volumes (Default width 16 units) have enough pixel width to still be drawn/visible
+			if (primitiveShape == "Line" && boundY == 16)
+			{
+				this.boundY = Map.minVolumeDimension;
+			}
 		}
 
 		void Initialize(int x, int y, double weight)

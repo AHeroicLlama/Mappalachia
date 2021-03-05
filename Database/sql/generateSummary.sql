@@ -27,6 +27,9 @@ SELECT AVG(boundX) FROM SeventySix_Worldspace;
 SELECT '==Average Y Bounds Width==';
 SELECT AVG(boundY) FROM SeventySix_Worldspace;
 
+SELECT '==Average Z Rotation==';
+SELECT AVG(rotZ) FROM SeventySix_Worldspace;
+
 SELECT '==Worldspace primitive shape types + count==';
 SELECT primitiveShape, COUNT(*) FROM SeventySix_Worldspace GROUP BY primitiveShape;
 

@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
 {
-	//Interfaces with the database and provides helper methods and data translation
+	//Interfaces with the database and provides helper methods, data translation and sorting
 	static class DataHelper
 	{
 		static List<string> permittedLockTypes;
@@ -14,56 +14,111 @@ namespace Mappalachia
 
 		static readonly Dictionary<string, string> signatureDescription = new Dictionary<string, string>
 		{
-			{
-				"LVLI", "Lootable object which has some odds of spawning (up to and including 100% chances)\n" +
-				"Many items of different categories are in fact included under this one."
-			},
-			{ "FLOR", "Collectable natural resource." },
+			{ "STAT", "Environmental scenery which does not move and cannot be interacted with." },
+			{ "SCOL", "A grouped set of static objects." },
+			{ "ACTI", "Defined volume of space, invisible in-game.\n" +
+				"Activators can mark out designated areas, trigger events, or act as 'hit-boxes' for interaction." },
+			{ "LIGH", string.Empty },
+			{ "NPC_", "Non-player character." },
 			{ "MISC", "Junk, Scrap or Mod." },
-			{
-				"ACTI", "Defined volume of space, invisible in-game.\n" +
-				"Activators can mark out designated areas, trigger events, or act as 'hit-boxes' for interaction."
-			},
-			{
-				"FURN", "Object or position which a character can use to enter into an animation.\n" +
-				"Includes workbenches and instruments, but also NPC ambush positions such as scorchbeast spawns."
-			},
-			{ "CONT", string.Empty },
-			{ "NPC_", string.Empty },
-			{ "DOOR", string.Empty },
-			{ "HAZD", "Area of space which can harm the player (fire/radiation)." },
+			{ "MSTT", "Environmental scenery which animates or responds to physics." },
 			{ "BOOK", "Note, Plan or Recipe." },
-			{ "ALCH", "Food, Drink, Chems etc." },
+			{ "CONT", "Anything which can hold items." },
+			{ "FURN", "Object or position which a character can use to enter into an animation.\n" +
+				"Includes workbenches and instruments, but also NPC ambush positions such as scorchbeast spawns." },
+			{ "LVLI", "Lootable object which has some odds of spawning (up to and including 100% chances)\n" +
+				"Many items of different categories are in fact included under this one." },
 			{ "TERM", string.Empty },
+			{ "TXST", "A decal applied to a surface such as paint or dirt." },
+			{ "DOOR", string.Empty },
+			{ "ALCH", "Food, drink, chems etc." },
+			{ "SOUN", string.Empty },
 			{ "NOTE", string.Empty },
+			{ "FLOR", "Collectable natural resource." },
+			{ "ARMO", string.Empty },
+			{ "ASPC", "Applies settings for specific environmental acoustics." },
 			{ "WEAP", string.Empty },
-			{ "ARMO", "Apparel including Armor." },
-			{ "AMMO", string.Empty },
-			{ "TACT", "A trigger/activator which causes a voice line to be played." },
 			{ "KEYM", string.Empty },
+			{ "TACT", "A trigger/activator which causes a voice line to be played." },
+			{ "HAZD", "Area of space which can harm the player (fire/radiation)." },
+			{ "AMMO", string.Empty },
+			{ "IDLM", "Allows an npc to enter an idle animation." },
+			{ "BNDS", "A curved line shape. Usually used for power lines." },
+			{ "SECH", "Trigger for echo sound effect." },
+			{ "PROJ", "An 'armed' bullet/missile or thrown weapon." },
+			{ "CNCY", string.Empty },
 		};
 
 		//Provide a user-friendly name for each signature which best represents what a typical player would know them as
 		static readonly Dictionary<string, string> signatureToFriendlyName = new Dictionary<string, string>
 		{
-			{ "LVLI", "Loot" },
-			{ "FLOR", "Flora" },
-			{ "MISC", "Junk/Scrap" },
+			{ "STAT", "Static object" },
+			{ "SCOL", "Static collection" },
 			{ "ACTI", "Activator" },
-			{ "FURN", "Furniture" },
-			{ "CONT", "Container" },
+			{ "LIGH", "Light" },
 			{ "NPC_", "NPC" },
-			{ "DOOR", "Door" },
-			{ "HAZD", "Hazard" },
-			{ "BOOK", "Note" },
-			{ "ALCH", "Aid" },
+			{ "MISC", "Junk/Scrap" },
+			{ "MSTT", "Moveable static" },
+			{ "BOOK", "Note/Plan" },
+			{ "CONT", "Container" },
+			{ "FURN", "Furniture" },
+			{ "LVLI", "Loot" },
 			{ "TERM", "Terminal" },
+			{ "TXST", "Texture set" },
+			{ "DOOR", "Door" },
+			{ "ALCH", "Aid" },
+			{ "SOUN", "Sound" },
 			{ "NOTE", "Holotape" },
+			{ "FLOR", "Flora" },
+			{ "ARMO", "Armor/Apparel" },
+			{ "ASPC", "Acoustic space" },
 			{ "WEAP", "Weapon" },
-			{ "ARMO", "Apparel" },
-			{ "AMMO", "Ammo" },
-			{ "TACT", "Voice trigger" },
 			{ "KEYM", "Key" },
+			{ "TACT", "Talking activator" },
+			{ "HAZD", "Hazard" },
+			{ "AMMO", "Ammo" },
+			{ "IDLM", "Idle marker" },
+			{ "BNDS", "Bendable spline" },
+			{ "SECH", "Echo marker" },
+			{ "PROJ", "Projectile" },
+			{ "CNCY", "Currency" },
+		};
+
+		//Provides a pre-ordered list of each signature in a suggested sort order for the UI
+		//This groups often-used items towards the top, and similar items together
+		//Items not on this list are added to the bottom
+		public static readonly List<string> suggestedSignatureSort = new List<string>
+		{
+			"LVLI",
+			"FLOR",
+			"NPC_",
+			"MISC",
+			"BOOK",
+			"ALCH",
+			"CONT",
+			"FURN",
+			"NOTE",
+			"TERM",
+			"ARMO",
+			"WEAP",
+			"AMMO",
+			"PROJ",
+			"CNCY",
+			"KEYM",
+			"DOOR",
+			"HAZD",
+			"ACTI",
+			"TACT",
+			"IDLM",
+			"STAT",
+			"SCOL",
+			"MSTT",
+			"LIGH",
+			"SOUN",
+			"SECH",
+			"ASPC",
+			"TXST",
+			"BNDS",
 		};
 
 		//Inverse the user friendly signature names so we can use the proper signatures in queries
@@ -81,6 +136,24 @@ namespace Mappalachia
 
 		//Inverse the user friendly lock names so we can use the proper lock levels in queries
 		static readonly Dictionary<string, string> lockLevelToProperName = lockLevelToFriendlyName.ToDictionary(x => x.Value, x => x.Key);
+
+		//Provides a pre-ordered list of each lock level in a suggested sort order
+		//This groups often-used items towards the top, and similar items together
+		public static readonly List<string> suggestedLockLevelSort = new List<string>
+		{
+			string.Empty,
+			"Novice (Level 0)",
+			"Advanced (Level 1)",
+			"Expert (Level 2)",
+			"Master (Level 3)",
+			"Requires Terminal",
+			"Requires Key",
+			"Chained",
+			"Barred",
+			"Opens Door",
+			"Inaccessible",
+			"Unknown",
+		};
 
 		//Convert a signature to the proper or user-friendly version of itself
 		//Works regardless of the current state of the given signature
@@ -419,7 +492,7 @@ namespace Mappalachia
 					}
 					else
 					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4)));
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5)));
 					}
 				}
 			}
