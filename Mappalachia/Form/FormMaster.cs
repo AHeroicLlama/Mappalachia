@@ -1113,6 +1113,9 @@ namespace Mappalachia
 		{
 			IOManager.Cleanup();
 			SettingsManager.SaveSettings();
+
+			//Ensures any potentially long-running map building task is stopped too
+			Environment.Exit(0);
 		}
 	}
 }
