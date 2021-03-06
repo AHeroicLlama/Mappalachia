@@ -1,6 +1,5 @@
 //Rip every item placed within a cell. Gets parent cell FormID, EditorID and DisplayName, and FormID and name(Inc FormID of referenced object) of placed object reference
-//This does not rip coordinate data since we don't map interior cells later on anyway. It is used simply to show what a cell may contain
-{Expected runtime: 2 min}
+//This does not rip spatial data since we don't map interior cells anyway. It is used simply to show what a cell may contain.
 unit _m_interior;
 
 	uses _m_lib;

@@ -1,11 +1,12 @@
 ==Database checksum== 
-9661f4828c7859c9febc63ef36c4b7cc
+765a0c7b4d8e131df306c9d6842589d7
 ==Total unique items by signature==
 ACTI|1354
 ALCH|84
 AMMO|12
 ARMO|98
 BOOK|611
+CNCY|1
 CONT|547
 DOOR|308
 FLOR|135
@@ -16,39 +17,40 @@ LVLI|586
 MISC|806
 NOTE|278
 NPC_|1099
+PROJ|2
 TACT|73
 TERM|535
 WEAP|73
 ==Average display name string length==
-11.1680011043622
+11.1665516765558
 ==Average editorID string length==
-25.1856709000552
+25.181454394922
 ==Average X Coord==
--17926.2221024741
+-17853.0877260575
 ==Average Y Coord==
-9252.28270026308
+9221.81834114071
 ==Average X Bounds Width==
-161.756018128509
+161.49001329681
 ==Average Y Bounds Width==
-160.609116964651
+160.34499819107
 ==Average Z Rotation==
-4.70095019366255
+4.69321956651459
 ==Worldspace primitive shape types + count==
-|204501
+|204851
 Box|5686
 Sphere|2296
 ==Worldspace total placement count==
-212483
+212833
 ==Interior total placement count==
-63493
+63514
 ==Worldspace unique placement count==
-4935
+4938
 ==Interior unique placement count==
-4411
+4412
 ==Average interior placement count==
-547.353448275862
+547.534482758621
 ==Worldspace lock levels + count==
-|211444
+|211794
 Advanced (Level 1)|315
 Chained|1
 Expert (Level 2)|198
@@ -60,7 +62,7 @@ Requires Key|90
 Requires Terminal|9
 Unknown|1
 ==Interior lock levels + count==
-|62740
+|62761
 Advanced (Level 1)|206
 Chained|2
 Expert (Level 2)|160
@@ -71,11 +73,11 @@ Opens Door|141
 Requires Key|74
 Requires Terminal|25
 ==Worldspace variable spawn entities + count==
-|209118
+|209468
 Main|2488
 Sub|877
 ==Interior variable spawn entities + count==
-|61658
+|61679
 Main|1568
 Sub|267
 ==Worldspace total entity-with-locationFormID count==
@@ -186,7 +188,7 @@ Yao Guai|Main|0.215521978021978|25
 Yao Guai|Sub|0.0936336072890694|21
 ==Internal cells list + entity count==
 AMSHQ01|AMS Headquarters|634
-AVRMedicalCenter01|AVR Medical Center|631
+AVRMedicalCenter01|AVR Medical Center|633
 AlleghenyAsylum01|Fort Defiance|1894
 ArktosPharmaLab01|Arktos Pharma Biome Lab|1529
 BelchingBetty01|Belching Betty|262
@@ -195,7 +197,7 @@ BlackwaterMine01|Blackwater Mine|692
 BlueRidgeOffice01|Blue Ridge Office|89
 BurdetteManorBasement01|Burdette Manor Basement|88
 BurningMine01|The Burning Mine|399
-Burrows01|The Burrows|1803
+Burrows01|The Burrows|1806
 CharlestonCapitolBuilding02|Charleston Capitol Building|730
 CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|307
 CraterWarRoom01|The Crater War Room|166
@@ -213,7 +215,7 @@ FortAtlasDungeon01|Atlas Substructure|874
 FoundationInt01|Foundation Interior|446
 FoundationSupplyRoom01|Foundation Supply Room|78
 FraternityHouse01|Pi House|281
-FraternityHouse02|Eta Psi House|282
+FraternityHouse02|Eta Psi House|287
 FreeStatesBunker01|Abbie's Bunker|301
 FreeStatesBunker02|Carson Family Bunker|109
 FreeStatesBunker03|Ella Ames' Bunker|281
@@ -235,15 +237,15 @@ MTR08LodeBaring02|Abandoned Mine Shaft Kittery|505
 MamaDolceProcessing01|Mama Dolce's Food Processing|368
 MonongahMine01|Monongah Mine|487
 MonongahMissileSilo01|Missile Silo Bravo|1745
-MonongahPowerPlant01|Monongah Power Plant|793
+MonongahPowerPlant01|Monongah Power Plant|796
 MorgantownAirportTerminal02|Morgantown Airport Terminal|624
 MorgantownApartment01|Shadowbreeze Apartments|221
-MorgantownHighSchool01|Morgantown High School|883
+MorgantownHighSchool01|Morgantown High School|887
 MountBlairWarehouseBasement01|Warehouse Basement|35
 NukaColaQuantumPlant01|Kanawha Nuka-Cola Plant|499
 OrwellOrchardsShelter01|Orwell Bomb Shelter|358
 OverseersHome01|Overseer's Home|213
-PoseidonPlant01|Poseidon Energy Plant WV-06|951
+PoseidonPlant01|Poseidon Energy Plant WV-06|952
 PoseidonPlant02|Poseidon Energy Plant Expansion|278
 RadioResearchCenter01|Radio Astronomy Research Center|476
 RaiderCave01|Deserted Mine|62
@@ -299,5 +301,5 @@ WatogaTowers01|Watoga Towers|142
 WatogaUnderground01|Watoga Underground|1106
 WendigoCave01|Wendigo Cave|526
 WestTek01|West Tek Research Center|678
-WhitespringBunker01|Whitespring Bunker|1757
+WhitespringBunker01|Whitespring Bunker|1760
 WhitespringResort01|Whitespring Resort|2600

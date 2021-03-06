@@ -1,5 +1,4 @@
 //Gets a list of all LCTN and their Actor Value properties (used to identify variable spawns)
-{Expected runtime: <1 sec}
 unit _m_location;
 
 	uses _m_lib;
