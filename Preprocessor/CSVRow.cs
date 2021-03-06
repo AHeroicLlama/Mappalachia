@@ -7,11 +7,9 @@ namespace Mappalachia
 	class CSVRow
 	{
 		public List<CSVCell> cells;
-		public string header;
 
 		public CSVRow(string row, string header)
 		{
-			this.header = header;
 			List<string> columnHeaders = new List<string>(header.Split(','));
 			cells = new List<CSVCell>();
 			int i = 0;
@@ -28,9 +26,9 @@ namespace Mappalachia
 			}
 
 			//Get a cell for each defined column and add it to the collection of cells.
-			foreach (string cell in new List<string>(row.Split(',')).GetRange(0, columnHeaders.Count))
+			foreach (string cellValue in new List<string>(row.Split(',')).GetRange(0, columnHeaders.Count))
 			{
-				cells.Add(new CSVCell(cell, columnHeaders[i]));
+				cells.Add(new CSVCell(cellValue, columnHeaders[i]));
 				i++;
 			}
 		}

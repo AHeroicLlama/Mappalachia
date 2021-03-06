@@ -1,5 +1,4 @@
 //Gets a list of all CMPO and which component count is attributed to which quantity keyword
-{Expected runtime: <1 sec}
 unit _m_componentQuantity;
 
 	uses _m_lib;

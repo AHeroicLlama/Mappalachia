@@ -32,10 +32,10 @@ namespace Mappalachia
 
 		static int tempImageLockedCount = 0;
 
-		static Image mapNormal;
-		static Image mapMilitary;
-		static Image layerNWFlatwoods;
-		static Image layerNWMorgantown;
+		static Image imageMapNormal;
+		static Image imageMapMilitary;
+		static Image imageLayerNWFlatwoods;
+		static Image imageLayerNWMorgantown;
 
 		//JPEG encoding for image compression
 		static readonly long JpegQualityPercent = 85;
@@ -76,10 +76,10 @@ namespace Mappalachia
 					"Mappalachia must exit.\n" +
 					genericExceptionHelpText +
 					e);
-			}
 
-			Environment.Exit(1);
-			return null;
+				Environment.Exit(1);
+				return null;
+			}
 		}
 
 		//Find a new place to put a temporary image
@@ -210,42 +210,42 @@ namespace Mappalachia
 		public static Image GetImageMapNormal()
 		{
 			//Singleton
-			if (mapNormal == null)
+			if (imageMapNormal == null)
 			{
-				mapNormal = LoadImageFromFile(imgFolder + imgFileNameMapNormal);
+				imageMapNormal = LoadImageFromFile(imgFolder + imgFileNameMapNormal);
 			}
 
-			return (Image)mapNormal.Clone();
+			return (Image)imageMapNormal.Clone();
 		}
 
 		public static Image GetImageMapMilitary()
 		{
-			if (mapMilitary == null)
+			if (imageMapMilitary == null)
 			{
-				mapMilitary = LoadImageFromFile(imgFolder + imgFileNameMapMilitary);
+				imageMapMilitary = LoadImageFromFile(imgFolder + imgFileNameMapMilitary);
 			}
 
-			return (Image)mapMilitary.Clone();
+			return (Image)imageMapMilitary.Clone();
 		}
 
 		public static Image GetImageLayerNWFlatwoods()
 		{
-			if (layerNWFlatwoods == null)
+			if (imageLayerNWFlatwoods == null)
 			{
-				layerNWFlatwoods = LoadImageFromFile(imgFolder + imgFileNameLayerNWFlatwoods);
+				imageLayerNWFlatwoods = LoadImageFromFile(imgFolder + imgFileNameLayerNWFlatwoods);
 			}
 
-			return (Image)layerNWFlatwoods.Clone();
+			return (Image)imageLayerNWFlatwoods.Clone();
 		}
 
 		public static Image GetImageLayerNWMorgantown()
 		{
-			if (layerNWMorgantown == null)
+			if (imageLayerNWMorgantown == null)
 			{
-				layerNWMorgantown = LoadImageFromFile(imgFolder + imgFileNameLayerNWMorgantown);
+				imageLayerNWMorgantown = LoadImageFromFile(imgFolder + imgFileNameLayerNWMorgantown);
 			}
 
-			return (Image)layerNWMorgantown.Clone();
+			return (Image)imageLayerNWMorgantown.Clone();
 		}
 
 		//Return an image from file

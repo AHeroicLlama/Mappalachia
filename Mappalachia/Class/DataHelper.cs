@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
 {
-	//Interfaces with the database and provides helper methods and data translation
+	//Interfaces with the database and provides helper methods, data translation and sorting
 	static class DataHelper
 	{
 		static List<string> permittedLockTypes;
@@ -13,56 +14,111 @@ namespace Mappalachia
 
 		static readonly Dictionary<string, string> signatureDescription = new Dictionary<string, string>
 		{
-			{
-				"LVLI", "Lootable object which has some odds of spawning (up to and including 100% chances)\n" +
-				"Many items of different categories are in fact included under this one."
-			},
-			{ "FLOR", "Collectable natural resource." },
+			{ "STAT", "Environmental scenery which does not move and cannot be interacted with." },
+			{ "SCOL", "A grouped set of static objects." },
+			{ "ACTI", "Defined volume of space, invisible in-game.\n" +
+				"Activators can mark out designated areas, trigger events, or act as 'hit-boxes' for interaction." },
+			{ "LIGH", string.Empty },
+			{ "NPC_", "Non-player character." },
 			{ "MISC", "Junk, Scrap or Mod." },
-			{
-				"ACTI", "Defined volume of space, invisible in-game.\n" +
-				"Activators can mark out designated areas, trigger events, or act as 'hit-boxes' for interaction."
-			},
-			{
-				"FURN", "Object or position which a character can use to enter into an animation.\n" +
-				"Includes workbenches and instruments, but also NPC ambush positions such as scorchbeast spawns."
-			},
-			{ "CONT", string.Empty },
-			{ "NPC_", string.Empty },
-			{ "DOOR", string.Empty },
-			{ "HAZD", "Area of space which can harm the player (fire/radiation)." },
+			{ "MSTT", "Environmental scenery which animates or responds to physics." },
 			{ "BOOK", "Note, Plan or Recipe." },
-			{ "ALCH", "Food, Drink, Chems etc." },
+			{ "CONT", "Anything which can hold items." },
+			{ "FURN", "Object or position which a character can use to enter into an animation.\n" +
+				"Includes workbenches and instruments, but also NPC ambush positions such as scorchbeast spawns." },
+			{ "LVLI", "Lootable object which has some odds of spawning (up to and including 100% chances)\n" +
+				"Many items of different categories are in fact included under this one." },
 			{ "TERM", string.Empty },
+			{ "TXST", "A decal applied to a surface such as paint or dirt." },
+			{ "DOOR", string.Empty },
+			{ "ALCH", "Food, drink, chems etc." },
+			{ "SOUN", string.Empty },
 			{ "NOTE", string.Empty },
+			{ "FLOR", "Collectable natural resource." },
+			{ "ARMO", string.Empty },
+			{ "ASPC", "Applies settings for specific environmental acoustics." },
 			{ "WEAP", string.Empty },
-			{ "ARMO", "Apparel including Armor." },
-			{ "AMMO", string.Empty },
-			{ "TACT", "A trigger/activator which causes a voice line to be played." },
 			{ "KEYM", string.Empty },
+			{ "TACT", "A trigger/activator which causes a voice line to be played." },
+			{ "HAZD", "Area of space which can harm the player (fire/radiation)." },
+			{ "AMMO", string.Empty },
+			{ "IDLM", "Allows an npc to enter an idle animation." },
+			{ "BNDS", "A curved line shape. Usually used for power lines." },
+			{ "SECH", "Trigger for echo sound effect." },
+			{ "PROJ", "An 'armed' bullet/missile or thrown weapon." },
+			{ "CNCY", string.Empty },
 		};
 
 		//Provide a user-friendly name for each signature which best represents what a typical player would know them as
 		static readonly Dictionary<string, string> signatureToFriendlyName = new Dictionary<string, string>
 		{
-			{ "LVLI", "Loot" },
-			{ "FLOR", "Flora" },
-			{ "MISC", "Junk/Scrap" },
+			{ "STAT", "Static object" },
+			{ "SCOL", "Static collection" },
 			{ "ACTI", "Activator" },
-			{ "FURN", "Furniture" },
-			{ "CONT", "Container" },
+			{ "LIGH", "Light" },
 			{ "NPC_", "NPC" },
-			{ "DOOR", "Door" },
-			{ "HAZD", "Hazard" },
-			{ "BOOK", "Note" },
-			{ "ALCH", "Aid" },
+			{ "MISC", "Junk/Scrap" },
+			{ "MSTT", "Moveable static" },
+			{ "BOOK", "Note/Plan" },
+			{ "CONT", "Container" },
+			{ "FURN", "Furniture" },
+			{ "LVLI", "Loot" },
 			{ "TERM", "Terminal" },
+			{ "TXST", "Texture set" },
+			{ "DOOR", "Door" },
+			{ "ALCH", "Aid" },
+			{ "SOUN", "Sound" },
 			{ "NOTE", "Holotape" },
+			{ "FLOR", "Flora" },
+			{ "ARMO", "Armor/Apparel" },
+			{ "ASPC", "Acoustic space" },
 			{ "WEAP", "Weapon" },
-			{ "ARMO", "Apparel" },
-			{ "AMMO", "Ammo" },
-			{ "TACT", "Voice trigger" },
 			{ "KEYM", "Key" },
+			{ "TACT", "Talking activator" },
+			{ "HAZD", "Hazard" },
+			{ "AMMO", "Ammo" },
+			{ "IDLM", "Idle marker" },
+			{ "BNDS", "Bendable spline" },
+			{ "SECH", "Echo marker" },
+			{ "PROJ", "Projectile" },
+			{ "CNCY", "Currency" },
+		};
+
+		//Provides a pre-ordered list of each signature in a suggested sort order for the UI
+		//This groups often-used items towards the top, and similar items together
+		//Items not on this list are added to the bottom
+		public static readonly List<string> suggestedSignatureSort = new List<string>
+		{
+			"LVLI",
+			"FLOR",
+			"NPC_",
+			"MISC",
+			"BOOK",
+			"ALCH",
+			"CONT",
+			"FURN",
+			"NOTE",
+			"TERM",
+			"ARMO",
+			"WEAP",
+			"AMMO",
+			"PROJ",
+			"CNCY",
+			"KEYM",
+			"DOOR",
+			"HAZD",
+			"ACTI",
+			"TACT",
+			"IDLM",
+			"STAT",
+			"SCOL",
+			"MSTT",
+			"LIGH",
+			"SOUN",
+			"SECH",
+			"ASPC",
+			"TXST",
+			"BNDS",
 		};
 
 		//Inverse the user friendly signature names so we can use the proper signatures in queries
@@ -81,6 +137,24 @@ namespace Mappalachia
 		//Inverse the user friendly lock names so we can use the proper lock levels in queries
 		static readonly Dictionary<string, string> lockLevelToProperName = lockLevelToFriendlyName.ToDictionary(x => x.Value, x => x.Key);
 
+		//Provides a pre-ordered list of each lock level in a suggested sort order
+		//This groups often-used items towards the top, and similar items together
+		public static readonly List<string> suggestedLockLevelSort = new List<string>
+		{
+			string.Empty,
+			"Novice (Level 0)",
+			"Advanced (Level 1)",
+			"Expert (Level 2)",
+			"Master (Level 3)",
+			"Requires Terminal",
+			"Requires Key",
+			"Chained",
+			"Barred",
+			"Opens Door",
+			"Inaccessible",
+			"Unknown",
+		};
+
 		//Convert a signature to the proper or user-friendly version of itself
 		//Works regardless of the current state of the given signature
 		public static string ConvertSignature(string signature, bool properName)
@@ -98,7 +172,8 @@ namespace Mappalachia
 			}
 			catch (Exception)
 			{
-				return "Unsupported signature!";
+				//Unable to convert - just return it unconverted
+				return signature;
 			}
 		}
 
@@ -126,7 +201,8 @@ namespace Mappalachia
 			}
 			catch (Exception)
 			{
-				return "Unsupported lock level!";
+				//Unable to convert - just return it unconverted
+				return lockLevel;
 			}
 		}
 
@@ -237,6 +313,167 @@ namespace Mappalachia
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
 
+		//Conducts the simple search and returns the found items
+		public static List<MapItem> SearchSimple(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				using (SqliteDataReader reader = Queries.ExecuteQuerySimpleSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
+				{
+					while (reader.Read())
+					{
+						string signature = reader.GetString(2);
+						string editorID = reader.GetString(1);
+
+						results.Add(new MapItem(
+							Type.Simple,
+							reader.GetString(5), //FormID
+							editorID, //Editor ID
+							reader.GetString(0), //Display Name
+							signature, //Signature
+							allowedLockTypes, //The Lock Types filtered for this set of items.
+							GetSpawnChance(signature, editorID), //Spawn chance
+							reader.GetInt32(3), //Count
+							reader.GetString(6), //Cell Display Name/location
+							reader.GetString(7))); //Cell EditorID
+					}
+				}
+
+				return results;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
+		//Conducts the scrap search and returns the found items
+		public static List<MapItem> SearchScrap(string searchTerm)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				using (SqliteDataReader reader = Queries.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
+				{
+					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
+					string signature = ConvertSignature("MISC", false);
+					List<string> lockTypes = GetPermittedLockTypes();
+					double spawnChance = GetSpawnChance("MISC", string.Empty);
+
+					while (reader.Read())
+					{
+						//Sub-query for interior can return null
+						if (reader.IsDBNull(0))
+						{
+							continue;
+						}
+
+						string name = reader.GetString(0);
+
+						results.Add(new MapItem(
+							Type.Scrap,
+							name, //FormID
+							name + " scraps from junk", //Editor ID
+							name, //Display Name
+							signature,
+							lockTypes, //The Lock Types filtered for this set of items.
+							spawnChance,
+							reader.GetInt32(1), //Count
+							reader.GetString(2), //Cell Display Name/location
+							reader.GetString(3))); //Cell editorID
+					}
+				}
+
+				return results;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
+		//Conducts the NPC search and returns the found items.
+		//Also merges results with simple search results for the same name, then drops items containing "Corpse"
+		public static List<MapItem> SearchNPC(string searchTerm, int minChance)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				using (SqliteDataReader reader = Queries.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
+				{
+					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
+					string signature = ConvertSignature("NPC_", false);
+					List<string> lockTypes = GetPermittedLockTypes();
+
+					while (reader.Read())
+					{
+						//Sub-query for interior can return null
+						if (reader.IsDBNull(0))
+						{
+							continue;
+						}
+
+						double spawnChance = Math.Round(reader.GetDouble(2), 2);
+						string name = reader.GetString(0);
+
+						results.Add(new MapItem(
+							Type.NPC,
+							name, //FormID
+							name + " (" + spawnChance + "% and up)", //Editor ID
+							name, //Display Name
+							signature,
+							lockTypes, //The Lock Types filtered for this set of items.
+							spawnChance,
+							reader.GetInt32(1), //Count
+							reader.GetString(3), //Cell Display Name/location
+							reader.GetString(4))); //Cell editorID
+					}
+				}
+
+				//Expand the NPC search, by also conducting a simple search of only NPC_, ignorant of lock filter
+				results.AddRange(SearchSimple(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, GetPermittedLockTypes()));
+
+				/*Copy out search results not containing "corpse", therefore dropping the dead "NPCs"
+				This isn't perfect and won't catch ALL dead NPCs.
+				A common pattern seems to be that things prefixed with 'Enc' are dead,
+				but this isn't a global truth and filtering these out would cause too many false positives*/
+				List<MapItem> itemsWithoutCorpse = new List<MapItem>();
+				foreach (MapItem item in results)
+				{
+					if (item.editorID.Contains("corpse") || item.editorID.Contains("Corpse"))
+					{
+						continue;
+					}
+					else
+					{
+						itemsWithoutCorpse.Add(item);
+					}
+				}
+
+				return itemsWithoutCorpse;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
 		//Return the coordinate locations and boundaries of instances of a FormID
 		public static List<MapDataPoint> GetSimpleCoords(string formID, List<string> filteredLockTypes)
 		{
@@ -246,7 +483,17 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, reader.GetString(2), reader.GetInt32(3), reader.GetInt32(4)));
+					string primitiveShape = reader.GetString(2);
+
+					//Identify if this item has a primitive shape and use the appropriate constructor
+					if (primitiveShape == string.Empty)
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d));
+					}
+					else
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5)));
+					}
 				}
 			}
 
@@ -263,7 +510,7 @@ namespace Mappalachia
 				while (reader.Read())
 				{
 					//Divide weighting by 100 as npc weighting is a percentage and we need 1=100%
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2) / 100d, null, null, null));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2) / 100d));
 				}
 			}
 
@@ -279,7 +526,7 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), null, null, null));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2)));
 				}
 			}
 

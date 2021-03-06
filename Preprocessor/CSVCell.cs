@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Mappalachia
@@ -8,19 +7,6 @@ namespace Mappalachia
 	{
 		public string data;
 		public string columnName;
-
-		static readonly Regex headersToEscape = new Regex("[Ee]ditorID|[Dd]isplayName");
-		static readonly Regex propertyWithoutFormID = new Regex("(.*) \\[.{4}:.{8}\\]");
-		static readonly Regex componentNameOnly = new Regex(".* \"(.*)\" .*");
-		static readonly Regex formIdOnly = new Regex("\\[.{4}:(.{8})\\]");
-		static readonly Regex matchFormID = new Regex("[0-9A-F]{8}");
-		static readonly Regex validNpcClass = new Regex("^(Main|Sub)$");
-		static readonly Regex validPrimitiveShape = new Regex("^(Box|Sphere)$");
-		static readonly Regex validLockLevel = new Regex("^(Advanced \\(Level 1\\)|Chained|Expert \\(Level 2\\)|Inaccessible|Master \\(Level 3\\)|Novice \\(Level 0\\)|Opens Door|Requires Key|Requires Terminal|Unknown|Barred)$");
-		static readonly Regex validSignature = new Regex("[A-Z_]{4}");
-		static readonly Regex unescapedDoubleQuote = new Regex("(?<!\\\\)(\")");
-
-		static readonly List<string> decimalHeaders = new List<string> { "x", "y", "boundX", "boundY" };
 
 		public CSVCell(string data, string columnName)
 		{
@@ -36,7 +22,7 @@ namespace Mappalachia
 		//Escape problematic SQL characters
 		public void Sanitize()
 		{
-			if (headersToEscape.IsMatch(columnName))
+			if (Validation.headersToEscape.IsMatch(columnName))
 			{
 				//Replace (") with (\") and (') with ('')
 				data = data.Replace("\"", "\\\"").Replace("'", "''");
@@ -49,7 +35,7 @@ namespace Mappalachia
 			//Grab everything before the FormID
 			if (columnName == "property")
 			{
-				Match match = propertyWithoutFormID.Match(data);
+				Match match = Validation.propertyWithoutFormID.Match(data);
 				if (match.Success)
 				{
 					data = match.Groups[1].Value;
@@ -59,7 +45,7 @@ namespace Mappalachia
 			//Grab whatever is in quotes surrounded by spaces
 			else if (columnName.Contains("component"))
 			{
-				Match match = componentNameOnly.Match(data);
+				Match match = Validation.componentNameOnly.Match(data);
 				if (match.Success)
 				{
 					data = match.Groups[1].Value;
@@ -69,7 +55,7 @@ namespace Mappalachia
 			//Grab the 8-char FormID only
 			else
 			{
-				Match match = formIdOnly.Match(data);
+				Match match = Validation.formIdOnly.Match(data);
 				if (match.Success)
 				{
 					data = match.Groups[1].Value;
@@ -77,7 +63,7 @@ namespace Mappalachia
 			}
 
 			//Niche case where worldSpace Xmarkers get their reference filled with the literal Map marker text
-			if (columnName == "referenceFormID" && !matchFormID.IsMatch(data))
+			if (columnName == "referenceFormID" && !Validation.matchFormID.IsMatch(data))
 			{
 				data = "FFFFFFFF";
 			}
@@ -86,7 +72,7 @@ namespace Mappalachia
 		//Reduce large decimals to integers (The precision is unnecessary due to downscaling)
 		public void ReduceDecimals()
 		{
-			if (decimalHeaders.Contains(columnName))
+			if (Validation.decimalHeaders.Contains(columnName))
 			{
 				if (data != string.Empty)
 				{
@@ -114,7 +100,7 @@ namespace Mappalachia
 				case "cellFormID":
 				case "junkFormID":
 					//FormID Cells must only contain the FormID alone
-					if (!matchFormID.IsMatch(data))
+					if (!Validation.matchFormID.IsMatch(data))
 					{
 						ReportValidationError();
 					}
@@ -122,7 +108,7 @@ namespace Mappalachia
 
 				case "locationFormID":
 					//locationFormID may be empty if not a FormID
-					if (data != string.Empty && !matchFormID.IsMatch(data))
+					if (data != string.Empty && !Validation.matchFormID.IsMatch(data))
 					{
 						ReportValidationError();
 					}
@@ -130,7 +116,7 @@ namespace Mappalachia
 
 				case "signature":
 					//Signatures are always exactly 4 letters or underscores
-					if (!validSignature.IsMatch(data))
+					if (!Validation.validSignature.IsMatch(data))
 					{
 						ReportValidationError();
 					}
@@ -141,7 +127,7 @@ namespace Mappalachia
 				case "displayName":
 				case "cellDisplayName":
 					//editorID and displayName must have had any double quotes escaped by now
-					if (unescapedDoubleQuote.IsMatch(data))
+					if (Validation.unescapedDoubleQuote.IsMatch(data))
 					{
 						ReportValidationError();
 					}
@@ -174,7 +160,8 @@ namespace Mappalachia
 
 				case "boundX":
 				case "boundY":
-					//Boundary dimensions may be blank or otherwise integers
+				case "rotZ":
+					//Boundary dimensions or rotations may be blank or otherwise integers
 					if (data != string.Empty && !int.TryParse(data, out _))
 					{
 						ReportValidationError();
@@ -183,7 +170,7 @@ namespace Mappalachia
 
 				case "primitiveShape":
 					//A primitive shape can only be these known types or empty
-					if (data != string.Empty && !validPrimitiveShape.IsMatch(data))
+					if (data != string.Empty && !Validation.validPrimitiveShape.IsMatch(data))
 					{
 						ReportValidationError();
 					}
@@ -191,7 +178,7 @@ namespace Mappalachia
 
 				case "lockLevel":
 					//Lock level must come from a set of strings or be empty
-					if (data != string.Empty && !validLockLevel.IsMatch(data))
+					if (data != string.Empty && !Validation.validLockLevel.IsMatch(data))
 					{
 						ReportValidationError();
 					}
@@ -199,7 +186,7 @@ namespace Mappalachia
 
 				case "spawnClass":
 					//Class (monster) can only be two exact strings or empty
-					if (data != string.Empty && !validNpcClass.IsMatch(data))
+					if (data != string.Empty && !Validation.validNpcClass.IsMatch(data))
 					{
 						ReportValidationError();
 					}

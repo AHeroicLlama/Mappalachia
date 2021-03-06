@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		//Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 1;
+		static readonly int prefsIteration = 2;
 
 		//Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -52,7 +52,7 @@ namespace Mappalachia.Class
 			settings.Add("[Search]");
 			settings.Add("searchInterior=" + BoolToIntStr(SettingsSearch.searchInterior));
 			settings.Add("showFormID=" + BoolToIntStr(SettingsSearch.showFormID));
-			settings.Add("filterWarnings=" + BoolToIntStr(SettingsSearch.filterWarnings));
+			settings.Add("spawnChance=" + SettingsSearch.spawnChance);
 
 			//SettingsPlot
 			settings.Add("[Plot]");
@@ -93,7 +93,7 @@ namespace Mappalachia.Class
 			{
 				try
 				{
-					//Skip lines which are commented, section headers, or empty 
+					//Skip lines which are commented, section headers, or empty
 					if (line.StartsWith("#") || line.StartsWith("[") || string.IsNullOrEmpty(line))
 					{
 						continue;
@@ -155,8 +155,12 @@ namespace Mappalachia.Class
 							SettingsSearch.showFormID = StrIntToBool(value);
 							break;
 
-						case "filterWarnings":
-							SettingsSearch.filterWarnings = StrIntToBool(value);
+						case "spawnChance":
+							int spawnChance = Convert.ToInt32(value);
+							if (ValidateWithinRange(spawnChance, SettingsSearch.spawnChanceMin, SettingsSearch.spawnChanceMax))
+							{
+								SettingsSearch.spawnChance = spawnChance;
+							}
 							break;
 
 						case "mode":
@@ -307,6 +311,10 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Invalid color mode.");
 							}
+							break;
+
+						//Legacy settings - ignore
+						case "filterWarnings":
 							break;
 
 						default:

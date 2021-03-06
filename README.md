@@ -13,18 +13,19 @@ The project also comes with the necessary scripts and code used to export, prepr
 ## Installation
 
 To get started generating maps with Mappalachia, you simply need to [grab the latest release zip](https://github.com/AHeroicLlama/Mappalachia/releases/latest), unzip it to a folder and launch Mappalachia.exe.<br/>
-For help installing please refer to the [installation and first launch guide](Guides_user/InstallationFirstRun.md).<br/>
+For help installing please refer to the [installation and first launch guide](User_Guides/Installation_and_first_run.md).<br/>
 
 
-## Getting started - User guides
+## Getting started - User Guides
 
-A number of user guides exist for Mappalachia in document form;<br/>
+A number of User guides exist for Mappalachia in document form;<br/>
 
-* [**Installation and First launch**](Guides_user/InstallationFirstRun.md) covers initial installation and getting Mappalachia running.
-* [**First map**](Guides_user/FirstMap.md) covers all the basic steps to creating your first Mappalachia map.
-* [ **Advanced Search**](Guides_user/AdvancedSearch.md) covers the Intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
-* [**Advanced Mapping**](Guides_user/AdvancedMapping.md) covers the powerful heatmap mode, as well as item grouping, volume mapping and icon customisation.
-* [ **Map Settings**](Guides_user/MapSettings.md) covers the ways you can adjust the visuals of the map, including layers for Nuclear Winter.
+* [**Installation and First run**](User_Guides/Installation_and_first_run.md) covers initial installation and getting Mappalachia running.
+* [**First map**](User_Guides/First_map.md) covers all the basic steps to creating your first Mappalachia map.
+* [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the Intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
+* [**Advanced Mapping**](User_Guides/Advanced_mapping.md) details the powerful heatmap mode, as well as item grouping, volume mapping and icon customisation.
+* [**Map Settings**](User_Guides/Map_settings.md) covers the ways you can adjust the visuals of the map, including layers for Nuclear Winter.
+* [**Updating or Uninstalling**](User_Guides/Updating_or_uninstalling.md) describes how to update or remove Mappalachia.
 
 ## Extract your own data or get stuck in to development
 
@@ -36,17 +37,17 @@ Behind the scenes, Mappalachia is developed and produced in 4 key steps.
 
 If you fancy doing some data mining, or want to do your own thing with the raw data, then you may be interested in the following documentation;
 
-* [**FO76Edit scripts**](Guides_dev/EditScripts.md) covers using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
-* [**Preprocessor**](Guides_dev/Preprocessor.md) covers compiling and using the CLI tool to process and refine the rough data into proper CSVs.
-* [**Ingest**](Guides_dev/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
-* [**GUI**](Guides_dev/GUI.md) covers developing the Mappalachia GUI itself.
+* [**FO76Edit scripts**](Developer_Guides/EditScripts.md) covers using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
+* [**Preprocessor**](Developer_Guides/Preprocessor.md) covers compiling and using the CLI tool to process and refine the rough data into proper CSVs.
+* [**Ingest**](Developer_Guides/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
+* [**GUI**](Developer_Guides/GUI.md) covers developing the Mappalachia GUI itself.
 
 
 ## Thanks
 
 * Contributors to and developers of XEdit and FO76Edit, namely Eckserah.
 * Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
-* Everyone who ever gave feedback to [the original Mappalachia](https://www.reddit.com/r/fo76/comments/bmwpx9/mappalachia_my_project_which_can_automatically/). Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
+* Everyone who ever gave feedback to the original Mappalachia. Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
 
 #### License
 

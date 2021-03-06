@@ -1,5 +1,4 @@
 //Run every Mappalachia script consecutively
-{Expected runtime: 12-15 min}
 unit Mappalachia;
 
 uses
@@ -12,22 +11,24 @@ uses
 
 	function initialize: Integer;
 	begin
-		AddMessage('Now running _m_componentQuantity');
+		AddMessage('Now running _m_componentQuantity...');
 		_m_componentQuantity.initialize();
 
-		AddMessage('Now running _m_junkScrap');
+		AddMessage('Now running _m_junkScrap...');
 		_m_junkScrap.initialize();
 
-		AddMessage('Now running _m_location');
+		AddMessage('Now running _m_location...');
 		_m_location.initialize();
 
-		AddMessage('Now running _m_formId');
+		AddMessage('Now running _m_formId...');
 		_m_formID.initialize();
 
-		AddMessage('Now running _m_interior');
+		AddMessage('Now running _m_interior...');
 		_m_interior.initialize();
 
-		AddMessage('Now running _m_worldspace');
+		AddMessage('Now running _m_worldspace...');
 		_m_worldspace.initialize();
+
+		AddMessage('Mappalachia export finished.');
 	end;
 end.
