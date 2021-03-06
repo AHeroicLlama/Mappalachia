@@ -73,13 +73,14 @@ unit _m_lib;
 		else result := true;
 	end;
 
-	//Do we need to process this record, given its signature?
-	//Something like 8/10 worldspace records aren't helpful to be mapped, so skipping them helps performance and data size massively
+	//Do we need/want to process this record, given its signature?
 	function shouldProcessRecord(signature: String): Boolean;
 	begin
-			if(signature = 'STAT') then begin Exit(false) end //Explicitly return immediately if this is a STAT, as they're easily 90% of all records and we don't need them
+		//Explicitly return immediately if this is a STAT or SCOL, as they're the majority of all records and we don't need them
+			if(signature = 'STAT') then begin Exit(false) end
 		else if(signature = 'SCOL') then begin Exit(false) end
 
+		//Extract only these record types
 		else if(signature = 'LVLI') then result := true
 		else if(signature = 'FLOR') then result := true
 		else if(signature = 'MISC') then result := true
@@ -98,6 +99,8 @@ unit _m_lib;
 		else if(signature = 'AMMO') then result := true
 		else if(signature = 'TACT') then result := true
 		else if(signature = 'KEYM') then result := true
+		else if(signature = 'PROJ') then result := true
+		else if(signature = 'CNCY') then result := true
 
 		else result := false;
 	end;

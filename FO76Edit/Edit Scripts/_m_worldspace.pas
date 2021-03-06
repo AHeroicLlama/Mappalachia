@@ -1,5 +1,4 @@
 //Rip every item placed within the Appalachia Worldspace. Gets coordinates, FormID, name(Inc FormID of referenced object), and information on lock levels and primitive boundaries where relevant
-{Expected runtime: 10-12 min}
 unit _m_worldspace;
 
 	uses _m_lib;
