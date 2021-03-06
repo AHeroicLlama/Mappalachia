@@ -1,6 +1,5 @@
 //Rip every single entry in the ESM which is relevant for mapping as defined by _m_lib.shouldProcessRecord(). Gets each item's FormID, EdID and displayName.
 //This is cross referenced by the Preprocessor between the location data to assign names/EditorID's to FormIDs in the location data
-{Expected runtime: <10 sec}
 unit _m_formID;
 
 	uses _m_lib;

@@ -9,7 +9,7 @@ namespace Mappalachia
 {
 	public partial class FormPlotIconSettings : Form
 	{
-		static List<PlotIconShape> placeholderShapePalette = new List<PlotIconShape>(); //Holds shape settings for currently selected shape settings (not current applied ones)
+		static List<PlotIconShape> placeholderShapePalette = new List<PlotIconShape>(); //Holds the currently *selected* shape settings (not currently applied ones)
 		static readonly Regex htmlColor = new Regex("ff[0-9a-f]{6}"); //Match the alpha-less 'html' color returned from a ColorDialog
 		static int lastSelectedShapeIndex = 0;
 
@@ -82,7 +82,7 @@ namespace Mappalachia
 			}
 			catch (Exception)
 			{
-				Notify.Error("Invalid color name " + colorNameOrCode + ". Unable to display color on Palette.");
+				Notify.Error("Invalid color name " + colorNameOrCode + ". Unable to display color on palette.");
 				return Color.Gray;
 			}
 		}
@@ -111,7 +111,7 @@ namespace Mappalachia
 					PopulateColorPaletteUI(SettingsPlotIcon.paletteColorBlindTol);
 					break;
 				default:
-					Notify.Error("Unknown color palette " + comboBoxPalette.Text + ". The palette cannot be loaded.");
+					Notify.Error("Unexpected color palette " + comboBoxPalette.Text + ". The palette cannot be loaded.");
 					return;
 			}
 		}
@@ -173,7 +173,7 @@ namespace Mappalachia
 		}
 
 		//Verify every shape has at least one option checked
-		bool CheckForEmptyShape()
+		bool CheckForEmptyShapes()
 		{
 			foreach (ListViewItem shape in listViewShapePalette.Items)
 			{
@@ -307,7 +307,7 @@ namespace Mappalachia
 
 		private void ButtonApply_Click(object sender, EventArgs e)
 		{
-			if (!CheckForEmptyColorPalette() || !CheckForEmptyShapePalette() || !CheckForEmptyShape())
+			if (!CheckForEmptyColorPalette() || !CheckForEmptyShapePalette() || !CheckForEmptyShapes())
 			{
 				return;
 			}

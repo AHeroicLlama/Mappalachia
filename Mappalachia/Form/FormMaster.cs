@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Mappalachia.Class;
 using Mappalachia.Forms;
-using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
 {
@@ -51,6 +50,10 @@ namespace Mappalachia
 			//Load settings from the preferences file, if applicable.
 			SettingsManager.LoadSettings();
 
+			//Apply min/max values according to current settings
+			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
+			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
+
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
@@ -64,7 +67,7 @@ namespace Mappalachia
 			UpdateMapGrayscale(false);
 			UpdateSearchInterior();
 			UpdateShowFormID();
-			UpdateFilterWarnings();
+			UpdateSpawnChance();
 
 			Map.SetOutput(pictureBoxMapPreview);
 
@@ -81,7 +84,33 @@ namespace Mappalachia
 		//Dynamically fill the Signature filter with every signature present based on the data
 		void PopulateSignatureFilterList()
 		{
-			foreach (string signature in DataHelper.GetPermittedSignatures())
+			List<string> signatures = DataHelper.GetPermittedSignatures();
+			List<string> orderedSignatures = new List<string>();
+
+			//First run through the suggested order list. If any of our database signature items are in there, process them FIRST
+			//This ensures items are added to the list in order
+			foreach (string signature in DataHelper.suggestedSignatureSort)
+			{
+				//If this item is in the suggested sort - add it to the final items
+				if (signatures.Contains(signature))
+				{
+					orderedSignatures.Add(signature);
+				}
+			}
+
+			//Now we have processed some suggested sort items, any remaining signatures can be processed next
+			foreach (string signature in signatures)
+			{
+				//This item was NOT picked up when we passed through the suggested sort - so add it onto the end
+				if (!orderedSignatures.Contains(signature))
+				{
+					orderedSignatures.Add(signature);
+				}
+			}
+
+			//Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
+			//...We can add them to the ListView on the form
+			foreach (string signature in orderedSignatures)
 			{
 				ListViewItem thisItem = listViewFilterSignatures.Items.Add(signature);
 				thisItem.Text = DataHelper.ConvertSignature(thisItem.Text, false);
@@ -93,9 +122,36 @@ namespace Mappalachia
 		//Dynamically fill the Lock Type filter with every lock type present based on the data
 		void PopulateLockTypeFilterList()
 		{
-			foreach (string lockType in DataHelper.GetPermittedLockTypes())
+			List<string> lockLevels = DataHelper.GetPermittedLockTypes();
+			List<string> orderedLockLevels = new List<string>();
+
+			//First run through the suggested order list. If any of our database lock types are in there, process them FIRST
+			//This ensures items are added to the list in order
+			foreach (string lockLevel in DataHelper.suggestedLockLevelSort)
 			{
-				ListViewItem thisItem = listViewFilterLockTypes.Items.Add(DataHelper.ConvertLockLevel(lockType, false));
+				//If this item is in the suggested sort - add it to the final items
+				if (lockLevels.Contains(lockLevel))
+				{
+					orderedLockLevels.Add(lockLevel);
+				}
+			}
+
+			//Now we have processed some suggested sort items, any remaining lock types can be processed next
+			foreach (string lockLevel in lockLevels)
+			{
+				//This item was NOT picked up when we passed through the suggested sort - so add it onto the end
+				if (!orderedLockLevels.Contains(lockLevel))
+				{
+					orderedLockLevels.Add(lockLevel);
+				}
+			}
+
+			//Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
+			//...We can add them to the ListView on the form
+			foreach (string lockLevel in orderedLockLevels)
+			{
+				ListViewItem thisItem = listViewFilterLockTypes.Items.Add(lockLevel);
+				thisItem.Text = DataHelper.ConvertLockLevel(thisItem.Text, false);
 				thisItem.Checked = true;
 			}
 		}
@@ -315,10 +371,10 @@ namespace Mappalachia
 			gridViewSearchResults.Columns["columnSearchFormID"].Visible = SettingsSearch.showFormID;
 		}
 
-		//Update check mark in the UI for disable filter warnings option
-		void UpdateFilterWarnings()
+		//Update the minimum spawn chance % value on the NPC Search tab
+		void UpdateSpawnChance()
 		{
-			disableFilterWarningsMenuItem.Checked = !SettingsSearch.filterWarnings;
+			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
 		}
 
 		//Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -360,141 +416,7 @@ namespace Mappalachia
 			return lockTypes;
 		}
 
-		//Conduct the simple search with given parameters
-		void GatherSearchResultsSimple(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
-		{
-			try
-			{
-				using (SqliteDataReader reader = Queries.ExecuteQuerySimpleSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
-				{
-					while (reader.Read())
-					{
-						searchResults.Add(new MapItem(
-							Type.Simple,
-							reader.GetString(5), //FormID
-							reader.GetString(1), //Editor ID
-							reader.GetString(0), //Display Name
-							reader.GetString(2), //Signature
-							allowedLockTypes, //The Lock Types filtered for this set of items.
-							DataHelper.GetSpawnChance(reader.GetString(2), reader.GetString(1)), //Spawn chance
-							reader.GetInt32(3), //Count
-							reader.GetString(6), //Cell Display Name/location
-							reader.GetString(7))); //Cell EditorID
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
-				IOManager.genericExceptionHelpText +
-				e);
-			}
-		}
 
-		//Search for variable NPC Spawns of the given NPC, where their spawn chance is above the threshold
-		void GatherSearchResultsNPC(string searchTerm, int minChance)
-		{
-			try
-			{
-				using (SqliteDataReader reader = Queries.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
-				{
-					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
-					string signature = DataHelper.ConvertSignature("NPC_", false);
-					List<string> lockTypes = DataHelper.GetPermittedLockTypes();
-
-					while (reader.Read())
-					{
-						//Sub-query for interior can return null
-						if (reader.IsDBNull(0))
-						{
-							continue;
-						}
-
-						double spawnChance = Math.Round(reader.GetDouble(2), 2);
-
-						searchResults.Add(new MapItem(
-							Type.NPC,
-							reader.GetString(0), //FormID
-							reader.GetString(0) + " (Up to " + spawnChance + "%)", //Editor ID
-							reader.GetString(0), //Display Name
-							signature,
-							lockTypes, //The Lock Types filtered for this set of items.
-							spawnChance,
-							reader.GetInt32(1), //Count
-							reader.GetString(3), //Cell Display Name/location
-							reader.GetString(4))); //Cell editorID
-					}
-				}
-
-				//Expand the NPC search, by also conducting a simple search of only NPC_, ignorant of lock filter
-				GatherSearchResultsSimple(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, DataHelper.GetPermittedLockTypes());
-
-				//Remove search results containing "corpse" as these are dead and not traditional NPCs
-				//This isn't perfect and won't remove all dead NPCs. Common pattern seems to be many prefixed with 'Enc' are dead, but not all
-				List<MapItem> itemsWithoutCorpse = new List<MapItem>();
-				foreach (MapItem item in searchResults)
-				{
-					if (item.editorID.Contains("corpse") || item.editorID.Contains("Corpse"))
-					{
-						continue;
-					}
-					else
-					{
-						itemsWithoutCorpse.Add(item);
-					}
-				}
-
-				searchResults = new List<MapItem>(itemsWithoutCorpse);
-			}
-			catch (Exception e)
-			{
-				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
-				IOManager.genericExceptionHelpText +
-				e);
-			}
-		}
-
-		//Search for junk items containing the given Scrap name
-		void GatherSearchResultsScrap(string searchTerm)
-		{
-			try
-			{
-				using (SqliteDataReader reader = Queries.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
-				{
-					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
-					string signature = DataHelper.ConvertSignature("MISC", false);
-					List<string> lockTypes = DataHelper.GetPermittedLockTypes();
-					double spawnChance = DataHelper.GetSpawnChance("MISC", string.Empty);
-
-					while (reader.Read())
-					{
-						//Sub-query for interior can return null
-						if (reader.IsDBNull(0))
-						{
-							continue;
-						}
-
-						searchResults.Add(new MapItem(
-							Type.Scrap,
-							reader.GetString(0), //FormID
-							reader.GetString(0) + " scraps from junk", //Editor ID
-							reader.GetString(0), //Display Name
-							signature,
-							lockTypes, //The Lock Types filtered for this set of items.
-							spawnChance,
-							reader.GetInt32(1), //Count
-							reader.GetString(2), //Cell Display Name/location
-							reader.GetString(3))); //Cell editorID
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
-				IOManager.genericExceptionHelpText +
-				e);
-			}
-		}
 
 		//Warn the user if they appear to be trying to search for something that might actually be in a LVLI, but they have unselected it
 		void WarnWhenLVLINotSelected()
@@ -505,24 +427,20 @@ namespace Mappalachia
 				return;
 			}
 
-			if (SettingsSearch.filterWarnings)
+			List<string> enabledSignatures = GetEnabledSignatures();
+			if (!enabledSignatures.Contains("LVLI"))
 			{
-				List<string> enabledSignatures = GetEnabledSignatures();
-				if (!enabledSignatures.Contains("LVLI"))
+				//A list of signatures that seem to typically be represented by LVLI
+				foreach (string signatureToWarn in new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" })
 				{
-					//A list of signatures that seem to typically be represented by LVLI
-					foreach (string signatureToWarn in new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" })
+					if (enabledSignatures.Contains(signatureToWarn))
 					{
-						if (enabledSignatures.Contains(signatureToWarn))
-						{
-							Notify.Info(
-								"Your search results may be restricted because you have 'Loot' unchecked under the categories filter.\n" +
-								"Confusingly, many items in Fallout 76 are categorized generically as 'Loot', rather than what you may expect.\n" +
-								"If you can't find what you're looking for, make sure to enable it and search again.\n\n" +
-								"You may disable this warning under 'Search Settings>Disable Filter Warnings'");
-							warnedLVLINotUsed = true;
-							return;
-						}
+						Notify.Info(
+							"Your search results may be restricted because you have 'Loot' unchecked under the categories filter.\n" +
+							"Many desirable items in Fallout 76 are categorized generically as 'Loot'.\n" +
+							"If you can't find what you're looking for, make sure to enable it and search again.");
+						warnedLVLINotUsed = true;
+						return;
 					}
 				}
 			}
@@ -750,13 +668,6 @@ namespace Mappalachia
 			UpdateShowFormID();
 		}
 
-		//Search Settings > Disable filter warnings - Disable warnings for Signature filter misuse
-		void Search_FilterWarnings(object sender, EventArgs e)
-		{
-			SettingsSearch.filterWarnings = !SettingsSearch.filterWarnings;
-			UpdateFilterWarnings();
-		}
-
 		//Plot Settings > Mode > Icon - Change plot mode to icon
 		private void Plot_Mode_Icon(object sender, EventArgs e)
 		{
@@ -837,7 +748,7 @@ namespace Mappalachia
 		//Help > User Guides - Open help guides at github master
 		void Help_UserGuides(object sender, EventArgs e)
 		{
-			Process.Start("https://github.com/AHeroicLlama/Mappalachia/tree/master/Guides_user");
+			Process.Start("https://github.com/AHeroicLlama/Mappalachia/tree/master/User_Guides");
 		}
 
 		//Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
@@ -899,7 +810,7 @@ namespace Mappalachia
 			searchResults.Clear();
 
 			//Execute the search
-			GatherSearchResultsSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+			searchResults = DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
@@ -917,7 +828,7 @@ namespace Mappalachia
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
 			searchResults.Clear();
-			GatherSearchResultsScrap(listBoxScrap.SelectedItem.ToString());
+			searchResults = DataHelper.SearchScrap(listBoxScrap.SelectedItem.ToString());
 			UpdateSearchResultsGrid();
 		}
 
@@ -927,9 +838,9 @@ namespace Mappalachia
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
 			searchResults.Clear();
-			GatherSearchResultsNPC(
+			searchResults = DataHelper.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
-				(int)numericUpDownNPCSpawnThreshold.Value);
+				SettingsSearch.spawnChance);
 			UpdateSearchResultsGrid();
 		}
 
@@ -968,10 +879,15 @@ namespace Mappalachia
 
 			if (rejectedItems.Count > 0)
 			{
+				//Cap the list of items we warn about to prevent a huge error box
+				int maxItemsToShow = 8;
+				int truncatedItems = rejectedItems.Count - maxItemsToShow;
+
 				Notify.Info(
-					"The following items were not added to the legend because either they already existed on the legend, or " +
-					"they were items from an interior cell, and are therefore not suitable to be placed on the world map.\n\n" +
-					string.Join("\n", rejectedItems));
+					"The following items were not added to the legend because they already existed on the legend, " +
+					"or they were items from an interior cell.\n\n" +
+					string.Join("\n", rejectedItems.Take(maxItemsToShow)) +
+					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty)); //Add a line to say that a further x items (not shown) were not added
 			}
 		}
 
@@ -1190,12 +1106,21 @@ namespace Mappalachia
 			AcceptButton = tabControlSimpleNPCJunk.SelectedTab == tabPageSimple ? buttonSearch : buttonSearchNPC;
 		}
 
+		//User updated value in min spawn chance - update the setting too
+		private void NumericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
+		{
+			SettingsSearch.spawnChance = (int)numericUpDownNPCSpawnThreshold.Value;
+		}
+
 		#endregion
 
 		void FormMain_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			IOManager.Cleanup();
 			SettingsManager.SaveSettings();
+
+			//Ensures any potentially long-running map building task is stopped too
+			Environment.Exit(0);
 		}
 	}
 }

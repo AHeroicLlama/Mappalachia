@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -8,23 +9,33 @@ namespace Mappalachia
 	{
 		//These paths assume the repo structure. They also assume you've already ran the XEdit scripts.
 		//Change as necessary.
-		static readonly string inputPath = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//FO76Edit//Output//";
-		static readonly string outputPath = AppDomain.CurrentDomain.BaseDirectory + "..//..//Output";
+		static readonly string inputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//..//FO76Edit//Output//";
+		static readonly string outputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//Output";
 
-		static void Main()
+		static async Task Main()
 		{
 			try
 			{
-				//The worldspace file takes longer to process than everything else combined. So start it going in its own thread
-				Task processWorldspace = new Task(() => ProcessSpatialFile("SeventySix_Worldspace.csv"));
-				processWorldspace.Start();
+				//Store all preprocessor tasks in a list
+				//Each task represents one CSV file being output
+				List<Task> parallelTasks = new List<Task>
+				{
+					new Task(() => ProcessSpatialFile("SeventySix_Worldspace.csv")),
+					new Task(() => ProcessSpatialFile("SeventySix_Interior.csv")),
+					new Task(() => ProcessBasicFile("SeventySix_FormID.csv")),
+					new Task(() => GenerateNPCSpawnFile()),
+					new Task(() => GenerateQuantifiedJunkScrapFile()),
+				};
 
-				ProcessSpatialFile("SeventySix_Interior.csv");
-				ProcessBasicFile("SeventySix_FormID.csv");
-				GenerateNPCSpawnFile();
-				GenerateQuantifiedJunkScrapFile();
+				//Start all tasks
+				foreach (Task task in parallelTasks)
+				{
+					task.Start();
+				}
 
-				processWorldspace.Wait();
+				//Wait for all Tasks to finish
+				await Task.WhenAll(parallelTasks.ToArray());
+
 				Console.WriteLine("Done with all! Press any key");
 				Console.ReadKey();
 			}
@@ -59,6 +70,8 @@ namespace Mappalachia
 			GenericProcess(locationFile);
 
 			CSVFile npcSpawns = NpcSpawnHelper.ProcessNPCSpawns(locationFile, NpcSpawnHelper.SumLocationSpawnChances(locationFile));
+			locationFile.rows = null;
+
 			GenericProcess(npcSpawns);
 			GenericClose(npcSpawns);
 		}
@@ -73,6 +86,9 @@ namespace Mappalachia
 			GenericProcess(junkScrapFile);
 
 			CSVFile quantifiedJunkScrap = JunkScrap.ProcessJunkScrap(junkScrapFile, componentQuantityFile);
+			junkScrapFile.rows = null;
+			componentQuantityFile.rows = null;
+
 			GenericProcess(quantifiedJunkScrap);
 			GenericClose(quantifiedJunkScrap);
 		}
@@ -80,7 +96,7 @@ namespace Mappalachia
 		//Shorthand to instantiate a new CSVFile from file name
 		static CSVFile GenericOpen(string fileName)
 		{
-			return new CSVFile(inputPath + fileName);
+			return new CSVFile(inputPathx64 + fileName);
 		}
 
 		//Apply the standard processing to the CSVFile
@@ -95,10 +111,13 @@ namespace Mappalachia
 		static void GenericClose(CSVFile file)
 		{
 			file.Validate();
-			Directory.CreateDirectory(outputPath);
-			file.WriteToFile(outputPath + "//");
-			Console.WriteLine(file.fileName + " done.");
+			Directory.CreateDirectory(outputPathx64);
+			file.WriteToFile(outputPathx64 + "//");
+
+			file.rows = null;
 			GC.Collect();
+
+			Console.WriteLine(file.fileName + " done.");
 		}
 	}
 }

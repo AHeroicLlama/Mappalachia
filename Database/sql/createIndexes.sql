@@ -2,7 +2,7 @@ CREATE INDEX indexWorldspace ON SeventySix_Worldspace (
 	referenceFormID,
 	locationFormID,
 	lockLevel,
-	primitiveShape
+	spawnClass
 );
 
 CREATE INDEX indexInterior ON SeventySix_Interior (
@@ -30,5 +30,6 @@ CREATE INDEX indexNPCSpawn ON SeventySix_NPCSpawn (
 
 CREATE INDEX indexQuantifiedScrap ON SeventySix_Quantified_Scrap (
 	component,
-	componentQuantity
+	componentQuantity,
+	junkFormID
 );
