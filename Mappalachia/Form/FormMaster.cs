@@ -879,10 +879,15 @@ namespace Mappalachia
 
 			if (rejectedItems.Count > 0)
 			{
+				//Cap the list of items we warn about to prevent a huge error box
+				int maxItemsToShow = 8;
+				int truncatedItems = rejectedItems.Count - maxItemsToShow;
+
 				Notify.Info(
-					"The following items were not added to the legend because either they already existed on the legend, or " +
-					"they were items from an interior cell, and are therefore not suitable to be placed on the world map.\n\n" +
-					string.Join("\n", rejectedItems));
+					"The following items were not added to the legend because they already existed on the legend, " +
+					"or they were items from an interior cell.\n\n" +
+					string.Join("\n", rejectedItems.Take(maxItemsToShow)) +
+					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty)); //Add a line to say that a further x items (not shown) were not added
 			}
 		}
 
