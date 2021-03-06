@@ -437,7 +437,7 @@ namespace Mappalachia
 					{
 						Notify.Info(
 							"Your search results may be restricted because you have 'Loot' unchecked under the categories filter.\n" +
-							"Confusingly, many items in Fallout 76 are categorized generically as 'Loot', rather than what you may expect.\n" +
+							"Many desirable items in Fallout 76 are categorized generically as 'Loot'.\n" +
 							"If you can't find what you're looking for, make sure to enable it and search again.");
 						warnedLVLINotUsed = true;
 						return;
