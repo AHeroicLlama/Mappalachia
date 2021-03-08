@@ -3,6 +3,6 @@ UPDATE SeventySix_FormId SET displayName = replace(displayName, '\"', '"'); --Qu
 --There are 6 (') because each (') is escaped as ('') and each string is then wrapped in ('')
 UPDATE SeventySix_FormId SET displayName = replace(displayName, '''''', ''''); --Single quotes needed escaping as 2x singles for the initial import to work, but can now be replaced
 
-UPDATE SeventySix_Interior SET cellDisplayName = replace(cellDisplayName, ':COMMA:', ',');
-UPDATE SeventySix_Interior SET cellDisplayName = replace(cellDisplayName, '\"', '"');
-UPDATE SeventySix_Interior SET cellDisplayName = replace(cellDisplayName, '''''', '''');
+UPDATE SeventySix_Cell SET cellDisplayName = replace(cellDisplayName, ':COMMA:', ',');
+UPDATE SeventySix_Cell SET cellDisplayName = replace(cellDisplayName, '\"', '"');
+UPDATE SeventySix_Cell SET cellDisplayName = replace(cellDisplayName, '''''', '''');

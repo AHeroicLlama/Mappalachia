@@ -15,7 +15,7 @@ It carries out several key steps;
 
 ## How to use the Preprocessor
 You simply need to build and run the preprocessor exe. There are no arguments or inputs required. The preprocessor assumes you have run the export scripts and have left the outputted CSVs where they were exported to.<br/>
-Much like the export scripts, once complete the preprocessor will generate a new folder, `\Preprocessor\Output\` which contains 5 preprocessed CSVs.<br/>
+Much like the export scripts, once complete the preprocessor will generate a new folder, `\Preprocessor\Output\` which contains 6 preprocessed CSVs.<br/>
 Please note: The preprocessor is intentionally configured to be built as a 64-bit application. This is done to ensure it can allocate enough memory, should the CSVs it processes become large enough.<br/>
 If any issues arise (most likely due to failing validation, after a new game update changes something), they will be reported to the console via a raised Exception.
 

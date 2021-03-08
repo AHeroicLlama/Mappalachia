@@ -13,3 +13,7 @@ DELETE FROM SeventySix_NPCSpawn WHERE (
 	locationFormID NOT IN (SELECT locationFormID FROM SeventySix_Worldspace) AND
 	locationFormID NOT IN (SELECT locationFormID FROM SeventySix_Interior)
 );
+
+DELETE FROM SeventySix_Cell WHERE (
+	cellFormID NOT IN (SELECT cellFormID FROM SeventySix_Interior)
+);

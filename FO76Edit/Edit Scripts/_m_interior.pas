@@ -22,7 +22,7 @@ unit _m_interior;
 		cellFormID, cellEditorID, cellDisplayName : String;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('referenceFormID,cellFormID,cellEditorID,cellDisplayName,locationFormID,lockLevel');//Write CSV column headers
+		outputStrings.add('referenceFormID,cellFormID,locationFormID,lockLevel');//Write CSV column headers
 
 		category := GroupBySignature(targetESM, 'CELL');
 		for j := 0 to ElementCount(category) -1 do begin //Iterate over every block within the Cell category
@@ -71,8 +71,6 @@ unit _m_interior;
 			outputStrings.Add(
 				sanitize(displayName) + ',' +
 				cellFormID + ',' +
-				cellEditorID + ',' +
-				cellDisplayName + ',' +
 				sanitize(GetEditValue(ElementBySignature(item, 'XLCN'))) + ',' +
 				GetEditValue(ElementByName(ElementBySignature(item, 'XLOC'), 'Level'))
 			);

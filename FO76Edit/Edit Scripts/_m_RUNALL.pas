@@ -2,6 +2,7 @@
 unit Mappalachia;
 
 uses
+	_m_cell,
 	_m_componentQuantity,
 	_m_formID,
 	_m_interior,
@@ -19,6 +20,9 @@ uses
 
 		AddMessage('Now running _m_location...');
 		_m_location.initialize();
+
+		AddMessage('Now running _m_cell...');
+		_m_cell.initialize();
 
 		AddMessage('Now running _m_formId...');
 		_m_formID.initialize();

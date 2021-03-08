@@ -23,6 +23,7 @@ namespace Mappalachia
 					new Task(() => ProcessSpatialFile("SeventySix_Worldspace.csv")),
 					new Task(() => ProcessSpatialFile("SeventySix_Interior.csv")),
 					new Task(() => ProcessBasicFile("SeventySix_FormID.csv")),
+					new Task(() => ProcessBasicFile("SeventySix_Cell.csv")),
 					new Task(() => GenerateNPCSpawnFile()),
 					new Task(() => GenerateQuantifiedJunkScrapFile()),
 				};

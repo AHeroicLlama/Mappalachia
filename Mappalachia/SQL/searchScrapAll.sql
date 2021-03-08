@@ -16,6 +16,7 @@ FROM
 	SELECT referenceFormID, component, componentQuantity*COUNT(*) AS magnitude, cellDisplayName, cellEditorID
 	FROM SeventySix_Interior
 	INNER JOIN SeventySix_Quantified_Scrap ON junkFormID = referenceFormID
+	INNER JOIN SeventySix_Cell ON SeventySix_Cell.cellFormID = SeventySix_Interior.cellFormID
 	WHERE component = $searchTerm
 	GROUP BY referenceFormID, cellDisplayName
 )

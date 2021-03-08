@@ -104,5 +104,7 @@ SELECT npc, class, AVG(chance), COUNT(*) FROM SeventySix_NPCSpawn
 GROUP BY npc, class;
 
 SELECT '==Internal cells list + entity count==';
-SELECT  cellEditorID, cellDisplayName, count(*) FROM SeventySix_Interior
-GROUP BY cellEditorID;
+SELECT cellEditorID, cellDisplayName, count(*) FROM SeventySix_Interior
+INNER JOIN SeventySix_Cell ON SeventySix_Cell.cellFormID = SeventySix_Interior.cellFormID
+GROUP BY SeventySix_Interior.cellFormID
+ORDER BY cellEditorID;
