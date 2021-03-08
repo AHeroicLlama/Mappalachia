@@ -11,7 +11,7 @@ By navigating to Map > Grayscale, you can toggle the underlying map image to be 
 ## Layers
 Under Map > Layer you can toggle on or off any of 3 optional layers for the underlying map image;
 * Military will change the map to the version you see on the nuke targeting computer.
-* NW Flatwoods will add the Nuclear Winter flatwoods map on top of the normal map.
+* NW Flatwoods will add the Nuclear Winter Flatwoods map on top of the normal map.
 * NW Morgantown will add the Nuclear Winter Morgantown map on top of the normal map.
 
 ## Clear & Reset

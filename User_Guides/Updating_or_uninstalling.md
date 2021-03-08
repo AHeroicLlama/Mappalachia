@@ -9,7 +9,7 @@ If you are using an older version of Mappalachia, you will need to manually visi
 Your current Mappalachia version is listed under Help > About.
 
 ### Installing updates
-If you want to update to a newer version, you simply need to downalod and then unzip the new release into the folder containing your current installation, making sure to overwrite all files. You will also need to close Mappalachia before overwriting.
+If you want to update to a newer version, you simply need to download and then unzip the new release into the folder containing your current installation, making sure to overwrite all files. You will also need to close Mappalachia before overwriting.
 
 ## Uninstalling Mappalachia
 Mappalachia doesn't need uninstalling - you may simply delete the folder which you extracted Mappalachia to, and it will be gone without a trace.<br/>
