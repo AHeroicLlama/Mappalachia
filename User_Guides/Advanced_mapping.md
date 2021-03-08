@@ -27,7 +27,7 @@ The resolution indicates the number of grid squares which comprise the heatmap a
 ### Heatmap Color Mode
 You can change the 'Color Mode' of the heatmap by navigating to Plot Settings > Heatmap Settings > Color Mode.<br/>
 Here you can select either Mono or Duo;<br/>
-In Mono mode, every item added to the map is plotted against the same red color. You can't differentiate items from eachother but if you want to find the area with the most of *everything* on your map, or are just mapping a single type of item, this is the ideal mode.<br/>
+In Mono mode, every item added to the map is plotted against the same red color. You can't differentiate items from each other but if you want to find the area with the most of *everything* on your map, or are just mapping a single type of item, this is the ideal mode.<br/>
 In Duo mode, items are mapped in either red or blue, and areas with an equal amount of both would therefore gain a purple color. This mode is great for differentiating the varying densities of two *different* collections of items, or if you need to guarantee the presence of *both* collections in a given location.<br/>
 In Duo Mode, the color assigned is defined by the number in the 'Legend Group' column of the legend items list. You can edit this value to group items together - even numbers will be red, and odd numbers will be blue.
 

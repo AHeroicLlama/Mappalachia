@@ -398,7 +398,7 @@ namespace Mappalachia
 							volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
 							break;
 						default:
-							continue; //This *shouldn't be reached, given that supportedVolumeShapes is maintained
+							continue; //This *shouldn't* be reached, given that supportedVolumeShapes is maintained
 					}
 
 					volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
