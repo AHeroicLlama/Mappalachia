@@ -8,8 +8,6 @@ CREATE INDEX indexWorldspace ON SeventySix_Worldspace (
 CREATE INDEX indexInterior ON SeventySix_Interior (
 	referenceFormID,
 	cellFormID,
-	cellEditorID,
-	cellDisplayName,
 	locationFormID,
 	lockLevel
 );
@@ -32,4 +30,10 @@ CREATE INDEX indexQuantifiedScrap ON SeventySix_Quantified_Scrap (
 	component,
 	componentQuantity,
 	junkFormID
+);
+
+CREATE INDEX indexCell ON SeventySix_Cell (
+	cellFormID,
+	cellEditorID,
+	cellDisplayName
 );
