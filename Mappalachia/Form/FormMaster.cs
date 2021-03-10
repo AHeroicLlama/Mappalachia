@@ -16,6 +16,7 @@ namespace Mappalachia
 
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
+		static List<Cell> cells = new List<Cell>();
 
 		//Flags on if we've displayed certain warnings, so as to only show once per run
 		static bool warnedLVLINotUsed = false;
@@ -40,6 +41,7 @@ namespace Mappalachia
 			PopulateLockTypeFilterList();
 			PopulateVariableNPCSpawnList();
 			PopulateScrapList();
+			PopulateCellList();
 			ProvideSearchHint();
 
 			//Auto-select text box text and use search button with enter
@@ -68,6 +70,7 @@ namespace Mappalachia
 			UpdateSearchInterior();
 			UpdateShowFormID();
 			UpdateSpawnChance();
+			UpdateMapMode();
 
 			Map.SetOutput(pictureBoxMapPreview);
 
@@ -176,6 +179,17 @@ namespace Mappalachia
 			}
 
 			listBoxScrap.SelectedIndex = 0;
+		}
+
+		//Populate the Cell combo box (only visible in Cell mode) with all cells
+		void PopulateCellList()
+		{
+			cells = DataHelper.GetAllCells();
+			foreach (Cell cell in cells)
+			{
+				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
+			}
+			comboBoxCell.SelectedIndex = 0;
 		}
 
 		//Fill the search box with a suggested search term.
@@ -375,6 +389,64 @@ namespace Mappalachia
 		void UpdateSpawnChance()
 		{
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
+		}
+
+		//Update the map mode features in the UI with the current map mode in settings
+		void UpdateMapMode()
+		{
+			switch(SettingsMap.mode)
+			{
+				//Switched to Normal mode
+				case SettingsMap.Mode.Normal:
+					switchModeMenuItem.Text = "Switch to Cell mode";
+					interiorSearchMenuItem.Enabled = true;
+					layerMenuItem.Enabled = true;
+					brightnessMenuItem.Enabled = true;
+					grayscaleMenuItem.Enabled = true;
+
+					comboBoxCell.Visible = false;
+					break;
+
+				//Switched back to Cell mode
+				case SettingsMap.Mode.Cell:
+					switchModeMenuItem.Text = "Switch to Normal mode";
+					interiorSearchMenuItem.Enabled = false;
+					layerMenuItem.Enabled = false;
+					brightnessMenuItem.Enabled = false;
+					grayscaleMenuItem.Enabled = false;
+
+					comboBoxCell.Visible = true;
+					break;
+			}
+			
+		}
+
+		//Toggle the Map Mode between normal and cell
+		void ToggleMapMode()
+		{
+			switch (SettingsMap.mode)
+			{
+				case SettingsMap.Mode.Normal:
+					DialogResult question = MessageBox.Show("Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
+						"It provides in-depth mapping for individual cells only. You cannot search for or map items in the outside world, nor across multiple cells.\n" +
+						"There are no background images for internal cells and items must be mapped onto a plain grid.\n" +
+						"Switching to Cell mode may change certain settings which are not applicable otherwise.\n" +
+						"If you want to search generally for items in cells, you should enable Search Settings > Search Interiors.\n\n" +
+						"Switch to Cell mode?",
+						"Switch to Cell mode?", MessageBoxButtons.YesNo);
+
+					if (question == DialogResult.Yes)
+					{
+						SettingsMap.mode = SettingsMap.Mode.Cell;
+						UpdateMapMode();
+					}
+
+					break;
+				case SettingsMap.Mode.Cell:
+					SettingsMap.mode = SettingsMap.Mode.Normal;
+					UpdateMapMode();
+					break;
+			}			
 		}
 
 		//Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -595,6 +667,12 @@ namespace Mappalachia
 		{
 			SettingsMap.layerNWMorgantown = !SettingsMap.layerNWMorgantown;
 			UpdateMapLayerSettings(true);
+		}
+
+		//Map > Advanced Mode > Switch Mode
+		private void Map_SwitchMode(object sender, EventArgs e)
+		{
+			ToggleMapMode();
 		}
 
 		//Map > Brightness... - Open the brightness adjust form

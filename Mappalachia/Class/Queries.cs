@@ -47,6 +47,14 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
+		//Exceute a query to get all the cells from Cell table
+		public static SqliteDataReader ExecuteQueryCells()
+		{
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = Properties.Resources.getCells;
+			return query.ExecuteReader();
+		}
+
 		//Exceute the basic search query to search the worldspace and/or interiors
 		public static SqliteDataReader ExecuteQuerySimpleSearch(bool searchInterior, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{

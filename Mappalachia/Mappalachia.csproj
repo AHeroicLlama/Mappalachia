@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Cell.cs" />
     <Compile Include="Class\HeatMapGridSquare.cs" />
     <Compile Include="Class\ImageTools.cs" />
     <Compile Include="Class\MapDataPoint.cs" />
@@ -180,6 +181,7 @@
     <None Include="SQL\getCoordsSimple.sql" />
     <None Include="SQL\getCoordsScrap.sql" />
     <None Include="SQL\getCoordsNPC.sql" />
+    <None Include="SQL\getCells.sql" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />

@@ -307,6 +307,19 @@ namespace Mappalachia
 			return scrapTypes;
 		}
 
+		//Returns a list of all cells in the database, as Cell objects
+		public static List<Cell> GetAllCells()
+		{
+			List<Cell> cells = new List<Cell>();
+			SqliteDataReader reader = Queries.ExecuteQueryCells();
+			while (reader.Read())
+			{
+				cells.Add(new Cell(reader.GetString(0), reader.GetString(1), reader.GetString(2)));
+			}
+
+			return cells;
+		}
+
 		//Indicate the spawn chance of a simple item based on understandings of LVLI
 		public static double GetSpawnChance(string signature, string editorID)
 		{

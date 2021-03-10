@@ -36,6 +36,8 @@ namespace Mappalachia
 			this.menuStripMain = new System.Windows.Forms.MenuStrip();
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.advancedModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.switchModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerMilitaryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerNWFlatwoodsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,6 +105,7 @@ namespace Mappalachia
 			this.labelSearchResults = new System.Windows.Forms.Label();
 			this.tabControlSimpleNPCJunk = new System.Windows.Forms.TabControl();
 			this.tabPageSimple = new System.Windows.Forms.TabPage();
+			this.comboBoxCell = new System.Windows.Forms.ComboBox();
 			this.groupBoxFilterByLockLevel = new System.Windows.Forms.GroupBox();
 			this.groupBoxFilterByCategory = new System.Windows.Forms.GroupBox();
 			this.tabPageNpcSearch = new System.Windows.Forms.TabPage();
@@ -148,6 +151,7 @@ namespace Mappalachia
 			// 
 			this.mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewMenuItem,
+            this.advancedModeMenuItem,
             this.layerMenuItem,
             this.brightnessMenuItem,
             this.grayscaleMenuItem,
@@ -165,6 +169,21 @@ namespace Mappalachia
 			this.viewMenuItem.Text = "View...";
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
+			// 
+			// advancedModeMenuItem
+			// 
+			this.advancedModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.switchModeMenuItem});
+			this.advancedModeMenuItem.Name = "advancedModeMenuItem";
+			this.advancedModeMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.advancedModeMenuItem.Text = "Advanced Mode";
+			// 
+			// switchModeMenuItem
+			// 
+			this.switchModeMenuItem.Name = "switchModeMenuItem";
+			this.switchModeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.switchModeMenuItem.Text = "Switch to Cell mode";
+			this.switchModeMenuItem.Click += new System.EventHandler(this.Map_SwitchMode);
 			// 
 			// layerMenuItem
 			// 
@@ -837,6 +856,7 @@ namespace Mappalachia
 			// 
 			this.tabPageSimple.AutoScroll = true;
 			this.tabPageSimple.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.tabPageSimple.Controls.Add(this.comboBoxCell);
 			this.tabPageSimple.Controls.Add(this.groupBoxFilterByLockLevel);
 			this.tabPageSimple.Controls.Add(this.groupBoxFilterByCategory);
 			this.tabPageSimple.Controls.Add(this.buttonSearch);
@@ -847,6 +867,14 @@ namespace Mappalachia
 			this.tabPageSimple.Size = new System.Drawing.Size(790, 221);
 			this.tabPageSimple.TabIndex = 0;
 			this.tabPageSimple.Text = "Simple Search";
+			// 
+			// comboBoxCell
+			// 
+			this.comboBoxCell.FormattingEnabled = true;
+			this.comboBoxCell.Location = new System.Drawing.Point(469, 6);
+			this.comboBoxCell.Name = "comboBoxCell";
+			this.comboBoxCell.Size = new System.Drawing.Size(315, 21);
+			this.comboBoxCell.TabIndex = 4;
 			// 
 			// groupBoxFilterByLockLevel
 			// 
@@ -1101,6 +1129,9 @@ namespace Mappalachia
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocation;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocationID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
+		private System.Windows.Forms.ToolStripMenuItem advancedModeMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem switchModeMenuItem;
+		private System.Windows.Forms.ComboBox comboBoxCell;
 	}
 }
 
