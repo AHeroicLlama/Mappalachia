@@ -3,6 +3,14 @@
 	//Settings for the map image
 	class SettingsMap
 	{
+		public enum Mode
+		{
+			Normal,
+			Cell
+		}
+
+		public static Mode mode = Mode.Normal; 
+
 		//Min/maxes - these control the min/maxes on the form
 		public static readonly int brightnessMin = 5;
 		public static readonly int brightnessMax = 300;
