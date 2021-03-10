@@ -50,7 +50,7 @@ namespace Mappalachia
 			return
 				type == Type.Simple &&
 				lockableTypes.Contains(signature) &&
-				!filteredLockTypes.SequenceEqual(DataHelper.GetPermittedLockTypes());
+				!filteredLockTypes.OrderBy(e => e).SequenceEqual(DataHelper.GetPermittedLockTypes());
 		}
 
 		//Get the image-scaled coordinate points for all instances of this MapItem
@@ -103,7 +103,7 @@ namespace Mappalachia
 			switch (mapItem.type)
 			{
 				case Type.Simple:
-					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.filteredLockTypes.SequenceEqual(filteredLockTypes);
+					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.filteredLockTypes.OrderBy(e => e).SequenceEqual(filteredLockTypes);
 				case Type.NPC:
 					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.weight == weight;
 				case Type.Scrap:
