@@ -151,6 +151,7 @@ namespace Mappalachia
 
 				case "x":
 				case "y":
+				case "z":
 					//Coordinate cells must be exactly integers
 					if (!int.TryParse(data, out _))
 					{
