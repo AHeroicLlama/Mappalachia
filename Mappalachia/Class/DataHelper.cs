@@ -326,6 +326,53 @@ namespace Mappalachia
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
 
+		//Performs similar functionality to standard simple search but constrained to a specific cell, denoted by cellFormID
+		public static List<MapItem> SearchSimpleCell(string searchTerm, string cellFormID, List<string> allowedSignatures, List<string> allowedLockTypes)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				//Grab the display name and editor ID of the given cellFormID
+				SqliteDataReader cellInfo = Queries.ExecuteQueryCellName(cellFormID);
+				cellInfo.Read();
+				string cellEditorID = cellInfo.GetString(0);
+				string cellDisplayName = cellInfo.GetString(1);
+
+				//Run the standard simple search but for interiors and uniquely against the cellFormID
+				using (SqliteDataReader reader = Queries.ExecuteQuerySimpleSearchCell(cellFormID, searchTerm, allowedSignatures, allowedLockTypes))
+				{
+					while (reader.Read())
+					{
+						string signature = reader.GetString(2);
+						string editorID = reader.GetString(1);
+
+						results.Add(new MapItem(
+							Type.Simple,
+							reader.GetString(5), //FormID
+							editorID, //Editor ID
+							reader.GetString(0), //Display Name
+							signature, //Signature
+							allowedLockTypes, //The Lock Types filtered for this set of items.
+							GetSpawnChance(signature, editorID), //Spawn chance
+							reader.GetInt32(3), //Count
+							cellDisplayName, //Cell Display Name/location
+							cellEditorID)); //Cell EditorID
+					}
+				}
+
+				return results;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
 		//Conducts the simple search and returns the found items
 		public static List<MapItem> SearchSimple(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
@@ -485,6 +532,34 @@ namespace Mappalachia
 
 				return new List<MapItem>();
 			}
+		}
+
+
+
+		//Return the coordinate locations and boundaries of instances of a FormID of an interior cell with given cellFormID
+		public static List<MapDataPoint> GetCellCoords(string formID, string cellFormID, List<string> filteredLockTypes)
+		{
+			List<MapDataPoint> coordinates = new List<MapDataPoint>();
+
+			using (SqliteDataReader reader = Queries.ExecuteQueryFindCoordinatesCell(formID, cellFormID, filteredLockTypes))
+			{
+				while (reader.Read())
+				{
+					string primitiveShape = reader.GetString(2);
+
+					//Identify if this item has a primitive shape and use the appropriate constructor
+					if (primitiveShape == string.Empty)
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d));
+					}
+					else
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5)));
+					}
+				}
+			}
+
+			return coordinates;
 		}
 
 		//Return the coordinate locations and boundaries of instances of a FormID

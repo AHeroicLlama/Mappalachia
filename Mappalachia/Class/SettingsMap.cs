@@ -9,7 +9,7 @@
 			Cell
 		}
 
-		public static Mode mode = Mode.Normal; 
+		public static Mode mode = Mode.Cell; 
 
 		//Min/maxes - these control the min/maxes on the form
 		public static readonly int brightnessMin = 5;

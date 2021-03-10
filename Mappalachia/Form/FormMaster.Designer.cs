@@ -870,11 +870,13 @@ namespace Mappalachia
 			// 
 			// comboBoxCell
 			// 
+			this.comboBoxCell.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxCell.FormattingEnabled = true;
 			this.comboBoxCell.Location = new System.Drawing.Point(469, 6);
 			this.comboBoxCell.Name = "comboBoxCell";
 			this.comboBoxCell.Size = new System.Drawing.Size(315, 21);
 			this.comboBoxCell.TabIndex = 4;
+			this.comboBoxCell.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCell_SelectedIndexChanged);
 			// 
 			// groupBoxFilterByLockLevel
 			// 

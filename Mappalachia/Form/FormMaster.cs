@@ -16,7 +16,8 @@ namespace Mappalachia
 
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
-		static List<Cell> cells = new List<Cell>();
+		static readonly List<Cell> cells = DataHelper.GetAllCells();
+		public static string currentlySelectedFormID; //Hold the Cell FormID of the currently select cell in comboBoxCells. Based on the list of Cell above.
 
 		//Flags on if we've displayed certain warnings, so as to only show once per run
 		static bool warnedLVLINotUsed = false;
@@ -184,7 +185,6 @@ namespace Mappalachia
 		//Populate the Cell combo box (only visible in Cell mode) with all cells
 		void PopulateCellList()
 		{
-			cells = DataHelper.GetAllCells();
 			foreach (Cell cell in cells)
 			{
 				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
@@ -223,7 +223,7 @@ namespace Mappalachia
 		//Update the visibility of the search results location column, given current settings
 		void UpdateLocationColumnVisibility()
 		{
-			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior;
+			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior || SettingsMap.mode == SettingsMap.Mode.Cell;
 		}
 
 		//Update the visiblity of the lock type column in the results view, given current settings
@@ -392,33 +392,41 @@ namespace Mappalachia
 		}
 
 		//Update the map mode features in the UI with the current map mode in settings
+		//May be called at startup to intialise, or after the user switches modes
 		void UpdateMapMode()
 		{
 			switch(SettingsMap.mode)
 			{
-				//Switched to Normal mode
+				//Switched back Normal mode
 				case SettingsMap.Mode.Normal:
 					switchModeMenuItem.Text = "Switch to Cell mode";
 					interiorSearchMenuItem.Enabled = true;
 					layerMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
-
+					tabControlSimpleNPCJunk.TabPages.Add(tabPageNpcSearch);
+					tabControlSimpleNPCJunk.TabPages.Add(tabPageScrapSearch);
+					
 					comboBoxCell.Visible = false;
 					break;
 
-				//Switched back to Cell mode
+				//Switched to Cell mode
 				case SettingsMap.Mode.Cell:
 					switchModeMenuItem.Text = "Switch to Normal mode";
 					interiorSearchMenuItem.Enabled = false;
 					layerMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
+					tabControlSimpleNPCJunk.TabPages.Remove(tabPageNpcSearch);
+					tabControlSimpleNPCJunk.TabPages.Remove(tabPageScrapSearch);
 
+					textBoxSearch.Text = string.Empty;
+					tabControlSimpleNPCJunk.SelectedTab = tabPageSimple;
 					comboBoxCell.Visible = true;
 					break;
 			}
-			
+
+			UpdateLocationColumnVisibility();
 		}
 
 		//Toggle the Map Mode between normal and cell
@@ -438,12 +446,20 @@ namespace Mappalachia
 					if (question == DialogResult.Yes)
 					{
 						SettingsMap.mode = SettingsMap.Mode.Cell;
+						ClearSearchResults();
+						ClearLegend();
+						Map.Reset();
+
 						UpdateMapMode();
 					}
 
 					break;
 				case SettingsMap.Mode.Cell:
 					SettingsMap.mode = SettingsMap.Mode.Normal;
+					ClearSearchResults();
+					ClearLegend();
+					Map.Reset();
+
 					UpdateMapMode();
 					break;
 			}			
@@ -530,6 +546,13 @@ namespace Mappalachia
 			}
 		}
 
+		//Totally clears all search results
+		void ClearSearchResults()
+		{
+			searchResults = new List<MapItem>();
+			UpdateSearchResultsGrid();
+		}
+
 		//Wipe and re-populate the search results UI element with the items in "List<MapItem> searchResults"
 		void UpdateSearchResultsGrid()
 		{
@@ -548,7 +571,7 @@ namespace Mappalachia
 					mapItem.weight == -1 ? "Unknown" : mapItem.weight.ToString(),
 					mapItem.count,
 					mapItem.location,
-					mapItem.locationID,
+					mapItem.locationEditorID,
 					index); //Index helps relate the UI row to the List<MapItem>, even if the UI is sorted
 
 				index++;
@@ -841,6 +864,15 @@ namespace Mappalachia
 			Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
 
+		//In Cell mode, the current items in search results and legend are inherently connected to the cellFormID.
+		//This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
+		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			ClearSearchResults();
+			ClearLegend();
+			currentlySelectedFormID = cells[comboBoxCell.SelectedIndex].formID;
+		}
+
 		//Signature select all
 		void ButtonSelectAllSignature(object sender, EventArgs e)
 		{
@@ -888,7 +920,15 @@ namespace Mappalachia
 			searchResults.Clear();
 
 			//Execute the search
-			searchResults = DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+			switch(SettingsMap.mode)
+			{
+				case SettingsMap.Mode.Normal:
+					searchResults = DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+					break;
+				case SettingsMap.Mode.Cell:
+					searchResults = DataHelper.SearchSimpleCell(textBoxSearch.Text, currentlySelectedFormID, GetEnabledSignatures(), GetEnabledLockTypes());
+					break;
+			}
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
@@ -938,7 +978,7 @@ namespace Mappalachia
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				//Warn if a selected item is not valid - otherwise add it.
-				if (selectedItem.location != "Appalachia" || legendItems.Contains(selectedItem))
+				if ((selectedItem.location != "Appalachia" && SettingsMap.mode != SettingsMap.Mode.Cell) || legendItems.Contains(selectedItem))
 				{
 					rejectedItems.Add(selectedItem.editorID);
 				}
@@ -963,7 +1003,7 @@ namespace Mappalachia
 
 				Notify.Info(
 					"The following items were not added to the legend because they already existed on the legend, " +
-					"or they were items from an interior cell.\n\n" +
+					"or they cannot be mapped.\n\n" +
 					string.Join("\n", rejectedItems.Take(maxItemsToShow)) +
 					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty)); //Add a line to say that a further x items (not shown) were not added
 			}
