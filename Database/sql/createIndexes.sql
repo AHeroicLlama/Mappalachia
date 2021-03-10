@@ -9,7 +9,8 @@ CREATE INDEX indexInterior ON SeventySix_Interior (
 	referenceFormID,
 	cellFormID,
 	locationFormID,
-	lockLevel
+	lockLevel,
+	spawnClass
 );
 
 CREATE INDEX indexFormId ON SeventySix_FormId (
