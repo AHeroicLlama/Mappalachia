@@ -27,7 +27,7 @@ namespace Mappalachia
 		public readonly double weight; //The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
 		public readonly int count; //How many of this item did we find.
 		public readonly string location; //Display Name of the location where was this item placed.
-		public readonly string locationID; //EditorID of the location
+		public readonly string locationEditorID; //EditorID of the location
 		public int legendGroup; //User-definable grouping value
 
 		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string location, string locationID)
@@ -41,7 +41,7 @@ namespace Mappalachia
 			this.weight = weight;
 			this.count = count;
 			this.location = location;
-			this.locationID = locationID;
+			this.locationEditorID = locationID;
 		}
 
 		//The lock type is relevant only if it's a 'simple', lockable item with modified/filtered lock types.
@@ -59,7 +59,9 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Simple:
-					return DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
+					return SettingsMap.mode == SettingsMap.Mode.Cell ?
+						DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedFormID, filteredLockTypes) :
+						DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
 				case Type.NPC:
 					return DataHelper.GetNPCCoords(uniqueIdentifier, weight);
 				case Type.Scrap:

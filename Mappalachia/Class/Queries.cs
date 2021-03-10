@@ -55,6 +55,34 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
+		//Exceute a query to get the editorID and displayName of a given cellFormID
+		public static SqliteDataReader ExecuteQueryCellName(string cellFormID)
+		{
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = Properties.Resources.getCellByID;
+			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+			return query.ExecuteReader();
+		}
+
+		//Executes just like a simple search but constrained to a given cellFormID
+		public static SqliteDataReader ExecuteQuerySimpleSearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
+		{
+			searchTerm = DataHelper.ProcessSearchString(searchTerm);
+			string queryString = Properties.Resources.searchSimpleCell;
+			SqliteCommand query = connection.CreateCommand();
+
+			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
+			queryString = queryString.Replace("$allowedSignatures", string.Join(",", filteredSignatures.Select(s => '\'' + s + '\'')));
+			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));
+
+			query.CommandText = queryString;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$searchTerm", "%" + searchTerm + "%");
+			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+
+			return query.ExecuteReader();
+		}
+
 		//Exceute the basic search query to search the worldspace and/or interiors
 		public static SqliteDataReader ExecuteQuerySimpleSearch(bool searchInterior, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
@@ -97,6 +125,26 @@ namespace Mappalachia
 
 			return query.ExecuteReader();
 		}
+
+
+		//Execute a query to find the coordinates of every instance of a given MapItem within an interior of a given cellFormID
+		public static SqliteDataReader ExecuteQueryFindCoordinatesCell(string formID, string cellFormID, List<string> filteredLockTypes)
+		{
+			SqliteCommand query = connection.CreateCommand();
+
+			string queryString = Properties.Resources.getCoordsCell;
+
+			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
+			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));
+
+			query.CommandText = queryString;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$formID", formID);
+			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+
+			return query.ExecuteReader();
+		}
+
 
 		//Execute a query to find the coordinates of every instance of a given MapItem
 		public static SqliteDataReader ExecuteQueryFindCoordinatesSimple(string formID, List<string> filteredLockTypes)
