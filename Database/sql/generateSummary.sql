@@ -51,6 +51,9 @@ SELECT AVG(boundX) FROM SeventySix_Interior;
 SELECT '==Interior average Y Bounds Width==';
 SELECT AVG(boundY) FROM SeventySix_Interior;
 
+SELECT '==Interior average Z Bounds Width==';
+SELECT AVG(boundZ) FROM SeventySix_Interior;
+
 SELECT '==Interior average Z Rotation==';
 SELECT AVG(rotZ) FROM SeventySix_Interior;
 

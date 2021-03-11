@@ -22,7 +22,7 @@ unit _m_interior;
 		cellFormID, cellEditorID, cellDisplayName : String;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('referenceFormID,cellFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,rotZ');//Write CSV column headers
+		outputStrings.add('referenceFormID,cellFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ');//Write CSV column headers
 
 		category := GroupBySignature(targetESM, 'CELL');
 		for j := 0 to ElementCount(category) -1 do begin //Iterate over every block within the Cell category
@@ -92,6 +92,7 @@ unit _m_interior;
 				primitiveShape + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Y')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
 				rotZ);
 		end;
 	end;
