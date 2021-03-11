@@ -129,9 +129,15 @@ namespace Mappalachia
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
-			//Draw the game version onto the map
+			//Draw the game version (+ optionally cell name) onto the map
 			string versionText = "Game version " + AssemblyInfo.gameVersion;
+			//Also add the cell name if in Cell mode
+			if (SettingsMap.mode == SettingsMap.Mode.Cell)
+			{
+				versionText = FormMaster.currentlySelectedCell.displayName + " (" + FormMaster.currentlySelectedCell.editorID + ")\n" + versionText;
+			}
 			Brush brushWhite = new SolidBrush(Color.White);
+			//Calculate the dimensions of the text once drawn in order to place dynamically in corner
 			SizeF versionBounds = new SizeF(mapDimension, mapDimension);
 			int versionTextHeight = (int)imageGraphic.MeasureString(versionText, font, versionBounds).Height;
 			RectangleF versionTextPosition = new RectangleF(0, mapDimension - versionTextHeight, versionBounds.Width, versionBounds.Height);
