@@ -327,20 +327,14 @@ namespace Mappalachia
 		}
 
 		//Performs similar functionality to standard simple search but constrained to a specific cell, denoted by cellFormID
-		public static List<MapItem> SearchSimpleCell(string searchTerm, string cellFormID, List<string> allowedSignatures, List<string> allowedLockTypes)
+		public static List<MapItem> SearchCell(string searchTerm, Cell cell, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				//Grab the display name and editor ID of the given cellFormID
-				SqliteDataReader cellInfo = Queries.ExecuteQueryCellName(cellFormID);
-				cellInfo.Read();
-				string cellEditorID = cellInfo.GetString(0);
-				string cellDisplayName = cellInfo.GetString(1);
-
 				//Run the standard simple search but for interiors and uniquely against the cellFormID
-				using (SqliteDataReader reader = Queries.ExecuteQuerySimpleSearchCell(cellFormID, searchTerm, allowedSignatures, allowedLockTypes))
+				using (SqliteDataReader reader = Queries.ExecuteQuerySearchCell(cell.formID, searchTerm, allowedSignatures, allowedLockTypes))
 				{
 					while (reader.Read())
 					{
@@ -356,8 +350,8 @@ namespace Mappalachia
 							allowedLockTypes, //The Lock Types filtered for this set of items.
 							GetSpawnChance(signature, editorID), //Spawn chance
 							reader.GetInt32(3), //Count
-							cellDisplayName, //Cell Display Name/location
-							cellEditorID)); //Cell EditorID
+							cell.displayName, //Cell Display Name/location
+							cell.editorID)); //Cell EditorID
 					}
 				}
 
@@ -533,8 +527,6 @@ namespace Mappalachia
 				return new List<MapItem>();
 			}
 		}
-
-
 
 		//Return the coordinate locations and boundaries of instances of a FormID of an interior cell with given cellFormID
 		public static List<MapDataPoint> GetCellCoords(string formID, string cellFormID, List<string> filteredLockTypes)

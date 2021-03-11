@@ -60,7 +60,7 @@ namespace Mappalachia
 			{
 				case Type.Simple:
 					return SettingsMap.mode == SettingsMap.Mode.Cell ?
-						DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedFormID, filteredLockTypes) :
+						DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedCell.formID, filteredLockTypes) :
 						DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
 				case Type.NPC:
 					return DataHelper.GetNPCCoords(uniqueIdentifier, weight);

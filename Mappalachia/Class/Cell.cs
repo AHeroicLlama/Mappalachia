@@ -1,7 +1,7 @@
 ﻿namespace Mappalachia.Class
 {
 	//Represents an internal cell. Used to select and differentiate cells in Cell mode
-	class Cell
+	public class Cell
 	{
 		public string formID;
 		public string editorID;
