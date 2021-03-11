@@ -117,6 +117,20 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
+		//Execute a query to find every coordinate of everything within a given cellFormID
+		public static SqliteDataReader ExecuteQueryFindAllCoordinatesCell(string cellFormID)
+		{
+			SqliteCommand query = connection.CreateCommand();
+
+			string queryString = Properties.Resources.getAllCoordsCell;
+
+			query.CommandText = queryString;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+
+			return query.ExecuteReader();
+		}
+
 		//Execute a query to find the coordinates of every instance of a given MapItem within an interior of a given cellFormID
 		public static SqliteDataReader ExecuteQueryFindCoordinatesCell(string formID, string cellFormID, List<string> filteredLockTypes)
 		{

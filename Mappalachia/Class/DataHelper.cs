@@ -528,6 +528,22 @@ namespace Mappalachia
 			}
 		}
 
+		//Gets the coordinate locations of everything within a cell, no filters
+		public static List<MapDataPoint> GetAllCellCoords(string cellFormID)
+		{
+			List<MapDataPoint> coordinates = new List<MapDataPoint>();
+
+			using (SqliteDataReader reader = Queries.ExecuteQueryFindAllCoordinatesCell(cellFormID))
+			{
+				while (reader.Read())
+				{
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2)));
+				}
+			}
+
+			return coordinates;
+		}
+
 		//Return the coordinate locations and boundaries of instances of a FormID of an interior cell with given cellFormID
 		public static List<MapDataPoint> GetCellCoords(string formID, string cellFormID, List<string> filteredLockTypes)
 		{

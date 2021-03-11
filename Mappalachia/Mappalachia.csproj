@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\getAllCoordsCell.sql" />
     <None Include="SQL\getCoordsCell.sql" />
     <None Include="SQL\getCellByID.sql" />
     <None Include="SQL\searchSimpleCell.sql" />

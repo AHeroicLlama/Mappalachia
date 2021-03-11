@@ -22,6 +22,7 @@ namespace Mappalachia
 		static readonly string databaseFileName = "mappalachia.db";
 		static readonly string imgFileNameMapNormal = "map_normal.jpg";
 		static readonly string imgFileNameMapMilitary = "map_military.jpg";
+		static readonly string imgFileNameMapCellTemplate = "map_cellTemplate.jpg";
 		static readonly string imgFileNameLayerNWFlatwoods = "map_overlay_nw_flatwoods.png";
 		static readonly string imgFileNameLayerNWMorgantown = "map_overlay_nw_morgantown.png";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
@@ -34,6 +35,7 @@ namespace Mappalachia
 
 		static Image imageMapNormal;
 		static Image imageMapMilitary;
+		static Image imageCellTemplate;
 		static Image imageLayerNWFlatwoods;
 		static Image imageLayerNWMorgantown;
 
@@ -220,6 +222,18 @@ namespace Mappalachia
 
 		public static Image GetImageMapMilitary()
 		{
+			if (imageMapMilitary == null)
+			{
+				imageMapMilitary = LoadImageFromFile(imgFolder + imgFileNameMapMilitary);
+			}
+
+			return (Image)imageMapMilitary.Clone();
+		}
+
+		public static Image GetImageMapCellTemplate()
+		{
+			return new Bitmap(Map.mapDimension, Map.mapDimension);
+
 			if (imageMapMilitary == null)
 			{
 				imageMapMilitary = LoadImageFromFile(imgFolder + imgFileNameMapMilitary);

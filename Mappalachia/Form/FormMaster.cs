@@ -405,6 +405,7 @@ namespace Mappalachia
 					layerMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
+					drawVolumesMenuItem.Enabled = true;
 					tabControlSimpleNPCJunk.TabPages.Add(tabPageNpcSearch);
 					tabControlSimpleNPCJunk.TabPages.Add(tabPageScrapSearch);
 					
@@ -418,6 +419,7 @@ namespace Mappalachia
 					layerMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
+					drawVolumesMenuItem.Enabled = false;
 					tabControlSimpleNPCJunk.TabPages.Remove(tabPageNpcSearch);
 					tabControlSimpleNPCJunk.TabPages.Remove(tabPageScrapSearch);
 
