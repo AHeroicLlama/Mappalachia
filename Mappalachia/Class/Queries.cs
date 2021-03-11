@@ -55,20 +55,11 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		//Exceute a query to get the editorID and displayName of a given cellFormID
-		public static SqliteDataReader ExecuteQueryCellName(string cellFormID)
-		{
-			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = Properties.Resources.getCellByID;
-			query.Parameters.AddWithValue("$cellFormID", cellFormID);
-			return query.ExecuteReader();
-		}
-
 		//Executes just like a simple search but constrained to a given cellFormID
-		public static SqliteDataReader ExecuteQuerySimpleSearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
+		public static SqliteDataReader ExecuteQuerySearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
-			string queryString = Properties.Resources.searchSimpleCell;
+			string queryString = Properties.Resources.searchCell;
 			SqliteCommand query = connection.CreateCommand();
 
 			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
@@ -126,7 +117,6 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-
 		//Execute a query to find the coordinates of every instance of a given MapItem within an interior of a given cellFormID
 		public static SqliteDataReader ExecuteQueryFindCoordinatesCell(string formID, string cellFormID, List<string> filteredLockTypes)
 		{
@@ -144,7 +134,6 @@ namespace Mappalachia
 
 			return query.ExecuteReader();
 		}
-
 
 		//Execute a query to find the coordinates of every instance of a given MapItem
 		public static SqliteDataReader ExecuteQueryFindCoordinatesSimple(string formID, List<string> filteredLockTypes)

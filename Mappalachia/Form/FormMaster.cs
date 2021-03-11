@@ -16,8 +16,9 @@ namespace Mappalachia
 
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
+
 		static readonly List<Cell> cells = DataHelper.GetAllCells();
-		public static string currentlySelectedFormID; //Hold the Cell FormID of the currently select cell in comboBoxCells. Based on the list of Cell above.
+		public static Cell currentlySelectedCell; //Holds the currently select Cell in comboBoxCells. Based on the list of Cell above.
 
 		//Flags on if we've displayed certain warnings, so as to only show once per run
 		static bool warnedLVLINotUsed = false;
@@ -504,8 +505,6 @@ namespace Mappalachia
 			return lockTypes;
 		}
 
-
-
 		//Warn the user if they appear to be trying to search for something that might actually be in a LVLI, but they have unselected it
 		void WarnWhenLVLINotSelected()
 		{
@@ -870,7 +869,7 @@ namespace Mappalachia
 		{
 			ClearSearchResults();
 			ClearLegend();
-			currentlySelectedFormID = cells[comboBoxCell.SelectedIndex].formID;
+			currentlySelectedCell = cells[comboBoxCell.SelectedIndex];
 		}
 
 		//Signature select all
@@ -926,7 +925,7 @@ namespace Mappalachia
 					searchResults = DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 					break;
 				case SettingsMap.Mode.Cell:
-					searchResults = DataHelper.SearchSimpleCell(textBoxSearch.Text, currentlySelectedFormID, GetEnabledSignatures(), GetEnabledLockTypes());
+					searchResults = DataHelper.SearchCell(textBoxSearch.Text, currentlySelectedCell, GetEnabledSignatures(), GetEnabledLockTypes());
 					break;
 			}
 

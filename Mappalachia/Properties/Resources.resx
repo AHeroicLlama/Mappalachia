@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="getCellByID" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\getCellByID.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="getCells" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getCells.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -148,6 +145,9 @@
   <data name="getSignatures" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getSignatures.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="searchCell" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchSimpleCell.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="searchNPCAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchNPCAll.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -165,8 +165,5 @@
   </data>
   <data name="searchSimpleAppalachia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchSimpleAppalachia.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="searchSimpleCell" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchSimpleCell.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>
