@@ -61,6 +61,18 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT x, y, z
+        ///FROM SeventySix_Interior
+        ///WHERE cellFormID = $cellFormID
+        ///.
+        /// </summary>
+        internal static string getAllCoordsCell {
+            get {
+                return ResourceManager.GetString("getAllCoordsCell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT cellFormID, cellEditorID, cellDisplayName
         ///FROM SeventySix_Cell
         ///ORDER BY cellDisplayName
@@ -73,7 +85,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, rotZ
+        ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
         ///FROM SeventySix_Interior
         ///WHERE cellFormID = $cellFormID AND referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
         ///.

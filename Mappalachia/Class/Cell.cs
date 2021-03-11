@@ -1,4 +1,6 @@
-﻿namespace Mappalachia.Class
+﻿using System.Collections.Generic;
+
+namespace Mappalachia.Class
 {
 	//Represents an internal cell. Used to select and differentiate cells in Cell mode
 	public class Cell
@@ -12,6 +14,12 @@
 			this.formID = formID;
 			this.editorID = editorID;
 			this.displayName = displayName;
+		}
+
+		//Gets every data point present in this given cell
+		public List<MapDataPoint> GetPlots()
+		{
+			return DataHelper.GetAllCellCoords(formID);
 		}
 	}
 }
