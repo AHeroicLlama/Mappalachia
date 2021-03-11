@@ -10,30 +10,33 @@ namespace Mappalachia
 		public string primitiveShape; //The name of the primitive shape which describes this item (only typically applicable to ACTI)
 		public double boundX; //The bounds of the primitiveShape
 		public double boundY;
+		public int boundZ;
 		public int rotationZ;
 
+		//Core constructor
 		public MapDataPoint(int x, int y, double weight)
 		{
 			Initialize(x, y, weight);
 		}
 
-		//Overload to include primitiveShape and bounds
+		//2D Primitive shapes
 		public MapDataPoint(int x, int y, double weight, string primitiveShape, int boundX, int boundY, int rotationZ)
 		{
 			Initialize(x, y, weight, primitiveShape, boundX, boundY, rotationZ);
 		}
 
-		//Overload to include z coord
+		//3D (Interior)
 		public MapDataPoint(int x, int y, int z, double weight)
 		{
 			this.z = z;
 			Initialize(x, y, weight);
 		}
 
-		//Overload to include BOTH primitiveShape and bounds AND z coord
-		public MapDataPoint(int x, int y, int z, double weight, string primitiveShape, int boundX, int boundY, int rotationZ)
+		//3D Primitive Shapes (Interior)
+		public MapDataPoint(int x, int y, int z, double weight, string primitiveShape, int boundX, int boundY, int boundZ, int rotationZ)
 		{
 			this.z = z;
+			this.boundZ = boundZ;
 			Initialize(x, y, weight, primitiveShape, boundX, boundY, rotationZ);
 		}
 
@@ -47,7 +50,7 @@ namespace Mappalachia
 			this.weight = weight;
 		}
 
-		//Overload to include primitiveShape and bounds
+		//2D Primitive shapes
 		void Initialize(int x, int y, double weight, string primitiveShape, int boundX, int boundY, int rotationZ)
 		{
 			//overloaded parts

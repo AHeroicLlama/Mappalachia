@@ -1,5 +1,5 @@
 ==Database checksum== 
-c2bfb38766fbc78ca8d3de82d6c2587e
+196a46e541066f39d25f1ff4c223672b
 ==Total unique items by signature==
 ACTI|1354
 ALCH|84
@@ -51,6 +51,8 @@ Sphere|2296
 83.1222565103757
 ==Interior average Y Bounds Width==
 86.4845703309507
+==Interior average Z Bounds Width==
+36.8606291526278
 ==Interior average Z Rotation==
 6.37763327770255
 ==Interior total placement count==

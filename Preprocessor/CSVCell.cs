@@ -161,6 +161,7 @@ namespace Mappalachia
 
 				case "boundX":
 				case "boundY":
+				case "boundZ":
 				case "rotZ":
 					//Boundary dimensions or rotations may be blank or otherwise integers
 					if (data != string.Empty && !int.TryParse(data, out _))
