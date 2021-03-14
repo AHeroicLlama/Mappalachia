@@ -59,7 +59,7 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Simple:
-					return SettingsMap.mode == SettingsMap.Mode.Cell ?
+					return SettingsMap.IsCellModeActive() ?
 						DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedCell.formID, filteredLockTypes) :
 						DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
 				case Type.NPC:
