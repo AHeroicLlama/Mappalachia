@@ -101,7 +101,7 @@ namespace Mappalachia
 			switch (mapItem.type)
 			{
 				case Type.Simple:
-					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.filteredLockTypes.OrderBy(e => e).SequenceEqual(filteredLockTypes);
+					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.filteredLockTypes.SequenceEqual(filteredLockTypes);
 				case Type.NPC:
 					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.weight == weight;
 				case Type.Scrap:
