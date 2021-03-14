@@ -224,7 +224,7 @@ namespace Mappalachia
 		//Update the visibility of the search results location column, given current settings
 		void UpdateLocationColumnVisibility()
 		{
-			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior || SettingsMap.mode == SettingsMap.Mode.Cell;
+			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior || SettingsMap.IsCellModeActive();
 		}
 
 		//Update the visiblity of the lock type column in the results view, given current settings
@@ -718,7 +718,7 @@ namespace Mappalachia
 		{
 			SaveFileDialog dialog = new SaveFileDialog
 			{
-				Filter = "JPEG|*.jpeg",
+				Filter = "JPEG|*.jpeg|PNG|*.png",
 				FileName = "Mappalachia Map",
 			};
 
@@ -921,15 +921,9 @@ namespace Mappalachia
 			searchResults.Clear();
 
 			//Execute the search
-			switch(SettingsMap.mode)
-			{
-				case SettingsMap.Mode.Normal:
-					searchResults = DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
-					break;
-				case SettingsMap.Mode.Cell:
-					searchResults = DataHelper.SearchCell(textBoxSearch.Text, currentlySelectedCell, GetEnabledSignatures(), GetEnabledLockTypes());
-					break;
-			}
+			searchResults = SettingsMap.IsCellModeActive() ?
+				DataHelper.SearchCell(textBoxSearch.Text, currentlySelectedCell, GetEnabledSignatures(), GetEnabledLockTypes()) : 
+				DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
@@ -979,7 +973,7 @@ namespace Mappalachia
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				//Warn if a selected item is not valid - otherwise add it.
-				if ((selectedItem.location != "Appalachia" && SettingsMap.mode != SettingsMap.Mode.Cell) || legendItems.Contains(selectedItem))
+				if ((selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive()) || legendItems.Contains(selectedItem))
 				{
 					rejectedItems.Add(selectedItem.editorID);
 				}

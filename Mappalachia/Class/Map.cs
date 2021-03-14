@@ -60,9 +60,9 @@ namespace Mappalachia
 		public static void DrawBaseLayer()
 		{
 			//Start with the chosen base map
-			if (SettingsMap.mode == SettingsMap.Mode.Cell)
+			if (SettingsMap.IsCellModeActive())
 			{
-				backgroundLayer = IOManager.GetImageMapCellTemplate();
+				backgroundLayer = new Bitmap(mapDimension, mapDimension);
 			}
 			else
 			{
@@ -142,12 +142,17 @@ namespace Mappalachia
 			string versionText = "Game version " + AssemblyInfo.gameVersion;
 
 			//Also add the cell name if in Cell mode
-			if (SettingsMap.mode == SettingsMap.Mode.Cell)
+			if (SettingsMap.IsCellModeActive())
 			{
-				//Assign the CellScaling property - also used later in GenerateIconPlotLayer()
-				cellScaling = CellScaling.GetCellScaling(FormMaster.currentlySelectedCell);
+				Cell currentCell = FormMaster.currentlySelectedCell;
 
-				versionText = FormMaster.currentlySelectedCell.displayName + " (" + FormMaster.currentlySelectedCell.editorID + ") Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n" + versionText;
+				//Assign the CellScaling property - also used later in GenerateIconPlotLayer()
+				cellScaling = CellScaling.GetCellScaling(currentCell);
+
+				versionText =
+					currentCell.displayName + " (" + currentCell.editorID + ") Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n" +
+					versionText + "\n" +
+					"Plotted with Mappalachia - github.com/aheroicllama/mappalachia";
 			}
 
 			Brush brushWhite = new SolidBrush(Color.White);
@@ -390,7 +395,7 @@ namespace Mappalachia
 
 			foreach (MapDataPoint point in mapItem.GetPlots())
 			{
-				if (SettingsMap.mode == SettingsMap.Mode.Cell)
+				if (SettingsMap.IsCellModeActive())
 				{
 					point.x += cellScaling.xOffset;
 					point.y += cellScaling.yOffset;
