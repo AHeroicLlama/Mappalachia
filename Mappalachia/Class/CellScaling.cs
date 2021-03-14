@@ -9,7 +9,7 @@ namespace Mappalachia.Class
 		public double yOffset;
 		public double scale;
 
-		static double zoomPadding = Map.legendXMin; //Number of pixels in from each side where the scaling/zooming will stop
+		static double zoomPadding = Map.legendXMax; //Number of pixels in from each side where the scaling/zooming will stop
 
 		public CellScaling(double xOffset, double yOffset, double scale)
 		{
