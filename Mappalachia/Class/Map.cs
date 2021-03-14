@@ -23,14 +23,15 @@ namespace Mappalachia
 		public static readonly int mapDimension = 4096; //All layer images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
-		static double cellModeZoomPadding = 2000; //Number of pixels in from each side where the scaling/zooming will stop
 
 		//Legend text positioning
 		static readonly int legendIconX = 141; //The X Coord of the plot icon that is drawn next to each legend string
 		static readonly int legendXMax = 650; //Number of pixels in from the left of the map image where the player cannot reach
-		static readonly int legendXMin = 220; //The padding in the from the left where legend text begins
+		public static readonly int legendXMin = 220; //The padding in the from the left where legend text begins
 		static readonly int legendWidth = legendXMax - legendXMin; //The resultant width (or length) of legend text rows in pixels
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); //Used for MeasureString to calculate legend string dimensions
+
+		static CellScaling cellScaling;
 
 		//Volume plots
 		public static readonly int volumeOpacity = 128;
@@ -128,80 +129,6 @@ namespace Mappalachia
 			Draw(); //Redraw the whole map since we updated the base layer
 		}
 
-		//Identify the extremities and 'center of mass' for plots within a set
-		//This is used to center and properly scale maps in Cell mode - as the scaling is no longer in relation to the map image
-		static (double scaleFactor, double xCenterOffset, double yCenterOffset) GetScaleAndCenter(Cell cell)
-		{
-			List<MapDataPoint> points = cell.GetPlots();
-
-			double xMax = 0;
-			double xMin = 0;
-			double yMax = 0;
-			double yMin = 0;
-
-			double xSum = 0;
-			double ySum = 0;
-
-			//Identify the maximum bounds of all coordinates here
-			bool first = true;
-			foreach (MapDataPoint point in points)
-			{
-				//This is the first plot - set all its values to the min and max
-				if (first)
-				{
-					xMax = point.x;
-					xMin = point.x;
-					yMax = point.y;
-					yMin = point.y;
-
-					first = false;
-				}
-				else
-				{
-					if (point.x > xMax)
-					{
-						xMax = point.x;
-					}
-					if (point.x < xMin)
-					{
-						xMin = point.x;
-					}
-					if (point.y > yMax)
-					{
-						yMax = point.y;
-					}
-					if (point.y < yMin)
-					{
-						yMin = point.y;
-					}
-				}
-
-				xSum += point.x;
-				ySum += point.y;
-			}
-
-			double xCenterOfMass = xSum / points.Count;
-			double yCenterOfMass = ySum / points.Count;
-
-			double xRange = Math.Abs(xMax) - Math.Abs(xMin);
-			double yRange = Math.Abs(yMax) - Math.Abs(yMin);
-			double largestWidth = Math.Max(xRange, yRange);
-
-			double bestZoomRatio = (mapDimension - cellModeZoomPadding) / largestWidth;
-
-			/*
-			MessageBox.Show(
-				"xRange" + xRange + "\n" +
-				"yRange" + yRange + "\n" +
-				"largestWidth" + largestWidth + "\n" +
-				"bestZoomRatio" + bestZoomRatio + "\n" +
-				"xCenterOfMass" + xCenterOfMass + "\n" +
-				"yCenterOfMass" + yCenterOfMass + "\n"
-				);*/
-
-			return (scaleFactor: bestZoomRatio, xCenterOffset: -(xCenterOfMass - mapDimension / 2), yCenterOffset: -(yCenterOfMass - mapDimension / 2));
-		}
-
 		//Construct the final map by drawing plots over the background layer
 		public static void Draw()
 		{
@@ -213,11 +140,16 @@ namespace Mappalachia
 
 			//Draw the game version (+ optionally cell name) onto the map
 			string versionText = "Game version " + AssemblyInfo.gameVersion;
+
 			//Also add the cell name if in Cell mode
 			if (SettingsMap.mode == SettingsMap.Mode.Cell)
 			{
-				versionText = FormMaster.currentlySelectedCell.displayName + " (" + FormMaster.currentlySelectedCell.editorID + ")\n" + versionText;
+				//Assign the CellScaling property - also used later in GenerateIconPlotLayer()
+				cellScaling = CellScaling.GetCellScaling(FormMaster.currentlySelectedCell);
+
+				versionText = FormMaster.currentlySelectedCell.displayName + " (" + FormMaster.currentlySelectedCell.editorID + ") Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n" + versionText;
 			}
+
 			Brush brushWhite = new SolidBrush(Color.White);
 			//Calculate the dimensions of the text once drawn in order to place dynamically in corner
 			SizeF versionBounds = new SizeF(mapDimension, mapDimension);
@@ -458,22 +390,16 @@ namespace Mappalachia
 			Color volumeColor = Color.FromArgb(volumeOpacity, color);
 			Brush volumeBrush = new SolidBrush(volumeColor);
 
-			//Assign the cell scaling tuple, then if this is Cell mode, pull in the scaling/offset values
-			(double, double, double) cellScaling = (1, 0, 0);
-			if (SettingsMap.mode == SettingsMap.Mode.Cell)
-			{
-				cellScaling = GetScaleAndCenter(FormMaster.currentlySelectedCell);
-			}
-
 			foreach (MapDataPoint point in mapItem.GetPlots())
 			{
 				if (SettingsMap.mode == SettingsMap.Mode.Cell)
 				{
-					point.x += cellScaling.Item2;
-					point.y += cellScaling.Item3;
-					//Apply the coordinate scaling - but 0-center the coordinates first, then re-center them on 2048
-					point.x = ((point.x - (mapDimension / 2)) * cellScaling.Item1) + (mapDimension / 2);
-					point.y = ((point.y - (mapDimension / 2)) * cellScaling.Item1) + (mapDimension / 2);
+					point.x += cellScaling.xOffset;
+					point.y += cellScaling.yOffset;
+
+					//Apply the coordinate scaling - but 0-center the coordinates first, then re-center them
+					point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+					point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
 				}
 
 				//Skip the point if it's fully outside the map image
