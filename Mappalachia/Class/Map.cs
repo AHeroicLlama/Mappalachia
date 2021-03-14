@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -26,8 +26,8 @@ namespace Mappalachia
 
 		//Legend text positioning
 		static readonly int legendIconX = 141; //The X Coord of the plot icon that is drawn next to each legend string
-		static readonly int legendXMax = 650; //Number of pixels in from the left of the map image where the player cannot reach
-		public static readonly int legendXMin = 220; //The padding in the from the left where legend text begins
+		public static readonly int legendXMax = 650; //Number of pixels in from the left of the map image where the player cannot reach
+		static readonly int legendXMin = 220; //The padding in the from the left where legend text begins
 		static readonly int legendWidth = legendXMax - legendXMin; //The resultant width (or length) of legend text rows in pixels
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); //Used for MeasureString to calculate legend string dimensions
 
