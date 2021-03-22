@@ -17,7 +17,7 @@ namespace Mappalachia
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
 
-		static readonly List<Cell> cells = DataHelper.GetAllCells();
+		static List<Cell> cells;
 		public static Cell currentlySelectedCell; //Holds the currently select Cell in comboBoxCells. Based on the list of Cell above.
 
 		//Flags on if we've displayed certain warnings, so as to only show once per run
@@ -186,6 +186,7 @@ namespace Mappalachia
 		//Populate the Cell combo box (only visible in Cell mode) with all cells
 		void PopulateCellList()
 		{
+			cells = DataHelper.GetAllCells();
 			foreach (Cell cell in cells)
 			{
 				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
