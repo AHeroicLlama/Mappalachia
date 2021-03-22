@@ -1007,6 +1007,7 @@ namespace Mappalachia
 			this.columnSearchIndex.HeaderText = "Index";
 			this.columnSearchIndex.Name = "columnSearchIndex";
 			this.columnSearchIndex.ReadOnly = true;
+			this.columnSearchIndex.Visible = false;
 			// 
 			// FormMaster
 			// 
