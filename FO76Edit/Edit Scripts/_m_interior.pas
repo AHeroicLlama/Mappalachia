@@ -71,7 +71,7 @@ unit _m_interior;
 		primitiveEntry, boundsEntry : IInterface;
 		primitiveShape, rotZ : String;
 	begin
-		if(Assigned(displayName) and shouldProcessRecord(sigFromRef(displayName))) then begin //Skip records we don't care to map or can't refer to
+		if(shouldProcessRecord(sigFromRef(displayName)) and Assigned(displayName) and Assigned(position)) then begin //Skip records we don't care to map or can't refer to
 			primitiveEntry := ElementBySignature(item, 'XPRM');
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
 			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));
