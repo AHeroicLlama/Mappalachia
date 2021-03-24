@@ -73,38 +73,6 @@ unit _m_lib;
 		else result := true;
 	end;
 
-	//Do we need/want to process this record, given its signature?
-	function shouldProcessRecord(signature: String): Boolean;
-	begin
-		//Explicitly return immediately if this is a STAT or SCOL, as they're the majority of all records and we don't need them
-			if(signature = 'STAT') then begin Exit(false) end
-		else if(signature = 'SCOL') then begin Exit(false) end
-
-		//Extract only these record types
-		else if(signature = 'LVLI') then result := true
-		else if(signature = 'FLOR') then result := true
-		else if(signature = 'MISC') then result := true
-		else if(signature = 'ACTI') then result := true
-		else if(signature = 'FURN') then result := true
-		else if(signature = 'CONT') then result := true
-		else if(signature = 'NPC_') then result := true
-		else if(signature = 'DOOR') then result := true
-		else if(signature = 'HAZD') then result := true
-		else if(signature = 'BOOK') then result := true
-		else if(signature = 'ALCH') then result := true
-		else if(signature = 'TERM') then result := true
-		else if(signature = 'NOTE') then result := true
-		else if(signature = 'WEAP') then result := true
-		else if(signature = 'ARMO') then result := true
-		else if(signature = 'AMMO') then result := true
-		else if(signature = 'TACT') then result := true
-		else if(signature = 'KEYM') then result := true
-		else if(signature = 'PROJ') then result := true
-		else if(signature = 'CNCY') then result := true
-
-		else result := false;
-	end;
-
 	//Find the signature of a referenced entity by parsing the reference
 	//EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "MISC"
 	function sigFromRef(reference: String): String;

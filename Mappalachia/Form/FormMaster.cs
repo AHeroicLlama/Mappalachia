@@ -37,6 +37,7 @@ namespace Mappalachia
 
 			//Populate UI elements
 			PopulateSignatureFilterList();
+			SelectRecommendedSignatures();
 			PopulateLockTypeFilterList();
 			PopulateVariableNPCSpawnList();
 			PopulateScrapList();
@@ -116,6 +117,16 @@ namespace Mappalachia
 				thisItem.Text = DataHelper.ConvertSignature(thisItem.Text, false);
 				thisItem.ToolTipText = DataHelper.GetSignatureDescription(signature);
 				thisItem.Checked = true;
+			}
+		}
+
+		//Selects only the recommended signature filters
+		void SelectRecommendedSignatures()
+		{
+			foreach (ListViewItem item in listViewFilterSignatures.Items)
+			{
+				//check the item if it's in the list of recommended signatures, otherwise uncheck
+				item.Checked = DataHelper.recommendedSignatures.Contains(DataHelper.ConvertSignature(item.Text, true));
 			}
 		}
 
@@ -772,6 +783,12 @@ namespace Mappalachia
 			{
 				item.Checked = true;
 			}
+		}
+
+		//Signature select recommended
+		private void ButtonSelectRecommendedSignature(object sender, EventArgs e)
+		{
+			SelectRecommendedSignatures();
 		}
 
 		//Signature deselect all

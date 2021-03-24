@@ -16,7 +16,7 @@ namespace Mappalachia
 		{
 			{ "STAT", "Environmental scenery which does not move and cannot be interacted with." },
 			{ "SCOL", "A grouped set of static objects." },
-			{ "ACTI", "Defined volume of space, invisible in-game.\n" +
+			{ "ACTI", "Defined trigger volume, invisible in-game.\n" +
 				"Activators can mark out designated areas, trigger events, or act as 'hit-boxes' for interaction." },
 			{ "LIGH", string.Empty },
 			{ "NPC_", "Non-player character." },
@@ -96,6 +96,9 @@ namespace Mappalachia
 			"BOOK",
 			"ALCH",
 			"CONT",
+			"STAT",
+			"SCOL",
+			"MSTT",
 			"FURN",
 			"NOTE",
 			"TERM",
@@ -105,20 +108,53 @@ namespace Mappalachia
 			"PROJ",
 			"CNCY",
 			"KEYM",
-			"DOOR",
-			"HAZD",
 			"ACTI",
 			"TACT",
+			"DOOR",
+			"HAZD",
 			"IDLM",
-			"STAT",
-			"SCOL",
-			"MSTT",
 			"LIGH",
 			"SOUN",
 			"SECH",
 			"ASPC",
 			"TXST",
 			"BNDS",
+		};
+
+		//Provides a list of the recommended signatures to be selected by the filter by default
+		//This helps prevent new users being flooded with less relevant or more technical results.
+		public static readonly List<string> recommendedSignatures = new List<string>
+		{
+			"LVLI",
+			"FLOR",
+			"NPC_",
+			"MISC",
+			"BOOK",
+			"ALCH",
+			"CONT",
+			/*"STAT",
+			"SCOL",
+			"MSTT",*/
+			"FURN",
+			"NOTE",
+			"TERM",
+			"ARMO",
+			"WEAP",
+			"AMMO",
+			"PROJ",
+			"CNCY",
+			"KEYM",
+			"ACTI",
+			/*"TACT",
+			"DOOR",
+			"HAZD",
+			"IDLM",
+			"LIGH",
+			"SOUN",
+			"SECH",
+			"ASPC",
+			"TXST",
+			"BNDS",*/
 		};
 
 		//Inverse the user friendly signature names so we can use the proper signatures in queries

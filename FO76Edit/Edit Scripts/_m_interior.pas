@@ -67,7 +67,7 @@ unit _m_interior;
 	const
 		displayName = DisplayName(item);
 	begin
-		if(shouldProcessRecord(sigFromRef(displayName)) and Assigned(displayName) and Assigned(position)) then begin //Skip records we don't care to map or can't refer to
+		if(Assigned(displayName)) then begin //Skip records we don't care to map or can't refer to
 			outputStrings.Add(
 				sanitize(displayName) + ',' +
 				cellFormID + ',' +
