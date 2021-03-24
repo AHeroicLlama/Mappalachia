@@ -65,7 +65,7 @@ unit _m_worldspace;
 		primitiveEntry, boundsEntry : IInterface;
 		primitiveShape, rotZ : String;
 	begin
-		if(shouldProcessRecord(sigFromRef(displayName)) and Assigned(displayName) and Assigned(position)) then begin //Skip records we don't care to map or aren't useful
+		if(Assigned(displayName) and Assigned(position)) then begin //Skip records we don't care to map or aren't useful
 			primitiveEntry := ElementBySignature(item, 'XPRM');
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
 			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));
