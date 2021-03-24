@@ -48,6 +48,12 @@ namespace Mappalachia
 		static Image finalImage;
 		static Image backgroundLayer;
 
+		//Returns the result of Pythagoras theorem on 2 integers
+		static double Pythagoras(int a, int b)
+		{
+			return Math.Sqrt((a * a) + (b * b));
+		}
+
 		//Attach the map image to the PictureBox on the master form
 		public static void SetOutput(PictureBox pictureBox)
 		{
@@ -183,8 +189,7 @@ namespace Mappalachia
 				float totalMapItems = FormMaster.legendItems.Count;
 				float progress = 0;
 
-				//Plot layers generated in serial to keep memory use reasonable
-				//Generate a layer for each legend item to be plotted, and draw it over the current image
+				//Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
 					//Calculate the height in pixels of the legend text plus icon if it were drawn
@@ -206,13 +211,65 @@ namespace Mappalachia
 					Color color = SettingsPlotIcon.paletteColor[colorIndex];
 					PlotIconShape shape = SettingsPlotIcon.paletteShape[shapeIndex];
 
-					//Draw the plot layer
-					imageGraphic.DrawImage(GenerateIconPlotLayer(mapItem, color, font, shape, legendCaretHeight, legendHeight, textOffset), 0, 0, mapDimension, mapDimension);
+					PlotIcon plotIcon = new PlotIcon(color, shape);
+					Image plotIconImg = plotIcon.GetIconImage();
 
-					legendCaretHeight += legendHeight; //Move the caret down for the next item, enough to fit the icon and the text
+					Color volumeColor = Color.FromArgb(volumeOpacity, color);
+					Brush volumeBrush = new SolidBrush(volumeColor);
 
-					GC.Collect();
-					GC.WaitForPendingFinalizers();
+					foreach (MapDataPoint point in mapItem.GetPlots())
+					{
+						//Skip the point if its origin is outside the map image
+						if (point.x < legendXMax || point.x >= mapDimension || point.y < 0 || point.y >= mapDimension)
+						{
+							continue;
+						}
+
+						//If this meets all the criteria to be suitable to be drawn as a volume
+						if (point.primitiveShape != string.Empty && //This is a primitive shape at all
+							SettingsPlot.drawVolumes && //Volume drawing is enabled
+							supportedVolumeShapes.Contains(point.primitiveShape) && //This volume shape is supported
+							point.boundX >= minVolumeDimension && point.boundY >= minVolumeDimension) //This is large enough to be visible if drawn as a volume
+						{
+							Image volumeImage = new Bitmap((int)point.boundX, (int)point.boundY);
+							Graphics volumeGraphic = Graphics.FromImage(volumeImage);
+							volumeGraphic.SmoothingMode = SmoothingMode.AntiAlias;
+
+							switch (point.primitiveShape)
+							{
+								case "Box":
+								case "Line":
+									volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
+									break;
+								case "Sphere":
+								case "Ellipsoid":
+									volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
+									break;
+								default:
+									continue; //This *shouldn't* be reached, given that supportedVolumeShapes is maintained
+							}
+
+							volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
+							imageGraphic.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
+						}
+						//This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon
+						else
+						{
+							imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
+						}
+					}
+
+					//If the legend text/item fits on the map vertically
+					//Not drawing legend text for larger maps avoids the overhead of drawing many legends outside the image
+					if (legendCaretHeight > 0 && legendCaretHeight + legendHeight < mapDimension)
+					{
+						//Draw the legend text and example icon beside it
+						Brush textBrush = new SolidBrush(plotIcon.color);
+						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
+						imageGraphic.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
+					}
+
+					legendCaretHeight += legendHeight; //Move the 'caret' down for the next item, enough to fit the icon and the text
 
 					//Increment the progress bar per MapItem
 					progress += 1;
@@ -285,9 +342,9 @@ namespace Mappalachia
 								}
 
 								//Pythagoras on the x and y dist gives us the 'as the crow flies' distance between the squares
-								double distance = Math.Sqrt(
-									Math.Pow(Math.Abs(squareX - x), 2) +
-									Math.Pow(Math.Abs(squareY - y), 2));
+								double distance = Pythagoras(squareX - x, squareY - y);
+
+								//Console.WriteLine((squareX - x) + ", " + (squareY - y));
 
 								//Weight and hence brightness is modified by 1/x^2 + 1 where x is the distance from actual item
 								double additionalWeight = point.weight * (1d / ((distance * distance) + 1));
@@ -346,81 +403,9 @@ namespace Mappalachia
 						imageGraphic.FillRectangle(brush, heatMapSquare);
 					}
 				}
-
-				GC.Collect();
-				GC.WaitForPendingFinalizers();
 			}
 
 			mapFrame.Image = finalImage;
-		}
-
-		//Generate a layer of plots for the given MapItem
-		public static Image GenerateIconPlotLayer(MapItem mapItem, Color color, Font font, PlotIconShape shape, int legendYPos, int legendHeight, int textOffset)
-		{
-			Bitmap layer = new Bitmap(mapDimension, mapDimension);
-			Graphics plotLayer = Graphics.FromImage(layer);
-			plotLayer.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-			PlotIcon plotIcon = new PlotIcon(color, shape);
-			Image plotIconImg = plotIcon.GetIconImage();
-
-			Brush textBrush = new SolidBrush(plotIcon.color);
-
-			Color volumeColor = Color.FromArgb(volumeOpacity, color);
-			Brush volumeBrush = new SolidBrush(volumeColor);
-
-			foreach (MapDataPoint point in mapItem.GetPlots())
-			{
-				//Skip the point if it's fully outside the map image
-				if (point.x < 0 || point.x >= mapDimension || point.y < 0 || point.y >= mapDimension)
-				{
-					continue;
-				}
-
-				//If this meets all the criteria to be suitable to be drawn as a volume
-				if (SettingsPlot.drawVolumes && //Volume drawing is enabled
-					supportedVolumeShapes.Contains(point.primitiveShape) && //This volume shape is supported
-					point.boundX >= minVolumeDimension && point.boundY >= minVolumeDimension) //This is large enough to be visible if drawn as a volume
-				{
-					Image volumeImage = new Bitmap((int)point.boundX, (int)point.boundY);
-					Graphics volumeGraphic = Graphics.FromImage(volumeImage);
-					volumeGraphic.SmoothingMode = SmoothingMode.AntiAlias;
-
-					switch (point.primitiveShape)
-					{
-						case "Box":
-						case "Line":
-							volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
-							break;
-						case "Sphere":
-						case "Ellipsoid":
-							volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
-							break;
-						default:
-							continue; //This *shouldn't* be reached, given that supportedVolumeShapes is maintained
-					}
-
-					volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
-					plotLayer.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
-				}
-				//This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon
-				else
-				{
-					//Skip plots that are placed outside the game world on the left/western side
-					//This prevents drawing plots over the legend text
-					if (point.x < legendXMax)
-					{
-						continue;
-					}
-
-					plotLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
-				}
-			}
-
-			plotLayer.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendYPos - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
-			plotLayer.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendYPos + textOffset, legendWidth, legendHeight));
-
-			return layer;
 		}
 
 		public static void Open()
