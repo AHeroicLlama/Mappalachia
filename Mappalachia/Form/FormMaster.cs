@@ -552,7 +552,9 @@ namespace Mappalachia
 		{
 			if (legendItems.Count > 0)
 			{
+				buttonDrawMap.Enabled = false;
 				Map.Draw();
+				buttonDrawMap.Enabled = true;
 			}
 			else
 			{
