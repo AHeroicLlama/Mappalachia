@@ -26,9 +26,12 @@ namespace Mappalachia
 
 		//Legend text positioning
 		static readonly int legendIconX = 141; //The X Coord of the plot icon that is drawn next to each legend string
-		static readonly int legendXMax = 650; //Number of pixels in from the left of the map image where the player cannot reach
+		static readonly int plotXMin = 650; //Number of pixels in from the left of the map image where the player cannot reach
+		static readonly int plotXMax = 3610;
+		static readonly int plotYMin = 508;
+		static readonly int plotYMax = 3382;
 		static readonly int legendXMin = 220; //The padding in the from the left where legend text begins
-		static readonly int legendWidth = legendXMax - legendXMin; //The resultant width (or length) of legend text rows in pixels
+		static readonly int legendWidth = plotXMin - legendXMin; //The resultant width (or length) of legend text rows in pixels
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); //Used for MeasureString to calculate legend string dimensions
 
 		//Volume plots
@@ -220,7 +223,7 @@ namespace Mappalachia
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
 						//Skip the point if its origin is outside the map image
-						if (point.x < legendXMax || point.x >= mapDimension || point.y < 0 || point.y >= mapDimension)
+						if (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax)
 						{
 							continue;
 						}
@@ -335,7 +338,7 @@ namespace Mappalachia
 						{
 							for (int y = squareY - blendRange; y < squareY + blendRange; y++)
 							{
-								//Drop squares which would lay outside of the grid
+								//Don't try to target squares which would lay outside of the grid
 								if (x < 0 || x >= resolution || y < 0 || y >= resolution)
 								{
 									continue;
@@ -387,7 +390,7 @@ namespace Mappalachia
 					int xCoord = x * pixelsPerSquare;
 
 					//Don't draw grid squares which are entirely within the legend text area
-					if (xCoord + pixelsPerSquare < legendXMax)
+					if (xCoord + pixelsPerSquare < plotXMin)
 					{
 						continue;
 					}
