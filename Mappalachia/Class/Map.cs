@@ -409,6 +409,7 @@ namespace Mappalachia
 			}
 
 			mapFrame.Image = finalImage;
+			GC.Collect();
 		}
 
 		public static void Open()

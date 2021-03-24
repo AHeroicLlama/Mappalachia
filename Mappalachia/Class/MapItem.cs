@@ -30,6 +30,8 @@ namespace Mappalachia
 		public readonly string locationID; //EditorID of the location
 		public int legendGroup; //User-definable grouping value
 
+		List<MapDataPoint> plots;
+
 		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string location, string locationID)
 		{
 			this.type = type;
@@ -54,19 +56,26 @@ namespace Mappalachia
 		}
 
 		//Get the image-scaled coordinate points for all instances of this MapItem
+		//Speeds up repeated or edited map plots by caching them
 		public List<MapDataPoint> GetPlots()
 		{
-			switch (type)
+			if (plots == null)
 			{
-				case Type.Simple:
-					return DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
-				case Type.NPC:
-					return DataHelper.GetNPCCoords(uniqueIdentifier, weight);
-				case Type.Scrap:
-					return DataHelper.GetScrapCoords(uniqueIdentifier);
-				default:
-					return null;
+				switch (type)
+				{
+					case Type.Simple:
+						plots = DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
+						break;
+					case Type.NPC:
+						plots = DataHelper.GetNPCCoords(uniqueIdentifier, weight);
+						break;
+					case Type.Scrap:
+						plots = DataHelper.GetScrapCoords(uniqueIdentifier);
+						break;
+				}
 			}
+
+			return plots;
 		}
 
 		//Get a user-friendly text representation of the MapItem to be used on the legend
