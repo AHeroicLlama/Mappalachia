@@ -417,7 +417,6 @@ namespace Mappalachia
 					layerMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
-					drawVolumesMenuItem.Enabled = true;
 					tabControlSimpleNPCJunk.TabPages.Add(tabPageNpcSearch);
 					tabControlSimpleNPCJunk.TabPages.Add(tabPageScrapSearch);
 					
@@ -431,7 +430,6 @@ namespace Mappalachia
 					layerMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
-					drawVolumesMenuItem.Enabled = false;
 					tabControlSimpleNPCJunk.TabPages.Remove(tabPageNpcSearch);
 					tabControlSimpleNPCJunk.TabPages.Remove(tabPageScrapSearch);
 
@@ -452,7 +450,7 @@ namespace Mappalachia
 				case SettingsMap.Mode.Normal:
 					DialogResult question = MessageBox.Show("Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
 						"It provides in-depth mapping for individual cells only. You cannot search for or map items in the outside world, nor across multiple cells.\n" +
-						"There are no background images for internal cells and items must be mapped onto a plain grid.\n" +
+						"There are no background images for internal cells and items must be mapped onto a transparent layer.\n" +
 						"Switching to Cell mode may change certain settings which are not applicable otherwise.\n" +
 						"If you want to search generally for items in cells, you should enable Search Settings > Search Interiors.\n\n" +
 						"Switch to Cell mode?",
@@ -469,6 +467,7 @@ namespace Mappalachia
 					}
 
 					break;
+
 				case SettingsMap.Mode.Cell:
 					SettingsMap.mode = SettingsMap.Mode.Normal;
 					ClearSearchResults();
