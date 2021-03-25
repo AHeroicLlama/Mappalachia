@@ -1,34 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Mappalachia
 {
 	class CSVRow
 	{
-		public List<CSVCell> cells;
+		public List<CSVCell> cells = new List<CSVCell>();
 
 		public CSVRow(string row, string header)
 		{
-			List<string> columnHeaders = new List<string>(header.Split(','));
-			cells = new List<CSVCell>();
-			int i = 0;
+			List<string> headers = new List<string>(header.Split(','));
+			List<string> cellValues = new List<string>(row.Split(','));
 
-			//Verify there is no data in the columns beyond those specified by the headers
-			//Essentially, check we're not truncating some data here.
-			List<string> truncatedCells = new List<string>(row.Split(',')).Skip(columnHeaders.Count).ToList();
-			foreach (string truncatedCell in truncatedCells)
+			//Check we're not truncating or missing some data here.
+			if (cellValues.Count != headers.Count)
 			{
-				if (truncatedCell != string.Empty)
-				{
-					throw new Exception("Cell data \"" + truncatedCell + "\" under header \"" + header + "\" was truncated.");
-				}
+				throw new Exception("Row \"" + row + "\" under header \"" + header + "\": Number of cells did not match number of headers");
 			}
 
 			//Get a cell for each defined column and add it to the collection of cells.
-			foreach (string cellValue in new List<string>(row.Split(',')).GetRange(0, columnHeaders.Count))
+			int i = 0;
+			foreach (string cellValue in cellValues)
 			{
-				cells.Add(new CSVCell(cellValue, columnHeaders[i]));
+				cells.Add(new CSVCell(cellValue, headers[i]));
 				i++;
 			}
 		}
