@@ -29,10 +29,8 @@ unit _m_formID;
 			signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
 			signature := StringReplace(signature, '"', '', [rfReplaceAll]); //Strip the category to its 4-char identifier
 
-			if(shouldProcessRecord(signature)) then begin
-				for j := 0 to ElementCount(signatureGroup) -1 do begin
-					ripItem(elementByIndex(signatureGroup, j), signature);
-				end;
+			for j := 0 to ElementCount(signatureGroup) -1 do begin
+				ripItem(elementByIndex(signatureGroup, j), signature);
 			end;
 		end;
 

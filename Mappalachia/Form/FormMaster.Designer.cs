@@ -98,6 +98,7 @@ namespace Mappalachia
 			this.comboBoxCell = new System.Windows.Forms.ComboBox();
 			this.groupBoxFilterByLockLevel = new System.Windows.Forms.GroupBox();
 			this.groupBoxFilterByCategory = new System.Windows.Forms.GroupBox();
+			this.buttonSelectRecommended = new System.Windows.Forms.Button();
 			this.tabPageNpcSearch = new System.Windows.Forms.TabPage();
 			this.tabPageScrapSearch = new System.Windows.Forms.TabPage();
 			this.pictureBoxMapPreview = new System.Windows.Forms.PictureBox();
@@ -569,7 +570,7 @@ namespace Mappalachia
 			// buttonDeselectAllSignature
 			// 
 			this.buttonDeselectAllSignature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonDeselectAllSignature.Location = new System.Drawing.Point(87, 154);
+			this.buttonDeselectAllSignature.Location = new System.Drawing.Point(215, 154);
 			this.buttonDeselectAllSignature.Name = "buttonDeselectAllSignature";
 			this.buttonDeselectAllSignature.Size = new System.Drawing.Size(75, 23);
 			this.buttonDeselectAllSignature.TabIndex = 2;
@@ -806,6 +807,7 @@ namespace Mappalachia
 			// groupBoxFilterByCategory
 			// 
 			this.groupBoxFilterByCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.groupBoxFilterByCategory.Controls.Add(this.buttonSelectRecommended);
 			this.groupBoxFilterByCategory.Controls.Add(this.listViewFilterSignatures);
 			this.groupBoxFilterByCategory.Controls.Add(this.buttonDeselectAllSignature);
 			this.groupBoxFilterByCategory.Controls.Add(this.buttonSelectAllSignature);
@@ -815,6 +817,18 @@ namespace Mappalachia
 			this.groupBoxFilterByCategory.TabIndex = 0;
 			this.groupBoxFilterByCategory.TabStop = false;
 			this.groupBoxFilterByCategory.Text = "Filter by category";
+			// 
+			// buttonSelectRecommended
+			// 
+			this.buttonSelectRecommended.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonSelectRecommended.Location = new System.Drawing.Point(87, 154);
+			this.buttonSelectRecommended.Name = "buttonSelectRecommended";
+			this.buttonSelectRecommended.Size = new System.Drawing.Size(122, 23);
+			this.buttonSelectRecommended.TabIndex = 3;
+			this.buttonSelectRecommended.Text = "Select Recommended";
+			this.toolTipControls.SetToolTip(this.buttonSelectRecommended, "Refine results by selecting only the most commonly used categories.");
+			this.buttonSelectRecommended.UseVisualStyleBackColor = true;
+			this.buttonSelectRecommended.Click += new System.EventHandler(this.ButtonSelectRecommendedSignature);
 			// 
 			// tabPageNpcSearch
 			// 
@@ -1134,6 +1148,7 @@ namespace Mappalachia
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocation;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocationID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
+		private System.Windows.Forms.Button buttonSelectRecommended;
 	}
 }
 

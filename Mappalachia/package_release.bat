@@ -1,5 +1,7 @@
 @echo off
 
+title Mappalachia Release Packager
+
 set releaseBuildFolder=bin\Release
 set outputFile=Mappalachia.zip
 set prefsFile=mappalachia_prefs.ini
