@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4E44C396-6917-402E-A3E0-1AB2791624FF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Mappalachia</RootNamespace>
     <AssemblyName>Mappalachia</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>

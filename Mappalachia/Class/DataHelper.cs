@@ -589,7 +589,7 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					string primitiveShape = reader.GetString(2);
+					string primitiveShape = reader.GetString(3);
 
 					//Identify if this item has a primitive shape and use the appropriate constructor
 					if (primitiveShape == string.Empty)
@@ -598,7 +598,7 @@ namespace Mappalachia
 					}
 					else
 					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6)));
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d, primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(5), reader.GetInt32(7)));
 					}
 				}
 			}

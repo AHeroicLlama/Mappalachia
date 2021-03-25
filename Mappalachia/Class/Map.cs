@@ -39,7 +39,7 @@ namespace Mappalachia
 		//Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; //Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
-		public static readonly List<string> supportedVolumeShapes = new List<string> { "Box", "Line", "Sphere", "Ellipsoid", };
+		public static readonly List<string> supportedVolumeShapes = new List<string> { "Box", "Line", "Plane", "Sphere", "Ellipsoid", };
 
 		//Legend Font
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
@@ -196,19 +196,23 @@ namespace Mappalachia
 				//The Y coord where first legend item should be written, in order to Y-center the entire legend
 				int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
 
-				//Provide warnings if we are going to repeat icons, or if the legend text is too big to fit on the map
-				if (legendTotalHeight > mapDimension && totalLegendGroups > (colorTotal * shapeTotal))
+				//Don't provide the warnings in cell mode, as it's an advanced mode and mass-mapping items becomes more common
+				if (!SettingsMap.IsCellModeActive())
 				{
-					NonBlockingNotify.Warn("There are too many items to fit onto the legend, and there are also too few colors and shapes in the palettes to use a unique icon for each item. " +
-						"The map will still be drawn, but the legend will extrude the map and icons will be repeated.");
-				}
-				else if (legendTotalHeight > mapDimension)
-				{
-					NonBlockingNotify.Warn("There are too many items to fit onto the legend. The map will still be drawn, but the legend will extrude the map.");
-				}
-				else if (totalLegendGroups > (colorTotal * shapeTotal))
-				{
-					NonBlockingNotify.Warn("There are too few colors and shapes in the palettes to use a unique icon for each item. The map will still be drawn, but plot icons will be repeated.");
+					//Provide warnings if we are going to repeat icons, or if the legend text is too big to fit on the map
+					if (legendTotalHeight > mapDimension && totalLegendGroups > (colorTotal * shapeTotal))
+					{
+						NonBlockingNotify.Warn("There are too many items to fit onto the legend, and there are also too few colors and shapes in the palettes to use a unique icon for each item. " +
+							"The map will still be drawn, but the legend will extrude the map and icons will be repeated.");
+					}
+					else if (legendTotalHeight > mapDimension)
+					{
+						NonBlockingNotify.Warn("There are too many items to fit onto the legend. The map will still be drawn, but the legend will extrude the map.");
+					}
+					else if (totalLegendGroups > (colorTotal * shapeTotal))
+					{
+						NonBlockingNotify.Warn("There are too few colors and shapes in the palettes to use a unique icon for each item. The map will still be drawn, but plot icons will be repeated.");
+					}
 				}
 
 				//Start progress bar off at 0
@@ -251,11 +255,13 @@ namespace Mappalachia
 							point.x += cellScaling.xOffset;
 							point.y += cellScaling.yOffset;
 
+							//Multiply the coordinates by the scaling, but multiply around 0,0
 							point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
 							point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+							point.boundX *= cellScaling.scale;
+							point.boundY *= cellScaling.scale;
 						}
-
-						//Skip the point if its origin is outside the map image
+						else //Skip the point if its origin is outside the surface world
 						if (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax)
 						{
 							continue;
@@ -275,6 +281,7 @@ namespace Mappalachia
 							{
 								case "Box":
 								case "Line":
+								case "Plane":
 									volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
 									break;
 								case "Sphere":
@@ -360,14 +367,8 @@ namespace Mappalachia
 							point.x += cellScaling.xOffset;
 							point.y += cellScaling.yOffset;
 
-							point.x += ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-							point.y += ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-						}
-
-						//Ignore points outside the map
-						if (point.x < 0 || point.x >= mapDimension || point.y < 0 || point.y >= mapDimension)
-						{
-							continue;
+							point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+							point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
 						}
 
 						//Identify which grid square this MapDataPoint falls within
