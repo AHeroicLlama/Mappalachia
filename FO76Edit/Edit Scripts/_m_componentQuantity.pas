@@ -12,14 +12,21 @@ unit _m_componentQuantity;
 	end;
 
 	procedure ripItem(item : IInterface);
+	const
+		numberOfScrapElements = 9;
 	var
 		i : Integer;
 		output : String;
 	begin
 		output := sanitize(DisplayName(item))+ ',';
 
-		for i := 0 to 9 do begin
-			output := output + GetEditValue(ElementByName(ElementByIndex(ElementBySignature(item, 'CVPA'), i), 'Scrap Component Count')) + ',';
+		for i := 0 to numberOfScrapElements do begin
+			output := output + GetEditValue(ElementByName(ElementByIndex(ElementBySignature(item, 'CVPA'), i), 'Scrap Component Count'));
+
+			//Avoid adding a comma after the last element
+			if(i <> numberOfScrapElements) then begin
+				output := output + ',';
+			end;
 		end;
 
 		outputStrings.add(output);
