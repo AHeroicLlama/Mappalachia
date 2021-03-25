@@ -30,6 +30,8 @@ namespace Mappalachia
 		public readonly string locationEditorID; //EditorID of the location
 		public int legendGroup; //User-definable grouping value
 
+		List<MapDataPoint> plots;
+
 		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string location, string locationID)
 		{
 			this.type = type;
@@ -54,21 +56,29 @@ namespace Mappalachia
 		}
 
 		//Get the image-scaled coordinate points for all instances of this MapItem
+		//Speeds up repeated or edited map plots by caching them
 		public List<MapDataPoint> GetPlots()
 		{
-			switch (type)
+			//Cache the plots if not already active - cell mode needs to edit these values, so refresh them each time
+			if (plots == null || SettingsMap.IsCellModeActive())
 			{
-				case Type.Simple:
-					return SettingsMap.IsCellModeActive() ?
-						DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedCell.formID, filteredLockTypes) :
-						DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
-				case Type.NPC:
-					return DataHelper.GetNPCCoords(uniqueIdentifier, weight);
-				case Type.Scrap:
-					return DataHelper.GetScrapCoords(uniqueIdentifier);
-				default:
-					return null;
+				switch (type)
+				{
+					case Type.Simple:
+						plots = SettingsMap.IsCellModeActive() ?
+							DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedCell.formID, filteredLockTypes) :
+							DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
+						break;
+					case Type.NPC:
+						plots = DataHelper.GetNPCCoords(uniqueIdentifier, weight);
+						break;
+					case Type.Scrap:
+						plots = DataHelper.GetScrapCoords(uniqueIdentifier);
+						break;
+				}
 			}
+
+			return plots;
 		}
 
 		//Get a user-friendly text representation of the MapItem to be used on the legend
