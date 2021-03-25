@@ -37,7 +37,7 @@ namespace Mappalachia
 		//Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; //Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
-		public static readonly List<string> supportedVolumeShapes = new List<string> { "Box", "Line", "Sphere", "Ellipsoid", };
+		public static readonly List<string> supportedVolumeShapes = new List<string> { "Box", "Line", "Plane", "Sphere", "Ellipsoid", };
 
 		//Legend Font
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
@@ -242,6 +242,7 @@ namespace Mappalachia
 							{
 								case "Box":
 								case "Line":
+								case "Plane":
 									volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
 									break;
 								case "Sphere":
