@@ -255,8 +255,7 @@ namespace Mappalachia
 							volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
 							imageGraphic.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
 						}
-						//This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon
-						else
+						else //This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon
 						{
 							imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 						}

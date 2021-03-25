@@ -12,10 +12,10 @@ namespace Mappalachia
 	//The main form with map preview and all GUI controls inside it
 	public partial class FormMaster : Form
 	{
-		public ProgressBar progressBar;
-
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
+
+		public ProgressBar progressBar;
 
 		//Flags on if we've displayed certain warnings, so as to only show once per run
 		static bool warnedLVLINotUsed = false;
@@ -426,8 +426,6 @@ namespace Mappalachia
 
 			return lockTypes;
 		}
-
-
 
 		//Warn the user if they appear to be trying to search for something that might actually be in a LVLI, but they have unselected it
 		void WarnWhenLVLINotSelected()

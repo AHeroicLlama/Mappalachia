@@ -129,6 +129,7 @@ namespace Mappalachia.Class
 							{
 								SettingsMap.brightness = brightness;
 							}
+
 							break;
 
 						case "layerMilitary":
@@ -161,6 +162,7 @@ namespace Mappalachia.Class
 							{
 								SettingsSearch.spawnChance = spawnChance;
 							}
+
 							break;
 
 						case "mode":
@@ -176,6 +178,7 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Invalid plot mode.");
 							}
+
 							break;
 
 						case "drawVolumes":
@@ -188,6 +191,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.iconSize = iconSize;
 							}
+
 							break;
 
 						case "lineWidth":
@@ -196,6 +200,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.lineWidth = lineWidth;
 							}
+
 							break;
 
 						case "iconOpacityPercent":
@@ -204,6 +209,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.iconOpacityPercent = iconOpacityPercent;
 							}
+
 							break;
 
 						case "shadowOpacityPercent":
@@ -212,6 +218,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.shadowOpacityPercent = shadowOpacityPercent;
 							}
+
 							break;
 
 						case "paletteColor":
@@ -296,6 +303,7 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Resolution " + resolution + " not supported.");
 							}
+
 							break;
 
 						case "colorMode":
@@ -311,6 +319,7 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Invalid color mode.");
 							}
+
 							break;
 
 						//Legacy settings - ignore
@@ -351,7 +360,7 @@ namespace Mappalachia.Class
 		//Overload
 		static bool StrIntToBool(char variable)
 		{
-			return StrIntToBool(Char.ToString(variable));
+			return StrIntToBool(char.ToString(variable));
 		}
 
 		//Return if an int is between two values inclusive. Throw exception if outside
