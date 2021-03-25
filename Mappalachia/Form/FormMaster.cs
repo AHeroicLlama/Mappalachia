@@ -12,13 +12,13 @@ namespace Mappalachia
 	//The main form with map preview and all GUI controls inside it
 	public partial class FormMaster : Form
 	{
-		public ProgressBar progressBar;
-
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
 
-		static List<Cell> cells;
 		public static Cell currentlySelectedCell; //Holds the currently select Cell in comboBoxCells. Based on the list of Cell above.
+		static List<Cell> cells;
+
+		public ProgressBar progressBar;
 
 		//Flags on if we've displayed certain warnings, so as to only show once per run
 		static bool warnedLVLINotUsed = false;
