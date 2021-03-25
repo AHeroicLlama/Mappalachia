@@ -448,12 +448,12 @@ namespace Mappalachia
 			switch (SettingsMap.mode)
 			{
 				case SettingsMap.Mode.Normal:
-					DialogResult question = MessageBox.Show("Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
-						"It provides in-depth mapping for individual cells only. You cannot search for or map items in the outside world, nor across multiple cells.\n" +
-						"There are no background images for internal cells and items must be mapped onto a transparent layer.\n" +
-						"Switching to Cell mode may change certain settings which are not applicable otherwise.\n" +
-						"If you want to search generally for items in cells, you should enable Search Settings > Search Interiors.\n\n" +
-						"Switch to Cell mode?",
+					DialogResult question = MessageBox.Show(
+						"Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
+						"If you want to search generally for items across all cells, you should enable Search Settings > Search Interiors.\n\n" +
+						"Switching to Cell mode may override, disable, or adjust certain settings and features which do not apply or are no longer relevant.\n" +
+						"Please read the user documentation on Cell Mode for full details.\n\n" +
+						"Continue to Cell mode?",
 						"Switch to Cell mode?", MessageBoxButtons.YesNo);
 
 					if (question == DialogResult.Yes)
@@ -1009,7 +1009,8 @@ namespace Mappalachia
 				UpdateLegendGrid();
 			}
 
-			if (rejectedItems.Count > 0)
+			//If we dropped items, let the user know. Unless they're in advanced cell mode, this warning is common, and we assume they understand.
+			if (rejectedItems.Count > 0 && !SettingsMap.IsCellModeActive())
 			{
 				//Cap the list of items we warn about to prevent a huge error box
 				int maxItemsToShow = 8;
