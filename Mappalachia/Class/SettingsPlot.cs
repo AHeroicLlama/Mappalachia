@@ -19,12 +19,6 @@ namespace Mappalachia.Class
 	//Plot Icon Settings and their defaults, used in FormPlotIconSettings
 	static class SettingsPlotIcon
 	{
-		//Constructor
-		static SettingsPlotIcon()
-		{
-			Initialise();
-		}
-
 		//Defaults
 		static readonly int iconSizeDefault = 40;
 		static readonly int lineWidthDefault = 3;
@@ -92,10 +86,16 @@ namespace Mappalachia.Class
 		//Settings variables;
 		public static int iconSize;
 		public static int lineWidth;
-		public static int iconOpacityPercent ;
+		public static int iconOpacityPercent;
 		public static int shadowOpacityPercent;
 		public static List<Color> paletteColor;
 		public static List<PlotIconShape> paletteShape;
+
+		//Constructor
+		static SettingsPlotIcon()
+		{
+			Initialise();
+		}
 
 		//Assign settings values their defaults
 		public static void Initialise()

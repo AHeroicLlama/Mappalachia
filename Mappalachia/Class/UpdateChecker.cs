@@ -11,7 +11,7 @@ namespace Mappalachia.Class
 	{
 		static readonly string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-		public async static void CheckForUpdate(bool userTriggered)
+		public static async void CheckForUpdate(bool userTriggered)
 		{
 			HttpResponseMessage response;
 
@@ -49,7 +49,7 @@ namespace Mappalachia.Class
 				string tagName = "\"tag_name\":";
 				int tagValueStart = responseContent.IndexOf(tagName) + tagName.Length;
 				int tagValueLength = responseContent.Substring(tagValueStart).IndexOf(",");
-				string latestVersion = responseContent.Substring(tagValueStart, tagValueLength).Replace("\"", "");
+				string latestVersion = responseContent.Substring(tagValueStart, tagValueLength).Replace("\"", string.Empty);
 
 				//Verify the version string is in the format "x.y.y.y" where x is 1-999 and y is 0-999
 				Regex verifyVersion = new Regex(@"^[1-9]{1,3}(\.[0-9]{1,3}){3}$");
@@ -87,8 +87,10 @@ namespace Mappalachia.Class
 		//Also displays provided reason why automatic check failed and the current Mappalachia version.
 		static void CheckForUpdatesManual(string errorReason)
 		{
-			DialogResult question = MessageBox.Show("Automatic update checking failed: \n" + errorReason + "\n\nWould you like to visit the releases page to check for updates manually?\n" +
-				"Your current version is " + currentVersion, "Check manually?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+			DialogResult question = MessageBox.Show(
+				"Automatic update checking failed: \n" + errorReason + "\n\nWould you like to visit the releases page to check for updates manually?\n" +
+					"Your current version is " + currentVersion,
+				"Check manually?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 			if (question == DialogResult.Yes)
 			{
 				Process.Start("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
@@ -98,7 +100,9 @@ namespace Mappalachia.Class
 		//Tell the user the latest version is available as an update, and prompt to download
 		static void PromptForUpdate(string latestVersion)
 		{
-			DialogResult question = MessageBox.Show("A new version of Mappalachia, " + latestVersion + " is now available! \nVisit the releases page to download it?", "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+			DialogResult question = MessageBox.Show(
+				"A new version of Mappalachia, " + latestVersion + " is now available! \nVisit the releases page to download it?",
+				"Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 			if (question == DialogResult.Yes)
 			{
 				Process.Start("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
