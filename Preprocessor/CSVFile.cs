@@ -19,7 +19,7 @@ namespace Mappalachia
 
 			header = File.ReadLines(fileName).First();
 
-			foreach (string row in File.ReadAllLines(fileName).Skip(1))
+			foreach (string row in File.ReadLines(fileName).Skip(1))
 			{
 				rows.Add(new CSVRow(row, header));
 			}
