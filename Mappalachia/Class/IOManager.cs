@@ -274,7 +274,6 @@ namespace Mappalachia
 			{
 				if (File.Exists(settingsFileName))
 				{
-
 					return File.ReadAllLines(settingsFileName).ToList();
 				}
 				else

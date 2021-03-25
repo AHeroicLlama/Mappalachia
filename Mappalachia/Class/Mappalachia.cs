@@ -22,6 +22,7 @@ namespace Mappalachia
 					e);
 
 				IOManager.Cleanup();
+
 				//Choosing to not save settings, since we just crashed it's likely safer to not keep them.
 			}
 		}

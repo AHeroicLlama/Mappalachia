@@ -87,7 +87,7 @@ namespace Mappalachia.Class
 		public static Image RotateImage(Image image, int angle)
 		{
 			//Pythagoras on the X and Y coord of the bitmap gives us the maximum possible boundary required when all rotations considered
-			int newDimension = (int)Math.Ceiling(Math.Sqrt(image.Width * image.Width + image.Height * image.Height));
+			int newDimension = (int)Math.Ceiling(Math.Sqrt((image.Width * image.Width) + (image.Height * image.Height)));
 			Image newImage = new Bitmap(newDimension, newDimension);
 
 			Graphics graphic = Graphics.FromImage(newImage);
