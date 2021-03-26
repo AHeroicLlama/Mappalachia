@@ -148,7 +148,7 @@ namespace Mappalachia
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 			//Draw the game version (+ optionally cell name) onto the map
-			string versionText = "Game version " + AssemblyInfo.gameVersion;
+			string versionText = "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
 			//Also add the cell name if in Cell mode
 			if (SettingsMap.IsCellModeActive())
@@ -160,8 +160,7 @@ namespace Mappalachia
 
 				versionText =
 					currentCell.displayName + " (" + currentCell.editorID + ") Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n" +
-					versionText + "\n" +
-					"Plotted with Mappalachia - github.com/aheroicllama/mappalachia";
+					versionText;
 			}
 
 			Brush brushWhite = new SolidBrush(Color.White);
