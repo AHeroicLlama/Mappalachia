@@ -23,23 +23,4 @@ namespace Mappalachia.Class
 			 MessageBox.Show(text, "Mappalachia - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 	}
-
-	//Run a Notify in a new non-blocking thread. Used to not hold up map generation
-	public static class NonBlockingNotify
-	{
-		public static void Info(string text)
-		{
-			new Thread(() => Notify.Info(text)).Start();
-		}
-
-		public static void Warn(string text)
-		{
-			new Thread(() => Notify.Warn(text)).Start();
-		}
-
-		public static void Error(string text)
-		{
-			new Thread(() => Notify.Error(text)).Start();
-		}
-	}
 }
