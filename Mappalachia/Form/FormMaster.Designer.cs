@@ -570,8 +570,9 @@ namespace Mappalachia
 			// 
 			// buttonSearch
 			// 
+			this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.buttonSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.buttonSearch.Location = new System.Drawing.Point(341, 4);
+			this.buttonSearch.Location = new System.Drawing.Point(185, 17);
 			this.buttonSearch.Name = "buttonSearch";
 			this.buttonSearch.Size = new System.Drawing.Size(122, 23);
 			this.buttonSearch.TabIndex = 3;
@@ -582,7 +583,8 @@ namespace Mappalachia
 			// 
 			// textBoxSearch
 			// 
-			this.textBoxSearch.Location = new System.Drawing.Point(162, 6);
+			this.textBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.textBoxSearch.Location = new System.Drawing.Point(6, 19);
 			this.textBoxSearch.MaxLength = 100;
 			this.textBoxSearch.Name = "textBoxSearch";
 			this.textBoxSearch.Size = new System.Drawing.Size(173, 20);
@@ -601,7 +603,7 @@ namespace Mappalachia
 			this.listViewFilterSignatures.Location = new System.Drawing.Point(6, 19);
 			this.listViewFilterSignatures.Name = "listViewFilterSignatures";
 			this.listViewFilterSignatures.ShowItemToolTips = true;
-			this.listViewFilterSignatures.Size = new System.Drawing.Size(317, 129);
+			this.listViewFilterSignatures.Size = new System.Drawing.Size(317, 116);
 			this.listViewFilterSignatures.TabIndex = 0;
 			this.listViewFilterSignatures.UseCompatibleStateImageBehavior = false;
 			this.listViewFilterSignatures.View = System.Windows.Forms.View.SmallIcon;
@@ -618,7 +620,7 @@ namespace Mappalachia
 			this.listViewFilterLockTypes.Location = new System.Drawing.Point(6, 19);
 			this.listViewFilterLockTypes.Name = "listViewFilterLockTypes";
 			this.listViewFilterLockTypes.ShowItemToolTips = true;
-			this.listViewFilterLockTypes.Size = new System.Drawing.Size(317, 129);
+			this.listViewFilterLockTypes.Size = new System.Drawing.Size(225, 116);
 			this.listViewFilterLockTypes.TabIndex = 0;
 			this.listViewFilterLockTypes.UseCompatibleStateImageBehavior = false;
 			this.listViewFilterLockTypes.View = System.Windows.Forms.View.SmallIcon;
@@ -627,7 +629,7 @@ namespace Mappalachia
 			// buttonSelectAllSignature
 			// 
 			this.buttonSelectAllSignature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonSelectAllSignature.Location = new System.Drawing.Point(6, 154);
+			this.buttonSelectAllSignature.Location = new System.Drawing.Point(6, 141);
 			this.buttonSelectAllSignature.Name = "buttonSelectAllSignature";
 			this.buttonSelectAllSignature.Size = new System.Drawing.Size(75, 23);
 			this.buttonSelectAllSignature.TabIndex = 1;
@@ -639,7 +641,7 @@ namespace Mappalachia
 			// buttonDeselectAllSignature
 			// 
 			this.buttonDeselectAllSignature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonDeselectAllSignature.Location = new System.Drawing.Point(215, 154);
+			this.buttonDeselectAllSignature.Location = new System.Drawing.Point(215, 141);
 			this.buttonDeselectAllSignature.Name = "buttonDeselectAllSignature";
 			this.buttonDeselectAllSignature.Size = new System.Drawing.Size(75, 23);
 			this.buttonDeselectAllSignature.TabIndex = 2;
@@ -651,7 +653,7 @@ namespace Mappalachia
 			// buttonDeselectAllLock
 			// 
 			this.buttonDeselectAllLock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonDeselectAllLock.Location = new System.Drawing.Point(89, 154);
+			this.buttonDeselectAllLock.Location = new System.Drawing.Point(89, 141);
 			this.buttonDeselectAllLock.Name = "buttonDeselectAllLock";
 			this.buttonDeselectAllLock.Size = new System.Drawing.Size(75, 23);
 			this.buttonDeselectAllLock.TabIndex = 2;
@@ -663,7 +665,7 @@ namespace Mappalachia
 			// buttonSelectAllLock
 			// 
 			this.buttonSelectAllLock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonSelectAllLock.Location = new System.Drawing.Point(6, 154);
+			this.buttonSelectAllLock.Location = new System.Drawing.Point(6, 141);
 			this.buttonSelectAllLock.Name = "buttonSelectAllLock";
 			this.buttonSelectAllLock.Size = new System.Drawing.Size(77, 23);
 			this.buttonSelectAllLock.TabIndex = 1;
@@ -855,9 +857,9 @@ namespace Mappalachia
 			this.groupBoxFilterByLockLevel.Controls.Add(this.listViewFilterLockTypes);
 			this.groupBoxFilterByLockLevel.Controls.Add(this.buttonDeselectAllLock);
 			this.groupBoxFilterByLockLevel.Controls.Add(this.buttonSelectAllLock);
-			this.groupBoxFilterByLockLevel.Location = new System.Drawing.Point(341, 32);
+			this.groupBoxFilterByLockLevel.Location = new System.Drawing.Point(341, 45);
 			this.groupBoxFilterByLockLevel.Name = "groupBoxFilterByLockLevel";
-			this.groupBoxFilterByLockLevel.Size = new System.Drawing.Size(329, 183);
+			this.groupBoxFilterByLockLevel.Size = new System.Drawing.Size(237, 170);
 			this.groupBoxFilterByLockLevel.TabIndex = 1;
 			this.groupBoxFilterByLockLevel.TabStop = false;
 			this.groupBoxFilterByLockLevel.Text = "Filter by lock level";
@@ -869,9 +871,9 @@ namespace Mappalachia
 			this.groupBoxFilterByCategory.Controls.Add(this.listViewFilterSignatures);
 			this.groupBoxFilterByCategory.Controls.Add(this.buttonDeselectAllSignature);
 			this.groupBoxFilterByCategory.Controls.Add(this.buttonSelectAllSignature);
-			this.groupBoxFilterByCategory.Location = new System.Drawing.Point(6, 32);
+			this.groupBoxFilterByCategory.Location = new System.Drawing.Point(6, 45);
 			this.groupBoxFilterByCategory.Name = "groupBoxFilterByCategory";
-			this.groupBoxFilterByCategory.Size = new System.Drawing.Size(329, 183);
+			this.groupBoxFilterByCategory.Size = new System.Drawing.Size(329, 170);
 			this.groupBoxFilterByCategory.TabIndex = 0;
 			this.groupBoxFilterByCategory.TabStop = false;
 			this.groupBoxFilterByCategory.Text = "Filter by category";
@@ -879,7 +881,7 @@ namespace Mappalachia
 			// buttonSelectRecommended
 			// 
 			this.buttonSelectRecommended.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonSelectRecommended.Location = new System.Drawing.Point(87, 154);
+			this.buttonSelectRecommended.Location = new System.Drawing.Point(87, 141);
 			this.buttonSelectRecommended.Name = "buttonSelectRecommended";
 			this.buttonSelectRecommended.Size = new System.Drawing.Size(122, 23);
 			this.buttonSelectRecommended.TabIndex = 3;
@@ -1005,7 +1007,7 @@ namespace Mappalachia
 			this.Controls.Add(this.menuStripMain);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStripMain;
-			this.MinimumSize = new System.Drawing.Size(652, 685);
+			this.MinimumSize = new System.Drawing.Size(822, 730);
 			this.Name = "FormMaster";
 			this.Text = "Mappalachia";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
