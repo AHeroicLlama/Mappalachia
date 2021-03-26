@@ -139,7 +139,7 @@ namespace Mappalachia
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 			//Draw the game version onto the map
-			string versionText = "Game version " + AssemblyInfo.gameVersion;
+			string versionText = "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 			Brush brushWhite = new SolidBrush(Color.White);
 			RectangleF versionTextPosition = new RectangleF(0, 0, mapDimension, mapDimension);
 			StringFormat stringFormat = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; //Align the text bottom-right
