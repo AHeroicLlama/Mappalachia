@@ -176,8 +176,6 @@ namespace Mappalachia
 				return;
 			}
 
-			int totalLegendGroups = FormMaster.FindSumLegendGroups();
-
 			if (SettingsPlot.mode == SettingsPlot.Mode.Icon)
 			{
 				int iconHeight = SettingsPlotIcon.iconSize;
@@ -195,25 +193,6 @@ namespace Mappalachia
 
 				//The Y coord where first legend item should be written, in order to Y-center the entire legend
 				int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
-
-				//Don't provide the warnings in cell mode, as it's an advanced mode and mass-mapping items becomes more common
-				if (!SettingsMap.IsCellModeActive())
-				{
-					//Provide warnings if we are going to repeat icons, or if the legend text is too big to fit on the map
-					if (legendTotalHeight > mapDimension && totalLegendGroups > (colorTotal * shapeTotal))
-					{
-						NonBlockingNotify.Warn("There are too many items to fit onto the legend, and there are also too few colors and shapes in the palettes to use a unique icon for each item. " +
-							"The map will still be drawn, but the legend will extrude the map and icons will be repeated.");
-					}
-					else if (legendTotalHeight > mapDimension)
-					{
-						NonBlockingNotify.Warn("There are too many items to fit onto the legend. The map will still be drawn, but the legend will extrude the map.");
-					}
-					else if (totalLegendGroups > (colorTotal * shapeTotal))
-					{
-						NonBlockingNotify.Warn("There are too few colors and shapes in the palettes to use a unique icon for each item. The map will still be drawn, but plot icons will be repeated.");
-					}
-				}
 
 				//Start progress bar off at 0
 				progressBarMain.Value = 0;
@@ -333,11 +312,6 @@ namespace Mappalachia
 
 				//The initial Y coord where first legend item should be written, in order to Y-center the entire legend
 				int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
-
-				if (legendTotalHeight > mapDimension)
-				{
-					NonBlockingNotify.Warn("There are too many items to fit onto the legend. The map will still be drawn, but the legend will extrude the map.");
-				}
 
 				//Create a 2D Array of HeatMapGridSquare
 				HeatMapGridSquare[,] squares = new HeatMapGridSquare[resolution, resolution];
