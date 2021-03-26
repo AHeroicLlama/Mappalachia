@@ -30,8 +30,8 @@ namespace Mappalachia
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
 			this.menuStripMain = new System.Windows.Forms.MenuStrip();
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +71,16 @@ namespace Mappalachia
 			this.userGuidesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.donateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gridViewSearchResults = new System.Windows.Forms.DataGridView();
+			this.columnSearchFormID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchEditorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchLockLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchChance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchLocationID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnSearchIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.buttonSearch = new System.Windows.Forms.Button();
 			this.textBoxSearch = new System.Windows.Forms.TextBox();
 			this.listViewFilterSignatures = new System.Windows.Forms.ListView();
@@ -107,16 +117,6 @@ namespace Mappalachia
 			this.buttonAddToLegend = new System.Windows.Forms.Button();
 			this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
 			this.progressBarMain = new System.Windows.Forms.ProgressBar();
-			this.columnSearchFormID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchEditorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchLockLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchChance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchLocationID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnSearchIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
@@ -499,11 +499,99 @@ namespace Mappalachia
 			this.gridViewSearchResults.TabIndex = 2;
 			this.gridViewSearchResults.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewSearchResults_CellMouseEnter);
 			// 
+			// columnSearchFormID
+			// 
+			this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
+			this.columnSearchFormID.HeaderText = "FormID";
+			this.columnSearchFormID.Name = "columnSearchFormID";
+			this.columnSearchFormID.ReadOnly = true;
+			this.columnSearchFormID.ToolTipText = "A unique reference to this entity. Useful for dataminers and modders.";
+			this.columnSearchFormID.Visible = false;
+			// 
+			// columnSearchEditorID
+			// 
+			this.columnSearchEditorID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnSearchEditorID.FillWeight = 250F;
+			this.columnSearchEditorID.HeaderText = "Technical Name";
+			this.columnSearchEditorID.Name = "columnSearchEditorID";
+			this.columnSearchEditorID.ReadOnly = true;
+			this.columnSearchEditorID.ToolTipText = "The developer\'s technical name for the entity.";
+			// 
+			// columnSearchDisplayName
+			// 
+			this.columnSearchDisplayName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnSearchDisplayName.FillWeight = 180F;
+			this.columnSearchDisplayName.HeaderText = "Display Name";
+			this.columnSearchDisplayName.Name = "columnSearchDisplayName";
+			this.columnSearchDisplayName.ReadOnly = true;
+			this.columnSearchDisplayName.ToolTipText = "The name displayed in-game where applicable.";
+			// 
+			// columnSearchCategory
+			// 
+			this.columnSearchCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnSearchCategory.HeaderText = "Category";
+			this.columnSearchCategory.Name = "columnSearchCategory";
+			this.columnSearchCategory.ReadOnly = true;
+			this.columnSearchCategory.ToolTipText = "A classification for this entity.";
+			// 
+			// columnSearchLockLevel
+			// 
+			this.columnSearchLockLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnSearchLockLevel.HeaderText = "Lock Type";
+			this.columnSearchLockLevel.Name = "columnSearchLockLevel";
+			this.columnSearchLockLevel.ReadOnly = true;
+			this.columnSearchLockLevel.ToolTipText = "The Level or type of the lock, if any";
+			this.columnSearchLockLevel.Visible = false;
+			// 
+			// columnSearchChance
+			// 
+			this.columnSearchChance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnSearchChance.FillWeight = 90F;
+			this.columnSearchChance.HeaderText = "Spawn Chance (%)";
+			this.columnSearchChance.Name = "columnSearchChance";
+			this.columnSearchChance.ReadOnly = true;
+			// 
+			// columnSearchAmount
+			// 
+			this.columnSearchAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnSearchAmount.FillWeight = 70F;
+			this.columnSearchAmount.HeaderText = "Amount";
+			this.columnSearchAmount.Name = "columnSearchAmount";
+			this.columnSearchAmount.ReadOnly = true;
+			this.columnSearchAmount.ToolTipText = "The amount of instances which can be found in the listed location.";
+			// 
+			// columnSearchLocation
+			// 
+			this.columnSearchLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnSearchLocation.FillWeight = 170F;
+			this.columnSearchLocation.HeaderText = "Location";
+			this.columnSearchLocation.Name = "columnSearchLocation";
+			this.columnSearchLocation.ReadOnly = true;
+			this.columnSearchLocation.ToolTipText = "The location where these items can be found. Either the surface world (Apppalachi" +
+    "a) or an interior \'cell\'.";
+			// 
+			// columnSearchLocationID
+			// 
+			this.columnSearchLocationID.HeaderText = "LocationID";
+			this.columnSearchLocationID.Name = "columnSearchLocationID";
+			this.columnSearchLocationID.ReadOnly = true;
+			this.columnSearchLocationID.Visible = false;
+			// 
+			// columnSearchIndex
+			// 
+			this.columnSearchIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+			this.columnSearchIndex.HeaderText = "Index";
+			this.columnSearchIndex.Name = "columnSearchIndex";
+			this.columnSearchIndex.ReadOnly = true;
+			this.columnSearchIndex.Visible = false;
+			// 
 			// buttonSearch
 			// 
 			this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.buttonSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.buttonSearch.Location = new System.Drawing.Point(185, 17);
+			this.buttonSearch.Location = new System.Drawing.Point(185, 18);
 			this.buttonSearch.Name = "buttonSearch";
 			this.buttonSearch.Size = new System.Drawing.Size(122, 23);
 			this.buttonSearch.TabIndex = 3;
@@ -785,11 +873,12 @@ namespace Mappalachia
 			// 
 			// comboBoxCell
 			// 
+			this.comboBoxCell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.comboBoxCell.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxCell.FormattingEnabled = true;
-			this.comboBoxCell.Location = new System.Drawing.Point(469, 6);
+			this.comboBoxCell.Location = new System.Drawing.Point(313, 19);
 			this.comboBoxCell.Name = "comboBoxCell";
-			this.comboBoxCell.Size = new System.Drawing.Size(315, 21);
+			this.comboBoxCell.Size = new System.Drawing.Size(265, 21);
 			this.comboBoxCell.TabIndex = 4;
 			this.comboBoxCell.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCell_SelectedIndexChanged);
 			// 
@@ -936,94 +1025,6 @@ namespace Mappalachia
 			this.progressBarMain.Size = new System.Drawing.Size(1661, 19);
 			this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.progressBarMain.TabIndex = 7;
-			// 
-			// columnSearchFormID
-			// 
-			this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
-			this.columnSearchFormID.HeaderText = "FormID";
-			this.columnSearchFormID.Name = "columnSearchFormID";
-			this.columnSearchFormID.ReadOnly = true;
-			this.columnSearchFormID.ToolTipText = "A unique reference to this entity. Useful for dataminers and modders.";
-			this.columnSearchFormID.Visible = false;
-			// 
-			// columnSearchEditorID
-			// 
-			this.columnSearchEditorID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnSearchEditorID.FillWeight = 250F;
-			this.columnSearchEditorID.HeaderText = "Technical Name";
-			this.columnSearchEditorID.Name = "columnSearchEditorID";
-			this.columnSearchEditorID.ReadOnly = true;
-			this.columnSearchEditorID.ToolTipText = "The developer\'s technical name for the entity.";
-			// 
-			// columnSearchDisplayName
-			// 
-			this.columnSearchDisplayName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnSearchDisplayName.FillWeight = 180F;
-			this.columnSearchDisplayName.HeaderText = "Display Name";
-			this.columnSearchDisplayName.Name = "columnSearchDisplayName";
-			this.columnSearchDisplayName.ReadOnly = true;
-			this.columnSearchDisplayName.ToolTipText = "The name displayed in-game where applicable.";
-			// 
-			// columnSearchCategory
-			// 
-			this.columnSearchCategory.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnSearchCategory.HeaderText = "Category";
-			this.columnSearchCategory.Name = "columnSearchCategory";
-			this.columnSearchCategory.ReadOnly = true;
-			this.columnSearchCategory.ToolTipText = "A classification for this entity.";
-			// 
-			// columnSearchLockLevel
-			// 
-			this.columnSearchLockLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnSearchLockLevel.HeaderText = "Lock Type";
-			this.columnSearchLockLevel.Name = "columnSearchLockLevel";
-			this.columnSearchLockLevel.ReadOnly = true;
-			this.columnSearchLockLevel.ToolTipText = "The Level or type of the lock, if any";
-			this.columnSearchLockLevel.Visible = false;
-			// 
-			// columnSearchChance
-			// 
-			this.columnSearchChance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnSearchChance.FillWeight = 90F;
-			this.columnSearchChance.HeaderText = "Spawn Chance (%)";
-			this.columnSearchChance.Name = "columnSearchChance";
-			this.columnSearchChance.ReadOnly = true;
-			// 
-			// columnSearchAmount
-			// 
-			this.columnSearchAmount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnSearchAmount.FillWeight = 70F;
-			this.columnSearchAmount.HeaderText = "Amount";
-			this.columnSearchAmount.Name = "columnSearchAmount";
-			this.columnSearchAmount.ReadOnly = true;
-			this.columnSearchAmount.ToolTipText = "The amount of instances which can be found in the listed location.";
-			// 
-			// columnSearchLocation
-			// 
-			this.columnSearchLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnSearchLocation.FillWeight = 170F;
-			this.columnSearchLocation.HeaderText = "Location";
-			this.columnSearchLocation.Name = "columnSearchLocation";
-			this.columnSearchLocation.ReadOnly = true;
-			this.columnSearchLocation.ToolTipText = "The location where these items can be found. Either the surface world (Apppalachi" +
-    "a) or an interior \'cell\'.";
-			// 
-			// columnSearchLocationID
-			// 
-			this.columnSearchLocationID.HeaderText = "LocationID";
-			this.columnSearchLocationID.Name = "columnSearchLocationID";
-			this.columnSearchLocationID.ReadOnly = true;
-			this.columnSearchLocationID.Visible = false;
-			// 
-			// columnSearchIndex
-			// 
-			this.columnSearchIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			this.columnSearchIndex.HeaderText = "Index";
-			this.columnSearchIndex.Name = "columnSearchIndex";
-			this.columnSearchIndex.ReadOnly = true;
-			this.columnSearchIndex.Visible = false;
 			// 
 			// FormMaster
 			// 
