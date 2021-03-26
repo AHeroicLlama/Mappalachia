@@ -986,6 +986,7 @@ namespace Mappalachia
 			}
 
 			List<string> rejectedItems = new List<string>();
+			int legendGroup = FindLowestAvailableLegendGroupValue(); //Get a single legend group for this group of item(s)
 
 			foreach (DataGridViewRow row in gridViewSearchResults.SelectedRows.Cast<DataGridViewRow>().Reverse())
 			{
@@ -998,7 +999,7 @@ namespace Mappalachia
 				}
 				else
 				{
-					selectedItem.legendGroup = FindLowestAvailableLegendGroupValue();
+					selectedItem.legendGroup = legendGroup;
 					legendItems.Add(selectedItem);
 				}
 			}
