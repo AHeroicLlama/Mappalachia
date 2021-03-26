@@ -13,7 +13,7 @@ In this search field, try entering "caps stash" and press the 'Simple Search' bu
 You should now see the 'Search Results' list populate with matches to your search, which in this case should contain a result for "LPI_Loot_CapsStash_Tin" - this name is Bethesda's internal development name for caps stashes.<br/>
 
 ### Building the map
-In the search results list, select the row(s) of the items you wish to map, and select 'Add to Map'.<br/>
+In the search results list, select the item you wish to map (or multiple by holding ctrl or shift), and select 'Add to Map'.<br/>
 The selected items should now be listed in the 'Items to plot' list. You may conduct an additional search and add more items if you wish.<br/>
 If you are happy with the items, press the 'Update Map' button. Mappalachia will then collect the coordinates for every instance of your selected items and plot them with icons on the map. When finished the map on the right hand side will update with your plots, and will display a legend on the left hand side of the image, along with the icons which they are represented by.<br/>
 Please note that mapping too many items can cause some items on the legend to not fit on the map image.<br/>
