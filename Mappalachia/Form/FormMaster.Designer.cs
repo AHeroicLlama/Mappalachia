@@ -117,6 +117,8 @@ namespace Mappalachia
 			this.buttonAddToLegend = new System.Windows.Forms.Button();
 			this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
 			this.progressBarMain = new System.Windows.Forms.ProgressBar();
+			this.checkBoxAddAsGroup = new System.Windows.Forms.CheckBox();
+			this.overrideLegendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
@@ -293,6 +295,7 @@ namespace Mappalachia
             this.plotModeMenuItem,
             this.plotIconSettingsMenuItem,
             this.heatmapSettingsMenuItem,
+            this.overrideLegendTextToolStripMenuItem,
             this.drawVolumesMenuItem});
 			this.plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			this.plotSettingsMenuItem.Size = new System.Drawing.Size(85, 20);
@@ -304,7 +307,7 @@ namespace Mappalachia
             this.modeIconMenuItem,
             this.modeHeatmapMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
-			this.plotModeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.plotModeMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
 			this.plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
@@ -327,7 +330,7 @@ namespace Mappalachia
 			// plotIconSettingsMenuItem
 			// 
 			this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
 			this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
 			this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
@@ -338,7 +341,7 @@ namespace Mappalachia
             this.colorModeMenuItem,
             this.resolutionMenuItem});
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
 			// 
@@ -416,7 +419,7 @@ namespace Mappalachia
 			// drawVolumesMenuItem
 			// 
 			this.drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			this.drawVolumesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.drawVolumesMenuItem.Size = new System.Drawing.Size(193, 22);
 			this.drawVolumesMenuItem.Text = "Draw Volumes";
 			this.drawVolumesMenuItem.ToolTipText = "(Where applicable, in Icon Mode) In-game volumes such as triggers/activators have" +
     " their boundaries drawn instead of a plot icon.";
@@ -973,6 +976,7 @@ namespace Mappalachia
 			// 
 			// splitContainerMain.Panel1
 			// 
+			this.splitContainerMain.Panel1.Controls.Add(this.checkBoxAddAsGroup);
 			this.splitContainerMain.Panel1.Controls.Add(this.buttonRemoveFromLegend);
 			this.splitContainerMain.Panel1.Controls.Add(this.buttonAddToLegend);
 			this.splitContainerMain.Panel1.Controls.Add(this.tabControlSimpleNPCJunk);
@@ -1025,6 +1029,25 @@ namespace Mappalachia
 			this.progressBarMain.Size = new System.Drawing.Size(1661, 19);
 			this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.progressBarMain.TabIndex = 7;
+			// 
+			// checkBoxAddAsGroup
+			// 
+			this.checkBoxAddAsGroup.AutoSize = true;
+			this.checkBoxAddAsGroup.Location = new System.Drawing.Point(183, 640);
+			this.checkBoxAddAsGroup.Name = "checkBoxAddAsGroup";
+			this.checkBoxAddAsGroup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.checkBoxAddAsGroup.Size = new System.Drawing.Size(91, 17);
+			this.checkBoxAddAsGroup.TabIndex = 7;
+			this.checkBoxAddAsGroup.Text = "Add as Group";
+			this.toolTipControls.SetToolTip(this.checkBoxAddAsGroup, "Add all selected items under the same Legend Group.");
+			this.checkBoxAddAsGroup.UseVisualStyleBackColor = true;
+			// 
+			// overrideLegendTextToolStripMenuItem
+			// 
+			this.overrideLegendTextToolStripMenuItem.Name = "overrideLegendTextToolStripMenuItem";
+			this.overrideLegendTextToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.overrideLegendTextToolStripMenuItem.Text = "Override Legend text...";
+			this.overrideLegendTextToolStripMenuItem.Click += new System.EventHandler(this.Plot_OverrideLegendText);
 			// 
 			// FormMaster
 			// 
@@ -1152,6 +1175,8 @@ namespace Mappalachia
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocationID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
 		private System.Windows.Forms.Button buttonSelectRecommended;
+		private System.Windows.Forms.CheckBox checkBoxAddAsGroup;
+		private System.Windows.Forms.ToolStripMenuItem overrideLegendTextToolStripMenuItem;
 	}
 }
 
