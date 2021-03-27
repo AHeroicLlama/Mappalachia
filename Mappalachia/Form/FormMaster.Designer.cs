@@ -304,7 +304,7 @@ namespace Mappalachia
             this.modeIconMenuItem,
             this.modeHeatmapMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
-			this.plotModeMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.plotModeMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
 			this.plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
@@ -327,7 +327,7 @@ namespace Mappalachia
 			// plotIconSettingsMenuItem
 			// 
 			this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
 			this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
 			this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
@@ -338,7 +338,7 @@ namespace Mappalachia
             this.colorModeMenuItem,
             this.resolutionMenuItem});
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
 			// 
@@ -416,7 +416,7 @@ namespace Mappalachia
 			// drawVolumesMenuItem
 			// 
 			this.drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			this.drawVolumesMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.drawVolumesMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.drawVolumesMenuItem.Text = "Draw Volumes";
 			this.drawVolumesMenuItem.ToolTipText = "(Where applicable, in Icon Mode) In-game volumes such as triggers/activators have" +
     " their boundaries drawn instead of a plot icon.";

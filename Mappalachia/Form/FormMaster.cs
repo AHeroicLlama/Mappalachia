@@ -63,7 +63,7 @@ namespace Mappalachia
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLegendLockTypeColumnVisibility();
-			UpdateVolumeEnabledState();
+			UpdateVolumeEnabledState(false);
 			UpdateAmountToolTip();
 			UpdatePlotMode(false);
 			UpdateHeatMapColorMode(false);
@@ -277,9 +277,14 @@ namespace Mappalachia
 		}
 
 		//Update the map settings > draw volume check, based on current settings
-		void UpdateVolumeEnabledState()
+		void UpdateVolumeEnabledState(bool reDraw)
 		{
 			drawVolumesMenuItem.Checked = SettingsPlot.drawVolumes;
+
+			if (reDraw)
+			{
+				Map.Draw();
+			}
 		}
 
 		//Update tooltip on "amount" column header - as it changes depending on interior searching or not
@@ -659,9 +664,17 @@ namespace Mappalachia
 		{
 			if (legendItems.Count > 0)
 			{
+				//Disable control of the legend items list while we draw, and disable calling another draw
 				buttonDrawMap.Enabled = false;
+				buttonAddToLegend.Enabled = false;
+				buttonRemoveFromLegend.Enabled = false;
+
 				Map.Draw();
+
+				//Re-enable disabled buttons after
 				buttonDrawMap.Enabled = true;
+				buttonAddToLegend.Enabled = true;
+				buttonRemoveFromLegend.Enabled = true;
 			}
 			else
 			{
@@ -745,7 +758,6 @@ namespace Mappalachia
 		void Map_Clear(object sender, EventArgs e)
 		{
 			ClearLegend();
-			buttonAddToLegend.Enabled = true;
 			Map.Draw();
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
@@ -850,7 +862,7 @@ namespace Mappalachia
 		private void Plot_DrawVolumes(object sender, EventArgs e)
 		{
 			SettingsPlot.drawVolumes = !SettingsPlot.drawVolumes;
-			UpdateVolumeEnabledState();
+			UpdateVolumeEnabledState(true);
 		}
 
 		//Help > About - Show the About box
@@ -988,12 +1000,15 @@ namespace Mappalachia
 			List<string> rejectedItems = new List<string>();
 			int legendGroup = FindLowestAvailableLegendGroupValue(); //Get a single legend group for this group of item(s)
 
+			//Record the contents of the legend before we start adding to it
+			List<MapItem> legendItemsBeforeAdd = new List<MapItem>(legendItems);
+
 			foreach (DataGridViewRow row in gridViewSearchResults.SelectedRows.Cast<DataGridViewRow>().Reverse())
 			{
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
-				//Warn if a selected item is not valid - otherwise add it.
-				if ((selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive()) || legendItems.Contains(selectedItem))
+				//Warn if a selected item is a cell item or already on the legend list - otherwise add it.
+				if ((selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive()) || legendItemsBeforeAdd.Contains(selectedItem))
 				{
 					rejectedItems.Add(selectedItem.editorID);
 				}
@@ -1034,20 +1049,32 @@ namespace Mappalachia
 				return;
 			}
 
-			buttonAddToLegend.Enabled = true;
+			//If they are removing *everything*, then we can skip the processing below and just wipe the list
+			if (gridViewLegend.SelectedRows.Count == legendItems.Count)
+			{
+				ClearLegend();
+				return;
+			}
+
 			List<MapItem> remainingLegendItems = new List<MapItem>();
+			List<int> selectedIndexes = new List<int>();
 
 			//Removing multiple list items by index breaks, as the indices keep changing
-			//So we instead re-create and replace the legendItems list minus the removed items
-			foreach (DataGridViewRow row in gridViewLegend.Rows)
+			//So we find which items *weren't* selected, then make a new list of remaining items from that
+			foreach (DataGridViewRow row in gridViewLegend.SelectedRows)
 			{
-				if (!gridViewLegend.SelectedRows.Contains(row))
+				selectedIndexes.Add(row.Index);
+			}
+
+			for (int i = 0; i < legendItems.Count; i++)
+			{
+				if (!selectedIndexes.Contains(i))
 				{
-					remainingLegendItems.Add(legendItems[row.Index]);
+					remainingLegendItems.Add(legendItems[i]);
 				}
 			}
 
-			legendItems = new List<MapItem>(remainingLegendItems);
+			legendItems = remainingLegendItems;
 
 			UpdateLegendGrid();
 		}
