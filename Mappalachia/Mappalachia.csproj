@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Class\HeatMapGridSquare.cs" />
     <Compile Include="Class\ImageTools.cs" />
+    <Compile Include="Class\PlotIconCache.cs" />
     <Compile Include="Class\MapDataPoint.cs" />
     <Compile Include="Class\Notify.cs" />
     <Compile Include="Class\PlotIcon.cs" />

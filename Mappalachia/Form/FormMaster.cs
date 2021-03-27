@@ -545,22 +545,6 @@ namespace Mappalachia
 			return earliestIndex < 0 ? n : earliestIndex;
 		}
 
-		//Find the sum total of unique legend groups
-		public static int FindSumLegendGroups()
-		{
-			List<int> legendGroupNumbers = new List<int>();
-
-			foreach (MapItem item in legendItems)
-			{
-				if (!legendGroupNumbers.Contains(item.legendGroup))
-				{
-					legendGroupNumbers.Add(item.legendGroup);
-				}
-			}
-
-			return legendGroupNumbers.Count;
-		}
-
 		//User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMapFromUI()
 		{
