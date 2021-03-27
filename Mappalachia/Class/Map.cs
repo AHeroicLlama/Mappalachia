@@ -178,8 +178,6 @@ namespace Mappalachia
 			if (SettingsPlot.mode == SettingsPlot.Mode.Icon)
 			{
 				int iconHeight = SettingsPlotIcon.iconSize;
-				int colorTotal = SettingsPlotIcon.paletteColor.Count;
-				int shapeTotal = SettingsPlotIcon.paletteShape.Count;
 
 				//Calculate the total height of all legend strings with their plot icons beside, combined
 				int legendTotalHeight = 0;
@@ -212,18 +210,10 @@ namespace Mappalachia
 						textOffset = (iconHeight - fontHeight) / 2;
 					}
 
-					//Identify which item from each palette should be used.
-					//First iterate through every color, then every palette, and repeat.
-					int colorIndex = mapItem.legendGroup % colorTotal;
-					int shapeIndex = (mapItem.legendGroup / colorTotal) % shapeTotal;
-
-					Color color = SettingsPlotIcon.paletteColor[colorIndex];
-					PlotIconShape shape = SettingsPlotIcon.paletteShape[shapeIndex];
-
-					PlotIcon plotIcon = new PlotIcon(color, shape);
+					PlotIcon plotIcon = PlotIconCache.GetIconForGroup(mapItem.legendGroup);
 					Image plotIconImg = plotIcon.GetIconImage();
 
-					Color volumeColor = Color.FromArgb(volumeOpacity, color);
+					Color volumeColor = Color.FromArgb(volumeOpacity, plotIcon.color);
 					Brush volumeBrush = new SolidBrush(volumeColor);
 
 					foreach (MapDataPoint point in mapItem.GetPlots())

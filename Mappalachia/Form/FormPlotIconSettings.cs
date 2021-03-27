@@ -313,6 +313,7 @@ namespace Mappalachia
 			}
 
 			SaveSettingsFromForm();
+			PlotIconCache.ResetCache(); //Reset the cached legend icons, as they are now chagning.
 			Close();
 
 			if (SettingsPlot.mode == SettingsPlot.Mode.Icon)
@@ -324,6 +325,7 @@ namespace Mappalachia
 		private void ButtonReset_Click(object sender, EventArgs e)
 		{
 			SettingsPlotIcon.Initialise();
+			PlotIconCache.ResetCache(); //Reset the cached legend icons, as they are now changing.
 			LoadSettingsIntoForm();
 			Close();
 

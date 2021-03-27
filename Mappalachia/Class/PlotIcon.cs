@@ -19,8 +19,9 @@ namespace Mappalachia.Class
 		readonly Bitmap bitmap;
 		readonly Graphics icon;
 
+		PlotIconShape shape;
 		public Color color;
-		public PlotIconShape shape;
+		Image iconImage;
 
 		public PlotIcon(Color color, PlotIconShape shape)
 		{
@@ -43,6 +44,11 @@ namespace Mappalachia.Class
 		//Draw and return the icon image
 		public Image GetIconImage()
 		{
+			if (iconImage != null)
+			{
+				return iconImage;
+			}
+
 			if (shape.crosshairInner)
 			{
 				icon.DrawLine(pen, halfSize, quartSize, halfSize, threeQuartSize); //Vertical
@@ -106,7 +112,7 @@ namespace Mappalachia.Class
 				}
 			}
 
-			Image iconImage = ImageTools.AdjustARGB(bitmap, Color.FromArgb((int)(iconOpacityPercent / 100f * 255f), color));
+			iconImage = ImageTools.AdjustARGB(bitmap, Color.FromArgb((int)(iconOpacityPercent / 100f * 255f), color));
 			iconImage = ImageTools.AddDropShadow(iconImage, lineWidth, (int)(shadowOpacityPercent / 100f * 255f));
 
 			return iconImage;
