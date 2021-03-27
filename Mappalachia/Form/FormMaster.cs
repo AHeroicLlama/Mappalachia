@@ -738,6 +738,13 @@ namespace Mappalachia
 			UpdateHeatMapResolution(true);
 		}
 
+		//Plot Settings > Override Legend Text - Open override legend text form
+		private void Plot_OverrideLegendText(object sender, EventArgs e)
+		{
+			FormLegendTextControl formLegendTextControl = new FormLegendTextControl();
+			formLegendTextControl.ShowDialog();
+		}
+
 		//Plot Settings > Draw Volumes - Toggle drawing volumes
 		private void Plot_DrawVolumes(object sender, EventArgs e)
 		{
@@ -867,7 +874,13 @@ namespace Mappalachia
 			}
 
 			List<string> rejectedItems = new List<string>();
-			int legendGroup = FindLowestAvailableLegendGroupValue(); //Get a single legend group for this group of item(s)
+			int legendGroup = -1;
+
+			//Get a single legend group for this group of item(s)
+			if (checkBoxAddAsGroup.Checked)
+			{
+				legendGroup = FindLowestAvailableLegendGroupValue();
+			}
 
 			//Record the contents of the legend before we start adding to it
 			List<MapItem> legendItemsBeforeAdd = new List<MapItem>(legendItems);
@@ -883,7 +896,11 @@ namespace Mappalachia
 				}
 				else
 				{
-					selectedItem.legendGroup = legendGroup;
+					//If the legend group is already fixed (added as group) use that, otherwise use a new legend group
+					selectedItem.legendGroup = (legendGroup == -1) ?
+						FindLowestAvailableLegendGroupValue() :
+						legendGroup;
+
 					legendItems.Add(selectedItem);
 				}
 			}
