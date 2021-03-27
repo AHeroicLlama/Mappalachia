@@ -77,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Cell.cs" />
+    <Compile Include="Form\FormLegendTextControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormLegendTextControl.Designer.cs">
+      <DependentUpon>FormLegendTextControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\HeatMapGridSquare.cs" />
     <Compile Include="Class\ImageTools.cs" />
     <Compile Include="Class\PlotIconCache.cs" />
@@ -85,6 +91,7 @@
     <Compile Include="Class\PlotIcon.cs" />
     <Compile Include="Class\PlotIconShape.cs" />
     <Compile Include="Class\CellScaling.cs" />
+    <Compile Include="Class\SettingsLegendText.cs" />
     <Compile Include="Class\SettingsManager.cs" />
     <Compile Include="Class\SettingsPlot.cs" />
     <Compile Include="Class\SettingsSearch.cs" />
@@ -123,6 +130,9 @@
     <Compile Include="Class\Queries.cs" />
     <EmbeddedResource Include="Form\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormLegendTextControl.resx">
+      <DependentUpon>FormLegendTextControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormMaster.resx">
       <DependentUpon>FormMaster.cs</DependentUpon>
