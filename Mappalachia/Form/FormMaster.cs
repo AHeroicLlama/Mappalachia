@@ -227,7 +227,7 @@ namespace Mappalachia
 		void UpdateResultsLockTypeColumnVisibility()
 		{
 			//Check if the lock type filter is in use - if it is we probably want to show the column.
-			if (tabControlSimpleNPCJunk.SelectedTab == tabPageSimple)
+			if (tabControlStandardNPCJunk.SelectedTab == tabPageStandard)
 			{
 				foreach (ListViewItem lockType in listViewFilterLockTypes.Items)
 				{
@@ -820,7 +820,7 @@ namespace Mappalachia
 		}
 
 		//Search Button - Gather parameters, execute query and populate results
-		void ButtonSearchSimple(object sender, EventArgs e)
+		void ButtonSearchStandard(object sender, EventArgs e)
 		{
 			//Check for and show warnings
 			WarnWhenLVLINotSelected();
@@ -830,7 +830,7 @@ namespace Mappalachia
 			searchResults.Clear();
 
 			//Execute the search
-			searchResults = DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+			searchResults = DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
@@ -1149,7 +1149,7 @@ namespace Mappalachia
 		//Change the default enter action depending on the currently selected control
 		void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			AcceptButton = tabControlSimpleNPCJunk.SelectedTab == tabPageSimple ? buttonSearch : buttonSearchNPC;
+			AcceptButton = tabControlStandardNPCJunk.SelectedTab == tabPageStandard ? buttonSearch : buttonSearchNPC;
 		}
 
 		//User updated value in min spawn chance - update the setting too
