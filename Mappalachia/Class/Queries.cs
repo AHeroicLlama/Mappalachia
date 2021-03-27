@@ -75,10 +75,10 @@ namespace Mappalachia
 		}
 
 		//Exceute the basic search query to search the worldspace and/or interiors
-		public static SqliteDataReader ExecuteQuerySimpleSearch(bool searchInterior, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
+		public static SqliteDataReader ExecuteQueryStandardSearch(bool searchInterior, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
-			string queryString = searchInterior ? Properties.Resources.searchSimpleAll : Properties.Resources.searchSimpleAppalachia;
+			string queryString = searchInterior ? Properties.Resources.searchStandardAll : Properties.Resources.searchStandardAppalachia;
 			SqliteCommand query = connection.CreateCommand();
 
 			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
@@ -150,11 +150,11 @@ namespace Mappalachia
 		}
 
 		//Execute a query to find the coordinates of every instance of a given MapItem
-		public static SqliteDataReader ExecuteQueryFindCoordinatesSimple(string formID, List<string> filteredLockTypes)
+		public static SqliteDataReader ExecuteQueryFindCoordinatesStandard(string formID, List<string> filteredLockTypes)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
-			string queryString = Properties.Resources.getCoordsSimple;
+			string queryString = Properties.Resources.getCoordsStandard;
 
 			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
 			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));

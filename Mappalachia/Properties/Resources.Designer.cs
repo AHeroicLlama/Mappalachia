@@ -126,9 +126,9 @@ namespace Mappalachia.Properties {
         ///WHERE referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
         ///.
         /// </summary>
-        internal static string getCoordsSimple {
+        internal static string getCoordsStandard {
             get {
-                return ResourceManager.GetString("getCoordsSimple", resourceCulture);
+                return ResourceManager.GetString("getCoordsStandard", resourceCulture);
             }
         }
         
@@ -309,9 +309,9 @@ namespace Mappalachia.Properties {
         ///			AND signature IN ($allowedSignatures)
         ///			AND lockLevel IN ($allowedLock [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string searchSimpleAll {
+        internal static string searchStandardAll {
             get {
-                return ResourceManager.GetString("searchSimpleAll", resourceCulture);
+                return ResourceManager.GetString("searchStandardAll", resourceCulture);
             }
         }
         
@@ -337,9 +337,9 @@ namespace Mappalachia.Properties {
         ///			AND signature IN ($allowedSignatures)
         ///			AND lockLevel IN ($allowedLock [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string searchSimpleAppalachia {
+        internal static string searchStandardAppalachia {
             get {
-                return ResourceManager.GetString("searchSimpleAppalachia", resourceCulture);
+                return ResourceManager.GetString("searchStandardAppalachia", resourceCulture);
             }
         }
     }

@@ -356,13 +356,13 @@ namespace Mappalachia
 			return cells;
 		}
 
-		//Indicate the spawn chance of a simple item based on understandings of LVLI
+		//Indicate the spawn chance of a standard item based on understandings of LVLI
 		public static double GetSpawnChance(string signature, string editorID)
 		{
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
 
-		//Performs similar functionality to standard simple search but constrained to a specific cell, denoted by cellFormID
+		//Performs similar functionality to standard search but constrained to a specific cell, denoted by cellFormID
 		public static List<MapItem> SearchCell(string searchTerm, Cell cell, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
 			try
@@ -378,7 +378,7 @@ namespace Mappalachia
 						string editorID = reader.GetString(1);
 
 						results.Add(new MapItem(
-							Type.Simple,
+							Type.Standard,
 							reader.GetString(5), //FormID
 							editorID, //Editor ID
 							reader.GetString(0), //Display Name
@@ -403,14 +403,15 @@ namespace Mappalachia
 			}
 		}
 
-		//Conducts the simple search and returns the found items
-		public static List<MapItem> SearchSimple(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
+
+		//Conducts the standard search and returns the found items
+		public static List<MapItem> SearchStandard(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Queries.ExecuteQuerySimpleSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
+				using (SqliteDataReader reader = Queries.ExecuteQueryStandardSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
 				{
 					while (reader.Read())
 					{
@@ -418,7 +419,7 @@ namespace Mappalachia
 						string editorID = reader.GetString(1);
 
 						results.Add(new MapItem(
-							Type.Simple,
+							Type.Standard,
 							reader.GetString(5), //FormID
 							editorID, //Editor ID
 							reader.GetString(0), //Display Name
@@ -494,7 +495,7 @@ namespace Mappalachia
 		}
 
 		//Conducts the NPC search and returns the found items.
-		//Also merges results with simple search results for the same name, then drops items containing "Corpse"
+		//Also merges results with standard search results for the same name, then drops items containing "Corpse"
 		public static List<MapItem> SearchNPC(string searchTerm, int minChance)
 		{
 			try
@@ -532,8 +533,8 @@ namespace Mappalachia
 					}
 				}
 
-				//Expand the NPC search, by also conducting a simple search of only NPC_, ignorant of lock filter
-				results.AddRange(SearchSimple(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, GetPermittedLockTypes()));
+				//Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
+				results.AddRange(SearchStandard(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, GetPermittedLockTypes()));
 
 				/*Copy out search results not containing "corpse", therefore dropping the dead "NPCs"
 				This isn't perfect and won't catch ALL dead NPCs.
@@ -607,11 +608,11 @@ namespace Mappalachia
 		}
 
 		//Return the coordinate locations and boundaries of instances of a FormID
-		public static List<MapDataPoint> GetSimpleCoords(string formID, List<string> filteredLockTypes)
+		public static List<MapDataPoint> GetStandardCoords(string formID, List<string> filteredLockTypes)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Queries.ExecuteQueryFindCoordinatesSimple(formID, filteredLockTypes))
+			using (SqliteDataReader reader = Queries.ExecuteQueryFindCoordinatesStandard(formID, filteredLockTypes))
 			{
 				while (reader.Read())
 				{

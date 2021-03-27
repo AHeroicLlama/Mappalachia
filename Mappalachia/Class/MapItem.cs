@@ -6,7 +6,7 @@ namespace Mappalachia
 {
 	public enum Type
 	{
-		Simple,
+		Standard,
 		Scrap,
 		NPC,
 	}
@@ -46,11 +46,11 @@ namespace Mappalachia
 			this.locationEditorID = locationID;
 		}
 
-		//The lock type is relevant only if it's a 'simple', lockable item with modified/filtered lock types.
+		//The lock type is relevant only if it's a 'standard', lockable item with modified/filtered lock types.
 		public bool GetLockRelevant()
 		{
 			return
-				type == Type.Simple &&
+				type == Type.Standard &&
 				lockableTypes.Contains(signature) &&
 				!filteredLockTypes.OrderBy(e => e).SequenceEqual(DataHelper.GetPermittedLockTypes());
 		}
@@ -64,10 +64,10 @@ namespace Mappalachia
 			{
 				switch (type)
 				{
-					case Type.Simple:
+					case Type.Standard:
 						plots = SettingsMap.IsCellModeActive() ?
 							DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedCell.formID, filteredLockTypes) :
-							DataHelper.GetSimpleCoords(uniqueIdentifier, filteredLockTypes);
+							DataHelper.GetStandardCoords(uniqueIdentifier, filteredLockTypes);
 						break;
 					case Type.NPC:
 						plots = DataHelper.GetNPCCoords(uniqueIdentifier, weight);
@@ -84,7 +84,7 @@ namespace Mappalachia
 		//Get a user-friendly text representation of the MapItem to be used on the legend
 		public string GetLegendText()
 		{
-			if (type == Type.Simple)
+			if (type == Type.Standard)
 			{
 				//Return the editorID, plus the displayName (if it exists), plus the lock levels (if they're relevant)
 				return (displayName == string.Empty ?
@@ -112,7 +112,7 @@ namespace Mappalachia
 
 			switch (mapItem.type)
 			{
-				case Type.Simple:
+				case Type.Standard:
 					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.filteredLockTypes.SequenceEqual(filteredLockTypes);
 				case Type.NPC:
 					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.weight == weight;
@@ -127,7 +127,7 @@ namespace Mappalachia
 		{
 			switch (type)
 			{
-				case Type.Simple:
+				case Type.Standard:
 					return (uniqueIdentifier + string.Join(string.Empty, filteredLockTypes)).GetHashCode();
 				case Type.NPC:
 					return (uniqueIdentifier + weight).GetHashCode();
