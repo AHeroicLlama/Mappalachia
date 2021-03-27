@@ -243,7 +243,7 @@ namespace Mappalachia
 		void UpdateResultsLockTypeColumnVisibility()
 		{
 			//Check if the lock type filter is in use - if it is we probably want to show the column.
-			if (tabControlSimpleNPCJunk.SelectedTab == tabPageSimple)
+			if (tabControlStandardNPCJunk.SelectedTab == tabPageStandard)
 			{
 				foreach (ListViewItem lockType in listViewFilterLockTypes.Items)
 				{
@@ -422,8 +422,7 @@ namespace Mappalachia
 					layerMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
-					tabControlSimpleNPCJunk.TabPages.Add(tabPageNpcSearch);
-					tabControlSimpleNPCJunk.TabPages.Add(tabPageScrapSearch);
+					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
 					
 					comboBoxCell.Visible = false;
 					break;
@@ -435,11 +434,10 @@ namespace Mappalachia
 					layerMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
-					tabControlSimpleNPCJunk.TabPages.Remove(tabPageNpcSearch);
-					tabControlSimpleNPCJunk.TabPages.Remove(tabPageScrapSearch);
+					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
 
 					textBoxSearch.Text = string.Empty;
-					tabControlSimpleNPCJunk.SelectedTab = tabPageSimple;
+					tabControlStandardNPCJunk.SelectedTab = tabPageStandard;
 					comboBoxCell.Visible = true;
 					break;
 			}
@@ -933,7 +931,7 @@ namespace Mappalachia
 		}
 
 		//Search Button - Gather parameters, execute query and populate results
-		void ButtonSearchSimple(object sender, EventArgs e)
+		void ButtonSearchStandard(object sender, EventArgs e)
 		{
 			//Check for and show warnings
 			WarnWhenLVLINotSelected();
@@ -945,7 +943,7 @@ namespace Mappalachia
 			//Execute the search
 			searchResults = SettingsMap.IsCellModeActive() ?
 				DataHelper.SearchCell(textBoxSearch.Text, currentlySelectedCell, GetEnabledSignatures(), GetEnabledLockTypes()) : 
-				DataHelper.SearchSimple(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+				DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
@@ -1265,7 +1263,7 @@ namespace Mappalachia
 		//Change the default enter action depending on the currently selected control
 		void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			AcceptButton = tabControlSimpleNPCJunk.SelectedTab == tabPageSimple ? buttonSearch : buttonSearchNPC;
+			AcceptButton = tabControlStandardNPCJunk.SelectedTab == tabPageStandard ? buttonSearch : buttonSearchNPC;
 		}
 
 		//User updated value in min spawn chance - update the setting too

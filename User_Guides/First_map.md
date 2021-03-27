@@ -2,14 +2,14 @@
 
 ### The Mappalachia interface
 There are 4 key elements to the Mappalachia Window which you'll be presented with;
-* The search area. This contains the 'simple' search (which we'll stick to for now), alongside optional search filters.
+* The search area. This contains the standard search (which we'll stick to for now), alongside optional search filters.
 * The search results grid. This lists everything matching your search criteria above.
 * The 'legend' or 'items to plot' grid. This lists everything you have selected to plot on your map.
 * The map itself.
 
 ### Searching
-With the 'Simple Search' tab selected - at the top of the page you will see the search field.<br/>
-In this search field, try entering "caps stash" and press the 'Simple Search' button or hit enter.<br/>
+With the 'Standard Search' tab selected - at the top of the page you will see the search field.<br/>
+In this search field, try entering "caps stash" and press the 'Standard Search' button or hit enter.<br/>
 You should now see the 'Search Results' list populate with matches to your search, which in this case should contain a result for "LPI_Loot_CapsStash_Tin" - this name is Bethesda's internal development name for caps stashes.<br/>
 
 ### Building the map
