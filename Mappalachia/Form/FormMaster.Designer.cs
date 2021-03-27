@@ -37,7 +37,7 @@ namespace Mappalachia
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.advancedModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.switchModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.cellModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerMilitaryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.layerNWFlatwoodsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -170,7 +170,7 @@ namespace Mappalachia
 			// viewMenuItem
 			// 
 			this.viewMenuItem.Name = "viewMenuItem";
-			this.viewMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.viewMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.viewMenuItem.Text = "View...";
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
@@ -178,19 +178,19 @@ namespace Mappalachia
 			// advancedModeMenuItem
 			// 
 			this.advancedModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.switchModeMenuItem});
+            this.cellModeMenuItem});
 			this.advancedModeMenuItem.Name = "advancedModeMenuItem";
-			this.advancedModeMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.advancedModeMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.advancedModeMenuItem.Text = "Advanced Modes";
 			this.advancedModeMenuItem.ToolTipText = "Switch to advanced mapping modes.";
 			// 
 			// switchModeMenuItem
 			// 
-			this.switchModeMenuItem.Name = "switchModeMenuItem";
-			this.switchModeMenuItem.Size = new System.Drawing.Size(128, 22);
-			this.switchModeMenuItem.Text = "Cell mode";
-			this.switchModeMenuItem.ToolTipText = "A mode specifically for plotting individual cells.";
-			this.switchModeMenuItem.Click += new System.EventHandler(this.Map_SwitchMode);
+			this.cellModeMenuItem.Name = "switchModeMenuItem";
+			this.cellModeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.cellModeMenuItem.Text = "Cell mode";
+			this.cellModeMenuItem.ToolTipText = "A mode specifically for plotting individual cells.";
+			this.cellModeMenuItem.Click += new System.EventHandler(this.Map_CellMode);
 			// 
 			// layerMenuItem
 			// 
@@ -199,14 +199,14 @@ namespace Mappalachia
             this.layerNWFlatwoodsMenuItem,
             this.layerNWMorgantownMenuItem});
 			this.layerMenuItem.Name = "layerMenuItem";
-			this.layerMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.layerMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.layerMenuItem.Text = "Layer";
 			this.layerMenuItem.ToolTipText = "Add or remove a layer to the underlying map.";
 			// 
 			// layerMilitaryMenuItem
 			// 
 			this.layerMilitaryMenuItem.Name = "layerMilitaryMenuItem";
-			this.layerMilitaryMenuItem.Size = new System.Drawing.Size(166, 22);
+			this.layerMilitaryMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.layerMilitaryMenuItem.Text = "Military";
 			this.layerMilitaryMenuItem.ToolTipText = "Change map to the version found on the Targeting Computer and in Train Stations.";
 			this.layerMilitaryMenuItem.Click += new System.EventHandler(this.Map_Layer_Military);
@@ -214,7 +214,7 @@ namespace Mappalachia
 			// layerNWFlatwoodsMenuItem
 			// 
 			this.layerNWFlatwoodsMenuItem.Name = "layerNWFlatwoodsMenuItem";
-			this.layerNWFlatwoodsMenuItem.Size = new System.Drawing.Size(166, 22);
+			this.layerNWFlatwoodsMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.layerNWFlatwoodsMenuItem.Text = "NW Flatwoods";
 			this.layerNWFlatwoodsMenuItem.ToolTipText = "Add/Remove a layer for the Flatwoods Nuclear Winter map.";
 			this.layerNWFlatwoodsMenuItem.Click += new System.EventHandler(this.Map_Layer_NWFlatwoods);
@@ -222,7 +222,7 @@ namespace Mappalachia
 			// layerNWMorgantownMenuItem
 			// 
 			this.layerNWMorgantownMenuItem.Name = "layerNWMorgantownMenuItem";
-			this.layerNWMorgantownMenuItem.Size = new System.Drawing.Size(166, 22);
+			this.layerNWMorgantownMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.layerNWMorgantownMenuItem.Text = "NW Morgantown";
 			this.layerNWMorgantownMenuItem.ToolTipText = "Add/Remove a layer for the Morgantown Nuclear Winter map.";
 			this.layerNWMorgantownMenuItem.Click += new System.EventHandler(this.Map_Layer_NWMorgantown);
@@ -230,7 +230,7 @@ namespace Mappalachia
 			// brightnessMenuItem
 			// 
 			this.brightnessMenuItem.Name = "brightnessMenuItem";
-			this.brightnessMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.brightnessMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.brightnessMenuItem.Text = "Adjust Brightness...";
 			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
 			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
@@ -238,7 +238,7 @@ namespace Mappalachia
 			// grayscaleMenuItem
 			// 
 			this.grayscaleMenuItem.Name = "grayscaleMenuItem";
-			this.grayscaleMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.grayscaleMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.grayscaleMenuItem.Text = "Grayscale";
 			this.grayscaleMenuItem.ToolTipText = "Toggle if the underlying map image is in grayscale or full color.";
 			this.grayscaleMenuItem.Click += new System.EventHandler(this.Map_Grayscale);
@@ -246,7 +246,7 @@ namespace Mappalachia
 			// exportToFileMenuItem
 			// 
 			this.exportToFileMenuItem.Name = "exportToFileMenuItem";
-			this.exportToFileMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.exportToFileMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.exportToFileMenuItem.Text = "Export To File...";
 			this.exportToFileMenuItem.ToolTipText = "Save the current map image to a file.";
 			this.exportToFileMenuItem.Click += new System.EventHandler(this.Map_Export);
@@ -254,7 +254,7 @@ namespace Mappalachia
 			// clearMenuItem
 			// 
 			this.clearMenuItem.Name = "clearMenuItem";
-			this.clearMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.clearMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.clearMenuItem.Text = "Clear";
 			this.clearMenuItem.ToolTipText = "Remove all mapped items from the legend and update the map.";
 			this.clearMenuItem.Click += new System.EventHandler(this.Map_Clear);
@@ -262,7 +262,7 @@ namespace Mappalachia
 			// resetMenuItem
 			// 
 			this.resetMenuItem.Name = "resetMenuItem";
-			this.resetMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.resetMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.resetMenuItem.Text = "Reset";
 			this.resetMenuItem.ToolTipText = "Completely reset the map.";
 			this.resetMenuItem.Click += new System.EventHandler(this.Map_Reset);
@@ -891,7 +891,7 @@ namespace Mappalachia
 			this.comboBoxCell.FormattingEnabled = true;
 			this.comboBoxCell.Location = new System.Drawing.Point(313, 8);
 			this.comboBoxCell.Name = "comboBoxCell";
-			this.comboBoxCell.Size = new System.Drawing.Size(343, 21);
+			this.comboBoxCell.Size = new System.Drawing.Size(198, 21);
 			this.comboBoxCell.TabIndex = 4;
 			this.toolTipControls.SetToolTip(this.comboBoxCell, "Select the specific cell to search and plot within.");
 			this.comboBoxCell.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCell_SelectedIndexChanged);
@@ -1179,7 +1179,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ProgressBar progressBarMain;
 		private System.Windows.Forms.ToolStripMenuItem checkForUpdatesMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem advancedModeMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem switchModeMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem cellModeMenuItem;
 		private System.Windows.Forms.ComboBox comboBoxCell;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchFormID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchEditorID;

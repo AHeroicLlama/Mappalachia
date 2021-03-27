@@ -73,12 +73,13 @@ namespace Mappalachia
 			UpdateSearchInterior();
 			UpdateShowFormID();
 			UpdateSpawnChance();
-			UpdateMapMode();
 
 			Map.SetOutput(pictureBoxMapPreview);
-
 			//Draw and display the map
 			Map.DrawBaseLayer();
+
+			//Assign settings for whichever Map Mode we're starting in
+			EnterMapMode(SettingsMap.mode);
 
 			//Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -200,7 +201,7 @@ namespace Mappalachia
 			cells = DataHelper.GetAllCells();
 			foreach (Cell cell in cells)
 			{
-				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
+				comboBoxCell.Items.Add(cell.displayName);
 			}
 			comboBoxCell.SelectedIndex = 0;
 		}
@@ -409,77 +410,65 @@ namespace Mappalachia
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
 		}
 
-		//Update the map mode features in the UI with the current map mode in settings
-		//May be called at startup to intialise, or after the user switches modes
-		void UpdateMapMode()
+		//Applies the config necessary for exiting the current map mode
+		void ExitMapMode()
 		{
-			switch(SettingsMap.mode)
+			switch (SettingsMap.mode)
 			{
-				//Switched back Normal mode
-				case SettingsMap.Mode.Normal:
-					switchModeMenuItem.Checked = false;
+				case SettingsMap.Mode.Cell:
+					cellModeMenuItem.Checked = false;
 					interiorSearchMenuItem.Enabled = true;
 					layerMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
 					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
-					
+
+					//Re-enable volume drawing as cell mode will disable it
+					SettingsPlot.drawVolumes = true;
+					UpdateVolumeEnabledState(false);
+
 					comboBoxCell.Visible = false;
 					break;
 
-				//Switched to Cell mode
+				case SettingsMap.Mode.Normal:
+					break;
+			}
+		}
+
+		//Applies the config necessary for entering a map mode
+		void EnterMapMode(SettingsMap.Mode incomingMode)
+		{
+			switch (incomingMode)
+			{
 				case SettingsMap.Mode.Cell:
-					switchModeMenuItem.Checked = true;
+					SettingsMap.mode = incomingMode;
+					cellModeMenuItem.Checked = true;
 					interiorSearchMenuItem.Enabled = false;
 					layerMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
 					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
 
+					//Disable volume drawing by default for cell mode as it tends to get in the way
+					SettingsPlot.drawVolumes = false;
+					UpdateVolumeEnabledState(false);
+
 					textBoxSearch.Text = string.Empty;
 					tabControlStandardNPCJunk.SelectedTab = tabPageStandard;
 					comboBoxCell.Visible = true;
 					break;
+
+				case SettingsMap.Mode.Normal:
+					SettingsMap.mode = incomingMode;
+					comboBoxCell.Visible = false;
+					cellModeMenuItem.Checked = false;
+					break;
 			}
 
+			ClearSearchResults();
+			ClearLegend();
 			UpdateLocationColumnVisibility();
-		}
-
-		//Toggle the Map Mode between normal and cell
-		void ToggleMapMode()
-		{
-			switch (SettingsMap.mode)
-			{
-				case SettingsMap.Mode.Normal:
-					DialogResult question = MessageBox.Show(
-						"Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
-						"If you want to search generally for items across all cells, you should enable Search Settings > Search Interiors.\n\n" +
-						"Switching to Cell mode may override, disable, or adjust certain settings and features which do not apply or are no longer relevant.\n" +
-						"Please read the user documentation on Cell Mode for full details.\n\n" +
-						"Continue to Cell mode?",
-						"Switch to Cell mode?", MessageBoxButtons.YesNo);
-
-					if (question == DialogResult.Yes)
-					{
-						SettingsMap.mode = SettingsMap.Mode.Cell;
-						ClearSearchResults();
-						ClearLegend();
-						Map.Reset();
-
-						UpdateMapMode();
-					}
-
-					break;
-
-				case SettingsMap.Mode.Cell:
-					SettingsMap.mode = SettingsMap.Mode.Normal;
-					ClearSearchResults();
-					ClearLegend();
-					Map.Reset();
-
-					UpdateMapMode();
-					break;
-			}			
+			Map.Reset();
 		}
 
 		//Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -701,10 +690,30 @@ namespace Mappalachia
 			UpdateMapLayerSettings(true);
 		}
 
-		//Map > Advanced Mode > Switch Mode
-		private void Map_SwitchMode(object sender, EventArgs e)
+		//Map > Advanced Modes > Cell Mode
+		private void Map_CellMode(object sender, EventArgs e)
 		{
-			ToggleMapMode();
+			if (!SettingsMap.IsCellModeActive())
+			{
+				DialogResult question = MessageBox.Show(
+					"Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
+					"If you want to search generally for items across all cells, you should enable Search Settings > Search Interiors.\n\n" +
+					"Switching to Cell mode may override, disable, or adjust certain settings and features which do not apply or are no longer relevant.\n" +
+					"Please read the user documentation on Cell Mode for full details.\n\n" +
+					"Continue to Cell mode?",
+					"Switch to Cell mode?", MessageBoxButtons.YesNo);
+
+				if (question == DialogResult.Yes)
+				{
+					ExitMapMode();
+					EnterMapMode(SettingsMap.Mode.Cell);
+				}
+			}
+			else
+			{
+				ExitMapMode();
+				EnterMapMode(SettingsMap.Mode.Normal);
+			}
 		}
 
 		//Map > Brightness... - Open the brightness adjust form
