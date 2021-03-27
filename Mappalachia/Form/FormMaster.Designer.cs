@@ -64,6 +64,7 @@ namespace Mappalachia
 			this.resolution256MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution512MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution1024MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.overrideLegendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,12 +114,11 @@ namespace Mappalachia
 			this.tabPageScrapSearch = new System.Windows.Forms.TabPage();
 			this.pictureBoxMapPreview = new System.Windows.Forms.PictureBox();
 			this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+			this.checkBoxAddAsGroup = new System.Windows.Forms.CheckBox();
 			this.buttonRemoveFromLegend = new System.Windows.Forms.Button();
 			this.buttonAddToLegend = new System.Windows.Forms.Button();
 			this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
 			this.progressBarMain = new System.Windows.Forms.ProgressBar();
-			this.checkBoxAddAsGroup = new System.Windows.Forms.CheckBox();
-			this.overrideLegendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
@@ -168,7 +168,7 @@ namespace Mappalachia
 			// viewMenuItem
 			// 
 			this.viewMenuItem.Name = "viewMenuItem";
-			this.viewMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.viewMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.viewMenuItem.Text = "View...";
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
@@ -178,14 +178,16 @@ namespace Mappalachia
 			this.advancedModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.switchModeMenuItem});
 			this.advancedModeMenuItem.Name = "advancedModeMenuItem";
-			this.advancedModeMenuItem.Size = new System.Drawing.Size(175, 22);
-			this.advancedModeMenuItem.Text = "Advanced Mode";
+			this.advancedModeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.advancedModeMenuItem.Text = "Advanced Modes";
+			this.advancedModeMenuItem.ToolTipText = "Switch to advanced mapping modes.";
 			// 
 			// switchModeMenuItem
 			// 
 			this.switchModeMenuItem.Name = "switchModeMenuItem";
 			this.switchModeMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.switchModeMenuItem.Text = "Switch to Cell mode";
+			this.switchModeMenuItem.Text = "Cell mode";
+			this.switchModeMenuItem.ToolTipText = "A mode specifically for plotting individual cells.";
 			this.switchModeMenuItem.Click += new System.EventHandler(this.Map_SwitchMode);
 			// 
 			// layerMenuItem
@@ -195,7 +197,7 @@ namespace Mappalachia
             this.layerNWFlatwoodsMenuItem,
             this.layerNWMorgantownMenuItem});
 			this.layerMenuItem.Name = "layerMenuItem";
-			this.layerMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.layerMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.layerMenuItem.Text = "Layer";
 			this.layerMenuItem.ToolTipText = "Add or remove a layer to the underlying map.";
 			// 
@@ -226,7 +228,7 @@ namespace Mappalachia
 			// brightnessMenuItem
 			// 
 			this.brightnessMenuItem.Name = "brightnessMenuItem";
-			this.brightnessMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.brightnessMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.brightnessMenuItem.Text = "Adjust Brightness...";
 			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
 			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
@@ -234,7 +236,7 @@ namespace Mappalachia
 			// grayscaleMenuItem
 			// 
 			this.grayscaleMenuItem.Name = "grayscaleMenuItem";
-			this.grayscaleMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.grayscaleMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.grayscaleMenuItem.Text = "Grayscale";
 			this.grayscaleMenuItem.ToolTipText = "Toggle if the underlying map image is in grayscale or full color.";
 			this.grayscaleMenuItem.Click += new System.EventHandler(this.Map_Grayscale);
@@ -242,7 +244,7 @@ namespace Mappalachia
 			// exportToFileMenuItem
 			// 
 			this.exportToFileMenuItem.Name = "exportToFileMenuItem";
-			this.exportToFileMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.exportToFileMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.exportToFileMenuItem.Text = "Export To File...";
 			this.exportToFileMenuItem.ToolTipText = "Save the current map image to a file.";
 			this.exportToFileMenuItem.Click += new System.EventHandler(this.Map_Export);
@@ -250,7 +252,7 @@ namespace Mappalachia
 			// clearMenuItem
 			// 
 			this.clearMenuItem.Name = "clearMenuItem";
-			this.clearMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.clearMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.clearMenuItem.Text = "Clear";
 			this.clearMenuItem.ToolTipText = "Remove all mapped items from the legend and update the map.";
 			this.clearMenuItem.Click += new System.EventHandler(this.Map_Clear);
@@ -258,7 +260,7 @@ namespace Mappalachia
 			// resetMenuItem
 			// 
 			this.resetMenuItem.Name = "resetMenuItem";
-			this.resetMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.resetMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.resetMenuItem.Text = "Reset";
 			this.resetMenuItem.ToolTipText = "Completely reset the map.";
 			this.resetMenuItem.Click += new System.EventHandler(this.Map_Reset);
@@ -415,6 +417,13 @@ namespace Mappalachia
 			this.resolution1024MenuItem.Text = "1024";
 			this.resolution1024MenuItem.ToolTipText = "1024x1024 squares for the heatmap.";
 			this.resolution1024MenuItem.Click += new System.EventHandler(this.Plot_HeatMap_Resolution_1024);
+			// 
+			// overrideLegendTextToolStripMenuItem
+			// 
+			this.overrideLegendTextToolStripMenuItem.Name = "overrideLegendTextToolStripMenuItem";
+			this.overrideLegendTextToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.overrideLegendTextToolStripMenuItem.Text = "Override Legend text...";
+			this.overrideLegendTextToolStripMenuItem.Click += new System.EventHandler(this.Plot_OverrideLegendText);
 			// 
 			// drawVolumesMenuItem
 			// 
@@ -881,8 +890,9 @@ namespace Mappalachia
 			this.comboBoxCell.FormattingEnabled = true;
 			this.comboBoxCell.Location = new System.Drawing.Point(313, 19);
 			this.comboBoxCell.Name = "comboBoxCell";
-			this.comboBoxCell.Size = new System.Drawing.Size(265, 21);
+			this.comboBoxCell.Size = new System.Drawing.Size(343, 21);
 			this.comboBoxCell.TabIndex = 4;
+			this.toolTipControls.SetToolTip(this.comboBoxCell, "Select the specific cell to search and plot within.");
 			this.comboBoxCell.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCell_SelectedIndexChanged);
 			// 
 			// groupBoxFilterByLockLevel
@@ -995,6 +1005,18 @@ namespace Mappalachia
 			this.splitContainerMain.SplitterDistance = 811;
 			this.splitContainerMain.TabIndex = 6;
 			// 
+			// checkBoxAddAsGroup
+			// 
+			this.checkBoxAddAsGroup.AutoSize = true;
+			this.checkBoxAddAsGroup.Location = new System.Drawing.Point(183, 640);
+			this.checkBoxAddAsGroup.Name = "checkBoxAddAsGroup";
+			this.checkBoxAddAsGroup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.checkBoxAddAsGroup.Size = new System.Drawing.Size(91, 17);
+			this.checkBoxAddAsGroup.TabIndex = 7;
+			this.checkBoxAddAsGroup.Text = "Add as Group";
+			this.toolTipControls.SetToolTip(this.checkBoxAddAsGroup, "Add all selected items under the same Legend Group.");
+			this.checkBoxAddAsGroup.UseVisualStyleBackColor = true;
+			// 
 			// buttonRemoveFromLegend
 			// 
 			this.buttonRemoveFromLegend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -1029,25 +1051,6 @@ namespace Mappalachia
 			this.progressBarMain.Size = new System.Drawing.Size(1661, 19);
 			this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.progressBarMain.TabIndex = 7;
-			// 
-			// checkBoxAddAsGroup
-			// 
-			this.checkBoxAddAsGroup.AutoSize = true;
-			this.checkBoxAddAsGroup.Location = new System.Drawing.Point(183, 640);
-			this.checkBoxAddAsGroup.Name = "checkBoxAddAsGroup";
-			this.checkBoxAddAsGroup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.checkBoxAddAsGroup.Size = new System.Drawing.Size(91, 17);
-			this.checkBoxAddAsGroup.TabIndex = 7;
-			this.checkBoxAddAsGroup.Text = "Add as Group";
-			this.toolTipControls.SetToolTip(this.checkBoxAddAsGroup, "Add all selected items under the same Legend Group.");
-			this.checkBoxAddAsGroup.UseVisualStyleBackColor = true;
-			// 
-			// overrideLegendTextToolStripMenuItem
-			// 
-			this.overrideLegendTextToolStripMenuItem.Name = "overrideLegendTextToolStripMenuItem";
-			this.overrideLegendTextToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-			this.overrideLegendTextToolStripMenuItem.Text = "Override Legend text...";
-			this.overrideLegendTextToolStripMenuItem.Click += new System.EventHandler(this.Plot_OverrideLegendText);
 			// 
 			// FormMaster
 			// 
