@@ -417,7 +417,7 @@ namespace Mappalachia
 			{
 				//Switched back Normal mode
 				case SettingsMap.Mode.Normal:
-					switchModeMenuItem.Text = "Switch to Cell mode";
+					switchModeMenuItem.Checked = false;
 					interiorSearchMenuItem.Enabled = true;
 					layerMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
@@ -430,7 +430,7 @@ namespace Mappalachia
 
 				//Switched to Cell mode
 				case SettingsMap.Mode.Cell:
-					switchModeMenuItem.Text = "Switch to Normal mode";
+					switchModeMenuItem.Checked = true;
 					interiorSearchMenuItem.Enabled = false;
 					layerMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
