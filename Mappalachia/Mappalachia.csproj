@@ -194,6 +194,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\searchStandardAppalachia.sql" />
+    <None Include="SQL\searchStandardAll.sql" />
+    <None Include="SQL\getCoordsStandard.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">
