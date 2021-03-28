@@ -1,5 +1,7 @@
+using Mappalachia.Class;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace Mappalachia
@@ -95,6 +97,23 @@ namespace Mappalachia
 			{
 				return editorID;
 			}
+		}
+
+		//Find the appropriate legend color for this item
+		//Varies on the plotting mode, and further on the heatmap color mode
+		public Color GetLegendColor()
+		{
+			return SettingsPlot.IsIcon() ?
+				GetIcon().color :
+
+				SettingsPlotHeatmap.IsMono() ?
+					Color.Red :
+					(legendGroup % 2 == 0 ? Color.Red : Color.Blue);
+		}
+
+		public PlotIcon GetIcon()
+		{
+			return PlotIconCache.GetIconForGroup(legendGroup);
 		}
 
 		//Override equals to compare MapItem - we use the unique identifier and if they're a normal item, also the filtered lock type.
