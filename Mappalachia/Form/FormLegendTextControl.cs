@@ -11,7 +11,7 @@ namespace Mappalachia.Class
 			InitializeComponent();
 
 			dataGridViewLegendText.Enabled = false;
-			foreach (KeyValuePair<int, string> entry in SettingsLegendText.legendTexts)
+			foreach (KeyValuePair<int, string> entry in LegendTextManager.allLegendTexts)
 			{
 				dataGridViewLegendText.Rows.Add(entry.Key, entry.Value);
 			}
@@ -22,18 +22,22 @@ namespace Mappalachia.Class
 		{
 			foreach (DataGridViewRow row in dataGridViewLegendText.Rows)
 			{
-				if (row.Cells["columnOverrideText"].Value.ToString() != string.Empty)
+				DataGridViewCell cell = row.Cells["columnOverrideText"];
+
+				if (cell.Value != null && cell.Value.ToString() != string.Empty)
 				{
-					SettingsLegendText.UpdateLegend(row.Cells["columnLegendGroup"].Value.ToString(), row.Cells["columnOverrideText"].Value.ToString());
+					LegendTextManager.UpdateLegend((int)row.Cells["columnLegendGroup"].Value, cell.Value.ToString());
 				}
 			}
 			Close();
+			Map.Draw();
 		}
 
 		private void ButtonResetAll(object sender, EventArgs e)
 		{
-			SettingsLegendText.ResetAll();
+			LegendTextManager.ResetAll();
 			Close();
+			Map.Draw();
 		}
 	}
 }
