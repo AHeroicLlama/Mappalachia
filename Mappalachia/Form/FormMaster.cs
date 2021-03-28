@@ -660,6 +660,19 @@ namespace Mappalachia
 			Map.Open();
 		}
 
+		void ShowCellModeHeightDistribution()
+		{
+			string textVisualisation = string.Empty;
+			int i = 0;
+			foreach (double value in currentlySelectedCell.GetHeightDistribution(50))
+			{
+				textVisualisation = i.ToString().PadLeft(2, '0') + ":" + new string('#', (int)Math.Ceiling(value*2)) + "\n" + textVisualisation;
+				i++;
+			}
+
+			MessageBox.Show(textVisualisation, "Height distribution for " + currentlySelectedCell.displayName);
+		}
+
 		#endregion
 
 		//All Methods which represent responses to UI input
@@ -903,6 +916,8 @@ namespace Mappalachia
 			ClearSearchResults();
 			ClearLegend();
 			currentlySelectedCell = cells[comboBoxCell.SelectedIndex];
+
+			ShowCellModeHeightDistribution();
 		}
 
 		//Signature select all

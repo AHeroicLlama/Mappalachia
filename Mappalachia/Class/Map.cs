@@ -156,7 +156,7 @@ namespace Mappalachia
 				Cell currentCell = FormMaster.currentlySelectedCell;
 
 				//Assign the CellScaling property - also used later in GenerateIconPlotLayer()
-				cellScaling = CellScaling.GetCellScaling(currentCell);
+				cellScaling = currentCell.GetScaling();
 
 				versionText =
 					currentCell.displayName + " (" + currentCell.editorID + ") Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n" +
