@@ -83,6 +83,12 @@ namespace Mappalachia
 		//Get a user-friendly text representation of the MapItem to be used on the legend
 		public string GetLegendText()
 		{
+			if (LegendTextManager.GetOverriddenTexts().ContainsKey(legendGroup))
+			{
+				Console.WriteLine(LegendTextManager.GetOverriddenTexts()[legendGroup]);
+				return LegendTextManager.GetOverriddenTexts()[legendGroup];
+			}
+
 			if (type == Type.Standard)
 			{
 				//Return the editorID, plus the displayName (if it exists), plus the lock levels (if they're relevant)
@@ -103,12 +109,16 @@ namespace Mappalachia
 		//Varies on the plotting mode, and further on the heatmap color mode
 		public Color GetLegendColor()
 		{
-			return SettingsPlot.IsIcon() ?
-				GetIcon().color :
-
-				SettingsPlotHeatmap.IsMono() ?
+			if (SettingsPlot.IsIcon())
+			{
+				return GetIcon().color;
+			}
+			else //HeatMap
+			{
+				return SettingsPlotHeatmap.IsMono() ?
 					Color.Red :
 					(legendGroup % 2 == 0 ? Color.Red : Color.Blue);
+			}
 		}
 
 		public PlotIcon GetIcon()
