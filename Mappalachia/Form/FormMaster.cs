@@ -604,7 +604,7 @@ namespace Mappalachia
 				gridViewLegend.FirstDisplayedScrollingRowIndex = gridViewLegend.RowCount - 1;
 			}
 
-			SettingsLegendText.UpdateGroups();
+			LegendTextManager.IncludeNewGroups();
 		}
 
 		//Wipe away the legend items and update the UI. Doesn't re-draw the map
@@ -854,6 +854,12 @@ namespace Mappalachia
 		//Plot Settings > Override Legend Text - Open override legend text form
 		private void Plot_OverrideLegendText(object sender, EventArgs e)
 		{
+			if (legendItems.Count == 0)
+			{
+				Notify.Info("Please add items to the legend list first.");
+				return;
+			}
+
 			FormLegendTextControl formLegendTextControl = new FormLegendTextControl();
 			formLegendTextControl.ShowDialog();
 		}
@@ -1108,7 +1114,7 @@ namespace Mappalachia
 			MapItem item = legendItems[e.RowIndex];
 			item.legendGroup = int.Parse(cell.Value.ToString());
 
-			SettingsLegendText.UpdateGroups();
+			LegendTextManager.IncludeNewGroups();
 		}
 
 		void ButtonDrawMap(object sender, EventArgs e)
