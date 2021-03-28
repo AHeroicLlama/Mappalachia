@@ -29,9 +29,9 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
 			this.menuStripMain = new System.Windows.Forms.MenuStrip();
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,13 +126,13 @@ namespace Mappalachia
 			this.groupBoxFilterByLockLevel.SuspendLayout();
 			this.groupBoxFilterByCategory.SuspendLayout();
 			this.tabPageNpcScrapSearch.SuspendLayout();
+			this.groupBoxScrapSearch.SuspendLayout();
+			this.groupBoxNPCSearch.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxMapPreview)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
 			this.splitContainerMain.SuspendLayout();
-			this.groupBoxNPCSearch.SuspendLayout();
-			this.groupBoxScrapSearch.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStripMain
@@ -290,14 +290,14 @@ namespace Mappalachia
             this.modeIconMenuItem,
             this.modeHeatmapMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
-			this.plotModeMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.plotModeMenuItem.Size = new System.Drawing.Size(232, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
 			this.plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
 			// modeIconMenuItem
 			// 
 			this.modeIconMenuItem.Name = "modeIconMenuItem";
-			this.modeIconMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeIconMenuItem.Text = "Icon";
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -305,7 +305,7 @@ namespace Mappalachia
 			// modeHeatmapMenuItem
 			// 
 			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeHeatmapMenuItem.Text = "Heatmap";
 			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
 			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
@@ -313,7 +313,7 @@ namespace Mappalachia
 			// plotIconSettingsMenuItem
 			// 
 			this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(232, 22);
 			this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
 			this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
 			this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
@@ -324,7 +324,7 @@ namespace Mappalachia
             this.colorModeMenuItem,
             this.resolutionMenuItem});
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(232, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
 			// 
@@ -334,7 +334,7 @@ namespace Mappalachia
             this.monoColorModeMenuItem,
             this.duoColorModeMenuItem});
 			this.colorModeMenuItem.Name = "colorModeMenuItem";
-			this.colorModeMenuItem.Size = new System.Drawing.Size(137, 22);
+			this.colorModeMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.colorModeMenuItem.Text = "Color Mode";
 			this.colorModeMenuItem.ToolTipText = "Change the heatmap between mono (one color) and duo (two colors).";
 			// 
@@ -363,7 +363,7 @@ namespace Mappalachia
             this.resolution512MenuItem,
             this.resolution1024MenuItem});
 			this.resolutionMenuItem.Name = "resolutionMenuItem";
-			this.resolutionMenuItem.Size = new System.Drawing.Size(137, 22);
+			this.resolutionMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.resolutionMenuItem.Text = "Resolution";
 			this.resolutionMenuItem.ToolTipText = "Change the resolution, and hence precision of the heatmap.";
 			// 
@@ -402,14 +402,15 @@ namespace Mappalachia
 			// overrideLegendTextToolStripMenuItem
 			// 
 			this.overrideLegendTextToolStripMenuItem.Name = "overrideLegendTextToolStripMenuItem";
-			this.overrideLegendTextToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-			this.overrideLegendTextToolStripMenuItem.Text = "Override Legend text...";
+			this.overrideLegendTextToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.overrideLegendTextToolStripMenuItem.Text = "Override/Group Legend Text...";
+			this.overrideLegendTextToolStripMenuItem.ToolTipText = "Provide overriding text in order to group items under one legend entry.";
 			this.overrideLegendTextToolStripMenuItem.Click += new System.EventHandler(this.Plot_OverrideLegendText);
 			// 
 			// drawVolumesMenuItem
 			// 
 			this.drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			this.drawVolumesMenuItem.Size = new System.Drawing.Size(193, 22);
+			this.drawVolumesMenuItem.Size = new System.Drawing.Size(232, 22);
 			this.drawVolumesMenuItem.Text = "Draw Volumes";
 			this.drawVolumesMenuItem.ToolTipText = "(Where applicable, in Icon Mode) In-game volumes such as triggers/activators have" +
     " their boundaries drawn instead of a plot icon.";
@@ -463,8 +464,8 @@ namespace Mappalachia
 			this.gridViewSearchResults.AllowUserToDeleteRows = false;
 			this.gridViewSearchResults.AllowUserToOrderColumns = true;
 			this.gridViewSearchResults.AllowUserToResizeRows = false;
-			dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
-			this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+			this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this.gridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -489,14 +490,14 @@ namespace Mappalachia
 			this.gridViewSearchResults.RowHeadersVisible = false;
 			this.gridViewSearchResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.gridViewSearchResults.Size = new System.Drawing.Size(798, 287);
-			this.gridViewSearchResults.TabIndex = 2;
+			this.gridViewSearchResults.TabIndex = 1;
 			this.gridViewSearchResults.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewSearchResults_CellMouseEnter);
 			// 
 			// columnSearchFormID
 			// 
 			this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
 			this.columnSearchFormID.HeaderText = "FormID";
 			this.columnSearchFormID.Name = "columnSearchFormID";
 			this.columnSearchFormID.ReadOnly = true;
@@ -656,7 +657,7 @@ namespace Mappalachia
 			this.buttonDeselectAllSignature.Location = new System.Drawing.Point(231, 224);
 			this.buttonDeselectAllSignature.Name = "buttonDeselectAllSignature";
 			this.buttonDeselectAllSignature.Size = new System.Drawing.Size(75, 23);
-			this.buttonDeselectAllSignature.TabIndex = 2;
+			this.buttonDeselectAllSignature.TabIndex = 3;
 			this.buttonDeselectAllSignature.Text = "Deselect All";
 			this.toolTipControls.SetToolTip(this.buttonDeselectAllSignature, "Remove all categories (used to then select just one).");
 			this.buttonDeselectAllSignature.UseVisualStyleBackColor = true;
@@ -692,8 +693,8 @@ namespace Mappalachia
 			this.gridViewLegend.AllowUserToDeleteRows = false;
 			this.gridViewLegend.AllowUserToOrderColumns = true;
 			this.gridViewLegend.AllowUserToResizeRows = false;
-			dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
-			this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+			this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
 			this.gridViewLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -709,7 +710,7 @@ namespace Mappalachia
 			this.gridViewLegend.RowHeadersVisible = false;
 			this.gridViewLegend.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.gridViewLegend.Size = new System.Drawing.Size(800, 173);
-			this.gridViewLegend.TabIndex = 3;
+			this.gridViewLegend.TabIndex = 7;
 			this.gridViewLegend.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellEndEdit);
 			this.gridViewLegend.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellMouseEnter);
 			// 
@@ -753,7 +754,7 @@ namespace Mappalachia
 			this.labelLegend.Location = new System.Drawing.Point(9, 647);
 			this.labelLegend.Name = "labelLegend";
 			this.labelLegend.Size = new System.Drawing.Size(64, 13);
-			this.labelLegend.TabIndex = 1;
+			this.labelLegend.TabIndex = 0;
 			this.labelLegend.Text = "Items to plot";
 			// 
 			// labelMinSpawnChance
@@ -818,7 +819,7 @@ namespace Mappalachia
 			this.buttonDrawMap.Location = new System.Drawing.Point(337, 841);
 			this.buttonDrawMap.Name = "buttonDrawMap";
 			this.buttonDrawMap.Size = new System.Drawing.Size(136, 26);
-			this.buttonDrawMap.TabIndex = 4;
+			this.buttonDrawMap.TabIndex = 6;
 			this.buttonDrawMap.Text = "Update Map";
 			this.toolTipControls.SetToolTip(this.buttonDrawMap, "Re-draw the map by plotting every item in the \'items to plot\' list.");
 			this.buttonDrawMap.UseVisualStyleBackColor = true;
@@ -844,7 +845,7 @@ namespace Mappalachia
 			this.tabControlStandardNPCJunk.SelectedIndex = 0;
 			this.tabControlStandardNPCJunk.ShowToolTips = true;
 			this.tabControlStandardNPCJunk.Size = new System.Drawing.Size(798, 319);
-			this.tabControlStandardNPCJunk.TabIndex = 1;
+			this.tabControlStandardNPCJunk.TabIndex = 0;
 			this.tabControlStandardNPCJunk.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
 			// 
 			// tabPageStandard
@@ -895,7 +896,7 @@ namespace Mappalachia
 			this.buttonSelectRecommended.Location = new System.Drawing.Point(103, 224);
 			this.buttonSelectRecommended.Name = "buttonSelectRecommended";
 			this.buttonSelectRecommended.Size = new System.Drawing.Size(122, 23);
-			this.buttonSelectRecommended.TabIndex = 3;
+			this.buttonSelectRecommended.TabIndex = 2;
 			this.buttonSelectRecommended.Text = "Select Recommended";
 			this.toolTipControls.SetToolTip(this.buttonSelectRecommended, "Refine results by selecting only the most commonly used categories.");
 			this.buttonSelectRecommended.UseVisualStyleBackColor = true;
@@ -992,7 +993,7 @@ namespace Mappalachia
 			this.checkBoxAddAsGroup.Name = "checkBoxAddAsGroup";
 			this.checkBoxAddAsGroup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.checkBoxAddAsGroup.Size = new System.Drawing.Size(91, 17);
-			this.checkBoxAddAsGroup.TabIndex = 7;
+			this.checkBoxAddAsGroup.TabIndex = 2;
 			this.checkBoxAddAsGroup.Text = "Add as Group";
 			this.toolTipControls.SetToolTip(this.checkBoxAddAsGroup, "Add all selected items under the same Legend Group.");
 			this.checkBoxAddAsGroup.UseVisualStyleBackColor = true;
@@ -1003,7 +1004,7 @@ namespace Mappalachia
 			this.buttonRemoveFromLegend.Location = new System.Drawing.Point(408, 634);
 			this.buttonRemoveFromLegend.Name = "buttonRemoveFromLegend";
 			this.buttonRemoveFromLegend.Size = new System.Drawing.Size(124, 23);
-			this.buttonRemoveFromLegend.TabIndex = 6;
+			this.buttonRemoveFromLegend.TabIndex = 4;
 			this.buttonRemoveFromLegend.Text = "Remove from Map";
 			this.toolTipControls.SetToolTip(this.buttonRemoveFromLegend, "Remove the selected item(s) from the \'items to plot\' list.");
 			this.buttonRemoveFromLegend.UseVisualStyleBackColor = true;
@@ -1015,7 +1016,7 @@ namespace Mappalachia
 			this.buttonAddToLegend.Location = new System.Drawing.Point(278, 634);
 			this.buttonAddToLegend.Name = "buttonAddToLegend";
 			this.buttonAddToLegend.Size = new System.Drawing.Size(124, 23);
-			this.buttonAddToLegend.TabIndex = 5;
+			this.buttonAddToLegend.TabIndex = 3;
 			this.buttonAddToLegend.Text = "Add to Map";
 			this.toolTipControls.SetToolTip(this.buttonAddToLegend, "Add the selected item(s) from the search results onto the \'items to plot\' list.");
 			this.buttonAddToLegend.UseVisualStyleBackColor = true;

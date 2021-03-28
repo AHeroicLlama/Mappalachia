@@ -327,21 +327,41 @@ namespace Mappalachia
 		//Draws all legend text (and optional Icon beside) for every MapItem
 		static void DrawLegend(Font font, Graphics imageGraphic)
 		{
+			Dictionary<int, string> overridingLegendText = LegendTextManager.GetOverriddenTexts();
+			List<int> drawnGroups = new List<int>();
+
 			//Calculate the total height of all legend strings with their plot icons beside, combined
 			int legendTotalHeight = 0;
 			foreach (MapItem mapItem in FormMaster.legendItems)
 			{
+				//Skip legend groups that are merged/overridden and have already been accounted for
+				if (drawnGroups.Contains(mapItem.legendGroup) && overridingLegendText.ContainsKey(mapItem.legendGroup))
+				{
+					continue;
+				}
+
 				legendTotalHeight += Math.Max(
 					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height),
 					SettingsPlot.IsIcon() ? SettingsPlotIcon.iconSize : 0);
+
+				drawnGroups.Add(mapItem.legendGroup);
 			}
 
 			//The initial Y coord where first legend item should be written, in order to Y-center the entire legend
 			int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
 
+			//Reset the drawn groups list, as we need to iterate over the items again
+			drawnGroups = new List<int>();
+
 			//Loop over every MapItem and draw the legend
 			foreach (MapItem mapItem in FormMaster.legendItems)
 			{
+				//Skip legend groups that are merged/overridden and have already been drawn
+				if (drawnGroups.Contains(mapItem.legendGroup) && overridingLegendText.ContainsKey(mapItem.legendGroup))
+				{
+					continue;
+				}
+
 				//Calculate positions and color for legend text (plus icon)
 				int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height);
 
@@ -375,6 +395,7 @@ namespace Mappalachia
 					imageGraphic.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
 				}
 
+				drawnGroups.Add(mapItem.legendGroup);
 				legendCaretHeight += legendHeight; //Move the 'caret' down for the next item, enough to fit the icon and the text
 			}
 		}

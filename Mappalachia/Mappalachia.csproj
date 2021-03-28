@@ -89,7 +89,7 @@
     <Compile Include="Class\Notify.cs" />
     <Compile Include="Class\PlotIcon.cs" />
     <Compile Include="Class\PlotIconShape.cs" />
-    <Compile Include="Class\SettingsLegendText.cs" />
+    <Compile Include="Class\LegendTextManager.cs" />
     <Compile Include="Class\SettingsManager.cs" />
     <Compile Include="Class\SettingsPlot.cs" />
     <Compile Include="Class\SettingsSearch.cs" />
