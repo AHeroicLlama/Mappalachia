@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Mappalachia.Class
 {
-	class CellScaling
+	public class CellScaling
 	{
 		public double xOffset;
 		public double yOffset;

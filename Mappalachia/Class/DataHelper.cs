@@ -574,7 +574,7 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2)));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d));
 				}
 			}
 
