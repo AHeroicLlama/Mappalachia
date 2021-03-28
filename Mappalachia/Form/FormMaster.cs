@@ -315,7 +315,7 @@ namespace Mappalachia
 					break;
 			}
 
-			if (reDraw && SettingsPlot.mode == SettingsPlot.Mode.Heatmap)
+			if (reDraw && SettingsPlot.IsHeatmap())
 			{
 				Map.Draw();
 			}
@@ -344,7 +344,7 @@ namespace Mappalachia
 					break;
 			}
 
-			if (reDraw && SettingsPlot.mode == SettingsPlot.Mode.Heatmap)
+			if (reDraw && SettingsPlot.IsHeatmap())
 			{
 				Map.Draw();
 			}
