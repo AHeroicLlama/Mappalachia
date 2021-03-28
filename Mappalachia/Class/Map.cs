@@ -175,47 +175,26 @@ namespace Mappalachia
 				return;
 			}
 
-			if (SettingsPlot.mode == SettingsPlot.Mode.Icon)
+			//Start progress bar off at 0
+			progressBarMain.Value = 0;
+			float totalMapItems = FormMaster.legendItems.Count;
+			float progress = 0;
+
+			//Draw all legend text for every MapItem
+			DrawLegend(font, imageGraphic);
+
+			if (SettingsPlot.IsIcon())
 			{
-				int iconHeight = SettingsPlotIcon.iconSize;
-
-				//Calculate the total height of all legend strings with their plot icons beside, combined
-				int legendTotalHeight = 0;
-				foreach (MapItem mapItem in FormMaster.legendItems)
-				{
-					legendTotalHeight += Math.Max(
-						(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height),
-						SettingsPlotIcon.iconSize);
-				}
-
-				//The Y coord where first legend item should be written, in order to Y-center the entire legend
-				int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
-
-				//Start progress bar off at 0
-				progressBarMain.Value = 0;
-				float totalMapItems = FormMaster.legendItems.Count;
-				float progress = 0;
-
 				//Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
-					//Calculate the height in pixels of the legend text plus icon if it were drawn
-					int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height);
-					int legendHeight = Math.Max(fontHeight, iconHeight);
-
-					//If the icon is taller than the text, offset the text it so it sits Y-centrally against the icon
-					int textOffset = 0;
-					if (iconHeight > fontHeight)
-					{
-						textOffset = (iconHeight - fontHeight) / 2;
-					}
-
-					PlotIcon plotIcon = PlotIconCache.GetIconForGroup(mapItem.legendGroup);
+					PlotIcon plotIcon = mapItem.GetIcon();
 					Image plotIconImg = plotIcon.GetIconImage();
 
 					Color volumeColor = Color.FromArgb(volumeOpacity, plotIcon.color);
 					Brush volumeBrush = new SolidBrush(volumeColor);
 
+					//Iterate over every data point and draw it
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
 						if (SettingsMap.IsCellModeActive())
@@ -269,38 +248,16 @@ namespace Mappalachia
 						}
 					}
 
-					//If the legend text/item fits on the map vertically
-					//Not drawing legend text for larger maps avoids the overhead of drawing many legends outside the image
-					if (legendCaretHeight > 0 && legendCaretHeight + legendHeight < mapDimension)
-					{
-						//Draw the legend text and example icon beside it
-						Brush textBrush = new SolidBrush(plotIcon.color);
-						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
-						imageGraphic.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
-					}
-
-					legendCaretHeight += legendHeight; //Move the 'caret' down for the next item, enough to fit the icon and the text
-
 					//Increment the progress bar per MapItem
 					progress += 1;
 					progressBarMain.Value = (int)((progress / totalMapItems) * progressBarMain.Maximum);
 					Application.DoEvents();
 				}
 			}
-			else if (SettingsPlot.mode == SettingsPlot.Mode.Heatmap)
+			else if (SettingsPlot.IsHeatmap())
 			{
 				int resolution = SettingsPlotHeatmap.resolution;
 				int blendRange = SettingsPlotHeatmap.blendDistance;
-
-				//Calculate the total height of all legend strings combined
-				int legendTotalHeight = 0;
-				foreach (MapItem mapItem in FormMaster.legendItems)
-				{
-					legendTotalHeight += (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height);
-				}
-
-				//The initial Y coord where first legend item should be written, in order to Y-center the entire legend
-				int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
 
 				//Create a 2D Array of HeatMapGridSquare
 				HeatMapGridSquare[,] squares = new HeatMapGridSquare[resolution, resolution];
@@ -314,14 +271,9 @@ namespace Mappalachia
 
 				int pixelsPerSquare = mapDimension / resolution;
 
-				//Start the progress bar at 0
-				progressBarMain.Value = 0;
-				float totalMapItems = FormMaster.legendItems.Count;
-				float progress = 0;
-
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
-					int legendGroup = SettingsPlotHeatmap.colorMode == SettingsPlotHeatmap.ColorMode.Duo ? mapItem.legendGroup % 2 : 0;
+					int heatmapLegendGroup = SettingsPlotHeatmap.IsDuo() ? mapItem.legendGroup % 2 : 0;
 
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
@@ -356,18 +308,10 @@ namespace Mappalachia
 
 								//Weight and hence brightness is modified by 1/x^2 + 1 where x is the distance from actual item
 								double additionalWeight = point.weight * (1d / ((distance * distance) + 1));
-								squares[x, y].weights[legendGroup] += additionalWeight;
+								squares[x, y].weights[heatmapLegendGroup] += additionalWeight;
 							}
 						}
 					}
-
-					//Calculate positions and color for legend text, draw the string then move the 'caret' down
-					int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height);
-					Color legendColor = legendGroup == 0 ? Color.Red : Color.Blue;
-					Brush textBrush = new SolidBrush(legendColor);
-
-					imageGraphic.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendCaretHeight, legendWidth, fontHeight));
-					legendCaretHeight += fontHeight;
 
 					//Increment the progress bar per MapItem
 					progress += 1;
@@ -415,6 +359,61 @@ namespace Mappalachia
 
 			mapFrame.Image = finalImage;
 			GC.Collect();
+		}
+
+		//Draws all legend text (and optional Icon beside) for every MapItem
+		static void DrawLegend(Font font, Graphics imageGraphic)
+		{
+			//Calculate the total height of all legend strings with their plot icons beside, combined
+			int legendTotalHeight = 0;
+			foreach (MapItem mapItem in FormMaster.legendItems)
+			{
+				legendTotalHeight += Math.Max(
+					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height),
+					SettingsPlot.IsIcon() ? SettingsPlotIcon.iconSize : 0);
+			}
+
+			//The initial Y coord where first legend item should be written, in order to Y-center the entire legend
+			int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
+
+			//Loop over every MapItem and draw the legend
+			foreach (MapItem mapItem in FormMaster.legendItems)
+			{
+				//Calculate positions and color for legend text (plus icon)
+				int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height);
+
+				PlotIcon icon = mapItem.GetIcon();
+				Image plotIconImg = SettingsPlot.IsIcon() ? icon.GetIconImage() : null;
+
+				Color legendColor = mapItem.GetLegendColor();
+				Brush textBrush = new SolidBrush(legendColor);
+
+				int iconHeight = SettingsPlot.IsIcon() ?
+					plotIconImg.Height :
+					0;
+
+				int legendHeight = Math.Max(fontHeight, iconHeight);
+
+				//If the icon is taller than the text, offset the text it so it sits Y-centrally against the icon
+				int textOffset = 0;
+				if (iconHeight > fontHeight)
+				{
+					textOffset = (iconHeight - fontHeight) / 2;
+				}
+
+				//If the legend text/item fits on the map vertically
+				if (legendCaretHeight > 0 && legendCaretHeight + legendHeight < mapDimension)
+				{
+					if (SettingsPlot.IsIcon())
+					{
+						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
+					}
+
+					imageGraphic.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
+				}
+
+				legendCaretHeight += legendHeight; //Move the 'caret' down for the next item, enough to fit the icon and the text
+			}
 		}
 
 		public static void Open()

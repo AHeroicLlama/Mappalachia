@@ -316,7 +316,7 @@ namespace Mappalachia
 			PlotIconCache.ResetCache(); //Reset the cached legend icons, as they are now chagning.
 			Close();
 
-			if (SettingsPlot.mode == SettingsPlot.Mode.Icon)
+			if (SettingsPlot.IsIcon())
 			{
 				Map.Draw();
 			}

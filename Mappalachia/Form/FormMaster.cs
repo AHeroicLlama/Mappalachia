@@ -332,7 +332,7 @@ namespace Mappalachia
 					break;
 			}
 
-			if (reDraw && SettingsPlot.mode == SettingsPlot.Mode.Heatmap)
+			if (reDraw && SettingsPlot.IsHeatmap())
 			{
 				Map.Draw();
 			}
@@ -361,7 +361,7 @@ namespace Mappalachia
 					break;
 			}
 
-			if (reDraw && SettingsPlot.mode == SettingsPlot.Mode.Heatmap)
+			if (reDraw && SettingsPlot.IsHeatmap())
 			{
 				Map.Draw();
 			}
@@ -603,6 +603,8 @@ namespace Mappalachia
 			{
 				gridViewLegend.FirstDisplayedScrollingRowIndex = gridViewLegend.RowCount - 1;
 			}
+
+			SettingsLegendText.UpdateGroups();
 		}
 
 		//Wipe away the legend items and update the UI. Doesn't re-draw the map
@@ -1105,6 +1107,8 @@ namespace Mappalachia
 
 			MapItem item = legendItems[e.RowIndex];
 			item.legendGroup = int.Parse(cell.Value.ToString());
+
+			SettingsLegendText.UpdateGroups();
 		}
 
 		void ButtonDrawMap(object sender, EventArgs e)
