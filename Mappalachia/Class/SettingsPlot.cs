@@ -14,6 +14,16 @@ namespace Mappalachia.Class
 
 		public static Mode mode = Mode.Icon;
 		public static bool drawVolumes = true; //Draw volumes when in icon mode
+
+		public static bool IsHeatmap()
+		{
+			return mode == Mode.Heatmap;
+		}
+
+		public static bool IsIcon()
+		{
+			return mode == Mode.Icon;
+		}
 	}
 
 	//Plot Icon Settings and their defaults, used in FormPlotIconSettings
@@ -116,6 +126,16 @@ namespace Mappalachia.Class
 		{
 			Mono,
 			Duo,
+		}
+
+		public static bool IsMono()
+		{
+			return colorMode == ColorMode.Mono;
+		}
+
+		public static bool IsDuo()
+		{
+			return colorMode == ColorMode.Duo;
 		}
 
 		//Not user-definable
