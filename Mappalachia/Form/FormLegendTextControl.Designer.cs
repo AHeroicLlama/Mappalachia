@@ -45,6 +45,7 @@ namespace Mappalachia.Class
 			// 
 			this.dataGridViewLegendText.AllowUserToAddRows = false;
 			this.dataGridViewLegendText.AllowUserToDeleteRows = false;
+			this.dataGridViewLegendText.AllowUserToResizeRows = false;
 			this.dataGridViewLegendText.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewLegendText.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnLegendGroup,
