@@ -55,14 +55,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		public static SqliteDataReader ExecuteQueryFindCellHeightRange()
-		{
-			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = Properties.Resources.getInteriorHeightRange;
-			return query.ExecuteReader();
-		}
-
-		//Executes just like a simple search but constrained to a given cellFormID
+		//Executes just like a standard search but constrained to a given cellFormID
 		public static SqliteDataReader ExecuteQuerySearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);

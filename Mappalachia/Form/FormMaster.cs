@@ -58,6 +58,9 @@ namespace Mappalachia
 			//Apply min/max values according to current settings
 			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
 			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
+			numericUpDownMinY.Increment = SettingsMap.GetCellModeHeightBinSize();
+			numericUpDownMaxY.Increment = numericUpDownMinY.Increment;
+			numericUpDownMaxY.Value = numericUpDownMinY.Maximum;
 
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
@@ -634,24 +637,29 @@ namespace Mappalachia
 		//User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMapFromUI()
 		{
-			if (legendItems.Count > 0)
-			{
-				//Disable control of the legend items list while we draw, and disable calling another draw
-				buttonDrawMap.Enabled = false;
-				buttonAddToLegend.Enabled = false;
-				buttonRemoveFromLegend.Enabled = false;
-
-				Map.Draw();
-
-				//Re-enable disabled buttons after
-				buttonDrawMap.Enabled = true;
-				buttonAddToLegend.Enabled = true;
-				buttonRemoveFromLegend.Enabled = true;
-			}
-			else
+			if (legendItems.Count < 0)
 			{
 				Notify.Info("There is nothing to map. Add items to the 'items to plot' list by first selecting them from search results.");
+				return;
 			}
+
+			if(SettingsMap.IsCellModeActive() && numericUpDownMinY.Value > numericUpDownMaxY.Value)
+			{
+				Notify.Info("Height cropping values must allow the minimum to be less than or equal to the maximum.");
+				return;
+			}
+
+			//Disable control of the legend items list while we draw, and disable calling another draw
+			buttonDrawMap.Enabled = false;
+			buttonAddToLegend.Enabled = false;
+			buttonRemoveFromLegend.Enabled = false;
+
+			Map.Draw();
+
+			//Re-enable disabled buttons after
+			buttonDrawMap.Enabled = true;
+			buttonAddToLegend.Enabled = true;
+			buttonRemoveFromLegend.Enabled = true;
 		}
 
 		void PreviewMap()
@@ -663,9 +671,9 @@ namespace Mappalachia
 		{
 			string textVisualisation = string.Empty;
 			int i = 0;
-			foreach (double value in currentlySelectedCell.GetHeightDistribution(50))
+			foreach (double value in currentlySelectedCell.GetHeightDistribution())
 			{
-				textVisualisation = i.ToString().PadLeft(2, '0') + ":" + new string('#', (int)Math.Ceiling(value*2)) + "\n" + textVisualisation;
+				textVisualisation = (i * SettingsMap.GetCellModeHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Ceiling(value)) + "\n" + textVisualisation;
 				i++;
 			}
 
@@ -962,6 +970,16 @@ namespace Mappalachia
 		private void buttonCellHeightDistribution_Click(object sender, EventArgs e)
 		{
 			ShowCellModeHeightDistribution();
+		}
+
+		private void numericUpDownMinY_ValueChanged(object sender, EventArgs e)
+		{
+			numericUpDownMaxY.Minimum = numericUpDownMinY.Value;
+		}
+
+		private void numericUpDownMaxY_ValueChanged(object sender, EventArgs e)
+		{
+			numericUpDownMinY.Maximum = numericUpDownMaxY.Value;
 		}
 
 		//Search Button - Gather parameters, execute query and populate results
@@ -1318,5 +1336,7 @@ namespace Mappalachia
 			//Ensures any potentially long-running map building task is stopped too
 			Environment.Exit(0);
 		}
+
+
 	}
 }
