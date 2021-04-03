@@ -29,16 +29,15 @@ namespace Mappalachia.Class
 		}
 
 		//Returns the distribution of Y coordinates for items in the cell, broken into x bins
-		public double[] GetHeightDistribution(int precision)
+		public double[] GetHeightDistribution()
 		{
-			int minZ = 0;
-			int maxZ = 0;
-
-			bool first = true;
-
 			List<MapDataPoint> points = GetPlots();
 
-			//Find the lowest and highest z value
+			int minZ = -1;
+			int maxZ = -1;
+
+			//Find the lowest and highest z value in this cell (if not already found)
+			bool first = true;
 			foreach (MapDataPoint point in points)
 			{
 				if (first)
@@ -61,20 +60,25 @@ namespace Mappalachia.Class
 
 			double range = Math.Abs(maxZ - minZ);
 
-			//Count how many items fall into the arbitrary 100 different segments
+			int precision = SettingsMap.cellModeHeightPrecision;
+
+			//Count how many items fall into the arbitrary <precision># different bins
 			int[] distributionCount = new int[precision];
 			foreach (MapDataPoint point in points)
 			{
-				int placementPercent = (int)(((point.z  - minZ) / range) * (double)precision);
+				//Calculate which numeric bin this item would fall into
+				int placementBin = (int)(((point.z  - minZ) / range) * precision);
 				
-				//One value should be exactly the precision value, but there isn't an index there
-				if (placementPercent == precision)
+				//At least one value will be exactly the precision value, (it's the highest thing)
+				//But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
+				//So this is a special case for the top-most item to be moved back into the upper bin
+				if (placementBin == precision)
 				{
 					distributionCount[precision - 1]++;
 					continue;
 				}
 
-				distributionCount[placementPercent]++;
+				distributionCount[placementBin]++;
 			}
 
 			//Normalise the count of items to find which percentage of items fall into the segments

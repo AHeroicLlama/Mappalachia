@@ -36,7 +36,7 @@ namespace Mappalachia
 			IOManager.Cleanup();
 
 			//Instantiate the DB connection
-			Queries.CreateConnection();
+			Database.CreateConnection();
 
 			//Populate UI elements
 			PopulateSignatureFilterList();
@@ -427,10 +427,10 @@ namespace Mappalachia
 					SettingsPlot.drawVolumes = true;
 					UpdateVolumeEnabledState(false);
 
-					comboBoxCell.Visible = false;
+					groupBoxCellModeSettings.Visible = false;
 					break;
 
-				case SettingsMap.Mode.Normal:
+				case SettingsMap.Mode.Worldspace:
 					break;
 			}
 		}
@@ -455,12 +455,11 @@ namespace Mappalachia
 
 					textBoxSearch.Text = string.Empty;
 					tabControlStandardNPCJunk.SelectedTab = tabPageStandard;
-					comboBoxCell.Visible = true;
+					groupBoxCellModeSettings.Visible = true;
 					break;
 
-				case SettingsMap.Mode.Normal:
+				case SettingsMap.Mode.Worldspace:
 					SettingsMap.mode = incomingMode;
-					comboBoxCell.Visible = false;
 					cellModeMenuItem.Checked = false;
 					break;
 			}
@@ -727,7 +726,7 @@ namespace Mappalachia
 			else
 			{
 				ExitMapMode();
-				EnterMapMode(SettingsMap.Mode.Normal);
+				EnterMapMode(SettingsMap.Mode.Worldspace);
 			}
 		}
 
@@ -909,17 +908,6 @@ namespace Mappalachia
 			Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
 
-		//In Cell mode, the current items in search results and legend are inherently connected to the cellFormID.
-		//This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
-		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			ClearSearchResults();
-			ClearLegend();
-			currentlySelectedCell = cells[comboBoxCell.SelectedIndex];
-
-			ShowCellModeHeightDistribution();
-		}
-
 		//Signature select all
 		void ButtonSelectAllSignature(object sender, EventArgs e)
 		{
@@ -960,6 +948,20 @@ namespace Mappalachia
 			{
 				item.Checked = false;
 			}
+		}
+
+		//In Cell mode, the current items in search results and legend are inherently connected to the cellFormID.
+		//This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
+		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			ClearSearchResults();
+			ClearLegend();
+			currentlySelectedCell = cells[comboBoxCell.SelectedIndex];
+		}
+
+		private void buttonCellHeightDistribution_Click(object sender, EventArgs e)
+		{
+			ShowCellModeHeightDistribution();
 		}
 
 		//Search Button - Gather parameters, execute query and populate results

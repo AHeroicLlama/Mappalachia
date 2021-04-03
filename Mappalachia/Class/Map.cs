@@ -13,8 +13,7 @@ namespace Mappalachia
 	public static class Map
 	{
 		//Map-image coordinate scaling. Done manually by eye with reference points from in-game
-		public static double xScale = 142.2;
-		public static double YScale = 141.8;
+		public static double scaling = 142;
 		public static double xOffset = 1.7;
 		public static double yOffset = 5.2;
 

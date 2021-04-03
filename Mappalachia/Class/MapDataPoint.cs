@@ -44,8 +44,8 @@ namespace Mappalachia
 		void Initialize(int x, int y, double weight)
 		{
 			//Scale the coordinate point down from worldspace coordinates to image coordinates, and map them from their 4-axis grid to a 2-axis grid
-			this.x = (x / Map.xScale) + (Map.mapDimension / 2d) + Map.xOffset;
-			this.y = (y / Map.YScale) + (Map.mapDimension / 2d) + Map.yOffset;
+			this.x = (x / Map.scaling) + (Map.mapDimension / 2d) + Map.xOffset;
+			this.y = (y / Map.scaling) + (Map.mapDimension / 2d) + Map.yOffset;
 
 			this.weight = weight;
 		}
@@ -55,8 +55,8 @@ namespace Mappalachia
 		{
 			//overloaded parts
 			this.primitiveShape = primitiveShape;
-			this.boundX = boundX / Map.xScale;
-			this.boundY = boundY / Map.YScale;
+			this.boundX = boundX / Map.scaling;
+			this.boundY = boundY / Map.scaling;
 			this.rotationZ = rotationZ;
 
 			//Special case to ensure Line volumes (Default width 16 units) have enough pixel width to still be drawn/visible
