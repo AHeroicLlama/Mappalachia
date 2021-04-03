@@ -5,7 +5,7 @@ using Microsoft.Data.Sqlite;
 namespace Mappalachia
 {
 	//Direct SQL queries and their execution
-	static class Queries
+	static class Database
 	{
 		static SqliteConnection connection;
 
@@ -52,6 +52,13 @@ namespace Mappalachia
 		{
 			SqliteCommand query = connection.CreateCommand();
 			query.CommandText = Properties.Resources.getCells;
+			return query.ExecuteReader();
+		}
+
+		public static SqliteDataReader ExecuteQueryFindCellHeightRange()
+		{
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = Properties.Resources.getInteriorHeightRange;
 			return query.ExecuteReader();
 		}
 

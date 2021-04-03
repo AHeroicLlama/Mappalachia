@@ -1,18 +1,28 @@
-﻿namespace Mappalachia
+﻿using System;
+
+namespace Mappalachia
 {
 	//Settings for the map image
 	class SettingsMap
 	{
 		public enum Mode
 		{
-			Normal,
+			Worldspace,
 			Cell
 		}
 
 		public static Mode mode = Mode.Cell;
+
 		public static bool IsCellModeActive()
 		{
 			return mode == Mode.Cell;
+		}
+
+		public static readonly int cellModeHeightPrecision = 50;
+
+		public static int GetCellModeHeightBinSize()
+		{
+			return (int)Math.Round(100d / cellModeHeightPrecision);
 		}
 
 		//Min/maxes - these control the min/maxes on the form
