@@ -110,8 +110,8 @@ namespace Mappalachia
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.labelMaxHeight = new System.Windows.Forms.Label();
 			this.labelMinHeight = new System.Windows.Forms.Label();
-			this.numericUpDownMaxY = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDownMinY = new System.Windows.Forms.NumericUpDown();
+			this.numericMaxY = new System.Windows.Forms.NumericUpDown();
+			this.numericMinY = new System.Windows.Forms.NumericUpDown();
 			this.buttonCellHeightDistribution = new System.Windows.Forms.Button();
 			this.labelCell = new System.Windows.Forms.Label();
 			this.comboBoxCell = new System.Windows.Forms.ComboBox();
@@ -136,8 +136,8 @@ namespace Mappalachia
 			this.tabPageStandard.SuspendLayout();
 			this.groupBoxCellModeSettings.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxY)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinY)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMaxY)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMinY)).BeginInit();
 			this.groupBoxFilterByLockLevel.SuspendLayout();
 			this.groupBoxFilterByCategory.SuspendLayout();
 			this.tabPageNpcScrapSearch.SuspendLayout();
@@ -914,8 +914,8 @@ namespace Mappalachia
 			// 
 			this.groupBox1.Controls.Add(this.labelMaxHeight);
 			this.groupBox1.Controls.Add(this.labelMinHeight);
-			this.groupBox1.Controls.Add(this.numericUpDownMaxY);
-			this.groupBox1.Controls.Add(this.numericUpDownMinY);
+			this.groupBox1.Controls.Add(this.numericMaxY);
+			this.groupBox1.Controls.Add(this.numericMinY);
 			this.groupBox1.Controls.Add(this.buttonCellHeightDistribution);
 			this.groupBox1.Location = new System.Drawing.Point(6, 62);
 			this.groupBox1.Name = "groupBox1";
@@ -948,21 +948,21 @@ namespace Mappalachia
 			// 
 			// numericUpDownMaxY
 			// 
-			this.numericUpDownMaxY.Location = new System.Drawing.Point(150, 69);
-			this.numericUpDownMaxY.Name = "numericUpDownMaxY";
-			this.numericUpDownMaxY.Size = new System.Drawing.Size(70, 20);
-			this.numericUpDownMaxY.TabIndex = 8;
-			this.toolTipControls.SetToolTip(this.numericUpDownMaxY, "Select the maximum height of objects from the cell which to map.");
-			this.numericUpDownMaxY.ValueChanged += new System.EventHandler(this.numericUpDownMaxY_ValueChanged);
+			this.numericMaxY.Location = new System.Drawing.Point(150, 69);
+			this.numericMaxY.Name = "numericUpDownMaxY";
+			this.numericMaxY.Size = new System.Drawing.Size(70, 20);
+			this.numericMaxY.TabIndex = 8;
+			this.toolTipControls.SetToolTip(this.numericMaxY, "Select the maximum height of objects from the cell which to map.");
+			this.numericMaxY.ValueChanged += new System.EventHandler(this.NumericMaxY_ValueChanged);
 			// 
 			// numericUpDownMinY
 			// 
-			this.numericUpDownMinY.Location = new System.Drawing.Point(35, 69);
-			this.numericUpDownMinY.Name = "numericUpDownMinY";
-			this.numericUpDownMinY.Size = new System.Drawing.Size(70, 20);
-			this.numericUpDownMinY.TabIndex = 7;
-			this.toolTipControls.SetToolTip(this.numericUpDownMinY, "Select the minimum height of objects from the cell which to map.");
-			this.numericUpDownMinY.ValueChanged += new System.EventHandler(this.numericUpDownMinY_ValueChanged);
+			this.numericMinY.Location = new System.Drawing.Point(35, 69);
+			this.numericMinY.Name = "numericUpDownMinY";
+			this.numericMinY.Size = new System.Drawing.Size(70, 20);
+			this.numericMinY.TabIndex = 7;
+			this.toolTipControls.SetToolTip(this.numericMinY, "Select the minimum height of objects from the cell which to map.");
+			this.numericMinY.ValueChanged += new System.EventHandler(this.NumericMinY_ValueChanged);
 			// 
 			// buttonCellHeightDistribution
 			// 
@@ -974,7 +974,7 @@ namespace Mappalachia
 			this.toolTipControls.SetToolTip(this.buttonCellHeightDistribution, "Displays a visualization of the distribution of entities in the selected cell, br" +
         "oken by height.");
 			this.buttonCellHeightDistribution.UseVisualStyleBackColor = true;
-			this.buttonCellHeightDistribution.Click += new System.EventHandler(this.buttonCellHeightDistribution_Click);
+			this.buttonCellHeightDistribution.Click += new System.EventHandler(this.ButtonCellHeightDistribution_Click);
 			// 
 			// labelCell
 			// 
@@ -1194,8 +1194,8 @@ namespace Mappalachia
 			this.groupBoxCellModeSettings.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxY)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinY)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMaxY)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMinY)).EndInit();
 			this.groupBoxFilterByLockLevel.ResumeLayout(false);
 			this.groupBoxFilterByCategory.ResumeLayout(false);
 			this.tabPageNpcScrapSearch.ResumeLayout(false);
@@ -1308,8 +1308,8 @@ namespace Mappalachia
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label labelMaxHeight;
 		private System.Windows.Forms.Label labelMinHeight;
-		private System.Windows.Forms.NumericUpDown numericUpDownMaxY;
-		private System.Windows.Forms.NumericUpDown numericUpDownMinY;
+		private System.Windows.Forms.NumericUpDown numericMaxY;
+		private System.Windows.Forms.NumericUpDown numericMinY;
 	}
 }
 
