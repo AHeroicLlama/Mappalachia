@@ -58,9 +58,9 @@ namespace Mappalachia
 			//Apply min/max values according to current settings
 			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
 			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
-			numericUpDownMinY.Increment = SettingsMap.GetCellModeHeightBinSize();
-			numericUpDownMaxY.Increment = numericUpDownMinY.Increment;
-			numericUpDownMaxY.Value = numericUpDownMinY.Maximum;
+			numericMinY.Increment = SettingsMap.GetCellModeHeightBinSize();
+			numericMaxY.Increment = numericMinY.Increment;
+			numericMaxY.Value = numericMinY.Maximum;
 
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
@@ -643,7 +643,7 @@ namespace Mappalachia
 				return;
 			}
 
-			if(SettingsMap.IsCellModeActive() && numericUpDownMinY.Value > numericUpDownMaxY.Value)
+			if(SettingsMap.IsCellModeActive() && numericMinY.Value > numericMaxY.Value)
 			{
 				Notify.Info("Height cropping values must allow the minimum to be less than or equal to the maximum.");
 				return;
@@ -667,17 +667,18 @@ namespace Mappalachia
 			Map.Open();
 		}
 
+		//Render a crude text graph to visualize height distribution in the currently selected cell
 		void ShowCellModeHeightDistribution()
 		{
 			string textVisualisation = string.Empty;
 			int i = 0;
 			foreach (double value in currentlySelectedCell.GetHeightDistribution())
 			{
-				textVisualisation = (i * SettingsMap.GetCellModeHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Ceiling(value)) + "\n" + textVisualisation;
+				textVisualisation = (i * SettingsMap.GetCellModeHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualisation;
 				i++;
 			}
 
-			MessageBox.Show(textVisualisation, "Height distribution for " + currentlySelectedCell.displayName);
+			MessageBox.Show(textVisualisation, "Height distribution for " + currentlySelectedCell.editorID);
 		}
 
 		#endregion
@@ -967,19 +968,39 @@ namespace Mappalachia
 			currentlySelectedCell = cells[comboBoxCell.SelectedIndex];
 		}
 
-		private void buttonCellHeightDistribution_Click(object sender, EventArgs e)
+		private void ButtonCellHeightDistribution_Click(object sender, EventArgs e)
 		{
 			ShowCellModeHeightDistribution();
 		}
 
-		private void numericUpDownMinY_ValueChanged(object sender, EventArgs e)
+		//Cell mode height range changed - maintain the min safely below the max
+		private void NumericMinY_ValueChanged(object sender, EventArgs e)
 		{
-			numericUpDownMaxY.Minimum = numericUpDownMinY.Value;
+			if (numericMaxY.Value <= numericMinY.Value)
+			{
+				numericMaxY.Value = Math.Min(numericMaxY.Value + numericMaxY.Increment, numericMaxY.Maximum);
+			}
+
+			//Special case where the max could not go higher, so this must stay an increment lower
+			if (numericMinY.Value == numericMaxY.Maximum)
+			{
+				numericMinY.Value -= numericMinY.Increment;
+			}
 		}
 
-		private void numericUpDownMaxY_ValueChanged(object sender, EventArgs e)
+		//Cell mode height range changed - maintain the max safely above the min
+		private void NumericMaxY_ValueChanged(object sender, EventArgs e)
 		{
-			numericUpDownMinY.Maximum = numericUpDownMaxY.Value;
+			if (numericMinY.Value >= numericMaxY.Value)
+			{
+				numericMinY.Value = Math.Max(numericMinY.Value - numericMinY.Increment, numericMinY.Minimum);
+			}
+
+			//Special case where the min could not go lower, so this must stay an increment higher
+			if (numericMaxY.Value == numericMinY.Minimum)
+			{
+				numericMaxY.Value += numericMaxY.Increment;
+			}
 		}
 
 		//Search Button - Gather parameters, execute query and populate results
