@@ -9,6 +9,13 @@ namespace Mappalachia.Class
 		public string formID;
 		public string editorID;
 		public string displayName;
+		List<MapDataPoint> plots;
+		public double xMin;
+		public double xMax;
+		public double yMin;
+		public double yMax;
+		public int zMin;
+		public int zMax;
 
 		public Cell(string formID, string editorID, string displayName)
 		{
@@ -17,57 +24,85 @@ namespace Mappalachia.Class
 			this.displayName = displayName;
 		}
 
-		//Gets every data point present in this given cell
-		public List<MapDataPoint> GetPlots()
+		//Gets the plotting data and coordinate extremities
+		void InitializePlotData()
 		{
-			return DataHelper.GetAllCellCoords(formID);
+			plots = DataHelper.GetAllCellCoords(formID);
+
+			//Identify the maximum bounds of all coordinates here
+			bool first = true;
+			foreach (MapDataPoint point in plots)
+			{
+				//This is the first plot - set all its values to the min and max
+				if (first)
+				{
+					xMin = point.x;
+					xMax = point.x;
+					yMin = point.y;
+					yMax = point.y;
+					zMin = point.z;
+					zMax = point.z;
+
+					first = false;
+				}
+				else
+				{
+					if (point.x < xMin)
+					{
+						xMin = point.x;
+					}
+					if (point.x > xMax)
+					{
+						xMax = point.x;
+					}
+					if (point.y < yMin)
+					{
+						yMin = point.y;
+					}
+					if (point.y > yMax)
+					{
+						yMax = point.y;
+					}
+					if (point.z < zMin)
+					{
+						zMin = point.z;
+					}
+					if (point.z > zMax)
+					{
+						zMax = point.z;
+					}
+				}
+			}
 		}
 
 		public CellScaling GetScaling()
 		{
+			if (plots == null)
+			{
+				InitializePlotData();
+			}
+
 			return CellScaling.GetCellScaling(this);
 		}
 
 		//Returns the distribution of Y coordinates for items in the cell, broken into x bins
 		public double[] GetHeightDistribution()
 		{
-			List<MapDataPoint> points = GetPlots();
-
-			int minZ = -1;
-			int maxZ = -1;
-
-			//Find the lowest and highest z value in this cell (if not already found)
-			bool first = true;
-			foreach (MapDataPoint point in points)
+			if (plots == null)
 			{
-				if (first)
-				{
-					minZ = point.z;
-					maxZ = point.z;
-					first = false;
-					continue;
-				}
-
-				if (point.z > maxZ)
-				{
-					maxZ = point.z;
-				}
-				if (point.z < minZ)
-				{
-					minZ = point.z;
-				}
+				InitializePlotData();
 			}
 
-			double range = Math.Abs(maxZ - minZ);
+			double range = Math.Abs(zMax - zMin);
 
 			int precision = SettingsMap.cellModeHeightPrecision;
 
 			//Count how many items fall into the arbitrary <precision># different bins
 			int[] distributionCount = new int[precision];
-			foreach (MapDataPoint point in points)
+			foreach (MapDataPoint point in plots)
 			{
 				//Calculate which numeric bin this item would fall into
-				int placementBin = (int)(((point.z  - minZ) / range) * precision);
+				int placementBin = (int)(((point.z  - zMin) / range) * precision);
 				
 				//At least one value will be exactly the precision value, (it's the highest thing)
 				//But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
@@ -85,7 +120,7 @@ namespace Mappalachia.Class
 			double[] distribution = new double[precision];
 			for (int i = 0; i < distributionCount.Length; i++)
 			{
-				distribution[i] = ((double)distributionCount[i] / points.Count) * precision;
+				distribution[i] = ((double)distributionCount[i] / plots.Count) * precision;
 			}
 
 			return distribution;
