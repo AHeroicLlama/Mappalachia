@@ -14,6 +14,7 @@ namespace Mappalachia
 
 		static async Task Main()
 		{
+			Console.Title = "Mappalachia Preprocessor";
 			try
 			{
 				//Store all preprocessor tasks in a list
