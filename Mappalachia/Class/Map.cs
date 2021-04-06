@@ -149,7 +149,9 @@ namespace Mappalachia
 			//Draw the game version (+ optionally cell name) onto the map
 			string versionText = "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
-			//Also add the cell name if in Cell mode
+			double minZCoord = 0;
+			double maxZCoord = 0;
+			//Additional steps for cell mode (Add text to watermark, get cell height boundings)
 			if (SettingsMap.IsCellModeActive())
 			{
 				Cell currentCell = FormMaster.currentlySelectedCell;
@@ -158,8 +160,13 @@ namespace Mappalachia
 				cellScaling = currentCell.GetScaling();
 
 				versionText =
-					currentCell.displayName + " (" + currentCell.editorID + ") Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n" +
+					currentCell.displayName + " (" + currentCell.editorID + ")\n" +
+					"Height distribution: " + FormMaster.cellMinHeightPerc + "% - " + FormMaster.cellMaxHeightPerc + "%\n" +
+					"Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n\n" +
 					versionText;
+
+				minZCoord  = ((FormMaster.cellMinHeightPerc / 100d) * currentCell.heightRange) + currentCell.zMin;
+				maxZCoord = ((FormMaster.cellMaxHeightPerc / 100d) * currentCell.heightRange) + currentCell.zMin;
 			}
 
 			Brush brushWhite = new SolidBrush(Color.White);
@@ -198,6 +205,12 @@ namespace Mappalachia
 					{
 						if (SettingsMap.IsCellModeActive())
 						{
+							//If this coordinate exceeds the user-selected cell mapping height bounds, skip it
+							if (point.z < minZCoord || point.z > maxZCoord)
+							{
+								continue;
+							}
+
 							point.x += cellScaling.xOffset;
 							point.y += cellScaling.yOffset;
 

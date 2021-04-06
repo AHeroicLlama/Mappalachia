@@ -61,7 +61,7 @@ namespace Mappalachia
 		//Speeds up repeated or edited map plots by caching them
 		public List<MapDataPoint> GetPlots()
 		{
-			//Cache the plots if not already active - cell mode needs to edit these values, so refresh them each time
+			//Cache the plots if not already active - cell mode needs to edit these values (see CellScaling), so refresh them each time
 			if (plots == null || SettingsMap.IsCellModeActive())
 			{
 				switch (type)

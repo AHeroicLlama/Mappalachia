@@ -17,6 +17,7 @@ namespace Mappalachia.Class
 		public double yMax;
 		public int zMin;
 		public int zMax;
+		public double heightRange;
 
 		public Cell(string formID, string editorID, string displayName)
 		{
@@ -41,6 +42,8 @@ namespace Mappalachia.Class
 			plots = plots.OrderBy(plot => plot.z).ToList();
 			zMin = plots.First().z;
 			zMax = plots.Last().z;
+
+			heightRange = Math.Abs(zMax - zMin);
 		}
 
 		public CellScaling GetScaling()
@@ -61,8 +64,6 @@ namespace Mappalachia.Class
 				InitializePlotData();
 			}
 
-			double range = Math.Abs(zMax - zMin);
-
 			int precision = SettingsMap.cellModeHeightPrecision;
 
 			//Count how many items fall into the arbitrary <precision># different bins
@@ -70,7 +71,7 @@ namespace Mappalachia.Class
 			foreach (MapDataPoint point in plots)
 			{
 				//Calculate which numeric bin this item would fall into
-				int placementBin = (int)(((point.z  - zMin) / range) * precision);
+				int placementBin = (int)(((point.z  - zMin) / heightRange) * precision);
 				
 				//At least one value will be exactly the precision value, (it's the highest thing)
 				//But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds

@@ -17,6 +17,8 @@ namespace Mappalachia
 
 		public static Cell currentlySelectedCell; //Holds the currently select Cell in comboBoxCells. Based on the list of Cell above.
 		static List<Cell> cells;
+		public static int cellMinHeightPerc;
+		public static int cellMaxHeightPerc;
 
 		public ProgressBar progressBar;
 
@@ -637,7 +639,7 @@ namespace Mappalachia
 		//User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMapFromUI()
 		{
-			if (legendItems.Count < 0)
+			if (legendItems.Count <= 0)
 			{
 				Notify.Info("There is nothing to map. Add items to the 'items to plot' list by first selecting them from search results.");
 				return;
@@ -986,6 +988,8 @@ namespace Mappalachia
 			{
 				numericMinY.Value -= numericMinY.Increment;
 			}
+
+			cellMinHeightPerc = (int)numericMinY.Value;
 		}
 
 		//Cell mode height range changed - maintain the max safely above the min
@@ -1001,6 +1005,8 @@ namespace Mappalachia
 			{
 				numericMaxY.Value += numericMaxY.Increment;
 			}
+
+			cellMaxHeightPerc = (int)numericMaxY.Value;
 		}
 
 		//Search Button - Gather parameters, execute query and populate results
