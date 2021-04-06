@@ -11,7 +11,7 @@ namespace Mappalachia.Class
 		//Just overridden texts
 		static Dictionary<int, string> overriddenTexts;
 
-		//Expands the list of overriding legends to include new groups added on the main form
+		//Resizes the list of overriding legends to account for groups added or removed on the main form
 		public static void IncludeNewGroups()
 		{
 			Dictionary<int, string> newLegendTexts = new Dictionary<int, string>();
