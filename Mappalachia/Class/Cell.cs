@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mappalachia.Class
 {
@@ -29,50 +30,17 @@ namespace Mappalachia.Class
 		{
 			plots = DataHelper.GetAllCellCoords(formID);
 
-			//Identify the maximum bounds of all coordinates here
-			bool first = true;
-			foreach (MapDataPoint point in plots)
-			{
-				//This is the first plot - set all its values to the min and max
-				if (first)
-				{
-					xMin = point.x;
-					xMax = point.x;
-					yMin = point.y;
-					yMax = point.y;
-					zMin = point.z;
-					zMax = point.z;
+			plots = plots.OrderBy(plot => plot.x).ToList();
+			xMin = plots.First().x;
+			xMax = plots.Last().x;
 
-					first = false;
-				}
-				else
-				{
-					if (point.x < xMin)
-					{
-						xMin = point.x;
-					}
-					if (point.x > xMax)
-					{
-						xMax = point.x;
-					}
-					if (point.y < yMin)
-					{
-						yMin = point.y;
-					}
-					if (point.y > yMax)
-					{
-						yMax = point.y;
-					}
-					if (point.z < zMin)
-					{
-						zMin = point.z;
-					}
-					if (point.z > zMax)
-					{
-						zMax = point.z;
-					}
-				}
-			}
+			plots = plots.OrderBy(plot => plot.y).ToList();
+			yMin = plots.First().y;
+			yMax = plots.Last().y;
+
+			plots = plots.OrderBy(plot => plot.z).ToList();
+			zMin = plots.First().z;
+			zMax = plots.Last().z;
 		}
 
 		public CellScaling GetScaling()
