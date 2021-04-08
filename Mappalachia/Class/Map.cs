@@ -206,7 +206,8 @@ namespace Mappalachia
 						if (SettingsMap.IsCellModeActive())
 						{
 							//If this coordinate exceeds the user-selected cell mapping height bounds, skip it
-							if (point.z < minZCoord || point.z > maxZCoord)
+							//(Also accounts for the z-height of volumes)
+							if (point.z + (point.boundZ / 2d) < minZCoord || point.z - (point.boundZ / 2d) > maxZCoord)
 							{
 								continue;
 							}

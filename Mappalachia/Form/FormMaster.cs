@@ -206,7 +206,7 @@ namespace Mappalachia
 			cells = DataHelper.GetAllCells();
 			foreach (Cell cell in cells)
 			{
-				comboBoxCell.Items.Add(cell.displayName);
+				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
 			}
 			comboBoxCell.SelectedIndex = 0;
 		}
@@ -1009,6 +1009,28 @@ namespace Mappalachia
 			cellMaxHeightPerc = (int)numericMaxY.Value;
 		}
 
+		//Select the value to overwrite when entered
+		private void numericMinY_Enter(object sender, EventArgs e)
+		{
+			numericMinY.Select(0, numericMinY.Text.Length);
+		}
+
+		//Select the value to overwrite when entered
+		private void numericMaxY_Enter(object sender, EventArgs e)
+		{
+			numericMaxY.Select(0, numericMaxY.Text.Length);
+		}
+
+		private void numericMinY_MouseDown(object sender, MouseEventArgs e)
+		{
+			numericMinY_Enter(sender, e);
+		}
+
+		private void numericMaxY_MouseDown(object sender, MouseEventArgs e)
+		{
+			numericMaxY_Enter(sender, e);
+		}
+
 		//Search Button - Gather parameters, execute query and populate results
 		void ButtonSearchStandard(object sender, EventArgs e)
 		{
@@ -1360,8 +1382,13 @@ namespace Mappalachia
 			IOManager.Cleanup();
 			SettingsManager.SaveSettings();
 
-			//Ensures any potentially long-running map building task is stopped too
-			Environment.Exit(0);
+			try
+			{
+				//Ensures any potentially long-running map building task is stopped too
+				Environment.Exit(0);
+			}
+			catch (Exception)
+			{ } //If this fails, we're already exiting and there is no action to take
 		}
 	}
 }

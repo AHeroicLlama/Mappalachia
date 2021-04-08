@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -182,8 +182,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SQL\searchSimpleAppalachia.sql" />
-    <None Include="SQL\searchSimpleAll.sql" />
     <None Include="SQL\searchScrapAppalachia.sql" />
     <None Include="SQL\searchScrapAll.sql" />
     <None Include="SQL\searchNPCAppalachia.sql" />
@@ -192,20 +190,18 @@
     <None Include="SQL\getScrapTypes.sql" />
     <None Include="SQL\getNPCTypes.sql" />
     <None Include="SQL\getLockLevels.sql" />
-    <None Include="SQL\getCoordsSimple.sql" />
     <None Include="SQL\getCoordsScrap.sql" />
     <None Include="SQL\getCoordsNPC.sql" />
     <None Include="SQL\getCells.sql" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\searchStandardCell.sql" />
     <None Include="SQL\searchStandardAppalachia.sql" />
     <None Include="SQL\searchStandardAll.sql" />
     <None Include="SQL\getCoordsStandard.sql" />
     <None Include="SQL\getAllCoordsCell.sql" />
     <None Include="SQL\getCoordsCell.sql" />
-    <None Include="SQL\getCellByID.sql" />
-    <None Include="SQL\searchSimpleCell.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">

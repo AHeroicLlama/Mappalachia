@@ -148,9 +148,6 @@
   <data name="getSignatures" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getSignatures.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchCell" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchSimpleCell.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="searchNPCAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchNPCAll.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -168,5 +165,8 @@
   </data>
   <data name="searchStandardAppalachia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchStandardAppalachia.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="searchStandardCell" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchStandardCell.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>
