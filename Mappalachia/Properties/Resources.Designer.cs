@@ -184,36 +184,6 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM
-        ///(
-        ///	SELECT
-        ///		displayName,
-        ///		editorID,
-        ///		signature,
-        ///		COUNT(*) AS amount,
-        ///		lockLevel,
-        ///		entityFormID
-        ///	FROM SeventySix_FormId
-        ///	INNER JOIN SeventySix_Interior ON referenceFormID = entityFormID
-        ///	WHERE
-        ///		(
-        ///			(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///			displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///			entityFormID LIKE $searchTerm ESCAPE &apos;\&apos;)
-        ///			AND cellFormID = $cellFormID
-        ///			AND signature IN ($allowedSignatures)
-        ///			AND lockLevel IN ($allowedLockTypes)
-        ///		)
-        ///	GROUP BY entityFormID
-        ///) [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string searchCell {
-            get {
-                return ResourceManager.GetString("searchCell", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SELECT npc, COUNT(*) AS count, MIN(chance)*100 AS minChance, &apos;Appalachia&apos; AS cellDisplayName, &apos;Appalachia&apos; AS cellEditorID, &apos;0&apos; AS isInterior
         ///FROM SeventySix_Worldspace
         ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
@@ -340,6 +310,36 @@ namespace Mappalachia.Properties {
         internal static string searchStandardAppalachia {
             get {
                 return ResourceManager.GetString("searchStandardAppalachia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM
+        ///(
+        ///	SELECT
+        ///		displayName,
+        ///		editorID,
+        ///		signature,
+        ///		COUNT(*) AS amount,
+        ///		lockLevel,
+        ///		entityFormID
+        ///	FROM SeventySix_FormId
+        ///	INNER JOIN SeventySix_Interior ON referenceFormID = entityFormID
+        ///	WHERE
+        ///		(
+        ///			(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR
+        ///			displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR
+        ///			entityFormID LIKE $searchTerm ESCAPE &apos;\&apos;)
+        ///			AND cellFormID = $cellFormID
+        ///			AND signature IN ($allowedSignatures)
+        ///			AND lockLevel IN ($allowedLockTypes)
+        ///		)
+        ///	GROUP BY entityFormID
+        ///) [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string searchStandardCell {
+            get {
+                return ResourceManager.GetString("searchStandardCell", resourceCulture);
             }
         }
     }

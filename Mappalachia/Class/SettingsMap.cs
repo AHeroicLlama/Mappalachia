@@ -11,7 +11,7 @@ namespace Mappalachia
 			Cell
 		}
 
-		public static Mode mode = Mode.Cell;
+		public static Mode mode = Mode.Worldspace;
 
 		public static bool IsCellModeActive()
 		{

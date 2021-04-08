@@ -59,7 +59,7 @@ namespace Mappalachia
 		public static SqliteDataReader ExecuteQuerySearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
-			string queryString = Properties.Resources.searchCell;
+			string queryString = Properties.Resources.searchStandardCell;
 			SqliteCommand query = connection.CreateCommand();
 
 			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
