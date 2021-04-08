@@ -1010,25 +1010,25 @@ namespace Mappalachia
 		}
 
 		//Select the value to overwrite when entered
-		private void numericMinY_Enter(object sender, EventArgs e)
+		private void NumericMinY_Enter(object sender, EventArgs e)
 		{
 			numericMinY.Select(0, numericMinY.Text.Length);
 		}
 
-		//Select the value to overwrite when entered
-		private void numericMaxY_Enter(object sender, EventArgs e)
+		private void NumericMaxY_Enter(object sender, EventArgs e)
 		{
 			numericMaxY.Select(0, numericMaxY.Text.Length);
 		}
 
-		private void numericMinY_MouseDown(object sender, MouseEventArgs e)
+		//Clicked on - pass to enter event
+		private void NumericMinY_MouseDown(object sender, MouseEventArgs e)
 		{
-			numericMinY_Enter(sender, e);
+			NumericMinY_Enter(sender, e);
 		}
 
-		private void numericMaxY_MouseDown(object sender, MouseEventArgs e)
+		private void NumericMaxY_MouseDown(object sender, MouseEventArgs e)
 		{
-			numericMaxY_Enter(sender, e);
+			NumericMaxY_Enter(sender, e);
 		}
 
 		//Search Button - Gather parameters, execute query and populate results
