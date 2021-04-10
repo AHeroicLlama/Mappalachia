@@ -388,7 +388,7 @@ namespace Mappalachia
 		//Returns the number of items missed off the legend due to size constraints
 		static int DrawLegend(Font font, Graphics imageGraphic)
 		{
-			Dictionary<int, string> overridingLegendText = LegendTextManager.GetOverriddenTexts();
+			Dictionary<int, string> overridingLegendText = FormMaster.GatherOverriddenLegendTexts();
 			List<int> drawnGroups = new List<int>();
 
 			//Calculate the total height of all legend strings with their plot icons beside, combined
@@ -402,7 +402,7 @@ namespace Mappalachia
 				}
 
 				legendTotalHeight += Math.Max(
-					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height),
+					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height),
 					SettingsPlot.IsIcon() ? SettingsPlotIcon.iconSize : 0);
 
 				drawnGroups.Add(mapItem.legendGroup);
@@ -426,7 +426,7 @@ namespace Mappalachia
 				}
 
 				//Calculate positions and color for legend text (plus icon)
-				int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(), font, legendBounds).Height);
+				int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height);
 
 				PlotIcon icon = mapItem.GetIcon();
 				Image plotIconImg = SettingsPlot.IsIcon() ? icon.GetIconImage() : null;
@@ -455,7 +455,7 @@ namespace Mappalachia
 						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
 					}
 
-					imageGraphic.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
+					imageGraphic.DrawString(mapItem.GetLegendText(false), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
 				}
 				else
 				{

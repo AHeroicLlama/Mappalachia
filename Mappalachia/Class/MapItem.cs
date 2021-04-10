@@ -31,6 +31,7 @@ namespace Mappalachia
 		public readonly string location; //Display Name of the location where was this item placed.
 		public readonly string locationEditorID; //EditorID of the location
 		public int legendGroup; //User-definable grouping value
+		public string overridingLegendText = string.Empty; //The user-provided legend text, if given
 
 		List<MapDataPoint> plots;
 
@@ -83,13 +84,13 @@ namespace Mappalachia
 			return plots;
 		}
 
-		//Get a user-friendly text representation of the MapItem to be used on the legend
-		public string GetLegendText()
+		//Get a user-friendly or user-defined text representation of the MapItem to be used on the legend
+		//forceDefault to ignore user override and return to auto-generated
+		public string GetLegendText(bool forceDefault)
 		{
-			if (LegendTextManager.GetOverriddenTexts().ContainsKey(legendGroup))
+			if (!forceDefault && overridingLegendText != string.Empty)
 			{
-				Console.WriteLine(LegendTextManager.GetOverriddenTexts()[legendGroup]);
-				return LegendTextManager.GetOverriddenTexts()[legendGroup];
+				return overridingLegendText;
 			}
 
 			if (type == Type.Standard)
