@@ -64,7 +64,6 @@ namespace Mappalachia
 			this.resolution256MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution512MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution1024MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.overrideLegendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,10 +90,6 @@ namespace Mappalachia
 			this.buttonDeselectAllLock = new System.Windows.Forms.Button();
 			this.buttonSelectAllLock = new System.Windows.Forms.Button();
 			this.gridViewLegend = new System.Windows.Forms.DataGridView();
-			this.columnLegendGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnLegendEditorID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnLegendDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnLegendLockType = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.labelLegend = new System.Windows.Forms.Label();
 			this.labelMinSpawnChance = new System.Windows.Forms.Label();
 			this.numericUpDownNPCSpawnThreshold = new System.Windows.Forms.NumericUpDown();
@@ -129,6 +124,8 @@ namespace Mappalachia
 			this.buttonAddToLegend = new System.Windows.Forms.Button();
 			this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
 			this.progressBarMain = new System.Windows.Forms.ProgressBar();
+			this.columnLegendGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnLegendDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
@@ -312,7 +309,6 @@ namespace Mappalachia
             this.plotModeMenuItem,
             this.plotIconSettingsMenuItem,
             this.heatmapSettingsMenuItem,
-            this.overrideLegendTextToolStripMenuItem,
             this.drawVolumesMenuItem});
 			this.plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			this.plotSettingsMenuItem.Size = new System.Drawing.Size(85, 20);
@@ -324,7 +320,7 @@ namespace Mappalachia
             this.modeIconMenuItem,
             this.modeHeatmapMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
-			this.plotModeMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.plotModeMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
 			this.plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
@@ -347,7 +343,7 @@ namespace Mappalachia
 			// plotIconSettingsMenuItem
 			// 
 			this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
 			this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
 			this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
@@ -358,7 +354,7 @@ namespace Mappalachia
             this.colorModeMenuItem,
             this.resolutionMenuItem});
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
 			// 
@@ -433,18 +429,10 @@ namespace Mappalachia
 			this.resolution1024MenuItem.ToolTipText = "1024x1024 squares for the heatmap.";
 			this.resolution1024MenuItem.Click += new System.EventHandler(this.Plot_HeatMap_Resolution_1024);
 			// 
-			// overrideLegendTextToolStripMenuItem
-			// 
-			this.overrideLegendTextToolStripMenuItem.Name = "overrideLegendTextToolStripMenuItem";
-			this.overrideLegendTextToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-			this.overrideLegendTextToolStripMenuItem.Text = "Override/Group Legend Text...";
-			this.overrideLegendTextToolStripMenuItem.ToolTipText = "Provide overriding text in order to group items under one legend entry.";
-			this.overrideLegendTextToolStripMenuItem.Click += new System.EventHandler(this.Plot_OverrideLegendText);
-			// 
 			// drawVolumesMenuItem
 			// 
 			this.drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			this.drawVolumesMenuItem.Size = new System.Drawing.Size(232, 22);
+			this.drawVolumesMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.drawVolumesMenuItem.Text = "Draw Volumes";
 			this.drawVolumesMenuItem.ToolTipText = "(Where applicable, in Icon Mode) In-game volumes such as triggers/activators have" +
     " their boundaries drawn instead of a plot icon.";
@@ -734,9 +722,7 @@ namespace Mappalachia
 			this.gridViewLegend.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.gridViewLegend.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnLegendGroup,
-            this.columnLegendEditorID,
-            this.columnLegendDisplayName,
-            this.columnLegendLockType});
+            this.columnLegendDisplayName});
 			this.gridViewLegend.Location = new System.Drawing.Point(6, 663);
 			this.gridViewLegend.Name = "gridViewLegend";
 			this.gridViewLegend.RowHeadersVisible = false;
@@ -745,39 +731,6 @@ namespace Mappalachia
 			this.gridViewLegend.TabIndex = 7;
 			this.gridViewLegend.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellEndEdit);
 			this.gridViewLegend.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellMouseEnter);
-			// 
-			// columnLegendGroup
-			// 
-			this.columnLegendGroup.HeaderText = "Legend Group";
-			this.columnLegendGroup.Name = "columnLegendGroup";
-			this.columnLegendGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			// 
-			// columnLegendEditorID
-			// 
-			this.columnLegendEditorID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnLegendEditorID.FillWeight = 400F;
-			this.columnLegendEditorID.HeaderText = "Technical Name";
-			this.columnLegendEditorID.Name = "columnLegendEditorID";
-			this.columnLegendEditorID.ReadOnly = true;
-			this.columnLegendEditorID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			// 
-			// columnLegendDisplayName
-			// 
-			this.columnLegendDisplayName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnLegendDisplayName.FillWeight = 400F;
-			this.columnLegendDisplayName.HeaderText = "Display Name";
-			this.columnLegendDisplayName.Name = "columnLegendDisplayName";
-			this.columnLegendDisplayName.ReadOnly = true;
-			this.columnLegendDisplayName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			// 
-			// columnLegendLockType
-			// 
-			this.columnLegendLockType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnLegendLockType.HeaderText = "Lock Type";
-			this.columnLegendLockType.Name = "columnLegendLockType";
-			this.columnLegendLockType.ReadOnly = true;
-			this.columnLegendLockType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			this.columnLegendLockType.Visible = false;
 			// 
 			// labelLegend
 			// 
@@ -1193,6 +1146,20 @@ namespace Mappalachia
 			this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.progressBarMain.TabIndex = 7;
 			// 
+			// columnLegendGroup
+			// 
+			this.columnLegendGroup.HeaderText = "Legend Group";
+			this.columnLegendGroup.Name = "columnLegendGroup";
+			this.columnLegendGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
+			// columnLegendDisplayName
+			// 
+			this.columnLegendDisplayName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnLegendDisplayName.FillWeight = 400F;
+			this.columnLegendDisplayName.HeaderText = "Display Name";
+			this.columnLegendDisplayName.Name = "columnLegendDisplayName";
+			this.columnLegendDisplayName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
 			// FormMaster
 			// 
 			this.AcceptButton = this.buttonSearch;
@@ -1294,10 +1261,6 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem plotModeMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modeIconMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modeHeatmapMenuItem;
-		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendGroup;
-		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendEditorID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendDisplayName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendLockType;
 		private System.Windows.Forms.ToolStripMenuItem donateMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem heatmapSettingsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem colorModeMenuItem;
@@ -1326,7 +1289,6 @@ namespace Mappalachia
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
 		private System.Windows.Forms.Button buttonSelectRecommended;
 		private System.Windows.Forms.CheckBox checkBoxAddAsGroup;
-		private System.Windows.Forms.ToolStripMenuItem overrideLegendTextToolStripMenuItem;
 		private System.Windows.Forms.GroupBox groupBoxScrapSearch;
 		private System.Windows.Forms.GroupBox groupBoxNPCSearch;
 		private System.Windows.Forms.GroupBox groupBoxCellModeSettings;
@@ -1338,6 +1300,8 @@ namespace Mappalachia
 		private System.Windows.Forms.NumericUpDown numericMaxZ;
 		private System.Windows.Forms.NumericUpDown numericMinz;
 		private System.Windows.Forms.CheckBox checkBoxCellDrawOutline;
+		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendGroup;
+		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendDisplayName;
 	}
 }
 

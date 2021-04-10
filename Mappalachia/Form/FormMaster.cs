@@ -62,7 +62,6 @@ namespace Mappalachia
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
-			UpdateLegendLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
 			UpdateAmountColumnToolTip();
 			UpdatePlotMode(false);
@@ -273,23 +272,6 @@ namespace Mappalachia
 
 			//If they are all checked, or this is not a search where filters apply - hide the column again
 			gridViewSearchResults.Columns["columnSearchLockLevel"].Visible = false;
-		}
-
-		//Update the visiblity of the lock type column in the legend view, given current settings
-		void UpdateLegendLockTypeColumnVisibility()
-		{
-			//If any mapped items have lock type relevancy, show the column
-			foreach (MapItem item in legendItems)
-			{
-				if (item.GetLockRelevant())
-				{
-					gridViewLegend.Columns["columnLegendLockType"].Visible = true;
-					return;
-				}
-			}
-
-			//No reason to show the column, so hide it
-			gridViewLegend.Columns["columnLegendLockType"].Visible = false;
 		}
 
 		//Update the map settings > draw volume check, based on current settings
@@ -615,33 +597,67 @@ namespace Mappalachia
 		}
 
 		//Wipe and re-populate the Legend Grid View with items contained in "List<MapItem> legendItems"
-		void UpdateLegendGrid()
+		void UpdateLegendGrid(MapItem lastSelectedItem)
 		{
 			gridViewLegend.Enabled = false;
 			gridViewLegend.Rows.Clear();
 
 			foreach (MapItem legend in legendItems)
 			{
-				gridViewLegend.Rows.Add(legend.legendGroup, legend.editorID, legend.displayName, legend.GetLockRelevant() ? string.Join(", ", DataHelper.ConvertLockLevelCollection(legend.filteredLockTypes, false)) : "N/A");
+				gridViewLegend.Rows.Add(legend.legendGroup, legend.GetLegendText(false));
 			}
 
-			UpdateLegendLockTypeColumnVisibility();
 			gridViewLegend.Enabled = true;
 
-			//scroll to bottom of list
+			//If the list is populated we can select an index
 			if (gridViewLegend.RowCount >= 1)
 			{
-				gridViewLegend.FirstDisplayedScrollingRowIndex = gridViewLegend.RowCount - 1;
+				//Provide a default at the end of the list
+				int indexToSelect = gridViewLegend.RowCount - 1;
+
+				//If provided, find and re-select the last selected item
+				if (lastSelectedItem != null)
+				{
+					indexToSelect = legendItems.IndexOf(legendItems.Where(m => m.editorID == lastSelectedItem.editorID).First());
+				}
+
+				//Select and scroll to the best new index
+				gridViewLegend.Rows[indexToSelect].Selected = true;
+				gridViewLegend.FirstDisplayedScrollingRowIndex = indexToSelect;
+			}
+		}
+
+		//Finds the unique instances of legend groups with overridden legend texts, in order for them to be merged together
+		public static Dictionary<int, string> GatherOverriddenLegendTexts()
+		{
+			Dictionary<int, string> overriddenTexts = new Dictionary<int, string>();
+
+			foreach (MapItem mapItem in legendItems)
+			{
+				if (overriddenTexts.ContainsKey(mapItem.legendGroup) || string.IsNullOrWhiteSpace(mapItem.overridingLegendText))
+				{
+					continue; //Either this isn't overridden, or we already have this one - skip
+				}
+				//This must be a new MapItem with overridden text - add it to the Dictionary
+				else if (!string.IsNullOrWhiteSpace(mapItem.overridingLegendText))
+				{
+					overriddenTexts.Add(mapItem.legendGroup, mapItem.overridingLegendText);
+				}
 			}
 
-			LegendTextManager.IncludeNewGroups();
+			return overriddenTexts;
 		}
 
 		//Wipe away the legend items and update the UI. Doesn't re-draw the map
 		void ClearLegend()
 		{
+			foreach (MapItem item in legendItems)
+			{
+				item.overridingLegendText = string.Empty;
+			}
+
 			legendItems.Clear();
-			UpdateLegendGrid();
+			UpdateLegendGrid(null);
 		}
 
 		//Find the next-lowest free legend group value in LegendItems
@@ -892,19 +908,6 @@ namespace Mappalachia
 		{
 			SettingsPlotHeatmap.resolution = 1024;
 			UpdateHeatMapResolution(true);
-		}
-
-		//Plot Settings > Override Legend Text - Open override legend text form
-		private void Plot_OverrideLegendText(object sender, EventArgs e)
-		{
-			if (legendItems.Count == 0)
-			{
-				Notify.Info("Please add items to the legend list first.");
-				return;
-			}
-
-			FormLegendTextControl formLegendTextControl = new FormLegendTextControl();
-			formLegendTextControl.ShowDialog();
 		}
 
 		//Plot Settings > Draw Volumes - Toggle drawing volumes
@@ -1158,7 +1161,7 @@ namespace Mappalachia
 			//Update the legend grid, as long as there's at least one item we didn't have to reject
 			if (rejectedItems.Count < gridViewSearchResults.SelectedRows.Count)
 			{
-				UpdateLegendGrid();
+				UpdateLegendGrid(null);
 			}
 
 			//If we dropped items, let the user know.
@@ -1193,6 +1196,7 @@ namespace Mappalachia
 			}
 
 			List<MapItem> remainingLegendItems = new List<MapItem>();
+			List<MapItem> removedLegendItems = new List<MapItem>();
 			List<int> selectedIndexes = new List<int>();
 
 			//Removing multiple list items by index breaks, as the indices keep changing
@@ -1208,33 +1212,72 @@ namespace Mappalachia
 				{
 					remainingLegendItems.Add(legendItems[i]);
 				}
+				else
+				{
+					legendItems[i].overridingLegendText = string.Empty;
+				}
 			}
 
 			legendItems = remainingLegendItems;
 
-			UpdateLegendGrid();
+			UpdateLegendGrid(null);
 		}
 
-		//Handle the entry and assignment of new values to the Legend Group column
-		//This method assumes the Legend Group cell was edited as this is the only editable column
+		//Handle the entry and assignment of new values to the Legend Group column or Overriding legend text
 		private void GridViewLegend_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
-			DataGridViewCell cell = gridViewLegend.Rows[e.RowIndex].Cells[0];
-			object cellValue = cell.Value;
+			DataGridViewRow editedRow = gridViewLegend.Rows[e.RowIndex];
+			DataGridViewCell editedCell = editedRow.Cells[e.ColumnIndex];
+			object cellValue = editedCell.Value;
+			MapItem editedItem = legendItems[e.RowIndex];
 
-			//First verify the value entered into Legend Group cell is a non-null positive int
-			if (cellValue == null ||
-				!uint.TryParse(cellValue.ToString(), out _) ||
-				!int.TryParse(cellValue.ToString(), out _))
+			//Legend group
+			if (e.ColumnIndex == 0)
 			{
-				Notify.Warn("\"" + cell.Value + "\" must be a positive whole number.");
-				cell.Value = 0; //Overwrite the edit by assigning 0, but continue the method so that the value of 0 is reflected in the MapItem too.
+				//First verify the value entered into Legend Group cell is a non-null positive int
+				if (cellValue == null ||
+					!uint.TryParse(cellValue.ToString(), out _) ||
+					!int.TryParse(cellValue.ToString(), out _))
+				{
+					Notify.Warn("\"" + editedCell.Value + "\" must be a positive whole number.");
+					editedCell.Value = 0; //Overwrite the edit by assigning 0, but continue the method so that the value of 0 is reflected in the MapItem too.
+				}
+
+				//Record the overridden legend texts, *before* we edit the legend group, in case the edit conflicts
+				Dictionary<int, string> overriddenLegendTexts = GatherOverriddenLegendTexts();
+
+				int legendGroup = int.Parse(editedCell.Value.ToString());
+				editedItem.legendGroup = legendGroup;
+
+				//We just edited into a legend group which is already overridden
+				//Inherit the overriding text of the one which came first
+				if (overriddenLegendTexts.ContainsKey(legendGroup))
+				{
+					editedItem.overridingLegendText = overriddenLegendTexts[legendGroup];
+					BeginInvoke((MethodInvoker)delegate { UpdateLegendGrid(editedItem); });
+				}
 			}
+			else if (e.ColumnIndex == 1) //Override legend text
+			{
+				int targetLegendGroup = int.Parse(editedRow.Cells[0].Value.ToString());
 
-			MapItem item = legendItems[e.RowIndex];
-			item.legendGroup = int.Parse(cell.Value.ToString());
+				/*Loop over all items of the same legend group (including of the edited row),
+				assinging the overriding text, or reverting to default if blank*/
+				foreach (MapItem mapItem in legendItems.FindAll(m => m.legendGroup == targetLegendGroup))
+				{
+					//If the value entered was blank/deleted, reset to default
+					if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
+					{
+						mapItem.overridingLegendText = string.Empty;
+					}
+					else //Use the overridden text
+					{
+						mapItem.overridingLegendText = cellValue.ToString();
+					}
+				}
 
-			LegendTextManager.IncludeNewGroups();
+				BeginInvoke((MethodInvoker)delegate { UpdateLegendGrid(editedItem); });
+			}
 		}
 
 		void ButtonDrawMap(object sender, EventArgs e)
