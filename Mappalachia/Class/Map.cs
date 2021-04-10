@@ -481,8 +481,6 @@ namespace Mappalachia
 
 			CellScaling cellScaling = SettingsCell.GetCell().GetScaling();
 
-			List<MapDataPoint> allInCell = DataHelper.GetAllCellCoords(SettingsCell.GetCell().formID);
-
 			int outlineWidth = SettingsCell.outlineWidth;
 			int outlineSize = SettingsCell.outlineSize;
 
@@ -495,7 +493,7 @@ namespace Mappalachia
 				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
 
 			//Iterate over every data point and draw it
-			foreach (MapDataPoint point in allInCell)
+			foreach (MapDataPoint point in DataHelper.GetAllCellCoords(SettingsCell.GetCell().formID))
 			{
 				//If this coordinate exceeds the user-selected cell mapping height bounds, skip it
 				//(Also accounts for the z-height of volumes)

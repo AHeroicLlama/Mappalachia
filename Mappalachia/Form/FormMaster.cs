@@ -694,15 +694,15 @@ namespace Mappalachia
 		//Render a crude text graph to visualize height distribution in the currently selected cell
 		void ShowCellModeHeightDistribution()
 		{
-			string textVisualisation = string.Empty;
+			string textVisualization = string.Empty;
 			int i = 0;
 			foreach (double value in SettingsCell.GetCell().GetHeightDistribution())
 			{
-				textVisualisation = (i * SettingsCell.GetHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualisation;
+				textVisualization = (i * SettingsCell.GetHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualization;
 				i++;
 			}
 
-			MessageBox.Show(textVisualisation, "Height distribution for " + SettingsCell.GetCell().editorID);
+			MessageBox.Show(textVisualization, "Height distribution for " + SettingsCell.GetCell().editorID);
 		}
 
 		#endregion
@@ -1163,8 +1163,8 @@ namespace Mappalachia
 				UpdateLegendGrid();
 			}
 
-			//If we dropped items, let the user know. Unless they're in advanced cell mode, this warning is common, and we assume they understand.
-			if (rejectedItems.Count > 0 && !SettingsMap.IsCellModeActive())
+			//If we dropped items, let the user know.
+			if (rejectedItems.Count > 0)
 			{
 				//Cap the list of items we warn about to prevent a huge error box
 				int maxItemsToShow = 8;
