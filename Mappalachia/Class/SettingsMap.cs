@@ -6,7 +6,7 @@
 		public enum Mode
 		{
 			Worldspace,
-			Cell
+			Cell,
 		}
 
 		public static Mode mode = Mode.Worldspace;

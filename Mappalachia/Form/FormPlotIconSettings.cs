@@ -313,7 +313,7 @@ namespace Mappalachia
 			}
 
 			SaveSettingsFromForm();
-			PlotIcon.ResetCache(); //Reset the cached legend icons, as they are now chagning.
+			PlotIcon.ResetCache(); //Reset the cached legend icons, as they are now changing.
 			Close();
 
 			if (SettingsPlot.IsIcon())

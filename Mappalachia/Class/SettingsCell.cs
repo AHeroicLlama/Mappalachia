@@ -15,17 +15,17 @@ namespace Mappalachia.Class
 		public static readonly Color outlineColor = Color.Gray;
 		public static readonly int outlineAlpha = 200;
 
+		static Cell currentCell;
+
+		//User-definable settings
+		public static bool drawOutline = true;
+		public static int minHeightPerc = 0;
+		public static int maxHeightPerc = 100;
+
 		public static int GetHeightBinSize()
 		{
 			return (int)Math.Round(100d / heightPrecision);
 		}
-
-		static Cell currentCell;
-
-		public static bool drawOutline = true;
-
-		public static int minHeightPerc = 0;
-		public static int maxHeightPerc = 100;
 
 		public static Cell GetCell()
 		{
@@ -46,7 +46,6 @@ namespace Mappalachia.Class
 		public static double GetMaxHeightCoordBound()
 		{
 			return ((maxHeightPerc / 100d) * currentCell.heightRange) + currentCell.zMin;
-
 		}
 	}
 }

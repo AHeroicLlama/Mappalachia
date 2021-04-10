@@ -10,7 +10,6 @@ namespace Mappalachia.Class
 		public string formID;
 		public string editorID;
 		public string displayName;
-		List<MapDataPoint> plots;
 		public double xMin;
 		public double xMax;
 		public double yMin;
@@ -18,6 +17,8 @@ namespace Mappalachia.Class
 		public int zMin;
 		public int zMax;
 		public double heightRange;
+
+		List<MapDataPoint> plots;
 
 		public Cell(string formID, string editorID, string displayName)
 		{
@@ -71,8 +72,8 @@ namespace Mappalachia.Class
 			foreach (MapDataPoint point in plots)
 			{
 				//Calculate which numeric bin this item would fall into
-				int placementBin = (int)(((point.z  - zMin) / heightRange) * precision);
-				
+				int placementBin = (int)(((point.z - zMin) / heightRange) * precision);
+
 				//At least one value will be exactly the precision value, (it's the highest thing)
 				//But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
 				//So this is a special case for the top-most item to be moved back into the upper (n-1) bin

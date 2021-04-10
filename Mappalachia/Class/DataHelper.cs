@@ -403,7 +403,6 @@ namespace Mappalachia
 			}
 		}
 
-
 		//Conducts the standard search and returns the found items
 		public static List<MapItem> SearchStandard(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{

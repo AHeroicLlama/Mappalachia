@@ -80,8 +80,6 @@ namespace Mappalachia
 			//Also draws the map for the first time
 			EnterMapMode(SettingsMap.mode);
 
-			
-
 			//Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
 		}
@@ -667,7 +665,7 @@ namespace Mappalachia
 		//User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMapFromUI()
 		{
-			if(SettingsMap.IsCellModeActive() && SettingsCell.minHeightPerc > SettingsCell.maxHeightPerc)
+			if (SettingsMap.IsCellModeActive() && SettingsCell.minHeightPerc > SettingsCell.maxHeightPerc)
 			{
 				Notify.Info("Height cropping values must allow the minimum to be less than or equal to the maximum.");
 				return;
@@ -1081,7 +1079,7 @@ namespace Mappalachia
 
 			//Execute the search
 			searchResults = SettingsMap.IsCellModeActive() ?
-				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) : 
+				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) :
 				DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update

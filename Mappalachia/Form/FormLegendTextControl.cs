@@ -16,6 +16,7 @@ namespace Mappalachia.Class
 			{
 				dataGridViewLegendText.Rows.Add(entry.Key, entry.Value);
 			}
+
 			dataGridViewLegendText.Enabled = true;
 		}
 
@@ -31,6 +32,7 @@ namespace Mappalachia.Class
 					LegendTextManager.UpdateLegend((int)row.Cells["columnLegendGroup"].Value, cell.Value.ToString());
 				}
 			}
+
 			Close();
 			Map.Draw();
 		}
