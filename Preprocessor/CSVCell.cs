@@ -151,6 +151,7 @@ namespace Mappalachia
 
 				case "x":
 				case "y":
+				case "z":
 					//Coordinate cells must be exactly integers
 					if (!int.TryParse(data, out _))
 					{
@@ -160,6 +161,7 @@ namespace Mappalachia
 
 				case "boundX":
 				case "boundY":
+				case "boundZ":
 				case "rotZ":
 					//Boundary dimensions or rotations may be blank or otherwise integers
 					if (data != string.Empty && !int.TryParse(data, out _))

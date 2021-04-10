@@ -168,10 +168,18 @@ namespace Mappalachia
 		{
 			try
 			{
-				EncoderParameters encoderParams = new EncoderParameters(1);
-				encoderParams.Param[0] = encoderParam;
+				if (SettingsMap.IsCellModeActive())
+				{
+					//Save with PNG encoding in Cell mode to maintain the transparency, and to avoid compression
+					image.Save(filePath, ImageFormat.Png);
+				}
+				else
+				{
+					EncoderParameters encoderParams = new EncoderParameters(1);
+					encoderParams.Param[0] = encoderParam;
 
-				image.Save(filePath, jpegEncoder, encoderParams);
+					image.Save(filePath, jpegEncoder, encoderParams);
+				}
 			}
 			catch (Exception e)
 			{

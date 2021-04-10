@@ -1,5 +1,5 @@
 ==Database checksum== 
-db54f15b9cdd769bd57ecf75dc86ae53
+e6a6d9c35b4d41a8c12b6b1860b65b0a
 ==Total unique items by signature==
 ACTI|1354
 ALCH|84
@@ -35,15 +35,15 @@ WEAP|73
 2.60852221214869
 ==Average editorID string length==
 24.8409014376376
-==Average X Coord==
+==Worldspace average X Coord==
 -14932.0438648647
-==Average Y Coord==
+==Worldspace average Y Coord==
 6170.55373559951
-==Average X Bounds Width==
+==Worldspace average X Bounds Width==
 19.7273878805393
-==Average Y Bounds Width==
+==Worldspace average Y Bounds Width==
 14.3766549913062
-==Average Z Rotation==
+==Worldspace average Z Rotation==
 3.39534805681973
 ==Worldspace primitive shape types + count==
 |3003008
@@ -54,6 +54,20 @@ Plane|42
 Sphere|2349
 ==Worldspace total placement count==
 3069427
+==Interior average X Coord==
+-1098.25243232918
+==Interior average Y Coord==
+-1130.5424047864
+==Interior average Z Coord==
+276.245924038622
+==Interior average X Bounds Width==
+27.6549358259444
+==Interior average Y Bounds Width==
+22.3770880444628
+==Interior average Z Bounds Width==
+18.0495169230959
+==Interior average Z Rotation==
+6.0925671470735
 ==Interior total placement count==
 649172
 ==Worldspace unique placement count==

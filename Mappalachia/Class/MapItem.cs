@@ -29,7 +29,7 @@ namespace Mappalachia
 		public readonly double weight; //The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
 		public readonly int count; //How many of this item did we find.
 		public readonly string location; //Display Name of the location where was this item placed.
-		public readonly string locationID; //EditorID of the location
+		public readonly string locationEditorID; //EditorID of the location
 		public int legendGroup; //User-definable grouping value
 
 		List<MapDataPoint> plots;
@@ -45,7 +45,7 @@ namespace Mappalachia
 			this.weight = weight;
 			this.count = count;
 			this.location = location;
-			this.locationID = locationID;
+			this.locationEditorID = locationID;
 		}
 
 		//The lock type is relevant only if it's a 'standard', lockable item with modified/filtered lock types.
@@ -61,12 +61,15 @@ namespace Mappalachia
 		//Speeds up repeated or edited map plots by caching them
 		public List<MapDataPoint> GetPlots()
 		{
-			if (plots == null)
+			//Cache the plots if not already active - cell mode needs to edit these values (see CellScaling), so refresh them each time
+			if (plots == null || SettingsMap.IsCellModeActive())
 			{
 				switch (type)
 				{
 					case Type.Standard:
-						plots = DataHelper.GetStandardCoords(uniqueIdentifier, filteredLockTypes);
+						plots = SettingsMap.IsCellModeActive() ?
+							DataHelper.GetCellCoords(uniqueIdentifier, SettingsCell.GetCell().formID, filteredLockTypes) :
+							DataHelper.GetStandardCoords(uniqueIdentifier, filteredLockTypes);
 						break;
 					case Type.NPC:
 						plots = DataHelper.GetNPCCoords(uniqueIdentifier, weight);
@@ -123,7 +126,7 @@ namespace Mappalachia
 
 		public PlotIcon GetIcon()
 		{
-			return PlotIconCache.GetIconForGroup(legendGroup);
+			return PlotIcon.GetIconForGroup(legendGroup);
 		}
 
 		//Override equals to compare MapItem - we use the unique identifier and if they're a normal item, also the filtered lock type.

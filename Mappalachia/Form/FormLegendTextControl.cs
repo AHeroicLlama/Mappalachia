@@ -10,6 +10,7 @@ namespace Mappalachia.Class
 		{
 			InitializeComponent();
 
+			//Populate the DataGridView
 			dataGridViewLegendText.Enabled = false;
 			foreach (KeyValuePair<int, string> entry in LegendTextManager.allLegendTexts)
 			{
@@ -18,6 +19,7 @@ namespace Mappalachia.Class
 			dataGridViewLegendText.Enabled = true;
 		}
 
+		//Store all rows which contain text and hence override
 		private void ButtonApply(object sender, EventArgs e)
 		{
 			foreach (DataGridViewRow row in dataGridViewLegendText.Rows)

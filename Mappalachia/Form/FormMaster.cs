@@ -15,6 +15,8 @@ namespace Mappalachia
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
 
+		static List<Cell> cells;
+
 		public ProgressBar progressBar;
 
 		//Flags on if we've displayed certain warnings, so as to only show once per run
@@ -33,7 +35,7 @@ namespace Mappalachia
 			IOManager.Cleanup();
 
 			//Instantiate the DB connection
-			Queries.CreateConnection();
+			Database.CreateConnection();
 
 			//Populate UI elements
 			PopulateSignatureFilterList();
@@ -54,13 +56,15 @@ namespace Mappalachia
 			//Apply min/max values according to current settings
 			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
 			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
+			numericMinz.Increment = SettingsCell.GetHeightBinSize();
+			numericMaxZ.Increment = numericMinz.Increment;
 
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLegendLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
-			UpdateAmountToolTip();
+			UpdateAmountColumnToolTip();
 			UpdatePlotMode(false);
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
@@ -72,8 +76,11 @@ namespace Mappalachia
 
 			Map.SetOutput(pictureBoxMapPreview);
 
-			//Draw and display the map
-			Map.DrawBaseLayer();
+			//Assign settings for whichever Map Mode we're starting in
+			//Also draws the map for the first time
+			EnterMapMode(SettingsMap.mode);
+
+			
 
 			//Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -189,6 +196,33 @@ namespace Mappalachia
 			listBoxScrap.SelectedIndex = 0;
 		}
 
+		//Populate the Cell combo box (only visible in Cell mode) with all cells
+		void PopulateCellList()
+		{
+			if (comboBoxCell.Items.Count != 0)
+			{
+				return;
+			}
+
+			int i = 0;
+			int targetDefaultCellIndex = 0;
+
+			cells = DataHelper.GetAllCells();
+
+			foreach (Cell cell in cells)
+			{
+				if (cell.editorID.Contains(SettingsCell.targetDefaultCell))
+				{
+					targetDefaultCellIndex = i;
+				}
+
+				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
+				i++;
+			}
+
+			comboBoxCell.SelectedIndex = targetDefaultCellIndex;
+		}
+
 		//Fill the search box with a suggested search term.
 		void ProvideSearchHint()
 		{
@@ -220,7 +254,7 @@ namespace Mappalachia
 		//Update the visibility of the search results location column, given current settings
 		void UpdateLocationColumnVisibility()
 		{
-			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior;
+			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior || SettingsMap.IsCellModeActive();
 		}
 
 		//Update the visiblity of the lock type column in the results view, given current settings
@@ -272,7 +306,7 @@ namespace Mappalachia
 		}
 
 		//Update tooltip on "amount" column header - as it changes depending on interior searching or not
-		void UpdateAmountToolTip()
+		void UpdateAmountColumnToolTip()
 		{
 			gridViewSearchResults.Columns["columnSearchAmount"].ToolTipText = SettingsSearch.searchInterior ?
 				"The amount of instances which can be found in the listed location." :
@@ -393,6 +427,82 @@ namespace Mappalachia
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
 		}
 
+		//Update the UI with min and max cell height settings stored in cell mode settings
+		void UpdateCellHeightSettings()
+		{
+			numericMinz.Value = SettingsCell.minHeightPerc;
+			numericMaxZ.Value = SettingsCell.maxHeightPerc;
+		}
+
+		void UpdateCellDrawOutLine()
+		{
+			checkBoxCellDrawOutline.Checked = SettingsCell.drawOutline;
+		}
+
+		//Applies the config necessary for exiting the current map mode
+		void ExitMapMode()
+		{
+			switch (SettingsMap.mode)
+			{
+				case SettingsMap.Mode.Cell:
+					cellModeMenuItem.Checked = false;
+					interiorSearchMenuItem.Enabled = true;
+					layerMenuItem.Enabled = true;
+					brightnessMenuItem.Enabled = true;
+					grayscaleMenuItem.Enabled = true;
+					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
+
+					//Re-enable volume drawing as cell mode will disable it
+					SettingsPlot.drawVolumes = true;
+					UpdateVolumeEnabledState(false);
+
+					groupBoxCellModeSettings.Visible = false;
+					break;
+
+				case SettingsMap.Mode.Worldspace:
+					break;
+			}
+		}
+
+		//Applies the config necessary for entering a map mode
+		void EnterMapMode(SettingsMap.Mode incomingMode)
+		{
+			switch (incomingMode)
+			{
+				case SettingsMap.Mode.Cell:
+					SettingsMap.mode = incomingMode;
+					cellModeMenuItem.Checked = true;
+					interiorSearchMenuItem.Enabled = false;
+					layerMenuItem.Enabled = false;
+					brightnessMenuItem.Enabled = false;
+					grayscaleMenuItem.Enabled = false;
+					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
+
+					PopulateCellList();
+
+					//Disable volume drawing by default for cell mode as it tends to get in the way
+					SettingsPlot.drawVolumes = false;
+					UpdateVolumeEnabledState(false);
+					UpdateCellHeightSettings();
+					UpdateCellDrawOutLine();
+
+					textBoxSearch.Text = string.Empty;
+					tabControlStandardNPCJunk.SelectedTab = tabPageStandard;
+					groupBoxCellModeSettings.Visible = true;
+					break;
+
+				case SettingsMap.Mode.Worldspace:
+					SettingsMap.mode = incomingMode;
+					cellModeMenuItem.Checked = false;
+					break;
+			}
+
+			ClearSearchResults();
+			ClearLegend();
+			UpdateLocationColumnVisibility();
+			Map.Reset();
+		}
+
 		//Unselect all resolution options under heatmap resolution. Used to remove any current selection
 		void UncheckAllResolutions()
 		{
@@ -472,6 +582,13 @@ namespace Mappalachia
 			}
 		}
 
+		//Totally clears all search results
+		void ClearSearchResults()
+		{
+			searchResults = new List<MapItem>();
+			UpdateSearchResultsGrid();
+		}
+
 		//Wipe and re-populate the search results UI element with the items in "List<MapItem> searchResults"
 		void UpdateSearchResultsGrid()
 		{
@@ -490,8 +607,8 @@ namespace Mappalachia
 					mapItem.weight == -1 ? "Unknown" : mapItem.weight.ToString(),
 					mapItem.count,
 					mapItem.location,
-					mapItem.locationID,
-					index); //Index helps relate the UI row to the List<MapItem>, even if the UI is sorted
+					mapItem.locationEditorID,
+					index); //Index relates the UI row to the List<MapItem>, even if the UI is sorted
 
 				index++;
 			}
@@ -529,7 +646,7 @@ namespace Mappalachia
 			UpdateLegendGrid();
 		}
 
-		//Find the lowest free legend group value in LegendItems
+		//Find the next-lowest free legend group value in LegendItems
 		int FindLowestAvailableLegendGroupValue()
 		{
 			int n = legendItems.Count;
@@ -550,29 +667,42 @@ namespace Mappalachia
 		//User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMapFromUI()
 		{
-			if (legendItems.Count > 0)
+			if(SettingsMap.IsCellModeActive() && SettingsCell.minHeightPerc > SettingsCell.maxHeightPerc)
 			{
-				//Disable control of the legend items list while we draw, and disable calling another draw
-				buttonDrawMap.Enabled = false;
-				buttonAddToLegend.Enabled = false;
-				buttonRemoveFromLegend.Enabled = false;
-
-				Map.Draw();
-
-				//Re-enable disabled buttons after
-				buttonDrawMap.Enabled = true;
-				buttonAddToLegend.Enabled = true;
-				buttonRemoveFromLegend.Enabled = true;
+				Notify.Info("Height cropping values must allow the minimum to be less than or equal to the maximum.");
+				return;
 			}
-			else
-			{
-				Notify.Info("There is nothing to map. Add items to the 'items to plot' list by first selecting them from search results.");
-			}
+
+			//Disable control of the legend items list while we draw, and disable calling another draw
+			buttonDrawMap.Enabled = false;
+			buttonAddToLegend.Enabled = false;
+			buttonRemoveFromLegend.Enabled = false;
+
+			Map.Draw();
+
+			//Re-enable disabled buttons after
+			buttonDrawMap.Enabled = true;
+			buttonAddToLegend.Enabled = true;
+			buttonRemoveFromLegend.Enabled = true;
 		}
 
 		void PreviewMap()
 		{
 			Map.Open();
+		}
+
+		//Render a crude text graph to visualize height distribution in the currently selected cell
+		void ShowCellModeHeightDistribution()
+		{
+			string textVisualization = string.Empty;
+			int i = 0;
+			foreach (double value in SettingsCell.GetCell().GetHeightDistribution())
+			{
+				textVisualization = (i * SettingsCell.GetHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualization;
+				i++;
+			}
+
+			MessageBox.Show(textVisualization, "Height distribution for " + SettingsCell.GetCell().editorID);
 		}
 
 		#endregion
@@ -607,6 +737,32 @@ namespace Mappalachia
 			UpdateMapLayerSettings(true);
 		}
 
+		//Map > Advanced Modes > Cell Mode
+		private void Map_CellMode(object sender, EventArgs e)
+		{
+			if (!SettingsMap.IsCellModeActive())
+			{
+				DialogResult question = MessageBox.Show(
+					"Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
+					"If you want to search generally for items across all cells, you should enable Search Settings > Search Interiors.\n\n" +
+					"Switching to Cell mode may override, disable, or adjust certain settings and features which do not apply or are no longer relevant.\n" +
+					"Please read the user documentation on Cell Mode for full details.\n\n" +
+					"Continue to Cell mode?",
+					"Switch to Cell mode?", MessageBoxButtons.YesNo);
+
+				if (question == DialogResult.Yes)
+				{
+					ExitMapMode();
+					EnterMapMode(SettingsMap.Mode.Cell);
+				}
+			}
+			else
+			{
+				ExitMapMode();
+				EnterMapMode(SettingsMap.Mode.Worldspace);
+			}
+		}
+
 		//Map > Brightness... - Open the brightness adjust form
 		void Map_Brightness(object sender, EventArgs e)
 		{
@@ -626,7 +782,7 @@ namespace Mappalachia
 		{
 			SaveFileDialog dialog = new SaveFileDialog
 			{
-				Filter = "JPEG|*.jpeg",
+				Filter = "JPEG|*.jpeg|PNG|*.png",
 				FileName = "Mappalachia Map",
 			};
 
@@ -827,6 +983,92 @@ namespace Mappalachia
 			}
 		}
 
+		//In Cell mode, the current items in search results and legend are inherently connected to the cellFormID.
+		//This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
+		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			SettingsCell.SetCell(cells[comboBoxCell.SelectedIndex]);
+			ClearSearchResults();
+			ClearLegend();
+		}
+
+		private void CheckBoxCellDrawOutline_CheckedChanged(object sender, EventArgs e)
+		{
+			SettingsCell.drawOutline = checkBoxCellDrawOutline.Checked;
+			Map.DrawBaseLayer();
+		}
+
+		private void ButtonCellHeightDistribution_Click(object sender, EventArgs e)
+		{
+			ShowCellModeHeightDistribution();
+		}
+
+		//Cell mode height range changed - maintain the min safely below the max
+		private void NumericMinY_ValueChanged(object sender, EventArgs e)
+		{
+			if (numericMaxZ.Value <= numericMinz.Value)
+			{
+				numericMaxZ.Value = Math.Min(numericMaxZ.Value + numericMaxZ.Increment, numericMaxZ.Maximum);
+
+				//It's likely the user just pressed tab to cross to the max value
+				//We will now highlight it, but adjusting the value again will un-highlight it again
+				//So, re-highlight it
+				NumericMaxY_Enter(sender, e);
+			}
+
+			//Special case where the max could not go higher, so this must stay an increment lower
+			if (numericMinz.Value == numericMaxZ.Maximum)
+			{
+				numericMinz.Value -= numericMinz.Increment;
+			}
+
+			SettingsCell.minHeightPerc = (int)numericMinz.Value;
+		}
+
+		//Cell mode height range changed - maintain the max safely above the min
+		private void NumericMaxY_ValueChanged(object sender, EventArgs e)
+		{
+			if (numericMinz.Value >= numericMaxZ.Value)
+			{
+				numericMinz.Value = Math.Max(numericMinz.Value - numericMinz.Increment, numericMinz.Minimum);
+
+				//It's likely the user just pressed shift-tab to cross to the min value
+				//We will now highlight it, but adjusting the value again will un-highlight it again
+				//So, re-highlight it
+				NumericMinY_Enter(sender, e);
+			}
+
+			//Special case where the min could not go lower, so this must stay an increment higher
+			if (numericMaxZ.Value == numericMinz.Minimum)
+			{
+				numericMaxZ.Value += numericMaxZ.Increment;
+			}
+
+			SettingsCell.maxHeightPerc = (int)numericMaxZ.Value;
+		}
+
+		//Select the value to overwrite when entered
+		private void NumericMinY_Enter(object sender, EventArgs e)
+		{
+			numericMinz.Select(0, numericMinz.Text.Length);
+		}
+
+		private void NumericMaxY_Enter(object sender, EventArgs e)
+		{
+			numericMaxZ.Select(0, numericMaxZ.Text.Length);
+		}
+
+		//Clicked on - pass to enter event
+		private void NumericMinY_MouseDown(object sender, MouseEventArgs e)
+		{
+			NumericMinY_Enter(sender, e);
+		}
+
+		private void NumericMaxY_MouseDown(object sender, MouseEventArgs e)
+		{
+			NumericMaxY_Enter(sender, e);
+		}
+
 		//Search Button - Gather parameters, execute query and populate results
 		void ButtonSearchStandard(object sender, EventArgs e)
 		{
@@ -838,12 +1080,14 @@ namespace Mappalachia
 			searchResults.Clear();
 
 			//Execute the search
-			searchResults = DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+			searchResults = SettingsMap.IsCellModeActive() ?
+				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) : 
+				DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
-			UpdateAmountToolTip();
+			UpdateAmountColumnToolTip();
 			textBoxSearch.Select();
 			textBoxSearch.SelectAll();
 
@@ -898,7 +1142,7 @@ namespace Mappalachia
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				//Warn if a selected item is a cell item or already on the legend list - otherwise add it.
-				if (selectedItem.location != "Appalachia" || legendItemsBeforeAdd.Contains(selectedItem))
+				if ((selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive()) || legendItemsBeforeAdd.Contains(selectedItem))
 				{
 					rejectedItems.Add(selectedItem.editorID);
 				}
@@ -919,6 +1163,7 @@ namespace Mappalachia
 				UpdateLegendGrid();
 			}
 
+			//If we dropped items, let the user know.
 			if (rejectedItems.Count > 0)
 			{
 				//Cap the list of items we warn about to prevent a huge error box
@@ -927,7 +1172,7 @@ namespace Mappalachia
 
 				Notify.Info(
 					"The following items were not added to the legend because they already existed on the legend, " +
-					"or they were items from an interior cell.\n\n" +
+					"or they cannot be mapped.\n\n" +
 					string.Join("\n", rejectedItems.Take(maxItemsToShow)) +
 					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty)); //Add a line to say that a further x items (not shown) were not added
 			}
@@ -1175,8 +1420,13 @@ namespace Mappalachia
 			IOManager.Cleanup();
 			SettingsManager.SaveSettings();
 
-			//Ensures any potentially long-running map building task is stopped too
-			Environment.Exit(0);
+			try
+			{
+				//Ensures any potentially long-running map building task is stopped too
+				Environment.Exit(0);
+			}
+			catch (Exception)
+			{ } //If this fails, we're already exiting and there is no action to take
 		}
 	}
 }
