@@ -107,11 +107,12 @@ namespace Mappalachia
 			this.tabControlStandardNPCJunk = new System.Windows.Forms.TabControl();
 			this.tabPageStandard = new System.Windows.Forms.TabPage();
 			this.groupBoxCellModeSettings = new System.Windows.Forms.GroupBox();
+			this.checkBoxCellDrawOutline = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.labelMaxHeight = new System.Windows.Forms.Label();
 			this.labelMinHeight = new System.Windows.Forms.Label();
-			this.numericMaxY = new System.Windows.Forms.NumericUpDown();
-			this.numericMinY = new System.Windows.Forms.NumericUpDown();
+			this.numericMaxZ = new System.Windows.Forms.NumericUpDown();
+			this.numericMinz = new System.Windows.Forms.NumericUpDown();
 			this.buttonCellHeightDistribution = new System.Windows.Forms.Button();
 			this.labelCell = new System.Windows.Forms.Label();
 			this.comboBoxCell = new System.Windows.Forms.ComboBox();
@@ -136,8 +137,8 @@ namespace Mappalachia
 			this.tabPageStandard.SuspendLayout();
 			this.groupBoxCellModeSettings.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericMaxY)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMinY)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMinz)).BeginInit();
 			this.groupBoxFilterByLockLevel.SuspendLayout();
 			this.groupBoxFilterByCategory.SuspendLayout();
 			this.tabPageNpcScrapSearch.SuspendLayout();
@@ -905,26 +906,43 @@ namespace Mappalachia
 			// 
 			// groupBoxCellModeSettings
 			// 
+			this.groupBoxCellModeSettings.Controls.Add(this.checkBoxCellDrawOutline);
 			this.groupBoxCellModeSettings.Controls.Add(this.groupBox1);
 			this.groupBoxCellModeSettings.Controls.Add(this.labelCell);
 			this.groupBoxCellModeSettings.Controls.Add(this.comboBoxCell);
 			this.groupBoxCellModeSettings.Location = new System.Drawing.Point(517, 32);
 			this.groupBoxCellModeSettings.Name = "groupBoxCellModeSettings";
-			this.groupBoxCellModeSettings.Size = new System.Drawing.Size(267, 168);
+			this.groupBoxCellModeSettings.Size = new System.Drawing.Size(267, 196);
 			this.groupBoxCellModeSettings.TabIndex = 5;
 			this.groupBoxCellModeSettings.TabStop = false;
 			this.groupBoxCellModeSettings.Text = "Cell Mode Settings";
 			this.toolTipControls.SetToolTip(this.groupBoxCellModeSettings, "Settings specific to Cell Mode.");
 			this.groupBoxCellModeSettings.Visible = false;
 			// 
+			// checkBoxCellDrawOutline
+			// 
+			this.checkBoxCellDrawOutline.AutoSize = true;
+			this.checkBoxCellDrawOutline.Checked = true;
+			this.checkBoxCellDrawOutline.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBoxCellDrawOutline.Location = new System.Drawing.Point(10, 62);
+			this.checkBoxCellDrawOutline.Name = "checkBoxCellDrawOutline";
+			this.checkBoxCellDrawOutline.Size = new System.Drawing.Size(87, 17);
+			this.checkBoxCellDrawOutline.TabIndex = 8;
+			this.checkBoxCellDrawOutline.Text = "Draw Outline";
+			this.toolTipControls.SetToolTip(this.checkBoxCellDrawOutline, "Renders a subtle outline of all items in the cell as a background to visualize th" +
+        "e cell structure.");
+			this.checkBoxCellDrawOutline.UseVisualStyleBackColor = true;
+			this.checkBoxCellDrawOutline.CheckedChanged += new System.EventHandler(this.CheckBoxCellDrawOutline_CheckedChanged);
+			// 
 			// groupBox1
 			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.groupBox1.Controls.Add(this.labelMaxHeight);
 			this.groupBox1.Controls.Add(this.labelMinHeight);
-			this.groupBox1.Controls.Add(this.numericMaxY);
-			this.groupBox1.Controls.Add(this.numericMinY);
+			this.groupBox1.Controls.Add(this.numericMaxZ);
+			this.groupBox1.Controls.Add(this.numericMinz);
 			this.groupBox1.Controls.Add(this.buttonCellHeightDistribution);
-			this.groupBox1.Location = new System.Drawing.Point(6, 62);
+			this.groupBox1.Location = new System.Drawing.Point(6, 91);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(255, 99);
 			this.groupBox1.TabIndex = 7;
@@ -953,27 +971,27 @@ namespace Mappalachia
 			this.labelMinHeight.Text = "Minimum Height (%)";
 			this.toolTipControls.SetToolTip(this.labelMinHeight, "Select the minimum height of objects from the cell which to map.");
 			// 
-			// numericMaxY
+			// numericMaxZ
 			// 
-			this.numericMaxY.Location = new System.Drawing.Point(150, 69);
-			this.numericMaxY.Name = "numericMaxY";
-			this.numericMaxY.Size = new System.Drawing.Size(70, 20);
-			this.numericMaxY.TabIndex = 8;
-			this.toolTipControls.SetToolTip(this.numericMaxY, "Select the maximum height of objects from the cell which to map.");
-			this.numericMaxY.ValueChanged += new System.EventHandler(this.NumericMaxY_ValueChanged);
-			this.numericMaxY.Enter += new System.EventHandler(this.NumericMaxY_Enter);
-			this.numericMaxY.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMaxY_MouseDown);
+			this.numericMaxZ.Location = new System.Drawing.Point(150, 69);
+			this.numericMaxZ.Name = "numericMaxZ";
+			this.numericMaxZ.Size = new System.Drawing.Size(70, 20);
+			this.numericMaxZ.TabIndex = 8;
+			this.toolTipControls.SetToolTip(this.numericMaxZ, "Select the maximum height of objects from the cell which to map.");
+			this.numericMaxZ.ValueChanged += new System.EventHandler(this.NumericMaxY_ValueChanged);
+			this.numericMaxZ.Enter += new System.EventHandler(this.NumericMaxY_Enter);
+			this.numericMaxZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMaxY_MouseDown);
 			// 
-			// numericMinY
+			// numericMinz
 			// 
-			this.numericMinY.Location = new System.Drawing.Point(35, 69);
-			this.numericMinY.Name = "numericMinY";
-			this.numericMinY.Size = new System.Drawing.Size(70, 20);
-			this.numericMinY.TabIndex = 7;
-			this.toolTipControls.SetToolTip(this.numericMinY, "Select the minimum height of objects from the cell which to map.");
-			this.numericMinY.ValueChanged += new System.EventHandler(this.NumericMinY_ValueChanged);
-			this.numericMinY.Enter += new System.EventHandler(this.NumericMinY_Enter);
-			this.numericMinY.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMinY_MouseDown);
+			this.numericMinz.Location = new System.Drawing.Point(35, 69);
+			this.numericMinz.Name = "numericMinz";
+			this.numericMinz.Size = new System.Drawing.Size(70, 20);
+			this.numericMinz.TabIndex = 7;
+			this.toolTipControls.SetToolTip(this.numericMinz, "Select the minimum height of objects from the cell which to map.");
+			this.numericMinz.ValueChanged += new System.EventHandler(this.NumericMinY_ValueChanged);
+			this.numericMinz.Enter += new System.EventHandler(this.NumericMinY_Enter);
+			this.numericMinz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMinY_MouseDown);
 			// 
 			// buttonCellHeightDistribution
 			// 
@@ -1203,8 +1221,8 @@ namespace Mappalachia
 			this.groupBoxCellModeSettings.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericMaxY)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMinY)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMinz)).EndInit();
 			this.groupBoxFilterByLockLevel.ResumeLayout(false);
 			this.groupBoxFilterByCategory.ResumeLayout(false);
 			this.tabPageNpcScrapSearch.ResumeLayout(false);
@@ -1317,8 +1335,9 @@ namespace Mappalachia
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label labelMaxHeight;
 		private System.Windows.Forms.Label labelMinHeight;
-		private System.Windows.Forms.NumericUpDown numericMaxY;
-		private System.Windows.Forms.NumericUpDown numericMinY;
+		private System.Windows.Forms.NumericUpDown numericMaxZ;
+		private System.Windows.Forms.NumericUpDown numericMinz;
+		private System.Windows.Forms.CheckBox checkBoxCellDrawOutline;
 	}
 }
 

@@ -33,8 +33,6 @@ namespace Mappalachia
 		static readonly int legendWidth = plotXMin - legendXMin; //The resultant width (or length) of legend text rows in pixels
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); //Used for MeasureString to calculate legend string dimensions
 
-		static CellScaling cellScaling;
-
 		//Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; //Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
@@ -71,6 +69,12 @@ namespace Mappalachia
 			if (SettingsMap.IsCellModeActive())
 			{
 				backgroundLayer = new Bitmap(mapDimension, mapDimension);
+
+				if (SettingsCell.drawOutline)
+				{
+					Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
+					DrawCellBackground(backgroundGraphics);
+				}
 			}
 			else
 			{
@@ -146,39 +150,43 @@ namespace Mappalachia
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
-			//Draw the game version (+ optionally cell name) onto the map
-			string versionText = "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			CellScaling cellScaling = null;
 
-			double minZCoord = 0;
-			double maxZCoord = 0;
-			//Additional steps for cell mode (Add text to watermark, get cell height boundings)
+			//Prepare the game version and watermark to be printed later
+			string infoText = "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+
+			//Additional steps for cell mode (Add further text to watermark text, get cell height boundings)
 			if (SettingsMap.IsCellModeActive())
 			{
-				Cell currentCell = FormMaster.currentlySelectedCell;
+				Cell currentCell = SettingsCell.GetCell();
 
 				//Assign the CellScaling property - also used later in GenerateIconPlotLayer()
 				cellScaling = currentCell.GetScaling();
 
-				versionText =
+				infoText =
 					currentCell.displayName + " (" + currentCell.editorID + ")\n" +
-					"Height distribution: " + FormMaster.cellMinHeightPerc + "% - " + FormMaster.cellMaxHeightPerc + "%\n" +
+					"Height distribution: " + SettingsCell.minHeightPerc + "% - " + SettingsCell.maxHeightPerc + "%\n" +
 					"Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n\n" +
-					versionText;
-
-				minZCoord  = ((FormMaster.cellMinHeightPerc / 100d) * currentCell.heightRange) + currentCell.zMin;
-				maxZCoord = ((FormMaster.cellMaxHeightPerc / 100d) * currentCell.heightRange) + currentCell.zMin;
+					infoText;
 			}
 
+			//Gather resources for drawing informational watermark text
 			Brush brushWhite = new SolidBrush(Color.White);
-			RectangleF versionTextPosition = new RectangleF(0, 0, mapDimension, mapDimension);
-			StringFormat stringFormat = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; //Align the text bottom-right
-			imageGraphic.DrawString(versionText, font, brushWhite, versionTextPosition, stringFormat);
+			RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
+			StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; //Align the text bottom-right
+			StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; //Align the text bottom-left
+			
+			//Draws bottom-right info text
+			imageGraphic.DrawString(infoText, font, brushWhite, infoTextBounds, stringFormatBottomRight);
 
-			//Nothing to plot - ensure we update for the background layer but then return
-			if (FormMaster.legendItems.Count == 0)
+			//Draw all legend text for every MapItem
+			int skippedLegends = DrawLegend(font, imageGraphic);
+
+			//Adds additional text if some items were missed from legend
+			if (skippedLegends > 0)
 			{
-				mapFrame.Image = finalImage;
-				return;
+				string extraLegendText = "+" + skippedLegends + " more item" + (skippedLegends == 1 ? string.Empty : "s") + "...";
+				imageGraphic.DrawString(extraLegendText, font, brushWhite, infoTextBounds, stringFormatBottomLeft);
 			}
 
 			//Start progress bar off at 0
@@ -186,8 +194,12 @@ namespace Mappalachia
 			float totalMapItems = FormMaster.legendItems.Count;
 			float progress = 0;
 
-			//Draw all legend text for every MapItem
-			DrawLegend(font, imageGraphic);
+			//Nothing else to plot - ensure we update for the background layer but then return
+			if (FormMaster.legendItems.Count == 0)
+			{
+				mapFrame.Image = finalImage;
+				return;
+			}
 
 			if (SettingsPlot.IsIcon())
 			{
@@ -207,7 +219,7 @@ namespace Mappalachia
 						{
 							//If this coordinate exceeds the user-selected cell mapping height bounds, skip it
 							//(Also accounts for the z-height of volumes)
-							if (point.z + (point.boundZ / 2d) < minZCoord || point.z - (point.boundZ / 2d) > maxZCoord)
+							if (point.z + (point.boundZ / 2d) < SettingsCell.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsCell.GetMaxHeightCoordBound())
 							{
 								continue;
 							}
@@ -375,7 +387,8 @@ namespace Mappalachia
 		}
 
 		//Draws all legend text (and optional Icon beside) for every MapItem
-		static void DrawLegend(Font font, Graphics imageGraphic)
+		//Returns the number of items missed off the legend due to size constraints
+		static int DrawLegend(Font font, Graphics imageGraphic)
 		{
 			Dictionary<int, string> overridingLegendText = LegendTextManager.GetOverriddenTexts();
 			List<int> drawnGroups = new List<int>();
@@ -396,6 +409,8 @@ namespace Mappalachia
 
 				drawnGroups.Add(mapItem.legendGroup);
 			}
+
+			int skippedLegends = 0; //How many legend items did not fit onto the map
 
 			//The initial Y coord where first legend item should be written, in order to Y-center the entire legend
 			int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
@@ -444,9 +459,61 @@ namespace Mappalachia
 
 					imageGraphic.DrawString(mapItem.GetLegendText(), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
 				}
+				else
+				{
+					skippedLegends++;
+				}
 
 				drawnGroups.Add(mapItem.legendGroup);
 				legendCaretHeight += legendHeight; //Move the 'caret' down for the next item, enough to fit the icon and the text
+			}
+
+			return skippedLegends;
+		}
+
+		//Draws an outline of all items in the current cell to act as background/template
+		static void DrawCellBackground(Graphics backgroundLayer)
+		{
+			if (!SettingsMap.IsCellModeActive())
+			{
+				return;
+			}
+
+			CellScaling cellScaling = SettingsCell.GetCell().GetScaling();
+
+			List<MapDataPoint> allInCell = DataHelper.GetAllCellCoords(SettingsCell.GetCell().formID);
+
+			int outlineWidth = SettingsCell.outlineWidth;
+			int outlineSize = SettingsCell.outlineSize;
+
+			Image plotIconImg = new Bitmap(outlineSize, outlineSize);
+			Graphics plotIconGraphic = Graphics.FromImage(plotIconImg);
+			plotIconGraphic.SmoothingMode = SmoothingMode.AntiAlias;
+			Color outlineColor = Color.FromArgb(SettingsCell.outlineAlpha, SettingsCell.outlineColor);
+			Pen outlinePen = new Pen(outlineColor, outlineWidth);
+			plotIconGraphic.DrawEllipse(outlinePen, 
+				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
+
+			//Iterate over every data point and draw it
+			foreach (MapDataPoint point in allInCell)
+			{
+				//If this coordinate exceeds the user-selected cell mapping height bounds, skip it
+				//(Also accounts for the z-height of volumes)
+				if (point.z < SettingsCell.GetMinHeightCoordBound() || point.z > SettingsCell.GetMaxHeightCoordBound())
+				{
+					continue;
+				}
+
+				point.x += cellScaling.xOffset;
+				point.y += cellScaling.yOffset;
+
+				//Multiply the coordinates by the scaling, but multiply around 0,0
+				point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+				point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+				point.boundX *= cellScaling.scale;
+				point.boundY *= cellScaling.scale;
+
+				backgroundLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 			}
 		}
 

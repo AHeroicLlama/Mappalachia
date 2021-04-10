@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Mappalachia
+﻿namespace Mappalachia
 {
 	//Settings for the map image
 	class SettingsMap
@@ -16,13 +14,6 @@ namespace Mappalachia
 		public static bool IsCellModeActive()
 		{
 			return mode == Mode.Cell;
-		}
-
-		public static readonly int cellModeHeightPrecision = 50;
-
-		public static int GetCellModeHeightBinSize()
-		{
-			return (int)Math.Round(100d / cellModeHeightPrecision);
 		}
 
 		//Min/maxes - these control the min/maxes on the form

@@ -64,7 +64,7 @@ namespace Mappalachia.Class
 				InitializePlotData();
 			}
 
-			int precision = SettingsMap.cellModeHeightPrecision;
+			int precision = SettingsCell.heightPrecision;
 
 			//Count how many items fall into the arbitrary <precision># different bins
 			int[] distributionCount = new int[precision];
@@ -75,7 +75,7 @@ namespace Mappalachia.Class
 				
 				//At least one value will be exactly the precision value, (it's the highest thing)
 				//But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
-				//So this is a special case for the top-most item to be moved back into the upper bin
+				//So this is a special case for the top-most item to be moved back into the upper (n-1) bin
 				if (placementBin == precision)
 				{
 					distributionCount[precision - 1]++;
