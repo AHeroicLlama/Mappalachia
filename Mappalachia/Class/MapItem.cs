@@ -68,7 +68,7 @@ namespace Mappalachia
 				{
 					case Type.Standard:
 						plots = SettingsMap.IsCellModeActive() ?
-							DataHelper.GetCellCoords(uniqueIdentifier, FormMaster.currentlySelectedCell.formID, filteredLockTypes) :
+							DataHelper.GetCellCoords(uniqueIdentifier, SettingsCell.GetCell().formID, filteredLockTypes) :
 							DataHelper.GetStandardCoords(uniqueIdentifier, filteredLockTypes);
 						break;
 					case Type.NPC:
@@ -126,7 +126,7 @@ namespace Mappalachia
 
 		public PlotIcon GetIcon()
 		{
-			return PlotIconCache.GetIconForGroup(legendGroup);
+			return PlotIcon.GetIconForGroup(legendGroup);
 		}
 
 		//Override equals to compare MapItem - we use the unique identifier and if they're a normal item, also the filtered lock type.

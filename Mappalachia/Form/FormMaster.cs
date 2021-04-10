@@ -15,10 +15,7 @@ namespace Mappalachia
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
 
-		public static Cell currentlySelectedCell; //Holds the currently select Cell in comboBoxCells. Based on the list of Cell above.
 		static List<Cell> cells;
-		public static int cellMinHeightPerc;
-		public static int cellMaxHeightPerc;
 
 		public ProgressBar progressBar;
 
@@ -46,7 +43,6 @@ namespace Mappalachia
 			PopulateLockTypeFilterList();
 			PopulateVariableNPCSpawnList();
 			PopulateScrapList();
-			PopulateCellList();
 			ProvideSearchHint();
 
 			//Auto-select text box text and use search button with enter
@@ -60,16 +56,15 @@ namespace Mappalachia
 			//Apply min/max values according to current settings
 			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
 			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
-			numericMinY.Increment = SettingsMap.GetCellModeHeightBinSize();
-			numericMaxY.Increment = numericMinY.Increment;
-			numericMaxY.Value = numericMinY.Maximum;
+			numericMinz.Increment = SettingsCell.GetHeightBinSize();
+			numericMaxZ.Increment = numericMinz.Increment;
 
 			//Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLegendLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
-			UpdateAmountToolTip();
+			UpdateAmountColumnToolTip();
 			UpdatePlotMode(false);
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
@@ -80,11 +75,12 @@ namespace Mappalachia
 			UpdateSpawnChance();
 
 			Map.SetOutput(pictureBoxMapPreview);
-			//Draw and display the map
-			Map.DrawBaseLayer();
 
 			//Assign settings for whichever Map Mode we're starting in
+			//Also draws the map for the first time
 			EnterMapMode(SettingsMap.mode);
+
+			
 
 			//Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -203,12 +199,28 @@ namespace Mappalachia
 		//Populate the Cell combo box (only visible in Cell mode) with all cells
 		void PopulateCellList()
 		{
+			if (comboBoxCell.Items.Count != 0)
+			{
+				return;
+			}
+
+			int i = 0;
+			int targetDefaultCellIndex = 0;
+
 			cells = DataHelper.GetAllCells();
+
 			foreach (Cell cell in cells)
 			{
+				if (cell.editorID.Contains(SettingsCell.targetDefaultCell))
+				{
+					targetDefaultCellIndex = i;
+				}
+
 				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
+				i++;
 			}
-			comboBoxCell.SelectedIndex = 0;
+
+			comboBoxCell.SelectedIndex = targetDefaultCellIndex;
 		}
 
 		//Fill the search box with a suggested search term.
@@ -294,7 +306,7 @@ namespace Mappalachia
 		}
 
 		//Update tooltip on "amount" column header - as it changes depending on interior searching or not
-		void UpdateAmountToolTip()
+		void UpdateAmountColumnToolTip()
 		{
 			gridViewSearchResults.Columns["columnSearchAmount"].ToolTipText = SettingsSearch.searchInterior ?
 				"The amount of instances which can be found in the listed location." :
@@ -415,6 +427,18 @@ namespace Mappalachia
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
 		}
 
+		//Update the UI with min and max cell height settings stored in cell mode settings
+		void UpdateCellHeightSettings()
+		{
+			numericMinz.Value = SettingsCell.minHeightPerc;
+			numericMaxZ.Value = SettingsCell.maxHeightPerc;
+		}
+
+		void UpdateCellDrawOutLine()
+		{
+			checkBoxCellDrawOutline.Checked = SettingsCell.drawOutline;
+		}
+
 		//Applies the config necessary for exiting the current map mode
 		void ExitMapMode()
 		{
@@ -454,9 +478,13 @@ namespace Mappalachia
 					grayscaleMenuItem.Enabled = false;
 					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
 
+					PopulateCellList();
+
 					//Disable volume drawing by default for cell mode as it tends to get in the way
 					SettingsPlot.drawVolumes = false;
 					UpdateVolumeEnabledState(false);
+					UpdateCellHeightSettings();
+					UpdateCellDrawOutLine();
 
 					textBoxSearch.Text = string.Empty;
 					tabControlStandardNPCJunk.SelectedTab = tabPageStandard;
@@ -580,7 +608,7 @@ namespace Mappalachia
 					mapItem.count,
 					mapItem.location,
 					mapItem.locationEditorID,
-					index); //Index helps relate the UI row to the List<MapItem>, even if the UI is sorted
+					index); //Index relates the UI row to the List<MapItem>, even if the UI is sorted
 
 				index++;
 			}
@@ -618,7 +646,7 @@ namespace Mappalachia
 			UpdateLegendGrid();
 		}
 
-		//Find the lowest free legend group value in LegendItems
+		//Find the next-lowest free legend group value in LegendItems
 		int FindLowestAvailableLegendGroupValue()
 		{
 			int n = legendItems.Count;
@@ -639,13 +667,7 @@ namespace Mappalachia
 		//User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMapFromUI()
 		{
-			if (legendItems.Count <= 0)
-			{
-				Notify.Info("There is nothing to map. Add items to the 'items to plot' list by first selecting them from search results.");
-				return;
-			}
-
-			if(SettingsMap.IsCellModeActive() && numericMinY.Value > numericMaxY.Value)
+			if(SettingsMap.IsCellModeActive() && SettingsCell.minHeightPerc > SettingsCell.maxHeightPerc)
 			{
 				Notify.Info("Height cropping values must allow the minimum to be less than or equal to the maximum.");
 				return;
@@ -674,13 +696,13 @@ namespace Mappalachia
 		{
 			string textVisualisation = string.Empty;
 			int i = 0;
-			foreach (double value in currentlySelectedCell.GetHeightDistribution())
+			foreach (double value in SettingsCell.GetCell().GetHeightDistribution())
 			{
-				textVisualisation = (i * SettingsMap.GetCellModeHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualisation;
+				textVisualisation = (i * SettingsCell.GetHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualisation;
 				i++;
 			}
 
-			MessageBox.Show(textVisualisation, "Height distribution for " + currentlySelectedCell.editorID);
+			MessageBox.Show(textVisualisation, "Height distribution for " + SettingsCell.GetCell().editorID);
 		}
 
 		#endregion
@@ -965,9 +987,15 @@ namespace Mappalachia
 		//This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
 		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			SettingsCell.SetCell(cells[comboBoxCell.SelectedIndex]);
 			ClearSearchResults();
 			ClearLegend();
-			currentlySelectedCell = cells[comboBoxCell.SelectedIndex];
+		}
+
+		private void CheckBoxCellDrawOutline_CheckedChanged(object sender, EventArgs e)
+		{
+			SettingsCell.drawOutline = checkBoxCellDrawOutline.Checked;
+			Map.DrawBaseLayer();
 		}
 
 		private void ButtonCellHeightDistribution_Click(object sender, EventArgs e)
@@ -978,46 +1006,56 @@ namespace Mappalachia
 		//Cell mode height range changed - maintain the min safely below the max
 		private void NumericMinY_ValueChanged(object sender, EventArgs e)
 		{
-			if (numericMaxY.Value <= numericMinY.Value)
+			if (numericMaxZ.Value <= numericMinz.Value)
 			{
-				numericMaxY.Value = Math.Min(numericMaxY.Value + numericMaxY.Increment, numericMaxY.Maximum);
+				numericMaxZ.Value = Math.Min(numericMaxZ.Value + numericMaxZ.Increment, numericMaxZ.Maximum);
+
+				//It's likely the user just pressed tab to cross to the max value
+				//We will now highlight it, but adjusting the value again will un-highlight it again
+				//So, re-highlight it
+				NumericMaxY_Enter(sender, e);
 			}
 
 			//Special case where the max could not go higher, so this must stay an increment lower
-			if (numericMinY.Value == numericMaxY.Maximum)
+			if (numericMinz.Value == numericMaxZ.Maximum)
 			{
-				numericMinY.Value -= numericMinY.Increment;
+				numericMinz.Value -= numericMinz.Increment;
 			}
 
-			cellMinHeightPerc = (int)numericMinY.Value;
+			SettingsCell.minHeightPerc = (int)numericMinz.Value;
 		}
 
 		//Cell mode height range changed - maintain the max safely above the min
 		private void NumericMaxY_ValueChanged(object sender, EventArgs e)
 		{
-			if (numericMinY.Value >= numericMaxY.Value)
+			if (numericMinz.Value >= numericMaxZ.Value)
 			{
-				numericMinY.Value = Math.Max(numericMinY.Value - numericMinY.Increment, numericMinY.Minimum);
+				numericMinz.Value = Math.Max(numericMinz.Value - numericMinz.Increment, numericMinz.Minimum);
+
+				//It's likely the user just pressed shift-tab to cross to the min value
+				//We will now highlight it, but adjusting the value again will un-highlight it again
+				//So, re-highlight it
+				NumericMinY_Enter(sender, e);
 			}
 
 			//Special case where the min could not go lower, so this must stay an increment higher
-			if (numericMaxY.Value == numericMinY.Minimum)
+			if (numericMaxZ.Value == numericMinz.Minimum)
 			{
-				numericMaxY.Value += numericMaxY.Increment;
+				numericMaxZ.Value += numericMaxZ.Increment;
 			}
 
-			cellMaxHeightPerc = (int)numericMaxY.Value;
+			SettingsCell.maxHeightPerc = (int)numericMaxZ.Value;
 		}
 
 		//Select the value to overwrite when entered
 		private void NumericMinY_Enter(object sender, EventArgs e)
 		{
-			numericMinY.Select(0, numericMinY.Text.Length);
+			numericMinz.Select(0, numericMinz.Text.Length);
 		}
 
 		private void NumericMaxY_Enter(object sender, EventArgs e)
 		{
-			numericMaxY.Select(0, numericMaxY.Text.Length);
+			numericMaxZ.Select(0, numericMaxZ.Text.Length);
 		}
 
 		//Clicked on - pass to enter event
@@ -1043,13 +1081,13 @@ namespace Mappalachia
 
 			//Execute the search
 			searchResults = SettingsMap.IsCellModeActive() ?
-				DataHelper.SearchCell(textBoxSearch.Text, currentlySelectedCell, GetEnabledSignatures(), GetEnabledLockTypes()) : 
+				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) : 
 				DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			//Perform UI update
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
-			UpdateAmountToolTip();
+			UpdateAmountColumnToolTip();
 			textBoxSearch.Select();
 			textBoxSearch.SelectAll();
 
