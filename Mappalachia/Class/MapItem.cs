@@ -1,8 +1,8 @@
-using Mappalachia.Class;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Mappalachia.Class;
 
 namespace Mappalachia
 {

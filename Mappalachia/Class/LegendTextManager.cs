@@ -15,7 +15,7 @@ namespace Mappalachia.Class
 		public static void IncludeNewGroups()
 		{
 			Dictionary<int, string> newLegendTexts = new Dictionary<int, string>();
-			
+
 			foreach (MapItem mapItem in FormMaster.legendItems)
 			{
 				int legendGroup = mapItem.legendGroup;

@@ -175,7 +175,7 @@ namespace Mappalachia
 			RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
 			StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; //Align the text bottom-right
 			StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; //Align the text bottom-left
-			
+
 			//Draws bottom-right info text
 			imageGraphic.DrawString(infoText, font, brushWhite, infoTextBounds, stringFormatBottomRight);
 
@@ -328,8 +328,6 @@ namespace Mappalachia
 
 								//Pythagoras on the x and y dist gives us the 'as the crow flies' distance between the squares
 								double distance = Pythagoras(squareX - x, squareY - y);
-
-								//Console.WriteLine((squareX - x) + ", " + (squareY - y));
 
 								//Weight and hence brightness is modified by 1/x^2 + 1 where x is the distance from actual item
 								double additionalWeight = point.weight * (1d / ((distance * distance) + 1));
@@ -489,7 +487,8 @@ namespace Mappalachia
 			plotIconGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			Color outlineColor = Color.FromArgb(SettingsCell.outlineAlpha, SettingsCell.outlineColor);
 			Pen outlinePen = new Pen(outlineColor, outlineWidth);
-			plotIconGraphic.DrawEllipse(outlinePen, 
+			plotIconGraphic.DrawEllipse(
+				outlinePen,
 				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
 
 			//Iterate over every data point and draw it
