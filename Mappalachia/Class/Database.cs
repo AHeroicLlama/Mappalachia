@@ -5,7 +5,7 @@ using Microsoft.Data.Sqlite;
 namespace Mappalachia
 {
 	//Direct SQL queries and their execution
-	static class Queries
+	static class Database
 	{
 		static SqliteConnection connection;
 
@@ -44,6 +44,33 @@ namespace Mappalachia
 		{
 			SqliteCommand query = connection.CreateCommand();
 			query.CommandText = Properties.Resources.getScrapTypes;
+			return query.ExecuteReader();
+		}
+
+		//Exceute a query to get all the cells from Cell table
+		public static SqliteDataReader ExecuteQueryCells()
+		{
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = Properties.Resources.getCells;
+			return query.ExecuteReader();
+		}
+
+		//Executes just like a standard search but constrained to a given cellFormID
+		public static SqliteDataReader ExecuteQuerySearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
+		{
+			searchTerm = DataHelper.ProcessSearchString(searchTerm);
+			string queryString = Properties.Resources.searchStandardCell;
+			SqliteCommand query = connection.CreateCommand();
+
+			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
+			queryString = queryString.Replace("$allowedSignatures", string.Join(",", filteredSignatures.Select(s => '\'' + s + '\'')));
+			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));
+
+			query.CommandText = queryString;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$searchTerm", "%" + searchTerm + "%");
+			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+
 			return query.ExecuteReader();
 		}
 
@@ -86,6 +113,38 @@ namespace Mappalachia
 			query.CommandText = searchInterior ? Properties.Resources.searchScrapAll : Properties.Resources.searchScrapAppalachia;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", searchTerm);
+
+			return query.ExecuteReader();
+		}
+
+		//Execute a query to find every coordinate of everything within a given cellFormID
+		public static SqliteDataReader ExecuteQueryFindAllCoordinatesCell(string cellFormID)
+		{
+			SqliteCommand query = connection.CreateCommand();
+
+			string queryString = Properties.Resources.getAllCoordsCell;
+
+			query.CommandText = queryString;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+
+			return query.ExecuteReader();
+		}
+
+		//Execute a query to find the coordinates of every instance of a given MapItem within an interior of a given cellFormID
+		public static SqliteDataReader ExecuteQueryFindCoordinatesCell(string formID, string cellFormID, List<string> filteredLockTypes)
+		{
+			SqliteCommand query = connection.CreateCommand();
+
+			string queryString = Properties.Resources.getCoordsCell;
+
+			//SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
+			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));
+
+			query.CommandText = queryString;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$formID", formID);
+			query.Parameters.AddWithValue("$cellFormID", cellFormID);
 
 			return query.ExecuteReader();
 		}

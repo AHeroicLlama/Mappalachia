@@ -16,6 +16,6 @@ namespace Mappalachia
 		public static readonly Regex validSignature = new Regex("[A-Z_]{4}");
 		public static readonly Regex unescapedDoubleQuote = new Regex("(?<!\\\\)(\")");
 
-		public static readonly List<string> decimalHeaders = new List<string> { "x", "y", "boundX", "boundY", "rotZ" };
+		public static readonly List<string> decimalHeaders = new List<string> { "x", "y", "z", "boundX", "boundY", "boundZ", "rotZ" };
 	}
 }

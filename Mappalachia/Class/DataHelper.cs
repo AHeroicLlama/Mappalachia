@@ -287,7 +287,7 @@ namespace Mappalachia
 			}
 
 			List<string> permittedSignatures = new List<string>();
-			SqliteDataReader reader = Queries.ExecuteQuerySignatures();
+			SqliteDataReader reader = Database.ExecuteQuerySignatures();
 			while (reader.Read())
 			{
 				permittedSignatures.Add(reader.GetString(0));
@@ -307,7 +307,7 @@ namespace Mappalachia
 			}
 
 			List<string> permittedLockTypes = new List<string>();
-			SqliteDataReader reader = Queries.ExecuteQueryLockLevels();
+			SqliteDataReader reader = Database.ExecuteQueryLockLevels();
 			while (reader.Read())
 			{
 				permittedLockTypes.Add(reader.GetString(0));
@@ -321,7 +321,7 @@ namespace Mappalachia
 		public static List<string> GetVariableNPCTypes()
 		{
 			List<string> npcTypes = new List<string>();
-			SqliteDataReader reader = Queries.ExecuteQueryNPCTypes();
+			SqliteDataReader reader = Database.ExecuteQueryNPCTypes();
 			while (reader.Read())
 			{
 				npcTypes.Add(reader.GetString(0));
@@ -334,7 +334,7 @@ namespace Mappalachia
 		public static List<string> GetVariableScrapTypes()
 		{
 			List<string> scrapTypes = new List<string>();
-			SqliteDataReader reader = Queries.ExecuteQueryScrapTypes();
+			SqliteDataReader reader = Database.ExecuteQueryScrapTypes();
 			while (reader.Read())
 			{
 				scrapTypes.Add(reader.GetString(0));
@@ -343,11 +343,66 @@ namespace Mappalachia
 			return scrapTypes;
 		}
 
+		//Returns a list of all cells in the database, as Cell objects
+		public static List<Cell> GetAllCells()
+		{
+			List<Cell> cells = new List<Cell>();
+			SqliteDataReader reader = Database.ExecuteQueryCells();
+			while (reader.Read())
+			{
+				cells.Add(new Cell(reader.GetString(0), reader.GetString(1), reader.GetString(2)));
+			}
+
+			return cells;
+		}
+
 		//Indicate the spawn chance of a standard item based on understandings of LVLI
 		public static double GetSpawnChance(string signature, string editorID)
 		{
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
+
+		//Performs similar functionality to standard search but constrained to a specific cell, denoted by cellFormID
+		public static List<MapItem> SearchCell(string searchTerm, Cell cell, List<string> allowedSignatures, List<string> allowedLockTypes)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				//Run the standard simple search but for interiors and uniquely against the cellFormID
+				using (SqliteDataReader reader = Database.ExecuteQuerySearchCell(cell.formID, searchTerm, allowedSignatures, allowedLockTypes))
+				{
+					while (reader.Read())
+					{
+						string signature = reader.GetString(2);
+						string editorID = reader.GetString(1);
+
+						results.Add(new MapItem(
+							Type.Standard,
+							reader.GetString(5), //FormID
+							editorID, //Editor ID
+							reader.GetString(0), //Display Name
+							signature, //Signature
+							allowedLockTypes, //The Lock Types filtered for this set of items.
+							GetSpawnChance(signature, editorID), //Spawn chance
+							reader.GetInt32(3), //Count
+							cell.displayName, //Cell Display Name/location
+							cell.editorID)); //Cell EditorID
+					}
+				}
+
+				return results;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
 
 		//Conducts the standard search and returns the found items
 		public static List<MapItem> SearchStandard(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
@@ -356,7 +411,7 @@ namespace Mappalachia
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Queries.ExecuteQueryStandardSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
+				using (SqliteDataReader reader = Database.ExecuteQueryStandardSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
 				{
 					while (reader.Read())
 					{
@@ -396,7 +451,7 @@ namespace Mappalachia
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Queries.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
+				using (SqliteDataReader reader = Database.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
 				{
 					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("MISC", false);
@@ -447,7 +502,7 @@ namespace Mappalachia
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Queries.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
+				using (SqliteDataReader reader = Database.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
 				{
 					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("NPC_", false);
@@ -510,12 +565,54 @@ namespace Mappalachia
 			}
 		}
 
+		//Gets the coordinate locations of everything within a cell, no filters
+		public static List<MapDataPoint> GetAllCellCoords(string cellFormID)
+		{
+			List<MapDataPoint> coordinates = new List<MapDataPoint>();
+
+			using (SqliteDataReader reader = Database.ExecuteQueryFindAllCoordinatesCell(cellFormID))
+			{
+				while (reader.Read())
+				{
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d));
+				}
+			}
+
+			return coordinates;
+		}
+
+		//Return the coordinate locations and boundaries of instances of a FormID of an interior cell with given cellFormID
+		public static List<MapDataPoint> GetCellCoords(string formID, string cellFormID, List<string> filteredLockTypes)
+		{
+			List<MapDataPoint> coordinates = new List<MapDataPoint>();
+
+			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesCell(formID, cellFormID, filteredLockTypes))
+			{
+				while (reader.Read())
+				{
+					string primitiveShape = reader.GetString(3);
+
+					//Identify if this item has a primitive shape and use the appropriate constructor
+					if (primitiveShape == string.Empty)
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d));
+					}
+					else
+					{
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d, primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(5), reader.GetInt32(7)));
+					}
+				}
+			}
+
+			return coordinates;
+		}
+
 		//Return the coordinate locations and boundaries of instances of a FormID
 		public static List<MapDataPoint> GetStandardCoords(string formID, List<string> filteredLockTypes)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Queries.ExecuteQueryFindCoordinatesStandard(formID, filteredLockTypes))
+			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesStandard(formID, filteredLockTypes))
 			{
 				while (reader.Read())
 				{
@@ -541,7 +638,7 @@ namespace Mappalachia
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Queries.ExecuteQueryFindCoordinatesNPC(npc, minChance))
+			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesNPC(npc, minChance))
 			{
 				while (reader.Read())
 				{
@@ -558,7 +655,7 @@ namespace Mappalachia
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Queries.ExecuteQueryFindCoordinatesJunkScrap(scrap))
+			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesJunkScrap(scrap))
 			{
 				while (reader.Read())
 				{

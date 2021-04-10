@@ -22,7 +22,7 @@ unit _m_interior;
 		cellFormID, cellEditorID, cellDisplayName : String;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('referenceFormID,cellFormID,locationFormID,lockLevel');//Write CSV column headers
+		outputStrings.add('referenceFormID,cellFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ');//Write CSV column headers
 
 		category := GroupBySignature(targetESM, 'CELL');
 		for j := 0 to ElementCount(category) -1 do begin //Iterate over every block within the Cell category
@@ -66,14 +66,34 @@ unit _m_interior;
 	procedure ripItem(item : IInterface; cellFormID, cellEditorID, cellDisplayName : String);
 	const
 		displayName = DisplayName(item);
+		position = GetPosition(item);
+	var
+		primitiveEntry, boundsEntry : IInterface;
+		primitiveShape, rotZ : String;
 	begin
-		if(Assigned(displayName)) then begin //Skip records we don't care to map or can't refer to
+		if(Assigned(displayName) and Assigned(position)) then begin //Skip records we don't care to map or can't refer to
+			primitiveEntry := ElementBySignature(item, 'XPRM');
+			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
+			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));
+
+			//We only need the Z Rotation for primitive shapes
+			if(primitiveShape <> '') then begin
+				rotZ := FloatToStr(GetRotation(item).z);
+			end;
+
 			outputStrings.Add(
 				sanitize(displayName) + ',' +
 				cellFormID + ',' +
+				FloatToStr(position.x) + ',' +
+				FloatToStr(position.y) + ',' +
+				FloatToStr(position.z) + ',' +
 				sanitize(GetEditValue(ElementBySignature(item, 'XLCN'))) + ',' +
-				GetEditValue(ElementByName(ElementBySignature(item, 'XLOC'), 'Level'))
-			);
+				GetEditValue(ElementByName(ElementBySignature(item, 'XLOC'), 'Level')) + ',' +
+				primitiveShape + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Y')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
+				rotZ);
 		end;
 	end;
 end.
