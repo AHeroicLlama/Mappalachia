@@ -10,7 +10,7 @@ namespace Mappalachia
 		static SqliteConnection connection;
 
 		// Instantiate the connection to the database
-		public static void CreateConnection()
+		static Database()
 		{
 			connection = IOManager.OpenDatabase();
 		}

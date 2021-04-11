@@ -33,9 +33,6 @@ namespace Mappalachia
 			// Cleanup on launch in case it didn't run last time
 			IOManager.Cleanup();
 
-			// Instantiate the DB connection
-			Database.CreateConnection();
-
 			// Populate UI elements
 			PopulateSignatureFilterList();
 			SelectRecommendedSignatures();
@@ -550,15 +547,17 @@ namespace Mappalachia
 		}
 
 		// Warn the user if all filters of a category are blank and therefore no results would match
-		void WarnWhenAllFiltersBlank()
+		bool WarnWhenAllFiltersBlank()
 		{
 			if (GetEnabledSignatures().Count == 0 || GetEnabledLockTypes().Count == 0)
 			{
 				Notify.Info(
 					"No search results were found because you have disabled every filter for a category.\n" +
 					"You must enable at least one filter per category to find anything.");
-				return;
+				return true;
 			}
+
+			return false;
 		}
 
 		// Totally clears all search results
@@ -593,6 +592,14 @@ namespace Mappalachia
 			}
 
 			gridViewSearchResults.Enabled = true;
+		}
+
+		void NotifyIfNoResults()
+		{
+			if (searchResults.Count == 0)
+			{
+				Notify.Info("No results found for that search.");
+			}
 		}
 
 		// Wipe and re-populate the Legend Grid View with items contained in "List<MapItem> legendItems"
@@ -1101,7 +1108,12 @@ namespace Mappalachia
 		{
 			// Check for and show warnings
 			WarnWhenLVLINotSelected();
-			WarnWhenAllFiltersBlank();
+
+			// If there are no filters selected, inform and cancel the search
+			if (WarnWhenAllFiltersBlank())
+			{
+				return;
+			}
 
 			// Clear the results from last search
 			searchResults.Clear();
@@ -1119,6 +1131,7 @@ namespace Mappalachia
 			textBoxSearch.SelectAll();
 
 			UpdateSearchResultsGrid();
+			NotifyIfNoResults();
 		}
 
 		// Scrap search
@@ -1129,6 +1142,7 @@ namespace Mappalachia
 			searchResults.Clear();
 			searchResults = DataHelper.SearchScrap(listBoxScrap.SelectedItem.ToString());
 			UpdateSearchResultsGrid();
+			NotifyIfNoResults();
 		}
 
 		// NPC Search
@@ -1141,6 +1155,7 @@ namespace Mappalachia
 				listBoxNPC.SelectedItem.ToString(),
 				SettingsSearch.spawnChance);
 			UpdateSearchResultsGrid();
+			NotifyIfNoResults();
 		}
 
 		// Add selected valid items from the search results to the legend.
