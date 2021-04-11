@@ -2,7 +2,7 @@ using System;
 
 namespace Mappalachia.Class
 {
-	//The shape settings that can be applied to a PlotIcon
+	// The shape settings that can be applied to a PlotIcon
 	public class PlotIconShape
 	{
 		public readonly bool diamond;
@@ -24,7 +24,7 @@ namespace Mappalachia.Class
 			this.fill = fill;
 		}
 
-		//Instantiate with random shapes
+		// Instantiate with random shapes
 		public PlotIconShape()
 		{
 			diamond = rnd.Next(2) == 1;
@@ -34,7 +34,7 @@ namespace Mappalachia.Class
 			crosshairOuter = rnd.Next(2) == 1;
 			fill = false;
 
-			//Verify we have selected at least one option
+			// Verify we have selected at least one option
 			if (!(diamond || square || circle || crosshairInner || crosshairOuter))
 			{
 				int choice = rnd.Next(5);

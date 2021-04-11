@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Mappalachia.Class
 {
-	//Neatly packaged message boxes
+	// Neatly packaged message boxes
 	/*This means messageBoxes indicating errors etc don't have to be handled by classes not responsible for UI
 	and allows ones called during work to not block said work if required*/
 	public static class Notify
