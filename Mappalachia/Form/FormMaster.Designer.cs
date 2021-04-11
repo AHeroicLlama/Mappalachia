@@ -90,6 +90,8 @@ namespace Mappalachia
 			this.buttonDeselectAllLock = new System.Windows.Forms.Button();
 			this.buttonSelectAllLock = new System.Windows.Forms.Button();
 			this.gridViewLegend = new System.Windows.Forms.DataGridView();
+			this.columnLegendGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnLegendDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.labelLegend = new System.Windows.Forms.Label();
 			this.labelMinSpawnChance = new System.Windows.Forms.Label();
 			this.numericUpDownNPCSpawnThreshold = new System.Windows.Forms.NumericUpDown();
@@ -107,7 +109,7 @@ namespace Mappalachia
 			this.labelMaxHeight = new System.Windows.Forms.Label();
 			this.labelMinHeight = new System.Windows.Forms.Label();
 			this.numericMaxZ = new System.Windows.Forms.NumericUpDown();
-			this.numericMinz = new System.Windows.Forms.NumericUpDown();
+			this.numericMinZ = new System.Windows.Forms.NumericUpDown();
 			this.buttonCellHeightDistribution = new System.Windows.Forms.Button();
 			this.labelCell = new System.Windows.Forms.Label();
 			this.comboBoxCell = new System.Windows.Forms.ComboBox();
@@ -124,8 +126,6 @@ namespace Mappalachia
 			this.buttonAddToLegend = new System.Windows.Forms.Button();
 			this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
 			this.progressBarMain = new System.Windows.Forms.ProgressBar();
-			this.columnLegendGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnLegendDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
@@ -135,7 +135,7 @@ namespace Mappalachia
 			this.groupBoxCellModeSettings.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMinz)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMinZ)).BeginInit();
 			this.groupBoxFilterByLockLevel.SuspendLayout();
 			this.groupBoxFilterByCategory.SuspendLayout();
 			this.tabPageNpcScrapSearch.SuspendLayout();
@@ -327,7 +327,7 @@ namespace Mappalachia
 			// modeIconMenuItem
 			// 
 			this.modeIconMenuItem.Name = "modeIconMenuItem";
-			this.modeIconMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeIconMenuItem.Text = "Icon";
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -335,7 +335,7 @@ namespace Mappalachia
 			// modeHeatmapMenuItem
 			// 
 			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeHeatmapMenuItem.Text = "Heatmap";
 			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
 			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
@@ -732,6 +732,20 @@ namespace Mappalachia
 			this.gridViewLegend.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellEndEdit);
 			this.gridViewLegend.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellMouseEnter);
 			// 
+			// columnLegendGroup
+			// 
+			this.columnLegendGroup.HeaderText = "Legend Group";
+			this.columnLegendGroup.Name = "columnLegendGroup";
+			this.columnLegendGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
+			// columnLegendDisplayName
+			// 
+			this.columnLegendDisplayName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnLegendDisplayName.FillWeight = 400F;
+			this.columnLegendDisplayName.HeaderText = "Display Name";
+			this.columnLegendDisplayName.Name = "columnLegendDisplayName";
+			this.columnLegendDisplayName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
 			// labelLegend
 			// 
 			this.labelLegend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -893,7 +907,7 @@ namespace Mappalachia
 			this.groupBox1.Controls.Add(this.labelMaxHeight);
 			this.groupBox1.Controls.Add(this.labelMinHeight);
 			this.groupBox1.Controls.Add(this.numericMaxZ);
-			this.groupBox1.Controls.Add(this.numericMinz);
+			this.groupBox1.Controls.Add(this.numericMinZ);
 			this.groupBox1.Controls.Add(this.buttonCellHeightDistribution);
 			this.groupBox1.Location = new System.Drawing.Point(6, 91);
 			this.groupBox1.Name = "groupBox1";
@@ -931,20 +945,20 @@ namespace Mappalachia
 			this.numericMaxZ.Size = new System.Drawing.Size(70, 20);
 			this.numericMaxZ.TabIndex = 8;
 			this.toolTipControls.SetToolTip(this.numericMaxZ, "Select the maximum height of objects from the cell which to map.");
-			this.numericMaxZ.ValueChanged += new System.EventHandler(this.NumericMaxY_ValueChanged);
-			this.numericMaxZ.Enter += new System.EventHandler(this.NumericMaxY_Enter);
-			this.numericMaxZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMaxY_MouseDown);
+			this.numericMaxZ.ValueChanged += new System.EventHandler(this.NumericMaxZ_ValueChanged);
+			this.numericMaxZ.Enter += new System.EventHandler(this.NumericMaxZ_Enter);
+			this.numericMaxZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMaxZ_MouseDown);
 			// 
-			// numericMinz
+			// numericMinZ
 			// 
-			this.numericMinz.Location = new System.Drawing.Point(35, 69);
-			this.numericMinz.Name = "numericMinz";
-			this.numericMinz.Size = new System.Drawing.Size(70, 20);
-			this.numericMinz.TabIndex = 7;
-			this.toolTipControls.SetToolTip(this.numericMinz, "Select the minimum height of objects from the cell which to map.");
-			this.numericMinz.ValueChanged += new System.EventHandler(this.NumericMinY_ValueChanged);
-			this.numericMinz.Enter += new System.EventHandler(this.NumericMinY_Enter);
-			this.numericMinz.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMinY_MouseDown);
+			this.numericMinZ.Location = new System.Drawing.Point(35, 69);
+			this.numericMinZ.Name = "numericMinZ";
+			this.numericMinZ.Size = new System.Drawing.Size(70, 20);
+			this.numericMinZ.TabIndex = 7;
+			this.toolTipControls.SetToolTip(this.numericMinZ, "Select the minimum height of objects from the cell which to map.");
+			this.numericMinZ.ValueChanged += new System.EventHandler(this.NumericMinZ_ValueChanged);
+			this.numericMinZ.Enter += new System.EventHandler(this.NumericMinZ_Enter);
+			this.numericMinZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMinZ_MouseDown);
 			// 
 			// buttonCellHeightDistribution
 			// 
@@ -1146,20 +1160,6 @@ namespace Mappalachia
 			this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.progressBarMain.TabIndex = 7;
 			// 
-			// columnLegendGroup
-			// 
-			this.columnLegendGroup.HeaderText = "Legend Group";
-			this.columnLegendGroup.Name = "columnLegendGroup";
-			this.columnLegendGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			// 
-			// columnLegendDisplayName
-			// 
-			this.columnLegendDisplayName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnLegendDisplayName.FillWeight = 400F;
-			this.columnLegendDisplayName.HeaderText = "Display Name";
-			this.columnLegendDisplayName.Name = "columnLegendDisplayName";
-			this.columnLegendDisplayName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-			// 
 			// FormMaster
 			// 
 			this.AcceptButton = this.buttonSearch;
@@ -1189,7 +1189,7 @@ namespace Mappalachia
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMinz)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMinZ)).EndInit();
 			this.groupBoxFilterByLockLevel.ResumeLayout(false);
 			this.groupBoxFilterByCategory.ResumeLayout(false);
 			this.tabPageNpcScrapSearch.ResumeLayout(false);
@@ -1298,7 +1298,7 @@ namespace Mappalachia
 		private System.Windows.Forms.Label labelMaxHeight;
 		private System.Windows.Forms.Label labelMinHeight;
 		private System.Windows.Forms.NumericUpDown numericMaxZ;
-		private System.Windows.Forms.NumericUpDown numericMinz;
+		private System.Windows.Forms.NumericUpDown numericMinZ;
 		private System.Windows.Forms.CheckBox checkBoxCellDrawOutline;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendGroup;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendDisplayName;

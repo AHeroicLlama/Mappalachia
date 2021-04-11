@@ -19,9 +19,8 @@ namespace Mappalachia
 
 		public ProgressBar progressBar;
 
-		// Flags on if we've displayed certain warnings, so as to only show once per run
-		static bool warnedLVLINotUsed = false;
-
+		static bool warnedLVLINotUsed = false; // Flag for if we've displayed certain warnings, so as to only show once per run
+		static bool forceDrawBaseLayer; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
 
 		public FormMaster()
@@ -56,8 +55,8 @@ namespace Mappalachia
 			// Apply min/max values according to current settings
 			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
 			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
-			numericMinz.Increment = SettingsCell.GetHeightBinSize();
-			numericMaxZ.Increment = numericMinz.Increment;
+			numericMinZ.Increment = SettingsCell.GetHeightBinSize();
+			numericMaxZ.Increment = numericMinZ.Increment;
 
 			// Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
@@ -281,7 +280,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				Map.Draw();
+				DrawMapFromUI(false);
 			}
 		}
 
@@ -310,7 +309,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				Map.Draw();
+				DrawMapFromUI(false);
 			}
 		}
 
@@ -331,7 +330,7 @@ namespace Mappalachia
 
 			if (reDraw && SettingsPlot.IsHeatmap())
 			{
-				Map.Draw();
+				DrawMapFromUI(false);
 			}
 		}
 
@@ -360,7 +359,7 @@ namespace Mappalachia
 
 			if (reDraw && SettingsPlot.IsHeatmap())
 			{
-				Map.Draw();
+				DrawMapFromUI(false);
 			}
 		}
 
@@ -373,7 +372,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				Map.DrawBaseLayer();
+				DrawMapFromUI(true);
 			}
 		}
 
@@ -384,7 +383,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				Map.DrawBaseLayer();
+				DrawMapFromUI(true);
 			}
 		}
 
@@ -410,7 +409,7 @@ namespace Mappalachia
 		// Update the UI with min and max cell height settings stored in cell mode settings
 		void UpdateCellHeightSettings()
 		{
-			numericMinz.Value = SettingsCell.minHeightPerc;
+			numericMinZ.Value = SettingsCell.minHeightPerc;
 			numericMaxZ.Value = SettingsCell.maxHeightPerc;
 		}
 
@@ -680,25 +679,49 @@ namespace Mappalachia
 		}
 
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
-		void DrawMapFromUI()
+		void DrawMapFromUI(bool drawBaseLayer)
 		{
-			if (SettingsMap.IsCellModeActive() && SettingsCell.minHeightPerc > SettingsCell.maxHeightPerc)
-			{
-				Notify.Info("Height cropping values must allow the minimum to be less than or equal to the maximum.");
-				return;
-			}
-
 			// Disable control of the legend items list while we draw, and disable calling another draw
 			buttonDrawMap.Enabled = false;
 			buttonAddToLegend.Enabled = false;
 			buttonRemoveFromLegend.Enabled = false;
+			numericMinZ.Enabled = false;
+			numericMaxZ.Enabled = false;
+			comboBoxCell.Enabled = false;
+			checkBoxCellDrawOutline.Enabled = false;
+			drawVolumesMenuItem.Enabled = false;
+			modeIconMenuItem.Enabled = false;
+			modeHeatmapMenuItem.Enabled = false;
+			layerMilitaryMenuItem.Enabled = false;
+			layerNWFlatwoodsMenuItem.Enabled = false;
+			layerNWMorgantownMenuItem.Enabled = false;
+			grayscaleMenuItem.Enabled = false;
 
-			Map.Draw();
+			if (drawBaseLayer || forceDrawBaseLayer)
+			{
+				Map.DrawBaseLayer();
+				forceDrawBaseLayer = false;
+			}
+			else
+			{
+				Map.Draw();
+			}
 
 			// Re-enable disabled buttons after
 			buttonDrawMap.Enabled = true;
 			buttonAddToLegend.Enabled = true;
 			buttonRemoveFromLegend.Enabled = true;
+			numericMinZ.Enabled = true;
+			numericMaxZ.Enabled = true;
+			comboBoxCell.Enabled = true;
+			checkBoxCellDrawOutline.Enabled = true;
+			drawVolumesMenuItem.Enabled = true;
+			modeIconMenuItem.Enabled = true;
+			modeHeatmapMenuItem.Enabled = true;
+			layerMilitaryMenuItem.Enabled = true;
+			layerNWFlatwoodsMenuItem.Enabled = true;
+			layerNWMorgantownMenuItem.Enabled = true;
+			grayscaleMenuItem.Enabled = true;
 		}
 
 		void PreviewMap()
@@ -811,7 +834,7 @@ namespace Mappalachia
 		void Map_Clear(object sender, EventArgs e)
 		{
 			ClearLegend();
-			Map.Draw();
+			DrawMapFromUI(false);
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
 		}
@@ -997,7 +1020,7 @@ namespace Mappalachia
 		private void CheckBoxCellDrawOutline_CheckedChanged(object sender, EventArgs e)
 		{
 			SettingsCell.drawOutline = checkBoxCellDrawOutline.Checked;
-			Map.DrawBaseLayer();
+			DrawMapFromUI(true);
 		}
 
 		private void ButtonCellHeightDistribution_Click(object sender, EventArgs e)
@@ -1006,69 +1029,71 @@ namespace Mappalachia
 		}
 
 		// Cell mode height range changed - maintain the min safely below the max
-		private void NumericMinY_ValueChanged(object sender, EventArgs e)
+		private void NumericMinZ_ValueChanged(object sender, EventArgs e)
 		{
-			if (numericMaxZ.Value <= numericMinz.Value)
+			if (numericMaxZ.Value <= numericMinZ.Value)
 			{
 				numericMaxZ.Value = Math.Min(numericMaxZ.Value + numericMaxZ.Increment, numericMaxZ.Maximum);
 
 				// It's likely the user just pressed tab to cross to the max value
 				// We will now highlight it, but adjusting the value again will un-highlight it again
 				// So, re-highlight it
-				NumericMaxY_Enter(sender, e);
+				NumericMaxZ_Enter(sender, e);
 			}
 
 			// Special case where the max could not go higher, so this must stay an increment lower
-			if (numericMinz.Value == numericMaxZ.Maximum)
+			if (numericMinZ.Value == numericMaxZ.Maximum)
 			{
-				numericMinz.Value -= numericMinz.Increment;
+				numericMinZ.Value -= numericMinZ.Increment;
 			}
 
-			SettingsCell.minHeightPerc = (int)numericMinz.Value;
+			SettingsCell.minHeightPerc = (int)numericMinZ.Value;
+			forceDrawBaseLayer = true;
 		}
 
 		// Cell mode height range changed - maintain the max safely above the min
-		private void NumericMaxY_ValueChanged(object sender, EventArgs e)
+		private void NumericMaxZ_ValueChanged(object sender, EventArgs e)
 		{
-			if (numericMinz.Value >= numericMaxZ.Value)
+			if (numericMinZ.Value >= numericMaxZ.Value)
 			{
-				numericMinz.Value = Math.Max(numericMinz.Value - numericMinz.Increment, numericMinz.Minimum);
+				numericMinZ.Value = Math.Max(numericMinZ.Value - numericMinZ.Increment, numericMinZ.Minimum);
 
 				// It's likely the user just pressed shift-tab to cross to the min value
 				// We will now highlight it, but adjusting the value again will un-highlight it again
 				// So, re-highlight it
-				NumericMinY_Enter(sender, e);
+				NumericMinZ_Enter(sender, e);
 			}
 
 			// Special case where the min could not go lower, so this must stay an increment higher
-			if (numericMaxZ.Value == numericMinz.Minimum)
+			if (numericMaxZ.Value == numericMinZ.Minimum)
 			{
 				numericMaxZ.Value += numericMaxZ.Increment;
 			}
 
 			SettingsCell.maxHeightPerc = (int)numericMaxZ.Value;
+			forceDrawBaseLayer = true;
 		}
 
 		// Select the value to overwrite when entered
-		private void NumericMinY_Enter(object sender, EventArgs e)
+		private void NumericMinZ_Enter(object sender, EventArgs e)
 		{
-			numericMinz.Select(0, numericMinz.Text.Length);
+			numericMinZ.Select(0, numericMinZ.Text.Length);
 		}
 
-		private void NumericMaxY_Enter(object sender, EventArgs e)
+		private void NumericMaxZ_Enter(object sender, EventArgs e)
 		{
 			numericMaxZ.Select(0, numericMaxZ.Text.Length);
 		}
 
 		// Clicked on - pass to enter event
-		private void NumericMinY_MouseDown(object sender, MouseEventArgs e)
+		private void NumericMinZ_MouseDown(object sender, MouseEventArgs e)
 		{
-			NumericMinY_Enter(sender, e);
+			NumericMinZ_Enter(sender, e);
 		}
 
-		private void NumericMaxY_MouseDown(object sender, MouseEventArgs e)
+		private void NumericMaxZ_MouseDown(object sender, MouseEventArgs e)
 		{
-			NumericMaxY_Enter(sender, e);
+			NumericMaxZ_Enter(sender, e);
 		}
 
 		// Search Button - Gather parameters, execute query and populate results
@@ -1282,7 +1307,7 @@ namespace Mappalachia
 
 		void ButtonDrawMap(object sender, EventArgs e)
 		{
-			DrawMapFromUI();
+			DrawMapFromUI(false);
 		}
 
 		// Double click map for preview

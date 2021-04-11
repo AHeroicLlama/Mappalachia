@@ -388,6 +388,11 @@ namespace Mappalachia
 		// Returns the number of items missed off the legend due to size constraints
 		static int DrawLegend(Font font, Graphics imageGraphic)
 		{
+			if (FormMaster.legendItems.Count == 0)
+			{
+				return 0;
+			}
+
 			Dictionary<int, string> overridingLegendText = FormMaster.GatherOverriddenLegendTexts();
 			List<int> drawnGroups = new List<int>();
 
@@ -466,6 +471,7 @@ namespace Mappalachia
 				legendCaretHeight += legendHeight; // Move the 'caret' down for the next item, enough to fit the icon and the text
 			}
 
+			GC.Collect();
 			return skippedLegends;
 		}
 
@@ -512,6 +518,8 @@ namespace Mappalachia
 
 				backgroundLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 			}
+
+			GC.Collect();
 		}
 
 		public static void Open()
