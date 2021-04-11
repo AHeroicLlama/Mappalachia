@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
 {
-	//Interfaces with the database and provides helper methods, data translation and sorting
+	// Interfaces with the database and provides helper methods, data translation and sorting
 	static class DataHelper
 	{
 		static List<string> permittedLockTypes;
@@ -49,7 +49,7 @@ namespace Mappalachia
 			{ "CNCY", string.Empty },
 		};
 
-		//Provide a user-friendly name for each signature which best represents what a typical player would know them as
+		// Provide a user-friendly name for each signature which best represents what a typical player would know them as
 		static readonly Dictionary<string, string> signatureToFriendlyName = new Dictionary<string, string>
 		{
 			{ "STAT", "Static object" },
@@ -84,9 +84,9 @@ namespace Mappalachia
 			{ "CNCY", "Currency" },
 		};
 
-		//Provides a pre-ordered list of each signature in a suggested sort order for the UI
-		//This groups often-used items towards the top, and similar items together
-		//Items not on this list are added to the bottom
+		// Provides a pre-ordered list of each signature in a suggested sort order for the UI
+		// This groups often-used items towards the top, and similar items together
+		// Items not on this list are added to the bottom
 		public static readonly List<string> suggestedSignatureSort = new List<string>
 		{
 			"LVLI",
@@ -121,8 +121,8 @@ namespace Mappalachia
 			"BNDS",
 		};
 
-		//Provides a list of the recommended signatures to be selected by the filter by default
-		//This helps prevent new users being flooded with less relevant or more technical results.
+		// Provides a list of the recommended signatures to be selected by the filter by default
+		// This helps prevent new users being flooded with less relevant or more technical results.
 		public static readonly List<string> recommendedSignatures = new List<string>
 		{
 			"LVLI",
@@ -157,10 +157,10 @@ namespace Mappalachia
 			"BNDS",*/
 		};
 
-		//Inverse the user friendly signature names so we can use the proper signatures in queries
+		// Inverse the user friendly signature names so we can use the proper signatures in queries
 		static readonly Dictionary<string, string> signatureToProperName = signatureToFriendlyName.ToDictionary(x => x.Value, x => x.Key);
 
-		//Provide a user-friendly name to the lock level
+		// Provide a user-friendly name to the lock level
 		static readonly Dictionary<string, string> lockLevelToFriendlyName = new Dictionary<string, string>
 		{
 			{ string.Empty,			"Not locked" },
@@ -170,11 +170,11 @@ namespace Mappalachia
 			{ "Master (Level 3)",	"Level 3" },
 		};
 
-		//Inverse the user friendly lock names so we can use the proper lock levels in queries
+		// Inverse the user friendly lock names so we can use the proper lock levels in queries
 		static readonly Dictionary<string, string> lockLevelToProperName = lockLevelToFriendlyName.ToDictionary(x => x.Value, x => x.Key);
 
-		//Provides a pre-ordered list of each lock level in a suggested sort order
-		//This groups often-used items towards the top, and similar items together
+		// Provides a pre-ordered list of each lock level in a suggested sort order
+		// This groups often-used items towards the top, and similar items together
 		public static readonly List<string> suggestedLockLevelSort = new List<string>
 		{
 			string.Empty,
@@ -191,8 +191,8 @@ namespace Mappalachia
 			"Unknown",
 		};
 
-		//Convert a signature to the proper or user-friendly version of itself
-		//Works regardless of the current state of the given signature
+		// Convert a signature to the proper or user-friendly version of itself
+		// Works regardless of the current state of the given signature
 		public static string ConvertSignature(string signature, bool properName)
 		{
 			try
@@ -208,18 +208,18 @@ namespace Mappalachia
 			}
 			catch (Exception)
 			{
-				//Unable to convert - just return it unconverted
+				// Unable to convert - just return it unconverted
 				return signature;
 			}
 		}
 
-		//Convert a lockLevel to the proper or user-friendly version of itself
-		//Works regardless of the current state of the given lock level
+		// Convert a lockLevel to the proper or user-friendly version of itself
+		// Works regardless of the current state of the given lock level
 		public static string ConvertLockLevel(string lockLevel, bool properName)
 		{
 			try
 			{
-				//We don't convert all lock levels
+				// We don't convert all lock levels
 				if (!lockLevelToFriendlyName.ContainsKey(lockLevel) &&
 					!lockLevelToProperName.ContainsKey(lockLevel))
 				{
@@ -237,12 +237,12 @@ namespace Mappalachia
 			}
 			catch (Exception)
 			{
-				//Unable to convert - just return it unconverted
+				// Unable to convert - just return it unconverted
 				return lockLevel;
 			}
 		}
 
-		//runs ConvertLockLevel against an entire collection of lockLevel
+		// runs ConvertLockLevel against an entire collection of lockLevel
 		public static List<string> ConvertLockLevelCollection(List<string> lockLevels, bool properName)
 		{
 			List<string> result = new List<string>();
@@ -255,7 +255,7 @@ namespace Mappalachia
 			return result;
 		}
 
-		//Find the description of a given signature, in either long or short form
+		// Find the description of a given signature, in either long or short form
 		public static string GetSignatureDescription(string signature)
 		{
 			try
@@ -268,7 +268,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Escape functional SQL characters and wildcard on space
+		// Escape functional SQL characters and wildcard on space
 		public static string ProcessSearchString(string input)
 		{
 			return input.Trim()
@@ -277,10 +277,10 @@ namespace Mappalachia
 				.Replace(" ", "%");
 		}
 
-		//Find all the unique signatures across the data
+		// Find all the unique signatures across the data
 		public static List<string> GetPermittedSignatures()
 		{
-			//Singleton
+			// Singleton
 			if (DataHelper.permittedSignatures != null)
 			{
 				return DataHelper.permittedSignatures;
@@ -297,10 +297,10 @@ namespace Mappalachia
 			return permittedSignatures;
 		}
 
-		//Find all the unique lock levels across the data
+		// Find all the unique lock levels across the data
 		public static List<string> GetPermittedLockTypes()
 		{
-			//Singleton
+			// Singleton
 			if (DataHelper.permittedLockTypes != null)
 			{
 				return DataHelper.permittedLockTypes;
@@ -317,7 +317,7 @@ namespace Mappalachia
 			return permittedLockTypes;
 		}
 
-		//Find all the unique NPC types under the variable spawns
+		// Find all the unique NPC types under the variable spawns
 		public static List<string> GetVariableNPCTypes()
 		{
 			List<string> npcTypes = new List<string>();
@@ -330,7 +330,7 @@ namespace Mappalachia
 			return npcTypes;
 		}
 
-		//Find all the unique scrap types in the quantified junk table
+		// Find all the unique scrap types in the quantified junk table
 		public static List<string> GetVariableScrapTypes()
 		{
 			List<string> scrapTypes = new List<string>();
@@ -343,7 +343,7 @@ namespace Mappalachia
 			return scrapTypes;
 		}
 
-		//Returns a list of all cells in the database, as Cell objects
+		// Returns a list of all cells in the database, as Cell objects
 		public static List<Cell> GetAllCells()
 		{
 			List<Cell> cells = new List<Cell>();
@@ -356,20 +356,20 @@ namespace Mappalachia
 			return cells;
 		}
 
-		//Indicate the spawn chance of a standard item based on understandings of LVLI
+		// Indicate the spawn chance of a standard item based on understandings of LVLI
 		public static double GetSpawnChance(string signature, string editorID)
 		{
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
 
-		//Performs similar functionality to standard search but constrained to a specific cell, denoted by cellFormID
+		// Performs similar functionality to standard search but constrained to a specific cell, denoted by cellFormID
 		public static List<MapItem> SearchCell(string searchTerm, Cell cell, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				//Run the standard simple search but for interiors and uniquely against the cellFormID
+				// Run the standard simple search but for interiors and uniquely against the cellFormID
 				using (SqliteDataReader reader = Database.ExecuteQuerySearchCell(cell.formID, searchTerm, allowedSignatures, allowedLockTypes))
 				{
 					while (reader.Read())
@@ -379,15 +379,15 @@ namespace Mappalachia
 
 						results.Add(new MapItem(
 							Type.Standard,
-							reader.GetString(5), //FormID
-							editorID, //Editor ID
-							reader.GetString(0), //Display Name
-							signature, //Signature
-							allowedLockTypes, //The Lock Types filtered for this set of items.
-							GetSpawnChance(signature, editorID), //Spawn chance
-							reader.GetInt32(3), //Count
-							cell.displayName, //Cell Display Name/location
-							cell.editorID)); //Cell EditorID
+							reader.GetString(5), // FormID
+							editorID, // Editor ID
+							reader.GetString(0), // Display Name
+							signature, // Signature
+							allowedLockTypes, // The Lock Types filtered for this set of items.
+							GetSpawnChance(signature, editorID), // Spawn chance
+							reader.GetInt32(3), // Count
+							cell.displayName, // Cell Display Name/location
+							cell.editorID)); // Cell EditorID
 					}
 				}
 
@@ -403,7 +403,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Conducts the standard search and returns the found items
+		// Conducts the standard search and returns the found items
 		public static List<MapItem> SearchStandard(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
 			try
@@ -419,15 +419,15 @@ namespace Mappalachia
 
 						results.Add(new MapItem(
 							Type.Standard,
-							reader.GetString(5), //FormID
-							editorID, //Editor ID
-							reader.GetString(0), //Display Name
-							signature, //Signature
-							allowedLockTypes, //The Lock Types filtered for this set of items.
-							GetSpawnChance(signature, editorID), //Spawn chance
-							reader.GetInt32(3), //Count
-							reader.GetString(6), //Cell Display Name/location
-							reader.GetString(7))); //Cell EditorID
+							reader.GetString(5), // FormID
+							editorID, // Editor ID
+							reader.GetString(0), // Display Name
+							signature, // Signature
+							allowedLockTypes, // The Lock Types filtered for this set of items.
+							GetSpawnChance(signature, editorID), // Spawn chance
+							reader.GetInt32(3), // Count
+							reader.GetString(6), // Cell Display Name/location
+							reader.GetString(7))); // Cell EditorID
 					}
 				}
 
@@ -443,7 +443,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Conducts the scrap search and returns the found items
+		// Conducts the scrap search and returns the found items
 		public static List<MapItem> SearchScrap(string searchTerm)
 		{
 			try
@@ -452,14 +452,14 @@ namespace Mappalachia
 
 				using (SqliteDataReader reader = Database.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
 				{
-					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
+					// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("MISC", false);
 					List<string> lockTypes = GetPermittedLockTypes();
 					double spawnChance = GetSpawnChance("MISC", string.Empty);
 
 					while (reader.Read())
 					{
-						//Sub-query for interior can return null
+						// Sub-query for interior can return null
 						if (reader.IsDBNull(0))
 						{
 							continue;
@@ -469,15 +469,15 @@ namespace Mappalachia
 
 						results.Add(new MapItem(
 							Type.Scrap,
-							name, //FormID
-							name + " scraps from junk", //Editor ID
-							name, //Display Name
+							name, // FormID
+							name + " scraps from junk", // Editor ID
+							name, // Display Name
 							signature,
-							lockTypes, //The Lock Types filtered for this set of items.
+							lockTypes, // The Lock Types filtered for this set of items.
 							spawnChance,
-							reader.GetInt32(1), //Count
-							reader.GetString(2), //Cell Display Name/location
-							reader.GetString(3))); //Cell editorID
+							reader.GetInt32(1), // Count
+							reader.GetString(2), // Cell Display Name/location
+							reader.GetString(3))); // Cell editorID
 					}
 				}
 
@@ -493,8 +493,8 @@ namespace Mappalachia
 			}
 		}
 
-		//Conducts the NPC search and returns the found items.
-		//Also merges results with standard search results for the same name, then drops items containing "Corpse"
+		// Conducts the NPC search and returns the found items.
+		// Also merges results with standard search results for the same name, then drops items containing "Corpse"
 		public static List<MapItem> SearchNPC(string searchTerm, int minChance)
 		{
 			try
@@ -503,13 +503,13 @@ namespace Mappalachia
 
 				using (SqliteDataReader reader = Database.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
 				{
-					//Collect some variables which will always be the same for every result and are required for an instance of MapItem
+					// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("NPC_", false);
 					List<string> lockTypes = GetPermittedLockTypes();
 
 					while (reader.Read())
 					{
-						//Sub-query for interior can return null
+						// Sub-query for interior can return null
 						if (reader.IsDBNull(0))
 						{
 							continue;
@@ -520,19 +520,19 @@ namespace Mappalachia
 
 						results.Add(new MapItem(
 							Type.NPC,
-							name, //FormID
-							name + " (" + spawnChance + "% and up)", //Editor ID
-							name, //Display Name
+							name, // FormID
+							name + " (" + spawnChance + "% and up)", // Editor ID
+							name, // Display Name
 							signature,
-							lockTypes, //The Lock Types filtered for this set of items.
+							lockTypes, // The Lock Types filtered for this set of items.
 							spawnChance,
-							reader.GetInt32(1), //Count
-							reader.GetString(3), //Cell Display Name/location
-							reader.GetString(4))); //Cell editorID
+							reader.GetInt32(1), // Count
+							reader.GetString(3), // Cell Display Name/location
+							reader.GetString(4))); // Cell editorID
 					}
 				}
 
-				//Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
+				// Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
 				results.AddRange(SearchStandard(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, GetPermittedLockTypes()));
 
 				/*Copy out search results not containing "corpse", therefore dropping the dead "NPCs"
@@ -564,7 +564,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Gets the coordinate locations of everything within a cell, no filters
+		// Gets the coordinate locations of everything within a cell, no filters
 		public static List<MapDataPoint> GetAllCellCoords(string cellFormID)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
@@ -580,7 +580,7 @@ namespace Mappalachia
 			return coordinates;
 		}
 
-		//Return the coordinate locations and boundaries of instances of a FormID of an interior cell with given cellFormID
+		// Return the coordinate locations and boundaries of instances of a FormID of an interior cell with given cellFormID
 		public static List<MapDataPoint> GetCellCoords(string formID, string cellFormID, List<string> filteredLockTypes)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
@@ -591,7 +591,7 @@ namespace Mappalachia
 				{
 					string primitiveShape = reader.GetString(3);
 
-					//Identify if this item has a primitive shape and use the appropriate constructor
+					// Identify if this item has a primitive shape and use the appropriate constructor
 					if (primitiveShape == string.Empty)
 					{
 						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d));
@@ -606,7 +606,7 @@ namespace Mappalachia
 			return coordinates;
 		}
 
-		//Return the coordinate locations and boundaries of instances of a FormID
+		// Return the coordinate locations and boundaries of instances of a FormID
 		public static List<MapDataPoint> GetStandardCoords(string formID, List<string> filteredLockTypes)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
@@ -617,7 +617,7 @@ namespace Mappalachia
 				{
 					string primitiveShape = reader.GetString(2);
 
-					//Identify if this item has a primitive shape and use the appropriate constructor
+					// Identify if this item has a primitive shape and use the appropriate constructor
 					if (primitiveShape == string.Empty)
 					{
 						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d));
@@ -632,7 +632,7 @@ namespace Mappalachia
 			return coordinates;
 		}
 
-		//Return the coordinate locations of instances of an NPC above given min spawn chance
+		// Return the coordinate locations of instances of an NPC above given min spawn chance
 		public static List<MapDataPoint> GetNPCCoords(string npc, double minChance)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
@@ -641,7 +641,7 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					//Divide weighting by 100 as npc weighting is a percentage and we need 1=100%
+					// Divide weighting by 100 as npc weighting is a percentage and we need 1=100%
 					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2) / 100d));
 				}
 			}
@@ -649,7 +649,7 @@ namespace Mappalachia
 			return coordinates;
 		}
 
-		//Return the coordinate locations of instances of Scrap contained within Junk
+		// Return the coordinate locations of instances of Scrap contained within Junk
 		public static List<MapDataPoint> GetScrapCoords(string scrap)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();

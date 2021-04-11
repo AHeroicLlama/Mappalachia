@@ -9,7 +9,7 @@ using Mappalachia.Forms;
 
 namespace Mappalachia
 {
-	//The main form with map preview and all GUI controls inside it
+	// The main form with map preview and all GUI controls inside it
 	public partial class FormMaster : Form
 	{
 		public static List<MapItem> legendItems = new List<MapItem>();
@@ -19,7 +19,7 @@ namespace Mappalachia
 
 		public ProgressBar progressBar;
 
-		//Flags on if we've displayed certain warnings, so as to only show once per run
+		// Flags on if we've displayed certain warnings, so as to only show once per run
 		static bool warnedLVLINotUsed = false;
 
 		static Point lastMouseDownPos;
@@ -31,13 +31,13 @@ namespace Mappalachia
 			Map.progressBarMain = progressBarMain;
 			progressBar = progressBarMain;
 
-			//Cleanup on launch in case it didn't run last time
+			// Cleanup on launch in case it didn't run last time
 			IOManager.Cleanup();
 
-			//Instantiate the DB connection
+			// Instantiate the DB connection
 			Database.CreateConnection();
 
-			//Populate UI elements
+			// Populate UI elements
 			PopulateSignatureFilterList();
 			SelectRecommendedSignatures();
 			PopulateLockTypeFilterList();
@@ -45,21 +45,21 @@ namespace Mappalachia
 			PopulateScrapList();
 			ProvideSearchHint();
 
-			//Auto-select text box text and use search button with enter
+			// Auto-select text box text and use search button with enter
 			textBoxSearch.Select();
 			textBoxSearch.SelectAll();
 			AcceptButton = buttonSearch;
 
-			//Load settings from the preferences file, if applicable.
+			// Load settings from the preferences file, if applicable.
 			SettingsManager.LoadSettings();
 
-			//Apply min/max values according to current settings
+			// Apply min/max values according to current settings
 			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
 			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
 			numericMinz.Increment = SettingsCell.GetHeightBinSize();
 			numericMaxZ.Increment = numericMinz.Increment;
 
-			//Apply UI layouts according to current settings
+			// Apply UI layouts according to current settings
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
@@ -75,45 +75,45 @@ namespace Mappalachia
 
 			Map.SetOutput(pictureBoxMapPreview);
 
-			//Assign settings for whichever Map Mode we're starting in
-			//Also draws the map for the first time
+			// Assign settings for whichever Map Mode we're starting in
+			// Also draws the map for the first time
 			EnterMapMode(SettingsMap.mode);
 
-			//Check for updates, only notify if update found
+			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
 		}
 
-		//All Methods not directly responding to UI input
+		// All Methods not directly responding to UI input
 		#region Methods
 
-		//Dynamically fill the Signature filter with every signature present based on the data
+		// Dynamically fill the Signature filter with every signature present based on the data
 		void PopulateSignatureFilterList()
 		{
 			List<string> signatures = DataHelper.GetPermittedSignatures();
 			List<string> orderedSignatures = new List<string>();
 
-			//First run through the suggested order list. If any of our database signature items are in there, process them FIRST
-			//This ensures items are added to the list in order
+			// First run through the suggested order list. If any of our database signature items are in there, process them FIRST
+			// This ensures items are added to the list in order
 			foreach (string signature in DataHelper.suggestedSignatureSort)
 			{
-				//If this item is in the suggested sort - add it to the final items
+				// If this item is in the suggested sort - add it to the final items
 				if (signatures.Contains(signature))
 				{
 					orderedSignatures.Add(signature);
 				}
 			}
 
-			//Now we have processed some suggested sort items, any remaining signatures can be processed next
+			// Now we have processed some suggested sort items, any remaining signatures can be processed next
 			foreach (string signature in signatures)
 			{
-				//This item was NOT picked up when we passed through the suggested sort - so add it onto the end
+				// This item was NOT picked up when we passed through the suggested sort - so add it onto the end
 				if (!orderedSignatures.Contains(signature))
 				{
 					orderedSignatures.Add(signature);
 				}
 			}
 
-			//Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
+			// Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
 			//...We can add them to the ListView on the form
 			foreach (string signature in orderedSignatures)
 			{
@@ -124,44 +124,44 @@ namespace Mappalachia
 			}
 		}
 
-		//Selects only the recommended signature filters
+		// Selects only the recommended signature filters
 		void SelectRecommendedSignatures()
 		{
 			foreach (ListViewItem item in listViewFilterSignatures.Items)
 			{
-				//check the item if it's in the list of recommended signatures, otherwise uncheck
+				// check the item if it's in the list of recommended signatures, otherwise uncheck
 				item.Checked = DataHelper.recommendedSignatures.Contains(DataHelper.ConvertSignature(item.Text, true));
 			}
 		}
 
-		//Dynamically fill the Lock Type filter with every lock type present based on the data
+		// Dynamically fill the Lock Type filter with every lock type present based on the data
 		void PopulateLockTypeFilterList()
 		{
 			List<string> lockLevels = DataHelper.GetPermittedLockTypes();
 			List<string> orderedLockLevels = new List<string>();
 
-			//First run through the suggested order list. If any of our database lock types are in there, process them FIRST
-			//This ensures items are added to the list in order
+			// First run through the suggested order list. If any of our database lock types are in there, process them FIRST
+			// This ensures items are added to the list in order
 			foreach (string lockLevel in DataHelper.suggestedLockLevelSort)
 			{
-				//If this item is in the suggested sort - add it to the final items
+				// If this item is in the suggested sort - add it to the final items
 				if (lockLevels.Contains(lockLevel))
 				{
 					orderedLockLevels.Add(lockLevel);
 				}
 			}
 
-			//Now we have processed some suggested sort items, any remaining lock types can be processed next
+			// Now we have processed some suggested sort items, any remaining lock types can be processed next
 			foreach (string lockLevel in lockLevels)
 			{
-				//This item was NOT picked up when we passed through the suggested sort - so add it onto the end
+				// This item was NOT picked up when we passed through the suggested sort - so add it onto the end
 				if (!orderedLockLevels.Contains(lockLevel))
 				{
 					orderedLockLevels.Add(lockLevel);
 				}
 			}
 
-			//Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
+			// Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
 			//...We can add them to the ListView on the form
 			foreach (string lockLevel in orderedLockLevels)
 			{
@@ -171,7 +171,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Fill the list of Variable NPC Spawns that can be chosen to search
+		// Fill the list of Variable NPC Spawns that can be chosen to search
 		void PopulateVariableNPCSpawnList()
 		{
 			foreach (string npcSpawn in DataHelper.GetVariableNPCTypes())
@@ -182,7 +182,7 @@ namespace Mappalachia
 			listBoxNPC.SelectedIndex = 0;
 		}
 
-		//Fill the list of Scrap types that can be chosen to search
+		// Fill the list of Scrap types that can be chosen to search
 		void PopulateScrapList()
 		{
 			foreach (string npcSpawn in DataHelper.GetVariableScrapTypes())
@@ -193,7 +193,7 @@ namespace Mappalachia
 			listBoxScrap.SelectedIndex = 0;
 		}
 
-		//Populate the Cell combo box (only visible in Cell mode) with all cells
+		// Populate the Cell combo box (only visible in Cell mode) with all cells
 		void PopulateCellList()
 		{
 			if (comboBoxCell.Items.Count != 0)
@@ -220,7 +220,7 @@ namespace Mappalachia
 			comboBoxCell.SelectedIndex = targetDefaultCellIndex;
 		}
 
-		//Fill the search box with a suggested search term.
+		// Fill the search box with a suggested search term.
 		void ProvideSearchHint()
 		{
 			List<string> searchTermHints = new List<string>
@@ -248,16 +248,16 @@ namespace Mappalachia
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
 		}
 
-		//Update the visibility of the search results location column, given current settings
+		// Update the visibility of the search results location column, given current settings
 		void UpdateLocationColumnVisibility()
 		{
 			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior || SettingsMap.IsCellModeActive();
 		}
 
-		//Update the visiblity of the lock type column in the results view, given current settings
+		// Update the visiblity of the lock type column in the results view, given current settings
 		void UpdateResultsLockTypeColumnVisibility()
 		{
-			//Check if the lock type filter is in use - if it is we probably want to show the column.
+			// Check if the lock type filter is in use - if it is we probably want to show the column.
 			if (tabControlStandardNPCJunk.SelectedTab == tabPageStandard)
 			{
 				foreach (ListViewItem lockType in listViewFilterLockTypes.Items)
@@ -270,11 +270,11 @@ namespace Mappalachia
 				}
 			}
 
-			//If they are all checked, or this is not a search where filters apply - hide the column again
+			// If they are all checked, or this is not a search where filters apply - hide the column again
 			gridViewSearchResults.Columns["columnSearchLockLevel"].Visible = false;
 		}
 
-		//Update the map settings > draw volume check, based on current settings
+		// Update the map settings > draw volume check, based on current settings
 		void UpdateVolumeEnabledState(bool reDraw)
 		{
 			drawVolumesMenuItem.Checked = SettingsPlot.drawVolumes;
@@ -285,7 +285,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Update tooltip on "amount" column header - as it changes depending on interior searching or not
+		// Update tooltip on "amount" column header - as it changes depending on interior searching or not
 		void UpdateAmountColumnToolTip()
 		{
 			gridViewSearchResults.Columns["columnSearchAmount"].ToolTipText = SettingsSearch.searchInterior ?
@@ -293,7 +293,7 @@ namespace Mappalachia
 				"The amount of instances which can be found on the surface of Appalachia.";
 		}
 
-		//Update the Plot Settings > Mode options based on the actual value in PlotSettings
+		// Update the Plot Settings > Mode options based on the actual value in PlotSettings
 		void UpdatePlotMode(bool reDraw)
 		{
 			switch (SettingsPlot.mode)
@@ -314,7 +314,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Update the UI with the currently selected heatmap color mode
+		// Update the UI with the currently selected heatmap color mode
 		void UpdateHeatMapColorMode(bool reDraw)
 		{
 			switch (SettingsPlotHeatmap.colorMode)
@@ -335,7 +335,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Update the UI with the currently selected heatmap resolution
+		// Update the UI with the currently selected heatmap resolution
 		void UpdateHeatMapResolution(bool reDraw)
 		{
 			UncheckAllResolutions();
@@ -364,7 +364,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Update check marks in the UI with current MapSettings, and redraw the map if true
+		// Update check marks in the UI with current MapSettings, and redraw the map if true
 		void UpdateMapLayerSettings(bool reDraw)
 		{
 			layerMilitaryMenuItem.Checked = SettingsMap.layerMilitary;
@@ -377,7 +377,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Update check mark in the UI with current MapSettings for grayscale
+		// Update check mark in the UI with current MapSettings for grayscale
 		void UpdateMapGrayscale(bool reDraw)
 		{
 			grayscaleMenuItem.Checked = SettingsMap.grayScale;
@@ -388,26 +388,26 @@ namespace Mappalachia
 			}
 		}
 
-		//Update check mark in the UI for Search Interiors option
+		// Update check mark in the UI for Search Interiors option
 		void UpdateSearchInterior()
 		{
 			interiorSearchMenuItem.Checked = SettingsSearch.searchInterior;
 		}
 
-		//Update check mark in the UI for Show FormID option
+		// Update check mark in the UI for Show FormID option
 		void UpdateShowFormID()
 		{
 			showFormIDMenuItem.Checked = SettingsSearch.showFormID;
 			gridViewSearchResults.Columns["columnSearchFormID"].Visible = SettingsSearch.showFormID;
 		}
 
-		//Update the minimum spawn chance % value on the NPC Search tab
+		// Update the minimum spawn chance % value on the NPC Search tab
 		void UpdateSpawnChance()
 		{
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
 		}
 
-		//Update the UI with min and max cell height settings stored in cell mode settings
+		// Update the UI with min and max cell height settings stored in cell mode settings
 		void UpdateCellHeightSettings()
 		{
 			numericMinz.Value = SettingsCell.minHeightPerc;
@@ -419,7 +419,7 @@ namespace Mappalachia
 			checkBoxCellDrawOutline.Checked = SettingsCell.drawOutline;
 		}
 
-		//Applies the config necessary for exiting the current map mode
+		// Applies the config necessary for exiting the current map mode
 		void ExitMapMode()
 		{
 			switch (SettingsMap.mode)
@@ -432,7 +432,7 @@ namespace Mappalachia
 					grayscaleMenuItem.Enabled = true;
 					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
 
-					//Re-enable volume drawing as cell mode will disable it
+					// Re-enable volume drawing as cell mode will disable it
 					SettingsPlot.drawVolumes = true;
 					UpdateVolumeEnabledState(false);
 
@@ -444,7 +444,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Applies the config necessary for entering a map mode
+		// Applies the config necessary for entering a map mode
 		void EnterMapMode(SettingsMap.Mode incomingMode)
 		{
 			switch (incomingMode)
@@ -460,7 +460,7 @@ namespace Mappalachia
 
 					PopulateCellList();
 
-					//Disable volume drawing by default for cell mode as it tends to get in the way
+					// Disable volume drawing by default for cell mode as it tends to get in the way
 					SettingsPlot.drawVolumes = false;
 					UpdateVolumeEnabledState(false);
 					UpdateCellHeightSettings();
@@ -483,7 +483,7 @@ namespace Mappalachia
 			Map.Reset();
 		}
 
-		//Unselect all resolution options under heatmap resolution. Used to remove any current selection
+		// Unselect all resolution options under heatmap resolution. Used to remove any current selection
 		void UncheckAllResolutions()
 		{
 			resolution128MenuItem.Checked = false;
@@ -492,7 +492,7 @@ namespace Mappalachia
 			resolution1024MenuItem.Checked = false;
 		}
 
-		//Collect the enabled signatures from the UI to a list for use by a query
+		// Collect the enabled signatures from the UI to a list for use by a query
 		List<string> GetEnabledSignatures()
 		{
 			List<string> filteredSignatures = new List<string>();
@@ -507,7 +507,7 @@ namespace Mappalachia
 			return filteredSignatures;
 		}
 
-		//Collect the enabled lock types from the UI to a list for use by a query
+		// Collect the enabled lock types from the UI to a list for use by a query
 		List<string> GetEnabledLockTypes()
 		{
 			List<string> lockTypes = new List<string>();
@@ -522,10 +522,10 @@ namespace Mappalachia
 			return lockTypes;
 		}
 
-		//Warn the user if they appear to be trying to search for something that might actually be in a LVLI, but they have unselected it
+		// Warn the user if they appear to be trying to search for something that might actually be in a LVLI, but they have unselected it
 		void WarnWhenLVLINotSelected()
 		{
-			//Already warned - we only do this once per session
+			// Already warned - we only do this once per session
 			if (warnedLVLINotUsed)
 			{
 				return;
@@ -534,7 +534,7 @@ namespace Mappalachia
 			List<string> enabledSignatures = GetEnabledSignatures();
 			if (!enabledSignatures.Contains("LVLI"))
 			{
-				//A list of signatures that seem to typically be represented by LVLI
+				// A list of signatures that seem to typically be represented by LVLI
 				foreach (string signatureToWarn in new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" })
 				{
 					if (enabledSignatures.Contains(signatureToWarn))
@@ -550,7 +550,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Warn the user if all filters of a category are blank and therefore no results would match
+		// Warn the user if all filters of a category are blank and therefore no results would match
 		void WarnWhenAllFiltersBlank()
 		{
 			if (GetEnabledSignatures().Count == 0 || GetEnabledLockTypes().Count == 0)
@@ -562,14 +562,14 @@ namespace Mappalachia
 			}
 		}
 
-		//Totally clears all search results
+		// Totally clears all search results
 		void ClearSearchResults()
 		{
 			searchResults = new List<MapItem>();
 			UpdateSearchResultsGrid();
 		}
 
-		//Wipe and re-populate the search results UI element with the items in "List<MapItem> searchResults"
+		// Wipe and re-populate the search results UI element with the items in "List<MapItem> searchResults"
 		void UpdateSearchResultsGrid()
 		{
 			gridViewSearchResults.Enabled = false;
@@ -588,7 +588,7 @@ namespace Mappalachia
 					mapItem.count,
 					mapItem.location,
 					mapItem.locationEditorID,
-					index); //Index relates the UI row to the List<MapItem>, even if the UI is sorted
+					index); // Index relates the UI row to the List<MapItem>, even if the UI is sorted
 
 				index++;
 			}
@@ -596,7 +596,7 @@ namespace Mappalachia
 			gridViewSearchResults.Enabled = true;
 		}
 
-		//Wipe and re-populate the Legend Grid View with items contained in "List<MapItem> legendItems"
+		// Wipe and re-populate the Legend Grid View with items contained in "List<MapItem> legendItems"
 		void UpdateLegendGrid(MapItem lastSelectedItem)
 		{
 			gridViewLegend.Enabled = false;
@@ -609,25 +609,25 @@ namespace Mappalachia
 
 			gridViewLegend.Enabled = true;
 
-			//If the list is populated we can select an index
+			// If the list is populated we can select an index
 			if (gridViewLegend.RowCount >= 1)
 			{
-				//Provide a default at the end of the list
+				// Provide a default at the end of the list
 				int indexToSelect = gridViewLegend.RowCount - 1;
 
-				//If provided, find and re-select the last selected item
+				// If provided, find and re-select the last selected item
 				if (lastSelectedItem != null)
 				{
 					indexToSelect = legendItems.IndexOf(legendItems.Where(m => m.editorID == lastSelectedItem.editorID).First());
 				}
 
-				//Select and scroll to the best new index
+				// Select and scroll to the best new index
 				gridViewLegend.Rows[indexToSelect].Selected = true;
 				gridViewLegend.FirstDisplayedScrollingRowIndex = indexToSelect;
 			}
 		}
 
-		//Finds the unique instances of legend groups with overridden legend texts, in order for them to be merged together
+		// Finds the unique instances of legend groups with overridden legend texts, in order for them to be merged together
 		public static Dictionary<int, string> GatherOverriddenLegendTexts()
 		{
 			Dictionary<int, string> overriddenTexts = new Dictionary<int, string>();
@@ -636,9 +636,10 @@ namespace Mappalachia
 			{
 				if (overriddenTexts.ContainsKey(mapItem.legendGroup) || string.IsNullOrWhiteSpace(mapItem.overridingLegendText))
 				{
-					continue; //Either this isn't overridden, or we already have this one - skip
+					continue; // Either this isn't overridden, or we already have this one - skip
 				}
-				//This must be a new MapItem with overridden text - add it to the Dictionary
+
+				// This must be a new MapItem with overridden text - add it to the Dictionary
 				else if (!string.IsNullOrWhiteSpace(mapItem.overridingLegendText))
 				{
 					overriddenTexts.Add(mapItem.legendGroup, mapItem.overridingLegendText);
@@ -648,7 +649,7 @@ namespace Mappalachia
 			return overriddenTexts;
 		}
 
-		//Wipe away the legend items and update the UI. Doesn't re-draw the map
+		// Wipe away the legend items and update the UI. Doesn't re-draw the map
 		void ClearLegend()
 		{
 			foreach (MapItem item in legendItems)
@@ -660,7 +661,7 @@ namespace Mappalachia
 			UpdateLegendGrid(null);
 		}
 
-		//Find the next-lowest free legend group value in LegendItems
+		// Find the next-lowest free legend group value in LegendItems
 		int FindLowestAvailableLegendGroupValue()
 		{
 			int n = legendItems.Count;
@@ -678,7 +679,7 @@ namespace Mappalachia
 			return earliestIndex < 0 ? n : earliestIndex;
 		}
 
-		//User-activated draw. Draw the plot points onto the map, if there is anything to plot
+		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMapFromUI()
 		{
 			if (SettingsMap.IsCellModeActive() && SettingsCell.minHeightPerc > SettingsCell.maxHeightPerc)
@@ -687,14 +688,14 @@ namespace Mappalachia
 				return;
 			}
 
-			//Disable control of the legend items list while we draw, and disable calling another draw
+			// Disable control of the legend items list while we draw, and disable calling another draw
 			buttonDrawMap.Enabled = false;
 			buttonAddToLegend.Enabled = false;
 			buttonRemoveFromLegend.Enabled = false;
 
 			Map.Draw();
 
-			//Re-enable disabled buttons after
+			// Re-enable disabled buttons after
 			buttonDrawMap.Enabled = true;
 			buttonAddToLegend.Enabled = true;
 			buttonRemoveFromLegend.Enabled = true;
@@ -705,7 +706,7 @@ namespace Mappalachia
 			Map.Open();
 		}
 
-		//Render a crude text graph to visualize height distribution in the currently selected cell
+		// Render a crude text graph to visualize height distribution in the currently selected cell
 		void ShowCellModeHeightDistribution()
 		{
 			string textVisualization = string.Empty;
@@ -721,37 +722,37 @@ namespace Mappalachia
 
 		#endregion
 
-		//All Methods which represent responses to UI input
+		// All Methods which represent responses to UI input
 		#region UI Controls
 
-		//Map > View - Write the map image to disk and launch in default program
+		// Map > View - Write the map image to disk and launch in default program
 		void Map_View(object sender, EventArgs e)
 		{
 			PreviewMap();
 		}
 
-		//Map > Layer > Military - Toggle the map background to be military
+		// Map > Layer > Military - Toggle the map background to be military
 		void Map_Layer_Military(object sender, EventArgs e)
 		{
 			SettingsMap.layerMilitary = !SettingsMap.layerMilitary;
 			UpdateMapLayerSettings(true);
 		}
 
-		//Map > Layer > NW Flatwoods - Toggle the NW Flatwoods layer
+		// Map > Layer > NW Flatwoods - Toggle the NW Flatwoods layer
 		void Map_Layer_NWFlatwoods(object sender, EventArgs e)
 		{
 			SettingsMap.layerNWFlatwoods = !SettingsMap.layerNWFlatwoods;
 			UpdateMapLayerSettings(true);
 		}
 
-		//Map > Layer > NW MorganTown - Toggle the NW Morgantown later
+		// Map > Layer > NW MorganTown - Toggle the NW Morgantown later
 		void Map_Layer_NWMorgantown(object sender, EventArgs e)
 		{
 			SettingsMap.layerNWMorgantown = !SettingsMap.layerNWMorgantown;
 			UpdateMapLayerSettings(true);
 		}
 
-		//Map > Advanced Modes > Cell Mode
+		// Map > Advanced Modes > Cell Mode
 		private void Map_CellMode(object sender, EventArgs e)
 		{
 			if (!SettingsMap.IsCellModeActive())
@@ -777,21 +778,21 @@ namespace Mappalachia
 			}
 		}
 
-		//Map > Brightness... - Open the brightness adjust form
+		// Map > Brightness... - Open the brightness adjust form
 		void Map_Brightness(object sender, EventArgs e)
 		{
 			FormSetBrightness formSetBrightness = new FormSetBrightness();
 			formSetBrightness.ShowDialog();
 		}
 
-		//Map > Grayscale - Toggle grayscale drawing of map base layer
+		// Map > Grayscale - Toggle grayscale drawing of map base layer
 		private void Map_Grayscale(object sender, EventArgs e)
 		{
 			SettingsMap.grayScale = !SettingsMap.grayScale;
 			UpdateMapGrayscale(true);
 		}
 
-		//Map > Export To File - Export the map image to file
+		// Map > Export To File - Export the map image to file
 		void Map_Export(object sender, EventArgs e)
 		{
 			SaveFileDialog dialog = new SaveFileDialog
@@ -806,7 +807,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Map > Clear - Remove legend items and remove plotted layers from the map
+		// Map > Clear - Remove legend items and remove plotted layers from the map
 		void Map_Clear(object sender, EventArgs e)
 		{
 			ClearLegend();
@@ -815,7 +816,7 @@ namespace Mappalachia
 			GC.WaitForPendingFinalizers();
 		}
 
-		//Map > Reset - Hard reset the map, all layers, plots, legend items and pan/zoom
+		// Map > Reset - Hard reset the map, all layers, plots, legend items and pan/zoom
 		void Map_Reset(object sender, EventArgs e)
 		{
 			ClearLegend();
@@ -824,7 +825,7 @@ namespace Mappalachia
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 
-			//Reset pan and zoom
+			// Reset pan and zoom
 			pictureBoxMapPreview.Location = new Point(0, 0);
 			pictureBoxMapPreview.Width = splitContainerMain.Panel1.Width;
 			pictureBoxMapPreview.Height = splitContainerMain.Panel1.Height;
@@ -833,116 +834,116 @@ namespace Mappalachia
 			GC.WaitForPendingFinalizers();
 		}
 
-		//Search Settings > Toggle interiors - Toggle including interiors in search results
+		// Search Settings > Toggle interiors - Toggle including interiors in search results
 		void Search_Interior(object sender, EventArgs e)
 		{
 			SettingsSearch.searchInterior = !SettingsSearch.searchInterior;
 			UpdateSearchInterior();
 		}
 
-		//Search Settings > Show FormID - Toggle visibility of FormID column
+		// Search Settings > Show FormID - Toggle visibility of FormID column
 		void Search_FormID(object sender, EventArgs e)
 		{
 			SettingsSearch.showFormID = !SettingsSearch.showFormID;
 			UpdateShowFormID();
 		}
 
-		//Plot Settings > Mode > Icon - Change plot mode to icon
+		// Plot Settings > Mode > Icon - Change plot mode to icon
 		private void Plot_Mode_Icon(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Icon;
 			UpdatePlotMode(true);
 		}
 
-		//Plot Settings > Mode > Heatmap - Change plot mode to heatmap
+		// Plot Settings > Mode > Heatmap - Change plot mode to heatmap
 		private void Plot_Mode_Heatmap(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Heatmap;
 			UpdatePlotMode(true);
 		}
 
-		//Plot Settings > Plot Icon Settings - Open plot settings form
+		// Plot Settings > Plot Icon Settings - Open plot settings form
 		private void Plot_PlotIconSettings(object sender, EventArgs e)
 		{
 			FormPlotIconSettings formPlotSettings = new FormPlotIconSettings();
 			formPlotSettings.ShowDialog();
 		}
 
-		//Plot Setting > Heatmap Settings > Color Mode > Mono - Change color mode to mono
+		// Plot Setting > Heatmap Settings > Color Mode > Mono - Change color mode to mono
 		private void Plot_HeatMap_ColorMode_Mono(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Mono;
 			UpdateHeatMapColorMode(true);
 		}
 
-		//Plot Setting > Heatmap Settings > Color Mode > Duo - Change color mode to duo
+		// Plot Setting > Heatmap Settings > Color Mode > Duo - Change color mode to duo
 		private void Plot_HeatMap_ColorMode_Duo(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Duo;
 			UpdateHeatMapColorMode(true);
 		}
 
-		//Plot Setting > Heatmap Settings > Resolution > 128 - Change resolution to 128
+		// Plot Setting > Heatmap Settings > Resolution > 128 - Change resolution to 128
 		private void Plot_HeatMap_Resolution_128(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 128;
 			UpdateHeatMapResolution(true);
 		}
 
-		//Plot Setting > Heatmap Settings > Resolution > 256 - Change resolution to 256
+		// Plot Setting > Heatmap Settings > Resolution > 256 - Change resolution to 256
 		private void Plot_HeatMap_Resolution_256(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 256;
 			UpdateHeatMapResolution(true);
 		}
 
-		//Plot Setting > Heatmap Settings > Resolution > 512 - Change resolution to 512
+		// Plot Setting > Heatmap Settings > Resolution > 512 - Change resolution to 512
 		private void Plot_HeatMap_Resolution_512(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 512;
 			UpdateHeatMapResolution(true);
 		}
 
-		//Plot Setting > Heatmap Settings > Resolution > 1024 - Change resolution to 1024
+		// Plot Setting > Heatmap Settings > Resolution > 1024 - Change resolution to 1024
 		private void Plot_HeatMap_Resolution_1024(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 1024;
 			UpdateHeatMapResolution(true);
 		}
 
-		//Plot Settings > Draw Volumes - Toggle drawing volumes
+		// Plot Settings > Draw Volumes - Toggle drawing volumes
 		private void Plot_DrawVolumes(object sender, EventArgs e)
 		{
 			SettingsPlot.drawVolumes = !SettingsPlot.drawVolumes;
 			UpdateVolumeEnabledState(true);
 		}
 
-		//Help > About - Show the About box
+		// Help > About - Show the About box
 		void Help_About(object sender, EventArgs e)
 		{
 			FormAbout aboutBox = new FormAbout();
 			aboutBox.ShowDialog();
 		}
 
-		//Help > User Guides - Open help guides at github master
+		// Help > User Guides - Open help guides at github master
 		void Help_UserGuides(object sender, EventArgs e)
 		{
 			Process.Start("https://github.com/AHeroicLlama/Mappalachia/tree/master/User_Guides");
 		}
 
-		//Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
+		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
 		private void Help_CheckForUpdates(object sender, EventArgs e)
 		{
 			UpdateChecker.CheckForUpdate(true);
 		}
 
-		//Donate to the Author - Launch donate URL
+		// Donate to the Author - Launch donate URL
 		void Donate(object sender, EventArgs e)
 		{
 			Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
 
-		//Signature select all
+		// Signature select all
 		void ButtonSelectAllSignature(object sender, EventArgs e)
 		{
 			foreach (ListViewItem item in listViewFilterSignatures.Items)
@@ -951,13 +952,13 @@ namespace Mappalachia
 			}
 		}
 
-		//Signature select recommended
+		// Signature select recommended
 		private void ButtonSelectRecommendedSignature(object sender, EventArgs e)
 		{
 			SelectRecommendedSignatures();
 		}
 
-		//Signature deselect all
+		// Signature deselect all
 		void ButtonDeselectAllSignature(object sender, EventArgs e)
 		{
 			foreach (ListViewItem item in listViewFilterSignatures.Items)
@@ -966,7 +967,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Lock select all
+		// Lock select all
 		void ButtonSelectAllLock(object sender, EventArgs e)
 		{
 			foreach (ListViewItem item in listViewFilterLockTypes.Items)
@@ -975,7 +976,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Lock deselect all
+		// Lock deselect all
 		void ButtonDeselectAllLock(object sender, EventArgs e)
 		{
 			foreach (ListViewItem item in listViewFilterLockTypes.Items)
@@ -984,8 +985,8 @@ namespace Mappalachia
 			}
 		}
 
-		//In Cell mode, the current items in search results and legend are inherently connected to the cellFormID.
-		//This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
+		// In Cell mode, the current items in search results and legend are inherently connected to the cellFormID.
+		// This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
 		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			SettingsCell.SetCell(cells[comboBoxCell.SelectedIndex]);
@@ -1004,20 +1005,20 @@ namespace Mappalachia
 			ShowCellModeHeightDistribution();
 		}
 
-		//Cell mode height range changed - maintain the min safely below the max
+		// Cell mode height range changed - maintain the min safely below the max
 		private void NumericMinY_ValueChanged(object sender, EventArgs e)
 		{
 			if (numericMaxZ.Value <= numericMinz.Value)
 			{
 				numericMaxZ.Value = Math.Min(numericMaxZ.Value + numericMaxZ.Increment, numericMaxZ.Maximum);
 
-				//It's likely the user just pressed tab to cross to the max value
-				//We will now highlight it, but adjusting the value again will un-highlight it again
-				//So, re-highlight it
+				// It's likely the user just pressed tab to cross to the max value
+				// We will now highlight it, but adjusting the value again will un-highlight it again
+				// So, re-highlight it
 				NumericMaxY_Enter(sender, e);
 			}
 
-			//Special case where the max could not go higher, so this must stay an increment lower
+			// Special case where the max could not go higher, so this must stay an increment lower
 			if (numericMinz.Value == numericMaxZ.Maximum)
 			{
 				numericMinz.Value -= numericMinz.Increment;
@@ -1026,20 +1027,20 @@ namespace Mappalachia
 			SettingsCell.minHeightPerc = (int)numericMinz.Value;
 		}
 
-		//Cell mode height range changed - maintain the max safely above the min
+		// Cell mode height range changed - maintain the max safely above the min
 		private void NumericMaxY_ValueChanged(object sender, EventArgs e)
 		{
 			if (numericMinz.Value >= numericMaxZ.Value)
 			{
 				numericMinz.Value = Math.Max(numericMinz.Value - numericMinz.Increment, numericMinz.Minimum);
 
-				//It's likely the user just pressed shift-tab to cross to the min value
-				//We will now highlight it, but adjusting the value again will un-highlight it again
-				//So, re-highlight it
+				// It's likely the user just pressed shift-tab to cross to the min value
+				// We will now highlight it, but adjusting the value again will un-highlight it again
+				// So, re-highlight it
 				NumericMinY_Enter(sender, e);
 			}
 
-			//Special case where the min could not go lower, so this must stay an increment higher
+			// Special case where the min could not go lower, so this must stay an increment higher
 			if (numericMaxZ.Value == numericMinz.Minimum)
 			{
 				numericMaxZ.Value += numericMaxZ.Increment;
@@ -1048,7 +1049,7 @@ namespace Mappalachia
 			SettingsCell.maxHeightPerc = (int)numericMaxZ.Value;
 		}
 
-		//Select the value to overwrite when entered
+		// Select the value to overwrite when entered
 		private void NumericMinY_Enter(object sender, EventArgs e)
 		{
 			numericMinz.Select(0, numericMinz.Text.Length);
@@ -1059,7 +1060,7 @@ namespace Mappalachia
 			numericMaxZ.Select(0, numericMaxZ.Text.Length);
 		}
 
-		//Clicked on - pass to enter event
+		// Clicked on - pass to enter event
 		private void NumericMinY_MouseDown(object sender, MouseEventArgs e)
 		{
 			NumericMinY_Enter(sender, e);
@@ -1070,22 +1071,22 @@ namespace Mappalachia
 			NumericMaxY_Enter(sender, e);
 		}
 
-		//Search Button - Gather parameters, execute query and populate results
+		// Search Button - Gather parameters, execute query and populate results
 		void ButtonSearchStandard(object sender, EventArgs e)
 		{
-			//Check for and show warnings
+			// Check for and show warnings
 			WarnWhenLVLINotSelected();
 			WarnWhenAllFiltersBlank();
 
-			//Clear the results from last search
+			// Clear the results from last search
 			searchResults.Clear();
 
-			//Execute the search
+			// Execute the search
 			searchResults = SettingsMap.IsCellModeActive() ?
 				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) :
 				DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
 
-			//Perform UI update
+			// Perform UI update
 			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateAmountColumnToolTip();
@@ -1095,7 +1096,7 @@ namespace Mappalachia
 			UpdateSearchResultsGrid();
 		}
 
-		//Scrap search
+		// Scrap search
 		void ButtonSearchScrap(object sender, EventArgs e)
 		{
 			UpdateResultsLockTypeColumnVisibility();
@@ -1105,7 +1106,7 @@ namespace Mappalachia
 			UpdateSearchResultsGrid();
 		}
 
-		//NPC Search
+		// NPC Search
 		void ButtonSearchNPC(object sender, EventArgs e)
 		{
 			UpdateResultsLockTypeColumnVisibility();
@@ -1117,7 +1118,7 @@ namespace Mappalachia
 			UpdateSearchResultsGrid();
 		}
 
-		//Add selected valid items from the search results to the legend.
+		// Add selected valid items from the search results to the legend.
 		private void ButtonAddToLegend(object sender, EventArgs e)
 		{
 			if (gridViewSearchResults.SelectedRows.Count == 0)
@@ -1129,27 +1130,27 @@ namespace Mappalachia
 			List<string> rejectedItems = new List<string>();
 			int legendGroup = -1;
 
-			//Get a single legend group for this group of item(s)
+			// Get a single legend group for this group of item(s)
 			if (checkBoxAddAsGroup.Checked)
 			{
 				legendGroup = FindLowestAvailableLegendGroupValue();
 			}
 
-			//Record the contents of the legend before we start adding to it
+			// Record the contents of the legend before we start adding to it
 			List<MapItem> legendItemsBeforeAdd = new List<MapItem>(legendItems);
 
 			foreach (DataGridViewRow row in gridViewSearchResults.SelectedRows.Cast<DataGridViewRow>().Reverse())
 			{
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
-				//Warn if a selected item is a cell item or already on the legend list - otherwise add it.
+				// Warn if a selected item is a cell item or already on the legend list - otherwise add it.
 				if ((selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive()) || legendItemsBeforeAdd.Contains(selectedItem))
 				{
 					rejectedItems.Add(selectedItem.editorID);
 				}
 				else
 				{
-					//If the legend group is already fixed (added as group) use that, otherwise use a new legend group
+					// If the legend group is already fixed (added as group) use that, otherwise use a new legend group
 					selectedItem.legendGroup = (legendGroup == -1) ?
 						FindLowestAvailableLegendGroupValue() :
 						legendGroup;
@@ -1158,16 +1159,16 @@ namespace Mappalachia
 				}
 			}
 
-			//Update the legend grid, as long as there's at least one item we didn't have to reject
+			// Update the legend grid, as long as there's at least one item we didn't have to reject
 			if (rejectedItems.Count < gridViewSearchResults.SelectedRows.Count)
 			{
 				UpdateLegendGrid(null);
 			}
 
-			//If we dropped items, let the user know.
+			// If we dropped items, let the user know.
 			if (rejectedItems.Count > 0)
 			{
-				//Cap the list of items we warn about to prevent a huge error box
+				// Cap the list of items we warn about to prevent a huge error box
 				int maxItemsToShow = 8;
 				int truncatedItems = rejectedItems.Count - maxItemsToShow;
 
@@ -1175,11 +1176,11 @@ namespace Mappalachia
 					"The following items were not added to the legend because they already existed on the legend, " +
 					"or they cannot be mapped.\n\n" +
 					string.Join("\n", rejectedItems.Take(maxItemsToShow)) +
-					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty)); //Add a line to say that a further x items (not shown) were not added
+					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty)); // Add a line to say that a further x items (not shown) were not added
 			}
 		}
 
-		//Remove selected rows from legend DataGridView
+		// Remove selected rows from legend DataGridView
 		private void ButtonRemoveFromLegend(object sender, EventArgs e)
 		{
 			if (gridViewLegend.SelectedRows.Count == 0)
@@ -1188,7 +1189,7 @@ namespace Mappalachia
 				return;
 			}
 
-			//If they are removing *everything*, then we can skip the processing below and just wipe the list
+			// If they are removing *everything*, then we can skip the processing below and just wipe the list
 			if (gridViewLegend.SelectedRows.Count == legendItems.Count)
 			{
 				ClearLegend();
@@ -1196,11 +1197,10 @@ namespace Mappalachia
 			}
 
 			List<MapItem> remainingLegendItems = new List<MapItem>();
-			List<MapItem> removedLegendItems = new List<MapItem>();
 			List<int> selectedIndexes = new List<int>();
 
-			//Removing multiple list items by index breaks, as the indices keep changing
-			//So we find which items *weren't* selected, then make a new list of remaining items from that
+			// Removing multiple list items by index breaks, as the indices keep changing
+			// So we find which items *weren't* selected, then make a new list of remaining items from that
 			foreach (DataGridViewRow row in gridViewLegend.SelectedRows)
 			{
 				selectedIndexes.Add(row.Index);
@@ -1223,7 +1223,7 @@ namespace Mappalachia
 			UpdateLegendGrid(null);
 		}
 
-		//Handle the entry and assignment of new values to the Legend Group column or Overriding legend text
+		// Handle the entry and assignment of new values to the Legend Group column or Overriding legend text
 		private void GridViewLegend_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			DataGridViewRow editedRow = gridViewLegend.Rows[e.RowIndex];
@@ -1231,33 +1231,33 @@ namespace Mappalachia
 			object cellValue = editedCell.Value;
 			MapItem editedItem = legendItems[e.RowIndex];
 
-			//Legend group
+			// Legend group
 			if (e.ColumnIndex == 0)
 			{
-				//First verify the value entered into Legend Group cell is a non-null positive int
+				// First verify the value entered into Legend Group cell is a non-null positive int
 				if (cellValue == null ||
 					!uint.TryParse(cellValue.ToString(), out _) ||
 					!int.TryParse(cellValue.ToString(), out _))
 				{
 					Notify.Warn("\"" + editedCell.Value + "\" must be a positive whole number.");
-					editedCell.Value = 0; //Overwrite the edit by assigning 0, but continue the method so that the value of 0 is reflected in the MapItem too.
+					editedCell.Value = 0; // Overwrite the edit by assigning 0, but continue the method so that the value of 0 is reflected in the MapItem too.
 				}
 
-				//Record the overridden legend texts, *before* we edit the legend group, in case the edit conflicts
+				// Record the overridden legend texts, *before* we edit the legend group, in case the edit conflicts
 				Dictionary<int, string> overriddenLegendTexts = GatherOverriddenLegendTexts();
 
 				int legendGroup = int.Parse(editedCell.Value.ToString());
 				editedItem.legendGroup = legendGroup;
 
-				//We just edited into a legend group which is already overridden
-				//Inherit the overriding text of the one which came first
+				// We just edited into a legend group which is already overridden
+				// Inherit the overriding text of the one which came first
 				if (overriddenLegendTexts.ContainsKey(legendGroup))
 				{
 					editedItem.overridingLegendText = overriddenLegendTexts[legendGroup];
 					BeginInvoke((MethodInvoker)delegate { UpdateLegendGrid(editedItem); });
 				}
 			}
-			else if (e.ColumnIndex == 1) //Override legend text
+			else if (e.ColumnIndex == 1) // Override legend text
 			{
 				int targetLegendGroup = int.Parse(editedRow.Cells[0].Value.ToString());
 
@@ -1265,12 +1265,12 @@ namespace Mappalachia
 				assinging the overriding text, or reverting to default if blank*/
 				foreach (MapItem mapItem in legendItems.FindAll(m => m.legendGroup == targetLegendGroup))
 				{
-					//If the value entered was blank/deleted, reset to default
+					// If the value entered was blank/deleted, reset to default
 					if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
 					{
 						mapItem.overridingLegendText = string.Empty;
 					}
-					else //Use the overridden text
+					else // Use the overridden text
 					{
 						mapItem.overridingLegendText = cellValue.ToString();
 					}
@@ -1285,13 +1285,13 @@ namespace Mappalachia
 			DrawMapFromUI();
 		}
 
-		//Double click map for preview
+		// Double click map for preview
 		private void MapPreview_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			PreviewMap();
 		}
 
-		//Record left click location on map in order to pan with mouse
+		// Record left click location on map in order to pan with mouse
 		private void MapPreview_MouseDown(object sender, MouseEventArgs mouseEvent)
 		{
 			if (mouseEvent.Button == MouseButtons.Left)
@@ -1300,7 +1300,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Pan the map while left mouse is held
+		// Pan the map while left mouse is held
 		private void MapPreview_MouseMove(object sender, MouseEventArgs mouseEvent)
 		{
 			if (mouseEvent.Button == MouseButtons.Left)
@@ -1315,17 +1315,17 @@ namespace Mappalachia
 			}
 		}
 
-		//Pick up scroll wheel events and apply them to zoom the map preview
+		// Pick up scroll wheel events and apply them to zoom the map preview
 		protected override void OnMouseWheel(MouseEventArgs mouseEvent)
 		{
 			int minZoom = Map.minZoom;
 			int maxZoom = Map.maxZoom;
 
-			//Record the center coord of the 'viewport' (The container of the PictureBox)
+			// Record the center coord of the 'viewport' (The container of the PictureBox)
 			int viewPortCenterX = splitContainerMain.Panel2.Width / 2;
 			int viewPortCenterY = splitContainerMain.Panel2.Height / 2;
 
-			//Record initial positions
+			// Record initial positions
 			Point location = pictureBoxMapPreview.Location;
 			int width = pictureBoxMapPreview.Size.Width;
 			int height = pictureBoxMapPreview.Size.Height;
@@ -1333,24 +1333,24 @@ namespace Mappalachia
 				(int)((viewPortCenterX - location.X) * (Map.mapDimension / (float)width)),
 				(int)((viewPortCenterY - location.Y) * (Map.mapDimension / (float)height)));
 
-			//Calculate how much to zoom
+			// Calculate how much to zoom
 			float magnitude = Math.Abs(mouseEvent.Delta) / 1500f;
 			float zoomRatio = 1 + ((mouseEvent.Delta > 0) ? magnitude : -magnitude);
 
-			//Calculate the new dimensions once zoomed, given zoom limits
+			// Calculate the new dimensions once zoomed, given zoom limits
 			int newWidth = Math.Max(Math.Min(maxZoom, (int)(width * zoomRatio)), minZoom);
 			int newHeight = Math.Max(Math.Min(maxZoom, (int)(height * zoomRatio)), minZoom);
 
-			//Calculate the required position offset while also factoring the offset to keep the apparent center pixel the same
+			// Calculate the required position offset while also factoring the offset to keep the apparent center pixel the same
 			int widthOffset = (width - newWidth) * apparentCenter.X / Map.mapDimension;
 			int heightOffset = (height - newHeight) * apparentCenter.Y / Map.mapDimension;
 
-			//Apply the new zoom and position
+			// Apply the new zoom and position
 			pictureBoxMapPreview.Size = new Size(newWidth, newHeight);
 			pictureBoxMapPreview.Location = new Point(location.X + widthOffset, location.Y + heightOffset);
 		}
 
-		//Select items in the filters just by clicking their label
+		// Select items in the filters just by clicking their label
 		void ListViewFilterSignatures_SelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
 		{
 			if (e.IsSelected)
@@ -1359,7 +1359,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Select items in the filters just by clicking their label
+		// Select items in the filters just by clicking their label
 		void ListViewFilterLockTypes_SelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
 		{
 			if (e.IsSelected)
@@ -1368,25 +1368,25 @@ namespace Mappalachia
 			}
 		}
 
-		//Show dynamic tooltips on certain columns
+		// Show dynamic tooltips on certain columns
 		void GridViewSearchResults_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
 		{
-			//Ignore the header
+			// Ignore the header
 			if (e.RowIndex == -1)
 			{
 				return;
 			}
 
-			//Indentify which cell was hovered
+			// Indentify which cell was hovered
 			DataGridViewCell hoveredCell = gridViewSearchResults.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-			//Explain the signature AKA category
+			// Explain the signature AKA category
 			if (gridViewSearchResults.Columns[e.ColumnIndex].Name == "columnSearchCategory")
 			{
 				hoveredCell.ToolTipText = DataHelper.GetSignatureDescription(hoveredCell.Value.ToString());
 			}
 
-			//Explain what is meant by "unknown" under spawn chance
+			// Explain what is meant by "unknown" under spawn chance
 			else if (gridViewSearchResults.Columns[e.ColumnIndex].Name == "columnSearchChance")
 			{
 				if (hoveredCell.Value.ToString() == "Unknown")
@@ -1395,17 +1395,17 @@ namespace Mappalachia
 				}
 			}
 
-			//Give the technical name of an interior cell display name for those curious
+			// Give the technical name of an interior cell display name for those curious
 			else if (gridViewSearchResults.Columns[e.ColumnIndex].Name == "columnSearchLocation")
 			{
 				hoveredCell.ToolTipText = gridViewSearchResults.Rows[e.RowIndex].Cells["columnSearchLocationID"].Value.ToString();
 			}
 		}
 
-		//Explain Legend Group on mouseover with tooltip
+		// Explain Legend Group on mouseover with tooltip
 		private void GridViewLegend_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
 		{
-			//Only apply to Legend Group column
+			// Only apply to Legend Group column
 			DataGridViewColumn column = gridViewLegend.Columns[e.ColumnIndex];
 			if (column.HeaderText != "Legend Group")
 			{
@@ -1414,41 +1414,41 @@ namespace Mappalachia
 
 			string legendGroupTooltip = "The legend group allows you to group items together, so they are represented by the same color and/or shape.";
 
-			//Assign the tooltip to the column header
+			// Assign the tooltip to the column header
 			column.ToolTipText = legendGroupTooltip;
 
-			//Also assign to any cell (not the header)
+			// Also assign to any cell (not the header)
 			if (e.RowIndex != -1)
 			{
 				gridViewLegend.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = legendGroupTooltip;
 			}
 		}
 
-		//Change the default enter action depending on the currently selected control
+		// Change the default enter action depending on the currently selected control
 		void ListBoxNPC_MouseEnter(object sender, EventArgs e)
 		{
 			AcceptButton = buttonSearchNPC;
 		}
 
-		//Change the default enter action depending on the currently selected control
+		// Change the default enter action depending on the currently selected control
 		void NumericUpDownNPCSpawnThreshold_MouseEnter(object sender, EventArgs e)
 		{
 			AcceptButton = buttonSearchNPC;
 		}
 
-		//Change the default enter action depending on the currently selected control
+		// Change the default enter action depending on the currently selected control
 		void ListBoxScrap_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			AcceptButton = buttonSearchScrap;
 		}
 
-		//Change the default enter action depending on the currently selected control
+		// Change the default enter action depending on the currently selected control
 		void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			AcceptButton = tabControlStandardNPCJunk.SelectedTab == tabPageStandard ? buttonSearch : buttonSearchNPC;
 		}
 
-		//User updated value in min spawn chance - update the setting too
+		// User updated value in min spawn chance - update the setting too
 		private void NumericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
 		{
 			SettingsSearch.spawnChance = (int)numericUpDownNPCSpawnThreshold.Value;
@@ -1463,11 +1463,11 @@ namespace Mappalachia
 
 			try
 			{
-				//Ensures any potentially long-running map building task is stopped too
+				// Ensures any potentially long-running map building task is stopped too
 				Environment.Exit(0);
 			}
 			catch (Exception)
-			{ } //If this fails, we're already exiting and there is no action to take
+			{ } // If this fails, we're already exiting and there is no action to take
 		}
 	}
 }

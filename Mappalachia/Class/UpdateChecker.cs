@@ -17,7 +17,7 @@ namespace Mappalachia.Class
 
 			try
 			{
-				//Get the latest release info from GitHub API
+				// Get the latest release info from GitHub API
 				HttpClient httpClient = new HttpClient();
 				httpClient.DefaultRequestHeaders.Add("User-Agent", "AHeroicLlama/Mappalachia");
 				response = await httpClient.GetAsync("https://api.github.com/repos/AHeroicLlama/Mappalachia/releases/latest");
@@ -44,17 +44,17 @@ namespace Mappalachia.Class
 
 			try
 			{
-				//Extract the value of 'tag_name' from the json string
+				// Extract the value of 'tag_name' from the json string
 				string responseContent = await response.Content.ReadAsStringAsync();
 				string tagName = "\"tag_name\":";
 				int tagValueStart = responseContent.IndexOf(tagName) + tagName.Length;
 				int tagValueLength = responseContent.Substring(tagValueStart).IndexOf(",");
 				string latestVersion = responseContent.Substring(tagValueStart, tagValueLength).Replace("\"", string.Empty);
 
-				//Verify the version string is in the format "x.y.y.y" where x is 1-999 and y is 0-999
+				// Verify the version string is in the format "x.y.y.y" where x is 1-999 and y is 0-999
 				Regex verifyVersion = new Regex(@"^[1-9]{1,3}(\.[0-9]{1,3}){3}$");
 
-				//We got a valid version string from GitHub
+				// We got a valid version string from GitHub
 				if (verifyVersion.IsMatch(latestVersion))
 				{
 					if (currentVersion != latestVersion)
@@ -83,8 +83,8 @@ namespace Mappalachia.Class
 			}
 		}
 
-		//Prompt the user for a manual update check via releases page, after an auto check failed.
-		//Also displays provided reason why automatic check failed and the current Mappalachia version.
+		// Prompt the user for a manual update check via releases page, after an auto check failed.
+		// Also displays provided reason why automatic check failed and the current Mappalachia version.
 		static void CheckForUpdatesManual(string errorReason)
 		{
 			DialogResult question = MessageBox.Show(
@@ -97,7 +97,7 @@ namespace Mappalachia.Class
 			}
 		}
 
-		//Tell the user the latest version is available as an update, and prompt to download
+		// Tell the user the latest version is available as an update, and prompt to download
 		static void PromptForUpdate(string latestVersion)
 		{
 			DialogResult question = MessageBox.Show(

@@ -2,7 +2,7 @@
 
 namespace Mappalachia
 {
-	//A representation of a given LCTN and its total ESSChance property values, which control the odds of mobs spawning
+	// A representation of a given LCTN and its total ESSChance property values, which control the odds of mobs spawning
 	class Location
 	{
 		public readonly string locationFormID;
@@ -29,7 +29,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Increment the odds for a given spawn class at a given location
+		// Increment the odds for a given spawn class at a given location
 		public void AddOdds(string odds, string npcClass)
 		{
 			switch (NpcSpawnHelper.GetClassFromName(npcClass))
@@ -41,7 +41,7 @@ namespace Mappalachia
 					oddsSub += double.Parse(odds);
 					return;
 				default:
-					return; //Do nothing - we're only interested in Main and Sub
+					return; // Do nothing - we're only interested in Main and Sub
 			}
 		}
 	}

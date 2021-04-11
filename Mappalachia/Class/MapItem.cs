@@ -13,25 +13,25 @@ namespace Mappalachia
 		NPC,
 	}
 
-	//Any item in the game which can show up in search results or could exist on the legend key and be mapped
-	//NOT a unique reference to an instance of an item, but rather a description of all of the same type of item.
+	// Any item in the game which can show up in search results or could exist on the legend key and be mapped
+	// NOT a unique reference to an instance of an item, but rather a description of all of the same type of item.
 	public class MapItem
 	{
-		//Signatures which could be affected by a lock level
+		// Signatures which could be affected by a lock level
 		static readonly List<string> lockableTypes = new List<string> { "CONT", "DOOR", "TERM" };
 
-		public readonly Type type; //What type of search did this item come from and what does it represent
-		public readonly string uniqueIdentifier; //The FormID, Scrap name or NPC name which this MapItem represents
-		public readonly string editorID; //The editorID of the item
-		public readonly string displayName; //The Display Name of the item where applicable
-		public readonly string signature; //The signature eg MISC
-		public readonly List<string> filteredLockTypes; //The lock types which were selected when this item was picked from the database
-		public readonly double weight; //The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
-		public readonly int count; //How many of this item did we find.
-		public readonly string location; //Display Name of the location where was this item placed.
-		public readonly string locationEditorID; //EditorID of the location
-		public int legendGroup; //User-definable grouping value
-		public string overridingLegendText = string.Empty; //The user-provided legend text, if given
+		public readonly Type type; // What type of search did this item come from and what does it represent
+		public readonly string uniqueIdentifier; // The FormID, Scrap name or NPC name which this MapItem represents
+		public readonly string editorID; // The editorID of the item
+		public readonly string displayName; // The Display Name of the item where applicable
+		public readonly string signature; // The signature eg MISC
+		public readonly List<string> filteredLockTypes; // The lock types which were selected when this item was picked from the database
+		public readonly double weight; // The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
+		public readonly int count; // How many of this item did we find.
+		public readonly string location; // Display Name of the location where was this item placed.
+		public readonly string locationEditorID; // EditorID of the location
+		public int legendGroup; // User-definable grouping value
+		public string overridingLegendText = string.Empty; // The user-provided legend text, if given
 
 		List<MapDataPoint> plots;
 
@@ -49,7 +49,7 @@ namespace Mappalachia
 			this.locationEditorID = locationID;
 		}
 
-		//The lock type is relevant only if it's a 'standard', lockable item with modified/filtered lock types.
+		// The lock type is relevant only if it's a 'standard', lockable item with modified/filtered lock types.
 		public bool GetLockRelevant()
 		{
 			return
@@ -58,11 +58,11 @@ namespace Mappalachia
 				!filteredLockTypes.OrderBy(e => e).SequenceEqual(DataHelper.GetPermittedLockTypes());
 		}
 
-		//Get the image-scaled coordinate points for all instances of this MapItem
-		//Speeds up repeated or edited map plots by caching them
+		// Get the image-scaled coordinate points for all instances of this MapItem
+		// Speeds up repeated or edited map plots by caching them
 		public List<MapDataPoint> GetPlots()
 		{
-			//Cache the plots if not already active - cell mode needs to edit these values (see CellScaling), so refresh them each time
+			// Cache the plots if not already active - cell mode needs to edit these values (see CellScaling), so refresh them each time
 			if (plots == null || SettingsMap.IsCellModeActive())
 			{
 				switch (type)
@@ -84,8 +84,8 @@ namespace Mappalachia
 			return plots;
 		}
 
-		//Get a user-friendly or user-defined text representation of the MapItem to be used on the legend
-		//forceDefault to ignore user override and return to auto-generated
+		// Get a user-friendly or user-defined text representation of the MapItem to be used on the legend
+		// forceDefault to ignore user override and return to auto-generated
 		public string GetLegendText(bool forceDefault)
 		{
 			if (!forceDefault && overridingLegendText != string.Empty)
@@ -95,7 +95,7 @@ namespace Mappalachia
 
 			if (type == Type.Standard)
 			{
-				//Return the editorID, plus the displayName (if it exists), plus the lock levels (if they're relevant)
+				// Return the editorID, plus the displayName (if it exists), plus the lock levels (if they're relevant)
 				return (displayName == string.Empty ?
 							editorID :
 							editorID + " (" + displayName + ")") +
@@ -109,15 +109,15 @@ namespace Mappalachia
 			}
 		}
 
-		//Find the appropriate legend color for this item
-		//Varies on the plotting mode, and further on the heatmap color mode
+		// Find the appropriate legend color for this item
+		// Varies on the plotting mode, and further on the heatmap color mode
 		public Color GetLegendColor()
 		{
 			if (SettingsPlot.IsIcon())
 			{
 				return GetIcon().color;
 			}
-			else //HeatMap
+			else // HeatMap
 			{
 				return SettingsPlotHeatmap.IsMono() ?
 					Color.Red :
@@ -130,7 +130,7 @@ namespace Mappalachia
 			return PlotIcon.GetIconForGroup(legendGroup);
 		}
 
-		//Override equals to compare MapItem - we use the unique identifier and if they're a normal item, also the filtered lock type.
+		// Override equals to compare MapItem - we use the unique identifier and if they're a normal item, also the filtered lock type.
 		public override bool Equals(object obj)
 		{
 			if (obj == null)

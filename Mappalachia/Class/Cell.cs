@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Mappalachia.Class
 {
-	//Represents an internal cell. Used to select and differentiate cells in Cell mode
+	// Represents an internal cell. Used to select and differentiate cells in Cell mode
 	public class Cell
 	{
 		public string formID;
@@ -27,7 +27,7 @@ namespace Mappalachia.Class
 			this.displayName = displayName;
 		}
 
-		//Gets the plotting data and coordinate extremities
+		// Gets the plotting data and coordinate extremities
 		void InitializePlotData()
 		{
 			plots = DataHelper.GetAllCellCoords(formID);
@@ -57,7 +57,7 @@ namespace Mappalachia.Class
 			return CellScaling.GetCellScaling(this);
 		}
 
-		//Returns the distribution of Y coordinates for items in the cell, broken into x bins
+		// Returns the distribution of Y coordinates for items in the cell, broken into x bins
 		public double[] GetHeightDistribution()
 		{
 			if (plots == null)
@@ -67,16 +67,16 @@ namespace Mappalachia.Class
 
 			int precision = SettingsCell.heightPrecision;
 
-			//Count how many items fall into the arbitrary <precision># different bins
+			// Count how many items fall into the arbitrary <precision># different bins
 			int[] distributionCount = new int[precision];
 			foreach (MapDataPoint point in plots)
 			{
-				//Calculate which numeric bin this item would fall into
+				// Calculate which numeric bin this item would fall into
 				int placementBin = (int)(((point.z - zMin) / heightRange) * precision);
 
-				//At least one value will be exactly the precision value, (it's the highest thing)
-				//But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
-				//So this is a special case for the top-most item to be moved back into the upper (n-1) bin
+				// At least one value will be exactly the precision value, (it's the highest thing)
+				// But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
+				// So this is a special case for the top-most item to be moved back into the upper (n-1) bin
 				if (placementBin == precision)
 				{
 					distributionCount[precision - 1]++;
@@ -86,7 +86,7 @@ namespace Mappalachia.Class
 				distributionCount[placementBin]++;
 			}
 
-			//Normalise the count of items to find which percentage of items fall into the segments
+			// Normalise the count of items to find which percentage of items fall into the segments
 			double[] distribution = new double[precision];
 			for (int i = 0; i < distributionCount.Length; i++)
 			{
