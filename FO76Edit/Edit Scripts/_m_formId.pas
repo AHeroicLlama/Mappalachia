@@ -1,5 +1,5 @@
-//Rip every single entry in the ESM which is relevant for mapping as defined by _m_lib.shouldProcessRecord(). Gets each item's FormID, EdID and displayName.
-//This is cross referenced by the Preprocessor between the location data to assign names/EditorID's to FormIDs in the location data
+// Rip every single entry in the ESM which is relevant for mapping as defined by _m_lib.shouldProcessRecord(). Gets each item's FormID, EdID and displayName.
+// This is cross referenced by the Preprocessor between the location data to assign names/EditorID's to FormIDs in the location data
 unit _m_formID;
 
 	uses _m_lib;
@@ -11,23 +11,23 @@ unit _m_formID;
 		ripFormIDs(0); //0=SeventySix.esm
 	end;
 
-	procedure ripFormIDs(fileNum : Integer); //Primary block for iterating down tree
+	procedure ripFormIDs(fileNum : Integer); // Primary block for iterating down tree
 	const
 		targetESM = FileByIndex(fileNum);
 		outputFile = ProgramPath + 'Output\' + StringReplace(BaseName(targetESM), '.esm', '', [rfReplaceAll]) + '_FormID.csv';
 	var
-		i, j : Integer;//iterators
+		i, j : Integer; // iterators
 		signatureGroup : IInterface;
 		signature : String;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('entityFormID,displayName,editorID,signature'); //Write CSV column headers
+		outputStrings.add('entityFormID,displayName,editorID,signature'); // Write CSV column headers
 
-		//Rip everything down to the end 'leaves' of the hierarchy tree
+		// Rip everything down to the end 'leaves' of the hierarchy tree
 		for i := 0 to ElementCount(targetESM) - 1 do begin
 			signatureGroup := elementByIndex(targetESM, i);
 			signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
-			signature := StringReplace(signature, '"', '', [rfReplaceAll]); //Strip the category to its 4-char identifier
+			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
 
 			for j := 0 to ElementCount(signatureGroup) -1 do begin
 				ripItem(elementByIndex(signatureGroup, j), signature);
@@ -47,12 +47,12 @@ unit _m_formID;
 		i : Integer;
 		bestDisplayName : String;
 	begin
-		if(FixedFormId(item) = 0) then begin //This is a GRUP and not an end-node, so pass each of its children back through
+		if(FixedFormId(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
-				ripItem(elementByIndex(item, i), signature); //Recursive
+				ripItem(elementByIndex(item, i), signature); // Recursive
 			end;
 		end
-		else begin //This is an end-node
+		else begin // This is an end-node
 			if (signature = 'LVLI') then begin
 				bestDisplayName := getNameforLvli(item);
 			end
