@@ -421,11 +421,6 @@ namespace Mappalachia
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
 					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
-
-					// Re-enable volume drawing as cell mode will disable it
-					SettingsPlot.drawVolumes = true;
-					UpdateVolumeEnabledState(false);
-
 					groupBoxCellModeSettings.Visible = false;
 					break;
 
@@ -449,10 +444,6 @@ namespace Mappalachia
 					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
 
 					PopulateCellList();
-
-					// Disable volume drawing by default for cell mode as it tends to get in the way
-					SettingsPlot.drawVolumes = false;
-					UpdateVolumeEnabledState(false);
 					UpdateCellHeightSettings();
 					UpdateCellDrawOutLine();
 
