@@ -320,14 +320,14 @@ namespace Mappalachia
             this.modeIconMenuItem,
             this.modeHeatmapMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
-			this.plotModeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.plotModeMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
 			this.plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
 			// modeIconMenuItem
 			// 
 			this.modeIconMenuItem.Name = "modeIconMenuItem";
-			this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeIconMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.modeIconMenuItem.Text = "Icon";
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -335,7 +335,7 @@ namespace Mappalachia
 			// modeHeatmapMenuItem
 			// 
 			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.modeHeatmapMenuItem.Text = "Heatmap";
 			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
 			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
@@ -343,7 +343,7 @@ namespace Mappalachia
 			// plotIconSettingsMenuItem
 			// 
 			this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
 			this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
 			this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
@@ -354,7 +354,7 @@ namespace Mappalachia
             this.colorModeMenuItem,
             this.resolutionMenuItem});
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
 			// 
@@ -432,7 +432,7 @@ namespace Mappalachia
 			// drawVolumesMenuItem
 			// 
 			this.drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			this.drawVolumesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.drawVolumesMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.drawVolumesMenuItem.Text = "Draw Volumes";
 			this.drawVolumesMenuItem.ToolTipText = "(Where applicable, in Icon Mode) In-game volumes such as triggers/activators have" +
     " their boundaries drawn instead of a plot icon.";
@@ -760,7 +760,7 @@ namespace Mappalachia
 			// 
 			this.labelMinSpawnChance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.labelMinSpawnChance.AutoSize = true;
-			this.labelMinSpawnChance.Location = new System.Drawing.Point(3, 234);
+			this.labelMinSpawnChance.Location = new System.Drawing.Point(3, 252);
 			this.labelMinSpawnChance.Name = "labelMinSpawnChance";
 			this.labelMinSpawnChance.Size = new System.Drawing.Size(141, 13);
 			this.labelMinSpawnChance.TabIndex = 5;
@@ -770,7 +770,7 @@ namespace Mappalachia
 			// numericUpDownNPCSpawnThreshold
 			// 
 			this.numericUpDownNPCSpawnThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.numericUpDownNPCSpawnThreshold.Location = new System.Drawing.Point(6, 250);
+			this.numericUpDownNPCSpawnThreshold.Location = new System.Drawing.Point(6, 268);
 			this.numericUpDownNPCSpawnThreshold.Name = "numericUpDownNPCSpawnThreshold";
 			this.numericUpDownNPCSpawnThreshold.Size = new System.Drawing.Size(94, 20);
 			this.numericUpDownNPCSpawnThreshold.TabIndex = 1;
@@ -781,7 +781,7 @@ namespace Mappalachia
 			// buttonSearchScrap
 			// 
 			this.buttonSearchScrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonSearchScrap.Location = new System.Drawing.Point(56, 247);
+			this.buttonSearchScrap.Location = new System.Drawing.Point(56, 265);
 			this.buttonSearchScrap.Name = "buttonSearchScrap";
 			this.buttonSearchScrap.Size = new System.Drawing.Size(90, 23);
 			this.buttonSearchScrap.TabIndex = 1;
@@ -793,7 +793,7 @@ namespace Mappalachia
 			// buttonSearchNPC
 			// 
 			this.buttonSearchNPC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonSearchNPC.Location = new System.Drawing.Point(106, 248);
+			this.buttonSearchNPC.Location = new System.Drawing.Point(106, 266);
 			this.buttonSearchNPC.Name = "buttonSearchNPC";
 			this.buttonSearchNPC.Size = new System.Drawing.Size(90, 23);
 			this.buttonSearchNPC.TabIndex = 2;
@@ -807,7 +807,7 @@ namespace Mappalachia
 			this.listBoxScrap.FormattingEnabled = true;
 			this.listBoxScrap.Location = new System.Drawing.Point(6, 19);
 			this.listBoxScrap.Name = "listBoxScrap";
-			this.listBoxScrap.Size = new System.Drawing.Size(191, 212);
+			this.listBoxScrap.Size = new System.Drawing.Size(191, 225);
 			this.listBoxScrap.TabIndex = 0;
 			this.listBoxScrap.SelectedIndexChanged += new System.EventHandler(this.ListBoxScrap_SelectedIndexChanged);
 			// 
@@ -816,7 +816,7 @@ namespace Mappalachia
 			this.listBoxNPC.FormattingEnabled = true;
 			this.listBoxNPC.Location = new System.Drawing.Point(6, 19);
 			this.listBoxNPC.Name = "listBoxNPC";
-			this.listBoxNPC.Size = new System.Drawing.Size(190, 212);
+			this.listBoxNPC.Size = new System.Drawing.Size(190, 225);
 			this.listBoxNPC.TabIndex = 0;
 			this.listBoxNPC.Enter += new System.EventHandler(this.ListBoxNPC_MouseEnter);
 			// 
@@ -1048,7 +1048,7 @@ namespace Mappalachia
 			this.groupBoxScrapSearch.Controls.Add(this.buttonSearchScrap);
 			this.groupBoxScrapSearch.Location = new System.Drawing.Point(215, 6);
 			this.groupBoxScrapSearch.Name = "groupBoxScrapSearch";
-			this.groupBoxScrapSearch.Size = new System.Drawing.Size(203, 277);
+			this.groupBoxScrapSearch.Size = new System.Drawing.Size(203, 295);
 			this.groupBoxScrapSearch.TabIndex = 7;
 			this.groupBoxScrapSearch.TabStop = false;
 			this.groupBoxScrapSearch.Text = "Scrap Search";
@@ -1062,7 +1062,7 @@ namespace Mappalachia
 			this.groupBoxNPCSearch.Controls.Add(this.buttonSearchNPC);
 			this.groupBoxNPCSearch.Location = new System.Drawing.Point(6, 6);
 			this.groupBoxNPCSearch.Name = "groupBoxNPCSearch";
-			this.groupBoxNPCSearch.Size = new System.Drawing.Size(203, 277);
+			this.groupBoxNPCSearch.Size = new System.Drawing.Size(203, 295);
 			this.groupBoxNPCSearch.TabIndex = 6;
 			this.groupBoxNPCSearch.TabStop = false;
 			this.groupBoxNPCSearch.Text = "NPC Search";
