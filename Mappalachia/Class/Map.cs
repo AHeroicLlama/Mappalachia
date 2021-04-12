@@ -381,7 +381,6 @@ namespace Mappalachia
 			}
 
 			mapFrame.Image = finalImage;
-			GC.Collect();
 		}
 
 		// Draws all legend text (and optional Icon beside) for every MapItem
