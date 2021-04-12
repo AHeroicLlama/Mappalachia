@@ -7,11 +7,9 @@ CREATE INDEX indexWorldspace ON SeventySix_Worldspace (
 
 CREATE INDEX indexInterior ON SeventySix_Interior (
 	referenceFormID,
-	z,
 	cellFormID,
 	locationFormID,
 	lockLevel,
-	boundZ,
 	spawnClass
 );
 
