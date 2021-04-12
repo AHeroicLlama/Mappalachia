@@ -197,23 +197,14 @@ namespace Mappalachia
 				return;
 			}
 
-			int i = 0;
-			int targetDefaultCellIndex = 0;
-
 			cells = DataHelper.GetAllCells();
 
 			foreach (Cell cell in cells)
 			{
-				if (cell.editorID.Contains(SettingsCell.targetDefaultCell))
-				{
-					targetDefaultCellIndex = i;
-				}
-
 				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
-				i++;
 			}
 
-			comboBoxCell.SelectedIndex = targetDefaultCellIndex;
+			comboBoxCell.SelectedIndex = comboBoxCell.Items.Count - 1;
 		}
 
 		// Fill the search box with a suggested search term.
@@ -277,7 +268,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				DrawMapFromUI(false);
+				DrawMap(false);
 			}
 		}
 
@@ -306,7 +297,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				DrawMapFromUI(false);
+				DrawMap(false);
 			}
 		}
 
@@ -327,7 +318,7 @@ namespace Mappalachia
 
 			if (reDraw && SettingsPlot.IsHeatmap())
 			{
-				DrawMapFromUI(false);
+				DrawMap(false);
 			}
 		}
 
@@ -356,7 +347,7 @@ namespace Mappalachia
 
 			if (reDraw && SettingsPlot.IsHeatmap())
 			{
-				DrawMapFromUI(false);
+				DrawMap(false);
 			}
 		}
 
@@ -369,7 +360,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				DrawMapFromUI(true);
+				DrawMap(true);
 			}
 		}
 
@@ -380,7 +371,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				DrawMapFromUI(true);
+				DrawMap(true);
 			}
 		}
 
@@ -418,6 +409,9 @@ namespace Mappalachia
 		// Applies the config necessary for exiting the current map mode
 		void ExitMapMode()
 		{
+			ClearSearchResults();
+			ClearLegend();
+
 			switch (SettingsMap.mode)
 			{
 				case SettingsMap.Mode.Cell:
@@ -473,8 +467,6 @@ namespace Mappalachia
 					break;
 			}
 
-			ClearSearchResults();
-			ClearLegend();
 			UpdateLocationColumnVisibility();
 			Map.Reset();
 		}
@@ -663,7 +655,7 @@ namespace Mappalachia
 				item.overridingLegendText = string.Empty;
 			}
 
-			legendItems.Clear();
+			legendItems = new List<MapItem>();
 			UpdateLegendGrid(null);
 		}
 
@@ -685,10 +677,17 @@ namespace Mappalachia
 			return earliestIndex < 0 ? n : earliestIndex;
 		}
 
-		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
-		void DrawMapFromUI(bool drawBaseLayer)
+		// Remove plots from map and empty the legend list
+		void ClearMap()
 		{
-			// Disable control of the legend items list while we draw, and disable calling another draw
+			ClearLegend();
+			DrawMap(false);
+		}
+
+		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
+		void DrawMap(bool drawBaseLayer)
+		{
+			// Disable control of items which can cause another draw event
 			buttonDrawMap.Enabled = false;
 			buttonAddToLegend.Enabled = false;
 			buttonRemoveFromLegend.Enabled = false;
@@ -696,13 +695,13 @@ namespace Mappalachia
 			numericMaxZ.Enabled = false;
 			comboBoxCell.Enabled = false;
 			checkBoxCellDrawOutline.Enabled = false;
-			drawVolumesMenuItem.Enabled = false;
-			modeIconMenuItem.Enabled = false;
-			modeHeatmapMenuItem.Enabled = false;
-			layerMilitaryMenuItem.Enabled = false;
-			layerNWFlatwoodsMenuItem.Enabled = false;
-			layerNWMorgantownMenuItem.Enabled = false;
 			grayscaleMenuItem.Enabled = false;
+			brightnessMenuItem.Enabled = false;
+			clearMenuItem.Enabled = false;
+			resetMenuItem.Enabled = false;
+			layerMenuItem.Enabled = false;
+			plotSettingsMenuItem.Enabled = false;
+			advancedModeMenuItem.Enabled = false;
 
 			if (drawBaseLayer || forceDrawBaseLayer)
 			{
@@ -714,7 +713,7 @@ namespace Mappalachia
 				Map.Draw();
 			}
 
-			// Re-enable disabled buttons after
+			// Re-enable disabled controls after
 			buttonDrawMap.Enabled = true;
 			buttonAddToLegend.Enabled = true;
 			buttonRemoveFromLegend.Enabled = true;
@@ -722,13 +721,15 @@ namespace Mappalachia
 			numericMaxZ.Enabled = true;
 			comboBoxCell.Enabled = true;
 			checkBoxCellDrawOutline.Enabled = true;
-			drawVolumesMenuItem.Enabled = true;
-			modeIconMenuItem.Enabled = true;
-			modeHeatmapMenuItem.Enabled = true;
-			layerMilitaryMenuItem.Enabled = true;
-			layerNWFlatwoodsMenuItem.Enabled = true;
-			layerNWMorgantownMenuItem.Enabled = true;
 			grayscaleMenuItem.Enabled = true;
+			brightnessMenuItem.Enabled = true;
+			clearMenuItem.Enabled = true;
+			resetMenuItem.Enabled = true;
+			layerMenuItem.Enabled = true;
+			plotSettingsMenuItem.Enabled = true;
+			advancedModeMenuItem.Enabled = true;
+
+			GC.Collect();
 		}
 
 		void PreviewMap()
@@ -788,9 +789,9 @@ namespace Mappalachia
 			if (!SettingsMap.IsCellModeActive())
 			{
 				DialogResult question = MessageBox.Show(
-					"Cell mode is an advanced mode designed to help Wiki editors design guides for internal cells.\n" +
+					"Cell mode is an advanced mode designed to make detailed maps of individual cells.\n" +
 					"If you want to search generally for items across all cells, you should enable Search Settings > Search Interiors.\n\n" +
-					"Switching to Cell mode may override, disable, or adjust certain settings and features which do not apply or are no longer relevant.\n" +
+					"Switching to Cell mode may change or disable certain other settings.\n" +
 					"Please read the user documentation on Cell Mode for full details.\n\n" +
 					"Continue to Cell mode?",
 					"Switch to Cell mode?", MessageBoxButtons.YesNo);
@@ -840,10 +841,7 @@ namespace Mappalachia
 		// Map > Clear - Remove legend items and remove plotted layers from the map
 		void Map_Clear(object sender, EventArgs e)
 		{
-			ClearLegend();
-			DrawMapFromUI(false);
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
+			ClearMap();
 		}
 
 		// Map > Reset - Hard reset the map, all layers, plots, legend items and pan/zoom
@@ -1019,15 +1017,17 @@ namespace Mappalachia
 		// This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
 		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			SettingsCell.SetCell(cells[comboBoxCell.SelectedIndex]);
 			ClearSearchResults();
 			ClearLegend();
+			numericMinZ.Value = numericMinZ.Minimum;
+			numericMaxZ.Value = numericMinZ.Maximum;
+			SettingsCell.SetCell(cells[comboBoxCell.SelectedIndex]);
 		}
 
 		private void CheckBoxCellDrawOutline_CheckedChanged(object sender, EventArgs e)
 		{
 			SettingsCell.drawOutline = checkBoxCellDrawOutline.Checked;
-			DrawMapFromUI(true);
+			DrawMap(true);
 		}
 
 		private void ButtonCellHeightDistribution_Click(object sender, EventArgs e)
@@ -1043,7 +1043,7 @@ namespace Mappalachia
 				numericMaxZ.Value = Math.Min(numericMaxZ.Value + numericMaxZ.Increment, numericMaxZ.Maximum);
 
 				// It's likely the user just pressed tab to cross to the max value
-				// We will now highlight it, but adjusting the value again will un-highlight it again
+				// We just highlighted it, but adjusting the value will un-highlight it again
 				// So, re-highlight it
 				NumericMaxZ_Enter(sender, e);
 			}
@@ -1066,7 +1066,7 @@ namespace Mappalachia
 				numericMinZ.Value = Math.Max(numericMinZ.Value - numericMinZ.Increment, numericMinZ.Minimum);
 
 				// It's likely the user just pressed shift-tab to cross to the min value
-				// We will now highlight it, but adjusting the value again will un-highlight it again
+				// We just highlighted it, but adjusting the value will un-highlight it again
 				// So, re-highlight it
 				NumericMinZ_Enter(sender, e);
 			}
@@ -1106,6 +1106,9 @@ namespace Mappalachia
 		// Search Button - Gather parameters, execute query and populate results
 		void ButtonSearchStandard(object sender, EventArgs e)
 		{
+			// Disable the button to prevent stacking search operations
+			buttonSearch.Enabled = false;
+
 			// Check for and show warnings
 			WarnWhenLVLINotSelected();
 
@@ -1132,6 +1135,8 @@ namespace Mappalachia
 
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
+
+			buttonSearch.Enabled = true;
 		}
 
 		// Scrap search
@@ -1167,7 +1172,8 @@ namespace Mappalachia
 				return;
 			}
 
-			List<string> rejectedItems = new List<string>();
+			List<string> rejectedItemsDuplicate = new List<string>(); // Items rejected because they're already present
+			List<string> rejectedItemsInterior = new List<string>(); // Items rejected because they belong to a cell
 			int legendGroup = -1;
 
 			// Get a single legend group for this group of item(s)
@@ -1184,11 +1190,15 @@ namespace Mappalachia
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				// Warn if a selected item is a cell item or already on the legend list - otherwise add it.
-				if ((selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive()) || legendItemsBeforeAdd.Contains(selectedItem))
+				if (selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive())
 				{
-					rejectedItems.Add(selectedItem.editorID);
+					rejectedItemsInterior.Add(selectedItem.editorID);
 				}
-				else
+				else if (legendItemsBeforeAdd.Contains(selectedItem))
+				{
+					rejectedItemsDuplicate.Add(selectedItem.editorID);
+				}
+				else // Item is fine - add it
 				{
 					// If the legend group is already fixed (added as group) use that, otherwise use a new legend group
 					selectedItem.legendGroup = (legendGroup == -1) ?
@@ -1199,24 +1209,46 @@ namespace Mappalachia
 				}
 			}
 
+			int totalRejectedItems = rejectedItemsInterior.Count + rejectedItemsDuplicate.Count;
+
 			// Update the legend grid, as long as there's at least one item we didn't have to reject
-			if (rejectedItems.Count < gridViewSearchResults.SelectedRows.Count)
+			if (totalRejectedItems < gridViewSearchResults.SelectedRows.Count)
 			{
 				UpdateLegendGrid(null);
 			}
 
-			// If we dropped items, let the user know.
-			if (rejectedItems.Count > 0)
+			// If we dropped items, let the user know why.
+			if (totalRejectedItems > 0)
 			{
 				// Cap the list of items we warn about to prevent a huge error box
 				int maxItemsToShow = 8;
-				int truncatedItems = rejectedItems.Count - maxItemsToShow;
+				int truncatedItems = totalRejectedItems - maxItemsToShow;
 
-				Notify.Info(
-					"The following items were not added to the legend because they already existed on the legend, " +
-					"or they cannot be mapped.\n\n" +
-					string.Join("\n", rejectedItems.Take(maxItemsToShow)) +
-					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty)); // Add a line to say that a further x items (not shown) were not added
+				string message = "The following items were not added to the legend because ";
+				if (rejectedItemsDuplicate.Count > 0 && rejectedItemsInterior.Count > 0)
+				{
+					message += "some were already present, and others were from internal cells.";
+				}
+				else if (rejectedItemsDuplicate.Count > 0)
+				{
+					message += "some were already present.";
+				}
+				else if (rejectedItemsInterior.Count > 0)
+				{
+					message += "some were from internal cells.";
+				}
+
+				if (rejectedItemsInterior.Count > 0)
+				{
+					message += "\nIf there is a specific internal cell you wish to make maps for, you can do so in Cell Mode.\n" +
+						"(Map > Advanced Modes > Cell mode)";
+				}
+
+				// Add a line to say that a further x items (not shown) were not added
+				message += "\n\n" + string.Join("\n", rejectedItemsInterior.Concat(rejectedItemsDuplicate).Take(maxItemsToShow)) + 
+					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty);
+
+				Notify.Info(message); 
 			}
 		}
 
@@ -1322,7 +1354,7 @@ namespace Mappalachia
 
 		void ButtonDrawMap(object sender, EventArgs e)
 		{
-			DrawMapFromUI(false);
+			DrawMap(false);
 		}
 
 		// Double click map for preview
