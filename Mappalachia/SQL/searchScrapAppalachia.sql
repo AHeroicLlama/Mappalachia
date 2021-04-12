@@ -7,5 +7,5 @@ FROM
 	WHERE component = $searchTerm
 	GROUP BY referenceFormID
 )
-GROUP BY cellDisplayName
+GROUP BY cellEditorID
 ORDER BY total_scrap DESC

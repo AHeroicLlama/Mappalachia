@@ -20,5 +20,5 @@ FROM
 	WHERE component = $searchTerm
 	GROUP BY referenceFormID, cellDisplayName
 )
-GROUP BY cellDisplayName
+GROUP BY cellEditorID
 ORDER BY isInterior, total_scrap DESC
