@@ -18,3 +18,7 @@ Under Map > Layer you can toggle on or off any of 3 optional layers for the unde
 At the bottom of the 'Map' menu you can select 'Clear' or 'Reset'.<br/>
 * Clear will simply remove items from the legend and the map. It won't change any Map settings. This is ideal for making a new map.
 * Reset will completely reset all map-related settings, including all of those listed above. It will also remove items from the legend and will reset the pan/zoom of the map.
+
+## Advanced modes
+Advanced modes provide alternative mapping solutions with more niche functionality.<br/>
+Currently the only advanced mode is Cell mode, which is [documented here](Cell_mode.md).

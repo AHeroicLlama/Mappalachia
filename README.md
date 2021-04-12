@@ -23,7 +23,7 @@ A number of User guides exist for Mappalachia in document form;<br/>
 * [**Installation and First run**](User_Guides/Installation_and_first_run.md) covers initial installation and getting Mappalachia running.
 * [**First map**](User_Guides/First_map.md) covers all the basic steps to creating your first Mappalachia map.
 * [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the Intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
-* [**Advanced Mapping**](User_Guides/Advanced_mapping.md) details the powerful heatmap mode, as well as item grouping, volume mapping and icon customisation.
+* [**Advanced Mapping**](User_Guides/Advanced_mapping.md) details the powerful heatmap mode, as well as item grouping, volume mapping and icon customization.
 * [**Map Settings**](User_Guides/Map_settings.md) covers the ways you can adjust the visuals of the map, including layers for Nuclear Winter.
 * [**Updating or Uninstalling**](User_Guides/Updating_or_uninstalling.md) describes how to update or remove Mappalachia.
 
@@ -47,6 +47,7 @@ If you fancy doing some data mining, or want to do your own thing with the raw d
 
 * Contributors to and developers of XEdit and FO76Edit, namely Eckserah.
 * Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
+* Gilpo for providing great ideas and feedback for new Mappalachia features.
 * Everyone who ever gave feedback to the original Mappalachia. Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
 
 #### License

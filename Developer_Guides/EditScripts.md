@@ -8,7 +8,7 @@ If you know what you're doing with FO76Edit, you'll need to drop a FO76Edit inst
 Once complete the folder `\FO76Edit\Output\` should be populated with 6 CSV files, and you can move on to the preprocessor.
 <br/><br/>
 
-## NOT Familiar with FO76Edit?
+## Not familiar with FO76Edit?
 
 The Pascal scripts found in `\FO76Edit\Edit Scripts\` are built specifically to be used with the Fallout 76 Version of XEdit, also known as FO76Edit.<br/>
 
