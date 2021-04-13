@@ -3,10 +3,10 @@ using System.Text;
 
 namespace Mappalachia
 {
-	//Functionality for dealing with Location and NPC Spawns
+	// Functionality for dealing with Location and NPC Spawns
 	class NpcSpawnHelper
 	{
-		//Using the actual locations file, and the pre-summed total odds for each location, calculate each spawn chance into an absolute chance
+		// Using the actual locations file, and the pre-summed total odds for each location, calculate each spawn chance into an absolute chance
 		public static CSVFile ProcessNPCSpawns(CSVFile locationFile, List<Location> spawnChances)
 		{
 			string npcSpawnHeader = "npc,spawnClass,locationFormID,chance";
@@ -16,7 +16,7 @@ namespace Mappalachia
 				string rowNPC = row.GetCellFromColumn("property");
 				string rowFormID = row.GetCellFromColumn("locationFormID");
 
-				//Calculate the 'class' (Main or Sub)
+				// Calculate the 'class' (Main or Sub)
 				string rowClass;
 				if (rowNPC.Contains("Main"))
 				{
@@ -33,7 +33,7 @@ namespace Mappalachia
 
 				rowNPC = TrimNPCName(rowNPC);
 
-				//Get the overall spawning odds for this location
+				// Get the overall spawning odds for this location
 				double locationOverallOdds = 0;
 				foreach (Location spawnChance in spawnChances)
 				{
@@ -43,7 +43,7 @@ namespace Mappalachia
 					}
 				}
 
-				//The NPC spawn chance is its individual chance over the sum spawn chances of the given location
+				// The NPC spawn chance is its individual chance over the sum spawn chances of the given location
 				double rowSpawnChance = double.Parse(row.GetCellFromColumn("value")) / locationOverallOdds;
 
 				rows.Add(new CSVRow(rowNPC + "," + rowClass + "," + rowFormID + "," + rowSpawnChance, npcSpawnHeader));
@@ -52,13 +52,13 @@ namespace Mappalachia
 			return new CSVFile(locationFile.GetESM() + "_NPCSpawn.csv", string.Join(",", npcSpawnHeader), rows);
 		}
 
-		//Sum the different spawn odds for each location
+		// Sum the different spawn odds for each location
 		public static List<Location> SumLocationSpawnChances(CSVFile file)
 		{
 			List<Location> spawnChances = new List<Location>();
 			foreach (CSVRow row in file.rows)
 			{
-				//skip the entries that are not ESSChance AKA monster spawns
+				// skip the entries that are not ESSChance AKA monster spawns
 				if (!row.GetCellFromColumn("property").Contains("ESSChance"))
 				{
 					continue;
@@ -66,11 +66,11 @@ namespace Mappalachia
 
 				string locationFormID = row.GetCellFromColumn("locationFormID");
 
-				//verify if the location already has an entry
+				// verify if the location already has an entry
 				bool newEntry = true;
 				foreach (Location locationSpawnChance in spawnChances)
 				{
-					//Use the existing location as already on record
+					// Use the existing location as already on record
 					if (locationSpawnChance.locationFormID == locationFormID)
 					{
 						locationSpawnChance.AddOdds(row.GetCellFromColumn("value"), row.GetCellFromColumn("property"));
@@ -81,7 +81,7 @@ namespace Mappalachia
 
 				if (newEntry)
 				{
-					//The location is new to us, so create a new entry
+					// The location is new to us, so create a new entry
 					Location locChance = new Location(locationFormID);
 					locChance.AddOdds(row.GetCellFromColumn("value"), row.GetCellFromColumn("property"));
 					spawnChances.Add(locChance);
@@ -91,25 +91,25 @@ namespace Mappalachia
 			return spawnChances;
 		}
 
-		//Reduce an NPC name to one familiar to a user/player
+		// Reduce an NPC name to one familiar to a user/player
 		public static string TrimNPCName(string name)
 		{
-			//Drop the plurals
+			// Drop the plurals
 			if (name.EndsWith("s"))
 			{
 				name = name.Remove(name.Length - 1);
 			}
 
-			//Drop the ESSChance prefix
+			// Drop the ESSChance prefix
 			name = new StringBuilder(name)
 			.Replace("ESSChanceSub", string.Empty)
 			.Replace("ESSChanceMain", string.Empty)
 
-			//Drop the editor labels
+			// Drop the editor labels
 			.Replace("LARGE", string.Empty)
 			.Replace("GIANTONLY", string.Empty)
 
-			//Convert names
+			// Convert names
 			.Replace("Rat", "Rad Rat")
 			.Replace("Toad", "Rad Toad")
 			.Replace("RadAnt", "Rad Ant")
@@ -130,14 +130,14 @@ namespace Mappalachia
 			return name;
 		}
 
-		//For the Worldspace and Interior files, where monsters spawn, we should record the 'class' of monster spawn in a new column
+		// For the Worldspace and Interior files, where monsters spawn, we should record the 'class' of monster spawn in a new column
 		public static CSVFile AddMonsterClassColumn(CSVFile inputFile)
 		{
 			string newFileHeader = inputFile.header + ",spawnClass";
 			inputFile.header = newFileHeader;
 			List<CSVRow> newFileRows = new List<CSVRow>();
 
-			//Add a new column for monster spawn class, or blank if not found
+			// Add a new column for monster spawn class, or blank if not found
 			foreach (CSVRow row in inputFile.rows)
 			{
 				string monsterClass = GetClassFromName(row.GetCellFromColumn("referenceFormID"));
@@ -149,7 +149,7 @@ namespace Mappalachia
 			return new CSVFile(inputFile.fileName, newFileHeader, newFileRows);
 		}
 
-		//Find the monster 'class' given the full name of the entity reference
+		// Find the monster 'class' given the full name of the entity reference
 		public static string GetClassFromName(string fullName)
 		{
 			return fullName.Contains("Main") ? "Main" : (fullName.Contains("Sub") ? "Sub" : string.Empty);

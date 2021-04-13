@@ -19,20 +19,20 @@ namespace Mappalachia
 			return data;
 		}
 
-		//Escape problematic SQL characters
+		// Escape problematic SQL characters
 		public void Sanitize()
 		{
 			if (Validation.headersToEscape.IsMatch(columnName))
 			{
-				//Replace (") with (\") and (') with ('')
+				// Replace (") with (\") and (') with ('')
 				data = data.Replace("\"", "\\\"").Replace("'", "''");
 			}
 		}
 
-		//Reduce long references and names to just the data required in them - typically just the FormID
+		// Reduce long references and names to just the data required in them - typically just the FormID
 		public void ReduceReferences()
 		{
-			//Grab everything before the FormID
+			// Grab everything before the FormID
 			if (columnName == "property")
 			{
 				Match match = Validation.propertyWithoutFormID.Match(data);
@@ -42,7 +42,7 @@ namespace Mappalachia
 				}
 			}
 
-			//Grab whatever is in quotes surrounded by spaces
+			// Grab whatever is in quotes surrounded by spaces
 			else if (columnName.Contains("component"))
 			{
 				Match match = Validation.componentNameOnly.Match(data);
@@ -52,7 +52,7 @@ namespace Mappalachia
 				}
 			}
 
-			//Grab the 8-char FormID only
+			// Grab the 8-char FormID only
 			else
 			{
 				Match match = Validation.formIdOnly.Match(data);
@@ -62,14 +62,14 @@ namespace Mappalachia
 				}
 			}
 
-			//Niche case where worldSpace Xmarkers get their reference filled with the literal Map marker text
+			// Niche case where worldSpace Xmarkers get their reference filled with the literal Map marker text
 			if (columnName == "referenceFormID" && !Validation.matchFormID.IsMatch(data))
 			{
 				data = "FFFFFFFF";
 			}
 		}
 
-		//Reduce large decimals to integers (The precision is unnecessary due to downscaling)
+		// Reduce large decimals to integers (The precision is unnecessary due to downscaling)
 		public void ReduceDecimals()
 		{
 			if (Validation.decimalHeaders.Contains(columnName))
@@ -78,7 +78,7 @@ namespace Mappalachia
 				{
 					try
 					{
-						//Parse the string as a double, round it, cast it to an int, then cast it back to a string.
+						// Parse the string as a double, round it, cast it to an int, then cast it back to a string.
 						data = ((int)Math.Round(double.Parse(data))).ToString();
 					}
 					catch (Exception)
@@ -89,8 +89,8 @@ namespace Mappalachia
 			}
 		}
 
-		//Run basic data integrity checks on expected values in columns
-		//Check for any unexpected values in any cell based on expected values for its column
+		// Run basic data integrity checks on expected values in columns
+		// Check for any unexpected values in any cell based on expected values for its column
 		public void Validate()
 		{
 			switch (columnName)
@@ -99,7 +99,7 @@ namespace Mappalachia
 				case "referenceFormID":
 				case "cellFormID":
 				case "junkFormID":
-					//FormID Cells must only contain the FormID alone
+					// FormID Cells must only contain the FormID alone
 					if (!Validation.matchFormID.IsMatch(data))
 					{
 						ReportValidationError();
@@ -107,7 +107,7 @@ namespace Mappalachia
 					return;
 
 				case "locationFormID":
-					//locationFormID may be empty if not a FormID
+					// locationFormID may be empty if not a FormID
 					if (data != string.Empty && !Validation.matchFormID.IsMatch(data))
 					{
 						ReportValidationError();
@@ -115,7 +115,7 @@ namespace Mappalachia
 					return;
 
 				case "signature":
-					//Signatures are always exactly 4 letters or underscores
+					// Signatures are always exactly 4 letters or underscores
 					if (!Validation.validSignature.IsMatch(data))
 					{
 						ReportValidationError();
@@ -126,7 +126,7 @@ namespace Mappalachia
 				case "cellEditorID":
 				case "displayName":
 				case "cellDisplayName":
-					//editorID and displayName must have had any double quotes escaped by now
+					// editorID and displayName must have had any double quotes escaped by now
 					if (Validation.unescapedDoubleQuote.IsMatch(data))
 					{
 						ReportValidationError();
@@ -134,7 +134,7 @@ namespace Mappalachia
 					return;
 
 				case "componentQuantity":
-					//Component quantity must be an integer
+					// Component quantity must be an integer
 					if (!int.TryParse(data, out _))
 					{
 						ReportValidationError();
@@ -142,7 +142,7 @@ namespace Mappalachia
 					return;
 
 				case "chance":
-					//Coordinate cells must be exactly doubles
+					// Coordinate cells must be exactly doubles
 					if (!double.TryParse(data, out _))
 					{
 						ReportValidationError();
@@ -151,7 +151,8 @@ namespace Mappalachia
 
 				case "x":
 				case "y":
-					//Coordinate cells must be exactly integers
+				case "z":
+					// Coordinate cells must be exactly integers
 					if (!int.TryParse(data, out _))
 					{
 						ReportValidationError();
@@ -160,8 +161,9 @@ namespace Mappalachia
 
 				case "boundX":
 				case "boundY":
+				case "boundZ":
 				case "rotZ":
-					//Boundary dimensions or rotations may be blank or otherwise integers
+					// Boundary dimensions or rotations may be blank or otherwise integers
 					if (data != string.Empty && !int.TryParse(data, out _))
 					{
 						ReportValidationError();
@@ -169,7 +171,7 @@ namespace Mappalachia
 					return;
 
 				case "primitiveShape":
-					//A primitive shape can only be these known types or empty
+					// A primitive shape can only be these known types or empty
 					if (data != string.Empty && !Validation.validPrimitiveShape.IsMatch(data))
 					{
 						ReportValidationError();
@@ -177,7 +179,7 @@ namespace Mappalachia
 					return;
 
 				case "lockLevel":
-					//Lock level must come from a set of strings or be empty
+					// Lock level must come from a set of strings or be empty
 					if (data != string.Empty && !Validation.validLockLevel.IsMatch(data))
 					{
 						ReportValidationError();
@@ -185,7 +187,7 @@ namespace Mappalachia
 					return;
 
 				case "spawnClass":
-					//Class (monster) can only be two exact strings or empty
+					// Class (monster) can only be two exact strings or empty
 					if (data != string.Empty && !Validation.validNpcClass.IsMatch(data))
 					{
 						ReportValidationError();
@@ -194,7 +196,7 @@ namespace Mappalachia
 
 				case "npc":
 				case "component":
-					//Nothing really to validate for here since they're just in-game strings
+					// Nothing really to validate for here since they're just in-game strings
 					return;
 
 				default:
@@ -202,7 +204,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Fail cell validation with an exception
+		// Fail cell validation with an exception
 		void ReportValidationError()
 		{
 			throw new Exception("Data of \"" + data + "\" is not valid or was otherwise unexpected or unsupported. At column \"" + columnName + "\"");

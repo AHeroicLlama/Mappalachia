@@ -2,7 +2,7 @@
 
 namespace Mappalachia.Class
 {
-	//A single square on a heatmap, storing the 'weighting' for each color
+	// A single square on a heatmap, storing the 'weighting' for each color
 	class HeatMapGridSquare
 	{
 		public double[] weights;

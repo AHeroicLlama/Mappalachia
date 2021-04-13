@@ -8,7 +8,7 @@ If you know what you're doing with FO76Edit, you'll need to drop a FO76Edit inst
 Once complete the folder `\FO76Edit\Output\` should be populated with 6 CSV files, and you can move on to the preprocessor.
 <br/><br/>
 
-## NOT Familiar with FO76Edit?
+## Not familiar with FO76Edit?
 
 The Pascal scripts found in `\FO76Edit\Edit Scripts\` are built specifically to be used with the Fallout 76 Version of XEdit, also known as FO76Edit.<br/>
 
@@ -29,7 +29,7 @@ Once in FO76Edit you will be prompted with which ESM to load. Select SeventySix.
 Expand SeventySix.esm in the tree on the left. Right click any element and select 'Apply Script'.<br/>
 Select `_m_RUNALL` as your script to run.<br/>
 This script runs all Mappalachia scripts consecutively and should take about 14 minutes to complete.<br/>
-Once completed you should see the folder `\FO76Edit\Output\` has been populated with 6 CSV files.<br/>
+Once completed you should see the folder `\FO76Edit\Output\` has been populated with 7 CSV files.<br/>
 <br/>
 
 ### Next steps

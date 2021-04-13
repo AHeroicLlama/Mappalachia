@@ -7,33 +7,35 @@ namespace Mappalachia
 {
 	static class Preprocessor
 	{
-		//These paths assume the repo structure. They also assume you've already ran the XEdit scripts.
-		//Change as necessary.
+		// These paths assume the repo structure. They also assume you've already ran the XEdit scripts.
+		// Change as necessary.
 		static readonly string inputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//..//FO76Edit//Output//";
 		static readonly string outputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//Output";
 
 		static async Task Main()
 		{
+			Console.Title = "Mappalachia Preprocessor";
 			try
 			{
-				//Store all preprocessor tasks in a list
-				//Each task represents one CSV file being output
+				// Store all preprocessor tasks in a list
+				// Each task represents one CSV file being output
 				List<Task> parallelTasks = new List<Task>
 				{
 					new Task(() => ProcessSpatialFile("SeventySix_Worldspace.csv")),
 					new Task(() => ProcessSpatialFile("SeventySix_Interior.csv")),
 					new Task(() => ProcessBasicFile("SeventySix_FormID.csv")),
+					new Task(() => ProcessBasicFile("SeventySix_Cell.csv")),
 					new Task(() => GenerateNPCSpawnFile()),
 					new Task(() => GenerateQuantifiedJunkScrapFile()),
 				};
 
-				//Start all tasks
+				// Start all tasks
 				foreach (Task task in parallelTasks)
 				{
 					task.Start();
 				}
 
-				//Wait for all Tasks to finish
+				// Wait for all Tasks to finish
 				await Task.WhenAll(parallelTasks.ToArray());
 
 				Console.WriteLine("Done with all! Press any key");
@@ -46,7 +48,7 @@ namespace Mappalachia
 			}
 		}
 
-		//Apply the standard processing to a given coordinate file (Worldspace or interior)
+		// Apply the standard processing to a given coordinate file (Worldspace or interior)
 		static void ProcessSpatialFile(string fileName)
 		{
 			CSVFile file = GenericOpen(fileName);
@@ -55,7 +57,7 @@ namespace Mappalachia
 			GenericClose(file);
 		}
 
-		//Apply complete cycle of basic processing (open-close)
+		// Apply complete cycle of basic processing (open-close)
 		static void ProcessBasicFile(string fileName)
 		{
 			CSVFile file = GenericOpen(fileName);
@@ -63,7 +65,7 @@ namespace Mappalachia
 			GenericClose(file);
 		}
 
-		//Process the location CSVFile and then use it to generate a new file for NPCSpawns
+		// Process the location CSVFile and then use it to generate a new file for NPCSpawns
 		static void GenerateNPCSpawnFile()
 		{
 			CSVFile locationFile = GenericOpen("SeventySix_Location.csv");
@@ -76,7 +78,7 @@ namespace Mappalachia
 			GenericClose(npcSpawns);
 		}
 
-		//Process the Junk Scrap and Component Quantity CSVFiles and then use them to generate a new file for Quantified Junk Scrap
+		// Process the Junk Scrap and Component Quantity CSVFiles and then use them to generate a new file for Quantified Junk Scrap
 		static void GenerateQuantifiedJunkScrapFile()
 		{
 			CSVFile componentQuantityFile = GenericOpen("SeventySix_Component_Quantity.csv");
@@ -93,13 +95,13 @@ namespace Mappalachia
 			GenericClose(quantifiedJunkScrap);
 		}
 
-		//Shorthand to instantiate a new CSVFile from file name
+		// Shorthand to instantiate a new CSVFile from file name
 		static CSVFile GenericOpen(string fileName)
 		{
 			return new CSVFile(inputPathx64 + fileName);
 		}
 
-		//Apply the standard processing to the CSVFile
+		// Apply the standard processing to the CSVFile
 		static void GenericProcess(CSVFile file)
 		{
 			file.Sanitize();
@@ -107,7 +109,7 @@ namespace Mappalachia
 			file.ReduceDecimals();
 		}
 
-		//Validate the file, write it to disk and free the memory.
+		// Validate the file, write it to disk and free the memory.
 		static void GenericClose(CSVFile file)
 		{
 			file.Validate();

@@ -1,4 +1,4 @@
-//Gets a list of all LCTN and their Actor Value properties (used to identify variable spawns)
+// Gets a list of all LCTN and their Actor Value properties (used to identify variable spawns)
 unit _m_location;
 
 	uses _m_lib;
