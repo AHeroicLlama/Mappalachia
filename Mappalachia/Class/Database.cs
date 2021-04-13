@@ -15,7 +15,7 @@ namespace Mappalachia
 			connection = IOManager.OpenDatabase();
 		}
 
-		// Exceute a query to get all different signatures present
+		// Execute a query to get all different signatures present
 		public static SqliteDataReader ExecuteQuerySignatures()
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -23,7 +23,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to get all different signatures present
+		// Execute a query to get all different signatures present
 		public static SqliteDataReader ExecuteQueryLockLevels()
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -31,7 +31,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to get all different variable NPC Spawns
+		// Execute a query to get all different variable NPC Spawns
 		public static SqliteDataReader ExecuteQueryNPCTypes()
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -39,7 +39,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to get all different Scrap types
+		// Execute a query to get all different Scrap types
 		public static SqliteDataReader ExecuteQueryScrapTypes()
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -47,7 +47,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to get all the cells from Cell table
+		// Execute a query to get all the cells from Cell table
 		public static SqliteDataReader ExecuteQueryCells()
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -74,7 +74,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute the basic search query to search the worldspace and/or interiors
+		// Execute the basic search query to search the worldspace and/or interiors
 		public static SqliteDataReader ExecuteQueryStandardSearch(bool searchInterior, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
@@ -92,7 +92,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to search for variable NPC Spawns
+		// Execute a query to search for variable NPC Spawns
 		public static SqliteDataReader ExecuteQueryNPCSearch(string searchTerm, double minChance, bool searchInterior)
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -105,7 +105,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to search for total scrap per cell/location
+		// Execute a query to search for total scrap per cell/location
 		public static SqliteDataReader ExecuteQueryScrapSearch(string searchTerm, bool searchInterior)
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -166,7 +166,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to return the coordinates of NPC spawns given the NPC name and a minimum spawn chance
+		// Execute a query to return the coordinates of NPC spawns given the NPC name and a minimum spawn chance
 		public static SqliteDataReader ExecuteQueryFindCoordinatesNPC(string npc, double minChance)
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -179,7 +179,7 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Exceute a query to return the coordinates of the given scrap name within Junk items
+		// Execute a query to return the coordinates of the given scrap name within Junk items
 		public static SqliteDataReader ExecuteQueryFindCoordinatesJunkScrap(string scrap)
 		{
 			SqliteCommand query = connection.CreateCommand();

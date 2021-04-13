@@ -4,7 +4,7 @@ using System.Drawing.Drawing2D;
 
 namespace Mappalachia.Class
 {
-	// A customisable Image used to represent a plot on the map
+	// A customizable Image used to represent a plot on the map
 	public class PlotIcon
 	{
 		static Dictionary<int, PlotIcon> plotIconCache = new Dictionary<int, PlotIcon>();

@@ -86,7 +86,7 @@ namespace Mappalachia.Class
 				distributionCount[placementBin]++;
 			}
 
-			// Normalise the count of items to find which percentage of items fall into the segments
+			// Normalize the count of items to find which percentage of items fall into the segments
 			double[] distribution = new double[precision];
 			for (int i = 0; i < distributionCount.Length; i++)
 			{
