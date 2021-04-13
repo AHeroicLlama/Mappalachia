@@ -36,7 +36,6 @@ namespace Mappalachia
 		// Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; // Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
-		public static readonly List<string> supportedVolumeShapes = new List<string> { "Box", "Line", "Plane", "Sphere", "Ellipsoid", };
 
 		// Legend Font
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
@@ -218,7 +217,7 @@ namespace Mappalachia
 						if (SettingsMap.IsCellModeActive())
 						{
 							// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
-							//(Also accounts for the z-height of volumes)
+							// (Also accounts for the z-height of volumes)
 							if (point.z + (point.boundZ / 2d) < SettingsCell.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsCell.GetMaxHeightCoordBound())
 							{
 								continue;
@@ -242,7 +241,6 @@ namespace Mappalachia
 						// If this meets all the criteria to be suitable to be drawn as a volume
 						if (point.primitiveShape != string.Empty && // This is a primitive shape at all
 							SettingsPlot.drawVolumes && // Volume drawing is enabled
-							supportedVolumeShapes.Contains(point.primitiveShape) && // This volume shape is supported
 							point.boundX >= minVolumeDimension && point.boundY >= minVolumeDimension) // This is large enough to be visible if drawn as a volume
 						{
 							Image volumeImage = new Bitmap((int)point.boundX, (int)point.boundY);
@@ -261,7 +259,7 @@ namespace Mappalachia
 									volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
 									break;
 								default:
-									continue; // This *shouldn't* be reached, given that supportedVolumeShapes is maintained
+									continue; // If we reach this, we dropped the drawing of a volume. Verify we've covered all shapes via the database summary.txt
 							}
 
 							volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
@@ -500,7 +498,7 @@ namespace Mappalachia
 			foreach (MapDataPoint point in DataHelper.GetAllCellCoords(SettingsCell.GetCell().formID))
 			{
 				// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
-				//(Also accounts for the z-height of volumes)
+				// (Also accounts for the z-height of volumes)
 				if (point.z < SettingsCell.GetMinHeightCoordBound() || point.z > SettingsCell.GetMaxHeightCoordBound())
 				{
 					continue;
