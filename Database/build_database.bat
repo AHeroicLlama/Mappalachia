@@ -1,5 +1,7 @@
 @echo off
 
+title Mappalachia Database Builder
+
 IF NOT EXIST sqlite3.exe (
 	echo sqlite3.exe was not found. Building the Mappalachia database requires sqlite3.exe to be placed in this folder.
 	echo Please grab the sqlite-tools Windows binary from the official distribution at https://www.sqlite.org/download.html

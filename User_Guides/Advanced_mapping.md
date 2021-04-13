@@ -3,10 +3,17 @@
 ## Legend Group
 Under the 'items to plot' list, you will find the Legend Group column. This column is editable and allows you to enter a number.<br/>
 By changing the number assigned to each item, you are able to group items together and have them plotted against the same icon.<br/>
-For example, let's say by default you have legend groups 0,1,2 and these are represented by Green, Red and Blue icons on the map. If you consider item 1 and 2 to be effectively the same thing, you may want to represent this on the map by plotting them with the same icon. Therefore if you instead edit the legend group to be 0,0,2 - you will see the first two items are plotted with the same icon, but the third item retains its original icon.<br/>
+For example, by default you may have legend groups 0,1,2 and these are represented by Red, Blue and Yellow icons on the map. If you consider item 1 and 2 to be effectively the same thing, you may want to represent this on the map by plotting them with the same icon. Therefore if you instead edit the legend group to be 0,0,2 - you will see the first two items are plotted with the same icon, but the third item retains its original icon.<br/>
+When adding items to the legend list, each item will be assigned a new legend group. However, if you select 'Add as Group', they will be grouped under the same legend group.<br/>
 You can enter any positive integer into this column.<br/>
 The color and shape of the plot icon is defined by the Legend Group, and also the Color Palette and Shape Palette defined in the plot icon settings. (See 'Plot Icon settings' below for more info).<br/>
-When incrementing through legend group values, Mappalachia will first use up every color, and will then move up to the next available shape and begin iterating through the available colors again. When it has used every available color and shape combination, it will repeat from the beginning.
+When plotting unique legend groups, Mappalachia will use every available color and shape combination before repeating icons.
+
+### Overriding and grouping the legend
+By editing the 'Display name' column of the legend list, you are able to override and hence group the legend text for given legend groups. Simply enter your desired legend against the legend group you wish to overwrite.<br/>
+By doing this, not only do items of the same group share the same color and icon - they also fall under just a single entry on the legend. This is designed so that you can make maps of many generic things (EG, all Flora) without flooding the legend with hundreds of entries.<br/>
+You can reset an item back to its default legend by deleting the text in the Display name field.<br/>
+If you adjust a legend group of an already overridden legend to that of another overridden legend, all items will inherit the original overriding name of the new group.
 
 ## Heatmap Mode
 Mappalachia has two plotting modes - these are icon mode (on by default) and heatmap mode. You can toggle these modes by navigating to Plot Settings > Plot Mode.<br/>

@@ -76,12 +76,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Cell.cs" />
+    <Compile Include="Class\SettingsCell.cs" />
     <Compile Include="Class\HeatMapGridSquare.cs" />
     <Compile Include="Class\ImageTools.cs" />
     <Compile Include="Class\MapDataPoint.cs" />
     <Compile Include="Class\Notify.cs" />
     <Compile Include="Class\PlotIcon.cs" />
     <Compile Include="Class\PlotIconShape.cs" />
+    <Compile Include="Class\CellScaling.cs" />
     <Compile Include="Class\SettingsManager.cs" />
     <Compile Include="Class\SettingsPlot.cs" />
     <Compile Include="Class\SettingsSearch.cs" />
@@ -117,9 +120,10 @@
     <Compile Include="Class\Mappalachia.cs" />
     <Compile Include="Class\SettingsMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Class\Queries.cs" />
+    <Compile Include="Class\Database.cs" />
     <EmbeddedResource Include="Form\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormMaster.resx">
       <DependentUpon>FormMaster.cs</DependentUpon>
@@ -167,8 +171,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SQL\searchSimpleAppalachia.sql" />
-    <None Include="SQL\searchSimpleAll.sql" />
     <None Include="SQL\searchScrapAppalachia.sql" />
     <None Include="SQL\searchScrapAll.sql" />
     <None Include="SQL\searchNPCAppalachia.sql" />
@@ -177,16 +179,22 @@
     <None Include="SQL\getScrapTypes.sql" />
     <None Include="SQL\getNPCTypes.sql" />
     <None Include="SQL\getLockLevels.sql" />
-    <None Include="SQL\getCoordsSimple.sql" />
     <None Include="SQL\getCoordsScrap.sql" />
     <None Include="SQL\getCoordsNPC.sql" />
+    <None Include="SQL\getCells.sql" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\searchStandardCell.sql" />
+    <None Include="SQL\searchStandardAppalachia.sql" />
+    <None Include="SQL\searchStandardAll.sql" />
+    <None Include="SQL\getCoordsStandard.sql" />
+    <None Include="SQL\getAllCoordsCell.sql" />
+    <None Include="SQL\getCoordsCell.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">
-      <Version>5.0.3</Version>
+      <Version>5.0.5</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
       <Version>5.0.0</Version>

@@ -4,19 +4,19 @@ using System.Drawing;
 
 namespace Mappalachia.Class
 {
-	//Handles the parsing of settings between file and memory.
+	// Handles the parsing of settings between file and memory.
 	static class SettingsManager
 	{
-		//Keep a record on the prefs file of the preferences file version to assist future compatibility
+		// Keep a record on the prefs file of the preferences file version to assist future compatibility
 		static readonly int prefsIteration = 2;
 
-		//Gather all settings and write them to the preferences file
+		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
 		{
 			List<string> settings = new List<string>();
 			settings.Add("#Mappalachia Preferences file. Modify at your own risk. Edits will be overwritten.");
 
-			//Gather collections into lists for later
+			// Gather collections into lists for later
 			List<string> colors = new List<string>();
 			List<string> shapes = new List<string>();
 
@@ -36,11 +36,11 @@ namespace Mappalachia.Class
 					BoolToIntStr(shape.fill));
 			}
 
-			//Preferences Version
+			// Preferences Version
 			settings.Add("[Versioning]");
 			settings.Add("version=" + prefsIteration);
 
-			//SettingsMap
+			// SettingsMap
 			settings.Add("[Map]");
 			settings.Add("brightness=" + SettingsMap.brightness);
 			settings.Add("layerMilitary=" + BoolToIntStr(SettingsMap.layerMilitary));
@@ -48,18 +48,18 @@ namespace Mappalachia.Class
 			settings.Add("layerNWFlatwoods=" + BoolToIntStr(SettingsMap.layerNWFlatwoods));
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 
-			//SettingsSearch
+			// SettingsSearch
 			settings.Add("[Search]");
 			settings.Add("searchInterior=" + BoolToIntStr(SettingsSearch.searchInterior));
 			settings.Add("showFormID=" + BoolToIntStr(SettingsSearch.showFormID));
 			settings.Add("spawnChance=" + SettingsSearch.spawnChance);
 
-			//SettingsPlot
+			// SettingsPlot
 			settings.Add("[Plot]");
 			settings.Add("mode=" + SettingsPlot.mode);
 			settings.Add("drawVolumes=" + BoolToIntStr(SettingsPlot.drawVolumes));
 
-			//SettingsPlotIcon
+			// SettingsPlotIcon
 			settings.Add("[PlotIcon]");
 			settings.Add("iconSize=" + SettingsPlotIcon.iconSize);
 			settings.Add("lineWidth=" + SettingsPlotIcon.lineWidth);
@@ -68,22 +68,22 @@ namespace Mappalachia.Class
 			settings.Add("paletteColor=" + string.Join(":", colors));
 			settings.Add("paletteShape=" + string.Join(":", shapes));
 
-			//SettingsPlotHeatmap
+			// SettingsPlotHeatmap
 			settings.Add("[PlotHeatmap]");
 			settings.Add("resolution=" + SettingsPlotHeatmap.resolution);
 			settings.Add("colorMode=" + SettingsPlotHeatmap.colorMode);
 
-			//Write the list of strings to the prefs file
+			// Write the list of strings to the prefs file
 			IOManager.WritePreferences(settings);
 		}
 
-		//Load the prefs file and parse them into settings, then apply them to Settings variables
+		// Load the prefs file and parse them into settings, then apply them to Settings variables
 		public static void LoadSettings()
 		{
-			//Read the preferences file
+			// Read the preferences file
 			List<string> settings = IOManager.ReadPreferences();
 
-			//The file was not found (probably a new install) - we can silently skip
+			// The file was not found (probably a new install) - we can silently skip
 			if (settings == null)
 			{
 				return;
@@ -93,16 +93,16 @@ namespace Mappalachia.Class
 			{
 				try
 				{
-					//Skip lines which are commented, section headers, or empty
+					// Skip lines which are commented, section headers, or empty
 					if (line.StartsWith("#") || line.StartsWith("[") || string.IsNullOrEmpty(line))
 					{
 						continue;
 					}
 
-					//Take the values either side of the "=", before any "#"
+					// Take the values either side of the "=", before any "#"
 					string[] kvp = line.Split('#')[0].Split('=');
 
-					//Verify we have precisely two strings for our kvp
+					// Verify we have precisely two strings for our kvp
 					if (kvp.Length != 2)
 					{
 						throw new ArgumentException("Unable to parse a valid Key-Value pair from line.");
@@ -111,7 +111,7 @@ namespace Mappalachia.Class
 					string key = kvp[0].Trim();
 					string value = kvp[1].Trim();
 
-					//Verify we have a key and a value
+					// Verify we have a key and a value
 					if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
 					{
 						throw new ArgumentException("Key and/or Value were blank.");
@@ -120,7 +120,7 @@ namespace Mappalachia.Class
 					switch (key)
 					{
 						case "version":
-							//Nothing to do
+							// Nothing to do
 							break;
 
 						case "brightness":
@@ -129,6 +129,7 @@ namespace Mappalachia.Class
 							{
 								SettingsMap.brightness = brightness;
 							}
+
 							break;
 
 						case "layerMilitary":
@@ -161,6 +162,7 @@ namespace Mappalachia.Class
 							{
 								SettingsSearch.spawnChance = spawnChance;
 							}
+
 							break;
 
 						case "mode":
@@ -176,6 +178,7 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Invalid plot mode.");
 							}
+
 							break;
 
 						case "drawVolumes":
@@ -188,6 +191,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.iconSize = iconSize;
 							}
+
 							break;
 
 						case "lineWidth":
@@ -196,6 +200,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.lineWidth = lineWidth;
 							}
+
 							break;
 
 						case "iconOpacityPercent":
@@ -204,6 +209,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.iconOpacityPercent = iconOpacityPercent;
 							}
+
 							break;
 
 						case "shadowOpacityPercent":
@@ -212,6 +218,7 @@ namespace Mappalachia.Class
 							{
 								SettingsPlotIcon.shadowOpacityPercent = shadowOpacityPercent;
 							}
+
 							break;
 
 						case "paletteColor":
@@ -226,7 +233,7 @@ namespace Mappalachia.Class
 
 							foreach (string color in colors)
 							{
-								//Separate the RGB values
+								// Separate the RGB values
 								string[] rgbValues = color.Split(',');
 
 								if (rgbValues.Length != 3)
@@ -234,7 +241,7 @@ namespace Mappalachia.Class
 									throw new ArgumentException("Malformed color \"" + color + "\".");
 								}
 
-								//Calculate the individual RGB values
+								// Calculate the individual RGB values
 								int red = Convert.ToInt32(rgbValues[0]);
 								int green = Convert.ToInt32(rgbValues[1]);
 								int blue = Convert.ToInt32(rgbValues[2]);
@@ -242,7 +249,7 @@ namespace Mappalachia.Class
 								loadedColorPalette.Add(Color.FromArgb(red, green, blue));
 							}
 
-							//Overwrite the default palette with our loaded palette
+							// Overwrite the default palette with our loaded palette
 							SettingsPlotIcon.paletteColor = new List<Color>(loadedColorPalette);
 							break;
 
@@ -254,7 +261,7 @@ namespace Mappalachia.Class
 								throw new ArgumentException("Too few shapes defined.");
 							}
 
-							//The total variables which define a shape
+							// The total variables which define a shape
 							int totalShapeOptions = 6;
 
 							List<PlotIconShape> loadedShapePalette = new List<PlotIconShape>();
@@ -266,7 +273,7 @@ namespace Mappalachia.Class
 									throw new ArgumentException("Malformed shape \"" + shape + "\".");
 								}
 
-								//First 5 digits represent the shape options. All 0 would be no shape, hence invisible
+								// First 5 digits represent the shape options. All 0 would be no shape, hence invisible
 								if (shape.StartsWith("00000"))
 								{
 									throw new ArgumentException("Shape cannot have false values for every shape type setting.");
@@ -282,7 +289,7 @@ namespace Mappalachia.Class
 								loadedShapePalette.Add(new PlotIconShape(diamond, square, circle, crosshairInner, crosshairOuter, fill));
 							}
 
-							//Overwrite the default palette with our loaded palette
+							// Overwrite the default palette with our loaded palette
 							SettingsPlotIcon.paletteShape = new List<PlotIconShape>(loadedShapePalette);
 							break;
 
@@ -296,6 +303,7 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Resolution " + resolution + " not supported.");
 							}
+
 							break;
 
 						case "colorMode":
@@ -311,14 +319,15 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Invalid color mode.");
 							}
+
 							break;
 
-						//Legacy settings - ignore
+						// Legacy settings - ignore
 						case "filterWarnings":
 							break;
 
 						default:
-							//The key was none of the expected values - must be wrong
+							// The key was none of the expected values - must be wrong
 							throw new ArgumentException("Did not match any known Keys.");
 					}
 				}
@@ -331,13 +340,13 @@ namespace Mappalachia.Class
 			}
 		}
 
-		//Convert a boolean to a string representation of an int
+		// Convert a boolean to a string representation of an int
 		static string BoolToIntStr(bool variable)
 		{
 			return variable ? "1" : "0";
 		}
 
-		//Convert a string representation of an int into a boolean. Throw an exception if not 0 or 1
+		// Convert a string representation of an int into a boolean. Throw an exception if not 0 or 1
 		static bool StrIntToBool(string variable)
 		{
 			if (variable != "0" && variable != "1")
@@ -348,13 +357,13 @@ namespace Mappalachia.Class
 			return variable == "1";
 		}
 
-		//Overload
+		// Overload
 		static bool StrIntToBool(char variable)
 		{
-			return StrIntToBool(Char.ToString(variable));
+			return StrIntToBool(char.ToString(variable));
 		}
 
-		//Return if an int is between two values inclusive. Throw exception if outside
+		// Return if an int is between two values inclusive. Throw exception if outside
 		static bool ValidateWithinRange(int value, int min, int max)
 		{
 			if (value >= min && value <= max)

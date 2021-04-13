@@ -1,4 +1,4 @@
-//Gets a list of all MISC and which items in which quantities(KYWD) they give when scrapped
+// Gets a list of all MISC and which items in which quantities(KYWD) they give when scrapped
 unit _m_junkScrap;
 
 	uses _m_lib;

@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Mappalachia.Class
 {
-	//Generic plot settings
+	// Generic plot settings
 	static class SettingsPlot
 	{
 		public enum Mode
@@ -13,19 +13,23 @@ namespace Mappalachia.Class
 		}
 
 		public static Mode mode = Mode.Icon;
-		public static bool drawVolumes = true; //Draw volumes when in icon mode
-	}
+		public static bool drawVolumes = true; // Draw volumes when in icon mode
 
-	//Plot Icon Settings and their defaults, used in FormPlotIconSettings
-	static class SettingsPlotIcon
-	{
-		//Constructor
-		static SettingsPlotIcon()
+		public static bool IsHeatmap()
 		{
-			Initialise();
+			return mode == Mode.Heatmap;
 		}
 
-		//Defaults
+		public static bool IsIcon()
+		{
+			return mode == Mode.Icon;
+		}
+	}
+
+	// Plot Icon Settings and their defaults, used in FormPlotIconSettings
+	static class SettingsPlotIcon
+	{
+		// Defaults
 		static readonly int iconSizeDefault = 40;
 		static readonly int lineWidthDefault = 3;
 		static readonly int iconOpacityPercentDefault = 100;
@@ -45,7 +49,7 @@ namespace Mappalachia.Class
 			Color.Red, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.DarkGreen,
 		};
 
-		//Colorblind palettes credit: IBM, Bang Wong, and Paul Tol. From https://davidmathlogic.com/colorblind/
+		// Colorblind palettes credit: IBM, Bang Wong, and Paul Tol. From https://davidmathlogic.com/colorblind/
 		public static readonly List<Color> paletteColorBlindIBM = new List<Color>
 		{
 			Color.FromArgb(100, 143, 255),
@@ -55,7 +59,7 @@ namespace Mappalachia.Class
 			Color.FromArgb(255, 176, 0),
 		};
 
-		//Excluded black due to visibilty against dark coloured map
+		// Excluded black due to visibilty against dark coloured map
 		public static readonly List<Color> paletteColorBlindWong = new List<Color>
 		{
 			Color.FromArgb(230, 159, 0),
@@ -79,7 +83,7 @@ namespace Mappalachia.Class
 			Color.FromArgb(136, 34, 85),
 		};
 
-		//Min/Maxes - these control the min/maxes on the form.
+		// Min/Maxes - these control the min/maxes on the form.
 		public static readonly int iconSizeMin = 10;
 		public static readonly int iconSizeMax = 100;
 		public static readonly int lineWidthMin = 1;
@@ -89,16 +93,22 @@ namespace Mappalachia.Class
 		public static readonly int shadowOpacityPercentMin = 0;
 		public static readonly int shadowOpacityPercentMax = 100;
 
-		//Settings variables;
+		// Settings variables;
 		public static int iconSize;
 		public static int lineWidth;
-		public static int iconOpacityPercent ;
+		public static int iconOpacityPercent;
 		public static int shadowOpacityPercent;
 		public static List<Color> paletteColor;
 		public static List<PlotIconShape> paletteShape;
 
-		//Assign settings values their defaults
-		public static void Initialise()
+		// Constructor
+		static SettingsPlotIcon()
+		{
+			Initialize();
+		}
+
+		// Assign settings values their defaults
+		public static void Initialize()
 		{
 			iconSize = iconSizeDefault;
 			lineWidth = lineWidthDefault;
@@ -109,7 +119,7 @@ namespace Mappalachia.Class
 		}
 	}
 
-	//Settings for heatmap generation
+	// Settings for heatmap generation
 	static class SettingsPlotHeatmap
 	{
 		public enum ColorMode
@@ -118,10 +128,20 @@ namespace Mappalachia.Class
 			Duo,
 		}
 
-		//Not user-definable
-		public static readonly int blendDistance = 20;
+		public static bool IsMono()
+		{
+			return colorMode == ColorMode.Mono;
+		}
 
-		//Updating this? Check FormMaster.UpdateHeatMapResolution()
+		public static bool IsDuo()
+		{
+			return colorMode == ColorMode.Duo;
+		}
+
+		// Not user-definable
+		public static readonly int blendDistance = 10;
+
+		// Updating this? Check FormMaster.UpdateHeatMapResolution()
 		public static readonly List<int> validResolutions = new List<int> { 128, 256, 512, 1024 };
 
 		public static int resolution = validResolutions[1];

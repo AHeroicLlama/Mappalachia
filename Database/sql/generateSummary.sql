@@ -15,19 +15,19 @@ SELECT AVG(length) FROM
     SELECT LENGTH(editorID) AS length from SeventySix_FormID
 );
 
-SELECT '==Average X Coord==';
+SELECT '==Worldspace average X Coord==';
 SELECT AVG(x) FROM SeventySix_Worldspace;
 
-SELECT '==Average Y Coord==';
+SELECT '==Worldspace average Y Coord==';
 SELECT AVG(y) FROM SeventySix_Worldspace;
 
-SELECT '==Average X Bounds Width==';
+SELECT '==Worldspace average X Bounds Width==';
 SELECT AVG(boundX) FROM SeventySix_Worldspace;
 
-SELECT '==Average Y Bounds Width==';
+SELECT '==Worldspace average Y Bounds Width==';
 SELECT AVG(boundY) FROM SeventySix_Worldspace;
 
-SELECT '==Average Z Rotation==';
+SELECT '==Worldspace average Z Rotation==';
 SELECT AVG(rotZ) FROM SeventySix_Worldspace;
 
 SELECT '==Worldspace primitive shape types + count==';
@@ -35,6 +35,27 @@ SELECT primitiveShape, COUNT(*) FROM SeventySix_Worldspace GROUP BY primitiveSha
 
 SELECT '==Worldspace total placement count==';
 SELECT COUNT(referenceFormID) FROM SeventySix_Worldspace;
+
+SELECT '==Interior average X Coord==';
+SELECT AVG(x) FROM SeventySix_Interior;
+
+SELECT '==Interior average Y Coord==';
+SELECT AVG(y) FROM SeventySix_Interior;
+
+SELECT '==Interior average Z Coord==';
+SELECT AVG(z) FROM SeventySix_Interior;
+
+SELECT '==Interior average X Bounds Width==';
+SELECT AVG(boundX) FROM SeventySix_Interior;
+
+SELECT '==Interior average Y Bounds Width==';
+SELECT AVG(boundY) FROM SeventySix_Interior;
+
+SELECT '==Interior average Z Bounds Width==';
+SELECT AVG(boundZ) FROM SeventySix_Interior;
+
+SELECT '==Interior average Z Rotation==';
+SELECT AVG(rotZ) FROM SeventySix_Interior;
 
 SELECT '==Interior total placement count==';
 SELECT COUNT(referenceFormID) FROM SeventySix_Interior;
@@ -104,5 +125,7 @@ SELECT npc, class, AVG(chance), COUNT(*) FROM SeventySix_NPCSpawn
 GROUP BY npc, class;
 
 SELECT '==Internal cells list + entity count==';
-SELECT  cellEditorID, cellDisplayName, count(*) FROM SeventySix_Interior
-GROUP BY cellEditorID;
+SELECT cellEditorID, cellDisplayName, count(*) FROM SeventySix_Interior
+INNER JOIN SeventySix_Cell ON SeventySix_Cell.cellFormID = SeventySix_Interior.cellFormID
+GROUP BY SeventySix_Interior.cellFormID
+ORDER BY cellEditorID;
