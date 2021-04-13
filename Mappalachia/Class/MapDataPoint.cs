@@ -19,20 +19,20 @@ namespace Mappalachia
 			Initialize(x, y, weight);
 		}
 
-		//2D Primitive shapes
+		// 2D Primitive shapes
 		public MapDataPoint(int x, int y, double weight, string primitiveShape, int boundX, int boundY, int rotationZ)
 		{
 			Initialize(x, y, weight, primitiveShape, boundX, boundY, rotationZ);
 		}
 
-		//3D (Interior)
+		// 3D (Interior)
 		public MapDataPoint(int x, int y, int z, double weight)
 		{
 			this.z = z;
 			Initialize(x, y, weight);
 		}
 
-		//3D Primitive Shapes (Interior)
+		// 3D Primitive Shapes (Interior)
 		public MapDataPoint(int x, int y, int z, double weight, string primitiveShape, int boundX, int boundY, int boundZ, int rotationZ)
 		{
 			this.z = z;
@@ -50,7 +50,7 @@ namespace Mappalachia
 			this.weight = weight;
 		}
 
-		//2D Primitive shapes
+		// 2D Primitive shapes
 		void Initialize(int x, int y, double weight, string primitiveShape, int boundX, int boundY, int rotationZ)
 		{
 			// overloaded parts

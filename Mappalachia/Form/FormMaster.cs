@@ -192,6 +192,7 @@ namespace Mappalachia
 		// Populate the Cell combo box (only visible in Cell mode) with all cells
 		void PopulateCellList()
 		{
+			// Return if the list is already populated
 			if (comboBoxCell.Items.Count != 0)
 			{
 				return;
@@ -627,7 +628,6 @@ namespace Mappalachia
 				{
 					continue; // Either this isn't overridden, or we already have this one - skip
 				}
-
 				// This must be a new MapItem with overridden text - add it to the Dictionary
 				else if (!string.IsNullOrWhiteSpace(mapItem.overridingLegendText))
 				{
