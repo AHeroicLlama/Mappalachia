@@ -104,11 +104,11 @@ namespace Mappalachia.Class
 		// Constructor
 		static SettingsPlotIcon()
 		{
-			Initialise();
+			Initialize();
 		}
 
 		// Assign settings values their defaults
-		public static void Initialise()
+		public static void Initialize()
 		{
 			iconSize = iconSizeDefault;
 			lineWidth = lineWidthDefault;

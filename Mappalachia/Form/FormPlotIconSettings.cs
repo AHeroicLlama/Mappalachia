@@ -29,7 +29,7 @@ namespace Mappalachia
 			LoadSettingsIntoForm();
 		}
 
-		// Reverse-normalise values to fit form and apply them to the form
+		// Reverse-normalize values to fit form and apply them to the form
 		void LoadSettingsIntoForm()
 		{
 			trackBarIconSize.Value = SettingsPlotIcon.iconSize / 10;
@@ -43,7 +43,7 @@ namespace Mappalachia
 			SelectShapeAtIndex(0);
 		}
 
-		// Normalise and apply the settings from the form to the class properties
+		// Normalize and apply the settings from the form to the class properties
 		void SaveSettingsFromForm()
 		{
 			SettingsPlotIcon.iconSize = trackBarIconSize.Value * 10;
@@ -318,7 +318,7 @@ namespace Mappalachia
 
 		private void ButtonReset_Click(object sender, EventArgs e)
 		{
-			SettingsPlotIcon.Initialise();
+			SettingsPlotIcon.Initialize();
 			LoadSettingsIntoForm();
 			ProperClose();
 		}
