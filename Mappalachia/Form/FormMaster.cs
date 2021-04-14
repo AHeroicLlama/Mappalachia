@@ -20,7 +20,7 @@ namespace Mappalachia
 		public ProgressBar progressBar;
 
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed certain warnings, so as to only show once per run
-		static bool forceDrawBaseLayer; // Force a base layer redraw at the next draw event
+		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
 
 		public FormMaster()
@@ -1325,7 +1325,7 @@ namespace Mappalachia
 				int targetLegendGroup = int.Parse(editedRow.Cells[0].Value.ToString());
 
 				/*Loop over all items of the same legend group (including of the edited row),
-				assinging the overriding text, or reverting to default if blank*/
+				assigning the overriding text, or reverting to default if blank*/
 				foreach (MapItem mapItem in legendItems.FindAll(m => m.legendGroup == targetLegendGroup))
 				{
 					// If the value entered was blank/deleted, reset to default
