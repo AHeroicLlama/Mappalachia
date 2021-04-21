@@ -4,7 +4,7 @@
 * A copy of Fallout 76 installed on your machine
 
 ## Familiar with FO76Edit?
-If you know what you're doing with FO76Edit, you'll need to drop a FO76Edit installation onto the `\FO76Edit\` folder and then run the `_m_RUNALL.pas` script. This will run all Mappalachia export scripts consecutively and should take around 14 minutes.<br/>
+If you know what you're doing with FO76Edit, you'll need to drop a FO76Edit installation onto the `\FO76Edit\` folder and then run the `_m_RUNALL.pas` script. This will run all Mappalachia export scripts consecutively.<br/>
 Once complete the folder `\FO76Edit\Output\` should be populated with 6 CSV files, and you can move on to the preprocessor.
 <br/><br/>
 
