@@ -28,7 +28,7 @@ Once in FO76Edit you will be prompted with which ESM to load. Select SeventySix.
 ### Running the Mappalachia export scripts
 Expand SeventySix.esm in the tree on the left. Right click any element and select 'Apply Script'.<br/>
 Select `_m_RUNALL` as your script to run.<br/>
-This script runs all Mappalachia scripts consecutively and should take about 14 minutes to complete.<br/>
+This script runs all Mappalachia scripts consecutively.<br/>
 Once completed you should see the folder `\FO76Edit\Output\` has been populated with 7 CSV files.<br/>
 <br/>
 
