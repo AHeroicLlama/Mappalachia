@@ -819,7 +819,7 @@ namespace Mappalachia
 		{
 			SaveFileDialog dialog = new SaveFileDialog
 			{
-				Filter = "JPEG|*.jpeg|PNG|*.png",
+				Filter = SettingsMap.IsCellModeActive() ? "PNG|*.png" : "JPEG|*.jpeg",
 				FileName = "Mappalachia Map",
 			};
 
