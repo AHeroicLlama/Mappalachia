@@ -39,37 +39,38 @@ unit _m_lib;
 		else if(signature = 'CMPO') then _m_componentQuantity.ripItem(item)
 	end;
 
-	// Do we need to process this interior cell, given its in-game name?
+	// Do we need to process this interior cell, given its in-game name or editorID?
 	// Something like 1/3 cell data are just leftover test/debug cells or otherwise inaccessible, so skipping them helps performance and data size
-	function shouldProcessCellName(cellName: String): Boolean;
+	function shouldProcessCell(cellName, cellEditorID: String): Boolean;
 	begin
-		if(cellName = '') then result := false
-		else if(cellName = 'Quick Test Cell') then result := false
-
-		else if(pos('Test', cellName) <> 0) then result := false
-		else if(pos('Cell', cellName) <> 0) then result := false
-		else if(pos('76', cellName) <> 0) then result := false
-		else if(pos('Babylon', cellName) <> 0) then result := false
-
-		else result := true;
-	end;
-
-	// Do we need to process this interior cell, given its editorID?
-	function shouldProcessCellID(cellEditorID: String): Boolean;
-	begin
-		// Contains
-		if(pos('Test', cellEditorID) <> 0) then result := false
-		else if(pos('CUT', cellEditorID) <> 0) then result := false
-		else if(pos('Delete', cellEditorID) <> 0) then result := false
-		else if(pos('Debug', cellEditorID) <> 0) then result := false
-		else if(pos('OLD', cellEditorID) <> 0) then result := false
-		else if(pos('Unused', cellEditorID) <> 0) then result := false
-		else if(pos('Proto', cellEditorID) <> 0) then result := false
-		else if(pos('QA', cellEditorID) <> 0) then result := false
-
-		// BEGINS with
-		else if(pos('Warehouse', cellEditorID) = 1) then result := false
-
+		// Skip these cells but don't log that we skipped them, as most debug cells are like this
+		if(cellName = '') or (cellName = 'Quick Test Cell')
+		then begin
+			result := false
+		end
+		// Also skip these cells, but do log that they were skipped, in case of false positives
+		else if
+			(pos('Test', cellName) <> 0) or
+			(pos('Cell', cellName) <> 0) or
+			(pos('76', cellName) <> 0) or
+			(pos('Babylon', cellName) <> 0) or
+			(pos('Debug', cellName) <> 0) or
+			(pos('Test', cellEditorID) <> 0) or
+			(pos('CUT', cellEditorID) <> 0) or
+			(pos('Delete', cellEditorID) <> 0) or
+			(pos('Debug', cellEditorID) <> 0) or
+			(pos('OLD', cellEditorID) <> 0) or
+			(pos('Unused', cellEditorID) <> 0) or
+			(pos('Proto', cellEditorID) <> 0) or
+			(pos('QA', cellEditorID) <> 0) or
+			(pos('Debug', cellEditorID) <> 0) or
+			(pos('Holding', cellEditorID) <> 0) or
+			(pos('Workshop', cellEditorID) <> 0) or
+			(pos('Warehouse', cellEditorID) = 1)
+		then begin
+			AddMessage('Skipped cell ' + cellName + ' (' + cellEditorID + ')');
+			result := false
+		end
 		else result := true;
 	end;
 

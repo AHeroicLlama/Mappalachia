@@ -39,7 +39,7 @@ unit _m_interior;
 						cellFormID := IntToHex(FixedFormId(cell), 8);
 						cellEditorID := sanitize(EditorID(cell));
 						cellDisplayName := sanitize(DisplayName(cell));
-						if not(shouldProcessCellName(cellDisplayName)) or not(shouldProcessCellID(cellEditorID)) then continue; // Skip this CELL if it's some QA/Debug cell
+						if not(shouldProcessCell(cellDisplayName, cellEditorID)) then continue; // Skip this CELL if it's some QA/Debug cell
 
 						// Rip persistent items...
 						cellChild := FindChildGroup(ChildGroup(ElementByIndex(subBlock, l)), 8, ElementByIndex(subBlock, l));

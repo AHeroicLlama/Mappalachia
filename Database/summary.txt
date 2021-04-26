@@ -1,5 +1,5 @@
 ==Database checksum== 
-1f039f9f80589ca4f25ee942db564da5
+3a812d34affafe4d8052b13350c819f3
 ==Total unique items by signature==
 ACTI|1354
 ALCH|84
@@ -55,27 +55,27 @@ Sphere|2349
 ==Worldspace total placement count==
 3069427
 ==Interior average X Coord==
--1098.25243232918
+-1098.23889545282
 ==Interior average Y Coord==
--1130.5424047864
+-1130.54612421072
 ==Interior average Z Coord==
-276.245924038622
+276.247794494825
 ==Interior average X Bounds Width==
-27.6549358259444
+27.6549784263314
 ==Interior average Y Bounds Width==
-22.3770880444628
+22.3771225147149
 ==Interior average Z Bounds Width==
-18.0495169230959
+18.0495447270442
 ==Interior average Z Rotation==
-6.0925671470735
+6.09257653222341
 ==Interior total placement count==
-649172
+649171
 ==Worldspace unique placement count==
 30345
 ==Interior unique placement count==
 19075
 ==Average interior placement count==
-5548.47863247863
+5596.30172413793
 ==Worldspace lock levels + count==
 |3068388
 Advanced (Level 1)|315
@@ -89,7 +89,7 @@ Requires Key|90
 Requires Terminal|9
 Unknown|1
 ==Interior lock levels + count==
-|648419
+|648418
 Advanced (Level 1)|206
 Chained|2
 Expert (Level 2)|160
@@ -104,7 +104,7 @@ Requires Terminal|25
 Main|4110
 Sub|1498
 ==Interior variable spawn entities + count==
-|645413
+|645412
 Main|2230
 Sub|1529
 ==Worldspace total entity-with-locationFormID count==
@@ -230,7 +230,6 @@ CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|2374
 CraterWarRoom01|The Crater War Room|793
 CraterWatchstation01|Crater Watchstation Worksite|494
 CultistCave01|Lucky Hole Mine|5130
-DLC06VaultWorkshop|Vault 88|1
 DaggersDen01|Dagger's Den|1659
 DaggersDen02|Dagger's Throne Room|487
 DuncanDuncanRobotics01|Duncan & Duncan Robotics|1365
