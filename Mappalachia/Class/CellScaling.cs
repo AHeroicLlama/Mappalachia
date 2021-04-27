@@ -29,6 +29,12 @@ namespace Mappalachia.Class
 			double yRange = Math.Abs(cell.yMax) - Math.Abs(cell.yMin);
 			double largestWidth = Math.Max(xRange, yRange);
 
+			// Prevent division by 0 if cell contains a single item
+			if (largestWidth == 0)
+			{
+				largestWidth = 1;
+			}
+
 			double bestZoomRatio = (Map.mapDimension - (zoomPadding * 2)) / largestWidth;
 
 			return new CellScaling(-(xCenter - (Map.mapDimension / 2)), -(yCenter - (Map.mapDimension / 2)), bestZoomRatio);
