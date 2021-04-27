@@ -7,7 +7,7 @@ The project also comes with the necessary scripts and code used to export, prepr
 
 ![GitHub](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
 [![GitHub](https://img.shields.io/github/v/release/aheroicllama/mappalachia)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br/>
-![GitHub](https://img.shields.io/badge/game%20version-1.5.1.26-green)<br/>
+![GitHub](https://img.shields.io/badge/game%20version-1.5.2.32-green)<br/>
 [![GitHub](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)<br/>
 
 ## Installation
