@@ -51,7 +51,7 @@ unit _m_cell;
 		cellEditorID := sanitize(EditorID(cell));
 		cellDisplayName := sanitize(DisplayName(cell));
 
-		if (shouldProcessCellID(cellEditorID) and shouldProcessCellName(cellDisplayName)) then begin // Only rip this CELL if it's not some QA/Debug cell
+		if (shouldProcessCell(cellDisplayName, cellEditorID)) then begin // Only rip this CELL if it's not some QA/Debug cell
 			cellFormID := IntToHex(FixedFormId(cell), 8);
 
 			outputStrings.Add(
