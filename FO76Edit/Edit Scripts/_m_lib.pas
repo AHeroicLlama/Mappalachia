@@ -63,7 +63,6 @@ unit _m_lib;
 			(pos('Unused', cellEditorID) <> 0) or
 			(pos('Proto', cellEditorID) <> 0) or
 			(pos('QA', cellEditorID) <> 0) or
-			(pos('Debug', cellEditorID) <> 0) or
 			(pos('Holding', cellEditorID) <> 0) or
 			(pos('Workshop', cellEditorID) <> 0) or
 			(pos('Warehouse', cellEditorID) = 1)
