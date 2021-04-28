@@ -1106,6 +1106,7 @@ namespace Mappalachia
 			// If there are no filters selected, inform and cancel the search
 			if (WarnWhenAllFiltersBlank())
 			{
+				buttonSearch.Enabled = true;
 				return;
 			}
 
