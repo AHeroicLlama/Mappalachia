@@ -46,6 +46,7 @@ If you fancy doing some data mining, or want to do your own thing with the raw d
 
 ## Thanks
 
+* Every single person who has so generously donated to say thanks for Mappalachia.
 * Contributors to and developers of XEdit and FO76Edit, namely Eckserah.
 * Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
 * Gilpo for providing great ideas and feedback for new Mappalachia features.
@@ -59,5 +60,5 @@ Third-party assets and technologies, including but not limited to game data, ima
 #### Legal/Disclaimer
 
 Mappalachia is provided as a non-commercial, free tool solely for the benefit of players of Fallout 76. Mappalachia and its creator are neither affiliated with - nor endorsed by - ZeniMax Media or any of its subsidiaries including Bethesda Softworks LLC. Game assets including but not limited to images, characters, names and other core game data used for mapping are extracted from a purchased copy of Fallout 76 and are shared here with the game's community in good faith.<br/>
-Any game data shared here is done so with the explicit purpose of making maps for the benefit of the community, and great care has been taken to minimise such data so that it cannot be reconstructed in any meaningful way.<br/>
+Any game data shared here is done so with the explicit purpose of making maps for the benefit of the community, and great care has been taken to minimize such data so that it cannot be reconstructed in any meaningful way.<br/>
 If you have any concerns or queries, please direct them to mappalachia.feedback@gmail.com
