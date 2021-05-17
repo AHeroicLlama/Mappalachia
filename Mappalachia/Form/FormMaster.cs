@@ -846,8 +846,8 @@ namespace Mappalachia
 
 			// Reset pan and zoom
 			pictureBoxMapPreview.Location = new Point(0, 0);
-			pictureBoxMapPreview.Width = splitContainerMain.Panel1.Width;
-			pictureBoxMapPreview.Height = splitContainerMain.Panel1.Height;
+			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
+			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
 
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
