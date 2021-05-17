@@ -189,9 +189,15 @@ namespace Mappalachia
 			}
 
 			// Start progress bar off at 0
-			progressBarMain.Value = 0;
-			float totalMapItems = FormMaster.legendItems.Count;
+			progressBarMain.Value = progressBarMain.Minimum;
 			float progress = 0;
+
+			// Count how many Map Data Points are due to be mapped
+			int totalMapDataPoints = 0;
+			foreach (MapItem mapItem in FormMaster.legendItems)
+			{
+				totalMapDataPoints += mapItem.count;
+			}
 
 			// Nothing else to plot - ensure we update for the background layer but then return
 			if (FormMaster.legendItems.Count == 0)
@@ -272,8 +278,8 @@ namespace Mappalachia
 					}
 
 					// Increment the progress bar per MapItem
-					progress += 1;
-					progressBarMain.Value = (int)((progress / totalMapItems) * progressBarMain.Maximum);
+					progress += mapItem.count;
+					progressBarMain.Value = (int)((progress / totalMapDataPoints) * progressBarMain.Maximum);
 					Application.DoEvents();
 				}
 			}
@@ -335,8 +341,8 @@ namespace Mappalachia
 					}
 
 					// Increment the progress bar per MapItem
-					progress += 1;
-					progressBarMain.Value = (int)((progress / totalMapItems) * progressBarMain.Maximum);
+					progress += mapItem.count;
+					progressBarMain.Value = (int)((progress / totalMapDataPoints) * progressBarMain.Maximum);
 					Application.DoEvents();
 				}
 

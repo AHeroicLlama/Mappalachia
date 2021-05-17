@@ -1097,8 +1097,9 @@ namespace Mappalachia
 		// Search Button - Gather parameters, execute query and populate results
 		void ButtonSearchStandard(object sender, EventArgs e)
 		{
-			// Disable the button to prevent stacking search operations
+			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearch.Enabled = false;
+			progressBarMain.Value = progressBarMain.Minimum;
 
 			// Check for and show warnings
 			WarnWhenLVLINotSelected();
@@ -1110,13 +1111,16 @@ namespace Mappalachia
 				return;
 			}
 
-			// Clear the results from last search
-			searchResults.Clear();
+			// Pre-query - set progress to 1/2
+			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
 			// Execute the search
 			searchResults = SettingsMap.IsCellModeActive() ?
 				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) :
 				DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+
+			// Post-query - set progress to 3/4
+			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
 
 			// Perform UI update
 			UpdateLocationColumnVisibility();
@@ -1128,37 +1132,75 @@ namespace Mappalachia
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
 
+			// Search complete - re-enable UI and set progress bar to full
 			buttonSearch.Enabled = true;
+			progressBarMain.Value = progressBarMain.Maximum;
 		}
 
 		// Scrap search
 		void ButtonSearchScrap(object sender, EventArgs e)
 		{
+			// Disable the button to reduce stacking search operations and reset the progress bar
+			buttonSearchScrap.Enabled = false;
+			progressBarMain.Value = progressBarMain.Minimum;
+
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
-			searchResults.Clear();
+
+			// Pre-query - set progress to 1/2
+			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
+
 			searchResults = DataHelper.SearchScrap(listBoxScrap.SelectedItem.ToString());
+
+			// Post-query - set progress to 3/4
+			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
+
+			// Search complete - re-enable UI and set progress bar to full
+			buttonSearchScrap.Enabled = true;
+			progressBarMain.Value = progressBarMain.Maximum;
 		}
 
 		// NPC Search
 		void ButtonSearchNPC(object sender, EventArgs e)
 		{
+			// Disable the button to reduce stacking search operations and reset the progress bar
+			buttonSearchNPC.Enabled = false;
+			progressBarMain.Value = progressBarMain.Minimum;
+
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateLocationColumnVisibility();
-			searchResults.Clear();
+
+			// Pre-query - set progress to 1/2
+			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
+
 			searchResults = DataHelper.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
 				SettingsSearch.spawnChance);
+
+			// Post-query - set progress to 3/4
+			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
+
+			// Search complete - re-enable UI and set progress bar to full
+			buttonSearchNPC.Enabled = true;
+			progressBarMain.Value = progressBarMain.Maximum;
 		}
 
 		// Add selected valid items from the search results to the legend.
 		private void ButtonAddToLegend(object sender, EventArgs e)
 		{
-			if (gridViewSearchResults.SelectedRows.Count == 0)
+			int totalItems = gridViewSearchResults.SelectedRows.Count;
+
+			// Only use or animate the progress bar for adding to legend if this is a large operation
+			bool useProgressBar = totalItems > 5000;
+			float progress = 0;
+
+			if (totalItems == 0)
 			{
 				Notify.Info("Please select items from the search results first.");
 				return;
@@ -1176,6 +1218,11 @@ namespace Mappalachia
 
 			// Record the contents of the legend before we start adding to it
 			List<MapItem> legendItemsBeforeAdd = new List<MapItem>(legendItems);
+
+			if (useProgressBar)
+			{
+				progressBarMain.Value = progressBarMain.Minimum;
+			}
 
 			foreach (DataGridViewRow row in gridViewSearchResults.SelectedRows.Cast<DataGridViewRow>().Reverse())
 			{
@@ -1198,6 +1245,12 @@ namespace Mappalachia
 						legendGroup;
 
 					legendItems.Add(selectedItem);
+				}
+
+				if (useProgressBar)
+				{
+					progress++;
+					progressBarMain.Value = (int)(progress / totalItems * progressBarMain.Maximum);
 				}
 			}
 
