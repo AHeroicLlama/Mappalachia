@@ -159,7 +159,7 @@ namespace Mappalachia
 			{
 				Cell currentCell = SettingsCell.GetCell();
 
-				// Assign the CellScaling property - also used later in GenerateIconPlotLayer()
+				// Assign the CellScaling property
 				cellScaling = currentCell.GetScaling();
 
 				infoText =
