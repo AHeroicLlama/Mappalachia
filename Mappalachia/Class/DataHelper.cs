@@ -521,7 +521,7 @@ namespace Mappalachia
 						results.Add(new MapItem(
 							Type.NPC,
 							name, // FormID
-							name + " (" + spawnChance + "% and up)", // Editor ID
+							name + " [Min " + spawnChance + "%]", // Editor ID
 							name, // Display Name
 							signature,
 							lockTypes, // The Lock Types filtered for this set of items.

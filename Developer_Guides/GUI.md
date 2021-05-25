@@ -32,8 +32,8 @@ Failing full-scale code documentation, I will list the following key points to b
 * There is an important distinction between `MapItem` and `MapDataPoint`. When the user searches for items, they are a returned a list of all matches, but they are *not* returned a list of all *instances*. This is because the search results and legend lists represent a list of `MapItem`, which itself represents a game object. On the other hand, when this item is plotted on the map, we then need to convert a `MapItem` to a collection of `MapDataPoint`. A `MapDataPoint` represents a *unique* single instance of a game object.
 * It is helpful to understand the three types of search item which Mappalachia distinguishes. These are defined in `MapItem.Type`.
 * The large majority of work done by the program is shared between `FormMaster` and `Map`. As you can imagine, `FormMaster` manages all the main UI controls, but it also holds the current search results and legends items. `Map` On the other hand does all the drawing of the map.
-* Almost all database queries ultimately come from `FormMaster`. These queries go to `Queries` which directly executes the SQL. Often `DataHelper` is used in-between to translate the data into something more user-friendly, or otherwise handle the query.
-* User-customizable settings and some defaults are stored in the three classes prefixed `Settings`. Other non-editable settings lie in their respective classes, such as at the top of `Map`.
+* Almost all database queries ultimately come from `FormMaster`. These queries go to `Database` which directly executes the SQL. Often `DataHelper` is used in-between to translate the data into something more user-friendly, or otherwise handle the query.
+* User-customizable settings and some defaults are stored in four classes prefixed `Settings` (`SettingsManager` loads and saves settings to file). Other non-editable settings lie in their respective classes, such as at the top of `Map`.
 * There are post-build events configured to copy `font\`, `data\`, and `img\` to the build directory. If Mappalachia is complaining it can't find those files, you may just need to Rebuild.
 
 ## Packaging a release.
