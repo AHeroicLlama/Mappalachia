@@ -1144,8 +1144,10 @@ namespace Mappalachia
 			buttonSearchScrap.Enabled = false;
 			progressBarMain.Value = progressBarMain.Minimum;
 
-			UpdateResultsLockTypeColumnVisibility();
+			// Perform UI update
 			UpdateLocationColumnVisibility();
+			UpdateResultsLockTypeColumnVisibility();
+			UpdateAmountColumnToolTip();
 
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
@@ -1170,8 +1172,10 @@ namespace Mappalachia
 			buttonSearchNPC.Enabled = false;
 			progressBarMain.Value = progressBarMain.Minimum;
 
-			UpdateResultsLockTypeColumnVisibility();
+			// Perform UI update
 			UpdateLocationColumnVisibility();
+			UpdateResultsLockTypeColumnVisibility();
+			UpdateAmountColumnToolTip();
 
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
