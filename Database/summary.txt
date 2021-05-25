@@ -1,5 +1,5 @@
 ==Database checksum== 
-8074267a2481a64fd7c60d77f6251875
+db4ce3324874e23b9c87126e5e612f97
 ==Total unique items by signature==
 ACTI|1364
 ALCH|84
@@ -34,11 +34,11 @@ WEAP|73
 ==Average display name string length==
 2.59804199407446
 ==Average editorID string length==
-24.8573747262656
+24.8573489630298
 ==Worldspace average X Coord==
--14930.9173108733
+-14930.9173724513
 ==Worldspace average Y Coord==
-6159.31509061249
+6159.31520041026
 ==Worldspace average X Bounds Width==
 19.7299753460015
 ==Worldspace average Y Bounds Width==
@@ -55,27 +55,27 @@ Sphere|2349
 ==Worldspace total placement count==
 3069279
 ==Interior average X Coord==
--1118.13512720457
+-1118.07724841226
 ==Interior average Y Coord==
--1126.06319977877
+-1126.01323499138
 ==Interior average Z Coord==
-278.945449517606
+278.933560804147
 ==Interior average X Bounds Width==
-27.9802494930253
+27.9750463186292
 ==Interior average Y Bounds Width==
-22.7208366619554
+22.7194396905332
 ==Interior average Z Bounds Width==
-18.1577997296135
+18.1570362836943
 ==Interior average Z Rotation==
-6.11050820377312
+6.11031361475805
 ==Interior total placement count==
-650920
+650926
 ==Worldspace unique placement count==
 30346
 ==Interior unique placement count==
 19284
 ==Average interior placement count==
-5563.4188034188
+5563.47008547009
 ==Worldspace lock levels + count==
 |3068240
 Advanced (Level 1)|315
@@ -89,7 +89,7 @@ Requires Key|90
 Requires Terminal|9
 Unknown|1
 ==Interior lock levels + count==
-|650169
+|650175
 Advanced (Level 1)|206
 Chained|2
 Expert (Level 2)|159
@@ -104,7 +104,7 @@ Requires Terminal|25
 Main|4110
 Sub|1498
 ==Interior variable spawn entities + count==
-|647396
+|647402
 Main|1937
 Sub|1587
 ==Worldspace total entity-with-locationFormID count==
@@ -316,7 +316,7 @@ Vault79Main|Vault 79|18851
 Vault94Dungeon|Vault 94|17487
 Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|4604
 Vault94Entrance|Vault 94 Entrance|1320
-Vault96Dungeon|Vault 96|21273
+Vault96Dungeon|Vault 96|21279
 VaultTecU01|Vault-Tec University|10715
 WVLumberCo01|WV Lumber Co. Office|1548
 WatogaCivicCenter01|Watoga Civic Center|11504
