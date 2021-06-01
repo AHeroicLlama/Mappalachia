@@ -1,20 +1,18 @@
 # Mappalachia
 
 The complete mapping tool for Fallout 76.<br/>
-Mappalachia is a Windows Forms GUI powered by an SQLite backend, used for generating and exporting complex maps of entities within the Fallout 76 world.
+Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 world.
 
-The project also comes with the necessary scripts and code used to export, preprocess and build the database, should you wish to do that yourself.
-
+[![GitHub all releases](https://img.shields.io/github/downloads/AHeroicLlama/Mappalachia/total)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br>
 ![GitHub](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
 [![GitHub](https://img.shields.io/github/v/release/aheroicllama/mappalachia)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br/>
 ![GitHub](https://img.shields.io/badge/game%20version-1.5.3.10-green)<br/>
 [![GitHub](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)<br/>
 
-## Installation
+## Download and Installation
 
-To get started generating maps with Mappalachia, you simply need to [grab the latest release zip](https://github.com/AHeroicLlama/Mappalachia/releases/latest), unzip it to a folder and launch Mappalachia.exe.<br/>
+[__Download Mappalachia here__](https://github.com/AHeroicLlama/Mappalachia/releases/latest) to get started generating maps. Simply unzip it to a folder and then launch Mappalachia.exe.<br/>
 For help installing please refer to the [installation and first launch guide](User_Guides/Installation_and_first_run.md).<br/>
-
 
 ## Getting started - User Guides
 
@@ -28,15 +26,16 @@ A number of User guides exist for Mappalachia in document form;<br/>
 * [**Cell Mode**](User_Guides/Cell_mode.md) explains how to use the advanced Cell mode to plot maps of interiors.
 * [**Updating or Uninstalling**](User_Guides/Updating_or_uninstalling.md) describes how to update or remove Mappalachia.
 
-## Extract your own data or get stuck in to development
+## Info for Developers
 
-Behind the scenes, Mappalachia is developed and produced in 4 key steps.
+Alongside the source code for the GUI itself, this repository also contains the necessary scripts and code used to export, preprocess and build the Mappalachia database.
+
+The database is developed and produced in 3 key steps.
 1. Extract the raw data in CSV using FO76Edit
 2. Refine and preprocess the data
 3. Ingest the data into a database
-4. Development of the actual GUI/Program itself
 
-If you fancy doing some data mining, or want to do your own thing with the raw data, then you may be interested in the following documentation;
+If you fancy doing some data mining or development with Mappalachia then you may be interested in the following documentation;
 
 * [**FO76Edit scripts**](Developer_Guides/EditScripts.md) covers using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
 * [**Preprocessor**](Developer_Guides/Preprocessor.md) covers compiling and using the CLI tool to process and refine the rough data into proper CSVs.
