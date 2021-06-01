@@ -55,6 +55,7 @@ unit _m_lib;
 			(pos('76', cellName) <> 0) or
 			(pos('Babylon', cellName) <> 0) or
 			(pos('Debug', cellName) <> 0) or
+
 			(pos('Test', cellEditorID) <> 0) or
 			(pos('CUT', cellEditorID) <> 0) or
 			(pos('Delete', cellEditorID) <> 0) or
@@ -64,7 +65,9 @@ unit _m_lib;
 			(pos('Proto', cellEditorID) <> 0) or
 			(pos('QA', cellEditorID) <> 0) or
 			(pos('Holding', cellEditorID) <> 0) or
-			(pos('Workshop', cellEditorID) <> 0) or
+
+			(cellEditorID = 'DLC06VaultWorkshop') or
+
 			(pos('Warehouse', cellEditorID) = 1)
 		then begin
 			AddMessage('Skipped cell ' + cellName + ' (' + cellEditorID + ')');
