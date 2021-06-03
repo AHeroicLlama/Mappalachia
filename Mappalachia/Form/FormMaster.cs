@@ -692,7 +692,7 @@ namespace Mappalachia
 			resetMenuItem.Enabled = false;
 			layerMenuItem.Enabled = false;
 			plotSettingsMenuItem.Enabled = false;
-			advancedModeMenuItem.Enabled = false;
+			cellModeMenuItem.Enabled = false;
 
 			if (drawBaseLayer || forceDrawBaseLayer)
 			{
@@ -718,7 +718,7 @@ namespace Mappalachia
 			resetMenuItem.Enabled = true;
 			layerMenuItem.Enabled = true;
 			plotSettingsMenuItem.Enabled = true;
-			advancedModeMenuItem.Enabled = true;
+			cellModeMenuItem.Enabled = true;
 
 			GC.Collect();
 		}
@@ -774,7 +774,7 @@ namespace Mappalachia
 			UpdateMapLayerSettings(true);
 		}
 
-		// Map > Advanced Modes > Cell Mode
+		// Map > Cell Mode
 		private void Map_CellMode(object sender, EventArgs e)
 		{
 			if (!SettingsMap.IsCellModeActive())
