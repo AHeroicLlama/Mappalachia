@@ -166,17 +166,22 @@ namespace Mappalachia.Class
 							break;
 
 						case "mode":
-							if (value == "Icon")
+							switch (value)
 							{
-								SettingsPlot.mode = SettingsPlot.Mode.Icon;
-							}
-							else if (value == "Heatmap")
-							{
-								SettingsPlot.mode = SettingsPlot.Mode.Heatmap;
-							}
-							else
-							{
-								throw new ArgumentException("Invalid plot mode.");
+								case "Icon":
+									SettingsPlot.mode = SettingsPlot.Mode.Icon;
+									break;
+
+								case "Heatmap":
+									SettingsPlot.mode = SettingsPlot.Mode.Heatmap;
+									break;
+
+								case "Topography":
+									SettingsPlot.mode = SettingsPlot.Mode.Topography;
+									break;
+
+								default:
+									throw new ArgumentException("Invalid plot mode.");
 							}
 
 							break;

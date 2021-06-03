@@ -10,6 +10,7 @@ namespace Mappalachia.Class
 		{
 			Icon,
 			Heatmap,
+			Topography,
 		}
 
 		public static Mode mode = Mode.Icon;
@@ -20,10 +21,25 @@ namespace Mappalachia.Class
 			return mode == Mode.Heatmap;
 		}
 
+		public static bool IsIconOrTopography()
+		{
+			return (IsIcon() || IsTopography());
+		}
+
 		public static bool IsIcon()
 		{
 			return mode == Mode.Icon;
 		}
+
+		public static bool IsTopography()
+		{
+			return mode == Mode.Topography;
+		}
+	}
+
+	static class SettingsPlotTopography
+	{
+		public static Color legendTextColor = Color.Orange;
 	}
 
 	// Plot Icon Settings and their defaults, used in FormPlotIconSettings

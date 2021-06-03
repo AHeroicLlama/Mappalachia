@@ -23,6 +23,11 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 
+		// Values outside which the z coordinate will be capped to
+		// Because it's considered these were moved out the way by developers and aren't tangible game world
+		public static readonly int zLimitUpper = 42000;
+		public static readonly int zLimitLower = -1000;
+
 		// Legend text positioning
 		static readonly int legendIconX = 141; // The X Coord of the plot icon that is drawn next to each legend string
 		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
@@ -147,12 +152,13 @@ namespace Mappalachia
 			finalImage = (Image)backgroundLayer.Clone();
 
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
+			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 			CellScaling cellScaling = null;
 
 			// Prepare the game version and watermark to be printed later
-			string infoText = "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			string infoText = (SettingsPlot.IsTopography() ? "Topographic View\n" : string.Empty) + "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
 			// Additional steps for cell mode (Add further text to watermark text, get cell height boundings)
 			if (SettingsMap.IsCellModeActive())
@@ -192,13 +198,6 @@ namespace Mappalachia
 			progressBarMain.Value = progressBarMain.Minimum;
 			float progress = 0;
 
-			// Count how many Map Data Points are due to be mapped
-			int totalMapDataPoints = 0;
-			foreach (MapItem mapItem in FormMaster.legendItems)
-			{
-				totalMapDataPoints += mapItem.count;
-			}
-
 			// Nothing else to plot - ensure we update for the background layer but then return
 			if (FormMaster.legendItems.Count == 0)
 			{
@@ -206,20 +205,90 @@ namespace Mappalachia
 				return;
 			}
 
-			if (SettingsPlot.IsIcon())
+			// Count how many Map Data Points are due to be mapped
+			int totalMapDataPoints = 0;
+			foreach (MapItem mapItem in FormMaster.legendItems)
+			{
+				totalMapDataPoints += mapItem.count;
+			}
+
+			// Loop through every MapDataPoint represented by all the MapItems to find the min/max z coord in the dataset
+			bool first = true;
+			int zMin = 0;
+			int zMax = 0;
+			double zRange = 0;
+			if (SettingsPlot.IsTopography())
+			{
+				foreach (MapItem mapItem in FormMaster.legendItems)
+				{
+					foreach (MapDataPoint point in mapItem.GetPlots())
+					{
+						if (first)
+						{
+							zMin = point.z - (point.boundZ / 2);
+							zMax = point.z + (point.boundZ / 2);
+							first = false;
+							continue;
+						}
+
+						if (point.z - (point.boundZ / 2) < zMin)
+						{
+							zMin = point.z - (point.boundZ / 2);
+						}
+						if (point.z + (point.boundZ / 2) > zMax)
+						{
+							zMax = point.z + (point.boundZ / 2);
+						}
+					}
+				}
+
+				zMin = Math.Max(zLimitLower, zMin);
+				zMax = Math.Min(zLimitUpper, zMax);
+	
+				zRange = Math.Abs(zMax - zMin);
+
+				if (zRange == 0)
+				{
+					zRange = 1;
+				}
+			}
+			
+
+			if (SettingsPlot.IsIconOrTopography())
 			{
 				// Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
+					// Generate a Plot Icon and colours/brushes to be used for all instances of the MapItem
 					PlotIcon plotIcon = mapItem.GetIcon();
-					Image plotIconImg = plotIcon.GetIconImage();
-
+					Image plotIconImg = SettingsPlot.IsIcon() ? plotIcon.GetIconImage() : null;
 					Color volumeColor = Color.FromArgb(volumeOpacity, plotIcon.color);
 					Brush volumeBrush = new SolidBrush(volumeColor);
 
 					// Iterate over every data point and draw it
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
+						// Override colors in Topography mode
+						if (SettingsPlot.IsTopography())
+						{
+							// Clamp the z values to the percieved outlier threshold
+							double z = point.z + (point.boundZ / 2);
+							z = Math.Max(Math.Min(z, zLimitUpper), zLimitLower);
+
+							// Normalize the height of this item between the min/max z of the whole set to 0-255
+							int colorValue = (int)(((z - zMin) / zRange) * 255);
+
+							int redComponent = colorValue;
+							int greenComponent = 255 - colorValue;
+
+							// Override the plot icon color
+							plotIcon.color = Color.FromArgb(200, redComponent, greenComponent, 0);
+
+							// Apply the color to volume plotting too
+							volumeColor = Color.FromArgb(volumeOpacity, plotIcon.color);
+							volumeBrush = new SolidBrush(volumeColor);
+						}
+
 						if (SettingsMap.IsCellModeActive())
 						{
 							// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
@@ -271,9 +340,22 @@ namespace Mappalachia
 							volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
 							imageGraphic.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
 						}
-						else // This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon
+						else // This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon, or topographic plot
 						{
-							imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
+							if (SettingsPlot.IsTopography())
+							{
+								int size = SettingsPlotIcon.iconSize / 2;
+								int width = SettingsPlotIcon.lineWidth * 2;
+
+								// In topography mode we don't need complex plot icons, but we do need uniquely colored ones - so it's *much* faster to draw simple shapes straight onto the map
+								imageGraphic.DrawEllipse(
+									new Pen(plotIcon.color, width),
+									new RectangleF((float)(point.x - (size / 2d)), (float)(point.y - (size / 2d)), size, size));
+							}
+							else if (SettingsPlot.IsIcon())
+							{
+								imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
+							}
 						}
 					}
 
@@ -439,7 +521,7 @@ namespace Mappalachia
 				PlotIcon icon = mapItem.GetIcon();
 				Image plotIconImg = SettingsPlot.IsIcon() ? icon.GetIconImage() : null;
 
-				Color legendColor = mapItem.GetLegendColor();
+				Color legendColor = SettingsPlot.IsTopography() ? SettingsPlotTopography.legendTextColor : mapItem.GetLegendColor();
 				Brush textBrush = new SolidBrush(legendColor);
 
 				int iconHeight = SettingsPlot.IsIcon() ?

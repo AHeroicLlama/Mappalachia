@@ -125,6 +125,7 @@ namespace Mappalachia
 			this.buttonAddToLegend = new System.Windows.Forms.Button();
 			this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
 			this.progressBarMain = new System.Windows.Forms.ProgressBar();
+			this.modeTopographyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
@@ -308,7 +309,8 @@ namespace Mappalachia
 			// 
 			this.plotModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.modeIconMenuItem,
-            this.modeHeatmapMenuItem});
+            this.modeHeatmapMenuItem,
+            this.modeTopographyMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
 			this.plotModeMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
@@ -441,7 +443,7 @@ namespace Mappalachia
 			// aboutMenuItem
 			// 
 			this.aboutMenuItem.Name = "aboutMenuItem";
-			this.aboutMenuItem.Size = new System.Drawing.Size(171, 22);
+			this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.aboutMenuItem.Text = "About...";
 			this.aboutMenuItem.ToolTipText = "Information about Mappalachia.";
 			this.aboutMenuItem.Click += new System.EventHandler(this.Help_About);
@@ -449,7 +451,7 @@ namespace Mappalachia
 			// checkForUpdatesMenuItem
 			// 
 			this.checkForUpdatesMenuItem.Name = "checkForUpdatesMenuItem";
-			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(171, 22);
+			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.checkForUpdatesMenuItem.Text = "Check for Updates";
 			this.checkForUpdatesMenuItem.ToolTipText = "Automatically check if a new version is available.";
 			this.checkForUpdatesMenuItem.Click += new System.EventHandler(this.Help_CheckForUpdates);
@@ -457,7 +459,7 @@ namespace Mappalachia
 			// userGuidesMenuItem
 			// 
 			this.userGuidesMenuItem.Name = "userGuidesMenuItem";
-			this.userGuidesMenuItem.Size = new System.Drawing.Size(171, 22);
+			this.userGuidesMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.userGuidesMenuItem.Text = "User Guides";
 			this.userGuidesMenuItem.ToolTipText = "View the user guide documentation online.";
 			this.userGuidesMenuItem.Click += new System.EventHandler(this.Help_UserGuides);
@@ -1150,6 +1152,14 @@ namespace Mappalachia
 			this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.progressBarMain.TabIndex = 7;
 			// 
+			// modeTopographyMenuItem
+			// 
+			this.modeTopographyMenuItem.Name = "modeTopographyMenuItem";
+			this.modeTopographyMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeTopographyMenuItem.Text = "Topography";
+			this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
+			this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
+			// 
 			// FormMaster
 			// 
 			this.AcceptButton = this.buttonSearch;
@@ -1291,6 +1301,7 @@ namespace Mappalachia
 		private System.Windows.Forms.CheckBox checkBoxCellDrawOutline;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendGroup;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendDisplayName;
+		private System.Windows.Forms.ToolStripMenuItem modeTopographyMenuItem;
 	}
 }
 
