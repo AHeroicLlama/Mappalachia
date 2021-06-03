@@ -97,7 +97,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, chance*100 AS chance FROM SeventySix_Worldspace
+        ///   Looks up a localized string similar to SELECT x, y, z, chance*100 AS chance FROM SeventySix_Worldspace
         ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
         ///WHERE npc = $npc AND chance &gt;= $minChance
         ///.
@@ -109,7 +109,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, componentQuantity FROM SeventySix_Worldspace
+        ///   Looks up a localized string similar to SELECT x, y, z, componentQuantity FROM SeventySix_Worldspace
         ///INNER JOIN SeventySix_Quantified_Scrap ON SeventySix_Worldspace.referenceFormID = SeventySix_Quantified_Scrap.junkFormID
         ///WHERE component = $scrap
         ///.
@@ -121,7 +121,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, primitiveShape, boundX, boundY, rotZ
+        ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
         ///FROM SeventySix_Worldspace
         ///WHERE referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
         ///.
@@ -188,12 +188,12 @@ namespace Mappalachia.Properties {
         ///FROM SeventySix_Worldspace
         ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
         ///WHERE NPC = $searchTerm AND Chance &gt;= $minChance
+        ///GROUP BY cellEditorID
         ///
         ///UNION
         ///
         ///SELECT npc, COUNT(*) AS count, MIN(chance)*100 AS minChance, cellDisplayName, cellEditorID, &apos;1&apos; AS isInterior
-        ///FROM SeventySix_Interior
-        ///INNER JOIN  [rest of string was truncated]&quot;;.
+        ///FROM SeventySi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchNPCAll {
             get {
@@ -206,7 +206,7 @@ namespace Mappalachia.Properties {
         ///FROM SeventySix_Worldspace
         ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
         ///WHERE NPC = $searchTerm AND Chance &gt;= $minChance
-        ///GROUP BY cellDisplayName
+        ///GROUP BY cellEditorID
         ///ORDER BY COUNT DESC
         ///.
         /// </summary>
@@ -247,7 +247,7 @@ namespace Mappalachia.Properties {
         ///	WHERE component = $searchTerm
         ///	GROUP BY referenceFormID
         ///)
-        ///GROUP BY cellDisplayName
+        ///GROUP BY cellEditorID
         ///ORDER BY total_scrap DESC
         ///.
         /// </summary>
