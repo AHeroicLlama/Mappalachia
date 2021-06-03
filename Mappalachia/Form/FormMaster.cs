@@ -284,15 +284,18 @@ namespace Mappalachia
 		// Update the Plot Settings > Mode options based on the actual value in PlotSettings
 		void UpdatePlotMode(bool reDraw)
 		{
+			UncheckAllPlotModes();
+
 			switch (SettingsPlot.mode)
 			{
 				case SettingsPlot.Mode.Icon:
 					modeIconMenuItem.Checked = true;
-					modeHeatmapMenuItem.Checked = false;
 					break;
 				case SettingsPlot.Mode.Heatmap:
-					modeIconMenuItem.Checked = false;
 					modeHeatmapMenuItem.Checked = true;
+					break;
+				case SettingsPlot.Mode.Topography:
+					modeTopographyMenuItem.Checked = true;
 					break;
 			}
 
@@ -300,6 +303,14 @@ namespace Mappalachia
 			{
 				DrawMap(false);
 			}
+		}
+
+		// Remove any check boxes from the plot mode menu choices
+		void UncheckAllPlotModes()
+		{
+			modeIconMenuItem.Checked = false;
+			modeHeatmapMenuItem.Checked = false;
+			modeTopographyMenuItem.Checked = false;
 		}
 
 		// Update the UI with the currently selected heatmap color mode
@@ -878,6 +889,13 @@ namespace Mappalachia
 		private void Plot_Mode_Heatmap(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Heatmap;
+			UpdatePlotMode(true);
+		}
+
+		// Plot Settings > Mode > Topography - Change plot mode to Topography
+		private void Plot_Mode_Topography(object sender, EventArgs e)
+		{
+			SettingsPlot.mode = SettingsPlot.Mode.Topography;
 			UpdatePlotMode(true);
 		}
 
