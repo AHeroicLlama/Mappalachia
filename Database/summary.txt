@@ -1,5 +1,5 @@
 ==Database checksum== 
-db4ce3324874e23b9c87126e5e612f97
+9468bc90990049703ae8e8b6a3929ddc
 ==Total unique items by signature==
 ACTI|1364
 ALCH|84
@@ -39,10 +39,14 @@ WEAP|73
 -14930.9173724513
 ==Worldspace average Y Coord==
 6159.31520041026
+==Worldspace average Z Coord==
+14908.0004756817
 ==Worldspace average X Bounds Width==
 19.7299753460015
 ==Worldspace average Y Bounds Width==
 14.3787804888379
+==Worldspace average Z Bounds Width==
+14.0229526217721
 ==Worldspace average Z Rotation==
 3.39692514105104
 ==Worldspace primitive shape types + count==

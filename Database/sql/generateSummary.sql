@@ -21,11 +21,17 @@ SELECT AVG(x) FROM SeventySix_Worldspace;
 SELECT '==Worldspace average Y Coord==';
 SELECT AVG(y) FROM SeventySix_Worldspace;
 
+SELECT '==Worldspace average Z Coord==';
+SELECT AVG(z) FROM SeventySix_Worldspace;
+
 SELECT '==Worldspace average X Bounds Width==';
 SELECT AVG(boundX) FROM SeventySix_Worldspace;
 
 SELECT '==Worldspace average Y Bounds Width==';
 SELECT AVG(boundY) FROM SeventySix_Worldspace;
+
+SELECT '==Worldspace average Z Bounds Width==';
+SELECT AVG(boundZ) FROM SeventySix_Worldspace;
 
 SELECT '==Worldspace average Z Rotation==';
 SELECT AVG(rotZ) FROM SeventySix_Worldspace;
