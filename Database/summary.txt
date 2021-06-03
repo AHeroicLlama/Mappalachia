@@ -1,5 +1,5 @@
 ==Database checksum== 
-9468bc90990049703ae8e8b6a3929ddc
+b3adb0b3fbf3db38b9a027f0216164ea
 ==Total unique items by signature==
 ACTI|1364
 ALCH|84
@@ -48,7 +48,7 @@ WEAP|73
 ==Worldspace average Z Bounds Width==
 14.0229526217721
 ==Worldspace average Z Rotation==
-3.39692514105104
+3.39692111277341
 ==Worldspace primitive shape types + count==
 |3002835
 Box|62250
@@ -71,7 +71,7 @@ Sphere|2349
 ==Interior average Z Bounds Width==
 18.1570362836943
 ==Interior average Z Rotation==
-6.11031361475805
+6.11028687449944
 ==Interior total placement count==
 650926
 ==Worldspace unique placement count==
