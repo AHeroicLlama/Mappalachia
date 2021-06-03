@@ -162,15 +162,9 @@ namespace Mappalachia
 				case "boundX":
 				case "boundY":
 				case "boundZ":
-					// Boundary dimensions may be blank or otherwise integers
-					if (data != string.Empty && !int.TryParse(data, out _))
-					{
-						ReportValidationError();
-					}
-					return;
 				case "rotZ":
-					// Rotations may be blank or otherwise doubles
-					if (data != string.Empty && !double.TryParse(data, out _))
+					// Boundary dimensions or rotations may be blank or otherwise integers
+					if (data != string.Empty && !int.TryParse(data, out _))
 					{
 						ReportValidationError();
 					}
