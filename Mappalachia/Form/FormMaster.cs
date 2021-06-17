@@ -430,7 +430,7 @@ namespace Mappalachia
 			}
 		}
 
-		// Applies the config necessary for entering a map mode
+		// Applies the config necessary for entering a map mode, including for the first time at startup
 		void EnterMapMode(SettingsMap.Mode incomingMode)
 		{
 			switch (incomingMode)
@@ -459,8 +459,8 @@ namespace Mappalachia
 					break;
 			}
 
+			Map.DrawBaseLayer();
 			UpdateLocationColumnVisibility();
-			Map.Reset();
 		}
 
 		// Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -678,22 +678,6 @@ namespace Mappalachia
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMap(bool drawBaseLayer)
 		{
-			// Disable control of items which can cause another draw event
-			buttonDrawMap.Enabled = false;
-			buttonAddToLegend.Enabled = false;
-			buttonRemoveFromLegend.Enabled = false;
-			numericMinZ.Enabled = false;
-			numericMaxZ.Enabled = false;
-			comboBoxCell.Enabled = false;
-			checkBoxCellDrawOutline.Enabled = false;
-			grayscaleMenuItem.Enabled = false;
-			brightnessMenuItem.Enabled = false;
-			clearMenuItem.Enabled = false;
-			resetMenuItem.Enabled = false;
-			layerMenuItem.Enabled = false;
-			plotSettingsMenuItem.Enabled = false;
-			advancedModeMenuItem.Enabled = false;
-
 			if (drawBaseLayer || forceDrawBaseLayer)
 			{
 				Map.DrawBaseLayer();
@@ -703,22 +687,6 @@ namespace Mappalachia
 			{
 				Map.Draw();
 			}
-
-			// Re-enable disabled controls after
-			buttonDrawMap.Enabled = true;
-			buttonAddToLegend.Enabled = true;
-			buttonRemoveFromLegend.Enabled = true;
-			numericMinZ.Enabled = true;
-			numericMaxZ.Enabled = true;
-			comboBoxCell.Enabled = true;
-			checkBoxCellDrawOutline.Enabled = true;
-			grayscaleMenuItem.Enabled = true;
-			brightnessMenuItem.Enabled = true;
-			clearMenuItem.Enabled = true;
-			resetMenuItem.Enabled = true;
-			layerMenuItem.Enabled = true;
-			plotSettingsMenuItem.Enabled = true;
-			advancedModeMenuItem.Enabled = true;
 
 			GC.Collect();
 		}

@@ -945,6 +945,11 @@ namespace Mappalachia
 			this.numericMaxZ.Size = new System.Drawing.Size(70, 20);
 			this.numericMaxZ.TabIndex = 8;
 			this.toolTipControls.SetToolTip(this.numericMaxZ, "Select the maximum height of objects from the cell which to map.");
+			this.numericMaxZ.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
 			this.numericMaxZ.ValueChanged += new System.EventHandler(this.NumericMaxZ_ValueChanged);
 			this.numericMaxZ.Enter += new System.EventHandler(this.NumericMaxZ_Enter);
 			this.numericMaxZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMaxZ_MouseDown);

@@ -84,17 +84,20 @@ namespace Mappalachia
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
 
-			// Add the Nuclear Winter layers if selected
-			if (SettingsMap.layerNWMorgantown)
+			if (!SettingsMap.IsCellModeActive())
 			{
-				Image morgantownLayer = IOManager.GetImageLayerNWMorgantown();
-				graphic.DrawImage(morgantownLayer, new Point(0, 0));
-			}
+				// Add the Nuclear Winter layers if selected
+				if (SettingsMap.layerNWMorgantown)
+				{
+					Image morgantownLayer = IOManager.GetImageLayerNWMorgantown();
+					graphic.DrawImage(morgantownLayer, new Point(0, 0));
+				}
 
-			if (SettingsMap.layerNWFlatwoods)
-			{
-				Image flatwoodsLayer = IOManager.GetImageLayerNWFlatwoods();
-				graphic.DrawImage(flatwoodsLayer, new Point(0, 0));
+				if (SettingsMap.layerNWFlatwoods)
+				{
+					Image flatwoodsLayer = IOManager.GetImageLayerNWFlatwoods();
+					graphic.DrawImage(flatwoodsLayer, new Point(0, 0));
+				}
 			}
 
 			// Apply brightness adjustment and grayscale if selected
