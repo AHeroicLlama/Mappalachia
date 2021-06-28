@@ -2,7 +2,7 @@
 
 title Mappalachia Release Packager
 
-set releaseBuildFolder=bin\Release
+set releaseBuildFolder=bin\Release\net5.0-windows
 set outputFile=Mappalachia.zip
 set prefsFile=mappalachia_prefs.ini
 
