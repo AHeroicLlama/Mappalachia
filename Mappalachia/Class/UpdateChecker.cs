@@ -93,7 +93,7 @@ namespace Mappalachia.Class
 				"Check manually?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 			if (question == DialogResult.Yes)
 			{
-				Process.Start("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
+				Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia/releases/latest", UseShellExecute = true });
 			}
 		}
 
@@ -105,7 +105,7 @@ namespace Mappalachia.Class
 				"Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 			if (question == DialogResult.Yes)
 			{
-				Process.Start("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
+				Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia/releases/latest", UseShellExecute = true });
 			}
 		}
 	}

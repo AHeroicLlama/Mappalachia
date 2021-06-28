@@ -915,7 +915,7 @@ namespace Mappalachia
 		// Help > User Guides - Open help guides at github master
 		void Help_UserGuides(object sender, EventArgs e)
 		{
-			Process.Start("https://github.com/AHeroicLlama/Mappalachia/tree/master/User_Guides");
+			Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia/tree/master/User_Guides", UseShellExecute = true });
 		}
 
 		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
@@ -927,7 +927,7 @@ namespace Mappalachia
 		// Donate to the Author - Launch donate URL
 		void Donate(object sender, EventArgs e)
 		{
-			Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
+			Process.Start(new ProcessStartInfo { FileName = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url", UseShellExecute = true });
 		}
 
 		// Signature select all

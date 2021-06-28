@@ -150,7 +150,7 @@ namespace Mappalachia
 
 			try
 			{
-				Process.Start(tempImageFilePath);
+				Process.Start(new ProcessStartInfo { FileName = tempImageFilePath, UseShellExecute = true });
 			}
 			catch (Exception e)
 			{
