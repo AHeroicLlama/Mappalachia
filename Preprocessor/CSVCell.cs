@@ -142,7 +142,7 @@ namespace Mappalachia
 					return;
 
 				case "chance":
-					// Coordinate cells must be exactly doubles
+					// Spawn chances must be exactly doubles
 					if (!double.TryParse(data, out _))
 					{
 						ReportValidationError();
