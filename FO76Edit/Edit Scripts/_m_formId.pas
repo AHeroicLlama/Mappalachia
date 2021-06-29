@@ -29,6 +29,9 @@ unit _m_formID;
 			signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
 			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
 
+			// Ignore Worldspace and Cells, as they cannot exist inside themselves
+			if (signature = 'CELL') or (signature = 'WRLD') then continue;
+
 			for j := 0 to ElementCount(signatureGroup) -1 do begin
 				ripItem(elementByIndex(signatureGroup, j), signature);
 			end;
@@ -63,7 +66,7 @@ unit _m_formID;
 			outputStrings.Add(
 				IntToHex(FixedFormId(item), 8) + ',' +
 				sanitize(bestDisplayName) + ',' +
-				sanitize(editorID) + ',' +
+				sanitize(editorId) + ',' +
 				signature
 			);
 		end;
