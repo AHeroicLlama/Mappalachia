@@ -11,7 +11,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 
 ## Download and Installation
 
-[__Download Mappalachia here__](https://github.com/AHeroicLlama/Mappalachia/releases/latest) to get started generating maps. Simply unzip it to a folder and then launch Mappalachia.exe.<br/>
+[__Download Mappalachia.zip here__](https://github.com/AHeroicLlama/Mappalachia/releases/latest) to get started generating maps. Simply unzip it to a folder and then launch Mappalachia.exe.<br/>
 For help installing please refer to the [installation and first launch guide](User_Guides/Installation_and_first_run.md).<br/>
 
 ## Getting started - User Guides
