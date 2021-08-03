@@ -16,7 +16,7 @@ namespace Mappalachia.Class
 			int shapeTotal = SettingsPlotIcon.paletteShape.Count;
 
 			// Reduce the group number to find repeating icons
-			// For example, 3 shapes and 5 colors makes 30 icons. Group 30 is therefore the same as group 0.
+			// For example, 3 shapes and 5 colors makes 15 icons. Group 15 is therefore the same as group 0.
 			group %= colorTotal * shapeTotal;
 
 			// Return this ploticon if it has already been generated.
