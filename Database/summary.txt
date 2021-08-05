@@ -1,124 +1,124 @@
 ==Database checksum== 
-eed89d69e3a470225325cefd975ba9ac
+a175d277f7be5379ec989882d84314e1
 ==Total unique items by signature==
-ACTI|1364
+ACTI|1379
 ALCH|84
 AMMO|12
 ARMO|98
-ASPC|154
+ASPC|156
 BNDS|17
-BOOK|611
+BOOK|635
 CNCY|1
 CONT|547
-DOOR|308
+DOOR|312
 FLOR|135
-FURN|535
+FURN|555
 HAZD|42
 IDLM|22
-KEYM|68
-LIGH|1338
+KEYM|69
+LIGH|1395
 LVLI|586
-MISC|806
-MSTT|802
-NOTE|278
-NPC_|1101
+MISC|807
+MSTT|818
+NOTE|294
+NPC_|1169
 PROJ|2
-SCOL|9915
+SCOL|9927
 SECH|10
-SOUN|306
-STAT|18576
-TACT|73
-TERM|535
+SOUN|315
+STAT|18630
+TACT|75
+TERM|544
 TXST|416
-WEAP|73
+WEAP|75
 ==Average display name string length==
-2.59804199407446
+2.63306668029749
 ==Average editorID string length==
-24.8573489630298
+24.8823318935773
 ==Worldspace average X Coord==
--14930.9173724513
+-14897.7733289345
 ==Worldspace average Y Coord==
-6159.31520041026
+6196.34330800313
 ==Worldspace average Z Coord==
-14908.0004756817
+14914.9028448359
 ==Worldspace average X Bounds Width==
-19.7299753460015
+19.7356935050876
 ==Worldspace average Y Bounds Width==
-14.3787804888379
+14.3869342920445
 ==Worldspace average Z Bounds Width==
-14.0229526217721
+14.0248150877818
 ==Worldspace average Z Rotation==
-3.39692514105104
+3.39775301244646
 ==Worldspace primitive shape types + count==
-|3002835
-Box|62250
+|3004039
+Box|62277
 Ellipsoid|1
 Line|1802
-Plane|42
-Sphere|2349
+Plane|41
+Sphere|2351
 ==Worldspace total placement count==
-3069279
+3070511
 ==Interior average X Coord==
--1118.07724841226
+-1030.93146322994
 ==Interior average Y Coord==
--1126.01323499138
+-1055.67679709176
 ==Interior average Z Coord==
-278.933560804147
+272.23188710164
 ==Interior average X Bounds Width==
-27.9750463186292
+28.0687881943007
 ==Interior average Y Bounds Width==
-22.7194396905332
+22.9052455971178
 ==Interior average Z Bounds Width==
-18.1570362836943
+18.2975827777351
 ==Interior average Z Rotation==
-6.11031361475805
+6.21083106065536
 ==Interior total placement count==
-650926
+676148
 ==Worldspace unique placement count==
-30346
+30392
 ==Interior unique placement count==
-19284
+19713
 ==Average interior placement count==
-5563.47008547009
+5542.19672131148
 ==Worldspace lock levels + count==
-|3068240
+|3069471
 Advanced (Level 1)|315
 Chained|1
 Expert (Level 2)|198
 Inaccessible|23
 Master (Level 3)|85
 Novice (Level 0)|51
-Opens Door|266
+Opens Door|267
 Requires Key|90
 Requires Terminal|9
 Unknown|1
 ==Interior lock levels + count==
-|650175
-Advanced (Level 1)|206
+|675377
+Advanced (Level 1)|209
 Chained|2
-Expert (Level 2)|159
-Inaccessible|19
+Expert (Level 2)|161
+Inaccessible|26
 Master (Level 3)|79
 Novice (Level 0)|46
-Opens Door|141
-Requires Key|74
-Requires Terminal|25
+Opens Door|144
+Requires Key|75
+Requires Terminal|29
 ==Worldspace variable spawn entities + count==
-|3063671
-Main|4110
+|3064906
+Main|4107
 Sub|1498
 ==Interior variable spawn entities + count==
-|647402
-Main|1937
-Sub|1587
+|672527
+Main|1939
+Sub|1682
 ==Worldspace total entity-with-locationFormID count==
-2732
+2739
 ==Interior total entity-with-locationFormID count==
-778
+825
 ==Worldspace unique locationFormID count==
-367
+369
 ==Interior unique locationFormID count==
-59
+60
 ==Junk-by-scrap count==
 Acid|16
 Adhesive|10
@@ -218,20 +218,21 @@ Wolf|Sub|0.176382488479263|31
 Yao Guai|Main|0.215521978021978|25
 Yao Guai|Sub|0.0936336072890694|21
 ==Internal cells list + entity count==
-AMSHQ01|AMS Headquarters|5382
+AMSHQ01|AMS Headquarters|5480
+AMSHQ02|AMS Headquarters Basement Lab|1993
 AVRMedicalCenter01|AVR Medical Center|5938
 AlleghenyAsylum01|Fort Defiance|15013
-ArktosPharmaLab01|Arktos Pharma Biome Lab|17172
+ArktosPharmaLab01|Arktos Pharma Biome Lab|17171
 BelchingBetty01|Belching Betty|5219
-BigBendTunnel01|Big Bend Tunnels|7565
-BlackwaterMine01|Blackwater Mine|6164
-BlueRidgeOffice01|Blue Ridge Office|407
+BigBendTunnel01|Big Bend Tunnels|7551
+BlackwaterMine01|Blackwater Mine|6168
+BlueRidgeOffice01|Blue Ridge Office|762
 BurdetteManorBasement01|Burdette Manor Basement|499
 BurningMine01|The Burning Mine|6132
 Burrows01|The Burrows|20176
 CharlestonCapitolBuilding02|Charleston Capitol Building|7551
 CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|2374
-CraterWarRoom01|The Crater War Room|793
+CraterWarRoom01|The Crater War Room|798
 CraterWatchstation01|Crater Watchstation Worksite|494
 CultistCave01|Lucky Hole Mine|5130
 DaggersDen01|Dagger's Den|1659
@@ -240,11 +241,11 @@ DuncanDuncanRobotics01|Duncan & Duncan Robotics|1365
 DyerChemical01|Dyer Chemical Sewer|3212
 EasternRegionalPen01|Eastern Regional Penitentiary|11439
 EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|4857
-EnclaveResearchFacility01|Enclave Research Facility|18736
-FortAtlas01|Fort Atlas|5104
-FortAtlasDungeon01|Atlas Substructure|12661
+EnclaveResearchFacility01|Enclave Research Facility|18733
+FortAtlas01|Fort Atlas|5183
+FortAtlasDungeon01|Atlas Substructure|12670
 FoundationInt01|Foundation Interior|5369
-FoundationSupplyRoom01|Foundation Supply Room|528
+FoundationSupplyRoom01|Foundation Supply Room|529
 FraternityHouse01|Pi House|1216
 FraternityHouse02|Eta Psi House|925
 FreeStatesBunker01|Abbie's Bunker|1129
@@ -258,6 +259,7 @@ GauleyMine01|Gauley Mine|4177
 GlassedCavern01|Glassed Cavern|9044
 GraftonPawnShop01|Grafton Pawn Shop|1478
 GraftonSteelUnderground01|Grafton Steel Underground|23638
+HarpersFerryDungeon01|Harpers Ferry Tunnel|13065
 HornwrightHQ01|Hornwright Industrial HQ|5954
 HornwrightSafeRoom01|Hornwright Estate Safe Room|1045
 KerwoodMine01|Kerwood Mine|5670
@@ -266,7 +268,7 @@ LousMine01|Carleton Mine|7127
 MTR08LodeBaring01|Abandoned Mine Shaft Elaine|3409
 MTR08LodeBaring02|Abandoned Mine Shaft Kittery|3279
 MamaDolceProcessing01|Mama Dolce's Food Processing|3074
-MonongahMine01|Monongah Mine|6923
+MonongahMine01|Monongah Mine|6922
 MonongahMissileSilo01|Missile Silo Bravo|15690
 MonongahPowerPlant01|Monongah Power Plant|11083
 MorgantownAirportTerminal02|Morgantown Airport Terminal|5253
@@ -290,11 +292,12 @@ RollinsLaborCamp01|Rollins Prison|149
 SamBlackwellBunker02|Sam Blackwell's Bunker|2113
 SamBlackwellsDeathclawCave|Cavern|1927
 SettlerBugOutCave|Secluded Cave|372
+SheltersCave01|Abandoned Mine Shelter|535
 SheltersClaimCenter01|Shelters Claim Center|976
 SheltersVaultAtrium01|Vault Atrium Shelter|2268
 SheltersVaultLivingQuarters01|Vault Quarters Shelter|2644
 SheltersVaultReception01|Vault Lobby Shelter|1544
-SheltersVaultServerRoom01|Server Room Shelter|3951
+SheltersVaultServerRoom01|Server Room Shelter|3966
 SheltersVaultStorageRoom01|Vault Utility Room Shelter|775
 SpruceKnobCampground01|Spruce Knob Boat Rental|595
 SpruceKnobMissileSilo01|Missile Silo Charlie|15680
@@ -306,32 +309,34 @@ TheNukashine01|The Nukashine|1537
 TheRustyPick01|The Rusty Pick|2437
 TheWayward01|The Wayward|1720
 ThunderMtPowerPlant01|Thunder Mountain Power|9415
-TopOfTheWorld01|Mezzanine Level|4648
+TopOfTheWorld01|Mezzanine Level|4651
 UCB01|The Deep|4569
 UCB02|Auxiliary Control Room|77
-UncannyCaverns01|Uncanny Caverns|3919
+UncannyCaverns01|Uncanny Caverns|4224
+UncannyCaverns02|Hidden Crevice|3191
 VTecAgCenter01|Vault-Tec Ag Research Center|3134
 ValleyGalleria01|Valley Galleria|8633
 VanLoweTaxidermy01|Van Lowe Taxidermy|1966
-Vault63Entrance|Vault 63 Entrance|351
+Vault63Entrance|Vault 63 Entrance|350
 Vault79Entrance|Vault 79|1546
 Vault79GoldVaultOperations|Gold Vault Operations|4698
 Vault79Main|Vault 79|18851
-Vault94Dungeon|Vault 94|17487
+Vault94Dungeon|Vault 94|17485
 Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|4604
 Vault94Entrance|Vault 94 Entrance|1320
-Vault96Dungeon|Vault 96|21279
+Vault96Dungeon|Vault 96|21766
 VaultTecU01|Vault-Tec University|10715
 WVLumberCo01|WV Lumber Co. Office|1548
 WatogaCivicCenter01|Watoga Civic Center|11504
-WatogaCivicCenterDungeon|Watoga Raider Arena|8929
+WatogaCivicCenterDungeon|Watoga Raider Arena|8933
 WatogaEmergencyServices01|Watoga Emergency Services|1906
-WatogaHighSchool01|Watoga High School|10088
+WatogaHighSchool01|Watoga High School|10089
 WatogaMunicipalCenter01|Watoga Municipal Center|2692
 WatogaMunicipalCenter02|Watoga Municipal Center|812
 WatogaTowers01|Watoga Towers|584
-WatogaUnderground01|Watoga Underground|20163
+WatogaUnderground01|Watoga Underground|20162
 WendigoCave01|Wendigo Cave|6742
-WestTek01|West Tek Research Center|12240
+WestTek01|West Tek Research Center|12206
+WestTek02|FEV Production Facility|5129
 WhitespringBunker01|Whitespring Bunker|16334
 WhitespringResort01|Whitespring Resort|16386
