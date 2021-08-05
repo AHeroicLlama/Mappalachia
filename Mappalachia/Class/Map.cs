@@ -264,7 +264,7 @@ namespace Mappalachia
 				{
 					// Generate a Plot Icon and colours/brushes to be used for all instances of the MapItem
 					PlotIcon plotIcon = mapItem.GetIcon();
-					Image plotIconImg = SettingsPlot.IsIcon() ? plotIcon.GetIconImage() : null;
+					Image plotIconImg = SettingsPlot.IsIcon() ? plotIcon.GetIconImage() : null; // Icon mode has icon per MapItem, Topography needs icons per MapDataPoint and will be generated later
 					Color volumeColor = Color.FromArgb(volumeOpacity, plotIcon.color);
 					Brush volumeBrush = new SolidBrush(volumeColor);
 
@@ -286,6 +286,7 @@ namespace Mappalachia
 
 							// Override the plot icon color
 							plotIcon.color = Color.FromArgb(200, redComponent, greenComponent, 0);
+							plotIconImg = plotIcon.GetIconImage(); // Generate a new icon with a unique color for this height color
 
 							// Apply the color to volume plotting too
 							volumeColor = Color.FromArgb(volumeOpacity, plotIcon.color);
@@ -345,20 +346,7 @@ namespace Mappalachia
 						}
 						else // This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon, or topographic plot
 						{
-							if (SettingsPlot.IsTopography())
-							{
-								int size = SettingsPlotIcon.iconSize / 2;
-								int width = SettingsPlotIcon.lineWidth * 2;
-
-								// In topography mode we don't need complex plot icons, but we do need uniquely colored ones - so it's *much* faster to draw simple shapes straight onto the map
-								imageGraphic.DrawEllipse(
-									new Pen(plotIcon.color, width),
-									new RectangleF((float)(point.x - (size / 2d)), (float)(point.y - (size / 2d)), size, size));
-							}
-							else if (SettingsPlot.IsIcon())
-							{
-								imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
-							}
+							imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 						}
 					}
 
@@ -496,7 +484,7 @@ namespace Mappalachia
 
 				legendTotalHeight += Math.Max(
 					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height),
-					SettingsPlot.IsIcon() ? SettingsPlotIcon.iconSize : 0);
+					SettingsPlot.IsIconOrTopography() ? SettingsPlotIcon.iconSize : 0);
 
 				drawnGroups.Add(mapItem.legendGroup);
 			}
@@ -522,12 +510,12 @@ namespace Mappalachia
 				int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height);
 
 				PlotIcon icon = mapItem.GetIcon();
-				Image plotIconImg = SettingsPlot.IsIcon() ? icon.GetIconImage() : null;
+				Image plotIconImg = SettingsPlot.IsIconOrTopography() ? icon.GetIconImage() : null;
 
-				Color legendColor = SettingsPlot.IsTopography() ? SettingsPlotTopography.legendTextColor : mapItem.GetLegendColor();
+				Color legendColor = SettingsPlot.IsTopography() ? SettingsPlotTopography.legendColor : mapItem.GetLegendColor();
 				Brush textBrush = new SolidBrush(legendColor);
 
-				int iconHeight = SettingsPlot.IsIcon() ?
+				int iconHeight = SettingsPlot.IsIconOrTopography() ?
 					plotIconImg.Height :
 					0;
 
@@ -543,7 +531,7 @@ namespace Mappalachia
 				// If the legend text/item fits on the map vertically
 				if (legendCaretHeight > 0 && legendCaretHeight + legendHeight < mapDimension)
 				{
-					if (SettingsPlot.IsIcon())
+					if (SettingsPlot.IsIconOrTopography())
 					{
 						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
 					}

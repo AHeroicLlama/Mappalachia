@@ -119,7 +119,7 @@ namespace Mappalachia
 			}
 			else if (SettingsPlot.IsTopography())
 			{
-				return SettingsPlotTopography.legendTextColor;
+				return SettingsPlotTopography.legendColor;
 			}
 			else if (SettingsPlot.IsHeatmap())
 			{

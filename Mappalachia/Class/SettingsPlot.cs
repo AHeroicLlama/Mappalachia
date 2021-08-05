@@ -39,7 +39,7 @@ namespace Mappalachia.Class
 
 	static class SettingsPlotTopography
 	{
-		public static Color legendTextColor = Color.Orange;
+		public static Color legendColor = Color.Orange;
 	}
 
 	// Plot Icon Settings and their defaults, used in FormPlotIconSettings
