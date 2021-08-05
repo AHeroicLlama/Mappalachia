@@ -850,6 +850,7 @@ namespace Mappalachia
 		private void Plot_Mode_Icon(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Icon;
+			PlotIcon.ResetCache(); // Reset the cache, in case the colors were adjusted for topography mode
 			UpdatePlotMode(true);
 		}
 
