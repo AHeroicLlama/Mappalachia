@@ -282,10 +282,10 @@ namespace Mappalachia
 							int colorValue = (int)(((z - zMin) / zRange) * 255);
 
 							int redComponent = colorValue;
-							int greenComponent = 255 - colorValue;
+							int blueComponent = 255 - colorValue;
 
 							// Override the plot icon color
-							plotIcon.color = Color.FromArgb(200, redComponent, greenComponent, 0);
+							plotIcon.color = Color.FromArgb(redComponent, 0, blueComponent);
 							plotIconImg = plotIcon.GetIconImage(); // Generate a new icon with a unique color for this height color
 
 							// Apply the color to volume plotting too
