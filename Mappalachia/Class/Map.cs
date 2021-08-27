@@ -89,22 +89,6 @@ namespace Mappalachia
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
 
-			if (!SettingsMap.IsCellModeActive())
-			{
-				// Add the Nuclear Winter layers if selected
-				if (SettingsMap.layerNWMorgantown)
-				{
-					Image morgantownLayer = IOManager.GetImageLayerNWMorgantown();
-					graphic.DrawImage(morgantownLayer, new Point(0, 0));
-				}
-
-				if (SettingsMap.layerNWFlatwoods)
-				{
-					Image flatwoodsLayer = IOManager.GetImageLayerNWFlatwoods();
-					graphic.DrawImage(flatwoodsLayer, new Point(0, 0));
-				}
-			}
-
 			// Apply brightness adjustment and grayscale if selected
 			float b = SettingsMap.brightness / 100f;
 			ColorMatrix matrix;
@@ -613,8 +597,6 @@ namespace Mappalachia
 		{
 			SettingsMap.brightness = SettingsMap.brightnessDefault;
 			SettingsMap.layerMilitary = false;
-			SettingsMap.layerNWFlatwoods = false;
-			SettingsMap.layerNWMorgantown = false;
 			SettingsMap.grayScale = false;
 
 			DrawBaseLayer();
