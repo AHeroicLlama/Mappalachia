@@ -25,8 +25,6 @@
 		// User-definable settings
 		public static int brightness = brightnessDefault;
 		public static bool layerMilitary = false;
-		public static bool layerNWMorgantown = false;
-		public static bool layerNWFlatwoods = false;
 		public static bool grayScale = false;
 	}
 }

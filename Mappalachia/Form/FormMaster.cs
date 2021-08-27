@@ -219,7 +219,6 @@ namespace Mappalachia
 				"Overseer's Cache",
 				"Vein",
 				"Instrument",
-				"Babylon",
 				"Recipe: Delbert's",
 				"Protest Sign",
 				"Trunk Boss",
@@ -368,9 +367,7 @@ namespace Mappalachia
 		// Update check marks in the UI with current MapSettings, and redraw the map if true
 		void UpdateMapLayerSettings(bool reDraw)
 		{
-			layerMilitaryMenuItem.Checked = SettingsMap.layerMilitary;
-			layerNWFlatwoodsMenuItem.Checked = SettingsMap.layerNWFlatwoods;
-			layerNWMorgantownMenuItem.Checked = SettingsMap.layerNWMorgantown;
+			militaryStyleMenuItem.Checked = SettingsMap.layerMilitary;
 
 			if (reDraw)
 			{
@@ -431,7 +428,7 @@ namespace Mappalachia
 				case SettingsMap.Mode.Cell:
 					cellModeMenuItem.Checked = false;
 					interiorSearchMenuItem.Enabled = true;
-					layerMenuItem.Enabled = true;
+					militaryStyleMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
 					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
@@ -452,7 +449,7 @@ namespace Mappalachia
 					SettingsMap.mode = incomingMode;
 					cellModeMenuItem.Checked = true;
 					interiorSearchMenuItem.Enabled = false;
-					layerMenuItem.Enabled = false;
+					militaryStyleMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
 					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
@@ -734,26 +731,13 @@ namespace Mappalachia
 			PreviewMap();
 		}
 
-		// Map > Layer > Military - Toggle the map background to be military
-		void Map_Layer_Military(object sender, EventArgs e)
+		// Map > Military Style - Toggle the map background to be military
+		void Map_MilitaryStyle(object sender, EventArgs e)
 		{
 			SettingsMap.layerMilitary = !SettingsMap.layerMilitary;
 			UpdateMapLayerSettings(true);
 		}
 
-		// Map > Layer > NW Flatwoods - Toggle the NW Flatwoods layer
-		void Map_Layer_NWFlatwoods(object sender, EventArgs e)
-		{
-			SettingsMap.layerNWFlatwoods = !SettingsMap.layerNWFlatwoods;
-			UpdateMapLayerSettings(true);
-		}
-
-		// Map > Layer > NW MorganTown - Toggle the NW Morgantown later
-		void Map_Layer_NWMorgantown(object sender, EventArgs e)
-		{
-			SettingsMap.layerNWMorgantown = !SettingsMap.layerNWMorgantown;
-			UpdateMapLayerSettings(true);
-		}
 
 		// Map > Cell Mode
 		private void Map_CellMode(object sender, EventArgs e)
