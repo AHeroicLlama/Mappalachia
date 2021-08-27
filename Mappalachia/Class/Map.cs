@@ -88,33 +88,26 @@ namespace Mappalachia
 			}
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
-
-			// Apply brightness adjustment and grayscale if selected
 			float b = SettingsMap.brightness / 100f;
-			ColorMatrix matrix;
 
-			if (SettingsMap.grayScale)
-			{
-				matrix = new ColorMatrix(new float[][]
-				{
-					new float[] { 0.299f * b, 0.299f * b, 0.299f * b, 0, 0 },
-					new float[] { 0.587f * b, 0.587f * b, 0.587f * b, 0, 0 },
-					new float[] { 0.114f * b, 0.114f * b, 0.114f * b, 0, 0 },
-					new float[] { 0, 0, 0, 1, 0 },
-					new float[] { 0, 0, 0, 0, 1 },
-				});
-			}
-			else
-			{
-				matrix = new ColorMatrix(new float[][]
-				{
-					new float[] { b, 0, 0, 0, 0 },
-					new float[] { 0, b, 0, 0, 0 },
-					new float[] { 0, 0, b, 0, 0 },
-					new float[] { 0, 0, 0, 1, 0 },
-					new float[] { 0, 0, 0, 0, 1 },
-				});
-			}
+			// Apply grayscale color matrix, or just apply brightness adjustments
+			ColorMatrix matrix = SettingsMap.grayScale ?
+				new ColorMatrix(new float[][]
+					{
+						new float[] { 0.299f * b, 0.299f * b, 0.299f * b, 0, 0 },
+						new float[] { 0.587f * b, 0.587f * b, 0.587f * b, 0, 0 },
+						new float[] { 0.114f * b, 0.114f * b, 0.114f * b, 0, 0 },
+						new float[] { 0, 0, 0, 1, 0 },
+						new float[] { 0, 0, 0, 0, 1 },
+					}) :
+				new ColorMatrix(new float[][]
+					{
+						new float[] { b, 0, 0, 0, 0 },
+						new float[] { 0, b, 0, 0, 0 },
+						new float[] { 0, 0, b, 0, 0 },
+						new float[] { 0, 0, 0, 1, 0 },
+						new float[] { 0, 0, 0, 0, 1 },
+					});
 
 			ImageAttributes attributes = new ImageAttributes();
 			attributes.SetColorMatrix(matrix);
