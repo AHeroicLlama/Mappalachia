@@ -31,7 +31,7 @@ namespace Mappalachia
 				newFileRows.Add(new CSVRow(newRow, newFileHeader));
 			}
 
-			return new CSVFile(junkFile.GetESM() + "_Quantified_Scrap.csv", "component,componentQuantity,junkFormID", newFileRows);
+			return new CSVFile("SeventySix_Quantified_Scrap.csv", "component,componentQuantity,junkFormID", newFileRows);
 		}
 	}
 }
