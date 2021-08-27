@@ -44,8 +44,6 @@ namespace Mappalachia.Class
 			settings.Add("[Map]");
 			settings.Add("brightness=" + SettingsMap.brightness);
 			settings.Add("layerMilitary=" + BoolToIntStr(SettingsMap.layerMilitary));
-			settings.Add("layerNWMorgantown=" + BoolToIntStr(SettingsMap.layerNWMorgantown));
-			settings.Add("layerNWFlatwoods=" + BoolToIntStr(SettingsMap.layerNWFlatwoods));
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 
 			// SettingsSearch
@@ -134,14 +132,6 @@ namespace Mappalachia.Class
 
 						case "layerMilitary":
 							SettingsMap.layerMilitary = StrIntToBool(value);
-							break;
-
-						case "layerNWMorgantown":
-							SettingsMap.layerNWMorgantown = StrIntToBool(value);
-							break;
-
-						case "layerNWFlatwoods":
-							SettingsMap.layerNWFlatwoods = StrIntToBool(value);
 							break;
 
 						case "grayScale":
@@ -324,6 +314,12 @@ namespace Mappalachia.Class
 
 						// Legacy settings - ignore
 						case "filterWarnings":
+							break;
+
+						case "layerNWMorgantown":
+							break;
+
+						case "layerNWFlatwoods":
 							break;
 
 						default:
