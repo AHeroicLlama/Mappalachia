@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 2;
+		static readonly int prefsIteration = 3;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -70,6 +70,10 @@ namespace Mappalachia.Class
 			settings.Add("[PlotHeatmap]");
 			settings.Add("resolution=" + SettingsPlotHeatmap.resolution);
 			settings.Add("colorMode=" + SettingsPlotHeatmap.colorMode);
+
+			// SettingsPlotTopograph
+			settings.Add("[PlotTopograph]");
+			settings.Add("colorBands=" + SettingsPlotTopography.colorBands);
 
 			// Write the list of strings to the prefs file
 			IOManager.WritePreferences(settings);
@@ -313,6 +317,15 @@ namespace Mappalachia.Class
 							else
 							{
 								throw new ArgumentException("Invalid color mode.");
+							}
+
+							break;
+
+						case "colorBands":
+							int colorBands = Convert.ToInt32(value);
+							if (ValidateWithinRange(colorBands, 2, 5))
+							{
+								SettingsPlotTopography.colorBands = colorBands;
 							}
 
 							break;

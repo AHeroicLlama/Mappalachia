@@ -63,6 +63,7 @@ namespace Mappalachia
 			UpdatePlotMode(false);
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
+			UpdateTopographColorBands(false);
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateSearchInterior();
@@ -364,6 +365,38 @@ namespace Mappalachia
 			}
 		}
 
+		// Update the UI checkboxes with the currently selected Topographic color amount
+		void UpdateTopographColorBands(bool reDraw)
+		{
+			UncheckAllColorBands();
+
+			switch (SettingsPlotTopography.colorBands)
+			{
+				case 2:
+					colorBand2MenuItem.Checked = true;
+					break;
+				case 3:
+					colorBand3MenuItem.Checked = true;
+					break;
+				case 4:
+					colorBand4MenuItem.Checked = true;
+					break;
+				case 5:
+					colorBand5MenuItem.Checked = true;
+					break;
+				default:
+					SettingsPlotTopography.colorBands = 3;
+					Notify.Error("Unsupported number of Topograph color bands. Defaulting to " + SettingsPlotTopography.colorBands);
+					UpdateTopographColorBands(reDraw);
+					break;
+			}
+
+			if (reDraw && SettingsPlot.IsTopography())
+			{
+				DrawMap(false);
+			}
+		}
+
 		// Update check marks in the UI with current MapSettings, and redraw the map if true
 		void UpdateMapLayerSettings(bool reDraw)
 		{
@@ -480,6 +513,15 @@ namespace Mappalachia
 			resolution256MenuItem.Checked = false;
 			resolution512MenuItem.Checked = false;
 			resolution1024MenuItem.Checked = false;
+		}
+
+		// Unselect all topographic color band amount options
+		void UncheckAllColorBands()
+		{
+			colorBand2MenuItem.Checked = false;
+			colorBand3MenuItem.Checked = false;
+			colorBand4MenuItem.Checked = false;
+			colorBand5MenuItem.Checked = false;
 		}
 
 		// Collect the enabled signatures from the UI to a list for use by a query
@@ -860,46 +902,74 @@ namespace Mappalachia
 			formPlotSettings.ShowDialog();
 		}
 
-		// Plot Setting > Heatmap Settings > Color Mode > Mono - Change color mode to mono
+		// Plot Settings > Heatmap Settings > Color Mode > Mono - Change color mode to mono
 		private void Plot_HeatMap_ColorMode_Mono(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Mono;
 			UpdateHeatMapColorMode(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Color Mode > Duo - Change color mode to duo
+		// Plot Settings > Heatmap Settings > Color Mode > Duo - Change color mode to duo
 		private void Plot_HeatMap_ColorMode_Duo(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Duo;
 			UpdateHeatMapColorMode(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 128 - Change resolution to 128
+		// Plot Settings > Heatmap Settings > Resolution > 128 - Change resolution to 128
 		private void Plot_HeatMap_Resolution_128(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 128;
 			UpdateHeatMapResolution(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 256 - Change resolution to 256
+		// Plot Settings > Heatmap Settings > Resolution > 256 - Change resolution to 256
 		private void Plot_HeatMap_Resolution_256(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 256;
 			UpdateHeatMapResolution(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 512 - Change resolution to 512
+		// Plot Settings > Heatmap Settings > Resolution > 512 - Change resolution to 512
 		private void Plot_HeatMap_Resolution_512(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 512;
 			UpdateHeatMapResolution(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 1024 - Change resolution to 1024
+		// Plot Settings > Heatmap Settings > Resolution > 1024 - Change resolution to 1024
 		private void Plot_HeatMap_Resolution_1024(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 1024;
 			UpdateHeatMapResolution(true);
+		}
+
+		// Plot Settings > Topograph color bands > 2
+		private void Plot_TopographBands_2(object sender, EventArgs e)
+		{
+			SettingsPlotTopography.colorBands = 2;
+			UpdateTopographColorBands(true);
+		}
+
+		// Plot Settings > Topograph color bands > 3
+		private void Plot_TopographBands_3(object sender, EventArgs e)
+		{
+			SettingsPlotTopography.colorBands = 3;
+			UpdateTopographColorBands(true);
+		}
+
+		// Plot Settings > Topograph color bands > 4
+		private void Plot_TopographBands_4(object sender, EventArgs e)
+		{
+			SettingsPlotTopography.colorBands = 4;
+			UpdateTopographColorBands(true);
+		}
+
+		// Plot Settings > Topograph color bands > 5
+		private void Plot_TopographBands_5(object sender, EventArgs e)
+		{
+			SettingsPlotTopography.colorBands = 5;
+			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Draw Volumes - Toggle drawing volumes
