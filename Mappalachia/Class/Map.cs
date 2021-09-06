@@ -164,6 +164,26 @@ namespace Mappalachia
 			// Draws bottom-right info text
 			imageGraphic.DrawString(infoText, font, brushWhite, infoTextBounds, stringFormatBottomRight);
 
+			// Draw a height-color key for Topography mode
+			if (SettingsPlot.IsTopography())
+			{
+				// Find the highest point of the normal white info text
+				float height = imageGraphic.MeasureString(infoText, font, new SizeF(infoTextBounds.Width, infoTextBounds.Height)).Height;
+
+				string upIndicator = "^^^^";
+				double numHeightKeys = SettingsPlotTopography.heightKeyIndicators;
+				Font topographFont = new Font(fontCollection.Families[0], 62, GraphicsUnit.Pixel);
+
+				for (int i = 0; i <= numHeightKeys - 1; i++)
+				{
+					// Identify new bounds to draw another string above the last, sample a color from the topograph interpolated palette and draw in the color
+					RectangleF upIndicatorBounds = new RectangleF(plotXMax, 0, mapDimension - plotXMax, mapDimension - height);
+					Brush brush = new SolidBrush(GetTopographColor(i / (numHeightKeys - 1)));
+					imageGraphic.DrawString(upIndicator, topographFont, brush, new RectangleF(plotXMax, 0, mapDimension - plotXMax, mapDimension - height), stringFormatBottomRight);
+					height += imageGraphic.MeasureString(upIndicator, topographFont, new SizeF(upIndicatorBounds.Width, upIndicatorBounds.Height)).Height;
+				}
+			}
+
 			// Draw all legend text for every MapItem
 			int skippedLegends = DrawLegend(font, imageGraphic);
 
@@ -199,6 +219,10 @@ namespace Mappalachia
 			double zRange = 0;
 			if (SettingsPlot.IsTopography())
 			{
+				// Somehow this line prevents a memory leak
+				// Without it, if drawing a large topographic map on first map draw, GC will not collect the multiple PlotIcon elements used in topographic drawing.
+				Application.DoEvents();
+
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
 					foreach (MapDataPoint point in mapItem.GetPlots())
@@ -224,7 +248,7 @@ namespace Mappalachia
 
 				zMin = Math.Max(zLimitLower, zMin);
 				zMax = Math.Min(zLimitUpper, zMax);
-	
+
 				zRange = Math.Abs(zMax - zMin);
 
 				if (zRange == 0)
@@ -232,7 +256,6 @@ namespace Mappalachia
 					zRange = 1;
 				}
 			}
-			
 
 			if (SettingsPlot.IsIconOrTopography())
 			{
@@ -255,14 +278,11 @@ namespace Mappalachia
 							double z = point.z + (point.boundZ / 2);
 							z = Math.Max(Math.Min(z, zLimitUpper), zLimitLower);
 
-							// Normalize the height of this item between the min/max z of the whole set to 0-255
-							int colorValue = (int)(((z - zMin) / zRange) * 255);
-
-							int redComponent = colorValue;
-							int blueComponent = 255 - colorValue;
+							// Normalize the height of this item between the min/max z of the whole set
+							double colorValue = (z - zMin) / zRange;
 
 							// Override the plot icon color
-							plotIcon.color = Color.FromArgb(redComponent, 0, blueComponent);
+							plotIcon.color = GetTopographColor(colorValue);
 							plotIconImg = plotIcon.GetIconImage(); // Generate a new icon with a unique color for this height color
 
 							// Apply the color to volume plotting too
@@ -573,6 +593,36 @@ namespace Mappalachia
 			}
 
 			GC.Collect();
+		}
+
+		// Return a color for the topograph plot given its normalized altitude, interpolated against the user-defined selection of topographic plot colors
+		public static Color GetTopographColor(double colorValue)
+		{
+			// Find the first x colors in the icon color palette, where x is the number of distinct topography colors selected (Or the entire palette if smaller)
+			int colorCount = Math.Min(SettingsPlotTopography.colorBands, SettingsPlotIcon.paletteColor.Count);
+
+			if (colorCount == 0)
+			{
+				return SettingsPlotTopography.legendColor; // This should not happen - palette size nor distinct color count shouldn't be allowed to be 0
+			}
+
+			if (colorCount == 1)
+			{
+				// There is only one color in the palette - there is no distinction to be made
+				return SettingsPlotIcon.paletteColor[0];
+			}
+
+			// Find the 'parent' colors above and below this plot on the scale which should define its color
+			int colorBelow = (int)(colorValue * (colorCount - 1));
+			int colorAbove = Math.Min(colorBelow + 1, colorCount - 1);
+
+			double rangePerColor = 1d / (colorCount - 1);
+
+			// Re-normalize the range once more to the range purely between the 2 parent colors.
+			// Example: parent colors exist at 0.2 and 0.4, child color exists at 0.35. Normalized between parents it is therefore 0.75
+			double rangeBetweenColors = (colorValue - (colorBelow * rangePerColor)) * (colorCount - 1);
+
+			return ImageTools.InterpolateColors(SettingsPlotIcon.paletteColor[colorBelow], SettingsPlotIcon.paletteColor[colorAbove], rangeBetweenColors);
 		}
 
 		public static void Open()
