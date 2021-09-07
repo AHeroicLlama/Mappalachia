@@ -40,7 +40,7 @@ namespace Mappalachia.Class
 	static class SettingsPlotTopography
 	{
 		public static Color legendColor = Color.Orange;
-		public static int colorBands = 3; // The number of colors from the color palette to insert as interpolated 'milestone' colours on the topograph range
+		public static int colorBands = 3; // The number of colors from the color palette to insert as interpolated 'milestone' colors on the topograph range
 		public static readonly int heightKeyIndicators = 10; // How many different lines should show on the key for height/color
 	}
 
