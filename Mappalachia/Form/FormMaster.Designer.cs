@@ -288,7 +288,7 @@ namespace Mappalachia
             this.modeHeatmapMenuItem,
             this.modeTopographyMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
-			this.plotModeMenuItem.Size = new System.Drawing.Size(202, 22);
+			this.plotModeMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
 			this.plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
@@ -319,7 +319,7 @@ namespace Mappalachia
 			// plotIconSettingsMenuItem
 			// 
 			this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(202, 22);
+			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
 			this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
 			this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
@@ -330,7 +330,7 @@ namespace Mappalachia
             this.colorModeMenuItem,
             this.resolutionMenuItem});
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(202, 22);
+			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
 			// 
@@ -413,8 +413,8 @@ namespace Mappalachia
             this.colorBand4MenuItem,
             this.colorBand5MenuItem});
 			this.TopographColorBandsMenuItem.Name = "TopographColorBandsMenuItem";
-			this.TopographColorBandsMenuItem.Size = new System.Drawing.Size(202, 22);
-			this.TopographColorBandsMenuItem.Text = "Topography color bands";
+			this.TopographColorBandsMenuItem.Size = new System.Drawing.Size(204, 22);
+			this.TopographColorBandsMenuItem.Text = "Topography Color Bands";
 			this.TopographColorBandsMenuItem.ToolTipText = "Select the number of color bandings used in topographic plot mode.";
 			// 
 			// colorBand2MenuItem
@@ -448,7 +448,7 @@ namespace Mappalachia
 			// drawVolumesMenuItem
 			// 
 			this.drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			this.drawVolumesMenuItem.Size = new System.Drawing.Size(202, 22);
+			this.drawVolumesMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.drawVolumesMenuItem.Text = "Draw Volumes";
 			this.drawVolumesMenuItem.ToolTipText = "(Where applicable, in Icon Mode) In-game volumes such as triggers/activators have" +
     " their boundaries drawn instead of a plot icon.";
