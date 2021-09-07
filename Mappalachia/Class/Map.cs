@@ -25,8 +25,8 @@ namespace Mappalachia
 
 		// Values outside which the z coordinate will be capped to
 		// Because it's considered these were moved out the way by developers and aren't tangible game world
-		public static readonly int zLimitUpper = 42000;
-		public static readonly int zLimitLower = -1000;
+		public static readonly int zLimitUpper = 45000;
+		public static readonly int zLimitLower = -1200;
 
 		// Legend text positioning
 		static readonly int legendIconX = 141; // The X Coord of the plot icon that is drawn next to each legend string
@@ -218,10 +218,6 @@ namespace Mappalachia
 			double zRange = 0;
 			if (SettingsPlot.IsTopographic())
 			{
-				// Somehow this line prevents a memory leak
-				// Without it, if drawing a large topographic map on first map draw, GC will not collect the multiple PlotIcon elements used in topographic drawing.
-				Application.DoEvents();
-
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
 					foreach (MapDataPoint point in mapItem.GetPlots())
@@ -231,6 +227,13 @@ namespace Mappalachia
 							zMin = point.z - (point.boundZ / 2);
 							zMax = point.z + (point.boundZ / 2);
 							first = false;
+							continue;
+						}
+
+						// Do not contribute outlier values to the min/max range - this ensures they have the same
+						// color as the min/max *legitimate* item and they do not skew the color ranges
+						if (point.z > zLimitUpper || point.z < zLimitLower)
+						{
 							continue;
 						}
 
@@ -246,9 +249,6 @@ namespace Mappalachia
 					}
 				}
 
-				zMin = Math.Max(zLimitLower, zMin);
-				zMax = Math.Min(zLimitUpper, zMax);
-
 				zRange = Math.Abs(zMax - zMin);
 
 				if (zRange == 0)
@@ -259,6 +259,13 @@ namespace Mappalachia
 
 			if (SettingsPlot.IsIconOrTopographic())
 			{
+				if (SettingsPlot.IsTopographic())
+				{
+					// Somehow this line prevents a memory leak
+					// Without it, if drawing a large topographic map on first map draw, GC will not collect the multiple PlotIcon elements used in topographic drawing.
+					Application.DoEvents();
+				}
+
 				// Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
