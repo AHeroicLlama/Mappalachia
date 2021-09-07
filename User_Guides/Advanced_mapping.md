@@ -27,6 +27,7 @@ You can reset all Plot Icon Settings by pressing Reset to Default in the bottom 
 
 ## Topography Mode
 Topography mode is similar to Icon mode, except it uses varying colors to visualize the altitude of plotted items. You can select from 2-5 of the first colors defined in the color palette to distinguish the altitude of plotted items. A scale on the right will show which color represents which altitude band (see Colors and shapes above, and Topography Color Bands below). Due to using varying colors, Topographic plot mode uses shape alone to distinguish between different legend items.<br/>
+For items with bounds (volumes), their highest edge is used to determine their height.<br/>
 You will also find that Topographic plotting is slower than other modes since a unique icon must be created for each individual instance.
 
 ### Topography Color Bands
