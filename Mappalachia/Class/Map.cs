@@ -138,7 +138,7 @@ namespace Mappalachia
 			CellScaling cellScaling = null;
 
 			// Prepare the game version and watermark to be printed later
-			string infoText = (SettingsPlot.IsTopography() ? "Topographic View\n" : string.Empty) + "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
 			// Additional steps for cell mode (Add further text to watermark text, get cell height boundings)
 			if (SettingsMap.IsCellModeActive())
@@ -165,12 +165,12 @@ namespace Mappalachia
 			imageGraphic.DrawString(infoText, font, brushWhite, infoTextBounds, stringFormatBottomRight);
 
 			// Draw a height-color key for Topography mode
-			if (SettingsPlot.IsTopography())
+			if (SettingsPlot.IsTopographic())
 			{
 				// Identify the sizing and locations for drawing the height-color-key strings
-				double numHeightKeys = SettingsPlotTopography.heightKeyIndicators;
+				double numHeightKeys = SettingsPlotTopograph.heightKeyIndicators;
 				Font topographFont = new Font(fontCollection.Families[0], 62, GraphicsUnit.Pixel);
-				float singleLineHeight = imageGraphic.MeasureString(SettingsPlotTopography.heightKeyString, topographFont, new SizeF(infoTextBounds.Width, infoTextBounds.Height)).Height;
+				float singleLineHeight = imageGraphic.MeasureString(SettingsPlotTopograph.heightKeyString, topographFont, new SizeF(infoTextBounds.Width, infoTextBounds.Height)).Height;
 
 				// Identify the lower limit to start printing the key so that it ends up centered
 				double baseHeight = (mapDimension / 2) - (singleLineHeight * (numHeightKeys / 2d));
@@ -178,7 +178,7 @@ namespace Mappalachia
 				for (int i = 0; i <= numHeightKeys - 1; i++)
 				{
 					Brush brush = new SolidBrush(GetTopographColor(i / (numHeightKeys - 1)));
-					imageGraphic.DrawString(SettingsPlotTopography.heightKeyString, topographFont, brush, new RectangleF(plotXMax, 0, mapDimension - plotXMax, (float)(mapDimension - baseHeight)), stringFormatBottomRight);
+					imageGraphic.DrawString(SettingsPlotTopograph.heightKeyString, topographFont, brush, new RectangleF(plotXMax, 0, mapDimension - plotXMax, (float)(mapDimension - baseHeight)), stringFormatBottomRight);
 					baseHeight += singleLineHeight;
 				}
 			}
@@ -216,7 +216,7 @@ namespace Mappalachia
 			int zMin = 0;
 			int zMax = 0;
 			double zRange = 0;
-			if (SettingsPlot.IsTopography())
+			if (SettingsPlot.IsTopographic())
 			{
 				// Somehow this line prevents a memory leak
 				// Without it, if drawing a large topographic map on first map draw, GC will not collect the multiple PlotIcon elements used in topographic drawing.
@@ -256,7 +256,7 @@ namespace Mappalachia
 				}
 			}
 
-			if (SettingsPlot.IsIconOrTopography())
+			if (SettingsPlot.IsIconOrTopographic())
 			{
 				// Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
@@ -270,8 +270,8 @@ namespace Mappalachia
 					// Iterate over every data point and draw it
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
-						// Override colors in Topography mode
-						if (SettingsPlot.IsTopography())
+						// Override colors in Topographic mode
+						if (SettingsPlot.IsTopographic())
 						{
 							// Clamp the z values to the percieved outlier threshold
 							double z = point.z + (point.boundZ / 2);
@@ -480,7 +480,7 @@ namespace Mappalachia
 
 				legendTotalHeight += Math.Max(
 					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height),
-					SettingsPlot.IsIconOrTopography() ? SettingsPlotIcon.iconSize : 0);
+					SettingsPlot.IsIconOrTopographic() ? SettingsPlotIcon.iconSize : 0);
 
 				drawnGroups.Add(mapItem.legendGroup);
 			}
@@ -506,12 +506,12 @@ namespace Mappalachia
 				int fontHeight = (int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height);
 
 				PlotIcon icon = mapItem.GetIcon();
-				Image plotIconImg = SettingsPlot.IsIconOrTopography() ? icon.GetIconImage() : null;
+				Image plotIconImg = SettingsPlot.IsIconOrTopographic() ? icon.GetIconImage() : null;
 
-				Color legendColor = SettingsPlot.IsTopography() ? SettingsPlotTopography.legendColor : mapItem.GetLegendColor();
+				Color legendColor = SettingsPlot.IsTopographic() ? SettingsPlotTopograph.legendColor : mapItem.GetLegendColor();
 				Brush textBrush = new SolidBrush(legendColor);
 
-				int iconHeight = SettingsPlot.IsIconOrTopography() ?
+				int iconHeight = SettingsPlot.IsIconOrTopographic() ?
 					plotIconImg.Height :
 					0;
 
@@ -527,7 +527,7 @@ namespace Mappalachia
 				// If the legend text/item fits on the map vertically
 				if (legendCaretHeight > 0 && legendCaretHeight + legendHeight < mapDimension)
 				{
-					if (SettingsPlot.IsIconOrTopography())
+					if (SettingsPlot.IsIconOrTopographic())
 					{
 						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
 					}
@@ -598,11 +598,11 @@ namespace Mappalachia
 		public static Color GetTopographColor(double colorValue)
 		{
 			// Find the first x colors in the icon color palette, where x is the number of distinct topography colors selected (Or the entire palette if smaller)
-			int colorCount = Math.Min(SettingsPlotTopography.colorBands, SettingsPlotIcon.paletteColor.Count);
+			int colorCount = Math.Min(SettingsPlotTopograph.colorBands, SettingsPlotIcon.paletteColor.Count);
 
 			if (colorCount == 0)
 			{
-				return SettingsPlotTopography.legendColor; // This should not happen - palette size nor distinct color count shouldn't be allowed to be 0
+				return SettingsPlotTopograph.legendColor; // This should not happen - palette size nor distinct color count shouldn't be allowed to be 0
 			}
 
 			if (colorCount == 1)

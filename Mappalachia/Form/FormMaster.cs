@@ -370,7 +370,7 @@ namespace Mappalachia
 		{
 			UncheckAllColorBands();
 
-			switch (SettingsPlotTopography.colorBands)
+			switch (SettingsPlotTopograph.colorBands)
 			{
 				case 2:
 					colorBand2MenuItem.Checked = true;
@@ -385,13 +385,13 @@ namespace Mappalachia
 					colorBand5MenuItem.Checked = true;
 					break;
 				default:
-					SettingsPlotTopography.colorBands = 3;
-					Notify.Error("Unsupported number of Topograph color bands. Defaulting to " + SettingsPlotTopography.colorBands);
+					SettingsPlotTopograph.colorBands = 3;
+					Notify.Error("Unsupported number of Topograph color bands. Defaulting to " + SettingsPlotTopograph.colorBands);
 					UpdateTopographColorBands(reDraw);
 					break;
 			}
 
-			if (reDraw && SettingsPlot.IsTopography())
+			if (reDraw && SettingsPlot.IsTopographic())
 			{
 				DrawMap(false);
 			}
@@ -947,28 +947,28 @@ namespace Mappalachia
 		// Plot Settings > Topograph color bands > 2
 		private void Plot_TopographBands_2(object sender, EventArgs e)
 		{
-			SettingsPlotTopography.colorBands = 2;
+			SettingsPlotTopograph.colorBands = 2;
 			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Topograph color bands > 3
 		private void Plot_TopographBands_3(object sender, EventArgs e)
 		{
-			SettingsPlotTopography.colorBands = 3;
+			SettingsPlotTopograph.colorBands = 3;
 			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Topograph color bands > 4
 		private void Plot_TopographBands_4(object sender, EventArgs e)
 		{
-			SettingsPlotTopography.colorBands = 4;
+			SettingsPlotTopograph.colorBands = 4;
 			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Topograph color bands > 5
 		private void Plot_TopographBands_5(object sender, EventArgs e)
 		{
-			SettingsPlotTopography.colorBands = 5;
+			SettingsPlotTopograph.colorBands = 5;
 			UpdateTopographColorBands(true);
 		}
 

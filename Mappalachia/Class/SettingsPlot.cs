@@ -21,9 +21,9 @@ namespace Mappalachia.Class
 			return mode == Mode.Heatmap;
 		}
 
-		public static bool IsIconOrTopography()
+		public static bool IsIconOrTopographic()
 		{
-			return (IsIcon() || IsTopography());
+			return (IsIcon() || IsTopographic());
 		}
 
 		public static bool IsIcon()
@@ -31,13 +31,13 @@ namespace Mappalachia.Class
 			return mode == Mode.Icon;
 		}
 
-		public static bool IsTopography()
+		public static bool IsTopographic()
 		{
 			return mode == Mode.Topography;
 		}
 	}
 
-	static class SettingsPlotTopography
+	static class SettingsPlotTopograph
 	{
 		public static Color legendColor = Color.Orange;
 		public static int colorBands = 3; // The number of colors from the color palette to insert as interpolated 'milestone' colors on the topograph range
