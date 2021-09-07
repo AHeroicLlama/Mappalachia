@@ -64,6 +64,7 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT x, y, z
         ///FROM SeventySix_Interior
         ///WHERE cellFormID = $cellFormID
+        ///ORDER BY z ASC
         ///.
         /// </summary>
         internal static string getAllCoordsCell {
@@ -88,6 +89,7 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
         ///FROM SeventySix_Interior
         ///WHERE cellFormID = $cellFormID AND referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
+        ///ORDER BY z ASC
         ///.
         /// </summary>
         internal static string getCoordsCell {
@@ -100,6 +102,7 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT x, y, z, chance*100 AS chance FROM SeventySix_Worldspace
         ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
         ///WHERE npc = $npc AND chance &gt;= $minChance
+        ///ORDER BY z ASC
         ///.
         /// </summary>
         internal static string getCoordsNPC {
@@ -112,6 +115,7 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT x, y, z, componentQuantity FROM SeventySix_Worldspace
         ///INNER JOIN SeventySix_Quantified_Scrap ON SeventySix_Worldspace.referenceFormID = SeventySix_Quantified_Scrap.junkFormID
         ///WHERE component = $scrap
+        ///ORDER BY z ASC
         ///.
         /// </summary>
         internal static string getCoordsScrap {
@@ -124,6 +128,7 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
         ///FROM SeventySix_Worldspace
         ///WHERE referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
+        ///ORDER BY z ASC
         ///.
         /// </summary>
         internal static string getCoordsStandard {
