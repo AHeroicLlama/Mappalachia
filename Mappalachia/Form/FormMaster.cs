@@ -111,7 +111,7 @@ namespace Mappalachia
 			}
 
 			// Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
-			//...We can add them to the ListView on the form
+			// We can add them to the ListView on the form
 			foreach (string signature in orderedSignatures)
 			{
 				ListViewItem thisItem = listViewFilterSignatures.Items.Add(signature);
@@ -159,7 +159,7 @@ namespace Mappalachia
 			}
 
 			// Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
-			//...We can add them to the ListView on the form
+			// We can add them to the ListView on the form
 			foreach (string lockLevel in orderedLockLevels)
 			{
 				ListViewItem thisItem = listViewFilterLockTypes.Items.Add(lockLevel);
@@ -680,6 +680,7 @@ namespace Mappalachia
 				{
 					continue; // Either this isn't overridden, or we already have this one - skip
 				}
+
 				// This must be a new MapItem with overridden text - add it to the Dictionary
 				else if (!string.IsNullOrWhiteSpace(mapItem.overridingLegendText))
 				{
@@ -780,7 +781,6 @@ namespace Mappalachia
 			UpdateMapLayerSettings(true);
 		}
 
-
 		// Map > Cell Mode
 		private void Map_CellMode(object sender, EventArgs e)
 		{
@@ -792,7 +792,8 @@ namespace Mappalachia
 					"Switching to Cell mode may change or disable certain other settings.\n" +
 					"Please read the user documentation on Cell Mode for full details.\n\n" +
 					"Continue to Cell mode?",
-					"Switch to Cell mode?", MessageBoxButtons.YesNo);
+					"Switch to Cell mode?",
+					MessageBoxButtons.YesNo);
 
 				if (question == DialogResult.Yes)
 				{
@@ -1283,7 +1284,9 @@ namespace Mappalachia
 				{
 					rejectedItemsDuplicate.Add(selectedItem.editorID);
 				}
-				else // Item is fine - add it
+
+				// Item is fine - add it
+				else
 				{
 					// If the legend group is already fixed (added as group) use that, otherwise use a new legend group
 					selectedItem.legendGroup = (legendGroup == -1) ?
@@ -1336,10 +1339,10 @@ namespace Mappalachia
 				}
 
 				// Add a line to say that a further x items (not shown) were not added
-				message += "\n\n" + string.Join("\n", rejectedItemsInterior.Concat(rejectedItemsDuplicate).Take(maxItemsToShow)) + 
+				message += "\n\n" + string.Join("\n", rejectedItemsInterior.Concat(rejectedItemsDuplicate).Take(maxItemsToShow)) +
 					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty);
 
-				Notify.Info(message); 
+				Notify.Info(message);
 			}
 		}
 
@@ -1420,7 +1423,9 @@ namespace Mappalachia
 					BeginInvoke((MethodInvoker)delegate { UpdateLegendGrid(editedItem); });
 				}
 			}
-			else if (e.ColumnIndex == 1) // Override legend text
+
+			// Override legend text
+			else if (e.ColumnIndex == 1)
 			{
 				int targetLegendGroup = int.Parse(editedRow.Cells[0].Value.ToString());
 

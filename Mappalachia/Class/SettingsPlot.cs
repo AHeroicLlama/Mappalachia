@@ -23,7 +23,7 @@ namespace Mappalachia.Class
 
 		public static bool IsIconOrTopographic()
 		{
-			return (IsIcon() || IsTopographic());
+			return IsIcon() || IsTopographic();
 		}
 
 		public static bool IsIcon()
