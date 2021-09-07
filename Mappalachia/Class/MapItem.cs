@@ -117,9 +117,9 @@ namespace Mappalachia
 			{
 				return GetIcon().color;
 			}
-			else if (SettingsPlot.IsTopography())
+			else if (SettingsPlot.IsTopographic())
 			{
-				return SettingsPlotTopography.legendColor;
+				return SettingsPlotTopograph.legendColor;
 			}
 			else if (SettingsPlot.IsHeatmap())
 			{

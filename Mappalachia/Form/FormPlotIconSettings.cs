@@ -334,7 +334,7 @@ namespace Mappalachia
 
 			Close();
 
-			if (SettingsPlot.IsIconOrTopography())
+			if (SettingsPlot.IsIconOrTopographic())
 			{
 				Map.Draw();
 			}

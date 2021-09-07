@@ -73,7 +73,7 @@ namespace Mappalachia.Class
 
 			// SettingsPlotTopograph
 			settings.Add("[PlotTopograph]");
-			settings.Add("colorBands=" + SettingsPlotTopography.colorBands);
+			settings.Add("colorBands=" + SettingsPlotTopograph.colorBands);
 
 			// Write the list of strings to the prefs file
 			IOManager.WritePreferences(settings);
@@ -325,7 +325,7 @@ namespace Mappalachia.Class
 							int colorBands = Convert.ToInt32(value);
 							if (ValidateWithinRange(colorBands, 2, 5))
 							{
-								SettingsPlotTopography.colorBands = colorBands;
+								SettingsPlotTopograph.colorBands = colorBands;
 							}
 
 							break;
