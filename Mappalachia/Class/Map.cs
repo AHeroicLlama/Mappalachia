@@ -238,6 +238,7 @@ namespace Mappalachia
 						{
 							zMin = point.z - (point.boundZ / 2);
 						}
+
 						if (point.z + (point.boundZ / 2) > zMax)
 						{
 							zMax = point.z + (point.boundZ / 2);
@@ -340,7 +341,9 @@ namespace Mappalachia
 							volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
 							imageGraphic.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
 						}
-						else // This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon, or topographic plot
+
+						// This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon, or topographic plot
+						else
 						{
 							imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 						}

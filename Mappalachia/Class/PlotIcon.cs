@@ -40,11 +40,12 @@ namespace Mappalachia.Class
 			PlotIconShape shape = SettingsPlotIcon.paletteShape[shapeIndex];
 			PlotIcon plotIcon = new PlotIcon(color, shape);
 
-			// Register the icon in the cache and return it
-			if (!SettingsPlot.IsTopographic()) // Don't cache topography icons as they override the color
+			// Register the icon in the cache and return it - Don't cache topography icons as they override the color
+			if (!SettingsPlot.IsTopographic())
 			{
 				plotIconCache.Add(group, plotIcon);
 			}
+
 			return plotIcon;
 		}
 
@@ -66,8 +67,8 @@ namespace Mappalachia.Class
 		readonly Brush brush;
 		readonly Bitmap bitmap;
 		readonly Graphics icon;
+		readonly PlotIconShape shape;
 
-		PlotIconShape shape;
 		public Color color;
 		Image iconImage;
 
@@ -92,7 +93,8 @@ namespace Mappalachia.Class
 		// Draw and return the icon image
 		public Image GetIconImage()
 		{
-			if (iconImage != null && !SettingsPlot.IsTopographic()) // Regenerate the icon image in topography mode, since we tend to update the color
+			// Regenerate the icon image in topography mode, since we tend to update the color
+			if (iconImage != null && !SettingsPlot.IsTopographic())
 			{
 				return iconImage;
 			}
