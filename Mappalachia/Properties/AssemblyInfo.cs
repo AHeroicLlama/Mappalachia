@@ -7,8 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Mappalachia")]
 [assembly: AssemblyDescription("The complete mapping tool for Fallout 76.\r\n" +
-	"Mappalachia is a Windows Forms GUI for generating and exporting complex maps of entities within the Fallout 76 world.\r\n" +
-	"For Fallout 76 version " + Mappalachia.AssemblyInfo.gameVersion + ".")]
+	"Mappalachia is a Windows Forms GUI for generating and exporting complex maps of entities within the Fallout 76 world.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Mappalachia")]
@@ -37,11 +36,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.4.0.0")]
 [assembly: AssemblyFileVersion("1.4.0.0")]
 [assembly: NeutralResourcesLanguage("en-US")]
-
-namespace Mappalachia
-{
-	public static class AssemblyInfo
-	{
-		public const string gameVersion = "1.5.5.13";
-	}
-}

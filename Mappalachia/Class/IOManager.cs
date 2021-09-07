@@ -30,6 +30,8 @@ namespace Mappalachia
 
 		static int tempImageLockedCount = 0;
 
+		static string gameVersion;
+
 		static Image imageMapNormal;
 		static Image imageMapMilitary;
 
@@ -316,6 +318,17 @@ namespace Mappalachia
 			}
 
 			return fontCollection;
+		}
+
+		// Return the game version string stored in the db
+		public static string GetGameVersion()
+		{
+			if (string.IsNullOrEmpty(gameVersion))
+			{
+				gameVersion = DataHelper.GetGameVersion();
+			}
+
+			return gameVersion;
 		}
 	}
 }

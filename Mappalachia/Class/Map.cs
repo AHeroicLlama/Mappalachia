@@ -138,7 +138,7 @@ namespace Mappalachia
 			CellScaling cellScaling = null;
 
 			// Prepare the game version and watermark to be printed later
-			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + AssemblyInfo.gameVersion + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
 			// Additional steps for cell mode (Add further text to watermark text, get cell height boundings)
 			if (SettingsMap.IsCellModeActive())
