@@ -138,6 +138,16 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT version FROM gameVersion LIMIT 1;
+        ///.
+        /// </summary>
+        internal static string getGameVersion {
+            get {
+                return ResourceManager.GetString("getGameVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT lockLevel
         ///FROM SeventySix_Worldspace
         ///UNION

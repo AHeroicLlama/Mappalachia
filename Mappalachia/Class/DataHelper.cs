@@ -669,5 +669,19 @@ namespace Mappalachia
 
 			return coordinates;
 		}
+
+		// Return the game version associated to the database
+		public static string GetGameVersion()
+		{
+			using (SqliteDataReader reader = Database.ExecuteQueryGameVersion())
+			{
+				while (reader.Read())
+				{
+					return reader.GetString(0);
+				}
+			}
+
+			return "unknown";
+		}
 	}
 }

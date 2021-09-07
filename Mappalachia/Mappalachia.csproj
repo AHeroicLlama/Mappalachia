@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\getGameVersion.sql" />
     <None Include="SQL\searchStandardCell.sql" />
     <None Include="SQL\searchStandardAppalachia.sql" />
     <None Include="SQL\searchStandardAll.sql" />

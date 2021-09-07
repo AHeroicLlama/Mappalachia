@@ -14,7 +14,7 @@ namespace Mappalachia
 			labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
 			labelCopyright.Text = AssemblyCopyright;
 			labelCompanyName.Text = AssemblyCompany;
-			textBoxDescription.Text = AssemblyDescription;
+			textBoxDescription.Text = AssemblyDescription + "\r\nDatabase game version: " + IOManager.GetGameVersion();
 		}
 
 		public string AssemblyTitle
