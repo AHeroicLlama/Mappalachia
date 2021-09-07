@@ -25,7 +25,7 @@ On the left hand side is the color Palette. You may add or remove colors to the 
 On the right hand side is the shape palette. You can cycle through the settings for each shape by selecting each shape in the list view. Adjust the settings of each shape by toggling the shape checkboxes while it is selected. If you add a new shape it will be created with random settings, which you can later edit. You may also remove the selected shape by pressing 'Remove Selected'.<br/>
 You can reset all Plot Icon Settings by pressing Reset to Default in the bottom left.
 
-## Topograhpy Mode
+## Topography Mode
 Topography mode is similar to Icon mode, except it uses varying colors to visualize the altitude of plotted items. You can select from 2-5 of the first colors defined in the color palette to distinguish the altitude of plotted items. A scale on the right will show which color represents which altitude band (see Colors and shapes above, and Topography Color Bands below). Due to using varying colors, Topographic plot mode uses shape alone to distinguish between different legend items.
 
 ### Topography Color Bands
