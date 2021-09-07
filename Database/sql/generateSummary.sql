@@ -1,4 +1,7 @@
 --Provide a report on key data statistics. The outputted report is source controlled and allows us to verify at a glance how game updates affect the Mappalachia database
+SELECT '==Game Version==';
+SELECT version FROM gameVersion;
+
 SELECT '==Total unique items by signature==';
 SELECT signature, COUNT(signature) AS count FROM SeventySix_FormID
 GROUP BY signature;
