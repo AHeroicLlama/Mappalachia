@@ -41,7 +41,8 @@ namespace Mappalachia.Class
 	{
 		public static Color legendColor = Color.Orange;
 		public static int colorBands = 3; // The number of colors from the color palette to insert as interpolated 'milestone' colors on the topograph range
-		public static readonly int heightKeyIndicators = 10; // How many different lines should show on the key for height/color
+		public static readonly int heightKeyIndicators = 20; // How many different lines should show on the key for height/color
+		public static readonly string heightKeyString = "^^^^";
 	}
 
 	// Plot Icon Settings and their defaults, used in FormPlotIconSettings

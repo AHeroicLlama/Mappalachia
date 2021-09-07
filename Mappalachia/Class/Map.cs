@@ -167,20 +167,19 @@ namespace Mappalachia
 			// Draw a height-color key for Topography mode
 			if (SettingsPlot.IsTopography())
 			{
-				// Find the highest point of the normal white info text
-				float height = imageGraphic.MeasureString(infoText, font, new SizeF(infoTextBounds.Width, infoTextBounds.Height)).Height;
-
-				string upIndicator = "^^^^";
+				// Identify the sizing and locations for drawing the height-color-key strings
 				double numHeightKeys = SettingsPlotTopography.heightKeyIndicators;
 				Font topographFont = new Font(fontCollection.Families[0], 62, GraphicsUnit.Pixel);
+				float singleLineHeight = imageGraphic.MeasureString(SettingsPlotTopography.heightKeyString, topographFont, new SizeF(infoTextBounds.Width, infoTextBounds.Height)).Height;
+
+				// Identify the lower limit to start printing the key so that it ends up centered
+				double baseHeight = (mapDimension / 2) - (singleLineHeight * (numHeightKeys / 2d));
 
 				for (int i = 0; i <= numHeightKeys - 1; i++)
 				{
-					// Identify new bounds to draw another string above the last, sample a color from the topograph interpolated palette and draw in the color
-					RectangleF upIndicatorBounds = new RectangleF(plotXMax, 0, mapDimension - plotXMax, mapDimension - height);
 					Brush brush = new SolidBrush(GetTopographColor(i / (numHeightKeys - 1)));
-					imageGraphic.DrawString(upIndicator, topographFont, brush, new RectangleF(plotXMax, 0, mapDimension - plotXMax, mapDimension - height), stringFormatBottomRight);
-					height += imageGraphic.MeasureString(upIndicator, topographFont, new SizeF(upIndicatorBounds.Width, upIndicatorBounds.Height)).Height;
+					imageGraphic.DrawString(SettingsPlotTopography.heightKeyString, topographFont, brush, new RectangleF(plotXMax, 0, mapDimension - plotXMax, (float)(mapDimension - baseHeight)), stringFormatBottomRight);
+					baseHeight += singleLineHeight;
 				}
 			}
 
