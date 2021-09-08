@@ -144,7 +144,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include=".editorconfig" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -185,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\getGameVersion.sql" />
     <None Include="SQL\searchStandardCell.sql" />
     <None Include="SQL\searchStandardAppalachia.sql" />
     <None Include="SQL\searchStandardAll.sql" />
@@ -194,7 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">
-      <Version>5.0.8</Version>
+      <Version>5.0.9</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
       <Version>5.0.0</Version>

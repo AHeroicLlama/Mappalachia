@@ -22,8 +22,6 @@ namespace Mappalachia
 		static readonly string databaseFileName = "mappalachia.db";
 		static readonly string imgFileNameMapNormal = "map_normal.jpg";
 		static readonly string imgFileNameMapMilitary = "map_military.jpg";
-		static readonly string imgFileNameLayerNWFlatwoods = "map_overlay_nw_flatwoods.png";
-		static readonly string imgFileNameLayerNWMorgantown = "map_overlay_nw_morgantown.png";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
 
 		static readonly string tempImageFolder = @"temp\";
@@ -32,10 +30,10 @@ namespace Mappalachia
 
 		static int tempImageLockedCount = 0;
 
+		static string gameVersion;
+
 		static Image imageMapNormal;
 		static Image imageMapMilitary;
-		static Image imageLayerNWFlatwoods;
-		static Image imageLayerNWMorgantown;
 
 		// JPEG encoding for image compression
 		static readonly long JpegQualityPercent = 85;
@@ -236,26 +234,6 @@ namespace Mappalachia
 			return (Image)imageMapMilitary.Clone();
 		}
 
-		public static Image GetImageLayerNWFlatwoods()
-		{
-			if (imageLayerNWFlatwoods == null)
-			{
-				imageLayerNWFlatwoods = LoadImageFromFile(imgFolder + imgFileNameLayerNWFlatwoods);
-			}
-
-			return (Image)imageLayerNWFlatwoods.Clone();
-		}
-
-		public static Image GetImageLayerNWMorgantown()
-		{
-			if (imageLayerNWMorgantown == null)
-			{
-				imageLayerNWMorgantown = LoadImageFromFile(imgFolder + imgFileNameLayerNWMorgantown);
-			}
-
-			return (Image)imageLayerNWMorgantown.Clone();
-		}
-
 		// Return an image from file
 		static Image LoadImageFromFile(string filePath)
 		{
@@ -340,6 +318,17 @@ namespace Mappalachia
 			}
 
 			return fontCollection;
+		}
+
+		// Return the game version string stored in the db
+		public static string GetGameVersion()
+		{
+			if (string.IsNullOrEmpty(gameVersion))
+			{
+				gameVersion = DataHelper.GetGameVersion();
+			}
+
+			return gameVersion;
 		}
 	}
 }

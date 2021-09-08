@@ -190,5 +190,13 @@ namespace Mappalachia
 
 			return query.ExecuteReader();
 		}
+
+		// Execute a query to return the game version string
+		public static SqliteDataReader ExecuteQueryGameVersion()
+		{
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = Properties.Resources.getGameVersion;
+			return query.ExecuteReader();
+		}
 	}
 }

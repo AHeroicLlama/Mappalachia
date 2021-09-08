@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 2;
+		static readonly int prefsIteration = 3;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -44,8 +44,6 @@ namespace Mappalachia.Class
 			settings.Add("[Map]");
 			settings.Add("brightness=" + SettingsMap.brightness);
 			settings.Add("layerMilitary=" + BoolToIntStr(SettingsMap.layerMilitary));
-			settings.Add("layerNWMorgantown=" + BoolToIntStr(SettingsMap.layerNWMorgantown));
-			settings.Add("layerNWFlatwoods=" + BoolToIntStr(SettingsMap.layerNWFlatwoods));
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 
 			// SettingsSearch
@@ -72,6 +70,10 @@ namespace Mappalachia.Class
 			settings.Add("[PlotHeatmap]");
 			settings.Add("resolution=" + SettingsPlotHeatmap.resolution);
 			settings.Add("colorMode=" + SettingsPlotHeatmap.colorMode);
+
+			// SettingsPlotTopograph
+			settings.Add("[PlotTopograph]");
+			settings.Add("colorBands=" + SettingsPlotTopograph.colorBands);
 
 			// Write the list of strings to the prefs file
 			IOManager.WritePreferences(settings);
@@ -136,14 +138,6 @@ namespace Mappalachia.Class
 							SettingsMap.layerMilitary = StrIntToBool(value);
 							break;
 
-						case "layerNWMorgantown":
-							SettingsMap.layerNWMorgantown = StrIntToBool(value);
-							break;
-
-						case "layerNWFlatwoods":
-							SettingsMap.layerNWFlatwoods = StrIntToBool(value);
-							break;
-
 						case "grayScale":
 							SettingsMap.grayScale = StrIntToBool(value);
 							break;
@@ -166,17 +160,22 @@ namespace Mappalachia.Class
 							break;
 
 						case "mode":
-							if (value == "Icon")
+							switch (value)
 							{
-								SettingsPlot.mode = SettingsPlot.Mode.Icon;
-							}
-							else if (value == "Heatmap")
-							{
-								SettingsPlot.mode = SettingsPlot.Mode.Heatmap;
-							}
-							else
-							{
-								throw new ArgumentException("Invalid plot mode.");
+								case "Icon":
+									SettingsPlot.mode = SettingsPlot.Mode.Icon;
+									break;
+
+								case "Heatmap":
+									SettingsPlot.mode = SettingsPlot.Mode.Heatmap;
+									break;
+
+								case "Topography":
+									SettingsPlot.mode = SettingsPlot.Mode.Topography;
+									break;
+
+								default:
+									throw new ArgumentException("Invalid plot mode.");
 							}
 
 							break;
@@ -322,8 +321,23 @@ namespace Mappalachia.Class
 
 							break;
 
+						case "colorBands":
+							int colorBands = Convert.ToInt32(value);
+							if (ValidateWithinRange(colorBands, 2, 5))
+							{
+								SettingsPlotTopograph.colorBands = colorBands;
+							}
+
+							break;
+
 						// Legacy settings - ignore
 						case "filterWarnings":
+							break;
+
+						case "layerNWMorgantown":
+							break;
+
+						case "layerNWFlatwoods":
 							break;
 
 						default:

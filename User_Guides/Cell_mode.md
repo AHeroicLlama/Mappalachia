@@ -3,10 +3,10 @@
 Cell mode provides a way to plot items in internal cells.
 
 ## Activating Cell Mode
-You can toggle Cell mode on or off by navigating to Map > Advanced Modes > Cell mode.<br/>
+You can toggle Cell mode on or off by navigating to Map > Cell mode.<br/>
 Once on, you will notice a new panel of controls for Cell mode has appeared on the 'Standard Search' tab. Also, that the Appalachian map background has disappeared.<br/>
 (Unfortunately, Bethesda do not provide maps for interiors of Fallout 76, so Mappalachia must start with a transparent background.)<br/>
-A few settings are also disabled while in Cell mode as they are not applicable, these are brightness and grayscale settings, additional map layers, and NPC/Scrap Search.
+A few settings are also disabled while in Cell mode as they are not applicable, these are brightness and grayscale settings, optional map backgrounds, and NPC/Scrap Search.
 
 ## Choosing a cell
 While in cell mode, all searches and plots are constrained specifically to the contents of the currently selected cell.<br/>

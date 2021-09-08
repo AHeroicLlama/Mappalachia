@@ -15,6 +15,11 @@ namespace Mappalachia.Class
 			int colorTotal = SettingsPlotIcon.paletteColor.Count;
 			int shapeTotal = SettingsPlotIcon.paletteShape.Count;
 
+			if (SettingsPlot.IsTopographic())
+			{
+				colorTotal = 1; // Force a unique shape per group in topography mode, as color becomes indistinguishable
+			}
+
 			// Reduce the group number to find repeating icons
 			// For example, 3 shapes and 5 colors makes 15 icons. Group 15 is therefore the same as group 0.
 			group %= colorTotal * shapeTotal;
@@ -31,12 +36,16 @@ namespace Mappalachia.Class
 			int shapeIndex = (group / colorTotal) % shapeTotal;
 
 			// Generate the PlotIcon
-			Color color = SettingsPlotIcon.paletteColor[colorIndex];
+			Color color = SettingsPlot.IsTopographic() ? SettingsPlotTopograph.legendColor : SettingsPlotIcon.paletteColor[colorIndex];
 			PlotIconShape shape = SettingsPlotIcon.paletteShape[shapeIndex];
 			PlotIcon plotIcon = new PlotIcon(color, shape);
 
-			// Register the icon in the cache and return it
-			plotIconCache.Add(group, plotIcon);
+			// Register the icon in the cache and return it - Don't cache topography icons as they override the color
+			if (!SettingsPlot.IsTopographic())
+			{
+				plotIconCache.Add(group, plotIcon);
+			}
+
 			return plotIcon;
 		}
 
@@ -58,8 +67,8 @@ namespace Mappalachia.Class
 		readonly Brush brush;
 		readonly Bitmap bitmap;
 		readonly Graphics icon;
+		readonly PlotIconShape shape;
 
-		PlotIconShape shape;
 		public Color color;
 		Image iconImage;
 
@@ -84,7 +93,8 @@ namespace Mappalachia.Class
 		// Draw and return the icon image
 		public Image GetIconImage()
 		{
-			if (iconImage != null)
+			// Regenerate the icon image in topography mode, since we tend to update the color
+			if (iconImage != null && !SettingsPlot.IsTopographic())
 			{
 				return iconImage;
 			}

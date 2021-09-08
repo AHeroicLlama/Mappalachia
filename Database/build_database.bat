@@ -16,6 +16,16 @@ IF NOT EXIST "../Preprocessor/Output/SeventySix_Worldspace.csv" (
 	EXIT
 )
 
+for /f "skip=1" %%l in (gameVersion.csv) do set gameVersion=%%l
+
+echo Is %gameVersion% the correct game version?
+choice /c YN
+if not %errorlevel%==1 (
+	echo Please correct the game version string in gameVersion.csv
+	PAUSE
+	EXIT
+)
+
 set databaseFile=mappalachia.db
 set summaryFile=summary.txt
 set outputFolder=..\Mappalachia\data

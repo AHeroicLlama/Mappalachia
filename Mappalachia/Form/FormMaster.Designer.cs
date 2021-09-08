@@ -36,12 +36,8 @@ namespace Mappalachia
 			this.menuStripMain = new System.Windows.Forms.MenuStrip();
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.advancedModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cellModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.layerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.layerMilitaryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.layerNWFlatwoodsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.layerNWMorgantownMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.militaryStyleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exportToFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +50,7 @@ namespace Mappalachia
 			this.plotModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modeIconMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modeHeatmapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.modeTopographyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.plotIconSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.heatmapSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.colorModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +61,11 @@ namespace Mappalachia
 			this.resolution256MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution512MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution1024MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TopographColorBandsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand2MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand3MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand4MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand5MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,8 +168,8 @@ namespace Mappalachia
 			// 
 			this.mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewMenuItem,
-            this.advancedModeMenuItem,
-            this.layerMenuItem,
+            this.cellModeMenuItem,
+            this.militaryStyleMenuItem,
             this.brightnessMenuItem,
             this.grayscaleMenuItem,
             this.exportToFileMenuItem,
@@ -185,57 +187,21 @@ namespace Mappalachia
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
 			// 
-			// advancedModeMenuItem
-			// 
-			this.advancedModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cellModeMenuItem});
-			this.advancedModeMenuItem.Name = "advancedModeMenuItem";
-			this.advancedModeMenuItem.Size = new System.Drawing.Size(175, 22);
-			this.advancedModeMenuItem.Text = "Advanced Modes";
-			this.advancedModeMenuItem.ToolTipText = "Switch to advanced mapping modes.";
-			// 
 			// cellModeMenuItem
 			// 
 			this.cellModeMenuItem.Name = "cellModeMenuItem";
-			this.cellModeMenuItem.Size = new System.Drawing.Size(128, 22);
-			this.cellModeMenuItem.Text = "Cell mode";
-			this.cellModeMenuItem.ToolTipText = "A mode specifically for plotting individual cells.";
+			this.cellModeMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.cellModeMenuItem.Text = "Cell Mode";
+			this.cellModeMenuItem.ToolTipText = "A mode specifically for plotting individual interiors.";
 			this.cellModeMenuItem.Click += new System.EventHandler(this.Map_CellMode);
 			// 
-			// layerMenuItem
+			// militaryStyleMenuItem
 			// 
-			this.layerMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.layerMilitaryMenuItem,
-            this.layerNWFlatwoodsMenuItem,
-            this.layerNWMorgantownMenuItem});
-			this.layerMenuItem.Name = "layerMenuItem";
-			this.layerMenuItem.Size = new System.Drawing.Size(175, 22);
-			this.layerMenuItem.Text = "Layer";
-			this.layerMenuItem.ToolTipText = "Add or remove a layer to the underlying map.";
-			// 
-			// layerMilitaryMenuItem
-			// 
-			this.layerMilitaryMenuItem.Name = "layerMilitaryMenuItem";
-			this.layerMilitaryMenuItem.Size = new System.Drawing.Size(166, 22);
-			this.layerMilitaryMenuItem.Text = "Military";
-			this.layerMilitaryMenuItem.ToolTipText = "Change map to the version found on the Targeting Computer and in Train Stations.";
-			this.layerMilitaryMenuItem.Click += new System.EventHandler(this.Map_Layer_Military);
-			// 
-			// layerNWFlatwoodsMenuItem
-			// 
-			this.layerNWFlatwoodsMenuItem.Name = "layerNWFlatwoodsMenuItem";
-			this.layerNWFlatwoodsMenuItem.Size = new System.Drawing.Size(166, 22);
-			this.layerNWFlatwoodsMenuItem.Text = "NW Flatwoods";
-			this.layerNWFlatwoodsMenuItem.ToolTipText = "Add/Remove a layer for the Flatwoods Nuclear Winter map.";
-			this.layerNWFlatwoodsMenuItem.Click += new System.EventHandler(this.Map_Layer_NWFlatwoods);
-			// 
-			// layerNWMorgantownMenuItem
-			// 
-			this.layerNWMorgantownMenuItem.Name = "layerNWMorgantownMenuItem";
-			this.layerNWMorgantownMenuItem.Size = new System.Drawing.Size(166, 22);
-			this.layerNWMorgantownMenuItem.Text = "NW Morgantown";
-			this.layerNWMorgantownMenuItem.ToolTipText = "Add/Remove a layer for the Morgantown Nuclear Winter map.";
-			this.layerNWMorgantownMenuItem.Click += new System.EventHandler(this.Map_Layer_NWMorgantown);
+			this.militaryStyleMenuItem.Name = "militaryStyleMenuItem";
+			this.militaryStyleMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.militaryStyleMenuItem.Text = "Military Style";
+			this.militaryStyleMenuItem.ToolTipText = "Change map to the version found on the Targeting Computer and in Train Stations.";
+			this.militaryStyleMenuItem.Click += new System.EventHandler(this.Map_MilitaryStyle);
 			// 
 			// brightnessMenuItem
 			// 
@@ -309,6 +275,7 @@ namespace Mappalachia
             this.plotModeMenuItem,
             this.plotIconSettingsMenuItem,
             this.heatmapSettingsMenuItem,
+            this.TopographColorBandsMenuItem,
             this.drawVolumesMenuItem});
 			this.plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			this.plotSettingsMenuItem.Size = new System.Drawing.Size(85, 20);
@@ -318,16 +285,17 @@ namespace Mappalachia
 			// 
 			this.plotModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.modeIconMenuItem,
-            this.modeHeatmapMenuItem});
+            this.modeHeatmapMenuItem,
+            this.modeTopographyMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
-			this.plotModeMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.plotModeMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.plotModeMenuItem.Text = "Plot Mode";
 			this.plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
 			// modeIconMenuItem
 			// 
 			this.modeIconMenuItem.Name = "modeIconMenuItem";
-			this.modeIconMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeIconMenuItem.Text = "Icon";
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -335,15 +303,23 @@ namespace Mappalachia
 			// modeHeatmapMenuItem
 			// 
 			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeHeatmapMenuItem.Text = "Heatmap";
 			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
 			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
 			// 
+			// modeTopographyMenuItem
+			// 
+			this.modeTopographyMenuItem.Name = "modeTopographyMenuItem";
+			this.modeTopographyMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeTopographyMenuItem.Text = "Topographic";
+			this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
+			this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
+			// 
 			// plotIconSettingsMenuItem
 			// 
 			this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
 			this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
 			this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
@@ -354,7 +330,7 @@ namespace Mappalachia
             this.colorModeMenuItem,
             this.resolutionMenuItem});
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
 			// 
@@ -429,10 +405,50 @@ namespace Mappalachia
 			this.resolution1024MenuItem.ToolTipText = "1024x1024 squares for the heatmap.";
 			this.resolution1024MenuItem.Click += new System.EventHandler(this.Plot_HeatMap_Resolution_1024);
 			// 
+			// TopographColorBandsMenuItem
+			// 
+			this.TopographColorBandsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.colorBand2MenuItem,
+            this.colorBand3MenuItem,
+            this.colorBand4MenuItem,
+            this.colorBand5MenuItem});
+			this.TopographColorBandsMenuItem.Name = "TopographColorBandsMenuItem";
+			this.TopographColorBandsMenuItem.Size = new System.Drawing.Size(204, 22);
+			this.TopographColorBandsMenuItem.Text = "Topography Color Bands";
+			this.TopographColorBandsMenuItem.ToolTipText = "Select the number of color bandings used in topographic plot mode.";
+			// 
+			// colorBand2MenuItem
+			// 
+			this.colorBand2MenuItem.Name = "colorBand2MenuItem";
+			this.colorBand2MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand2MenuItem.Text = "2";
+			this.colorBand2MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_2);
+			// 
+			// colorBand3MenuItem
+			// 
+			this.colorBand3MenuItem.Name = "colorBand3MenuItem";
+			this.colorBand3MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand3MenuItem.Text = "3";
+			this.colorBand3MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_3);
+			// 
+			// colorBand4MenuItem
+			// 
+			this.colorBand4MenuItem.Name = "colorBand4MenuItem";
+			this.colorBand4MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand4MenuItem.Text = "4";
+			this.colorBand4MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_4);
+			// 
+			// colorBand5MenuItem
+			// 
+			this.colorBand5MenuItem.Name = "colorBand5MenuItem";
+			this.colorBand5MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand5MenuItem.Text = "5";
+			this.colorBand5MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_5);
+			// 
 			// drawVolumesMenuItem
 			// 
 			this.drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			this.drawVolumesMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.drawVolumesMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.drawVolumesMenuItem.Text = "Draw Volumes";
 			this.drawVolumesMenuItem.ToolTipText = "(Where applicable, in Icon Mode) In-game volumes such as triggers/activators have" +
     " their boundaries drawn instead of a plot icon.";
@@ -1232,10 +1248,7 @@ namespace Mappalachia
 		private System.Windows.Forms.Button buttonSelectAllLock;
 		private System.Windows.Forms.DataGridView gridViewLegend;
 		private System.Windows.Forms.Label labelLegend;
-		private System.Windows.Forms.ToolStripMenuItem layerMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem layerMilitaryMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem layerNWFlatwoodsMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem layerNWMorgantownMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem militaryStyleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem brightnessMenuItem;
 		private System.Windows.Forms.Button buttonSearchScrap;
 		private System.Windows.Forms.Button buttonSearchNPC;
@@ -1279,7 +1292,6 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem grayscaleMenuItem;
 		private System.Windows.Forms.ProgressBar progressBarMain;
 		private System.Windows.Forms.ToolStripMenuItem checkForUpdatesMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem advancedModeMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem cellModeMenuItem;
 		private System.Windows.Forms.ComboBox comboBoxCell;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchFormID;
@@ -1307,6 +1319,12 @@ namespace Mappalachia
 		private System.Windows.Forms.CheckBox checkBoxCellDrawOutline;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendGroup;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendDisplayName;
+		private System.Windows.Forms.ToolStripMenuItem modeTopographyMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem TopographColorBandsMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem colorBand2MenuItem;
+		private System.Windows.Forms.ToolStripMenuItem colorBand3MenuItem;
+		private System.Windows.Forms.ToolStripMenuItem colorBand4MenuItem;
+		private System.Windows.Forms.ToolStripMenuItem colorBand5MenuItem;
 	}
 }
 

@@ -33,23 +33,6 @@ namespace Mappalachia
 			this.rows = rows;
 		}
 
-		// Find the ESM which this CSVFile was sourced from, based on its name
-		public string GetESM()
-		{
-			if (fileName.StartsWith("SeventySix"))
-			{
-				return "SeventySix";
-			}
-			else if (fileName.StartsWith("NW"))
-			{
-				return "NW";
-			}
-			else
-			{
-				throw new Exception("File " + fileName + " has an unknown ESM type");
-			}
-		}
-
 		// Escape problematic SQL characters
 		public void Sanitize()
 		{
