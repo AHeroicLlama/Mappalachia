@@ -14,7 +14,7 @@ namespace Mappalachia.Class
 		}
 
 		public static Mode mode = Mode.Icon;
-		public static bool drawVolumes = true; // Draw volumes when in icon mode
+		public static bool drawVolumes = true; // Draw volumes when in icon/topograph mode
 
 		public static bool IsHeatmap()
 		{
@@ -37,12 +37,15 @@ namespace Mappalachia.Class
 		}
 	}
 
+	// Internal settings/defaults for topographic plotting
 	static class SettingsPlotTopograph
 	{
-		public static Color legendColor = Color.Orange;
-		public static int colorBands = 3; // The number of colors from the color palette to insert as interpolated 'milestone' colors on the topograph range
+		public static int colorBands = 3; // The default number of colors from the color palette to insert as interpolated 'milestone' colors on the topograph range
+		public static readonly Color legendColor = Color.Orange;
 		public static readonly int heightKeyIndicators = 20; // How many different lines should show on the key for height/color
 		public static readonly string heightKeyString = "^^^^";
+		public static readonly int zThreshUpper = 45000; // Thresholds for heights considered an outlier
+		public static readonly int zThreshLower = -8000;
 	}
 
 	// Plot Icon Settings and their defaults, used in FormPlotIconSettings

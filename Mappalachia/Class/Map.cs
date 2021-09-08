@@ -23,11 +23,6 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 
-		// Values outside which the z coordinate will be capped to
-		// Because it's considered these were moved out the way by developers and aren't tangible game world
-		public static readonly int zLimitUpper = 45000;
-		public static readonly int zLimitLower = -1200;
-
 		// Legend text positioning
 		static readonly int legendIconX = 141; // The X Coord of the plot icon that is drawn next to each legend string
 		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
@@ -232,7 +227,7 @@ namespace Mappalachia
 
 						// Do not contribute outlier values to the min/max range - this ensures they have the same
 						// color as the min/max *legitimate* item and they do not skew the color ranges
-						if (point.z > zLimitUpper || point.z < zLimitLower)
+						if (point.z > SettingsPlotTopograph.zThreshUpper || point.z < SettingsPlotTopograph.zThreshLower)
 						{
 							continue;
 						}
@@ -283,7 +278,7 @@ namespace Mappalachia
 						{
 							// Clamp the z values to the percieved outlier threshold
 							double z = point.z + (point.boundZ / 2);
-							z = Math.Max(Math.Min(z, zLimitUpper), zLimitLower);
+							z = Math.Max(Math.Min(z, SettingsPlotTopograph.zThreshUpper), SettingsPlotTopograph.zThreshLower);
 
 							// Normalize the height of this item between the min/max z of the whole set
 							double colorValue = (z - zMin) / zRange;

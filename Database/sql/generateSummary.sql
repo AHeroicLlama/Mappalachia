@@ -27,6 +27,10 @@ SELECT AVG(y) FROM SeventySix_Worldspace;
 SELECT '==Worldspace average Z Coord==';
 SELECT AVG(z) FROM SeventySix_Worldspace;
 
+-- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zTreshUpper/Lower
+SELECT '==Worldspace Z outliers==';
+SELECT COUNT(*) FROM SeventySix_Worldspace WHERE z < -8000 or z > 45000;
+
 SELECT '==Worldspace average X Bounds Width==';
 SELECT AVG(boundX) FROM SeventySix_Worldspace;
 
@@ -53,6 +57,10 @@ SELECT AVG(y) FROM SeventySix_Interior;
 
 SELECT '==Interior average Z Coord==';
 SELECT AVG(z) FROM SeventySix_Interior;
+
+-- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zTreshUpper/Lower
+SELECT '==Interior Z outliers==';
+SELECT COUNT(*) FROM SeventySix_Interior WHERE z < -8000 or z > 45000;
 
 SELECT '==Interior average X Bounds Width==';
 SELECT AVG(boundX) FROM SeventySix_Interior;
