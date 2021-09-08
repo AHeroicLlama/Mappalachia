@@ -10,9 +10,12 @@ Mappalchia's database exists as an SQLite database file. SQLite allows us to hav
 ## How is the database built?
 Using SQLite, a single batch file creates the empty database structure, then instructs SQLite to populate the empty tables with the preprocessed data. After this further SQL removes escaped characters, shrinks the database, indexes it, and generates a summary report.
 
+## Game Version
+The game version string is baked into the database, but it depends on you providing it correctly before it is built. Before running `build_database.bat`, ensure the correct game version string is stored in `gameVersion.csv`.<br/>
+
 ## Building the database
 Before we can build the database, we need a copy of the sqlite tools windows binary, called sqlite3.exe. This is distributed at the [SQLite downloads page](https://www.sqlite.org/download.html). Under 'Precompiled Binaries for Windows' find the sqlite-tools zip.<br/>
-Once you have placed that exe in the `\Database\` folder, you can execute `build_database.bat` which should complete all the steps required to build the database.<br/>
+Once you have placed that exe in the `\Database\` folder, you can execute `build_database.bat` and after confirming the correct game version, the script will carry out all the steps required to build the database.<br/>
 Once finished, the script will automatically move the db file to the data folder for the Mappalachia GUI at `\Mappalachia\data\`.
 
 ## Summary Report

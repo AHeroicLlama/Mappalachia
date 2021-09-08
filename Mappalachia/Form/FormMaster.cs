@@ -63,6 +63,7 @@ namespace Mappalachia
 			UpdatePlotMode(false);
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
+			UpdateTopographColorBands(false);
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateSearchInterior();
@@ -110,7 +111,7 @@ namespace Mappalachia
 			}
 
 			// Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
-			//...We can add them to the ListView on the form
+			// We can add them to the ListView on the form
 			foreach (string signature in orderedSignatures)
 			{
 				ListViewItem thisItem = listViewFilterSignatures.Items.Add(signature);
@@ -158,7 +159,7 @@ namespace Mappalachia
 			}
 
 			// Finally, now we have a list which starts with the suggested order, and ends with any unsorted items
-			//...We can add them to the ListView on the form
+			// We can add them to the ListView on the form
 			foreach (string lockLevel in orderedLockLevels)
 			{
 				ListViewItem thisItem = listViewFilterLockTypes.Items.Add(lockLevel);
@@ -219,7 +220,6 @@ namespace Mappalachia
 				"Overseer's Cache",
 				"Vein",
 				"Instrument",
-				"Babylon",
 				"Recipe: Delbert's",
 				"Protest Sign",
 				"Trunk Boss",
@@ -284,22 +284,35 @@ namespace Mappalachia
 		// Update the Plot Settings > Mode options based on the actual value in PlotSettings
 		void UpdatePlotMode(bool reDraw)
 		{
+			UncheckAllPlotModes();
+
 			switch (SettingsPlot.mode)
 			{
 				case SettingsPlot.Mode.Icon:
 					modeIconMenuItem.Checked = true;
-					modeHeatmapMenuItem.Checked = false;
 					break;
 				case SettingsPlot.Mode.Heatmap:
-					modeIconMenuItem.Checked = false;
 					modeHeatmapMenuItem.Checked = true;
 					break;
+				case SettingsPlot.Mode.Topography:
+					modeTopographyMenuItem.Checked = true;
+					break;
 			}
+
+			PlotIcon.ResetCache(); // Reset the plot icon cache, as we are changing plot modes
 
 			if (reDraw)
 			{
 				DrawMap(false);
 			}
+		}
+
+		// Remove any check boxes from the plot mode menu choices
+		void UncheckAllPlotModes()
+		{
+			modeIconMenuItem.Checked = false;
+			modeHeatmapMenuItem.Checked = false;
+			modeTopographyMenuItem.Checked = false;
 		}
 
 		// Update the UI with the currently selected heatmap color mode
@@ -352,12 +365,42 @@ namespace Mappalachia
 			}
 		}
 
+		// Update the UI checkboxes with the currently selected Topographic color amount
+		void UpdateTopographColorBands(bool reDraw)
+		{
+			UncheckAllColorBands();
+
+			switch (SettingsPlotTopograph.colorBands)
+			{
+				case 2:
+					colorBand2MenuItem.Checked = true;
+					break;
+				case 3:
+					colorBand3MenuItem.Checked = true;
+					break;
+				case 4:
+					colorBand4MenuItem.Checked = true;
+					break;
+				case 5:
+					colorBand5MenuItem.Checked = true;
+					break;
+				default:
+					SettingsPlotTopograph.colorBands = 3;
+					Notify.Error("Unsupported number of Topograph color bands. Defaulting to " + SettingsPlotTopograph.colorBands);
+					UpdateTopographColorBands(reDraw);
+					break;
+			}
+
+			if (reDraw && SettingsPlot.IsTopographic())
+			{
+				DrawMap(false);
+			}
+		}
+
 		// Update check marks in the UI with current MapSettings, and redraw the map if true
 		void UpdateMapLayerSettings(bool reDraw)
 		{
-			layerMilitaryMenuItem.Checked = SettingsMap.layerMilitary;
-			layerNWFlatwoodsMenuItem.Checked = SettingsMap.layerNWFlatwoods;
-			layerNWMorgantownMenuItem.Checked = SettingsMap.layerNWMorgantown;
+			militaryStyleMenuItem.Checked = SettingsMap.layerMilitary;
 
 			if (reDraw)
 			{
@@ -418,7 +461,7 @@ namespace Mappalachia
 				case SettingsMap.Mode.Cell:
 					cellModeMenuItem.Checked = false;
 					interiorSearchMenuItem.Enabled = true;
-					layerMenuItem.Enabled = true;
+					militaryStyleMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
 					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
@@ -439,7 +482,7 @@ namespace Mappalachia
 					SettingsMap.mode = incomingMode;
 					cellModeMenuItem.Checked = true;
 					interiorSearchMenuItem.Enabled = false;
-					layerMenuItem.Enabled = false;
+					militaryStyleMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
 					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
@@ -470,6 +513,15 @@ namespace Mappalachia
 			resolution256MenuItem.Checked = false;
 			resolution512MenuItem.Checked = false;
 			resolution1024MenuItem.Checked = false;
+		}
+
+		// Unselect all topographic color band amount options
+		void UncheckAllColorBands()
+		{
+			colorBand2MenuItem.Checked = false;
+			colorBand3MenuItem.Checked = false;
+			colorBand4MenuItem.Checked = false;
+			colorBand5MenuItem.Checked = false;
 		}
 
 		// Collect the enabled signatures from the UI to a list for use by a query
@@ -628,6 +680,7 @@ namespace Mappalachia
 				{
 					continue; // Either this isn't overridden, or we already have this one - skip
 				}
+
 				// This must be a new MapItem with overridden text - add it to the Dictionary
 				else if (!string.IsNullOrWhiteSpace(mapItem.overridingLegendText))
 				{
@@ -721,28 +774,14 @@ namespace Mappalachia
 			PreviewMap();
 		}
 
-		// Map > Layer > Military - Toggle the map background to be military
-		void Map_Layer_Military(object sender, EventArgs e)
+		// Map > Military Style - Toggle the map background to be military
+		void Map_MilitaryStyle(object sender, EventArgs e)
 		{
 			SettingsMap.layerMilitary = !SettingsMap.layerMilitary;
 			UpdateMapLayerSettings(true);
 		}
 
-		// Map > Layer > NW Flatwoods - Toggle the NW Flatwoods layer
-		void Map_Layer_NWFlatwoods(object sender, EventArgs e)
-		{
-			SettingsMap.layerNWFlatwoods = !SettingsMap.layerNWFlatwoods;
-			UpdateMapLayerSettings(true);
-		}
-
-		// Map > Layer > NW MorganTown - Toggle the NW Morgantown later
-		void Map_Layer_NWMorgantown(object sender, EventArgs e)
-		{
-			SettingsMap.layerNWMorgantown = !SettingsMap.layerNWMorgantown;
-			UpdateMapLayerSettings(true);
-		}
-
-		// Map > Advanced Modes > Cell Mode
+		// Map > Cell Mode
 		private void Map_CellMode(object sender, EventArgs e)
 		{
 			if (!SettingsMap.IsCellModeActive())
@@ -753,7 +792,8 @@ namespace Mappalachia
 					"Switching to Cell mode may change or disable certain other settings.\n" +
 					"Please read the user documentation on Cell Mode for full details.\n\n" +
 					"Continue to Cell mode?",
-					"Switch to Cell mode?", MessageBoxButtons.YesNo);
+					"Switch to Cell mode?",
+					MessageBoxButtons.YesNo);
 
 				if (question == DialogResult.Yes)
 				{
@@ -849,6 +889,13 @@ namespace Mappalachia
 			UpdatePlotMode(true);
 		}
 
+		// Plot Settings > Mode > Topography - Change plot mode to Topography
+		private void Plot_Mode_Topography(object sender, EventArgs e)
+		{
+			SettingsPlot.mode = SettingsPlot.Mode.Topography;
+			UpdatePlotMode(true);
+		}
+
 		// Plot Settings > Plot Icon Settings - Open plot settings form
 		private void Plot_PlotIconSettings(object sender, EventArgs e)
 		{
@@ -856,46 +903,74 @@ namespace Mappalachia
 			formPlotSettings.ShowDialog();
 		}
 
-		// Plot Setting > Heatmap Settings > Color Mode > Mono - Change color mode to mono
+		// Plot Settings > Heatmap Settings > Color Mode > Mono - Change color mode to mono
 		private void Plot_HeatMap_ColorMode_Mono(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Mono;
 			UpdateHeatMapColorMode(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Color Mode > Duo - Change color mode to duo
+		// Plot Settings > Heatmap Settings > Color Mode > Duo - Change color mode to duo
 		private void Plot_HeatMap_ColorMode_Duo(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Duo;
 			UpdateHeatMapColorMode(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 128 - Change resolution to 128
+		// Plot Settings > Heatmap Settings > Resolution > 128 - Change resolution to 128
 		private void Plot_HeatMap_Resolution_128(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 128;
 			UpdateHeatMapResolution(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 256 - Change resolution to 256
+		// Plot Settings > Heatmap Settings > Resolution > 256 - Change resolution to 256
 		private void Plot_HeatMap_Resolution_256(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 256;
 			UpdateHeatMapResolution(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 512 - Change resolution to 512
+		// Plot Settings > Heatmap Settings > Resolution > 512 - Change resolution to 512
 		private void Plot_HeatMap_Resolution_512(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 512;
 			UpdateHeatMapResolution(true);
 		}
 
-		// Plot Setting > Heatmap Settings > Resolution > 1024 - Change resolution to 1024
+		// Plot Settings > Heatmap Settings > Resolution > 1024 - Change resolution to 1024
 		private void Plot_HeatMap_Resolution_1024(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 1024;
 			UpdateHeatMapResolution(true);
+		}
+
+		// Plot Settings > Topograph color bands > 2
+		private void Plot_TopographBands_2(object sender, EventArgs e)
+		{
+			SettingsPlotTopograph.colorBands = 2;
+			UpdateTopographColorBands(true);
+		}
+
+		// Plot Settings > Topograph color bands > 3
+		private void Plot_TopographBands_3(object sender, EventArgs e)
+		{
+			SettingsPlotTopograph.colorBands = 3;
+			UpdateTopographColorBands(true);
+		}
+
+		// Plot Settings > Topograph color bands > 4
+		private void Plot_TopographBands_4(object sender, EventArgs e)
+		{
+			SettingsPlotTopograph.colorBands = 4;
+			UpdateTopographColorBands(true);
+		}
+
+		// Plot Settings > Topograph color bands > 5
+		private void Plot_TopographBands_5(object sender, EventArgs e)
+		{
+			SettingsPlotTopograph.colorBands = 5;
+			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Draw Volumes - Toggle drawing volumes
@@ -1209,7 +1284,9 @@ namespace Mappalachia
 				{
 					rejectedItemsDuplicate.Add(selectedItem.editorID);
 				}
-				else // Item is fine - add it
+
+				// Item is fine - add it
+				else
 				{
 					// If the legend group is already fixed (added as group) use that, otherwise use a new legend group
 					selectedItem.legendGroup = (legendGroup == -1) ?
@@ -1262,10 +1339,10 @@ namespace Mappalachia
 				}
 
 				// Add a line to say that a further x items (not shown) were not added
-				message += "\n\n" + string.Join("\n", rejectedItemsInterior.Concat(rejectedItemsDuplicate).Take(maxItemsToShow)) + 
+				message += "\n\n" + string.Join("\n", rejectedItemsInterior.Concat(rejectedItemsDuplicate).Take(maxItemsToShow)) +
 					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty);
 
-				Notify.Info(message); 
+				Notify.Info(message);
 			}
 		}
 
@@ -1346,7 +1423,9 @@ namespace Mappalachia
 					BeginInvoke((MethodInvoker)delegate { UpdateLegendGrid(editedItem); });
 				}
 			}
-			else if (e.ColumnIndex == 1) // Override legend text
+
+			// Override legend text
+			else if (e.ColumnIndex == 1)
 			{
 				int targetLegendGroup = int.Parse(editedRow.Cells[0].Value.ToString());
 

@@ -23,7 +23,7 @@ unit _m_worldspace;
 		block, subBlock, cell, cellItem : IInterface;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('referenceFormID,x,y,locationFormID,lockLevel,primitiveShape,boundX,boundY,rotZ'); // Write CSV column headers
+		outputStrings.add('referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ'); // Write CSV column headers
 
 		for i := 0 to blockCount - 1 do begin // Iterate over all blocks within the worldspace
 			block := elementByIndex(blocks, i);
@@ -79,11 +79,13 @@ unit _m_worldspace;
 				sanitize(displayName) + ',' +
 				FloatToStr(position.x) + ',' +
 				FloatToStr(position.y) + ',' +
+				FloatToStr(position.z) + ',' +
 				sanitize(GetEditValue(ElementBySignature(item, 'XLCN'))) + ',' +
 				GetEditValue(ElementByName(ElementBySignature(item, 'XLOC'), 'Level')) + ',' +
 				primitiveShape + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Y')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
 				rotZ
 			);
 		end;

@@ -1,4 +1,7 @@
 --Provide a report on key data statistics. The outputted report is source controlled and allows us to verify at a glance how game updates affect the Mappalachia database
+SELECT '==Game Version==';
+SELECT version FROM gameVersion;
+
 SELECT '==Total unique items by signature==';
 SELECT signature, COUNT(signature) AS count FROM SeventySix_FormID
 GROUP BY signature;
@@ -21,11 +24,21 @@ SELECT AVG(x) FROM SeventySix_Worldspace;
 SELECT '==Worldspace average Y Coord==';
 SELECT AVG(y) FROM SeventySix_Worldspace;
 
+SELECT '==Worldspace average Z Coord==';
+SELECT AVG(z) FROM SeventySix_Worldspace;
+
+-- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zTreshUpper/Lower
+SELECT '==Worldspace Z outliers==';
+SELECT COUNT(*) FROM SeventySix_Worldspace WHERE z < -8000 or z > 45000;
+
 SELECT '==Worldspace average X Bounds Width==';
 SELECT AVG(boundX) FROM SeventySix_Worldspace;
 
 SELECT '==Worldspace average Y Bounds Width==';
 SELECT AVG(boundY) FROM SeventySix_Worldspace;
+
+SELECT '==Worldspace average Z Bounds Width==';
+SELECT AVG(boundZ) FROM SeventySix_Worldspace;
 
 SELECT '==Worldspace average Z Rotation==';
 SELECT AVG(rotZ) FROM SeventySix_Worldspace;
@@ -44,6 +57,10 @@ SELECT AVG(y) FROM SeventySix_Interior;
 
 SELECT '==Interior average Z Coord==';
 SELECT AVG(z) FROM SeventySix_Interior;
+
+-- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zTreshUpper/Lower
+SELECT '==Interior Z outliers==';
+SELECT COUNT(*) FROM SeventySix_Interior WHERE z < -8000 or z > 45000;
 
 SELECT '==Interior average X Bounds Width==';
 SELECT AVG(boundX) FROM SeventySix_Interior;

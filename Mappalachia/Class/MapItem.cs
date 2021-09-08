@@ -117,11 +117,20 @@ namespace Mappalachia
 			{
 				return GetIcon().color;
 			}
-			else // HeatMap
+			else if (SettingsPlot.IsTopographic())
+			{
+				return SettingsPlotTopograph.legendColor;
+			}
+			else if (SettingsPlot.IsHeatmap())
 			{
 				return SettingsPlotHeatmap.IsMono() ?
 					Color.Red :
 					(legendGroup % 2 == 0 ? Color.Red : Color.Blue);
+			}
+			else
+			{
+				// Failed to match plot mode
+				return Color.Gray;
 			}
 		}
 

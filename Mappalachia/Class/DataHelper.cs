@@ -573,7 +573,7 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
 				}
 			}
 
@@ -594,11 +594,11 @@ namespace Mappalachia
 					// Identify if this item has a primitive shape and use the appropriate constructor
 					if (primitiveShape == string.Empty)
 					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d));
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
 					}
 					else
 					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2), 1d, primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(5), reader.GetInt32(7)));
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7)));
 					}
 				}
 			}
@@ -615,16 +615,16 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					string primitiveShape = reader.GetString(2);
+					string primitiveShape = reader.GetString(3);
 
 					// Identify if this item has a primitive shape and use the appropriate constructor
 					if (primitiveShape == string.Empty)
 					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d));
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
 					}
 					else
 					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), 1d, primitiveShape, reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5)));
+						coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7)));
 					}
 				}
 			}
@@ -641,8 +641,10 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					// Divide weighting by 100 as npc weighting is a percentage and we need 1=100%
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2) / 100d));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2))
+					{
+						weight = reader.GetInt32(3) / 100d, // Divide weighting by 100 as npc weighting is a percentage and we need 1=100%
+					});
 				}
 			}
 
@@ -658,11 +660,28 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), -reader.GetInt32(1), reader.GetInt32(2)));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2))
+					{
+						weight = reader.GetInt32(3),
+					});
 				}
 			}
 
 			return coordinates;
+		}
+
+		// Return the game version associated to the database
+		public static string GetGameVersion()
+		{
+			using (SqliteDataReader reader = Database.ExecuteQueryGameVersion())
+			{
+				while (reader.Read())
+				{
+					return reader.GetString(0);
+				}
+			}
+
+			return "unknown";
 		}
 	}
 }
