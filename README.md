@@ -21,7 +21,7 @@ A number of User guides exist for Mappalachia in document form;<br/>
 * [**Installation and First run**](User_Guides/Installation_and_first_run.md) covers initial installation and getting Mappalachia running.
 * [**First map**](User_Guides/First_map.md) covers all the basic steps to creating your first Mappalachia map.
 * [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the Intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
-* [**Advanced Mapping**](User_Guides/Advanced_mapping.md) details the powerful heatmap mode, as well as item grouping, volume mapping and icon customization.
+* [**Advanced Mapping**](User_Guides/Advanced_mapping.md) details the powerful heatmap mode, as well as topographical plotting, item grouping, volume mapping and icon customization.
 * [**Map Settings**](User_Guides/Map_settings.md) covers the ways you can adjust the visuals of the map, including layers for Nuclear Winter.
 * [**Cell Mode**](User_Guides/Cell_mode.md) explains how to use the advanced Cell mode to plot maps of interiors.
 * [**Updating or Uninstalling**](User_Guides/Updating_or_uninstalling.md) describes how to update or remove Mappalachia.
