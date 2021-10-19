@@ -290,12 +290,15 @@ namespace Mappalachia
 			{
 				case SettingsPlot.Mode.Icon:
 					modeIconMenuItem.Checked = true;
+					drawVolumesMenuItem.Enabled = true;
 					break;
 				case SettingsPlot.Mode.Heatmap:
 					modeHeatmapMenuItem.Checked = true;
+					drawVolumesMenuItem.Enabled = false;
 					break;
 				case SettingsPlot.Mode.Topography:
 					modeTopographyMenuItem.Checked = true;
+					drawVolumesMenuItem.Enabled = true;
 					break;
 			}
 
