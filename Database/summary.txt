@@ -1,97 +1,97 @@
 ==Database checksum== 
-2e442348118ac966aabb993125c8d972
+9ce57f81ec0236ee1ba77d880917c6f7
 ==Game Version==
-1.6.1.18
+1.6.2.16
 ==Total unique items by signature==
-ACTI|1409
+ACTI|1420
 ALCH|84
 AMMO|12
 ARMO|97
 ASPC|159
 BNDS|17
-BOOK|634
+BOOK|640
 CNCY|1
 CONT|553
-DOOR|313
+DOOR|314
 FLOR|135
-FURN|566
+FURN|569
 HAZD|42
 IDLM|22
 KEYM|72
-LIGH|1433
-LVLI|588
+LIGH|1432
+LVLI|591
 MISC|813
-MSTT|830
+MSTT|835
 NOTE|309
-NPC_|1183
+NPC_|1186
 PROJ|2
-SCOL|9958
+SCOL|9998
 SECH|10
 SOUN|326
-STAT|18837
-TACT|75
+STAT|18844
+TACT|76
 TERM|560
-TXST|418
+TXST|420
 WEAP|75
 ==Average display name string length==
-2.64695317835732
+2.65295097692735
 ==Average editorID string length==
-24.8960362229024
+24.8977886605745
 ==Worldspace average X Coord==
--14902.0694676218
+-14948.4022659791
 ==Worldspace average Y Coord==
-6200.12011011801
+6220.70023343491
 ==Worldspace average Z Coord==
-14914.7761567732
+14910.7375462312
 ==Worldspace Z outliers==
 65
 ==Worldspace average X Bounds Width==
-19.7745261069446
+19.7886486169714
 ==Worldspace average Y Bounds Width==
-14.4263887857577
+14.4408546908371
 ==Worldspace average Z Bounds Width==
-14.1047039528107
+14.1198956868261
 ==Worldspace average Z Rotation==
-3.39995486112468
+3.40633269521279
 ==Worldspace primitive shape types + count==
-|3004011
-Box|62322
+|3004874
+Box|62455
 Ellipsoid|1
 Line|1802
-Plane|41
-Sphere|2347
+Plane|40
+Sphere|2348
 ==Worldspace total placement count==
-3070524
+3071520
 ==Interior average X Coord==
--1036.45379824197
+-1036.25427227877
 ==Interior average Y Coord==
--968.415668252806
+-968.430116433169
 ==Interior average Z Coord==
-355.7874025833
+355.763386195069
 ==Interior Z outliers==
 3
 ==Interior average X Bounds Width==
-28.2786709285458
+28.3269636612691
 ==Interior average Y Bounds Width==
-22.7640406734734
+22.7977036327594
 ==Interior average Z Bounds Width==
-18.524859878659
+18.5502288571619
 ==Interior average Z Rotation==
-6.42798055424847
+6.43237716328485
 ==Interior total placement count==
-718306
+718352
 ==Worldspace unique placement count==
-30386
+30489
 ==Interior unique placement count==
-20205
+20208
 ==Average interior placement count==
-5611.765625
+5612.125
 ==Worldspace lock levels + count==
-|3069484
+|3070482
 Advanced (Level 1)|315
 Chained|1
-Expert (Level 2)|198
-Inaccessible|23
+Expert (Level 2)|197
+Inaccessible|22
 Master (Level 3)|85
 Novice (Level 0)|51
 Opens Door|267
@@ -99,7 +99,7 @@ Requires Key|90
 Requires Terminal|9
 Unknown|1
 ==Interior lock levels + count==
-|717503
+|717549
 Advanced (Level 1)|216
 Chained|2
 Expert (Level 2)|166
@@ -110,15 +110,15 @@ Opens Door|149
 Requires Key|75
 Requires Terminal|29
 ==Worldspace variable spawn entities + count==
-|3064925
-Main|4101
-Sub|1498
+|3065930
+Main|4090
+Sub|1500
 ==Interior variable spawn entities + count==
-|714449
+|714495
 Main|1991
 Sub|1866
 ==Worldspace total entity-with-locationFormID count==
-2726
+2744
 ==Interior total entity-with-locationFormID count==
 825
 ==Worldspace unique locationFormID count==
@@ -229,7 +229,7 @@ AMSHQ02|AMS Headquarters Basement Lab|1993
 AVRMedicalCenter01|AVR Medical Center|5938
 AlleghenyAsylum01|Fort Defiance|15013
 ArktosPharmaLab01|Arktos Pharma Biome Lab|17183
-ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|14622
+ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|14627
 BelchingBetty01|Belching Betty|5220
 BigBendTunnel01|Big Bend Tunnels|7551
 BlackwaterMine01|Blackwater Mine|6164
@@ -250,7 +250,7 @@ EasternRegionalPen01|Eastern Regional Penitentiary|11438
 EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|4857
 EnclaveResearchFacility01|Enclave Research Facility|18733
 FortAtlas01|Fort Atlas|5182
-FortAtlasDungeon01|Atlas Substructure|12673
+FortAtlasDungeon01|Atlas Substructure|12665
 FoundationInt01|Foundation Interior|5371
 FoundationSupplyRoom01|Foundation Supply Room|529
 FraternityHouse01|Pi House|1216
@@ -300,7 +300,7 @@ SamBlackwellBunker02|Sam Blackwell's Bunker|2113
 SamBlackwellsDeathclawCave|Cavern|1927
 SettlerBugOutCave|Secluded Cave|372
 SheltersCave01|Abandoned Mine Shelter|535
-SheltersCave02|Abandoned Mine Shelter|559
+SheltersCave02|Forbidden Digsite Shelter|608
 SheltersClaimCenter01|Shelters Claim Center|976
 SheltersMissileSilo|Abandoned Mine Shelter|493
 SheltersVaultAtrium01|Vault Atrium Shelter|2268
