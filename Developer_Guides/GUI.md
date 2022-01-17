@@ -39,7 +39,8 @@ Failing full-scale code documentation, I will list the following key points to b
 ## Packaging a release.
 In order to package a Mappalachia release there are a few steps.
 * Make sure the database has been newly compiled from the latest Fallout 76 version.
-* Verify the database summary report has not indicated any issues.
+* Verify using git that the database summary report has not indicated any issues.
+* Verify using git that the skipped cells report (`FO76Edit\Output\SkippedCells.csv`) does not indicate any in-game cells have been incorrectly skipped.
 * Make sure to 'rebuild solution' to build the Mappalachia program in `Release` configuration.
 * Launch `Mappalachia\package_release.bat`. This batch script will essentially just check for a release build and then zip up the `bin\Release\` folder and drop it in the `\Mapplachia\` folder besides the batch script.
 * `Mappalachia.zip` is the file which should now be distributed to end users.

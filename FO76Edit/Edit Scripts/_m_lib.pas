@@ -44,33 +44,28 @@ unit _m_lib;
 	function shouldProcessCell(cellName, cellEditorID: String): Boolean;
 	begin
 		// Skip these cells but don't log that we skipped them, as most debug cells are like this
-		if(cellName = '') or (cellName = 'Quick Test Cell')
-		then begin
-			result := false
-		end
-		// Also skip these cells, but do log that they were skipped, in case of false positives
-		else if
-			(pos('Test', cellName) <> 0) or
-			(pos('Cell', cellName) <> 0) or
-			(pos('76', cellName) <> 0) or
-			(pos('Babylon', cellName) <> 0) or
-			(pos('Debug', cellName) <> 0) or
+		if 	(cellName = '') or
+			(cellEditorID = '') or
+			(cellName = 'Quick Test Cell') or
 
+			(pos('PackIn', cellEditorID) <> 0) or
+			(pos('COPY', cellEditorID) <> 0) or
+			(pos('zCUT', cellEditorID) <> 0) or
+			(pos('Cell', cellEditorID) <> 0) or
 			(pos('Test', cellEditorID) <> 0) or
-			(pos('CUT', cellEditorID) <> 0) or
-			(pos('Delete', cellEditorID) <> 0) or
+			(pos('Holding', cellEditorID) <> 0) or
 			(pos('Debug', cellEditorID) <> 0) or
 			(pos('OLD', cellEditorID) <> 0) or
-			(pos('Unused', cellEditorID) <> 0) or
 			(pos('Proto', cellEditorID) <> 0) or
+			(pos('Unused', cellEditorID) <> 0) or
 			(pos('QA', cellEditorID) <> 0) or
-			(pos('Holding', cellEditorID) <> 0) or
+			(pos('Smoke', cellEditorID) <> 0) or
 
-			(cellEditorID = 'DLC06VaultWorkshop') or
+			(pos('Cell', cellName) <> 0) or
+			(pos('Debug', cellName) <> 0) or
 
 			(pos('Warehouse', cellEditorID) = 1)
 		then begin
-			AddMessage('Skipped cell ' + cellName + ' (' + cellEditorID + ')');
 			result := false
 		end
 		else result := true;
