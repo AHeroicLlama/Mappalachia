@@ -56,17 +56,14 @@ namespace Mappalachia
 			numericMaxZ.Increment = numericMinZ.Increment;
 
 			// Apply UI layouts according to current settings
-			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
-			UpdateAmountColumnToolTip();
 			UpdatePlotMode(false);
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
 			UpdateTopographColorBands(false);
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
-			UpdateSearchInterior();
 			UpdateShowFormID();
 			UpdateSpawnChance();
 
@@ -236,12 +233,6 @@ namespace Mappalachia
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
 		}
 
-		// Update the visibility of the search results location column, given current settings
-		void UpdateLocationColumnVisibility()
-		{
-			gridViewSearchResults.Columns["columnSearchLocation"].Visible = SettingsSearch.searchInterior || SettingsMap.IsCellModeActive();
-		}
-
 		// Update the visiblity of the lock type column in the results view, given current settings
 		void UpdateResultsLockTypeColumnVisibility()
 		{
@@ -271,14 +262,6 @@ namespace Mappalachia
 			{
 				DrawMap(false);
 			}
-		}
-
-		// Update tooltip on "amount" column header - as it changes depending on interior searching or not
-		void UpdateAmountColumnToolTip()
-		{
-			gridViewSearchResults.Columns["columnSearchAmount"].ToolTipText = SettingsSearch.searchInterior ?
-				"The amount of instances which can be found in the listed location." :
-				"The amount of instances which can be found on the surface of Appalachia.";
 		}
 
 		// Update the Plot Settings > Mode options based on the actual value in PlotSettings
@@ -422,12 +405,6 @@ namespace Mappalachia
 			}
 		}
 
-		// Update check mark in the UI for Search Interiors option
-		void UpdateSearchInterior()
-		{
-			interiorSearchMenuItem.Checked = SettingsSearch.searchInterior;
-		}
-
 		// Update check mark in the UI for Show FormID option
 		void UpdateShowFormID()
 		{
@@ -463,7 +440,6 @@ namespace Mappalachia
 			{
 				case SettingsMap.Mode.Cell:
 					cellModeMenuItem.Checked = false;
-					interiorSearchMenuItem.Enabled = true;
 					militaryStyleMenuItem.Enabled = true;
 					brightnessMenuItem.Enabled = true;
 					grayscaleMenuItem.Enabled = true;
@@ -484,7 +460,6 @@ namespace Mappalachia
 				case SettingsMap.Mode.Cell:
 					SettingsMap.mode = incomingMode;
 					cellModeMenuItem.Checked = true;
-					interiorSearchMenuItem.Enabled = false;
 					militaryStyleMenuItem.Enabled = false;
 					brightnessMenuItem.Enabled = false;
 					grayscaleMenuItem.Enabled = false;
@@ -506,7 +481,6 @@ namespace Mappalachia
 			}
 
 			Map.DrawBaseLayer();
-			UpdateLocationColumnVisibility();
 		}
 
 		// Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -864,13 +838,6 @@ namespace Mappalachia
 			GC.WaitForPendingFinalizers();
 		}
 
-		// Search Settings > Toggle interiors - Toggle including interiors in search results
-		void Search_Interior(object sender, EventArgs e)
-		{
-			SettingsSearch.searchInterior = !SettingsSearch.searchInterior;
-			UpdateSearchInterior();
-		}
-
 		// Search Settings > Show FormID - Toggle visibility of FormID column
 		void Search_FormID(object sender, EventArgs e)
 		{
@@ -1163,15 +1130,13 @@ namespace Mappalachia
 			// Execute the search
 			searchResults = SettingsMap.IsCellModeActive() ?
 				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) :
-				DataHelper.SearchStandard(textBoxSearch.Text, SettingsSearch.searchInterior, GetEnabledSignatures(), GetEnabledLockTypes());
+				DataHelper.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
 
 			// Perform UI update
-			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
-			UpdateAmountColumnToolTip();
 			textBoxSearch.Select();
 			textBoxSearch.SelectAll();
 
@@ -1191,9 +1156,7 @@ namespace Mappalachia
 			progressBarMain.Value = progressBarMain.Minimum;
 
 			// Perform UI update
-			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
-			UpdateAmountColumnToolTip();
 
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
@@ -1219,9 +1182,7 @@ namespace Mappalachia
 			progressBarMain.Value = progressBarMain.Minimum;
 
 			// Perform UI update
-			UpdateLocationColumnVisibility();
 			UpdateResultsLockTypeColumnVisibility();
-			UpdateAmountColumnToolTip();
 
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;

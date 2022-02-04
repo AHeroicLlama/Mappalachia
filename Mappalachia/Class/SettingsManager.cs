@@ -48,7 +48,6 @@ namespace Mappalachia.Class
 
 			// SettingsSearch
 			settings.Add("[Search]");
-			settings.Add("searchInterior=" + BoolToIntStr(SettingsSearch.searchInterior));
 			settings.Add("showFormID=" + BoolToIntStr(SettingsSearch.showFormID));
 			settings.Add("spawnChance=" + SettingsSearch.spawnChance);
 
@@ -140,10 +139,6 @@ namespace Mappalachia.Class
 
 						case "grayScale":
 							SettingsMap.grayScale = StrIntToBool(value);
-							break;
-
-						case "searchInterior":
-							SettingsSearch.searchInterior = StrIntToBool(value);
 							break;
 
 						case "showFormID":
@@ -332,12 +327,9 @@ namespace Mappalachia.Class
 
 						// Legacy settings - ignore
 						case "filterWarnings":
-							break;
-
 						case "layerNWMorgantown":
-							break;
-
 						case "layerNWFlatwoods":
+						case "searchInterior":
 							break;
 
 						default:
