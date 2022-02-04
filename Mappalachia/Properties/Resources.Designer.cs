@@ -19,7 +19,7 @@ namespace Mappalachia.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -62,46 +62,21 @@ namespace Mappalachia.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT x, y, z
-        ///FROM SeventySix_Interior
-        ///WHERE cellFormID = $cellFormID
+        ///FROM Position_Data
+        ///WHERE spaceFormID = $spaceFormID
         ///ORDER BY z ASC
         ///.
         /// </summary>
-        internal static string getAllCoordsCell {
+        internal static string getAllCoordsSpace {
             get {
-                return ResourceManager.GetString("getAllCoordsCell", resourceCulture);
+                return ResourceManager.GetString("getAllCoordsSpace", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT cellFormID, cellEditorID, cellDisplayName
-        ///FROM SeventySix_Cell
-        ///ORDER BY cellDisplayName
-        ///.
-        /// </summary>
-        internal static string getCells {
-            get {
-                return ResourceManager.GetString("getCells", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
-        ///FROM SeventySix_Interior
-        ///WHERE cellFormID = $cellFormID AND referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
-        ///ORDER BY z ASC
-        ///.
-        /// </summary>
-        internal static string getCoordsCell {
-            get {
-                return ResourceManager.GetString("getCoordsCell", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, z, chance*100 AS chance FROM SeventySix_Worldspace
-        ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
-        ///WHERE npc = $npc AND chance &gt;= $minChance
+        ///   Looks up a localized string similar to SELECT x, y, z, chance*100 AS chance FROM Position_Data
+        ///INNER JOIN NPC_Spawn ON class = spawnClass AND Position_Data.locationFormID = NPC_Spawn.locationFormID
+        ///WHERE spaceFormID = $spaceFormID AND npc = $npc AND chance &gt;= $minChance
         ///ORDER BY z ASC
         ///.
         /// </summary>
@@ -112,9 +87,9 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, z, componentQuantity FROM SeventySix_Worldspace
-        ///INNER JOIN SeventySix_Quantified_Scrap ON SeventySix_Worldspace.referenceFormID = SeventySix_Quantified_Scrap.junkFormID
-        ///WHERE component = $scrap
+        ///   Looks up a localized string similar to SELECT x, y, z, componentQuantity FROM Position_Data
+        ///INNER JOIN Quantified_Scrap ON Position_Data.referenceFormID = Quantified_Scrap.junkFormID
+        ///WHERE spaceFormID = $spaceFormID AND component = $scrap
         ///ORDER BY z ASC
         ///.
         /// </summary>
@@ -126,8 +101,8 @@ namespace Mappalachia.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
-        ///FROM SeventySix_Worldspace
-        ///WHERE referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
+        ///FROM Position_Data
+        ///WHERE spaceFormID = $spaceFormID AND referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
         ///ORDER BY z ASC
         ///.
         /// </summary>
@@ -138,7 +113,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT version FROM gameVersion LIMIT 1;
+        ///   Looks up a localized string similar to SELECT version FROM Game_Version LIMIT 1;
         ///.
         /// </summary>
         internal static string getGameVersion {
@@ -149,10 +124,7 @@ namespace Mappalachia.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT lockLevel
-        ///FROM SeventySix_Worldspace
-        ///UNION
-        ///SELECT lockLevel
-        ///FROM SeventySix_Interior
+        ///FROM Position_Data
         ///GROUP BY lockLevel
         ///.
         /// </summary>
@@ -164,7 +136,7 @@ namespace Mappalachia.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT npc
-        ///FROM SeventySix_NPCSpawn
+        ///FROM NPC_Spawn
         ///GROUP BY npc
         ///.
         /// </summary>
@@ -176,7 +148,7 @@ namespace Mappalachia.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT component
-        ///FROM SeventySix_Quantified_Scrap
+        ///FROM Quantified_Scrap
         ///GROUP BY component
         ///.
         /// </summary>
@@ -188,7 +160,7 @@ namespace Mappalachia.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT signature
-        ///FROM SeventySix_FormId
+        ///FROM Entity_Info
         ///GROUP BY signature
         ///.
         /// </summary>
@@ -199,162 +171,77 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT npc, COUNT(*) AS count, MIN(chance)*100 AS minChance, &apos;Appalachia&apos; AS cellDisplayName, &apos;Appalachia&apos; AS cellEditorID, &apos;0&apos; AS isInterior
-        ///FROM SeventySix_Worldspace
-        ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
-        ///WHERE NPC = $searchTerm AND Chance &gt;= $minChance
-        ///GROUP BY cellEditorID
-        ///
-        ///UNION
-        ///
-        ///SELECT npc, COUNT(*) AS count, MIN(chance)*100 AS minChance, cellDisplayName, cellEditorID, &apos;1&apos; AS isInterior
-        ///FROM SeventySi [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string searchNPCAll {
-            get {
-                return ResourceManager.GetString("searchNPCAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT npc, COUNT(*) AS count, MIN(chance)*100 AS minChance, &apos;Appalachia&apos; AS cellDisplayName, &apos;Appalachia&apos; AS cellEditorID
-        ///FROM SeventySix_Worldspace
-        ///INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
-        ///WHERE NPC = $searchTerm AND Chance &gt;= $minChance
-        ///GROUP BY cellEditorID
-        ///ORDER BY COUNT DESC
+        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName
+        ///FROM Space_Info
+        ///ORDER BY spaceDisplayName
         ///.
         /// </summary>
-        internal static string searchNPCAppalachia {
+        internal static string getSpaces {
             get {
-                return ResourceManager.GetString("searchNPCAppalachia", resourceCulture);
+                return ResourceManager.GetString("getSpaces", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT component, SUM(magnitude) AS total_scrap, cellDisplayName, cellEditorID, &apos;0&apos; AS isInterior
-        ///FROM
-        ///(
-        ///	SELECT referenceFormID, component, componentQuantity*COUNT(*) AS magnitude, &apos;Appalachia&apos; AS cellDisplayName, &apos;Appalachia&apos; AS cellEditorID
-        ///	FROM SeventySix_Worldspace
-        ///	INNER JOIN SeventySix_Quantified_Scrap ON junkFormID = referenceFormID
-        ///	WHERE component = $searchTerm
-        ///	GROUP BY referenceFormID
-        ///)
-        ///
-        ///UNION
-        ///
-        ///SELECT component, SUM(magnitude) AS total_scrap, cellDisplayName, cellEditorID, &apos;1&apos; AS is [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string searchScrapAll {
-            get {
-                return ResourceManager.GetString("searchScrapAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT component, SUM(magnitude) AS total_scrap, cellDisplayName, cellEditorID
-        ///FROM
-        ///(
-        ///	SELECT referenceFormID, component, componentQuantity*COUNT(*) AS magnitude, &apos;Appalachia&apos; AS cellDisplayName, &apos;Appalachia&apos; AS cellEditorID
-        ///	FROM SeventySix_Worldspace
-        ///	INNER JOIN SeventySix_Quantified_Scrap ON junkFormID = referenceFormID
-        ///	WHERE component = $searchTerm
-        ///	GROUP BY referenceFormID
-        ///)
-        ///GROUP BY cellEditorID
-        ///ORDER BY total_scrap DESC
+        ///   Looks up a localized string similar to SELECT npc, COUNT(*) AS count, MIN(chance)*100 AS minChance, spaceDisplayName, spaceEditorID
+        ///FROM Position_Data
+        ///INNER JOIN NPC_Spawn ON class = spawnClass AND Position_Data.locationFormID = NPC_Spawn.locationFormID
+        ///INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
+        ///WHERE NPC = $searchTerm AND Chance &gt;= $minChance
+        ///GROUP BY spaceEditorID
+        ///ORDER BY CASE WHEN spaceEditorID = &apos;Appalachia&apos; THEN 1 ELSE 0 END DESC, count DESC
         ///.
         /// </summary>
-        internal static string searchScrapAppalachia {
+        internal static string searchNPC {
             get {
-                return ResourceManager.GetString("searchScrapAppalachia", resourceCulture);
+                return ResourceManager.GetString("searchNPC", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM
+        ///   Looks up a localized string similar to SELECT component, SUM(magnitude) AS totalScrap, spaceDisplayName, spaceEditorID
+        ///FROM
         ///(
-        ///	SELECT
-        ///		displayName,
-        ///		editorID,
-        ///		signature,
-        ///		COUNT(*) AS amount,
-        ///		lockLevel,
-        ///		entityFormID,
-        ///		&apos;Appalachia&apos; AS cellDisplayName,
-        ///		&apos;Appalachia&apos; AS cellEditorID
-        ///	FROM SeventySix_FormId
-        ///	INNER JOIN SeventySix_Worldspace ON referenceFormID = entityFormID
-        ///	WHERE
-        ///		(
-        ///			(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; or
-        ///			displayName LIKE $searchTerm ESCAPE &apos;\&apos; or
-        ///			entityFormID LIKE $searchTerm ESCAPE &apos;\&apos;)
-        ///			AND signature IN ($allowedSignatures)
-        ///			AND lockLevel IN ($allowedLock [rest of string was truncated]&quot;;.
+        ///	SELECT referenceFormID, component, componentQuantity*COUNT(*) AS magnitude, spaceDisplayName, spaceEditorID
+        ///	FROM Position_Data
+        ///	INNER JOIN Quantified_Scrap ON junkFormID = referenceFormID
+        ///	INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
+        ///	WHERE component = $searchTerm
+        ///	GROUP BY referenceFormID, spaceDisplayName
+        ///)
+        ///GROUP BY spaceEditorID
+        ///ORDER BY CASE WHEN spaceEditorID = &apos;Appalachia&apos; [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string searchStandardAll {
+        internal static string searchScrap {
             get {
-                return ResourceManager.GetString("searchStandardAll", resourceCulture);
+                return ResourceManager.GetString("searchScrap", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM
-        ///(
-        ///	SELECT
-        ///		displayName,
-        ///		editorID,
-        ///		signature,
-        ///		COUNT(*) AS amount,
-        ///		lockLevel,
-        ///		entityFormID,
-        ///		&apos;Appalachia&apos; AS cellDisplayName,
-        ///		&apos;Appalachia&apos; AS cellEditorID
-        ///	FROM SeventySix_FormId
-        ///	INNER JOIN SeventySix_Worldspace ON referenceFormID = entityFormID
-        ///	WHERE
-        ///		(
-        ///			(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///			displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///			entityFormID LIKE $searchTerm ESCAPE &apos;\&apos;)
-        ///			AND signature IN ($allowedSignatures)
-        ///			AND lockLevel IN ($allowedLock [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to SELECT
+        ///	displayName,
+        ///	editorID,
+        ///	signature,
+        ///	COUNT(*) AS amount,
+        ///	lockLevel,
+        ///	entityFormID,
+        ///	spaceDisplayName,
+        ///	spaceEditorID
+        ///FROM Entity_Info
+        ///INNER JOIN Position_Data ON referenceFormID = entityFormID
+        ///INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
+        ///WHERE
+        ///	(
+        ///		(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR
+        ///		displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR
+        ///		entityFormID LIKE $searchTerm ESCAPE &apos;\&apos;)
+        ///		AND signature IN ($allowedSignatures)
+        ///		AND lockLevel IN ($allowedLockTyp [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string searchStandardAppalachia {
+        internal static string searchStandard {
             get {
-                return ResourceManager.GetString("searchStandardAppalachia", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM
-        ///(
-        ///	SELECT
-        ///		displayName,
-        ///		editorID,
-        ///		signature,
-        ///		COUNT(*) AS amount,
-        ///		lockLevel,
-        ///		entityFormID
-        ///	FROM SeventySix_FormId
-        ///	INNER JOIN SeventySix_Interior ON referenceFormID = entityFormID
-        ///	WHERE
-        ///		(
-        ///			(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///			displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///			entityFormID LIKE $searchTerm ESCAPE &apos;\&apos;)
-        ///			AND cellFormID = $cellFormID
-        ///			AND signature IN ($allowedSignatures)
-        ///			AND lockLevel IN ($allowedLockTypes)
-        ///		)
-        ///	GROUP BY entityFormID
-        ///) [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string searchStandardCell {
-            get {
-                return ResourceManager.GetString("searchStandardCell", resourceCulture);
+                return ResourceManager.GetString("searchStandard", resourceCulture);
             }
         }
     }

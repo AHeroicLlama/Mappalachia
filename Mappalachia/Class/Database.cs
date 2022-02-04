@@ -51,7 +51,7 @@ namespace Mappalachia
 		public static SqliteDataReader ExecuteQueryCells()
 		{
 			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = Properties.Resources.getCells;
+			query.CommandText = Properties.Resources.getSpaces;
 			return query.ExecuteReader();
 		}
 
@@ -59,7 +59,7 @@ namespace Mappalachia
 		public static SqliteDataReader ExecuteQuerySearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
-			string queryString = Properties.Resources.searchStandardCell;
+			string queryString = Properties.Resources.searchStandard;
 			SqliteCommand query = connection.CreateCommand();
 
 			// SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
@@ -69,7 +69,7 @@ namespace Mappalachia
 			query.CommandText = queryString;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", "%" + searchTerm + "%");
-			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+			query.Parameters.AddWithValue("$spaceFormID", cellFormID);
 
 			return query.ExecuteReader();
 		}
@@ -78,7 +78,7 @@ namespace Mappalachia
 		public static SqliteDataReader ExecuteQueryStandardSearch(bool searchInterior, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
-			string queryString = searchInterior ? Properties.Resources.searchStandardAll : Properties.Resources.searchStandardAppalachia;
+			string queryString = Properties.Resources.searchStandard;
 			SqliteCommand query = connection.CreateCommand();
 
 			// SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
@@ -88,6 +88,7 @@ namespace Mappalachia
 			query.CommandText = queryString;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", "%" + searchTerm + "%");
+			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
 
 			return query.ExecuteReader();
 		}
@@ -97,10 +98,11 @@ namespace Mappalachia
 		{
 			SqliteCommand query = connection.CreateCommand();
 
-			query.CommandText = searchInterior ? Properties.Resources.searchNPCAll : Properties.Resources.searchNPCAppalachia;
+			query.CommandText =  Properties.Resources.searchNPC;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", searchTerm);
 			query.Parameters.AddWithValue("$minChance", minChance);
+			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
 
 			return query.ExecuteReader();
 		}
@@ -110,9 +112,10 @@ namespace Mappalachia
 		{
 			SqliteCommand query = connection.CreateCommand();
 
-			query.CommandText = searchInterior ? Properties.Resources.searchScrapAll : Properties.Resources.searchScrapAppalachia;
+			query.CommandText = Properties.Resources.searchScrap;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", searchTerm);
+			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
 
 			return query.ExecuteReader();
 		}
@@ -122,11 +125,11 @@ namespace Mappalachia
 		{
 			SqliteCommand query = connection.CreateCommand();
 
-			string queryString = Properties.Resources.getAllCoordsCell;
+			string queryString = Properties.Resources.getAllCoordsSpace;
 
 			query.CommandText = queryString;
 			query.Parameters.Clear();
-			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+			query.Parameters.AddWithValue("$spaceFormID", cellFormID);
 
 			return query.ExecuteReader();
 		}
@@ -136,7 +139,7 @@ namespace Mappalachia
 		{
 			SqliteCommand query = connection.CreateCommand();
 
-			string queryString = Properties.Resources.getCoordsCell;
+			string queryString = Properties.Resources.getCoordsStandard;
 
 			// SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
 			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));
@@ -144,7 +147,7 @@ namespace Mappalachia
 			query.CommandText = queryString;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$formID", formID);
-			query.Parameters.AddWithValue("$cellFormID", cellFormID);
+			query.Parameters.AddWithValue("$spaceFormID", cellFormID);
 
 			return query.ExecuteReader();
 		}
@@ -162,6 +165,7 @@ namespace Mappalachia
 			query.CommandText = queryString;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$formID", formID);
+			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
 
 			return query.ExecuteReader();
 		}
@@ -175,6 +179,7 @@ namespace Mappalachia
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$npc", npc);
 			query.Parameters.AddWithValue("$minChance", minChance / 100.00);
+			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
 
 			return query.ExecuteReader();
 		}
@@ -187,6 +192,7 @@ namespace Mappalachia
 			query.CommandText = Properties.Resources.getCoordsScrap;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$scrap", scrap);
+			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
 
 			return query.ExecuteReader();
 		}
