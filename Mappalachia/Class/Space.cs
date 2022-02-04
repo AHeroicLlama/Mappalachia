@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace Mappalachia.Class
 {
-	// Represents an internal cell. Used to select and differentiate cells in Cell mode
-	public class Cell
+	// Represents an CELL or WRLD.
+	public class Space
 	{
 		public string formID;
 		public string editorID;
@@ -20,7 +20,7 @@ namespace Mappalachia.Class
 
 		List<MapDataPoint> plots;
 
-		public Cell(string formID, string editorID, string displayName)
+		public Space(string formID, string editorID, string displayName)
 		{
 			this.formID = formID;
 			this.editorID = editorID;
@@ -30,7 +30,7 @@ namespace Mappalachia.Class
 		// Gets the plotting data and coordinate extremities
 		void InitializePlotData()
 		{
-			plots = DataHelper.GetAllCellCoords(formID);
+			plots = DataHelper.GetAllSpaceCoords(formID);
 
 			plots = plots.OrderBy(plot => plot.x).ToList();
 			xMin = plots.First().x;
@@ -47,17 +47,17 @@ namespace Mappalachia.Class
 			heightRange = Math.Abs(zMax - zMin);
 		}
 
-		public CellScaling GetScaling()
+		public SpaceScaling GetScaling()
 		{
 			if (plots == null)
 			{
 				InitializePlotData();
 			}
 
-			return CellScaling.GetCellScaling(this);
+			return SpaceScaling.GetSpaceScaling(this);
 		}
 
-		// Returns the distribution of Y coordinates for items in the cell, broken into x bins
+		// Returns the distribution of Y coordinates for items in the space, broken into x bins
 		public double[] GetHeightDistribution()
 		{
 			if (plots == null)
@@ -65,7 +65,7 @@ namespace Mappalachia.Class
 				InitializePlotData();
 			}
 
-			int precision = SettingsCell.heightPrecision;
+			int precision = SettingsSpace.heightPrecision;
 
 			// Count how many items fall into the arbitrary <precision># different bins
 			int[] distributionCount = new int[precision];
@@ -94,6 +94,12 @@ namespace Mappalachia.Class
 			}
 
 			return distribution;
+		}
+
+		// Returns if the currently selected Space is a Worldspace
+		public bool IsWorldspace()
+		{
+			return editorID == "Appalachia";
 		}
 	}
 }

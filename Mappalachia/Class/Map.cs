@@ -64,10 +64,8 @@ namespace Mappalachia
 		// Construct the map background layer, without plotted points
 		public static void DrawBaseLayer()
 		{
-			// Start with the chosen base map
-
-			// TODO neater way to identify worldspaces
-			if (SettingsCell.GetCell().editorID == "Appalachia")
+			// Start with the defined base map
+			if (SettingsSpace.CurrentSpaceIsWorld())
 			{
 				backgroundLayer = SettingsMap.layerMilitary ?
 					IOManager.GetImageMapMilitary() :
@@ -76,10 +74,10 @@ namespace Mappalachia
 			else
 			{ 
 				backgroundLayer = new Bitmap(mapDimension, mapDimension);
-				if (SettingsCell.drawOutline)
+				if (SettingsSpace.drawOutline)
 				{
 					Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
-					DrawCellBackground(backgroundGraphics);
+					DrawSpaceBackground(backgroundGraphics);
 				}
 			}
 
@@ -131,20 +129,20 @@ namespace Mappalachia
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
-			CellScaling cellScaling = null;
+			SpaceScaling spaceScaling = null;
 
 			// Prepare the game version and watermark to be printed later
 			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
-			Cell currentCell = SettingsCell.GetCell();
+			Space currentSpace = SettingsSpace.GetSpace();
 
-			// Assign the CellScaling property
-			cellScaling = currentCell.GetScaling();
+			// Assign the SpaceScaling property
+			spaceScaling = currentSpace.GetScaling();
 
 			infoText =
-				currentCell.displayName + " (" + currentCell.editorID + ")\n" +
-				"Height distribution: " + SettingsCell.minHeightPerc + "% - " + SettingsCell.maxHeightPerc + "%\n" +
-				"Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n\n" +
+				currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
+				"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
+				"Scale: 1:" + Math.Round(spaceScaling.scale, 2) + "\n\n" +
 				infoText;
 
 
@@ -293,19 +291,19 @@ namespace Mappalachia
 
 						// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
 						// (Also accounts for the z-height of volumes)
-						if (point.z + (point.boundZ / 2d) < SettingsCell.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsCell.GetMaxHeightCoordBound())
+						if (point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound())
 						{
 							continue;
 						}
 
-						point.x += cellScaling.xOffset;
-						point.y += cellScaling.yOffset;
+						point.x += spaceScaling.xOffset;
+						point.y += spaceScaling.yOffset;
 
 						// Multiply the coordinates by the scaling, but multiply around 0,0
-						point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-						point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-						point.boundX *= cellScaling.scale;
-						point.boundY *= cellScaling.scale;
+						point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+						point.boundX *= spaceScaling.scale;
+						point.boundY *= spaceScaling.scale;
 
 						// Skip the point if its origin is outside the surface world
 						if (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax)
@@ -378,11 +376,11 @@ namespace Mappalachia
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
 
-						point.x += cellScaling.xOffset;
-						point.y += cellScaling.yOffset;
+						point.x += spaceScaling.xOffset;
+						point.y += spaceScaling.yOffset;
 
-						point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-						point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+						point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
 
 
 						// Identify which grid square this MapDataPoint falls within
@@ -549,40 +547,40 @@ namespace Mappalachia
 		}
 
 		// Draws an outline of all items in the current cell to act as background/template
-		static void DrawCellBackground(Graphics backgroundLayer)
+		static void DrawSpaceBackground(Graphics backgroundLayer)
 		{
-			CellScaling cellScaling = SettingsCell.GetCell().GetScaling();
+			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
 
-			int outlineWidth = SettingsCell.outlineWidth;
-			int outlineSize = SettingsCell.outlineSize;
+			int outlineWidth = SettingsSpace.outlineWidth;
+			int outlineSize = SettingsSpace.outlineSize;
 
 			Image plotIconImg = new Bitmap(outlineSize, outlineSize);
 			Graphics plotIconGraphic = Graphics.FromImage(plotIconImg);
 			plotIconGraphic.SmoothingMode = SmoothingMode.AntiAlias;
-			Color outlineColor = Color.FromArgb(SettingsCell.outlineAlpha, SettingsCell.outlineColor);
+			Color outlineColor = Color.FromArgb(SettingsSpace.outlineAlpha, SettingsSpace.outlineColor);
 			Pen outlinePen = new Pen(outlineColor, outlineWidth);
 			plotIconGraphic.DrawEllipse(
 				outlinePen,
 				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
 
 			// Iterate over every data point and draw it
-			foreach (MapDataPoint point in DataHelper.GetAllCellCoords(SettingsCell.GetCell().formID))
+			foreach (MapDataPoint point in DataHelper.GetAllSpaceCoords(SettingsSpace.GetSpace().formID))
 			{
-				// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
+				// If this coordinate exceeds the user-selected space mapping height bounds, skip it
 				// (Also accounts for the z-height of volumes)
-				if (point.z < SettingsCell.GetMinHeightCoordBound() || point.z > SettingsCell.GetMaxHeightCoordBound())
+				if (point.z < SettingsSpace.GetMinHeightCoordBound() || point.z > SettingsSpace.GetMaxHeightCoordBound())
 				{
 					continue;
 				}
 
-				point.x += cellScaling.xOffset;
-				point.y += cellScaling.yOffset;
+				point.x += spaceScaling.xOffset;
+				point.y += spaceScaling.yOffset;
 
 				// Multiply the coordinates by the scaling, but multiply around 0,0
-				point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-				point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-				point.boundX *= cellScaling.scale;
-				point.boundY *= cellScaling.scale;
+				point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+				point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+				point.boundX *= spaceScaling.scale;
+				point.boundY *= spaceScaling.scale;
 
 				backgroundLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 			}

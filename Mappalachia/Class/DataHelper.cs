@@ -344,13 +344,13 @@ namespace Mappalachia
 		}
 
 		// Returns a list of all cells in the database, as Cell objects
-		public static List<Cell> GetAllCells()
+		public static List<Space> GetAllSpaces()
 		{
-			List<Cell> cells = new List<Cell>();
+			List<Space> cells = new List<Space>();
 			SqliteDataReader reader = Database.ExecuteQueryCells();
 			while (reader.Read())
 			{
-				cells.Add(new Cell(reader.GetString(0), reader.GetString(1), reader.GetString(2)));
+				cells.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetString(2)));
 			}
 
 			return cells;
@@ -363,7 +363,7 @@ namespace Mappalachia
 		}
 
 		// Performs similar functionality to standard search but constrained to a specific cell, denoted by cellFormID
-		public static List<MapItem> SearchCell(string searchTerm, Cell cell, List<string> allowedSignatures, List<string> allowedLockTypes)
+		public static List<MapItem> SearchCell(string searchTerm, Space cell, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
 			try
 			{
@@ -565,7 +565,7 @@ namespace Mappalachia
 		}
 
 		// Gets the coordinate locations of everything within a cell, no filters
-		public static List<MapDataPoint> GetAllCellCoords(string cellFormID)
+		public static List<MapDataPoint> GetAllSpaceCoords(string cellFormID)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
