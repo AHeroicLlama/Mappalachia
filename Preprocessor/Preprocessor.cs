@@ -21,10 +21,9 @@ namespace Mappalachia
 				// Each task represents one CSV file being output
 				List<Task> parallelTasks = new List<Task>
 				{
-					new Task(() => ProcessSpatialFile("SeventySix_Worldspace.csv")),
-					new Task(() => ProcessSpatialFile("SeventySix_Interior.csv")),
-					new Task(() => ProcessBasicFile("SeventySix_FormID.csv")),
-					new Task(() => ProcessBasicFile("SeventySix_Cell.csv")),
+					new Task(() => ProcessSpatialFile("Position_Data.csv")),
+					new Task(() => ProcessBasicFile("FormID.csv")),
+					new Task(() => ProcessBasicFile("Space_Info.csv")),
 					new Task(() => GenerateNPCSpawnFile()),
 					new Task(() => GenerateQuantifiedJunkScrapFile()),
 				};
@@ -68,7 +67,7 @@ namespace Mappalachia
 		// Process the location CSVFile and then use it to generate a new file for NPCSpawns
 		static void GenerateNPCSpawnFile()
 		{
-			CSVFile locationFile = GenericOpen("SeventySix_Location.csv");
+			CSVFile locationFile = GenericOpen("Location.csv");
 			GenericProcess(locationFile);
 
 			CSVFile npcSpawns = NpcSpawnHelper.ProcessNPCSpawns(locationFile, NpcSpawnHelper.SumLocationSpawnChances(locationFile));
@@ -81,10 +80,10 @@ namespace Mappalachia
 		// Process the Junk Scrap and Component Quantity CSVFiles and then use them to generate a new file for Quantified Junk Scrap
 		static void GenerateQuantifiedJunkScrapFile()
 		{
-			CSVFile componentQuantityFile = GenericOpen("SeventySix_Component_Quantity.csv");
+			CSVFile componentQuantityFile = GenericOpen("Component_Quantity.csv");
 			GenericProcess(componentQuantityFile);
 
-			CSVFile junkScrapFile = GenericOpen("SeventySix_Junk_Scrap.csv");
+			CSVFile junkScrapFile = GenericOpen("Junk_Scrap.csv");
 			GenericProcess(junkScrapFile);
 
 			CSVFile quantifiedJunkScrap = JunkScrap.ProcessJunkScrap(junkScrapFile, componentQuantityFile);

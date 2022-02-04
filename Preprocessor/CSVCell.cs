@@ -97,7 +97,7 @@ namespace Mappalachia
 			{
 				case "entityFormID":
 				case "referenceFormID":
-				case "cellFormID":
+				case "spaceFormID":
 				case "junkFormID":
 					// FormID Cells must only contain the FormID alone
 					if (!Validation.matchFormID.IsMatch(data))
@@ -123,9 +123,9 @@ namespace Mappalachia
 					return;
 
 				case "editorID":
-				case "cellEditorID":
+				case "spaceEditorID":
 				case "displayName":
-				case "cellDisplayName":
+				case "spaceDisplayName":
 					// editorID and displayName must have had any double quotes escaped by now
 					if (Validation.unescapedDoubleQuote.IsMatch(data))
 					{

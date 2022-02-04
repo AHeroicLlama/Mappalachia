@@ -49,7 +49,7 @@ namespace Mappalachia
 				rows.Add(new CSVRow(rowNPC + "," + rowClass + "," + rowFormID + "," + rowSpawnChance, npcSpawnHeader));
 			}
 
-			return new CSVFile("SeventySix_NPCSpawn.csv", string.Join(",", npcSpawnHeader), rows);
+			return new CSVFile("NPCSpawn.csv", string.Join(",", npcSpawnHeader), rows);
 		}
 
 		// Sum the different spawn odds for each location

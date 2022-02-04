@@ -1,13 +1,13 @@
 // Gets a list of all LCTN and their Actor Value properties (used to identify variable spawns)
-unit _m_location;
+unit _mappalachia_location;
 
-	uses _m_lib;
+	uses _mappalachia_lib;
 
 	var	outputStrings : TStringList;
 
 	procedure Initialize;
 	begin
-		processRecordGroup(0, 'LCTN', 'Location', 'property,value,locationFormID');
+		processRecordGroup('LCTN', 'Location', 'property,value,locationFormID');
 	end;
 
 	procedure ripItem(item : IInterface);
