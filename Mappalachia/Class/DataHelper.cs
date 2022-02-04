@@ -404,13 +404,13 @@ namespace Mappalachia
 		}
 
 		// Conducts the standard search and returns the found items
-		public static List<MapItem> SearchStandard(string searchTerm, bool searchInteriors, List<string> allowedSignatures, List<string> allowedLockTypes)
+		public static List<MapItem> SearchStandard(string searchTerm, List<string> allowedSignatures, List<string> allowedLockTypes)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Database.ExecuteQueryStandardSearch(searchInteriors, searchTerm, allowedSignatures, allowedLockTypes))
+				using (SqliteDataReader reader = Database.ExecuteQueryStandardSearch(searchTerm, allowedSignatures, allowedLockTypes))
 				{
 					while (reader.Read())
 					{
@@ -450,7 +450,7 @@ namespace Mappalachia
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Database.ExecuteQueryScrapSearch(searchTerm, SettingsSearch.searchInterior))
+				using (SqliteDataReader reader = Database.ExecuteQueryScrapSearch(searchTerm))
 				{
 					// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("MISC", false);
@@ -501,7 +501,7 @@ namespace Mappalachia
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Database.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, SettingsSearch.searchInterior))
+				using (SqliteDataReader reader = Database.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00))
 				{
 					// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("NPC_", false);
@@ -533,7 +533,7 @@ namespace Mappalachia
 				}
 
 				// Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
-				results.AddRange(SearchStandard(searchTerm, SettingsSearch.searchInterior, new List<string> { "NPC_" }, GetPermittedLockTypes()));
+				results.AddRange(SearchStandard(searchTerm, new List<string> { "NPC_" }, GetPermittedLockTypes()));
 
 				/*Copy out search results not containing "corpse", therefore dropping the dead "NPCs"
 				This isn't perfect and won't catch ALL dead NPCs.

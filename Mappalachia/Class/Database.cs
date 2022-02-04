@@ -75,7 +75,7 @@ namespace Mappalachia
 		}
 
 		// Execute the basic search query to search the worldspace and/or interiors
-		public static SqliteDataReader ExecuteQueryStandardSearch(bool searchInterior, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
+		public static SqliteDataReader ExecuteQueryStandardSearch(string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
 			string queryString = Properties.Resources.searchStandard;
@@ -94,7 +94,7 @@ namespace Mappalachia
 		}
 
 		// Execute a query to search for variable NPC Spawns
-		public static SqliteDataReader ExecuteQueryNPCSearch(string searchTerm, double minChance, bool searchInterior)
+		public static SqliteDataReader ExecuteQueryNPCSearch(string searchTerm, double minChance)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
@@ -108,7 +108,7 @@ namespace Mappalachia
 		}
 
 		// Execute a query to search for total scrap per cell/location
-		public static SqliteDataReader ExecuteQueryScrapSearch(string searchTerm, bool searchInterior)
+		public static SqliteDataReader ExecuteQueryScrapSearch(string searchTerm)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
