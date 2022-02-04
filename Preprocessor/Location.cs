@@ -18,7 +18,7 @@ namespace Mappalachia
 
 		public double GetOdds(string npcClass)
 		{
-			switch (NpcSpawnHelper.GetClassFromName(npcClass))
+			switch (NPCSpawnHelper.GetClassFromName(npcClass))
 			{
 				case "Main":
 					return oddsMain;
@@ -32,7 +32,7 @@ namespace Mappalachia
 		// Increment the odds for a given spawn class at a given location
 		public void AddOdds(string odds, string npcClass)
 		{
-			switch (NpcSpawnHelper.GetClassFromName(npcClass))
+			switch (NPCSpawnHelper.GetClassFromName(npcClass))
 			{
 				case "Main":
 					oddsMain += double.Parse(odds);

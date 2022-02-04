@@ -4,7 +4,7 @@ using System.Text;
 namespace Mappalachia
 {
 	// Functionality for dealing with Location and NPC Spawns
-	class NpcSpawnHelper
+	class NPCSpawnHelper
 	{
 		// Using the actual locations file, and the pre-summed total odds for each location, calculate each spawn chance into an absolute chance
 		public static CSVFile ProcessNPCSpawns(CSVFile locationFile, List<Location> spawnChances)
@@ -49,7 +49,7 @@ namespace Mappalachia
 				rows.Add(new CSVRow(rowNPC + "," + rowClass + "," + rowFormID + "," + rowSpawnChance, npcSpawnHeader));
 			}
 
-			return new CSVFile("NPCSpawn.csv", string.Join(",", npcSpawnHeader), rows);
+			return new CSVFile("NPC_Spawn.csv", string.Join(",", npcSpawnHeader), rows);
 		}
 
 		// Sum the different spawn odds for each location
