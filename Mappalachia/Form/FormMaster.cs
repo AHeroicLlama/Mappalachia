@@ -15,7 +15,7 @@ namespace Mappalachia
 		public static List<MapItem> legendItems = new List<MapItem>();
 		public static List<MapItem> searchResults = new List<MapItem>();
 
-		static List<Cell> cells;
+		static List<Space> spaces;
 
 		public ProgressBar progressBar;
 
@@ -52,7 +52,7 @@ namespace Mappalachia
 			// Apply min/max values according to current settings
 			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
 			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
-			numericMinZ.Increment = SettingsCell.GetHeightBinSize();
+			numericMinZ.Increment = SettingsSpace.GetHeightBinSize();
 			numericMaxZ.Increment = numericMinZ.Increment;
 
 			// Apply UI layouts according to current settings
@@ -72,7 +72,7 @@ namespace Mappalachia
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
 
-			PopulateCellList();
+			PopulateSpaceList();
 
 			// Make the initial map draw call for an empty map
 			Map.DrawBaseLayer();
@@ -188,23 +188,23 @@ namespace Mappalachia
 			listBoxScrap.SelectedIndex = 0;
 		}
 
-		// Populate the Cell combo box (only visible in Cell mode) with all cells
-		void PopulateCellList()
+		// Populate the Space combo box with all spaces
+		void PopulateSpaceList()
 		{
 			// Return if the list is already populated
-			if (comboBoxCell.Items.Count != 0)
+			if (comboBoxSpace.Items.Count != 0)
 			{
 				return;
 			}
 
-			cells = DataHelper.GetAllCells();
+			spaces = DataHelper.GetAllSpaces();
 
-			foreach (Cell cell in cells)
+			foreach (Space space in spaces)
 			{
-				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
+				comboBoxSpace.Items.Add(space.displayName + " (" + space.editorID + ")");
 			}
 
-			comboBoxCell.SelectedIndex = 0;
+			comboBoxSpace.SelectedIndex = 0;
 		}
 
 		// Fill the search box with a suggested search term.
@@ -417,18 +417,6 @@ namespace Mappalachia
 		void UpdateSpawnChance()
 		{
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
-		}
-
-		// Update the UI with min and max cell height settings stored in cell mode settings
-		void UpdateCellHeightSettings()
-		{
-			numericMinZ.Value = SettingsCell.minHeightPerc;
-			numericMaxZ.Value = SettingsCell.maxHeightPerc;
-		}
-
-		void UpdateCellDrawOutLine()
-		{
-			checkBoxCellDrawOutline.Checked = SettingsCell.drawOutline;
 		}
 
 		// Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -674,18 +662,18 @@ namespace Mappalachia
 			Map.Open();
 		}
 
-		// Render a crude text graph to visualize height distribution in the currently selected cell
-		void ShowCellModeHeightDistribution()
+		// Render a crude text graph to visualize height distribution in the currently selected space
+		void ShowHeightDistribution()
 		{
 			string textVisualization = string.Empty;
 			int i = 0;
-			foreach (double value in SettingsCell.GetCell().GetHeightDistribution())
+			foreach (double value in SettingsSpace.GetSpace().GetHeightDistribution())
 			{
-				textVisualization = (i * SettingsCell.GetHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualization;
+				textVisualization = (i * SettingsSpace.GetHeightBinSize()).ToString().PadLeft(2, '0') + "%:" + new string('#', (int)Math.Round(value)) + "\n" + textVisualization;
 				i++;
 			}
 
-			MessageBox.Show(textVisualization, "Height distribution for " + SettingsCell.GetCell().editorID);
+			MessageBox.Show(textVisualization, "Height distribution for " + SettingsSpace.GetSpace().editorID);
 		}
 
 		#endregion
@@ -938,29 +926,30 @@ namespace Mappalachia
 			}
 		}
 
-		// In Cell mode, the current items in search results and legend are inherently connected to the cellFormID.
-		// This cellFormID is connected to the currently select cell in this ComboBox, and therefore changing it mid-map-production would confuse the target cell
-		private void ComboBoxCell_SelectedIndexChanged(object sender, EventArgs e)
+		// TODO clarify
+		// The current items in search results and legend are inherently connected to the cellFormID.
+		// This cellFormID is connected to the currently select space in this ComboBox, and therefore changing it mid-map-production would confuse the target space
+		private void ComboBoxSpace_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			ClearSearchResults();
 			ClearLegend();
 			numericMinZ.Value = numericMinZ.Minimum;
 			numericMaxZ.Value = numericMinZ.Maximum;
-			SettingsCell.SetCell(cells[comboBoxCell.SelectedIndex]);
+			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
 		}
 
-		private void CheckBoxCellDrawOutline_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
 		{
-			SettingsCell.drawOutline = checkBoxCellDrawOutline.Checked;
+			SettingsSpace.drawOutline = checkBoxSpaceDrawOutline.Checked;
 			DrawMap(true);
 		}
 
-		private void ButtonCellHeightDistribution_Click(object sender, EventArgs e)
+		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
 		{
-			ShowCellModeHeightDistribution();
+			ShowHeightDistribution();
 		}
 
-		// Cell mode height range changed - maintain the min safely below the max
+		// Height range changed - maintain the min safely below the max
 		private void NumericMinZ_ValueChanged(object sender, EventArgs e)
 		{
 			if (numericMaxZ.Value <= numericMinZ.Value)
@@ -979,11 +968,11 @@ namespace Mappalachia
 				numericMinZ.Value -= numericMinZ.Increment;
 			}
 
-			SettingsCell.minHeightPerc = (int)numericMinZ.Value;
+			SettingsSpace.minHeightPerc = (int)numericMinZ.Value;
 			forceDrawBaseLayer = true;
 		}
 
-		// Cell mode height range changed - maintain the max safely above the min
+		// Height range changed - maintain the max safely above the min
 		private void NumericMaxZ_ValueChanged(object sender, EventArgs e)
 		{
 			if (numericMinZ.Value >= numericMaxZ.Value)
@@ -1002,7 +991,7 @@ namespace Mappalachia
 				numericMaxZ.Value += numericMaxZ.Increment;
 			}
 
-			SettingsCell.maxHeightPerc = (int)numericMaxZ.Value;
+			SettingsSpace.maxHeightPerc = (int)numericMaxZ.Value;
 			forceDrawBaseLayer = true;
 		}
 
@@ -1137,7 +1126,7 @@ namespace Mappalachia
 			}
 
 			List<string> rejectedItemsDuplicate = new List<string>(); // Items rejected because they're already present
-			List<string> rejectedItemsInterior = new List<string>(); // Items rejected because they belong to a cell
+			List<string> rejectedItemsInterior = new List<string>(); // Items rejected because they belong to another space
 			int legendGroup = -1;
 
 			// Get a single legend group for this group of item(s)
@@ -1158,7 +1147,7 @@ namespace Mappalachia
 			{
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
-				// Warn if a selected item is a cell item or already on the legend list - otherwise add it.
+				// Warn if a selected item is another space item or already on the legend list - otherwise add it.
 				if (false) // TODO make this check that the selected item wasn't from another space
 				{
 					rejectedItemsInterior.Add(selectedItem.editorID);
@@ -1201,6 +1190,7 @@ namespace Mappalachia
 				int maxItemsToShow = 8;
 				int truncatedItems = totalRejectedItems - maxItemsToShow;
 
+				// TODO totally reword these due to cell mode merge
 				string message = "The following items were not added to the legend because ";
 				if (rejectedItemsDuplicate.Count > 0 && rejectedItemsInterior.Count > 0)
 				{
