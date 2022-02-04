@@ -9,7 +9,7 @@ IF NOT EXIST sqlite3.exe (
 	EXIT
 )
 
-IF NOT EXIST "../Preprocessor/Output/SeventySix_Worldspace.csv" (
+IF NOT EXIST "../Preprocessor/Output/Position_Data.csv" (
 	echo Preprocessor output data was not found in the expected location. You must run the xEdit export scripts, then the Preprocessor before building the database.
 	echo For more info please see development help guides.
 	PAUSE

@@ -1,40 +1,32 @@
-CREATE INDEX indexWorldspace ON SeventySix_Worldspace (
+CREATE INDEX indexPositionData ON Position_Data (
 	referenceFormID,
 	locationFormID,
 	lockLevel,
 	spawnClass
 );
 
-CREATE INDEX indexInterior ON SeventySix_Interior (
-	referenceFormID,
-	cellFormID,
-	locationFormID,
-	lockLevel,
-	spawnClass
-);
-
-CREATE INDEX indexFormId ON SeventySix_FormId (
+CREATE INDEX indexEntityInfo ON Entity_Info (
 	entityFormID,
 	displayName,
 	editorID,
 	signature
 );
 
-CREATE INDEX indexNPCSpawn ON SeventySix_NPCSpawn (
+CREATE INDEX indexNPCSpawn ON NPC_Spawn (
 	npc,
 	class,
 	locationFormID,
 	chance
 );
 
-CREATE INDEX indexQuantifiedScrap ON SeventySix_Quantified_Scrap (
+CREATE INDEX indexQuantifiedScrap ON Quantified_Scrap (
 	component,
 	componentQuantity,
 	junkFormID
 );
 
-CREATE INDEX indexCell ON SeventySix_Cell (
-	cellFormID,
-	cellEditorID,
-	cellDisplayName
+CREATE INDEX indexSpaceInfo ON Space_Info (
+	spaceFormID,
+	spaceEditorID,
+	spaceDisplayName
 );

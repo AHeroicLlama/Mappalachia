@@ -1,5 +1,5 @@
 ==Database checksum== 
-c8991ae8bed1ea30775069c6f2019408
+e9b9be783e5c029634f9ed6ca05a5818
 ==Game Version==
 1.6.2.16
 ==Total unique items by signature==
@@ -37,94 +37,53 @@ WEAP|76
 2.65056413078828
 ==Average editorID string length==
 24.907362469667
-==Worldspace average X Coord==
--14948.4022659791
-==Worldspace average Y Coord==
-6220.70023343491
-==Worldspace average Z Coord==
-14910.7375462312
-==Worldspace Z outliers==
-65
-==Worldspace average X Bounds Width==
-19.7886486169714
-==Worldspace average Y Bounds Width==
-14.4408546908371
-==Worldspace average Z Bounds Width==
-14.1198956868261
-==Worldspace average Z Rotation==
-3.40633269521279
-==Worldspace primitive shape types + count==
-|3004874
-Box|62455
-Ellipsoid|1
-Line|1802
-Plane|40
-Sphere|2348
-==Worldspace total placement count==
-3071520
-==Interior average X Coord==
--902.279148293174
-==Interior average Y Coord==
--859.05456612001
-==Interior average Z Coord==
-351.339860819547
-==Interior Z outliers==
-3
-==Interior average X Bounds Width==
-27.6294788500683
-==Interior average Y Bounds Width==
-22.2185512857793
-==Interior average Z Bounds Width==
-18.0668416712808
-==Interior average Z Rotation==
-6.29456808516006
-==Interior total placement count==
-753123
-==Worldspace unique placement count==
-30489
-==Interior unique placement count==
-20598
-==Average interior placement count==
-5662.57894736842
-==Worldspace lock levels + count==
-|3070482
-Advanced (Level 1)|315
-Chained|1
-Expert (Level 2)|197
-Inaccessible|22
-Master (Level 3)|85
-Novice (Level 0)|51
-Opens Door|267
-Requires Key|90
-Requires Terminal|9
+==Average X Coord==
+-12182.5340840962
+==Average Y Coord==
+4826.60249048081
+==Average Z Coord==
+12043.798785403
+==Z outliers==
+68
+==Average X Bounds Width==
+21.3326122202778
+==Average Y Bounds Width==
+15.9723864423425
+==Average Z Bounds Width==
+14.8971017687141
+==Average Z Rotation==
+3.97506460080065
+==Primitive shape types + count==
+|3723237
+Box|96899
+Ellipsoid|3
+Line|1978
+Plane|85
+Sphere|2441
+==Total entity placement count==
+3824643
+==Unique entity placement count==
+39974
+==Lock levels + count==
+|3822801
+Advanced (Level 1)|531
+Chained|3
+Expert (Level 2)|363
+Inaccessible|60
+Master (Level 3)|166
+Novice (Level 0)|98
+Opens Door|417
+Requires Key|165
+Requires Terminal|38
 Unknown|1
-==Interior lock levels + count==
-|752319
-Advanced (Level 1)|216
-Chained|2
-Expert (Level 2)|166
-Inaccessible|38
-Master (Level 3)|81
-Novice (Level 0)|47
-Opens Door|150
-Requires Key|75
-Requires Terminal|29
-==Worldspace variable spawn entities + count==
-|3065930
-Main|4090
-Sub|1500
-==Interior variable spawn entities + count==
-|749161
-Main|1996
-Sub|1966
-==Worldspace total entity-with-locationFormID count==
-2744
-==Interior total entity-with-locationFormID count==
-832
-==Worldspace unique locationFormID count==
-367
-==Interior unique locationFormID count==
-61
+==Variable spawn entities + count==
+|3815091
+Main|6086
+Sub|3466
+==Total entity-with-locationFormID count==
+3576
+==Unique locationFormID count==
+395
 ==Junk-by-scrap count==
 Acid|19
 Adhesive|12
@@ -223,11 +182,12 @@ Wolf|Main|0.249149659863946|28
 Wolf|Sub|0.176382488479263|31
 Yao Guai|Main|0.215521978021978|25
 Yao Guai|Sub|0.0936336072890694|21
-==Internal cells list + entity count==
+==Spaces list + entity count==
 AMSHQ01|AMS Headquarters|5481
 AMSHQ02|AMS Headquarters Basement Lab|1993
 AVRMedicalCenter01|AVR Medical Center|5938
 AlleghenyAsylum01|Fort Defiance|15013
+Appalachia|Appalachia|3071520
 ArktosPharmaLab01|Arktos Pharma Biome Lab|17183
 ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|14627
 BelchingBetty01|Belching Betty|5220
