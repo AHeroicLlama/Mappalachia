@@ -170,27 +170,20 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SQL\searchScrapAppalachia.sql" />
-    <None Include="SQL\searchScrapAll.sql" />
-    <None Include="SQL\searchNPCAppalachia.sql" />
-    <None Include="SQL\searchNPCAll.sql" />
+    <Content Include="favicon_small.ico" />
+    <None Include="SQL\searchStandard.sql" />
+    <None Include="SQL\searchScrap.sql" />
+    <None Include="SQL\searchNPC.sql" />
+    <None Include="SQL\getSpaces.sql" />
     <None Include="SQL\getSignatures.sql" />
     <None Include="SQL\getScrapTypes.sql" />
     <None Include="SQL\getNPCTypes.sql" />
     <None Include="SQL\getLockLevels.sql" />
+    <None Include="SQL\getGameVersion.sql" />
+    <None Include="SQL\getCoordsStandard.sql" />
     <None Include="SQL\getCoordsScrap.sql" />
     <None Include="SQL\getCoordsNPC.sql" />
-    <None Include="SQL\getCells.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="favicon_small.ico" />
-    <None Include="SQL\getGameVersion.sql" />
-    <None Include="SQL\searchStandardCell.sql" />
-    <None Include="SQL\searchStandardAppalachia.sql" />
-    <None Include="SQL\searchStandardAll.sql" />
-    <None Include="SQL\getCoordsStandard.sql" />
-    <None Include="SQL\getAllCoordsCell.sql" />
-    <None Include="SQL\getCoordsCell.sql" />
+    <None Include="SQL\getAllCoordsSpace.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">
