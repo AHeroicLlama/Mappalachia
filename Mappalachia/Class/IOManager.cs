@@ -166,18 +166,13 @@ namespace Mappalachia
 		{
 			try
 			{
-				if (SettingsMap.IsCellModeActive())
-				{
-					// Save with PNG encoding in Cell mode to maintain the transparency, and to avoid compression
-					image.Save(filePath, ImageFormat.Png);
-				}
-				else
-				{
-					EncoderParameters encoderParams = new EncoderParameters(1);
-					encoderParams.Param[0] = encoderParam;
+				// TODO implement PNG if selected space is not Appalachia, or make optional
+				//image.Save(filePath, ImageFormat.Png);
 
-					image.Save(filePath, jpegEncoder, encoderParams);
-				}
+				EncoderParameters encoderParams = new EncoderParameters(1);
+				encoderParams.Param[0] = encoderParam;
+
+				image.Save(filePath, jpegEncoder, encoderParams);
 			}
 			catch (Exception e)
 			{

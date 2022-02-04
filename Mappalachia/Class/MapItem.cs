@@ -62,23 +62,18 @@ namespace Mappalachia
 		// Speeds up repeated or edited map plots by caching them
 		public List<MapDataPoint> GetPlots()
 		{
-			// Cache the plots if not already active - cell mode needs to edit these values (see CellScaling), so refresh them each time
-			if (plots == null || SettingsMap.IsCellModeActive())
+			// TODO cache coords, but wipe the cache if the cell, plotted items, or height distribution changes
+			switch (type)
 			{
-				switch (type)
-				{
-					case Type.Standard:
-						plots = SettingsMap.IsCellModeActive() ?
-							DataHelper.GetCellCoords(uniqueIdentifier, SettingsCell.GetCell().formID, filteredLockTypes) :
-							DataHelper.GetStandardCoords(uniqueIdentifier, filteredLockTypes);
-						break;
-					case Type.NPC:
-						plots = DataHelper.GetNPCCoords(uniqueIdentifier, weight);
-						break;
-					case Type.Scrap:
-						plots = DataHelper.GetScrapCoords(uniqueIdentifier);
-						break;
-				}
+				case Type.Standard:
+					plots = DataHelper.GetStandardCoords(uniqueIdentifier, filteredLockTypes);
+					break;
+				case Type.NPC:
+					plots = DataHelper.GetNPCCoords(uniqueIdentifier, weight);
+					break;
+				case Type.Scrap:
+					plots = DataHelper.GetScrapCoords(uniqueIdentifier);
+					break;
 			}
 
 			return plots;

@@ -173,7 +173,7 @@ namespace Mappalachia.Properties {
         /// <summary>
         ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName
         ///FROM Space_Info
-        ///ORDER BY spaceDisplayName
+        ///ORDER BY CASE WHEN spaceDisplayName = &apos;Appalachia&apos; THEN 1 ELSE 0 END DESC, spaceDisplayName
         ///.
         /// </summary>
         internal static string getSpaces {

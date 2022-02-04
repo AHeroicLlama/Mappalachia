@@ -69,12 +69,13 @@ namespace Mappalachia
 
 			Map.SetOutput(pictureBoxMapPreview);
 
-			// Assign settings for whichever Map Mode we're starting in
-			// Also draws the map for the first time
-			EnterMapMode(SettingsMap.mode);
-
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
+
+			PopulateCellList();
+
+			// Make the initial map draw call for an empty map
+			Map.DrawBaseLayer();
 		}
 
 		// All Methods not directly responding to UI input
@@ -203,7 +204,7 @@ namespace Mappalachia
 				comboBoxCell.Items.Add(cell.displayName + " (" + cell.editorID + ")");
 			}
 
-			comboBoxCell.SelectedIndex = comboBoxCell.Items.Count - 1;
+			comboBoxCell.SelectedIndex = 0;
 		}
 
 		// Fill the search box with a suggested search term.
@@ -428,59 +429,6 @@ namespace Mappalachia
 		void UpdateCellDrawOutLine()
 		{
 			checkBoxCellDrawOutline.Checked = SettingsCell.drawOutline;
-		}
-
-		// Applies the config necessary for exiting the current map mode
-		void ExitMapMode()
-		{
-			ClearSearchResults();
-			ClearLegend();
-
-			switch (SettingsMap.mode)
-			{
-				case SettingsMap.Mode.Cell:
-					cellModeMenuItem.Checked = false;
-					militaryStyleMenuItem.Enabled = true;
-					brightnessMenuItem.Enabled = true;
-					grayscaleMenuItem.Enabled = true;
-					tabControlStandardNPCJunk.TabPages.Add(tabPageNpcScrapSearch);
-					groupBoxCellModeSettings.Visible = false;
-					break;
-
-				case SettingsMap.Mode.Worldspace:
-					break;
-			}
-		}
-
-		// Applies the config necessary for entering a map mode, including for the first time at startup
-		void EnterMapMode(SettingsMap.Mode incomingMode)
-		{
-			switch (incomingMode)
-			{
-				case SettingsMap.Mode.Cell:
-					SettingsMap.mode = incomingMode;
-					cellModeMenuItem.Checked = true;
-					militaryStyleMenuItem.Enabled = false;
-					brightnessMenuItem.Enabled = false;
-					grayscaleMenuItem.Enabled = false;
-					tabControlStandardNPCJunk.TabPages.Remove(tabPageNpcScrapSearch);
-
-					PopulateCellList();
-					UpdateCellHeightSettings();
-					UpdateCellDrawOutLine();
-
-					textBoxSearch.Text = string.Empty;
-					tabControlStandardNPCJunk.SelectedTab = tabPageStandard;
-					groupBoxCellModeSettings.Visible = true;
-					break;
-
-				case SettingsMap.Mode.Worldspace:
-					SettingsMap.mode = incomingMode;
-					cellModeMenuItem.Checked = false;
-					break;
-			}
-
-			Map.DrawBaseLayer();
 		}
 
 		// Unselect all resolution options under heatmap resolution. Used to remove any current selection
@@ -758,33 +706,6 @@ namespace Mappalachia
 			UpdateMapLayerSettings(true);
 		}
 
-		// Map > Cell Mode
-		private void Map_CellMode(object sender, EventArgs e)
-		{
-			if (!SettingsMap.IsCellModeActive())
-			{
-				DialogResult question = MessageBox.Show(
-					"Cell mode is an advanced mode designed to make detailed maps of individual cells.\n" +
-					"If you want to search generally for items across all cells, you should enable Search Settings > Search Interiors.\n\n" +
-					"Switching to Cell mode may change or disable certain other settings.\n" +
-					"Please read the user documentation on Cell Mode for full details.\n\n" +
-					"Continue to Cell mode?",
-					"Switch to Cell mode?",
-					MessageBoxButtons.YesNo);
-
-				if (question == DialogResult.Yes)
-				{
-					ExitMapMode();
-					EnterMapMode(SettingsMap.Mode.Cell);
-				}
-			}
-			else
-			{
-				ExitMapMode();
-				EnterMapMode(SettingsMap.Mode.Worldspace);
-			}
-		}
-
 		// Map > Brightness... - Open the brightness adjust form
 		void Map_Brightness(object sender, EventArgs e)
 		{
@@ -804,7 +725,7 @@ namespace Mappalachia
 		{
 			SaveFileDialog dialog = new SaveFileDialog
 			{
-				Filter = SettingsMap.IsCellModeActive() ? "PNG|*.png" : "JPEG|*.jpeg",
+				Filter = "JPEG|*.jpeg", // TODO support png "PNG|*.png"
 				FileName = "Mappalachia Map",
 			};
 
@@ -1128,9 +1049,7 @@ namespace Mappalachia
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
 			// Execute the search
-			searchResults = SettingsMap.IsCellModeActive() ?
-				DataHelper.SearchCell(textBoxSearch.Text, SettingsCell.GetCell(), GetEnabledSignatures(), GetEnabledLockTypes()) :
-				DataHelper.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes());
+			searchResults = DataHelper.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes());
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1240,7 +1159,7 @@ namespace Mappalachia
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				// Warn if a selected item is a cell item or already on the legend list - otherwise add it.
-				if (selectedItem.location != "Appalachia" && !SettingsMap.IsCellModeActive())
+				if (false) // TODO make this check that the selected item wasn't from another space
 				{
 					rejectedItemsInterior.Add(selectedItem.editorID);
 				}

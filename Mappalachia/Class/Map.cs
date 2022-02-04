@@ -65,21 +65,22 @@ namespace Mappalachia
 		public static void DrawBaseLayer()
 		{
 			// Start with the chosen base map
-			if (SettingsMap.IsCellModeActive())
-			{
-				backgroundLayer = new Bitmap(mapDimension, mapDimension);
 
+			// TODO neater way to identify worldspaces
+			if (SettingsCell.GetCell().editorID == "Appalachia")
+			{
+				backgroundLayer = SettingsMap.layerMilitary ?
+					IOManager.GetImageMapMilitary() :
+					IOManager.GetImageMapNormal();
+			}
+			else
+			{ 
+				backgroundLayer = new Bitmap(mapDimension, mapDimension);
 				if (SettingsCell.drawOutline)
 				{
 					Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
 					DrawCellBackground(backgroundGraphics);
 				}
-			}
-			else
-			{
-				backgroundLayer = SettingsMap.layerMilitary ?
-					IOManager.GetImageMapMilitary() :
-					IOManager.GetImageMapNormal();
 			}
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
@@ -135,20 +136,17 @@ namespace Mappalachia
 			// Prepare the game version and watermark to be printed later
 			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
-			// Additional steps for cell mode (Add further text to watermark text, get cell height boundings)
-			if (SettingsMap.IsCellModeActive())
-			{
-				Cell currentCell = SettingsCell.GetCell();
+			Cell currentCell = SettingsCell.GetCell();
 
-				// Assign the CellScaling property
-				cellScaling = currentCell.GetScaling();
+			// Assign the CellScaling property
+			cellScaling = currentCell.GetScaling();
 
-				infoText =
-					currentCell.displayName + " (" + currentCell.editorID + ")\n" +
-					"Height distribution: " + SettingsCell.minHeightPerc + "% - " + SettingsCell.maxHeightPerc + "%\n" +
-					"Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n\n" +
-					infoText;
-			}
+			infoText =
+				currentCell.displayName + " (" + currentCell.editorID + ")\n" +
+				"Height distribution: " + SettingsCell.minHeightPerc + "% - " + SettingsCell.maxHeightPerc + "%\n" +
+				"Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n\n" +
+				infoText;
+
 
 			// Gather resources for drawing informational watermark text
 			Brush brushWhite = new SolidBrush(Color.White);
@@ -292,25 +290,24 @@ namespace Mappalachia
 							volumeBrush = new SolidBrush(volumeColor);
 						}
 
-						if (SettingsMap.IsCellModeActive())
+
+						// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
+						// (Also accounts for the z-height of volumes)
+						if (point.z + (point.boundZ / 2d) < SettingsCell.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsCell.GetMaxHeightCoordBound())
 						{
-							// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
-							// (Also accounts for the z-height of volumes)
-							if (point.z + (point.boundZ / 2d) < SettingsCell.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsCell.GetMaxHeightCoordBound())
-							{
-								continue;
-							}
-
-							point.x += cellScaling.xOffset;
-							point.y += cellScaling.yOffset;
-
-							// Multiply the coordinates by the scaling, but multiply around 0,0
-							point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-							point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-							point.boundX *= cellScaling.scale;
-							point.boundY *= cellScaling.scale;
+							continue;
 						}
-						else // Skip the point if its origin is outside the surface world
+
+						point.x += cellScaling.xOffset;
+						point.y += cellScaling.yOffset;
+
+						// Multiply the coordinates by the scaling, but multiply around 0,0
+						point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+						point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+						point.boundX *= cellScaling.scale;
+						point.boundY *= cellScaling.scale;
+
+						// Skip the point if its origin is outside the surface world
 						if (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax)
 						{
 							continue;
@@ -380,14 +377,13 @@ namespace Mappalachia
 
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
-						if (SettingsMap.IsCellModeActive())
-						{
-							point.x += cellScaling.xOffset;
-							point.y += cellScaling.yOffset;
 
-							point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-							point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-						}
+						point.x += cellScaling.xOffset;
+						point.y += cellScaling.yOffset;
+
+						point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+						point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+
 
 						// Identify which grid square this MapDataPoint falls within
 						int squareX = (int)Math.Floor(point.x / pixelsPerSquare);
@@ -555,11 +551,6 @@ namespace Mappalachia
 		// Draws an outline of all items in the current cell to act as background/template
 		static void DrawCellBackground(Graphics backgroundLayer)
 		{
-			if (!SettingsMap.IsCellModeActive())
-			{
-				return;
-			}
-
 			CellScaling cellScaling = SettingsCell.GetCell().GetScaling();
 
 			int outlineWidth = SettingsCell.outlineWidth;

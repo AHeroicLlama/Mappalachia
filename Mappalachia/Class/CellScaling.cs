@@ -22,6 +22,12 @@ namespace Mappalachia.Class
 		// This is used to center and properly scale maps in Cell mode - as the scaling is no longer in relation to the map image
 		public static CellScaling GetCellScaling(Cell cell)
 		{
+			// TODO it should organically return this without being hardcoded but it returns a scale of 0.63?
+			if (cell.editorID == "Appalachia")
+			{
+				return new CellScaling(0, 0, 1);
+			}
+
 			double xCenter = (Math.Abs(cell.xMax) + Math.Abs(cell.xMin)) / 2;
 			double yCenter = (Math.Abs(cell.yMax) + Math.Abs(cell.yMin)) / 2;
 
