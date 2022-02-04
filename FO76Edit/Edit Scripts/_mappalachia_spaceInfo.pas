@@ -1,30 +1,44 @@
-// Gets the FormID, EditorID, and DisplayName of every CELL
-unit _m_cell;
+// Gets the FormID, EditorID, and DisplayName of every relevant CELL and WRLD
+unit _mappalachia_spaceInfo;
 
-	uses _m_lib;
+	uses _mappalachia_lib;
 
 	var	outputStrings, skippedCells : TStringList;
+	const
+		appalachiaWorldspaceID = '0025DA15';
 
 	procedure Initialize;
-	begin
-		ripCells(0); //0=SeventySix.esm
-	end;
-
-	procedure ripCells(fileNum : Integer); // Primary block for iterating down tree
 	const
-		targetESM = FileByIndex(fileNum);
-		categoryCount = ElementCount(targetESM);
-		outputFile = ProgramPath + 'Output\' + StringReplace(BaseName(targetESM), '.esm', '', [rfReplaceAll]) + '_Cell.csv';
-		skippedCellsFile = StringReplace(outputFile, '_Cell', '_SkippedCells', [rfReplaceAll]);
-	var
-		i, j, k, l : Integer; // iterators
-		category, block, subBlock, cell : IInterface;
+		outputFile = ProgramPath + 'Output\Space_Info.csv';
+		skippedCellsFile = ProgramPath + 'Output\Skipped_Cells.csv';
 	begin
 		skippedCells := TStringList.Create;
 		outputStrings := TStringList.Create;
-		skippedCells.add('cellFormID,cellEditorID,cellDisplayName'); // Write CSV column headers
-		outputStrings.add('cellFormID,cellEditorID,cellDisplayName');
 
+		// Write CSV column headers
+		skippedCells.add('cellFormID,cellEditorID,cellDisplayName');
+		outputStrings.add('spaceFormID,spaceEditorID,spaceDisplayName');
+
+		ripWorld(appalachiaWorldspaceID);
+		ripCells();
+
+		createDir('Output');
+		AddMessage('Writing output to file: ' + outputFile);
+		outputStrings.SaveToFile(outputFile);
+
+		AddMessage('Writing skipped cells to file: ' + skippedCellsFile);
+		skippedCells.SaveToFile(skippedCellsFile);
+	end;
+
+	procedure ripCells(); // Primary block for iterating down tree
+	const
+		targetESM = FileByIndex(0);
+		categoryCount = ElementCount(targetESM);
+
+	var
+		i, j, k, l : Integer; // Iterators
+		category, block, subBlock, cell : IInterface;
+	begin
 		category := GroupBySignature(targetESM, 'CELL');
 		for j := 0 to ElementCount(category) -1 do begin // Iterate over every block within the Cell category
 			block := elementByIndex(category, j);
@@ -36,21 +50,24 @@ unit _m_cell;
 					cell := elementByIndex(subBlock, l);
 
 					if(FixedFormId(cell) <> 0) then begin
-						ripItem(cell);
+						ripCell(cell);
 					end;
 				end;
 			end;
 		end;
-
-		createDir('Output');
-		AddMessage('Writing output to file: ' + outputFile);
-		outputStrings.SaveToFile(outputFile);
-
-		AddMessage('Writing skipped cells to file: ' + skippedCellsFile);
-		skippedCells.SaveToFile(skippedCellsFile);
 	end;
 
-	procedure ripItem(cell : IInterface);
+	procedure ripWorld(worldspaceID : Integer);
+	const
+		worldspace = RecordByFormID(FileByIndex(0), worldspaceID, False);
+	begin
+		outputStrings.Add(
+			IntToHex(FixedFormId(worldspace), 8) + ',' +
+			sanitize(EditorID(worldspace)) + ',' +
+			sanitize(DisplayName(worldspace)));
+	end;
+
+	procedure ripCell(cell : IInterface);
 	var
 		cellFormID, cellEditorID, cellDisplayName : IInterface;
 	begin

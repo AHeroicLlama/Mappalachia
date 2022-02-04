@@ -1,13 +1,13 @@
 // Gets a list of all MISC and which items in which quantities(KYWD) they give when scrapped
-unit _m_junkScrap;
+unit _mappalachia_junkScrap;
 
-	uses _m_lib;
+	uses _mappalachia_lib;
 
 	var	outputStrings : TStringList;
 
 	procedure Initialize;
 	begin
-		processRecordGroup(0, 'MISC', 'Junk_Scrap', 'component,componentQuantity,junkFormID');
+		processRecordGroup('MISC', 'Junk_Scrap', 'component,componentQuantity,junkFormID');
 	end;
 
 	procedure ripItem(item : IInterface);

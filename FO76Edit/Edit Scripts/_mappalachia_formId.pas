@@ -1,22 +1,22 @@
-// Rip every single entry in the ESM which is relevant for mapping as defined by _m_lib.shouldProcessRecord(). Gets each item's FormID, EdID and displayName.
+// Rip every single entry in the ESM which is relevant for mapping as defined by _mappalachia_lib.shouldProcessRecord(). Gets each item's FormID, EdID and displayName.
 // This is cross referenced by the Preprocessor between the location data to assign names/EditorID's to FormIDs in the location data
-unit _m_formID;
+unit _mappalachia_formID;
 
-	uses _m_lib;
+	uses _mappalachia_lib;
 
 	var outputStrings : TStringList;
 
 	procedure Initialize;
 	begin
-		ripFormIDs(0); //0=SeventySix.esm
+		ripFormIDs();
 	end;
 
-	procedure ripFormIDs(fileNum : Integer); // Primary block for iterating down tree
+	procedure ripFormIDs(); // Primary block for iterating down tree
 	const
-		targetESM = FileByIndex(fileNum);
-		outputFile = ProgramPath + 'Output\' + StringReplace(BaseName(targetESM), '.esm', '', [rfReplaceAll]) + '_FormID.csv';
+		targetESM = FileByIndex(0);
+		outputFile = ProgramPath + 'Output\FormID.csv';
 	var
-		i, j : Integer; // iterators
+		i, j : Integer; // Iterators
 		signatureGroup : IInterface;
 		signature : String;
 	begin
