@@ -1,1 +1,1 @@
-SELECT version FROM gameVersion LIMIT 1;
+SELECT version FROM Game_Version LIMIT 1;

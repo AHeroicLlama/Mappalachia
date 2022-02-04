@@ -1,3 +1,3 @@
 SELECT npc
-FROM SeventySix_NPCSpawn
+FROM NPC_Spawn
 GROUP BY npc

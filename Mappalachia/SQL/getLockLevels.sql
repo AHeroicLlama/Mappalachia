@@ -1,6 +1,3 @@
 SELECT lockLevel
-FROM SeventySix_Worldspace
-UNION
-SELECT lockLevel
-FROM SeventySix_Interior
+FROM Position_Data
 GROUP BY lockLevel

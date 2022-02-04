@@ -1,3 +1,3 @@
 SELECT component
-FROM SeventySix_Quantified_Scrap
+FROM Quantified_Scrap
 GROUP BY component

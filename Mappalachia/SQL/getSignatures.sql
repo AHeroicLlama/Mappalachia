@@ -1,3 +1,3 @@
 SELECT signature
-FROM SeventySix_FormId
+FROM Entity_Info
 GROUP BY signature
