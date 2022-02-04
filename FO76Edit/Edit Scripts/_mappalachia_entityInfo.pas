@@ -1,6 +1,6 @@
-// Rip every single entry in the ESM which is relevant for mapping as defined by _mappalachia_lib.shouldProcessRecord(). Gets each item's FormID, EdID and displayName.
-// This is cross referenced by the Preprocessor between the location data to assign names/EditorID's to FormIDs in the location data
-unit _mappalachia_formID;
+// Rip every single entry in the ESM which is relevant for mapping. Gets each item's FormID, EditorID and displayName.
+// This is later cross referenced between the location data to assign names/EditorID's to FormIDs in the location data
+unit _mappalachia_entityInfo;
 
 	uses _mappalachia_lib;
 
@@ -14,7 +14,7 @@ unit _mappalachia_formID;
 	procedure ripFormIDs(); // Primary block for iterating down tree
 	const
 		targetESM = FileByIndex(0);
-		outputFile = ProgramPath + 'Output\FormID.csv';
+		outputFile = ProgramPath + 'Output\Entity_Info.csv';
 	var
 		i, j : Integer; // Iterators
 		signatureGroup : IInterface;

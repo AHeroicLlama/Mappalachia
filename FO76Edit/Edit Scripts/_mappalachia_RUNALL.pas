@@ -3,7 +3,7 @@ unit Mappalachia;
 
 uses
 	_mappalachia_componentQuantity,
-	_mappalachia_formID,
+	_mappalachia_entityInfo,
 	_mappalachia_junkScrap,
 	_mappalachia_location,
 	_mappalachia_positionData,
@@ -23,8 +23,8 @@ uses
 		AddMessage('Now running _mappalachia_spaceInfo...');
 		_mappalachia_spaceInfo.initialize();
 
-		AddMessage('Now running _mappalachia_formId...');
-		_mappalachia_formID.initialize();
+		AddMessage('Now running _mappalachia_entityInfo...');
+		_mappalachia_entityInfo.initialize();
 
 		AddMessage('Now running _mappalachia_positionData...');
 		_mappalachia_positionData.initialize();

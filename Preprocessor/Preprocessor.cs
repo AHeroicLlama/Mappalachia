@@ -22,7 +22,7 @@ namespace Mappalachia
 				List<Task> parallelTasks = new List<Task>
 				{
 					new Task(() => ProcessSpatialFile("Position_Data.csv")),
-					new Task(() => ProcessBasicFile("FormID.csv")),
+					new Task(() => ProcessBasicFile("Entity_Info.csv")),
 					new Task(() => ProcessBasicFile("Space_Info.csv")),
 					new Task(() => GenerateNPCSpawnFile()),
 					new Task(() => GenerateQuantifiedJunkScrapFile()),
@@ -51,7 +51,7 @@ namespace Mappalachia
 		static void ProcessSpatialFile(string fileName)
 		{
 			CSVFile file = GenericOpen(fileName);
-			file = NpcSpawnHelper.AddMonsterClassColumn(file);
+			file = NPCSpawnHelper.AddMonsterClassColumn(file);
 			GenericProcess(file);
 			GenericClose(file);
 		}
@@ -70,7 +70,7 @@ namespace Mappalachia
 			CSVFile locationFile = GenericOpen("Location.csv");
 			GenericProcess(locationFile);
 
-			CSVFile npcSpawns = NpcSpawnHelper.ProcessNPCSpawns(locationFile, NpcSpawnHelper.SumLocationSpawnChances(locationFile));
+			CSVFile npcSpawns = NPCSpawnHelper.ProcessNPCSpawns(locationFile, NPCSpawnHelper.SumLocationSpawnChances(locationFile));
 			locationFile.rows = null;
 
 			GenericProcess(npcSpawns);
