@@ -72,10 +72,8 @@ namespace Mappalachia
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
 
+			// This ultimately causes the first map draw, as the space list changes index and draws the final selected Space
 			PopulateSpaceList();
-
-			// Make the initial map draw call for an empty map
-			Map.DrawBaseLayer();
 		}
 
 		// All Methods not directly responding to UI input
