@@ -22,12 +22,6 @@ namespace Mappalachia.Class
 		// This is used to center and properly scale maps of cells - as the scaling is no longer in relation to the map image
 		public static SpaceScaling GetSpaceScaling(Space space)
 		{
-			// TODO it should organically return this without being hardcoded but it returns a scale of 0.63?
-			if (space.IsWorldspace())
-			{
-				return new SpaceScaling(0, 0, 1);
-			}
-
 			double xCenter = (Math.Abs(space.xMax) + Math.Abs(space.xMin)) / 2;
 			double yCenter = (Math.Abs(space.yMax) + Math.Abs(space.yMin)) / 2;
 

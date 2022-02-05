@@ -11,6 +11,10 @@ CREATE INDEX indexPositionData_referenceFormID ON Position_Data (
 	referenceFormID
 );
 
+CREATE INDEX indexPositionData_lockLevel ON Position_Data (
+	lockLevel
+);
+
 CREATE INDEX indexPositionData_CoverAll ON Position_Data (
     spaceFormID,
     referenceFormID,

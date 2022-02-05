@@ -49,6 +49,11 @@ namespace Mappalachia.Class
 
 		public SpaceScaling GetScaling()
 		{
+			if (IsWorldspace())
+			{
+				return new SpaceScaling(0, 0, 1);
+			}
+
 			if (plots == null)
 			{
 				InitializePlotData();
@@ -96,7 +101,7 @@ namespace Mappalachia.Class
 			return distribution;
 		}
 
-		// Returns if the currently selected Space is a Worldspace
+		// Returns if this Space is a Worldspace
 		public bool IsWorldspace()
 		{
 			return editorID == "Appalachia";
