@@ -88,6 +88,12 @@ SELECT '==NPC per-class avg spawn chance + count==';
 SELECT npc, class, AVG(chance), COUNT(*) FROM NPC_Spawn
 GROUP BY npc, class;
 
+SELECT '==Worldspace count==';
+SELECT COUNT(*) FROM Space_Info WHERE isWorldspace == '1';
+
+SELECT '==Cell count==';
+SELECT COUNT(*) FROM Space_Info WHERE isWorldspace == '0';
+
 SELECT '==Spaces list + entity count==';
 SELECT spaceEditorID, spaceDisplayName, count(*) FROM Position_Data
 INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID

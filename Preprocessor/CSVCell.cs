@@ -194,6 +194,14 @@ namespace Mappalachia
 					}
 					return;
 
+				case "isWorldspace":
+					// Boolean
+					if (!Validation.validSQLiteBoolean.IsMatch(data))
+					{
+						ReportValidationError();
+					}
+					return;
+
 				case "npc":
 				case "component":
 					// Nothing really to validate for here since they're just in-game strings
