@@ -1,5 +1,5 @@
 ==Database checksum== 
-c43d9ec32f5a469c8b70167350f51b5a
+f2479842db20b511193d795b5990988e
 ==Game Version==
 1.6.2.16
 ==Total unique items by signature==
@@ -182,6 +182,10 @@ Wolf|Main|0.249149659863946|28
 Wolf|Sub|0.176382488479263|31
 Yao Guai|Main|0.215521978021978|25
 Yao Guai|Sub|0.0936336072890694|21
+==Worldspace count==
+1
+==Cell count==
+133
 ==Spaces list + entity count==
 AMSHQ01|AMS Headquarters|5481
 AMSHQ02|AMS Headquarters Basement Lab|1993

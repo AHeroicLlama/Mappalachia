@@ -4,7 +4,6 @@ unit _mappalachia_positionData;
 	uses _mappalachia_lib;
 
 	var	outputStrings : TStringList;
-	const appalachiaWorldspaceID = '0025DA15';
 
 	procedure Initialize;
 	const
@@ -13,19 +12,19 @@ unit _mappalachia_positionData;
 		outputStrings := TStringList.Create;
 		outputStrings.add('spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ'); // Write CSV column headers
 
-		// 0=SeventySix.esm
+		AddMessage('Beginning Mappalachia exterior position data export...');
+		ripWorldspaces();
+		AddMessage('Finished Mappalachia exterior position data export.');
 		AddMessage('Beginning Mappalachia interior position data export...');
 		ripInteriors();
 		AddMessage('Finished Mappalachia interior position data export.');
-		AddMessage('Beginning Mappalachia exterior position data export...');
-		ripWorldspace();
-		AddMessage('Finished Mappalachia exterior position data export.');
 
 		AddMessage('Writing position data output to file: ' + outputFile);
 		createDir('Output');
 		outputStrings.SaveToFile(outputFile);
 	end;
 
+	// Rips all interiors, uses shouldProcessCell() to excluce debug cells
 	procedure ripInteriors(); // Primary block for iterating down tree
 	const
 		targetESM = FileByIndex(0);
@@ -69,10 +68,16 @@ unit _mappalachia_positionData;
 		end;
 	end;
 
-	procedure ripWorldspace(); // Primary block for iterating down worldspace tree
+	// Rip only specifically named worldspaces
+	procedure ripWorldspaces();
+	begin
+		ripWorldspace('Appalachia');
+	end;
+
+	procedure ripWorldspace(worldspaceEditorID: String); // Primary block for iterating down worldspace tree
 	const
-		targetESM = FileByIndex(0);
-		worldspace = RecordByFormID(targetESM, appalachiaWorldspaceID, False);
+		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
+		worldspaceID = IntToHex(FixedFormId(worldspace), 8);
 		blocks = ChildGroup(worldspace);
 		blockCount = ElementCount(blocks);
 	var
@@ -86,7 +91,7 @@ unit _mappalachia_positionData;
 
 			for j := 0 to ElementCount(block) - 1 do begin // Iterate over all subBlocks within the block
 				subBlock := elementByIndex(block, j);
-				AddMessage(friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
+				AddMessage(worldspaceEditorID + ' ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
 
 				if(Signature(subBlock) = 'GRUP') then begin
 					for k := 0 to ElementCount(subBlock) - 1 do begin // Iterate over all cells within the subBlock
@@ -95,12 +100,12 @@ unit _mappalachia_positionData;
 						if(groupType(cell) = 9) then begin // Check that this isn't the persistent worldspace cell (which has a hierarchy one-less deep than normal worldspace blocks)
 							for l := 0 to ElementCount(cell) - 1 do begin // Iterate over all cellElements within the cell
 								cellItem := elementByIndex(cell, l);
-								ripItem(cellItem, appalachiaWorldspaceID);
+								ripItem(cellItem, worldspaceID);
 							end;
 						end
 						else begin // This is not a standard worldspace block (presumably the persistent worldspace cell)
 							cell := elementByIndex(subBlock, k);
-							ripItem(cell, appalachiaWorldspaceID);
+							ripItem(cell, worldspaceID);
 						end;
 					end;
 				end;

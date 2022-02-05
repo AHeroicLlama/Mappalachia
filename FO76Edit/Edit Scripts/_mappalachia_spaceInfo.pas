@@ -4,8 +4,6 @@ unit _mappalachia_spaceInfo;
 	uses _mappalachia_lib;
 
 	var	outputStrings, skippedCells : TStringList;
-	const
-		appalachiaWorldspaceID = '0025DA15';
 
 	procedure Initialize;
 	const
@@ -17,9 +15,9 @@ unit _mappalachia_spaceInfo;
 
 		// Write CSV column headers
 		skippedCells.add('cellFormID,cellEditorID,cellDisplayName');
-		outputStrings.add('spaceFormID,spaceEditorID,spaceDisplayName');
+		outputStrings.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace');
 
-		ripWorld(appalachiaWorldspaceID);
+		ripWorldSpaces();
 		ripCells();
 
 		createDir('Output');
@@ -30,11 +28,15 @@ unit _mappalachia_spaceInfo;
 		skippedCells.SaveToFile(skippedCellsFile);
 	end;
 
+	procedure ripWorldspaces();
+	begin
+		ripWorldspace('Appalachia');
+	end;
+
 	procedure ripCells(); // Primary block for iterating down tree
 	const
 		targetESM = FileByIndex(0);
 		categoryCount = ElementCount(targetESM);
-
 	var
 		i, j, k, l : Integer; // Iterators
 		category, block, subBlock, cell : IInterface;
@@ -57,14 +59,16 @@ unit _mappalachia_spaceInfo;
 		end;
 	end;
 
-	procedure ripWorld(worldspaceID : Integer);
+	procedure ripWorldspace(worldspaceEditorID : String);
 	const
-		worldspace = RecordByFormID(FileByIndex(0), worldspaceID, False);
+		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
 	begin
 		outputStrings.Add(
 			IntToHex(FixedFormId(worldspace), 8) + ',' +
 			sanitize(EditorID(worldspace)) + ',' +
-			sanitize(DisplayName(worldspace)));
+			sanitize(DisplayName(worldspace)) + ',' +
+			'1'
+		);
 	end;
 
 	procedure ripCell(cell : IInterface);
@@ -79,7 +83,8 @@ unit _mappalachia_spaceInfo;
 			outputStrings.Add(
 				cellFormID + ',' +
 				cellEditorID + ',' +
-				sanitize(cellDisplayName)
+				sanitize(cellDisplayName) + ',' +
+				'0'
 			);
 		end
 		else begin
