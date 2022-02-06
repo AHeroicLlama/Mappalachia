@@ -187,10 +187,9 @@ namespace Mappalachia.Properties {
         ///FROM Position_Data
         ///INNER JOIN NPC_Spawn ON class = spawnClass AND Position_Data.locationFormID = NPC_Spawn.locationFormID
         ///INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
-        ///WHERE NPC = $searchTerm AND Chance &gt;= $minChance
+        ///WHERE NPC = $searchTerm AND Chance &gt;= $minChance AND Position_Data.spaceFormID = $spaceFormID
         ///GROUP BY spaceEditorID
-        ///ORDER BY CASE WHEN spaceEditorID = &apos;Appalachia&apos; THEN 1 ELSE 0 END DESC, count DESC
-        ///.
+        ///ORDER BY isWorldspace DESC, count DESC.
         /// </summary>
         internal static string searchNPC {
             get {
@@ -199,18 +198,17 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT component, SUM(magnitude) AS totalScrap, spaceDisplayName, spaceEditorID
-        ///FROM
+        ///   Looks up a localized string similar to SELECT * FROM
         ///(
-        ///	SELECT referenceFormID, component, componentQuantity*COUNT(*) AS magnitude, spaceDisplayName, spaceEditorID
-        ///	FROM Position_Data
-        ///	INNER JOIN Quantified_Scrap ON junkFormID = referenceFormID
-        ///	INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
-        ///	WHERE component = $searchTerm
-        ///	GROUP BY referenceFormID, spaceDisplayName
-        ///)
-        ///GROUP BY spaceEditorID
-        ///ORDER BY CASE WHEN spaceEditorID = &apos;Appalachia&apos; [rest of string was truncated]&quot;;.
+        ///	SELECT component, SUM(magnitude) AS totalScrap, spaceDisplayName, spaceEditorID, spaceFormID
+        ///	FROM
+        ///	(
+        ///		SELECT referenceFormID, component, componentQuantity*COUNT(*) AS magnitude, spaceDisplayName, spaceEditorID, Space_Info.spaceFormID, isWorldspace
+        ///		FROM Position_Data
+        ///		INNER JOIN Quantified_Scrap ON junkFormID = referenceFormID
+        ///		INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
+        ///		WHERE component = $searchTerm
+        ///		GROUP BY referenceFormID, spaceDisplayNa [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchScrap {
             get {
@@ -219,25 +217,27 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT
-        ///	displayName,
-        ///	editorID,
-        ///	signature,
-        ///	COUNT(*) AS amount,
-        ///	lockLevel,
-        ///	entityFormID,
-        ///	spaceDisplayName,
-        ///	spaceEditorID
-        ///FROM Entity_Info
-        ///INNER JOIN Position_Data ON referenceFormID = entityFormID
-        ///INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
-        ///WHERE
-        ///	(
-        ///		(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///		displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR
-        ///		entityFormID LIKE $searchTerm ESCAPE &apos;\&apos;)
-        ///		AND signature IN ($allowedSignatures)
-        ///		AND lockLevel IN ($allowedLockTyp [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to SELECT * FROM
+        ///(
+        ///	SELECT
+        ///		displayName,
+        ///		editorID,
+        ///		signature,
+        ///		COUNT(*) AS amount,
+        ///		lockLevel,
+        ///		entityFormID,
+        ///		spaceDisplayName,
+        ///		spaceEditorID,
+        ///		Position_Data.spaceFormID as spaceFormID,
+        ///		isWorldspace
+        ///	FROM Entity_Info
+        ///	INNER JOIN Position_Data ON referenceFormID = entityFormID
+        ///	INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
+        ///	WHERE
+        ///		(
+        ///			(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR
+        ///			displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR
+        ///			entityFormID LIKE $sea [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchStandard {
             get {

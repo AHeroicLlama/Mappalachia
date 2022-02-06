@@ -362,55 +362,14 @@ namespace Mappalachia
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
 
-		// Performs similar functionality to standard search but constrained to a specific cell, denoted by cellFormID
-		public static List<MapItem> SearchCell(string searchTerm, Space cell, List<string> allowedSignatures, List<string> allowedLockTypes)
-		{
-			try
-			{
-				List<MapItem> results = new List<MapItem>();
-
-				// Run the standard simple search but for interiors and uniquely against the cellFormID
-				using (SqliteDataReader reader = Database.ExecuteQuerySearchCell(cell.formID, searchTerm, allowedSignatures, allowedLockTypes))
-				{
-					while (reader.Read())
-					{
-						string signature = reader.GetString(2);
-						string editorID = reader.GetString(1);
-
-						results.Add(new MapItem(
-							Type.Standard,
-							reader.GetString(5), // FormID
-							editorID, // Editor ID
-							reader.GetString(0), // Display Name
-							signature, // Signature
-							allowedLockTypes, // The Lock Types filtered for this set of items.
-							GetSpawnChance(signature, editorID), // Spawn chance
-							reader.GetInt32(3), // Count
-							cell.displayName, // Cell Display Name/location
-							cell.editorID)); // Cell EditorID
-					}
-				}
-
-				return results;
-			}
-			catch (Exception e)
-			{
-				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
-				IOManager.genericExceptionHelpText +
-				e);
-
-				return new List<MapItem>();
-			}
-		}
-
 		// Conducts the standard search and returns the found items
-		public static List<MapItem> SearchStandard(string searchTerm, List<string> allowedSignatures, List<string> allowedLockTypes)
+		public static List<MapItem> SearchStandard(string searchTerm, List<string> allowedSignatures, List<string> allowedLockTypes, string spaceFormID)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Database.ExecuteQueryStandardSearch(searchTerm, allowedSignatures, allowedLockTypes))
+				using (SqliteDataReader reader = Database.ExecuteQueryStandardSearch(searchTerm, allowedSignatures, allowedLockTypes, spaceFormID))
 				{
 					while (reader.Read())
 					{
@@ -444,13 +403,13 @@ namespace Mappalachia
 		}
 
 		// Conducts the scrap search and returns the found items
-		public static List<MapItem> SearchScrap(string searchTerm)
+		public static List<MapItem> SearchScrap(string searchTerm, string spaceFormID)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Database.ExecuteQueryScrapSearch(searchTerm))
+				using (SqliteDataReader reader = Database.ExecuteQueryScrapSearch(searchTerm, spaceFormID))
 				{
 					// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("MISC", false);
@@ -495,13 +454,13 @@ namespace Mappalachia
 
 		// Conducts the NPC search and returns the found items.
 		// Also merges results with standard search results for the same name, then drops items containing "Corpse"
-		public static List<MapItem> SearchNPC(string searchTerm, int minChance)
+		public static List<MapItem> SearchNPC(string searchTerm, int minChance, string spaceFormID)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
-				using (SqliteDataReader reader = Database.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00))
+				using (SqliteDataReader reader = Database.ExecuteQueryNPCSearch(searchTerm, minChance / 100.00, spaceFormID))
 				{
 					// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 					string signature = ConvertSignature("NPC_", false);
@@ -533,7 +492,7 @@ namespace Mappalachia
 				}
 
 				// Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
-				results.AddRange(SearchStandard(searchTerm, new List<string> { "NPC_" }, GetPermittedLockTypes()));
+				results.AddRange(SearchStandard(searchTerm, new List<string> { "NPC_" }, GetPermittedLockTypes(), spaceFormID));
 
 				/*Copy out search results not containing "corpse", therefore dropping the dead "NPCs"
 				This isn't perfect and won't catch ALL dead NPCs.
@@ -580,38 +539,12 @@ namespace Mappalachia
 			return coordinates;
 		}
 
-		// Return the coordinate locations and boundaries of instances of a FormID of an interior cell with given cellFormID
-		public static List<MapDataPoint> GetCellCoords(string formID, string cellFormID, List<string> filteredLockTypes)
-		{
-			List<MapDataPoint> coordinates = new List<MapDataPoint>();
-
-			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesCell(formID, cellFormID, filteredLockTypes))
-			{
-				while (reader.Read())
-				{
-					string primitiveShape = reader.GetString(3);
-
-					// Identify if this item has a primitive shape and use the appropriate constructor
-					if (primitiveShape == string.Empty)
-					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
-					}
-					else
-					{
-						coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7)));
-					}
-				}
-			}
-
-			return coordinates;
-		}
-
 		// Return the coordinate locations and boundaries of instances of a FormID
-		public static List<MapDataPoint> GetStandardCoords(string formID, List<string> filteredLockTypes)
+		public static List<MapDataPoint> GetStandardCoords(string formID, String spaceFormID, List<string> filteredLockTypes)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesStandard(formID, filteredLockTypes))
+			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesStandard(formID, spaceFormID, filteredLockTypes))
 			{
 				while (reader.Read())
 				{
@@ -633,11 +566,11 @@ namespace Mappalachia
 		}
 
 		// Return the coordinate locations of instances of an NPC above given min spawn chance
-		public static List<MapDataPoint> GetNPCCoords(string npc, double minChance)
+		public static List<MapDataPoint> GetNPCCoords(string npc, String spaceFormID, double minChance)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesNPC(npc, minChance))
+			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesNPC(npc, spaceFormID, minChance))
 			{
 				while (reader.Read())
 				{
@@ -652,11 +585,11 @@ namespace Mappalachia
 		}
 
 		// Return the coordinate locations of instances of Scrap contained within Junk
-		public static List<MapDataPoint> GetScrapCoords(string scrap)
+		public static List<MapDataPoint> GetScrapCoords(string scrap, string spaceFormID)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesJunkScrap(scrap))
+			using (SqliteDataReader reader = Database.ExecuteQueryFindCoordinatesJunkScrap(scrap, spaceFormID))
 			{
 				while (reader.Read())
 				{

@@ -55,27 +55,8 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Executes just like a standard search but constrained to a given cellFormID
-		public static SqliteDataReader ExecuteQuerySearchCell(string cellFormID, string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
-		{
-			searchTerm = DataHelper.ProcessSearchString(searchTerm);
-			string queryString = Properties.Resources.searchStandard;
-			SqliteCommand query = connection.CreateCommand();
-
-			// SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
-			queryString = queryString.Replace("$allowedSignatures", string.Join(",", filteredSignatures.Select(s => '\'' + s + '\'')));
-			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));
-
-			query.CommandText = queryString;
-			query.Parameters.Clear();
-			query.Parameters.AddWithValue("$searchTerm", "%" + searchTerm + "%");
-			query.Parameters.AddWithValue("$spaceFormID", cellFormID);
-
-			return query.ExecuteReader();
-		}
-
 		// Execute the basic search query to search the worldspace and/or interiors
-		public static SqliteDataReader ExecuteQueryStandardSearch(string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes)
+		public static SqliteDataReader ExecuteQueryStandardSearch(string searchTerm, List<string> filteredSignatures, List<string> filteredLockTypes, string spaceFormID)
 		{
 			searchTerm = DataHelper.ProcessSearchString(searchTerm);
 			string queryString = Properties.Resources.searchStandard;
@@ -88,13 +69,13 @@ namespace Mappalachia
 			query.CommandText = queryString;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", "%" + searchTerm + "%");
-			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			return query.ExecuteReader();
 		}
 
 		// Execute a query to search for variable NPC Spawns
-		public static SqliteDataReader ExecuteQueryNPCSearch(string searchTerm, double minChance)
+		public static SqliteDataReader ExecuteQueryNPCSearch(string searchTerm, double minChance, string spaceFormID)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
@@ -102,20 +83,20 @@ namespace Mappalachia
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", searchTerm);
 			query.Parameters.AddWithValue("$minChance", minChance);
-			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			return query.ExecuteReader();
 		}
 
 		// Execute a query to search for total scrap per cell/location
-		public static SqliteDataReader ExecuteQueryScrapSearch(string searchTerm)
+		public static SqliteDataReader ExecuteQueryScrapSearch(string searchTerm, string spaceFormID)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
 			query.CommandText = Properties.Resources.searchScrap;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$searchTerm", searchTerm);
-			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			return query.ExecuteReader();
 		}
@@ -134,26 +115,8 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Execute a query to find the coordinates of every instance of a given MapItem within an interior of a given cellFormID
-		public static SqliteDataReader ExecuteQueryFindCoordinatesCell(string formID, string cellFormID, List<string> filteredLockTypes)
-		{
-			SqliteCommand query = connection.CreateCommand();
-
-			string queryString = Properties.Resources.getCoordsStandard;
-
-			// SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
-			queryString = queryString.Replace("$allowedLockTypes", string.Join(",", filteredLockTypes.Select(s => '\'' + s + '\'')));
-
-			query.CommandText = queryString;
-			query.Parameters.Clear();
-			query.Parameters.AddWithValue("$formID", formID);
-			query.Parameters.AddWithValue("$spaceFormID", cellFormID);
-
-			return query.ExecuteReader();
-		}
-
 		// Execute a query to find the coordinates of every instance of a given MapItem
-		public static SqliteDataReader ExecuteQueryFindCoordinatesStandard(string formID, List<string> filteredLockTypes)
+		public static SqliteDataReader ExecuteQueryFindCoordinatesStandard(string formID, string spaceFormID, List<string> filteredLockTypes)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
@@ -165,13 +128,13 @@ namespace Mappalachia
 			query.CommandText = queryString;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$formID", formID);
-			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			return query.ExecuteReader();
 		}
 
 		// Execute a query to return the coordinates of NPC spawns given the NPC name and a minimum spawn chance
-		public static SqliteDataReader ExecuteQueryFindCoordinatesNPC(string npc, double minChance)
+		public static SqliteDataReader ExecuteQueryFindCoordinatesNPC(string npc, string spaceFormID, double minChance)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
@@ -179,20 +142,20 @@ namespace Mappalachia
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$npc", npc);
 			query.Parameters.AddWithValue("$minChance", minChance / 100.00);
-			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			return query.ExecuteReader();
 		}
 
 		// Execute a query to return the coordinates of the given scrap name within Junk items
-		public static SqliteDataReader ExecuteQueryFindCoordinatesJunkScrap(string scrap)
+		public static SqliteDataReader ExecuteQueryFindCoordinatesJunkScrap(string scrap, string spaceFormID)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
 			query.CommandText = Properties.Resources.getCoordsScrap;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$scrap", scrap);
-			query.Parameters.AddWithValue("$spaceFormID", "0025DA15");
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			return query.ExecuteReader();
 		}
