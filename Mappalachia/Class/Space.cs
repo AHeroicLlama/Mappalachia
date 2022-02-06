@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Mappalachia.Class
 {
-	// Represents an CELL or WRLD.
+	// Represents a CELL or WRLD.
 	public class Space
 	{
 		public string formID;
