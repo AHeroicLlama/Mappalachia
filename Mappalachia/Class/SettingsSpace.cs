@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Mappalachia.Class
 {
-	// All user settings related to cell mode TODO refactor this whole class
+	// Settings relating to Space selection
 	class SettingsSpace
 	{
 		public static readonly int heightPrecision = 50; // The definition (percentage increments) used in setting the height bounds and visualizing too
@@ -24,6 +24,11 @@ namespace Mappalachia.Class
 		public static bool CurrentSpaceIsWorld()
         {
 			return GetSpace().IsWorldspace();
+        }
+
+		public static string GetCurrentFormID()
+        {
+			return GetSpace().formID;
         }
 
 		public static int GetHeightBinSize()

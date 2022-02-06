@@ -934,6 +934,7 @@ namespace Mappalachia
 			numericMinZ.Value = numericMinZ.Minimum;
 			numericMaxZ.Value = numericMinZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
+			UpdateDrawOutlineState();
 		}
 
 		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
@@ -941,6 +942,12 @@ namespace Mappalachia
 			SettingsSpace.drawOutline = checkBoxSpaceDrawOutline.Checked;
 			DrawMap(true);
 		}
+
+		// Disable the draw outline option when the selected space is a Worldspace
+		void UpdateDrawOutlineState()
+        {
+			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
+        }
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
 		{
@@ -1036,7 +1043,7 @@ namespace Mappalachia
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
 			// Execute the search
-			searchResults = DataHelper.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes());
+			searchResults = DataHelper.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID());
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1067,7 +1074,7 @@ namespace Mappalachia
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
-			searchResults = DataHelper.SearchScrap(listBoxScrap.SelectedItem.ToString());
+			searchResults = DataHelper.SearchScrap(listBoxScrap.SelectedItem.ToString(), SettingsSpace.GetCurrentFormID());
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1095,7 +1102,8 @@ namespace Mappalachia
 
 			searchResults = DataHelper.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
-				SettingsSearch.spawnChance);
+				SettingsSearch.spawnChance,
+				SettingsSpace.GetCurrentFormID());
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);

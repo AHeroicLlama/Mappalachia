@@ -129,15 +129,14 @@ namespace Mappalachia
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
-			SpaceScaling spaceScaling = null;
-
 			// Prepare the game version and watermark to be printed later
 			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+
 
 			Space currentSpace = SettingsSpace.GetSpace();
 
 			// Assign the SpaceScaling property
-			spaceScaling = currentSpace.GetScaling();
+			SpaceScaling spaceScaling = currentSpace.GetScaling();
 
 			infoText =
 				currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
@@ -564,7 +563,7 @@ namespace Mappalachia
 				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
 
 			// Iterate over every data point and draw it
-			foreach (MapDataPoint point in DataHelper.GetAllSpaceCoords(SettingsSpace.GetSpace().formID))
+			foreach (MapDataPoint point in DataHelper.GetAllSpaceCoords(SettingsSpace.GetCurrentFormID()))
 			{
 				// If this coordinate exceeds the user-selected space mapping height bounds, skip it
 				// (Also accounts for the z-height of volumes)

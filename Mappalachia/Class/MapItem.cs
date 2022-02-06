@@ -66,13 +66,13 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Standard:
-					plots = DataHelper.GetStandardCoords(uniqueIdentifier, filteredLockTypes);
+					plots = DataHelper.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes);
 					break;
 				case Type.NPC:
-					plots = DataHelper.GetNPCCoords(uniqueIdentifier, weight);
+					plots = DataHelper.GetNPCCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), weight);
 					break;
 				case Type.Scrap:
-					plots = DataHelper.GetScrapCoords(uniqueIdentifier);
+					plots = DataHelper.GetScrapCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID());
 					break;
 			}
 
