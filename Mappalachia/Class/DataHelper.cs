@@ -548,7 +548,14 @@ namespace Mappalachia
 			{
 				while (reader.Read())
 				{
-					return(reader.GetInt32(0) / Map.scaling, reader.GetInt32(1) / Map.scaling, reader.GetInt32(2) / Map.scaling, reader.GetInt32(3) / Map.scaling, reader.GetInt32(4), reader.GetInt32(5));
+					return(
+						//TODO refactor this - copying out the logic from ctor of MapDataPoint - very dodgy
+						(reader.GetInt32(0) / Map.scaling) + (Map.mapDimension / 2d) + Map.xOffset,
+						(reader.GetInt32(1) / Map.scaling) + (Map.mapDimension / 2d) + Map.xOffset,
+						(-reader.GetInt32(2) / Map.scaling) + (Map.mapDimension / 2d) + Map.yOffset,
+						(-reader.GetInt32(3) / Map.scaling) + (Map.mapDimension / 2d) + Map.yOffset,
+						reader.GetInt32(4),
+						reader.GetInt32(5));
 				}
 			}
 
