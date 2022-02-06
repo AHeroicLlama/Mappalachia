@@ -934,7 +934,7 @@ namespace Mappalachia
 			numericMinZ.Value = numericMinZ.Minimum;
 			numericMaxZ.Value = numericMinZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
-			UpdateDrawOutlineState();
+			UpdateCellOnlySettingsVisibilityState();
 		}
 
 		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
@@ -943,10 +943,11 @@ namespace Mappalachia
 			DrawMap(true);
 		}
 
-		// Disable the draw outline option when the selected space is a Worldspace
-		void UpdateDrawOutlineState()
+		// Disable the draw outline and height distribution options when the selected space is a Worldspace
+		void UpdateCellOnlySettingsVisibilityState()
         {
 			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
+			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
         }
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)

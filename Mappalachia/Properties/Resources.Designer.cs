@@ -64,7 +64,6 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT x, y, z
         ///FROM Position_Data
         ///WHERE spaceFormID = $spaceFormID
-        ///ORDER BY z ASC
         ///.
         /// </summary>
         internal static string getAllCoordsSpace {
@@ -123,9 +122,8 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT lockLevel
+        ///   Looks up a localized string similar to SELECT DISTINCT lockLevel
         ///FROM Position_Data
-        ///GROUP BY lockLevel
         ///.
         /// </summary>
         internal static string getLockLevels {
@@ -135,9 +133,8 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT npc
+        ///   Looks up a localized string similar to SELECT DISTINCT npc
         ///FROM NPC_Spawn
-        ///GROUP BY npc
         ///.
         /// </summary>
         internal static string getNPCTypes {
@@ -147,9 +144,8 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT component
+        ///   Looks up a localized string similar to SELECT DISTINCT component
         ///FROM Quantified_Scrap
-        ///GROUP BY component
         ///.
         /// </summary>
         internal static string getScrapTypes {
@@ -159,9 +155,8 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT signature
+        ///   Looks up a localized string similar to SELECT DISTINCT signature
         ///FROM Entity_Info
-        ///GROUP BY signature
         ///.
         /// </summary>
         internal static string getSignatures {
@@ -171,9 +166,22 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT min(x), max(x),min(y), max(y), min(z), max(z)
+        ///FROM Position_Data
+        ///WHERE spaceFormID = $spaceFormID
+        ///.
+        /// </summary>
+        internal static string getSpaceExtremities {
+            get {
+                return ResourceManager.GetString("getSpaceExtremities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName
         ///FROM Space_Info
-        ///ORDER BY CASE WHEN spaceDisplayName = &apos;Appalachia&apos; THEN 1 ELSE 0 END DESC, spaceDisplayName
+        ///ORDER BY isWorldspace DESC, spaceDisplayName
+        ///
         ///.
         /// </summary>
         internal static string getSpaces {
