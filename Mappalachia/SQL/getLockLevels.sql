@@ -1,3 +1,2 @@
-SELECT lockLevel
+SELECT DISTINCT lockLevel
 FROM Position_Data
-GROUP BY lockLevel
