@@ -1,3 +1,2 @@
-SELECT npc
+SELECT DISTINCT npc
 FROM NPC_Spawn
-GROUP BY npc

@@ -1,3 +1,2 @@
-SELECT component
+SELECT DISTINCT component
 FROM Quantified_Scrap
-GROUP BY component
