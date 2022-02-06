@@ -287,12 +287,14 @@ namespace Mappalachia
 							volumeBrush = new SolidBrush(volumeColor);
 						}
 
-
-						// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
-						// (Also accounts for the z-height of volumes)
-						if (point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound())
+						if (!SettingsSpace.CurrentSpaceIsWorld())
 						{
-							continue;
+							// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
+							// (Also accounts for the z-height of volumes)
+							if (point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound())
+							{
+								continue;
+							}
 						}
 
 						point.x += spaceScaling.xOffset;
@@ -548,6 +550,11 @@ namespace Mappalachia
 		// Draws an outline of all items in the current cell to act as background/template
 		static void DrawSpaceBackground(Graphics backgroundLayer)
 		{
+			if (SettingsSpace.CurrentSpaceIsWorld())
+			{
+				return;
+			}
+
 			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
 
 			int outlineWidth = SettingsSpace.outlineWidth;

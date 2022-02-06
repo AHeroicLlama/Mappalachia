@@ -524,11 +524,11 @@ namespace Mappalachia
 		}
 
 		// Gets the coordinate locations of everything within a cell, no filters
-		public static List<MapDataPoint> GetAllSpaceCoords(string cellFormID)
+		public static List<MapDataPoint> GetAllSpaceCoords(string spaceFormID)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
-			using (SqliteDataReader reader = Database.ExecuteQueryFindAllCoordinatesCell(cellFormID))
+			using (SqliteDataReader reader = Database.ExecuteQueryFindAllCoordinatesSpace(spaceFormID))
 			{
 				while (reader.Read())
 				{
@@ -537,6 +537,22 @@ namespace Mappalachia
 			}
 
 			return coordinates;
+		}
+
+		// Gets the coordinate extremities of a cell (mins and maxes of all dimensions)
+		public static (double minX, double maxX, double minY, double maxY, int minZ, int maxZ) GetSpaceExtremities(string spaceFormID)
+		{
+			List<MapDataPoint> coordinates = new List<MapDataPoint>();
+
+			using (SqliteDataReader reader = Database.ExecuteQueryFindSpaceExtremities(spaceFormID))
+			{
+				while (reader.Read())
+				{
+					return(reader.GetInt32(0) / Map.scaling, reader.GetInt32(1) / Map.scaling, reader.GetInt32(2) / Map.scaling, reader.GetInt32(3) / Map.scaling, reader.GetInt32(4), reader.GetInt32(5));
+				}
+			}
+
+			throw new Exception("Unable to find coordinate extremities of Space " + spaceFormID);
 		}
 
 		// Return the coordinate locations and boundaries of instances of a FormID

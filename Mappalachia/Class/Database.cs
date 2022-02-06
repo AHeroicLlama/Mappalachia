@@ -101,8 +101,8 @@ namespace Mappalachia
 			return query.ExecuteReader();
 		}
 
-		// Execute a query to find every coordinate of everything within a given cellFormID
-		public static SqliteDataReader ExecuteQueryFindAllCoordinatesCell(string cellFormID)
+		// Execute a query to find every coordinate of everything within a given Space's FormID
+		public static SqliteDataReader ExecuteQueryFindAllCoordinatesSpace(string spaceFormID)
 		{
 			SqliteCommand query = connection.CreateCommand();
 
@@ -110,7 +110,21 @@ namespace Mappalachia
 
 			query.CommandText = queryString;
 			query.Parameters.Clear();
-			query.Parameters.AddWithValue("$spaceFormID", cellFormID);
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+
+			return query.ExecuteReader();
+		}
+
+		// Execute a query to find the min/max of all dimenions of a space
+		public static SqliteDataReader ExecuteQueryFindSpaceExtremities(string spaceFormID)
+		{
+			SqliteCommand query = connection.CreateCommand();
+
+			string queryString = Properties.Resources.getSpaceExtremities;
+
+			query.CommandText = queryString;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			return query.ExecuteReader();
 		}

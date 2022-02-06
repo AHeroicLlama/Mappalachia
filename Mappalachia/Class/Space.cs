@@ -30,19 +30,22 @@ namespace Mappalachia.Class
 		// Gets the plotting data and coordinate extremities
 		void InitializePlotData()
 		{
+			if (IsWorldspace())
+			{
+				return;
+			}
+
 			plots = DataHelper.GetAllSpaceCoords(formID);
+			(double, double, double, double, int, int) extremities = DataHelper.GetSpaceExtremities(formID);
 
-			plots = plots.OrderBy(plot => plot.x).ToList();
-			xMin = plots.First().x;
-			xMax = plots.Last().x;
+			xMin = extremities.Item1;
+			xMax = extremities.Item2;
 
-			plots = plots.OrderBy(plot => plot.y).ToList();
-			yMin = plots.First().y;
-			yMax = plots.Last().y;
+			yMin = extremities.Item3;
+			yMax = extremities.Item4;
 
-			plots = plots.OrderBy(plot => plot.z).ToList();
-			zMin = plots.First().z;
-			zMax = plots.Last().z;
+			zMin = extremities.Item5;
+			zMax = extremities.Item6;
 
 			heightRange = Math.Abs(zMax - zMin);
 		}
@@ -65,6 +68,11 @@ namespace Mappalachia.Class
 		// Returns the distribution of Y coordinates for items in the space, broken into x bins
 		public double[] GetHeightDistribution()
 		{
+			if (IsWorldspace())
+			{
+				return new double[] {0, 1};
+			}
+
 			if (plots == null)
 			{
 				InitializePlotData();
