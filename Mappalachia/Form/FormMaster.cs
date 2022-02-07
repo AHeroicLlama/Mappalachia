@@ -74,6 +74,8 @@ namespace Mappalachia
 
 			// This ultimately causes the first map draw, as the space list changes index and draws the final selected Space
 			PopulateSpaceList();
+
+			tabControlStandardNPCJunk.SelectedIndex = 1;
 		}
 
 		// All Methods not directly responding to UI input

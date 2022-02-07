@@ -102,17 +102,8 @@ namespace Mappalachia
             this.buttonDrawMap = new System.Windows.Forms.Button();
             this.labelSearchResults = new System.Windows.Forms.Label();
             this.tabControlStandardNPCJunk = new System.Windows.Forms.TabControl();
+            this.tabPageSpace = new System.Windows.Forms.TabPage();
             this.tabPageStandard = new System.Windows.Forms.TabPage();
-            this.groupBoxSpaceSettings = new System.Windows.Forms.GroupBox();
-            this.checkBoxSpaceDrawOutline = new System.Windows.Forms.CheckBox();
-            this.groupBoxHeightCropping = new System.Windows.Forms.GroupBox();
-            this.labelMaxHeight = new System.Windows.Forms.Label();
-            this.labelMinHeight = new System.Windows.Forms.Label();
-            this.numericMaxZ = new System.Windows.Forms.NumericUpDown();
-            this.numericMinZ = new System.Windows.Forms.NumericUpDown();
-            this.buttonHeightDistribution = new System.Windows.Forms.Button();
-            this.labelSpace = new System.Windows.Forms.Label();
-            this.comboBoxSpace = new System.Windows.Forms.ComboBox();
             this.groupBoxFilterByLockLevel = new System.Windows.Forms.GroupBox();
             this.groupBoxFilterByCategory = new System.Windows.Forms.GroupBox();
             this.buttonSelectRecommended = new System.Windows.Forms.Button();
@@ -126,16 +117,21 @@ namespace Mappalachia
             this.buttonAddToLegend = new System.Windows.Forms.Button();
             this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
             this.progressBarMain = new System.Windows.Forms.ProgressBar();
+            this.comboBoxSpace = new System.Windows.Forms.ComboBox();
+            this.groupBoxHeightCropping = new System.Windows.Forms.GroupBox();
+            this.buttonHeightDistribution = new System.Windows.Forms.Button();
+            this.numericMinZ = new System.Windows.Forms.NumericUpDown();
+            this.numericMaxZ = new System.Windows.Forms.NumericUpDown();
+            this.labelMinHeight = new System.Windows.Forms.Label();
+            this.labelMaxHeight = new System.Windows.Forms.Label();
+            this.checkBoxSpaceDrawOutline = new System.Windows.Forms.CheckBox();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNPCSpawnThreshold)).BeginInit();
             this.tabControlStandardNPCJunk.SuspendLayout();
+            this.tabPageSpace.SuspendLayout();
             this.tabPageStandard.SuspendLayout();
-            this.groupBoxSpaceSettings.SuspendLayout();
-            this.groupBoxHeightCropping.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMinZ)).BeginInit();
             this.groupBoxFilterByLockLevel.SuspendLayout();
             this.groupBoxFilterByCategory.SuspendLayout();
             this.tabPageNpcScrapSearch.SuspendLayout();
@@ -146,6 +142,9 @@ namespace Mappalachia
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
+            this.groupBoxHeightCropping.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMinZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -838,23 +837,37 @@ namespace Mappalachia
             // 
             // tabControlStandardNPCJunk
             // 
-            this.tabControlStandardNPCJunk.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlStandardNPCJunk.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tabControlStandardNPCJunk.Controls.Add(this.tabPageSpace);
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageStandard);
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageNpcScrapSearch);
-            this.tabControlStandardNPCJunk.Location = new System.Drawing.Point(8, 3);
+            this.tabControlStandardNPCJunk.Location = new System.Drawing.Point(143, 3);
+            this.tabControlStandardNPCJunk.MaximumSize = new System.Drawing.Size(524, 333);
+            this.tabControlStandardNPCJunk.MinimumSize = new System.Drawing.Size(524, 333);
             this.tabControlStandardNPCJunk.Name = "tabControlStandardNPCJunk";
             this.tabControlStandardNPCJunk.SelectedIndex = 0;
             this.tabControlStandardNPCJunk.ShowToolTips = true;
-            this.tabControlStandardNPCJunk.Size = new System.Drawing.Size(798, 333);
+            this.tabControlStandardNPCJunk.Size = new System.Drawing.Size(524, 333);
             this.tabControlStandardNPCJunk.TabIndex = 0;
             this.tabControlStandardNPCJunk.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
+            // 
+            // tabPageSpace
+            // 
+            this.tabPageSpace.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tabPageSpace.Controls.Add(this.checkBoxSpaceDrawOutline);
+            this.tabPageSpace.Controls.Add(this.groupBoxHeightCropping);
+            this.tabPageSpace.Controls.Add(this.comboBoxSpace);
+            this.tabPageSpace.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSpace.Name = "tabPageSpace";
+            this.tabPageSpace.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSpace.Size = new System.Drawing.Size(516, 307);
+            this.tabPageSpace.TabIndex = 2;
+            this.tabPageSpace.Text = "Select Space";
             // 
             // tabPageStandard
             // 
             this.tabPageStandard.AutoScroll = true;
             this.tabPageStandard.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.tabPageStandard.Controls.Add(this.groupBoxSpaceSettings);
             this.tabPageStandard.Controls.Add(this.groupBoxFilterByLockLevel);
             this.tabPageStandard.Controls.Add(this.groupBoxFilterByCategory);
             this.tabPageStandard.Controls.Add(this.buttonSearch);
@@ -862,134 +875,9 @@ namespace Mappalachia
             this.tabPageStandard.Location = new System.Drawing.Point(4, 22);
             this.tabPageStandard.Name = "tabPageStandard";
             this.tabPageStandard.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStandard.Size = new System.Drawing.Size(790, 307);
+            this.tabPageStandard.Size = new System.Drawing.Size(516, 307);
             this.tabPageStandard.TabIndex = 0;
             this.tabPageStandard.Text = "Standard Search";
-            // 
-            // groupBoxSpaceSettings
-            // 
-            this.groupBoxSpaceSettings.Controls.Add(this.checkBoxSpaceDrawOutline);
-            this.groupBoxSpaceSettings.Controls.Add(this.groupBoxHeightCropping);
-            this.groupBoxSpaceSettings.Controls.Add(this.labelSpace);
-            this.groupBoxSpaceSettings.Controls.Add(this.comboBoxSpace);
-            this.groupBoxSpaceSettings.Location = new System.Drawing.Point(517, 32);
-            this.groupBoxSpaceSettings.Name = "groupBoxSpaceSettings";
-            this.groupBoxSpaceSettings.Size = new System.Drawing.Size(267, 196);
-            this.groupBoxSpaceSettings.TabIndex = 5;
-            this.groupBoxSpaceSettings.TabStop = false;
-            this.groupBoxSpaceSettings.Text = "Selected Space Settings";
-            this.toolTipControls.SetToolTip(this.groupBoxSpaceSettings, "Settings relating to the selected space.");
-            // 
-            // checkBoxSpaceDrawOutline
-            // 
-            this.checkBoxSpaceDrawOutline.AutoSize = true;
-            this.checkBoxSpaceDrawOutline.Checked = true;
-            this.checkBoxSpaceDrawOutline.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSpaceDrawOutline.Location = new System.Drawing.Point(10, 62);
-            this.checkBoxSpaceDrawOutline.Name = "checkBoxSpaceDrawOutline";
-            this.checkBoxSpaceDrawOutline.Size = new System.Drawing.Size(87, 17);
-            this.checkBoxSpaceDrawOutline.TabIndex = 8;
-            this.checkBoxSpaceDrawOutline.Text = "Draw Outline";
-            this.toolTipControls.SetToolTip(this.checkBoxSpaceDrawOutline, "Renders a subtle outline of all items in the cell as a background to visualize th" +
-        "e cell structure.");
-            this.checkBoxSpaceDrawOutline.UseVisualStyleBackColor = true;
-            this.checkBoxSpaceDrawOutline.CheckedChanged += new System.EventHandler(this.CheckBoxSpaceDrawOutline_CheckedChanged);
-            // 
-            // groupBoxHeightCropping
-            // 
-            this.groupBoxHeightCropping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxHeightCropping.Controls.Add(this.labelMaxHeight);
-            this.groupBoxHeightCropping.Controls.Add(this.labelMinHeight);
-            this.groupBoxHeightCropping.Controls.Add(this.numericMaxZ);
-            this.groupBoxHeightCropping.Controls.Add(this.numericMinZ);
-            this.groupBoxHeightCropping.Controls.Add(this.buttonHeightDistribution);
-            this.groupBoxHeightCropping.Location = new System.Drawing.Point(6, 91);
-            this.groupBoxHeightCropping.Name = "groupBoxHeightCropping";
-            this.groupBoxHeightCropping.Size = new System.Drawing.Size(255, 99);
-            this.groupBoxHeightCropping.TabIndex = 7;
-            this.groupBoxHeightCropping.TabStop = false;
-            this.groupBoxHeightCropping.Text = "Height Cropping";
-            this.toolTipControls.SetToolTip(this.groupBoxHeightCropping, "Allows you to constrain the map to certain height bands, for example to map a giv" +
-        "en floor.");
-            // 
-            // labelMaxHeight
-            // 
-            this.labelMaxHeight.AutoSize = true;
-            this.labelMaxHeight.Location = new System.Drawing.Point(147, 53);
-            this.labelMaxHeight.Name = "labelMaxHeight";
-            this.labelMaxHeight.Size = new System.Drawing.Size(102, 13);
-            this.labelMaxHeight.TabIndex = 10;
-            this.labelMaxHeight.Text = "Maximum Height (%)";
-            this.toolTipControls.SetToolTip(this.labelMaxHeight, "Select the maximum height of objects from the space which to map.");
-            // 
-            // labelMinHeight
-            // 
-            this.labelMinHeight.AutoSize = true;
-            this.labelMinHeight.Location = new System.Drawing.Point(6, 53);
-            this.labelMinHeight.Name = "labelMinHeight";
-            this.labelMinHeight.Size = new System.Drawing.Size(99, 13);
-            this.labelMinHeight.TabIndex = 9;
-            this.labelMinHeight.Text = "Minimum Height (%)";
-            this.toolTipControls.SetToolTip(this.labelMinHeight, "Select the minimum height of objects from the space which to map.");
-            // 
-            // numericMaxZ
-            // 
-            this.numericMaxZ.Location = new System.Drawing.Point(150, 69);
-            this.numericMaxZ.Name = "numericMaxZ";
-            this.numericMaxZ.Size = new System.Drawing.Size(70, 20);
-            this.numericMaxZ.TabIndex = 8;
-            this.toolTipControls.SetToolTip(this.numericMaxZ, "Select the maximum height of objects from the space which to map.");
-            this.numericMaxZ.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericMaxZ.ValueChanged += new System.EventHandler(this.NumericMaxZ_ValueChanged);
-            this.numericMaxZ.Enter += new System.EventHandler(this.NumericMaxZ_Enter);
-            this.numericMaxZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMaxZ_MouseDown);
-            // 
-            // numericMinZ
-            // 
-            this.numericMinZ.Location = new System.Drawing.Point(35, 69);
-            this.numericMinZ.Name = "numericMinZ";
-            this.numericMinZ.Size = new System.Drawing.Size(70, 20);
-            this.numericMinZ.TabIndex = 7;
-            this.toolTipControls.SetToolTip(this.numericMinZ, "Select the minimum height of objects from the space which to map.");
-            this.numericMinZ.ValueChanged += new System.EventHandler(this.NumericMinZ_ValueChanged);
-            this.numericMinZ.Enter += new System.EventHandler(this.NumericMinZ_Enter);
-            this.numericMinZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMinZ_MouseDown);
-            // 
-            // buttonHeightDistribution
-            // 
-            this.buttonHeightDistribution.Location = new System.Drawing.Point(49, 19);
-            this.buttonHeightDistribution.Name = "buttonHeightDistribution";
-            this.buttonHeightDistribution.Size = new System.Drawing.Size(152, 23);
-            this.buttonHeightDistribution.TabIndex = 6;
-            this.buttonHeightDistribution.Text = "Visualize Height Distribution";
-            this.toolTipControls.SetToolTip(this.buttonHeightDistribution, "Displays a visualization of the distribution of entities in the selected space by" +
-        " height.");
-            this.buttonHeightDistribution.UseVisualStyleBackColor = true;
-            this.buttonHeightDistribution.Click += new System.EventHandler(this.ButtonSpaceHeightDistribution_Click);
-            // 
-            // labelSpace
-            // 
-            this.labelSpace.AutoSize = true;
-            this.labelSpace.Location = new System.Drawing.Point(7, 19);
-            this.labelSpace.Name = "labelSpace";
-            this.labelSpace.Size = new System.Drawing.Size(83, 13);
-            this.labelSpace.TabIndex = 5;
-            this.labelSpace.Text = "Selected Space";
-            // 
-            // comboBoxSpace
-            // 
-            this.comboBoxSpace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSpace.FormattingEnabled = true;
-            this.comboBoxSpace.Location = new System.Drawing.Point(6, 35);
-            this.comboBoxSpace.Name = "comboBoxSpace";
-            this.comboBoxSpace.Size = new System.Drawing.Size(255, 21);
-            this.comboBoxSpace.TabIndex = 4;
-            this.toolTipControls.SetToolTip(this.comboBoxSpace, "Select the specific space to search and plot within.");
-            this.comboBoxSpace.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSpace_SelectedIndexChanged);
             // 
             // groupBoxFilterByLockLevel
             // 
@@ -1037,7 +925,7 @@ namespace Mappalachia
             this.tabPageNpcScrapSearch.Location = new System.Drawing.Point(4, 22);
             this.tabPageNpcScrapSearch.Name = "tabPageNpcScrapSearch";
             this.tabPageNpcScrapSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNpcScrapSearch.Size = new System.Drawing.Size(790, 307);
+            this.tabPageNpcScrapSearch.Size = new System.Drawing.Size(516, 307);
             this.tabPageNpcScrapSearch.TabIndex = 1;
             this.tabPageNpcScrapSearch.Text = "NPC or Scrap Search";
             // 
@@ -1101,7 +989,7 @@ namespace Mappalachia
             this.splitContainerMain.Panel1.Controls.Add(this.labelSearchResults);
             this.splitContainerMain.Panel1.Controls.Add(this.labelLegend);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonDrawMap);
-            this.splitContainerMain.Panel1MinSize = 460;
+            this.splitContainerMain.Panel1MinSize = 552;
             // 
             // splitContainerMain.Panel2
             // 
@@ -1159,6 +1047,108 @@ namespace Mappalachia
             this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarMain.TabIndex = 7;
             // 
+            // comboBoxSpace
+            // 
+            this.comboBoxSpace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSpace.FormattingEnabled = true;
+            this.comboBoxSpace.Location = new System.Drawing.Point(6, 6);
+            this.comboBoxSpace.Name = "comboBoxSpace";
+            this.comboBoxSpace.Size = new System.Drawing.Size(378, 21);
+            this.comboBoxSpace.TabIndex = 4;
+            this.toolTipControls.SetToolTip(this.comboBoxSpace, "Select the specific space to search and plot within.");
+            this.comboBoxSpace.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSpace_SelectedIndexChanged);
+            // 
+            // groupBoxHeightCropping
+            // 
+            this.groupBoxHeightCropping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxHeightCropping.Controls.Add(this.labelMaxHeight);
+            this.groupBoxHeightCropping.Controls.Add(this.labelMinHeight);
+            this.groupBoxHeightCropping.Controls.Add(this.numericMaxZ);
+            this.groupBoxHeightCropping.Controls.Add(this.numericMinZ);
+            this.groupBoxHeightCropping.Controls.Add(this.buttonHeightDistribution);
+            this.groupBoxHeightCropping.Location = new System.Drawing.Point(71, 56);
+            this.groupBoxHeightCropping.Name = "groupBoxHeightCropping";
+            this.groupBoxHeightCropping.Size = new System.Drawing.Size(255, 99);
+            this.groupBoxHeightCropping.TabIndex = 7;
+            this.groupBoxHeightCropping.TabStop = false;
+            this.groupBoxHeightCropping.Text = "Height Cropping";
+            this.toolTipControls.SetToolTip(this.groupBoxHeightCropping, "Allows you to constrain the map to certain height bands, for example to map a giv" +
+        "en floor.");
+            // 
+            // buttonHeightDistribution
+            // 
+            this.buttonHeightDistribution.Location = new System.Drawing.Point(49, 19);
+            this.buttonHeightDistribution.Name = "buttonHeightDistribution";
+            this.buttonHeightDistribution.Size = new System.Drawing.Size(152, 23);
+            this.buttonHeightDistribution.TabIndex = 6;
+            this.buttonHeightDistribution.Text = "Visualize Height Distribution";
+            this.toolTipControls.SetToolTip(this.buttonHeightDistribution, "Displays a visualization of the distribution of entities in the selected space by" +
+        " height.");
+            this.buttonHeightDistribution.UseVisualStyleBackColor = true;
+            this.buttonHeightDistribution.Click += new System.EventHandler(this.ButtonSpaceHeightDistribution_Click);
+            // 
+            // numericMinZ
+            // 
+            this.numericMinZ.Location = new System.Drawing.Point(35, 69);
+            this.numericMinZ.Name = "numericMinZ";
+            this.numericMinZ.Size = new System.Drawing.Size(70, 20);
+            this.numericMinZ.TabIndex = 7;
+            this.toolTipControls.SetToolTip(this.numericMinZ, "Select the minimum height of objects from the space which to map.");
+            this.numericMinZ.ValueChanged += new System.EventHandler(this.NumericMinZ_ValueChanged);
+            this.numericMinZ.Enter += new System.EventHandler(this.NumericMinZ_Enter);
+            this.numericMinZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMinZ_MouseDown);
+            // 
+            // numericMaxZ
+            // 
+            this.numericMaxZ.Location = new System.Drawing.Point(150, 69);
+            this.numericMaxZ.Name = "numericMaxZ";
+            this.numericMaxZ.Size = new System.Drawing.Size(70, 20);
+            this.numericMaxZ.TabIndex = 8;
+            this.toolTipControls.SetToolTip(this.numericMaxZ, "Select the maximum height of objects from the space which to map.");
+            this.numericMaxZ.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericMaxZ.ValueChanged += new System.EventHandler(this.NumericMaxZ_ValueChanged);
+            this.numericMaxZ.Enter += new System.EventHandler(this.NumericMaxZ_Enter);
+            this.numericMaxZ.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NumericMaxZ_MouseDown);
+            // 
+            // labelMinHeight
+            // 
+            this.labelMinHeight.AutoSize = true;
+            this.labelMinHeight.Location = new System.Drawing.Point(6, 53);
+            this.labelMinHeight.Name = "labelMinHeight";
+            this.labelMinHeight.Size = new System.Drawing.Size(99, 13);
+            this.labelMinHeight.TabIndex = 9;
+            this.labelMinHeight.Text = "Minimum Height (%)";
+            this.toolTipControls.SetToolTip(this.labelMinHeight, "Select the minimum height of objects from the space which to map.");
+            // 
+            // labelMaxHeight
+            // 
+            this.labelMaxHeight.AutoSize = true;
+            this.labelMaxHeight.Location = new System.Drawing.Point(147, 53);
+            this.labelMaxHeight.Name = "labelMaxHeight";
+            this.labelMaxHeight.Size = new System.Drawing.Size(102, 13);
+            this.labelMaxHeight.TabIndex = 10;
+            this.labelMaxHeight.Text = "Maximum Height (%)";
+            this.toolTipControls.SetToolTip(this.labelMaxHeight, "Select the maximum height of objects from the space which to map.");
+            // 
+            // checkBoxSpaceDrawOutline
+            // 
+            this.checkBoxSpaceDrawOutline.AutoSize = true;
+            this.checkBoxSpaceDrawOutline.Checked = true;
+            this.checkBoxSpaceDrawOutline.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSpaceDrawOutline.Location = new System.Drawing.Point(6, 33);
+            this.checkBoxSpaceDrawOutline.Name = "checkBoxSpaceDrawOutline";
+            this.checkBoxSpaceDrawOutline.Size = new System.Drawing.Size(87, 17);
+            this.checkBoxSpaceDrawOutline.TabIndex = 8;
+            this.checkBoxSpaceDrawOutline.Text = "Draw Outline";
+            this.toolTipControls.SetToolTip(this.checkBoxSpaceDrawOutline, "Renders a subtle outline of all items in the cell as a background to visualize th" +
+        "e cell structure.");
+            this.checkBoxSpaceDrawOutline.UseVisualStyleBackColor = true;
+            this.checkBoxSpaceDrawOutline.CheckedChanged += new System.EventHandler(this.CheckBoxSpaceDrawOutline_CheckedChanged);
+            // 
             // FormMaster
             // 
             this.AcceptButton = this.buttonSearch;
@@ -1181,14 +1171,10 @@ namespace Mappalachia
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNPCSpawnThreshold)).EndInit();
             this.tabControlStandardNPCJunk.ResumeLayout(false);
+            this.tabPageSpace.ResumeLayout(false);
+            this.tabPageSpace.PerformLayout();
             this.tabPageStandard.ResumeLayout(false);
             this.tabPageStandard.PerformLayout();
-            this.groupBoxSpaceSettings.ResumeLayout(false);
-            this.groupBoxSpaceSettings.PerformLayout();
-            this.groupBoxHeightCropping.ResumeLayout(false);
-            this.groupBoxHeightCropping.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMinZ)).EndInit();
             this.groupBoxFilterByLockLevel.ResumeLayout(false);
             this.groupBoxFilterByCategory.ResumeLayout(false);
             this.tabPageNpcScrapSearch.ResumeLayout(false);
@@ -1201,6 +1187,10 @@ namespace Mappalachia
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
+            this.groupBoxHeightCropping.ResumeLayout(false);
+            this.groupBoxHeightCropping.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMinZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaxZ)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1269,20 +1259,10 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem grayscaleMenuItem;
 		private System.Windows.Forms.ProgressBar progressBarMain;
 		private System.Windows.Forms.ToolStripMenuItem checkForUpdatesMenuItem;
-		private System.Windows.Forms.ComboBox comboBoxSpace;
 		private System.Windows.Forms.Button buttonSelectRecommended;
 		private System.Windows.Forms.CheckBox checkBoxAddAsGroup;
 		private System.Windows.Forms.GroupBox groupBoxScrapSearch;
 		private System.Windows.Forms.GroupBox groupBoxNPCSearch;
-		private System.Windows.Forms.GroupBox groupBoxSpaceSettings;
-		private System.Windows.Forms.Button buttonHeightDistribution;
-		private System.Windows.Forms.Label labelSpace;
-		private System.Windows.Forms.GroupBox groupBoxHeightCropping;
-		private System.Windows.Forms.Label labelMaxHeight;
-		private System.Windows.Forms.Label labelMinHeight;
-		private System.Windows.Forms.NumericUpDown numericMaxZ;
-		private System.Windows.Forms.NumericUpDown numericMinZ;
-		private System.Windows.Forms.CheckBox checkBoxSpaceDrawOutline;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendGroup;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLegendDisplayName;
 		private System.Windows.Forms.ToolStripMenuItem modeTopographyMenuItem;
@@ -1301,6 +1281,15 @@ namespace Mappalachia
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocation;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocationID;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
+        private System.Windows.Forms.TabPage tabPageSpace;
+        private System.Windows.Forms.CheckBox checkBoxSpaceDrawOutline;
+        private System.Windows.Forms.GroupBox groupBoxHeightCropping;
+        private System.Windows.Forms.Label labelMaxHeight;
+        private System.Windows.Forms.Label labelMinHeight;
+        private System.Windows.Forms.NumericUpDown numericMaxZ;
+        private System.Windows.Forms.NumericUpDown numericMinZ;
+        private System.Windows.Forms.Button buttonHeightDistribution;
+        private System.Windows.Forms.ComboBox comboBoxSpace;
     }
 }
 
