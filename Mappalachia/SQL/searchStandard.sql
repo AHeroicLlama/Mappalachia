@@ -17,8 +17,8 @@ WHERE
 		displayName LIKE $searchTerm ESCAPE '\' OR
 		entityFormID LIKE $searchTerm ESCAPE '\')
 		AND Position_Data.spaceFormID = $spaceFormID
-		--AND signature IN ($allowedSignatures)
-		--AND lockLevel IN ($allowedLockTypes)
+		AND signature IN ($allowedSignatures)
+		AND lockLevel IN ($allowedLockTypes)
 	)
 GROUP BY entityFormID, Space_Info.spaceFormID
 ORDER BY isWorldspace DESC, amount DESC
