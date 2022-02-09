@@ -1,22 +1,3 @@
-CREATE INDEX indexPositionData ON Position_Data (
-	z,
-	spaceFormID,
-	referenceFormID,
-	locationFormID,
-	lockLevel,
-	spawnClass
-);
-
-CREATE INDEX indexPositionData_referenceFormID ON Position_Data (
-	referenceFormID
-);
-
-CREATE INDEX indexPositionData_refSpaceLock ON Position_Data (
-    spaceFormID,
-    referenceFormID,
-    lockLevel
-);
-
 CREATE INDEX indexPositionData_CoverAll ON Position_Data (
     spaceFormID,
     referenceFormID,
