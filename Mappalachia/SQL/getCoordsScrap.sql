@@ -1,4 +1,3 @@
-SELECT x, y, z, componentQuantity FROM Position_Data
-INNER JOIN Quantified_Scrap ON Position_Data.referenceFormID = Quantified_Scrap.junkFormID
-WHERE spaceFormID = $spaceFormID AND component = $scrap
+SELECT x, y, z, magnitude FROM Scrap_Search
+WHERE component = $scrap AND Scrap_Search.spaceFormId = $spaceFormId
 ORDER BY z ASC
