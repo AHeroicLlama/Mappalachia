@@ -1,2 +1,1 @@
-SELECT DISTINCT component
-FROM Quantified_Scrap
+SELECT DISTINCT component FROM Scrap_Search

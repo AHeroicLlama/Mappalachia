@@ -10,4 +10,19 @@ ON referenceFormID = entityFormID
 
 INNER JOIN
 (SELECT spaceFormId as space_space, spaceEditorId, spaceDisplayName, isWorldspace FROM Space_Info)
-ON pos_space = space_space
+ON pos_space = space_space;
+
+-- Create a single fast table entirely for all NPC search AND plot usage.
+CREATE TABLE 'NPC_Search' AS
+SELECT npc, chance, x, y, z, spaceFormId
+FROM Position_Data
+INNER JOIN NPC_Spawn ON class = spawnClass AND Position_Data.locationFormId = NPC_Spawn.locationFormId;
+
+-- TODO drop NPC_Spawn, drop locationFormID, spawnclass from position_data
+
+CREATE TABLE 'Scrap_Search' AS
+SELECT component, componentQuantity AS magnitude, x, y, z, spaceFormId
+FROM Position_Data
+INNER JOIN Quantified_Scrap ON junkFormID = referenceFormID;
+
+-- TODO drop component_quantity

@@ -1,4 +1,3 @@
-SELECT x, y, z, chance*100 AS chance FROM Position_Data
-INNER JOIN NPC_Spawn ON class = spawnClass AND Position_Data.locationFormID = NPC_Spawn.locationFormID
-WHERE spaceFormID = $spaceFormID AND npc = $npc AND chance >= $minChance
+SELECT x, y, z, chance*100 as chance
+FROM NPC_Search WHERE NPC = $npc and chance >= $chance and spaceFormId = $spaceFormID
 ORDER BY z ASC
