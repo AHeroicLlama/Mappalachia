@@ -1,4 +1,22 @@
-CREATE INDEX indexPositionData_CoverAll ON Position_Data (
+CREATE INDEX Index_ScrapSearch_CompMagSpace ON Scrap_Search (
+    component,
+    magnitude,
+    spaceFormID
+);
+
+CREATE INDEX Index_PositionData_SpaceXYZ ON Position_Data (
+    spaceFormID,
+    x,
+    y,
+    z
+);
+
+CREATE INDEX Index_StandardSearch_RefSpace ON Standard_Search (
+    referenceFormId,
+    spaceFormId
+);
+
+CREATE INDEX Index_PositionData_CoverAll ON Position_Data (
     spaceFormID,
     referenceFormID,
     x,
@@ -12,32 +30,4 @@ CREATE INDEX indexPositionData_CoverAll ON Position_Data (
     boundZ,
     rotZ,
     spawnClass
-);
-
-
-CREATE INDEX indexEntityInfo ON Entity_Info (
-	entityFormID,
-	displayName,
-	editorID,
-	signature
-);
-
-CREATE INDEX indexNPCSpawn ON NPC_Spawn (
-	npc,
-	class,
-	locationFormID,
-	chance
-);
-
-CREATE INDEX indexQuantifiedScrap ON Quantified_Scrap (
-	component,
-	componentQuantity,
-	junkFormID
-);
-
-CREATE INDEX indexSpaceInfo ON Space_Info (
-	spaceFormID,
-	spaceEditorID,
-	spaceDisplayName,
-	isWorldspace
 );

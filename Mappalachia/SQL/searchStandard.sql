@@ -6,6 +6,7 @@ SELECT referenceFormId,
     amount
 FROM Standard_Search
 JOIN Space_Info ON Standard_Search.spaceFormId = Space_Info.spaceFormID
+JOIN Entity_Info ON Standard_Search.referenceFormID = Entity_Info.entityFormID
 WHERE
 (category IN ($allowedSignatures) AND
 lockLevel IN ($allowedLockTypes) AND
