@@ -1,48 +1,122 @@
-==Database checksum== 
-ba6454abf40ecbbb61c8ffc68519772b
+==Database name== 
+mappalachia.db 
+==Checksum== 
+1c3543743ba547060c075dbb0edf86af
+==File Size== 
+447877120 
+==Tables== 
+Entity_Info      NPC_Search       Scrap_Search     Standard_Search
+Game_Version     Position_Data    Space_Info     
+==Indices== 
+Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
+Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
 1.6.2.16
-==Total unique items by signature==
-ACTI|1448
-ALCH|89
-AMMO|12
-ARMO|99
-ASPC|159
-BNDS|17
-BOOK|646
-CNCY|1
-CONT|563
-DOOR|314
-FLOR|135
-FURN|632
-HAZD|42
-IDLM|22
-KEYM|72
-LIGH|1453
-LVLI|597
-MISC|893
-MSTT|846
-NOTE|309
-NPC_|1215
-PROJ|2
-SCOL|9998
-SECH|13
-SOUN|333
-STAT|18925
-TACT|76
-TERM|564
-TXST|422
-WEAP|76
-==Average display name string length==
-2.65056413078828
-==Average editorID string length==
-24.907362469667
-==Average X Coord==
--12182.5340840962
-==Average Y Coord==
-4826.60249048081
-==Average Z Coord==
-12043.798785403
+==Mean Average X/Y/Z Coord==
+-12182.5340840962|4826.60249048081|12043.798785403
+==Min/Max X/Y/Z Coord==
+-402000|407637|-407387|380538|-34417|136069
+==100 most common xyz coordinates + count==
+2433|59|-2816|76
+2432|64|-2816|64
+2432|64|-2560|61
+2433|59|-3072|60
+39101|14406|35188|40
+0|0|0|38
+624|-1848|-1112|38
+3696|-6968|-1112|37
+-125269|-37601|6630|36
+2928|-2360|-1112|36
+-128|1664|-608|34
+-1216|2352|128|32
+960|2352|128|32
+-43|4777|519|30
+1988|4809|518|30
+2085|2161|519|30
+2116|3301|514|30
+3642|-626|273|30
+3816|1208|263|30
+4115|2168|262|30
+1024|1792|-608|29
+-129108|-37082|6630|28
+-79616|-138368|30208|28
+-11852|-31565|3080|27
+-8774|-28029|3591|27
+-128|4608|512|27
+-79616|-138368|28096|26
+0|1024|0|26
+1280|1792|-608|25
+1648|-1848|-1112|25
+3584|0|256|25
+-6016|-32034|3328|24
+-6016|-32034|4096|24
+0|256|0|24
+0|768|0|24
+256|1536|0|24
+512|1024|256|24
+1408|-384|256|24
+1536|0|0|24
+-19952|104540|11034|22
+-15789|103340|11026|22
+-3708|-154012|33461|22
+-256|256|0|22
+-256|1024|0|22
+0|1280|0|22
+33916|77986|21778|22
+-6|-11|-2289|21
+0|-256|0|21
+512|1024|0|21
+33690|77021|21776|21
+-79616|-138368|31616|20
+-512|640|0|20
+-512|768|0|20
+-512|1024|0|20
+768|1792|-608|20
+1920|1664|512|20
+2176|1664|512|20
+2176|1920|512|20
+32976|74016|21728|20
+-19709|103409|11034|19
+-1456|-3072|-896|19
+-1024|-784|384|19
+0|1024|256|19
+512|1280|-512|19
+-19828|103268|11034|18
+-12138|-29760|3079|18
+-7129|-27618|3591|18
+-4544|3056|256|18
+-1024|-1040|384|18
+-640|1664|-608|18
+-640|5104|256|18
+-512|-1040|512|18
+-384|1664|-608|18
+-256|768|0|18
+256|-256|0|18
+448|1431|-330|18
+512|-512|0|18
+768|768|-512|18
+1024|-256|0|18
+1024|768|0|18
+1280|3840|512|18
+2547|4482|512|18
+3595|1426|384|18
+4107|1170|512|18
+4107|1426|512|18
+-1024|-784|128|17
+0|1280|256|17
+0|1536|256|17
+512|1536|0|17
+651|-1390|384|17
+768|1536|0|17
+768|1792|256|17
+1024|1536|0|17
+1280|0|256|17
+1291|1938|384|17
+1536|-256|0|17
+1920|-2944|0|17
+1920|-2176|0|17
+3072|1280|256|17
+4107|-1390|512|17
 ==Z outliers==
 68
 ==Average X Bounds Width==
@@ -53,271 +127,6096 @@ WEAP|76
 14.8971017687141
 ==Average Z Rotation==
 3.97506460080065
-==Primitive shape types + count==
-|3723237
-Box|96899
-Ellipsoid|3
-Line|1978
-Plane|85
-Sphere|2441
-==Total entity placement count==
-3824643
-==Unique entity placement count==
+==Average display name string length==
+2.65056413078828
+==Average editorID string length==
+24.907362469667
+==Total Unique entities==
 39974
-==Lock levels + count==
-|3822801
-Advanced (Level 1)|531
-Chained|3
-Expert (Level 2)|363
-Inaccessible|60
-Master (Level 3)|166
-Novice (Level 0)|98
-Opens Door|417
-Requires Key|165
-Requires Terminal|38
-Unknown|1
-==Variable spawn entities + count==
-|3815091
-Main|6086
-Sub|3466
-==Total entity-with-locationFormID count==
-3576
-==Unique locationFormID count==
-395
-==Junk-by-scrap count==
-Acid|19
-Adhesive|12
-Aluminum|49
-Antiseptic|11
-Asbestos|17
-Ballistic Fiber|2
-Black Titanium|1
-Bone|43
-Ceramic|93
-Circuitry|13
-Cloth|107
-Coal|1
-Concrete|5
-Copper|39
-Cork|10
-Crystal|9
-Fertilizer|5
-Fiber Optics|4
-Fiberglass|15
-Gear|24
-Glass|93
-Gold|9
-Lead|45
-Leather|53
-Nuclear Material|13
-Oil|34
-Plastic|119
-Rubber|21
-Screw|42
-Silver|20
-Spring|33
-Steel|172
-Ultracite|2
-Wood|84
-==Count of unique junk items==
-795
-==Average NPC Spawns per location FormID==
-5.81957186544343
-==NPC per-class avg spawn chance + count==
-Angler|Main|0.169506683792398|21
-Angler|Sub|0.104395604395604|13
-Bloatfly|Main|0.106018518518519|9
-Bloatfly|Sub|0.2280276816609|17
-Bloodbug|Main|0.375|14
-Bloodbug|Sub|0.222476597476597|18
-Cave Cricket|Main|0.0823572261072261|22
-Cave Cricket|Sub|0.120882999353588|25
-Deathclaw|Main|0.777777777777778|3
-Deathclaw|Sub|0.0698553583168968|39
-Fog Crawler|Main|0.141617357001972|13
-Fog Crawler|Sub|0.073489010989011|8
-Ghoul|Main|0.460806609457688|139
-Ghoul|Sub|0.278834061096966|98
-Grafton Monster|Sub|0.125|1
-Gulper|Main|0.173561732385262|17
-Gulper|Sub|0.0957417582417582|20
-Honey Beast|Main|0.209523809523809|2
-Honey Beast|Sub|0.236904761904762|3
-Insect|Main|0.165715597533779|33
-Insect|Sub|0.181798892164746|41
-Liberator|Main|0.149102700781805|67
-Liberator|Sub|0.135540641596005|68
-Mega Sloth|Main|0.333333333333333|1
-Mega Sloth|Sub|0.0763736263736263|15
-Mirelurk|Main|0.428014632426397|34
-Mirelurk|Sub|0.271449704142012|26
-Mole Miner|Main|0.5845|25
-Mole Miner|Sub|0.36437908496732|9
-Mole Rat|Main|0.161860399874099|73
-Mole Rat|Sub|0.194836932179959|89
-Rad Ant|Main|0.333333333333333|1
-Rad Ant|Sub|0.325|10
-Rad Rat|Main|0.0831687756687757|45
-Rad Rat|Sub|0.166037739181423|61
-Rad Scorpion|Main|0.226177743824803|17
-Rad Scorpion|Sub|0.0692883403361344|16
-Rad Toad|Main|0.197619047619048|13
-Rad Toad|Sub|0.173076923076923|10
-Radroach|Sub|0.625|2
-Robot|Main|0.487398562975486|65
-Robot|Sub|0.144246929541047|40
-Scorched|Main|0.510775971713472|144
-Scorched|Sub|0.108581691786026|76
-Snallygaster|Main|0.674107142857143|8
-Stingwing|Main|0.571428571428572|2
-Stingwing|Sub|0.176434676434676|9
-Super Mutant|Main|0.378147069943945|96
-Super Mutant|Sub|0.160691145363888|71
-Swamp|Main|0.6|2
-Tick|Main|0.583333333333333|2
-Tick|Sub|0.383333333333333|5
-Vicious Dog|Main|0.184988984445506|69
-Vicious Dog|Sub|0.141125030727351|71
-Wolf|Main|0.249149659863946|28
-Wolf|Sub|0.176382488479263|31
-Yao Guai|Main|0.215521978021978|25
-Yao Guai|Sub|0.0936336072890694|21
-==Worldspace count==
-1
-==Cell count==
-133
-==Spaces list + entity count==
-AMSHQ01|AMS Headquarters|5481
-AMSHQ02|AMS Headquarters Basement Lab|1993
-AVRMedicalCenter01|AVR Medical Center|5938
-AlleghenyAsylum01|Fort Defiance|15013
-Appalachia|Appalachia|3071520
-ArktosPharmaLab01|Arktos Pharma Biome Lab|17183
-ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|14627
-BelchingBetty01|Belching Betty|5220
-BigBendTunnel01|Big Bend Tunnels|7551
-BlackwaterMine01|Blackwater Mine|6164
-BlueRidgeOffice01|Blue Ridge Office|762
-BurdetteManorBasement01|Burdette Manor Basement|499
-BurningMine01|The Burning Mine|6133
-Burrows01|The Burrows|20175
-CharGen01|Vault 76|7051
-CharGen02|Vault 76|6930
-CharGen03|Vault 76|6930
-CharGen04|Vault 76|6930
-CharGen05|Vault 76|6930
-CharlestonCapitolBuilding02|Charleston Capitol Building|7551
-CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|2374
-CraterWarRoom01|The Crater War Room|798
-CraterWatchstation01|Crater Watchstation Worksite|494
-CultistCave01|Lucky Hole Mine|5130
-DaggersDen01|Dagger's Den|1659
-DaggersDen02|Dagger's Throne Room|487
-DuncanDuncanRobotics01|Duncan & Duncan Robotics|1365
-DyerChemical01|Dyer Chemical Sewer|3212
-EasternRegionalPen01|Eastern Regional Penitentiary|11438
-EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|4857
-EnclaveResearchFacility01|Enclave Research Facility|18733
-FortAtlas01|Fort Atlas|5182
-FortAtlasDungeon01|Atlas Substructure|12665
-FoundationInt01|Foundation Interior|5371
-FoundationSupplyRoom01|Foundation Supply Room|529
-FraternityHouse01|Pi House|1216
-FraternityHouse02|Eta Psi House|925
-FreeStatesBunker01|Abbie's Bunker|1129
-FreeStatesBunker02|Carson Family Bunker|981
-FreeStatesBunker03|Ella Ames' Bunker|1043
-FreeStatesBunker04|Raleigh Clay's Bunker|1254
-FreeStatesBunker06|Abandoned Bunker|949
-FreeStatesBunker07|Ransacked Bunker|1049
-GarrahanMiningHQ01|Garrahan Mining HQ|9132
-GauleyMine01|Gauley Mine|4177
-GlassedCavern01|Glassed Cavern|9044
-GraftonPawnShop01|Grafton Pawn Shop|1478
-GraftonSteelUnderground01|Grafton Steel Underground|23638
-HarpersFerryDungeon01|Harpers Ferry Tunnel|13072
-HornwrightHQ01|Hornwright Industrial HQ|5954
-HornwrightSafeRoom01|Hornwright Estate Safe Room|1045
-KerwoodMine01|Kerwood Mine|5667
-LewisandSonsFarmingSupply01|Putnam Residence|461
-LousMine01|Carleton Mine|7127
-MTR08LodeBaring01|Abandoned Mine Shaft Elaine|3409
-MTR08LodeBaring02|Abandoned Mine Shaft Kittery|3281
-MamaDolceProcessing01|Mama Dolce's Food Processing|3074
-MonongahMine01|Monongah Mine|6922
-MonongahMissileSilo01|Missile Silo Bravo|15690
-MonongahPowerPlant01|Monongah Power Plant|11083
-MorgantownAirportTerminal02|Morgantown Airport Terminal|5253
-MorgantownApartment01|Shadowbreeze Apartments|1362
-MorgantownHighSchool01|Morgantown High School|5953
-MountBlairWarehouseBasement01|Warehouse Basement|319
-NukaColaQuantumPlant01|Kanawha Nuka-Cola Plant|5477
-OrwellOrchardsShelter01|Orwell Bomb Shelter|2209
-OverseersHome01|Overseer's Home|1250
-PoseidonPlant01|Poseidon Energy Plant WV-06|15663
-PoseidonPlant02|Poseidon Energy Plant Expansion|4189
-RadioResearchCenter01|Radio Astronomy Research Center|3472
-RaiderCave01|Deserted Mine|1016
-RaiderCave02|Makeshift Vault|1874
-RaiderCave03|Raider Den|1008
-RaiderRaidTrailerInt|Trailer Interior|106
-RiversideManor01|Riverside Manor|7433
-RobCoResearchCenter01|RobCo Research Center|8760
-RobcoExperimentalCache01|RobCo Auto-Cache #001|3068
-RollinsLaborCamp01|Rollins Prison|149
-SamBlackwellBunker02|Sam Blackwell's Bunker|2113
-SamBlackwellsDeathclawCave|Cavern|1927
-SettlerBugOutCave|Secluded Cave|372
-SheltersCave01|Abandoned Mine Shelter|535
-SheltersCave02|Forbidden Digsite Shelter|608
-SheltersClaimCenter01|Shelters Claim Center|976
-SheltersMissileSilo|Abandoned Mine Shelter|493
-SheltersVaultAtrium01|Vault Atrium Shelter|2268
-SheltersVaultLivingQuarters01|Vault Quarters Shelter|2644
-SheltersVaultReception01|Vault Lobby Shelter|1544
-SheltersVaultServerRoom01|Server Room Shelter|3966
-SheltersVaultStorageRoom01|Vault Utility Room Shelter|775
-SpruceKnobCampground01|Spruce Knob Boat Rental|595
-SpruceKnobMissileSilo01|Missile Silo Charlie|15680
-SugarGrove01|Sugar Grove|8279
-SugarGrove02|Sugar Grove Data Center|271
-SugarGroveMissileSilo01|Missile Silo Alpha|15690
-TheCraterCore01|The Crater Core|1288
-TheNukashine01|The Nukashine|1537
-TheRustyPick01|The Rusty Pick|2443
-TheWayward01|The Wayward|1719
-ThunderMtPowerPlant01|Thunder Mountain Power|9415
-TopOfTheWorld01|Mezzanine Level|4652
-UCB01|The Deep|4569
-UCB02|Auxiliary Control Room|77
-UncannyCaverns01|Uncanny Caverns|4230
-UncannyCaverns02|Hidden Crevice|3191
-UncannyCavernsDungeon|Uncanny Caverns|7410
-VTecAgCenter01|Vault-Tec Ag Research Center|3134
-ValleyGalleria01|Valley Galleria|8633
-VanLoweTaxidermy01|Van Lowe Taxidermy|1966
-Vault51Dungeon|Vault 51|9603
-Vault63Entrance|Vault 63 Entrance|350
-Vault79Entrance|Vault 79|1546
-Vault79GoldVaultOperations|Gold Vault Operations|4698
-Vault79Main|Vault 79|18851
-Vault94Dungeon|Vault 94|17486
-Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|4604
-Vault94Entrance|Vault 94 Entrance|1320
-Vault96Dungeon|Vault 96|21758
-VaultTecU01|Vault-Tec University|10712
-WVLumberCo01|WV Lumber Co. Office|1548
-WatogaCivicCenter01|Watoga Civic Center|11504
-WatogaCivicCenterDungeon|Watoga Raider Arena|8929
-WatogaEmergencyServices01|Watoga Emergency Services|1906
-WatogaHighSchool01|Watoga High School|10105
-WatogaHighSchoolDungeon|Watoga High School|9842
-WatogaMunicipalCenter01|Watoga Municipal Center|2692
-WatogaMunicipalCenter02|Watoga Municipal Center|812
-WatogaTowers01|Watoga Towers|584
-WatogaUnderground01|Watoga Underground|20162
-WendigoCave01|Wendigo Cave|6742
-WestTek01|West Tek Research Center|11806
-WestTek02|FEV Production Facility|5127
-WhitespringBunker01|Whitespring Bunker|16333
-WhitespringResort01|Whitespring Resort|16387
+==Total entities by PrimitiveShape by Space==
+AMSHQ01||5164
+AMSHQ01|Box|314
+AMSHQ01|Sphere|3
+AMSHQ02||1939
+AMSHQ02|Box|54
+AVRMedicalCenter01||5744
+AVRMedicalCenter01|Box|194
+AlleghenyAsylum01||14278
+AlleghenyAsylum01|Box|730
+AlleghenyAsylum01|Sphere|5
+Appalachia||3004874
+Appalachia|Box|62455
+Appalachia|Ellipsoid|1
+Appalachia|Line|1802
+Appalachia|Plane|40
+Appalachia|Sphere|2348
+ArktosPharmaLab01||15670
+ArktosPharmaLab01|Box|1483
+ArktosPharmaLab01|Line|11
+ArktosPharmaLab01|Plane|13
+ArktosPharmaLab01|Sphere|6
+ArktosPharmaLabDungeon||13374
+ArktosPharmaLabDungeon|Box|1225
+ArktosPharmaLabDungeon|Line|11
+ArktosPharmaLabDungeon|Plane|13
+ArktosPharmaLabDungeon|Sphere|4
+BelchingBetty01||5090
+BelchingBetty01|Box|124
+BelchingBetty01|Line|6
+BigBendTunnel01||6829
+BigBendTunnel01|Box|721
+BigBendTunnel01|Sphere|1
+BlackwaterMine01||5836
+BlackwaterMine01|Box|323
+BlackwaterMine01|Line|5
+BlueRidgeOffice01||746
+BlueRidgeOffice01|Box|16
+BurdetteManorBasement01||490
+BurdetteManorBasement01|Box|9
+BurningMine01||5740
+BurningMine01|Box|392
+BurningMine01|Sphere|1
+Burrows01||19489
+Burrows01|Box|643
+Burrows01|Line|42
+Burrows01|Sphere|1
+CharGen01||6912
+CharGen01|Box|137
+CharGen01|Line|2
+CharGen02||6791
+CharGen02|Box|137
+CharGen02|Line|2
+CharGen03||6791
+CharGen03|Box|137
+CharGen03|Line|2
+CharGen04||6791
+CharGen04|Box|137
+CharGen04|Line|2
+CharGen05||6791
+CharGen05|Box|137
+CharGen05|Line|2
+CharlestonCapitolBuilding02||7179
+CharlestonCapitolBuilding02|Box|371
+CharlestonCapitolBuilding02|Sphere|1
+CharlestonCapitolCourthouse01||2260
+CharlestonCapitolCourthouse01|Box|113
+CharlestonCapitolCourthouse01|Sphere|1
+CraterWarRoom01||777
+CraterWarRoom01|Box|21
+CraterWatchstation01||478
+CraterWatchstation01|Box|16
+CultistCave01||4985
+CultistCave01|Box|142
+CultistCave01|Line|1
+CultistCave01|Sphere|2
+DaggersDen01||1618
+DaggersDen01|Box|39
+DaggersDen01|Plane|1
+DaggersDen01|Sphere|1
+DaggersDen02||467
+DaggersDen02|Box|19
+DaggersDen02|Sphere|1
+DuncanDuncanRobotics01||1311
+DuncanDuncanRobotics01|Box|53
+DuncanDuncanRobotics01|Ellipsoid|1
+DyerChemical01||3077
+DyerChemical01|Box|123
+DyerChemical01|Line|11
+DyerChemical01|Sphere|1
+EasternRegionalPen01||10945
+EasternRegionalPen01|Box|493
+EmmettMountainDisposalSite01||4670
+EmmettMountainDisposalSite01|Box|185
+EmmettMountainDisposalSite01|Line|1
+EmmettMountainDisposalSite01|Sphere|1
+EnclaveResearchFacility01||17855
+EnclaveResearchFacility01|Box|878
+FortAtlas01||4945
+FortAtlas01|Box|237
+FortAtlasDungeon01||12349
+FortAtlasDungeon01|Box|308
+FortAtlasDungeon01|Sphere|8
+FoundationInt01||4998
+FoundationInt01|Box|369
+FoundationInt01|Line|4
+FoundationSupplyRoom01||521
+FoundationSupplyRoom01|Box|8
+FraternityHouse01||1106
+FraternityHouse01|Box|110
+FraternityHouse02||874
+FraternityHouse02|Box|50
+FraternityHouse02|Sphere|1
+FreeStatesBunker01||1102
+FreeStatesBunker01|Box|27
+FreeStatesBunker02||957
+FreeStatesBunker02|Box|24
+FreeStatesBunker03||1013
+FreeStatesBunker03|Box|30
+FreeStatesBunker04||1224
+FreeStatesBunker04|Box|30
+FreeStatesBunker06||910
+FreeStatesBunker06|Box|38
+FreeStatesBunker06|Line|1
+FreeStatesBunker07||1003
+FreeStatesBunker07|Box|46
+GarrahanMiningHQ01||8792
+GarrahanMiningHQ01|Box|330
+GarrahanMiningHQ01|Line|3
+GarrahanMiningHQ01|Sphere|7
+GauleyMine01||4017
+GauleyMine01|Box|160
+GlassedCavern01||8292
+GlassedCavern01|Box|742
+GlassedCavern01|Line|4
+GlassedCavern01|Sphere|6
+GraftonPawnShop01||1457
+GraftonPawnShop01|Box|21
+GraftonSteelUnderground01||23349
+GraftonSteelUnderground01|Box|281
+GraftonSteelUnderground01|Line|5
+GraftonSteelUnderground01|Plane|2
+GraftonSteelUnderground01|Sphere|1
+HarpersFerryDungeon01||12192
+HarpersFerryDungeon01|Box|877
+HarpersFerryDungeon01|Sphere|3
+HornwrightHQ01||5629
+HornwrightHQ01|Box|320
+HornwrightHQ01|Line|1
+HornwrightHQ01|Plane|3
+HornwrightHQ01|Sphere|1
+HornwrightSafeRoom01||1018
+HornwrightSafeRoom01|Box|27
+KerwoodMine01||5287
+KerwoodMine01|Box|373
+KerwoodMine01|Line|7
+LewisandSonsFarmingSupply01||458
+LewisandSonsFarmingSupply01|Box|3
+LousMine01||6854
+LousMine01|Box|268
+LousMine01|Line|5
+MTR08LodeBaring01||3231
+MTR08LodeBaring01|Box|176
+MTR08LodeBaring01|Sphere|2
+MTR08LodeBaring02||3108
+MTR08LodeBaring02|Box|172
+MTR08LodeBaring02|Line|1
+MamaDolceProcessing01||2940
+MamaDolceProcessing01|Box|134
+MonongahMine01||6096
+MonongahMine01|Box|825
+MonongahMine01|Sphere|1
+MonongahMissileSilo01||15060
+MonongahMissileSilo01|Box|630
+MonongahPowerPlant01||10709
+MonongahPowerPlant01|Box|372
+MonongahPowerPlant01|Sphere|2
+MorgantownAirportTerminal02||5018
+MorgantownAirportTerminal02|Box|234
+MorgantownAirportTerminal02|Sphere|1
+MorgantownApartment01||1282
+MorgantownApartment01|Box|79
+MorgantownApartment01|Sphere|1
+MorgantownHighSchool01||5778
+MorgantownHighSchool01|Box|175
+MountBlairWarehouseBasement01||312
+MountBlairWarehouseBasement01|Box|7
+NukaColaQuantumPlant01||5164
+NukaColaQuantumPlant01|Box|313
+OrwellOrchardsShelter01||2156
+OrwellOrchardsShelter01|Box|52
+OrwellOrchardsShelter01|Sphere|1
+OverseersHome01||1208
+OverseersHome01|Box|42
+PoseidonPlant01||15286
+PoseidonPlant01|Box|373
+PoseidonPlant01|Line|4
+PoseidonPlant02||3827
+PoseidonPlant02|Box|360
+PoseidonPlant02|Line|2
+RadioResearchCenter01||3328
+RadioResearchCenter01|Box|144
+RaiderCave01||1004
+RaiderCave01|Box|12
+RaiderCave02||1733
+RaiderCave02|Box|141
+RaiderCave03||994
+RaiderCave03|Box|14
+RaiderRaidTrailerInt||95
+RaiderRaidTrailerInt|Box|11
+RiversideManor01||7072
+RiversideManor01|Box|361
+RobCoResearchCenter01||8357
+RobCoResearchCenter01|Box|403
+RobcoExperimentalCache01||2943
+RobcoExperimentalCache01|Box|124
+RobcoExperimentalCache01|Sphere|1
+RollinsLaborCamp01||135
+RollinsLaborCamp01|Box|14
+SamBlackwellBunker02||2005
+SamBlackwellBunker02|Box|108
+SamBlackwellsDeathclawCave||1826
+SamBlackwellsDeathclawCave|Box|101
+SettlerBugOutCave||369
+SettlerBugOutCave|Box|3
+SheltersCave01||459
+SheltersCave01|Box|76
+SheltersCave02||574
+SheltersCave02|Box|34
+SheltersClaimCenter01||921
+SheltersClaimCenter01|Box|55
+SheltersMissileSilo||441
+SheltersMissileSilo|Box|52
+SheltersVaultAtrium01||2199
+SheltersVaultAtrium01|Box|69
+SheltersVaultLivingQuarters01||2596
+SheltersVaultLivingQuarters01|Box|48
+SheltersVaultReception01||1508
+SheltersVaultReception01|Box|36
+SheltersVaultServerRoom01||3853
+SheltersVaultServerRoom01|Box|113
+SheltersVaultStorageRoom01||733
+SheltersVaultStorageRoom01|Box|42
+SpruceKnobCampground01||583
+SpruceKnobCampground01|Box|12
+SpruceKnobMissileSilo01||15051
+SpruceKnobMissileSilo01|Box|629
+SugarGrove01||8057
+SugarGrove01|Box|222
+SugarGrove02||270
+SugarGrove02|Box|1
+SugarGroveMissileSilo01||15061
+SugarGroveMissileSilo01|Box|629
+TheCraterCore01||1232
+TheCraterCore01|Box|47
+TheCraterCore01|Plane|9
+TheNukashine01||1474
+TheNukashine01|Box|63
+TheRustyPick01||2356
+TheRustyPick01|Box|87
+TheWayward01||1660
+TheWayward01|Box|59
+ThunderMtPowerPlant01||8918
+ThunderMtPowerPlant01|Box|493
+ThunderMtPowerPlant01|Line|2
+ThunderMtPowerPlant01|Sphere|2
+TopOfTheWorld01||4236
+TopOfTheWorld01|Box|413
+TopOfTheWorld01|Line|2
+TopOfTheWorld01|Sphere|1
+UCB01||4434
+UCB01|Box|130
+UCB01|Line|4
+UCB01|Sphere|1
+UCB02||75
+UCB02|Box|2
+UncannyCaverns01||3795
+UncannyCaverns01|Box|432
+UncannyCaverns01|Line|1
+UncannyCaverns01|Sphere|2
+UncannyCaverns02||2955
+UncannyCaverns02|Box|236
+UncannyCavernsDungeon||6748
+UncannyCavernsDungeon|Box|658
+UncannyCavernsDungeon|Line|1
+UncannyCavernsDungeon|Sphere|3
+VTecAgCenter01||3042
+VTecAgCenter01|Box|92
+ValleyGalleria01||8118
+ValleyGalleria01|Box|513
+ValleyGalleria01|Line|1
+ValleyGalleria01|Sphere|1
+VanLoweTaxidermy01||1890
+VanLoweTaxidermy01|Box|76
+Vault51Dungeon||9296
+Vault51Dungeon|Box|300
+Vault51Dungeon|Line|1
+Vault51Dungeon|Plane|4
+Vault51Dungeon|Sphere|2
+Vault63Entrance||312
+Vault63Entrance|Box|38
+Vault79Entrance||1466
+Vault79Entrance|Box|80
+Vault79GoldVaultOperations||4654
+Vault79GoldVaultOperations|Box|44
+Vault79Main||18141
+Vault79Main|Box|705
+Vault79Main|Line|5
+Vault94Dungeon||16123
+Vault94Dungeon|Box|1349
+Vault94Dungeon|Line|10
+Vault94Dungeon|Sphere|4
+Vault94DungeonGECK||4321
+Vault94DungeonGECK|Box|282
+Vault94DungeonGECK|Sphere|1
+Vault94Entrance||1242
+Vault94Entrance|Box|77
+Vault94Entrance|Line|1
+Vault96Dungeon||20261
+Vault96Dungeon|Box|1491
+Vault96Dungeon|Sphere|6
+VaultTecU01||10313
+VaultTecU01|Box|399
+WVLumberCo01||1501
+WVLumberCo01|Box|47
+WatogaCivicCenter01||10826
+WatogaCivicCenter01|Box|669
+WatogaCivicCenter01|Line|9
+WatogaCivicCenterDungeon||8438
+WatogaCivicCenterDungeon|Box|490
+WatogaCivicCenterDungeon|Sphere|1
+WatogaEmergencyServices01||1835
+WatogaEmergencyServices01|Box|71
+WatogaHighSchool01||9560
+WatogaHighSchool01|Box|545
+WatogaHighSchoolDungeon||9331
+WatogaHighSchoolDungeon|Box|510
+WatogaHighSchoolDungeon|Sphere|1
+WatogaMunicipalCenter01||2618
+WatogaMunicipalCenter01|Box|74
+WatogaMunicipalCenter02||793
+WatogaMunicipalCenter02|Box|19
+WatogaTowers01||574
+WatogaTowers01|Box|10
+WatogaUnderground01||19621
+WatogaUnderground01|Box|541
+WendigoCave01||6291
+WendigoCave01|Box|447
+WendigoCave01|Line|4
+WestTek01||11268
+WestTek01|Box|536
+WestTek01|Sphere|2
+WestTek02||4964
+WestTek02|Box|162
+WestTek02|Sphere|1
+WhitespringBunker01||15833
+WhitespringBunker01|Box|500
+WhitespringResort01||16072
+WhitespringResort01|Box|314
+WhitespringResort01|Ellipsoid|1
+==Total entities by LockLevel by Space==
+AMSHQ01||874
+AMSHQ01|Advanced (Level 1)|4
+AMSHQ01|Expert (Level 2)|3
+AMSHQ01|Inaccessible|1
+AMSHQ01|Master (Level 3)|1
+AMSHQ01|Opens Door|2
+AMSHQ01|Requires Key|1
+AMSHQ01|Requires Terminal|2
+AMSHQ02||495
+AMSHQ02|Expert (Level 2)|1
+AMSHQ02|Requires Terminal|1
+AVRMedicalCenter01||872
+AVRMedicalCenter01|Advanced (Level 1)|5
+AVRMedicalCenter01|Expert (Level 2)|1
+AlleghenyAsylum01||1263
+AlleghenyAsylum01|Advanced (Level 1)|4
+AlleghenyAsylum01|Expert (Level 2)|4
+AlleghenyAsylum01|Master (Level 3)|1
+AlleghenyAsylum01|Opens Door|2
+Appalachia||30389
+Appalachia|Advanced (Level 1)|76
+Appalachia|Chained|1
+Appalachia|Expert (Level 2)|45
+Appalachia|Inaccessible|13
+Appalachia|Master (Level 3)|25
+Appalachia|Novice (Level 0)|30
+Appalachia|Opens Door|87
+Appalachia|Requires Key|21
+Appalachia|Requires Terminal|8
+Appalachia|Unknown|1
+ArktosPharmaLab01||2110
+ArktosPharmaLab01|Advanced (Level 1)|3
+ArktosPharmaLab01|Expert (Level 2)|2
+ArktosPharmaLab01|Master (Level 3)|1
+ArktosPharmaLab01|Opens Door|1
+ArktosPharmaLabDungeon||1963
+ArktosPharmaLabDungeon|Advanced (Level 1)|3
+ArktosPharmaLabDungeon|Expert (Level 2)|1
+ArktosPharmaLabDungeon|Master (Level 3)|1
+BelchingBetty01||759
+BelchingBetty01|Advanced (Level 1)|1
+BelchingBetty01|Requires Key|1
+BelchingBetty01|Requires Terminal|1
+BigBendTunnel01||1174
+BigBendTunnel01|Advanced (Level 1)|4
+BigBendTunnel01|Chained|1
+BigBendTunnel01|Expert (Level 2)|1
+BigBendTunnel01|Opens Door|3
+BigBendTunnel01|Requires Key|1
+BlackwaterMine01||1021
+BlackwaterMine01|Advanced (Level 1)|2
+BlackwaterMine01|Expert (Level 2)|1
+BlackwaterMine01|Master (Level 3)|1
+BlackwaterMine01|Novice (Level 0)|1
+BlackwaterMine01|Opens Door|2
+BlackwaterMine01|Requires Key|1
+BlueRidgeOffice01||332
+BurdetteManorBasement01||234
+BurningMine01||1029
+BurningMine01|Advanced (Level 1)|2
+BurningMine01|Expert (Level 2)|1
+BurningMine01|Requires Key|1
+Burrows01||2156
+Burrows01|Advanced (Level 1)|1
+Burrows01|Expert (Level 2)|3
+Burrows01|Master (Level 3)|3
+Burrows01|Novice (Level 0)|1
+Burrows01|Opens Door|5
+Burrows01|Requires Key|1
+Burrows01|Requires Terminal|1
+CharGen01||1005
+CharGen01|Opens Door|1
+CharGen02||915
+CharGen03||915
+CharGen04||915
+CharGen05||915
+CharlestonCapitolBuilding02||1401
+CharlestonCapitolBuilding02|Advanced (Level 1)|1
+CharlestonCapitolBuilding02|Expert (Level 2)|2
+CharlestonCapitolBuilding02|Master (Level 3)|1
+CharlestonCapitolBuilding02|Novice (Level 0)|1
+CharlestonCapitolBuilding02|Opens Door|3
+CharlestonCapitolCourthouse01||726
+CharlestonCapitolCourthouse01|Advanced (Level 1)|1
+CharlestonCapitolCourthouse01|Expert (Level 2)|1
+CharlestonCapitolCourthouse01|Opens Door|1
+CraterWarRoom01||315
+CraterWatchstation01||180
+CultistCave01||690
+CultistCave01|Advanced (Level 1)|3
+CultistCave01|Chained|1
+CultistCave01|Expert (Level 2)|2
+CultistCave01|Master (Level 3)|1
+DaggersDen01||531
+DaggersDen01|Advanced (Level 1)|1
+DaggersDen01|Opens Door|1
+DaggersDen01|Requires Key|1
+DaggersDen02||155
+DaggersDen02|Opens Door|1
+DaggersDen02|Requires Key|2
+DuncanDuncanRobotics01||541
+DuncanDuncanRobotics01|Advanced (Level 1)|2
+DuncanDuncanRobotics01|Expert (Level 2)|3
+DuncanDuncanRobotics01|Inaccessible|1
+DuncanDuncanRobotics01|Master (Level 3)|1
+DuncanDuncanRobotics01|Novice (Level 0)|2
+DyerChemical01||488
+DyerChemical01|Advanced (Level 1)|1
+DyerChemical01|Opens Door|1
+EasternRegionalPen01||1429
+EasternRegionalPen01|Advanced (Level 1)|8
+EasternRegionalPen01|Expert (Level 2)|5
+EasternRegionalPen01|Master (Level 3)|2
+EasternRegionalPen01|Novice (Level 0)|3
+EasternRegionalPen01|Opens Door|5
+EmmettMountainDisposalSite01||562
+EmmettMountainDisposalSite01|Advanced (Level 1)|1
+EmmettMountainDisposalSite01|Opens Door|1
+EnclaveResearchFacility01||1929
+EnclaveResearchFacility01|Advanced (Level 1)|2
+EnclaveResearchFacility01|Expert (Level 2)|2
+EnclaveResearchFacility01|Inaccessible|2
+EnclaveResearchFacility01|Master (Level 3)|1
+EnclaveResearchFacility01|Novice (Level 0)|1
+EnclaveResearchFacility01|Opens Door|3
+FortAtlas01||1114
+FortAtlas01|Master (Level 3)|1
+FortAtlas01|Opens Door|2
+FortAtlas01|Requires Terminal|1
+FortAtlasDungeon01||1505
+FortAtlasDungeon01|Advanced (Level 1)|1
+FortAtlasDungeon01|Expert (Level 2)|1
+FortAtlasDungeon01|Novice (Level 0)|1
+FortAtlasDungeon01|Opens Door|1
+FortAtlasDungeon01|Requires Terminal|1
+FoundationInt01||1021
+FoundationSupplyRoom01||216
+FraternityHouse01||553
+FraternityHouse01|Advanced (Level 1)|1
+FraternityHouse02||467
+FraternityHouse02|Advanced (Level 1)|1
+FreeStatesBunker01||457
+FreeStatesBunker01|Expert (Level 2)|1
+FreeStatesBunker01|Master (Level 3)|1
+FreeStatesBunker02||338
+FreeStatesBunker02|Expert (Level 2)|1
+FreeStatesBunker03||386
+FreeStatesBunker03|Advanced (Level 1)|1
+FreeStatesBunker04||385
+FreeStatesBunker04|Advanced (Level 1)|1
+FreeStatesBunker04|Expert (Level 2)|1
+FreeStatesBunker06||369
+FreeStatesBunker06|Expert (Level 2)|1
+FreeStatesBunker07||527
+FreeStatesBunker07|Expert (Level 2)|1
+GarrahanMiningHQ01||1326
+GarrahanMiningHQ01|Advanced (Level 1)|1
+GarrahanMiningHQ01|Expert (Level 2)|3
+GarrahanMiningHQ01|Master (Level 3)|1
+GarrahanMiningHQ01|Novice (Level 0)|1
+GarrahanMiningHQ01|Opens Door|7
+GauleyMine01||867
+GauleyMine01|Advanced (Level 1)|2
+GauleyMine01|Inaccessible|1
+GauleyMine01|Opens Door|2
+GlassedCavern01||1179
+GlassedCavern01|Advanced (Level 1)|3
+GlassedCavern01|Expert (Level 2)|2
+GlassedCavern01|Master (Level 3)|1
+GlassedCavern01|Opens Door|3
+GraftonPawnShop01||547
+GraftonPawnShop01|Advanced (Level 1)|1
+GraftonSteelUnderground01||1634
+GraftonSteelUnderground01|Advanced (Level 1)|1
+GraftonSteelUnderground01|Expert (Level 2)|1
+GraftonSteelUnderground01|Opens Door|2
+GraftonSteelUnderground01|Requires Key|1
+GraftonSteelUnderground01|Requires Terminal|4
+HarpersFerryDungeon01||1644
+HarpersFerryDungeon01|Advanced (Level 1)|2
+HarpersFerryDungeon01|Expert (Level 2)|1
+HarpersFerryDungeon01|Inaccessible|1
+HarpersFerryDungeon01|Opens Door|1
+HornwrightHQ01||927
+HornwrightHQ01|Advanced (Level 1)|2
+HornwrightHQ01|Expert (Level 2)|1
+HornwrightHQ01|Opens Door|1
+HornwrightHQ01|Requires Key|2
+HornwrightSafeRoom01||233
+HornwrightSafeRoom01|Requires Key|1
+KerwoodMine01||663
+KerwoodMine01|Advanced (Level 1)|1
+KerwoodMine01|Expert (Level 2)|2
+KerwoodMine01|Master (Level 3)|1
+KerwoodMine01|Opens Door|1
+KerwoodMine01|Requires Key|4
+LewisandSonsFarmingSupply01||271
+LewisandSonsFarmingSupply01|Opens Door|1
+LousMine01||960
+LousMine01|Advanced (Level 1)|1
+LousMine01|Novice (Level 0)|2
+LousMine01|Opens Door|1
+LousMine01|Requires Terminal|3
+MTR08LodeBaring01||622
+MTR08LodeBaring01|Novice (Level 0)|1
+MTR08LodeBaring02||489
+MTR08LodeBaring02|Opens Door|1
+MamaDolceProcessing01||625
+MamaDolceProcessing01|Advanced (Level 1)|4
+MamaDolceProcessing01|Novice (Level 0)|1
+MamaDolceProcessing01|Opens Door|1
+MonongahMine01||866
+MonongahMine01|Inaccessible|1
+MonongahMine01|Opens Door|1
+MonongahMissileSilo01||1162
+MonongahMissileSilo01|Advanced (Level 1)|13
+MonongahMissileSilo01|Expert (Level 2)|5
+MonongahMissileSilo01|Master (Level 3)|6
+MonongahMissileSilo01|Novice (Level 0)|3
+MonongahMissileSilo01|Requires Terminal|1
+MonongahPowerPlant01||1586
+MonongahPowerPlant01|Advanced (Level 1)|2
+MonongahPowerPlant01|Novice (Level 0)|1
+MonongahPowerPlant01|Opens Door|3
+MorgantownAirportTerminal02||1308
+MorgantownAirportTerminal02|Advanced (Level 1)|1
+MorgantownAirportTerminal02|Novice (Level 0)|3
+MorgantownAirportTerminal02|Opens Door|1
+MorgantownAirportTerminal02|Requires Terminal|1
+MorgantownApartment01||469
+MorgantownApartment01|Advanced (Level 1)|1
+MorgantownApartment01|Expert (Level 2)|1
+MorgantownApartment01|Novice (Level 0)|2
+MorgantownHighSchool01||998
+MorgantownHighSchool01|Advanced (Level 1)|4
+MorgantownHighSchool01|Expert (Level 2)|3
+MorgantownHighSchool01|Opens Door|2
+MountBlairWarehouseBasement01||174
+NukaColaQuantumPlant01||985
+NukaColaQuantumPlant01|Advanced (Level 1)|4
+NukaColaQuantumPlant01|Expert (Level 2)|4
+NukaColaQuantumPlant01|Master (Level 3)|1
+NukaColaQuantumPlant01|Opens Door|2
+NukaColaQuantumPlant01|Requires Key|1
+OrwellOrchardsShelter01||664
+OrwellOrchardsShelter01|Expert (Level 2)|1
+OverseersHome01||435
+OverseersHome01|Advanced (Level 1)|1
+OverseersHome01|Requires Key|1
+PoseidonPlant01||1547
+PoseidonPlant01|Advanced (Level 1)|6
+PoseidonPlant01|Expert (Level 2)|2
+PoseidonPlant01|Master (Level 3)|1
+PoseidonPlant01|Novice (Level 0)|7
+PoseidonPlant01|Opens Door|6
+PoseidonPlant02||929
+PoseidonPlant02|Advanced (Level 1)|3
+PoseidonPlant02|Expert (Level 2)|1
+PoseidonPlant02|Requires Key|1
+PoseidonPlant02|Requires Terminal|1
+RadioResearchCenter01||808
+RadioResearchCenter01|Advanced (Level 1)|3
+RadioResearchCenter01|Expert (Level 2)|2
+RadioResearchCenter01|Opens Door|2
+RadioResearchCenter01|Requires Key|1
+RaiderCave01||307
+RaiderCave01|Novice (Level 0)|1
+RaiderCave02||521
+RaiderCave02|Expert (Level 2)|1
+RaiderCave03||272
+RaiderRaidTrailerInt||85
+RiversideManor01||1212
+RiversideManor01|Advanced (Level 1)|2
+RiversideManor01|Expert (Level 2)|2
+RiversideManor01|Master (Level 3)|2
+RiversideManor01|Opens Door|2
+RiversideManor01|Requires Key|4
+RobCoResearchCenter01||1064
+RobCoResearchCenter01|Advanced (Level 1)|1
+RobCoResearchCenter01|Expert (Level 2)|2
+RobCoResearchCenter01|Master (Level 3)|1
+RobCoResearchCenter01|Requires Key|1
+RobcoExperimentalCache01||764
+RobcoExperimentalCache01|Advanced (Level 1)|1
+RobcoExperimentalCache01|Inaccessible|1
+RobcoExperimentalCache01|Opens Door|1
+RollinsLaborCamp01||101
+RollinsLaborCamp01|Requires Key|1
+SamBlackwellBunker02||627
+SamBlackwellBunker02|Expert (Level 2)|1
+SamBlackwellBunker02|Master (Level 3)|1
+SamBlackwellBunker02|Opens Door|1
+SamBlackwellsDeathclawCave||335
+SamBlackwellsDeathclawCave|Advanced (Level 1)|1
+SettlerBugOutCave||130
+SheltersCave01||67
+SheltersCave02||63
+SheltersClaimCenter01||314
+SheltersClaimCenter01|Requires Key|1
+SheltersMissileSilo||72
+SheltersVaultAtrium01||253
+SheltersVaultLivingQuarters01||207
+SheltersVaultReception01||216
+SheltersVaultServerRoom01||420
+SheltersVaultStorageRoom01||124
+SpruceKnobCampground01||360
+SpruceKnobCampground01|Opens Door|1
+SpruceKnobMissileSilo01||1162
+SpruceKnobMissileSilo01|Advanced (Level 1)|13
+SpruceKnobMissileSilo01|Expert (Level 2)|5
+SpruceKnobMissileSilo01|Master (Level 3)|6
+SpruceKnobMissileSilo01|Novice (Level 0)|3
+SpruceKnobMissileSilo01|Requires Terminal|1
+SugarGrove01||1032
+SugarGrove01|Advanced (Level 1)|3
+SugarGrove01|Expert (Level 2)|3
+SugarGrove01|Opens Door|1
+SugarGrove01|Requires Key|4
+SugarGrove01|Requires Terminal|1
+SugarGrove02||127
+SugarGroveMissileSilo01||1163
+SugarGroveMissileSilo01|Advanced (Level 1)|13
+SugarGroveMissileSilo01|Expert (Level 2)|5
+SugarGroveMissileSilo01|Master (Level 3)|6
+SugarGroveMissileSilo01|Novice (Level 0)|3
+SugarGroveMissileSilo01|Requires Terminal|1
+TheCraterCore01||475
+TheCraterCore01|Master (Level 3)|1
+TheCraterCore01|Requires Key|1
+TheNukashine01||516
+TheRustyPick01||743
+TheWayward01||571
+TheWayward01|Expert (Level 2)|1
+TheWayward01|Requires Key|1
+ThunderMtPowerPlant01||1408
+ThunderMtPowerPlant01|Advanced (Level 1)|1
+ThunderMtPowerPlant01|Expert (Level 2)|2
+ThunderMtPowerPlant01|Opens Door|1
+TopOfTheWorld01||982
+TopOfTheWorld01|Advanced (Level 1)|2
+TopOfTheWorld01|Expert (Level 2)|1
+TopOfTheWorld01|Master (Level 3)|2
+UCB01||490
+UCB01|Advanced (Level 1)|2
+UCB01|Opens Door|1
+UCB01|Requires Key|1
+UCB02||43
+UncannyCaverns01||534
+UncannyCaverns01|Advanced (Level 1)|1
+UncannyCaverns01|Opens Door|2
+UncannyCaverns02||359
+UncannyCavernsDungeon||765
+UncannyCavernsDungeon|Advanced (Level 1)|1
+UncannyCavernsDungeon|Inaccessible|1
+UncannyCavernsDungeon|Opens Door|2
+VTecAgCenter01||827
+VTecAgCenter01|Opens Door|4
+VTecAgCenter01|Requires Terminal|1
+ValleyGalleria01||1210
+ValleyGalleria01|Advanced (Level 1)|2
+ValleyGalleria01|Expert (Level 2)|2
+ValleyGalleria01|Opens Door|1
+VanLoweTaxidermy01||810
+VanLoweTaxidermy01|Advanced (Level 1)|1
+VanLoweTaxidermy01|Requires Key|1
+Vault51Dungeon||1714
+Vault51Dungeon|Advanced (Level 1)|2
+Vault51Dungeon|Expert (Level 2)|1
+Vault51Dungeon|Inaccessible|3
+Vault51Dungeon|Master (Level 3)|1
+Vault51Dungeon|Novice (Level 0)|1
+Vault63Entrance||135
+Vault79Entrance||332
+Vault79Entrance|Expert (Level 2)|1
+Vault79GoldVaultOperations||343
+Vault79Main||1959
+Vault79Main|Advanced (Level 1)|4
+Vault79Main|Expert (Level 2)|9
+Vault79Main|Inaccessible|3
+Vault79Main|Master (Level 3)|3
+Vault79Main|Opens Door|2
+Vault79Main|Requires Key|2
+Vault79Main|Requires Terminal|2
+Vault94Dungeon||1886
+Vault94Dungeon|Advanced (Level 1)|5
+Vault94Dungeon|Expert (Level 2)|7
+Vault94Dungeon|Inaccessible|1
+Vault94Dungeon|Master (Level 3)|1
+Vault94Dungeon|Opens Door|4
+Vault94DungeonGECK||638
+Vault94DungeonGECK|Master (Level 3)|1
+Vault94Entrance||266
+Vault96Dungeon||2117
+Vault96Dungeon|Advanced (Level 1)|1
+VaultTecU01||1662
+VaultTecU01|Advanced (Level 1)|2
+VaultTecU01|Expert (Level 2)|1
+VaultTecU01|Inaccessible|1
+VaultTecU01|Master (Level 3)|1
+VaultTecU01|Novice (Level 0)|1
+VaultTecU01|Opens Door|2
+WVLumberCo01||556
+WVLumberCo01|Novice (Level 0)|1
+WatogaCivicCenter01||1273
+WatogaCivicCenter01|Advanced (Level 1)|4
+WatogaCivicCenter01|Expert (Level 2)|2
+WatogaCivicCenter01|Opens Door|1
+WatogaCivicCenter01|Requires Key|4
+WatogaCivicCenterDungeon||1014
+WatogaEmergencyServices01||451
+WatogaEmergencyServices01|Advanced (Level 1)|1
+WatogaEmergencyServices01|Expert (Level 2)|3
+WatogaEmergencyServices01|Master (Level 3)|1
+WatogaHighSchool01||915
+WatogaHighSchool01|Advanced (Level 1)|1
+WatogaHighSchool01|Expert (Level 2)|2
+WatogaHighSchool01|Master (Level 3)|1
+WatogaHighSchool01|Opens Door|3
+WatogaHighSchoolDungeon||903
+WatogaHighSchoolDungeon|Expert (Level 2)|2
+WatogaHighSchoolDungeon|Master (Level 3)|1
+WatogaHighSchoolDungeon|Opens Door|3
+WatogaMunicipalCenter01||556
+WatogaMunicipalCenter01|Advanced (Level 1)|3
+WatogaMunicipalCenter01|Expert (Level 2)|3
+WatogaMunicipalCenter01|Master (Level 3)|2
+WatogaMunicipalCenter02||227
+WatogaMunicipalCenter02|Opens Door|1
+WatogaMunicipalCenter02|Requires Key|1
+WatogaTowers01||296
+WatogaTowers01|Opens Door|1
+WatogaUnderground01||1838
+WatogaUnderground01|Advanced (Level 1)|1
+WatogaUnderground01|Expert (Level 2)|4
+WatogaUnderground01|Inaccessible|1
+WatogaUnderground01|Master (Level 3)|1
+WatogaUnderground01|Opens Door|3
+WatogaUnderground01|Requires Key|4
+WatogaUnderground01|Requires Terminal|2
+WendigoCave01||571
+WendigoCave01|Advanced (Level 1)|1
+WendigoCave01|Opens Door|1
+WestTek01||1298
+WestTek01|Advanced (Level 1)|4
+WestTek01|Expert (Level 2)|4
+WestTek01|Opens Door|4
+WestTek01|Requires Key|1
+WestTek01|Requires Terminal|1
+WestTek02||660
+WestTek02|Inaccessible|3
+WestTek02|Opens Door|1
+WestTek02|Requires Terminal|1
+WhitespringBunker01||1794
+WhitespringBunker01|Advanced (Level 1)|1
+WhitespringBunker01|Master (Level 3)|2
+WhitespringBunker01|Novice (Level 0)|1
+WhitespringBunker01|Opens Door|5
+WhitespringResort01||1341
+WhitespringResort01|Advanced (Level 1)|2
+WhitespringResort01|Expert (Level 2)|3
+WhitespringResort01|Inaccessible|1
+WhitespringResort01|Master (Level 3)|2
+WhitespringResort01|Novice (Level 0)|1
+WhitespringResort01|Opens Door|4
+WhitespringResort01|Requires Key|1
+==Total entities by Category by Space==
+AMSHQ01|ACTI|25
+AMSHQ01|ASPC|1
+AMSHQ01|BOOK|4
+AMSHQ01|CONT|36
+AMSHQ01|DOOR|15
+AMSHQ01|FURN|20
+AMSHQ01|HAZD|2
+AMSHQ01|IDLM|2
+AMSHQ01|LIGH|11
+AMSHQ01|LVLI|46
+AMSHQ01|MISC|48
+AMSHQ01|MSTT|29
+AMSHQ01|NOTE|1
+AMSHQ01|NPC_|11
+AMSHQ01|SCOL|81
+AMSHQ01|STAT|515
+AMSHQ01|TERM|8
+AMSHQ01|TXST|33
+AMSHQ02|ACTI|8
+AMSHQ02|BOOK|1
+AMSHQ02|CONT|14
+AMSHQ02|DOOR|8
+AMSHQ02|FURN|20
+AMSHQ02|IDLM|1
+AMSHQ02|LIGH|7
+AMSHQ02|LVLI|14
+AMSHQ02|MISC|53
+AMSHQ02|MSTT|8
+AMSHQ02|NOTE|1
+AMSHQ02|NPC_|6
+AMSHQ02|SCOL|84
+AMSHQ02|STAT|261
+AMSHQ02|TERM|1
+AMSHQ02|TXST|10
+AVRMedicalCenter01|ACTI|23
+AVRMedicalCenter01|ASPC|3
+AVRMedicalCenter01|BNDS|1
+AVRMedicalCenter01|BOOK|1
+AVRMedicalCenter01|CNCY|1
+AVRMedicalCenter01|CONT|30
+AVRMedicalCenter01|DOOR|9
+AVRMedicalCenter01|FURN|28
+AVRMedicalCenter01|HAZD|1
+AVRMedicalCenter01|IDLM|2
+AVRMedicalCenter01|LIGH|12
+AVRMedicalCenter01|LVLI|40
+AVRMedicalCenter01|MISC|92
+AVRMedicalCenter01|MSTT|37
+AVRMedicalCenter01|NOTE|1
+AVRMedicalCenter01|NPC_|7
+AVRMedicalCenter01|SCOL|47
+AVRMedicalCenter01|SOUN|1
+AVRMedicalCenter01|STAT|514
+AVRMedicalCenter01|TERM|3
+AVRMedicalCenter01|TXST|24
+AVRMedicalCenter01|WEAP|1
+AlleghenyAsylum01|ACTI|30
+AlleghenyAsylum01|ALCH|1
+AlleghenyAsylum01|ARMO|1
+AlleghenyAsylum01|BNDS|1
+AlleghenyAsylum01|BOOK|14
+AlleghenyAsylum01|CONT|56
+AlleghenyAsylum01|DOOR|27
+AlleghenyAsylum01|FURN|35
+AlleghenyAsylum01|IDLM|2
+AlleghenyAsylum01|KEYM|2
+AlleghenyAsylum01|LIGH|15
+AlleghenyAsylum01|LVLI|101
+AlleghenyAsylum01|MISC|178
+AlleghenyAsylum01|MSTT|40
+AlleghenyAsylum01|NOTE|9
+AlleghenyAsylum01|NPC_|13
+AlleghenyAsylum01|SCOL|90
+AlleghenyAsylum01|SOUN|1
+AlleghenyAsylum01|STAT|631
+AlleghenyAsylum01|TERM|7
+AlleghenyAsylum01|TXST|20
+Appalachia|ACTI|821
+Appalachia|ALCH|66
+Appalachia|AMMO|6
+Appalachia|ARMO|49
+Appalachia|ASPC|42
+Appalachia|BNDS|17
+Appalachia|BOOK|398
+Appalachia|CNCY|1
+Appalachia|CONT|524
+Appalachia|DOOR|348
+Appalachia|FLOR|123
+Appalachia|FURN|434
+Appalachia|HAZD|31
+Appalachia|IDLM|17
+Appalachia|KEYM|35
+Appalachia|LIGH|232
+Appalachia|LVLI|536
+Appalachia|MISC|694
+Appalachia|MSTT|600
+Appalachia|NOTE|168
+Appalachia|NPC_|673
+Appalachia|PROJ|2
+Appalachia|SCOL|8912
+Appalachia|SECH|10
+Appalachia|SOUN|160
+Appalachia|STAT|15131
+Appalachia|TACT|34
+Appalachia|TERM|217
+Appalachia|TXST|372
+Appalachia|WEAP|43
+ArktosPharmaLab01|ACTI|40
+ArktosPharmaLab01|ASPC|7
+ArktosPharmaLab01|BNDS|4
+ArktosPharmaLab01|BOOK|3
+ArktosPharmaLab01|CONT|45
+ArktosPharmaLab01|DOOR|15
+ArktosPharmaLab01|FLOR|19
+ArktosPharmaLab01|FURN|36
+ArktosPharmaLab01|HAZD|1
+ArktosPharmaLab01|IDLM|3
+ArktosPharmaLab01|LIGH|92
+ArktosPharmaLab01|LVLI|106
+ArktosPharmaLab01|MISC|137
+ArktosPharmaLab01|MSTT|51
+ArktosPharmaLab01|NOTE|1
+ArktosPharmaLab01|NPC_|15
+ArktosPharmaLab01|SCOL|375
+ArktosPharmaLab01|SOUN|30
+ArktosPharmaLab01|STAT|1072
+ArktosPharmaLab01|TACT|1
+ArktosPharmaLab01|TERM|5
+ArktosPharmaLab01|TXST|59
+ArktosPharmaLabDungeon|ACTI|35
+ArktosPharmaLabDungeon|ASPC|7
+ArktosPharmaLabDungeon|BNDS|4
+ArktosPharmaLabDungeon|CONT|39
+ArktosPharmaLabDungeon|DOOR|12
+ArktosPharmaLabDungeon|FLOR|19
+ArktosPharmaLabDungeon|FURN|17
+ArktosPharmaLabDungeon|HAZD|1
+ArktosPharmaLabDungeon|IDLM|1
+ArktosPharmaLabDungeon|LIGH|90
+ArktosPharmaLabDungeon|LVLI|99
+ArktosPharmaLabDungeon|MISC|127
+ArktosPharmaLabDungeon|MSTT|44
+ArktosPharmaLabDungeon|NOTE|1
+ArktosPharmaLabDungeon|SCOL|356
+ArktosPharmaLabDungeon|SOUN|30
+ArktosPharmaLabDungeon|STAT|1026
+ArktosPharmaLabDungeon|TERM|2
+ArktosPharmaLabDungeon|TXST|58
+BelchingBetty01|ACTI|15
+BelchingBetty01|ASPC|2
+BelchingBetty01|BNDS|2
+BelchingBetty01|CONT|10
+BelchingBetty01|DOOR|5
+BelchingBetty01|FLOR|1
+BelchingBetty01|FURN|12
+BelchingBetty01|HAZD|3
+BelchingBetty01|LIGH|24
+BelchingBetty01|LVLI|28
+BelchingBetty01|MISC|26
+BelchingBetty01|MSTT|21
+BelchingBetty01|NPC_|9
+BelchingBetty01|SCOL|103
+BelchingBetty01|SOUN|7
+BelchingBetty01|STAT|486
+BelchingBetty01|TERM|1
+BelchingBetty01|TXST|7
+BigBendTunnel01|ACTI|21
+BigBendTunnel01|BNDS|3
+BigBendTunnel01|BOOK|6
+BigBendTunnel01|CONT|34
+BigBendTunnel01|DOOR|9
+BigBendTunnel01|FURN|21
+BigBendTunnel01|IDLM|2
+BigBendTunnel01|LIGH|21
+BigBendTunnel01|LVLI|56
+BigBendTunnel01|MISC|70
+BigBendTunnel01|MSTT|43
+BigBendTunnel01|NPC_|13
+BigBendTunnel01|SCOL|86
+BigBendTunnel01|SOUN|1
+BigBendTunnel01|STAT|750
+BigBendTunnel01|TERM|1
+BigBendTunnel01|TXST|45
+BigBendTunnel01|WEAP|2
+BlackwaterMine01|ACTI|15
+BlackwaterMine01|ALCH|1
+BlackwaterMine01|ASPC|2
+BlackwaterMine01|BNDS|2
+BlackwaterMine01|CONT|34
+BlackwaterMine01|DOOR|7
+BlackwaterMine01|FURN|16
+BlackwaterMine01|HAZD|5
+BlackwaterMine01|IDLM|1
+BlackwaterMine01|LIGH|22
+BlackwaterMine01|LVLI|31
+BlackwaterMine01|MISC|100
+BlackwaterMine01|MSTT|20
+BlackwaterMine01|NOTE|3
+BlackwaterMine01|NPC_|5
+BlackwaterMine01|SCOL|115
+BlackwaterMine01|SOUN|4
+BlackwaterMine01|STAT|614
+BlackwaterMine01|TERM|5
+BlackwaterMine01|TXST|27
+BlueRidgeOffice01|ACTI|5
+BlueRidgeOffice01|AMMO|2
+BlueRidgeOffice01|ARMO|1
+BlueRidgeOffice01|BOOK|1
+BlueRidgeOffice01|CONT|6
+BlueRidgeOffice01|DOOR|2
+BlueRidgeOffice01|FURN|15
+BlueRidgeOffice01|LIGH|13
+BlueRidgeOffice01|LVLI|21
+BlueRidgeOffice01|MISC|77
+BlueRidgeOffice01|MSTT|19
+BlueRidgeOffice01|NPC_|7
+BlueRidgeOffice01|SCOL|9
+BlueRidgeOffice01|SOUN|2
+BlueRidgeOffice01|STAT|148
+BlueRidgeOffice01|TERM|1
+BlueRidgeOffice01|TXST|2
+BlueRidgeOffice01|WEAP|1
+BurdetteManorBasement01|ACTI|2
+BurdetteManorBasement01|BNDS|1
+BurdetteManorBasement01|CONT|2
+BurdetteManorBasement01|DOOR|2
+BurdetteManorBasement01|FURN|4
+BurdetteManorBasement01|LIGH|9
+BurdetteManorBasement01|LVLI|2
+BurdetteManorBasement01|MISC|44
+BurdetteManorBasement01|MSTT|10
+BurdetteManorBasement01|SCOL|17
+BurdetteManorBasement01|STAT|135
+BurdetteManorBasement01|TXST|6
+BurningMine01|ACTI|28
+BurningMine01|BNDS|2
+BurningMine01|CONT|34
+BurningMine01|DOOR|3
+BurningMine01|FURN|16
+BurningMine01|HAZD|3
+BurningMine01|IDLM|3
+BurningMine01|LIGH|14
+BurningMine01|LVLI|28
+BurningMine01|MISC|57
+BurningMine01|MSTT|46
+BurningMine01|NPC_|7
+BurningMine01|SCOL|66
+BurningMine01|SOUN|1
+BurningMine01|STAT|691
+BurningMine01|TXST|34
+Burrows01|ACTI|41
+Burrows01|ALCH|4
+Burrows01|ASPC|24
+Burrows01|BNDS|1
+Burrows01|BOOK|3
+Burrows01|CNCY|1
+Burrows01|CONT|46
+Burrows01|DOOR|14
+Burrows01|FLOR|6
+Burrows01|FURN|39
+Burrows01|HAZD|3
+Burrows01|IDLM|3
+Burrows01|KEYM|1
+Burrows01|LIGH|49
+Burrows01|LVLI|91
+Burrows01|MISC|205
+Burrows01|MSTT|45
+Burrows01|NOTE|1
+Burrows01|NPC_|20
+Burrows01|SCOL|297
+Burrows01|SECH|1
+Burrows01|SOUN|12
+Burrows01|STAT|1223
+Burrows01|TERM|8
+Burrows01|TXST|32
+Burrows01|WEAP|1
+CharGen01|ACTI|43
+CharGen01|ALCH|5
+CharGen01|ARMO|3
+CharGen01|ASPC|3
+CharGen01|BNDS|2
+CharGen01|BOOK|6
+CharGen01|CONT|17
+CharGen01|DOOR|8
+CharGen01|FURN|79
+CharGen01|IDLM|3
+CharGen01|LIGH|33
+CharGen01|LVLI|10
+CharGen01|MISC|102
+CharGen01|MSTT|81
+CharGen01|NPC_|29
+CharGen01|SCOL|25
+CharGen01|SECH|3
+CharGen01|SOUN|9
+CharGen01|STAT|533
+CharGen01|TERM|4
+CharGen01|TXST|6
+CharGen01|WEAP|2
+CharGen02|ACTI|43
+CharGen02|ALCH|5
+CharGen02|ARMO|3
+CharGen02|ASPC|3
+CharGen02|BNDS|2
+CharGen02|BOOK|2
+CharGen02|CONT|17
+CharGen02|DOOR|8
+CharGen02|FURN|21
+CharGen02|IDLM|3
+CharGen02|LIGH|31
+CharGen02|LVLI|10
+CharGen02|MISC|100
+CharGen02|MSTT|78
+CharGen02|NPC_|8
+CharGen02|SCOL|25
+CharGen02|SECH|3
+CharGen02|SOUN|9
+CharGen02|STAT|532
+CharGen02|TERM|4
+CharGen02|TXST|6
+CharGen02|WEAP|2
+CharGen03|ACTI|43
+CharGen03|ALCH|5
+CharGen03|ARMO|3
+CharGen03|ASPC|3
+CharGen03|BNDS|2
+CharGen03|BOOK|2
+CharGen03|CONT|17
+CharGen03|DOOR|8
+CharGen03|FURN|21
+CharGen03|IDLM|3
+CharGen03|LIGH|31
+CharGen03|LVLI|10
+CharGen03|MISC|100
+CharGen03|MSTT|78
+CharGen03|NPC_|8
+CharGen03|SCOL|25
+CharGen03|SECH|3
+CharGen03|SOUN|9
+CharGen03|STAT|532
+CharGen03|TERM|4
+CharGen03|TXST|6
+CharGen03|WEAP|2
+CharGen04|ACTI|43
+CharGen04|ALCH|5
+CharGen04|ARMO|3
+CharGen04|ASPC|3
+CharGen04|BNDS|2
+CharGen04|BOOK|2
+CharGen04|CONT|17
+CharGen04|DOOR|8
+CharGen04|FURN|21
+CharGen04|IDLM|3
+CharGen04|LIGH|31
+CharGen04|LVLI|10
+CharGen04|MISC|100
+CharGen04|MSTT|78
+CharGen04|NPC_|8
+CharGen04|SCOL|25
+CharGen04|SECH|3
+CharGen04|SOUN|9
+CharGen04|STAT|532
+CharGen04|TERM|4
+CharGen04|TXST|6
+CharGen04|WEAP|2
+CharGen05|ACTI|43
+CharGen05|ALCH|5
+CharGen05|ARMO|3
+CharGen05|ASPC|3
+CharGen05|BNDS|2
+CharGen05|BOOK|2
+CharGen05|CONT|17
+CharGen05|DOOR|8
+CharGen05|FURN|21
+CharGen05|IDLM|3
+CharGen05|LIGH|31
+CharGen05|LVLI|10
+CharGen05|MISC|100
+CharGen05|MSTT|78
+CharGen05|NPC_|8
+CharGen05|SCOL|25
+CharGen05|SECH|3
+CharGen05|SOUN|9
+CharGen05|STAT|532
+CharGen05|TERM|4
+CharGen05|TXST|6
+CharGen05|WEAP|2
+CharlestonCapitolBuilding02|ACTI|21
+CharlestonCapitolBuilding02|ASPC|3
+CharlestonCapitolBuilding02|BNDS|4
+CharlestonCapitolBuilding02|BOOK|6
+CharlestonCapitolBuilding02|CONT|48
+CharlestonCapitolBuilding02|DOOR|20
+CharlestonCapitolBuilding02|FLOR|1
+CharlestonCapitolBuilding02|FURN|34
+CharlestonCapitolBuilding02|HAZD|1
+CharlestonCapitolBuilding02|IDLM|1
+CharlestonCapitolBuilding02|KEYM|1
+CharlestonCapitolBuilding02|LIGH|22
+CharlestonCapitolBuilding02|LVLI|60
+CharlestonCapitolBuilding02|MISC|79
+CharlestonCapitolBuilding02|MSTT|41
+CharlestonCapitolBuilding02|NOTE|2
+CharlestonCapitolBuilding02|NPC_|7
+CharlestonCapitolBuilding02|SCOL|124
+CharlestonCapitolBuilding02|SOUN|2
+CharlestonCapitolBuilding02|STAT|892
+CharlestonCapitolBuilding02|TERM|10
+CharlestonCapitolBuilding02|TXST|30
+CharlestonCapitolCourthouse01|ACTI|19
+CharlestonCapitolCourthouse01|ALCH|1
+CharlestonCapitolCourthouse01|BOOK|2
+CharlestonCapitolCourthouse01|CONT|19
+CharlestonCapitolCourthouse01|DOOR|13
+CharlestonCapitolCourthouse01|FLOR|1
+CharlestonCapitolCourthouse01|FURN|10
+CharlestonCapitolCourthouse01|IDLM|2
+CharlestonCapitolCourthouse01|LIGH|14
+CharlestonCapitolCourthouse01|LVLI|28
+CharlestonCapitolCourthouse01|MISC|54
+CharlestonCapitolCourthouse01|MSTT|15
+CharlestonCapitolCourthouse01|NOTE|1
+CharlestonCapitolCourthouse01|NPC_|13
+CharlestonCapitolCourthouse01|SCOL|63
+CharlestonCapitolCourthouse01|STAT|454
+CharlestonCapitolCourthouse01|TERM|2
+CharlestonCapitolCourthouse01|TXST|17
+CharlestonCapitolCourthouse01|WEAP|1
+CraterWarRoom01|ACTI|5
+CraterWarRoom01|AMMO|5
+CraterWarRoom01|ARMO|8
+CraterWarRoom01|BNDS|2
+CraterWarRoom01|CONT|6
+CraterWarRoom01|DOOR|2
+CraterWarRoom01|FURN|5
+CraterWarRoom01|IDLM|1
+CraterWarRoom01|LIGH|16
+CraterWarRoom01|LVLI|1
+CraterWarRoom01|MISC|14
+CraterWarRoom01|MSTT|9
+CraterWarRoom01|NPC_|4
+CraterWarRoom01|SCOL|20
+CraterWarRoom01|SOUN|1
+CraterWarRoom01|STAT|206
+CraterWarRoom01|WEAP|10
+CraterWatchstation01|ACTI|3
+CraterWatchstation01|CONT|3
+CraterWatchstation01|DOOR|1
+CraterWatchstation01|FURN|5
+CraterWatchstation01|IDLM|2
+CraterWatchstation01|LIGH|13
+CraterWatchstation01|LVLI|4
+CraterWatchstation01|MISC|3
+CraterWatchstation01|MSTT|3
+CraterWatchstation01|NPC_|4
+CraterWatchstation01|SCOL|9
+CraterWatchstation01|STAT|121
+CraterWatchstation01|TXST|9
+CultistCave01|ACTI|15
+CultistCave01|ARMO|1
+CultistCave01|ASPC|2
+CultistCave01|BNDS|1
+CultistCave01|BOOK|6
+CultistCave01|CONT|19
+CultistCave01|DOOR|5
+CultistCave01|FLOR|3
+CultistCave01|FURN|13
+CultistCave01|IDLM|2
+CultistCave01|KEYM|1
+CultistCave01|LIGH|12
+CultistCave01|LVLI|29
+CultistCave01|MISC|57
+CultistCave01|MSTT|18
+CultistCave01|NOTE|4
+CultistCave01|NPC_|16
+CultistCave01|SCOL|29
+CultistCave01|SOUN|5
+CultistCave01|STAT|433
+CultistCave01|TERM|1
+CultistCave01|TXST|25
+DaggersDen01|ACTI|17
+DaggersDen01|BOOK|1
+DaggersDen01|CONT|16
+DaggersDen01|DOOR|5
+DaggersDen01|FLOR|5
+DaggersDen01|FURN|26
+DaggersDen01|IDLM|2
+DaggersDen01|LIGH|15
+DaggersDen01|LVLI|45
+DaggersDen01|MISC|36
+DaggersDen01|MSTT|16
+DaggersDen01|NPC_|8
+DaggersDen01|SCOL|23
+DaggersDen01|SOUN|4
+DaggersDen01|STAT|308
+DaggersDen01|TXST|6
+DaggersDen01|WEAP|1
+DaggersDen02|ACTI|5
+DaggersDen02|BOOK|1
+DaggersDen02|CONT|3
+DaggersDen02|DOOR|2
+DaggersDen02|FURN|7
+DaggersDen02|LIGH|9
+DaggersDen02|LVLI|1
+DaggersDen02|MISC|8
+DaggersDen02|MSTT|2
+DaggersDen02|NPC_|3
+DaggersDen02|SCOL|10
+DaggersDen02|STAT|106
+DaggersDen02|TXST|1
+DuncanDuncanRobotics01|ACTI|21
+DuncanDuncanRobotics01|ALCH|1
+DuncanDuncanRobotics01|ASPC|1
+DuncanDuncanRobotics01|BOOK|2
+DuncanDuncanRobotics01|CONT|30
+DuncanDuncanRobotics01|DOOR|9
+DuncanDuncanRobotics01|FLOR|1
+DuncanDuncanRobotics01|FURN|15
+DuncanDuncanRobotics01|IDLM|1
+DuncanDuncanRobotics01|KEYM|2
+DuncanDuncanRobotics01|LIGH|21
+DuncanDuncanRobotics01|LVLI|15
+DuncanDuncanRobotics01|MISC|60
+DuncanDuncanRobotics01|MSTT|32
+DuncanDuncanRobotics01|NOTE|1
+DuncanDuncanRobotics01|NPC_|9
+DuncanDuncanRobotics01|SCOL|39
+DuncanDuncanRobotics01|SOUN|1
+DuncanDuncanRobotics01|STAT|278
+DuncanDuncanRobotics01|TERM|1
+DuncanDuncanRobotics01|TXST|9
+DuncanDuncanRobotics01|WEAP|1
+DyerChemical01|ACTI|13
+DyerChemical01|ASPC|2
+DyerChemical01|CONT|17
+DyerChemical01|DOOR|3
+DyerChemical01|FURN|9
+DyerChemical01|IDLM|2
+DyerChemical01|LIGH|9
+DyerChemical01|LVLI|24
+DyerChemical01|MISC|23
+DyerChemical01|MSTT|18
+DyerChemical01|NPC_|14
+DyerChemical01|SCOL|26
+DyerChemical01|SOUN|4
+DyerChemical01|STAT|312
+DyerChemical01|TXST|14
+EasternRegionalPen01|ACTI|43
+EasternRegionalPen01|BNDS|2
+EasternRegionalPen01|CONT|55
+EasternRegionalPen01|DOOR|23
+EasternRegionalPen01|FLOR|2
+EasternRegionalPen01|FURN|28
+EasternRegionalPen01|IDLM|2
+EasternRegionalPen01|KEYM|1
+EasternRegionalPen01|LIGH|24
+EasternRegionalPen01|LVLI|55
+EasternRegionalPen01|MISC|155
+EasternRegionalPen01|MSTT|40
+EasternRegionalPen01|NOTE|1
+EasternRegionalPen01|NPC_|8
+EasternRegionalPen01|SCOL|60
+EasternRegionalPen01|STAT|915
+EasternRegionalPen01|TACT|1
+EasternRegionalPen01|TERM|14
+EasternRegionalPen01|TXST|23
+EmmettMountainDisposalSite01|ACTI|15
+EmmettMountainDisposalSite01|ALCH|2
+EmmettMountainDisposalSite01|ASPC|1
+EmmettMountainDisposalSite01|BNDS|2
+EmmettMountainDisposalSite01|CONT|18
+EmmettMountainDisposalSite01|DOOR|5
+EmmettMountainDisposalSite01|FURN|20
+EmmettMountainDisposalSite01|HAZD|3
+EmmettMountainDisposalSite01|IDLM|2
+EmmettMountainDisposalSite01|LIGH|26
+EmmettMountainDisposalSite01|LVLI|41
+EmmettMountainDisposalSite01|MISC|31
+EmmettMountainDisposalSite01|MSTT|18
+EmmettMountainDisposalSite01|NPC_|7
+EmmettMountainDisposalSite01|SCOL|64
+EmmettMountainDisposalSite01|SOUN|3
+EmmettMountainDisposalSite01|STAT|291
+EmmettMountainDisposalSite01|TERM|1
+EmmettMountainDisposalSite01|TXST|14
+EnclaveResearchFacility01|ACTI|44
+EnclaveResearchFacility01|ALCH|4
+EnclaveResearchFacility01|ARMO|1
+EnclaveResearchFacility01|ASPC|10
+EnclaveResearchFacility01|BNDS|2
+EnclaveResearchFacility01|BOOK|8
+EnclaveResearchFacility01|CONT|61
+EnclaveResearchFacility01|DOOR|19
+EnclaveResearchFacility01|FLOR|1
+EnclaveResearchFacility01|FURN|37
+EnclaveResearchFacility01|HAZD|1
+EnclaveResearchFacility01|IDLM|2
+EnclaveResearchFacility01|LIGH|62
+EnclaveResearchFacility01|LVLI|63
+EnclaveResearchFacility01|MISC|179
+EnclaveResearchFacility01|MSTT|69
+EnclaveResearchFacility01|NPC_|54
+EnclaveResearchFacility01|SCOL|270
+EnclaveResearchFacility01|SOUN|16
+EnclaveResearchFacility01|STAT|945
+EnclaveResearchFacility01|TACT|1
+EnclaveResearchFacility01|TERM|7
+EnclaveResearchFacility01|TXST|84
+FortAtlas01|ACTI|19
+FortAtlas01|ARMO|7
+FortAtlas01|ASPC|6
+FortAtlas01|BNDS|2
+FortAtlas01|CONT|26
+FortAtlas01|DOOR|12
+FortAtlas01|FURN|48
+FortAtlas01|IDLM|2
+FortAtlas01|LIGH|50
+FortAtlas01|LVLI|14
+FortAtlas01|MISC|133
+FortAtlas01|MSTT|27
+FortAtlas01|NOTE|3
+FortAtlas01|NPC_|27
+FortAtlas01|SCOL|91
+FortAtlas01|SOUN|1
+FortAtlas01|STAT|622
+FortAtlas01|TERM|2
+FortAtlas01|TXST|22
+FortAtlas01|WEAP|4
+FortAtlasDungeon01|ACTI|37
+FortAtlasDungeon01|ALCH|1
+FortAtlasDungeon01|ARMO|2
+FortAtlasDungeon01|ASPC|3
+FortAtlasDungeon01|BNDS|5
+FortAtlasDungeon01|BOOK|3
+FortAtlasDungeon01|CONT|40
+FortAtlasDungeon01|DOOR|10
+FortAtlasDungeon01|FLOR|1
+FortAtlasDungeon01|FURN|21
+FortAtlasDungeon01|HAZD|1
+FortAtlasDungeon01|IDLM|2
+FortAtlasDungeon01|LIGH|69
+FortAtlasDungeon01|LVLI|47
+FortAtlasDungeon01|MISC|85
+FortAtlasDungeon01|MSTT|63
+FortAtlasDungeon01|NPC_|24
+FortAtlasDungeon01|SCOL|130
+FortAtlasDungeon01|SOUN|12
+FortAtlasDungeon01|STAT|928
+FortAtlasDungeon01|TERM|3
+FortAtlasDungeon01|TXST|23
+FoundationInt01|ACTI|10
+FoundationInt01|ASPC|3
+FoundationInt01|BNDS|2
+FoundationInt01|BOOK|2
+FoundationInt01|CONT|21
+FoundationInt01|DOOR|8
+FoundationInt01|FURN|43
+FoundationInt01|IDLM|2
+FoundationInt01|LIGH|22
+FoundationInt01|MISC|78
+FoundationInt01|MSTT|32
+FoundationInt01|NOTE|10
+FoundationInt01|NPC_|13
+FoundationInt01|SCOL|88
+FoundationInt01|SOUN|6
+FoundationInt01|STAT|656
+FoundationInt01|TERM|1
+FoundationInt01|TXST|24
+FoundationSupplyRoom01|ACTI|4
+FoundationSupplyRoom01|BOOK|2
+FoundationSupplyRoom01|CONT|4
+FoundationSupplyRoom01|DOOR|2
+FoundationSupplyRoom01|FURN|12
+FoundationSupplyRoom01|LIGH|12
+FoundationSupplyRoom01|LVLI|1
+FoundationSupplyRoom01|MISC|27
+FoundationSupplyRoom01|MSTT|6
+FoundationSupplyRoom01|NPC_|5
+FoundationSupplyRoom01|SCOL|8
+FoundationSupplyRoom01|STAT|132
+FoundationSupplyRoom01|TXST|1
+FraternityHouse01|ACTI|9
+FraternityHouse01|ASPC|3
+FraternityHouse01|BOOK|2
+FraternityHouse01|CONT|10
+FraternityHouse01|DOOR|5
+FraternityHouse01|FURN|13
+FraternityHouse01|IDLM|2
+FraternityHouse01|LIGH|21
+FraternityHouse01|LVLI|40
+FraternityHouse01|MISC|72
+FraternityHouse01|MSTT|38
+FraternityHouse01|NOTE|1
+FraternityHouse01|NPC_|2
+FraternityHouse01|SCOL|9
+FraternityHouse01|SOUN|5
+FraternityHouse01|STAT|299
+FraternityHouse01|TERM|1
+FraternityHouse01|TXST|21
+FraternityHouse01|WEAP|1
+FraternityHouse02|ACTI|8
+FraternityHouse02|ALCH|3
+FraternityHouse02|ASPC|4
+FraternityHouse02|BOOK|1
+FraternityHouse02|CNCY|1
+FraternityHouse02|CONT|18
+FraternityHouse02|DOOR|5
+FraternityHouse02|FURN|13
+FraternityHouse02|IDLM|1
+FraternityHouse02|LIGH|15
+FraternityHouse02|LVLI|23
+FraternityHouse02|MISC|95
+FraternityHouse02|MSTT|23
+FraternityHouse02|NOTE|1
+FraternityHouse02|NPC_|1
+FraternityHouse02|SCOL|8
+FraternityHouse02|SOUN|3
+FraternityHouse02|STAT|234
+FraternityHouse02|TERM|1
+FraternityHouse02|TXST|10
+FreeStatesBunker01|ACTI|10
+FreeStatesBunker01|BNDS|1
+FreeStatesBunker01|BOOK|3
+FreeStatesBunker01|CONT|24
+FreeStatesBunker01|DOOR|4
+FreeStatesBunker01|FURN|10
+FreeStatesBunker01|IDLM|2
+FreeStatesBunker01|LIGH|9
+FreeStatesBunker01|LVLI|15
+FreeStatesBunker01|MISC|105
+FreeStatesBunker01|MSTT|25
+FreeStatesBunker01|NOTE|3
+FreeStatesBunker01|NPC_|1
+FreeStatesBunker01|SCOL|18
+FreeStatesBunker01|STAT|223
+FreeStatesBunker01|TERM|5
+FreeStatesBunker01|TXST|1
+FreeStatesBunker02|ACTI|5
+FreeStatesBunker02|BNDS|1
+FreeStatesBunker02|BOOK|1
+FreeStatesBunker02|CONT|19
+FreeStatesBunker02|DOOR|4
+FreeStatesBunker02|FURN|9
+FreeStatesBunker02|IDLM|2
+FreeStatesBunker02|LIGH|11
+FreeStatesBunker02|LVLI|8
+FreeStatesBunker02|MISC|24
+FreeStatesBunker02|MSTT|19
+FreeStatesBunker02|NPC_|1
+FreeStatesBunker02|SCOL|35
+FreeStatesBunker02|STAT|195
+FreeStatesBunker02|TXST|5
+FreeStatesBunker03|ACTI|5
+FreeStatesBunker03|ALCH|1
+FreeStatesBunker03|BNDS|1
+FreeStatesBunker03|BOOK|5
+FreeStatesBunker03|CONT|19
+FreeStatesBunker03|DOOR|5
+FreeStatesBunker03|FURN|9
+FreeStatesBunker03|LIGH|10
+FreeStatesBunker03|LVLI|16
+FreeStatesBunker03|MISC|82
+FreeStatesBunker03|MSTT|20
+FreeStatesBunker03|NOTE|2
+FreeStatesBunker03|NPC_|1
+FreeStatesBunker03|SCOL|29
+FreeStatesBunker03|STAT|178
+FreeStatesBunker03|TERM|1
+FreeStatesBunker03|TXST|3
+FreeStatesBunker04|ACTI|8
+FreeStatesBunker04|BNDS|1
+FreeStatesBunker04|BOOK|2
+FreeStatesBunker04|CONT|25
+FreeStatesBunker04|DOOR|5
+FreeStatesBunker04|FLOR|4
+FreeStatesBunker04|FURN|13
+FreeStatesBunker04|IDLM|2
+FreeStatesBunker04|LIGH|10
+FreeStatesBunker04|LVLI|12
+FreeStatesBunker04|MISC|64
+FreeStatesBunker04|MSTT|16
+FreeStatesBunker04|NOTE|4
+FreeStatesBunker04|NPC_|1
+FreeStatesBunker04|SCOL|26
+FreeStatesBunker04|SOUN|1
+FreeStatesBunker04|STAT|189
+FreeStatesBunker04|TERM|3
+FreeStatesBunker04|TXST|1
+FreeStatesBunker06|ACTI|8
+FreeStatesBunker06|BNDS|1
+FreeStatesBunker06|CONT|10
+FreeStatesBunker06|DOOR|3
+FreeStatesBunker06|FURN|10
+FreeStatesBunker06|KEYM|1
+FreeStatesBunker06|LIGH|12
+FreeStatesBunker06|LVLI|11
+FreeStatesBunker06|MISC|47
+FreeStatesBunker06|MSTT|14
+FreeStatesBunker06|NPC_|2
+FreeStatesBunker06|SCOL|29
+FreeStatesBunker06|SOUN|1
+FreeStatesBunker06|STAT|213
+FreeStatesBunker06|TERM|1
+FreeStatesBunker06|TXST|7
+FreeStatesBunker07|ACTI|4
+FreeStatesBunker07|ARMO|1
+FreeStatesBunker07|BNDS|2
+FreeStatesBunker07|BOOK|2
+FreeStatesBunker07|CONT|15
+FreeStatesBunker07|DOOR|3
+FreeStatesBunker07|FURN|18
+FreeStatesBunker07|IDLM|1
+FreeStatesBunker07|LIGH|17
+FreeStatesBunker07|LVLI|28
+FreeStatesBunker07|MISC|80
+FreeStatesBunker07|MSTT|20
+FreeStatesBunker07|NPC_|4
+FreeStatesBunker07|SCOL|24
+FreeStatesBunker07|SOUN|1
+FreeStatesBunker07|STAT|289
+FreeStatesBunker07|TXST|19
+GarrahanMiningHQ01|ACTI|29
+GarrahanMiningHQ01|ARMO|1
+GarrahanMiningHQ01|ASPC|4
+GarrahanMiningHQ01|BNDS|2
+GarrahanMiningHQ01|BOOK|2
+GarrahanMiningHQ01|CONT|39
+GarrahanMiningHQ01|DOOR|12
+GarrahanMiningHQ01|FLOR|1
+GarrahanMiningHQ01|FURN|33
+GarrahanMiningHQ01|HAZD|2
+GarrahanMiningHQ01|IDLM|2
+GarrahanMiningHQ01|KEYM|1
+GarrahanMiningHQ01|LIGH|23
+GarrahanMiningHQ01|LVLI|51
+GarrahanMiningHQ01|MISC|71
+GarrahanMiningHQ01|MSTT|35
+GarrahanMiningHQ01|NOTE|1
+GarrahanMiningHQ01|NPC_|14
+GarrahanMiningHQ01|SCOL|112
+GarrahanMiningHQ01|SOUN|4
+GarrahanMiningHQ01|STAT|857
+GarrahanMiningHQ01|TERM|7
+GarrahanMiningHQ01|TXST|36
+GauleyMine01|ACTI|20
+GauleyMine01|ASPC|2
+GauleyMine01|BNDS|1
+GauleyMine01|BOOK|3
+GauleyMine01|CONT|16
+GauleyMine01|DOOR|8
+GauleyMine01|FLOR|1
+GauleyMine01|FURN|9
+GauleyMine01|IDLM|2
+GauleyMine01|LIGH|33
+GauleyMine01|LVLI|36
+GauleyMine01|MISC|59
+GauleyMine01|MSTT|29
+GauleyMine01|NOTE|1
+GauleyMine01|NPC_|9
+GauleyMine01|SCOL|59
+GauleyMine01|SOUN|3
+GauleyMine01|STAT|550
+GauleyMine01|TACT|1
+GauleyMine01|TXST|28
+GauleyMine01|WEAP|2
+GlassedCavern01|ACTI|23
+GlassedCavern01|ASPC|2
+GlassedCavern01|BNDS|1
+GlassedCavern01|CONT|44
+GlassedCavern01|DOOR|9
+GlassedCavern01|FLOR|1
+GlassedCavern01|FURN|13
+GlassedCavern01|HAZD|6
+GlassedCavern01|IDLM|2
+GlassedCavern01|LIGH|29
+GlassedCavern01|LVLI|43
+GlassedCavern01|MISC|82
+GlassedCavern01|MSTT|38
+GlassedCavern01|NOTE|5
+GlassedCavern01|NPC_|31
+GlassedCavern01|SCOL|107
+GlassedCavern01|SOUN|6
+GlassedCavern01|STAT|690
+GlassedCavern01|TERM|1
+GlassedCavern01|TXST|54
+GlassedCavern01|WEAP|1
+GraftonPawnShop01|ACTI|9
+GraftonPawnShop01|BNDS|1
+GraftonPawnShop01|BOOK|20
+GraftonPawnShop01|CONT|10
+GraftonPawnShop01|DOOR|5
+GraftonPawnShop01|FLOR|3
+GraftonPawnShop01|FURN|5
+GraftonPawnShop01|LIGH|11
+GraftonPawnShop01|LVLI|7
+GraftonPawnShop01|MISC|89
+GraftonPawnShop01|MSTT|20
+GraftonPawnShop01|SCOL|45
+GraftonPawnShop01|SOUN|1
+GraftonPawnShop01|STAT|308
+GraftonPawnShop01|TXST|14
+GraftonSteelUnderground01|ACTI|31
+GraftonSteelUnderground01|ALCH|3
+GraftonSteelUnderground01|ARMO|6
+GraftonSteelUnderground01|ASPC|3
+GraftonSteelUnderground01|BNDS|2
+GraftonSteelUnderground01|CONT|35
+GraftonSteelUnderground01|DOOR|18
+GraftonSteelUnderground01|FURN|19
+GraftonSteelUnderground01|IDLM|2
+GraftonSteelUnderground01|KEYM|3
+GraftonSteelUnderground01|LIGH|34
+GraftonSteelUnderground01|LVLI|34
+GraftonSteelUnderground01|MISC|79
+GraftonSteelUnderground01|MSTT|45
+GraftonSteelUnderground01|NPC_|9
+GraftonSteelUnderground01|SCOL|318
+GraftonSteelUnderground01|SOUN|7
+GraftonSteelUnderground01|STAT|963
+GraftonSteelUnderground01|TERM|9
+GraftonSteelUnderground01|TXST|23
+HarpersFerryDungeon01|ACTI|23
+HarpersFerryDungeon01|ALCH|1
+HarpersFerryDungeon01|ARMO|2
+HarpersFerryDungeon01|ASPC|2
+HarpersFerryDungeon01|BNDS|2
+HarpersFerryDungeon01|BOOK|14
+HarpersFerryDungeon01|CONT|48
+HarpersFerryDungeon01|DOOR|16
+HarpersFerryDungeon01|FURN|40
+HarpersFerryDungeon01|IDLM|2
+HarpersFerryDungeon01|LIGH|34
+HarpersFerryDungeon01|LVLI|27
+HarpersFerryDungeon01|MISC|114
+HarpersFerryDungeon01|MSTT|60
+HarpersFerryDungeon01|NPC_|8
+HarpersFerryDungeon01|SCOL|227
+HarpersFerryDungeon01|SOUN|2
+HarpersFerryDungeon01|STAT|999
+HarpersFerryDungeon01|TERM|3
+HarpersFerryDungeon01|TXST|19
+HarpersFerryDungeon01|WEAP|6
+HornwrightHQ01|ACTI|47
+HornwrightHQ01|ASPC|3
+HornwrightHQ01|BOOK|4
+HornwrightHQ01|CONT|19
+HornwrightHQ01|DOOR|12
+HornwrightHQ01|FURN|20
+HornwrightHQ01|IDLM|2
+HornwrightHQ01|KEYM|2
+HornwrightHQ01|LIGH|17
+HornwrightHQ01|LVLI|57
+HornwrightHQ01|MISC|47
+HornwrightHQ01|MSTT|27
+HornwrightHQ01|NOTE|1
+HornwrightHQ01|NPC_|14
+HornwrightHQ01|SCOL|93
+HornwrightHQ01|SOUN|1
+HornwrightHQ01|STAT|522
+HornwrightHQ01|TACT|2
+HornwrightHQ01|TERM|9
+HornwrightHQ01|TXST|33
+HornwrightHQ01|WEAP|1
+HornwrightSafeRoom01|ACTI|11
+HornwrightSafeRoom01|ALCH|2
+HornwrightSafeRoom01|BOOK|1
+HornwrightSafeRoom01|CONT|5
+HornwrightSafeRoom01|DOOR|5
+HornwrightSafeRoom01|FURN|13
+HornwrightSafeRoom01|IDLM|3
+HornwrightSafeRoom01|LIGH|8
+HornwrightSafeRoom01|LVLI|8
+HornwrightSafeRoom01|MISC|19
+HornwrightSafeRoom01|MSTT|4
+HornwrightSafeRoom01|NPC_|1
+HornwrightSafeRoom01|SCOL|26
+HornwrightSafeRoom01|STAT|126
+HornwrightSafeRoom01|TXST|1
+HornwrightSafeRoom01|WEAP|1
+KerwoodMine01|ACTI|19
+KerwoodMine01|ASPC|1
+KerwoodMine01|BNDS|1
+KerwoodMine01|BOOK|2
+KerwoodMine01|CONT|31
+KerwoodMine01|DOOR|6
+KerwoodMine01|FURN|11
+KerwoodMine01|IDLM|2
+KerwoodMine01|KEYM|1
+KerwoodMine01|LIGH|25
+KerwoodMine01|LVLI|41
+KerwoodMine01|MISC|18
+KerwoodMine01|MSTT|21
+KerwoodMine01|NOTE|1
+KerwoodMine01|NPC_|11
+KerwoodMine01|SCOL|67
+KerwoodMine01|SOUN|4
+KerwoodMine01|STAT|395
+KerwoodMine01|TERM|1
+KerwoodMine01|TXST|14
+LewisandSonsFarmingSupply01|ACTI|4
+LewisandSonsFarmingSupply01|ALCH|1
+LewisandSonsFarmingSupply01|CONT|12
+LewisandSonsFarmingSupply01|DOOR|1
+LewisandSonsFarmingSupply01|FURN|21
+LewisandSonsFarmingSupply01|LIGH|6
+LewisandSonsFarmingSupply01|LVLI|16
+LewisandSonsFarmingSupply01|MISC|60
+LewisandSonsFarmingSupply01|MSTT|6
+LewisandSonsFarmingSupply01|NPC_|4
+LewisandSonsFarmingSupply01|SCOL|1
+LewisandSonsFarmingSupply01|STAT|140
+LousMine01|ACTI|36
+LousMine01|ALCH|5
+LousMine01|ARMO|2
+LousMine01|ASPC|1
+LousMine01|BNDS|4
+LousMine01|BOOK|5
+LousMine01|CONT|22
+LousMine01|DOOR|8
+LousMine01|FLOR|1
+LousMine01|FURN|14
+LousMine01|IDLM|2
+LousMine01|LIGH|37
+LousMine01|LVLI|27
+LousMine01|MISC|22
+LousMine01|MSTT|22
+LousMine01|NPC_|12
+LousMine01|SCOL|83
+LousMine01|SOUN|7
+LousMine01|STAT|622
+LousMine01|TACT|1
+LousMine01|TERM|6
+LousMine01|TXST|26
+LousMine01|WEAP|2
+MTR08LodeBaring01|ACTI|14
+MTR08LodeBaring01|ASPC|4
+MTR08LodeBaring01|BNDS|1
+MTR08LodeBaring01|CONT|21
+MTR08LodeBaring01|DOOR|1
+MTR08LodeBaring01|FLOR|1
+MTR08LodeBaring01|FURN|7
+MTR08LodeBaring01|HAZD|1
+MTR08LodeBaring01|IDLM|2
+MTR08LodeBaring01|LIGH|15
+MTR08LodeBaring01|LVLI|18
+MTR08LodeBaring01|MISC|29
+MTR08LodeBaring01|MSTT|22
+MTR08LodeBaring01|NPC_|7
+MTR08LodeBaring01|SCOL|38
+MTR08LodeBaring01|SOUN|2
+MTR08LodeBaring01|STAT|410
+MTR08LodeBaring01|TXST|30
+MTR08LodeBaring02|ACTI|13
+MTR08LodeBaring02|ASPC|3
+MTR08LodeBaring02|BNDS|1
+MTR08LodeBaring02|CONT|21
+MTR08LodeBaring02|DOOR|1
+MTR08LodeBaring02|FLOR|1
+MTR08LodeBaring02|FURN|5
+MTR08LodeBaring02|HAZD|1
+MTR08LodeBaring02|IDLM|2
+MTR08LodeBaring02|LIGH|14
+MTR08LodeBaring02|LVLI|15
+MTR08LodeBaring02|MISC|17
+MTR08LodeBaring02|MSTT|16
+MTR08LodeBaring02|NPC_|7
+MTR08LodeBaring02|SCOL|30
+MTR08LodeBaring02|SOUN|1
+MTR08LodeBaring02|STAT|329
+MTR08LodeBaring02|TERM|1
+MTR08LodeBaring02|TXST|12
+MamaDolceProcessing01|ACTI|25
+MamaDolceProcessing01|ASPC|3
+MamaDolceProcessing01|CONT|31
+MamaDolceProcessing01|DOOR|7
+MamaDolceProcessing01|FURN|16
+MamaDolceProcessing01|IDLM|2
+MamaDolceProcessing01|LIGH|16
+MamaDolceProcessing01|LVLI|28
+MamaDolceProcessing01|MISC|33
+MamaDolceProcessing01|MSTT|22
+MamaDolceProcessing01|NPC_|11
+MamaDolceProcessing01|SCOL|65
+MamaDolceProcessing01|SOUN|1
+MamaDolceProcessing01|STAT|349
+MamaDolceProcessing01|TERM|4
+MamaDolceProcessing01|TXST|18
+MonongahMine01|ACTI|18
+MonongahMine01|BNDS|1
+MonongahMine01|BOOK|4
+MonongahMine01|CONT|16
+MonongahMine01|DOOR|5
+MonongahMine01|FLOR|1
+MonongahMine01|FURN|13
+MonongahMine01|HAZD|3
+MonongahMine01|IDLM|1
+MonongahMine01|LIGH|22
+MonongahMine01|LVLI|15
+MonongahMine01|MISC|60
+MonongahMine01|MSTT|44
+MonongahMine01|NOTE|1
+MonongahMine01|NPC_|16
+MonongahMine01|SCOL|84
+MonongahMine01|SOUN|2
+MonongahMine01|STAT|530
+MonongahMine01|TXST|31
+MonongahMine01|WEAP|1
+MonongahMissileSilo01|ACTI|44
+MonongahMissileSilo01|ALCH|2
+MonongahMissileSilo01|ASPC|1
+MonongahMissileSilo01|CONT|54
+MonongahMissileSilo01|DOOR|10
+MonongahMissileSilo01|FURN|27
+MonongahMissileSilo01|HAZD|1
+MonongahMissileSilo01|IDLM|2
+MonongahMissileSilo01|LIGH|19
+MonongahMissileSilo01|LVLI|60
+MonongahMissileSilo01|MISC|165
+MonongahMissileSilo01|MSTT|72
+MonongahMissileSilo01|NPC_|13
+MonongahMissileSilo01|SCOL|82
+MonongahMissileSilo01|SOUN|9
+MonongahMissileSilo01|STAT|595
+MonongahMissileSilo01|TERM|20
+MonongahMissileSilo01|TXST|13
+MonongahMissileSilo01|WEAP|1
+MonongahPowerPlant01|ACTI|34
+MonongahPowerPlant01|ALCH|2
+MonongahPowerPlant01|ASPC|2
+MonongahPowerPlant01|BNDS|4
+MonongahPowerPlant01|BOOK|1
+MonongahPowerPlant01|CNCY|1
+MonongahPowerPlant01|CONT|48
+MonongahPowerPlant01|DOOR|19
+MonongahPowerPlant01|FURN|29
+MonongahPowerPlant01|IDLM|1
+MonongahPowerPlant01|LIGH|24
+MonongahPowerPlant01|LVLI|29
+MonongahPowerPlant01|MISC|92
+MonongahPowerPlant01|MSTT|34
+MonongahPowerPlant01|NPC_|10
+MonongahPowerPlant01|SCOL|175
+MonongahPowerPlant01|SOUN|4
+MonongahPowerPlant01|STAT|1059
+MonongahPowerPlant01|TERM|5
+MonongahPowerPlant01|TXST|19
+MorgantownAirportTerminal02|ACTI|32
+MorgantownAirportTerminal02|ALCH|1
+MorgantownAirportTerminal02|ASPC|2
+MorgantownAirportTerminal02|BNDS|3
+MorgantownAirportTerminal02|BOOK|7
+MorgantownAirportTerminal02|CONT|48
+MorgantownAirportTerminal02|DOOR|11
+MorgantownAirportTerminal02|FURN|32
+MorgantownAirportTerminal02|IDLM|2
+MorgantownAirportTerminal02|KEYM|1
+MorgantownAirportTerminal02|LIGH|30
+MorgantownAirportTerminal02|LVLI|35
+MorgantownAirportTerminal02|MISC|89
+MorgantownAirportTerminal02|MSTT|51
+MorgantownAirportTerminal02|NOTE|4
+MorgantownAirportTerminal02|NPC_|12
+MorgantownAirportTerminal02|SCOL|163
+MorgantownAirportTerminal02|SOUN|3
+MorgantownAirportTerminal02|STAT|749
+MorgantownAirportTerminal02|TERM|5
+MorgantownAirportTerminal02|TXST|33
+MorgantownAirportTerminal02|WEAP|1
+MorgantownApartment01|ACTI|7
+MorgantownApartment01|ASPC|3
+MorgantownApartment01|BOOK|2
+MorgantownApartment01|CONT|21
+MorgantownApartment01|DOOR|11
+MorgantownApartment01|FLOR|3
+MorgantownApartment01|FURN|24
+MorgantownApartment01|LIGH|13
+MorgantownApartment01|LVLI|17
+MorgantownApartment01|MISC|65
+MorgantownApartment01|MSTT|14
+MorgantownApartment01|NOTE|1
+MorgantownApartment01|NPC_|3
+MorgantownApartment01|SCOL|32
+MorgantownApartment01|STAT|255
+MorgantownApartment01|TERM|2
+MorgantownHighSchool01|ACTI|24
+MorgantownHighSchool01|ASPC|2
+MorgantownHighSchool01|BNDS|1
+MorgantownHighSchool01|BOOK|2
+MorgantownHighSchool01|CNCY|1
+MorgantownHighSchool01|CONT|29
+MorgantownHighSchool01|DOOR|18
+MorgantownHighSchool01|FURN|23
+MorgantownHighSchool01|IDLM|2
+MorgantownHighSchool01|KEYM|2
+MorgantownHighSchool01|LIGH|15
+MorgantownHighSchool01|LVLI|33
+MorgantownHighSchool01|MISC|127
+MorgantownHighSchool01|MSTT|38
+MorgantownHighSchool01|NOTE|1
+MorgantownHighSchool01|NPC_|8
+MorgantownHighSchool01|SCOL|48
+MorgantownHighSchool01|SOUN|1
+MorgantownHighSchool01|STAT|612
+MorgantownHighSchool01|TERM|2
+MorgantownHighSchool01|TXST|18
+MountBlairWarehouseBasement01|ACTI|3
+MountBlairWarehouseBasement01|CONT|5
+MountBlairWarehouseBasement01|DOOR|2
+MountBlairWarehouseBasement01|IDLM|1
+MountBlairWarehouseBasement01|LIGH|7
+MountBlairWarehouseBasement01|LVLI|5
+MountBlairWarehouseBasement01|MISC|13
+MountBlairWarehouseBasement01|MSTT|5
+MountBlairWarehouseBasement01|NPC_|1
+MountBlairWarehouseBasement01|SCOL|6
+MountBlairWarehouseBasement01|SOUN|2
+MountBlairWarehouseBasement01|STAT|124
+NukaColaQuantumPlant01|ACTI|20
+NukaColaQuantumPlant01|ALCH|1
+NukaColaQuantumPlant01|ASPC|3
+NukaColaQuantumPlant01|BNDS|1
+NukaColaQuantumPlant01|BOOK|6
+NukaColaQuantumPlant01|CONT|36
+NukaColaQuantumPlant01|DOOR|10
+NukaColaQuantumPlant01|FURN|15
+NukaColaQuantumPlant01|HAZD|1
+NukaColaQuantumPlant01|IDLM|2
+NukaColaQuantumPlant01|KEYM|1
+NukaColaQuantumPlant01|LIGH|19
+NukaColaQuantumPlant01|LVLI|27
+NukaColaQuantumPlant01|MISC|75
+NukaColaQuantumPlant01|MSTT|33
+NukaColaQuantumPlant01|NOTE|3
+NukaColaQuantumPlant01|NPC_|6
+NukaColaQuantumPlant01|SCOL|51
+NukaColaQuantumPlant01|SOUN|5
+NukaColaQuantumPlant01|STAT|658
+NukaColaQuantumPlant01|TERM|3
+NukaColaQuantumPlant01|TXST|21
+OrwellOrchardsShelter01|ACTI|14
+OrwellOrchardsShelter01|ALCH|2
+OrwellOrchardsShelter01|ARMO|2
+OrwellOrchardsShelter01|BOOK|2
+OrwellOrchardsShelter01|CONT|29
+OrwellOrchardsShelter01|DOOR|4
+OrwellOrchardsShelter01|FLOR|1
+OrwellOrchardsShelter01|FURN|25
+OrwellOrchardsShelter01|HAZD|1
+OrwellOrchardsShelter01|IDLM|2
+OrwellOrchardsShelter01|LIGH|14
+OrwellOrchardsShelter01|LVLI|27
+OrwellOrchardsShelter01|MISC|109
+OrwellOrchardsShelter01|MSTT|36
+OrwellOrchardsShelter01|NPC_|6
+OrwellOrchardsShelter01|SCOL|39
+OrwellOrchardsShelter01|STAT|339
+OrwellOrchardsShelter01|TERM|1
+OrwellOrchardsShelter01|TXST|11
+OrwellOrchardsShelter01|WEAP|1
+OverseersHome01|ACTI|11
+OverseersHome01|ALCH|2
+OverseersHome01|ARMO|6
+OverseersHome01|BNDS|3
+OverseersHome01|CONT|10
+OverseersHome01|DOOR|3
+OverseersHome01|FURN|13
+OverseersHome01|IDLM|1
+OverseersHome01|LIGH|15
+OverseersHome01|LVLI|20
+OverseersHome01|MISC|82
+OverseersHome01|MSTT|32
+OverseersHome01|NPC_|2
+OverseersHome01|SCOL|21
+OverseersHome01|SOUN|1
+OverseersHome01|STAT|201
+OverseersHome01|TERM|1
+OverseersHome01|TXST|12
+OverseersHome01|WEAP|1
+PoseidonPlant01|ACTI|51
+PoseidonPlant01|ASPC|3
+PoseidonPlant01|BNDS|1
+PoseidonPlant01|CNCY|1
+PoseidonPlant01|CONT|60
+PoseidonPlant01|DOOR|21
+PoseidonPlant01|FURN|19
+PoseidonPlant01|HAZD|1
+PoseidonPlant01|IDLM|2
+PoseidonPlant01|KEYM|2
+PoseidonPlant01|LIGH|33
+PoseidonPlant01|LVLI|44
+PoseidonPlant01|MISC|93
+PoseidonPlant01|MSTT|43
+PoseidonPlant01|NOTE|1
+PoseidonPlant01|NPC_|12
+PoseidonPlant01|SCOL|157
+PoseidonPlant01|SOUN|5
+PoseidonPlant01|STAT|980
+PoseidonPlant01|TERM|12
+PoseidonPlant01|TXST|28
+PoseidonPlant02|ACTI|13
+PoseidonPlant02|ALCH|3
+PoseidonPlant02|ARMO|1
+PoseidonPlant02|ASPC|2
+PoseidonPlant02|BNDS|5
+PoseidonPlant02|CONT|30
+PoseidonPlant02|DOOR|6
+PoseidonPlant02|FURN|16
+PoseidonPlant02|IDLM|2
+PoseidonPlant02|LIGH|27
+PoseidonPlant02|LVLI|38
+PoseidonPlant02|MISC|53
+PoseidonPlant02|MSTT|23
+PoseidonPlant02|NOTE|4
+PoseidonPlant02|NPC_|9
+PoseidonPlant02|SCOL|70
+PoseidonPlant02|SOUN|1
+PoseidonPlant02|STAT|598
+PoseidonPlant02|TERM|1
+PoseidonPlant02|TXST|32
+PoseidonPlant02|WEAP|1
+RadioResearchCenter01|ACTI|12
+RadioResearchCenter01|ASPC|2
+RadioResearchCenter01|BOOK|2
+RadioResearchCenter01|CONT|25
+RadioResearchCenter01|DOOR|16
+RadioResearchCenter01|FURN|14
+RadioResearchCenter01|IDLM|1
+RadioResearchCenter01|KEYM|1
+RadioResearchCenter01|LIGH|14
+RadioResearchCenter01|LVLI|16
+RadioResearchCenter01|MISC|89
+RadioResearchCenter01|MSTT|19
+RadioResearchCenter01|NOTE|1
+RadioResearchCenter01|NPC_|8
+RadioResearchCenter01|SCOL|42
+RadioResearchCenter01|SOUN|1
+RadioResearchCenter01|STAT|537
+RadioResearchCenter01|TERM|3
+RadioResearchCenter01|TXST|13
+RaiderCave01|ACTI|9
+RaiderCave01|BOOK|2
+RaiderCave01|CONT|3
+RaiderCave01|DOOR|2
+RaiderCave01|FLOR|1
+RaiderCave01|FURN|11
+RaiderCave01|IDLM|1
+RaiderCave01|LIGH|5
+RaiderCave01|LVLI|2
+RaiderCave01|MISC|8
+RaiderCave01|MSTT|4
+RaiderCave01|NPC_|5
+RaiderCave01|SCOL|20
+RaiderCave01|STAT|234
+RaiderCave01|TXST|1
+RaiderCave02|ACTI|9
+RaiderCave02|BNDS|1
+RaiderCave02|BOOK|3
+RaiderCave02|CONT|14
+RaiderCave02|DOOR|4
+RaiderCave02|FURN|10
+RaiderCave02|IDLM|2
+RaiderCave02|LIGH|13
+RaiderCave02|LVLI|13
+RaiderCave02|MISC|34
+RaiderCave02|MSTT|14
+RaiderCave02|NPC_|5
+RaiderCave02|SCOL|41
+RaiderCave02|STAT|342
+RaiderCave02|TERM|1
+RaiderCave02|TXST|16
+RaiderCave03|ACTI|12
+RaiderCave03|BNDS|1
+RaiderCave03|BOOK|2
+RaiderCave03|CONT|6
+RaiderCave03|DOOR|4
+RaiderCave03|FURN|14
+RaiderCave03|IDLM|1
+RaiderCave03|LIGH|5
+RaiderCave03|LVLI|17
+RaiderCave03|MISC|10
+RaiderCave03|MSTT|6
+RaiderCave03|NPC_|9
+RaiderCave03|SCOL|17
+RaiderCave03|STAT|166
+RaiderCave03|TXST|2
+RaiderRaidTrailerInt|CONT|7
+RaiderRaidTrailerInt|DOOR|1
+RaiderRaidTrailerInt|FURN|2
+RaiderRaidTrailerInt|LIGH|3
+RaiderRaidTrailerInt|LVLI|9
+RaiderRaidTrailerInt|MISC|18
+RaiderRaidTrailerInt|MSTT|1
+RaiderRaidTrailerInt|NPC_|3
+RaiderRaidTrailerInt|SCOL|3
+RaiderRaidTrailerInt|STAT|27
+RaiderRaidTrailerInt|TXST|11
+RiversideManor01|ACTI|26
+RiversideManor01|ASPC|4
+RiversideManor01|BNDS|2
+RiversideManor01|CONT|37
+RiversideManor01|DOOR|13
+RiversideManor01|FLOR|2
+RiversideManor01|FURN|29
+RiversideManor01|IDLM|1
+RiversideManor01|LIGH|22
+RiversideManor01|LVLI|41
+RiversideManor01|MISC|113
+RiversideManor01|MSTT|13
+RiversideManor01|NOTE|3
+RiversideManor01|NPC_|6
+RiversideManor01|SCOL|76
+RiversideManor01|SOUN|1
+RiversideManor01|STAT|797
+RiversideManor01|TERM|10
+RiversideManor01|TXST|28
+RobCoResearchCenter01|ACTI|41
+RobCoResearchCenter01|ASPC|1
+RobCoResearchCenter01|BNDS|1
+RobCoResearchCenter01|BOOK|5
+RobCoResearchCenter01|CONT|33
+RobCoResearchCenter01|DOOR|11
+RobCoResearchCenter01|FURN|19
+RobCoResearchCenter01|IDLM|2
+RobCoResearchCenter01|LIGH|26
+RobCoResearchCenter01|LVLI|47
+RobCoResearchCenter01|MISC|123
+RobCoResearchCenter01|MSTT|33
+RobCoResearchCenter01|NOTE|2
+RobCoResearchCenter01|NPC_|15
+RobCoResearchCenter01|SCOL|141
+RobCoResearchCenter01|STAT|538
+RobCoResearchCenter01|TACT|7
+RobCoResearchCenter01|TERM|6
+RobCoResearchCenter01|TXST|18
+RobcoExperimentalCache01|ACTI|48
+RobcoExperimentalCache01|ALCH|5
+RobcoExperimentalCache01|ASPC|4
+RobcoExperimentalCache01|BNDS|1
+RobcoExperimentalCache01|BOOK|9
+RobcoExperimentalCache01|CONT|20
+RobcoExperimentalCache01|DOOR|9
+RobcoExperimentalCache01|FURN|4
+RobcoExperimentalCache01|IDLM|1
+RobcoExperimentalCache01|KEYM|1
+RobcoExperimentalCache01|LIGH|16
+RobcoExperimentalCache01|LVLI|21
+RobcoExperimentalCache01|MISC|71
+RobcoExperimentalCache01|MSTT|27
+RobcoExperimentalCache01|NPC_|5
+RobcoExperimentalCache01|SCOL|109
+RobcoExperimentalCache01|STAT|395
+RobcoExperimentalCache01|TERM|1
+RobcoExperimentalCache01|TXST|20
+RollinsLaborCamp01|ACTI|4
+RollinsLaborCamp01|ALCH|1
+RollinsLaborCamp01|CONT|2
+RollinsLaborCamp01|DOOR|3
+RollinsLaborCamp01|FURN|4
+RollinsLaborCamp01|LIGH|5
+RollinsLaborCamp01|LVLI|1
+RollinsLaborCamp01|MISC|16
+RollinsLaborCamp01|MSTT|6
+RollinsLaborCamp01|NPC_|1
+RollinsLaborCamp01|SCOL|6
+RollinsLaborCamp01|STAT|47
+RollinsLaborCamp01|TXST|6
+SamBlackwellBunker02|ACTI|22
+SamBlackwellBunker02|ALCH|1
+SamBlackwellBunker02|BNDS|1
+SamBlackwellBunker02|BOOK|8
+SamBlackwellBunker02|CONT|24
+SamBlackwellBunker02|DOOR|11
+SamBlackwellBunker02|FLOR|1
+SamBlackwellBunker02|FURN|17
+SamBlackwellBunker02|LIGH|17
+SamBlackwellBunker02|LVLI|12
+SamBlackwellBunker02|MISC|88
+SamBlackwellBunker02|MSTT|34
+SamBlackwellBunker02|NOTE|1
+SamBlackwellBunker02|SCOL|35
+SamBlackwellBunker02|SOUN|4
+SamBlackwellBunker02|STAT|331
+SamBlackwellBunker02|TERM|3
+SamBlackwellBunker02|TXST|20
+SamBlackwellsDeathclawCave|ACTI|9
+SamBlackwellsDeathclawCave|ASPC|2
+SamBlackwellsDeathclawCave|BNDS|1
+SamBlackwellsDeathclawCave|CONT|11
+SamBlackwellsDeathclawCave|DOOR|6
+SamBlackwellsDeathclawCave|FURN|1
+SamBlackwellsDeathclawCave|IDLM|2
+SamBlackwellsDeathclawCave|LIGH|9
+SamBlackwellsDeathclawCave|LVLI|12
+SamBlackwellsDeathclawCave|MISC|24
+SamBlackwellsDeathclawCave|MSTT|17
+SamBlackwellsDeathclawCave|NPC_|2
+SamBlackwellsDeathclawCave|SCOL|22
+SamBlackwellsDeathclawCave|SOUN|1
+SamBlackwellsDeathclawCave|STAT|199
+SamBlackwellsDeathclawCave|TXST|18
+SettlerBugOutCave|ACTI|3
+SettlerBugOutCave|BNDS|1
+SettlerBugOutCave|BOOK|1
+SettlerBugOutCave|CONT|3
+SettlerBugOutCave|DOOR|1
+SettlerBugOutCave|FURN|3
+SettlerBugOutCave|IDLM|1
+SettlerBugOutCave|LIGH|5
+SettlerBugOutCave|LVLI|7
+SettlerBugOutCave|MISC|17
+SettlerBugOutCave|MSTT|3
+SettlerBugOutCave|NPC_|2
+SettlerBugOutCave|SCOL|4
+SettlerBugOutCave|STAT|71
+SettlerBugOutCave|TXST|7
+SettlerBugOutCave|WEAP|1
+SheltersCave01|ACTI|6
+SheltersCave01|LIGH|6
+SheltersCave01|SCOL|3
+SheltersCave01|SECH|1
+SheltersCave01|SOUN|2
+SheltersCave01|STAT|44
+SheltersCave01|TXST|5
+SheltersCave02|ACTI|4
+SheltersCave02|LIGH|2
+SheltersCave02|SCOL|3
+SheltersCave02|STAT|51
+SheltersCave02|TXST|3
+SheltersClaimCenter01|ACTI|8
+SheltersClaimCenter01|ALCH|12
+SheltersClaimCenter01|CONT|4
+SheltersClaimCenter01|DOOR|2
+SheltersClaimCenter01|FURN|15
+SheltersClaimCenter01|IDLM|2
+SheltersClaimCenter01|LIGH|6
+SheltersClaimCenter01|LVLI|2
+SheltersClaimCenter01|MISC|19
+SheltersClaimCenter01|MSTT|26
+SheltersClaimCenter01|NPC_|1
+SheltersClaimCenter01|SCOL|9
+SheltersClaimCenter01|STAT|197
+SheltersClaimCenter01|TERM|1
+SheltersClaimCenter01|TXST|11
+SheltersMissileSilo|ACTI|8
+SheltersMissileSilo|LIGH|4
+SheltersMissileSilo|MSTT|1
+SheltersMissileSilo|SCOL|1
+SheltersMissileSilo|STAT|46
+SheltersMissileSilo|TXST|12
+SheltersVaultAtrium01|ACTI|3
+SheltersVaultAtrium01|LIGH|8
+SheltersVaultAtrium01|MSTT|19
+SheltersVaultAtrium01|SCOL|10
+SheltersVaultAtrium01|STAT|201
+SheltersVaultAtrium01|TXST|12
+SheltersVaultLivingQuarters01|ACTI|4
+SheltersVaultLivingQuarters01|LIGH|12
+SheltersVaultLivingQuarters01|MSTT|20
+SheltersVaultLivingQuarters01|SCOL|15
+SheltersVaultLivingQuarters01|STAT|152
+SheltersVaultLivingQuarters01|TXST|4
+SheltersVaultReception01|ACTI|3
+SheltersVaultReception01|FLOR|1
+SheltersVaultReception01|LIGH|5
+SheltersVaultReception01|MSTT|11
+SheltersVaultReception01|SCOL|11
+SheltersVaultReception01|STAT|177
+SheltersVaultReception01|TXST|8
+SheltersVaultServerRoom01|ACTI|4
+SheltersVaultServerRoom01|BNDS|1
+SheltersVaultServerRoom01|LIGH|15
+SheltersVaultServerRoom01|MSTT|12
+SheltersVaultServerRoom01|SCOL|138
+SheltersVaultServerRoom01|STAT|246
+SheltersVaultServerRoom01|TXST|4
+SheltersVaultStorageRoom01|ACTI|3
+SheltersVaultStorageRoom01|DOOR|1
+SheltersVaultStorageRoom01|LIGH|5
+SheltersVaultStorageRoom01|MSTT|12
+SheltersVaultStorageRoom01|SCOL|2
+SheltersVaultStorageRoom01|STAT|95
+SheltersVaultStorageRoom01|TXST|6
+SpruceKnobCampground01|ACTI|3
+SpruceKnobCampground01|CONT|5
+SpruceKnobCampground01|DOOR|2
+SpruceKnobCampground01|FURN|4
+SpruceKnobCampground01|IDLM|1
+SpruceKnobCampground01|LIGH|5
+SpruceKnobCampground01|LVLI|14
+SpruceKnobCampground01|MISC|66
+SpruceKnobCampground01|MSTT|7
+SpruceKnobCampground01|NOTE|1
+SpruceKnobCampground01|NPC_|1
+SpruceKnobCampground01|SCOL|48
+SpruceKnobCampground01|STAT|203
+SpruceKnobCampground01|TXST|1
+SpruceKnobMissileSilo01|ACTI|44
+SpruceKnobMissileSilo01|ALCH|2
+SpruceKnobMissileSilo01|ASPC|1
+SpruceKnobMissileSilo01|CONT|54
+SpruceKnobMissileSilo01|DOOR|10
+SpruceKnobMissileSilo01|FURN|27
+SpruceKnobMissileSilo01|HAZD|1
+SpruceKnobMissileSilo01|IDLM|2
+SpruceKnobMissileSilo01|LIGH|19
+SpruceKnobMissileSilo01|LVLI|60
+SpruceKnobMissileSilo01|MISC|165
+SpruceKnobMissileSilo01|MSTT|72
+SpruceKnobMissileSilo01|NPC_|13
+SpruceKnobMissileSilo01|SCOL|82
+SpruceKnobMissileSilo01|SOUN|9
+SpruceKnobMissileSilo01|STAT|595
+SpruceKnobMissileSilo01|TERM|20
+SpruceKnobMissileSilo01|TXST|13
+SpruceKnobMissileSilo01|WEAP|1
+SugarGrove01|ACTI|12
+SugarGrove01|ASPC|1
+SugarGrove01|BOOK|1
+SugarGrove01|CONT|47
+SugarGrove01|DOOR|13
+SugarGrove01|FURN|18
+SugarGrove01|IDLM|2
+SugarGrove01|KEYM|5
+SugarGrove01|LIGH|32
+SugarGrove01|LVLI|29
+SugarGrove01|MISC|66
+SugarGrove01|MSTT|29
+SugarGrove01|NOTE|6
+SugarGrove01|NPC_|8
+SugarGrove01|SCOL|114
+SugarGrove01|SOUN|2
+SugarGrove01|STAT|640
+SugarGrove01|TERM|6
+SugarGrove01|TXST|13
+SugarGrove02|ACTI|3
+SugarGrove02|CONT|2
+SugarGrove02|DOOR|1
+SugarGrove02|FURN|3
+SugarGrove02|LIGH|7
+SugarGrove02|MISC|6
+SugarGrove02|MSTT|7
+SugarGrove02|SCOL|20
+SugarGrove02|SOUN|1
+SugarGrove02|STAT|75
+SugarGrove02|TACT|1
+SugarGrove02|TERM|1
+SugarGroveMissileSilo01|ACTI|45
+SugarGroveMissileSilo01|ALCH|2
+SugarGroveMissileSilo01|ASPC|1
+SugarGroveMissileSilo01|CONT|54
+SugarGroveMissileSilo01|DOOR|10
+SugarGroveMissileSilo01|FURN|27
+SugarGroveMissileSilo01|HAZD|1
+SugarGroveMissileSilo01|IDLM|2
+SugarGroveMissileSilo01|LIGH|19
+SugarGroveMissileSilo01|LVLI|60
+SugarGroveMissileSilo01|MISC|165
+SugarGroveMissileSilo01|MSTT|72
+SugarGroveMissileSilo01|NPC_|13
+SugarGroveMissileSilo01|SCOL|82
+SugarGroveMissileSilo01|SOUN|9
+SugarGroveMissileSilo01|STAT|595
+SugarGroveMissileSilo01|TERM|20
+SugarGroveMissileSilo01|TXST|13
+SugarGroveMissileSilo01|WEAP|1
+TheCraterCore01|ACTI|4
+TheCraterCore01|ASPC|2
+TheCraterCore01|CONT|28
+TheCraterCore01|DOOR|2
+TheCraterCore01|FURN|25
+TheCraterCore01|IDLM|1
+TheCraterCore01|LIGH|32
+TheCraterCore01|LVLI|4
+TheCraterCore01|MISC|34
+TheCraterCore01|MSTT|14
+TheCraterCore01|NPC_|15
+TheCraterCore01|SCOL|21
+TheCraterCore01|SECH|1
+TheCraterCore01|SOUN|6
+TheCraterCore01|STAT|286
+TheCraterCore01|TERM|2
+TheNukashine01|ACTI|12
+TheNukashine01|ASPC|3
+TheNukashine01|BNDS|1
+TheNukashine01|BOOK|2
+TheNukashine01|CONT|7
+TheNukashine01|DOOR|4
+TheNukashine01|FURN|11
+TheNukashine01|HAZD|1
+TheNukashine01|IDLM|1
+TheNukashine01|LIGH|15
+TheNukashine01|LVLI|13
+TheNukashine01|MISC|103
+TheNukashine01|MSTT|23
+TheNukashine01|NPC_|1
+TheNukashine01|SCOL|27
+TheNukashine01|SOUN|2
+TheNukashine01|STAT|284
+TheNukashine01|TERM|2
+TheNukashine01|TXST|4
+TheRustyPick01|ACTI|12
+TheRustyPick01|ARMO|24
+TheRustyPick01|ASPC|1
+TheRustyPick01|BNDS|1
+TheRustyPick01|CONT|16
+TheRustyPick01|DOOR|4
+TheRustyPick01|FLOR|2
+TheRustyPick01|FURN|7
+TheRustyPick01|IDLM|1
+TheRustyPick01|LIGH|19
+TheRustyPick01|LVLI|32
+TheRustyPick01|MISC|45
+TheRustyPick01|MSTT|12
+TheRustyPick01|NOTE|2
+TheRustyPick01|NPC_|7
+TheRustyPick01|SCOL|39
+TheRustyPick01|SOUN|3
+TheRustyPick01|STAT|472
+TheRustyPick01|TERM|1
+TheRustyPick01|TXST|12
+TheRustyPick01|WEAP|31
+TheWayward01|ACTI|24
+TheWayward01|ALCH|4
+TheWayward01|BNDS|2
+TheWayward01|CONT|15
+TheWayward01|DOOR|5
+TheWayward01|FURN|31
+TheWayward01|IDLM|3
+TheWayward01|LIGH|22
+TheWayward01|LVLI|3
+TheWayward01|MISC|91
+TheWayward01|MSTT|20
+TheWayward01|NPC_|20
+TheWayward01|SCOL|21
+TheWayward01|SOUN|1
+TheWayward01|STAT|295
+TheWayward01|TACT|1
+TheWayward01|TXST|15
+ThunderMtPowerPlant01|ACTI|32
+ThunderMtPowerPlant01|ARMO|2
+ThunderMtPowerPlant01|ASPC|2
+ThunderMtPowerPlant01|BNDS|1
+ThunderMtPowerPlant01|CONT|45
+ThunderMtPowerPlant01|DOOR|18
+ThunderMtPowerPlant01|FURN|24
+ThunderMtPowerPlant01|IDLM|2
+ThunderMtPowerPlant01|LIGH|25
+ThunderMtPowerPlant01|LVLI|58
+ThunderMtPowerPlant01|MISC|99
+ThunderMtPowerPlant01|MSTT|31
+ThunderMtPowerPlant01|NPC_|9
+ThunderMtPowerPlant01|SCOL|129
+ThunderMtPowerPlant01|SOUN|3
+ThunderMtPowerPlant01|STAT|904
+ThunderMtPowerPlant01|TERM|6
+ThunderMtPowerPlant01|TXST|22
+TopOfTheWorld01|ACTI|24
+TopOfTheWorld01|ALCH|1
+TopOfTheWorld01|ARMO|2
+TopOfTheWorld01|ASPC|1
+TopOfTheWorld01|BNDS|2
+TopOfTheWorld01|BOOK|6
+TopOfTheWorld01|CONT|32
+TopOfTheWorld01|DOOR|5
+TopOfTheWorld01|FURN|29
+TopOfTheWorld01|IDLM|2
+TopOfTheWorld01|LIGH|19
+TopOfTheWorld01|LVLI|40
+TopOfTheWorld01|MISC|91
+TopOfTheWorld01|MSTT|34
+TopOfTheWorld01|NPC_|16
+TopOfTheWorld01|SCOL|98
+TopOfTheWorld01|SOUN|1
+TopOfTheWorld01|STAT|534
+TopOfTheWorld01|TERM|2
+TopOfTheWorld01|TXST|47
+TopOfTheWorld01|WEAP|1
+UCB01|ACTI|19
+UCB01|ASPC|5
+UCB01|BNDS|1
+UCB01|CONT|24
+UCB01|DOOR|7
+UCB01|FLOR|2
+UCB01|FURN|8
+UCB01|IDLM|2
+UCB01|LIGH|20
+UCB01|LVLI|33
+UCB01|MISC|24
+UCB01|MSTT|14
+UCB01|NPC_|9
+UCB01|SCOL|20
+UCB01|SECH|1
+UCB01|SOUN|2
+UCB01|STAT|302
+UCB01|TERM|1
+UCB02|ACTI|1
+UCB02|DOOR|1
+UCB02|FURN|1
+UCB02|IDLM|2
+UCB02|LIGH|3
+UCB02|LVLI|1
+UCB02|MSTT|1
+UCB02|NPC_|2
+UCB02|SCOL|10
+UCB02|STAT|21
+UncannyCaverns01|ACTI|19
+UncannyCaverns01|CONT|15
+UncannyCaverns01|DOOR|3
+UncannyCaverns01|FLOR|4
+UncannyCaverns01|FURN|21
+UncannyCaverns01|IDLM|2
+UncannyCaverns01|LIGH|19
+UncannyCaverns01|LVLI|39
+UncannyCaverns01|MISC|38
+UncannyCaverns01|MSTT|24
+UncannyCaverns01|NOTE|1
+UncannyCaverns01|NPC_|19
+UncannyCaverns01|SCOL|30
+UncannyCaverns01|SOUN|3
+UncannyCaverns01|STAT|264
+UncannyCaverns01|TACT|10
+UncannyCaverns01|TXST|26
+UncannyCaverns02|ACTI|4
+UncannyCaverns02|BNDS|2
+UncannyCaverns02|CONT|10
+UncannyCaverns02|DOOR|2
+UncannyCaverns02|FURN|6
+UncannyCaverns02|HAZD|1
+UncannyCaverns02|IDLM|1
+UncannyCaverns02|LIGH|14
+UncannyCaverns02|LVLI|3
+UncannyCaverns02|MISC|15
+UncannyCaverns02|MSTT|23
+UncannyCaverns02|NPC_|13
+UncannyCaverns02|SCOL|23
+UncannyCaverns02|STAT|235
+UncannyCaverns02|TXST|7
+UncannyCavernsDungeon|ACTI|19
+UncannyCavernsDungeon|BNDS|1
+UncannyCavernsDungeon|CONT|21
+UncannyCavernsDungeon|DOOR|2
+UncannyCavernsDungeon|FLOR|4
+UncannyCavernsDungeon|FURN|7
+UncannyCavernsDungeon|HAZD|1
+UncannyCavernsDungeon|IDLM|2
+UncannyCavernsDungeon|LIGH|33
+UncannyCavernsDungeon|LVLI|40
+UncannyCavernsDungeon|MISC|55
+UncannyCavernsDungeon|MSTT|43
+UncannyCavernsDungeon|NOTE|1
+UncannyCavernsDungeon|NPC_|11
+UncannyCavernsDungeon|SCOL|51
+UncannyCavernsDungeon|SOUN|3
+UncannyCavernsDungeon|STAT|436
+UncannyCavernsDungeon|TACT|10
+UncannyCavernsDungeon|TXST|29
+VTecAgCenter01|ACTI|8
+VTecAgCenter01|ASPC|2
+VTecAgCenter01|BOOK|3
+VTecAgCenter01|CONT|25
+VTecAgCenter01|DOOR|13
+VTecAgCenter01|FURN|9
+VTecAgCenter01|IDLM|1
+VTecAgCenter01|LIGH|10
+VTecAgCenter01|LVLI|27
+VTecAgCenter01|MISC|71
+VTecAgCenter01|MSTT|29
+VTecAgCenter01|NOTE|1
+VTecAgCenter01|NPC_|5
+VTecAgCenter01|SCOL|29
+VTecAgCenter01|SOUN|2
+VTecAgCenter01|STAT|578
+VTecAgCenter01|TERM|4
+VTecAgCenter01|TXST|15
+ValleyGalleria01|ACTI|43
+ValleyGalleria01|ARMO|1
+ValleyGalleria01|ASPC|1
+ValleyGalleria01|BOOK|1
+ValleyGalleria01|CONT|36
+ValleyGalleria01|DOOR|12
+ValleyGalleria01|FURN|37
+ValleyGalleria01|IDLM|2
+ValleyGalleria01|LIGH|9
+ValleyGalleria01|LVLI|40
+ValleyGalleria01|MISC|113
+ValleyGalleria01|MSTT|34
+ValleyGalleria01|NOTE|3
+ValleyGalleria01|NPC_|9
+ValleyGalleria01|SCOL|83
+ValleyGalleria01|SOUN|3
+ValleyGalleria01|STAT|756
+ValleyGalleria01|TERM|1
+ValleyGalleria01|TXST|31
+VanLoweTaxidermy01|ACTI|25
+VanLoweTaxidermy01|ASPC|5
+VanLoweTaxidermy01|BNDS|4
+VanLoweTaxidermy01|BOOK|12
+VanLoweTaxidermy01|CONT|32
+VanLoweTaxidermy01|DOOR|9
+VanLoweTaxidermy01|FLOR|4
+VanLoweTaxidermy01|FURN|13
+VanLoweTaxidermy01|IDLM|1
+VanLoweTaxidermy01|KEYM|1
+VanLoweTaxidermy01|LIGH|22
+VanLoweTaxidermy01|LVLI|21
+VanLoweTaxidermy01|MISC|138
+VanLoweTaxidermy01|MSTT|42
+VanLoweTaxidermy01|NOTE|2
+VanLoweTaxidermy01|NPC_|7
+VanLoweTaxidermy01|SCOL|56
+VanLoweTaxidermy01|SOUN|7
+VanLoweTaxidermy01|STAT|385
+VanLoweTaxidermy01|TERM|3
+VanLoweTaxidermy01|TXST|23
+Vault51Dungeon|ACTI|41
+Vault51Dungeon|AMMO|3
+Vault51Dungeon|ARMO|1
+Vault51Dungeon|ASPC|8
+Vault51Dungeon|BNDS|1
+Vault51Dungeon|CNCY|1
+Vault51Dungeon|CONT|25
+Vault51Dungeon|DOOR|17
+Vault51Dungeon|FLOR|1
+Vault51Dungeon|FURN|57
+Vault51Dungeon|IDLM|2
+Vault51Dungeon|KEYM|3
+Vault51Dungeon|LIGH|86
+Vault51Dungeon|LVLI|54
+Vault51Dungeon|MISC|144
+Vault51Dungeon|MSTT|82
+Vault51Dungeon|NOTE|15
+Vault51Dungeon|NPC_|14
+Vault51Dungeon|SCOL|151
+Vault51Dungeon|SOUN|15
+Vault51Dungeon|STAT|961
+Vault51Dungeon|TERM|16
+Vault51Dungeon|TXST|24
+Vault63Entrance|ACTI|3
+Vault63Entrance|CONT|6
+Vault63Entrance|DOOR|1
+Vault63Entrance|FURN|1
+Vault63Entrance|LIGH|12
+Vault63Entrance|MISC|10
+Vault63Entrance|MSTT|2
+Vault63Entrance|SCOL|8
+Vault63Entrance|STAT|82
+Vault63Entrance|TERM|1
+Vault63Entrance|TXST|9
+Vault79Entrance|ACTI|4
+Vault79Entrance|ALCH|1
+Vault79Entrance|ASPC|1
+Vault79Entrance|CONT|14
+Vault79Entrance|DOOR|5
+Vault79Entrance|FURN|2
+Vault79Entrance|LIGH|7
+Vault79Entrance|MISC|25
+Vault79Entrance|MSTT|17
+Vault79Entrance|SCOL|19
+Vault79Entrance|STAT|212
+Vault79Entrance|TERM|1
+Vault79Entrance|TXST|24
+Vault79Entrance|WEAP|1
+Vault79GoldVaultOperations|ACTI|6
+Vault79GoldVaultOperations|CONT|6
+Vault79GoldVaultOperations|DOOR|4
+Vault79GoldVaultOperations|FURN|13
+Vault79GoldVaultOperations|IDLM|1
+Vault79GoldVaultOperations|LIGH|9
+Vault79GoldVaultOperations|MISC|14
+Vault79GoldVaultOperations|MSTT|7
+Vault79GoldVaultOperations|NPC_|11
+Vault79GoldVaultOperations|SCOL|45
+Vault79GoldVaultOperations|STAT|221
+Vault79GoldVaultOperations|TXST|6
+Vault79Main|ACTI|77
+Vault79Main|ASPC|4
+Vault79Main|BNDS|2
+Vault79Main|BOOK|5
+Vault79Main|CONT|56
+Vault79Main|DOOR|26
+Vault79Main|FURN|63
+Vault79Main|HAZD|2
+Vault79Main|IDLM|3
+Vault79Main|KEYM|1
+Vault79Main|LIGH|51
+Vault79Main|LVLI|55
+Vault79Main|MISC|172
+Vault79Main|MSTT|57
+Vault79Main|NOTE|2
+Vault79Main|NPC_|42
+Vault79Main|SCOL|168
+Vault79Main|SOUN|32
+Vault79Main|STAT|1081
+Vault79Main|TACT|2
+Vault79Main|TERM|15
+Vault79Main|TXST|64
+Vault79Main|WEAP|4
+Vault94Dungeon|ACTI|30
+Vault94Dungeon|ALCH|5
+Vault94Dungeon|ARMO|1
+Vault94Dungeon|ASPC|1
+Vault94Dungeon|CONT|63
+Vault94Dungeon|DOOR|8
+Vault94Dungeon|FLOR|4
+Vault94Dungeon|FURN|15
+Vault94Dungeon|HAZD|1
+Vault94Dungeon|IDLM|3
+Vault94Dungeon|LIGH|54
+Vault94Dungeon|LVLI|94
+Vault94Dungeon|MISC|143
+Vault94Dungeon|MSTT|40
+Vault94Dungeon|NPC_|4
+Vault94Dungeon|SCOL|228
+Vault94Dungeon|SOUN|24
+Vault94Dungeon|STAT|1129
+Vault94Dungeon|TERM|11
+Vault94Dungeon|TXST|37
+Vault94Dungeon|WEAP|9
+Vault94DungeonGECK|ACTI|12
+Vault94DungeonGECK|ALCH|1
+Vault94DungeonGECK|ASPC|1
+Vault94DungeonGECK|CONT|26
+Vault94DungeonGECK|DOOR|3
+Vault94DungeonGECK|FLOR|1
+Vault94DungeonGECK|FURN|8
+Vault94DungeonGECK|HAZD|1
+Vault94DungeonGECK|IDLM|2
+Vault94DungeonGECK|LIGH|5
+Vault94DungeonGECK|LVLI|36
+Vault94DungeonGECK|MISC|47
+Vault94DungeonGECK|MSTT|15
+Vault94DungeonGECK|NPC_|3
+Vault94DungeonGECK|SCOL|80
+Vault94DungeonGECK|SOUN|3
+Vault94DungeonGECK|STAT|383
+Vault94DungeonGECK|TERM|1
+Vault94DungeonGECK|TXST|11
+Vault94Entrance|ACTI|5
+Vault94Entrance|ASPC|1
+Vault94Entrance|CONT|3
+Vault94Entrance|DOOR|3
+Vault94Entrance|LIGH|7
+Vault94Entrance|LVLI|2
+Vault94Entrance|MISC|3
+Vault94Entrance|MSTT|2
+Vault94Entrance|SCOL|19
+Vault94Entrance|SOUN|7
+Vault94Entrance|STAT|210
+Vault94Entrance|TERM|1
+Vault94Entrance|TXST|3
+Vault96Dungeon|ACTI|39
+Vault96Dungeon|ALCH|5
+Vault96Dungeon|ARMO|1
+Vault96Dungeon|BNDS|2
+Vault96Dungeon|BOOK|5
+Vault96Dungeon|CONT|38
+Vault96Dungeon|DOOR|6
+Vault96Dungeon|FLOR|3
+Vault96Dungeon|FURN|28
+Vault96Dungeon|IDLM|3
+Vault96Dungeon|KEYM|1
+Vault96Dungeon|LIGH|92
+Vault96Dungeon|LVLI|50
+Vault96Dungeon|MISC|160
+Vault96Dungeon|MSTT|50
+Vault96Dungeon|NOTE|15
+Vault96Dungeon|NPC_|46
+Vault96Dungeon|SCOL|302
+Vault96Dungeon|SOUN|13
+Vault96Dungeon|STAT|1191
+Vault96Dungeon|TACT|1
+Vault96Dungeon|TERM|11
+Vault96Dungeon|TXST|52
+Vault96Dungeon|WEAP|4
+VaultTecU01|ACTI|24
+VaultTecU01|ARMO|1
+VaultTecU01|ASPC|2
+VaultTecU01|BNDS|2
+VaultTecU01|BOOK|1
+VaultTecU01|CONT|50
+VaultTecU01|DOOR|18
+VaultTecU01|FURN|35
+VaultTecU01|HAZD|1
+VaultTecU01|IDLM|3
+VaultTecU01|KEYM|1
+VaultTecU01|LIGH|43
+VaultTecU01|LVLI|29
+VaultTecU01|MISC|136
+VaultTecU01|MSTT|38
+VaultTecU01|NOTE|3
+VaultTecU01|NPC_|20
+VaultTecU01|SCOL|156
+VaultTecU01|STAT|1050
+VaultTecU01|TERM|17
+VaultTecU01|TXST|40
+WVLumberCo01|ACTI|11
+WVLumberCo01|ARMO|1
+WVLumberCo01|ASPC|1
+WVLumberCo01|BNDS|1
+WVLumberCo01|BOOK|1
+WVLumberCo01|CONT|20
+WVLumberCo01|DOOR|2
+WVLumberCo01|FURN|26
+WVLumberCo01|LIGH|18
+WVLumberCo01|LVLI|68
+WVLumberCo01|MISC|96
+WVLumberCo01|MSTT|16
+WVLumberCo01|NOTE|1
+WVLumberCo01|NPC_|5
+WVLumberCo01|SCOL|37
+WVLumberCo01|SECH|1
+WVLumberCo01|SOUN|2
+WVLumberCo01|STAT|240
+WVLumberCo01|TXST|9
+WVLumberCo01|WEAP|1
+WatogaCivicCenter01|ACTI|42
+WatogaCivicCenter01|ARMO|2
+WatogaCivicCenter01|ASPC|1
+WatogaCivicCenter01|BNDS|2
+WatogaCivicCenter01|BOOK|2
+WatogaCivicCenter01|CONT|28
+WatogaCivicCenter01|DOOR|10
+WatogaCivicCenter01|FURN|25
+WatogaCivicCenter01|IDLM|2
+WatogaCivicCenter01|LIGH|23
+WatogaCivicCenter01|LVLI|41
+WatogaCivicCenter01|MISC|114
+WatogaCivicCenter01|MSTT|50
+WatogaCivicCenter01|NOTE|3
+WatogaCivicCenter01|NPC_|19
+WatogaCivicCenter01|SCOL|81
+WatogaCivicCenter01|SOUN|10
+WatogaCivicCenter01|STAT|748
+WatogaCivicCenter01|TERM|2
+WatogaCivicCenter01|TXST|78
+WatogaCivicCenter01|WEAP|1
+WatogaCivicCenterDungeon|ACTI|25
+WatogaCivicCenterDungeon|ARMO|1
+WatogaCivicCenterDungeon|ASPC|1
+WatogaCivicCenterDungeon|BNDS|2
+WatogaCivicCenterDungeon|CONT|14
+WatogaCivicCenterDungeon|DOOR|3
+WatogaCivicCenterDungeon|FURN|10
+WatogaCivicCenterDungeon|IDLM|1
+WatogaCivicCenterDungeon|LIGH|20
+WatogaCivicCenterDungeon|LVLI|34
+WatogaCivicCenterDungeon|MISC|76
+WatogaCivicCenterDungeon|MSTT|40
+WatogaCivicCenterDungeon|NOTE|1
+WatogaCivicCenterDungeon|NPC_|2
+WatogaCivicCenterDungeon|SCOL|73
+WatogaCivicCenterDungeon|SOUN|2
+WatogaCivicCenterDungeon|STAT|636
+WatogaCivicCenterDungeon|TXST|73
+WatogaEmergencyServices01|ACTI|19
+WatogaEmergencyServices01|CONT|17
+WatogaEmergencyServices01|DOOR|8
+WatogaEmergencyServices01|FURN|11
+WatogaEmergencyServices01|IDLM|2
+WatogaEmergencyServices01|LIGH|11
+WatogaEmergencyServices01|LVLI|19
+WatogaEmergencyServices01|MISC|40
+WatogaEmergencyServices01|MSTT|19
+WatogaEmergencyServices01|NOTE|1
+WatogaEmergencyServices01|NPC_|10
+WatogaEmergencyServices01|SCOL|35
+WatogaEmergencyServices01|STAT|254
+WatogaEmergencyServices01|TERM|3
+WatogaEmergencyServices01|TXST|7
+WatogaHighSchool01|ACTI|25
+WatogaHighSchool01|ASPC|1
+WatogaHighSchool01|BOOK|5
+WatogaHighSchool01|CONT|36
+WatogaHighSchool01|DOOR|13
+WatogaHighSchool01|FURN|29
+WatogaHighSchool01|IDLM|2
+WatogaHighSchool01|LIGH|16
+WatogaHighSchool01|LVLI|37
+WatogaHighSchool01|MISC|79
+WatogaHighSchool01|MSTT|20
+WatogaHighSchool01|NOTE|1
+WatogaHighSchool01|NPC_|9
+WatogaHighSchool01|SCOL|76
+WatogaHighSchool01|STAT|540
+WatogaHighSchool01|TERM|5
+WatogaHighSchool01|TXST|28
+WatogaHighSchoolDungeon|ACTI|29
+WatogaHighSchoolDungeon|ASPC|1
+WatogaHighSchoolDungeon|BOOK|5
+WatogaHighSchoolDungeon|CONT|34
+WatogaHighSchoolDungeon|DOOR|10
+WatogaHighSchoolDungeon|FURN|23
+WatogaHighSchoolDungeon|IDLM|1
+WatogaHighSchoolDungeon|LIGH|16
+WatogaHighSchoolDungeon|LVLI|35
+WatogaHighSchoolDungeon|MISC|78
+WatogaHighSchoolDungeon|MSTT|20
+WatogaHighSchoolDungeon|NOTE|1
+WatogaHighSchoolDungeon|SCOL|75
+WatogaHighSchoolDungeon|STAT|549
+WatogaHighSchoolDungeon|TERM|4
+WatogaHighSchoolDungeon|TXST|28
+WatogaMunicipalCenter01|ACTI|16
+WatogaMunicipalCenter01|ASPC|1
+WatogaMunicipalCenter01|BNDS|2
+WatogaMunicipalCenter01|BOOK|2
+WatogaMunicipalCenter01|CONT|24
+WatogaMunicipalCenter01|DOOR|11
+WatogaMunicipalCenter01|FURN|13
+WatogaMunicipalCenter01|IDLM|1
+WatogaMunicipalCenter01|LIGH|7
+WatogaMunicipalCenter01|LVLI|21
+WatogaMunicipalCenter01|MISC|65
+WatogaMunicipalCenter01|MSTT|26
+WatogaMunicipalCenter01|NPC_|5
+WatogaMunicipalCenter01|SCOL|14
+WatogaMunicipalCenter01|STAT|333
+WatogaMunicipalCenter01|TERM|4
+WatogaMunicipalCenter01|TXST|19
+WatogaMunicipalCenter02|ACTI|3
+WatogaMunicipalCenter02|ASPC|1
+WatogaMunicipalCenter02|BOOK|3
+WatogaMunicipalCenter02|CONT|9
+WatogaMunicipalCenter02|DOOR|8
+WatogaMunicipalCenter02|FURN|7
+WatogaMunicipalCenter02|LIGH|6
+WatogaMunicipalCenter02|LVLI|4
+WatogaMunicipalCenter02|MISC|24
+WatogaMunicipalCenter02|MSTT|10
+WatogaMunicipalCenter02|NPC_|1
+WatogaMunicipalCenter02|SCOL|15
+WatogaMunicipalCenter02|STAT|121
+WatogaMunicipalCenter02|TACT|1
+WatogaMunicipalCenter02|TERM|1
+WatogaMunicipalCenter02|TXST|15
+WatogaTowers01|ACTI|6
+WatogaTowers01|BNDS|1
+WatogaTowers01|CONT|9
+WatogaTowers01|DOOR|6
+WatogaTowers01|FURN|11
+WatogaTowers01|IDLM|1
+WatogaTowers01|LIGH|11
+WatogaTowers01|LVLI|5
+WatogaTowers01|MISC|54
+WatogaTowers01|MSTT|6
+WatogaTowers01|NPC_|2
+WatogaTowers01|SCOL|22
+WatogaTowers01|STAT|156
+WatogaTowers01|TERM|1
+WatogaTowers01|TXST|6
+WatogaUnderground01|ACTI|19
+WatogaUnderground01|ALCH|6
+WatogaUnderground01|ASPC|1
+WatogaUnderground01|CONT|55
+WatogaUnderground01|DOOR|17
+WatogaUnderground01|FURN|42
+WatogaUnderground01|IDLM|2
+WatogaUnderground01|KEYM|1
+WatogaUnderground01|LIGH|36
+WatogaUnderground01|LVLI|50
+WatogaUnderground01|MISC|211
+WatogaUnderground01|MSTT|33
+WatogaUnderground01|NPC_|24
+WatogaUnderground01|SCOL|296
+WatogaUnderground01|STAT|994
+WatogaUnderground01|TERM|7
+WatogaUnderground01|TXST|60
+WendigoCave01|ACTI|19
+WendigoCave01|ASPC|2
+WendigoCave01|BOOK|2
+WendigoCave01|CONT|19
+WendigoCave01|DOOR|1
+WendigoCave01|FLOR|1
+WendigoCave01|FURN|9
+WendigoCave01|IDLM|2
+WendigoCave01|LIGH|14
+WendigoCave01|LVLI|50
+WendigoCave01|MISC|39
+WendigoCave01|MSTT|29
+WendigoCave01|NOTE|2
+WendigoCave01|NPC_|17
+WendigoCave01|SCOL|20
+WendigoCave01|SOUN|5
+WendigoCave01|STAT|291
+WendigoCave01|TXST|51
+WestTek01|ACTI|33
+WestTek01|ASPC|5
+WestTek01|BNDS|3
+WestTek01|CONT|53
+WestTek01|DOOR|13
+WestTek01|FLOR|4
+WestTek01|FURN|17
+WestTek01|IDLM|2
+WestTek01|KEYM|1
+WestTek01|LIGH|32
+WestTek01|LVLI|37
+WestTek01|MISC|49
+WestTek01|MSTT|24
+WestTek01|NOTE|2
+WestTek01|NPC_|8
+WestTek01|SCOL|114
+WestTek01|SOUN|5
+WestTek01|STAT|875
+WestTek01|TERM|12
+WestTek01|TXST|23
+WestTek02|ACTI|14
+WestTek02|ALCH|2
+WestTek02|BNDS|1
+WestTek02|CONT|10
+WestTek02|DOOR|9
+WestTek02|FURN|9
+WestTek02|IDLM|3
+WestTek02|KEYM|1
+WestTek02|LIGH|25
+WestTek02|LVLI|14
+WestTek02|MISC|34
+WestTek02|MSTT|22
+WestTek02|NPC_|14
+WestTek02|SCOL|95
+WestTek02|SOUN|18
+WestTek02|STAT|386
+WestTek02|TACT|1
+WestTek02|TERM|2
+WestTek02|TXST|5
+WhitespringBunker01|ACTI|140
+WhitespringBunker01|ASPC|7
+WhitespringBunker01|BNDS|2
+WhitespringBunker01|BOOK|6
+WhitespringBunker01|CNCY|1
+WhitespringBunker01|CONT|62
+WhitespringBunker01|DOOR|21
+WhitespringBunker01|FURN|32
+WhitespringBunker01|HAZD|1
+WhitespringBunker01|IDLM|2
+WhitespringBunker01|LIGH|51
+WhitespringBunker01|LVLI|31
+WhitespringBunker01|MISC|94
+WhitespringBunker01|MSTT|29
+WhitespringBunker01|NPC_|22
+WhitespringBunker01|SCOL|143
+WhitespringBunker01|SOUN|4
+WhitespringBunker01|STAT|1096
+WhitespringBunker01|TACT|11
+WhitespringBunker01|TERM|16
+WhitespringBunker01|TXST|32
+WhitespringResort01|ACTI|22
+WhitespringResort01|AMMO|3
+WhitespringResort01|ARMO|6
+WhitespringResort01|ASPC|1
+WhitespringResort01|BNDS|2
+WhitespringResort01|BOOK|1
+WhitespringResort01|CONT|61
+WhitespringResort01|DOOR|28
+WhitespringResort01|FLOR|1
+WhitespringResort01|FURN|35
+WhitespringResort01|IDLM|2
+WhitespringResort01|LIGH|23
+WhitespringResort01|LVLI|87
+WhitespringResort01|MISC|214
+WhitespringResort01|MSTT|31
+WhitespringResort01|NOTE|5
+WhitespringResort01|NPC_|46
+WhitespringResort01|SCOL|77
+WhitespringResort01|STAT|699
+WhitespringResort01|TERM|8
+WhitespringResort01|TXST|2
+WhitespringResort01|WEAP|1
+==Total Scrap and Junk per Component per Space==
+AMSHQ01|Acid|1|1
+AMSHQ01|Aluminum|7|4
+AMSHQ01|Antiseptic|2|1
+AMSHQ01|Asbestos|13|11
+AMSHQ01|Bone|3|1
+AMSHQ01|Ceramic|84|84
+AMSHQ01|Cloth|96|93
+AMSHQ01|Copper|6|4
+AMSHQ01|Crystal|2|2
+AMSHQ01|Fiber Optics|2|2
+AMSHQ01|Fiberglass|2|2
+AMSHQ01|Gear|11|9
+AMSHQ01|Glass|10|8
+AMSHQ01|Gold|2|2
+AMSHQ01|Lead|4|3
+AMSHQ01|Oil|16|15
+AMSHQ01|Plastic|16|14
+AMSHQ01|Rubber|7|7
+AMSHQ01|Screw|6|6
+AMSHQ01|Spring|11|11
+AMSHQ01|Steel|26|18
+AMSHQ01|Ultracite|7|7
+AMSHQ01|Wood|21|17
+AMSHQ02|Acid|2|2
+AMSHQ02|Adhesive|8|3
+AMSHQ02|Aluminum|13|8
+AMSHQ02|Antiseptic|4|2
+AMSHQ02|Asbestos|4|4
+AMSHQ02|Bone|5|3
+AMSHQ02|Ceramic|10|10
+AMSHQ02|Circuitry|10|7
+AMSHQ02|Cloth|14|14
+AMSHQ02|Copper|5|5
+AMSHQ02|Cork|2|1
+AMSHQ02|Fiberglass|3|3
+AMSHQ02|Gear|2|2
+AMSHQ02|Glass|18|17
+AMSHQ02|Lead|14|10
+AMSHQ02|Leather|4|2
+AMSHQ02|Nuclear Material|1|1
+AMSHQ02|Oil|6|4
+AMSHQ02|Plastic|17|12
+AMSHQ02|Rubber|10|8
+AMSHQ02|Screw|4|4
+AMSHQ02|Spring|8|8
+AMSHQ02|Steel|41|23
+AMSHQ02|Wood|15|13
+AVRMedicalCenter01|Acid|6|5
+AVRMedicalCenter01|Adhesive|4|1
+AVRMedicalCenter01|Aluminum|22|18
+AVRMedicalCenter01|Antiseptic|14|7
+AVRMedicalCenter01|Asbestos|9|7
+AVRMedicalCenter01|Bone|3|1
+AVRMedicalCenter01|Ceramic|21|16
+AVRMedicalCenter01|Circuitry|8|8
+AVRMedicalCenter01|Cloth|44|40
+AVRMedicalCenter01|Concrete|7|1
+AVRMedicalCenter01|Copper|19|19
+AVRMedicalCenter01|Crystal|7|7
+AVRMedicalCenter01|Fiber Optics|7|7
+AVRMedicalCenter01|Fiberglass|9|8
+AVRMedicalCenter01|Gear|15|15
+AVRMedicalCenter01|Glass|55|48
+AVRMedicalCenter01|Gold|4|4
+AVRMedicalCenter01|Lead|22|18
+AVRMedicalCenter01|Leather|8|4
+AVRMedicalCenter01|Nuclear Material|1|1
+AVRMedicalCenter01|Oil|9|7
+AVRMedicalCenter01|Plastic|70|44
+AVRMedicalCenter01|Rubber|18|17
+AVRMedicalCenter01|Screw|10|10
+AVRMedicalCenter01|Silver|3|2
+AVRMedicalCenter01|Spring|14|14
+AVRMedicalCenter01|Steel|85|48
+AVRMedicalCenter01|Wood|39|27
+AlleghenyAsylum01|Acid|35|21
+AlleghenyAsylum01|Adhesive|41|13
+AlleghenyAsylum01|Aluminum|152|129
+AlleghenyAsylum01|Antiseptic|39|16
+AlleghenyAsylum01|Asbestos|18|15
+AlleghenyAsylum01|Ballistic Fiber|20|10
+AlleghenyAsylum01|Bone|26|11
+AlleghenyAsylum01|Ceramic|47|41
+AlleghenyAsylum01|Circuitry|5|5
+AlleghenyAsylum01|Cloth|117|110
+AlleghenyAsylum01|Concrete|6|2
+AlleghenyAsylum01|Copper|44|42
+AlleghenyAsylum01|Crystal|7|7
+AlleghenyAsylum01|Fertilizer|7|4
+AlleghenyAsylum01|Fiber Optics|5|5
+AlleghenyAsylum01|Fiberglass|26|18
+AlleghenyAsylum01|Gear|23|22
+AlleghenyAsylum01|Glass|179|123
+AlleghenyAsylum01|Gold|6|6
+AlleghenyAsylum01|Lead|51|38
+AlleghenyAsylum01|Leather|17|8
+AlleghenyAsylum01|Nuclear Material|4|4
+AlleghenyAsylum01|Oil|46|31
+AlleghenyAsylum01|Plastic|168|144
+AlleghenyAsylum01|Rubber|143|135
+AlleghenyAsylum01|Screw|30|25
+AlleghenyAsylum01|Spring|32|30
+AlleghenyAsylum01|Steel|254|168
+AlleghenyAsylum01|Wood|94|71
+Appalachia|Acid|1377|894
+Appalachia|Adhesive|1153|486
+Appalachia|Aluminum|2146|1508
+Appalachia|Antiseptic|872|412
+Appalachia|Asbestos|1610|1193
+Appalachia|Ballistic Fiber|184|92
+Appalachia|Bone|3402|1294
+Appalachia|Ceramic|3830|3314
+Appalachia|Circuitry|462|366
+Appalachia|Cloth|5777|5141
+Appalachia|Concrete|2301|421
+Appalachia|Copper|1529|1446
+Appalachia|Cork|628|511
+Appalachia|Crystal|324|198
+Appalachia|Fertilizer|1126|385
+Appalachia|Fiber Optics|40|39
+Appalachia|Fiberglass|935|699
+Appalachia|Gear|1132|956
+Appalachia|Glass|8923|7374
+Appalachia|Gold|76|76
+Appalachia|Lead|5210|2992
+Appalachia|Leather|1914|863
+Appalachia|Nuclear Material|137|137
+Appalachia|Oil|3669|2453
+Appalachia|Plastic|5708|4054
+Appalachia|Rubber|2001|1212
+Appalachia|Screw|1168|1051
+Appalachia|Silver|266|225
+Appalachia|Spring|1288|1258
+Appalachia|Steel|15330|9165
+Appalachia|Ultracite|1|1
+Appalachia|Wood|4780|3337
+ArktosPharmaLab01|Acid|48|33
+ArktosPharmaLab01|Adhesive|10|3
+ArktosPharmaLab01|Aluminum|31|25
+ArktosPharmaLab01|Antiseptic|40|16
+ArktosPharmaLab01|Asbestos|15|11
+ArktosPharmaLab01|Bone|4|2
+ArktosPharmaLab01|Ceramic|43|43
+ArktosPharmaLab01|Circuitry|11|7
+ArktosPharmaLab01|Cloth|30|30
+ArktosPharmaLab01|Copper|40|31
+ArktosPharmaLab01|Crystal|7|7
+ArktosPharmaLab01|Fertilizer|77|16
+ArktosPharmaLab01|Fiber Optics|6|6
+ArktosPharmaLab01|Fiberglass|14|12
+ArktosPharmaLab01|Gear|29|27
+ArktosPharmaLab01|Glass|67|51
+ArktosPharmaLab01|Gold|1|1
+ArktosPharmaLab01|Lead|60|35
+ArktosPharmaLab01|Nuclear Material|6|6
+ArktosPharmaLab01|Oil|67|42
+ArktosPharmaLab01|Plastic|69|42
+ArktosPharmaLab01|Rubber|33|24
+ArktosPharmaLab01|Screw|19|19
+ArktosPharmaLab01|Silver|1|1
+ArktosPharmaLab01|Spring|25|24
+ArktosPharmaLab01|Steel|230|132
+ArktosPharmaLab01|Wood|60|49
+ArktosPharmaLabDungeon|Acid|41|28
+ArktosPharmaLabDungeon|Adhesive|9|2
+ArktosPharmaLabDungeon|Aluminum|27|23
+ArktosPharmaLabDungeon|Antiseptic|40|16
+ArktosPharmaLabDungeon|Asbestos|12|8
+ArktosPharmaLabDungeon|Bone|4|2
+ArktosPharmaLabDungeon|Ceramic|43|43
+ArktosPharmaLabDungeon|Circuitry|7|4
+ArktosPharmaLabDungeon|Cloth|35|33
+ArktosPharmaLabDungeon|Copper|36|28
+ArktosPharmaLabDungeon|Crystal|6|6
+ArktosPharmaLabDungeon|Fertilizer|44|11
+ArktosPharmaLabDungeon|Fiber Optics|5|5
+ArktosPharmaLabDungeon|Fiberglass|14|11
+ArktosPharmaLabDungeon|Gear|21|21
+ArktosPharmaLabDungeon|Glass|59|44
+ArktosPharmaLabDungeon|Gold|1|1
+ArktosPharmaLabDungeon|Lead|52|30
+ArktosPharmaLabDungeon|Nuclear Material|6|6
+ArktosPharmaLabDungeon|Oil|62|39
+ArktosPharmaLabDungeon|Plastic|68|41
+ArktosPharmaLabDungeon|Rubber|29|22
+ArktosPharmaLabDungeon|Screw|15|15
+ArktosPharmaLabDungeon|Silver|1|1
+ArktosPharmaLabDungeon|Spring|19|18
+ArktosPharmaLabDungeon|Steel|205|115
+ArktosPharmaLabDungeon|Wood|50|42
+BelchingBetty01|Acid|1|1
+BelchingBetty01|Adhesive|5|1
+BelchingBetty01|Aluminum|1|1
+BelchingBetty01|Antiseptic|2|1
+BelchingBetty01|Asbestos|2|1
+BelchingBetty01|Bone|15|5
+BelchingBetty01|Ceramic|5|5
+BelchingBetty01|Circuitry|1|1
+BelchingBetty01|Cloth|10|6
+BelchingBetty01|Copper|6|4
+BelchingBetty01|Fiberglass|5|3
+BelchingBetty01|Gear|5|5
+BelchingBetty01|Glass|9|9
+BelchingBetty01|Lead|2|1
+BelchingBetty01|Nuclear Material|2|2
+BelchingBetty01|Oil|6|5
+BelchingBetty01|Plastic|4|3
+BelchingBetty01|Screw|4|4
+BelchingBetty01|Spring|6|6
+BelchingBetty01|Steel|25|16
+BelchingBetty01|Wood|14|11
+BigBendTunnel01|Acid|7|4
+BigBendTunnel01|Aluminum|2|2
+BigBendTunnel01|Antiseptic|9|5
+BigBendTunnel01|Asbestos|5|4
+BigBendTunnel01|Bone|24|10
+BigBendTunnel01|Ceramic|13|13
+BigBendTunnel01|Circuitry|1|1
+BigBendTunnel01|Cloth|13|12
+BigBendTunnel01|Concrete|42|6
+BigBendTunnel01|Copper|7|6
+BigBendTunnel01|Gear|4|3
+BigBendTunnel01|Glass|33|27
+BigBendTunnel01|Lead|16|14
+BigBendTunnel01|Leather|2|1
+BigBendTunnel01|Oil|14|10
+BigBendTunnel01|Plastic|24|20
+BigBendTunnel01|Rubber|4|3
+BigBendTunnel01|Screw|3|3
+BigBendTunnel01|Silver|1|1
+BigBendTunnel01|Spring|7|7
+BigBendTunnel01|Steel|74|43
+BigBendTunnel01|Wood|16|14
+BlackwaterMine01|Acid|18|10
+BlackwaterMine01|Adhesive|11|11
+BlackwaterMine01|Aluminum|15|13
+BlackwaterMine01|Antiseptic|22|9
+BlackwaterMine01|Asbestos|42|30
+BlackwaterMine01|Bone|5|2
+BlackwaterMine01|Ceramic|17|17
+BlackwaterMine01|Cloth|45|41
+BlackwaterMine01|Concrete|28|4
+BlackwaterMine01|Copper|33|28
+BlackwaterMine01|Crystal|1|1
+BlackwaterMine01|Fertilizer|8|2
+BlackwaterMine01|Fiber Optics|1|1
+BlackwaterMine01|Fiberglass|19|16
+BlackwaterMine01|Gear|18|15
+BlackwaterMine01|Glass|71|55
+BlackwaterMine01|Gold|8|8
+BlackwaterMine01|Lead|51|17
+BlackwaterMine01|Nuclear Material|3|3
+BlackwaterMine01|Oil|112|73
+BlackwaterMine01|Plastic|40|25
+BlackwaterMine01|Rubber|24|14
+BlackwaterMine01|Screw|7|6
+BlackwaterMine01|Spring|9|9
+BlackwaterMine01|Steel|274|156
+BlackwaterMine01|Wood|30|22
+BlueRidgeOffice01|Acid|5|3
+BlueRidgeOffice01|Adhesive|2|2
+BlueRidgeOffice01|Aluminum|10|6
+BlueRidgeOffice01|Antiseptic|6|3
+BlueRidgeOffice01|Asbestos|6|4
+BlueRidgeOffice01|Bone|1|1
+BlueRidgeOffice01|Ceramic|10|8
+BlueRidgeOffice01|Cloth|15|10
+BlueRidgeOffice01|Copper|1|1
+BlueRidgeOffice01|Crystal|1|1
+BlueRidgeOffice01|Fiberglass|5|3
+BlueRidgeOffice01|Gear|4|4
+BlueRidgeOffice01|Glass|27|23
+BlueRidgeOffice01|Lead|10|6
+BlueRidgeOffice01|Leather|2|1
+BlueRidgeOffice01|Oil|8|6
+BlueRidgeOffice01|Plastic|34|22
+BlueRidgeOffice01|Rubber|3|3
+BlueRidgeOffice01|Screw|1|1
+BlueRidgeOffice01|Silver|1|1
+BlueRidgeOffice01|Spring|2|2
+BlueRidgeOffice01|Steel|49|30
+BlueRidgeOffice01|Wood|14|8
+BurdetteManorBasement01|Acid|5|3
+BurdetteManorBasement01|Adhesive|1|1
+BurdetteManorBasement01|Aluminum|8|6
+BurdetteManorBasement01|Antiseptic|2|1
+BurdetteManorBasement01|Asbestos|4|3
+BurdetteManorBasement01|Ceramic|2|2
+BurdetteManorBasement01|Circuitry|2|2
+BurdetteManorBasement01|Cloth|4|4
+BurdetteManorBasement01|Copper|8|8
+BurdetteManorBasement01|Fiberglass|4|3
+BurdetteManorBasement01|Gear|1|1
+BurdetteManorBasement01|Glass|25|24
+BurdetteManorBasement01|Lead|9|5
+BurdetteManorBasement01|Oil|11|6
+BurdetteManorBasement01|Plastic|9|5
+BurdetteManorBasement01|Rubber|6|4
+BurdetteManorBasement01|Screw|3|3
+BurdetteManorBasement01|Spring|1|1
+BurdetteManorBasement01|Steel|32|24
+BurdetteManorBasement01|Wood|3|2
+BurningMine01|Acid|1|1
+BurningMine01|Adhesive|3|3
+BurningMine01|Aluminum|20|18
+BurningMine01|Antiseptic|4|2
+BurningMine01|Asbestos|3|3
+BurningMine01|Bone|19|8
+BurningMine01|Ceramic|9|8
+BurningMine01|Cloth|9|9
+BurningMine01|Copper|16|10
+BurningMine01|Crystal|1|1
+BurningMine01|Fiber Optics|1|1
+BurningMine01|Fiberglass|5|5
+BurningMine01|Gear|4|3
+BurningMine01|Glass|25|18
+BurningMine01|Lead|22|17
+BurningMine01|Leather|2|1
+BurningMine01|Oil|17|12
+BurningMine01|Plastic|5|4
+BurningMine01|Rubber|2|1
+BurningMine01|Screw|3|3
+BurningMine01|Silver|1|1
+BurningMine01|Spring|4|4
+BurningMine01|Steel|59|40
+BurningMine01|Wood|18|12
+Burrows01|Acid|13|8
+Burrows01|Adhesive|24|14
+Burrows01|Aluminum|36|24
+Burrows01|Antiseptic|8|4
+Burrows01|Asbestos|45|35
+Burrows01|Ballistic Fiber|4|2
+Burrows01|Bone|16|8
+Burrows01|Ceramic|38|37
+Burrows01|Circuitry|16|8
+Burrows01|Cloth|130|126
+Burrows01|Concrete|49|7
+Burrows01|Copper|31|27
+Burrows01|Cork|7|4
+Burrows01|Crystal|8|6
+Burrows01|Fiber Optics|1|1
+Burrows01|Fiberglass|12|12
+Burrows01|Gear|46|40
+Burrows01|Glass|172|144
+Burrows01|Gold|2|2
+Burrows01|Lead|207|109
+Burrows01|Leather|44|19
+Burrows01|Nuclear Material|3|3
+Burrows01|Oil|95|66
+Burrows01|Plastic|138|99
+Burrows01|Rubber|65|37
+Burrows01|Screw|18|18
+Burrows01|Silver|2|2
+Burrows01|Spring|61|61
+Burrows01|Steel|492|308
+Burrows01|Wood|116|96
+CharGen01|Acid|34|26
+CharGen01|Adhesive|78|24
+CharGen01|Aluminum|66|42
+CharGen01|Antiseptic|54|24
+CharGen01|Asbestos|6|6
+CharGen01|Ceramic|32|20
+CharGen01|Circuitry|54|18
+CharGen01|Cloth|210|111
+CharGen01|Copper|19|19
+CharGen01|Cork|30|18
+CharGen01|Crystal|36|12
+CharGen01|Fiberglass|43|37
+CharGen01|Gear|62|25
+CharGen01|Glass|299|162
+CharGen01|Lead|16|8
+CharGen01|Leather|108|54
+CharGen01|Nuclear Material|6|6
+CharGen01|Oil|66|24
+CharGen01|Plastic|128|77
+CharGen01|Rubber|12|6
+CharGen01|Screw|62|31
+CharGen01|Silver|54|36
+CharGen01|Spring|72|30
+CharGen01|Steel|205|109
+CharGen01|Wood|154|89
+CharGen02|Acid|34|26
+CharGen02|Adhesive|78|24
+CharGen02|Aluminum|66|42
+CharGen02|Antiseptic|54|24
+CharGen02|Asbestos|6|6
+CharGen02|Ceramic|32|20
+CharGen02|Circuitry|54|18
+CharGen02|Cloth|207|110
+CharGen02|Copper|19|19
+CharGen02|Cork|30|18
+CharGen02|Crystal|36|12
+CharGen02|Fiberglass|42|36
+CharGen02|Gear|62|25
+CharGen02|Glass|299|162
+CharGen02|Lead|16|8
+CharGen02|Leather|108|54
+CharGen02|Nuclear Material|6|6
+CharGen02|Oil|66|24
+CharGen02|Plastic|127|76
+CharGen02|Rubber|12|6
+CharGen02|Screw|62|31
+CharGen02|Silver|54|36
+CharGen02|Spring|72|30
+CharGen02|Steel|205|109
+CharGen02|Wood|152|88
+CharGen03|Acid|34|26
+CharGen03|Adhesive|78|24
+CharGen03|Aluminum|66|42
+CharGen03|Antiseptic|54|24
+CharGen03|Asbestos|6|6
+CharGen03|Ceramic|32|20
+CharGen03|Circuitry|54|18
+CharGen03|Cloth|207|110
+CharGen03|Copper|19|19
+CharGen03|Cork|30|18
+CharGen03|Crystal|36|12
+CharGen03|Fiberglass|42|36
+CharGen03|Gear|62|25
+CharGen03|Glass|299|162
+CharGen03|Lead|16|8
+CharGen03|Leather|108|54
+CharGen03|Nuclear Material|6|6
+CharGen03|Oil|66|24
+CharGen03|Plastic|127|76
+CharGen03|Rubber|12|6
+CharGen03|Screw|62|31
+CharGen03|Silver|54|36
+CharGen03|Spring|72|30
+CharGen03|Steel|205|109
+CharGen03|Wood|152|88
+CharGen04|Acid|34|26
+CharGen04|Adhesive|78|24
+CharGen04|Aluminum|66|42
+CharGen04|Antiseptic|54|24
+CharGen04|Asbestos|6|6
+CharGen04|Ceramic|32|20
+CharGen04|Circuitry|54|18
+CharGen04|Cloth|207|110
+CharGen04|Copper|19|19
+CharGen04|Cork|30|18
+CharGen04|Crystal|36|12
+CharGen04|Fiberglass|42|36
+CharGen04|Gear|62|25
+CharGen04|Glass|299|162
+CharGen04|Lead|16|8
+CharGen04|Leather|108|54
+CharGen04|Nuclear Material|6|6
+CharGen04|Oil|66|24
+CharGen04|Plastic|127|76
+CharGen04|Rubber|12|6
+CharGen04|Screw|62|31
+CharGen04|Silver|54|36
+CharGen04|Spring|72|30
+CharGen04|Steel|205|109
+CharGen04|Wood|152|88
+CharGen05|Acid|34|26
+CharGen05|Adhesive|78|24
+CharGen05|Aluminum|66|42
+CharGen05|Antiseptic|54|24
+CharGen05|Asbestos|6|6
+CharGen05|Ceramic|32|20
+CharGen05|Circuitry|54|18
+CharGen05|Cloth|207|110
+CharGen05|Copper|19|19
+CharGen05|Cork|30|18
+CharGen05|Crystal|36|12
+CharGen05|Fiberglass|42|36
+CharGen05|Gear|62|25
+CharGen05|Glass|299|162
+CharGen05|Lead|16|8
+CharGen05|Leather|108|54
+CharGen05|Nuclear Material|6|6
+CharGen05|Oil|66|24
+CharGen05|Plastic|127|76
+CharGen05|Rubber|12|6
+CharGen05|Screw|62|31
+CharGen05|Silver|54|36
+CharGen05|Spring|72|30
+CharGen05|Steel|205|109
+CharGen05|Wood|152|88
+CharlestonCapitolBuilding02|Aluminum|7|4
+CharlestonCapitolBuilding02|Antiseptic|1|1
+CharlestonCapitolBuilding02|Asbestos|12|7
+CharlestonCapitolBuilding02|Bone|9|3
+CharlestonCapitolBuilding02|Ceramic|25|23
+CharlestonCapitolBuilding02|Circuitry|4|4
+CharlestonCapitolBuilding02|Cloth|54|50
+CharlestonCapitolBuilding02|Copper|6|6
+CharlestonCapitolBuilding02|Cork|8|6
+CharlestonCapitolBuilding02|Crystal|12|4
+CharlestonCapitolBuilding02|Fiberglass|5|4
+CharlestonCapitolBuilding02|Gear|21|12
+CharlestonCapitolBuilding02|Glass|31|24
+CharlestonCapitolBuilding02|Lead|9|4
+CharlestonCapitolBuilding02|Oil|6|4
+CharlestonCapitolBuilding02|Plastic|31|21
+CharlestonCapitolBuilding02|Rubber|1|1
+CharlestonCapitolBuilding02|Screw|16|14
+CharlestonCapitolBuilding02|Silver|3|3
+CharlestonCapitolBuilding02|Spring|15|15
+CharlestonCapitolBuilding02|Steel|38|26
+CharlestonCapitolBuilding02|Wood|24|17
+CharlestonCapitolCourthouse01|Acid|1|1
+CharlestonCapitolCourthouse01|Adhesive|2|2
+CharlestonCapitolCourthouse01|Aluminum|9|6
+CharlestonCapitolCourthouse01|Antiseptic|2|1
+CharlestonCapitolCourthouse01|Asbestos|5|3
+CharlestonCapitolCourthouse01|Bone|26|10
+CharlestonCapitolCourthouse01|Ceramic|8|8
+CharlestonCapitolCourthouse01|Circuitry|1|1
+CharlestonCapitolCourthouse01|Cloth|41|39
+CharlestonCapitolCourthouse01|Copper|4|4
+CharlestonCapitolCourthouse01|Cork|2|1
+CharlestonCapitolCourthouse01|Crystal|1|1
+CharlestonCapitolCourthouse01|Fiberglass|3|2
+CharlestonCapitolCourthouse01|Gear|14|10
+CharlestonCapitolCourthouse01|Glass|6|5
+CharlestonCapitolCourthouse01|Lead|2|2
+CharlestonCapitolCourthouse01|Leather|2|1
+CharlestonCapitolCourthouse01|Oil|1|1
+CharlestonCapitolCourthouse01|Plastic|23|16
+CharlestonCapitolCourthouse01|Rubber|5|4
+CharlestonCapitolCourthouse01|Screw|9|8
+CharlestonCapitolCourthouse01|Silver|1|1
+CharlestonCapitolCourthouse01|Spring|12|12
+CharlestonCapitolCourthouse01|Steel|19|12
+CharlestonCapitolCourthouse01|Wood|10|9
+CraterWarRoom01|Asbestos|13|8
+CraterWarRoom01|Ceramic|3|3
+CraterWarRoom01|Cloth|17|13
+CraterWarRoom01|Fiberglass|4|2
+CraterWarRoom01|Glass|53|50
+CraterWarRoom01|Plastic|13|8
+CraterWarRoom01|Screw|1|1
+CraterWarRoom01|Spring|1|1
+CraterWarRoom01|Steel|2|1
+CraterWarRoom01|Wood|4|2
+CraterWatchstation01|Oil|1|1
+CraterWatchstation01|Steel|4|3
+CraterWatchstation01|Wood|1|1
+CultistCave01|Adhesive|1|1
+CultistCave01|Aluminum|1|1
+CultistCave01|Bone|101|45
+CultistCave01|Ceramic|3|3
+CultistCave01|Cloth|7|7
+CultistCave01|Copper|4|3
+CultistCave01|Fiberglass|1|1
+CultistCave01|Gear|4|3
+CultistCave01|Glass|60|44
+CultistCave01|Lead|5|4
+CultistCave01|Oil|22|16
+CultistCave01|Plastic|3|3
+CultistCave01|Rubber|1|1
+CultistCave01|Screw|3|3
+CultistCave01|Spring|5|5
+CultistCave01|Steel|72|45
+CultistCave01|Wood|6|5
+DaggersDen01|Acid|2|1
+DaggersDen01|Adhesive|6|2
+DaggersDen01|Aluminum|7|5
+DaggersDen01|Asbestos|2|2
+DaggersDen01|Ceramic|6|5
+DaggersDen01|Circuitry|1|1
+DaggersDen01|Cloth|2|2
+DaggersDen01|Concrete|21|3
+DaggersDen01|Copper|2|2
+DaggersDen01|Fiberglass|2|2
+DaggersDen01|Gear|1|1
+DaggersDen01|Glass|23|22
+DaggersDen01|Lead|42|25
+DaggersDen01|Oil|2|2
+DaggersDen01|Plastic|4|3
+DaggersDen01|Rubber|2|2
+DaggersDen01|Screw|1|1
+DaggersDen01|Spring|3|3
+DaggersDen01|Steel|52|29
+DaggersDen01|Wood|7|5
+DaggersDen02|Circuitry|1|1
+DaggersDen02|Copper|1|1
+DaggersDen02|Fertilizer|1|1
+DaggersDen02|Glass|14|13
+DaggersDen02|Screw|1|1
+DuncanDuncanRobotics01|Acid|8|4
+DuncanDuncanRobotics01|Aluminum|11|7
+DuncanDuncanRobotics01|Antiseptic|6|2
+DuncanDuncanRobotics01|Asbestos|2|2
+DuncanDuncanRobotics01|Ballistic Fiber|2|1
+DuncanDuncanRobotics01|Bone|2|1
+DuncanDuncanRobotics01|Ceramic|12|10
+DuncanDuncanRobotics01|Circuitry|14|8
+DuncanDuncanRobotics01|Cloth|11|6
+DuncanDuncanRobotics01|Copper|22|17
+DuncanDuncanRobotics01|Cork|2|1
+DuncanDuncanRobotics01|Crystal|1|1
+DuncanDuncanRobotics01|Fiberglass|12|9
+DuncanDuncanRobotics01|Gear|5|3
+DuncanDuncanRobotics01|Glass|19|10
+DuncanDuncanRobotics01|Lead|21|13
+DuncanDuncanRobotics01|Leather|5|1
+DuncanDuncanRobotics01|Nuclear Material|1|1
+DuncanDuncanRobotics01|Oil|7|5
+DuncanDuncanRobotics01|Plastic|7|5
+DuncanDuncanRobotics01|Rubber|6|3
+DuncanDuncanRobotics01|Screw|6|5
+DuncanDuncanRobotics01|Silver|2|1
+DuncanDuncanRobotics01|Spring|6|6
+DuncanDuncanRobotics01|Steel|38|24
+DuncanDuncanRobotics01|Wood|28|19
+DyerChemical01|Acid|2|1
+DyerChemical01|Antiseptic|3|1
+DyerChemical01|Asbestos|1|1
+DyerChemical01|Bone|3|1
+DyerChemical01|Ceramic|1|1
+DyerChemical01|Circuitry|1|1
+DyerChemical01|Cloth|17|16
+DyerChemical01|Copper|1|1
+DyerChemical01|Fiberglass|2|1
+DyerChemical01|Gear|1|1
+DyerChemical01|Glass|3|2
+DyerChemical01|Lead|2|2
+DyerChemical01|Leather|2|1
+DyerChemical01|Oil|9|7
+DyerChemical01|Plastic|4|3
+DyerChemical01|Rubber|2|1
+DyerChemical01|Screw|2|2
+DyerChemical01|Spring|4|4
+DyerChemical01|Steel|21|13
+DyerChemical01|Wood|2|2
+EasternRegionalPen01|Acid|13|9
+EasternRegionalPen01|Adhesive|9|4
+EasternRegionalPen01|Aluminum|48|32
+EasternRegionalPen01|Antiseptic|10|5
+EasternRegionalPen01|Asbestos|20|13
+EasternRegionalPen01|Bone|27|11
+EasternRegionalPen01|Ceramic|34|33
+EasternRegionalPen01|Circuitry|9|9
+EasternRegionalPen01|Cloth|47|45
+EasternRegionalPen01|Concrete|24|4
+EasternRegionalPen01|Copper|26|25
+EasternRegionalPen01|Crystal|2|2
+EasternRegionalPen01|Fertilizer|8|2
+EasternRegionalPen01|Fiber Optics|1|1
+EasternRegionalPen01|Fiberglass|14|13
+EasternRegionalPen01|Gear|16|14
+EasternRegionalPen01|Glass|128|109
+EasternRegionalPen01|Lead|57|38
+EasternRegionalPen01|Leather|6|3
+EasternRegionalPen01|Nuclear Material|1|1
+EasternRegionalPen01|Oil|23|15
+EasternRegionalPen01|Plastic|79|53
+EasternRegionalPen01|Rubber|40|30
+EasternRegionalPen01|Screw|17|17
+EasternRegionalPen01|Spring|20|20
+EasternRegionalPen01|Steel|186|115
+EasternRegionalPen01|Wood|91|62
+EmmettMountainDisposalSite01|Acid|1|1
+EmmettMountainDisposalSite01|Adhesive|7|2
+EmmettMountainDisposalSite01|Aluminum|2|1
+EmmettMountainDisposalSite01|Antiseptic|2|1
+EmmettMountainDisposalSite01|Asbestos|3|3
+EmmettMountainDisposalSite01|Ceramic|4|4
+EmmettMountainDisposalSite01|Cloth|2|2
+EmmettMountainDisposalSite01|Copper|1|1
+EmmettMountainDisposalSite01|Gear|5|5
+EmmettMountainDisposalSite01|Glass|2|1
+EmmettMountainDisposalSite01|Lead|4|3
+EmmettMountainDisposalSite01|Oil|5|4
+EmmettMountainDisposalSite01|Plastic|1|1
+EmmettMountainDisposalSite01|Rubber|5|3
+EmmettMountainDisposalSite01|Screw|3|3
+EmmettMountainDisposalSite01|Spring|2|2
+EmmettMountainDisposalSite01|Steel|22|14
+EmmettMountainDisposalSite01|Wood|6|6
+EnclaveResearchFacility01|Acid|22|12
+EnclaveResearchFacility01|Adhesive|20|9
+EnclaveResearchFacility01|Aluminum|82|66
+EnclaveResearchFacility01|Antiseptic|19|12
+EnclaveResearchFacility01|Asbestos|75|55
+EnclaveResearchFacility01|Ballistic Fiber|4|2
+EnclaveResearchFacility01|Bone|4|4
+EnclaveResearchFacility01|Ceramic|154|143
+EnclaveResearchFacility01|Circuitry|31|25
+EnclaveResearchFacility01|Cloth|96|82
+EnclaveResearchFacility01|Concrete|3|1
+EnclaveResearchFacility01|Copper|46|42
+EnclaveResearchFacility01|Cork|6|3
+EnclaveResearchFacility01|Crystal|10|10
+EnclaveResearchFacility01|Fiber Optics|11|11
+EnclaveResearchFacility01|Fiberglass|23|19
+EnclaveResearchFacility01|Gear|34|29
+EnclaveResearchFacility01|Glass|265|214
+EnclaveResearchFacility01|Gold|3|3
+EnclaveResearchFacility01|Lead|84|52
+EnclaveResearchFacility01|Leather|16|8
+EnclaveResearchFacility01|Nuclear Material|10|8
+EnclaveResearchFacility01|Oil|23|19
+EnclaveResearchFacility01|Plastic|297|183
+EnclaveResearchFacility01|Rubber|93|73
+EnclaveResearchFacility01|Screw|32|29
+EnclaveResearchFacility01|Spring|45|44
+EnclaveResearchFacility01|Steel|222|142
+EnclaveResearchFacility01|Wood|168|123
+FortAtlas01|Acid|2|1
+FortAtlas01|Adhesive|4|4
+FortAtlas01|Aluminum|16|10
+FortAtlas01|Asbestos|16|11
+FortAtlas01|Bone|5|3
+FortAtlas01|Ceramic|68|58
+FortAtlas01|Cloth|38|34
+FortAtlas01|Concrete|7|1
+FortAtlas01|Copper|18|15
+FortAtlas01|Fiberglass|5|5
+FortAtlas01|Gear|14|9
+FortAtlas01|Glass|146|124
+FortAtlas01|Lead|60|24
+FortAtlas01|Leather|5|2
+FortAtlas01|Oil|13|8
+FortAtlas01|Plastic|62|36
+FortAtlas01|Rubber|9|7
+FortAtlas01|Silver|5|5
+FortAtlas01|Spring|5|5
+FortAtlas01|Steel|161|105
+FortAtlas01|Wood|40|26
+FortAtlasDungeon01|Acid|12|6
+FortAtlasDungeon01|Adhesive|7|7
+FortAtlasDungeon01|Aluminum|28|20
+FortAtlasDungeon01|Antiseptic|7|3
+FortAtlasDungeon01|Asbestos|24|16
+FortAtlasDungeon01|Bone|8|4
+FortAtlasDungeon01|Ceramic|20|19
+FortAtlasDungeon01|Cloth|37|29
+FortAtlasDungeon01|Concrete|63|9
+FortAtlasDungeon01|Copper|14|11
+FortAtlasDungeon01|Crystal|1|1
+FortAtlasDungeon01|Fiber Optics|1|1
+FortAtlasDungeon01|Fiberglass|20|16
+FortAtlasDungeon01|Gear|16|11
+FortAtlasDungeon01|Glass|81|62
+FortAtlasDungeon01|Gold|3|3
+FortAtlasDungeon01|Lead|38|9
+FortAtlasDungeon01|Nuclear Material|1|1
+FortAtlasDungeon01|Oil|96|63
+FortAtlasDungeon01|Plastic|30|20
+FortAtlasDungeon01|Rubber|17|10
+FortAtlasDungeon01|Screw|2|2
+FortAtlasDungeon01|Silver|1|1
+FortAtlasDungeon01|Spring|4|4
+FortAtlasDungeon01|Steel|240|134
+FortAtlasDungeon01|Wood|21|16
+FoundationInt01|Acid|7|5
+FoundationInt01|Aluminum|23|14
+FoundationInt01|Asbestos|9|6
+FoundationInt01|Ceramic|39|36
+FoundationInt01|Cloth|13|11
+FoundationInt01|Copper|12|11
+FoundationInt01|Fertilizer|12|3
+FoundationInt01|Fiberglass|4|3
+FoundationInt01|Gear|1|1
+FoundationInt01|Glass|89|80
+FoundationInt01|Lead|11|10
+FoundationInt01|Oil|27|17
+FoundationInt01|Plastic|29|21
+FoundationInt01|Rubber|11|9
+FoundationInt01|Screw|1|1
+FoundationInt01|Spring|3|3
+FoundationInt01|Steel|61|44
+FoundationInt01|Wood|39|27
+FoundationSupplyRoom01|Aluminum|10|6
+FoundationSupplyRoom01|Antiseptic|2|1
+FoundationSupplyRoom01|Asbestos|2|1
+FoundationSupplyRoom01|Ceramic|7|6
+FoundationSupplyRoom01|Cloth|10|10
+FoundationSupplyRoom01|Copper|4|3
+FoundationSupplyRoom01|Cork|1|1
+FoundationSupplyRoom01|Crystal|3|1
+FoundationSupplyRoom01|Fiberglass|1|1
+FoundationSupplyRoom01|Gear|1|1
+FoundationSupplyRoom01|Glass|3|3
+FoundationSupplyRoom01|Lead|3|3
+FoundationSupplyRoom01|Oil|2|2
+FoundationSupplyRoom01|Plastic|7|4
+FoundationSupplyRoom01|Screw|3|2
+FoundationSupplyRoom01|Spring|3|3
+FoundationSupplyRoom01|Steel|6|4
+FoundationSupplyRoom01|Wood|10|7
+FraternityHouse01|Acid|1|1
+FraternityHouse01|Aluminum|2|1
+FraternityHouse01|Antiseptic|2|1
+FraternityHouse01|Asbestos|5|4
+FraternityHouse01|Bone|1|1
+FraternityHouse01|Ceramic|12|10
+FraternityHouse01|Circuitry|1|1
+FraternityHouse01|Cloth|32|28
+FraternityHouse01|Concrete|3|1
+FraternityHouse01|Copper|5|5
+FraternityHouse01|Cork|4|3
+FraternityHouse01|Fiberglass|3|2
+FraternityHouse01|Gear|1|1
+FraternityHouse01|Glass|88|71
+FraternityHouse01|Lead|10|2
+FraternityHouse01|Leather|2|1
+FraternityHouse01|Oil|2|2
+FraternityHouse01|Plastic|29|19
+FraternityHouse01|Rubber|11|7
+FraternityHouse01|Screw|3|3
+FraternityHouse01|Spring|5|5
+FraternityHouse01|Steel|32|20
+FraternityHouse01|Wood|14|9
+FraternityHouse02|Aluminum|4|3
+FraternityHouse02|Antiseptic|4|3
+FraternityHouse02|Asbestos|7|7
+FraternityHouse02|Bone|1|1
+FraternityHouse02|Ceramic|21|14
+FraternityHouse02|Circuitry|1|1
+FraternityHouse02|Cloth|17|14
+FraternityHouse02|Copper|14|13
+FraternityHouse02|Crystal|1|1
+FraternityHouse02|Fiber Optics|1|1
+FraternityHouse02|Fiberglass|1|1
+FraternityHouse02|Gear|4|4
+FraternityHouse02|Glass|49|30
+FraternityHouse02|Gold|1|1
+FraternityHouse02|Lead|12|10
+FraternityHouse02|Leather|3|2
+FraternityHouse02|Nuclear Material|2|2
+FraternityHouse02|Oil|5|5
+FraternityHouse02|Plastic|25|18
+FraternityHouse02|Rubber|6|4
+FraternityHouse02|Screw|5|4
+FraternityHouse02|Silver|2|2
+FraternityHouse02|Spring|2|2
+FraternityHouse02|Steel|97|76
+FraternityHouse02|Wood|36|19
+FreeStatesBunker01|Acid|5|3
+FreeStatesBunker01|Adhesive|1|1
+FreeStatesBunker01|Aluminum|14|9
+FreeStatesBunker01|Antiseptic|11|5
+FreeStatesBunker01|Asbestos|8|6
+FreeStatesBunker01|Ballistic Fiber|2|1
+FreeStatesBunker01|Ceramic|22|20
+FreeStatesBunker01|Circuitry|13|4
+FreeStatesBunker01|Cloth|45|31
+FreeStatesBunker01|Concrete|7|1
+FreeStatesBunker01|Copper|17|14
+FreeStatesBunker01|Cork|4|2
+FreeStatesBunker01|Fiberglass|8|5
+FreeStatesBunker01|Gear|7|5
+FreeStatesBunker01|Glass|36|31
+FreeStatesBunker01|Lead|43|28
+FreeStatesBunker01|Leather|2|1
+FreeStatesBunker01|Nuclear Material|1|1
+FreeStatesBunker01|Oil|19|11
+FreeStatesBunker01|Plastic|27|19
+FreeStatesBunker01|Rubber|8|7
+FreeStatesBunker01|Screw|8|8
+FreeStatesBunker01|Spring|7|7
+FreeStatesBunker01|Steel|100|58
+FreeStatesBunker01|Wood|52|34
+FreeStatesBunker02|Aluminum|3|2
+FreeStatesBunker02|Bone|20|7
+FreeStatesBunker02|Ceramic|10|10
+FreeStatesBunker02|Cloth|6|3
+FreeStatesBunker02|Copper|1|1
+FreeStatesBunker02|Fiberglass|2|1
+FreeStatesBunker02|Glass|14|8
+FreeStatesBunker02|Lead|5|5
+FreeStatesBunker02|Leather|2|1
+FreeStatesBunker02|Oil|12|6
+FreeStatesBunker02|Plastic|2|1
+FreeStatesBunker02|Screw|3|3
+FreeStatesBunker02|Spring|1|1
+FreeStatesBunker02|Steel|23|9
+FreeStatesBunker02|Wood|11|6
+FreeStatesBunker03|Acid|5|3
+FreeStatesBunker03|Adhesive|2|1
+FreeStatesBunker03|Aluminum|21|18
+FreeStatesBunker03|Antiseptic|5|2
+FreeStatesBunker03|Asbestos|10|7
+FreeStatesBunker03|Ceramic|20|19
+FreeStatesBunker03|Circuitry|7|3
+FreeStatesBunker03|Cloth|26|16
+FreeStatesBunker03|Copper|7|5
+FreeStatesBunker03|Cork|2|1
+FreeStatesBunker03|Crystal|6|6
+FreeStatesBunker03|Fiber Optics|6|6
+FreeStatesBunker03|Fiberglass|7|4
+FreeStatesBunker03|Gear|10|10
+FreeStatesBunker03|Glass|44|44
+FreeStatesBunker03|Lead|48|38
+FreeStatesBunker03|Leather|2|1
+FreeStatesBunker03|Oil|9|8
+FreeStatesBunker03|Plastic|23|15
+FreeStatesBunker03|Rubber|11|9
+FreeStatesBunker03|Screw|9|9
+FreeStatesBunker03|Spring|6|6
+FreeStatesBunker03|Steel|83|48
+FreeStatesBunker03|Wood|57|33
+FreeStatesBunker04|Acid|5|3
+FreeStatesBunker04|Adhesive|4|3
+FreeStatesBunker04|Aluminum|12|12
+FreeStatesBunker04|Antiseptic|10|4
+FreeStatesBunker04|Asbestos|7|5
+FreeStatesBunker04|Ceramic|19|19
+FreeStatesBunker04|Circuitry|1|1
+FreeStatesBunker04|Cloth|12|8
+FreeStatesBunker04|Concrete|14|2
+FreeStatesBunker04|Copper|7|7
+FreeStatesBunker04|Cork|2|1
+FreeStatesBunker04|Fiberglass|9|5
+FreeStatesBunker04|Gear|1|1
+FreeStatesBunker04|Glass|59|54
+FreeStatesBunker04|Lead|33|29
+FreeStatesBunker04|Oil|13|8
+FreeStatesBunker04|Plastic|14|9
+FreeStatesBunker04|Rubber|5|4
+FreeStatesBunker04|Screw|5|5
+FreeStatesBunker04|Spring|2|2
+FreeStatesBunker04|Steel|77|40
+FreeStatesBunker04|Wood|43|24
+FreeStatesBunker06|Acid|2|2
+FreeStatesBunker06|Antiseptic|4|2
+FreeStatesBunker06|Asbestos|3|2
+FreeStatesBunker06|Bone|11|4
+FreeStatesBunker06|Ceramic|13|9
+FreeStatesBunker06|Circuitry|4|2
+FreeStatesBunker06|Cloth|12|12
+FreeStatesBunker06|Copper|2|2
+FreeStatesBunker06|Cork|4|2
+FreeStatesBunker06|Gear|4|3
+FreeStatesBunker06|Glass|7|6
+FreeStatesBunker06|Lead|3|2
+FreeStatesBunker06|Leather|2|1
+FreeStatesBunker06|Oil|3|2
+FreeStatesBunker06|Plastic|10|6
+FreeStatesBunker06|Screw|3|3
+FreeStatesBunker06|Steel|38|25
+FreeStatesBunker06|Wood|8|6
+FreeStatesBunker07|Acid|4|3
+FreeStatesBunker07|Adhesive|8|4
+FreeStatesBunker07|Aluminum|3|3
+FreeStatesBunker07|Antiseptic|7|4
+FreeStatesBunker07|Asbestos|20|14
+FreeStatesBunker07|Ceramic|11|10
+FreeStatesBunker07|Circuitry|1|1
+FreeStatesBunker07|Cloth|20|16
+FreeStatesBunker07|Concrete|21|3
+FreeStatesBunker07|Copper|7|7
+FreeStatesBunker07|Crystal|2|2
+FreeStatesBunker07|Fertilizer|4|1
+FreeStatesBunker07|Fiber Optics|1|1
+FreeStatesBunker07|Fiberglass|5|3
+FreeStatesBunker07|Gear|8|8
+FreeStatesBunker07|Glass|33|27
+FreeStatesBunker07|Gold|1|1
+FreeStatesBunker07|Lead|12|7
+FreeStatesBunker07|Leather|1|1
+FreeStatesBunker07|Nuclear Material|1|1
+FreeStatesBunker07|Oil|20|14
+FreeStatesBunker07|Plastic|30|19
+FreeStatesBunker07|Rubber|9|6
+FreeStatesBunker07|Screw|7|7
+FreeStatesBunker07|Spring|4|4
+FreeStatesBunker07|Steel|83|52
+FreeStatesBunker07|Wood|24|16
+GarrahanMiningHQ01|Acid|1|1
+GarrahanMiningHQ01|Adhesive|1|1
+GarrahanMiningHQ01|Aluminum|3|2
+GarrahanMiningHQ01|Antiseptic|2|1
+GarrahanMiningHQ01|Asbestos|16|10
+GarrahanMiningHQ01|Ceramic|37|32
+GarrahanMiningHQ01|Circuitry|1|1
+GarrahanMiningHQ01|Cloth|12|11
+GarrahanMiningHQ01|Concrete|35|5
+GarrahanMiningHQ01|Copper|15|11
+GarrahanMiningHQ01|Cork|2|2
+GarrahanMiningHQ01|Crystal|7|3
+GarrahanMiningHQ01|Fiber Optics|1|1
+GarrahanMiningHQ01|Fiberglass|1|1
+GarrahanMiningHQ01|Gear|4|4
+GarrahanMiningHQ01|Glass|48|40
+GarrahanMiningHQ01|Gold|2|2
+GarrahanMiningHQ01|Lead|22|18
+GarrahanMiningHQ01|Leather|15|4
+GarrahanMiningHQ01|Oil|15|12
+GarrahanMiningHQ01|Plastic|32|19
+GarrahanMiningHQ01|Rubber|3|2
+GarrahanMiningHQ01|Screw|7|6
+GarrahanMiningHQ01|Silver|1|1
+GarrahanMiningHQ01|Spring|14|14
+GarrahanMiningHQ01|Steel|83|43
+GarrahanMiningHQ01|Wood|18|16
+GauleyMine01|Acid|14|8
+GauleyMine01|Adhesive|15|6
+GauleyMine01|Aluminum|5|4
+GauleyMine01|Antiseptic|12|6
+GauleyMine01|Asbestos|4|4
+GauleyMine01|Ceramic|3|3
+GauleyMine01|Circuitry|5|1
+GauleyMine01|Cloth|10|10
+GauleyMine01|Concrete|7|1
+GauleyMine01|Copper|11|10
+GauleyMine01|Fertilizer|1|1
+GauleyMine01|Fiberglass|4|4
+GauleyMine01|Gear|2|2
+GauleyMine01|Glass|27|19
+GauleyMine01|Lead|37|18
+GauleyMine01|Leather|2|1
+GauleyMine01|Oil|31|22
+GauleyMine01|Plastic|12|10
+GauleyMine01|Rubber|8|6
+GauleyMine01|Steel|119|70
+GauleyMine01|Wood|16|13
+GlassedCavern01|Acid|6|3
+GlassedCavern01|Adhesive|5|1
+GlassedCavern01|Aluminum|15|13
+GlassedCavern01|Antiseptic|4|2
+GlassedCavern01|Asbestos|11|11
+GlassedCavern01|Bone|21|7
+GlassedCavern01|Ceramic|4|4
+GlassedCavern01|Circuitry|3|2
+GlassedCavern01|Cloth|20|20
+GlassedCavern01|Concrete|45|7
+GlassedCavern01|Copper|28|19
+GlassedCavern01|Fiberglass|9|8
+GlassedCavern01|Gear|2|2
+GlassedCavern01|Glass|71|51
+GlassedCavern01|Lead|23|13
+GlassedCavern01|Leather|8|4
+GlassedCavern01|Nuclear Material|1|1
+GlassedCavern01|Oil|51|31
+GlassedCavern01|Plastic|14|11
+GlassedCavern01|Rubber|17|10
+GlassedCavern01|Screw|5|5
+GlassedCavern01|Spring|9|9
+GlassedCavern01|Steel|112|63
+GlassedCavern01|Wood|18|15
+GraftonPawnShop01|Acid|12|7
+GraftonPawnShop01|Adhesive|5|5
+GraftonPawnShop01|Aluminum|4|4
+GraftonPawnShop01|Antiseptic|10|5
+GraftonPawnShop01|Asbestos|14|11
+GraftonPawnShop01|Bone|10|4
+GraftonPawnShop01|Ceramic|14|13
+GraftonPawnShop01|Circuitry|1|1
+GraftonPawnShop01|Cloth|43|43
+GraftonPawnShop01|Concrete|7|1
+GraftonPawnShop01|Copper|3|3
+GraftonPawnShop01|Crystal|1|1
+GraftonPawnShop01|Fiber Optics|1|1
+GraftonPawnShop01|Fiberglass|6|5
+GraftonPawnShop01|Gear|7|6
+GraftonPawnShop01|Glass|27|24
+GraftonPawnShop01|Lead|57|26
+GraftonPawnShop01|Nuclear Material|1|1
+GraftonPawnShop01|Oil|14|10
+GraftonPawnShop01|Plastic|28|19
+GraftonPawnShop01|Rubber|11|8
+GraftonPawnShop01|Screw|3|3
+GraftonPawnShop01|Silver|2|2
+GraftonPawnShop01|Spring|8|8
+GraftonPawnShop01|Steel|96|52
+GraftonPawnShop01|Wood|28|23
+GraftonSteelUnderground01|Acid|24|17
+GraftonSteelUnderground01|Adhesive|18|6
+GraftonSteelUnderground01|Aluminum|34|18
+GraftonSteelUnderground01|Antiseptic|20|10
+GraftonSteelUnderground01|Asbestos|31|23
+GraftonSteelUnderground01|Ceramic|32|29
+GraftonSteelUnderground01|Circuitry|23|17
+GraftonSteelUnderground01|Cloth|40|39
+GraftonSteelUnderground01|Concrete|63|9
+GraftonSteelUnderground01|Copper|31|30
+GraftonSteelUnderground01|Crystal|2|2
+GraftonSteelUnderground01|Fiber Optics|2|2
+GraftonSteelUnderground01|Fiberglass|10|10
+GraftonSteelUnderground01|Gear|15|15
+GraftonSteelUnderground01|Glass|57|47
+GraftonSteelUnderground01|Lead|65|28
+GraftonSteelUnderground01|Oil|42|27
+GraftonSteelUnderground01|Plastic|35|25
+GraftonSteelUnderground01|Rubber|49|32
+GraftonSteelUnderground01|Screw|10|10
+GraftonSteelUnderground01|Spring|19|19
+GraftonSteelUnderground01|Steel|176|112
+GraftonSteelUnderground01|Wood|41|35
+HarpersFerryDungeon01|Acid|41|24
+HarpersFerryDungeon01|Adhesive|17|8
+HarpersFerryDungeon01|Aluminum|41|23
+HarpersFerryDungeon01|Antiseptic|18|7
+HarpersFerryDungeon01|Asbestos|30|21
+HarpersFerryDungeon01|Ceramic|37|37
+HarpersFerryDungeon01|Circuitry|7|7
+HarpersFerryDungeon01|Cloth|53|51
+HarpersFerryDungeon01|Concrete|70|10
+HarpersFerryDungeon01|Copper|22|22
+HarpersFerryDungeon01|Cork|2|1
+HarpersFerryDungeon01|Fertilizer|20|5
+HarpersFerryDungeon01|Fiber Optics|1|1
+HarpersFerryDungeon01|Fiberglass|21|17
+HarpersFerryDungeon01|Gear|21|15
+HarpersFerryDungeon01|Glass|99|84
+HarpersFerryDungeon01|Gold|1|1
+HarpersFerryDungeon01|Lead|68|34
+HarpersFerryDungeon01|Leather|8|4
+HarpersFerryDungeon01|Oil|73|54
+HarpersFerryDungeon01|Plastic|52|36
+HarpersFerryDungeon01|Rubber|47|32
+HarpersFerryDungeon01|Screw|13|13
+HarpersFerryDungeon01|Spring|14|14
+HarpersFerryDungeon01|Steel|268|174
+HarpersFerryDungeon01|Wood|62|51
+HornwrightHQ01|Acid|3|2
+HornwrightHQ01|Adhesive|7|2
+HornwrightHQ01|Antiseptic|2|1
+HornwrightHQ01|Asbestos|4|3
+HornwrightHQ01|Bone|47|13
+HornwrightHQ01|Ceramic|9|9
+HornwrightHQ01|Circuitry|6|5
+HornwrightHQ01|Cloth|3|3
+HornwrightHQ01|Copper|9|8
+HornwrightHQ01|Fiberglass|1|1
+HornwrightHQ01|Gear|5|5
+HornwrightHQ01|Glass|19|14
+HornwrightHQ01|Gold|2|2
+HornwrightHQ01|Lead|4|2
+HornwrightHQ01|Plastic|4|3
+HornwrightHQ01|Rubber|2|1
+HornwrightHQ01|Screw|8|8
+HornwrightHQ01|Spring|4|4
+HornwrightHQ01|Steel|33|20
+HornwrightHQ01|Wood|18|12
+HornwrightSafeRoom01|Aluminum|2|1
+HornwrightSafeRoom01|Asbestos|2|1
+HornwrightSafeRoom01|Ceramic|3|3
+HornwrightSafeRoom01|Cloth|1|1
+HornwrightSafeRoom01|Copper|3|1
+HornwrightSafeRoom01|Cork|2|2
+HornwrightSafeRoom01|Crystal|6|2
+HornwrightSafeRoom01|Gear|1|1
+HornwrightSafeRoom01|Glass|24|19
+HornwrightSafeRoom01|Lead|2|1
+HornwrightSafeRoom01|Plastic|3|2
+HornwrightSafeRoom01|Rubber|1|1
+HornwrightSafeRoom01|Screw|1|1
+HornwrightSafeRoom01|Steel|7|4
+HornwrightSafeRoom01|Wood|1|1
+KerwoodMine01|Acid|4|2
+KerwoodMine01|Aluminum|10|5
+KerwoodMine01|Copper|2|1
+KerwoodMine01|Glass|18|10
+KerwoodMine01|Lead|2|1
+KerwoodMine01|Oil|21|12
+KerwoodMine01|Plastic|4|3
+KerwoodMine01|Screw|1|1
+KerwoodMine01|Spring|2|2
+KerwoodMine01|Steel|32|13
+KerwoodMine01|Wood|4|3
+LewisandSonsFarmingSupply01|Acid|4|3
+LewisandSonsFarmingSupply01|Aluminum|9|4
+LewisandSonsFarmingSupply01|Antiseptic|3|2
+LewisandSonsFarmingSupply01|Asbestos|4|3
+LewisandSonsFarmingSupply01|Bone|1|1
+LewisandSonsFarmingSupply01|Ceramic|18|17
+LewisandSonsFarmingSupply01|Circuitry|1|1
+LewisandSonsFarmingSupply01|Cloth|10|7
+LewisandSonsFarmingSupply01|Concrete|14|2
+LewisandSonsFarmingSupply01|Copper|1|1
+LewisandSonsFarmingSupply01|Fertilizer|4|1
+LewisandSonsFarmingSupply01|Glass|9|8
+LewisandSonsFarmingSupply01|Gold|1|1
+LewisandSonsFarmingSupply01|Lead|7|6
+LewisandSonsFarmingSupply01|Leather|3|2
+LewisandSonsFarmingSupply01|Nuclear Material|2|2
+LewisandSonsFarmingSupply01|Oil|3|3
+LewisandSonsFarmingSupply01|Plastic|13|10
+LewisandSonsFarmingSupply01|Rubber|1|1
+LewisandSonsFarmingSupply01|Screw|1|1
+LewisandSonsFarmingSupply01|Steel|51|38
+LewisandSonsFarmingSupply01|Wood|23|14
+LousMine01|Acid|3|2
+LousMine01|Adhesive|5|2
+LousMine01|Antiseptic|2|1
+LousMine01|Asbestos|1|1
+LousMine01|Cloth|1|1
+LousMine01|Copper|3|3
+LousMine01|Fiberglass|3|2
+LousMine01|Gear|1|1
+LousMine01|Glass|5|4
+LousMine01|Lead|6|2
+LousMine01|Oil|7|4
+LousMine01|Plastic|10|7
+LousMine01|Screw|1|1
+LousMine01|Steel|13|10
+LousMine01|Wood|2|2
+MTR08LodeBaring01|Acid|3|2
+MTR08LodeBaring01|Aluminum|7|5
+MTR08LodeBaring01|Antiseptic|2|1
+MTR08LodeBaring01|Asbestos|3|2
+MTR08LodeBaring01|Bone|8|4
+MTR08LodeBaring01|Ceramic|3|3
+MTR08LodeBaring01|Cloth|2|2
+MTR08LodeBaring01|Concrete|7|1
+MTR08LodeBaring01|Copper|8|4
+MTR08LodeBaring01|Fiberglass|1|1
+MTR08LodeBaring01|Glass|14|10
+MTR08LodeBaring01|Lead|2|2
+MTR08LodeBaring01|Leather|2|1
+MTR08LodeBaring01|Oil|8|5
+MTR08LodeBaring01|Plastic|5|3
+MTR08LodeBaring01|Spring|3|3
+MTR08LodeBaring01|Steel|36|26
+MTR08LodeBaring01|Wood|6|4
+MTR08LodeBaring02|Acid|2|1
+MTR08LodeBaring02|Aluminum|2|1
+MTR08LodeBaring02|Asbestos|1|1
+MTR08LodeBaring02|Bone|4|2
+MTR08LodeBaring02|Ceramic|1|1
+MTR08LodeBaring02|Copper|4|2
+MTR08LodeBaring02|Cork|2|1
+MTR08LodeBaring02|Glass|8|6
+MTR08LodeBaring02|Oil|2|1
+MTR08LodeBaring02|Plastic|5|4
+MTR08LodeBaring02|Rubber|2|1
+MTR08LodeBaring02|Screw|2|1
+MTR08LodeBaring02|Spring|1|1
+MTR08LodeBaring02|Steel|34|33
+MTR08LodeBaring02|Wood|1|1
+MamaDolceProcessing01|Acid|3|2
+MamaDolceProcessing01|Aluminum|3|3
+MamaDolceProcessing01|Antiseptic|2|1
+MamaDolceProcessing01|Asbestos|5|4
+MamaDolceProcessing01|Ceramic|3|3
+MamaDolceProcessing01|Circuitry|1|1
+MamaDolceProcessing01|Cloth|19|17
+MamaDolceProcessing01|Copper|8|5
+MamaDolceProcessing01|Crystal|2|2
+MamaDolceProcessing01|Fiber Optics|2|2
+MamaDolceProcessing01|Fiberglass|4|4
+MamaDolceProcessing01|Gear|3|3
+MamaDolceProcessing01|Glass|15|14
+MamaDolceProcessing01|Lead|2|2
+MamaDolceProcessing01|Oil|5|5
+MamaDolceProcessing01|Plastic|6|5
+MamaDolceProcessing01|Rubber|5|3
+MamaDolceProcessing01|Screw|1|1
+MamaDolceProcessing01|Spring|5|5
+MamaDolceProcessing01|Steel|22|14
+MamaDolceProcessing01|Wood|6|6
+MonongahMine01|Acid|3|2
+MonongahMine01|Adhesive|5|2
+MonongahMine01|Aluminum|3|2
+MonongahMine01|Antiseptic|3|2
+MonongahMine01|Asbestos|3|3
+MonongahMine01|Ballistic Fiber|6|3
+MonongahMine01|Bone|73|27
+MonongahMine01|Ceramic|5|5
+MonongahMine01|Circuitry|1|1
+MonongahMine01|Cloth|16|16
+MonongahMine01|Concrete|3|1
+MonongahMine01|Copper|3|3
+MonongahMine01|Fiberglass|1|1
+MonongahMine01|Gear|3|3
+MonongahMine01|Glass|17|11
+MonongahMine01|Lead|23|10
+MonongahMine01|Leather|18|9
+MonongahMine01|Oil|21|13
+MonongahMine01|Plastic|8|8
+MonongahMine01|Rubber|7|5
+MonongahMine01|Screw|2|2
+MonongahMine01|Spring|9|9
+MonongahMine01|Steel|74|41
+MonongahMine01|Wood|15|14
+MonongahMissileSilo01|Acid|32|18
+MonongahMissileSilo01|Adhesive|86|28
+MonongahMissileSilo01|Aluminum|21|16
+MonongahMissileSilo01|Antiseptic|30|12
+MonongahMissileSilo01|Asbestos|26|19
+MonongahMissileSilo01|Ballistic Fiber|18|9
+MonongahMissileSilo01|Ceramic|34|34
+MonongahMissileSilo01|Circuitry|41|27
+MonongahMissileSilo01|Cloth|88|71
+MonongahMissileSilo01|Concrete|7|1
+MonongahMissileSilo01|Copper|50|48
+MonongahMissileSilo01|Cork|7|4
+MonongahMissileSilo01|Crystal|4|2
+MonongahMissileSilo01|Fiber Optics|1|1
+MonongahMissileSilo01|Fiberglass|33|27
+MonongahMissileSilo01|Gear|34|32
+MonongahMissileSilo01|Glass|87|70
+MonongahMissileSilo01|Gold|1|1
+MonongahMissileSilo01|Lead|170|64
+MonongahMissileSilo01|Leather|15|8
+MonongahMissileSilo01|Nuclear Material|2|2
+MonongahMissileSilo01|Oil|52|40
+MonongahMissileSilo01|Plastic|80|58
+MonongahMissileSilo01|Rubber|22|16
+MonongahMissileSilo01|Screw|31|31
+MonongahMissileSilo01|Silver|8|8
+MonongahMissileSilo01|Spring|25|25
+MonongahMissileSilo01|Steel|292|194
+MonongahMissileSilo01|Wood|107|75
+MonongahPowerPlant01|Acid|12|6
+MonongahPowerPlant01|Adhesive|16|8
+MonongahPowerPlant01|Aluminum|11|6
+MonongahPowerPlant01|Antiseptic|5|2
+MonongahPowerPlant01|Asbestos|19|15
+MonongahPowerPlant01|Bone|11|5
+MonongahPowerPlant01|Ceramic|22|22
+MonongahPowerPlant01|Circuitry|5|5
+MonongahPowerPlant01|Cloth|16|16
+MonongahPowerPlant01|Concrete|7|1
+MonongahPowerPlant01|Copper|12|12
+MonongahPowerPlant01|Cork|7|4
+MonongahPowerPlant01|Crystal|5|3
+MonongahPowerPlant01|Fiberglass|4|4
+MonongahPowerPlant01|Gear|19|15
+MonongahPowerPlant01|Glass|36|28
+MonongahPowerPlant01|Lead|23|12
+MonongahPowerPlant01|Leather|5|2
+MonongahPowerPlant01|Nuclear Material|1|1
+MonongahPowerPlant01|Oil|13|11
+MonongahPowerPlant01|Plastic|43|23
+MonongahPowerPlant01|Rubber|17|10
+MonongahPowerPlant01|Screw|12|12
+MonongahPowerPlant01|Spring|13|13
+MonongahPowerPlant01|Steel|92|56
+MonongahPowerPlant01|Wood|53|33
+MorgantownAirportTerminal02|Acid|3|2
+MorgantownAirportTerminal02|Adhesive|4|3
+MorgantownAirportTerminal02|Aluminum|4|4
+MorgantownAirportTerminal02|Antiseptic|6|3
+MorgantownAirportTerminal02|Asbestos|32|23
+MorgantownAirportTerminal02|Bone|15|5
+MorgantownAirportTerminal02|Ceramic|21|20
+MorgantownAirportTerminal02|Circuitry|4|4
+MorgantownAirportTerminal02|Cloth|38|36
+MorgantownAirportTerminal02|Concrete|35|5
+MorgantownAirportTerminal02|Copper|8|8
+MorgantownAirportTerminal02|Fiberglass|4|3
+MorgantownAirportTerminal02|Gear|6|6
+MorgantownAirportTerminal02|Glass|28|20
+MorgantownAirportTerminal02|Lead|33|24
+MorgantownAirportTerminal02|Nuclear Material|1|1
+MorgantownAirportTerminal02|Oil|19|11
+MorgantownAirportTerminal02|Plastic|30|19
+MorgantownAirportTerminal02|Rubber|14|10
+MorgantownAirportTerminal02|Screw|11|11
+MorgantownAirportTerminal02|Spring|4|4
+MorgantownAirportTerminal02|Steel|123|81
+MorgantownAirportTerminal02|Wood|25|19
+MorgantownApartment01|Acid|3|2
+MorgantownApartment01|Aluminum|5|4
+MorgantownApartment01|Antiseptic|5|2
+MorgantownApartment01|Asbestos|8|6
+MorgantownApartment01|Bone|1|1
+MorgantownApartment01|Ceramic|25|21
+MorgantownApartment01|Circuitry|2|2
+MorgantownApartment01|Cloth|7|6
+MorgantownApartment01|Copper|9|8
+MorgantownApartment01|Cork|1|1
+MorgantownApartment01|Crystal|3|1
+MorgantownApartment01|Fiberglass|5|4
+MorgantownApartment01|Gear|1|1
+MorgantownApartment01|Glass|24|17
+MorgantownApartment01|Lead|9|5
+MorgantownApartment01|Oil|2|2
+MorgantownApartment01|Plastic|15|9
+MorgantownApartment01|Rubber|7|5
+MorgantownApartment01|Screw|3|3
+MorgantownApartment01|Silver|1|1
+MorgantownApartment01|Spring|3|3
+MorgantownApartment01|Steel|24|15
+MorgantownApartment01|Wood|15|9
+MorgantownHighSchool01|Acid|4|4
+MorgantownHighSchool01|Adhesive|4|3
+MorgantownHighSchool01|Aluminum|59|34
+MorgantownHighSchool01|Antiseptic|11|6
+MorgantownHighSchool01|Asbestos|22|18
+MorgantownHighSchool01|Bone|22|7
+MorgantownHighSchool01|Ceramic|22|21
+MorgantownHighSchool01|Circuitry|6|6
+MorgantownHighSchool01|Cloth|115|113
+MorgantownHighSchool01|Copper|14|13
+MorgantownHighSchool01|Cork|37|27
+MorgantownHighSchool01|Crystal|7|5
+MorgantownHighSchool01|Fiber Optics|4|4
+MorgantownHighSchool01|Fiberglass|5|5
+MorgantownHighSchool01|Gear|9|9
+MorgantownHighSchool01|Glass|69|56
+MorgantownHighSchool01|Lead|47|31
+MorgantownHighSchool01|Leather|36|16
+MorgantownHighSchool01|Nuclear Material|3|3
+MorgantownHighSchool01|Oil|22|15
+MorgantownHighSchool01|Plastic|185|122
+MorgantownHighSchool01|Rubber|53|38
+MorgantownHighSchool01|Screw|20|17
+MorgantownHighSchool01|Silver|3|3
+MorgantownHighSchool01|Spring|13|13
+MorgantownHighSchool01|Steel|107|63
+MorgantownHighSchool01|Wood|69|38
+MountBlairWarehouseBasement01|Acid|2|1
+MountBlairWarehouseBasement01|Adhesive|9|2
+MountBlairWarehouseBasement01|Aluminum|2|1
+MountBlairWarehouseBasement01|Cloth|1|1
+MountBlairWarehouseBasement01|Concrete|7|1
+MountBlairWarehouseBasement01|Copper|4|4
+MountBlairWarehouseBasement01|Gear|1|1
+MountBlairWarehouseBasement01|Glass|5|5
+MountBlairWarehouseBasement01|Lead|2|1
+MountBlairWarehouseBasement01|Oil|4|4
+MountBlairWarehouseBasement01|Plastic|2|1
+MountBlairWarehouseBasement01|Screw|1|1
+MountBlairWarehouseBasement01|Spring|1|1
+MountBlairWarehouseBasement01|Steel|13|9
+MountBlairWarehouseBasement01|Wood|2|2
+NukaColaQuantumPlant01|Adhesive|13|5
+NukaColaQuantumPlant01|Aluminum|20|17
+NukaColaQuantumPlant01|Asbestos|5|3
+NukaColaQuantumPlant01|Ceramic|14|14
+NukaColaQuantumPlant01|Circuitry|1|1
+NukaColaQuantumPlant01|Cloth|22|22
+NukaColaQuantumPlant01|Concrete|7|1
+NukaColaQuantumPlant01|Copper|12|10
+NukaColaQuantumPlant01|Cork|2|1
+NukaColaQuantumPlant01|Crystal|1|1
+NukaColaQuantumPlant01|Fiber Optics|1|1
+NukaColaQuantumPlant01|Fiberglass|3|3
+NukaColaQuantumPlant01|Gear|7|7
+NukaColaQuantumPlant01|Glass|51|36
+NukaColaQuantumPlant01|Lead|29|23
+NukaColaQuantumPlant01|Nuclear Material|9|9
+NukaColaQuantumPlant01|Oil|28|21
+NukaColaQuantumPlant01|Plastic|20|15
+NukaColaQuantumPlant01|Rubber|10|9
+NukaColaQuantumPlant01|Screw|6|6
+NukaColaQuantumPlant01|Spring|7|7
+NukaColaQuantumPlant01|Steel|109|64
+NukaColaQuantumPlant01|Wood|30|25
+OrwellOrchardsShelter01|Acid|7|6
+OrwellOrchardsShelter01|Adhesive|1|1
+OrwellOrchardsShelter01|Aluminum|10|5
+OrwellOrchardsShelter01|Antiseptic|14|7
+OrwellOrchardsShelter01|Asbestos|8|6
+OrwellOrchardsShelter01|Ceramic|12|11
+OrwellOrchardsShelter01|Circuitry|1|1
+OrwellOrchardsShelter01|Cloth|18|16
+OrwellOrchardsShelter01|Concrete|14|2
+OrwellOrchardsShelter01|Copper|11|11
+OrwellOrchardsShelter01|Cork|13|12
+OrwellOrchardsShelter01|Crystal|3|1
+OrwellOrchardsShelter01|Fiberglass|6|4
+OrwellOrchardsShelter01|Gear|5|4
+OrwellOrchardsShelter01|Glass|52|45
+OrwellOrchardsShelter01|Lead|49|18
+OrwellOrchardsShelter01|Leather|2|1
+OrwellOrchardsShelter01|Oil|13|10
+OrwellOrchardsShelter01|Plastic|34|28
+OrwellOrchardsShelter01|Rubber|9|7
+OrwellOrchardsShelter01|Screw|8|7
+OrwellOrchardsShelter01|Spring|8|8
+OrwellOrchardsShelter01|Steel|77|54
+OrwellOrchardsShelter01|Wood|33|24
+OverseersHome01|Acid|10|6
+OverseersHome01|Adhesive|4|2
+OverseersHome01|Aluminum|14|8
+OverseersHome01|Antiseptic|8|4
+OverseersHome01|Asbestos|4|4
+OverseersHome01|Ballistic Fiber|2|1
+OverseersHome01|Bone|2|1
+OverseersHome01|Ceramic|28|22
+OverseersHome01|Cloth|25|16
+OverseersHome01|Copper|4|2
+OverseersHome01|Cork|2|1
+OverseersHome01|Fiberglass|2|1
+OverseersHome01|Gear|6|6
+OverseersHome01|Glass|11|9
+OverseersHome01|Lead|10|7
+OverseersHome01|Leather|9|4
+OverseersHome01|Nuclear Material|1|1
+OverseersHome01|Oil|6|3
+OverseersHome01|Plastic|18|12
+OverseersHome01|Rubber|9|5
+OverseersHome01|Screw|6|6
+OverseersHome01|Spring|4|4
+OverseersHome01|Steel|40|25
+OverseersHome01|Wood|33|20
+PoseidonPlant01|Acid|15|9
+PoseidonPlant01|Adhesive|15|6
+PoseidonPlant01|Aluminum|7|4
+PoseidonPlant01|Antiseptic|15|8
+PoseidonPlant01|Asbestos|18|12
+PoseidonPlant01|Bone|6|3
+PoseidonPlant01|Ceramic|20|19
+PoseidonPlant01|Circuitry|3|3
+PoseidonPlant01|Cloth|63|61
+PoseidonPlant01|Concrete|35|5
+PoseidonPlant01|Copper|14|14
+PoseidonPlant01|Crystal|1|1
+PoseidonPlant01|Fiberglass|5|4
+PoseidonPlant01|Gear|5|4
+PoseidonPlant01|Glass|34|27
+PoseidonPlant01|Lead|18|7
+PoseidonPlant01|Leather|4|2
+PoseidonPlant01|Oil|18|15
+PoseidonPlant01|Plastic|37|28
+PoseidonPlant01|Rubber|10|7
+PoseidonPlant01|Screw|4|4
+PoseidonPlant01|Silver|1|1
+PoseidonPlant01|Spring|12|12
+PoseidonPlant01|Steel|91|59
+PoseidonPlant01|Wood|27|22
+PoseidonPlant02|Acid|2|1
+PoseidonPlant02|Adhesive|5|1
+PoseidonPlant02|Aluminum|9|6
+PoseidonPlant02|Asbestos|4|3
+PoseidonPlant02|Bone|44|13
+PoseidonPlant02|Ceramic|6|6
+PoseidonPlant02|Circuitry|1|1
+PoseidonPlant02|Cloth|1|1
+PoseidonPlant02|Concrete|14|2
+PoseidonPlant02|Copper|5|5
+PoseidonPlant02|Fiberglass|2|1
+PoseidonPlant02|Gear|1|1
+PoseidonPlant02|Glass|13|13
+PoseidonPlant02|Lead|6|6
+PoseidonPlant02|Leather|3|1
+PoseidonPlant02|Oil|8|5
+PoseidonPlant02|Plastic|15|10
+PoseidonPlant02|Rubber|11|7
+PoseidonPlant02|Screw|2|2
+PoseidonPlant02|Spring|2|2
+PoseidonPlant02|Steel|38|23
+PoseidonPlant02|Wood|8|7
+RadioResearchCenter01|Acid|7|5
+RadioResearchCenter01|Adhesive|32|11
+RadioResearchCenter01|Aluminum|8|4
+RadioResearchCenter01|Antiseptic|10|5
+RadioResearchCenter01|Asbestos|16|11
+RadioResearchCenter01|Ballistic Fiber|6|3
+RadioResearchCenter01|Ceramic|20|20
+RadioResearchCenter01|Circuitry|12|10
+RadioResearchCenter01|Cloth|47|47
+RadioResearchCenter01|Concrete|7|1
+RadioResearchCenter01|Copper|22|22
+RadioResearchCenter01|Cork|10|5
+RadioResearchCenter01|Crystal|4|4
+RadioResearchCenter01|Fertilizer|4|1
+RadioResearchCenter01|Fiberglass|8|8
+RadioResearchCenter01|Gear|20|15
+RadioResearchCenter01|Glass|37|28
+RadioResearchCenter01|Gold|1|1
+RadioResearchCenter01|Lead|24|7
+RadioResearchCenter01|Leather|4|2
+RadioResearchCenter01|Nuclear Material|1|1
+RadioResearchCenter01|Oil|21|15
+RadioResearchCenter01|Plastic|41|27
+RadioResearchCenter01|Rubber|12|11
+RadioResearchCenter01|Screw|20|20
+RadioResearchCenter01|Silver|2|1
+RadioResearchCenter01|Spring|16|16
+RadioResearchCenter01|Steel|65|42
+RadioResearchCenter01|Wood|41|29
+RaiderCave01|Black Titanium|2|2
+RaiderCave01|Cloth|2|2
+RaiderCave01|Gear|2|2
+RaiderCave01|Glass|6|5
+RaiderCave01|Lead|1|1
+RaiderCave01|Leather|4|2
+RaiderCave01|Oil|3|2
+RaiderCave01|Steel|14|9
+RaiderCave01|Wood|1|1
+RaiderCave02|Acid|7|4
+RaiderCave02|Aluminum|10|6
+RaiderCave02|Asbestos|3|2
+RaiderCave02|Ceramic|9|8
+RaiderCave02|Circuitry|1|1
+RaiderCave02|Cloth|13|13
+RaiderCave02|Concrete|21|3
+RaiderCave02|Copper|4|4
+RaiderCave02|Fertilizer|4|1
+RaiderCave02|Fiberglass|4|3
+RaiderCave02|Glass|31|30
+RaiderCave02|Lead|3|3
+RaiderCave02|Leather|2|1
+RaiderCave02|Oil|12|8
+RaiderCave02|Plastic|11|6
+RaiderCave02|Rubber|3|2
+RaiderCave02|Screw|1|1
+RaiderCave02|Spring|2|2
+RaiderCave02|Steel|18|10
+RaiderCave02|Wood|6|4
+RaiderCave03|Asbestos|4|3
+RaiderCave03|Cloth|4|4
+RaiderCave03|Copper|1|1
+RaiderCave03|Gear|1|1
+RaiderCave03|Glass|23|22
+RaiderCave03|Leather|2|1
+RaiderCave03|Oil|3|2
+RaiderCave03|Plastic|8|5
+RaiderCave03|Spring|1|1
+RaiderCave03|Steel|9|5
+RaiderCave03|Wood|1|1
+RaiderRaidTrailerInt|Adhesive|1|1
+RaiderRaidTrailerInt|Aluminum|1|1
+RaiderRaidTrailerInt|Asbestos|6|4
+RaiderRaidTrailerInt|Ceramic|1|1
+RaiderRaidTrailerInt|Cloth|8|6
+RaiderRaidTrailerInt|Fiberglass|4|3
+RaiderRaidTrailerInt|Glass|3|3
+RaiderRaidTrailerInt|Lead|7|3
+RaiderRaidTrailerInt|Leather|4|1
+RaiderRaidTrailerInt|Oil|1|1
+RaiderRaidTrailerInt|Plastic|6|4
+RaiderRaidTrailerInt|Steel|11|7
+RaiderRaidTrailerInt|Wood|3|2
+RiversideManor01|Acid|3|3
+RiversideManor01|Aluminum|15|11
+RiversideManor01|Antiseptic|9|5
+RiversideManor01|Asbestos|8|8
+RiversideManor01|Ceramic|51|44
+RiversideManor01|Circuitry|1|1
+RiversideManor01|Cloth|122|116
+RiversideManor01|Copper|15|15
+RiversideManor01|Cork|6|5
+RiversideManor01|Crystal|13|5
+RiversideManor01|Fiber Optics|1|1
+RiversideManor01|Fiberglass|4|3
+RiversideManor01|Gear|6|5
+RiversideManor01|Glass|48|35
+RiversideManor01|Gold|3|3
+RiversideManor01|Lead|10|10
+RiversideManor01|Leather|8|4
+RiversideManor01|Oil|10|7
+RiversideManor01|Plastic|31|21
+RiversideManor01|Rubber|24|15
+RiversideManor01|Screw|2|2
+RiversideManor01|Silver|1|1
+RiversideManor01|Spring|15|15
+RiversideManor01|Steel|59|45
+RiversideManor01|Wood|56|37
+RobCoResearchCenter01|Acid|17|10
+RobCoResearchCenter01|Adhesive|27|7
+RobCoResearchCenter01|Aluminum|32|20
+RobCoResearchCenter01|Antiseptic|11|5
+RobCoResearchCenter01|Asbestos|31|24
+RobCoResearchCenter01|Ballistic Fiber|2|1
+RobCoResearchCenter01|Ceramic|30|27
+RobCoResearchCenter01|Circuitry|27|19
+RobCoResearchCenter01|Cloth|37|35
+RobCoResearchCenter01|Copper|33|27
+RobCoResearchCenter01|Cork|3|2
+RobCoResearchCenter01|Crystal|10|8
+RobCoResearchCenter01|Fiber Optics|6|6
+RobCoResearchCenter01|Fiberglass|15|13
+RobCoResearchCenter01|Gear|18|16
+RobCoResearchCenter01|Glass|79|70
+RobCoResearchCenter01|Lead|31|16
+RobCoResearchCenter01|Nuclear Material|5|5
+RobCoResearchCenter01|Oil|12|8
+RobCoResearchCenter01|Plastic|43|30
+RobCoResearchCenter01|Rubber|29|18
+RobCoResearchCenter01|Screw|12|10
+RobCoResearchCenter01|Spring|26|26
+RobCoResearchCenter01|Steel|105|69
+RobCoResearchCenter01|Wood|59|47
+RobcoExperimentalCache01|Acid|8|5
+RobcoExperimentalCache01|Adhesive|21|5
+RobcoExperimentalCache01|Aluminum|9|8
+RobcoExperimentalCache01|Antiseptic|5|3
+RobcoExperimentalCache01|Asbestos|16|12
+RobcoExperimentalCache01|Bone|3|3
+RobcoExperimentalCache01|Ceramic|29|27
+RobcoExperimentalCache01|Circuitry|2|2
+RobcoExperimentalCache01|Cloth|77|75
+RobcoExperimentalCache01|Copper|6|6
+RobcoExperimentalCache01|Cork|2|1
+RobcoExperimentalCache01|Fertilizer|4|1
+RobcoExperimentalCache01|Fiberglass|13|12
+RobcoExperimentalCache01|Gear|6|6
+RobcoExperimentalCache01|Glass|15|14
+RobcoExperimentalCache01|Lead|45|14
+RobcoExperimentalCache01|Leather|2|1
+RobcoExperimentalCache01|Oil|21|14
+RobcoExperimentalCache01|Plastic|23|18
+RobcoExperimentalCache01|Rubber|10|6
+RobcoExperimentalCache01|Screw|5|5
+RobcoExperimentalCache01|Spring|14|14
+RobcoExperimentalCache01|Steel|81|46
+RobcoExperimentalCache01|Wood|25|21
+RollinsLaborCamp01|Aluminum|15|8
+RollinsLaborCamp01|Asbestos|1|1
+RollinsLaborCamp01|Ceramic|5|4
+RollinsLaborCamp01|Cloth|4|3
+RollinsLaborCamp01|Copper|1|1
+RollinsLaborCamp01|Gear|1|1
+RollinsLaborCamp01|Glass|1|1
+RollinsLaborCamp01|Oil|2|2
+RollinsLaborCamp01|Plastic|4|3
+RollinsLaborCamp01|Rubber|7|7
+RollinsLaborCamp01|Screw|1|1
+RollinsLaborCamp01|Spring|1|1
+RollinsLaborCamp01|Steel|10|6
+RollinsLaborCamp01|Wood|1|1
+SamBlackwellBunker02|Acid|5|4
+SamBlackwellBunker02|Adhesive|6|2
+SamBlackwellBunker02|Aluminum|38|30
+SamBlackwellBunker02|Antiseptic|12|6
+SamBlackwellBunker02|Asbestos|10|8
+SamBlackwellBunker02|Ceramic|21|19
+SamBlackwellBunker02|Circuitry|3|3
+SamBlackwellBunker02|Cloth|10|9
+SamBlackwellBunker02|Copper|20|18
+SamBlackwellBunker02|Cork|5|3
+SamBlackwellBunker02|Crystal|4|2
+SamBlackwellBunker02|Fiber Optics|1|1
+SamBlackwellBunker02|Fiberglass|6|5
+SamBlackwellBunker02|Gear|5|5
+SamBlackwellBunker02|Glass|71|60
+SamBlackwellBunker02|Lead|78|70
+SamBlackwellBunker02|Oil|12|10
+SamBlackwellBunker02|Plastic|18|13
+SamBlackwellBunker02|Rubber|14|11
+SamBlackwellBunker02|Screw|9|9
+SamBlackwellBunker02|Spring|10|10
+SamBlackwellBunker02|Steel|151|85
+SamBlackwellBunker02|Wood|45|31
+SamBlackwellsDeathclawCave|Acid|6|6
+SamBlackwellsDeathclawCave|Aluminum|3|3
+SamBlackwellsDeathclawCave|Bone|61|23
+SamBlackwellsDeathclawCave|Fertilizer|8|2
+SamBlackwellsDeathclawCave|Fiberglass|1|1
+SamBlackwellsDeathclawCave|Lead|3|3
+SamBlackwellsDeathclawCave|Oil|3|3
+SamBlackwellsDeathclawCave|Plastic|2|2
+SamBlackwellsDeathclawCave|Steel|12|8
+SamBlackwellsDeathclawCave|Wood|3|3
+SettlerBugOutCave|Acid|3|3
+SettlerBugOutCave|Copper|1|1
+SettlerBugOutCave|Fertilizer|12|3
+SettlerBugOutCave|Glass|3|3
+SettlerBugOutCave|Lead|14|6
+SettlerBugOutCave|Oil|7|4
+SettlerBugOutCave|Plastic|3|3
+SettlerBugOutCave|Spring|1|1
+SettlerBugOutCave|Steel|24|15
+SettlerBugOutCave|Wood|3|3
+SheltersClaimCenter01|Antiseptic|2|1
+SheltersClaimCenter01|Ceramic|1|1
+SheltersClaimCenter01|Cloth|4|4
+SheltersClaimCenter01|Copper|2|2
+SheltersClaimCenter01|Gear|4|3
+SheltersClaimCenter01|Lead|3|2
+SheltersClaimCenter01|Plastic|3|3
+SheltersClaimCenter01|Screw|2|2
+SheltersClaimCenter01|Spring|1|1
+SheltersClaimCenter01|Steel|15|11
+SheltersClaimCenter01|Wood|2|2
+SpruceKnobCampground01|Acid|4|3
+SpruceKnobCampground01|Adhesive|5|2
+SpruceKnobCampground01|Aluminum|6|4
+SpruceKnobCampground01|Antiseptic|6|3
+SpruceKnobCampground01|Asbestos|7|6
+SpruceKnobCampground01|Ceramic|9|7
+SpruceKnobCampground01|Circuitry|1|1
+SpruceKnobCampground01|Cloth|11|11
+SpruceKnobCampground01|Concrete|7|1
+SpruceKnobCampground01|Copper|3|3
+SpruceKnobCampground01|Crystal|1|1
+SpruceKnobCampground01|Fiberglass|3|3
+SpruceKnobCampground01|Gear|7|6
+SpruceKnobCampground01|Glass|16|11
+SpruceKnobCampground01|Gold|1|1
+SpruceKnobCampground01|Lead|27|11
+SpruceKnobCampground01|Leather|1|1
+SpruceKnobCampground01|Oil|7|5
+SpruceKnobCampground01|Plastic|19|13
+SpruceKnobCampground01|Rubber|14|9
+SpruceKnobCampground01|Screw|4|4
+SpruceKnobCampground01|Spring|9|9
+SpruceKnobCampground01|Steel|63|36
+SpruceKnobCampground01|Wood|14|11
+SpruceKnobMissileSilo01|Acid|32|18
+SpruceKnobMissileSilo01|Adhesive|86|28
+SpruceKnobMissileSilo01|Aluminum|21|16
+SpruceKnobMissileSilo01|Antiseptic|30|12
+SpruceKnobMissileSilo01|Asbestos|26|19
+SpruceKnobMissileSilo01|Ballistic Fiber|18|9
+SpruceKnobMissileSilo01|Ceramic|34|34
+SpruceKnobMissileSilo01|Circuitry|41|27
+SpruceKnobMissileSilo01|Cloth|88|71
+SpruceKnobMissileSilo01|Concrete|7|1
+SpruceKnobMissileSilo01|Copper|50|48
+SpruceKnobMissileSilo01|Cork|7|4
+SpruceKnobMissileSilo01|Crystal|4|2
+SpruceKnobMissileSilo01|Fiber Optics|1|1
+SpruceKnobMissileSilo01|Fiberglass|33|27
+SpruceKnobMissileSilo01|Gear|34|32
+SpruceKnobMissileSilo01|Glass|87|70
+SpruceKnobMissileSilo01|Gold|1|1
+SpruceKnobMissileSilo01|Lead|170|64
+SpruceKnobMissileSilo01|Leather|15|8
+SpruceKnobMissileSilo01|Nuclear Material|2|2
+SpruceKnobMissileSilo01|Oil|52|40
+SpruceKnobMissileSilo01|Plastic|80|58
+SpruceKnobMissileSilo01|Rubber|22|16
+SpruceKnobMissileSilo01|Screw|31|31
+SpruceKnobMissileSilo01|Silver|8|8
+SpruceKnobMissileSilo01|Spring|25|25
+SpruceKnobMissileSilo01|Steel|292|194
+SpruceKnobMissileSilo01|Wood|107|75
+SugarGrove01|Aluminum|3|3
+SugarGrove01|Asbestos|39|26
+SugarGrove01|Ceramic|81|81
+SugarGrove01|Circuitry|14|14
+SugarGrove01|Cloth|35|35
+SugarGrove01|Copper|26|25
+SugarGrove01|Cork|6|3
+SugarGrove01|Crystal|1|1
+SugarGrove01|Fiber Optics|1|1
+SugarGrove01|Fiberglass|14|14
+SugarGrove01|Gear|11|11
+SugarGrove01|Glass|52|42
+SugarGrove01|Lead|30|30
+SugarGrove01|Oil|14|11
+SugarGrove01|Plastic|59|43
+SugarGrove01|Rubber|7|5
+SugarGrove01|Screw|15|15
+SugarGrove01|Spring|52|52
+SugarGrove01|Steel|87|45
+SugarGrove01|Wood|109|97
+SugarGrove02|Acid|2|1
+SugarGrove02|Ceramic|2|2
+SugarGrove02|Gear|2|2
+SugarGrove02|Lead|2|1
+SugarGrove02|Screw|2|2
+SugarGrove02|Spring|2|2
+SugarGrove02|Steel|6|3
+SugarGrove02|Wood|4|3
+SugarGroveMissileSilo01|Acid|32|18
+SugarGroveMissileSilo01|Adhesive|86|28
+SugarGroveMissileSilo01|Aluminum|21|16
+SugarGroveMissileSilo01|Antiseptic|30|12
+SugarGroveMissileSilo01|Asbestos|26|19
+SugarGroveMissileSilo01|Ballistic Fiber|18|9
+SugarGroveMissileSilo01|Ceramic|34|34
+SugarGroveMissileSilo01|Circuitry|41|27
+SugarGroveMissileSilo01|Cloth|88|71
+SugarGroveMissileSilo01|Concrete|7|1
+SugarGroveMissileSilo01|Copper|50|48
+SugarGroveMissileSilo01|Cork|7|4
+SugarGroveMissileSilo01|Crystal|4|2
+SugarGroveMissileSilo01|Fiber Optics|1|1
+SugarGroveMissileSilo01|Fiberglass|33|27
+SugarGroveMissileSilo01|Gear|34|32
+SugarGroveMissileSilo01|Glass|87|70
+SugarGroveMissileSilo01|Gold|1|1
+SugarGroveMissileSilo01|Lead|170|64
+SugarGroveMissileSilo01|Leather|15|8
+SugarGroveMissileSilo01|Nuclear Material|2|2
+SugarGroveMissileSilo01|Oil|52|40
+SugarGroveMissileSilo01|Plastic|80|58
+SugarGroveMissileSilo01|Rubber|22|16
+SugarGroveMissileSilo01|Screw|31|31
+SugarGroveMissileSilo01|Silver|8|8
+SugarGroveMissileSilo01|Spring|25|25
+SugarGroveMissileSilo01|Steel|292|194
+SugarGroveMissileSilo01|Wood|107|75
+TheCraterCore01|Acid|2|1
+TheCraterCore01|Asbestos|6|4
+TheCraterCore01|Bone|44|19
+TheCraterCore01|Ceramic|4|3
+TheCraterCore01|Cloth|8|8
+TheCraterCore01|Gear|1|1
+TheCraterCore01|Glass|22|17
+TheCraterCore01|Plastic|9|5
+TheCraterCore01|Steel|6|3
+TheCraterCore01|Wood|2|2
+TheNukashine01|Acid|14|9
+TheNukashine01|Adhesive|3|2
+TheNukashine01|Aluminum|20|14
+TheNukashine01|Antiseptic|11|6
+TheNukashine01|Asbestos|23|18
+TheNukashine01|Bone|1|1
+TheNukashine01|Ceramic|28|28
+TheNukashine01|Circuitry|4|4
+TheNukashine01|Cloth|59|53
+TheNukashine01|Copper|14|13
+TheNukashine01|Cork|3|2
+TheNukashine01|Crystal|3|1
+TheNukashine01|Fiberglass|10|8
+TheNukashine01|Gear|1|1
+TheNukashine01|Glass|98|75
+TheNukashine01|Lead|26|15
+TheNukashine01|Nuclear Material|1|1
+TheNukashine01|Oil|26|16
+TheNukashine01|Plastic|39|28
+TheNukashine01|Rubber|19|13
+TheNukashine01|Screw|10|9
+TheNukashine01|Silver|2|2
+TheNukashine01|Spring|8|8
+TheNukashine01|Steel|96|61
+TheNukashine01|Wood|31|20
+TheRustyPick01|Acid|4|2
+TheRustyPick01|Adhesive|4|1
+TheRustyPick01|Aluminum|2|1
+TheRustyPick01|Asbestos|6|4
+TheRustyPick01|Ceramic|4|4
+TheRustyPick01|Circuitry|1|1
+TheRustyPick01|Cloth|10|7
+TheRustyPick01|Copper|2|2
+TheRustyPick01|Fiberglass|2|2
+TheRustyPick01|Gear|2|2
+TheRustyPick01|Glass|21|17
+TheRustyPick01|Lead|10|2
+TheRustyPick01|Leather|6|3
+TheRustyPick01|Oil|9|7
+TheRustyPick01|Plastic|33|20
+TheRustyPick01|Rubber|3|2
+TheRustyPick01|Screw|3|2
+TheRustyPick01|Spring|3|3
+TheRustyPick01|Steel|38|21
+TheRustyPick01|Wood|8|5
+TheWayward01|Acid|6|5
+TheWayward01|Adhesive|1|1
+TheWayward01|Aluminum|19|14
+TheWayward01|Antiseptic|11|5
+TheWayward01|Asbestos|23|16
+TheWayward01|Ceramic|42|34
+TheWayward01|Circuitry|6|6
+TheWayward01|Cloth|30|26
+TheWayward01|Copper|15|15
+TheWayward01|Cork|2|1
+TheWayward01|Fiberglass|10|8
+TheWayward01|Gear|2|2
+TheWayward01|Glass|287|166
+TheWayward01|Lead|48|28
+TheWayward01|Oil|20|11
+TheWayward01|Plastic|37|23
+TheWayward01|Rubber|7|6
+TheWayward01|Screw|11|9
+TheWayward01|Silver|4|4
+TheWayward01|Spring|12|10
+TheWayward01|Steel|108|66
+TheWayward01|Wood|24|19
+ThunderMtPowerPlant01|Acid|18|10
+ThunderMtPowerPlant01|Adhesive|31|20
+ThunderMtPowerPlant01|Aluminum|25|17
+ThunderMtPowerPlant01|Antiseptic|14|6
+ThunderMtPowerPlant01|Asbestos|14|9
+ThunderMtPowerPlant01|Ballistic Fiber|2|1
+ThunderMtPowerPlant01|Ceramic|11|11
+ThunderMtPowerPlant01|Circuitry|5|5
+ThunderMtPowerPlant01|Cloth|40|35
+ThunderMtPowerPlant01|Concrete|7|1
+ThunderMtPowerPlant01|Copper|11|11
+ThunderMtPowerPlant01|Cork|2|1
+ThunderMtPowerPlant01|Crystal|1|1
+ThunderMtPowerPlant01|Fiberglass|10|7
+ThunderMtPowerPlant01|Gear|14|12
+ThunderMtPowerPlant01|Glass|24|20
+ThunderMtPowerPlant01|Gold|1|1
+ThunderMtPowerPlant01|Lead|16|10
+ThunderMtPowerPlant01|Leather|3|1
+ThunderMtPowerPlant01|Oil|29|20
+ThunderMtPowerPlant01|Plastic|73|45
+ThunderMtPowerPlant01|Rubber|20|13
+ThunderMtPowerPlant01|Screw|9|9
+ThunderMtPowerPlant01|Silver|1|1
+ThunderMtPowerPlant01|Spring|12|12
+ThunderMtPowerPlant01|Steel|106|68
+ThunderMtPowerPlant01|Wood|27|21
+TopOfTheWorld01|Acid|5|2
+TopOfTheWorld01|Adhesive|4|3
+TopOfTheWorld01|Aluminum|36|18
+TopOfTheWorld01|Asbestos|3|3
+TopOfTheWorld01|Bone|20|6
+TopOfTheWorld01|Ceramic|30|28
+TopOfTheWorld01|Circuitry|5|5
+TopOfTheWorld01|Cloth|18|18
+TopOfTheWorld01|Concrete|73|11
+TopOfTheWorld01|Copper|9|9
+TopOfTheWorld01|Fiberglass|24|14
+TopOfTheWorld01|Gear|3|3
+TopOfTheWorld01|Glass|79|75
+TopOfTheWorld01|Gold|1|1
+TopOfTheWorld01|Lead|25|12
+TopOfTheWorld01|Leather|3|1
+TopOfTheWorld01|Oil|21|14
+TopOfTheWorld01|Plastic|59|36
+TopOfTheWorld01|Rubber|12|6
+TopOfTheWorld01|Screw|4|4
+TopOfTheWorld01|Silver|1|1
+TopOfTheWorld01|Spring|13|13
+TopOfTheWorld01|Steel|131|93
+TopOfTheWorld01|Wood|76|50
+UCB01|Aluminum|7|3
+UCB01|Asbestos|2|2
+UCB01|Ceramic|6|6
+UCB01|Circuitry|1|1
+UCB01|Cloth|5|3
+UCB01|Copper|2|2
+UCB01|Fiberglass|4|3
+UCB01|Gear|2|2
+UCB01|Glass|1|1
+UCB01|Lead|5|1
+UCB01|Oil|2|1
+UCB01|Plastic|11|9
+UCB01|Rubber|1|1
+UCB01|Screw|3|2
+UCB01|Spring|10|10
+UCB01|Steel|9|4
+UCB01|Wood|12|11
+UncannyCaverns01|Acid|2|1
+UncannyCaverns01|Adhesive|3|3
+UncannyCaverns01|Aluminum|8|7
+UncannyCaverns01|Antiseptic|2|1
+UncannyCaverns01|Bone|10|4
+UncannyCaverns01|Cloth|3|3
+UncannyCaverns01|Copper|4|4
+UncannyCaverns01|Crystal|1|1
+UncannyCaverns01|Gear|1|1
+UncannyCaverns01|Glass|40|37
+UncannyCaverns01|Gold|1|1
+UncannyCaverns01|Lead|15|14
+UncannyCaverns01|Leather|6|2
+UncannyCaverns01|Oil|13|9
+UncannyCaverns01|Plastic|4|3
+UncannyCaverns01|Screw|1|1
+UncannyCaverns01|Spring|1|1
+UncannyCaverns01|Steel|49|29
+UncannyCaverns01|Wood|3|2
+UncannyCaverns02|Bone|66|23
+UncannyCaverns02|Cloth|3|3
+UncannyCaverns02|Glass|2|2
+UncannyCaverns02|Leather|4|2
+UncannyCaverns02|Steel|3|2
+UncannyCavernsDungeon|Acid|2|1
+UncannyCavernsDungeon|Adhesive|3|3
+UncannyCavernsDungeon|Aluminum|8|7
+UncannyCavernsDungeon|Antiseptic|2|1
+UncannyCavernsDungeon|Bone|76|27
+UncannyCavernsDungeon|Ceramic|2|2
+UncannyCavernsDungeon|Cloth|8|8
+UncannyCavernsDungeon|Copper|4|4
+UncannyCavernsDungeon|Crystal|1|1
+UncannyCavernsDungeon|Gear|3|2
+UncannyCavernsDungeon|Glass|42|39
+UncannyCavernsDungeon|Gold|1|1
+UncannyCavernsDungeon|Lead|15|14
+UncannyCavernsDungeon|Leather|10|4
+UncannyCavernsDungeon|Oil|13|9
+UncannyCavernsDungeon|Plastic|4|3
+UncannyCavernsDungeon|Screw|2|2
+UncannyCavernsDungeon|Spring|2|2
+UncannyCavernsDungeon|Steel|52|31
+UncannyCavernsDungeon|Wood|3|2
+VTecAgCenter01|Adhesive|2|2
+VTecAgCenter01|Aluminum|5|5
+VTecAgCenter01|Asbestos|10|7
+VTecAgCenter01|Bone|23|9
+VTecAgCenter01|Ceramic|52|52
+VTecAgCenter01|Circuitry|4|4
+VTecAgCenter01|Cloth|23|23
+VTecAgCenter01|Concrete|17|3
+VTecAgCenter01|Copper|8|7
+VTecAgCenter01|Cork|4|2
+VTecAgCenter01|Fertilizer|1|1
+VTecAgCenter01|Fiberglass|5|5
+VTecAgCenter01|Gear|5|5
+VTecAgCenter01|Glass|19|16
+VTecAgCenter01|Lead|35|26
+VTecAgCenter01|Leather|2|1
+VTecAgCenter01|Oil|3|2
+VTecAgCenter01|Plastic|11|6
+VTecAgCenter01|Rubber|4|3
+VTecAgCenter01|Screw|8|8
+VTecAgCenter01|Spring|10|10
+VTecAgCenter01|Steel|36|20
+VTecAgCenter01|Wood|46|38
+ValleyGalleria01|Acid|5|4
+ValleyGalleria01|Adhesive|1|1
+ValleyGalleria01|Aluminum|19|10
+ValleyGalleria01|Antiseptic|11|5
+ValleyGalleria01|Asbestos|9|7
+ValleyGalleria01|Ceramic|21|21
+ValleyGalleria01|Circuitry|11|11
+ValleyGalleria01|Cloth|63|60
+ValleyGalleria01|Copper|32|28
+ValleyGalleria01|Cork|12|6
+ValleyGalleria01|Crystal|2|2
+ValleyGalleria01|Fiberglass|15|13
+ValleyGalleria01|Gear|16|12
+ValleyGalleria01|Glass|76|59
+ValleyGalleria01|Gold|1|1
+ValleyGalleria01|Lead|43|27
+ValleyGalleria01|Leather|33|15
+ValleyGalleria01|Oil|17|11
+ValleyGalleria01|Plastic|90|61
+ValleyGalleria01|Rubber|38|23
+ValleyGalleria01|Screw|15|15
+ValleyGalleria01|Silver|6|4
+ValleyGalleria01|Spring|16|16
+ValleyGalleria01|Steel|173|94
+ValleyGalleria01|Wood|40|27
+VanLoweTaxidermy01|Acid|5|3
+VanLoweTaxidermy01|Adhesive|5|4
+VanLoweTaxidermy01|Aluminum|8|6
+VanLoweTaxidermy01|Antiseptic|3|2
+VanLoweTaxidermy01|Asbestos|10|9
+VanLoweTaxidermy01|Bone|53|18
+VanLoweTaxidermy01|Ceramic|36|24
+VanLoweTaxidermy01|Circuitry|3|3
+VanLoweTaxidermy01|Cloth|60|56
+VanLoweTaxidermy01|Concrete|21|3
+VanLoweTaxidermy01|Copper|13|13
+VanLoweTaxidermy01|Cork|5|4
+VanLoweTaxidermy01|Crystal|2|2
+VanLoweTaxidermy01|Fiberglass|5|4
+VanLoweTaxidermy01|Gear|5|4
+VanLoweTaxidermy01|Glass|41|34
+VanLoweTaxidermy01|Lead|27|15
+VanLoweTaxidermy01|Leather|13|5
+VanLoweTaxidermy01|Oil|10|9
+VanLoweTaxidermy01|Plastic|34|28
+VanLoweTaxidermy01|Rubber|26|18
+VanLoweTaxidermy01|Screw|4|4
+VanLoweTaxidermy01|Silver|6|5
+VanLoweTaxidermy01|Spring|8|8
+VanLoweTaxidermy01|Steel|101|59
+VanLoweTaxidermy01|Wood|30|21
+Vault51Dungeon|Acid|8|8
+Vault51Dungeon|Adhesive|9|6
+Vault51Dungeon|Aluminum|52|31
+Vault51Dungeon|Antiseptic|18|9
+Vault51Dungeon|Asbestos|9|9
+Vault51Dungeon|Ceramic|103|93
+Vault51Dungeon|Circuitry|7|5
+Vault51Dungeon|Cloth|147|95
+Vault51Dungeon|Concrete|15|5
+Vault51Dungeon|Copper|16|10
+Vault51Dungeon|Cork|9|6
+Vault51Dungeon|Crystal|14|8
+Vault51Dungeon|Fiber Optics|1|1
+Vault51Dungeon|Fiberglass|14|10
+Vault51Dungeon|Gear|24|18
+Vault51Dungeon|Glass|174|160
+Vault51Dungeon|Lead|97|50
+Vault51Dungeon|Leather|10|5
+Vault51Dungeon|Nuclear Material|2|2
+Vault51Dungeon|Oil|5|2
+Vault51Dungeon|Plastic|99|67
+Vault51Dungeon|Rubber|13|13
+Vault51Dungeon|Screw|49|39
+Vault51Dungeon|Silver|6|5
+Vault51Dungeon|Spring|24|22
+Vault51Dungeon|Steel|111|78
+Vault51Dungeon|Wood|90|57
+Vault63Entrance|Acid|4|2
+Vault63Entrance|Aluminum|5|3
+Vault63Entrance|Asbestos|2|1
+Vault63Entrance|Ceramic|2|2
+Vault63Entrance|Circuitry|1|1
+Vault63Entrance|Cloth|1|1
+Vault63Entrance|Copper|1|1
+Vault63Entrance|Fiberglass|1|1
+Vault63Entrance|Glass|2|2
+Vault63Entrance|Oil|3|2
+Vault63Entrance|Plastic|6|3
+Vault63Entrance|Screw|1|1
+Vault63Entrance|Spring|1|1
+Vault63Entrance|Steel|2|1
+Vault79Entrance|Aluminum|2|2
+Vault79Entrance|Asbestos|2|1
+Vault79Entrance|Ceramic|1|1
+Vault79Entrance|Copper|3|3
+Vault79Entrance|Gear|3|3
+Vault79Entrance|Glass|2|1
+Vault79Entrance|Lead|14|6
+Vault79Entrance|Oil|7|5
+Vault79Entrance|Plastic|3|2
+Vault79Entrance|Screw|2|2
+Vault79Entrance|Steel|39|25
+Vault79Entrance|Wood|4|4
+Vault79GoldVaultOperations|Asbestos|3|2
+Vault79GoldVaultOperations|Ceramic|10|10
+Vault79GoldVaultOperations|Circuitry|2|2
+Vault79GoldVaultOperations|Cloth|3|3
+Vault79GoldVaultOperations|Copper|2|2
+Vault79GoldVaultOperations|Fiberglass|2|2
+Vault79GoldVaultOperations|Gear|4|3
+Vault79GoldVaultOperations|Glass|2|2
+Vault79GoldVaultOperations|Plastic|2|1
+Vault79GoldVaultOperations|Screw|3|3
+Vault79GoldVaultOperations|Spring|2|2
+Vault79GoldVaultOperations|Steel|6|3
+Vault79GoldVaultOperations|Wood|1|1
+Vault79Main|Acid|34|20
+Vault79Main|Adhesive|25|13
+Vault79Main|Aluminum|59|41
+Vault79Main|Antiseptic|24|11
+Vault79Main|Asbestos|55|38
+Vault79Main|Ballistic Fiber|10|5
+Vault79Main|Bone|5|1
+Vault79Main|Ceramic|61|58
+Vault79Main|Circuitry|25|21
+Vault79Main|Cloth|85|70
+Vault79Main|Copper|49|44
+Vault79Main|Cork|4|2
+Vault79Main|Crystal|7|7
+Vault79Main|Fiber Optics|4|4
+Vault79Main|Fiberglass|22|18
+Vault79Main|Gear|40|39
+Vault79Main|Glass|120|99
+Vault79Main|Gold|2|2
+Vault79Main|Lead|81|40
+Vault79Main|Leather|11|6
+Vault79Main|Nuclear Material|5|5
+Vault79Main|Oil|56|36
+Vault79Main|Plastic|160|102
+Vault79Main|Rubber|57|38
+Vault79Main|Screw|47|42
+Vault79Main|Silver|3|2
+Vault79Main|Spring|27|27
+Vault79Main|Steel|312|184
+Vault79Main|Wood|123|77
+Vault94Dungeon|Acid|26|20
+Vault94Dungeon|Adhesive|33|14
+Vault94Dungeon|Aluminum|37|27
+Vault94Dungeon|Antiseptic|12|5
+Vault94Dungeon|Asbestos|13|9
+Vault94Dungeon|Bone|10|4
+Vault94Dungeon|Ceramic|73|73
+Vault94Dungeon|Circuitry|7|7
+Vault94Dungeon|Cloth|53|50
+Vault94Dungeon|Concrete|14|2
+Vault94Dungeon|Copper|22|21
+Vault94Dungeon|Cork|4|2
+Vault94Dungeon|Crystal|8|8
+Vault94Dungeon|Fertilizer|44|11
+Vault94Dungeon|Fiber Optics|4|4
+Vault94Dungeon|Fiberglass|12|11
+Vault94Dungeon|Gear|25|24
+Vault94Dungeon|Glass|77|66
+Vault94Dungeon|Lead|50|19
+Vault94Dungeon|Leather|4|2
+Vault94Dungeon|Nuclear Material|1|1
+Vault94Dungeon|Oil|30|19
+Vault94Dungeon|Plastic|37|28
+Vault94Dungeon|Rubber|25|18
+Vault94Dungeon|Screw|21|20
+Vault94Dungeon|Silver|2|1
+Vault94Dungeon|Spring|27|27
+Vault94Dungeon|Steel|149|91
+Vault94Dungeon|Wood|69|50
+Vault94DungeonGECK|Acid|7|4
+Vault94DungeonGECK|Adhesive|9|2
+Vault94DungeonGECK|Aluminum|9|6
+Vault94DungeonGECK|Antiseptic|2|1
+Vault94DungeonGECK|Asbestos|1|1
+Vault94DungeonGECK|Ceramic|6|6
+Vault94DungeonGECK|Circuitry|1|1
+Vault94DungeonGECK|Cloth|12|12
+Vault94DungeonGECK|Concrete|21|3
+Vault94DungeonGECK|Copper|6|5
+Vault94DungeonGECK|Fertilizer|1|1
+Vault94DungeonGECK|Fiberglass|2|2
+Vault94DungeonGECK|Gear|6|5
+Vault94DungeonGECK|Glass|5|3
+Vault94DungeonGECK|Lead|2|1
+Vault94DungeonGECK|Leather|2|1
+Vault94DungeonGECK|Nuclear Material|2|2
+Vault94DungeonGECK|Oil|8|7
+Vault94DungeonGECK|Plastic|9|7
+Vault94DungeonGECK|Rubber|3|2
+Vault94DungeonGECK|Screw|3|3
+Vault94DungeonGECK|Spring|7|7
+Vault94DungeonGECK|Steel|42|26
+Vault94DungeonGECK|Wood|13|12
+Vault94Entrance|Asbestos|2|1
+Vault94Entrance|Ceramic|1|1
+Vault94Entrance|Circuitry|1|1
+Vault94Entrance|Copper|1|1
+Vault94Entrance|Plastic|2|1
+Vault94Entrance|Screw|1|1
+Vault94Entrance|Steel|2|1
+Vault96Dungeon|Acid|20|13
+Vault96Dungeon|Adhesive|56|25
+Vault96Dungeon|Aluminum|52|40
+Vault96Dungeon|Antiseptic|28|12
+Vault96Dungeon|Asbestos|20|13
+Vault96Dungeon|Ballistic Fiber|6|3
+Vault96Dungeon|Bone|24|11
+Vault96Dungeon|Ceramic|39|39
+Vault96Dungeon|Circuitry|13|8
+Vault96Dungeon|Cloth|58|56
+Vault96Dungeon|Copper|27|24
+Vault96Dungeon|Cork|4|2
+Vault96Dungeon|Crystal|13|13
+Vault96Dungeon|Fertilizer|12|3
+Vault96Dungeon|Fiber Optics|12|12
+Vault96Dungeon|Fiberglass|13|11
+Vault96Dungeon|Gear|34|32
+Vault96Dungeon|Glass|144|132
+Vault96Dungeon|Lead|33|19
+Vault96Dungeon|Leather|9|4
+Vault96Dungeon|Nuclear Material|3|3
+Vault96Dungeon|Oil|48|35
+Vault96Dungeon|Plastic|77|52
+Vault96Dungeon|Rubber|39|33
+Vault96Dungeon|Screw|18|16
+Vault96Dungeon|Spring|28|28
+Vault96Dungeon|Steel|251|153
+Vault96Dungeon|Wood|93|64
+VaultTecU01|Acid|3|2
+VaultTecU01|Adhesive|10|6
+VaultTecU01|Aluminum|14|13
+VaultTecU01|Antiseptic|7|4
+VaultTecU01|Asbestos|14|10
+VaultTecU01|Bone|51|22
+VaultTecU01|Ceramic|49|37
+VaultTecU01|Circuitry|4|3
+VaultTecU01|Cloth|76|73
+VaultTecU01|Copper|17|15
+VaultTecU01|Cork|3|2
+VaultTecU01|Crystal|10|8
+VaultTecU01|Fiber Optics|4|4
+VaultTecU01|Fiberglass|12|11
+VaultTecU01|Gear|15|14
+VaultTecU01|Glass|75|56
+VaultTecU01|Lead|107|55
+VaultTecU01|Oil|28|23
+VaultTecU01|Plastic|41|28
+VaultTecU01|Rubber|16|9
+VaultTecU01|Screw|12|9
+VaultTecU01|Silver|1|1
+VaultTecU01|Spring|33|29
+VaultTecU01|Steel|132|80
+VaultTecU01|Wood|76|66
+WVLumberCo01|Acid|7|5
+WVLumberCo01|Adhesive|7|4
+WVLumberCo01|Aluminum|10|9
+WVLumberCo01|Antiseptic|7|3
+WVLumberCo01|Asbestos|19|12
+WVLumberCo01|Ceramic|17|16
+WVLumberCo01|Circuitry|1|1
+WVLumberCo01|Cloth|26|22
+WVLumberCo01|Copper|4|4
+WVLumberCo01|Fiberglass|8|5
+WVLumberCo01|Gear|8|7
+WVLumberCo01|Glass|31|24
+WVLumberCo01|Lead|11|9
+WVLumberCo01|Nuclear Material|1|1
+WVLumberCo01|Oil|18|14
+WVLumberCo01|Plastic|54|34
+WVLumberCo01|Rubber|8|5
+WVLumberCo01|Screw|6|6
+WVLumberCo01|Silver|2|2
+WVLumberCo01|Spring|3|3
+WVLumberCo01|Steel|98|64
+WVLumberCo01|Wood|16|12
+WatogaCivicCenter01|Acid|7|5
+WatogaCivicCenter01|Adhesive|13|5
+WatogaCivicCenter01|Aluminum|25|15
+WatogaCivicCenter01|Antiseptic|9|4
+WatogaCivicCenter01|Asbestos|23|18
+WatogaCivicCenter01|Ceramic|41|39
+WatogaCivicCenter01|Circuitry|4|4
+WatogaCivicCenter01|Cloth|137|135
+WatogaCivicCenter01|Concrete|9|3
+WatogaCivicCenter01|Copper|18|18
+WatogaCivicCenter01|Crystal|3|3
+WatogaCivicCenter01|Fiberglass|6|5
+WatogaCivicCenter01|Gear|6|5
+WatogaCivicCenter01|Glass|169|156
+WatogaCivicCenter01|Lead|55|35
+WatogaCivicCenter01|Leather|18|9
+WatogaCivicCenter01|Oil|20|17
+WatogaCivicCenter01|Plastic|69|51
+WatogaCivicCenter01|Rubber|28|24
+WatogaCivicCenter01|Screw|21|14
+WatogaCivicCenter01|Silver|5|4
+WatogaCivicCenter01|Spring|12|11
+WatogaCivicCenter01|Steel|127|73
+WatogaCivicCenter01|Wood|37|25
+WatogaCivicCenterDungeon|Acid|2|2
+WatogaCivicCenterDungeon|Adhesive|2|1
+WatogaCivicCenterDungeon|Aluminum|13|8
+WatogaCivicCenterDungeon|Antiseptic|4|2
+WatogaCivicCenterDungeon|Asbestos|14|10
+WatogaCivicCenterDungeon|Ceramic|28|26
+WatogaCivicCenterDungeon|Circuitry|2|2
+WatogaCivicCenterDungeon|Cloth|107|105
+WatogaCivicCenterDungeon|Copper|9|9
+WatogaCivicCenterDungeon|Fiberglass|4|3
+WatogaCivicCenterDungeon|Gear|4|2
+WatogaCivicCenterDungeon|Glass|128|118
+WatogaCivicCenterDungeon|Lead|35|27
+WatogaCivicCenterDungeon|Leather|12|6
+WatogaCivicCenterDungeon|Oil|13|12
+WatogaCivicCenterDungeon|Plastic|45|33
+WatogaCivicCenterDungeon|Rubber|14|13
+WatogaCivicCenterDungeon|Screw|16|12
+WatogaCivicCenterDungeon|Silver|3|2
+WatogaCivicCenterDungeon|Spring|4|4
+WatogaCivicCenterDungeon|Steel|81|45
+WatogaCivicCenterDungeon|Wood|27|18
+WatogaEmergencyServices01|Acid|2|2
+WatogaEmergencyServices01|Adhesive|2|2
+WatogaEmergencyServices01|Aluminum|7|7
+WatogaEmergencyServices01|Antiseptic|6|3
+WatogaEmergencyServices01|Asbestos|2|2
+WatogaEmergencyServices01|Ceramic|6|6
+WatogaEmergencyServices01|Cloth|16|15
+WatogaEmergencyServices01|Copper|3|2
+WatogaEmergencyServices01|Crystal|1|1
+WatogaEmergencyServices01|Fiber Optics|1|1
+WatogaEmergencyServices01|Gear|3|3
+WatogaEmergencyServices01|Glass|13|12
+WatogaEmergencyServices01|Lead|3|3
+WatogaEmergencyServices01|Oil|4|4
+WatogaEmergencyServices01|Plastic|16|15
+WatogaEmergencyServices01|Rubber|13|12
+WatogaEmergencyServices01|Screw|1|1
+WatogaEmergencyServices01|Spring|4|4
+WatogaEmergencyServices01|Steel|27|19
+WatogaEmergencyServices01|Wood|20|13
+WatogaHighSchool01|Adhesive|5|1
+WatogaHighSchool01|Aluminum|47|24
+WatogaHighSchool01|Asbestos|6|6
+WatogaHighSchool01|Ceramic|40|39
+WatogaHighSchool01|Circuitry|4|3
+WatogaHighSchool01|Cloth|190|188
+WatogaHighSchool01|Copper|13|12
+WatogaHighSchool01|Cork|10|5
+WatogaHighSchool01|Crystal|3|3
+WatogaHighSchool01|Fiber Optics|1|1
+WatogaHighSchool01|Fiberglass|2|2
+WatogaHighSchool01|Gear|9|8
+WatogaHighSchool01|Glass|96|85
+WatogaHighSchool01|Lead|42|13
+WatogaHighSchool01|Leather|6|3
+WatogaHighSchool01|Nuclear Material|1|1
+WatogaHighSchool01|Oil|14|7
+WatogaHighSchool01|Plastic|167|137
+WatogaHighSchool01|Rubber|31|28
+WatogaHighSchool01|Screw|14|10
+WatogaHighSchool01|Silver|1|1
+WatogaHighSchool01|Spring|9|9
+WatogaHighSchool01|Steel|50|34
+WatogaHighSchool01|Wood|34|28
+WatogaHighSchoolDungeon|Adhesive|5|1
+WatogaHighSchoolDungeon|Aluminum|47|24
+WatogaHighSchoolDungeon|Asbestos|6|6
+WatogaHighSchoolDungeon|Ceramic|41|40
+WatogaHighSchoolDungeon|Circuitry|4|3
+WatogaHighSchoolDungeon|Cloth|190|188
+WatogaHighSchoolDungeon|Copper|13|12
+WatogaHighSchoolDungeon|Cork|10|5
+WatogaHighSchoolDungeon|Crystal|3|3
+WatogaHighSchoolDungeon|Fiber Optics|1|1
+WatogaHighSchoolDungeon|Fiberglass|2|2
+WatogaHighSchoolDungeon|Gear|11|9
+WatogaHighSchoolDungeon|Glass|95|84
+WatogaHighSchoolDungeon|Lead|42|13
+WatogaHighSchoolDungeon|Leather|6|3
+WatogaHighSchoolDungeon|Nuclear Material|1|1
+WatogaHighSchoolDungeon|Oil|14|7
+WatogaHighSchoolDungeon|Plastic|160|131
+WatogaHighSchoolDungeon|Rubber|31|28
+WatogaHighSchoolDungeon|Screw|15|11
+WatogaHighSchoolDungeon|Silver|1|1
+WatogaHighSchoolDungeon|Spring|10|10
+WatogaHighSchoolDungeon|Steel|47|31
+WatogaHighSchoolDungeon|Wood|33|27
+WatogaMunicipalCenter01|Acid|3|2
+WatogaMunicipalCenter01|Adhesive|2|2
+WatogaMunicipalCenter01|Aluminum|1|1
+WatogaMunicipalCenter01|Antiseptic|5|2
+WatogaMunicipalCenter01|Asbestos|6|4
+WatogaMunicipalCenter01|Bone|14|5
+WatogaMunicipalCenter01|Ceramic|20|20
+WatogaMunicipalCenter01|Circuitry|5|5
+WatogaMunicipalCenter01|Cloth|34|31
+WatogaMunicipalCenter01|Concrete|9|3
+WatogaMunicipalCenter01|Copper|12|12
+WatogaMunicipalCenter01|Cork|4|2
+WatogaMunicipalCenter01|Fiberglass|7|6
+WatogaMunicipalCenter01|Gear|9|6
+WatogaMunicipalCenter01|Glass|22|16
+WatogaMunicipalCenter01|Gold|1|1
+WatogaMunicipalCenter01|Lead|7|7
+WatogaMunicipalCenter01|Leather|21|10
+WatogaMunicipalCenter01|Oil|1|1
+WatogaMunicipalCenter01|Plastic|31|19
+WatogaMunicipalCenter01|Rubber|8|7
+WatogaMunicipalCenter01|Screw|9|9
+WatogaMunicipalCenter01|Silver|1|1
+WatogaMunicipalCenter01|Spring|10|10
+WatogaMunicipalCenter01|Steel|15|12
+WatogaMunicipalCenter01|Wood|20|14
+WatogaMunicipalCenter02|Aluminum|1|1
+WatogaMunicipalCenter02|Asbestos|2|1
+WatogaMunicipalCenter02|Ceramic|7|7
+WatogaMunicipalCenter02|Circuitry|1|1
+WatogaMunicipalCenter02|Cloth|13|13
+WatogaMunicipalCenter02|Copper|1|1
+WatogaMunicipalCenter02|Cork|3|2
+WatogaMunicipalCenter02|Crystal|4|2
+WatogaMunicipalCenter02|Fiberglass|1|1
+WatogaMunicipalCenter02|Gear|4|3
+WatogaMunicipalCenter02|Glass|4|4
+WatogaMunicipalCenter02|Gold|1|1
+WatogaMunicipalCenter02|Lead|7|7
+WatogaMunicipalCenter02|Leather|2|1
+WatogaMunicipalCenter02|Oil|1|1
+WatogaMunicipalCenter02|Plastic|9|3
+WatogaMunicipalCenter02|Rubber|1|1
+WatogaMunicipalCenter02|Screw|3|3
+WatogaMunicipalCenter02|Spring|2|2
+WatogaMunicipalCenter02|Steel|15|8
+WatogaMunicipalCenter02|Wood|2|2
+WatogaTowers01|Adhesive|2|2
+WatogaTowers01|Aluminum|3|3
+WatogaTowers01|Asbestos|2|1
+WatogaTowers01|Ceramic|14|12
+WatogaTowers01|Circuitry|6|5
+WatogaTowers01|Cloth|17|14
+WatogaTowers01|Copper|9|9
+WatogaTowers01|Gear|3|3
+WatogaTowers01|Glass|37|30
+WatogaTowers01|Lead|4|4
+WatogaTowers01|Leather|7|3
+WatogaTowers01|Oil|4|3
+WatogaTowers01|Plastic|9|6
+WatogaTowers01|Rubber|3|3
+WatogaTowers01|Spring|1|1
+WatogaTowers01|Steel|36|25
+WatogaTowers01|Wood|9|6
+WatogaUnderground01|Acid|37|20
+WatogaUnderground01|Adhesive|40|11
+WatogaUnderground01|Aluminum|39|23
+WatogaUnderground01|Antiseptic|24|10
+WatogaUnderground01|Asbestos|23|18
+WatogaUnderground01|Ballistic Fiber|8|4
+WatogaUnderground01|Bone|2|1
+WatogaUnderground01|Ceramic|75|61
+WatogaUnderground01|Circuitry|24|14
+WatogaUnderground01|Cloth|100|65
+WatogaUnderground01|Concrete|3|1
+WatogaUnderground01|Copper|33|27
+WatogaUnderground01|Cork|7|5
+WatogaUnderground01|Crystal|10|4
+WatogaUnderground01|Fertilizer|8|2
+WatogaUnderground01|Fiber Optics|1|1
+WatogaUnderground01|Fiberglass|26|18
+WatogaUnderground01|Gear|13|12
+WatogaUnderground01|Glass|142|115
+WatogaUnderground01|Lead|95|46
+WatogaUnderground01|Leather|38|18
+WatogaUnderground01|Nuclear Material|7|7
+WatogaUnderground01|Oil|50|28
+WatogaUnderground01|Plastic|95|67
+WatogaUnderground01|Rubber|37|27
+WatogaUnderground01|Screw|21|18
+WatogaUnderground01|Silver|6|6
+WatogaUnderground01|Spring|19|19
+WatogaUnderground01|Steel|217|119
+WatogaUnderground01|Wood|86|58
+WendigoCave01|Acid|2|1
+WendigoCave01|Adhesive|1|1
+WendigoCave01|Aluminum|2|2
+WendigoCave01|Antiseptic|2|1
+WendigoCave01|Asbestos|1|1
+WendigoCave01|Bone|90|36
+WendigoCave01|Cloth|2|2
+WendigoCave01|Copper|2|2
+WendigoCave01|Fiberglass|1|1
+WendigoCave01|Glass|25|17
+WendigoCave01|Lead|5|1
+WendigoCave01|Leather|2|1
+WendigoCave01|Oil|18|10
+WendigoCave01|Plastic|9|7
+WendigoCave01|Rubber|3|2
+WendigoCave01|Screw|3|2
+WendigoCave01|Spring|1|1
+WendigoCave01|Steel|50|27
+WestTek01|Acid|2|2
+WestTek01|Aluminum|22|18
+WestTek01|Antiseptic|4|2
+WestTek01|Asbestos|5|5
+WestTek01|Ceramic|6|6
+WestTek01|Circuitry|2|2
+WestTek01|Cloth|2|2
+WestTek01|Concrete|14|2
+WestTek01|Copper|11|10
+WestTek01|Crystal|5|5
+WestTek01|Fiber Optics|5|5
+WestTek01|Fiberglass|6|6
+WestTek01|Gear|12|11
+WestTek01|Glass|38|28
+WestTek01|Lead|1|1
+WestTek01|Oil|10|7
+WestTek01|Plastic|9|6
+WestTek01|Rubber|21|17
+WestTek01|Screw|8|7
+WestTek01|Spring|10|10
+WestTek01|Steel|39|27
+WestTek01|Wood|15|12
+WestTek02|Aluminum|11|10
+WestTek02|Asbestos|17|11
+WestTek02|Ceramic|19|19
+WestTek02|Cloth|7|3
+WestTek02|Copper|1|1
+WestTek02|Cork|1|1
+WestTek02|Crystal|8|6
+WestTek02|Fiber Optics|5|5
+WestTek02|Fiberglass|4|2
+WestTek02|Gear|12|10
+WestTek02|Glass|15|13
+WestTek02|Lead|2|2
+WestTek02|Plastic|20|14
+WestTek02|Rubber|21|15
+WestTek02|Screw|6|5
+WestTek02|Spring|8|8
+WestTek02|Steel|23|14
+WestTek02|Wood|20|16
+WhitespringBunker01|Acid|2|1
+WhitespringBunker01|Adhesive|5|2
+WhitespringBunker01|Aluminum|9|9
+WhitespringBunker01|Asbestos|11|7
+WhitespringBunker01|Ceramic|96|77
+WhitespringBunker01|Circuitry|17|16
+WhitespringBunker01|Cloth|36|34
+WhitespringBunker01|Concrete|7|1
+WhitespringBunker01|Copper|24|24
+WhitespringBunker01|Cork|8|4
+WhitespringBunker01|Fiberglass|15|14
+WhitespringBunker01|Gear|9|9
+WhitespringBunker01|Glass|61|45
+WhitespringBunker01|Lead|4|4
+WhitespringBunker01|Nuclear Material|1|1
+WhitespringBunker01|Oil|18|10
+WhitespringBunker01|Plastic|32|22
+WhitespringBunker01|Rubber|11|9
+WhitespringBunker01|Screw|22|20
+WhitespringBunker01|Silver|2|1
+WhitespringBunker01|Spring|13|13
+WhitespringBunker01|Steel|76|47
+WhitespringBunker01|Wood|43|29
+WhitespringResort01|Acid|19|9
+WhitespringResort01|Aluminum|37|20
+WhitespringResort01|Antiseptic|1|1
+WhitespringResort01|Asbestos|18|12
+WhitespringResort01|Ballistic Fiber|12|6
+WhitespringResort01|Bone|9|5
+WhitespringResort01|Ceramic|408|310
+WhitespringResort01|Circuitry|25|23
+WhitespringResort01|Cloth|111|86
+WhitespringResort01|Coal|1|1
+WhitespringResort01|Concrete|26|6
+WhitespringResort01|Copper|44|40
+WhitespringResort01|Cork|11|9
+WhitespringResort01|Crystal|30|16
+WhitespringResort01|Fertilizer|12|3
+WhitespringResort01|Fiberglass|41|30
+WhitespringResort01|Gear|29|21
+WhitespringResort01|Glass|144|99
+WhitespringResort01|Gold|13|13
+WhitespringResort01|Lead|33|31
+WhitespringResort01|Leather|38|20
+WhitespringResort01|Nuclear Material|3|3
+WhitespringResort01|Oil|31|23
+WhitespringResort01|Plastic|79|60
+WhitespringResort01|Rubber|16|11
+WhitespringResort01|Screw|41|25
+WhitespringResort01|Silver|34|26
+WhitespringResort01|Spring|57|45
+WhitespringResort01|Steel|303|198
+WhitespringResort01|Wood|148|89
+==Average (variable only) Spawn chance and Count per NPC per Space==
+AMSHQ01|Robot|1.0|2
+AVRMedicalCenter01|Scorched|1.0|21
+AlleghenyAsylum01|Ghoul|1.0|25
+Appalachia|Angler|0.157676521009854|90
+Appalachia|Bloatfly|0.101556776556777|91
+Appalachia|Bloodbug|0.41984126984127|70
+Appalachia|Cave Cricket|0.0810545500251381|170
+Appalachia|Deathclaw|0.282692307692308|10
+Appalachia|Fog Crawler|0.12857905982906|48
+Appalachia|Ghoul|0.496301825845095|1040
+Appalachia|Gulper|0.147427006650307|103
+Appalachia|Honey Beast|0.191836734693877|7
+Appalachia|Insect|0.163555471077595|226
+Appalachia|Liberator|0.161205141476881|460
+Appalachia|Mega Sloth|0.123931623931624|6
+Appalachia|Mirelurk|0.33939306142696|177
+Appalachia|Mole Miner|0.598179611650485|206
+Appalachia|Mole Rat|0.146853178507171|526
+Appalachia|Rad Ant|0.25|14
+Appalachia|Rad Rat|0.0898264319734062|347
+Appalachia|Rad Scorpion|0.166786370195461|99
+Appalachia|Rad Toad|0.174074074074074|48
+Appalachia|Radroach|0.25|2
+Appalachia|Robot|0.376690929786723|428
+Appalachia|Scorched|0.551218984388629|1120
+Appalachia|Snallygaster|0.714285714285714|23
+Appalachia|Stingwing|0.571428571428572|6
+Appalachia|Super Mutant|0.452558002402142|802
+Appalachia|Swamp|0.542857142857143|7
+Appalachia|Tick|0.852941176470588|17
+Appalachia|Vicious Dog|0.15876375397652|517
+Appalachia|Wolf|0.200851290236766|179
+Appalachia|Yao Guai|0.111045284232307|131
+ArktosPharmaLab01|Ghoul|1.0|3
+BelchingBetty01|Scorched|1.0|22
+BlackwaterMine01|Mole Miner|1.0|18
+BurningMine01|Mole Miner|1.0|13
+Burrows01|Ghoul|1.0|1
+Burrows01|Robot|1.0|5
+CharlestonCapitolBuilding02|Ghoul|1.0|33
+DyerChemical01|Ghoul|1.0|8
+DyerChemical01|Robot|1.0|1
+EasternRegionalPen01|Ghoul|1.0|45
+FraternityHouse01|Ghoul|1.0|2
+GarrahanMiningHQ01|Robot|1.0|17
+GauleyMine01|Scorched|1.0|2
+GlassedCavern01|Scorched|1.0|31
+HornwrightHQ01|Scorched|1.0|14
+KerwoodMine01|Mole Miner|1.0|18
+MTR08LodeBaring01|Mole Miner|1.0|8
+MTR08LodeBaring02|Mole Miner|1.0|10
+MamaDolceProcessing01|Liberator|1.0|17
+MamaDolceProcessing01|Robot|1.0|3
+MonongahPowerPlant01|Ghoul|1.0|18
+MonongahPowerPlant01|Mole Miner|1.0|1
+MorgantownApartment01|Ghoul|1.0|6
+MorgantownHighSchool01|Scorched|1.0|18
+NukaColaQuantumPlant01|Ghoul|1.0|18
+PoseidonPlant01|Scorched|1.0|46
+RadioResearchCenter01|Scorched|1.0|15
+RiversideManor01|Scorched|1.0|14
+SugarGrove01|Robot|1.0|8
+ThunderMtPowerPlant01|Scorched|1.0|36
+UncannyCaverns01|Bloatfly|0.2|1
+UncannyCaverns01|Cave Cricket|0.2|1
+UncannyCaverns01|Mirelurk|1.0|10
+UncannyCaverns01|Mole Rat|0.2|1
+UncannyCaverns01|Rad Rat|0.2|1
+UncannyCaverns01|Wolf|0.2|1
+VTecAgCenter01|Ghoul|1.0|6
+ValleyGalleria01|Scorched|1.0|20
+WatogaCivicCenter01|Scorched|1.0|17
+WatogaEmergencyServices01|Ghoul|1.0|5
+WatogaHighSchool01|Robot|1.0|20
+WatogaMunicipalCenter01|Scorched|1.0|9
+WendigoCave01|Mirelurk|1.0|14
+WestTek01|Super Mutant|1.0|41
+==Space Info==
+0025DA15|Appalachia|Appalachia|1
+003E3FFA|ThunderMtPowerPlant01|Thunder Mountain Power|0
+005A7C2E|FortAtlasDungeon01|Atlas Substructure|0
+005B1E4A|SheltersVaultLivingQuarters01|Vault Quarters Shelter|0
+000042F4|SugarGroveMissileSilo01|Missile Silo Alpha|0
+005B59C8|RaiderCave03|Raider Den|0
+001294F4|WhitespringBunker01|Whitespring Bunker|0
+0001A69E|ValleyGalleria01|Valley Galleria|0
+0039E892|FreeStatesBunker06|Abandoned Bunker|0
+0043CE8E|MorgantownApartment01|Shadowbreeze Apartments|0
+005A6C66|FoundationSupplyRoom01|Foundation Supply Room|0
+005F12A2|UncannyCaverns02|Hidden Crevice|0
+00081A9D|WatogaMunicipalCenter01|Watoga Municipal Center|0
+0053F689|OverseersHome01|Overseer's Home|0
+005B7D87|Vault94Dungeon|Vault 94|0
+00620445|SheltersMissileSilo|Abandoned Mine Shelter|0
+00004183|WatogaHighSchool01|Watoga High School|0
+000072BB|AVRMedicalCenter01|AVR Medical Center|0
+000125A3|VTecAgCenter01|Vault-Tec Ag Research Center|0
+0041BC67|MorgantownAirportTerminal02|Morgantown Airport Terminal|0
+005A5547|SheltersVaultServerRoom01|Server Room Shelter|0
+0060D363|SheltersCave01|Abandoned Mine Shelter|0
+005A7AD1|BlueRidgeOffice01|Blue Ridge Office|0
+0000F0FB|BigBendTunnel01|Big Bend Tunnels|0
+00574627|RollinsLaborCamp01|Rollins Prison|0
+0002E506|EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|0
+0061961E|ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|0
+00412190|RobcoExperimentalCache01|RobCo Auto-Cache #001|0
+0056BF32|SugarGrove02|Sugar Grove Data Center|0
+005ACD84|CraterWarRoom01|The Crater War Room|0
+0054B502|CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|0
+005C38D6|SheltersClaimCenter01|Shelters Claim Center|0
+000402E2|SamBlackwellsDeathclawCave|Cavern|0
+0053F947|LousMine01|Carleton Mine|0
+005AFB11|RaiderCave01|Deserted Mine|0
+00004C43|GlassedCavern01|Glassed Cavern|0
+0004FF09|FreeStatesBunker03|Ella Ames' Bunker|0
+003FEE25|HornwrightSafeRoom01|Hornwright Estate Safe Room|0
+000644DB|GarrahanMiningHQ01|Garrahan Mining HQ|0
+00473CE3|Burrows01|The Burrows|0
+00590AB3|WatogaTowers01|Watoga Towers|0
+0001AB97|WatogaEmergencyServices01|Watoga Emergency Services|0
+0039EFE3|BelchingBetty01|Belching Betty|0
+00431DED|PoseidonPlant02|Poseidon Energy Plant Expansion|0
+0000D343|WatogaCivicCenter01|Watoga Civic Center|0
+0062E263|SheltersCave02|Forbidden Digsite Shelter|0
+00044FEC|GauleyMine01|Gauley Mine|0
+0010FE68|TheRustyPick01|The Rusty Pick|0
+0012D4C2|BlackwaterMine01|Blackwater Mine|0
+00175BC8|SamBlackwellBunker02|Sam Blackwell's Bunker|0
+004306B0|TopOfTheWorld01|Mezzanine Level|0
+0060A6C0|Vault51Dungeon|Vault 51|0
+0000BAF8|PoseidonPlant01|Poseidon Energy Plant WV-06|0
+0009085C|DaggersDen01|Dagger's Den|0
+00008CEA|AlleghenyAsylum01|Fort Defiance|0
+00018BFE|CharGen01|Vault 76|0
+002A94AE|MTR08LodeBaring02|Abandoned Mine Shaft Kittery|0
+00589E9E|MonongahMine01|Monongah Mine|0
+0000237C|RobCoResearchCenter01|RobCo Research Center|0
+005500E0|CharlestonCapitolBuilding02|Charleston Capitol Building|0
+004738DF|TheNukashine01|The Nukashine|0
+00115C47|CultistCave01|Lucky Hole Mine|0
+0011B7B9|RiversideManor01|Riverside Manor|0
+00406B95|WatogaUnderground01|Watoga Underground|0
+004429C9|MonongahMissileSilo01|Missile Silo Bravo|0
+0016B4B7|KerwoodMine01|Kerwood Mine|0
+004060AF|Vault79GoldVaultOperations|Gold Vault Operations|0
+0001A559|AMSHQ01|AMS Headquarters|0
+000491C9|SugarGrove01|Sugar Grove|0
+00413025|GraftonSteelUnderground01|Grafton Steel Underground|0
+00004E11|WendigoCave01|Wendigo Cave|0
+005C2E07|LewisandSonsFarmingSupply01|Putnam Residence|0
+00477C6A|FraternityHouse01|Pi House|0
+0058D442|BurdetteManorBasement01|Burdette Manor Basement|0
+00473A0C|VanLoweTaxidermy01|Van Lowe Taxidermy|0
+005F119A|WestTek02|FEV Production Facility|0
+005C28B8|OrwellOrchardsShelter01|Orwell Bomb Shelter|0
+004429CA|SpruceKnobMissileSilo01|Missile Silo Charlie|0
+006143D4|UncannyCavernsDungeon|Uncanny Caverns|0
+00478804|FraternityHouse02|Eta Psi House|0
+004041F2|TheWayward01|The Wayward|0
+00004017|VaultTecU01|Vault-Tec University|0
+005C60DB|DaggersDen02|Dagger's Throne Room|0
+005D6247|Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|0
+0009219B|DyerChemical01|Dyer Chemical Sewer|0
+005F119B|AMSHQ02|AMS Headquarters Basement Lab|0
+0000748D|WestTek01|West Tek Research Center|0
+005767ED|UCB02|Auxiliary Control Room|0
+005DD731|Vault96Dungeon|Vault 96|0
+0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0
+0040593B|RaiderRaidTrailerInt|Trailer Interior|0
+004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0
+0051EF4D|CharGen05|Vault 76|0
+0011F9E7|Vault94Entrance|Vault 94 Entrance|0
+0051EF57|CharGen02|Vault 76|0
+0060F37B|WatogaHighSchoolDungeon|Watoga High School|0
+000780B1|WatogaMunicipalCenter02|Watoga Municipal Center|0
+00004018|BurningMine01|The Burning Mine|0
+00428C5C|UCB01|The Deep|0
+005661B4|Vault79Entrance|Vault 79|0
+005B1E48|SheltersVaultAtrium01|Vault Atrium Shelter|0
+005B2BF4|RaiderCave02|Makeshift Vault|0
+0010BA9C|MorgantownHighSchool01|Morgantown High School|0
+005D0FA0|EnclaveResearchFacility01|Enclave Research Facility|0
+005F26C8|HarpersFerryDungeon01|Harpers Ferry Tunnel|0
+00044A50|Vault63Entrance|Vault 63 Entrance|0
+000073EE|NukaColaQuantumPlant01|Kanawha Nuka-Cola Plant|0
+000531FE|FreeStatesBunker02|Carson Family Bunker|0
+001D7232|HornwrightHQ01|Hornwright Industrial HQ|0
+00401116|Vault79Main|Vault 79|0
+0051EF4E|CharGen04|Vault 76|0
+00004586|EasternRegionalPen01|Eastern Regional Penitentiary|0
+00098971|WhitespringResort01|Whitespring Resort|0
+003D3915|MonongahPowerPlant01|Monongah Power Plant|0
+00403719|SettlerBugOutCave|Secluded Cave|0
+00411C65|DuncanDuncanRobotics01|Duncan & Duncan Robotics|0
+005661B5|GraftonPawnShop01|Grafton Pawn Shop|0
+00003AAB|FortAtlas01|Fort Atlas|0
+00540E15|SpruceKnobCampground01|Spruce Knob Boat Rental|0
+00052C5F|FreeStatesBunker01|Abbie's Bunker|0
+001CD6F7|FreeStatesBunker04|Raleigh Clay's Bunker|0
+0010A265|RadioResearchCenter01|Radio Astronomy Research Center|0
+005B5251|SheltersVaultReception01|Vault Lobby Shelter|0
+0040FA9B|WVLumberCo01|WV Lumber Co. Office|0
+001D4AB5|MamaDolceProcessing01|Mama Dolce's Food Processing|0
+0040A2C1|TheCraterCore01|The Crater Core|0
+00474DC9|ArktosPharmaLab01|Arktos Pharma Biome Lab|0
+005A5545|SheltersVaultStorageRoom01|Vault Utility Room Shelter|0
+0003BDBB|UncannyCaverns01|Uncanny Caverns|0
+0040C1A7|CraterWatchstation01|Crater Watchstation Worksite|0
+0051EF4F|CharGen03|Vault 76|0
+0039E891|FreeStatesBunker07|Ransacked Bunker|0
+005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0
+003F880F|FoundationInt01|Foundation Interior|0

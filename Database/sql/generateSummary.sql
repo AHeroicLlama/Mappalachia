@@ -2,30 +2,17 @@
 SELECT '==Game Version==';
 SELECT version FROM Game_Version;
 
-SELECT '==Total unique items by signature==';
-SELECT signature, COUNT(signature) AS count FROM Entity_Info
-GROUP BY signature;
+SELECT '==Mean Average X/Y/Z Coord==';
+SELECT AVG(x), AVG(y), AVG(z) FROM Position_Data;
 
-SELECT '==Average display name string length==';
-SELECT AVG(length) FROM
-(
-    SELECT LENGTH(displayName) AS length from Entity_Info
-);
+SELECT '==Min/Max X/Y/Z Coord==';
+SELECT Min(x), Max(x), Min(y), Max(y), Min(z), Max(z) FROM Position_Data;
 
-SELECT '==Average editorID string length==';
-SELECT AVG(length) FROM
-(
-    SELECT LENGTH(editorID) AS length from Entity_Info
-);
-
-SELECT '==Average X Coord==';
-SELECT AVG(x) FROM Position_Data;
-
-SELECT '==Average Y Coord==';
-SELECT AVG(y) FROM Position_Data;
-
-SELECT '==Average Z Coord==';
-SELECT AVG(z) FROM Position_Data;
+SELECT '==100 most common xyz coordinates + count==';
+SELECT x, y, z, COUNT(*) as count from Position_Data
+GROUP BY x, y, z
+ORDER BY count DESC, x ASC, y ASC, z ASC
+LIMIT 100;
 
 -- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zThreshUpper/Lower
 SELECT '==Z outliers==';
@@ -43,59 +30,50 @@ SELECT AVG(boundZ) FROM Position_Data;
 SELECT '==Average Z Rotation==';
 SELECT AVG(rotZ) FROM Position_Data;
 
-SELECT '==Primitive shape types + count==';
-SELECT primitiveShape, COUNT(*) FROM Position_Data GROUP BY primitiveShape;
+SELECT '==Average display name string length==';
+SELECT AVG(length) FROM
+(
+    SELECT LENGTH(displayName) AS length from Entity_Info
+);
 
-SELECT '==Total entity placement count==';
-SELECT COUNT(referenceFormID) FROM Position_Data;
+SELECT '==Average editorID string length==';
+SELECT AVG(length) FROM
+(
+    SELECT LENGTH(editorID) AS length from Entity_Info
+);
 
-SELECT '==Unique entity placement count==';
+SELECT '==Total Unique entities==';
 SELECT COUNT(DISTINCT referenceFormID) FROM Position_Data;
 
-SELECT '==Lock levels + count==';
-SELECT  lockLevel, COUNT(*) FROM Position_Data GROUP BY lockLevel;
+SELECT '==Total entities by PrimitiveShape by Space==';
+SELECT spaceEditorId, primitiveShape, COUNT(*) AS count FROM Position_Data
+INNER JOIN Space_Info on Position_Data.spaceFormID = Space_Info.spaceFormID
+GROUP BY spaceEditorId, primitiveShape
+ORDER by spaceEditorId, primitiveShape;
 
-SELECT '==Variable spawn entities + count==';
-SELECT  spawnClass, COUNT(*) FROM Position_Data GROUP BY spawnClass;
+SELECT '==Total entities by LockLevel by Space==';
+SELECT spaceEditorId, lockLevel, COUNT(*) AS count FROM Standard_Search
+INNER JOIN Space_Info on Standard_Search.spaceFormID = Space_Info.spaceFormID
+GROUP BY spaceEditorId, lockLevel
+ORDER by spaceEditorId, lockLevel;
 
-SELECT '==Total entity-with-locationFormID count==';
-SELECT  COUNT(*) FROM Position_Data WHERE locationFormID <> '';
+SELECT '==Total entities by Category by Space==';
+SELECT spaceEditorId, category, COUNT(*) AS count FROM Standard_Search
+INNER JOIN Space_Info on Standard_Search.spaceFormID = Space_Info.spaceFormID
+GROUP BY spaceEditorId, category
+ORDER by spaceEditorId, category;
 
-SELECT '==Unique locationFormID count==';
-SELECT  COUNT(*) FROM
-(
-    SELECT * FROM Position_Data GROUP BY locationFormID
-);
+SELECT '==Total Scrap and Junk per Component per Space==';
+SELECT spaceEditorID, component, SUM(magnitude), COUNT(*)  FROM Scrap_Search
+INNER JOIN Space_Info on Scrap_Search.spaceFormID = Space_Info.spaceFormID
+GROUP BY Space_Info.spaceFormID, component
+ORDER BY spaceEditorID, component;
 
-SELECT '==Junk-by-scrap count==';
-SELECT component, COUNT(*) FROM Quantified_Scrap
-GROUP BY component;
-
-SELECT '==Count of unique junk items==';
-SELECT COUNT(*) FROM
-(
-    SELECT * FROM Quantified_Scrap GROUP BY junkFormID
-);
-
-SELECT '==Average NPC Spawns per location FormID==';
-SELECT AVG(count) FROM
-(
-    SELECT COUNT(*) as count FROM NPC_Spawn
-    GROUP BY locationFormID
-);
-
-SELECT '==NPC per-class avg spawn chance + count==';
-SELECT npc, class, AVG(chance), COUNT(*) FROM NPC_Spawn
-GROUP BY npc, class;
-
-SELECT '==Worldspace count==';
-SELECT COUNT(*) FROM Space_Info WHERE isWorldspace == '1';
-
-SELECT '==Cell count==';
-SELECT COUNT(*) FROM Space_Info WHERE isWorldspace == '0';
-
-SELECT '==Spaces list + entity count==';
-SELECT spaceEditorID, spaceDisplayName, count(*) FROM Position_Data
-INNER JOIN Space_Info ON Space_Info.spaceFormID = Position_Data.spaceFormID
-GROUP BY Position_Data.spaceFormID
+SELECT '==Average (variable only) Spawn chance and Count per NPC per Space==';
+SELECT Space_Info.spaceEditorID, NPC, AVG(chance), COUNT(*) FROM NPC_Search
+INNER JOIN Space_Info ON Space_Info.spaceFormID = NPC_Search.spaceFormID
+GROUP BY NPC_Search.spaceFormID, NPC
 ORDER BY spaceEditorID;
+
+SELECT '==Space Info==';
+SELECT * FROM Space_Info;

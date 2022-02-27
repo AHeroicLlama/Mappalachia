@@ -22,12 +22,10 @@ CREATE INDEX Index_PositionData_CoverAll ON Position_Data (
     x,
     y,
     z,
-    locationFormID,
     lockLevel,
     primitiveShape,
     boundX,
     boundY,
     boundZ,
-    rotZ,
-    spawnClass
+    rotZ
 );
