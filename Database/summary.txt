@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-1c3543743ba547060c075dbb0edf86af
+440e0a0d42d04102d2fef269b0a63245
 ==File Size== 
-447877120 
+448028672 
 ==Tables== 
 Entity_Info      NPC_Search       Scrap_Search     Standard_Search
 Game_Version     Position_Data    Space_Info     
@@ -11,9 +11,9 @@ Game_Version     Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.6.2.16
+1.6.2.15
 ==Mean Average X/Y/Z Coord==
--12182.5340840962|4826.60249048081|12043.798785403
+-12171.5763205376|4830.04589768273|12045.6996831876
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -120,19 +120,19 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.3326122202778
+21.3558652382706
 ==Average Y Bounds Width==
-15.9723864423425
+15.9937894725011
 ==Average Z Bounds Width==
-14.8971017687141
+14.9126587231369
 ==Average Z Rotation==
-3.97506460080065
+3.98161672359846
 ==Average display name string length==
-2.65056413078828
+2.65053521408563
 ==Average editorID string length==
-24.907362469667
+24.9073629451781
 ==Total Unique entities==
-39974
+39985
 ==Total entities by PrimitiveShape by Space==
 AMSHQ01||5164
 AMSHQ01|Box|314
@@ -144,12 +144,12 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3004874
-Appalachia|Box|62455
+Appalachia||3005967
+Appalachia|Box|62642
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
 Appalachia|Plane|40
-Appalachia|Sphere|2348
+Appalachia|Sphere|2347
 ArktosPharmaLab01||15670
 ArktosPharmaLab01|Box|1483
 ArktosPharmaLab01|Line|11
@@ -231,7 +231,7 @@ EmmettMountainDisposalSite01|Line|1
 EmmettMountainDisposalSite01|Sphere|1
 EnclaveResearchFacility01||17855
 EnclaveResearchFacility01|Box|878
-FortAtlas01||4945
+FortAtlas01||4947
 FortAtlas01|Box|237
 FortAtlasDungeon01||12349
 FortAtlasDungeon01|Box|308
@@ -428,7 +428,7 @@ ValleyGalleria01|Sphere|1
 VanLoweTaxidermy01||1890
 VanLoweTaxidermy01|Box|76
 Vault51Dungeon||9296
-Vault51Dungeon|Box|300
+Vault51Dungeon|Box|301
 Vault51Dungeon|Line|1
 Vault51Dungeon|Plane|4
 Vault51Dungeon|Sphere|2
@@ -441,7 +441,7 @@ Vault79GoldVaultOperations|Box|44
 Vault79Main||18141
 Vault79Main|Box|705
 Vault79Main|Line|5
-Vault94Dungeon||16123
+Vault94Dungeon||16121
 Vault94Dungeon|Box|1349
 Vault94Dungeon|Line|10
 Vault94Dungeon|Sphere|4
@@ -513,8 +513,9 @@ AlleghenyAsylum01|Advanced (Level 1)|4
 AlleghenyAsylum01|Expert (Level 2)|4
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Opens Door|2
-Appalachia||30389
+Appalachia||30399
 Appalachia|Advanced (Level 1)|76
+Appalachia|Barred|1
 Appalachia|Chained|1
 Appalachia|Expert (Level 2)|45
 Appalachia|Inaccessible|13
@@ -619,7 +620,7 @@ EnclaveResearchFacility01|Inaccessible|2
 EnclaveResearchFacility01|Master (Level 3)|1
 EnclaveResearchFacility01|Novice (Level 0)|1
 EnclaveResearchFacility01|Opens Door|3
-FortAtlas01||1114
+FortAtlas01||1115
 FortAtlas01|Master (Level 3)|1
 FortAtlas01|Opens Door|2
 FortAtlas01|Requires Terminal|1
@@ -1037,7 +1038,7 @@ AlleghenyAsylum01|SOUN|1
 AlleghenyAsylum01|STAT|631
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|20
-Appalachia|ACTI|821
+Appalachia|ACTI|825
 Appalachia|ALCH|66
 Appalachia|AMMO|6
 Appalachia|ARMO|49
@@ -1048,21 +1049,21 @@ Appalachia|CNCY|1
 Appalachia|CONT|524
 Appalachia|DOOR|348
 Appalachia|FLOR|123
-Appalachia|FURN|434
+Appalachia|FURN|437
 Appalachia|HAZD|31
 Appalachia|IDLM|17
 Appalachia|KEYM|35
 Appalachia|LIGH|232
 Appalachia|LVLI|536
 Appalachia|MISC|694
-Appalachia|MSTT|600
+Appalachia|MSTT|601
 Appalachia|NOTE|168
-Appalachia|NPC_|673
+Appalachia|NPC_|671
 Appalachia|PROJ|2
-Appalachia|SCOL|8912
+Appalachia|SCOL|8914
 Appalachia|SECH|10
 Appalachia|SOUN|160
-Appalachia|STAT|15131
+Appalachia|STAT|15134
 Appalachia|TACT|34
 Appalachia|TERM|217
 Appalachia|TXST|372
@@ -1580,7 +1581,7 @@ FortAtlas01|LVLI|14
 FortAtlas01|MISC|133
 FortAtlas01|MSTT|27
 FortAtlas01|NOTE|3
-FortAtlas01|NPC_|27
+FortAtlas01|NPC_|28
 FortAtlas01|SCOL|91
 FortAtlas01|SOUN|1
 FortAtlas01|STAT|622
@@ -3433,34 +3434,34 @@ AlleghenyAsylum01|Steel|254|168
 AlleghenyAsylum01|Wood|94|71
 Appalachia|Acid|1377|894
 Appalachia|Adhesive|1153|486
-Appalachia|Aluminum|2146|1508
+Appalachia|Aluminum|2145|1507
 Appalachia|Antiseptic|872|412
-Appalachia|Asbestos|1610|1193
+Appalachia|Asbestos|1612|1194
 Appalachia|Ballistic Fiber|184|92
-Appalachia|Bone|3402|1294
-Appalachia|Ceramic|3830|3314
+Appalachia|Bone|3404|1295
+Appalachia|Ceramic|3834|3318
 Appalachia|Circuitry|462|366
-Appalachia|Cloth|5777|5141
+Appalachia|Cloth|5776|5140
 Appalachia|Concrete|2301|421
-Appalachia|Copper|1529|1446
+Appalachia|Copper|1528|1445
 Appalachia|Cork|628|511
 Appalachia|Crystal|324|198
 Appalachia|Fertilizer|1126|385
 Appalachia|Fiber Optics|40|39
-Appalachia|Fiberglass|935|699
-Appalachia|Gear|1132|956
-Appalachia|Glass|8923|7374
+Appalachia|Fiberglass|934|698
+Appalachia|Gear|1134|957
+Appalachia|Glass|8925|7376
 Appalachia|Gold|76|76
 Appalachia|Lead|5210|2992
 Appalachia|Leather|1914|863
 Appalachia|Nuclear Material|137|137
-Appalachia|Oil|3669|2453
-Appalachia|Plastic|5708|4054
+Appalachia|Oil|3663|2447
+Appalachia|Plastic|5711|4056
 Appalachia|Rubber|2001|1212
-Appalachia|Screw|1168|1051
+Appalachia|Screw|1171|1052
 Appalachia|Silver|266|225
-Appalachia|Spring|1288|1258
-Appalachia|Steel|15330|9165
+Appalachia|Spring|1291|1260
+Appalachia|Steel|15325|9159
 Appalachia|Ultracite|1|1
 Appalachia|Wood|4780|3337
 ArktosPharmaLab01|Acid|48|33
