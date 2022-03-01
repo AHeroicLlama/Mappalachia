@@ -1,94 +1,95 @@
 ==Database checksum== 
-9ce57f81ec0236ee1ba77d880917c6f7
+cf9739232d365a0ca22e51dbcf35e9c4
 ==Game Version==
-1.6.2.16
+1.6.2.15
 ==Total unique items by signature==
-ACTI|1420
-ALCH|84
+ACTI|1452
+ALCH|89
 AMMO|12
-ARMO|97
+ARMO|99
 ASPC|159
 BNDS|17
-BOOK|640
+BOOK|646
 CNCY|1
-CONT|553
+CONT|563
 DOOR|314
 FLOR|135
-FURN|569
+FURN|635
 HAZD|42
 IDLM|22
 KEYM|72
-LIGH|1432
-LVLI|591
-MISC|813
-MSTT|835
+LIGH|1453
+LVLI|597
+MISC|893
+MSTT|846
 NOTE|309
-NPC_|1186
+NPC_|1213
 PROJ|2
-SCOL|9998
-SECH|10
-SOUN|326
-STAT|18844
+SCOL|10000
+SECH|13
+SOUN|333
+STAT|18929
 TACT|76
-TERM|560
-TXST|420
-WEAP|75
+TERM|564
+TXST|422
+WEAP|76
 ==Average display name string length==
-2.65295097692735
+2.65053521408563
 ==Average editorID string length==
-24.8977886605745
+24.9073629451781
 ==Worldspace average X Coord==
--14948.4022659791
+-14933.6190906076
 ==Worldspace average Y Coord==
-6220.70023343491
+6224.41018302857
 ==Worldspace average Z Coord==
-14910.7375462312
+14911.9166860572
 ==Worldspace Z outliers==
 65
 ==Worldspace average X Bounds Width==
-19.7886486169714
+19.8179259365809
 ==Worldspace average Y Bounds Width==
-14.4408546908371
+14.4679821231392
 ==Worldspace average Z Bounds Width==
-14.1198956868261
+14.1395164473823
 ==Worldspace average Z Rotation==
-3.40633269521279
+3.41472872127334
 ==Worldspace primitive shape types + count==
-|3004874
-Box|62455
+|3005967
+Box|62642
 Ellipsoid|1
 Line|1802
 Plane|40
-Sphere|2348
+Sphere|2347
 ==Worldspace total placement count==
-3071520
+3072799
 ==Interior average X Coord==
--1036.25427227877
+-902.247150535636
 ==Interior average Y Coord==
--968.430116433169
+-859.058660990753
 ==Interior average Z Coord==
-355.763386195069
+351.332301188118
 ==Interior Z outliers==
 3
 ==Interior average X Bounds Width==
-28.3269636612691
+27.6307659827598
 ==Interior average Y Bounds Width==
-22.7977036327594
+22.2191909964362
 ==Interior average Z Bounds Width==
-18.5502288571619
+18.0671336990987
 ==Interior average Z Rotation==
-6.43237716328485
+6.29455972721624
 ==Interior total placement count==
-718352
+753124
 ==Worldspace unique placement count==
-30489
+30499
 ==Interior unique placement count==
-20208
+20599
 ==Average interior placement count==
-5612.125
+5662.58646616541
 ==Worldspace lock levels + count==
-|3070482
+|3071760
 Advanced (Level 1)|315
+Barred|1
 Chained|1
 Expert (Level 2)|197
 Inaccessible|22
@@ -99,69 +100,69 @@ Requires Key|90
 Requires Terminal|9
 Unknown|1
 ==Interior lock levels + count==
-|717549
+|752320
 Advanced (Level 1)|216
 Chained|2
 Expert (Level 2)|166
 Inaccessible|38
 Master (Level 3)|81
 Novice (Level 0)|47
-Opens Door|149
+Opens Door|150
 Requires Key|75
 Requires Terminal|29
 ==Worldspace variable spawn entities + count==
-|3065930
+|3067208
 Main|4090
-Sub|1500
+Sub|1501
 ==Interior variable spawn entities + count==
-|714495
-Main|1991
-Sub|1866
+|749162
+Main|1996
+Sub|1966
 ==Worldspace total entity-with-locationFormID count==
-2744
+2733
 ==Interior total entity-with-locationFormID count==
-825
+832
 ==Worldspace unique locationFormID count==
-367
+365
 ==Interior unique locationFormID count==
-60
+61
 ==Junk-by-scrap count==
-Acid|16
-Adhesive|10
-Aluminum|42
-Antiseptic|9
-Asbestos|16
+Acid|19
+Adhesive|12
+Aluminum|49
+Antiseptic|11
+Asbestos|17
 Ballistic Fiber|2
 Black Titanium|1
 Bone|43
-Ceramic|91
-Circuitry|11
-Cloth|96
+Ceramic|93
+Circuitry|13
+Cloth|107
 Coal|1
 Concrete|5
-Copper|37
-Cork|8
-Crystal|7
+Copper|39
+Cork|10
+Crystal|9
 Fertilizer|5
 Fiber Optics|4
-Fiberglass|13
-Gear|20
-Glass|86
+Fiberglass|15
+Gear|24
+Glass|93
 Gold|9
-Lead|43
-Leather|46
-Nuclear Material|12
-Oil|30
-Plastic|110
-Rubber|20
-Screw|39
-Silver|15
-Spring|28
-Steel|159
+Lead|45
+Leather|53
+Nuclear Material|13
+Oil|34
+Plastic|119
+Rubber|21
+Screw|42
+Silver|20
+Spring|33
+Steel|172
 Ultracite|2
-Wood|73
+Wood|84
 ==Count of unique junk items==
-730
+795
 ==Average NPC Spawns per location FormID==
 5.81957186544343
 ==NPC per-class avg spawn chance + count==
@@ -237,6 +238,11 @@ BlueRidgeOffice01|Blue Ridge Office|762
 BurdetteManorBasement01|Burdette Manor Basement|499
 BurningMine01|The Burning Mine|6133
 Burrows01|The Burrows|20175
+CharGen01|Vault 76|7051
+CharGen02|Vault 76|6930
+CharGen03|Vault 76|6930
+CharGen04|Vault 76|6930
+CharGen05|Vault 76|6930
 CharlestonCapitolBuilding02|Charleston Capitol Building|7551
 CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|2374
 CraterWarRoom01|The Crater War Room|798
@@ -249,7 +255,7 @@ DyerChemical01|Dyer Chemical Sewer|3212
 EasternRegionalPen01|Eastern Regional Penitentiary|11438
 EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|4857
 EnclaveResearchFacility01|Enclave Research Facility|18733
-FortAtlas01|Fort Atlas|5182
+FortAtlas01|Fort Atlas|5184
 FortAtlasDungeon01|Atlas Substructure|12665
 FoundationInt01|Foundation Interior|5371
 FoundationSupplyRoom01|Foundation Supply Room|529
@@ -327,12 +333,12 @@ UncannyCavernsDungeon|Uncanny Caverns|7410
 VTecAgCenter01|Vault-Tec Ag Research Center|3134
 ValleyGalleria01|Valley Galleria|8633
 VanLoweTaxidermy01|Van Lowe Taxidermy|1966
-Vault51Dungeon|Vault 51|9603
+Vault51Dungeon|Vault 51|9604
 Vault63Entrance|Vault 63 Entrance|350
 Vault79Entrance|Vault 79|1546
 Vault79GoldVaultOperations|Gold Vault Operations|4698
 Vault79Main|Vault 79|18851
-Vault94Dungeon|Vault 94|17486
+Vault94Dungeon|Vault 94|17484
 Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|4604
 Vault94Entrance|Vault 94 Entrance|1320
 Vault96Dungeon|Vault 96|21758
