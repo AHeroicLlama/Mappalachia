@@ -58,13 +58,11 @@ sqlite3.exe %databaseFile% VACUUM
 echo Building indices...
 sqlite3.exe %databaseFile% < sql/createIndices.sql
 
-echo Creating new summary with checksum...
+echo Creating new summary with db file info...
 echo ==Database name== > %summaryFile%
 echo %databaseFile% >> %summaryFile%
 echo ==Checksum== >> %summaryFile%
 certutil -hashfile %databaseFile% MD5 | findstr /V ":" >> %summaryFile%
-
-echo Recording file size...
 echo ==File Size== >> %summaryFile%
 for %%f in (%databaseFile%) do echo %%~zf >> %summaryFile%
 
