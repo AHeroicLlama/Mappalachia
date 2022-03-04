@@ -1,7 +1,7 @@
 ==Database checksum== 
-cf9739232d365a0ca22e51dbcf35e9c4
+06a1df0fe227a4e5af7ba4c152270ba2
 ==Game Version==
-1.6.2.15
+1.6.4.13
 ==Total unique items by signature==
 ACTI|1452
 ALCH|89
