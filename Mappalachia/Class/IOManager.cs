@@ -49,7 +49,7 @@ namespace Mappalachia
 			"- The entire Mappalachia installation has been unzipped into one folder, with the same folder structure it came with.\n" +
 			"- None of the installation has been moved, renamed, or deleted.\n" +
 			"- (Where applicable) Destination folders or files are accessible and are not locked.\n" +
-			"Failing these, try fully deleting and re-downloading Mappalachia.\n";
+			"Failing these, try fully deleting and re-downloading Mappalachia.\n\n";
 
 		private static ImageCodecInfo GetEncoder(ImageFormat format)
 		{
@@ -320,7 +320,7 @@ namespace Mappalachia
 		{
 			if (string.IsNullOrEmpty(gameVersion))
 			{
-				gameVersion = DataHelper.GetGameVersion();
+				gameVersion = Database.GetGameVersion();
 			}
 
 			return gameVersion;

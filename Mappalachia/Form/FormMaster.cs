@@ -84,7 +84,7 @@ namespace Mappalachia
 		// Dynamically fill the Signature filter with every signature present based on the data
 		void PopulateSignatureFilterList()
 		{
-			List<string> signatures = DataHelper.GetPermittedSignatures();
+			List<string> signatures = Database.GetSignatures();
 			List<string> orderedSignatures = new List<string>();
 
 			// First run through the suggested order list. If any of our database signature items are in there, process them FIRST
@@ -132,7 +132,7 @@ namespace Mappalachia
 		// Dynamically fill the Lock Type filter with every lock type present based on the data
 		void PopulateLockTypeFilterList()
 		{
-			List<string> lockLevels = DataHelper.GetPermittedLockTypes();
+			List<string> lockLevels = Database.GetLockTypes();
 			List<string> orderedLockLevels = new List<string>();
 
 			// First run through the suggested order list. If any of our database lock types are in there, process them FIRST
@@ -169,7 +169,7 @@ namespace Mappalachia
 		// Fill the list of Variable NPC Spawns that can be chosen to search
 		void PopulateVariableNPCSpawnList()
 		{
-			foreach (string npcSpawn in DataHelper.GetVariableNPCTypes())
+			foreach (string npcSpawn in Database.GetVariableNPCTypes())
 			{
 				listBoxNPC.Items.Add(npcSpawn);
 			}
@@ -180,7 +180,7 @@ namespace Mappalachia
 		// Fill the list of Scrap types that can be chosen to search
 		void PopulateScrapList()
 		{
-			foreach (string npcSpawn in DataHelper.GetVariableScrapTypes())
+			foreach (string npcSpawn in Database.GetScrapTypes())
 			{
 				listBoxScrap.Items.Add(npcSpawn);
 			}
@@ -197,7 +197,7 @@ namespace Mappalachia
 				return;
 			}
 
-			spaces = DataHelper.GetAllSpaces();
+			spaces = Database.GetAllSpaces();
 
 			foreach (Space space in spaces)
 			{
@@ -530,11 +530,11 @@ namespace Mappalachia
 					mapItem.editorID,
 					mapItem.displayName,
 					DataHelper.ConvertSignature(mapItem.signature, false),
-					string.Join(", ", DataHelper.ConvertLockLevelCollection(mapItem.filteredLockTypes, false)),
+					string.Join(", ", DataHelper.ConvertLockLevel(mapItem.filteredLockTypes, false)),
 					mapItem.weight == -1 ? "Unknown" : mapItem.weight.ToString(),
 					mapItem.count,
-					mapItem.location,
-					mapItem.locationEditorID,
+					mapItem.spaceName,
+					mapItem.spaceEditorID,
 					index); // Index relates the UI row to the List<MapItem>, even if the UI is sorted
 
 				index++;
@@ -1046,7 +1046,7 @@ namespace Mappalachia
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
 			// Execute the search
-			searchResults = DataHelper.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID());
+			searchResults = Database.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID());
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1077,7 +1077,7 @@ namespace Mappalachia
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
-			searchResults = DataHelper.SearchScrap(listBoxScrap.SelectedItem.ToString(), SettingsSpace.GetCurrentFormID());
+			searchResults = Database.SearchScrap(listBoxScrap.SelectedItem.ToString(), SettingsSpace.GetCurrentFormID());
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1103,7 +1103,7 @@ namespace Mappalachia
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
-			searchResults = DataHelper.SearchNPC(
+			searchResults = Database.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
 				SettingsSearch.spawnChance,
 				SettingsSpace.GetCurrentFormID());

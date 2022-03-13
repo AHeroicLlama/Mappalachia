@@ -37,8 +37,8 @@ namespace Mappalachia
 
 		void Initialize(int x, int y, int z)
 		{
-			this.x = (x / Map.scaling) + (Map.mapDimension / 2d) + Map.xOffset;
-			this.y = (-y / Map.scaling) + (Map.mapDimension / 2d) + Map.yOffset;
+			this.x = Map.scaleCoordinate(x, false);
+			this.y = Map.scaleCoordinate(y, true);
 			this.z = z;
 
 			// Default weight, can be assigned to later
