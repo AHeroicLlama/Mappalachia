@@ -12,7 +12,7 @@ namespace Mappalachia
 	// The Map image, adjusting it, drawing it and plotting points onto it
 	public static class Map
 	{
-		// Map-image coordinate scaling. Done manually by eye with reference points from in-game
+		// Map-image coordinate scaling. Gathered manually by eye with reference points from in-game
 		public static double scaling = 142;
 		public static double xOffset = 1.7;
 		public static double yOffset = 5.2;
@@ -53,6 +53,17 @@ namespace Mappalachia
 		static double Pythagoras(int a, int b)
 		{
 			return Math.Sqrt((a * a) + (b * b));
+		}
+
+		// Scale a coordinate from game coordinates down to map coordinates.
+		public static double scaleCoordinate(int coord, bool isYAxis)
+		{
+			if (isYAxis)
+			{
+				coord *= -1;
+			}
+
+			return (coord / scaling) + (mapDimension / 2d) + xOffset;
 		}
 
 		// Attach the map image to the PictureBox on the master form
@@ -132,7 +143,6 @@ namespace Mappalachia
 			// Prepare the game version and watermark to be printed later
 			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
-
 			Space currentSpace = SettingsSpace.GetSpace();
 
 			// Assign the SpaceScaling property
@@ -143,7 +153,6 @@ namespace Mappalachia
 				"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
 				"Scale: 1:" + Math.Round(spaceScaling.scale, 2) + "\n\n" +
 				infoText;
-
 
 			// Gather resources for drawing informational watermark text
 			Brush brushWhite = new SolidBrush(Color.White);
@@ -307,7 +316,7 @@ namespace Mappalachia
 						point.boundY *= spaceScaling.scale;
 
 						// Skip the point if its origin is outside the surface world
-						if (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax)
+						if (currentSpace.IsWorldspace() && (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax))
 						{
 							continue;
 						}
@@ -570,7 +579,7 @@ namespace Mappalachia
 				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
 
 			// Iterate over every data point and draw it
-			foreach (MapDataPoint point in DataHelper.GetAllSpaceCoords(SettingsSpace.GetCurrentFormID()))
+			foreach (MapDataPoint point in Database.GetAllSpaceCoords(SettingsSpace.GetCurrentFormID()))
 			{
 				// If this coordinate exceeds the user-selected space mapping height bounds, skip it
 				// (Also accounts for the z-height of volumes)

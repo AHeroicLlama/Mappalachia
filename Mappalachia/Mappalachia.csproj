@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\getAllZCoordsSpace.sql" />
     <None Include="SQL\getSpaceExtremities.sql" />
     <None Include="SQL\searchStandard.sql" />
     <None Include="SQL\searchScrap.sql" />

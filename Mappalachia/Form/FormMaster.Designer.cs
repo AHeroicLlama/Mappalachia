@@ -647,7 +647,7 @@ namespace Mappalachia
             this.listViewFilterLockTypes.Location = new System.Drawing.Point(6, 19);
             this.listViewFilterLockTypes.Name = "listViewFilterLockTypes";
             this.listViewFilterLockTypes.ShowItemToolTips = true;
-            this.listViewFilterLockTypes.Size = new System.Drawing.Size(158, 209);
+            this.listViewFilterLockTypes.Size = new System.Drawing.Size(158, 215);
             this.listViewFilterLockTypes.TabIndex = 0;
             this.listViewFilterLockTypes.UseCompatibleStateImageBehavior = false;
             this.listViewFilterLockTypes.View = System.Windows.Forms.View.SmallIcon;
@@ -680,7 +680,7 @@ namespace Mappalachia
             // buttonDeselectAllLock
             // 
             this.buttonDeselectAllLock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeselectAllLock.Location = new System.Drawing.Point(89, 234);
+            this.buttonDeselectAllLock.Location = new System.Drawing.Point(89, 240);
             this.buttonDeselectAllLock.Name = "buttonDeselectAllLock";
             this.buttonDeselectAllLock.Size = new System.Drawing.Size(75, 23);
             this.buttonDeselectAllLock.TabIndex = 2;
@@ -692,7 +692,7 @@ namespace Mappalachia
             // buttonSelectAllLock
             // 
             this.buttonSelectAllLock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectAllLock.Location = new System.Drawing.Point(6, 234);
+            this.buttonSelectAllLock.Location = new System.Drawing.Point(6, 240);
             this.buttonSelectAllLock.Name = "buttonSelectAllLock";
             this.buttonSelectAllLock.Size = new System.Drawing.Size(77, 23);
             this.buttonSelectAllLock.TabIndex = 1;
@@ -988,7 +988,7 @@ namespace Mappalachia
             this.groupBoxFilterByLockLevel.Controls.Add(this.buttonSelectAllLock);
             this.groupBoxFilterByLockLevel.Location = new System.Drawing.Point(341, 32);
             this.groupBoxFilterByLockLevel.Name = "groupBoxFilterByLockLevel";
-            this.groupBoxFilterByLockLevel.Size = new System.Drawing.Size(170, 263);
+            this.groupBoxFilterByLockLevel.Size = new System.Drawing.Size(170, 269);
             this.groupBoxFilterByLockLevel.TabIndex = 1;
             this.groupBoxFilterByLockLevel.TabStop = false;
             this.groupBoxFilterByLockLevel.Text = "Filter by lock level";

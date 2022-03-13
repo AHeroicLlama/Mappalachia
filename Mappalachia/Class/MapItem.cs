@@ -28,14 +28,14 @@ namespace Mappalachia
 		public readonly List<string> filteredLockTypes; // The lock types which were selected when this item was picked from the database
 		public readonly double weight; // The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
 		public readonly int count; // How many of this item did we find.
-		public readonly string location; // Display Name of the location where was this item placed.
-		public readonly string locationEditorID; // EditorID of the location
+		public readonly string spaceName; // Display Name of the location where this item was placed.
+		public readonly string spaceEditorID; // EditorID of the location
 		public int legendGroup; // User-definable grouping value
 		public string overridingLegendText = string.Empty; // The user-provided legend text, if given
 
 		List<MapDataPoint> plots;
 
-		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string location, string locationID)
+		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string spaceEditorID, string spaceName)
 		{
 			this.type = type;
 			this.uniqueIdentifier = uniqueIdentifier;
@@ -45,8 +45,8 @@ namespace Mappalachia
 			this.signature = signature;
 			this.weight = weight;
 			this.count = count;
-			this.location = location;
-			this.locationEditorID = locationID;
+			this.spaceName = spaceName;
+			this.spaceEditorID = spaceEditorID;
 		}
 
 		// The lock type is relevant only if it's a 'standard', lockable item with modified/filtered lock types.
@@ -55,7 +55,7 @@ namespace Mappalachia
 			return
 				type == Type.Standard &&
 				lockableTypes.Contains(signature) &&
-				!filteredLockTypes.OrderBy(e => e).SequenceEqual(DataHelper.GetPermittedLockTypes());
+				!filteredLockTypes.OrderBy(e => e).SequenceEqual(Database.GetLockTypes().OrderBy(e => e));
 		}
 
 		// Get the image-scaled coordinate points for all instances of this MapItem
@@ -66,13 +66,13 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Standard:
-					plots = DataHelper.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes);
+					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes);
 					break;
 				case Type.NPC:
-					plots = DataHelper.GetNPCCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), weight);
+					plots = Database.GetNPCCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), weight);
 					break;
 				case Type.Scrap:
-					plots = DataHelper.GetScrapCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID());
+					plots = Database.GetScrapCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID());
 					break;
 			}
 
@@ -95,7 +95,7 @@ namespace Mappalachia
 							editorID :
 							editorID + " (" + displayName + ")") +
 						(GetLockRelevant() ?
-							" (" + string.Join(", ", DataHelper.ConvertLockLevelCollection(filteredLockTypes, false)) + ")" :
+							" (" + string.Join(", ", DataHelper.ConvertLockLevel(filteredLockTypes, false)) + ")" :
 							string.Empty);
 			}
 			else

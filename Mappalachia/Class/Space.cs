@@ -17,7 +17,7 @@ namespace Mappalachia.Class
 		public int zMax;
 		public double heightRange;
 
-		List<MapDataPoint> plots;
+		List<int> zPlots;
 
 		public Space(string formID, string editorID, string displayName)
 		{
@@ -34,8 +34,8 @@ namespace Mappalachia.Class
 				return;
 			}
 
-			plots = DataHelper.GetAllSpaceCoords(formID);
-			(double, double, double, double, int, int) extremities = DataHelper.GetSpaceExtremities(formID);
+			zPlots = Database.GetAllSpaceZCoords(formID);
+			(double, double, double, double, int, int) extremities = Database.GetSpaceExtremities(formID);
 
 			xMin = extremities.Item1;
 			xMax = extremities.Item2;
@@ -56,7 +56,7 @@ namespace Mappalachia.Class
 				return new SpaceScaling(0, 0, 1);
 			}
 
-			if (plots == null)
+			if (zPlots == null)
 			{
 				InitializePlotData();
 			}
@@ -72,7 +72,7 @@ namespace Mappalachia.Class
 				return new double[] {0, 1};
 			}
 
-			if (plots == null)
+			if (zPlots == null)
 			{
 				InitializePlotData();
 			}
@@ -81,10 +81,10 @@ namespace Mappalachia.Class
 
 			// Count how many items fall into the arbitrary <precision># different bins
 			int[] distributionCount = new int[precision];
-			foreach (MapDataPoint point in plots)
+			foreach (int point in zPlots)
 			{
 				// Calculate which numeric bin this item would fall into
-				int placementBin = (int)(((point.z - zMin) / heightRange) * precision);
+				int placementBin = (int)(((point - zMin) / heightRange) * precision);
 
 				// At least one value will be exactly the precision value, (it's the highest thing)
 				// But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
@@ -102,7 +102,7 @@ namespace Mappalachia.Class
 			double[] distribution = new double[precision];
 			for (int i = 0; i < distributionCount.Length; i++)
 			{
-				distribution[i] = ((double)distributionCount[i] / plots.Count) * precision;
+				distribution[i] = ((double)distributionCount[i] / zPlots.Count) * precision;
 			}
 
 			return distribution;
