@@ -16,7 +16,7 @@ Database/sqlite3.exe
 
 #CSV Output from Edit Scripts & Preprocessor
 */Output/*.csv
-!*Skipped_Cells.csv
+!*Skipped_Spaces.csv
 
 #Packaged Mappalachia GUI Release
 Mappalachia.zip
