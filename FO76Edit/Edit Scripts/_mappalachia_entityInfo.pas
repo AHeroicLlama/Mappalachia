@@ -13,7 +13,6 @@ unit _mappalachia_entityInfo;
 
 	procedure ripFormIDs(); // Primary block for iterating down tree
 	const
-		targetESM = FileByIndex(0);
 		outputFile = ProgramPath + 'Output\Entity_Info.csv';
 	var
 		i, j : Integer; // Iterators

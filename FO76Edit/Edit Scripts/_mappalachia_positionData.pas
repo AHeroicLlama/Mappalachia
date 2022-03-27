@@ -1,4 +1,4 @@
-// Rip the location data of every placed entity inside interior cells and Appalachia worldspace. Gets FormID, coordinates, name(Inc FormID of referenced object), and information on lock levels and primitive boundaries where relevant
+// Rip the location data of every placed entity inside valid cells and worldspaces. Gets FormID, coordinates, name(Inc FormID of referenced object), and information on lock levels and primitive boundaries where relevant
 unit _mappalachia_positionData;
 
 	uses _mappalachia_lib;
@@ -24,10 +24,9 @@ unit _mappalachia_positionData;
 		outputStrings.SaveToFile(outputFile);
 	end;
 
-	// Rips all interiors, uses shouldProcessCell() to excluce debug cells
+	// Rips all interiors, uses shouldProcessSpace() to excluce debug cells
 	procedure ripInteriors(); // Primary block for iterating down tree
 	const
-		targetESM = FileByIndex(0);
 		categoryCount = ElementCount(targetESM);
 	var
 		i, j, k, l, m : Integer; // Iterators
@@ -48,7 +47,7 @@ unit _mappalachia_positionData;
 
 					if(FixedFormId(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
 						cellFormID := IntToHex(FixedFormId(cell), 8);
-						if not(shouldProcessCell(sanitize(DisplayName(cell)), sanitize(EditorID(cell)))) then continue; // Skip this CELL if it's some QA/Debug cell
+						if not(shouldProcessSpace(sanitize(DisplayName(cell)), sanitize(EditorID(cell)))) then continue; // Skip this CELL if it's some QA/Debug cell
 
 						// Rip persistent items...
 						cellChild := FindChildGroup(ChildGroup(ElementByIndex(subBlock, l)), 8, ElementByIndex(subBlock, l));
@@ -68,10 +67,21 @@ unit _mappalachia_positionData;
 		end;
 	end;
 
-	// Rip only specifically named worldspaces
+	// Find valid worldspaces and pass them to the main worldspace rip func
 	procedure ripWorldspaces();
+	var
+		i : Integer; // Iterator
+		category, worldspace, spaceEditorID, spaceDisplayName : IInterface;
 	begin
-		ripWorldspace('Appalachia');
+		category := GroupBySignature(targetESM, 'WRLD');
+		for i := 0 to ElementCount(category) -1 do begin // Iterate over every worldspace within the worldspace category
+			worldspace := elementByIndex(category, i);
+			spaceEditorID := sanitize(EditorID(worldspace));
+			spaceDisplayName := sanitize(DisplayName(worldspace));
+			if(FixedFormId(worldspace) <> 0) and (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin
+				ripWorldspace(spaceEditorID);
+			end;
+		end;
 	end;
 
 	procedure ripWorldspace(worldspaceEditorID: String); // Primary block for iterating down worldspace tree

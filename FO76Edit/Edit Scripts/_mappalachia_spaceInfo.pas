@@ -3,18 +3,18 @@ unit _mappalachia_spaceInfo;
 
 	uses _mappalachia_lib;
 
-	var	outputStrings, skippedCells : TStringList;
+	var	outputStrings, skippedspaces : TStringList;
 
 	procedure Initialize;
 	const
 		outputFile = ProgramPath + 'Output\Space_Info.csv';
-		skippedCellsFile = ProgramPath + 'Output\Skipped_Cells.csv';
+		skippedspacesFile = ProgramPath + 'Output\Skipped_spaces.csv';
 	begin
-		skippedCells := TStringList.Create;
+		skippedSpaces := TStringList.Create;
 		outputStrings := TStringList.Create;
 
 		// Write CSV column headers
-		skippedCells.add('cellFormID,cellEditorID,cellDisplayName');
+		skippedSpaces.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace');
 		outputStrings.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace');
 
 		ripWorldSpaces();
@@ -24,19 +24,26 @@ unit _mappalachia_spaceInfo;
 		AddMessage('Writing output to file: ' + outputFile);
 		outputStrings.SaveToFile(outputFile);
 
-		AddMessage('Writing skipped cells to file: ' + skippedCellsFile);
-		skippedCells.SaveToFile(skippedCellsFile);
+		AddMessage('Writing skipped spaces to file: ' + skippedSpacesFile);
+		skippedSpaces.SaveToFile(skippedSpacesFile);
 	end;
 
 	procedure ripWorldspaces();
+	var
+		i : Integer; // Iterator
+		category, worldspace : IInterface;
 	begin
-		ripWorldspace('Appalachia');
+		category := GroupBySignature(targetESM, 'WRLD');
+		for i := 0 to ElementCount(category) -1 do begin // Iterate over every worldspace within the worldspace category
+			worldspace := elementByIndex(category, i);
+			if(FixedFormId(worldspace) <> 0) then begin
+				ripSpace(worldspace, 1);
+			end;
+
+		end;
 	end;
 
 	procedure ripCells(); // Primary block for iterating down tree
-	const
-		targetESM = FileByIndex(0);
-		categoryCount = ElementCount(targetESM);
 	var
 		i, j, k, l : Integer; // Iterators
 		category, block, subBlock, cell : IInterface;
@@ -52,47 +59,28 @@ unit _mappalachia_spaceInfo;
 					cell := elementByIndex(subBlock, l);
 
 					if(FixedFormId(cell) <> 0) then begin
-						ripCell(cell);
+						ripSpace(cell, 0);
 					end;
 				end;
 			end;
 		end;
 	end;
 
-	procedure ripWorldspace(worldspaceEditorID : String);
-	const
-		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
-	begin
-		outputStrings.Add(
-			IntToHex(FixedFormId(worldspace), 8) + ',' +
-			sanitize(EditorID(worldspace)) + ',' +
-			sanitize(DisplayName(worldspace)) + ',' +
-			'1'
-		);
-	end;
-
-	procedure ripCell(cell : IInterface);
+	procedure ripSpace(space : IInterface; isWorldspace : Integer);
 	var
-		cellFormID, cellEditorID, cellDisplayName : IInterface;
+		spaceEditorID, spaceDisplayName : IInterface;
+		entry : String;
 	begin
-		cellFormID := IntToHex(FixedFormId(cell), 8);
-		cellEditorID := sanitize(EditorID(cell));
-		cellDisplayName := sanitize(DisplayName(cell));
+		spaceEditorID := sanitize(EditorID(space));
+		spaceDisplayName := sanitize(DisplayName(space));
 
-		if (shouldProcessCell(cellDisplayName, cellEditorID)) then begin // Put valid in-game CELLs in the right file, otherwise storing debug cells elsewhere for the record
-			outputStrings.Add(
-				cellFormID + ',' +
-				cellEditorID + ',' +
-				sanitize(cellDisplayName) + ',' +
-				'0'
-			);
+		entry := IntToHex(FixedFormId(space), 8) + ',' + spaceEditorID + ',' + sanitize(spaceDisplayName) + ',' + intToStr(isWorldspace);
+
+		if (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin // Put valid in-game spacess in the right file, otherwise storing debug spaces elsewhere for the record
+			outputStrings.Add(entry);
 		end
 		else begin
-			skippedCells.Add(
-				cellFormID + ',' +
-				cellEditorID + ',' +
-				sanitize(cellDisplayName)
-			);
+			skippedspaces.Add(entry);
 		end;
 	end;
 end.

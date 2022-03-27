@@ -1,6 +1,8 @@
 // Mappalachia supporting functions - not to be run directly.
 unit _mappalachia_lib;
 
+	const targetESM = FileByIndex(0);
+
 	// Remove commas and replace them with something safe for CSV
 	function sanitize(input: String): String;
 	begin
@@ -12,7 +14,6 @@ unit _mappalachia_lib;
 	// See: goToRipItem()
 	function processRecordGroup(signature, fileName, header: String): Integer;
 	const
-		targetESM = FileByIndex(0);
 		outputFile = ProgramPath + 'Output\' + fileName + '.csv';
 		category = GroupBySignature(targetESM, signature);
 	var
@@ -39,32 +40,36 @@ unit _mappalachia_lib;
 		else if(signature = 'CMPO') then _mappalachia_componentQuantity.ripItem(item)
 	end;
 
-	// Do we need to process this interior cell, given its in-game name or editorID?
-	// Something like 1/3 cell data are just leftover test/debug cells or otherwise inaccessible, so skipping them helps performance and data size
-	function shouldProcessCell(cellName, cellEditorID: String): Boolean;
+	// Do we need to process this interior space, given its in-game name or editorID?
+	// Something like 1/3 space data are just leftover test/debug spaces or otherwise inaccessible, so skipping them helps performance and data size
+	function shouldProcessSpace(spaceName, spaceEditorID: String): Boolean;
 	begin
-		// Skip these cells but don't log that we skipped them, as most debug cells are like this
-		if 	(cellName = '') or
-			(cellEditorID = '') or
-			(cellName = 'Quick Test Cell') or
+		// Skip these spaces but don't log that we skipped them, as most debug spaces are like this
+		if 	(spaceName = '') or
+			(spaceEditorID = '') or
+			(spaceName = 'Quick Test Cell') or
 
-			(pos('PackIn', cellEditorID) <> 0) or
-			(pos('COPY', cellEditorID) <> 0) or
-			(pos('zCUT', cellEditorID) <> 0) or
-			(pos('Cell', cellEditorID) <> 0) or
-			(pos('Test', cellEditorID) <> 0) or
-			(pos('Holding', cellEditorID) <> 0) or
-			(pos('Debug', cellEditorID) <> 0) or
-			(pos('OLD', cellEditorID) <> 0) or
-			(pos('Proto', cellEditorID) <> 0) or
-			(pos('Unused', cellEditorID) <> 0) or
-			(pos('QA', cellEditorID) <> 0) or
-			(pos('Smoke', cellEditorID) <> 0) or
+			(pos('PackIn', spaceEditorID) <> 0) or
+			(pos('COPY', spaceEditorID) <> 0) or
+			(pos('zCUT', spaceEditorID) <> 0) or
+			(pos('Cell', spaceEditorID) <> 0) or
+			(pos('Test', spaceEditorID) <> 0) or
+			(pos('Holding', spaceEditorID) <> 0) or
+			(pos('Debug', spaceEditorID) <> 0) or
+			(pos('OLD', spaceEditorID) <> 0) or
+			(pos('Proto', spaceEditorID) <> 0) or
+			(pos('Unused', spaceEditorID) <> 0) or
+			(pos('QA', spaceEditorID) <> 0) or
+			(pos('Smoke', spaceEditorID) <> 0) or
 
-			(pos('Cell', cellName) <> 0) or
-			(pos('Debug', cellName) <> 0) or
+			(pos('Test', spaceName) <> 0) or
+			(pos('Cell', spaceName) <> 0) or
+			(pos('Debug', spaceName) <> 0) or
 
-			(pos('Warehouse', cellEditorID) = 1)
+			(pos('Goodneighbor', spaceEditorID) <> 0) or
+			(pos('DiamondCity', spaceEditorID) <> 0) or
+
+			(pos('Warehouse', spaceEditorID) = 1)
 		then begin
 			result := false
 		end
