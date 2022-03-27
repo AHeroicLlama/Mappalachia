@@ -148,11 +148,14 @@ namespace Mappalachia
 			// Assign the SpaceScaling property
 			SpaceScaling spaceScaling = currentSpace.GetScaling();
 
-			infoText =
-				currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
-				"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
-				"Scale: 1:" + Math.Round(spaceScaling.scale, 2) + "\n\n" +
-				infoText;
+			if (!currentSpace.IsWorldspace())
+			{
+				infoText =
+					currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
+					"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
+					"Scale: 1:" + Math.Round(spaceScaling.scale, 2) + "\n\n" +
+					infoText;
+			}
 
 			// Gather resources for drawing informational watermark text
 			Brush brushWhite = new SolidBrush(Color.White);
@@ -298,7 +301,7 @@ namespace Mappalachia
 
 						if (!SettingsSpace.CurrentSpaceIsWorld())
 						{
-							// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
+							// If this coordinate exceeds the user-selected space mapping height bounds, skip it
 							// (Also accounts for the z-height of volumes)
 							if (point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound())
 							{
@@ -556,7 +559,7 @@ namespace Mappalachia
 			return skippedLegends;
 		}
 
-		// Draws an outline of all items in the current cell to act as background/template
+		// Draws an outline of all items in the current space to act as background/template
 		static void DrawSpaceBackground(Graphics backgroundLayer)
 		{
 			if (SettingsSpace.CurrentSpaceIsWorld())

@@ -117,7 +117,7 @@ namespace Mappalachia
 			return scrapTypes;
 		}
 
-		// Returns a list of all cells in the database, as Space objects
+		// Returns a list of all Spaces in the database, as Space objects
 		public static List<Space> GetAllSpaces()
 		{
 			List<Space> spaces = new List<Space>();
@@ -233,9 +233,9 @@ namespace Mappalachia
 						allowedLockTypes, // The Lock Types filtered for this set of items.
 						DataHelper.GetSpawnChance(signature, editorID), // Spawn chance
 						reader.GetInt32(5), // Count
-						reader.GetString(6), // Cell EditorID
-						reader.GetString(7))); // Cell Display Name/location
-						
+						reader.GetString(6), // Space EditorID
+						reader.GetString(7))); // Space Display Name/location
+
 				}
 
 				return results;
@@ -291,8 +291,8 @@ namespace Mappalachia
 						lockTypes, // The Lock Types filtered for this set of items.
 						spawnChance,
 						reader.GetInt32(2), // Count
-						reader.GetString(3), // Cell editorID
-						reader.GetString(4))); // Cell Display Name/location
+						reader.GetString(3), // Space editorID
+						reader.GetString(4))); // Space Display Name/location
 				}
 
 				// Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
@@ -302,7 +302,7 @@ namespace Mappalachia
 				This isn't perfect and won't catch ALL dead NPCs.
 				A common pattern seems to be that things prefixed with 'Enc' are dead,
 				but this isn't a global truth and filtering these out would cause too many false positives*/
-				List<MapItem> itemsWithoutCorpse = new List<MapItem>();
+				List<MapItem> resultsWithoutCorpse = new List<MapItem>();
 				foreach (MapItem item in results)
 				{
 					if (item.editorID.Contains("corpse") || item.editorID.Contains("Corpse"))
@@ -311,11 +311,11 @@ namespace Mappalachia
 					}
 					else
 					{
-						itemsWithoutCorpse.Add(item);
+						resultsWithoutCorpse.Add(item);
 					}
 				}
 
-				return itemsWithoutCorpse;
+				return resultsWithoutCorpse;
 			}
 			catch (Exception e)
 			{
@@ -367,8 +367,8 @@ namespace Mappalachia
 						lockTypes, // The Lock Types filtered for this set of items.
 						spawnChance,
 						reader.GetInt32(2), // Count
-						reader.GetString(3), // Cell editorID
-						reader.GetString(4))); // Cell Display Name/location
+						reader.GetString(3), // Space editorID
+						reader.GetString(4))); // Space Display Name/location
 				}
 
 				return results;

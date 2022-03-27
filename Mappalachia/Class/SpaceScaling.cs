@@ -2,7 +2,7 @@
 
 namespace Mappalachia.Class
 {
-	public class SpaceScaling
+    public class SpaceScaling
 	{
 		public double xOffset;
 		public double yOffset;
@@ -25,8 +25,8 @@ namespace Mappalachia.Class
 			double xCenter = (Math.Abs(space.xMax) + Math.Abs(space.xMin)) / 2;
 			double yCenter = (Math.Abs(space.yMax) + Math.Abs(space.yMin)) / 2;
 
-			double xRange = Math.Abs(space.xMax) - Math.Abs(space.xMin);
-			double yRange = Math.Abs(space.yMax) - Math.Abs(space.yMin);
+			double xRange = Math.Abs(space.xMax - space.xMin);
+			double yRange = Math.Abs(space.yMax - space.yMin);
 			double largestWidth = Math.Max(xRange, yRange);
 
 			// Prevent division by 0 if space contains a single item
@@ -36,8 +36,10 @@ namespace Mappalachia.Class
 			}
 
 			double bestZoomRatio = (Map.mapDimension - (zoomPadding * 2)) / largestWidth;
+			double xOffset = -(xCenter - (Map.mapDimension / 2));
+			double yOffset = -(yCenter - (Map.mapDimension / 2));
 
-			return new SpaceScaling(-(xCenter - (Map.mapDimension / 2)), -(yCenter - (Map.mapDimension / 2)), bestZoomRatio);
+			return new SpaceScaling(xOffset, yOffset, bestZoomRatio);
 		}
 	}
 }
