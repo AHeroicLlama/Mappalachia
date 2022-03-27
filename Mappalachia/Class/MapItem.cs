@@ -59,10 +59,8 @@ namespace Mappalachia
 		}
 
 		// Get the image-scaled coordinate points for all instances of this MapItem
-		// Speeds up repeated or edited map plots by caching them
 		public List<MapDataPoint> GetPlots()
 		{
-			// TODO cache coords, but wipe the cache if the cell, plotted items, or height distribution changes
 			switch (type)
 			{
 				case Type.Standard:

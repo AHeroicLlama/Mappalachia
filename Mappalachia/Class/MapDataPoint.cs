@@ -5,7 +5,7 @@ namespace Mappalachia
 	{
 		public double x;
 		public double y;
-		public int z; // Height - currently only used in Cell mode
+		public int z; // Height
 		public double weight; // The magnitude/importance of this plot (EG 2.0 may represent 2x scrap from a single junk, or 0.33 may represent a 33% chance of spawning)
 		public string primitiveShape; // The name of the primitive shape which describes this item (only typically applicable to ACTI)
 		public double boundX; // The bounds of the primitiveShape
