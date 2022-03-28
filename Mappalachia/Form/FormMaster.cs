@@ -653,8 +653,6 @@ namespace Mappalachia
 			{
 				Map.Draw();
 			}
-
-			GC.Collect();
 		}
 
 		void PreviewMap()
@@ -742,9 +740,6 @@ namespace Mappalachia
 			pictureBoxMapPreview.Location = new Point(0, 0);
 			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
 			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
-
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
 		}
 
 		// Search Settings > Show FormID - Toggle visibility of FormID column
