@@ -75,21 +75,12 @@ namespace Mappalachia
 		// Construct the map background layer, without plotted points
 		public static void DrawBaseLayer()
 		{
-			// Start with the defined base map
-			if (SettingsSpace.CurrentSpaceIsWorld())
+			// Start with the basic image
+			backgroundLayer = IOManager.GetImageForSpace(SettingsSpace.GetSpace());
+			if (SettingsSpace.drawOutline)
 			{
-				backgroundLayer = SettingsMap.layerMilitary ?
-					IOManager.GetImageMapMilitary() :
-					IOManager.GetImageMapNormal();
-			}
-			else
-			{ 
-				backgroundLayer = new Bitmap(mapDimension, mapDimension);
-				if (SettingsSpace.drawOutline)
-				{
-					Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
-					DrawSpaceBackground(backgroundGraphics);
-				}
+				Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
+				DrawCellBackground(backgroundGraphics);
 			}
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
@@ -134,7 +125,7 @@ namespace Mappalachia
 		public static void Draw()
 		{
 			// Reset the current image to the background layer
-			finalImage = (Image)backgroundLayer.Clone();
+			finalImage = new Bitmap(backgroundLayer);
 
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
@@ -202,6 +193,7 @@ namespace Mappalachia
 			// Nothing else to plot - ensure we update for the background layer but then return
 			if (FormMaster.legendItems.Count == 0)
 			{
+				GC.Collect();
 				mapFrame.Image = finalImage;
 				return;
 			}
@@ -261,13 +253,6 @@ namespace Mappalachia
 
 			if (SettingsPlot.IsIconOrTopographic())
 			{
-				if (SettingsPlot.IsTopographic())
-				{
-					// Somehow this line prevents a memory leak
-					// Without it, if drawing a large topographic map on first map draw, GC will not collect the multiple PlotIcon elements used in topographic drawing.
-					Application.DoEvents();
-				}
-
 				// Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
@@ -465,6 +450,7 @@ namespace Mappalachia
 				}
 			}
 
+			GC.Collect();
 			mapFrame.Image = finalImage;
 		}
 
@@ -555,12 +541,11 @@ namespace Mappalachia
 				legendCaretHeight += legendHeight; // Move the 'caret' down for the next item, enough to fit the icon and the text
 			}
 
-			GC.Collect();
 			return skippedLegends;
 		}
 
 		// Draws an outline of all items in the current space to act as background/template
-		static void DrawSpaceBackground(Graphics backgroundLayer)
+		static void DrawCellBackground(Graphics backgroundLayer)
 		{
 			if (SettingsSpace.CurrentSpaceIsWorld())
 			{
@@ -602,8 +587,6 @@ namespace Mappalachia
 
 				backgroundLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 			}
-
-			GC.Collect();
 		}
 
 		// Return a color for the topograph plot given its normalized altitude, interpolated against the user-defined selection of topographic plot colors
@@ -654,8 +637,6 @@ namespace Mappalachia
 			SettingsMap.grayScale = false;
 
 			DrawBaseLayer();
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
 		}
 	}
 }
