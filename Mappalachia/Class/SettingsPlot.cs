@@ -49,7 +49,7 @@ namespace Mappalachia.Class
 	}
 
 	// Plot Icon Settings and their defaults, used in FormPlotIconSettings
-	static class SettingsPlotIcon
+	static class SettingsPlotStyle
 	{
 		// Defaults
 		static readonly int iconSizeDefault = 40;
@@ -124,7 +124,7 @@ namespace Mappalachia.Class
 		public static List<PlotIconShape> paletteShape;
 
 		// Constructor
-		static SettingsPlotIcon()
+		static SettingsPlotStyle()
 		{
 			Initialize();
 		}
@@ -138,6 +138,17 @@ namespace Mappalachia.Class
 			shadowOpacityPercent = shadowOpacityPercentDefault;
 			paletteColor = new List<Color>(paletteColorDefault);
 			paletteShape = new List<PlotIconShape>(paletteShapeDefault);
+		}
+
+		public static Color GetFirstColor()
+        {
+			return paletteColor[0];
+        }
+
+		// Return the second color, although just return the first if there is only one color in the palette
+		public static Color GetSecondColor()
+		{
+			return paletteColor.Count == 1 ? GetFirstColor() : paletteColor[1];
 		}
 	}
 

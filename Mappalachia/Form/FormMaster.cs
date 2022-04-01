@@ -765,7 +765,7 @@ namespace Mappalachia
 		// Plot Settings > Plot Icon Settings - Open plot settings form
 		private void Plot_PlotIconSettings(object sender, EventArgs e)
 		{
-			FormPlotIconSettings formPlotSettings = new FormPlotIconSettings();
+			FormPlotStyleSettings formPlotSettings = new FormPlotStyleSettings();
 			formPlotSettings.ShowDialog();
 		}
 
