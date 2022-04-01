@@ -35,11 +35,6 @@ namespace Mappalachia
 
 		static string gameVersion;
 
-		// JPEG encoding for image compression
-		static readonly long JpegQualityPercent = 85;
-		static readonly ImageCodecInfo jpegEncoder = GetEncoder(ImageFormat.Jpeg);
-		static readonly EncoderParameter encoderParam = new EncoderParameter(Encoder.Quality, JpegQualityPercent);
-
 		static PrivateFontCollection fontCollection;
 
 		public static readonly string genericExceptionHelpText =
@@ -161,18 +156,26 @@ namespace Mappalachia
 			}
 		}
 
-		// Write the given map image to a given location
-		public static void WriteToFile(string filePath, Image image)
+		// Write the map image to the location with the file settings given
+		public static void WriteToFile(string filePath, Image image, ImageFormat imageFormat, int jpegQuality)
 		{
 			try
 			{
-				// TODO implement PNG if selected space is not Appalachia, or make optional
-				//image.Save(filePath, ImageFormat.Png);
+				if (imageFormat == ImageFormat.Png)
+				{
+					image.Save(filePath, ImageFormat.Png);
+				}
+				else if (imageFormat == ImageFormat.Jpeg)
+				{
+					EncoderParameters encoderParams = new EncoderParameters(1);
+					encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, jpegQuality);
 
-				EncoderParameters encoderParams = new EncoderParameters(1);
-				encoderParams.Param[0] = encoderParam;
-
-				image.Save(filePath, jpegEncoder, encoderParams);
+					image.Save(filePath, GetEncoder(ImageFormat.Jpeg), encoderParams);
+				}
+                else
+                {
+					throw new ArgumentException("Invalid ImageFormat type " + imageFormat);
+                }
 			}
 			catch (Exception e)
 			{

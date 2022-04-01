@@ -706,19 +706,11 @@ namespace Mappalachia
 			UpdateMapGrayscale(true);
 		}
 
-		// Map > Export To File - Export the map image to file
+		// Map > Export To File - Open the export to file dialog
 		void Map_Export(object sender, EventArgs e)
 		{
-			SaveFileDialog dialog = new SaveFileDialog
-			{
-				Filter = "JPEG|*.jpeg", // TODO support png "PNG|*.png"
-				FileName = "Mappalachia Map",
-			};
-
-			if (dialog.ShowDialog() == DialogResult.OK)
-			{
-				Map.WriteToFile(dialog.FileName);
-			}
+			FormExportToFile formExportToFile = new FormExportToFile();
+			formExportToFile.ShowDialog();
 		}
 
 		// Map > Clear - Remove legend items and remove plotted layers from the map
