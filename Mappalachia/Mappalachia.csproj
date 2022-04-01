@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4E44C396-6917-402E-A3E0-1AB2791624FF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Mappalachia</RootNamespace>
     <AssemblyName>Mappalachia</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -95,11 +95,11 @@
     <Compile Include="Form\FormExportToFile.Designer.cs">
       <DependentUpon>FormExportToFile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\FormPlotIconSettings.cs">
+    <Compile Include="Form\FormPlotStyleSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FormPlotIconSettings.Designer.cs">
-      <DependentUpon>FormPlotIconSettings.cs</DependentUpon>
+    <Compile Include="Form\FormPlotStyleSettings.Designer.cs">
+      <DependentUpon>FormPlotStyleSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\FormAbout.cs">
       <SubType>Form</SubType>
@@ -133,15 +133,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormExportToFile.resx">
       <DependentUpon>FormExportToFile.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormMaster.resx">
       <DependentUpon>FormMaster.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FormPlotIconSettings.resx">
-      <DependentUpon>FormPlotIconSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Form\FormPlotStyleSettings.resx">
+      <DependentUpon>FormPlotStyleSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormSetBrightness.resx">
       <DependentUpon>FormSetBrightness.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -198,7 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite">
-      <Version>5.0.14</Version>
+      <Version>5.0.15</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
       <Version>5.0.0</Version>

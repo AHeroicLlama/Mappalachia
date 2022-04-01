@@ -117,8 +117,8 @@ namespace Mappalachia
 			else if (SettingsPlot.IsHeatmap())
 			{
 				return SettingsPlotHeatmap.IsMono() ?
-					Color.Red :
-					(legendGroup % 2 == 0 ? Color.Red : Color.Blue);
+					SettingsPlotStyle.GetFirstColor() :
+					(legendGroup % 2 == 0 ? SettingsPlotStyle.GetFirstColor() : SettingsPlotStyle.GetSecondColor());
 			}
 			else
 			{

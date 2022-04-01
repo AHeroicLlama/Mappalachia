@@ -49,7 +49,7 @@ namespace Mappalachia
             this.modeIconMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeHeatmapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeTopographyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.plotIconSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plotStyleSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heatmapSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monoColorModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -251,7 +251,7 @@ namespace Mappalachia
             // 
             this.plotSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plotModeMenuItem,
-            this.plotIconSettingsMenuItem,
+            this.plotStyleSettingsMenuItem,
             this.heatmapSettingsMenuItem,
             this.TopographColorBandsMenuItem,
             this.drawVolumesMenuItem});
@@ -294,13 +294,13 @@ namespace Mappalachia
             this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
             this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
             // 
-            // plotIconSettingsMenuItem
+            // plotStyleSettingsMenuItem
             // 
-            this.plotIconSettingsMenuItem.Name = "plotIconSettingsMenuItem";
-            this.plotIconSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.plotIconSettingsMenuItem.Text = "Plot Icon Settings...";
-            this.plotIconSettingsMenuItem.ToolTipText = "Adjust the appearance of the icons used for plotting items on the map.";
-            this.plotIconSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
+            this.plotStyleSettingsMenuItem.Name = "plotStyleSettingsMenuItem";
+            this.plotStyleSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.plotStyleSettingsMenuItem.Text = "Plot Style Settings...";
+            this.plotStyleSettingsMenuItem.ToolTipText = "Adjust the appearance of plots on the map.";
+            this.plotStyleSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
             // 
             // heatmapSettingsMenuItem
             // 
@@ -1240,7 +1240,7 @@ namespace Mappalachia
 		private System.Windows.Forms.SplitContainer splitContainerMain;
 		private System.Windows.Forms.Button buttonRemoveFromLegend;
 		private System.Windows.Forms.Button buttonAddToLegend;
-		private System.Windows.Forms.ToolStripMenuItem plotIconSettingsMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem plotStyleSettingsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem drawVolumesMenuItem;
 		private System.Windows.Forms.ToolTip toolTipControls;
 		private System.Windows.Forms.ToolStripMenuItem plotModeMenuItem;

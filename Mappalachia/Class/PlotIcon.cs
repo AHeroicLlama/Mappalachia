@@ -12,8 +12,8 @@ namespace Mappalachia.Class
 		// Gets a PlotIcon for a given legend group. Returns cached version if available
 		public static PlotIcon GetIconForGroup(int group)
 		{
-			int colorTotal = SettingsPlotIcon.paletteColor.Count;
-			int shapeTotal = SettingsPlotIcon.paletteShape.Count;
+			int colorTotal = SettingsPlotStyle.paletteColor.Count;
+			int shapeTotal = SettingsPlotStyle.paletteShape.Count;
 
 			if (SettingsPlot.IsTopographic())
 			{
@@ -36,8 +36,8 @@ namespace Mappalachia.Class
 			int shapeIndex = (group / colorTotal) % shapeTotal;
 
 			// Generate the PlotIcon
-			Color color = SettingsPlot.IsTopographic() ? SettingsPlotTopograph.legendColor : SettingsPlotIcon.paletteColor[colorIndex];
-			PlotIconShape shape = SettingsPlotIcon.paletteShape[shapeIndex];
+			Color color = SettingsPlot.IsTopographic() ? SettingsPlotTopograph.legendColor : SettingsPlotStyle.paletteColor[colorIndex];
+			PlotIconShape shape = SettingsPlotStyle.paletteShape[shapeIndex];
 			PlotIcon plotIcon = new PlotIcon(color, shape);
 
 			// Register the icon in the cache and return it - Don't cache topography icons as they override the color
@@ -56,10 +56,10 @@ namespace Mappalachia.Class
 		}
 
 		// Pull PlotIcon settings from the currently applied PlotSettings
-		readonly int size = SettingsPlotIcon.iconSize;
-		readonly int lineWidth = SettingsPlotIcon.lineWidth;
-		readonly int iconOpacityPercent = SettingsPlotIcon.iconOpacityPercent;
-		readonly int shadowOpacityPercent = SettingsPlotIcon.shadowOpacityPercent;
+		readonly int size = SettingsPlotStyle.iconSize;
+		readonly int lineWidth = SettingsPlotStyle.lineWidth;
+		readonly int iconOpacityPercent = SettingsPlotStyle.iconOpacityPercent;
+		readonly int shadowOpacityPercent = SettingsPlotStyle.shadowOpacityPercent;
 		readonly float halfSize;
 		readonly float quartSize;
 		readonly float threeQuartSize;

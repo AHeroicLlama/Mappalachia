@@ -7,24 +7,24 @@ using Mappalachia.Class;
 
 namespace Mappalachia
 {
-	public partial class FormPlotIconSettings : Form
+	public partial class FormPlotStyleSettings : Form
 	{
 		static List<PlotIconShape> placeholderShapePalette = new List<PlotIconShape>(); // Holds the currently *selected* shape settings (not currently applied ones)
 		static readonly Regex htmlColor = new Regex("ff[0-9a-f]{6}"); // Match the alpha-less 'html' color returned from a ColorDialog
 		static int lastSelectedShapeIndex = 0;
 
-		public FormPlotIconSettings()
+		public FormPlotStyleSettings()
 		{
 			InitializeComponent();
 
-			trackBarIconSize.Minimum = SettingsPlotIcon.iconSizeMin / 10;
-			trackBarIconSize.Maximum = SettingsPlotIcon.iconSizeMax / 10;
-			trackBarIconWidth.Minimum = SettingsPlotIcon.lineWidthMin;
-			trackBarIconWidth.Maximum = SettingsPlotIcon.lineWidthMax;
-			trackBarIconOpacity.Minimum = SettingsPlotIcon.iconOpacityPercentMin / 10;
-			trackBarIconOpacity.Maximum = SettingsPlotIcon.iconOpacityPercentMax / 10;
-			trackBarShadowOpacity.Minimum = SettingsPlotIcon.iconOpacityPercentMin / 10;
-			trackBarShadowOpacity.Maximum = SettingsPlotIcon.iconOpacityPercentMax / 10;
+			trackBarIconSize.Minimum = SettingsPlotStyle.iconSizeMin / 10;
+			trackBarIconSize.Maximum = SettingsPlotStyle.iconSizeMax / 10;
+			trackBarIconWidth.Minimum = SettingsPlotStyle.lineWidthMin;
+			trackBarIconWidth.Maximum = SettingsPlotStyle.lineWidthMax;
+			trackBarIconOpacity.Minimum = SettingsPlotStyle.iconOpacityPercentMin / 10;
+			trackBarIconOpacity.Maximum = SettingsPlotStyle.iconOpacityPercentMax / 10;
+			trackBarShadowOpacity.Minimum = SettingsPlotStyle.iconOpacityPercentMin / 10;
+			trackBarShadowOpacity.Maximum = SettingsPlotStyle.iconOpacityPercentMax / 10;
 
 			LoadSettingsIntoForm();
 		}
@@ -32,24 +32,24 @@ namespace Mappalachia
 		// Reverse-normalize values to fit form and apply them to the form
 		void LoadSettingsIntoForm()
 		{
-			trackBarIconSize.Value = SettingsPlotIcon.iconSize / 10;
-			trackBarIconWidth.Value = SettingsPlotIcon.lineWidth;
-			trackBarIconOpacity.Value = SettingsPlotIcon.iconOpacityPercent / 10;
-			trackBarShadowOpacity.Value = SettingsPlotIcon.shadowOpacityPercent / 10;
+			trackBarIconSize.Value = SettingsPlotStyle.iconSize / 10;
+			trackBarIconWidth.Value = SettingsPlotStyle.lineWidth;
+			trackBarIconOpacity.Value = SettingsPlotStyle.iconOpacityPercent / 10;
+			trackBarShadowOpacity.Value = SettingsPlotStyle.shadowOpacityPercent / 10;
 
-			PopulateColorPaletteUI(SettingsPlotIcon.paletteColor);
-			PopulateShapePaletteUI(SettingsPlotIcon.paletteShape);
-			placeholderShapePalette = new List<PlotIconShape>(SettingsPlotIcon.paletteShape);
+			PopulateColorPaletteUI(SettingsPlotStyle.paletteColor);
+			PopulateShapePaletteUI(SettingsPlotStyle.paletteShape);
+			placeholderShapePalette = new List<PlotIconShape>(SettingsPlotStyle.paletteShape);
 			SelectShapeAtIndex(0);
 		}
 
 		// Normalize and apply the settings from the form to the class properties
 		void SaveSettingsFromForm()
 		{
-			SettingsPlotIcon.iconSize = trackBarIconSize.Value * 10;
-			SettingsPlotIcon.lineWidth = trackBarIconWidth.Value;
-			SettingsPlotIcon.iconOpacityPercent = trackBarIconOpacity.Value * 10;
-			SettingsPlotIcon.shadowOpacityPercent = trackBarShadowOpacity.Value * 10;
+			SettingsPlotStyle.iconSize = trackBarIconSize.Value * 10;
+			SettingsPlotStyle.lineWidth = trackBarIconWidth.Value;
+			SettingsPlotStyle.iconOpacityPercent = trackBarIconOpacity.Value * 10;
+			SettingsPlotStyle.shadowOpacityPercent = trackBarShadowOpacity.Value * 10;
 
 			// Rebuild the palette with colors from the UI
 			List<Color> tempColorPalette = new List<Color>();
@@ -58,7 +58,7 @@ namespace Mappalachia
 				tempColorPalette.Add(GetColorFromText(colorName.Text));
 			}
 
-			SettingsPlotIcon.paletteColor = new List<Color>(tempColorPalette);
+			SettingsPlotStyle.paletteColor = new List<Color>(tempColorPalette);
 
 			// Iterate through the settings in UI to recreate the shape palette
 			List<PlotIconShape> tempShapePalette = new List<PlotIconShape>();
@@ -68,7 +68,7 @@ namespace Mappalachia
 				tempShapePalette.Add(new PlotIconShape(checkBoxDiamond.Checked, checkBoxSquare.Checked, checkBoxCircle.Checked, checkBoxCrosshairInner.Checked, checkBoxCrosshairOuter.Checked, checkBoxFill.Checked));
 			}
 
-			SettingsPlotIcon.paletteShape = new List<PlotIconShape>(tempShapePalette);
+			SettingsPlotStyle.paletteShape = new List<PlotIconShape>(tempShapePalette);
 		}
 
 		// Find a color by its name or html code
@@ -99,16 +99,16 @@ namespace Mappalachia
 			switch (comboBoxPalette.Text)
 			{
 				case "Default":
-					PopulateColorPaletteUI(SettingsPlotIcon.paletteColorDefault);
+					PopulateColorPaletteUI(SettingsPlotStyle.paletteColorDefault);
 					break;
 				case "Colorblind (IBM)":
-					PopulateColorPaletteUI(SettingsPlotIcon.paletteColorBlindIBM);
+					PopulateColorPaletteUI(SettingsPlotStyle.paletteColorBlindIBM);
 					break;
 				case "Colorblind (Wong)":
-					PopulateColorPaletteUI(SettingsPlotIcon.paletteColorBlindWong);
+					PopulateColorPaletteUI(SettingsPlotStyle.paletteColorBlindWong);
 					break;
 				case "Colorblind (Tol)":
-					PopulateColorPaletteUI(SettingsPlotIcon.paletteColorBlindTol);
+					PopulateColorPaletteUI(SettingsPlotStyle.paletteColorBlindTol);
 					break;
 				default:
 					Notify.Error("Unexpected color palette " + comboBoxPalette.Text + ". The palette cannot be loaded.");
@@ -318,7 +318,7 @@ namespace Mappalachia
 
 		private void ButtonReset_Click(object sender, EventArgs e)
 		{
-			SettingsPlotIcon.Initialize();
+			SettingsPlotStyle.Initialize();
 			LoadSettingsIntoForm();
 			ProperClose();
 		}
@@ -334,10 +334,7 @@ namespace Mappalachia
 
 			Close();
 
-			if (SettingsPlot.IsIconOrTopographic())
-			{
-				Map.Draw();
-			}
+			Map.Draw();
 		}
 	}
 }

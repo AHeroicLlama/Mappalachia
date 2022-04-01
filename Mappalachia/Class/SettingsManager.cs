@@ -20,12 +20,12 @@ namespace Mappalachia.Class
 			List<string> colors = new List<string>();
 			List<string> shapes = new List<string>();
 
-			foreach (Color color in SettingsPlotIcon.paletteColor)
+			foreach (Color color in SettingsPlotStyle.paletteColor)
 			{
 				colors.Add(color.R + "," + color.G + "," + color.B);
 			}
 
-			foreach (PlotIconShape shape in SettingsPlotIcon.paletteShape)
+			foreach (PlotIconShape shape in SettingsPlotStyle.paletteShape)
 			{
 				shapes.Add(
 					BoolToIntStr(shape.diamond) +
@@ -58,10 +58,10 @@ namespace Mappalachia.Class
 
 			// SettingsPlotIcon
 			settings.Add("[PlotIcon]");
-			settings.Add("iconSize=" + SettingsPlotIcon.iconSize);
-			settings.Add("lineWidth=" + SettingsPlotIcon.lineWidth);
-			settings.Add("iconOpacityPercent=" + SettingsPlotIcon.iconOpacityPercent);
-			settings.Add("shadowOpacityPercent=" + SettingsPlotIcon.shadowOpacityPercent);
+			settings.Add("iconSize=" + SettingsPlotStyle.iconSize);
+			settings.Add("lineWidth=" + SettingsPlotStyle.lineWidth);
+			settings.Add("iconOpacityPercent=" + SettingsPlotStyle.iconOpacityPercent);
+			settings.Add("shadowOpacityPercent=" + SettingsPlotStyle.shadowOpacityPercent);
 			settings.Add("paletteColor=" + string.Join(":", colors));
 			settings.Add("paletteShape=" + string.Join(":", shapes));
 
@@ -181,36 +181,36 @@ namespace Mappalachia.Class
 
 						case "iconSize":
 							int iconSize = Convert.ToInt32(value);
-							if (ValidateWithinRange(iconSize, SettingsPlotIcon.iconSizeMin, SettingsPlotIcon.iconSizeMax))
+							if (ValidateWithinRange(iconSize, SettingsPlotStyle.iconSizeMin, SettingsPlotStyle.iconSizeMax))
 							{
-								SettingsPlotIcon.iconSize = iconSize;
+								SettingsPlotStyle.iconSize = iconSize;
 							}
 
 							break;
 
 						case "lineWidth":
 							int lineWidth = Convert.ToInt32(value);
-							if (ValidateWithinRange(lineWidth, SettingsPlotIcon.lineWidthMin, SettingsPlotIcon.lineWidthMax))
+							if (ValidateWithinRange(lineWidth, SettingsPlotStyle.lineWidthMin, SettingsPlotStyle.lineWidthMax))
 							{
-								SettingsPlotIcon.lineWidth = lineWidth;
+								SettingsPlotStyle.lineWidth = lineWidth;
 							}
 
 							break;
 
 						case "iconOpacityPercent":
 							int iconOpacityPercent = Convert.ToInt32(value);
-							if (ValidateWithinRange(iconOpacityPercent, SettingsPlotIcon.iconOpacityPercentMin, SettingsPlotIcon.iconOpacityPercentMax))
+							if (ValidateWithinRange(iconOpacityPercent, SettingsPlotStyle.iconOpacityPercentMin, SettingsPlotStyle.iconOpacityPercentMax))
 							{
-								SettingsPlotIcon.iconOpacityPercent = iconOpacityPercent;
+								SettingsPlotStyle.iconOpacityPercent = iconOpacityPercent;
 							}
 
 							break;
 
 						case "shadowOpacityPercent":
 							int shadowOpacityPercent = Convert.ToInt32(value);
-							if (ValidateWithinRange(shadowOpacityPercent, SettingsPlotIcon.shadowOpacityPercentMin, SettingsPlotIcon.shadowOpacityPercentMax))
+							if (ValidateWithinRange(shadowOpacityPercent, SettingsPlotStyle.shadowOpacityPercentMin, SettingsPlotStyle.shadowOpacityPercentMax))
 							{
-								SettingsPlotIcon.shadowOpacityPercent = shadowOpacityPercent;
+								SettingsPlotStyle.shadowOpacityPercent = shadowOpacityPercent;
 							}
 
 							break;
@@ -244,7 +244,7 @@ namespace Mappalachia.Class
 							}
 
 							// Overwrite the default palette with our loaded palette
-							SettingsPlotIcon.paletteColor = new List<Color>(loadedColorPalette);
+							SettingsPlotStyle.paletteColor = new List<Color>(loadedColorPalette);
 							break;
 
 						case "paletteShape":
@@ -284,7 +284,7 @@ namespace Mappalachia.Class
 							}
 
 							// Overwrite the default palette with our loaded palette
-							SettingsPlotIcon.paletteShape = new List<PlotIconShape>(loadedShapePalette);
+							SettingsPlotStyle.paletteShape = new List<PlotIconShape>(loadedShapePalette);
 							break;
 
 						case "resolution":

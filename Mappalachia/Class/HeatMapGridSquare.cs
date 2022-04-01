@@ -9,7 +9,7 @@ namespace Mappalachia.Class
 
 		public HeatMapGridSquare()
 		{
-			weights = new double[2]; //[0] is red weight, [1] is blue weight
+			weights = new double[2];
 		}
 
 		public double GetTotalWeight()
@@ -19,14 +19,27 @@ namespace Mappalachia.Class
 
 		public Color GetColor(double largestWeight)
 		{
-			double localSum = GetTotalWeight();
-			double alpha = localSum / largestWeight * 255;
-			double redValue = weights[0] / localSum * 255;
-			double blueValue = weights[1] / localSum * 255;
+			double squareSumWeight = GetTotalWeight();
 
-			return (largestWeight == 0 || localSum == 0) ?
-				Color.FromArgb(0, 0, 0, 0) :
-				Color.FromArgb((int)alpha, (int)redValue, 0, (int)blueValue);
+			// No plots - return transparent 
+			if (largestWeight == 0 || squareSumWeight == 0)
+            {
+				return Color.FromArgb(0, 0, 0, 0);
+            }
+
+			double alpha = squareSumWeight / largestWeight * 255;
+
+			// Mono color mode - no need to interpolate just return first palette color
+			if (SettingsPlotHeatmap.colorMode == SettingsPlotHeatmap.ColorMode.Mono)
+            {
+				return Color.FromArgb((int)alpha, SettingsPlotStyle.GetFirstColor());
+			}
+
+			// Otherwise, duo color mode - return an interpolated color based on assigned weights
+			double increment = weights[0] / squareSumWeight; // Normalized distance between color one and two
+			Color interpolatedColor = ImageTools.LerpColors(SettingsPlotStyle.GetSecondColor(), SettingsPlotStyle.GetFirstColor(), increment);
+
+			return Color.FromArgb((int)alpha, interpolatedColor);
 		}
 	}
 }

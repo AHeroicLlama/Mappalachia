@@ -483,7 +483,7 @@ namespace Mappalachia
 
 				legendTotalHeight += Math.Max(
 					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height),
-					SettingsPlot.IsIconOrTopographic() ? SettingsPlotIcon.iconSize : 0);
+					SettingsPlot.IsIconOrTopographic() ? SettingsPlotStyle.iconSize : 0);
 
 				drawnGroups.Add(mapItem.legendGroup);
 			}
@@ -598,7 +598,7 @@ namespace Mappalachia
 		public static Color GetTopographColor(double colorValue)
 		{
 			// Find the first x colors in the icon color palette, where x is the number of distinct topography colors selected (Or the entire palette if smaller)
-			int colorCount = Math.Min(SettingsPlotTopograph.colorBands, SettingsPlotIcon.paletteColor.Count);
+			int colorCount = Math.Min(SettingsPlotTopograph.colorBands, SettingsPlotStyle.paletteColor.Count);
 
 			if (colorCount == 0)
 			{
@@ -608,7 +608,7 @@ namespace Mappalachia
 			if (colorCount == 1)
 			{
 				// There is only one color in the palette - there is no distinction to be made
-				return SettingsPlotIcon.paletteColor[0];
+				return SettingsPlotStyle.GetFirstColor();
 			}
 
 			// Find the 'parent' colors above and below this plot on the scale which should define its color
@@ -621,7 +621,7 @@ namespace Mappalachia
 			// Example: parent colors exist at 0.2 and 0.4, child color exists at 0.35. Normalized between parents it is therefore 0.75
 			double rangeBetweenColors = (colorValue - (colorBelow * rangePerColor)) * (colorCount - 1);
 
-			return ImageTools.InterpolateColors(SettingsPlotIcon.paletteColor[colorBelow], SettingsPlotIcon.paletteColor[colorAbove], rangeBetweenColors);
+			return ImageTools.LerpColors(SettingsPlotStyle.paletteColor[colorBelow], SettingsPlotStyle.paletteColor[colorAbove], rangeBetweenColors);
 		}
 
 		public static void Open()
