@@ -68,7 +68,7 @@ namespace Mappalachia
 				coord *= -1;
 			}
 
-			return (coord / scaling) + (mapDimension / 2d) + xOffset;
+			return (coord / scaling) + (mapDimension / 2d) + (isYAxis ? yOffset : xOffset);
 		}
 
 		// Attach the map image to the PictureBox on the master form
