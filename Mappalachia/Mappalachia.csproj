@@ -89,6 +89,12 @@
     <Compile Include="Class\SettingsPlot.cs" />
     <Compile Include="Class\SettingsSearch.cs" />
     <Compile Include="Class\UpdateChecker.cs" />
+    <Compile Include="Form\FormExportToFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FormExportToFile.Designer.cs">
+      <DependentUpon>FormExportToFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\FormPlotIconSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     <EmbeddedResource Include="Form\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FormExportToFile.resx">
+      <DependentUpon>FormExportToFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FormMaster.resx">
       <DependentUpon>FormMaster.cs</DependentUpon>

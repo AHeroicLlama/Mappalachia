@@ -49,6 +49,11 @@ namespace Mappalachia
 		static Image finalImage;
 		static Image backgroundLayer;
 
+		public static Image GetImage()
+        {
+			return finalImage;
+        }
+
 		// Returns the result of Pythagoras theorem on 2 integers
 		static double Pythagoras(int a, int b)
 		{
@@ -622,11 +627,6 @@ namespace Mappalachia
 		public static void Open()
 		{
 			IOManager.OpenImage(finalImage);
-		}
-
-		public static void WriteToFile(string fileName)
-		{
-			IOManager.WriteToFile(fileName, finalImage);
 		}
 
 		// Reset map-specific settings and redraw it
