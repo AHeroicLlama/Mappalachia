@@ -74,6 +74,12 @@ namespace Mappalachia.Class
 			settings.Add("[PlotTopograph]");
 			settings.Add("colorBands=" + SettingsPlotTopograph.colorBands);
 
+			// SettingsFileExport
+			settings.Add("[FileExport]");
+			settings.Add("useRecommended=" + BoolToIntStr(SettingsFileExport.useRecommended));
+			settings.Add("fileType=" + SettingsFileExport.fileType);
+			settings.Add("jpegQuality=" + SettingsFileExport.jpegQuality);
+
 			// Write the list of strings to the prefs file
 			IOManager.WritePreferences(settings);
 		}
@@ -323,6 +329,33 @@ namespace Mappalachia.Class
 								SettingsPlotTopograph.colorBands = colorBands;
 							}
 
+							break;
+
+						case "useRecommended":
+							SettingsFileExport.setUseRecommended(StrIntToBool(value));
+							break;
+
+						case "fileType":
+							if (value == "PNG")
+							{
+								SettingsFileExport.fileType = SettingsFileExport.FileType.PNG;
+							}
+							else if (value == "JPEG")
+							{
+								SettingsFileExport.fileType = SettingsFileExport.FileType.JPEG;
+							}
+							else
+							{
+								throw new ArgumentException("Invalid export file type.");
+							}
+							break;
+
+						case "jpegQuality":
+							int jpegQuality = Convert.ToInt32(value);
+							if (ValidateWithinRange(jpegQuality, SettingsFileExport.jpegQualityMin, SettingsFileExport.jpegQualityMax))
+                            {
+								SettingsFileExport.jpegQuality = jpegQuality;
+                            }
 							break;
 
 						// Legacy settings - ignore
