@@ -210,6 +210,20 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT NPC, MIN(chance) as chance, COUNT(*) as amount, spaceEditorId, spaceDisplayName
+        ///FROM NPC_Search
+        ///INNER JOIN Space_Info ON NPC_Search.spaceFormId = Space_Info.spaceFormID
+        ///WHERE NPC = $npc and chance &gt;= $chance
+        ///GROUP BY spaceEditorId
+        ///ORDER BY isWorldspace DESC, amount DESC.
+        /// </summary>
+        internal static string searchNPCEverywhere {
+            get {
+                return ResourceManager.GetString("searchNPCEverywhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT component, SUM(magnitude), COUNT(*), spaceEditorId, spaceDisplayName
         ///FROM Scrap_Search
         ///INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID
@@ -218,6 +232,20 @@ namespace Mappalachia.Properties {
         internal static string searchScrap {
             get {
                 return ResourceManager.GetString("searchScrap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT component, SUM(magnitude) as amount, COUNT(*), spaceEditorId, spaceDisplayName
+        ///FROM Scrap_Search
+        ///INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID
+        ///WHERE component = $scrap
+        ///GROUP BY spaceEditorId
+        ///ORDER BY isWorldspace DESC, amount DESC.
+        /// </summary>
+        internal static string searchScrapEverywhere {
+            get {
+                return ResourceManager.GetString("searchScrapEverywhere", resourceCulture);
             }
         }
         
@@ -235,6 +263,24 @@ namespace Mappalachia.Properties {
         internal static string searchStandard {
             get {
                 return ResourceManager.GetString("searchStandard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName
+        ///FROM Standard_Search
+        ///JOIN Space_Info ON Standard_Search.spaceFormId = Space_Info.spaceFormID
+        ///JOIN Entity_Info ON Standard_Search.referenceFormID = Entity_Info.entityFormID
+        ///WHERE
+        ///(category IN ($allowedSignatures) AND
+        ///lockLevel IN ($allowedLockTypes) AND
+        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos;))
+        ///
+        ///ORDER BY is [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string searchStandardEverywhere {
+            get {
+                return ResourceManager.GetString("searchStandardEverywhere", resourceCulture);
             }
         }
     }

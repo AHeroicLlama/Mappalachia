@@ -157,10 +157,19 @@
   <data name="searchNPC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchNPC.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="searchNPCEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchNPCEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="searchScrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchScrap.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="searchScrapEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchScrapEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="searchStandard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchStandard.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="searchStandardEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchStandardEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

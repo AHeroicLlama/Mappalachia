@@ -188,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\searchNPCEverywhere.sql" />
+    <None Include="SQL\searchScrapEverywhere.sql" />
+    <None Include="SQL\searchStandardEverywhere.sql" />
     <None Include="SQL\getAllZCoordsSpace.sql" />
     <None Include="SQL\getSpaceExtremities.sql" />
     <None Include="SQL\searchStandard.sql" />

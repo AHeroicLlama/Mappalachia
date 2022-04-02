@@ -198,14 +198,14 @@ namespace Mappalachia
 		}
 
 		// Conducts the standard search and returns the found items
-		public static List<MapItem> SearchStandard(string searchTerm, List<string> allowedSignatures, List<string> allowedLockTypes, string spaceFormID)
+		public static List<MapItem> SearchStandard(string searchTerm, List<string> allowedSignatures, List<string> allowedLockTypes, string spaceFormID, bool allSpaces)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
 				searchTerm = DataHelper.ProcessSearchString(searchTerm);
-				string queryString = Properties.Resources.searchStandard;
+				string queryString = allSpaces ? Properties.Resources.searchStandardEverywhere : Properties.Resources.searchStandard;
 				SqliteCommand query = connection.CreateCommand();
 
 				// SQlite doesn't seem to support using variable length lists as parameters, but we can directly edit the query instead.
@@ -252,14 +252,14 @@ namespace Mappalachia
 
 		// Conducts the NPC search and returns the found items.
 		// Also merges results with standard search results for the same name, then drops items containing "Corpse"
-		public static List<MapItem> SearchNPC(string searchTerm, int minChance, string spaceFormID)
+		public static List<MapItem> SearchNPC(string searchTerm, int minChance, string spaceFormID, bool allSpaces)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 
 				SqliteCommand query = connection.CreateCommand();
-				query.CommandText = Properties.Resources.searchNPC;
+				query.CommandText = allSpaces ? Properties.Resources.searchNPCEverywhere : Properties.Resources.searchNPC;
 				query.Parameters.Clear();
 				query.Parameters.AddWithValue("$npc", searchTerm);
 				query.Parameters.AddWithValue("$chance", minChance / 100.00);
@@ -296,7 +296,7 @@ namespace Mappalachia
 				}
 
 				// Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
-				results.AddRange(SearchStandard(searchTerm, new List<string> { "NPC_" }, GetLockTypes(), spaceFormID));
+				results.AddRange(SearchStandard(searchTerm, new List<string> { "NPC_" }, GetLockTypes(), spaceFormID, allSpaces));
 
 				/*Copy out search results not containing "corpse", therefore dropping the dead "NPCs"
 				This isn't perfect and won't catch ALL dead NPCs.
@@ -328,14 +328,14 @@ namespace Mappalachia
 		}
 
 		// Conducts the scrap search and returns the found items
-		public static List<MapItem> SearchScrap(string searchTerm, string spaceFormID)
+		public static List<MapItem> SearchScrap(string searchTerm, string spaceFormID, bool allSpaces)
 		{
 			try
 			{
 				List<MapItem> results = new List<MapItem>();
 				SqliteCommand query = connection.CreateCommand();
 
-				query.CommandText = Properties.Resources.searchScrap;
+				query.CommandText = allSpaces ? Properties.Resources.searchScrapEverywhere : Properties.Resources.searchScrap;
 				query.Parameters.Clear();
 				query.Parameters.AddWithValue("$scrap", searchTerm);
 				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
