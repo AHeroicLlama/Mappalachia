@@ -18,20 +18,24 @@ namespace Mappalachia
 		public static double yOffset = 5.2;
 
 		// Hidden settings
-		public static readonly int fontSize = 36;
+		public static readonly int fontSize = 48;
 		public static readonly int mapDimension = 4096; // All layer images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 
 		// Legend text positioning
-		static readonly int legendIconX = 141; // The X Coord of the plot icon that is drawn next to each legend string
+		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
 		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
 		static readonly int plotXMax = 3610;
 		static readonly int plotYMin = 508;
 		static readonly int plotYMax = 3382;
-		static readonly int legendXMin = 220; // The padding in the from the left where legend text begins
+		static readonly int legendXMin = 116; // The padding in the from the left where legend text begins
 		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); // Used for MeasureString to calculate legend string dimensions
+
+		// Legend text drop shadow
+		static readonly int legendDropShadowOffset = 3;
+		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
 
 		// Volume plots
 		public static readonly int volumeOpacity = 128;
@@ -134,6 +138,7 @@ namespace Mappalachia
 
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
+			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 			// Prepare the game version and watermark to be printed later
@@ -535,7 +540,13 @@ namespace Mappalachia
 						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
 					}
 
-					imageGraphic.DrawString(mapItem.GetLegendText(false), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
+					// Draw Drop shadow first
+					imageGraphic.DrawString(mapItem.GetLegendText(false), font, dropShadowBrush,
+						new RectangleF(legendXMin + legendDropShadowOffset, legendCaretHeight + textOffset + legendDropShadowOffset, legendWidth, legendHeight));
+
+					// Draw the properly colored legend text
+					imageGraphic.DrawString(mapItem.GetLegendText(false), font, textBrush,
+						new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
 				}
 				else
 				{
