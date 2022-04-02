@@ -44,6 +44,7 @@ namespace Mappalachia
             this.resetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showFormIDMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchInAllSpacesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plotSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plotModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeIconMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -234,7 +235,8 @@ namespace Mappalachia
             // searchSettingsMenuItem
             // 
             this.searchSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showFormIDMenuItem});
+            this.showFormIDMenuItem,
+            this.searchInAllSpacesMenuItem});
             this.searchSettingsMenuItem.Name = "searchSettingsMenuItem";
             this.searchSettingsMenuItem.Size = new System.Drawing.Size(99, 20);
             this.searchSettingsMenuItem.Text = "Search Settings";
@@ -242,10 +244,19 @@ namespace Mappalachia
             // showFormIDMenuItem
             // 
             this.showFormIDMenuItem.Name = "showFormIDMenuItem";
-            this.showFormIDMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.showFormIDMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showFormIDMenuItem.Text = "Show FormID";
             this.showFormIDMenuItem.ToolTipText = "Toggle visibility of the FormID column.";
             this.showFormIDMenuItem.Click += new System.EventHandler(this.Search_FormID);
+            // 
+            // searchInAllSpacesMenuItem
+            // 
+            this.searchInAllSpacesMenuItem.Name = "searchInAllSpacesMenuItem";
+            this.searchInAllSpacesMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.searchInAllSpacesMenuItem.Text = "Search in all Spaces";
+            this.searchInAllSpacesMenuItem.ToolTipText = "Shows search results for all spaces at once. Only the selected space can be mappe" +
+    "d to.";
+            this.searchInAllSpacesMenuItem.Click += new System.EventHandler(this.Search_SearchInAllSpaces);
             // 
             // plotSettingsMenuItem
             // 
@@ -1290,6 +1301,7 @@ namespace Mappalachia
         private System.Windows.Forms.NumericUpDown numericMinZ;
         private System.Windows.Forms.Button buttonHeightDistribution;
         private System.Windows.Forms.ComboBox comboBoxSpace;
+        private System.Windows.Forms.ToolStripMenuItem searchInAllSpacesMenuItem;
     }
 }
 

@@ -65,6 +65,7 @@ namespace Mappalachia
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateShowFormID();
+			UpdateSearchInAllSpaces();
 			UpdateSpawnChance();
 
 			Map.SetOutput(pictureBoxMapPreview);
@@ -413,6 +414,11 @@ namespace Mappalachia
 			gridViewSearchResults.Columns["columnSearchFormID"].Visible = SettingsSearch.showFormID;
 		}
 
+		void UpdateSearchInAllSpaces()
+        {
+			searchInAllSpacesMenuItem.Checked = SettingsSearch.searchInAllSpaces;
+        }
+
 		// Update the minimum spawn chance % value on the NPC Search tab
 		void UpdateSpawnChance()
 		{
@@ -741,6 +747,13 @@ namespace Mappalachia
 			UpdateShowFormID();
 		}
 
+		// Search Settings > Search in all Spaces - Toggles search results being returned for all spaces
+		private void Search_SearchInAllSpaces(object sender, EventArgs e)
+		{
+			SettingsSearch.searchInAllSpaces = !SettingsSearch.searchInAllSpaces;
+			UpdateSearchInAllSpaces();
+		}
+
 		// Plot Settings > Mode > Icon - Change plot mode to icon
 		private void Plot_Mode_Icon(object sender, EventArgs e)
 		{
@@ -913,12 +926,15 @@ namespace Mappalachia
 			}
 		}
 
-		// TODO clarify
-		// The current items in search results and legend are inherently connected to the cellFormID.
-		// This cellFormID is connected to the currently select space in this ComboBox, and therefore changing it mid-map-production would confuse the target space
+		// User changed select Space - Update in Settings Class and wipe search results and legend
 		private void ComboBoxSpace_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			ClearSearchResults();
+			// If we're searching in all spaces we don't need to reset search results
+			if (!SettingsSearch.searchInAllSpaces)
+			{
+				ClearSearchResults();
+			}
+
 			ClearLegend();
 			numericMinZ.Value = numericMinZ.Minimum;
 			numericMaxZ.Value = numericMinZ.Maximum;
@@ -1033,7 +1049,7 @@ namespace Mappalachia
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
 			// Execute the search
-			searchResults = Database.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID());
+			searchResults = Database.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1064,7 +1080,7 @@ namespace Mappalachia
 			// Pre-query - set progress to 1/2
 			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
-			searchResults = Database.SearchScrap(listBoxScrap.SelectedItem.ToString(), SettingsSpace.GetCurrentFormID());
+			searchResults = Database.SearchScrap(listBoxScrap.SelectedItem.ToString(), SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1093,7 +1109,8 @@ namespace Mappalachia
 			searchResults = Database.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
 				SettingsSearch.spawnChance,
-				SettingsSpace.GetCurrentFormID());
+				SettingsSpace.GetCurrentFormID(),
+				SettingsSearch.searchInAllSpaces);
 
 			// Post-query - set progress to 3/4
 			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
@@ -1122,7 +1139,7 @@ namespace Mappalachia
 			}
 
 			List<string> rejectedItemsDuplicate = new List<string>(); // Items rejected because they're already present
-			List<string> rejectedItemsInterior = new List<string>(); // Items rejected because they belong to another space
+			List<string> rejectedItemsOtherSpace = new List<string>(); // Items rejected because they belong to another space
 			int legendGroup = -1;
 
 			// Get a single legend group for this group of item(s)
@@ -1144,9 +1161,9 @@ namespace Mappalachia
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				// Warn if a selected item is another space item or already on the legend list - otherwise add it.
-				if (false) // TODO make this check that the selected item wasn't from another space
+				if (selectedItem.spaceEditorID != SettingsSpace.GetSpace().editorID)
 				{
-					rejectedItemsInterior.Add(selectedItem.editorID);
+					rejectedItemsOtherSpace.Add(selectedItem.editorID);
 				}
 				else if (legendItemsBeforeAdd.Contains(selectedItem))
 				{
@@ -1171,7 +1188,7 @@ namespace Mappalachia
 				}
 			}
 
-			int totalRejectedItems = rejectedItemsInterior.Count + rejectedItemsDuplicate.Count;
+			int totalRejectedItems = rejectedItemsOtherSpace.Count + rejectedItemsDuplicate.Count;
 
 			// Update the legend grid, as long as there's at least one item we didn't have to reject
 			if (totalRejectedItems < gridViewSearchResults.SelectedRows.Count)
@@ -1188,27 +1205,27 @@ namespace Mappalachia
 
 				// TODO totally reword these due to cell mode merge
 				string message = "The following items were not added to the legend because ";
-				if (rejectedItemsDuplicate.Count > 0 && rejectedItemsInterior.Count > 0)
+				if (rejectedItemsDuplicate.Count > 0 && rejectedItemsOtherSpace.Count > 0)
 				{
-					message += "some were already present, and others were from internal cells.";
+					message += "some were already present, and others were from spaces other than the selected space.";
 				}
 				else if (rejectedItemsDuplicate.Count > 0)
 				{
 					message += "some were already present.";
 				}
-				else if (rejectedItemsInterior.Count > 0)
+				else if (rejectedItemsOtherSpace.Count > 0)
 				{
-					message += "some were from internal cells.";
+					message += "some were from spaces other than the selected space.";
 				}
 
-				if (rejectedItemsInterior.Count > 0)
+				if (rejectedItemsOtherSpace.Count > 0)
 				{
-					message += "\nIf there is a specific internal cell you wish to make maps for, you can do so in Cell Mode.\n" +
-						"(Map > Advanced Modes > Cell mode)";
+					message += "\n\nItems from search results can only be mapped if they belong to the currently selected space. " +
+                        "To find results only in the selected space, ensure 'Search Settings > Search in all Spaces' is toggled off.";
 				}
 
 				// Add a line to say that a further x items (not shown) were not added
-				message += "\n\n" + string.Join("\n", rejectedItemsInterior.Concat(rejectedItemsDuplicate).Take(maxItemsToShow)) +
+				message += "\n\n" + string.Join("\n", rejectedItemsOtherSpace.Concat(rejectedItemsDuplicate).Take(maxItemsToShow)) +
 					(truncatedItems > 0 ? "\n(+ " + truncatedItems + " more...)" : string.Empty);
 
 				Notify.Info(message);
@@ -1506,5 +1523,5 @@ namespace Mappalachia
 			catch (Exception)
 			{ } // If this fails, we're already exiting and there is no action to take
 		}
-	}
+    }
 }
