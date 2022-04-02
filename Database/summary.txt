@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-a09a1c92884fd586a355daf5022fe71a
+3a81da731286dcdd2a7f6fda5a70086a
 ==File Size== 
-448028672 
+447987712 
 ==Tables== 
 Entity_Info      NPC_Search       Scrap_Search     Standard_Search
 Game_Version     Position_Data    Space_Info     
@@ -13,7 +13,7 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Game Version==
 1.6.4.13
 ==Mean Average X/Y/Z Coord==
--12171.5763205376|4830.04589768273|12045.6996831876
+-12174.5983413527|4830.77200030218|12045.3936072076
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -22,12 +22,12 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 2432|64|-2560|61
 2433|59|-3072|60
 39101|14406|35188|40
-0|0|0|38
 624|-1848|-1112|38
 3696|-6968|-1112|37
 -125269|-37601|6630|36
 2928|-2360|-1112|36
 -128|1664|-608|34
+0|0|0|33
 -1216|2352|128|32
 960|2352|128|32
 -43|4777|519|30
@@ -120,19 +120,19 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.3558652382706
+21.3580758938572
 ==Average Y Bounds Width==
-15.9937894725011
+15.9954450720123
 ==Average Z Bounds Width==
-14.9126587231369
+14.9142024092367
 ==Average Z Rotation==
-3.98161672359846
+3.98202888124956
 ==Average display name string length==
 2.65053521408563
 ==Average editorID string length==
 24.9073629451781
 ==Total Unique entities==
-39985
+39984
 ==Total entities by PrimitiveShape by Space==
 AMSHQ01||5164
 AMSHQ01|Box|314
@@ -144,7 +144,7 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3005967
+Appalachia||3005571
 Appalachia|Box|62642
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
