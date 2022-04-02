@@ -125,7 +125,7 @@ namespace Mappalachia
 			foreach (Color color in newPalette)
 			{
 				// Add the color items back to the UI, and backcolor them with themselves
-				AddBackColor(listViewColorPalette.Items.Add(color.Name));
+				AddBackColor(listViewColorPalette.Items.Add(GetColorFromText(color.Name).Name));
 			}
 		}
 
