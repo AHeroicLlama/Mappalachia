@@ -1203,7 +1203,6 @@ namespace Mappalachia
 				int maxItemsToShow = 8;
 				int truncatedItems = totalRejectedItems - maxItemsToShow;
 
-				// TODO totally reword these due to cell mode merge
 				string message = "The following items were not added to the legend because ";
 				if (rejectedItemsDuplicate.Count > 0 && rejectedItemsOtherSpace.Count > 0)
 				{
