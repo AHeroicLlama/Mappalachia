@@ -76,12 +76,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\SettingsPlotStyle.cs" />
-    <Compile Include="Class\SettingsFileExport.cs" />
-    <Compile Include="Class\SettingsPlotHeatmap.cs" />
-    <Compile Include="Class\SettingsPlotTopograph.cs" />
+    <Compile Include="Class\Settings\SettingsPlotStyle.cs" />
+    <Compile Include="Class\Settings\SettingsFileExport.cs" />
+    <Compile Include="Class\Settings\SettingsPlotHeatmap.cs" />
+    <Compile Include="Class\Settings\SettingsPlotTopograph.cs" />
     <Compile Include="Class\Space.cs" />
-    <Compile Include="Class\SettingsSpace.cs" />
+    <Compile Include="Class\Settings\SettingsSpace.cs" />
     <Compile Include="Class\HeatMapGridSquare.cs" />
     <Compile Include="Class\ImageTools.cs" />
     <Compile Include="Class\MapDataPoint.cs" />
@@ -89,9 +89,9 @@
     <Compile Include="Class\PlotIcon.cs" />
     <Compile Include="Class\PlotIconShape.cs" />
     <Compile Include="Class\SpaceScaling.cs" />
-    <Compile Include="Class\SettingsManager.cs" />
-    <Compile Include="Class\SettingsPlot.cs" />
-    <Compile Include="Class\SettingsSearch.cs" />
+    <Compile Include="Class\Settings\SettingsManager.cs" />
+    <Compile Include="Class\Settings\SettingsPlot.cs" />
+    <Compile Include="Class\Settings\SettingsSearch.cs" />
     <Compile Include="Class\UpdateChecker.cs" />
     <Compile Include="Form\FormExportToFile.cs">
       <SubType>Form</SubType>
@@ -128,7 +128,7 @@
     <Compile Include="Class\Map.cs" />
     <Compile Include="Class\MapItem.cs" />
     <Compile Include="Class\Mappalachia.cs" />
-    <Compile Include="Class\SettingsMap.cs" />
+    <Compile Include="Class\Settings\SettingsMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\Database.cs" />
     <EmbeddedResource Include="Form\FormAbout.resx">
