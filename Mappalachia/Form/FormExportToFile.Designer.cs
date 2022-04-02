@@ -99,6 +99,7 @@
             0,
             0,
             0});
+            this.numericUpDownJPEGQuality.ValueChanged += new System.EventHandler(this.NumericUpDownJPEGQuality_ValueChanged);
             // 
             // labelJPEGQualityPerc
             // 
