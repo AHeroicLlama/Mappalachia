@@ -235,8 +235,8 @@ namespace Mappalachia
             // searchSettingsMenuItem
             // 
             this.searchSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showFormIDMenuItem,
-            this.searchInAllSpacesMenuItem});
+            this.searchInAllSpacesMenuItem,
+            this.showFormIDMenuItem});
             this.searchSettingsMenuItem.Name = "searchSettingsMenuItem";
             this.searchSettingsMenuItem.Size = new System.Drawing.Size(99, 20);
             this.searchSettingsMenuItem.Text = "Search Settings";

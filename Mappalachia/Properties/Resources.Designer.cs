@@ -143,6 +143,7 @@ namespace Mappalachia.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT DISTINCT NPC FROM NPC_Search
+        ///ORDER BY NPC ASC
         ///.
         /// </summary>
         internal static string getNPCTypes {
