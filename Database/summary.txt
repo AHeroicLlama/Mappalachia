@@ -1,12 +1,12 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-3a81da731286dcdd2a7f6fda5a70086a
+9bd8f5dc9c475c9bf4da0640a7f43d83
 ==File Size== 
-447987712 
+447991808 
 ==Tables== 
-Entity_Info      NPC_Search       Scrap_Search     Standard_Search
-Game_Version     Position_Data    Space_Info     
+Entity_Info      Lock_Levels      Position_Data    Space_Info     
+Game_Version     NPC_Search       Scrap_Search     Standard_Search
 ==Indices== 
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 

@@ -18,11 +18,12 @@ SELECT npc, chance, x, y, z, spaceFormId
 FROM Position_Data
 INNER JOIN NPC_Spawn ON class = spawnClass AND Position_Data.locationFormId = NPC_Spawn.locationFormId;
 
--- TODO drop NPC_Spawn, drop locationFormID, spawnclass from position_data
-
 CREATE TABLE 'Scrap_Search' AS
 SELECT component, componentQuantity AS magnitude, x, y, z, spaceFormId
 FROM Position_Data
 INNER JOIN Quantified_Scrap ON junkFormID = referenceFormID;
 
--- TODO drop component_quantity
+-- Create a tiny table to store unique lock levels, as searching position_data for distinct locks is expensive
+CREATE TABLE 'Lock_Levels' AS
+SELECT DISTINCT lockLevel
+FROM Position_Data

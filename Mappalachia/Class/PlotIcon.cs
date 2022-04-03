@@ -68,6 +68,7 @@ namespace Mappalachia.Class
 		readonly Bitmap bitmap;
 		readonly Graphics icon;
 		readonly PlotIconShape shape;
+		readonly int shadowOffset = 2;
 
 		public Color color;
 		Image iconImage;
@@ -93,7 +94,7 @@ namespace Mappalachia.Class
 		// Draw and return the icon image
 		public Image GetIconImage()
 		{
-			// Regenerate the icon image in topography mode, since we tend to update the color
+			// Return the cached image, unless in topography mode, since we tend to update the color
 			if (iconImage != null && !SettingsPlot.IsTopographic())
 			{
 				return iconImage;

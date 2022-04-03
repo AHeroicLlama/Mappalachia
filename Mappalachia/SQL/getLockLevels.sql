@@ -1,2 +1,2 @@
-SELECT DISTINCT lockLevel
-FROM Position_Data
+SELECT lockLevel
+FROM Lock_Levels

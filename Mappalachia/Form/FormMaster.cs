@@ -22,6 +22,7 @@ namespace Mappalachia
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed certain warnings, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
+		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 
 		public FormMaster()
 		{
@@ -525,7 +526,14 @@ namespace Mappalachia
 		// Wipe and re-populate the search results UI element with the items in "List<MapItem> searchResults"
 		void UpdateSearchResultsGrid()
 		{
-			gridViewSearchResults.Enabled = false;
+			int count = searchResults.Count;
+			if (count > searchResultsLargeAmount)
+			{	
+				// When adding multiple items, it is much more efficient to disable the grid
+				// Although disabling has an overhead so we only disable for large result sets
+				gridViewSearchResults.Enabled = false;
+			}
+
 			gridViewSearchResults.Rows.Clear();
 			int index = 0;
 
@@ -546,7 +554,10 @@ namespace Mappalachia
 				index++;
 			}
 
-			gridViewSearchResults.Enabled = true;
+			if (!gridViewSearchResults.Enabled)
+			{
+				gridViewSearchResults.Enabled = true;
+			}
 		}
 
 		void NotifyIfNoResults()
@@ -560,7 +571,14 @@ namespace Mappalachia
 		// Wipe and re-populate the Legend Grid View with items contained in "List<MapItem> legendItems"
 		void UpdateLegendGrid(MapItem lastSelectedItem)
 		{
-			gridViewLegend.Enabled = false;
+			int count = legendItems.Count;
+			if (count > searchResultsLargeAmount)
+			{
+				// When adding multiple items, it is much more efficient to disable the grid
+				// Although disabling has an overhead so we only disable for large result sets
+				gridViewLegend.Enabled = false;
+			}
+
 			gridViewLegend.Rows.Clear();
 
 			foreach (MapItem legend in legendItems)
@@ -568,7 +586,10 @@ namespace Mappalachia
 				gridViewLegend.Rows.Add(legend.legendGroup, legend.GetLegendText(false));
 			}
 
-			gridViewLegend.Enabled = true;
+			if (!gridViewLegend.Enabled)
+			{
+				gridViewLegend.Enabled = true;
+			}
 
 			// If the list is populated we can select an index
 			if (gridViewLegend.RowCount >= 1)
