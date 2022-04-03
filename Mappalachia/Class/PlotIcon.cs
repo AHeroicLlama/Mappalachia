@@ -164,7 +164,7 @@ namespace Mappalachia.Class
 			}
 
 			iconImage = ImageTools.AdjustARGB(bitmap, Color.FromArgb((int)(iconOpacityPercent / 100f * 255f), color));
-			iconImage = ImageTools.AddDropShadow(iconImage, lineWidth, (int)(shadowOpacityPercent / 100f * 255f));
+			iconImage = ImageTools.AddDropShadow(iconImage, shadowOffset, (int)(shadowOpacityPercent / 100f * 255f));
 
 			return iconImage;
 		}
