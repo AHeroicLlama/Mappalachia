@@ -131,8 +131,8 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT DISTINCT lockLevel
-        ///FROM Position_Data
+        ///   Looks up a localized string similar to SELECT lockLevel
+        ///FROM Lock_Levels
         ///.
         /// </summary>
         internal static string getLockLevels {
