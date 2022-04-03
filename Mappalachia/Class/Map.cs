@@ -286,6 +286,7 @@ namespace Mappalachia
 							double colorValue = (z - zMin) / zRange;
 
 							// Override the plot icon color
+							plotIcon = mapItem.GetIcon();
 							plotIcon.color = GetTopographColor(colorValue);
 							plotIconImg = plotIcon.GetIconImage(); // Generate a new icon with a unique color for this height color
 
