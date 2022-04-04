@@ -62,10 +62,10 @@ namespace Mappalachia
 				}
 			}
 
-			// Niche case where worldSpace Xmarkers get their reference filled with the literal Map marker text
+			// MapMarkers don't come with their FormID because we just pull their displayName which is literally their text, so we manually add it back
 			if (columnName == "referenceFormID" && !Validation.matchFormID.IsMatch(data))
 			{
-				data = "FFFFFFFF";
+				data = "00000010";
 			}
 		}
 
@@ -202,6 +202,7 @@ namespace Mappalachia
 					}
 					return;
 
+				case "mapMarker":
 				case "npc":
 				case "component":
 					// Nothing really to validate for here since they're just in-game strings

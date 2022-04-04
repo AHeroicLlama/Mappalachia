@@ -58,6 +58,7 @@
     <Compile Include="CSVRow.cs" />
     <Compile Include="JunkScrap.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="MapMarkers.cs" />
     <Compile Include="NPCSpawnHelper.cs" />
     <Compile Include="Preprocessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
