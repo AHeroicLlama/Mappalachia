@@ -7,7 +7,7 @@ namespace Mappalachia
 		// Pull the MapMarker display text from position data and store it in a new file
 		public static CSVFile ProcessMapMarkers(CSVFile positionData)
 		{
-			string newFileHeader = "spaceFormID,mapMarker,x,y,z";
+			List<string> newFileHeader = new List<string> { "spaceFormID", "mapMarker", "x", "y" };
 			List<CSVRow> newFileRows = new List<CSVRow>();
 
 			foreach (CSVRow row in positionData.rows)
@@ -24,8 +24,7 @@ namespace Mappalachia
 					row.GetCellFromColumn("spaceFormID") + "," +
 					displayName + "," +
 					row.GetCellFromColumn("x") + "," +
-					row.GetCellFromColumn("y") + "," +
-					row.GetCellFromColumn("z");
+					row.GetCellFromColumn("y");
 				newFileRows.Add(new CSVRow(newRow, newFileHeader));
 			}
 

@@ -9,7 +9,7 @@ namespace Mappalachia
 		// Using the actual locations file, and the pre-summed total odds for each location, calculate each spawn chance into an absolute chance
 		public static CSVFile ProcessNPCSpawns(CSVFile locationFile, List<Location> spawnChances)
 		{
-			string npcSpawnHeader = "npc,spawnClass,locationFormID,chance";
+			List<string> npcSpawnHeader = new List<string> { "npc", "spawnClass", "locationFormID", "chance" };
 			List<CSVRow> rows = new List<CSVRow>();
 			foreach (CSVRow row in locationFile.rows)
 			{
@@ -49,7 +49,7 @@ namespace Mappalachia
 				rows.Add(new CSVRow(rowNPC + "," + rowClass + "," + rowFormID + "," + rowSpawnChance, npcSpawnHeader));
 			}
 
-			return new CSVFile("NPC_Spawn.csv", string.Join(",", npcSpawnHeader), rows);
+			return new CSVFile("NPC_Spawn.csv", npcSpawnHeader, rows);
 		}
 
 		// Sum the different spawn odds for each location
@@ -133,7 +133,8 @@ namespace Mappalachia
 		// For the Worldspace and Interior files, where monsters spawn, we should record the 'class' of monster spawn in a new column
 		public static CSVFile AddMonsterClassColumn(CSVFile inputFile)
 		{
-			string newFileHeader = inputFile.header + ",spawnClass";
+			List<string> newFileHeader = inputFile.header;
+			newFileHeader.Add("spawnClass");
 			inputFile.header = newFileHeader;
 			List<CSVRow> newFileRows = new List<CSVRow>();
 
