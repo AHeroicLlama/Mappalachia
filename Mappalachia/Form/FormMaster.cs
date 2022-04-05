@@ -65,6 +65,7 @@ namespace Mappalachia
 			UpdateTopographColorBands(false);
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
+			UpdateMapShowMapMarkers(false);
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces();
 			UpdateSpawnChance();
@@ -408,6 +409,17 @@ namespace Mappalachia
 			}
 		}
 
+		// Update check mark in the UI with current MapSettings for showMapMarkers
+		void UpdateMapShowMapMarkers(bool reDraw)
+        {
+			showMapMarkersMenuItem.Checked = SettingsMap.showMapMarkers;
+
+			if (reDraw)
+			{
+				DrawMap(true);
+			}
+		}
+
 		// Update check mark in the UI for Show FormID option
 		void UpdateShowFormID()
 		{
@@ -661,13 +673,6 @@ namespace Mappalachia
 			return earliestIndex < 0 ? n : earliestIndex;
 		}
 
-		// Remove plots from map and empty the legend list
-		void ClearMap()
-		{
-			ClearLegend();
-			DrawMap(false);
-		}
-
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		void DrawMap(bool drawBaseLayer)
 		{
@@ -733,6 +738,13 @@ namespace Mappalachia
 			UpdateMapGrayscale(true);
 		}
 
+		// Map > Show Map Markers - toggle rendering map marker labels on map draw
+		private void Map_ShowMapMarkers(object sender, EventArgs e)
+		{
+			SettingsMap.showMapMarkers = !SettingsMap.showMapMarkers;
+			UpdateMapShowMapMarkers(true);
+		}
+
 		// Map > Export To File - Open the export to file dialog
 		void Map_Export(object sender, EventArgs e)
 		{
@@ -743,22 +755,30 @@ namespace Mappalachia
 		// Map > Clear - Remove legend items and remove plotted layers from the map
 		void Map_Clear(object sender, EventArgs e)
 		{
-			ClearMap();
+			ClearLegend();
+			DrawMap(false);
 		}
 
 		// Map > Reset - Hard reset the map, all layers, plots, legend items and pan/zoom
 		void Map_Reset(object sender, EventArgs e)
 		{
 			ClearLegend();
-			Map.Reset();
+
+			SettingsMap.brightness = SettingsMap.brightnessDefault;
+			SettingsMap.layerMilitary = false;
+			SettingsMap.grayScale = false;
+			SettingsMap.showMapMarkers = false;
 
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
+			UpdateMapShowMapMarkers(false);
 
 			// Reset pan and zoom
 			pictureBoxMapPreview.Location = new Point(0, 0);
 			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
 			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
+
+			Map.DrawBaseLayer();
 		}
 
 		// Search Settings > Show FormID - Toggle visibility of FormID column

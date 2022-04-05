@@ -142,6 +142,16 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT label, x, y FROM Map_Markers WHERE spaceFormID = $spaceFormID;
+        ///.
+        /// </summary>
+        internal static string getMapMarkers {
+            get {
+                return ResourceManager.GetString("getMapMarkers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT DISTINCT NPC FROM NPC_Search
         ///ORDER BY NPC ASC
         ///.

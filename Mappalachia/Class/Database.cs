@@ -186,10 +186,10 @@ namespace Mappalachia
 			while (reader.Read())
 			{
 				return (
-					Map.scaleCoordinate(reader.GetInt32(0), false),
-					Map.scaleCoordinate(reader.GetInt32(1), false),
-					Map.scaleCoordinate(reader.GetInt32(2), true),
-					Map.scaleCoordinate(reader.GetInt32(3), true),
+					Map.ScaleCoordinate(reader.GetInt32(0), false),
+					Map.ScaleCoordinate(reader.GetInt32(1), false),
+					Map.ScaleCoordinate(reader.GetInt32(2), true),
+					Map.ScaleCoordinate(reader.GetInt32(3), true),
 					reader.GetInt32(4),
 					reader.GetInt32(5));
 			}
@@ -468,6 +468,25 @@ namespace Mappalachia
 			}
 		
 			return coordinates;
+		}
+
+		public static List<MapMarker> GetMapMarkers(string spaceFormID)
+        {
+			List<MapMarker> mapMarkers = new List<MapMarker>();
+			SqliteCommand query = connection.CreateCommand();
+
+			query.CommandText = Properties.Resources.getMapMarkers;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+
+			SqliteDataReader reader = query.ExecuteReader();
+
+			while (reader.Read())
+			{
+				mapMarkers.Add(new MapMarker(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2)));
+			}
+
+			return mapMarkers;
 		}
 	}
 }

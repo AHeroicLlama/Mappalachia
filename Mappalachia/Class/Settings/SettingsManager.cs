@@ -45,6 +45,7 @@ namespace Mappalachia.Class
 			settings.Add("brightness=" + SettingsMap.brightness);
 			settings.Add("layerMilitary=" + BoolToIntStr(SettingsMap.layerMilitary));
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
+			settings.Add("showMapMarkers=" + BoolToIntStr(SettingsMap.showMapMarkers));
 
 			// SettingsSearch
 			settings.Add("[Search]");
@@ -146,6 +147,10 @@ namespace Mappalachia.Class
 
 						case "grayScale":
 							SettingsMap.grayScale = StrIntToBool(value);
+							break;
+
+						case "showMapMarkers":
+							SettingsMap.showMapMarkers = StrIntToBool(value);
 							break;
 
 						case "showFormID":

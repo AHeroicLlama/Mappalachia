@@ -18,7 +18,8 @@ namespace Mappalachia
 		public static double yOffset = 5.2;
 
 		// Hidden settings
-		public static readonly int fontSize = 48;
+		public static readonly int legendFontSize = 48;
+		public static readonly int mapMarkerFontSize = 18;
 		public static readonly int mapDimension = 4096; // All layer images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
@@ -33,9 +34,15 @@ namespace Mappalachia
 		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); // Used for MeasureString to calculate legend string dimensions
 
+		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
+		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
+		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
+
 		// Legend text drop shadow
 		static readonly int legendDropShadowOffset = 3;
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
+
+		static readonly int mapMarkerMaxWidth = 140;
 
 		// Volume plots
 		public static readonly int volumeOpacity = 128;
@@ -43,6 +50,10 @@ namespace Mappalachia
 
 		// Legend Font
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
+
+		// Fonts
+		static readonly Font mapMarkerFont = new Font(fontCollection.Families[0], mapMarkerFontSize, GraphicsUnit.Pixel);
+		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
 
 		// Reference to map picture box
 		static PictureBox mapFrame;
@@ -65,7 +76,7 @@ namespace Mappalachia
 		}
 
 		// Scale a coordinate from game coordinates down to map coordinates.
-		public static double scaleCoordinate(int coord, bool isYAxis)
+		public static double ScaleCoordinate(int coord, bool isYAxis)
 		{
 			if (isYAxis)
 			{
@@ -125,6 +136,11 @@ namespace Mappalachia
 			};
 			Rectangle rect = new Rectangle(0, 0, mapDimension, mapDimension);
 
+			if (SettingsMap.showMapMarkers)
+            {
+				DrawMapMarkers(graphic);
+            }
+
 			graphic.DrawImage(backgroundLayer, points, rect, GraphicsUnit.Pixel, attributes);
 
 			Draw(); // Redraw the whole map since we updated the base layer
@@ -139,7 +155,7 @@ namespace Mappalachia
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
+
 
 			// Prepare the game version and watermark to be printed later
 			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
@@ -161,11 +177,9 @@ namespace Mappalachia
 			// Gather resources for drawing informational watermark text
 			Brush brushWhite = new SolidBrush(Color.White);
 			RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
-			StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
-			StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
 
 			// Draws bottom-right info text
-			imageGraphic.DrawString(infoText, font, brushWhite, infoTextBounds, stringFormatBottomRight);
+			imageGraphic.DrawString(infoText, legendFont, brushWhite, infoTextBounds, stringFormatBottomRight);
 
 			// Draw a height-color key for Topography mode
 			if (SettingsPlot.IsTopographic())
@@ -187,13 +201,13 @@ namespace Mappalachia
 			}
 
 			// Draw all legend text for every MapItem
-			int skippedLegends = DrawLegend(font, imageGraphic);
+			int skippedLegends = DrawLegend(legendFont, imageGraphic);
 
 			// Adds additional text if some items were missed from legend
 			if (skippedLegends > 0)
 			{
 				string extraLegendText = "+" + skippedLegends + " more item" + (skippedLegends == 1 ? string.Empty : "s") + "...";
-				imageGraphic.DrawString(extraLegendText, font, brushWhite, infoTextBounds, stringFormatBottomLeft);
+				imageGraphic.DrawString(extraLegendText, legendFont, brushWhite, infoTextBounds, stringFormatBottomLeft);
 			}
 
 			// Start progress bar off at 0
@@ -465,6 +479,24 @@ namespace Mappalachia
 			mapFrame.Image = finalImage;
 		}
 
+		static void DrawMapMarkers(Graphics imageGraphic)
+		{
+			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+			foreach (MapMarker marker in Database.GetMapMarkers(SettingsSpace.GetCurrentFormID()))
+            {
+				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxWidth, mapMarkerMaxWidth));
+
+				// Draw Drop shadow first
+				imageGraphic.DrawString(marker.label, mapMarkerFont, dropShadowBrush,
+					new RectangleF((float)marker.x - (textBounds.Width / 2) + 2, (float)marker.y - (textBounds.Height / 2) + 2, textBounds.Width, textBounds.Height), stringFormatCenter);
+
+				// Draw the map marker label
+				imageGraphic.DrawString(marker.label, mapMarkerFont, new SolidBrush(Color.AliceBlue),
+					new RectangleF((float)marker.x - (textBounds.Width / 2), (float)marker.y - (textBounds.Height / 2), textBounds.Width, textBounds.Height), stringFormatCenter);
+			}
+		}
+
 		// Draws all legend text (and optional Icon beside) for every MapItem
 		// Returns the number of items missed off the legend due to size constraints
 		static int DrawLegend(Font font, Graphics imageGraphic)
@@ -639,16 +671,6 @@ namespace Mappalachia
 		public static void Open()
 		{
 			IOManager.OpenImage(finalImage);
-		}
-
-		// Reset map-specific settings and redraw it
-		public static void Reset()
-		{
-			SettingsMap.brightness = SettingsMap.brightnessDefault;
-			SettingsMap.layerMilitary = false;
-			SettingsMap.grayScale = false;
-
-			DrawBaseLayer();
 		}
 	}
 }
