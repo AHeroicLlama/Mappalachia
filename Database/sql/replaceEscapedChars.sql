@@ -6,3 +6,7 @@ UPDATE Entity_Info SET displayName = replace(displayName, '''''', ''''); -- Sing
 UPDATE Space_Info SET spaceDisplayName = replace(spaceDisplayName, ':COMMA:', ',');
 UPDATE Space_Info SET spaceDisplayName = replace(spaceDisplayName, '\"', '"');
 UPDATE Space_Info SET spaceDisplayName = replace(spaceDisplayName, '''''', '''');
+
+UPDATE Map_Markers SET label = replace(label, ':COMMA:', ',');
+UPDATE Map_Markers SET label = replace(label, '\"', '"');
+UPDATE Map_Markers SET label = replace(label, '''''', '''');
