@@ -104,6 +104,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "locationFormID":
@@ -112,6 +113,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "signature":
@@ -120,6 +122,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "editorID":
@@ -131,6 +134,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "componentQuantity":
@@ -139,6 +143,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "chance":
@@ -147,6 +152,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "x":
@@ -157,6 +163,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "boundX":
@@ -168,6 +175,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "primitiveShape":
@@ -176,6 +184,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "lockLevel":
@@ -184,6 +193,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "spawnClass":
@@ -192,6 +202,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "isWorldspace":
@@ -200,6 +211,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "mapMarker":
