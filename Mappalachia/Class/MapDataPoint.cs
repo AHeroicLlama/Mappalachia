@@ -37,8 +37,8 @@ namespace Mappalachia
 
 		void Initialize(int x, int y, int z)
 		{
-			this.x = Map.scaleCoordinate(x, false);
-			this.y = Map.scaleCoordinate(y, true);
+			this.x = Map.ScaleCoordinate(x, false);
+			this.y = Map.ScaleCoordinate(y, true);
 			this.z = z;
 
 			// Default weight, can be assigned to later

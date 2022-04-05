@@ -13,5 +13,6 @@
 		public static int brightness = brightnessDefault;
 		public static bool layerMilitary = false;
 		public static bool grayScale = false;
+		public static bool showMapMarkers = false;
 	}
 }

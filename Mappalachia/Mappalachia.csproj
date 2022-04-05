@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\MapMarker.cs" />
     <Compile Include="Class\Settings\SettingsPlotStyle.cs" />
     <Compile Include="Class\Settings\SettingsFileExport.cs" />
     <Compile Include="Class\Settings\SettingsPlotHeatmap.cs" />
@@ -188,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon_small.ico" />
+    <None Include="SQL\getMapMarkers.sql" />
     <None Include="SQL\searchNPCEverywhere.sql" />
     <None Include="SQL\searchScrapEverywhere.sql" />
     <None Include="SQL\searchStandardEverywhere.sql" />

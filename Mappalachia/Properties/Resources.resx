@@ -139,6 +139,9 @@
   <data name="getLockLevels" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getLockLevels.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="getMapMarkers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\getMapMarkers.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="getNPCTypes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getNPCTypes.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
