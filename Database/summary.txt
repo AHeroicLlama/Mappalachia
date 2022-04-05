@@ -1,12 +1,13 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-f2b86560b792f94e826bc1d4421379d7
+2355dee958f07a7221a9a7543f9e9c7b
 ==File Size== 
-448032768 
+448053248 
 ==Tables== 
-Entity_Info      Lock_Levels      Position_Data    Space_Info     
-Game_Version     NPC_Search       Scrap_Search     Standard_Search
+Entity_Info      Map_Markers      Scrap_Search   
+Game_Version     NPC_Search       Space_Info     
+Lock_Levels      Position_Data    Standard_Search
 ==Indices== 
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
@@ -131,6 +132,8 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 2.65053521408563
 ==Average editorID string length==
 24.9073629451781
+==Map Markers count and avg label length, x, y per Space==
+Appalachia|391|17.7468030690537|17240.0971867008|-2212.3452685422
 ==Total Unique entities==
 39984
 ==Total entities by PrimitiveShape by Space==
