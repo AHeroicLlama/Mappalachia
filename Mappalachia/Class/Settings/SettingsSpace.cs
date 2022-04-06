@@ -23,16 +23,11 @@ namespace Mappalachia.Class
 
 		public static bool CurrentSpaceIsWorld()
         {
-			// If this is called mid-form load, assumes worlspace
-			if (GetSpace() == null)
-            {
-				return true;
-            }
-
-			return GetSpace().IsWorldspace();
+            // If this is called mid-form load, assumes worlspace
+            return GetSpace() == null ? true : GetSpace().IsWorldspace();
         }
 
-		public static string GetCurrentFormID()
+        public static string GetCurrentFormID()
         {
 			return GetSpace().formID;
         }

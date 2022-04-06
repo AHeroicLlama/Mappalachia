@@ -19,7 +19,7 @@ namespace Mappalachia
 
         private void CheckBoxUseRecommended_CheckedChanged(object sender, EventArgs e)
         {
-            SettingsFileExport.setUseRecommended(checkBoxUseRecommended.Checked);
+            SettingsFileExport.SetUseRecommended(checkBoxUseRecommended.Checked);
             UpdateFormState();
         }
 
@@ -40,8 +40,8 @@ namespace Mappalachia
         {
             // Assign the values from the Settings Class
             checkBoxUseRecommended.Checked = SettingsFileExport.useRecommended;
-            radioButtonPNG.Checked = SettingsFileExport.isPNG();
-            radioButtonJPEG.Checked = SettingsFileExport.isJPEG();
+            radioButtonPNG.Checked = SettingsFileExport.IsPNG();
+            radioButtonJPEG.Checked = SettingsFileExport.IsJPEG();
             numericUpDownJPEGQuality.Value = SettingsFileExport.jpegQuality;
 
             // Update the form enabled states accordingly
@@ -56,13 +56,13 @@ namespace Mappalachia
         {
             SaveFileDialog dialog = new SaveFileDialog
             {
-                Filter = SettingsFileExport.isPNG() ? "PNG|*.png" : "JPEG|*.jpeg",
+                Filter = SettingsFileExport.IsPNG() ? "PNG|*.png" : "JPEG|*.jpeg",
                 FileName = "Mappalachia Map",
             };
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                ImageFormat imageFormat = SettingsFileExport.isPNG() ? ImageFormat.Png : ImageFormat.Jpeg;
+                ImageFormat imageFormat = SettingsFileExport.IsPNG() ? ImageFormat.Png : ImageFormat.Jpeg;
                 IOManager.WriteToFile(dialog.FileName, Map.GetImage(), imageFormat, SettingsFileExport.jpegQuality);
                 Close();
             }

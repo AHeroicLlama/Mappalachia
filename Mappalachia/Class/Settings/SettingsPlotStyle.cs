@@ -13,7 +13,7 @@ static class SettingsPlotStyle
 
 	public static readonly List<PlotIconShape> paletteShapeDefault = new List<PlotIconShape>
 		{
-			//				Diamond square circle inner outer  fill
+			// 				Diamond square circle inner outer  fill
 			new PlotIconShape(false, false, true, false, true, false),
 			new PlotIconShape(true, false, false, false, false, false),
 			new PlotIconShape(false, false, false, true, false, false),

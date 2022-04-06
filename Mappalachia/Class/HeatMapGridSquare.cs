@@ -21,7 +21,7 @@ namespace Mappalachia.Class
 		{
 			double squareSumWeight = GetTotalWeight();
 
-			// No plots - return transparent 
+			// No plots - return transparent
 			if (largestWeight == 0 || squareSumWeight == 0)
             {
 				return Color.FromArgb(0, 0, 0, 0);

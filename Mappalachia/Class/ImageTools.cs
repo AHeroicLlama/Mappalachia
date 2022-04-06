@@ -55,7 +55,7 @@ namespace Mappalachia.Class
 			Graphics totalShadowGraphic = Graphics.FromImage(dropShadow);
 
 			// Draw the shadow with offset in 2 directions
-			totalShadowGraphic.DrawImage(dropShadow, shadowWidth, shadowWidth); 
+			totalShadowGraphic.DrawImage(dropShadow, shadowWidth, shadowWidth);
 
 			// Color the shadow black and apply alpha evenly
 			dropShadow = AdjustARGB(dropShadow, Color.FromArgb(shadowOpacity, Color.Black));

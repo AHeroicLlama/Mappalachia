@@ -373,13 +373,11 @@ namespace Mappalachia
 
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
-
 						point.x += spaceScaling.xOffset;
 						point.y += spaceScaling.yOffset;
 
 						point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
 						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
-
 
 						// Identify which grid square this MapDataPoint falls within
 						int squareX = (int)Math.Floor(point.x / pixelsPerSquare);
@@ -461,7 +459,7 @@ namespace Mappalachia
 
 			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() +
 				"\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
-			
+
 			if (!currentSpace.IsWorldspace())
 			{
 				infoText =

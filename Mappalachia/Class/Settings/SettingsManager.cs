@@ -347,7 +347,7 @@ namespace Mappalachia.Class
 							break;
 
 						case "useRecommended":
-							SettingsFileExport.setUseRecommended(StrIntToBool(value));
+							SettingsFileExport.SetUseRecommended(StrIntToBool(value));
 							break;
 
 						case "fileType":
@@ -363,6 +363,7 @@ namespace Mappalachia.Class
 							{
 								throw new ArgumentException("Invalid export file type.");
 							}
+
 							break;
 
 						case "jpegQuality":
@@ -371,6 +372,7 @@ namespace Mappalachia.Class
                             {
 								SettingsFileExport.jpegQuality = jpegQuality;
                             }
+
 							break;
 
 						// Legacy settings - ignore

@@ -9,7 +9,7 @@ namespace Mappalachia
 	// Direct SQL queries and their execution
 	static class Database
 	{
-		static SqliteConnection connection;
+		static readonly SqliteConnection connection;
 
 		static List<string> lockTypes;
 		static List<string> signatures;
@@ -149,7 +149,7 @@ namespace Mappalachia
 			{
 				coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
 			}
-			
+
 			return coordinates;
 		}
 
@@ -235,7 +235,6 @@ namespace Mappalachia
 						reader.GetInt32(5), // Count
 						reader.GetString(6), // Space EditorID
 						reader.GetString(7))); // Space Display Name/location
-
 				}
 
 				return results;
@@ -266,7 +265,7 @@ namespace Mappalachia
 				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 				SqliteDataReader reader = query.ExecuteReader();
-				
+
 				// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 				string signature = DataHelper.ConvertSignature("NPC_", false);
 				List<string> lockTypes = GetLockTypes();
@@ -281,7 +280,7 @@ namespace Mappalachia
 
 					string name = reader.GetString(0);
 					double spawnChance = Math.Round(reader.GetDouble(1), 2) * 100;
-						
+
 					results.Add(new MapItem(
 						Type.NPC,
 						name, // FormID
@@ -357,7 +356,6 @@ namespace Mappalachia
 
 					string name = reader.GetString(0);
 
-					//MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string spaceEditorID, string spaceName)
 					results.Add(new MapItem(
 						Type.Scrap,
 						name, // FormID
@@ -420,7 +418,7 @@ namespace Mappalachia
 		}
 
 		// Return the coordinate locations of instances of an NPC above given min spawn chance
-		public static List<MapDataPoint> GetNPCCoords(string npc, String spaceFormID, double minChance)
+		public static List<MapDataPoint> GetNPCCoords(string npc, string spaceFormID, double minChance)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
@@ -466,7 +464,7 @@ namespace Mappalachia
 					weight = reader.GetInt32(3),
 				});
 			}
-		
+
 			return coordinates;
 		}
 

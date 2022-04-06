@@ -552,7 +552,7 @@ namespace Mappalachia
 		{
 			int count = searchResults.Count;
 			if (count > searchResultsLargeAmount)
-			{	
+			{
 				// When adding multiple items, it is much more efficient to disable the grid
 				// Although disabling has an overhead so we only disable for large result sets
 				gridViewSearchResults.Enabled = false;
@@ -1392,7 +1392,9 @@ namespace Mappalachia
 					{
 						mapItem.overridingLegendText = string.Empty;
 					}
-					else // Use the overridden text
+
+					// Else use the overridden text
+					else
 					{
 						mapItem.overridingLegendText = cellValue.ToString();
 					}
