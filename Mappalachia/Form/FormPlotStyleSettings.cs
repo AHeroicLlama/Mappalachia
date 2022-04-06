@@ -330,7 +330,7 @@ namespace Mappalachia
 			buttonReset.Enabled = false;
 
 			// Reset the cached legend icons, as they are now changing.
-			PlotIcon.ResetCache(); 
+			PlotIcon.ResetCache();
 
 			Close();
 

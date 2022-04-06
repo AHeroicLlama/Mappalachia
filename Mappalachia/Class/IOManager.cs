@@ -28,7 +28,7 @@ namespace Mappalachia
 		static readonly string tempImageBaseFileName = "mappalachia_preview";
 		static readonly string tempImageFileExtension = ".png";
 
-		static Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
+		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
 		static Image imageMapMilitary;
 
 		static int tempImageLockedCount = 0;
@@ -247,6 +247,7 @@ namespace Mappalachia
 					return EmptyMapBackground();
 				}
 			}
+
 			// Interior so return empty background
 			else
             {

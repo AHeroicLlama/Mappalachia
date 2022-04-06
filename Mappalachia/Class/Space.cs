@@ -69,7 +69,7 @@ namespace Mappalachia.Class
 		{
 			if (IsWorldspace())
 			{
-				return new double[] {0, 1};
+				return new double[] { 0, 1 };
 			}
 
 			if (zPlots == null)
