@@ -742,7 +742,7 @@ namespace Mappalachia
 		private void Map_ShowMapMarkers(object sender, EventArgs e)
 		{
 			SettingsMap.showMapMarkers = !SettingsMap.showMapMarkers;
-			UpdateMapShowMapMarkers(true);
+			UpdateMapShowMapMarkers(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Export To File - Open the export to file dialog
@@ -765,9 +765,9 @@ namespace Mappalachia
 			ClearLegend();
 
 			SettingsMap.brightness = SettingsMap.brightnessDefault;
-			SettingsMap.layerMilitary = false;
-			SettingsMap.grayScale = false;
-			SettingsMap.showMapMarkers = false;
+			SettingsMap.layerMilitary = SettingsMap.layerMilitaryDefault;
+			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
+			SettingsMap.showMapMarkers = SettingsMap.showMapMarkersDefault;
 
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
@@ -981,6 +981,7 @@ namespace Mappalachia
 			numericMaxZ.Value = numericMinZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
 			UpdateCellOnlySettingsVisibilityState();
+			UpdateShowMapMarkersEnabledState();
 		}
 
 		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
@@ -994,6 +995,12 @@ namespace Mappalachia
         {
 			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
+        }
+
+		// Enable or Disable the Show Map Markers menu item depending on if the current Space is a WorldSpace
+		void UpdateShowMapMarkersEnabledState()
+        {
+			showMapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
         }
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)

@@ -18,11 +18,25 @@ namespace Mappalachia
 		public static double yOffset = 5.2;
 
 		// Hidden settings
-		public static readonly int legendFontSize = 48;
-		public static readonly int mapMarkerFontSize = 18;
 		public static readonly int mapDimension = 4096; // All layer images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
+
+		// Font and text
+		public static readonly int legendFontSize = 48;
+		public static readonly int mapMarkerFontSize = 18;
+		static readonly int fontDropShadowOffset = 2;
+		static readonly int mapMarkerMaxRadius = 140; // Maximum width before a map marker label will enter a new line
+		static readonly int mapMarkerPadding = 5; // Workaround - inflate the draw radius of the map marker by this much to prevent characters being chopped off the end of lines
+		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
+		static readonly Brush brushWhite = new SolidBrush(Color.White);
+		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
+		static readonly Font mapMarkerFont = new Font(fontCollection.Families[0], mapMarkerFontSize, GraphicsUnit.Pixel);
+		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
+		static readonly RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
+		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
+		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
+		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -34,31 +48,12 @@ namespace Mappalachia
 		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); // Used for MeasureString to calculate legend string dimensions
 
-		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
-		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
-		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
-
-		// Legend text drop shadow
-		static readonly int legendDropShadowOffset = 3;
-		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
-
-		static readonly int mapMarkerMaxWidth = 140;
-
 		// Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; // Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
 
-		// Legend Font
-		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
-
-		// Fonts
-		static readonly Font mapMarkerFont = new Font(fontCollection.Families[0], mapMarkerFontSize, GraphicsUnit.Pixel);
-		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
-
-		// Reference to map picture box
+		// References to FormMaster elements
 		static PictureBox mapFrame;
-
-		// Reference to progress bar
 		public static ProgressBar progressBarMain;
 
 		static Image finalImage;
@@ -152,36 +147,38 @@ namespace Mappalachia
 			// Reset the current image to the background layer
 			finalImage = new Bitmap(backgroundLayer);
 
+			// Start progress bar off at 0
+			progressBarMain.Value = progressBarMain.Minimum;
+			float progress = 0;
+
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
+			// Draw the bottom-right info/watermark paragraph
+			DrawInfoWatermark(imageGraphic);
 
-			// Prepare the game version and watermark to be printed later
-			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			// Draw all legend text for every MapItem
+			int skippedLegends = DrawLegend(legendFont, imageGraphic);
 
-			Space currentSpace = SettingsSpace.GetSpace();
-
-			// Assign the SpaceScaling property
-			SpaceScaling spaceScaling = currentSpace.GetScaling();
-
-			if (!currentSpace.IsWorldspace())
+			// Adds additional text if some items were missed from legend
+			if (skippedLegends > 0)
 			{
-				infoText =
-					currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
-					"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
-					"Scale: 1:" + Math.Round(spaceScaling.scale, 2) + "\n\n" +
-					infoText;
+				string extraLegendText = "+" + skippedLegends + " more item" + (skippedLegends == 1 ? string.Empty : "s") + "...";
+				imageGraphic.DrawString(extraLegendText, legendFont, brushWhite, infoTextBounds, stringFormatBottomLeft);
 			}
 
-			// Gather resources for drawing informational watermark text
-			Brush brushWhite = new SolidBrush(Color.White);
-			RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
+			// Nothing else to plot - ensure we update for the background layer but then return
+			if (FormMaster.legendItems.Count == 0)
+			{
+				GC.Collect();
+				mapFrame.Image = finalImage;
+				return;
+			}
 
-			// Draws bottom-right info text
-			imageGraphic.DrawString(infoText, legendFont, brushWhite, infoTextBounds, stringFormatBottomRight);
+			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
 
-			// Draw a height-color key for Topography mode
+			// Draw a height-color key in Topography mode
 			if (SettingsPlot.IsTopographic())
 			{
 				// Identify the sizing and locations for drawing the height-color-key strings
@@ -198,28 +195,6 @@ namespace Mappalachia
 					imageGraphic.DrawString(SettingsPlotTopograph.heightKeyString, topographFont, brush, new RectangleF(plotXMax, 0, mapDimension - plotXMax, (float)(mapDimension - baseHeight)), stringFormatBottomRight);
 					baseHeight += singleLineHeight;
 				}
-			}
-
-			// Draw all legend text for every MapItem
-			int skippedLegends = DrawLegend(legendFont, imageGraphic);
-
-			// Adds additional text if some items were missed from legend
-			if (skippedLegends > 0)
-			{
-				string extraLegendText = "+" + skippedLegends + " more item" + (skippedLegends == 1 ? string.Empty : "s") + "...";
-				imageGraphic.DrawString(extraLegendText, legendFont, brushWhite, infoTextBounds, stringFormatBottomLeft);
-			}
-
-			// Start progress bar off at 0
-			progressBarMain.Value = progressBarMain.Minimum;
-			float progress = 0;
-
-			// Nothing else to plot - ensure we update for the background layer but then return
-			if (FormMaster.legendItems.Count == 0)
-			{
-				GC.Collect();
-				mapFrame.Image = finalImage;
-				return;
 			}
 
 			// Count how many Map Data Points are due to be mapped
@@ -329,7 +304,7 @@ namespace Mappalachia
 						point.boundY *= spaceScaling.scale;
 
 						// Skip the point if its origin is outside the surface world
-						if (currentSpace.IsWorldspace() && (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax))
+						if (SettingsSpace.CurrentSpaceIsWorld() && (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax))
 						{
 							continue;
 						}
@@ -479,21 +454,49 @@ namespace Mappalachia
 			mapFrame.Image = finalImage;
 		}
 
+		static void DrawInfoWatermark(Graphics imageGraphic)
+        {
+			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+			Space currentSpace = SettingsSpace.GetSpace();
+
+			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() +
+				"\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			
+			if (!currentSpace.IsWorldspace())
+			{
+				infoText =
+					currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
+					"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
+					"Scale: 1:" + Math.Round(currentSpace.GetScaling().scale, 2) + "\n\n" +
+					infoText;
+			}
+
+			imageGraphic.DrawString(infoText, legendFont, brushWhite, infoTextBounds, stringFormatBottomRight);
+		}
+
 		static void DrawMapMarkers(Graphics imageGraphic)
 		{
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 
 			foreach (MapMarker marker in Database.GetMapMarkers(SettingsSpace.GetCurrentFormID()))
             {
-				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxWidth, mapMarkerMaxWidth));
+				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxRadius, mapMarkerMaxRadius));
+				textBounds.Width += mapMarkerPadding;
+				textBounds.Height += mapMarkerPadding;
 
 				// Draw Drop shadow first
 				imageGraphic.DrawString(marker.label, mapMarkerFont, dropShadowBrush,
-					new RectangleF((float)marker.x - (textBounds.Width / 2) + 2, (float)marker.y - (textBounds.Height / 2) + 2, textBounds.Width, textBounds.Height), stringFormatCenter);
+					new RectangleF(
+						(float)marker.x - (textBounds.Width / 2) + fontDropShadowOffset,
+						(float)marker.y - (textBounds.Height / 2) + fontDropShadowOffset,
+						textBounds.Width, textBounds.Height), stringFormatCenter);
 
 				// Draw the map marker label
-				imageGraphic.DrawString(marker.label, mapMarkerFont, new SolidBrush(Color.AliceBlue),
-					new RectangleF((float)marker.x - (textBounds.Width / 2), (float)marker.y - (textBounds.Height / 2), textBounds.Width, textBounds.Height), stringFormatCenter);
+				imageGraphic.DrawString(marker.label, mapMarkerFont, brushWhite,
+					new RectangleF(
+						(float)marker.x - (textBounds.Width / 2),
+						(float)marker.y - (textBounds.Height / 2),
+						textBounds.Width, textBounds.Height), stringFormatCenter);
 			}
 		}
 
@@ -575,7 +578,7 @@ namespace Mappalachia
 
 					// Draw Drop shadow first
 					imageGraphic.DrawString(mapItem.GetLegendText(false), font, dropShadowBrush,
-						new RectangleF(legendXMin + legendDropShadowOffset, legendCaretHeight + textOffset + legendDropShadowOffset, legendWidth, legendHeight));
+						new RectangleF(legendXMin + fontDropShadowOffset, legendCaretHeight + textOffset + fontDropShadowOffset, legendWidth, legendHeight));
 
 					// Draw the properly colored legend text
 					imageGraphic.DrawString(mapItem.GetLegendText(false), font, textBrush,

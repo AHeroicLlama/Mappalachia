@@ -3,16 +3,19 @@
 	// Settings for the map image
 	class SettingsMap
 	{
-		// Min/maxes - these control the min/maxes on the form
+		// Min/maxes and defaults
 		public static readonly int brightnessMin = 5;
 		public static readonly int brightnessMax = 300;
 
 		public static readonly int brightnessDefault = 50;
+		public static readonly bool layerMilitaryDefault = false;
+		public static readonly bool grayScaleDefault = false;
+		public static readonly bool showMapMarkersDefault = false;
 
 		// User-definable settings
 		public static int brightness = brightnessDefault;
-		public static bool layerMilitary = false;
-		public static bool grayScale = false;
-		public static bool showMapMarkers = false;
+		public static bool layerMilitary = layerMilitaryDefault;
+		public static bool grayScale = grayScaleDefault;
+		public static bool showMapMarkers = showMapMarkersDefault;
 	}
 }
