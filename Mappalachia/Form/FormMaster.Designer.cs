@@ -40,6 +40,7 @@ namespace Mappalachia
             this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showMapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -167,10 +168,11 @@ namespace Mappalachia
             // 
             this.mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewMenuItem,
-            this.militaryStyleMenuItem,
             this.brightnessMenuItem,
+            this.militaryStyleMenuItem,
             this.grayscaleMenuItem,
             this.showMapMarkersMenuItem,
+            this.hideLegendMenuItem,
             this.exportToFileMenuItem,
             this.clearMenuItem,
             this.resetMenuItem});
@@ -217,6 +219,14 @@ namespace Mappalachia
             this.showMapMarkersMenuItem.Text = "Show Map Markers";
             this.showMapMarkersMenuItem.ToolTipText = "Draw the labels for named locations on the map.";
             this.showMapMarkersMenuItem.Click += new System.EventHandler(this.Map_ShowMapMarkers);
+            // 
+            // hideLegendMenuItem
+            // 
+            this.hideLegendMenuItem.Name = "hideLegendMenuItem";
+            this.hideLegendMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hideLegendMenuItem.Text = "Hide Legend";
+            this.hideLegendMenuItem.ToolTipText = "Do not draw the legend on the left of the map image.";
+            this.hideLegendMenuItem.Click += new System.EventHandler(this.Map_HideLegend);
             // 
             // exportToFileMenuItem
             // 
@@ -1313,6 +1323,7 @@ namespace Mappalachia
         private System.Windows.Forms.ComboBox comboBoxSpace;
         private System.Windows.Forms.ToolStripMenuItem searchInAllSpacesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showMapMarkersMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hideLegendMenuItem;
     }
 }
 

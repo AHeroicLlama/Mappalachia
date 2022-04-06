@@ -11,11 +11,13 @@
 		public static readonly bool layerMilitaryDefault = false;
 		public static readonly bool grayScaleDefault = false;
 		public static readonly bool showMapMarkersDefault = false;
+		public static readonly bool hideLegendDefault = false;
 
 		// User-definable settings
 		public static int brightness = brightnessDefault;
 		public static bool layerMilitary = layerMilitaryDefault;
 		public static bool grayScale = grayScaleDefault;
 		public static bool showMapMarkers = showMapMarkersDefault;
+		public static bool hideLegend = hideLegendDefault;
 	}
 }
