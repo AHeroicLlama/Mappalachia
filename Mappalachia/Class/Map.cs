@@ -504,7 +504,7 @@ namespace Mappalachia
 		// Returns the number of items missed off the legend due to size constraints
 		static int DrawLegend(Font font, Graphics imageGraphic)
 		{
-			if (FormMaster.legendItems.Count == 0)
+			if (FormMaster.legendItems.Count == 0 || SettingsMap.hideLegend)
 			{
 				return 0;
 			}

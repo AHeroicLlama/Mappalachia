@@ -66,6 +66,7 @@ namespace Mappalachia
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapShowMapMarkers(false);
+			UpdateHideLegend(false);
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces();
 			UpdateSpawnChance();
@@ -409,10 +410,21 @@ namespace Mappalachia
 			}
 		}
 
-		// Update check mark in the UI with current MapSettings for showMapMarkers
+		// Update check mark in the UI with current MapSettings for Show Map Markers
 		void UpdateMapShowMapMarkers(bool reDraw)
         {
 			showMapMarkersMenuItem.Checked = SettingsMap.showMapMarkers;
+
+			if (reDraw)
+			{
+				DrawMap(true);
+			}
+		}
+
+		// Update check mark in the UI with current MapSettings for Hide Legend
+		void UpdateHideLegend(bool reDraw)
+		{
+			hideLegendMenuItem.Checked = SettingsMap.hideLegend;
 
 			if (reDraw)
 			{
@@ -745,6 +757,13 @@ namespace Mappalachia
 			UpdateMapShowMapMarkers(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
+		// Map > Hide Legend - toggle drawing of LHS legend
+		private void Map_HideLegend(object sender, EventArgs e)
+		{
+			SettingsMap.hideLegend = !SettingsMap.hideLegend;
+			UpdateHideLegend(legendItems.Count > 0);
+		}
+
 		// Map > Export To File - Open the export to file dialog
 		void Map_Export(object sender, EventArgs e)
 		{
@@ -768,10 +787,12 @@ namespace Mappalachia
 			SettingsMap.layerMilitary = SettingsMap.layerMilitaryDefault;
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapMarkers = SettingsMap.showMapMarkersDefault;
+			SettingsMap.hideLegend = SettingsMap.hideLegendDefault;
 
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapShowMapMarkers(false);
+			UpdateHideLegend(false);
 
 			// Reset pan and zoom
 			pictureBoxMapPreview.Location = new Point(0, 0);
