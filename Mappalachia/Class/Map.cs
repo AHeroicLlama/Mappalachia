@@ -22,6 +22,17 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 
+		// Legend text positioning
+		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
+		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
+		static readonly int plotXMax = 3610;
+		static readonly int plotYMin = 508;
+		static readonly int plotYMax = 3382;
+		static readonly int legendXMin = 116; // The padding in the from the left where legend text begins
+		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
+		static readonly int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
+		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension - (legendYPadding * 2)); // Used for MeasureString to calculate legend string dimensions
+
 		// Font and text
 		public static readonly int legendFontSize = 48;
 		public static readonly int mapMarkerFontSize = 18;
@@ -37,16 +48,6 @@ namespace Mappalachia
 		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
 		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
-
-		// Legend text positioning
-		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
-		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
-		static readonly int plotXMax = 3610;
-		static readonly int plotYMin = 508;
-		static readonly int plotYMax = 3382;
-		static readonly int legendXMin = 116; // The padding in the from the left where legend text begins
-		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
-		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); // Used for MeasureString to calculate legend string dimensions
 
 		// Volume plots
 		public static readonly int volumeOpacity = 128;
@@ -530,7 +531,7 @@ namespace Mappalachia
 			int skippedLegends = 0; // How many legend items did not fit onto the map
 
 			// The initial Y coord where first legend item should be written, in order to Y-center the entire legend
-			int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
+			int legendCaretHeight = ((int)legendBounds.Height / 2) - (legendTotalHeight / 2);
 
 			// Reset the drawn groups list, as we need to iterate over the items again
 			drawnGroups = new List<int>();
@@ -567,7 +568,7 @@ namespace Mappalachia
 				}
 
 				// If the legend text/item fits on the map vertically
-				if (legendCaretHeight > 0 && legendCaretHeight + legendHeight < mapDimension)
+				if (legendCaretHeight > legendYPadding && legendCaretHeight + legendHeight < mapDimension - legendYPadding)
 				{
 					if (SettingsPlot.IsIconOrTopographic())
 					{
