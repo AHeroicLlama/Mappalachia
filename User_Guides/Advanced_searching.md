@@ -6,7 +6,7 @@ By removing check marks from the boxes here, you can exclude certain types of it
 You can also, for example only check 'Level 3' under 'Lock Level' and search 'Safe' to find just safes which have a level 3 lock.<br/>
 Combining these different filters can be very powerful.<br/>
 
-Note: Due to oddities in how Fallout 76 is built, a great number of items are categorized in-game as 'Loot' (notably, most natural resources). Due to this, it is generally not recommended to uncheck the 'Loot' filter if you're not certain about it.
+Note: Due to oddities in how Fallout 76 is built, a great number of items are categorized in-game as 'Loot' (notably, most natural resources). Due to this, it is generally recommended to leave the 'Loot' filter checked if you're uncertain.
 
 ## Search field
 The search field operates as a case-insensitive 'contains' search - meaning anything with your search term anywhere within it will be returned, for example "cap" will return results for "FloraFirecap".<br/>

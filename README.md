@@ -19,12 +19,11 @@ For help installing please refer to the [installation and first launch guide](Us
 A number of User guides exist for Mappalachia in document form;<br/>
 
 * [**Installation and First run**](User_Guides/Installation_and_first_run.md) covers initial installation and getting Mappalachia running.
-* [**First map**](User_Guides/First_map.md) covers all the basic steps to creating your first Mappalachia map.
-* [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the Intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
-* [**Advanced Mapping**](User_Guides/Advanced_mapping.md) details the powerful heatmap mode, as well as topographical plotting, item grouping, volume mapping and icon customization.
-* [**Map Settings**](User_Guides/Map_settings.md) covers the ways you can adjust the visuals of the map.
-* [**Cell Mode**](User_Guides/Cell_mode.md) explains how to use the advanced Cell mode to plot maps of interiors.
-* [**Updating or Uninstalling**](User_Guides/Updating_or_uninstalling.md) describes how to update or remove Mappalachia.
+* [**First map**](User_Guides/First_map.md) explains the basic steps to creating your first Mappalachia map and other core features.
+* [**Customization Options**](User_Guides/Customization.md) covers all the various customization and visual options for your map.
+* [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
+* [**Advanced Plotting**](User_Guides/Advanced_plotting.md) details the powerful heatmap mode, as well as topographical plotting, item grouping and volume mapping.
+* [**Interiors and other Spaces**](User_Guides/Choosing_spaces.md) explains the mapping of interior 'cells'.
 
 ## Info for Developers
 

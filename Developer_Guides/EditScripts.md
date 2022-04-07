@@ -4,7 +4,7 @@
 * A copy of Fallout 76 installed on your machine
 
 ## Familiar with FO76Edit?
-If you know what you're doing with FO76Edit, you'll need to drop a FO76Edit installation onto the `\FO76Edit\` folder and then run the `_m_RUNALL.pas` script. This will run all Mappalachia export scripts consecutively.<br/>
+If you know what you're doing with FO76Edit, you'll need to drop a FO76Edit installation onto the `\FO76Edit\` folder and then run the `_mappalachia_RUNALL.pas` script. This will run all Mappalachia export scripts consecutively.<br/>
 Once complete the folder `\FO76Edit\Output\` should be populated with 7 CSV files (including one informational CSV noting the debug cells for which extraction was skipped), and you can move on to the preprocessor.
 <br/><br/>
 
@@ -21,14 +21,14 @@ For a more up to date version, user Eckserah has spent significant time maintain
 Once you have downloaded FO76Edit, you should simply be able to dump the contents of the zip into the `\FO76Edit\` folder. (You will note that the `Edit Scripts\` folder is already in place, populated with Mappalachia scripts).<br/>
 
 ### Launching FO76Edit
-If you only own Fallout 76 through Steam, or installed Fallout 76 in a non-default directory, you will need to launch FO76Edit with a launch parameter `-D:"<Path_to_FO76_Data_folder>"`.<br/>
-If you own Fallout 76 via Bethesda.net and installed in the default location, you shouldn't need to take any extra steps.<br/>
+If you installed Fallout 76 through Steam, or installed Fallout 76 in a non-default directory, you will need to launch FO76Edit with a launch parameter `-D:"<Path_to_FO76_Data_folder>"`.<br/>
+If you installed Fallout 76 via Bethesda.net and installed in the default location, you shouldn't need to take any extra steps.<br/>
 Once in FO76Edit you will be prompted with which ESM to load. Select SeventySix.esm and hit OK. Wait for the background loader to finish.<br/>
 
 ### Running the Mappalachia export scripts
-Expand SeventySix.esm in the tree on the left. Right click any element and select 'Apply Script'.<br/>
-Select `_m_RUNALL` as your script to run.<br/>
-This script runs all Mappalachia scripts consecutively.<br/>
+Expand SeventySix.esm in the tree on the left. Right click any element and select 'Apply Script...'.<br/>
+Select `_mappalachia_RUNALL` as your script to run.<br/>
+This script runs all Mappalachia scripts consecutively and should take approximately 26 minutes.<br/>
 Once completed you should see the folder `\FO76Edit\Output\` has been populated with 7 CSV files, including one informational CSV noting the debug cells for which extraction was skipped.<br/>
 <br/>
 

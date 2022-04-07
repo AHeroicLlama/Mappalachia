@@ -2,9 +2,9 @@
 
 ### The Mappalachia interface
 There are 4 key elements to the Mappalachia Window which you'll be presented with;
-* The search area. This contains the standard search (which we'll stick to for now), alongside optional search filters.
+* The search control. This contains the standard search (among 2 other tabs), alongside optional search filters.
 * The search results grid. This lists everything matching your search criteria above.
-* The 'legend' or 'items to plot' grid. This lists everything you have selected to plot on your map.
+* The 'items to plot' grid. This lists everything you have selected to plot on your map.
 * The map itself.
 
 ### Searching
@@ -20,5 +20,5 @@ If you are happy with the items, press the 'Update Map' button. Mappalachia will
 ### Previewing and sharing the map
 You can pan and zoom this map preview by left-clicking and dragging, or using the scroll wheel respectively (or equivalent touch gestures).<br/>
 Double-clicking the map (or selecting Map > View) will open the preview in full in your default image viewer, which may provide an easier viewing experience.<br/>
-In order to export and share the map, navigate to Map > Export to File. Then simply provide a location and file name.<br/>
-The images are lightly compressed to main good quality while keeping the file size low enough to easily share online.
+In order to export and share the map, navigate to Map > Export To File.<br/>
+For sharing images online, it is recommended to leave 'Use recommended settings' ticked.
