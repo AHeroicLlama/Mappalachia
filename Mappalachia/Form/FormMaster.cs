@@ -208,6 +208,7 @@ namespace Mappalachia
 				comboBoxSpace.Items.Add(space.displayName + " (" + space.editorID + ")");
 			}
 
+			// Fires indexChanged function which causes a map draw
 			comboBoxSpace.SelectedIndex = 0;
 		}
 
@@ -747,7 +748,7 @@ namespace Mappalachia
 		private void Map_Grayscale(object sender, EventArgs e)
 		{
 			SettingsMap.grayScale = !SettingsMap.grayScale;
-			UpdateMapGrayscale(true);
+			UpdateMapGrayscale(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Show Map Markers - toggle rendering map marker labels on map draw
@@ -788,6 +789,11 @@ namespace Mappalachia
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapMarkers = SettingsMap.showMapMarkersDefault;
 			SettingsMap.hideLegend = SettingsMap.hideLegendDefault;
+
+			SettingsSpace.minHeightPerc = 0;
+			SettingsSpace.maxHeightPerc = 100;
+			numericMinZ.Value = 0;
+			numericMaxZ.Value = 100;
 
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
@@ -1003,6 +1009,8 @@ namespace Mappalachia
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
 			UpdateCellOnlySettingsVisibilityState();
 			UpdateShowMapMarkersEnabledState();
+			UpdateMapMilitaryEnabledState();
+			UpdateGrayscaleEnabledState();
 		}
 
 		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
@@ -1023,6 +1031,18 @@ namespace Mappalachia
         {
 			showMapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
         }
+
+		// Enable or Disable the Military Style menu option if the currently selected space is Appalachia
+		void UpdateMapMilitaryEnabledState()
+        {
+			militaryStyleMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
+        }
+
+		// Enable or Disable the Grayscale menu option if the currently selected space is a WorldSpace
+		void UpdateGrayscaleEnabledState()
+		{
+			grayscaleMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
+		}
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
 		{

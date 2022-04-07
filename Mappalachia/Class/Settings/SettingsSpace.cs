@@ -11,7 +11,7 @@ namespace Mappalachia.Class
 		// Settings for pseudo-plot-icons used to draw space outline
 		public static readonly int outlineWidth = 3;
 		public static readonly int outlineSize = 25;
-		public static readonly Color outlineColor = Color.Gray;
+		public static readonly Color outlineColor = Color.White;
 		public static readonly int outlineAlpha = 200;
 
 		static Space currentSpace;
