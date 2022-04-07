@@ -6,25 +6,6 @@ Mappalachia has three plotting modes - these are Icon mode (on by default), Heat
 ## Icon Mode
 Icon mode is the default plotting function, and selected items will be mapped using a unique set of pre-defined shapes and colors. It is the most customizable option.
 
-### Draw Volumes
-Draw volumes mode is located at Plot Settings > Draw Volumes, and is on by default.<br/>
-This setting tells Mappalachia - assuming the volume is large enough - to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
-For example, by plotting 'NoCampAllowedTrigger' with 'Draw Volumes' enabled, you will not only see *where* you can't build CAMPs, but also the precise extents of the areas where you cannot build.<br/>
-Volumes below a certain area will still be drawn as an icon, in order for them to be easily visualized.<br/>
-Draw Volumes applies to Icon and Topography mode.
-
-### Plot Icon settings
-By navigating to Plot Settings > Plot Icon Settings you can access full control over the visuals of the icons displayed on the map.<br/>
-The first four settings control the size (total diameter) of the icons, their width (thickness of the lines which make them up), their opacity (or lack of transparency), and finally the darkness of the drop shadow under each icon.<br/>
-Plot Icon settings apply to both Icon and Topography mode, however Topography mode overrides colors.
-
-### Colors and shapes
-At the bottom of the form are two collections or 'Palettes' - of colors and shapes.<br/>
-These palettes are used to determine the available combinations of shapes and colours that will be used to generate icons to plot items on the map. Inherently, by adding new shapes and colors you create a greater number of possible icons for Mappalachia to use, and by removing them you reduce the available icons.<br/>
-On the left hand side is the color Palette. You may add or remove colors to the palette, or select a premade palette using the drop-down. You can bulk-remove colors by selecting multiple before pressing remove.<br/>
-On the right hand side is the shape palette. You can cycle through the settings for each shape by selecting each shape in the list view. Adjust the settings of each shape by toggling the shape checkboxes while it is selected. If you add a new shape it will be created with random settings, which you can later edit. You may also remove the selected shape by pressing 'Remove Selected'.<br/>
-You can reset all Plot Icon Settings by pressing Reset to Default in the bottom left.
-
 ## Topography Mode
 Topography mode is similar to Icon mode, except it uses varying colors to visualize the altitude of plotted items. You can select from 2-5 of the first colors defined in the color palette to distinguish the altitude of plotted items. A scale on the right will show which color represents which altitude band (see Colors and shapes above, and Topography Color Bands below). Due to using varying colors, Topographic plot mode uses icon shapes alone to distinguish between different legend items.<br/>
 For items with bounds (volumes), their highest edge is used to determine their height.<br/>
@@ -54,6 +35,13 @@ Here you can select either Mono or Duo;<br/>
 In Mono mode, every item added to the map is plotted against the same red color. You can't differentiate items from each other but if you want to find the area with the most of *everything* on your map, or are just mapping a single type of item, this is the ideal mode.<br/>
 In Duo mode, items are mapped in either red or blue, and areas with an equal amount of both would therefore gain a purple color. This mode is great for differentiating the varying densities of two *different* collections of items, or if you need to guarantee the presence of *both* collections in a given location.<br/>
 In Duo Mode, the color assigned is defined by the number in the 'Legend Group' column of the legend items list. You can edit this value to group items together - even numbers will be red, and odd numbers will be blue.
+
+## Draw Volumes
+Draw volumes mode is located at Plot Settings > Draw Volumes, and is on by default.<br/>
+This setting tells Mappalachia - assuming the volume is large enough - to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
+For example, by plotting 'NoCampAllowedTrigger' with 'Draw Volumes' enabled, you will not only see *where* you can't build CAMPs, but also the precise extents of the areas where you cannot build.<br/>
+Volumes below a certain area will still be drawn as an icon, in order for them to be easily visualized.<br/>
+Draw Volumes applies to Icon and Topography mode.
 
 ## Legend Group
 Under the 'items to plot' list, you will find the Legend Group column. This column is editable and allows you to enter a number.<br/>
