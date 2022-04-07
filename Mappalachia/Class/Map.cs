@@ -265,6 +265,24 @@ namespace Mappalachia
 					// Iterate over every data point and draw it
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
+						// Skip the point if its origin is outside the surface world
+						if (SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.x < plotXMin || point.x >= plotXMax ||
+							point.y < plotYMin || point.y >= plotYMax))
+						{
+							continue;
+						}
+
+						// If this coordinate exceeds the user-selected space mapping height bounds, skip it
+						// (Also accounts for the z-height of volumes)
+						if (!SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() ||
+							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
+						{ 
+								continue;
+							
+						}
+
 						// Override colors in Topographic mode
 						if (SettingsPlot.IsTopographic())
 						{
@@ -285,16 +303,6 @@ namespace Mappalachia
 							volumeBrush = new SolidBrush(volumeColor);
 						}
 
-						if (!SettingsSpace.CurrentSpaceIsWorld())
-						{
-							// If this coordinate exceeds the user-selected space mapping height bounds, skip it
-							// (Also accounts for the z-height of volumes)
-							if (point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound())
-							{
-								continue;
-							}
-						}
-
 						point.x += spaceScaling.xOffset;
 						point.y += spaceScaling.yOffset;
 
@@ -303,12 +311,6 @@ namespace Mappalachia
 						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
 						point.boundX *= spaceScaling.scale;
 						point.boundY *= spaceScaling.scale;
-
-						// Skip the point if its origin is outside the surface world
-						if (SettingsSpace.CurrentSpaceIsWorld() && (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax))
-						{
-							continue;
-						}
 
 						// If this meets all the criteria to be suitable to be drawn as a volume
 						if (point.primitiveShape != string.Empty && // This is a primitive shape at all
@@ -374,6 +376,24 @@ namespace Mappalachia
 
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
+						// Skip the point if its origin is outside the surface world
+						if (SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.x < plotXMin || point.x >= plotXMax ||
+							point.y < plotYMin || point.y >= plotYMax))
+						{
+							continue;
+						}
+
+						// If this coordinate exceeds the user-selected space mapping height bounds, skip it
+						// (Also accounts for the z-height of volumes)
+						if (!SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() ||
+							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
+						{
+							continue;
+
+						}
+
 						point.x += spaceScaling.xOffset;
 						point.y += spaceScaling.yOffset;
 
