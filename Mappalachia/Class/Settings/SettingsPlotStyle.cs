@@ -22,7 +22,7 @@ static class SettingsPlotStyle
 
 	public static readonly List<Color> paletteColorDefault = new List<Color>
 		{
-			Color.Red, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.DarkGreen,
+			Color.Red, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.Green,
 		};
 
 	// Colorblind palettes credit: IBM, Bang Wong, and Paul Tol. From https://davidmathlogic.com/colorblind/
