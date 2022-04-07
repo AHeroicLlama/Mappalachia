@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Mappalachia")]
 [assembly: AssemblyDescription("The complete mapping tool for Fallout 76.\r\n" +
-	"Mappalachia is a Windows Forms GUI for generating and exporting complex maps of entities within the Fallout 76 world.")]
+	"Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 game world.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Mappalachia")]
@@ -33,6 +33,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.4.3.1")]
-[assembly: AssemblyFileVersion("1.4.3.1")]
+[assembly: AssemblyVersion("1.5.0.0")]
+[assembly: AssemblyFileVersion("1.5.0.0")]
 [assembly: NeutralResourcesLanguage("en-US")]

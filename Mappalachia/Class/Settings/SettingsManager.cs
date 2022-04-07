@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 4;
+		static readonly int prefsIteration = 5;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()

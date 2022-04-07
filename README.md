@@ -1,7 +1,7 @@
 # Mappalachia
 
 The complete mapping tool for Fallout 76.<br/>
-Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 world.
+Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 game world.
 
 [![GitHub all releases](https://img.shields.io/github/downloads/AHeroicLlama/Mappalachia/total)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br>
 ![GitHub](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
