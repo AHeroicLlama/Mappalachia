@@ -23,15 +23,15 @@ namespace Mappalachia.Class
 
 			// No plots - return transparent
 			if (largestWeight == 0 || squareSumWeight == 0)
-            {
+			{
 				return Color.FromArgb(0, 0, 0, 0);
-            }
+			}
 
 			double alpha = squareSumWeight / largestWeight * 255;
 
 			// Mono color mode - no need to interpolate just return first palette color
 			if (SettingsPlotHeatmap.colorMode == SettingsPlotHeatmap.ColorMode.Mono)
-            {
+			{
 				return Color.FromArgb((int)alpha, SettingsPlotStyle.GetFirstColor());
 			}
 

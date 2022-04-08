@@ -61,9 +61,9 @@ namespace Mappalachia
 		static Image backgroundLayer;
 
 		public static Image GetImage()
-        {
+		{
 			return finalImage;
-        }
+		}
 
 		// Returns the result of Pythagoras theorem on 2 integers
 		static double Pythagoras(int a, int b)
@@ -133,9 +133,9 @@ namespace Mappalachia
 			Rectangle rect = new Rectangle(0, 0, mapDimension, mapDimension);
 
 			if (SettingsMap.showMapMarkers)
-            {
+			{
 				DrawMapMarkers(graphic);
-            }
+			}
 
 			graphic.DrawImage(backgroundLayer, points, rect, GraphicsUnit.Pixel, attributes);
 
@@ -278,9 +278,8 @@ namespace Mappalachia
 						if (!SettingsSpace.CurrentSpaceIsWorld() &&
 							(point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() ||
 							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
-						{ 
+						{
 								continue;
-							
 						}
 
 						// Override colors in Topographic mode
@@ -391,7 +390,6 @@ namespace Mappalachia
 							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
 						{
 							continue;
-
 						}
 
 						point.x += spaceScaling.xOffset;
@@ -474,7 +472,7 @@ namespace Mappalachia
 		}
 
 		static void DrawInfoWatermark(Graphics imageGraphic)
-        {
+		{
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 			Space currentSpace = SettingsSpace.GetSpace();
 
@@ -498,7 +496,7 @@ namespace Mappalachia
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 
 			foreach (MapMarker marker in Database.GetMapMarkers(SettingsSpace.GetCurrentFormID()))
-            {
+			{
 				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxRadius, mapMarkerMaxRadius));
 				textBounds.Width += mapMarkerPadding;
 				textBounds.Height += mapMarkerPadding;

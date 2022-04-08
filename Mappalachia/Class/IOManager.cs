@@ -172,10 +172,10 @@ namespace Mappalachia
 
 					image.Save(filePath, GetEncoder(ImageFormat.Jpeg), encoderParams);
 				}
-                else
-                {
+				else
+				{
 					throw new ArgumentException("Invalid ImageFormat type " + imageFormat);
-                }
+				}
 			}
 			catch (Exception e)
 			{
@@ -213,9 +213,9 @@ namespace Mappalachia
 
 		// Returns the appropriate background image for the map based on current settings
 		public static Image GetImageForSpace(Space space)
-        {
+		{
 			if (space.IsWorldspace())
-            {
+			{
 				// Return the military map if this is Appalachia and they requested military
 				if (SettingsMap.layerMilitary && space.editorID.Equals("Appalachia"))
 				{
@@ -227,7 +227,7 @@ namespace Mappalachia
 				string filepath = imgFolder + editorID + worldspaceMapFileExtension;
 
 				try
-                {
+				{
 					// Cache the image if not already
 					if (!worldspaceMapImageCache.ContainsKey(editorID))
 					{
@@ -237,7 +237,7 @@ namespace Mappalachia
 					return new Bitmap(worldspaceMapImageCache[editorID]);
 				}
 				catch (FileNotFoundException e)
-                {
+				{
 					Notify.Error("Mappalachia was unable to find a background map image for the worldspace '" + editorID + "'.\n" + e);
 					return EmptyMapBackground();
 				}
@@ -250,17 +250,17 @@ namespace Mappalachia
 
 			// Interior so return empty background
 			else
-            {
+			{
 				return EmptyMapBackground();
 			}
-        }
+		}
 
 		public static Image GetImageAppalachiaMilitary()
 		{
 			if (imageMapMilitary == null)
 			{
-                try
-                {
+				try
+				{
 					imageMapMilitary = Image.FromFile(imgFolder + imgFileNameMapMilitary);
 				}
 				catch (Exception e)

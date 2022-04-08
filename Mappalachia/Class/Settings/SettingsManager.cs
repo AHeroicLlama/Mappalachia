@@ -369,9 +369,9 @@ namespace Mappalachia.Class
 						case "jpegQuality":
 							int jpegQuality = Convert.ToInt32(value);
 							if (ValidateWithinRange(jpegQuality, SettingsFileExport.jpegQualityMin, SettingsFileExport.jpegQualityMax))
-                            {
+							{
 								SettingsFileExport.jpegQuality = jpegQuality;
-                            }
+							}
 
 							break;
 
