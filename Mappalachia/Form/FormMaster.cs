@@ -1546,6 +1546,39 @@ namespace Mappalachia
 			}
 		}
 
+		// Set the current Space when double clicking on another Space in search results
+		private void GridViewSearchResults_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			int mouseOverRow = gridViewSearchResults.HitTest(e.X, e.Y).RowIndex;
+			int mouseOverColumn = gridViewSearchResults.HitTest(e.X, e.Y).ColumnIndex;
+			if (mouseOverRow == -1 || mouseOverColumn == -1)
+			{
+				return;
+			}
+
+			DataGridViewRow selectedRow = gridViewSearchResults.Rows[mouseOverRow];
+			DataGridViewColumn selectedColumn = gridViewSearchResults.Columns[mouseOverColumn];
+
+			if (selectedColumn.Name != "columnSearchLocation")
+			{
+				return;
+			}
+
+			string selectedEditorID = selectedRow.Cells["columnSearchLocationID"].Value.ToString();
+
+			int index = 0;
+			foreach (Space space in spaces)
+			{
+				if (space.editorID == selectedEditorID)
+				{
+					comboBoxSpace.SelectedIndex = index;
+					return;
+				}
+
+				index++;
+			}
+		}
+
 		// Explain Legend Group on mouseover with tooltip
 		private void GridViewLegend_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
 		{

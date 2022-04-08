@@ -163,7 +163,7 @@
   <data name="pictureBoxSpaceFiller.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAANEAAADRCAYAAABSOlfvAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAA/7JJREFUeF7svQd4XtlVtj18QDJ93Kvcy7j33nuvsiSrd6v33ixblmVZ7nXc7fF4
+        vgAADr4B6kKxwAAA/7JJREFUeF7svQd4XtlVtj18QDJ93Kvcy7j33nuvsiSrd6v33ixblmVZ7nXc7fF4
         qicz6RAIIeQDJhB+CBASSE+YJKSTTupZ/3Ovo6PRTBw+eo2va137+Oi8fd/7WWvttfe5z8x+af/BlrR7
         Rfy+pPXx+1LWx5dmbIkvz9h6tzht093SjM13cxPW3s3as/ruvr3r7ubGr7mbLcvcs+puVtzqu/mJG3R+
         /d2CpI3hceL6u5lxa+Kz49fGF6ZuitdzxN/r9X5p/752z5O/tH+9FaRsXJyzd118TsK6u/lJG+4WpWx8
@@ -1498,11 +1498,8 @@
         vvf/Bxsh6q/ufX6oAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="toolTipControls.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>140, 6</value>
-  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>40</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
