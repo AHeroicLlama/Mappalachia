@@ -1,26 +1,27 @@
-# Cell mode
+# Space selection
 
-Cell mode provides a way to plot items in internal cells.
+Under the 'Select Space' tab, you may choose to make maps of any accessible in-game space, instead of the usual Appalachia overworld.
 
-## Activating Cell Mode
-You can toggle Cell mode on or off by navigating to Map > Cell mode.<br/>
-Once on, you will notice a new panel of controls for Cell mode has appeared on the 'Standard Search' tab. Also, that the Appalachian map background has disappeared.<br/>
-(Unfortunately, Bethesda do not provide maps for interiors of Fallout 76, so Mappalachia must start with a transparent background.)<br/>
-A few settings are also disabled while in Cell mode as they are not applicable, these are brightness and grayscale settings, optional map backgrounds, and NPC/Scrap Search.
+## Choosing a space
+You can select a space to map using the drop-down in the 'Select Space' tab. When you change your selected space, the map will automatically reset to the most appropriate background.</br>
+Unless you have 'Search Settings > Search in all Spaces' selected, all search results are constrained to items within the selected space.
 
-## Choosing a cell
-While in cell mode, all searches and plots are constrained specifically to the contents of the currently selected cell.<br/>
-You can change to a new cell at any time using the drop down, but doing so will clear your search results and plots for the current cell.
+## Space-specific settings
+Some settings are specific to certain spaces, and may be disabled depending on your selected space - they are;
+* 'Military Style' which is only available when 'Appalachia' is selected.
+* 'Grayscale' and 'Show Map Markers' which are only available when an external space is selected.
+* 'Draw Outline' and the 'Height Cropping' controls, which are only available when the selected space is an interior.
 
 ## Drawing a background
-To substitute the lack of internal maps, Mappalachia offers an alternative by drawing an 'outline' or silhouette of all items in the currently selected cell as the background. This is on by default can be toggled on/off using the 'Draw Outline' check box.
+For internal cells, unfortunately Bethesda do not offer official maps, so Mappalachia offers an alternative by drawing an 'outline' or silhouette of all items in the currently selected space as the background. This is on by default can be toggled on/off using the 'Draw Outline' check box.
 
 ## Height distribution cropping (floor mapping)
-In order to clearly map individual floors of a cell, Mappalachia allows you to restrict which items are mapped by their height.<br/>
-You can visualize the distribution by height of items in a cell by pressing the 'Visualize Height Distribution' button. This provides a crude text graph of the distribution of items in a cell, separated into height bands.<br/>
-In a multi-floor cell you will typically be able to see distinct spikes at certain height bands.<br/>
+In order to clearly map individual floors of an interior space, Mappalachia allows you to restrict which items are mapped by their height.<br/>
+You can visualize the distribution by height of items in an interior by pressing the 'Visualize Height Distribution' button. This provides a crude graph of the distribution of items in the space, separated into height bands.<br/>
+In a multi-floor interior you will typically be able to see distinct spikes at certain height bands.<br/>
 Using the information from the height distribution, you can now adjust the minimum and maximum height percentages which you wish to map for. This will also adjust the outline if it is enabled.
 
 ## Additional info
-Cell mode also adds additional info on the bottom right of the map image. You will see the current cell, selected height distribution and scale are provided.<br/>
+When the selected space is not an exterior world, Mappalachia adds some extra info to the map.</br>
+You will see the current space, selected height distribution and scale are provided.<br/>
 The scale is auto-calculated by Mappalachia, and it represents the best fit possible while still containing everything within the cell. The ratio relates to the size versus the normal Appalachia map.
