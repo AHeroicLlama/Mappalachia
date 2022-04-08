@@ -22,3 +22,8 @@ You can pan and zoom this map preview by left-clicking and dragging, or using th
 Double-clicking the map (or selecting Map > View) will open the preview in full in your default image viewer, which may provide an easier viewing experience.<br/>
 In order to export and share the map, navigate to Map > Export To File.<br/>
 For sharing images online, it is recommended to leave 'Use recommended settings' ticked.
+
+### Clear & Reset
+At the bottom of the 'Map' menu you can select 'Clear' or 'Reset'.<br/>
+* Clear will simply remove items from the legend and the map. It won't change any Map settings. This is ideal for making a new map.
+* Reset will completely reset all map-related settings.

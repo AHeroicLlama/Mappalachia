@@ -23,7 +23,7 @@ A number of User guides exist for Mappalachia in document form;<br/>
 * [**Customization Options**](User_Guides/Customization.md) covers all the various customization and visual options for your map.
 * [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
 * [**Advanced Plotting**](User_Guides/Advanced_plotting.md) details the powerful heatmap mode, as well as topographical plotting, item grouping and volume mapping.
-* [**Interiors and other Spaces**](User_Guides/Choosing_spaces.md) explains the mapping of interior 'cells'.
+* [**Interiors and other Spaces**](User_Guides/Choosing_spaces.md) explains the mapping of other spaces such as interiors.
 
 ## Info for Developers
 
