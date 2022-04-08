@@ -35,6 +35,7 @@ namespace Mappalachia
 			IOManager.Cleanup();
 
 			// Populate UI elements
+			SizeMapToFrame();
 			PopulateSignatureFilterList();
 			SelectRecommendedSignatures();
 			PopulateLockTypeFilterList();
@@ -84,6 +85,12 @@ namespace Mappalachia
 
 		// All Methods not directly responding to UI input
 		#region Methods
+
+		void SizeMapToFrame()
+        {
+			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
+			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
+		}
 
 		// Dynamically fill the Signature filter with every signature present based on the data
 		void PopulateSignatureFilterList()
@@ -790,6 +797,8 @@ namespace Mappalachia
 			SettingsMap.showMapMarkers = SettingsMap.showMapMarkersDefault;
 			SettingsMap.hideLegend = SettingsMap.hideLegendDefault;
 
+			comboBoxSpace.SelectedIndex = 0;
+
 			SettingsSpace.minHeightPerc = 0;
 			SettingsSpace.maxHeightPerc = 100;
 			numericMinZ.Value = 0;
@@ -802,8 +811,7 @@ namespace Mappalachia
 
 			// Reset pan and zoom
 			pictureBoxMapPreview.Location = new Point(0, 0);
-			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
-			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
+			SizeMapToFrame();
 
 			Map.DrawBaseLayer();
 		}
@@ -1007,10 +1015,7 @@ namespace Mappalachia
 			numericMinZ.Value = numericMinZ.Minimum;
 			numericMaxZ.Value = numericMinZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
-			UpdateCellOnlySettingsVisibilityState();
-			UpdateShowMapMarkersEnabledState();
-			UpdateMapMilitaryEnabledState();
-			UpdateGrayscaleEnabledState();
+			UpdateCellorWorldExclusiveState();
 		}
 
 		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
@@ -1019,29 +1024,14 @@ namespace Mappalachia
 			DrawMap(true);
 		}
 
-		// Disable the draw outline and height distribution options when the selected space is a Worldspace
-		void UpdateCellOnlySettingsVisibilityState()
+		// Toggle availability of controls which depend on current Space
+		void UpdateCellorWorldExclusiveState()
         {
 			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
-        }
-
-		// Enable or Disable the Show Map Markers menu item depending on if the current Space is a WorldSpace
-		void UpdateShowMapMarkersEnabledState()
-        {
 			showMapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-        }
-
-		// Enable or Disable the Military Style menu option if the currently selected space is Appalachia
-		void UpdateMapMilitaryEnabledState()
-        {
-			militaryStyleMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
-        }
-
-		// Enable or Disable the Grayscale menu option if the currently selected space is a WorldSpace
-		void UpdateGrayscaleEnabledState()
-		{
 			grayscaleMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
+			militaryStyleMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
 		}
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
@@ -1565,18 +1555,7 @@ namespace Mappalachia
 			}
 
 			string selectedEditorID = selectedRow.Cells["columnSearchLocationID"].Value.ToString();
-
-			int index = 0;
-			foreach (Space space in spaces)
-			{
-				if (space.editorID == selectedEditorID)
-				{
-					comboBoxSpace.SelectedIndex = index;
-					return;
-				}
-
-				index++;
-			}
+			comboBoxSpace.SelectedIndex = spaces.FindIndex(space => space.editorID == selectedEditorID);
 		}
 
 		// Explain Legend Group on mouseover with tooltip
