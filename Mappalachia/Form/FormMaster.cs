@@ -87,7 +87,7 @@ namespace Mappalachia
 		#region Methods
 
 		void SizeMapToFrame()
-        {
+		{
 			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
 			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
 		}
@@ -420,7 +420,7 @@ namespace Mappalachia
 
 		// Update check mark in the UI with current MapSettings for Show Map Markers
 		void UpdateMapShowMapMarkers(bool reDraw)
-        {
+		{
 			showMapMarkersMenuItem.Checked = SettingsMap.showMapMarkers;
 
 			if (reDraw)
@@ -448,9 +448,9 @@ namespace Mappalachia
 		}
 
 		void UpdateSearchInAllSpaces()
-        {
+		{
 			searchInAllSpacesMenuItem.Checked = SettingsSearch.searchInAllSpaces;
-        }
+		}
 
 		// Update the minimum spawn chance % value on the NPC Search tab
 		void UpdateSpawnChance()
@@ -1026,7 +1026,7 @@ namespace Mappalachia
 
 		// Toggle availability of controls which depend on current Space
 		void UpdateCellorWorldExclusiveState()
-        {
+		{
 			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			showMapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
@@ -1299,7 +1299,7 @@ namespace Mappalachia
 				if (rejectedItemsOtherSpace.Count > 0)
 				{
 					message += "\n\nItems from search results can only be mapped if they belong to the currently selected space. " +
-                        "To find results only in the selected space, ensure 'Search Settings > Search in all Spaces' is toggled off.";
+						"To find results only in the selected space, ensure 'Search Settings > Search in all Spaces' is toggled off.";
 				}
 
 				// Add a line to say that a further x items (not shown) were not added
@@ -1625,5 +1625,5 @@ namespace Mappalachia
 			catch (Exception)
 			{ } // If this fails, we're already exiting and there is no action to take
 		}
-    }
+	}
 }

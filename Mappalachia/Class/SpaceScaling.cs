@@ -2,7 +2,7 @@
 
 namespace Mappalachia.Class
 {
-    public class SpaceScaling
+	public class SpaceScaling
 	{
 		public double xOffset;
 		public double yOffset;

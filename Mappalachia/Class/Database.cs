@@ -436,7 +436,7 @@ namespace Mappalachia
 			{
 				coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2))
 				{
-					weight = reader.GetInt32(3)
+					weight = reader.GetInt32(3),
 				});
 			}
 
@@ -469,7 +469,7 @@ namespace Mappalachia
 		}
 
 		public static List<MapMarker> GetMapMarkers(string spaceFormID)
-        {
+		{
 			List<MapMarker> mapMarkers = new List<MapMarker>();
 			SqliteCommand query = connection.CreateCommand();
 

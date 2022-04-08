@@ -22,15 +22,15 @@ namespace Mappalachia.Class
 		public static int maxHeightPerc = 100;
 
 		public static bool CurrentSpaceIsWorld()
-        {
-            // If this is called mid-form load, assumes worlspace
-            return GetSpace() == null ? true : GetSpace().IsWorldspace();
-        }
+		{
+			// If this is called mid-form load, assumes worlspace
+			return GetSpace() == null ? true : GetSpace().IsWorldspace();
+		}
 
-        public static string GetCurrentFormID()
-        {
+		public static string GetCurrentFormID()
+		{
 			return GetSpace().formID;
-        }
+		}
 
 		public static int GetHeightBinSize()
 		{
