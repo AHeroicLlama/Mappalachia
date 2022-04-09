@@ -90,6 +90,7 @@ namespace Mappalachia
 		{
 			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
 			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
+			pictureBoxMapPreview.Location = new Point(0, 0);
 		}
 
 		// Dynamically fill the Signature filter with every signature present based on the data
@@ -811,8 +812,6 @@ namespace Mappalachia
 			UpdateMapShowMapMarkers(false);
 			UpdateHideLegend(false);
 
-			// Reset pan and zoom
-			pictureBoxMapPreview.Location = new Point(0, 0);
 			SizeMapToFrame();
 
 			Map.DrawBaseLayer();
@@ -1627,5 +1626,5 @@ namespace Mappalachia
 			catch (Exception)
 			{ } // If this fails, we're already exiting and there is no action to take
 		}
-	}
+    }
 }
