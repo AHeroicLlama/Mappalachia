@@ -1023,6 +1023,7 @@ namespace Mappalachia
 			numericMaxZ.Value = numericMinZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
 			UpdateCellorWorldExclusiveState();
+			SettingsFileExport.UpdateRecommendation();
 		}
 
 		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)

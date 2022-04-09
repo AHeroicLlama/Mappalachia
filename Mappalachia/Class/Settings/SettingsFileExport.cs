@@ -27,10 +27,9 @@
 			return fileType == FileType.JPEG;
 		}
 
-		public static void SetUseRecommended(bool newValue)
-		{
-			useRecommended = newValue;
-
+		// Set the appropriate settings if recommended settings are chosen
+		public static void UpdateRecommendation()
+        {
 			if (useRecommended)
 			{
 				// Worldspace - prefer JPEG allowing for compression
@@ -46,6 +45,12 @@
 					fileType = FileType.PNG;
 				}
 			}
+		}
+
+		public static void SetUseRecommended(bool newValue)
+		{
+			useRecommended = newValue;
+			UpdateRecommendation();
 		}
 	}
 }
