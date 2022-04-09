@@ -90,6 +90,7 @@ namespace Mappalachia
 		{
 			pictureBoxMapPreview.Width = splitContainerMain.Panel2.Width;
 			pictureBoxMapPreview.Height = splitContainerMain.Panel2.Height;
+			pictureBoxMapPreview.Location = new Point(0, 0);
 		}
 
 		// Dynamically fill the Signature filter with every signature present based on the data
@@ -811,8 +812,6 @@ namespace Mappalachia
 			UpdateMapShowMapMarkers(false);
 			UpdateHideLegend(false);
 
-			// Reset pan and zoom
-			pictureBoxMapPreview.Location = new Point(0, 0);
 			SizeMapToFrame();
 
 			Map.DrawBaseLayer();
@@ -1627,13 +1626,5 @@ namespace Mappalachia
 			catch (Exception)
 			{ } // If this fails, we're already exiting and there is no action to take
 		}
-
-		private void splitContainerMain_Panel1_SizeChanged(object sender, EventArgs e)
-        {
-			if (splitContainerMain.Panel1.Width > tabControlStandardNPCJunk.Width)
-            {
-				tabControlStandardNPCJunk.Location = new Point((splitContainerMain.Panel1.Width / 2) - (tabControlStandardNPCJunk.Width / 2), tabControlStandardNPCJunk.Location.Y);
-			}
-        }
     }
 }
