@@ -80,7 +80,7 @@ namespace Mappalachia
 			// This ultimately causes the first map draw, as the space list changes index and draws the final selected Space
 			PopulateSpaceList();
 
-			tabControlStandardNPCJunk.SelectedIndex = 1;
+			tabControlMainSearch.SelectedIndex = 1;
 		}
 
 		// All Methods not directly responding to UI input
@@ -253,7 +253,7 @@ namespace Mappalachia
 		void UpdateResultsLockTypeColumnVisibility()
 		{
 			// Check if the lock type filter is in use - if it is we probably want to show the column.
-			if (tabControlStandardNPCJunk.SelectedTab == tabPageStandard)
+			if (tabControlMainSearch.SelectedTab == tabPageStandard)
 			{
 				foreach (ListViewItem lockType in listViewFilterLockTypes.Items)
 				{
@@ -1608,7 +1608,7 @@ namespace Mappalachia
 		// Change the default enter action depending on the currently selected control
 		void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			AcceptButton = tabControlStandardNPCJunk.SelectedTab == tabPageStandard ? buttonSearch : buttonSearchNPC;
+			AcceptButton = tabControlMainSearch.SelectedTab == tabPageStandard ? buttonSearch : buttonSearchNPC;
 		}
 
 		// User updated value in min spawn chance - update the setting too
