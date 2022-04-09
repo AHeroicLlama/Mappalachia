@@ -542,7 +542,7 @@ namespace Mappalachia
             this.gridViewSearchResults.ReadOnly = true;
             this.gridViewSearchResults.RowHeadersVisible = false;
             this.gridViewSearchResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridViewSearchResults.Size = new System.Drawing.Size(813, 252);
+            this.gridViewSearchResults.Size = new System.Drawing.Size(819, 250);
             this.gridViewSearchResults.TabIndex = 1;
             this.gridViewSearchResults.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewSearchResults_CellMouseEnter);
             this.gridViewSearchResults.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.GridViewSearchResults_MouseDoubleClick);
@@ -761,13 +761,13 @@ namespace Mappalachia
             this.gridViewLegend.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnLegendGroup,
             this.columnLegendDisplayName});
-            this.gridViewLegend.Location = new System.Drawing.Point(6, 602);
+            this.gridViewLegend.Location = new System.Drawing.Point(6, 600);
             this.gridViewLegend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gridViewLegend.MinimumSize = new System.Drawing.Size(789, 180);
             this.gridViewLegend.Name = "gridViewLegend";
             this.gridViewLegend.RowHeadersVisible = false;
             this.gridViewLegend.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridViewLegend.Size = new System.Drawing.Size(813, 180);
+            this.gridViewLegend.Size = new System.Drawing.Size(819, 180);
             this.gridViewLegend.TabIndex = 7;
             this.gridViewLegend.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellEndEdit);
             this.gridViewLegend.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellMouseEnter);
@@ -790,7 +790,7 @@ namespace Mappalachia
             // 
             this.labelLegend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelLegend.AutoSize = true;
-            this.labelLegend.Location = new System.Drawing.Point(7, 584);
+            this.labelLegend.Location = new System.Drawing.Point(7, 582);
             this.labelLegend.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLegend.Name = "labelLegend";
             this.labelLegend.Size = new System.Drawing.Size(74, 15);
@@ -878,7 +878,7 @@ namespace Mappalachia
             // buttonDrawMap
             // 
             this.buttonDrawMap.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonDrawMap.Location = new System.Drawing.Point(333, 787);
+            this.buttonDrawMap.Location = new System.Drawing.Point(336, 785);
             this.buttonDrawMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonDrawMap.Name = "buttonDrawMap";
             this.buttonDrawMap.Size = new System.Drawing.Size(159, 30);
@@ -900,10 +900,11 @@ namespace Mappalachia
             // 
             // tabControlStandardNPCJunk
             // 
+            this.tabControlStandardNPCJunk.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageSpace);
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageStandard);
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageNpcScrapSearch);
-            this.tabControlStandardNPCJunk.Location = new System.Drawing.Point(105, 0);
+            this.tabControlStandardNPCJunk.Location = new System.Drawing.Point(109, 0);
             this.tabControlStandardNPCJunk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControlStandardNPCJunk.MaximumSize = new System.Drawing.Size(9999, 380);
             this.tabControlStandardNPCJunk.Name = "tabControlStandardNPCJunk";
@@ -1164,10 +1165,10 @@ namespace Mappalachia
             // pictureBoxMapPreview
             // 
             this.pictureBoxMapPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.pictureBoxMapPreview.Location = new System.Drawing.Point(-11, 4);
+            this.pictureBoxMapPreview.Location = new System.Drawing.Point(9, 0);
             this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
-            this.pictureBoxMapPreview.Size = new System.Drawing.Size(837, 815);
+            this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
             this.pictureBoxMapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxMapPreview.TabIndex = 5;
             this.pictureBoxMapPreview.TabStop = false;
@@ -1197,15 +1198,14 @@ namespace Mappalachia
             this.splitContainerMain.Panel1.Controls.Add(this.labelSearchResults);
             this.splitContainerMain.Panel1.Controls.Add(this.labelLegend);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonDrawMap);
-            this.splitContainerMain.Panel1.SizeChanged += new System.EventHandler(this.splitContainerMain_Panel1_SizeChanged);
             this.splitContainerMain.Panel1MinSize = 50;
             // 
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.pictureBoxMapPreview);
             this.splitContainerMain.Panel2MinSize = 50;
-            this.splitContainerMain.Size = new System.Drawing.Size(1674, 822);
-            this.splitContainerMain.SplitterDistance = 824;
+            this.splitContainerMain.Size = new System.Drawing.Size(1674, 820);
+            this.splitContainerMain.SplitterDistance = 830;
             this.splitContainerMain.SplitterWidth = 5;
             this.splitContainerMain.TabIndex = 6;
             // 
@@ -1213,7 +1213,7 @@ namespace Mappalachia
             // 
             this.checkBoxAddAsGroup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBoxAddAsGroup.AutoSize = true;
-            this.checkBoxAddAsGroup.Location = new System.Drawing.Point(157, 577);
+            this.checkBoxAddAsGroup.Location = new System.Drawing.Point(161, 575);
             this.checkBoxAddAsGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxAddAsGroup.Name = "checkBoxAddAsGroup";
             this.checkBoxAddAsGroup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -1226,7 +1226,7 @@ namespace Mappalachia
             // buttonRemoveFromLegend
             // 
             this.buttonRemoveFromLegend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonRemoveFromLegend.Location = new System.Drawing.Point(415, 569);
+            this.buttonRemoveFromLegend.Location = new System.Drawing.Point(419, 567);
             this.buttonRemoveFromLegend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonRemoveFromLegend.Name = "buttonRemoveFromLegend";
             this.buttonRemoveFromLegend.Size = new System.Drawing.Size(145, 27);
@@ -1239,7 +1239,7 @@ namespace Mappalachia
             // buttonAddToLegend
             // 
             this.buttonAddToLegend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddToLegend.Location = new System.Drawing.Point(263, 569);
+            this.buttonAddToLegend.Location = new System.Drawing.Point(267, 567);
             this.buttonAddToLegend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonAddToLegend.Name = "buttonAddToLegend";
             this.buttonAddToLegend.Size = new System.Drawing.Size(145, 27);
