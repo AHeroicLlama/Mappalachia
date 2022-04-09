@@ -18,12 +18,15 @@
 	  <Compile Remove="data\**" />
 	  <Compile Remove="font\**" />
 	  <Compile Remove="img\**" />
+	  <Compile Remove="publish\**" />
 	  <EmbeddedResource Remove="data\**" />
 	  <EmbeddedResource Remove="font\**" />
 	  <EmbeddedResource Remove="img\**" />
+	  <EmbeddedResource Remove="publish\**" />
 	  <None Remove="data\**" />
 	  <None Remove="font\**" />
 	  <None Remove="img\**" />
+	  <None Remove="publish\**" />
 	</ItemGroup>
 
 	<ItemGroup>
