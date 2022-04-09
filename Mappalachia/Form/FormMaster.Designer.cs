@@ -29,9 +29,9 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -162,8 +162,9 @@ namespace Mappalachia
             this.donateMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
+            this.menuStripMain.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStripMain.ShowItemToolTips = true;
-            this.menuStripMain.Size = new System.Drawing.Size(1685, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(1966, 24);
             this.menuStripMain.TabIndex = 0;
             // 
             // mapMenuItem
@@ -514,8 +515,8 @@ namespace Mappalachia
             this.gridViewSearchResults.AllowUserToDeleteRows = false;
             this.gridViewSearchResults.AllowUserToOrderColumns = true;
             this.gridViewSearchResults.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Silver;
-            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.gridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -534,12 +535,13 @@ namespace Mappalachia
             this.columnSearchLocation,
             this.columnSearchLocationID,
             this.columnSearchIndex});
-            this.gridViewSearchResults.Location = new System.Drawing.Point(8, 355);
+            this.gridViewSearchResults.Location = new System.Drawing.Point(9, 410);
+            this.gridViewSearchResults.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gridViewSearchResults.Name = "gridViewSearchResults";
             this.gridViewSearchResults.ReadOnly = true;
             this.gridViewSearchResults.RowHeadersVisible = false;
             this.gridViewSearchResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridViewSearchResults.Size = new System.Drawing.Size(798, 273);
+            this.gridViewSearchResults.Size = new System.Drawing.Size(931, 315);
             this.gridViewSearchResults.TabIndex = 1;
             this.gridViewSearchResults.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewSearchResults_CellMouseEnter);
             this.gridViewSearchResults.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.GridViewSearchResults_MouseDoubleClick);
@@ -547,8 +549,8 @@ namespace Mappalachia
             // columnSearchFormID
             // 
             this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnSearchFormID.HeaderText = "FormID";
             this.columnSearchFormID.Name = "columnSearchFormID";
             this.columnSearchFormID.ReadOnly = true;
@@ -635,9 +637,10 @@ namespace Mappalachia
             // buttonSearch
             // 
             this.buttonSearch.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonSearch.Location = new System.Drawing.Point(185, 4);
+            this.buttonSearch.Location = new System.Drawing.Point(216, 5);
+            this.buttonSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(122, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(142, 27);
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "Standard Search";
             this.toolTipControls.SetToolTip(this.buttonSearch, "Search for the given text.");
@@ -646,10 +649,11 @@ namespace Mappalachia
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(6, 6);
+            this.textBoxSearch.Location = new System.Drawing.Point(7, 7);
+            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxSearch.MaxLength = 100;
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(173, 20);
+            this.textBoxSearch.Size = new System.Drawing.Size(201, 23);
             this.textBoxSearch.TabIndex = 2;
             this.toolTipControls.SetToolTip(this.textBoxSearch, "The name to be searched for.");
             this.textBoxSearch.WordWrap = false;
@@ -661,11 +665,11 @@ namespace Mappalachia
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewFilterSignatures.BackColor = System.Drawing.SystemColors.ControlDark;
             this.listViewFilterSignatures.CheckBoxes = true;
-            this.listViewFilterSignatures.HideSelection = false;
-            this.listViewFilterSignatures.Location = new System.Drawing.Point(6, 19);
+            this.listViewFilterSignatures.Location = new System.Drawing.Point(7, 22);
+            this.listViewFilterSignatures.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listViewFilterSignatures.Name = "listViewFilterSignatures";
             this.listViewFilterSignatures.ShowItemToolTips = true;
-            this.listViewFilterSignatures.Size = new System.Drawing.Size(317, 215);
+            this.listViewFilterSignatures.Size = new System.Drawing.Size(369, 247);
             this.listViewFilterSignatures.TabIndex = 0;
             this.listViewFilterSignatures.UseCompatibleStateImageBehavior = false;
             this.listViewFilterSignatures.View = System.Windows.Forms.View.SmallIcon;
@@ -678,11 +682,11 @@ namespace Mappalachia
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewFilterLockTypes.BackColor = System.Drawing.SystemColors.ControlDark;
             this.listViewFilterLockTypes.CheckBoxes = true;
-            this.listViewFilterLockTypes.HideSelection = false;
-            this.listViewFilterLockTypes.Location = new System.Drawing.Point(6, 19);
+            this.listViewFilterLockTypes.Location = new System.Drawing.Point(7, 22);
+            this.listViewFilterLockTypes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listViewFilterLockTypes.Name = "listViewFilterLockTypes";
             this.listViewFilterLockTypes.ShowItemToolTips = true;
-            this.listViewFilterLockTypes.Size = new System.Drawing.Size(158, 215);
+            this.listViewFilterLockTypes.Size = new System.Drawing.Size(184, 247);
             this.listViewFilterLockTypes.TabIndex = 0;
             this.listViewFilterLockTypes.UseCompatibleStateImageBehavior = false;
             this.listViewFilterLockTypes.View = System.Windows.Forms.View.SmallIcon;
@@ -691,9 +695,10 @@ namespace Mappalachia
             // buttonSelectAllSignature
             // 
             this.buttonSelectAllSignature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectAllSignature.Location = new System.Drawing.Point(22, 240);
+            this.buttonSelectAllSignature.Location = new System.Drawing.Point(26, 277);
+            this.buttonSelectAllSignature.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSelectAllSignature.Name = "buttonSelectAllSignature";
-            this.buttonSelectAllSignature.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectAllSignature.Size = new System.Drawing.Size(88, 27);
             this.buttonSelectAllSignature.TabIndex = 1;
             this.buttonSelectAllSignature.Text = "Select All";
             this.toolTipControls.SetToolTip(this.buttonSelectAllSignature, "Enable all categories, therefore filtering none.");
@@ -703,9 +708,10 @@ namespace Mappalachia
             // buttonDeselectAllSignature
             // 
             this.buttonDeselectAllSignature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeselectAllSignature.Location = new System.Drawing.Point(231, 240);
+            this.buttonDeselectAllSignature.Location = new System.Drawing.Point(270, 277);
+            this.buttonDeselectAllSignature.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonDeselectAllSignature.Name = "buttonDeselectAllSignature";
-            this.buttonDeselectAllSignature.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeselectAllSignature.Size = new System.Drawing.Size(88, 27);
             this.buttonDeselectAllSignature.TabIndex = 3;
             this.buttonDeselectAllSignature.Text = "Deselect All";
             this.toolTipControls.SetToolTip(this.buttonDeselectAllSignature, "Remove all categories (used to then select just one).");
@@ -715,9 +721,10 @@ namespace Mappalachia
             // buttonDeselectAllLock
             // 
             this.buttonDeselectAllLock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeselectAllLock.Location = new System.Drawing.Point(89, 240);
+            this.buttonDeselectAllLock.Location = new System.Drawing.Point(104, 277);
+            this.buttonDeselectAllLock.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonDeselectAllLock.Name = "buttonDeselectAllLock";
-            this.buttonDeselectAllLock.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeselectAllLock.Size = new System.Drawing.Size(88, 27);
             this.buttonDeselectAllLock.TabIndex = 2;
             this.buttonDeselectAllLock.Text = "Deselect All";
             this.toolTipControls.SetToolTip(this.buttonDeselectAllLock, "Remove all lock levels (used to then select just one).");
@@ -727,9 +734,10 @@ namespace Mappalachia
             // buttonSelectAllLock
             // 
             this.buttonSelectAllLock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectAllLock.Location = new System.Drawing.Point(6, 240);
+            this.buttonSelectAllLock.Location = new System.Drawing.Point(7, 277);
+            this.buttonSelectAllLock.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSelectAllLock.Name = "buttonSelectAllLock";
-            this.buttonSelectAllLock.Size = new System.Drawing.Size(77, 23);
+            this.buttonSelectAllLock.Size = new System.Drawing.Size(90, 27);
             this.buttonSelectAllLock.TabIndex = 1;
             this.buttonSelectAllLock.Text = "Select All";
             this.toolTipControls.SetToolTip(this.buttonSelectAllLock, "Enable all lock levels, therefore filtering none.");
@@ -742,8 +750,8 @@ namespace Mappalachia
             this.gridViewLegend.AllowUserToDeleteRows = false;
             this.gridViewLegend.AllowUserToOrderColumns = true;
             this.gridViewLegend.AllowUserToResizeRows = false;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Silver;
-            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.gridViewLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -752,11 +760,12 @@ namespace Mappalachia
             this.gridViewLegend.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.columnLegendGroup,
             this.columnLegendDisplayName});
-            this.gridViewLegend.Location = new System.Drawing.Point(6, 663);
+            this.gridViewLegend.Location = new System.Drawing.Point(7, 765);
+            this.gridViewLegend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.gridViewLegend.Name = "gridViewLegend";
             this.gridViewLegend.RowHeadersVisible = false;
             this.gridViewLegend.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridViewLegend.Size = new System.Drawing.Size(800, 173);
+            this.gridViewLegend.Size = new System.Drawing.Size(933, 200);
             this.gridViewLegend.TabIndex = 7;
             this.gridViewLegend.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellEndEdit);
             this.gridViewLegend.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellMouseEnter);
@@ -779,9 +788,10 @@ namespace Mappalachia
             // 
             this.labelLegend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelLegend.AutoSize = true;
-            this.labelLegend.Location = new System.Drawing.Point(9, 647);
+            this.labelLegend.Location = new System.Drawing.Point(10, 747);
+            this.labelLegend.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLegend.Name = "labelLegend";
-            this.labelLegend.Size = new System.Drawing.Size(64, 13);
+            this.labelLegend.Size = new System.Drawing.Size(74, 15);
             this.labelLegend.TabIndex = 0;
             this.labelLegend.Text = "Items to plot";
             // 
@@ -789,9 +799,10 @@ namespace Mappalachia
             // 
             this.labelMinSpawnChance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMinSpawnChance.AutoSize = true;
-            this.labelMinSpawnChance.Location = new System.Drawing.Point(3, 252);
+            this.labelMinSpawnChance.Location = new System.Drawing.Point(4, 291);
+            this.labelMinSpawnChance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMinSpawnChance.Name = "labelMinSpawnChance";
-            this.labelMinSpawnChance.Size = new System.Drawing.Size(141, 13);
+            this.labelMinSpawnChance.Size = new System.Drawing.Size(162, 15);
             this.labelMinSpawnChance.TabIndex = 5;
             this.labelMinSpawnChance.Text = "Minimum Spawn Chance (%)";
             this.toolTipControls.SetToolTip(this.labelMinSpawnChance, "The minimum spawn chance to show results for.");
@@ -799,9 +810,10 @@ namespace Mappalachia
             // numericUpDownNPCSpawnThreshold
             // 
             this.numericUpDownNPCSpawnThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownNPCSpawnThreshold.Location = new System.Drawing.Point(6, 268);
+            this.numericUpDownNPCSpawnThreshold.Location = new System.Drawing.Point(7, 309);
+            this.numericUpDownNPCSpawnThreshold.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.numericUpDownNPCSpawnThreshold.Name = "numericUpDownNPCSpawnThreshold";
-            this.numericUpDownNPCSpawnThreshold.Size = new System.Drawing.Size(94, 20);
+            this.numericUpDownNPCSpawnThreshold.Size = new System.Drawing.Size(110, 23);
             this.numericUpDownNPCSpawnThreshold.TabIndex = 1;
             this.toolTipControls.SetToolTip(this.numericUpDownNPCSpawnThreshold, "The minimum spawn chance to show results for.");
             this.numericUpDownNPCSpawnThreshold.ValueChanged += new System.EventHandler(this.NumericUpDownNPCSpawnThreshold_ValueChanged);
@@ -810,9 +822,10 @@ namespace Mappalachia
             // buttonSearchScrap
             // 
             this.buttonSearchScrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSearchScrap.Location = new System.Drawing.Point(56, 265);
+            this.buttonSearchScrap.Location = new System.Drawing.Point(65, 306);
+            this.buttonSearchScrap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSearchScrap.Name = "buttonSearchScrap";
-            this.buttonSearchScrap.Size = new System.Drawing.Size(90, 23);
+            this.buttonSearchScrap.Size = new System.Drawing.Size(105, 27);
             this.buttonSearchScrap.TabIndex = 1;
             this.buttonSearchScrap.Text = "Scrap Search";
             this.toolTipControls.SetToolTip(this.buttonSearchScrap, "Search for junk containing the selected scrap type.");
@@ -822,9 +835,10 @@ namespace Mappalachia
             // buttonSearchNPC
             // 
             this.buttonSearchNPC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSearchNPC.Location = new System.Drawing.Point(106, 266);
+            this.buttonSearchNPC.Location = new System.Drawing.Point(124, 307);
+            this.buttonSearchNPC.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSearchNPC.Name = "buttonSearchNPC";
-            this.buttonSearchNPC.Size = new System.Drawing.Size(90, 23);
+            this.buttonSearchNPC.Size = new System.Drawing.Size(105, 27);
             this.buttonSearchNPC.TabIndex = 2;
             this.buttonSearchNPC.Text = "NPC Search";
             this.toolTipControls.SetToolTip(this.buttonSearchNPC, "Search for the selected NPC.");
@@ -834,27 +848,32 @@ namespace Mappalachia
             // listBoxScrap
             // 
             this.listBoxScrap.FormattingEnabled = true;
-            this.listBoxScrap.Location = new System.Drawing.Point(6, 19);
+            this.listBoxScrap.ItemHeight = 15;
+            this.listBoxScrap.Location = new System.Drawing.Point(7, 22);
+            this.listBoxScrap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxScrap.Name = "listBoxScrap";
-            this.listBoxScrap.Size = new System.Drawing.Size(191, 225);
+            this.listBoxScrap.Size = new System.Drawing.Size(222, 259);
             this.listBoxScrap.TabIndex = 0;
             this.listBoxScrap.SelectedIndexChanged += new System.EventHandler(this.ListBoxScrap_SelectedIndexChanged);
             // 
             // listBoxNPC
             // 
             this.listBoxNPC.FormattingEnabled = true;
-            this.listBoxNPC.Location = new System.Drawing.Point(6, 19);
+            this.listBoxNPC.ItemHeight = 15;
+            this.listBoxNPC.Location = new System.Drawing.Point(7, 22);
+            this.listBoxNPC.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxNPC.Name = "listBoxNPC";
-            this.listBoxNPC.Size = new System.Drawing.Size(190, 225);
+            this.listBoxNPC.Size = new System.Drawing.Size(221, 259);
             this.listBoxNPC.TabIndex = 0;
             this.listBoxNPC.Enter += new System.EventHandler(this.ListBoxNPC_MouseEnter);
             // 
             // buttonDrawMap
             // 
             this.buttonDrawMap.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonDrawMap.Location = new System.Drawing.Point(337, 841);
+            this.buttonDrawMap.Location = new System.Drawing.Point(393, 970);
+            this.buttonDrawMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonDrawMap.Name = "buttonDrawMap";
-            this.buttonDrawMap.Size = new System.Drawing.Size(136, 26);
+            this.buttonDrawMap.Size = new System.Drawing.Size(159, 30);
             this.buttonDrawMap.TabIndex = 6;
             this.buttonDrawMap.Text = "Update Map";
             this.toolTipControls.SetToolTip(this.buttonDrawMap, "Re-draw the map by plotting every item in the \'items to plot\' list.");
@@ -864,9 +883,10 @@ namespace Mappalachia
             // labelSearchResults
             // 
             this.labelSearchResults.AutoSize = true;
-            this.labelSearchResults.Location = new System.Drawing.Point(9, 339);
+            this.labelSearchResults.Location = new System.Drawing.Point(10, 391);
+            this.labelSearchResults.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSearchResults.Name = "labelSearchResults";
-            this.labelSearchResults.Size = new System.Drawing.Size(79, 13);
+            this.labelSearchResults.Size = new System.Drawing.Size(82, 15);
             this.labelSearchResults.TabIndex = 0;
             this.labelSearchResults.Text = "Search Results";
             // 
@@ -876,13 +896,14 @@ namespace Mappalachia
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageSpace);
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageStandard);
             this.tabControlStandardNPCJunk.Controls.Add(this.tabPageNpcScrapSearch);
-            this.tabControlStandardNPCJunk.Location = new System.Drawing.Point(143, 3);
-            this.tabControlStandardNPCJunk.MaximumSize = new System.Drawing.Size(524, 333);
-            this.tabControlStandardNPCJunk.MinimumSize = new System.Drawing.Size(524, 333);
+            this.tabControlStandardNPCJunk.Location = new System.Drawing.Point(167, 3);
+            this.tabControlStandardNPCJunk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabControlStandardNPCJunk.MaximumSize = new System.Drawing.Size(611, 384);
+            this.tabControlStandardNPCJunk.MinimumSize = new System.Drawing.Size(611, 384);
             this.tabControlStandardNPCJunk.Name = "tabControlStandardNPCJunk";
             this.tabControlStandardNPCJunk.SelectedIndex = 0;
             this.tabControlStandardNPCJunk.ShowToolTips = true;
-            this.tabControlStandardNPCJunk.Size = new System.Drawing.Size(524, 333);
+            this.tabControlStandardNPCJunk.Size = new System.Drawing.Size(611, 384);
             this.tabControlStandardNPCJunk.TabIndex = 0;
             this.tabControlStandardNPCJunk.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
@@ -893,20 +914,21 @@ namespace Mappalachia
             this.tabPageSpace.Controls.Add(this.checkBoxSpaceDrawOutline);
             this.tabPageSpace.Controls.Add(this.groupBoxHeightCropping);
             this.tabPageSpace.Controls.Add(this.comboBoxSpace);
-            this.tabPageSpace.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSpace.Location = new System.Drawing.Point(4, 24);
+            this.tabPageSpace.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageSpace.Name = "tabPageSpace";
-            this.tabPageSpace.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSpace.Size = new System.Drawing.Size(516, 307);
+            this.tabPageSpace.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabPageSpace.Size = new System.Drawing.Size(603, 356);
             this.tabPageSpace.TabIndex = 2;
             this.tabPageSpace.Text = "Select Space";
             // 
             // pictureBoxSpaceFiller
             // 
-            this.pictureBoxSpaceFiller.Cursor = System.Windows.Forms.Cursors.Default;
             this.pictureBoxSpaceFiller.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSpaceFiller.Image")));
-            this.pictureBoxSpaceFiller.Location = new System.Drawing.Point(300, 91);
+            this.pictureBoxSpaceFiller.Location = new System.Drawing.Point(350, 105);
+            this.pictureBoxSpaceFiller.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxSpaceFiller.Name = "pictureBoxSpaceFiller";
-            this.pictureBoxSpaceFiller.Size = new System.Drawing.Size(210, 210);
+            this.pictureBoxSpaceFiller.Size = new System.Drawing.Size(245, 242);
             this.pictureBoxSpaceFiller.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxSpaceFiller.TabIndex = 9;
             this.pictureBoxSpaceFiller.TabStop = false;
@@ -916,9 +938,10 @@ namespace Mappalachia
             this.checkBoxSpaceDrawOutline.AutoSize = true;
             this.checkBoxSpaceDrawOutline.Checked = true;
             this.checkBoxSpaceDrawOutline.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSpaceDrawOutline.Location = new System.Drawing.Point(6, 33);
+            this.checkBoxSpaceDrawOutline.Location = new System.Drawing.Point(7, 38);
+            this.checkBoxSpaceDrawOutline.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxSpaceDrawOutline.Name = "checkBoxSpaceDrawOutline";
-            this.checkBoxSpaceDrawOutline.Size = new System.Drawing.Size(87, 17);
+            this.checkBoxSpaceDrawOutline.Size = new System.Drawing.Size(95, 19);
             this.checkBoxSpaceDrawOutline.TabIndex = 8;
             this.checkBoxSpaceDrawOutline.Text = "Draw Outline";
             this.toolTipControls.SetToolTip(this.checkBoxSpaceDrawOutline, "Renders a subtle outline of all items in the cell as a background to visualize th" +
@@ -934,9 +957,11 @@ namespace Mappalachia
             this.groupBoxHeightCropping.Controls.Add(this.numericMaxZ);
             this.groupBoxHeightCropping.Controls.Add(this.numericMinZ);
             this.groupBoxHeightCropping.Controls.Add(this.buttonHeightDistribution);
-            this.groupBoxHeightCropping.Location = new System.Drawing.Point(6, 56);
+            this.groupBoxHeightCropping.Location = new System.Drawing.Point(7, 62);
+            this.groupBoxHeightCropping.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxHeightCropping.Name = "groupBoxHeightCropping";
-            this.groupBoxHeightCropping.Size = new System.Drawing.Size(255, 99);
+            this.groupBoxHeightCropping.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxHeightCropping.Size = new System.Drawing.Size(298, 114);
             this.groupBoxHeightCropping.TabIndex = 7;
             this.groupBoxHeightCropping.TabStop = false;
             this.groupBoxHeightCropping.Text = "Height Cropping";
@@ -946,9 +971,10 @@ namespace Mappalachia
             // labelMaxHeight
             // 
             this.labelMaxHeight.AutoSize = true;
-            this.labelMaxHeight.Location = new System.Drawing.Point(147, 53);
+            this.labelMaxHeight.Location = new System.Drawing.Point(172, 61);
+            this.labelMaxHeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMaxHeight.Name = "labelMaxHeight";
-            this.labelMaxHeight.Size = new System.Drawing.Size(102, 13);
+            this.labelMaxHeight.Size = new System.Drawing.Size(122, 15);
             this.labelMaxHeight.TabIndex = 10;
             this.labelMaxHeight.Text = "Maximum Height (%)";
             this.toolTipControls.SetToolTip(this.labelMaxHeight, "Select the maximum height of objects from the space which to map.");
@@ -956,18 +982,20 @@ namespace Mappalachia
             // labelMinHeight
             // 
             this.labelMinHeight.AutoSize = true;
-            this.labelMinHeight.Location = new System.Drawing.Point(6, 53);
+            this.labelMinHeight.Location = new System.Drawing.Point(7, 61);
+            this.labelMinHeight.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMinHeight.Name = "labelMinHeight";
-            this.labelMinHeight.Size = new System.Drawing.Size(99, 13);
+            this.labelMinHeight.Size = new System.Drawing.Size(120, 15);
             this.labelMinHeight.TabIndex = 9;
             this.labelMinHeight.Text = "Minimum Height (%)";
             this.toolTipControls.SetToolTip(this.labelMinHeight, "Select the minimum height of objects from the space which to map.");
             // 
             // numericMaxZ
             // 
-            this.numericMaxZ.Location = new System.Drawing.Point(150, 69);
+            this.numericMaxZ.Location = new System.Drawing.Point(175, 80);
+            this.numericMaxZ.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.numericMaxZ.Name = "numericMaxZ";
-            this.numericMaxZ.Size = new System.Drawing.Size(70, 20);
+            this.numericMaxZ.Size = new System.Drawing.Size(82, 23);
             this.numericMaxZ.TabIndex = 8;
             this.toolTipControls.SetToolTip(this.numericMaxZ, "Select the maximum height of objects from the space which to map.");
             this.numericMaxZ.Value = new decimal(new int[] {
@@ -981,9 +1009,10 @@ namespace Mappalachia
             // 
             // numericMinZ
             // 
-            this.numericMinZ.Location = new System.Drawing.Point(35, 69);
+            this.numericMinZ.Location = new System.Drawing.Point(41, 80);
+            this.numericMinZ.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.numericMinZ.Name = "numericMinZ";
-            this.numericMinZ.Size = new System.Drawing.Size(70, 20);
+            this.numericMinZ.Size = new System.Drawing.Size(82, 23);
             this.numericMinZ.TabIndex = 7;
             this.toolTipControls.SetToolTip(this.numericMinZ, "Select the minimum height of objects from the space which to map.");
             this.numericMinZ.ValueChanged += new System.EventHandler(this.NumericMinZ_ValueChanged);
@@ -992,9 +1021,10 @@ namespace Mappalachia
             // 
             // buttonHeightDistribution
             // 
-            this.buttonHeightDistribution.Location = new System.Drawing.Point(49, 19);
+            this.buttonHeightDistribution.Location = new System.Drawing.Point(57, 22);
+            this.buttonHeightDistribution.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonHeightDistribution.Name = "buttonHeightDistribution";
-            this.buttonHeightDistribution.Size = new System.Drawing.Size(152, 23);
+            this.buttonHeightDistribution.Size = new System.Drawing.Size(177, 27);
             this.buttonHeightDistribution.TabIndex = 6;
             this.buttonHeightDistribution.Text = "Visualize Height Distribution";
             this.toolTipControls.SetToolTip(this.buttonHeightDistribution, "Displays a visualization of the distribution of entities in the selected space by" +
@@ -1006,9 +1036,10 @@ namespace Mappalachia
             // 
             this.comboBoxSpace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSpace.FormattingEnabled = true;
-            this.comboBoxSpace.Location = new System.Drawing.Point(6, 6);
+            this.comboBoxSpace.Location = new System.Drawing.Point(7, 7);
+            this.comboBoxSpace.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxSpace.Name = "comboBoxSpace";
-            this.comboBoxSpace.Size = new System.Drawing.Size(378, 21);
+            this.comboBoxSpace.Size = new System.Drawing.Size(440, 23);
             this.comboBoxSpace.TabIndex = 4;
             this.toolTipControls.SetToolTip(this.comboBoxSpace, "Select the specific space to search and plot within.");
             this.comboBoxSpace.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSpace_SelectedIndexChanged);
@@ -1021,10 +1052,11 @@ namespace Mappalachia
             this.tabPageStandard.Controls.Add(this.groupBoxFilterByCategory);
             this.tabPageStandard.Controls.Add(this.buttonSearch);
             this.tabPageStandard.Controls.Add(this.textBoxSearch);
-            this.tabPageStandard.Location = new System.Drawing.Point(4, 22);
+            this.tabPageStandard.Location = new System.Drawing.Point(4, 24);
+            this.tabPageStandard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageStandard.Name = "tabPageStandard";
-            this.tabPageStandard.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStandard.Size = new System.Drawing.Size(516, 307);
+            this.tabPageStandard.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabPageStandard.Size = new System.Drawing.Size(603, 356);
             this.tabPageStandard.TabIndex = 0;
             this.tabPageStandard.Text = "Standard Search";
             // 
@@ -1033,9 +1065,11 @@ namespace Mappalachia
             this.groupBoxFilterByLockLevel.Controls.Add(this.listViewFilterLockTypes);
             this.groupBoxFilterByLockLevel.Controls.Add(this.buttonDeselectAllLock);
             this.groupBoxFilterByLockLevel.Controls.Add(this.buttonSelectAllLock);
-            this.groupBoxFilterByLockLevel.Location = new System.Drawing.Point(341, 32);
+            this.groupBoxFilterByLockLevel.Location = new System.Drawing.Point(398, 37);
+            this.groupBoxFilterByLockLevel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxFilterByLockLevel.Name = "groupBoxFilterByLockLevel";
-            this.groupBoxFilterByLockLevel.Size = new System.Drawing.Size(170, 269);
+            this.groupBoxFilterByLockLevel.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxFilterByLockLevel.Size = new System.Drawing.Size(198, 310);
             this.groupBoxFilterByLockLevel.TabIndex = 1;
             this.groupBoxFilterByLockLevel.TabStop = false;
             this.groupBoxFilterByLockLevel.Text = "Filter by lock level";
@@ -1046,9 +1080,11 @@ namespace Mappalachia
             this.groupBoxFilterByCategory.Controls.Add(this.listViewFilterSignatures);
             this.groupBoxFilterByCategory.Controls.Add(this.buttonDeselectAllSignature);
             this.groupBoxFilterByCategory.Controls.Add(this.buttonSelectAllSignature);
-            this.groupBoxFilterByCategory.Location = new System.Drawing.Point(6, 32);
+            this.groupBoxFilterByCategory.Location = new System.Drawing.Point(7, 37);
+            this.groupBoxFilterByCategory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxFilterByCategory.Name = "groupBoxFilterByCategory";
-            this.groupBoxFilterByCategory.Size = new System.Drawing.Size(329, 269);
+            this.groupBoxFilterByCategory.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxFilterByCategory.Size = new System.Drawing.Size(384, 310);
             this.groupBoxFilterByCategory.TabIndex = 0;
             this.groupBoxFilterByCategory.TabStop = false;
             this.groupBoxFilterByCategory.Text = "Filter by category";
@@ -1056,9 +1092,10 @@ namespace Mappalachia
             // buttonSelectRecommended
             // 
             this.buttonSelectRecommended.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectRecommended.Location = new System.Drawing.Point(103, 240);
+            this.buttonSelectRecommended.Location = new System.Drawing.Point(120, 277);
+            this.buttonSelectRecommended.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSelectRecommended.Name = "buttonSelectRecommended";
-            this.buttonSelectRecommended.Size = new System.Drawing.Size(122, 23);
+            this.buttonSelectRecommended.Size = new System.Drawing.Size(142, 27);
             this.buttonSelectRecommended.TabIndex = 2;
             this.buttonSelectRecommended.Text = "Select Recommended";
             this.toolTipControls.SetToolTip(this.buttonSelectRecommended, "Refine results by selecting only the most commonly used categories.");
@@ -1071,10 +1108,11 @@ namespace Mappalachia
             this.tabPageNpcScrapSearch.BackColor = System.Drawing.SystemColors.ControlDark;
             this.tabPageNpcScrapSearch.Controls.Add(this.groupBoxScrapSearch);
             this.tabPageNpcScrapSearch.Controls.Add(this.groupBoxNPCSearch);
-            this.tabPageNpcScrapSearch.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNpcScrapSearch.Location = new System.Drawing.Point(4, 24);
+            this.tabPageNpcScrapSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageNpcScrapSearch.Name = "tabPageNpcScrapSearch";
-            this.tabPageNpcScrapSearch.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNpcScrapSearch.Size = new System.Drawing.Size(516, 307);
+            this.tabPageNpcScrapSearch.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabPageNpcScrapSearch.Size = new System.Drawing.Size(603, 356);
             this.tabPageNpcScrapSearch.TabIndex = 1;
             this.tabPageNpcScrapSearch.Text = "NPC or Scrap Search";
             // 
@@ -1082,9 +1120,11 @@ namespace Mappalachia
             // 
             this.groupBoxScrapSearch.Controls.Add(this.listBoxScrap);
             this.groupBoxScrapSearch.Controls.Add(this.buttonSearchScrap);
-            this.groupBoxScrapSearch.Location = new System.Drawing.Point(215, 6);
+            this.groupBoxScrapSearch.Location = new System.Drawing.Point(251, 7);
+            this.groupBoxScrapSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxScrapSearch.Name = "groupBoxScrapSearch";
-            this.groupBoxScrapSearch.Size = new System.Drawing.Size(203, 295);
+            this.groupBoxScrapSearch.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxScrapSearch.Size = new System.Drawing.Size(237, 340);
             this.groupBoxScrapSearch.TabIndex = 7;
             this.groupBoxScrapSearch.TabStop = false;
             this.groupBoxScrapSearch.Text = "Scrap Search";
@@ -1096,9 +1136,11 @@ namespace Mappalachia
             this.groupBoxNPCSearch.Controls.Add(this.labelMinSpawnChance);
             this.groupBoxNPCSearch.Controls.Add(this.numericUpDownNPCSpawnThreshold);
             this.groupBoxNPCSearch.Controls.Add(this.buttonSearchNPC);
-            this.groupBoxNPCSearch.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxNPCSearch.Location = new System.Drawing.Point(7, 7);
+            this.groupBoxNPCSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxNPCSearch.Name = "groupBoxNPCSearch";
-            this.groupBoxNPCSearch.Size = new System.Drawing.Size(203, 295);
+            this.groupBoxNPCSearch.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxNPCSearch.Size = new System.Drawing.Size(237, 340);
             this.groupBoxNPCSearch.TabIndex = 6;
             this.groupBoxNPCSearch.TabStop = false;
             this.groupBoxNPCSearch.Text = "NPC Search";
@@ -1110,8 +1152,9 @@ namespace Mappalachia
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxMapPreview.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
-            this.pictureBoxMapPreview.Size = new System.Drawing.Size(865, 865);
+            this.pictureBoxMapPreview.Size = new System.Drawing.Size(1009, 998);
             this.pictureBoxMapPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxMapPreview.TabIndex = 5;
             this.pictureBoxMapPreview.TabStop = false;
@@ -1124,7 +1167,8 @@ namespace Mappalachia
             this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 27);
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 31);
+            this.splitContainerMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.splitContainerMain.Name = "splitContainerMain";
             // 
             // splitContainerMain.Panel1
@@ -1144,18 +1188,20 @@ namespace Mappalachia
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.pictureBoxMapPreview);
             this.splitContainerMain.Panel2MinSize = 0;
-            this.splitContainerMain.Size = new System.Drawing.Size(1685, 871);
-            this.splitContainerMain.SplitterDistance = 811;
+            this.splitContainerMain.Size = new System.Drawing.Size(1966, 1005);
+            this.splitContainerMain.SplitterDistance = 946;
+            this.splitContainerMain.SplitterWidth = 5;
             this.splitContainerMain.TabIndex = 6;
             // 
             // checkBoxAddAsGroup
             // 
             this.checkBoxAddAsGroup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBoxAddAsGroup.AutoSize = true;
-            this.checkBoxAddAsGroup.Location = new System.Drawing.Point(181, 634);
+            this.checkBoxAddAsGroup.Location = new System.Drawing.Point(211, 732);
+            this.checkBoxAddAsGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxAddAsGroup.Name = "checkBoxAddAsGroup";
             this.checkBoxAddAsGroup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxAddAsGroup.Size = new System.Drawing.Size(91, 17);
+            this.checkBoxAddAsGroup.Size = new System.Drawing.Size(98, 19);
             this.checkBoxAddAsGroup.TabIndex = 2;
             this.checkBoxAddAsGroup.Text = "Add as Group";
             this.toolTipControls.SetToolTip(this.checkBoxAddAsGroup, "Add all selected items under the same Legend Group.");
@@ -1164,9 +1210,10 @@ namespace Mappalachia
             // buttonRemoveFromLegend
             // 
             this.buttonRemoveFromLegend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonRemoveFromLegend.Location = new System.Drawing.Point(408, 634);
+            this.buttonRemoveFromLegend.Location = new System.Drawing.Point(476, 732);
+            this.buttonRemoveFromLegend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonRemoveFromLegend.Name = "buttonRemoveFromLegend";
-            this.buttonRemoveFromLegend.Size = new System.Drawing.Size(124, 23);
+            this.buttonRemoveFromLegend.Size = new System.Drawing.Size(145, 27);
             this.buttonRemoveFromLegend.TabIndex = 4;
             this.buttonRemoveFromLegend.Text = "Remove from Map";
             this.toolTipControls.SetToolTip(this.buttonRemoveFromLegend, "Remove the selected item(s) from the \'items to plot\' list.");
@@ -1176,9 +1223,10 @@ namespace Mappalachia
             // buttonAddToLegend
             // 
             this.buttonAddToLegend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddToLegend.Location = new System.Drawing.Point(278, 634);
+            this.buttonAddToLegend.Location = new System.Drawing.Point(324, 732);
+            this.buttonAddToLegend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonAddToLegend.Name = "buttonAddToLegend";
-            this.buttonAddToLegend.Size = new System.Drawing.Size(124, 23);
+            this.buttonAddToLegend.Size = new System.Drawing.Size(145, 27);
             this.buttonAddToLegend.TabIndex = 3;
             this.buttonAddToLegend.Text = "Add to Map";
             this.toolTipControls.SetToolTip(this.buttonAddToLegend, "Add the selected item(s) from the search results onto the \'items to plot\' list.");
@@ -1189,26 +1237,28 @@ namespace Mappalachia
             // 
             this.progressBarMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarMain.Location = new System.Drawing.Point(12, 904);
+            this.progressBarMain.Location = new System.Drawing.Point(14, 1043);
+            this.progressBarMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.progressBarMain.Maximum = 10000;
             this.progressBarMain.Name = "progressBarMain";
-            this.progressBarMain.Size = new System.Drawing.Size(1661, 19);
+            this.progressBarMain.Size = new System.Drawing.Size(1938, 22);
             this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarMain.TabIndex = 7;
             // 
             // FormMaster
             // 
             this.AcceptButton = this.buttonSearch;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(1685, 935);
+            this.ClientSize = new System.Drawing.Size(1966, 1079);
             this.Controls.Add(this.progressBarMain);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.menuStripMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
-            this.MinimumSize = new System.Drawing.Size(640, 840);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MinimumSize = new System.Drawing.Size(744, 963);
             this.Name = "FormMaster";
             this.Text = "Mappalachia";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);

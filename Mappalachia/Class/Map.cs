@@ -14,8 +14,8 @@ namespace Mappalachia
 	{
 		// Map-image coordinate scaling. Gathered manually by eye with reference points from in-game
 		public static double scaling = 142;
-		public static double xOffset = 1.7;
-		public static double yOffset = 5.2;
+		static double xOffset = 1.7;
+		static double yOffset = 5.2;
 
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All layer images should be this^2

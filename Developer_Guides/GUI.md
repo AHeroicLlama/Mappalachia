@@ -4,13 +4,13 @@
 * You have already [built the database](Ingest.md) OR have a copy of `mappalachia.db` from a release
 * An installation of Visual Studio
 * Experience using Mappalachia as an end user
-* Competency in C# .Net and SQLite SQL
+* Competency in C# .NET and SQLite SQL
 * Reasonable Fallout 76 datamining knowledge
 
 ## Development of Mappalachia
 Now that we are finished with the 'data mining' part of the process, we can focus solely on the end-user product.<br/>
 You will find the entire project under `\Mappalachia\Mappalachia.sln`<br/>
-Mappalachia uses the .Net Framework V4.8, and also relies heavily on Microsoft.Data.Sqlite package plus others to provide connectivity to the database.<br/>
+Mappalachia uses .NET 6, and also relies heavily on Microsoft.Data.Sqlite package plus others to provide connectivity to the database.<br/>
 
 As this point, you should simply be able to 'start debugging' in Visual Studio to get it to run.
 <br/>

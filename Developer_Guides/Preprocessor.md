@@ -3,10 +3,10 @@
 ### Prerequisites and assumptions
 * You have already run the [export scripts](EditScripts.md) using FO76Edit
 * An installation of Visual Studio
-* (Optional) competency with C# and .Net
+* (Optional) competency with C# and .NET
 
 ## What is the Preprocessor?
-The Mappalachia Preprocessor is a simple C# .Net CLI tool which preprocesses the data in the initial exported CSVs into the format required for the database.<br/>
+The Mappalachia Preprocessor is a simple C# .NET CLI tool which preprocesses the data in the initial exported CSVs into the format required for the database.<br/>
 It carries out several key steps;
 * Data validation, based on expected values for each column.
 * Data minimization, removing junk data and excess precision, leaving the bare minimum required for Mappalachia to function.

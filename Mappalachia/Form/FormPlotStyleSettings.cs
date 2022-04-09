@@ -72,7 +72,7 @@ namespace Mappalachia
 		}
 
 		// Find a color by its name or html code
-		Color GetColorFromText(string colorNameOrCode)
+		static Color GetColorFromText(string colorNameOrCode)
 		{
 			try
 			{
@@ -88,7 +88,7 @@ namespace Mappalachia
 		}
 
 		// Apply a color to a ListViewItem matching the color on its text
-		void AddBackColor(ListViewItem item)
+		static void AddBackColor(ListViewItem item)
 		{
 			item.BackColor = GetColorFromText(item.Text);
 		}

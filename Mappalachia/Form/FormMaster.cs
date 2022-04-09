@@ -95,6 +95,8 @@ namespace Mappalachia
 		// Dynamically fill the Signature filter with every signature present based on the data
 		void PopulateSignatureFilterList()
 		{
+			listViewFilterSignatures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
 			List<string> signatures = Database.GetSignatures();
 			List<string> orderedSignatures = new List<string>();
 
@@ -592,7 +594,7 @@ namespace Mappalachia
 			}
 		}
 
-		void NotifyIfNoResults()
+		static void NotifyIfNoResults()
 		{
 			if (searchResults.Count == 0)
 			{
@@ -676,7 +678,7 @@ namespace Mappalachia
 		}
 
 		// Find the next-lowest free legend group value in LegendItems
-		int FindLowestAvailableLegendGroupValue()
+		static int FindLowestAvailableLegendGroupValue()
 		{
 			int n = legendItems.Count;
 			bool[] takenIndices = new bool[n];
@@ -694,7 +696,7 @@ namespace Mappalachia
 		}
 
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
-		void DrawMap(bool drawBaseLayer)
+		static void DrawMap(bool drawBaseLayer)
 		{
 			if (drawBaseLayer || forceDrawBaseLayer)
 			{
@@ -707,13 +709,13 @@ namespace Mappalachia
 			}
 		}
 
-		void PreviewMap()
+		static void PreviewMap()
 		{
 			Map.Open();
 		}
 
 		// Render a crude text graph to visualize height distribution in the currently selected space
-		void ShowHeightDistribution()
+		static void ShowHeightDistribution()
 		{
 			string textVisualization = string.Empty;
 			int i = 0;
@@ -945,7 +947,7 @@ namespace Mappalachia
 		// Help > User Guides - Open help guides at github master
 		void Help_UserGuides(object sender, EventArgs e)
 		{
-			Process.Start("https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides");
+			Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides", UseShellExecute = true });
 		}
 
 		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
@@ -957,7 +959,7 @@ namespace Mappalachia
 		// Donate to the Author - Launch donate URL
 		void Donate(object sender, EventArgs e)
 		{
-			Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
+			Process.Start(new ProcessStartInfo { FileName = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url", UseShellExecute = true });
 		}
 
 		// Signature select all
