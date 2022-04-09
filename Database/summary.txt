@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-2355dee958f07a7221a9a7543f9e9c7b
+b353bbdd882189c1e625f6ade987cf22
 ==File Size== 
 448053248 
 ==Tables== 
@@ -6016,13 +6016,13 @@ AMSHQ01|Robot|1.0|2
 AVRMedicalCenter01|Scorched|1.0|21
 AlleghenyAsylum01|Ghoul|1.0|25
 Appalachia|Angler|0.157676521009854|90
-Appalachia|Bloatfly|0.101556776556777|91
+Appalachia|Bloatfly|0.101556776556776|91
 Appalachia|Bloodbug|0.41984126984127|70
 Appalachia|Cave Cricket|0.0810545500251381|170
 Appalachia|Deathclaw|0.282692307692308|10
 Appalachia|Fog Crawler|0.12857905982906|48
 Appalachia|Ghoul|0.496301825845095|1040
-Appalachia|Gulper|0.147427006650307|103
+Appalachia|Gulper|0.147427006650308|103
 Appalachia|Honey Beast|0.191836734693877|7
 Appalachia|Insect|0.163555471077595|226
 Appalachia|Liberator|0.161205141476881|460

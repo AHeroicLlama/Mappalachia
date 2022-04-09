@@ -35,37 +35,25 @@ namespace Mappalachia
 		// Escape problematic SQL characters
 		public void Sanitize()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.Sanitize();
-			});
+			Parallel.ForEach(rows, row => row.Sanitize());
 		}
 
 		// Reduce long references and names to just the data required in them - typically just the FormID
 		public void ReduceReferences()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.ReduceReferences();
-			});
+			Parallel.ForEach(rows, row => row.ReduceReferences());
 		}
 
 		// Reduce large decimals to integers (The precision is unnecessary due to downscaling)
 		public void ReduceDecimals()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.ReduceDecimals();
-			});
+			Parallel.ForEach(rows, row => row.ReduceDecimals());
 		}
 
 		// Run basic data integrity checks on expected values in columns
 		public void Validate()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.Validate();
-			});
+			Parallel.ForEach(rows, row => row.Validate());
 		}
 
 		public void WriteToFile(string filePath)
