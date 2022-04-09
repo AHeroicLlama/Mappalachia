@@ -6,7 +6,7 @@ namespace Mappalachia.Class
 	// Settings relating to Space selection
 	class SettingsSpace
 	{
-		public static readonly int heightPrecision = 50; // The definition (percentage increments) used in setting the height bounds and visualizing too
+		public static readonly int heightPrecision = 25; // The definition (percentage increments) used in incrementing the height bounds and visualizing too
 
 		// Settings for pseudo-plot-icons used to draw space outline
 		public static readonly int outlineWidth = 3;
