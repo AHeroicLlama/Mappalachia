@@ -15,7 +15,7 @@ You should now see the 'Search Results' list populate with matches to your searc
 ### Building the map
 In the search results list, select the item you wish to map (or multiple by holding ctrl or shift), and select 'Add to Map'.<br/>
 The selected items should now be listed in the 'Items to plot' list. You may conduct an additional search and add more items if you wish.<br/>
-If you are happy with the items, press the 'Update Map' button. Mappalachia will then collect the coordinates for every instance of your selected items and plot them with icons on the map. When finished the map on the right hand side will update with your plots, and will display a legend on the left hand side of the image, along with the icons which they are represented by.<br/>
+If you are happy with the items, press the 'Update Map' button (or select Map > Update Map). Mappalachia will then collect the coordinates for every instance of your selected items and plot them with icons on the map. When finished the map on the right hand side will update with your plots, and will display a legend on the left hand side of the image, along with the icons which they are represented by.<br/>
 
 ### Previewing and sharing the map
 You can pan and zoom this map preview by left-clicking and dragging, or using the scroll wheel respectively (or equivalent touch gestures).<br/>
