@@ -7,6 +7,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>Mappalachia</RootNamespace>
 		<AssemblyName>Mappalachia</AssemblyName>
+		<ApplicationIcon>favicon_small.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -32,6 +33,10 @@
 	<ItemGroup>
 	  <None Remove="Mappalachia.zip" />
 	  <None Remove="package_release.bat" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="favicon_small.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
