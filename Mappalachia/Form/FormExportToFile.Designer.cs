@@ -45,9 +45,10 @@
             // 
             this.radioButtonJPEG.AutoSize = true;
             this.radioButtonJPEG.Checked = true;
-            this.radioButtonJPEG.Location = new System.Drawing.Point(12, 58);
+            this.radioButtonJPEG.Location = new System.Drawing.Point(14, 67);
+            this.radioButtonJPEG.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radioButtonJPEG.Name = "radioButtonJPEG";
-            this.radioButtonJPEG.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonJPEG.Size = new System.Drawing.Size(50, 19);
             this.radioButtonJPEG.TabIndex = 2;
             this.radioButtonJPEG.TabStop = true;
             this.radioButtonJPEG.Text = "JPEG";
@@ -57,9 +58,10 @@
             // radioButtonPNG
             // 
             this.radioButtonPNG.AutoSize = true;
-            this.radioButtonPNG.Location = new System.Drawing.Point(12, 35);
+            this.radioButtonPNG.Location = new System.Drawing.Point(14, 40);
+            this.radioButtonPNG.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radioButtonPNG.Name = "radioButtonPNG";
-            this.radioButtonPNG.Size = new System.Drawing.Size(48, 17);
+            this.radioButtonPNG.Size = new System.Drawing.Size(49, 19);
             this.radioButtonPNG.TabIndex = 1;
             this.radioButtonPNG.Text = "PNG";
             this.toolTipControls.SetToolTip(this.radioButtonPNG, "High quality, large file size. Supports transparency. Suitable for use in other m" +
@@ -72,9 +74,10 @@
             this.checkBoxUseRecommended.AutoSize = true;
             this.checkBoxUseRecommended.Checked = true;
             this.checkBoxUseRecommended.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxUseRecommended.Location = new System.Drawing.Point(12, 12);
+            this.checkBoxUseRecommended.Location = new System.Drawing.Point(14, 14);
+            this.checkBoxUseRecommended.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxUseRecommended.Name = "checkBoxUseRecommended";
-            this.checkBoxUseRecommended.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxUseRecommended.Size = new System.Drawing.Size(170, 19);
             this.checkBoxUseRecommended.TabIndex = 0;
             this.checkBoxUseRecommended.Text = "Use recommended settings";
             this.toolTipControls.SetToolTip(this.checkBoxUseRecommended, "Let Mappalachia decide settings, based on your currently selected space.");
@@ -83,14 +86,15 @@
             // 
             // numericUpDownJPEGQuality
             // 
-            this.numericUpDownJPEGQuality.Location = new System.Drawing.Point(65, 58);
+            this.numericUpDownJPEGQuality.Location = new System.Drawing.Point(76, 67);
+            this.numericUpDownJPEGQuality.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.numericUpDownJPEGQuality.Minimum = new decimal(new int[] {
             20,
             0,
             0,
             0});
             this.numericUpDownJPEGQuality.Name = "numericUpDownJPEGQuality";
-            this.numericUpDownJPEGQuality.Size = new System.Drawing.Size(43, 20);
+            this.numericUpDownJPEGQuality.Size = new System.Drawing.Size(50, 23);
             this.numericUpDownJPEGQuality.TabIndex = 3;
             this.toolTipControls.SetToolTip(this.numericUpDownJPEGQuality, "The quality of the image in JPEG. Higher values provide better quality but a larg" +
         "er file size.");
@@ -104,9 +108,10 @@
             // labelJPEGQualityPerc
             // 
             this.labelJPEGQualityPerc.AutoSize = true;
-            this.labelJPEGQualityPerc.Location = new System.Drawing.Point(114, 60);
+            this.labelJPEGQualityPerc.Location = new System.Drawing.Point(133, 69);
+            this.labelJPEGQualityPerc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelJPEGQualityPerc.Name = "labelJPEGQualityPerc";
-            this.labelJPEGQualityPerc.Size = new System.Drawing.Size(47, 13);
+            this.labelJPEGQualityPerc.Size = new System.Drawing.Size(55, 15);
             this.labelJPEGQualityPerc.TabIndex = 4;
             this.labelJPEGQualityPerc.Text = "Quality%";
             this.toolTipControls.SetToolTip(this.labelJPEGQualityPerc, "The quality of the image in JPEG. Higher values provide better quality but a larg" +
@@ -114,9 +119,10 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(12, 91);
+            this.buttonOK.Location = new System.Drawing.Point(14, 105);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.Size = new System.Drawing.Size(88, 27);
             this.buttonOK.TabIndex = 5;
             this.buttonOK.Text = "OK";
             this.toolTipControls.SetToolTip(this.buttonOK, "Save the file with these settings.");
@@ -126,9 +132,10 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(95, 91);
+            this.buttonCancel.Location = new System.Drawing.Point(111, 105);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(88, 27);
             this.buttonCancel.TabIndex = 6;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -136,10 +143,10 @@
             // FormExportToFile
             // 
             this.AcceptButton = this.buttonOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(182, 126);
+            this.ClientSize = new System.Drawing.Size(212, 145);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelJPEGQualityPerc);
@@ -149,6 +156,7 @@
             this.Controls.Add(this.radioButtonJPEG);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "FormExportToFile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Export to Image File";

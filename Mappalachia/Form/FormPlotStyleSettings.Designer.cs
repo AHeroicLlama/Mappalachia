@@ -72,9 +72,10 @@
             // checkBoxCrosshairOuter
             // 
             this.checkBoxCrosshairOuter.AutoSize = true;
-            this.checkBoxCrosshairOuter.Location = new System.Drawing.Point(80, 117);
+            this.checkBoxCrosshairOuter.Location = new System.Drawing.Point(93, 135);
+            this.checkBoxCrosshairOuter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxCrosshairOuter.Name = "checkBoxCrosshairOuter";
-            this.checkBoxCrosshairOuter.Size = new System.Drawing.Size(98, 17);
+            this.checkBoxCrosshairOuter.Size = new System.Drawing.Size(108, 19);
             this.checkBoxCrosshairOuter.TabIndex = 5;
             this.checkBoxCrosshairOuter.Text = "Outer Crosshair";
             this.toolTipControls.SetToolTip(this.checkBoxCrosshairOuter, "Add a crosshair extruding from the plot icon.");
@@ -83,9 +84,10 @@
             // checkBoxCircle
             // 
             this.checkBoxCircle.AutoSize = true;
-            this.checkBoxCircle.Location = new System.Drawing.Point(6, 141);
+            this.checkBoxCircle.Location = new System.Drawing.Point(7, 163);
+            this.checkBoxCircle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxCircle.Name = "checkBoxCircle";
-            this.checkBoxCircle.Size = new System.Drawing.Size(52, 17);
+            this.checkBoxCircle.Size = new System.Drawing.Size(56, 19);
             this.checkBoxCircle.TabIndex = 3;
             this.checkBoxCircle.Text = "Circle";
             this.toolTipControls.SetToolTip(this.checkBoxCircle, "Add a circle shape to the plot icon.");
@@ -94,9 +96,10 @@
             // checkBoxCrosshairInner
             // 
             this.checkBoxCrosshairInner.AutoSize = true;
-            this.checkBoxCrosshairInner.Location = new System.Drawing.Point(80, 94);
+            this.checkBoxCrosshairInner.Location = new System.Drawing.Point(93, 108);
+            this.checkBoxCrosshairInner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxCrosshairInner.Name = "checkBoxCrosshairInner";
-            this.checkBoxCrosshairInner.Size = new System.Drawing.Size(96, 17);
+            this.checkBoxCrosshairInner.Size = new System.Drawing.Size(105, 19);
             this.checkBoxCrosshairInner.TabIndex = 4;
             this.checkBoxCrosshairInner.Text = "Inner Crosshair";
             this.toolTipControls.SetToolTip(this.checkBoxCrosshairInner, "Add a crosshair within the plot icon.");
@@ -105,9 +108,10 @@
             // checkBoxSquare
             // 
             this.checkBoxSquare.AutoSize = true;
-            this.checkBoxSquare.Location = new System.Drawing.Point(6, 118);
+            this.checkBoxSquare.Location = new System.Drawing.Point(7, 136);
+            this.checkBoxSquare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxSquare.Name = "checkBoxSquare";
-            this.checkBoxSquare.Size = new System.Drawing.Size(60, 17);
+            this.checkBoxSquare.Size = new System.Drawing.Size(62, 19);
             this.checkBoxSquare.TabIndex = 2;
             this.checkBoxSquare.Text = "Square";
             this.toolTipControls.SetToolTip(this.checkBoxSquare, "Add a square shape to the plot icon.");
@@ -116,9 +120,10 @@
             // checkBoxDiamond
             // 
             this.checkBoxDiamond.AutoSize = true;
-            this.checkBoxDiamond.Location = new System.Drawing.Point(6, 94);
+            this.checkBoxDiamond.Location = new System.Drawing.Point(7, 108);
+            this.checkBoxDiamond.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxDiamond.Name = "checkBoxDiamond";
-            this.checkBoxDiamond.Size = new System.Drawing.Size(68, 17);
+            this.checkBoxDiamond.Size = new System.Drawing.Size(75, 19);
             this.checkBoxDiamond.TabIndex = 1;
             this.checkBoxDiamond.Text = "Diamond";
             this.toolTipControls.SetToolTip(this.checkBoxDiamond, "Add a diamond shape to the plot icon.");
@@ -126,9 +131,10 @@
             // 
             // buttonApply
             // 
-            this.buttonApply.Location = new System.Drawing.Point(267, 343);
+            this.buttonApply.Location = new System.Drawing.Point(312, 396);
+            this.buttonApply.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(75, 23);
+            this.buttonApply.Size = new System.Drawing.Size(88, 27);
             this.buttonApply.TabIndex = 3;
             this.buttonApply.Text = "Apply";
             this.toolTipControls.SetToolTip(this.buttonApply, "Confirm and apply these settings.");
@@ -138,9 +144,10 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(348, 343);
+            this.buttonCancel.Location = new System.Drawing.Point(406, 396);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(88, 27);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.toolTipControls.SetToolTip(this.buttonCancel, "Discard any changes.");
@@ -153,9 +160,11 @@
             this.groupBoxColorPalette.Controls.Add(this.comboBoxPalette);
             this.groupBoxColorPalette.Controls.Add(this.buttonAddColor);
             this.groupBoxColorPalette.Controls.Add(this.listViewColorPalette);
-            this.groupBoxColorPalette.Location = new System.Drawing.Point(12, 141);
+            this.groupBoxColorPalette.Location = new System.Drawing.Point(14, 163);
+            this.groupBoxColorPalette.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxColorPalette.Name = "groupBoxColorPalette";
-            this.groupBoxColorPalette.Size = new System.Drawing.Size(209, 196);
+            this.groupBoxColorPalette.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxColorPalette.Size = new System.Drawing.Size(244, 226);
             this.groupBoxColorPalette.TabIndex = 1;
             this.groupBoxColorPalette.TabStop = false;
             this.groupBoxColorPalette.Text = "Color Palette";
@@ -163,9 +172,10 @@
             // 
             // buttonRemoveColor
             // 
-            this.buttonRemoveColor.Location = new System.Drawing.Point(97, 164);
+            this.buttonRemoveColor.Location = new System.Drawing.Point(113, 189);
+            this.buttonRemoveColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonRemoveColor.Name = "buttonRemoveColor";
-            this.buttonRemoveColor.Size = new System.Drawing.Size(105, 23);
+            this.buttonRemoveColor.Size = new System.Drawing.Size(122, 27);
             this.buttonRemoveColor.TabIndex = 3;
             this.buttonRemoveColor.Text = "Remove Selected";
             this.toolTipControls.SetToolTip(this.buttonRemoveColor, "Remove the selected color(s) from the palette.");
@@ -175,9 +185,10 @@
             // labelLoadPalette
             // 
             this.labelLoadPalette.AutoSize = true;
-            this.labelLoadPalette.Location = new System.Drawing.Point(6, 16);
+            this.labelLoadPalette.Location = new System.Drawing.Point(7, 18);
+            this.labelLoadPalette.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLoadPalette.Name = "labelLoadPalette";
-            this.labelLoadPalette.Size = new System.Drawing.Size(63, 13);
+            this.labelLoadPalette.Size = new System.Drawing.Size(68, 15);
             this.labelLoadPalette.TabIndex = 3;
             this.labelLoadPalette.Text = "Load preset";
             this.toolTipControls.SetToolTip(this.labelLoadPalette, "Choose a premade color palette.");
@@ -191,18 +202,20 @@
             "Colorblind (IBM)",
             "Colorblind (Wong)",
             "Colorblind (Tol)"});
-            this.comboBoxPalette.Location = new System.Drawing.Point(6, 32);
+            this.comboBoxPalette.Location = new System.Drawing.Point(7, 37);
+            this.comboBoxPalette.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxPalette.Name = "comboBoxPalette";
-            this.comboBoxPalette.Size = new System.Drawing.Size(197, 21);
+            this.comboBoxPalette.Size = new System.Drawing.Size(229, 23);
             this.comboBoxPalette.TabIndex = 0;
             this.toolTipControls.SetToolTip(this.comboBoxPalette, "Choose a premade color palette.");
             this.comboBoxPalette.SelectedIndexChanged += new System.EventHandler(this.ComboBoxColorPalette_SelectedIndexChanged);
             // 
             // buttonAddColor
             // 
-            this.buttonAddColor.Location = new System.Drawing.Point(6, 164);
+            this.buttonAddColor.Location = new System.Drawing.Point(7, 189);
+            this.buttonAddColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonAddColor.Name = "buttonAddColor";
-            this.buttonAddColor.Size = new System.Drawing.Size(85, 23);
+            this.buttonAddColor.Size = new System.Drawing.Size(99, 27);
             this.buttonAddColor.TabIndex = 2;
             this.buttonAddColor.Text = "Add Color";
             this.toolTipControls.SetToolTip(this.buttonAddColor, "Choose a new color to add to the palette.");
@@ -211,11 +224,11 @@
             // 
             // listViewColorPalette
             // 
-            this.listViewColorPalette.HideSelection = false;
             this.listViewColorPalette.LabelWrap = false;
-            this.listViewColorPalette.Location = new System.Drawing.Point(6, 59);
+            this.listViewColorPalette.Location = new System.Drawing.Point(7, 68);
+            this.listViewColorPalette.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listViewColorPalette.Name = "listViewColorPalette";
-            this.listViewColorPalette.Size = new System.Drawing.Size(197, 99);
+            this.listViewColorPalette.Size = new System.Drawing.Size(229, 114);
             this.listViewColorPalette.TabIndex = 1;
             this.toolTipControls.SetToolTip(this.listViewColorPalette, "The collection of colors which will be used to plot different items.");
             this.listViewColorPalette.UseCompatibleStateImageBehavior = false;
@@ -224,10 +237,11 @@
             // labelOpacityShadow
             // 
             this.labelOpacityShadow.AutoSize = true;
-            this.labelOpacityShadow.Location = new System.Drawing.Point(210, 70);
+            this.labelOpacityShadow.Location = new System.Drawing.Point(245, 81);
+            this.labelOpacityShadow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOpacityShadow.Name = "labelOpacityShadow";
             this.labelOpacityShadow.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelOpacityShadow.Size = new System.Drawing.Size(85, 13);
+            this.labelOpacityShadow.Size = new System.Drawing.Size(93, 15);
             this.labelOpacityShadow.TabIndex = 6;
             this.labelOpacityShadow.Text = "Shadow Opacity";
             this.toolTipControls.SetToolTip(this.labelOpacityShadow, "The opacity (apparent darkness) of a cast shadow.");
@@ -235,10 +249,11 @@
             // labelOpacity
             // 
             this.labelOpacity.AutoSize = true;
-            this.labelOpacity.Location = new System.Drawing.Point(228, 19);
+            this.labelOpacity.Location = new System.Drawing.Point(266, 22);
+            this.labelOpacity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOpacity.Name = "labelOpacity";
             this.labelOpacity.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelOpacity.Size = new System.Drawing.Size(67, 13);
+            this.labelOpacity.Size = new System.Drawing.Size(74, 15);
             this.labelOpacity.TabIndex = 4;
             this.labelOpacity.Text = "Icon Opacity";
             this.toolTipControls.SetToolTip(this.labelOpacity, "The opacity of the icon.");
@@ -246,9 +261,10 @@
             // trackBarIconWidth
             // 
             this.trackBarIconWidth.LargeChange = 1;
-            this.trackBarIconWidth.Location = new System.Drawing.Point(71, 70);
+            this.trackBarIconWidth.Location = new System.Drawing.Point(83, 81);
+            this.trackBarIconWidth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trackBarIconWidth.Name = "trackBarIconWidth";
-            this.trackBarIconWidth.Size = new System.Drawing.Size(104, 45);
+            this.trackBarIconWidth.Size = new System.Drawing.Size(121, 45);
             this.trackBarIconWidth.TabIndex = 1;
             this.toolTipControls.SetToolTip(this.trackBarIconWidth, "The width of the lines (and shadows) which form the plot icon.");
             this.trackBarIconWidth.Value = 1;
@@ -256,10 +272,11 @@
             // labelIconWidth
             // 
             this.labelIconWidth.AutoSize = true;
-            this.labelIconWidth.Location = new System.Drawing.Point(6, 70);
+            this.labelIconWidth.Location = new System.Drawing.Point(7, 81);
+            this.labelIconWidth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelIconWidth.Name = "labelIconWidth";
             this.labelIconWidth.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelIconWidth.Size = new System.Drawing.Size(59, 13);
+            this.labelIconWidth.Size = new System.Drawing.Size(65, 15);
             this.labelIconWidth.TabIndex = 10;
             this.labelIconWidth.Text = "Icon Width";
             this.toolTipControls.SetToolTip(this.labelIconWidth, "The width of the lines (and shadows) which form the plot icon.");
@@ -267,9 +284,10 @@
             // trackBarIconSize
             // 
             this.trackBarIconSize.LargeChange = 3;
-            this.trackBarIconSize.Location = new System.Drawing.Point(71, 19);
+            this.trackBarIconSize.Location = new System.Drawing.Point(83, 22);
+            this.trackBarIconSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trackBarIconSize.Name = "trackBarIconSize";
-            this.trackBarIconSize.Size = new System.Drawing.Size(104, 45);
+            this.trackBarIconSize.Size = new System.Drawing.Size(121, 45);
             this.trackBarIconSize.TabIndex = 0;
             this.toolTipControls.SetToolTip(this.trackBarIconSize, "The maximum diameter of the plot icon.");
             this.trackBarIconSize.Value = 1;
@@ -277,21 +295,22 @@
             // labelIconSize
             // 
             this.labelIconSize.AutoSize = true;
-            this.labelIconSize.Location = new System.Drawing.Point(14, 19);
+            this.labelIconSize.Location = new System.Drawing.Point(16, 22);
+            this.labelIconSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelIconSize.Name = "labelIconSize";
-            this.labelIconSize.Size = new System.Drawing.Size(51, 13);
+            this.labelIconSize.Size = new System.Drawing.Size(53, 15);
             this.labelIconSize.TabIndex = 10;
             this.labelIconSize.Text = "Icon Size";
             this.toolTipControls.SetToolTip(this.labelIconSize, "The maximum diameter of the plot icon.");
             // 
             // listViewShapePalette
             // 
-            this.listViewShapePalette.HideSelection = false;
             this.listViewShapePalette.LabelWrap = false;
-            this.listViewShapePalette.Location = new System.Drawing.Point(6, 19);
+            this.listViewShapePalette.Location = new System.Drawing.Point(7, 22);
+            this.listViewShapePalette.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listViewShapePalette.MultiSelect = false;
             this.listViewShapePalette.Name = "listViewShapePalette";
-            this.listViewShapePalette.Size = new System.Drawing.Size(184, 69);
+            this.listViewShapePalette.Size = new System.Drawing.Size(214, 79);
             this.listViewShapePalette.TabIndex = 0;
             this.toolTipControls.SetToolTip(this.listViewShapePalette, "The collection of shapes which will be used to plot different items.");
             this.listViewShapePalette.UseCompatibleStateImageBehavior = false;
@@ -301,9 +320,10 @@
             // trackBarIconOpacity
             // 
             this.trackBarIconOpacity.LargeChange = 3;
-            this.trackBarIconOpacity.Location = new System.Drawing.Point(301, 19);
+            this.trackBarIconOpacity.Location = new System.Drawing.Point(351, 22);
+            this.trackBarIconOpacity.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trackBarIconOpacity.Name = "trackBarIconOpacity";
-            this.trackBarIconOpacity.Size = new System.Drawing.Size(104, 45);
+            this.trackBarIconOpacity.Size = new System.Drawing.Size(121, 45);
             this.trackBarIconOpacity.TabIndex = 2;
             this.toolTipControls.SetToolTip(this.trackBarIconOpacity, "The opacity of the icon.");
             this.trackBarIconOpacity.Value = 1;
@@ -311,17 +331,19 @@
             // trackBarShadowOpacity
             // 
             this.trackBarShadowOpacity.LargeChange = 3;
-            this.trackBarShadowOpacity.Location = new System.Drawing.Point(301, 70);
+            this.trackBarShadowOpacity.Location = new System.Drawing.Point(351, 81);
+            this.trackBarShadowOpacity.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trackBarShadowOpacity.Name = "trackBarShadowOpacity";
-            this.trackBarShadowOpacity.Size = new System.Drawing.Size(104, 45);
+            this.trackBarShadowOpacity.Size = new System.Drawing.Size(121, 45);
             this.trackBarShadowOpacity.TabIndex = 5;
             this.toolTipControls.SetToolTip(this.trackBarShadowOpacity, "The opacity (apparent darkness) of a cast shadow.");
             // 
             // buttonRemoveShape
             // 
-            this.buttonRemoveShape.Location = new System.Drawing.Point(81, 164);
+            this.buttonRemoveShape.Location = new System.Drawing.Point(94, 189);
+            this.buttonRemoveShape.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonRemoveShape.Name = "buttonRemoveShape";
-            this.buttonRemoveShape.Size = new System.Drawing.Size(102, 23);
+            this.buttonRemoveShape.Size = new System.Drawing.Size(119, 27);
             this.buttonRemoveShape.TabIndex = 7;
             this.buttonRemoveShape.Text = "Remove Selected";
             this.toolTipControls.SetToolTip(this.buttonRemoveShape, "Remove the currently selected shape from the palette.");
@@ -330,9 +352,10 @@
             // 
             // buttonAddShape
             // 
-            this.buttonAddShape.Location = new System.Drawing.Point(6, 164);
+            this.buttonAddShape.Location = new System.Drawing.Point(7, 189);
+            this.buttonAddShape.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonAddShape.Name = "buttonAddShape";
-            this.buttonAddShape.Size = new System.Drawing.Size(69, 23);
+            this.buttonAddShape.Size = new System.Drawing.Size(80, 27);
             this.buttonAddShape.TabIndex = 6;
             this.buttonAddShape.Text = "Add Shape";
             this.toolTipControls.SetToolTip(this.buttonAddShape, "Add a new shape to the palette.");
@@ -341,9 +364,10 @@
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(12, 343);
+            this.buttonReset.Location = new System.Drawing.Point(14, 396);
+            this.buttonReset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(97, 23);
+            this.buttonReset.Size = new System.Drawing.Size(113, 27);
             this.buttonReset.TabIndex = 5;
             this.buttonReset.Text = "Reset to Default";
             this.toolTipControls.SetToolTip(this.buttonReset, "Reset all plot settings on this form to default values.");
@@ -353,9 +377,10 @@
             // checkBoxFill
             // 
             this.checkBoxFill.AutoSize = true;
-            this.checkBoxFill.Location = new System.Drawing.Point(80, 141);
+            this.checkBoxFill.Location = new System.Drawing.Point(93, 163);
+            this.checkBoxFill.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxFill.Name = "checkBoxFill";
-            this.checkBoxFill.Size = new System.Drawing.Size(72, 17);
+            this.checkBoxFill.Size = new System.Drawing.Size(76, 19);
             this.checkBoxFill.TabIndex = 8;
             this.checkBoxFill.Text = "Fill Shape";
             this.toolTipControls.SetToolTip(this.checkBoxFill, "Fill hollow shapes with solid color.");
@@ -371,9 +396,11 @@
             this.groupBoxIconSettings.Controls.Add(this.labelOpacity);
             this.groupBoxIconSettings.Controls.Add(this.trackBarIconSize);
             this.groupBoxIconSettings.Controls.Add(this.labelIconSize);
-            this.groupBoxIconSettings.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxIconSettings.Location = new System.Drawing.Point(14, 14);
+            this.groupBoxIconSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxIconSettings.Name = "groupBoxIconSettings";
-            this.groupBoxIconSettings.Size = new System.Drawing.Size(411, 123);
+            this.groupBoxIconSettings.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxIconSettings.Size = new System.Drawing.Size(479, 142);
             this.groupBoxIconSettings.TabIndex = 0;
             this.groupBoxIconSettings.TabStop = false;
             this.groupBoxIconSettings.Text = "Icon Settings";
@@ -389,9 +416,11 @@
             this.groupBoxIconPalette.Controls.Add(this.checkBoxDiamond);
             this.groupBoxIconPalette.Controls.Add(this.checkBoxCrosshairInner);
             this.groupBoxIconPalette.Controls.Add(this.checkBoxSquare);
-            this.groupBoxIconPalette.Location = new System.Drawing.Point(227, 141);
+            this.groupBoxIconPalette.Location = new System.Drawing.Point(265, 163);
+            this.groupBoxIconPalette.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxIconPalette.Name = "groupBoxIconPalette";
-            this.groupBoxIconPalette.Size = new System.Drawing.Size(196, 196);
+            this.groupBoxIconPalette.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxIconPalette.Size = new System.Drawing.Size(229, 226);
             this.groupBoxIconPalette.TabIndex = 2;
             this.groupBoxIconPalette.TabStop = false;
             this.groupBoxIconPalette.Text = "Icon Shape Palette";
@@ -399,10 +428,10 @@
             // FormPlotStyleSettings
             // 
             this.AcceptButton = this.buttonApply;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(434, 377);
+            this.ClientSize = new System.Drawing.Size(506, 435);
             this.Controls.Add(this.groupBoxIconSettings);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.groupBoxColorPalette);
@@ -411,6 +440,7 @@
             this.Controls.Add(this.buttonApply);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormPlotStyleSettings";
