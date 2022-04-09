@@ -35,6 +35,7 @@ namespace Mappalachia
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.militaryStyleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,7 +105,7 @@ namespace Mappalachia
             this.listBoxNPC = new System.Windows.Forms.ListBox();
             this.buttonDrawMap = new System.Windows.Forms.Button();
             this.labelSearchResults = new System.Windows.Forms.Label();
-            this.tabControlStandardNPCJunk = new System.Windows.Forms.TabControl();
+            this.tabControlMainSearch = new System.Windows.Forms.TabControl();
             this.tabPageSpace = new System.Windows.Forms.TabPage();
             this.pictureBoxSpaceFiller = new System.Windows.Forms.PictureBox();
             this.checkBoxSpaceDrawOutline = new System.Windows.Forms.CheckBox();
@@ -129,12 +130,11 @@ namespace Mappalachia
             this.buttonAddToLegend = new System.Windows.Forms.Button();
             this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
             this.progressBarMain = new System.Windows.Forms.ProgressBar();
-            this.updateMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNPCSpawnThreshold)).BeginInit();
-            this.tabControlStandardNPCJunk.SuspendLayout();
+            this.tabControlMainSearch.SuspendLayout();
             this.tabPageSpace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpaceFiller)).BeginInit();
             this.groupBoxHeightCropping.SuspendLayout();
@@ -185,10 +185,17 @@ namespace Mappalachia
             this.mapMenuItem.Size = new System.Drawing.Size(43, 20);
             this.mapMenuItem.Text = "Map";
             // 
+            // updateMapToolStripMenuItem
+            // 
+            this.updateMapToolStripMenuItem.Name = "updateMapToolStripMenuItem";
+            this.updateMapToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.updateMapToolStripMenuItem.Text = "Update Map";
+            this.updateMapToolStripMenuItem.Click += new System.EventHandler(this.Map_UpdateMap);
+            // 
             // viewMenuItem
             // 
             this.viewMenuItem.Name = "viewMenuItem";
-            this.viewMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewMenuItem.Size = new System.Drawing.Size(175, 22);
             this.viewMenuItem.Text = "View...";
             this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
             this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
@@ -196,7 +203,7 @@ namespace Mappalachia
             // brightnessMenuItem
             // 
             this.brightnessMenuItem.Name = "brightnessMenuItem";
-            this.brightnessMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.brightnessMenuItem.Size = new System.Drawing.Size(175, 22);
             this.brightnessMenuItem.Text = "Adjust Brightness...";
             this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
             this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
@@ -204,7 +211,7 @@ namespace Mappalachia
             // militaryStyleMenuItem
             // 
             this.militaryStyleMenuItem.Name = "militaryStyleMenuItem";
-            this.militaryStyleMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.militaryStyleMenuItem.Size = new System.Drawing.Size(175, 22);
             this.militaryStyleMenuItem.Text = "Military Style";
             this.militaryStyleMenuItem.ToolTipText = "Swap the Appalachia map for the version found on the Targeting Computer and in Tr" +
     "ain Stations.";
@@ -213,7 +220,7 @@ namespace Mappalachia
             // grayscaleMenuItem
             // 
             this.grayscaleMenuItem.Name = "grayscaleMenuItem";
-            this.grayscaleMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.grayscaleMenuItem.Size = new System.Drawing.Size(175, 22);
             this.grayscaleMenuItem.Text = "Grayscale";
             this.grayscaleMenuItem.ToolTipText = "Toggle if the underlying map image is in grayscale or full color.";
             this.grayscaleMenuItem.Click += new System.EventHandler(this.Map_Grayscale);
@@ -221,7 +228,7 @@ namespace Mappalachia
             // showMapMarkersMenuItem
             // 
             this.showMapMarkersMenuItem.Name = "showMapMarkersMenuItem";
-            this.showMapMarkersMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showMapMarkersMenuItem.Size = new System.Drawing.Size(175, 22);
             this.showMapMarkersMenuItem.Text = "Show Map Markers";
             this.showMapMarkersMenuItem.ToolTipText = "Draw the labels for named locations on the map.";
             this.showMapMarkersMenuItem.Click += new System.EventHandler(this.Map_ShowMapMarkers);
@@ -229,7 +236,7 @@ namespace Mappalachia
             // hideLegendMenuItem
             // 
             this.hideLegendMenuItem.Name = "hideLegendMenuItem";
-            this.hideLegendMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hideLegendMenuItem.Size = new System.Drawing.Size(175, 22);
             this.hideLegendMenuItem.Text = "Hide Legend";
             this.hideLegendMenuItem.ToolTipText = "Do not draw the legend on the left of the map image.";
             this.hideLegendMenuItem.Click += new System.EventHandler(this.Map_HideLegend);
@@ -237,7 +244,7 @@ namespace Mappalachia
             // exportToFileMenuItem
             // 
             this.exportToFileMenuItem.Name = "exportToFileMenuItem";
-            this.exportToFileMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToFileMenuItem.Size = new System.Drawing.Size(175, 22);
             this.exportToFileMenuItem.Text = "Export To File...";
             this.exportToFileMenuItem.ToolTipText = "Save the current map image to a file.";
             this.exportToFileMenuItem.Click += new System.EventHandler(this.Map_Export);
@@ -245,7 +252,7 @@ namespace Mappalachia
             // clearMenuItem
             // 
             this.clearMenuItem.Name = "clearMenuItem";
-            this.clearMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearMenuItem.Size = new System.Drawing.Size(175, 22);
             this.clearMenuItem.Text = "Clear";
             this.clearMenuItem.ToolTipText = "Remove all mapped items from the legend and update the map.";
             this.clearMenuItem.Click += new System.EventHandler(this.Map_Clear);
@@ -253,7 +260,7 @@ namespace Mappalachia
             // resetMenuItem
             // 
             this.resetMenuItem.Name = "resetMenuItem";
-            this.resetMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetMenuItem.Size = new System.Drawing.Size(175, 22);
             this.resetMenuItem.Text = "Reset";
             this.resetMenuItem.ToolTipText = "Completely reset the map.";
             this.resetMenuItem.Click += new System.EventHandler(this.Map_Reset);
@@ -644,7 +651,7 @@ namespace Mappalachia
             this.buttonSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(142, 27);
-            this.buttonSearch.TabIndex = 3;
+            this.buttonSearch.TabIndex = 1;
             this.buttonSearch.Text = "Standard Search";
             this.toolTipControls.SetToolTip(this.buttonSearch, "Search for the given text.");
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -657,7 +664,7 @@ namespace Mappalachia
             this.textBoxSearch.MaxLength = 100;
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(201, 23);
-            this.textBoxSearch.TabIndex = 2;
+            this.textBoxSearch.TabIndex = 0;
             this.toolTipControls.SetToolTip(this.textBoxSearch, "The name to be searched for.");
             this.textBoxSearch.WordWrap = false;
             // 
@@ -770,7 +777,7 @@ namespace Mappalachia
             this.gridViewLegend.RowHeadersVisible = false;
             this.gridViewLegend.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridViewLegend.Size = new System.Drawing.Size(819, 180);
-            this.gridViewLegend.TabIndex = 7;
+            this.gridViewLegend.TabIndex = 5;
             this.gridViewLegend.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellEndEdit);
             this.gridViewLegend.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridViewLegend_CellMouseEnter);
             // 
@@ -900,21 +907,21 @@ namespace Mappalachia
             this.labelSearchResults.TabIndex = 0;
             this.labelSearchResults.Text = "Search Results";
             // 
-            // tabControlStandardNPCJunk
+            // tabControlMainSearch
             // 
-            this.tabControlStandardNPCJunk.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tabControlStandardNPCJunk.Controls.Add(this.tabPageSpace);
-            this.tabControlStandardNPCJunk.Controls.Add(this.tabPageStandard);
-            this.tabControlStandardNPCJunk.Controls.Add(this.tabPageNpcScrapSearch);
-            this.tabControlStandardNPCJunk.Location = new System.Drawing.Point(109, 0);
-            this.tabControlStandardNPCJunk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabControlStandardNPCJunk.MaximumSize = new System.Drawing.Size(9999, 380);
-            this.tabControlStandardNPCJunk.Name = "tabControlStandardNPCJunk";
-            this.tabControlStandardNPCJunk.SelectedIndex = 0;
-            this.tabControlStandardNPCJunk.ShowToolTips = true;
-            this.tabControlStandardNPCJunk.Size = new System.Drawing.Size(612, 292);
-            this.tabControlStandardNPCJunk.TabIndex = 0;
-            this.tabControlStandardNPCJunk.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
+            this.tabControlMainSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tabControlMainSearch.Controls.Add(this.tabPageSpace);
+            this.tabControlMainSearch.Controls.Add(this.tabPageStandard);
+            this.tabControlMainSearch.Controls.Add(this.tabPageNpcScrapSearch);
+            this.tabControlMainSearch.Location = new System.Drawing.Point(109, 0);
+            this.tabControlMainSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabControlMainSearch.MaximumSize = new System.Drawing.Size(9999, 380);
+            this.tabControlMainSearch.Name = "tabControlMainSearch";
+            this.tabControlMainSearch.SelectedIndex = 0;
+            this.tabControlMainSearch.ShowToolTips = true;
+            this.tabControlMainSearch.Size = new System.Drawing.Size(612, 292);
+            this.tabControlMainSearch.TabIndex = 0;
+            this.tabControlMainSearch.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
             // tabPageSpace
             // 
@@ -954,7 +961,7 @@ namespace Mappalachia
             this.checkBoxSpaceDrawOutline.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxSpaceDrawOutline.Name = "checkBoxSpaceDrawOutline";
             this.checkBoxSpaceDrawOutline.Size = new System.Drawing.Size(95, 19);
-            this.checkBoxSpaceDrawOutline.TabIndex = 8;
+            this.checkBoxSpaceDrawOutline.TabIndex = 5;
             this.checkBoxSpaceDrawOutline.Text = "Draw Outline";
             this.toolTipControls.SetToolTip(this.checkBoxSpaceDrawOutline, "Renders a subtle outline of all items in the cell as a background to visualize th" +
         "e cell structure.");
@@ -1086,7 +1093,7 @@ namespace Mappalachia
             this.groupBoxFilterByLockLevel.Name = "groupBoxFilterByLockLevel";
             this.groupBoxFilterByLockLevel.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxFilterByLockLevel.Size = new System.Drawing.Size(198, 221);
-            this.groupBoxFilterByLockLevel.TabIndex = 1;
+            this.groupBoxFilterByLockLevel.TabIndex = 3;
             this.groupBoxFilterByLockLevel.TabStop = false;
             this.groupBoxFilterByLockLevel.Text = "Filter by lock level";
             // 
@@ -1103,7 +1110,7 @@ namespace Mappalachia
             this.groupBoxFilterByCategory.Name = "groupBoxFilterByCategory";
             this.groupBoxFilterByCategory.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxFilterByCategory.Size = new System.Drawing.Size(384, 221);
-            this.groupBoxFilterByCategory.TabIndex = 0;
+            this.groupBoxFilterByCategory.TabIndex = 2;
             this.groupBoxFilterByCategory.TabStop = false;
             this.groupBoxFilterByCategory.Text = "Filter by category";
             // 
@@ -1167,7 +1174,7 @@ namespace Mappalachia
             // pictureBoxMapPreview
             // 
             this.pictureBoxMapPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.pictureBoxMapPreview.Location = new System.Drawing.Point(8, 0);
+            this.pictureBoxMapPreview.Location = new System.Drawing.Point(5, 0);
             this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
             this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1194,7 +1201,7 @@ namespace Mappalachia
             this.splitContainerMain.Panel1.Controls.Add(this.checkBoxAddAsGroup);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonRemoveFromLegend);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonAddToLegend);
-            this.splitContainerMain.Panel1.Controls.Add(this.tabControlStandardNPCJunk);
+            this.splitContainerMain.Panel1.Controls.Add(this.tabControlMainSearch);
             this.splitContainerMain.Panel1.Controls.Add(this.gridViewSearchResults);
             this.splitContainerMain.Panel1.Controls.Add(this.gridViewLegend);
             this.splitContainerMain.Panel1.Controls.Add(this.labelSearchResults);
@@ -1263,13 +1270,6 @@ namespace Mappalachia
             this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarMain.TabIndex = 7;
             // 
-            // updateMapToolStripMenuItem
-            // 
-            this.updateMapToolStripMenuItem.Name = "updateMapToolStripMenuItem";
-            this.updateMapToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.updateMapToolStripMenuItem.Text = "Update Map";
-            this.updateMapToolStripMenuItem.Click += new System.EventHandler(this.Map_UpdateMap);
-            // 
             // FormMaster
             // 
             this.AcceptButton = this.buttonSearch;
@@ -1292,7 +1292,7 @@ namespace Mappalachia
             ((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNPCSpawnThreshold)).EndInit();
-            this.tabControlStandardNPCJunk.ResumeLayout(false);
+            this.tabControlMainSearch.ResumeLayout(false);
             this.tabPageSpace.ResumeLayout(false);
             this.tabPageSpace.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpaceFiller)).EndInit();
@@ -1354,7 +1354,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem clearMenuItem;
 		private System.Windows.Forms.Label labelSearchResults;
 		private System.Windows.Forms.ToolStripMenuItem plotSettingsMenuItem;
-		private System.Windows.Forms.TabControl tabControlStandardNPCJunk;
+		private System.Windows.Forms.TabControl tabControlMainSearch;
 		private System.Windows.Forms.TabPage tabPageStandard;
 		private System.Windows.Forms.TabPage tabPageNpcScrapSearch;
 		private System.Windows.Forms.GroupBox groupBoxFilterByLockLevel;
