@@ -16,14 +16,16 @@ namespace Mappalachia.Class
 		public int zMin;
 		public int zMax;
 		public double heightRange;
+		bool isWorldsapce;
 
 		List<int> zPlots;
 
-		public Space(string formID, string editorID, string displayName)
+		public Space(string formID, string editorID, string displayName, bool isWorldspace)
 		{
 			this.formID = formID;
 			this.editorID = editorID;
 			this.displayName = displayName;
+			this.isWorldsapce = isWorldspace;
 		}
 
 		// Gets the plotting data and coordinate extremities
@@ -111,7 +113,7 @@ namespace Mappalachia.Class
 		// Returns if this Space is a Worldspace
 		public bool IsWorldspace()
 		{
-			return editorID == "Appalachia";
+			return isWorldsapce;
 		}
 	}
 }

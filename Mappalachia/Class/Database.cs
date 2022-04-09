@@ -128,7 +128,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetString(2)));
+				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3) == 1));
 			}
 
 			return spaces;
