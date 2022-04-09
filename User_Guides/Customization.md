@@ -30,11 +30,11 @@ At the bottom of the form are two collections or 'Palettes' - of colors and shap
 These palettes are used to determine the available combinations of shapes and colors that will be used to plot items on the map.<br/>
 Mappalachia will draw from this palette of colors - and/or shapes depending on the plotting mode - to define the visual style of map plots. Where appropriate, it will cycle through combinations of colors and/or shapes in order to generate new plots as necessary.
 
-On the left hand side is the color palette used to varying extents in all plotting modes.</br>
-You may add or remove colors to the palette, or select a premade palette using the drop-down.</br>
+On the left hand side is the color palette used to varying extents in all plotting modes.<br/>
+You may add or remove colors to the palette, or select a premade palette using the drop-down.<br/>
 You can bulk-remove colors by selecting multiple before pressing remove.<br/>
 
-On the right hand side is the shape palette, used when in Icon or Topography mode.</br>
+On the right hand side is the shape palette, used when in Icon or Topography mode.<br/>
 You can cycle through the settings for each shape by selecting each shape in the list view. Adjust the settings of each shape by toggling the shape checkboxes while it is selected. If you add a new shape it will be created with random settings, which you can later edit. You may also remove the selected shape by pressing 'Remove Selected'.
 
 You can reset all Plot Style Settings by pressing Reset to Default in the bottom left.

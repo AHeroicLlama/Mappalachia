@@ -1,4 +1,4 @@
-# Advanced Mappalachia Mapping functions
+# Mappalachia Plotting functions
 
 ## Plotting Modes
 Mappalachia has three plotting modes - these are Icon mode (on by default), Heatmap mode, and Topography mode. You can toggle these modes by navigating to Plot Settings > Plot Mode.<br/>
@@ -7,12 +7,12 @@ Mappalachia has three plotting modes - these are Icon mode (on by default), Heat
 Icon mode is the default plotting function, and selected items will be mapped using a unique set of pre-defined shapes and colors. It is the most customizable option.
 
 ## Topography Mode
-Topography mode is similar to Icon mode, except it uses varying colors to visualize the altitude of plotted items. You can select from 2-5 of the first colors defined in the color palette to distinguish the altitude of plotted items. A scale on the right will show which color represents which altitude band (see Colors and shapes above, and Topography Color Bands below). Due to using varying colors, Topographic plot mode uses icon shapes alone to distinguish between different legend items.<br/>
-For items with bounds (volumes), their highest edge is used to determine their height.<br/>
-Topographic plotting can be slower than other modes since a unique icon must be created for each individual instance.
+Topography mode is similar to Icon mode, except it uses varying colors to visualize the altitude of plotted items. You can select from 2-5 of the first colors defined in the color palette to distinguish the altitude of plotted items. A scale on the right will show which color represents which altitude band (see [Customization](Customization.md) or 'Topography Color Bands' below for more). Due to using varying colors, Topographic plot mode uses icon shapes alone to distinguish between different legend items.<br/>
+For items with bounds (volumes), their highest edge is used to determine their height.
 
 ### Topography Color Bands
-Under Plot Settings > Topography Color Bands you can select the number of unique colors chosen as the altitude key from the color palette. You may select from 2-5 colors and it is generally recommend to use more colors for more dense maps and vice-versa. If your color palette contains less colors than the selected value, then only the colors present will be used.
+Under Plot Settings > Topography Color Bands you can select the number of unique colors chosen as the altitude key from the color palette. You may select from 2-5 colors and it is generally recommend to use more colors for more dense maps and vice-versa.<br/>
+If your color palette contains less colors than the selected value, then only the colors present will be used.
 
 ## Heatmap Mode
 When in Heatmap mode, Mappalachia will represent the density of items with an intensity of color on the map.<br/>
