@@ -734,6 +734,12 @@ namespace Mappalachia
 		// All Methods which represent responses to UI input
 		#region UI Controls
 
+		// Map > Update Map - analogous to update map button - draw the map
+		private void Map_UpdateMap(object sender, EventArgs e)
+		{
+			DrawMap(false);
+		}
+
 		// Map > View - Write the map image to disk and launch in default program
 		void Map_View(object sender, EventArgs e)
 		{
