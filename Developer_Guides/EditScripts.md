@@ -14,10 +14,10 @@ The Pascal scripts found in `\FO76Edit\Edit Scripts\` are built specifically to 
 
 ### Installing FO76Edit
 FO76Edit is not distributed in this repository and you will need to grab it online.<br/>
-There are a few versions of FO76Edit available. The 'official' version is [available on NexusMods](https://www.nexusmods.com/fallout76/mods/30). However as of writing this version has not received updates for over a year.
-For a more up to date version, user Eckserah has spent significant time maintaining an up to date version mostly in line with Bethesda's patches. This version is [available via NukaCrypt](https://nukacrypt.com/ecksedit/latest).<br/>
+The 'official' version of FO76Edit is [available on NexusMods](https://www.nexusmods.com/fallout76/mods/30).<br/>
+However for a more regularly updated version, user Eckserah has spent significant time maintaining an up to date version mostly in line with Bethesda's patches. This version is [available via NukaCrypt](https://nukacrypt.com/ecksedit/latest).<br/>
 *Please note these are third party links. While I personally trust them, I can provide no guarantees.*<br/>
-<br/>
+
 Once you have downloaded FO76Edit, you should simply be able to dump the contents of the zip into the `\FO76Edit\` folder. (You will note that the `Edit Scripts\` folder is already in place, populated with Mappalachia scripts).<br/>
 
 ### Launching FO76Edit
