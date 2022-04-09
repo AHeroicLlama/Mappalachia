@@ -16,7 +16,7 @@ It carries out several key steps;
 You simply need to build and run the preprocessor exe. There are no arguments or inputs required. The preprocessor assumes you have run the export scripts and have left the outputted CSVs where they were exported to.<br/>
 Much like the export scripts, once complete the preprocessor will generate a new folder, `\Preprocessor\Output\` which contains 6 preprocessed CSVs.<br/>
 If any issues arise (most likely due to failing validation, after a new game update changes something), they will be reported to the console via a raised Exception.<br/>
-*Please note: Due to being heavily parallelized, the preprocessor tends to allocate around 7GB memory (and is therefore configured as 64-bit).*
+*Please note: Due to being heavily parallelized, the preprocessor tends to allocate around 8GB memory (and is therefore configured as 64-bit).*
 
 ### Next steps
 Once the data has been preprocessed, it can now be ingested into the database, please see [Ingest.md](Ingest.md)
