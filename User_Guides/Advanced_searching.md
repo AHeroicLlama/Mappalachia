@@ -17,7 +17,7 @@ Finally, data miners and modders will find that you are able to search for items
 
 ## Searching in all Spaces
 By navigating to Search Settings and toggling on 'Search in all Spaces' you can see search results from every accessible location in-game, both surface world and indoors.<br/>
-You cannot however plot items which belong to a different space than the one currently selected. To learn more about making maps for other spaces, please see [**Interiors and other Spaces**](Choosing_spaces.md).
+You cannot however plot items which belong to a different space than the one currently selected. To learn more about making maps for other spaces, please see [Interiors and other Spaces](Choosing_spaces.md).
 
 ## NPC Search
 By changing the tab at the top to 'NPC or Scrap Search' you may use a separate search which can intelligently indicate NPC spawns, most notably including the many cases where NPC Spawns are not guaranteed but instead selected from a pool of options.<br/>

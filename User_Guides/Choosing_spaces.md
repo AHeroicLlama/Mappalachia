@@ -3,8 +3,9 @@
 Under the 'Select Space' tab, you may choose to make maps of any accessible in-game space, instead of the usual Appalachia overworld.
 
 ## Choosing a space
-You can select a space to map using the drop-down in the 'Select Space' tab. When you change your selected space, the map will automatically reset to the most appropriate background.</br>
-Unless you have 'Search Settings > Search in all Spaces' selected, all search results are constrained to items within the selected space.
+You can select a space to map using the drop-down in the 'Select Space' tab. When you change your selected space, the map will automatically reset to the most appropriate background.<br/>
+Unless you have 'Search Settings > Search in all Spaces' selected, all search results are constrained to items within the selected space.<br/>
+You can quick-swap to a different space by double clicking its name in the search results grid.
 
 ## Space-specific settings
 Some settings are specific to certain spaces, and may be disabled depending on your selected space - they are;
@@ -22,6 +23,6 @@ In a multi-floor interior you will typically be able to see distinct spikes at c
 Using the information from the height distribution, you can now adjust the minimum and maximum height percentages which you wish to map for. This will also adjust the outline if it is enabled.
 
 ## Additional info
-When the selected space is not an exterior world, Mappalachia adds some extra info to the map.</br>
+When the selected space is not an exterior world, Mappalachia adds some extra info to the map.<br/>
 You will see the current space, selected height distribution and scale are provided.<br/>
 The scale is auto-calculated by Mappalachia, and it represents the best fit possible while still containing everything within the cell. The ratio relates to the size versus the normal Appalachia map.
