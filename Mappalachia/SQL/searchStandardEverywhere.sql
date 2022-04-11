@@ -7,4 +7,4 @@ WHERE
 lockLevel IN ($allowedLockTypes) AND
 (EditorId LIKE $searchTerm ESCAPE '\' OR displayName LIKE $searchTerm ESCAPE '\' OR referenceFormId LIKE $searchTerm ESCAPE '\'))
 
-ORDER BY Standard_Search.spaceFormId = $spaceFormId DESC, amount DESC
+ORDER BY Standard_Search.spaceFormId = $spaceFormID DESC, amount DESC
