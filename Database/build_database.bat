@@ -52,6 +52,9 @@ sqlite3.exe %databaseFile% < sql/buildCombinedTables.sql
 echo Dropping once used tables...
 sqlite3.exe %databaseFile% < sql/dropUnused.sql
 
+echo Applying basic compression...
+sqlite3.exe %databaseFile% < sql/compress.sql
+
 echo Vacuum packing database...
 sqlite3.exe %databaseFile% VACUUM
 
