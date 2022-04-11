@@ -69,7 +69,7 @@ namespace Mappalachia
 			UpdateMapShowMapMarkers(false);
 			UpdateHideLegend(false);
 			UpdateShowFormID();
-			UpdateSearchInAllSpaces();
+			UpdateSearchInAllSpaces(false);
 			UpdateSpawnChance();
 
 			Map.SetOutput(pictureBoxMapPreview);
@@ -450,9 +450,14 @@ namespace Mappalachia
 			gridViewSearchResults.Columns["columnSearchFormID"].Visible = SettingsSearch.showFormID;
 		}
 
-		void UpdateSearchInAllSpaces()
+		void UpdateSearchInAllSpaces(bool searchAgain)
 		{
 			searchInAllSpacesMenuItem.Checked = SettingsSearch.searchInAllSpaces;
+
+			if (searchAgain)
+            {
+				AcceptButton.PerformClick();
+            }
 		}
 
 		// Update the minimum spawn chance % value on the NPC Search tab
@@ -834,7 +839,7 @@ namespace Mappalachia
 		private void Search_SearchInAllSpaces(object sender, EventArgs e)
 		{
 			SettingsSearch.searchInAllSpaces = !SettingsSearch.searchInAllSpaces;
-			UpdateSearchInAllSpaces();
+			UpdateSearchInAllSpaces(true);
 		}
 
 		// Plot Settings > Mode > Icon - Change plot mode to icon
@@ -1589,7 +1594,13 @@ namespace Mappalachia
 		}
 
 		// Change the default enter action depending on the currently selected control
-		void ListBoxNPC_MouseEnter(object sender, EventArgs e)
+		void SetAcceptButtonScrap(object sender, EventArgs e)
+		{
+			AcceptButton = buttonSearchScrap;
+		}
+
+		// Change the default enter action depending on the currently selected control
+		void SetAcceptButtonNPC(object sender, EventArgs e)
 		{
 			AcceptButton = buttonSearchNPC;
 		}
@@ -1598,12 +1609,6 @@ namespace Mappalachia
 		void NumericUpDownNPCSpawnThreshold_MouseEnter(object sender, EventArgs e)
 		{
 			AcceptButton = buttonSearchNPC;
-		}
-
-		// Change the default enter action depending on the currently selected control
-		void ListBoxScrap_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			AcceptButton = buttonSearchScrap;
 		}
 
 		// Change the default enter action depending on the currently selected control

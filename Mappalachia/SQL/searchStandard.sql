@@ -6,6 +6,6 @@ WHERE
 (category IN ($allowedSignatures) AND
 lockLevel IN ($allowedLockTypes) AND
 (EditorId LIKE $searchTerm ESCAPE '\' OR displayName LIKE $searchTerm ESCAPE '\' OR referenceFormId LIKE $searchTerm ESCAPE '\')
-AND Standard_Search.spaceFormId = $spaceFormId)
+AND Standard_Search.spaceFormId = $spaceFormID)
 
 ORDER BY amount DESC
