@@ -17,7 +17,7 @@ namespace Mappalachia
 			textBoxDescription.Text = AssemblyDescription + "\r\nDatabase game version: " + IOManager.GetGameVersion();
 		}
 
-		public string AssemblyTitle
+		public static string AssemblyTitle
 		{
 			get
 			{
@@ -31,13 +31,13 @@ namespace Mappalachia
 					}
 				}
 
-				return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+				return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
 			}
 		}
 
-		public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-		public string AssemblyDescription
+		public static string AssemblyDescription
 		{
 			get
 			{
@@ -46,7 +46,7 @@ namespace Mappalachia
 			}
 		}
 
-		public string AssemblyProduct
+		public static string AssemblyProduct
 		{
 			get
 			{
@@ -55,7 +55,7 @@ namespace Mappalachia
 			}
 		}
 
-		public string AssemblyCopyright
+		public static string AssemblyCopyright
 		{
 			get
 			{
@@ -64,7 +64,7 @@ namespace Mappalachia
 			}
 		}
 
-		public string AssemblyCompany
+		public static string AssemblyCompany
 		{
 			get
 			{
