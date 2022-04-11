@@ -262,7 +262,7 @@ namespace Mappalachia
 				query.Parameters.Clear();
 				query.Parameters.AddWithValue("$npc", searchTerm);
 				query.Parameters.AddWithValue("$chance", minChance / 100.00);
-				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+				query.Parameters.AddWithValue("$spaceFormId", spaceFormID);
 
 				SqliteDataReader reader = query.ExecuteReader();
 
@@ -337,7 +337,7 @@ namespace Mappalachia
 				query.CommandText = allSpaces ? Properties.Resources.searchScrapEverywhere : Properties.Resources.searchScrap;
 				query.Parameters.Clear();
 				query.Parameters.AddWithValue("$scrap", searchTerm);
-				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+				query.Parameters.AddWithValue("$spaceFormId", spaceFormID);
 
 				SqliteDataReader reader = query.ExecuteReader();
 

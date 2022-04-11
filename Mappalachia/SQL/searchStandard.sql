@@ -8,4 +8,4 @@ lockLevel IN ($allowedLockTypes) AND
 (EditorId LIKE $searchTerm ESCAPE '\' OR displayName LIKE $searchTerm ESCAPE '\' OR referenceFormId LIKE $searchTerm ESCAPE '\')
 AND Standard_Search.spaceFormId = $spaceFormId)
 
-ORDER BY isWorldspace DESC, amount DESC
+ORDER BY amount DESC

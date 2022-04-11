@@ -3,4 +3,4 @@ FROM Scrap_Search
 INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID
 WHERE component = $scrap
 GROUP BY spaceEditorId
-ORDER BY isWorldspace DESC, amount DESC
+ORDER BY Scrap_Search.spaceFormID = $spaceFormId DESC, amount DESC
