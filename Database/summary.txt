@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-7c14c98638763edbc7c605241bb0556c
+d6d52b05c17acd382751014c8c5ba731
 ==File Size== 
-448053248 
+372318208 
 ==Tables== 
 Entity_Info      Map_Markers      Scrap_Search   
 Game_Version     NPC_Search       Space_Info     
@@ -6090,7 +6090,7 @@ WatogaMunicipalCenter01|Scorched|1.0|9
 WendigoCave01|Mirelurk|1.0|14
 WestTek01|Super Mutant|1.0|41
 ==Space Info==
-0025DA15|Appalachia|Appalachia|1
+|Appalachia|Appalachia|1
 003E3FFA|ThunderMtPowerPlant01|Thunder Mountain Power|0
 005A7C2E|FortAtlasDungeon01|Atlas Substructure|0
 005B1E4A|SheltersVaultLivingQuarters01|Vault Quarters Shelter|0
