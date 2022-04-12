@@ -625,7 +625,7 @@ namespace Mappalachia
             this.columnSearchAmount.HeaderText = "Amount";
             this.columnSearchAmount.Name = "columnSearchAmount";
             this.columnSearchAmount.ReadOnly = true;
-            this.columnSearchAmount.ToolTipText = "The amount \"The amount of instances which can be found in the listed location.";
+            this.columnSearchAmount.ToolTipText = "The amount of instances which can be found in the listed location.";
             // 
             // columnSearchLocation
             // 
