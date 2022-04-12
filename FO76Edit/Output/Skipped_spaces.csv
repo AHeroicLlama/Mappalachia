@@ -176,6 +176,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00530EBC,zCUTMonongahMissileSilo01OLD,Missile Silo Bravo,0
 00587BCC,zCUTTestTheWaywardExt,Quick Test Cell,0
 00602FAC,PackInSheltersEntranceVaultServerRoomLargeStorageCell,,0
+00651080,PackInATXWavvyWillardsWaterBedPackInStorageCell,,0
 00083FFE,PackInLvlStingwingAmbushWallPackInStorageCell,,0
 000A5E92,PackInLvlRadStagDefaultPackInStorageCell,,0
 000CFD46,COPY0285,,0
@@ -768,6 +769,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005A2209,zCUTDebugMattO,Quick Test Cell,0
 005EB0D5,,,0
 00605011,PackInATXFenceGateRedCedarDying128PKINStorageCell,,0
+0064D2C1,PackInATXWavyWilardsWaterbedPKINStorageCell,,0
 0000DAFF,zCUTVault96,Vault 96,0
 0003A2B7,,,0
 00085D43,PackInPACKToxicShrubGroupSm04StorageCell,,0
