@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-d6d52b05c17acd382751014c8c5ba731
+1c34eb6563bf655578301c2f2c259526
 ==File Size== 
 372318208 
 ==Tables== 
@@ -12,9 +12,9 @@ Lock_Levels      Position_Data    Standard_Search
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.6.4.13
+1.6.4.31
 ==Mean Average X/Y/Z Coord==
--12171.5922272772|4830.05220995327|12045.7154254221
+-12171.5701375277|4830.07683173638|12045.7204590583
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -121,13 +121,13 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.355893147736
+21.3564014293037
 ==Average Y Bounds Width==
-15.993810374399
+15.9938061940151
 ==Average Z Bounds Width==
-14.9126782121311
+14.9126743143281
 ==Average Z Rotation==
-3.98162192707737
+3.9816208863805
 ==Average display name string length==
 2.65053521408563
 ==Average editorID string length==
@@ -147,7 +147,7 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3005962
+Appalachia||3005963
 Appalachia|Box|62642
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
