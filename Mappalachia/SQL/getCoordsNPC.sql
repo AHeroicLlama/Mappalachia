@@ -1,4 +1,3 @@
-SELECT x, y, z, chance*100 AS chance FROM SeventySix_Worldspace
-INNER JOIN SeventySix_NPCSpawn ON class = spawnClass AND SeventySix_Worldspace.locationFormID = SeventySix_NPCSpawn.locationFormID
-WHERE npc = $npc AND chance >= $minChance
+SELECT x, y, z, chance as chance
+FROM NPC_Search WHERE NPC = $npc and chance >= $chance and spaceFormID = $spaceFormID
 ORDER BY z ASC

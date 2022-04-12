@@ -12,47 +12,74 @@ namespace Mappalachia
 	// The Map image, adjusting it, drawing it and plotting points onto it
 	public static class Map
 	{
-		// Map-image coordinate scaling. Done manually by eye with reference points from in-game
+		// Map-image coordinate scaling. Gathered manually by eye with reference points from in-game
 		public static double scaling = 142;
-		public static double xOffset = 1.7;
-		public static double yOffset = 5.2;
+		static double xOffset = 1.7;
+		static double yOffset = 5.2;
 
 		// Hidden settings
-		public static readonly int fontSize = 36;
 		public static readonly int mapDimension = 4096; // All layer images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 
 		// Legend text positioning
-		static readonly int legendIconX = 141; // The X Coord of the plot icon that is drawn next to each legend string
+		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
 		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
 		static readonly int plotXMax = 3610;
 		static readonly int plotYMin = 508;
 		static readonly int plotYMax = 3382;
-		static readonly int legendXMin = 220; // The padding in the from the left where legend text begins
+		static readonly int legendXMin = 116; // The padding in the from the left where legend text begins
 		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
-		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension); // Used for MeasureString to calculate legend string dimensions
+		static readonly int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
+		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension - (legendYPadding * 2)); // Used for MeasureString to calculate legend string dimensions
+
+		// Font and text
+		public static readonly int legendFontSize = 48;
+		public static readonly int mapMarkerFontSize = 18;
+		static readonly int fontDropShadowOffset = 2;
+		static readonly int mapMarkerMaxRadius = 140; // Maximum width before a map marker label will enter a new line
+		static readonly int mapMarkerPadding = 5; // Workaround - inflate the draw radius of the map marker by this much to prevent characters being chopped off the end of lines
+		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
+		static readonly Brush brushWhite = new SolidBrush(Color.White);
+		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
+		static readonly Font mapMarkerFont = new Font(fontCollection.Families[0], mapMarkerFontSize, GraphicsUnit.Pixel);
+		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
+		static readonly RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
+		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
+		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
+		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; // Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
 
-		// Legend Font
-		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
-
-		// Reference to map picture box
+		// References to FormMaster elements
 		static PictureBox mapFrame;
-
-		// Reference to progress bar
 		public static ProgressBar progressBarMain;
 
 		static Image finalImage;
 		static Image backgroundLayer;
 
+		public static Image GetImage()
+		{
+			return finalImage;
+		}
+
 		// Returns the result of Pythagoras theorem on 2 integers
 		static double Pythagoras(int a, int b)
 		{
 			return Math.Sqrt((a * a) + (b * b));
+		}
+
+		// Scale a coordinate from game coordinates down to map coordinates.
+		public static double ScaleCoordinate(int coord, bool isYAxis)
+		{
+			if (isYAxis)
+			{
+				coord *= -1;
+			}
+
+			return (coord / scaling) + (mapDimension / 2d) + (isYAxis ? yOffset : xOffset);
 		}
 
 		// Attach the map image to the PictureBox on the master form
@@ -64,22 +91,12 @@ namespace Mappalachia
 		// Construct the map background layer, without plotted points
 		public static void DrawBaseLayer()
 		{
-			// Start with the chosen base map
-			if (SettingsMap.IsCellModeActive())
+			// Start with the basic image
+			backgroundLayer = IOManager.GetImageForSpace(SettingsSpace.GetSpace());
+			if (SettingsSpace.drawOutline)
 			{
-				backgroundLayer = new Bitmap(mapDimension, mapDimension);
-
-				if (SettingsCell.drawOutline)
-				{
-					Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
-					DrawCellBackground(backgroundGraphics);
-				}
-			}
-			else
-			{
-				backgroundLayer = SettingsMap.layerMilitary ?
-					IOManager.GetImageMapMilitary() :
-					IOManager.GetImageMapNormal();
+				Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
+				DrawCellBackground(backgroundGraphics);
 			}
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
@@ -115,6 +132,11 @@ namespace Mappalachia
 			};
 			Rectangle rect = new Rectangle(0, 0, mapDimension, mapDimension);
 
+			if (SettingsMap.showMapMarkers)
+			{
+				DrawMapMarkers(graphic);
+			}
+
 			graphic.DrawImage(backgroundLayer, points, rect, GraphicsUnit.Pixel, attributes);
 
 			Draw(); // Redraw the whole map since we updated the base layer
@@ -124,42 +146,40 @@ namespace Mappalachia
 		public static void Draw()
 		{
 			// Reset the current image to the background layer
-			finalImage = (Image)backgroundLayer.Clone();
+			finalImage = new Bitmap(backgroundLayer);
+
+			// Start progress bar off at 0
+			progressBarMain.Value = progressBarMain.Minimum;
+			float progress = 0;
 
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
-			Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
+			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
-			CellScaling cellScaling = null;
+			// Draw the bottom-right info/watermark paragraph
+			DrawInfoWatermark(imageGraphic);
 
-			// Prepare the game version and watermark to be printed later
-			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() + "\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			// Draw all legend text for every MapItem
+			int skippedLegends = DrawLegend(legendFont, imageGraphic);
 
-			// Additional steps for cell mode (Add further text to watermark text, get cell height boundings)
-			if (SettingsMap.IsCellModeActive())
+			// Adds additional text if some items were missed from legend
+			if (skippedLegends > 0)
 			{
-				Cell currentCell = SettingsCell.GetCell();
-
-				// Assign the CellScaling property
-				cellScaling = currentCell.GetScaling();
-
-				infoText =
-					currentCell.displayName + " (" + currentCell.editorID + ")\n" +
-					"Height distribution: " + SettingsCell.minHeightPerc + "% - " + SettingsCell.maxHeightPerc + "%\n" +
-					"Scale: 1:" + Math.Round(cellScaling.scale, 2) + "\n\n" +
-					infoText;
+				string extraLegendText = "+" + skippedLegends + " more item" + (skippedLegends == 1 ? string.Empty : "s") + "...";
+				imageGraphic.DrawString(extraLegendText, legendFont, brushWhite, infoTextBounds, stringFormatBottomLeft);
 			}
 
-			// Gather resources for drawing informational watermark text
-			Brush brushWhite = new SolidBrush(Color.White);
-			RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
-			StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
-			StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
+			// Nothing else to plot - ensure we update for the background layer but then return
+			if (FormMaster.legendItems.Count == 0)
+			{
+				GC.Collect();
+				mapFrame.Image = finalImage;
+				return;
+			}
 
-			// Draws bottom-right info text
-			imageGraphic.DrawString(infoText, font, brushWhite, infoTextBounds, stringFormatBottomRight);
+			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
 
-			// Draw a height-color key for Topography mode
+			// Draw a height-color key in Topography mode
 			if (SettingsPlot.IsTopographic())
 			{
 				// Identify the sizing and locations for drawing the height-color-key strings
@@ -176,27 +196,6 @@ namespace Mappalachia
 					imageGraphic.DrawString(SettingsPlotTopograph.heightKeyString, topographFont, brush, new RectangleF(plotXMax, 0, mapDimension - plotXMax, (float)(mapDimension - baseHeight)), stringFormatBottomRight);
 					baseHeight += singleLineHeight;
 				}
-			}
-
-			// Draw all legend text for every MapItem
-			int skippedLegends = DrawLegend(font, imageGraphic);
-
-			// Adds additional text if some items were missed from legend
-			if (skippedLegends > 0)
-			{
-				string extraLegendText = "+" + skippedLegends + " more item" + (skippedLegends == 1 ? string.Empty : "s") + "...";
-				imageGraphic.DrawString(extraLegendText, font, brushWhite, infoTextBounds, stringFormatBottomLeft);
-			}
-
-			// Start progress bar off at 0
-			progressBarMain.Value = progressBarMain.Minimum;
-			float progress = 0;
-
-			// Nothing else to plot - ensure we update for the background layer but then return
-			if (FormMaster.legendItems.Count == 0)
-			{
-				mapFrame.Image = finalImage;
-				return;
 			}
 
 			// Count how many Map Data Points are due to be mapped
@@ -254,13 +253,6 @@ namespace Mappalachia
 
 			if (SettingsPlot.IsIconOrTopographic())
 			{
-				if (SettingsPlot.IsTopographic())
-				{
-					// Somehow this line prevents a memory leak
-					// Without it, if drawing a large topographic map on first map draw, GC will not collect the multiple PlotIcon elements used in topographic drawing.
-					Application.DoEvents();
-				}
-
 				// Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
@@ -273,6 +265,23 @@ namespace Mappalachia
 					// Iterate over every data point and draw it
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
+						// Skip the point if its origin is outside the surface world
+						if (SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.x < plotXMin || point.x >= plotXMax ||
+							point.y < plotYMin || point.y >= plotYMax))
+						{
+							continue;
+						}
+
+						// If this coordinate exceeds the user-selected space mapping height bounds, skip it
+						// (Also accounts for the z-height of volumes)
+						if (!SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() ||
+							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
+						{
+								continue;
+						}
+
 						// Override colors in Topographic mode
 						if (SettingsPlot.IsTopographic())
 						{
@@ -284,6 +293,7 @@ namespace Mappalachia
 							double colorValue = (z - zMin) / zRange;
 
 							// Override the plot icon color
+							plotIcon = mapItem.GetIcon();
 							plotIcon.color = GetTopographColor(colorValue);
 							plotIconImg = plotIcon.GetIconImage(); // Generate a new icon with a unique color for this height color
 
@@ -292,29 +302,14 @@ namespace Mappalachia
 							volumeBrush = new SolidBrush(volumeColor);
 						}
 
-						if (SettingsMap.IsCellModeActive())
-						{
-							// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
-							// (Also accounts for the z-height of volumes)
-							if (point.z + (point.boundZ / 2d) < SettingsCell.GetMinHeightCoordBound() || point.z - (point.boundZ / 2d) > SettingsCell.GetMaxHeightCoordBound())
-							{
-								continue;
-							}
+						point.x += spaceScaling.xOffset;
+						point.y += spaceScaling.yOffset;
 
-							point.x += cellScaling.xOffset;
-							point.y += cellScaling.yOffset;
-
-							// Multiply the coordinates by the scaling, but multiply around 0,0
-							point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-							point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-							point.boundX *= cellScaling.scale;
-							point.boundY *= cellScaling.scale;
-						}
-						else // Skip the point if its origin is outside the surface world
-						if (point.x < plotXMin || point.x >= plotXMax || point.y < plotYMin || point.y >= plotYMax)
-						{
-							continue;
-						}
+						// Multiply the coordinates by the scaling, but multiply around 0,0
+						point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+						point.boundX *= spaceScaling.scale;
+						point.boundY *= spaceScaling.scale;
 
 						// If this meets all the criteria to be suitable to be drawn as a volume
 						if (point.primitiveShape != string.Empty && // This is a primitive shape at all
@@ -380,14 +375,28 @@ namespace Mappalachia
 
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
-						if (SettingsMap.IsCellModeActive())
+						// Skip the point if its origin is outside the surface world
+						if (SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.x < plotXMin || point.x >= plotXMax ||
+							point.y < plotYMin || point.y >= plotYMax))
 						{
-							point.x += cellScaling.xOffset;
-							point.y += cellScaling.yOffset;
-
-							point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-							point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
+							continue;
 						}
+
+						// If this coordinate exceeds the user-selected space mapping height bounds, skip it
+						// (Also accounts for the z-height of volumes)
+						if (!SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() ||
+							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
+						{
+							continue;
+						}
+
+						point.x += spaceScaling.xOffset;
+						point.y += spaceScaling.yOffset;
+
+						point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
 
 						// Identify which grid square this MapDataPoint falls within
 						int squareX = (int)Math.Floor(point.x / pixelsPerSquare);
@@ -458,14 +467,61 @@ namespace Mappalachia
 				}
 			}
 
+			GC.Collect();
 			mapFrame.Image = finalImage;
+		}
+
+		static void DrawInfoWatermark(Graphics imageGraphic)
+		{
+			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+			Space currentSpace = SettingsSpace.GetSpace();
+
+			string infoText = (SettingsPlot.IsTopographic() ? "Topographic View\n" : string.Empty) + "Game version " + IOManager.GetGameVersion() +
+				"\nMade with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+
+			if (!currentSpace.IsWorldspace())
+			{
+				infoText =
+					currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
+					"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
+					"Scale: 1:" + Math.Round(currentSpace.GetScaling().scale, 2) + "\n\n" +
+					infoText;
+			}
+
+			imageGraphic.DrawString(infoText, legendFont, brushWhite, infoTextBounds, stringFormatBottomRight);
+		}
+
+		static void DrawMapMarkers(Graphics imageGraphic)
+		{
+			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+			foreach (MapMarker marker in Database.GetMapMarkers(SettingsSpace.GetCurrentFormID()))
+			{
+				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxRadius, mapMarkerMaxRadius));
+				textBounds.Width += mapMarkerPadding;
+				textBounds.Height += mapMarkerPadding;
+
+				// Draw Drop shadow first
+				imageGraphic.DrawString(marker.label, mapMarkerFont, dropShadowBrush,
+					new RectangleF(
+						(float)marker.x - (textBounds.Width / 2) + fontDropShadowOffset,
+						(float)marker.y - (textBounds.Height / 2) + fontDropShadowOffset,
+						textBounds.Width, textBounds.Height), stringFormatCenter);
+
+				// Draw the map marker label
+				imageGraphic.DrawString(marker.label, mapMarkerFont, brushWhite,
+					new RectangleF(
+						(float)marker.x - (textBounds.Width / 2),
+						(float)marker.y - (textBounds.Height / 2),
+						textBounds.Width, textBounds.Height), stringFormatCenter);
+			}
 		}
 
 		// Draws all legend text (and optional Icon beside) for every MapItem
 		// Returns the number of items missed off the legend due to size constraints
 		static int DrawLegend(Font font, Graphics imageGraphic)
 		{
-			if (FormMaster.legendItems.Count == 0)
+			if (FormMaster.legendItems.Count == 0 || SettingsMap.hideLegend)
 			{
 				return 0;
 			}
@@ -485,7 +541,7 @@ namespace Mappalachia
 
 				legendTotalHeight += Math.Max(
 					(int)Math.Ceiling(imageGraphic.MeasureString(mapItem.GetLegendText(false), font, legendBounds).Height),
-					SettingsPlot.IsIconOrTopographic() ? SettingsPlotIcon.iconSize : 0);
+					SettingsPlot.IsIconOrTopographic() ? SettingsPlotStyle.iconSize : 0);
 
 				drawnGroups.Add(mapItem.legendGroup);
 			}
@@ -493,7 +549,7 @@ namespace Mappalachia
 			int skippedLegends = 0; // How many legend items did not fit onto the map
 
 			// The initial Y coord where first legend item should be written, in order to Y-center the entire legend
-			int legendCaretHeight = (mapDimension / 2) - (legendTotalHeight / 2);
+			int legendCaretHeight = ((int)legendBounds.Height / 2) - (legendTotalHeight / 2);
 
 			// Reset the drawn groups list, as we need to iterate over the items again
 			drawnGroups = new List<int>();
@@ -530,14 +586,20 @@ namespace Mappalachia
 				}
 
 				// If the legend text/item fits on the map vertically
-				if (legendCaretHeight > 0 && legendCaretHeight + legendHeight < mapDimension)
+				if (legendCaretHeight > legendYPadding && legendCaretHeight + legendHeight < mapDimension - legendYPadding)
 				{
 					if (SettingsPlot.IsIconOrTopographic())
 					{
 						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
 					}
 
-					imageGraphic.DrawString(mapItem.GetLegendText(false), font, textBrush, new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
+					// Draw Drop shadow first
+					imageGraphic.DrawString(mapItem.GetLegendText(false), font, dropShadowBrush,
+						new RectangleF(legendXMin + fontDropShadowOffset, legendCaretHeight + textOffset + fontDropShadowOffset, legendWidth, legendHeight));
+
+					// Draw the properly colored legend text
+					imageGraphic.DrawString(mapItem.GetLegendText(false), font, textBrush,
+						new RectangleF(legendXMin, legendCaretHeight + textOffset, legendWidth, legendHeight));
 				}
 				else
 				{
@@ -548,62 +610,59 @@ namespace Mappalachia
 				legendCaretHeight += legendHeight; // Move the 'caret' down for the next item, enough to fit the icon and the text
 			}
 
-			GC.Collect();
 			return skippedLegends;
 		}
 
-		// Draws an outline of all items in the current cell to act as background/template
+		// Draws an outline of all items in the current space to act as background/template
 		static void DrawCellBackground(Graphics backgroundLayer)
 		{
-			if (!SettingsMap.IsCellModeActive())
+			if (SettingsSpace.CurrentSpaceIsWorld())
 			{
 				return;
 			}
 
-			CellScaling cellScaling = SettingsCell.GetCell().GetScaling();
+			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
 
-			int outlineWidth = SettingsCell.outlineWidth;
-			int outlineSize = SettingsCell.outlineSize;
+			int outlineWidth = SettingsSpace.outlineWidth;
+			int outlineSize = SettingsSpace.outlineSize;
 
 			Image plotIconImg = new Bitmap(outlineSize, outlineSize);
 			Graphics plotIconGraphic = Graphics.FromImage(plotIconImg);
 			plotIconGraphic.SmoothingMode = SmoothingMode.AntiAlias;
-			Color outlineColor = Color.FromArgb(SettingsCell.outlineAlpha, SettingsCell.outlineColor);
+			Color outlineColor = Color.FromArgb(SettingsSpace.outlineAlpha, SettingsSpace.outlineColor);
 			Pen outlinePen = new Pen(outlineColor, outlineWidth);
 			plotIconGraphic.DrawEllipse(
 				outlinePen,
 				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
 
 			// Iterate over every data point and draw it
-			foreach (MapDataPoint point in DataHelper.GetAllCellCoords(SettingsCell.GetCell().formID))
+			foreach (MapDataPoint point in Database.GetAllSpaceCoords(SettingsSpace.GetCurrentFormID()))
 			{
-				// If this coordinate exceeds the user-selected cell mapping height bounds, skip it
+				// If this coordinate exceeds the user-selected space mapping height bounds, skip it
 				// (Also accounts for the z-height of volumes)
-				if (point.z < SettingsCell.GetMinHeightCoordBound() || point.z > SettingsCell.GetMaxHeightCoordBound())
+				if (point.z < SettingsSpace.GetMinHeightCoordBound() || point.z > SettingsSpace.GetMaxHeightCoordBound())
 				{
 					continue;
 				}
 
-				point.x += cellScaling.xOffset;
-				point.y += cellScaling.yOffset;
+				point.x += spaceScaling.xOffset;
+				point.y += spaceScaling.yOffset;
 
 				// Multiply the coordinates by the scaling, but multiply around 0,0
-				point.x = ((point.x - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-				point.y = ((point.y - (mapDimension / 2)) * cellScaling.scale) + (mapDimension / 2);
-				point.boundX *= cellScaling.scale;
-				point.boundY *= cellScaling.scale;
+				point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+				point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
+				point.boundX *= spaceScaling.scale;
+				point.boundY *= spaceScaling.scale;
 
 				backgroundLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
 			}
-
-			GC.Collect();
 		}
 
 		// Return a color for the topograph plot given its normalized altitude, interpolated against the user-defined selection of topographic plot colors
 		public static Color GetTopographColor(double colorValue)
 		{
 			// Find the first x colors in the icon color palette, where x is the number of distinct topography colors selected (Or the entire palette if smaller)
-			int colorCount = Math.Min(SettingsPlotTopograph.colorBands, SettingsPlotIcon.paletteColor.Count);
+			int colorCount = Math.Min(SettingsPlotTopograph.colorBands, SettingsPlotStyle.paletteColor.Count);
 
 			if (colorCount == 0)
 			{
@@ -613,7 +672,7 @@ namespace Mappalachia
 			if (colorCount == 1)
 			{
 				// There is only one color in the palette - there is no distinction to be made
-				return SettingsPlotIcon.paletteColor[0];
+				return SettingsPlotStyle.GetFirstColor();
 			}
 
 			// Find the 'parent' colors above and below this plot on the scale which should define its color
@@ -626,29 +685,12 @@ namespace Mappalachia
 			// Example: parent colors exist at 0.2 and 0.4, child color exists at 0.35. Normalized between parents it is therefore 0.75
 			double rangeBetweenColors = (colorValue - (colorBelow * rangePerColor)) * (colorCount - 1);
 
-			return ImageTools.InterpolateColors(SettingsPlotIcon.paletteColor[colorBelow], SettingsPlotIcon.paletteColor[colorAbove], rangeBetweenColors);
+			return ImageTools.LerpColors(SettingsPlotStyle.paletteColor[colorBelow], SettingsPlotStyle.paletteColor[colorAbove], rangeBetweenColors);
 		}
 
 		public static void Open()
 		{
 			IOManager.OpenImage(finalImage);
-		}
-
-		public static void WriteToFile(string fileName)
-		{
-			IOManager.WriteToFile(fileName, finalImage);
-		}
-
-		// Reset map-specific settings and redraw it
-		public static void Reset()
-		{
-			SettingsMap.brightness = SettingsMap.brightnessDefault;
-			SettingsMap.layerMilitary = false;
-			SettingsMap.grayScale = false;
-
-			DrawBaseLayer();
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
 		}
 	}
 }

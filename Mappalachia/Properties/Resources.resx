@@ -118,14 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="getAllCoordsCell" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\getAllCoordsCell.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="getAllCoordsSpace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\getAllCoordsSpace.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="getCells" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\getCells.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="getCoordsCell" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\getCoordsCell.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="getAllZCoordsSpace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\getAllZCoordsSpace.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="getCoordsNPC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getCoordsNPC.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -142,6 +139,9 @@
   <data name="getLockLevels" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getLockLevels.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="getMapMarkers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\getMapMarkers.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="getNPCTypes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getNPCTypes.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -151,25 +151,28 @@
   <data name="getSignatures" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getSignatures.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchNPCAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchNPCAll.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="getSpaceExtremities" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\getSpaceExtremities.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchNPCAppalachia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchNPCAppalachia.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="getSpaces" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\getSpaces.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchScrapAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchScrapAll.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="searchNPC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchNPC.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchScrapAppalachia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchScrapAppalachia.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="searchNPCEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchNPCEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchStandardAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchStandardAll.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="searchScrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchScrap.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchStandardAppalachia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchStandardAppalachia.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="searchScrapEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchScrapEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="searchStandardCell" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SQL\searchStandardCell.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="searchStandard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchStandard.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="searchStandardEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchStandardEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

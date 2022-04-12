@@ -7,15 +7,14 @@ namespace Mappalachia
 	{
 		public List<CSVCell> cells = new List<CSVCell>();
 
-		public CSVRow(string row, string header)
+		public CSVRow(string row, List<string> headers)
 		{
-			List<string> headers = new List<string>(header.Split(','));
 			List<string> cellValues = new List<string>(row.Split(','));
 
 			// Check we're not truncating or missing some data here.
 			if (cellValues.Count != headers.Count)
 			{
-				throw new Exception("Row \"" + row + "\" under header \"" + header + "\": Number of cells did not match number of headers");
+				throw new Exception("Row \"" + row + "\" under header \"" + string.Join(", ", headers) + "\": Number of cells did not match number of headers");
 			}
 
 			// Get a cell for each defined column and add it to the collection of cells.

@@ -1,3 +1,2 @@
-SELECT signature
-FROM SeventySix_FormId
-GROUP BY signature
+SELECT DISTINCT signature
+FROM Entity_Info

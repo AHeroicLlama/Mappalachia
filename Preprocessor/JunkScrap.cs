@@ -7,7 +7,6 @@ namespace Mappalachia
 		// Use the Junk Scrap and Component Quantity CSVFiles to generate a new file for Quantified Junk Scrap
 		public static CSVFile ProcessJunkScrap(CSVFile junkFile, CSVFile componentQuantity)
 		{
-			string newFileHeader = junkFile.header;
 			List<CSVRow> newFileRows = new List<CSVRow>();
 
 			foreach (CSVRow row in junkFile.rows)
@@ -28,10 +27,10 @@ namespace Mappalachia
 				}
 
 				string newRow = component + "," + quantity + "," + formID;
-				newFileRows.Add(new CSVRow(newRow, newFileHeader));
+				newFileRows.Add(new CSVRow(newRow, junkFile.header));
 			}
 
-			return new CSVFile("SeventySix_Quantified_Scrap.csv", "component,componentQuantity,junkFormID", newFileRows);
+			return new CSVFile("Quantified_Scrap.csv", new List<string> { "component", "componentQuantity", "junkFormID" }, newFileRows);
 		}
 	}
 }

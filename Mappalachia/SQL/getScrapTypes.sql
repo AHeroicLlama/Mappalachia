@@ -1,3 +1,1 @@
-SELECT component
-FROM SeventySix_Quantified_Scrap
-GROUP BY component
+SELECT DISTINCT component FROM Scrap_Search

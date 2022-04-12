@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ namespace Mappalachia
 	class CSVFile
 	{
 		public string fileName;
-		public string header;
+		public List<string> header;
 		public List<CSVRow> rows = new List<CSVRow>();
 
 		// Instantiate a CSVFile from a file on disk
@@ -17,7 +16,7 @@ namespace Mappalachia
 		{
 			this.fileName = fileName.Split('/').Last();
 
-			header = File.ReadLines(fileName).First();
+			header = new List<string>(File.ReadLines(fileName).First().Split(','));
 
 			foreach (string row in File.ReadLines(fileName).Skip(1))
 			{
@@ -26,7 +25,7 @@ namespace Mappalachia
 		}
 
 		// Instantiate a CSVFile from new cells, headers, and a file name
-		public CSVFile(string fileName, string header, List<CSVRow> rows)
+		public CSVFile(string fileName, List<string> header, List<CSVRow> rows)
 		{
 			this.fileName = fileName;
 			this.header = header;
@@ -36,37 +35,25 @@ namespace Mappalachia
 		// Escape problematic SQL characters
 		public void Sanitize()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.Sanitize();
-			});
+			Parallel.ForEach(rows, row => row.Sanitize());
 		}
 
 		// Reduce long references and names to just the data required in them - typically just the FormID
 		public void ReduceReferences()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.ReduceReferences();
-			});
+			Parallel.ForEach(rows, row => row.ReduceReferences());
 		}
 
 		// Reduce large decimals to integers (The precision is unnecessary due to downscaling)
 		public void ReduceDecimals()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.ReduceDecimals();
-			});
+			Parallel.ForEach(rows, row => row.ReduceDecimals());
 		}
 
 		// Run basic data integrity checks on expected values in columns
 		public void Validate()
 		{
-			Parallel.ForEach(rows, row =>
-			{
-				row.Validate();
-			});
+			Parallel.ForEach(rows, row => row.Validate());
 		}
 
 		public void WriteToFile(string filePath)

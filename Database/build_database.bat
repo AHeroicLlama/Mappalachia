@@ -9,7 +9,7 @@ IF NOT EXIST sqlite3.exe (
 	EXIT
 )
 
-IF NOT EXIST "../Preprocessor/Output/SeventySix_Worldspace.csv" (
+IF NOT EXIST "../Preprocessor/Output/Position_Data.csv" (
 	echo Preprocessor output data was not found in the expected location. You must run the xEdit export scripts, then the Preprocessor before building the database.
 	echo For more info please see development help guides.
 	PAUSE
@@ -38,7 +38,7 @@ echo Creating new empty tables...
 sqlite3.exe %databaseFile% < sql/createTables.sql
 
 echo Importing CSVs into new tables...
-sqlite3.exe %databaseFile% < sqlite_commands.txt
+sqlite3.exe %databaseFile% < SQLiteBatchCSVImport.txt
 
 echo Replacing previously escaped characters...
 sqlite3.exe %databaseFile% < sql/replaceEscapedChars.sql
@@ -46,15 +46,35 @@ sqlite3.exe %databaseFile% < sql/replaceEscapedChars.sql
 echo Trimming database...
 sqlite3.exe %databaseFile% < sql/trimData.sql
 
+echo Building combined tables...
+sqlite3.exe %databaseFile% < sql/buildCombinedTables.sql
+
+echo Dropping once used tables...
+sqlite3.exe %databaseFile% < sql/dropUnused.sql
+
+echo Applying basic compression...
+sqlite3.exe %databaseFile% < sql/compress.sql
+
 echo Vacuum packing database...
-sqlite3.exe %databaseFile% < sql/vacuum.sql
+sqlite3.exe %databaseFile% VACUUM
 
-echo Building indexes...
-sqlite3.exe %databaseFile% < sql/createIndexes.sql
+echo Building indices...
+sqlite3.exe %databaseFile% < sql/createIndices.sql
 
-echo Creating new summary with checksum...
-echo ==Database checksum== > %summaryFile%
+echo Creating new summary with db file info...
+echo ==Database name== > %summaryFile%
+echo %databaseFile% >> %summaryFile%
+echo ==Checksum== >> %summaryFile%
 certutil -hashfile %databaseFile% MD5 | findstr /V ":" >> %summaryFile%
+echo ==File Size== >> %summaryFile%
+for %%f in (%databaseFile%) do echo %%~zf >> %summaryFile%
+
+echo Listing tables and indices...
+echo ==Tables== >> %summaryFile%
+sqlite3.exe %databaseFile% .tables >> %summaryFile%
+
+echo ==Indices== >> %summaryFile%
+sqlite3.exe %databaseFile% .indices >> %summaryFile%
 
 echo Populating main summary report...
 sqlite3.exe %databaseFile% < sql/generateSummary.sql >> %summaryFile%

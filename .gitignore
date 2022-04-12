@@ -4,7 +4,7 @@ FO76Edit/*log.txt
 FO76Edit/Themes
 FO76Edit/Edit Scripts/*
 #Exception for Mappalachia Edit Scripts
-!FO76Edit/Edit Scripts/_m_*.pas
+!FO76Edit/Edit Scripts/_mappalachia_*.pas
 
 #SQLite and database generation
 Database/*.db-journal
@@ -16,7 +16,7 @@ Database/sqlite3.exe
 
 #CSV Output from Edit Scripts & Preprocessor
 */Output/*.csv
-!*SkippedCells.csv
+!*Skipped_Spaces.csv
 
 #Packaged Mappalachia GUI Release
 Mappalachia.zip
@@ -207,7 +207,7 @@ publish/
 *.azurePubxml
 # Note: Comment the next line if you want to checkin your web deploy settings,
 # but database connection strings (with potential passwords) will be unencrypted
-*.pubxml
+#*.pubxml
 *.publishproj
 
 # Microsoft Azure Web App publish settings. Comment the next line if you want to
@@ -324,7 +324,7 @@ node_modules/
 *.dsw
 *.dsp
 
-# Visual Studio 6 technical files 
+# Visual Studio 6 technical files
 *.ncb
 *.aps
 

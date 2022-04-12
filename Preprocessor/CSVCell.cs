@@ -62,10 +62,10 @@ namespace Mappalachia
 				}
 			}
 
-			// Niche case where worldSpace Xmarkers get their reference filled with the literal Map marker text
+			// MapMarkers don't come with their FormID because we just pull their displayName which is literally their text, so we manually add it back
 			if (columnName == "referenceFormID" && !Validation.matchFormID.IsMatch(data))
 			{
-				data = "FFFFFFFF";
+				data = "00000010";
 			}
 		}
 
@@ -97,13 +97,14 @@ namespace Mappalachia
 			{
 				case "entityFormID":
 				case "referenceFormID":
-				case "cellFormID":
+				case "spaceFormID":
 				case "junkFormID":
 					// FormID Cells must only contain the FormID alone
 					if (!Validation.matchFormID.IsMatch(data))
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "locationFormID":
@@ -112,6 +113,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "signature":
@@ -120,17 +122,19 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "editorID":
-				case "cellEditorID":
+				case "spaceEditorID":
 				case "displayName":
-				case "cellDisplayName":
+				case "spaceDisplayName":
 					// editorID and displayName must have had any double quotes escaped by now
 					if (Validation.unescapedDoubleQuote.IsMatch(data))
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "componentQuantity":
@@ -139,6 +143,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "chance":
@@ -147,6 +152,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "x":
@@ -157,6 +163,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "boundX":
@@ -168,6 +175,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "primitiveShape":
@@ -176,6 +184,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "lockLevel":
@@ -184,6 +193,7 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
 				case "spawnClass":
@@ -192,8 +202,19 @@ namespace Mappalachia
 					{
 						ReportValidationError();
 					}
+
 					return;
 
+				case "isWorldspace":
+					// Boolean
+					if (!Validation.validSQLiteBoolean.IsMatch(data))
+					{
+						ReportValidationError();
+					}
+
+					return;
+
+				case "mapMarker":
 				case "npc":
 				case "component":
 					// Nothing really to validate for here since they're just in-game strings

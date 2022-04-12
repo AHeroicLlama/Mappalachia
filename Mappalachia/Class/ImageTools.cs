@@ -54,11 +54,8 @@ namespace Mappalachia.Class
 			dropShadow = PadImage(dropShadow, shadowWidth);
 			Graphics totalShadowGraphic = Graphics.FromImage(dropShadow);
 
-			// Draw the shadow with offset from all 4 directions
-			totalShadowGraphic.DrawImage(dropShadow, 0, -shadowWidth); // Up
-			totalShadowGraphic.DrawImage(dropShadow, 0, shadowWidth); // Down
-			totalShadowGraphic.DrawImage(dropShadow, -shadowWidth, 0); // Left
-			totalShadowGraphic.DrawImage(dropShadow, shadowWidth, 0); // Right
+			// Draw the shadow with offset in 2 directions
+			totalShadowGraphic.DrawImage(dropShadow, shadowWidth, shadowWidth);
 
 			// Color the shadow black and apply alpha evenly
 			dropShadow = AdjustARGB(dropShadow, Color.FromArgb(shadowOpacity, Color.Black));
@@ -103,9 +100,12 @@ namespace Mappalachia.Class
 		}
 
 		// Linearly interpolates the RGB values of two colors to form a new 'child' color
-		public static Color InterpolateColors(Color colorX, Color colorY, double range)
+		public static Color LerpColors(Color colorX, Color colorY, double range)
 		{
-			return Color.FromArgb((int)(colorX.R + ((colorY.R - colorX.R) * range)), (int)(colorX.G + ((colorY.G - colorX.G) * range)), (int)(colorX.B + ((colorY.B - colorX.B) * range)));
+			return Color.FromArgb(
+				(int)(colorX.R + ((colorY.R - colorX.R) * range)),
+				(int)(colorX.G + ((colorY.G - colorX.G) * range)),
+				(int)(colorX.B + ((colorY.B - colorX.B) * range)));
 		}
 	}
 }

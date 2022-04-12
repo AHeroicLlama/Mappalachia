@@ -5,7 +5,7 @@ namespace Mappalachia
 	{
 		public double x;
 		public double y;
-		public int z; // Height - currently only used in Cell mode
+		public int z; // Height
 		public double weight; // The magnitude/importance of this plot (EG 2.0 may represent 2x scrap from a single junk, or 0.33 may represent a 33% chance of spawning)
 		public string primitiveShape; // The name of the primitive shape which describes this item (only typically applicable to ACTI)
 		public double boundX; // The bounds of the primitiveShape
@@ -28,7 +28,7 @@ namespace Mappalachia
 			this.boundZ = boundZ;
 			this.rotationZ = rotationZ;
 
-			// Special case to ensure Line volumes (Default width 16 units) have enough pixel width to still be drawn
+			// Special case to ensure Line volumes (Default width 16 units) have enough pixel width to still be visible
 			if (primitiveShape == "Line" && boundY == 16)
 			{
 				this.boundY = Map.minVolumeDimension;
@@ -37,8 +37,8 @@ namespace Mappalachia
 
 		void Initialize(int x, int y, int z)
 		{
-			this.x = (x / Map.scaling) + (Map.mapDimension / 2d) + Map.xOffset;
-			this.y = (-y / Map.scaling) + (Map.mapDimension / 2d) + Map.yOffset;
+			this.x = Map.ScaleCoordinate(x, false);
+			this.y = Map.ScaleCoordinate(y, true);
 			this.z = z;
 
 			// Default weight, can be assigned to later

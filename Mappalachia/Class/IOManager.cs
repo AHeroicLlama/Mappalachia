@@ -20,25 +20,20 @@ namespace Mappalachia
 
 		static readonly string fontFileName = "futura_condensed_bold.ttf";
 		static readonly string databaseFileName = "mappalachia.db";
-		static readonly string imgFileNameMapNormal = "map_normal.jpg";
-		static readonly string imgFileNameMapMilitary = "map_military.jpg";
+		static readonly string imgFileNameMapMilitary = "military.jpg";
+		static readonly string worldspaceMapFileExtension = ".jpg";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
 
 		static readonly string tempImageFolder = @"temp\";
 		static readonly string tempImageBaseFileName = "mappalachia_preview";
 		static readonly string tempImageFileExtension = ".png";
 
+		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
+		static Image imageMapMilitary;
+
 		static int tempImageLockedCount = 0;
 
 		static string gameVersion;
-
-		static Image imageMapNormal;
-		static Image imageMapMilitary;
-
-		// JPEG encoding for image compression
-		static readonly long JpegQualityPercent = 85;
-		static readonly ImageCodecInfo jpegEncoder = GetEncoder(ImageFormat.Jpeg);
-		static readonly EncoderParameter encoderParam = new EncoderParameter(Encoder.Quality, JpegQualityPercent);
 
 		static PrivateFontCollection fontCollection;
 
@@ -49,7 +44,7 @@ namespace Mappalachia
 			"- The entire Mappalachia installation has been unzipped into one folder, with the same folder structure it came with.\n" +
 			"- None of the installation has been moved, renamed, or deleted.\n" +
 			"- (Where applicable) Destination folders or files are accessible and are not locked.\n" +
-			"Failing these, try fully deleting and re-downloading Mappalachia.\n";
+			"Failing these, try fully deleting and re-downloading Mappalachia.\n\n";
 
 		private static ImageCodecInfo GetEncoder(ImageFormat format)
 		{
@@ -148,7 +143,7 @@ namespace Mappalachia
 
 			try
 			{
-				Process.Start(tempImageFilePath);
+				Process.Start(new ProcessStartInfo { FileName = tempImageFilePath, UseShellExecute = true });
 			}
 			catch (Exception e)
 			{
@@ -161,22 +156,25 @@ namespace Mappalachia
 			}
 		}
 
-		// Write the given map image to a given location
-		public static void WriteToFile(string filePath, Image image)
+		// Write the map image to the location with the file settings given
+		public static void WriteToFile(string filePath, Image image, ImageFormat imageFormat, int jpegQuality)
 		{
 			try
 			{
-				if (SettingsMap.IsCellModeActive())
+				if (imageFormat == ImageFormat.Png)
 				{
-					// Save with PNG encoding in Cell mode to maintain the transparency, and to avoid compression
 					image.Save(filePath, ImageFormat.Png);
+				}
+				else if (imageFormat == ImageFormat.Jpeg)
+				{
+					EncoderParameters encoderParams = new EncoderParameters(1);
+					encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, jpegQuality);
+
+					image.Save(filePath, GetEncoder(ImageFormat.Jpeg), encoderParams);
 				}
 				else
 				{
-					EncoderParameters encoderParams = new EncoderParameters(1);
-					encoderParams.Param[0] = encoderParam;
-
-					image.Save(filePath, jpegEncoder, encoderParams);
+					throw new ArgumentException("Invalid ImageFormat type " + imageFormat);
 				}
 			}
 			catch (Exception e)
@@ -213,44 +211,71 @@ namespace Mappalachia
 			}
 		}
 
-		public static Image GetImageMapNormal()
+		// Returns the appropriate background image for the map based on current settings
+		public static Image GetImageForSpace(Space space)
 		{
-			// Singleton
-			if (imageMapNormal == null)
+			if (space.IsWorldspace())
 			{
-				imageMapNormal = LoadImageFromFile(imgFolder + imgFileNameMapNormal);
+				// Return the military map if this is Appalachia and they requested military
+				if (SettingsMap.layerMilitary && space.editorID.Equals("Appalachia"))
+				{
+					return GetImageAppalachiaMilitary();
+				}
+
+				// Otherwise look for the background image for the worldspace
+				string editorID = space.editorID;
+				string filepath = imgFolder + editorID + worldspaceMapFileExtension;
+
+				try
+				{
+					// Cache the image if not already
+					if (!worldspaceMapImageCache.ContainsKey(editorID))
+					{
+						worldspaceMapImageCache.Add(editorID, Image.FromFile(filepath));
+					}
+
+					return new Bitmap(worldspaceMapImageCache[editorID]);
+				}
+				catch (FileNotFoundException e)
+				{
+					Notify.Error("Mappalachia was unable to find a background map image for the worldspace '" + editorID + "'.\n" + e);
+					return EmptyMapBackground();
+				}
+				catch (Exception e)
+				{
+					Notify.Error("Mappalachia was unable to read the file '" + filepath + "'.\n" + genericExceptionHelpText + e);
+					return EmptyMapBackground();
+				}
 			}
 
-			return (Image)imageMapNormal.Clone();
+			// Interior so return empty background
+			else
+			{
+				return EmptyMapBackground();
+			}
 		}
 
-		public static Image GetImageMapMilitary()
+		public static Image GetImageAppalachiaMilitary()
 		{
 			if (imageMapMilitary == null)
 			{
-				imageMapMilitary = LoadImageFromFile(imgFolder + imgFileNameMapMilitary);
+				try
+				{
+					imageMapMilitary = Image.FromFile(imgFolder + imgFileNameMapMilitary);
+				}
+				catch (Exception e)
+				{
+					Notify.Error("Mappalachia was unable to read the file '" + imgFileNameMapMilitary + "'.\n" + genericExceptionHelpText + e);
+					imageMapMilitary = EmptyMapBackground();
+				}
 			}
 
-			return (Image)imageMapMilitary.Clone();
+			return new Bitmap(imageMapMilitary);
 		}
 
-		// Return an image from file
-		static Image LoadImageFromFile(string filePath)
+		public static Image EmptyMapBackground()
 		{
-			try
-			{
-				return Image.FromFile(filePath);
-			}
-			catch (Exception e)
-			{
-				Notify.Error(
-					"Mappalachia was unable to load the image " + filePath + " and it cannot be displayed in your map.\n" +
-					genericExceptionHelpText +
-					"Mappalachia must exit.\n\n" + e);
-
-				Environment.Exit(1);
-				return null;
-			}
+			return new Bitmap(Map.mapDimension, Map.mapDimension);
 		}
 
 		// Read preferences from file
@@ -325,7 +350,7 @@ namespace Mappalachia
 		{
 			if (string.IsNullOrEmpty(gameVersion))
 			{
-				gameVersion = DataHelper.GetGameVersion();
+				gameVersion = Database.GetGameVersion();
 			}
 
 			return gameVersion;

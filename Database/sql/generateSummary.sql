@@ -1,148 +1,84 @@
---Provide a report on key data statistics. The outputted report is source controlled and allows us to verify at a glance how game updates affect the Mappalachia database
+-- Provide a report on key data statistics. The outputted report is source controlled and allows us to verify at a glance how game updates affect the Mappalachia database
 SELECT '==Game Version==';
-SELECT version FROM gameVersion;
+SELECT version FROM Game_Version;
 
-SELECT '==Total unique items by signature==';
-SELECT signature, COUNT(signature) AS count FROM SeventySix_FormID
-GROUP BY signature;
+SELECT '==Mean Average X/Y/Z Coord==';
+SELECT AVG(x), AVG(y), AVG(z) FROM Position_Data;
+
+SELECT '==Min/Max X/Y/Z Coord==';
+SELECT Min(x), Max(x), Min(y), Max(y), Min(z), Max(z) FROM Position_Data;
+
+SELECT '==100 most common xyz coordinates + count==';
+SELECT x, y, z, COUNT(*) AS count FROM Position_Data
+GROUP BY x, y, z
+ORDER BY count DESC, x ASC, y ASC, z ASC
+LIMIT 100;
+
+-- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zThreshUpper/Lower
+SELECT '==Z outliers==';
+SELECT COUNT(*) FROM Position_Data WHERE z < -8000 OR z > 45000;
+
+SELECT '==Average X Bounds Width==';
+SELECT AVG(boundX) FROM Position_Data;
+
+SELECT '==Average Y Bounds Width==';
+SELECT AVG(boundY) FROM Position_Data;
+
+SELECT '==Average Z Bounds Width==';
+SELECT AVG(boundZ) FROM Position_Data;
+
+SELECT '==Average Z Rotation==';
+SELECT AVG(rotZ) FROM Position_Data;
 
 SELECT '==Average display name string length==';
 SELECT AVG(length) FROM
 (
-    SELECT LENGTH(displayName) AS length from SeventySix_FormID
+    SELECT LENGTH(displayName) AS length FROM Entity_Info
 );
 
 SELECT '==Average editorID string length==';
 SELECT AVG(length) FROM
 (
-    SELECT LENGTH(editorID) AS length from SeventySix_FormID
+    SELECT LENGTH(editorID) AS length FROM Entity_Info
 );
 
-SELECT '==Worldspace average X Coord==';
-SELECT AVG(x) FROM SeventySix_Worldspace;
+SELECT '==Map Markers count and avg label length, x, y per Space==';
+SELECT spaceEditorID, COUNT(*), AVG(LENGTH(label)), AVG(x), AVG(y) FROM Map_Markers
+INNER JOIN Space_Info ON Map_Markers.spaceFormID = Space_Info.spaceFormID
+GROUP BY Map_Markers.spaceFormID;
 
-SELECT '==Worldspace average Y Coord==';
-SELECT AVG(y) FROM SeventySix_Worldspace;
+SELECT '==Total Unique entities==';
+SELECT COUNT(DISTINCT referenceFormID) FROM Position_Data;
 
-SELECT '==Worldspace average Z Coord==';
-SELECT AVG(z) FROM SeventySix_Worldspace;
+SELECT '==Total entities by PrimitiveShape by Space==';
+SELECT spaceEditorId, primitiveShape, COUNT(*) AS count FROM Position_Data
+INNER JOIN Space_Info ON Position_Data.spaceFormID = Space_Info.spaceFormID
+GROUP BY spaceEditorId, primitiveShape
+ORDER BY spaceEditorId, primitiveShape;
 
--- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zTreshUpper/Lower
-SELECT '==Worldspace Z outliers==';
-SELECT COUNT(*) FROM SeventySix_Worldspace WHERE z < -8000 or z > 45000;
+SELECT '==Total entities by LockLevel by Space==';
+SELECT spaceEditorId, lockLevel, COUNT(*) AS count FROM Standard_Search
+INNER JOIN Space_Info ON Standard_Search.spaceFormID = Space_Info.spaceFormID
+GROUP BY spaceEditorId, lockLevel
+ORDER BY spaceEditorId, lockLevel;
 
-SELECT '==Worldspace average X Bounds Width==';
-SELECT AVG(boundX) FROM SeventySix_Worldspace;
+SELECT '==Total entities by Category by Space==';
+SELECT spaceEditorId, category, COUNT(*) AS count FROM Standard_Search
+INNER JOIN Space_Info ON Standard_Search.spaceFormID = Space_Info.spaceFormID
+GROUP BY spaceEditorId, category
+ORDER BY spaceEditorId, category;
 
-SELECT '==Worldspace average Y Bounds Width==';
-SELECT AVG(boundY) FROM SeventySix_Worldspace;
+SELECT '==Total Scrap and Junk per Component per Space==';
+SELECT spaceEditorID, component, SUM(magnitude), COUNT(*)  FROM Scrap_Search
+INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID
+GROUP BY Space_Info.spaceFormID, component
+ORDER BY spaceEditorID, component;
 
-SELECT '==Worldspace average Z Bounds Width==';
-SELECT AVG(boundZ) FROM SeventySix_Worldspace;
+SELECT '==Average (variable only) Spawn chance and Count per NPC per Space==';
+SELECT Space_Info.spaceEditorID, NPC, AVG(chance), COUNT(*) FROM NPC_Search
+INNER JOIN Space_Info ON Space_Info.spaceFormID = NPC_Search.spaceFormID
+GROUP BY NPC_Search.spaceFormID, NPC
+ORDER BY spaceEditorID;
 
-SELECT '==Worldspace average Z Rotation==';
-SELECT AVG(rotZ) FROM SeventySix_Worldspace;
-
-SELECT '==Worldspace primitive shape types + count==';
-SELECT primitiveShape, COUNT(*) FROM SeventySix_Worldspace GROUP BY primitiveShape;
-
-SELECT '==Worldspace total placement count==';
-SELECT COUNT(referenceFormID) FROM SeventySix_Worldspace;
-
-SELECT '==Interior average X Coord==';
-SELECT AVG(x) FROM SeventySix_Interior;
-
-SELECT '==Interior average Y Coord==';
-SELECT AVG(y) FROM SeventySix_Interior;
-
-SELECT '==Interior average Z Coord==';
-SELECT AVG(z) FROM SeventySix_Interior;
-
--- Assumes thresholds are -8000 and +45000. Verify these in SettingsPlotTopograph.zTreshUpper/Lower
-SELECT '==Interior Z outliers==';
-SELECT COUNT(*) FROM SeventySix_Interior WHERE z < -8000 or z > 45000;
-
-SELECT '==Interior average X Bounds Width==';
-SELECT AVG(boundX) FROM SeventySix_Interior;
-
-SELECT '==Interior average Y Bounds Width==';
-SELECT AVG(boundY) FROM SeventySix_Interior;
-
-SELECT '==Interior average Z Bounds Width==';
-SELECT AVG(boundZ) FROM SeventySix_Interior;
-
-SELECT '==Interior average Z Rotation==';
-SELECT AVG(rotZ) FROM SeventySix_Interior;
-
-SELECT '==Interior total placement count==';
-SELECT COUNT(referenceFormID) FROM SeventySix_Interior;
-
-SELECT '==Worldspace unique placement count==';
-SELECT COUNT(DISTINCT referenceFormID) FROM SeventySix_Worldspace;
-
-SELECT '==Interior unique placement count==';
-SELECT COUNT(DISTINCT referenceFormID) FROM SeventySix_Interior;
-
-SELECT '==Average interior placement count==';
-SELECT AVG(count) FROM
-(
-    SELECT COUNT(referenceFormID) as count FROM SeventySix_Interior
-    GROUP BY cellFormID
-);
-
-SELECT '==Worldspace lock levels + count==';
-SELECT  lockLevel, COUNT(*) FROM SeventySix_Worldspace GROUP BY lockLevel;
-
-SELECT '==Interior lock levels + count==';
-SELECT  lockLevel, COUNT(*) FROM SeventySix_Interior GROUP BY lockLevel;
-
-SELECT '==Worldspace variable spawn entities + count==';
-SELECT  spawnClass, COUNT(*) FROM SeventySix_Worldspace GROUP BY spawnClass;
-
-SELECT '==Interior variable spawn entities + count==';
-SELECT  spawnClass, COUNT(*) FROM SeventySix_Interior GROUP BY spawnClass;
-
-SELECT '==Worldspace total entity-with-locationFormID count==';
-SELECT  COUNT(*) FROM SeventySix_Worldspace WHERE locationFormID <> '';
-
-SELECT '==Interior total entity-with-locationFormID count==';
-SELECT  COUNT(*) FROM SeventySix_Interior WHERE locationFormID <> '';
-
-SELECT '==Worldspace unique locationFormID count==';
-SELECT  COUNT(*) FROM
-(
-    SELECT * FROM SeventySix_Worldspace GROUP BY locationFormID
-);
-
-SELECT '==Interior unique locationFormID count==';
-SELECT  COUNT(*) FROM
-(
-    SELECT * FROM SeventySix_Interior GROUP BY locationFormID
-);
-
-SELECT '==Junk-by-scrap count==';
-SELECT component, COUNT(*) FROM SeventySix_Quantified_Scrap
-GROUP BY component;
-
-SELECT '==Count of unique junk items==';
-SELECT COUNT(*) FROM
-(
-    SELECT * FROM SeventySix_Quantified_Scrap GROUP BY junkFormID
-);
-
-SELECT '==Average NPC Spawns per location FormID==';
-SELECT AVG(count) FROM
-(
-    SELECT COUNT(*) as count FROM SeventySix_NPCSpawn
-    GROUP BY locationFormID
-);
-
-SELECT '==NPC per-class avg spawn chance + count==';
-SELECT npc, class, AVG(chance), COUNT(*) FROM SeventySix_NPCSpawn
-GROUP BY npc, class;
-
-SELECT '==Internal cells list + entity count==';
-SELECT cellEditorID, cellDisplayName, count(*) FROM SeventySix_Interior
-INNER JOIN SeventySix_Cell ON SeventySix_Cell.cellFormID = SeventySix_Interior.cellFormID
-GROUP BY SeventySix_Interior.cellFormID
-ORDER BY cellEditorID;
+SELECT '==Space Info==';
+SELECT * FROM Space_Info;
