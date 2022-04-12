@@ -29,9 +29,9 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -323,8 +323,7 @@ namespace Mappalachia
             // 
             this.modeIconMenuItem.Name = "modeIconMenuItem";
             this.modeIconMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.modeIconMenuItem.ShowShortcutKeys = false;
-            this.modeIconMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
             this.modeIconMenuItem.Text = "Icon";
             this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
             this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -333,8 +332,7 @@ namespace Mappalachia
             // 
             this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
             this.modeHeatmapMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.modeHeatmapMenuItem.ShowShortcutKeys = false;
-            this.modeHeatmapMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
             this.modeHeatmapMenuItem.Text = "Heatmap";
             this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
             this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
@@ -343,8 +341,7 @@ namespace Mappalachia
             // 
             this.modeTopographyMenuItem.Name = "modeTopographyMenuItem";
             this.modeTopographyMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.modeTopographyMenuItem.ShowShortcutKeys = false;
-            this.modeTopographyMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.modeTopographyMenuItem.Size = new System.Drawing.Size(180, 22);
             this.modeTopographyMenuItem.Text = "Topographic";
             this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
             this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
@@ -535,8 +532,8 @@ namespace Mappalachia
             this.gridViewSearchResults.AllowUserToDeleteRows = false;
             this.gridViewSearchResults.AllowUserToOrderColumns = true;
             this.gridViewSearchResults.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
-            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.gridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -570,8 +567,8 @@ namespace Mappalachia
             // columnSearchFormID
             // 
             this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnSearchFormID.HeaderText = "FormID";
             this.columnSearchFormID.Name = "columnSearchFormID";
             this.columnSearchFormID.ReadOnly = true;
@@ -771,8 +768,8 @@ namespace Mappalachia
             this.gridViewLegend.AllowUserToDeleteRows = false;
             this.gridViewLegend.AllowUserToOrderColumns = true;
             this.gridViewLegend.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
-            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.gridViewLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -1192,7 +1189,7 @@ namespace Mappalachia
             // pictureBoxMapPreview
             // 
             this.pictureBoxMapPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.pictureBoxMapPreview.Location = new System.Drawing.Point(6, 0);
+            this.pictureBoxMapPreview.Location = new System.Drawing.Point(5, 0);
             this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
             this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
