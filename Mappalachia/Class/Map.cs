@@ -18,7 +18,7 @@ namespace Mappalachia
 		static double yOffset = 5.2;
 
 		// Hidden settings
-		public static readonly int mapDimension = 4096; // All layer images should be this^2
+		public static readonly int mapDimension = 4096; // All background images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 

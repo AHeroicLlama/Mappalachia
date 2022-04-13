@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Mappalachia
 {
-	// Interfaces with the database and provides helper methods, data translation and sorting
+	// Provides data helper methods, data translation and sorting
 	static class DataHelper
 	{
 		static readonly Dictionary<string, string> signatureDescription = new Dictionary<string, string>
