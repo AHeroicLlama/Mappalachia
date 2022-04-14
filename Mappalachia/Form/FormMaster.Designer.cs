@@ -818,7 +818,7 @@ namespace Mappalachia
             // 
             this.labelMinSpawnChance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMinSpawnChance.AutoSize = true;
-            this.labelMinSpawnChance.Location = new System.Drawing.Point(4, 200);
+            this.labelMinSpawnChance.Location = new System.Drawing.Point(4, 196);
             this.labelMinSpawnChance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMinSpawnChance.Name = "labelMinSpawnChance";
             this.labelMinSpawnChance.Size = new System.Drawing.Size(162, 15);
@@ -829,7 +829,7 @@ namespace Mappalachia
             // numericUpDownNPCSpawnThreshold
             // 
             this.numericUpDownNPCSpawnThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.numericUpDownNPCSpawnThreshold.Location = new System.Drawing.Point(7, 218);
+            this.numericUpDownNPCSpawnThreshold.Location = new System.Drawing.Point(7, 215);
             this.numericUpDownNPCSpawnThreshold.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.numericUpDownNPCSpawnThreshold.Name = "numericUpDownNPCSpawnThreshold";
             this.numericUpDownNPCSpawnThreshold.Size = new System.Drawing.Size(110, 23);
@@ -842,7 +842,7 @@ namespace Mappalachia
             // buttonSearchScrap
             // 
             this.buttonSearchScrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSearchScrap.Location = new System.Drawing.Point(65, 215);
+            this.buttonSearchScrap.Location = new System.Drawing.Point(66, 213);
             this.buttonSearchScrap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSearchScrap.Name = "buttonSearchScrap";
             this.buttonSearchScrap.Size = new System.Drawing.Size(105, 27);
@@ -856,7 +856,7 @@ namespace Mappalachia
             // buttonSearchNPC
             // 
             this.buttonSearchNPC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSearchNPC.Location = new System.Drawing.Point(124, 216);
+            this.buttonSearchNPC.Location = new System.Drawing.Point(124, 213);
             this.buttonSearchNPC.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSearchNPC.Name = "buttonSearchNPC";
             this.buttonSearchNPC.Size = new System.Drawing.Size(105, 27);
@@ -1103,7 +1103,7 @@ namespace Mappalachia
             this.groupBoxFilterByLockLevel.Controls.Add(this.listViewFilterLockTypes);
             this.groupBoxFilterByLockLevel.Controls.Add(this.buttonDeselectAllLock);
             this.groupBoxFilterByLockLevel.Controls.Add(this.buttonSelectAllLock);
-            this.groupBoxFilterByLockLevel.Location = new System.Drawing.Point(398, 37);
+            this.groupBoxFilterByLockLevel.Location = new System.Drawing.Point(393, 37);
             this.groupBoxFilterByLockLevel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxFilterByLockLevel.Name = "groupBoxFilterByLockLevel";
             this.groupBoxFilterByLockLevel.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -1120,7 +1120,7 @@ namespace Mappalachia
             this.groupBoxFilterByCategory.Controls.Add(this.listViewFilterSignatures);
             this.groupBoxFilterByCategory.Controls.Add(this.buttonDeselectAllSignature);
             this.groupBoxFilterByCategory.Controls.Add(this.buttonSelectAllSignature);
-            this.groupBoxFilterByCategory.Location = new System.Drawing.Point(7, 37);
+            this.groupBoxFilterByCategory.Location = new System.Drawing.Point(6, 37);
             this.groupBoxFilterByCategory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxFilterByCategory.Name = "groupBoxFilterByCategory";
             this.groupBoxFilterByCategory.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -1160,11 +1160,11 @@ namespace Mappalachia
             // 
             this.groupBoxScrapSearch.Controls.Add(this.listBoxScrap);
             this.groupBoxScrapSearch.Controls.Add(this.buttonSearchScrap);
-            this.groupBoxScrapSearch.Location = new System.Drawing.Point(306, 7);
+            this.groupBoxScrapSearch.Location = new System.Drawing.Point(306, 4);
             this.groupBoxScrapSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxScrapSearch.Name = "groupBoxScrapSearch";
             this.groupBoxScrapSearch.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBoxScrapSearch.Size = new System.Drawing.Size(237, 249);
+            this.groupBoxScrapSearch.Size = new System.Drawing.Size(237, 246);
             this.groupBoxScrapSearch.TabIndex = 7;
             this.groupBoxScrapSearch.TabStop = false;
             this.groupBoxScrapSearch.Text = "Scrap Search";
@@ -1176,11 +1176,11 @@ namespace Mappalachia
             this.groupBoxNPCSearch.Controls.Add(this.labelMinSpawnChance);
             this.groupBoxNPCSearch.Controls.Add(this.numericUpDownNPCSpawnThreshold);
             this.groupBoxNPCSearch.Controls.Add(this.buttonSearchNPC);
-            this.groupBoxNPCSearch.Location = new System.Drawing.Point(62, 7);
+            this.groupBoxNPCSearch.Location = new System.Drawing.Point(61, 4);
             this.groupBoxNPCSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBoxNPCSearch.Name = "groupBoxNPCSearch";
             this.groupBoxNPCSearch.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBoxNPCSearch.Size = new System.Drawing.Size(237, 249);
+            this.groupBoxNPCSearch.Size = new System.Drawing.Size(237, 246);
             this.groupBoxNPCSearch.TabIndex = 6;
             this.groupBoxNPCSearch.TabStop = false;
             this.groupBoxNPCSearch.Text = "NPC Search";
@@ -1189,7 +1189,7 @@ namespace Mappalachia
             // pictureBoxMapPreview
             // 
             this.pictureBoxMapPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.pictureBoxMapPreview.Location = new System.Drawing.Point(5, 0);
+            this.pictureBoxMapPreview.Location = new System.Drawing.Point(-11, 0);
             this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
             this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1237,7 +1237,7 @@ namespace Mappalachia
             // 
             this.checkBoxAddAsGroup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBoxAddAsGroup.AutoSize = true;
-            this.checkBoxAddAsGroup.Location = new System.Drawing.Point(161, 575);
+            this.checkBoxAddAsGroup.Location = new System.Drawing.Point(160, 574);
             this.checkBoxAddAsGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxAddAsGroup.Name = "checkBoxAddAsGroup";
             this.checkBoxAddAsGroup.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -1288,8 +1288,7 @@ namespace Mappalachia
             // FormMaster
             // 
             this.AcceptButton = this.buttonSearch;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1674, 896);
             this.Controls.Add(this.progressBarMain);
