@@ -29,7 +29,10 @@ namespace Mappalachia
 		public FormMaster()
 		{
 			InitializeComponent();
-			Font = new Font(Font.Name, Font.Size * designDPI / CreateGraphics().DpiX, Font.Style, Font.Unit, Font.GdiCharSet, Font.GdiVerticalFont);
+			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
+			splitContainerMain.Panel1.AutoScrollMinSize = new Size(
+				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Width * dpiScaling),
+				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Height * dpiScaling));
 
 			Map.progressBarMain = progressBarMain;
 			progressBar = progressBarMain;
