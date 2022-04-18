@@ -554,7 +554,7 @@ namespace Mappalachia
             this.columnSearchIndex});
             this.gridViewSearchResults.Location = new System.Drawing.Point(6, 311);
             this.gridViewSearchResults.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gridViewSearchResults.MinimumSize = new System.Drawing.Size(789, 180);
+            this.gridViewSearchResults.MinimumSize = new System.Drawing.Size(0, 180);
             this.gridViewSearchResults.Name = "gridViewSearchResults";
             this.gridViewSearchResults.ReadOnly = true;
             this.gridViewSearchResults.RowHeadersVisible = false;
@@ -780,7 +780,7 @@ namespace Mappalachia
             this.columnLegendDisplayName});
             this.gridViewLegend.Location = new System.Drawing.Point(6, 600);
             this.gridViewLegend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gridViewLegend.MinimumSize = new System.Drawing.Size(789, 180);
+            this.gridViewLegend.MinimumSize = new System.Drawing.Size(0, 180);
             this.gridViewLegend.Name = "gridViewLegend";
             this.gridViewLegend.RowHeadersVisible = false;
             this.gridViewLegend.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1212,7 +1212,7 @@ namespace Mappalachia
             // splitContainerMain.Panel1
             // 
             this.splitContainerMain.Panel1.AutoScroll = true;
-            this.splitContainerMain.Panel1.AutoScrollMinSize = new System.Drawing.Size(820, 820);
+            this.splitContainerMain.Panel1.AutoScrollMinSize = new System.Drawing.Size(680, 820);
             this.splitContainerMain.Panel1.Controls.Add(this.checkBoxAddAsGroup);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonRemoveFromLegend);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonAddToLegend);
