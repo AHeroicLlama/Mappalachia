@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-1c34eb6563bf655578301c2f2c259526
+78426a4bf180c85795b6af3e6ac6d571
 ==File Size== 
-372318208 
+372322304 
 ==Tables== 
 Entity_Info      Map_Markers      Scrap_Search   
 Game_Version     NPC_Search       Space_Info     
@@ -134,6 +134,87 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 24.9073629451781
 ==Map Markers count and avg label length, x, y per Space==
 Appalachia|391|17.7468030690537|17240.0971867008|-2212.3452685422
+==Map Marker icon counts==
+QuarryMarker|20
+DoorMarker|20
+CabinMarker|17
+FarmMarker|16
+TownMarker|15
+HighTechBuildingMarker|14
+BunkerMarker|14
+LookoutTowerMarker|13
+FissureMarker|13
+FactoryMarker|13
+TrainStationMarker|12
+MilitaryBaseMarker|12
+WoodShackMarker|11
+PondLakeMarker|11
+CaveMarker|10
+QuestMarker|9
+ElectricalSubstationMarker|9
+BrownstoneMarker|9
+RadioTowerMarker|8
+LowRiseMarker|8
+ForestedMarker|8
+RaiderSettlementMarker|7
+TrainTrackMark|6
+TownRuinsMarker|5
+HouseTrailerMarker|5
+EncampmentMarker|5
+SkiResortMarker|4
+RadioactiveAreaMarker|4
+OfficeMarker|4
+AmusementParkMarker|4
+AirfieldMarker|4
+SewerMarker|3
+SatelliteMarker|3
+SancHillsMarker|3
+PowerPlantMarker|3
+OverlookMarker|3
+MansionMarker|3
+IndustrialDomeMarker|3
+FillingStationMarker|3
+CountryClubMarker|3
+CityMarker|3
+RailroadMarker|2
+PublicWorkshopMarker|2
+MonorailMarker|2
+LandmarkMarker|2
+JunkyardMarker|2
+HospitalMarker|2
+GraveyardMarker|2
+GoodneighborMarker|2
+ElevatedHighwayMarker|2
+DamMarker|2
+CowSpotsCreameryMarker|2
+AgriculturalCenterMarker|2
+WhitespringResort|1
+VaultMarker|1
+Vault96Marker|1
+Vault94Marker|1
+Vault76Marker|1
+Vault63Marker|1
+TopOfTheWorldMarker|1
+TeapotMarker|1
+SettlementMarker|1
+PumpkinMarker|1
+PowerArmorLocMarker|1
+PlayerLocMarker|1
+PierMarker|1
+PalaceWindingPathMarker|1
+NukaColaQuantumPlant|1
+MonumentMarker|1
+LighthouseMarker|1
+LibertaliaMarker|1
+IndustrialStacksMarker|1
+ExcavatorMarker|1
+ChurchMarker|1
+CastleMarker|1
+CarMarker|1
+CapitalBuildingMarker|1
+BoSMarker|1
+ArktosPharmaMarker|1
+AppalachianAntiquesMarker|1
 ==Total Unique entities==
 39984
 ==Total entities by PrimitiveShape by Space==

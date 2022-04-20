@@ -14,6 +14,9 @@ Database/sqlite3.exe
 #Additionally, this is an often-changing binary file, and would be unwise to include
 *.db
 
+#MapIconProcessor raw SWF extracts
+MapIconProcessor/extract
+
 #CSV Output from Edit Scripts & Preprocessor
 */Output/*.csv
 !*Skipped_Spaces.csv

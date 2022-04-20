@@ -17,18 +17,22 @@ namespace Mappalachia
 		static readonly string imgFolder = @"img\";
 		static readonly string dataFolder = @"data\";
 		static readonly string fontFolder = @"font\";
+		static readonly string mapMarkerfolder = imgFolder + @"mapmarker\";
 
 		static readonly string fontFileName = "futura_condensed_bold.ttf";
 		static readonly string databaseFileName = "mappalachia.db";
 		static readonly string imgFileNameMapMilitary = "military.jpg";
 		static readonly string worldspaceMapFileExtension = ".jpg";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
+		static readonly string mapMarkerFileExtension = ".png";
 
 		static readonly string tempImageFolder = @"temp\";
 		static readonly string tempImageBaseFileName = "mappalachia_preview";
 		static readonly string tempImageFileExtension = ".png";
 
 		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
+		static readonly Dictionary<string, Image> mapMarkerimageCache = new Dictionary<string, Image>();
+
 		static Image imageMapMilitary;
 
 		static int tempImageLockedCount = 0;
@@ -276,6 +280,25 @@ namespace Mappalachia
 		{
 			return new Bitmap(Map.mapDimension, Map.mapDimension);
 		}
+
+		public static Image GetMapMarker(string mapMarkerName)
+        {
+			try
+			{
+				// Cache the image if not already
+				if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
+				{
+					mapMarkerimageCache.Add(mapMarkerName, Image.FromFile(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension));
+				}
+
+				return new Bitmap(mapMarkerimageCache[mapMarkerName]);
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia was unable to find or read the map marker image file for '" + mapMarkerName + "'.\n" + genericExceptionHelpText + e);
+				return new Bitmap(8, 8);
+			}
+        }
 
 		// Read preferences from file
 		public static List<string> ReadPreferences()

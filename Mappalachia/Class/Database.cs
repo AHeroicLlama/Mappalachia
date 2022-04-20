@@ -481,7 +481,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				mapMarkers.Add(new MapMarker(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2)));
+				mapMarkers.Add(new MapMarker(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3)));
 			}
 
 			return mapMarkers;

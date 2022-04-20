@@ -214,7 +214,16 @@ namespace Mappalachia
 
 					return;
 
-				case "mapMarker":
+				case "mapMarkerName":
+					// Empty or recognized map marker naming scheme
+					if (data != string.Empty && !Validation.validMapMarkerName.IsMatch(data))
+					{
+						ReportValidationError();
+					}
+
+					return;
+
+				case "label":
 				case "npc":
 				case "component":
 					// Nothing really to validate for here since they're just in-game strings

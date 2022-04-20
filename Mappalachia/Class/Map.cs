@@ -497,6 +497,9 @@ namespace Mappalachia
 
 			foreach (MapMarker marker in Database.GetMapMarkers(SettingsSpace.GetCurrentFormID()))
 			{
+				Image markerImage = IOManager.GetMapMarker(marker.markerName);
+				imageGraphic.DrawImage(markerImage, new Point((int)(marker.x - (markerImage.Width / 2)), (int)(marker.y - (markerImage.Height / 2))));
+
 				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxRadius, mapMarkerMaxRadius));
 				textBounds.Width += mapMarkerPadding;
 				textBounds.Height += mapMarkerPadding;

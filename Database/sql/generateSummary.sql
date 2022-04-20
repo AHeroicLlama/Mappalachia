@@ -47,6 +47,11 @@ SELECT spaceEditorID, COUNT(*), AVG(LENGTH(label)), AVG(x), AVG(y) FROM Map_Mark
 INNER JOIN Space_Info ON Map_Markers.spaceFormID = Space_Info.spaceFormID
 GROUP BY Map_Markers.spaceFormID;
 
+SELECT '==Map Marker icon counts==';
+SELECT mapMarkerName, COUNT(*) as count from Map_Markers
+GROUP BY mapMarkerName
+ORDER BY count DESC;
+
 SELECT '==Total Unique entities==';
 SELECT COUNT(DISTINCT referenceFormID) FROM Position_Data;
 

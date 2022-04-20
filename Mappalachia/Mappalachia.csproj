@@ -50,7 +50,7 @@
 	</ItemGroup>
 
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-	  <Exec Command="xcopy $(ProjectDir)\data\* $(TargetDir)\data\ /y&#xD;&#xA;xcopy $(ProjectDir)\font\* $(TargetDir)\font\ /y&#xD;&#xA;xcopy $(ProjectDir)\img\* $(TargetDir)\img\ /y&#xD;&#xA;&#xD;&#xA;xcopy $(ProjectDir)\data\* $(ProjectDir)\publish\data\ /y&#xD;&#xA;xcopy $(ProjectDir)\font\* $(ProjectDir)\publish\font\ /y&#xD;&#xA;xcopy $(ProjectDir)\img\* $(ProjectDir)\publish\img\ /y" />
+	  <Exec Command="xcopy $(ProjectDir)\data\* $(TargetDir)\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(TargetDir)\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\* $(TargetDir)\img\ /y /s&#xD;&#xA;&#xD;&#xA;xcopy $(ProjectDir)\data\* $(ProjectDir)\publish\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(ProjectDir)\publish\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\* $(ProjectDir)\publish\img\ /y /s" />
 	</Target>
 
 </Project>
