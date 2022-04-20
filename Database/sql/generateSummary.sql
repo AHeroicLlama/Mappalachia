@@ -42,15 +42,10 @@ SELECT AVG(length) FROM
     SELECT LENGTH(editorID) AS length FROM Entity_Info
 );
 
-SELECT '==Map Markers count and avg label length, x, y per Space==';
-SELECT spaceEditorID, COUNT(*), AVG(LENGTH(label)), AVG(x), AVG(y) FROM Map_Markers
+SELECT '==Map Markers==';
+SELECT spaceEditorID, mapMarkerName, label, x, y FROM Map_Markers
 INNER JOIN Space_Info ON Map_Markers.spaceFormID = Space_Info.spaceFormID
-GROUP BY Map_Markers.spaceFormID;
-
-SELECT '==Map Marker icon counts==';
-SELECT mapMarkerName, COUNT(*) as count from Map_Markers
-GROUP BY mapMarkerName
-ORDER BY count DESC;
+ORDER BY spaceEditorID ASC, mapMarkerName ASC, label ASC;
 
 SELECT '==Total Unique entities==';
 SELECT COUNT(DISTINCT referenceFormID) FROM Position_Data;

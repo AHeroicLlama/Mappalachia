@@ -1,9 +1,54 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Mappalachia
 {
-    internal class MapMarkers
-    {
+	internal static class MapMarkers
+	{
+		static readonly string bloodEagleMarker = "BloodEagleMarker";
+		static readonly string cultistMarker = "CultistMarker";
+		static readonly string fastTravelBadString = "Fast Travel Point: ";
+		static readonly string fissureSite = "Fissure Site";
+		static readonly Regex validMapMarkerName = new Regex("^(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
+		static readonly Regex badMapMarkerNames = new Regex("^(Door|Quest|PowerArmorLoc|PlayerLoc)Marker$");
+		static readonly Regex biomeNames = new Regex("^(The )?(Mire|Cranberry Bog|Forest|Toxic Valley|Savage Divide|Mountain)( Region)?$");
+		static readonly Dictionary<string, string> locationMarkerCorrection = new Dictionary<string, string>()
+		{
+			{ "Ammo Dump", bloodEagleMarker },
+			{ "Bloody Frank's", bloodEagleMarker },
+			{ "Cliffwatch", bloodEagleMarker },
+			{ "Crimson Prospect", bloodEagleMarker },
+			{ "Hunter's Ridge", bloodEagleMarker },
+			{ "Ripper Alley", bloodEagleMarker },
+			{ "Rollins Labor Camp", bloodEagleMarker },
+			{ "Seneca Gang Camp", bloodEagleMarker },
+			{ "Skullbone Vantage", bloodEagleMarker },
+			{ "South Cutthroat Camp", bloodEagleMarker },
+			{ "The Bounty", bloodEagleMarker },
+			{ "The Crosshair", bloodEagleMarker },
+			{ "The Kill Box", bloodEagleMarker },
+			{ "The Pigsty", bloodEagleMarker },
+			{ "The Sludge Works", bloodEagleMarker },
+			{ "The Vantage", bloodEagleMarker },
+			{ "Twin Pine Cabins", bloodEagleMarker },
+			{ "Widow's Perch", bloodEagleMarker },
+			{ "Blakes Offering", cultistMarker },
+			{ "Clancy Manor", cultistMarker },
+			{ "Ingram Mansion", cultistMarker },
+			{ "Johnson's Acre", cultistMarker },
+			{ "Kanawha County Cemetery", cultistMarker },
+			{ "Lucky Hole Mine", cultistMarker },
+			{ "Moth-Home", cultistMarker },
+			{ "Sacrament", cultistMarker },
+			{ "Foundation", "HammerWingMarker" },
+			{ "Hawke's Refuge", "CaveMarker" },
+			{ "Ohio River Adventures", "SkullRingMarker" },
+			{ "The Crater", "SpaceStationMarker" },
+			{ "The Rusty Pick", "LegendaryPurveyorMarker" },
+			{ "Vault 51", "Vault51Marker" },
+			{ "Vault 79", "Vault79Marker" },
+		};
+
 		// Pull the MapMarker display text from position data and store it in a new file
 		public static CSVFile ProcessMapMarkers(CSVFile positionData)
 		{
@@ -12,20 +57,81 @@ namespace Mappalachia
 
 			foreach (CSVRow row in positionData.rows)
 			{
-				string displayName = row.GetCellFromColumn("referenceFormID");
+				// Uniquely for map markers, xEdit scripts return the map marker label under what is normally the reference column
+				string label = row.GetCellFromColumn("referenceFormID");
 
-				if (Validation.matchFormID.IsMatch(displayName))
+				if (Validation.matchFormID.IsMatch(label))
 				{
 					continue; // This is a normal entity which came without an actual display name so we assume it's not a map marker
 				}
 
-				// ... Otherwise we assume this is a map marker
+				string spaceFormID = row.GetCellFromColumn("spaceFormID");
+				string iconName = row.GetCellFromColumn("mapMarkerName");
+
+				/* Fix incorrect Map Marker Icons.
+				There must be something basic data mining misses, or an XEdit bug
+				or the game changes them on the fly, but some labels and icons are different in-game.
+				This appears to largely but not exclusively affect content changed or added with Wastelanders */
+
+				// Bethesda?
+				if (label == "Mountain Region")
+                {
+					label = "Colonel Kelly Monument";
+				}
+
+				// Fix random biome markers which aren't visible in-game
+				// Notably this must occur *after* Colonel Kelly Monument is fixed
+				if (biomeNames.IsMatch(label))
+				{
+					continue; // Skip this row, dropping it from the output
+				}
+
+				// Large collection of incorrect Wastelanders icons - suspect xedit bug?
+				if (locationMarkerCorrection.ContainsKey(label))
+				{
+					iconName = locationMarkerCorrection[label];
+                }
+
+				// Misnamed workshop
+				if (label == "Hemlock Holes" && iconName == "FactoryMarker")
+				{
+					label = "Hemlock Holes Maintenance";
+				}
+
+				// Removes "Fast Travel Point: " from some (typically station) names
+				if (label.StartsWith(fastTravelBadString))
+                {
+					label = label.Replace(fastTravelBadString, string.Empty);
+                }
+
+				// Fix fissure site naming - Rename Zeta to Alpha, drop names from all others
+				if (label.StartsWith(fissureSite))
+				{
+					if (label == "Fissure Site Zeta")
+					{
+						label = "Fissure Site Alpha";
+					}
+					else
+					{
+						label = fissureSite;
+					}
+				}
+
+				// Perform our own specialized validation
+				if (badMapMarkerNames.IsMatch(iconName) ||
+					!validMapMarkerName.IsMatch(iconName))
+				{
+					throw new System.Exception("Map Marker failed internal validation: " + label + ", " + iconName);
+				}
+
+				// ... Finally, we assume this is a (corrected) map marker
 				string newRow =
-					row.GetCellFromColumn("spaceFormID") + "," +
-					displayName + "," +
-					row.GetCellFromColumn("mapMarkerName") + "," +
+					spaceFormID + "," +
+					label + "," +
+					iconName + "," +
 					row.GetCellFromColumn("x") + "," +
 					row.GetCellFromColumn("y");
+
 				newFileRows.Add(new CSVRow(newRow, newFileHeader));
 			}
 

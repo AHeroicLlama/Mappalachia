@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-78426a4bf180c85795b6af3e6ac6d571
+aafbeb1644d0603f0459db0587e4596c
 ==File Size== 
 372322304 
 ==Tables== 
@@ -132,89 +132,395 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 2.65053521408563
 ==Average editorID string length==
 24.9073629451781
-==Map Markers count and avg label length, x, y per Space==
-Appalachia|391|17.7468030690537|17240.0971867008|-2212.3452685422
-==Map Marker icon counts==
-QuarryMarker|20
-DoorMarker|20
-CabinMarker|17
-FarmMarker|16
-TownMarker|15
-HighTechBuildingMarker|14
-BunkerMarker|14
-LookoutTowerMarker|13
-FissureMarker|13
-FactoryMarker|13
-TrainStationMarker|12
-MilitaryBaseMarker|12
-WoodShackMarker|11
-PondLakeMarker|11
-CaveMarker|10
-QuestMarker|9
-ElectricalSubstationMarker|9
-BrownstoneMarker|9
-RadioTowerMarker|8
-LowRiseMarker|8
-ForestedMarker|8
-RaiderSettlementMarker|7
-TrainTrackMark|6
-TownRuinsMarker|5
-HouseTrailerMarker|5
-EncampmentMarker|5
-SkiResortMarker|4
-RadioactiveAreaMarker|4
-OfficeMarker|4
-AmusementParkMarker|4
-AirfieldMarker|4
-SewerMarker|3
-SatelliteMarker|3
-SancHillsMarker|3
-PowerPlantMarker|3
-OverlookMarker|3
-MansionMarker|3
-IndustrialDomeMarker|3
-FillingStationMarker|3
-CountryClubMarker|3
-CityMarker|3
-RailroadMarker|2
-PublicWorkshopMarker|2
-MonorailMarker|2
-LandmarkMarker|2
-JunkyardMarker|2
-HospitalMarker|2
-GraveyardMarker|2
-GoodneighborMarker|2
-ElevatedHighwayMarker|2
-DamMarker|2
-CowSpotsCreameryMarker|2
-AgriculturalCenterMarker|2
-WhitespringResort|1
-VaultMarker|1
-Vault96Marker|1
-Vault94Marker|1
-Vault76Marker|1
-Vault63Marker|1
-TopOfTheWorldMarker|1
-TeapotMarker|1
-SettlementMarker|1
-PumpkinMarker|1
-PowerArmorLocMarker|1
-PlayerLocMarker|1
-PierMarker|1
-PalaceWindingPathMarker|1
-NukaColaQuantumPlant|1
-MonumentMarker|1
-LighthouseMarker|1
-LibertaliaMarker|1
-IndustrialStacksMarker|1
-ExcavatorMarker|1
-ChurchMarker|1
-CastleMarker|1
-CarMarker|1
-CapitalBuildingMarker|1
-BoSMarker|1
-ArktosPharmaMarker|1
-AppalachianAntiquesMarker|1
+==Map Markers==
+Appalachia|AgriculturalCenterMarker|Sunshine Meadows Industrial Farm|-138578|28356
+Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
+Appalachia|AirfieldMarker|Crashed Plane|147706|58411
+Appalachia|AirfieldMarker|Horizon's Rest|-20789|31098
+Appalachia|AirfieldMarker|Morgantown Regional Airfield|-19705|101313
+Appalachia|AirfieldMarker|Wade Airport|-88012|-37758
+Appalachia|AmusementParkMarker|Camden Park|-179637|-77694
+Appalachia|AmusementParkMarker|Lake Reynolds|-65793|-120832
+Appalachia|AmusementParkMarker|Tyler County Fairgrounds|-147238|142782
+Appalachia|AmusementParkMarker|Wavy Willard's Water Park|-29820|193976
+Appalachia|AppalachianAntiquesMarker|Appalachian Antiques|119940|-128863
+Appalachia|ArktosPharmaMarker|Arktos Pharma|-42353|51383
+Appalachia|BloodEagleMarker|Ammo Dump|91944|99391
+Appalachia|BloodEagleMarker|Bloody Frank's|130070|33913
+Appalachia|BloodEagleMarker|Cliffwatch|-2449|-8936
+Appalachia|BloodEagleMarker|Crimson Prospect|140233|-102150
+Appalachia|BloodEagleMarker|Hunter's Ridge|-149650|51465
+Appalachia|BloodEagleMarker|Ripper Alley|74686|-65500
+Appalachia|BloodEagleMarker|Rollins Labor Camp|-98042|-115047
+Appalachia|BloodEagleMarker|Seneca Gang Camp|85281|50118
+Appalachia|BloodEagleMarker|Skullbone Vantage|40148|35776
+Appalachia|BloodEagleMarker|South Cutthroat Camp|42829|6698
+Appalachia|BloodEagleMarker|The Bounty|66049|-145841
+Appalachia|BloodEagleMarker|The Crosshair|-92840|205548
+Appalachia|BloodEagleMarker|The Kill Box|-59784|-56961
+Appalachia|BloodEagleMarker|The Pigsty|-38220|-41403
+Appalachia|BloodEagleMarker|The Sludge Works|-105587|-139907
+Appalachia|BloodEagleMarker|The Vantage|23579|-68315
+Appalachia|BloodEagleMarker|Twin Pine Cabins|-74440|113932
+Appalachia|BloodEagleMarker|Widow's Perch|-80141|-84608
+Appalachia|BoSMarker|Fort Atlas|79508|73913
+Appalachia|BrownstoneMarker|Black Bear Lodge|2645|182861
+Appalachia|BrownstoneMarker|Excelsior Model Home|173540|107324
+Appalachia|BrownstoneMarker|Fraternity Row|3191|89389
+Appalachia|BrownstoneMarker|Freddy Fear's House of Scares|161106|152447
+Appalachia|BrownstoneMarker|Sal's Grinders|-189103|-120431
+Appalachia|BrownstoneMarker|Slocum's Joe|-67277|55944
+Appalachia|BrownstoneMarker|Southern Belle Motel|172104|27702
+Appalachia|BrownstoneMarker|The General's Steakhouse|182221|-60407
+Appalachia|BrownstoneMarker|Wilson Brother's Auto Repair|-55613|111422
+Appalachia|BunkerMarker|Abandoned Bunker|154881|127372
+Appalachia|BunkerMarker|Abbie's Bunker|185220|138117
+Appalachia|BunkerMarker|Carson Family Bunker|159044|69080
+Appalachia|BunkerMarker|Drop Site C2|194823|-105313
+Appalachia|BunkerMarker|Drop Site G3|140874|-108719
+Appalachia|BunkerMarker|Drop Site V9|191372|-157601
+Appalachia|BunkerMarker|Ella Ames' Bunker|165802|102922
+Appalachia|BunkerMarker|Hornwright Air Cleanser Site #01|-108156|-78438
+Appalachia|BunkerMarker|Hornwright Air Cleanser Site #02|-67522|-101460
+Appalachia|BunkerMarker|Hornwright Air Cleanser Site #03|-121065|-133268
+Appalachia|BunkerMarker|Hornwright Air Cleanser Site #04|-187098|-108617
+Appalachia|BunkerMarker|Raleigh Clay's Bunker|185467|59527
+Appalachia|BunkerMarker|Ransacked Bunker|193738|688
+Appalachia|BunkerMarker|Whitespring Bunker|4697|-64374
+Appalachia|CabinMarker|Alpine River Cabins|-127210|53800
+Appalachia|CabinMarker|Autumn Acre Cabin|100992|46317
+Appalachia|CabinMarker|Bailey Family Cabin|134618|179468
+Appalachia|CabinMarker|Camp Adams|-153315|-30863
+Appalachia|CabinMarker|Groves Family Cabin|-139934|174279
+Appalachia|CabinMarker|Investigator's Cabin|55724|-68951
+Appalachia|CabinMarker|Isolated Cabin|-88356|67999
+Appalachia|CabinMarker|Kiddie Corner Cabins|-12731|181510
+Appalachia|CabinMarker|Lakeside Cabins|-61107|-25872
+Appalachia|CabinMarker|Marigold Pavilion|-153870|79406
+Appalachia|CabinMarker|Middle Mountain Cabins|46490|-37821
+Appalachia|CabinMarker|New River Gorge Resort|-81063|12838
+Appalachia|CabinMarker|Overlook Cabin|-49924|-46968
+Appalachia|CabinMarker|Pioneer Scout Camp|3600|137867
+Appalachia|CabinMarker|Pylon Ambush Site|-82630|-92095
+Appalachia|CabinMarker|Seneca Rocks Visitor Center|55774|56635
+Appalachia|CabinMarker|Sunday Brothers' Cabin|138232|1426
+Appalachia|CapitalBuildingMarker|Charleston Capitol Building|-91983|-57828
+Appalachia|CarMarker|Tyler County Dirt Track|-157335|138174
+Appalachia|CastleMarker|Prickett's Fort|60920|193668
+Appalachia|CaveMarker|Abandoned Waste Dump|185034|26724
+Appalachia|CaveMarker|Animal Cave|114047|114129
+Appalachia|CaveMarker|Carleton Mine|21935|158383
+Appalachia|CaveMarker|Gauley Mine|-58605|62688
+Appalachia|CaveMarker|Gauley Mine Exit|-47691|71024
+Appalachia|CaveMarker|Hawke's Refuge|119104|7828
+Appalachia|CaveMarker|Makeshift Vault|-83329|160208
+Appalachia|CaveMarker|Mysterious Cave|143425|200808
+Appalachia|CaveMarker|The Deep|-34473|-38131
+Appalachia|CaveMarker|Uncanny Caverns|-41528|-89947
+Appalachia|CaveMarker|Wendigo Cave|87360|43120
+Appalachia|ChurchMarker|Haven Church|175895|43251
+Appalachia|CityMarker|Charleston|-103243|-52198
+Appalachia|CityMarker|Morgantown|-2080|88303
+Appalachia|CityMarker|Watoga|145432|-138880
+Appalachia|CountryClubMarker|Bolton Greens|10568|58040
+Appalachia|CountryClubMarker|Hemlock Holes|-67100|183718
+Appalachia|CountryClubMarker|The Whitespring Golf Club|-12672|-51488
+Appalachia|CowSpotsCreameryMarker|Cow Spots Creamery|-124481|-14415
+Appalachia|CowSpotsCreameryMarker|Lady Janet's Soft Serve|-103994|152996
+Appalachia|CultistMarker|Blakes Offering|199894|-36612
+Appalachia|CultistMarker|Clancy Manor|-92174|182999
+Appalachia|CultistMarker|Ingram Mansion|26293|99600
+Appalachia|CultistMarker|Johnson's Acre|74465|-179824
+Appalachia|CultistMarker|Kanawha County Cemetery|-176698|-24065
+Appalachia|CultistMarker|Lucky Hole Mine|88918|-138108
+Appalachia|CultistMarker|Moth-Home|150845|-32009
+Appalachia|CultistMarker|Sacrament|80253|176372
+Appalachia|DamMarker|Crevasse Dam|182754|80131
+Appalachia|DamMarker|Grafton Dam|7850|118972
+Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-01|72331|139118
+Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-02|21025|-54635
+Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-03|-44231|-126107
+Appalachia|ElectricalSubstationMarker|Poseidon Energy Plant Yard|-124848|-41712
+Appalachia|ElectricalSubstationMarker|Poseidon Power Substation PX-01|-143224|20096
+Appalachia|ElectricalSubstationMarker|Poseidon Power Substation PX-02|-36059|-514
+Appalachia|ElectricalSubstationMarker|Poseidon Power Substation PX-03|32639|137795
+Appalachia|ElectricalSubstationMarker|Thunder Mountain Substation TM-01|145498|11657
+Appalachia|ElectricalSubstationMarker|Thunder Mountain Substation TM-02|143836|-120232
+Appalachia|ElevatedHighwayMarker|New River Gorge Bridge - East|-91369|13638
+Appalachia|ElevatedHighwayMarker|New River Gorge Bridge - West|-123988|-10693
+Appalachia|EncampmentMarker|Dolly Sods Campground|155137|76716
+Appalachia|EncampmentMarker|Lumber Camp|114952|92363
+Appalachia|EncampmentMarker|Overseer's Camp|-80761|44228
+Appalachia|EncampmentMarker|Overseer's Home|-55264|25824
+Appalachia|EncampmentMarker|Striker Row|-113545|-167811
+Appalachia|ExcavatorMarker|Mount Blair|-130864|-101848
+Appalachia|FactoryMarker|Abandoned Mine Shaft 1|-142953|-146883
+Appalachia|FactoryMarker|Braxson's Quality Medical Supplies|202367|69695
+Appalachia|FactoryMarker|Converted Munitions Factory|111171|181850
+Appalachia|FactoryMarker|Gilman Lumber Mill|-104499|69616
+Appalachia|FactoryMarker|Grafton Steel|18474|132207
+Appalachia|FactoryMarker|Grafton Steel Yard|17764|126612
+Appalachia|FactoryMarker|Hemlock Holes Maintenance|-59552|183736
+Appalachia|FactoryMarker|Hornwright Testing Site #02|-161902|-153298
+Appalachia|FactoryMarker|Hornwright Testing Site #03|-100634|-149839
+Appalachia|FactoryMarker|Hornwright Testing Site #04|-163087|-94511
+Appalachia|FactoryMarker|Mama Dolce's Food Processing|-15851|84462
+Appalachia|FactoryMarker|Summersville Dam|-79298|-61374
+Appalachia|FactoryMarker|WV Lumber Co.|-167683|191450
+Appalachia|FarmMarker|Aaronholt Homestead|-125064|177016
+Appalachia|FarmMarker|Anchor Farm|-121045|120973
+Appalachia|FarmMarker|Becker Farm|-74553|151041
+Appalachia|FarmMarker|Billings Homestead|-168635|-11953
+Appalachia|FarmMarker|Cobbleton Farm|-91855|161216
+Appalachia|FarmMarker|Dabney Homestead|187358|-24214
+Appalachia|FarmMarker|Delano Grange|183759|11699
+Appalachia|FarmMarker|Graninger Farm|8478|174230
+Appalachia|FarmMarker|Mac's Farm|171107|-71433
+Appalachia|FarmMarker|Maybell Pond|43307|-7498
+Appalachia|FarmMarker|Schram Homestead|-158848|-3712
+Appalachia|FarmMarker|Smith Farm|-30844|152512
+Appalachia|FarmMarker|Sunrise Field|153895|-162532
+Appalachia|FarmMarker|Superior Sunset Farm|122641|-101570
+Appalachia|FarmMarker|Wixon Homestead|-97563|58504
+Appalachia|FarmMarker|Woods Estate|-42441|172901
+Appalachia|FillingStationMarker|Big B's Rest Stop|163349|-17718
+Appalachia|FillingStationMarker|Red Rocket Filling Station|-112109|-131743
+Appalachia|FillingStationMarker|Red Rocket Mega Stop|137392|148800
+Appalachia|FissureMarker|Fissure Site|173252|-159284
+Appalachia|FissureMarker|Fissure Site|35581|195062
+Appalachia|FissureMarker|Fissure Site|152676|-66537
+Appalachia|FissureMarker|Fissure Site|58897|-150970
+Appalachia|FissureMarker|Fissure Site|-98966|177503
+Appalachia|FissureMarker|Fissure Site|-38686|-70772
+Appalachia|FissureMarker|Fissure Site|-120767|-162346
+Appalachia|FissureMarker|Fissure Site|129596|75406
+Appalachia|FissureMarker|Fissure Site|112458|124837
+Appalachia|FissureMarker|Fissure Site|-9071|-11032
+Appalachia|FissureMarker|Fissure Site|19005|34150
+Appalachia|FissureMarker|Fissure Site|153700|182385
+Appalachia|FissureMarker|Fissure Site Alpha|196808|-165776
+Appalachia|ForestedMarker|Deathclaw Island|-173625|131148
+Appalachia|ForestedMarker|Dolly Sods Wilderness|155697|86001
+Appalachia|ForestedMarker|Orwell Orchards|-129767|-3180
+Appalachia|ForestedMarker|Overgrown Sundew Grove|184257|-172164
+Appalachia|ForestedMarker|Sparse Sundew Grove|123314|-172568
+Appalachia|ForestedMarker|Spruce Knob Campground|41424|-113384
+Appalachia|ForestedMarker|Sundew Grove 02|172190|-119552
+Appalachia|ForestedMarker|Sundew Grove 03|161083|-75948
+Appalachia|GoodneighborMarker|Eastern Regional Penitentiary|-29106|127399
+Appalachia|GoodneighborMarker|Fort Defiance|107048|-131600
+Appalachia|GraveyardMarker|Philippi Battlefield Cemetery|38982|171176
+Appalachia|GraveyardMarker|Pleasant Hills Cemetery|-55554|-102053
+Appalachia|HammerWingMarker|Foundation|37449|-102946
+Appalachia|HighTechBuildingMarker|AMS Corporate Headquarters|148632|-139096
+Appalachia|HighTechBuildingMarker|Charleston Herald|-104367|-46210
+Appalachia|HighTechBuildingMarker|Garrahan Estate|-73536|-152192
+Appalachia|HighTechBuildingMarker|Hornwright Estate|-56896|-149056
+Appalachia|HighTechBuildingMarker|Hornwright Industrial Headquarters|-108175|-46784
+Appalachia|HighTechBuildingMarker|RobCo Research Center|200092|-64898
+Appalachia|HighTechBuildingMarker|Unfinished Mansion|-79990|-139432
+Appalachia|HighTechBuildingMarker|Watoga Civic Center|138432|-136953
+Appalachia|HighTechBuildingMarker|Watoga Estates|139800|-145456
+Appalachia|HighTechBuildingMarker|Watoga High School|153176|-146584
+Appalachia|HighTechBuildingMarker|Watoga Municipal Center|143840|-141320
+Appalachia|HighTechBuildingMarker|Watoga Shopping Plaza|152608|-137312
+Appalachia|HighTechBuildingMarker|Watoga Transit Hub|137472|-141536
+Appalachia|HighTechBuildingMarker|West Tek Research Center|88526|-60625
+Appalachia|HospitalMarker|AVR Medical Center|-114894|-55735
+Appalachia|HospitalMarker|Watoga Emergency Services|141012|-141040
+Appalachia|HouseTrailerMarker|Dent & Sons Construction|-23510|-168413
+Appalachia|HouseTrailerMarker|Hillfolk Hotdogs|-149543|22922
+Appalachia|HouseTrailerMarker|Nicholson's End|-181957|-136782
+Appalachia|HouseTrailerMarker|Willard Corporate Housing|-17688|190128
+Appalachia|HouseTrailerMarker|Yellow Sandy's Still|90268|20260
+Appalachia|IndustrialDomeMarker|Dyer Chemical|176066|62784
+Appalachia|IndustrialDomeMarker|R & G Processing Services|2637|-121061
+Appalachia|IndustrialDomeMarker|Tygart Water Treatment|-32916|6401
+Appalachia|IndustrialStacksMarker|Thunder Mt. Power Plant Yard|189452|94526
+Appalachia|JunkyardMarker|Charleston Landfill|-126835|-61721
+Appalachia|JunkyardMarker|Gorge Junkyard|-55635|91589
+Appalachia|LandmarkMarker|Devil's Backbone|80368|-88648
+Appalachia|LandmarkMarker|Seneca Rocks|66176|53120
+Appalachia|LegendaryPurveyorMarker|The Rusty Pick|-113349|-74720
+Appalachia|LibertaliaMarker|Portside Pub|-21322|88202
+Appalachia|LighthouseMarker|Landview Lighthouse|-75689|75400
+Appalachia|LookoutTowerMarker|Camp Adams Lookout|-150607|-35172
+Appalachia|LookoutTowerMarker|Central Mountain Lookout|75960|17350
+Appalachia|LookoutTowerMarker|Dolly Sods Lookout|152153|89595
+Appalachia|LookoutTowerMarker|East Kanawha Lookout|-44382|17240
+Appalachia|LookoutTowerMarker|East Mountain Lookout|117253|-59848
+Appalachia|LookoutTowerMarker|East Ridge Lookout|152547|130642
+Appalachia|LookoutTowerMarker|Flatwoods Lookout|-104835|47406
+Appalachia|LookoutTowerMarker|North Kanawha Lookout|-84257|99866
+Appalachia|LookoutTowerMarker|North Mountain Lookout|107266|145968
+Appalachia|LookoutTowerMarker|Pioneer Scout Lookout|-2847|140278
+Appalachia|LookoutTowerMarker|Ranger Lookout|152576|-88084
+Appalachia|LookoutTowerMarker|South Mountain Lookout|51206|-123503
+Appalachia|LookoutTowerMarker|Whitespring Lookout|-27598|-55148
+Appalachia|LowRiseMarker|Big Al's Tattoo Parlor|-6504|76623
+Appalachia|LowRiseMarker|Charleston Fire Department|-105303|-68441
+Appalachia|LowRiseMarker|Clarksburg Shooting Club|-17389|166270
+Appalachia|LowRiseMarker|Green Country Lodge|-101049|28682
+Appalachia|LowRiseMarker|Greg's Mine Supply|-22062|48319
+Appalachia|LowRiseMarker|Morgantown High School|2136|94129
+Appalachia|LowRiseMarker|Ranger District Office|149723|-90368
+Appalachia|LowRiseMarker|The Whitespring Service Entrance|7427|-58385
+Appalachia|MansionMarker|Hornwright Summer Villa|-47674|-54542
+Appalachia|MansionMarker|Riverside Manor|-70715|-70220
+Appalachia|MansionMarker|Torrance House|-55628|-61977
+Appalachia|MilitaryBaseMarker|Camp McClintock|-69224|-12781
+Appalachia|MilitaryBaseMarker|Firebase Hancock|109835|-172982
+Appalachia|MilitaryBaseMarker|Firebase LT|166062|-55521
+Appalachia|MilitaryBaseMarker|Firebase Major|141990|-60116
+Appalachia|MilitaryBaseMarker|Forward Station Alpha|116038|-87098
+Appalachia|MilitaryBaseMarker|Forward Station Delta|202051|-169304
+Appalachia|MilitaryBaseMarker|Site Alpha|80945|-14506
+Appalachia|MilitaryBaseMarker|Site Bravo|43039|137056
+Appalachia|MilitaryBaseMarker|Site Charlie|1654|-118165
+Appalachia|MilitaryBaseMarker|Survey Camp Alpha|165245|-154790
+Appalachia|MilitaryBaseMarker|The Thorn|109348|-103587
+Appalachia|MilitaryBaseMarker|US-13C Bivouac|99475|-59043
+Appalachia|MonorailMarker|Pylon V-13|190422|-94971
+Appalachia|MonumentMarker|Sugarmaple|-54753|-51561
+Appalachia|NukaColaQuantumPlant|Kanawha Nuka-Cola Plant|-162145|-53493
+Appalachia|OfficeMarker|Camp Venture|160282|-39098
+Appalachia|OfficeMarker|Garrahan Excavations Headquarters|-73688|-160896
+Appalachia|OfficeMarker|Sons of Dane Compound|102917|95314
+Appalachia|OfficeMarker|Valley Galleria|196567|-12605
+Appalachia|OverlookMarker|Bastion Park|-22556|-108924
+Appalachia|OverlookMarker|Monongah Overlook|43461|104170
+Appalachia|OverlookMarker|Scenic Overlook|-12691|-145411
+Appalachia|PalaceWindingPathMarker|Palace of the Winding Path|57571|164802
+Appalachia|PierMarker|Summersville Docks|-70893|-44187
+Appalachia|PondLakeMarker|Big Maw|145503|38296
+Appalachia|PondLakeMarker|Cranberry Glade|192808|-120632
+Appalachia|PondLakeMarker|Gnarled Shallows|198829|141223
+Appalachia|PondLakeMarker|Gulper Lagoon|158150|111085
+Appalachia|PondLakeMarker|Highland Marsh|172319|131548
+Appalachia|PondLakeMarker|Lake Eloise|51553|-156468
+Appalachia|PondLakeMarker|Solomon's Pond|38767|-64481
+Appalachia|PondLakeMarker|Spruce Knob Channels|26548|-129199
+Appalachia|PondLakeMarker|Spruce Knob Lake|35190|-121222
+Appalachia|PondLakeMarker|Toxic Dried Lakebed|-15394|176773
+Appalachia|PondLakeMarker|Twin Lakes|47135|-79247
+Appalachia|PowerPlantMarker|Monongah Power Plant|39088|74024
+Appalachia|PowerPlantMarker|Poseidon Energy Plant WV-06|-132032|-40972
+Appalachia|PowerPlantMarker|Thunder Mountain Power Plant|192590|98395
+Appalachia|PumpkinMarker|Pumpkin House|126173|133519
+Appalachia|QuarryMarker|Abandoned Mine Shaft 2|-97592|-137752
+Appalachia|QuarryMarker|Abandoned Mine Shaft 3|-73909|-126054
+Appalachia|QuarryMarker|Abandoned Mine Shaft 4|-170476|-113432
+Appalachia|QuarryMarker|Abandoned Mine Shaft 5|-126232|-82518
+Appalachia|QuarryMarker|Abandoned Mine Shaft 6|-121611|-111743
+Appalachia|QuarryMarker|Abandoned Mine Shaft Elaine|-138273|-114673
+Appalachia|QuarryMarker|Abandoned Mine Site Kittery|-109776|-90804
+Appalachia|QuarryMarker|Belching Betty|-118115|-82471
+Appalachia|QuarryMarker|Big Bend Tunnel East|112944|-149488
+Appalachia|QuarryMarker|Big Bend Tunnel West|-44088|-120808
+Appalachia|QuarryMarker|Blackwater Mine|28169|-46520
+Appalachia|QuarryMarker|Brim Quarry|-161282|-84759
+Appalachia|QuarryMarker|Burning Mine|-84358|-102236
+Appalachia|QuarryMarker|Crater Outpost|-6712|199312
+Appalachia|QuarryMarker|Glassed Cavern|200480|-161792
+Appalachia|QuarryMarker|Kerwood Mine|130051|-64741
+Appalachia|QuarryMarker|Mine Shaft No. 9|-125069|-146867
+Appalachia|QuarryMarker|Monongah Mine|58020|111115
+Appalachia|QuarryMarker|Old Mold Quarry|198971|-95572
+Appalachia|RadioTowerMarker|KMAX Transmission|190575|-38899
+Appalachia|RadioTowerMarker|Relay Tower 2|-6316|34602
+Appalachia|RadioTowerMarker|Relay Tower 3|-45863|-84858
+Appalachia|RadioTowerMarker|Relay Tower 4|105336|88146
+Appalachia|RadioTowerMarker|Relay Tower 5|-132480|-72652
+Appalachia|RadioTowerMarker|Relay Tower 6|-119286|37573
+Appalachia|RadioTowerMarker|Relay Tower EL-B1-02|78400|-160561
+Appalachia|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
+Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
+Appalachia|RadioactiveAreaMarker|Emmett Mt. Disposal Site|56146|-51808
+Appalachia|RadioactiveAreaMarker|Federal Disposal Field HZ-21|-510|-154826
+Appalachia|RadioactiveAreaMarker|Safe 'n Clean Disposal|13174|-33844
+Appalachia|RaiderSettlementMarker|Bleeding Kate's Grinder|-61230|-73357
+Appalachia|RaiderSettlementMarker|Knife Edge|46264|199612
+Appalachia|RaiderSettlementMarker|Metal Dome|70720|100496
+Appalachia|RaiderSettlementMarker|North Cutthroat Camp|70571|24889
+Appalachia|RaiderSettlementMarker|Pleasant Valley Cabins|47387|25948
+Appalachia|RaiderSettlementMarker|The Freak Show|85048|-102228
+Appalachia|RaiderSettlementMarker|The Sludge Hole|77198|41365
+Appalachia|RailroadMarker|Charleston Trainyard|-116534|-47774
+Appalachia|RailroadMarker|NAR Repair Yard|129114|-153675
+Appalachia|SancHillsMarker|Beckley Mine Exhibit|-190632|-127912
+Appalachia|SancHillsMarker|Colonel Kelly Monument|31673|149672
+Appalachia|SancHillsMarker|Miners Monument|-28868|-82873
+Appalachia|SatelliteMarker|National Isolated Radio Array|88244|-37538
+Appalachia|SatelliteMarker|National Radio Astronomy Research Center|112631|-43120
+Appalachia|SatelliteMarker|Sugar Grove|118973|-15204
+Appalachia|SettlementMarker|The Retreat|162313|45172
+Appalachia|SewerMarker|The Burrows|157951|-3957
+Appalachia|SewerMarker|The Burrows North|155171|1920
+Appalachia|SewerMarker|Watoga Underground|152463|-141432
+Appalachia|SkiResortMarker|Pleasant Valley Ski Resort|47368|15758
+Appalachia|SkiResortMarker|Sunnytop Ski Lanes|85613|131252
+Appalachia|SkiResortMarker|Sunnytop Ski Lanes Base Lodge|98128|144048
+Appalachia|SkiResortMarker|White Powder Winter Sports|-950|18368
+Appalachia|SkullRingMarker|Ohio River Adventures|-187831|-32302
+Appalachia|SpaceStationMarker|The Crater|26681|198625
+Appalachia|TeapotMarker|World's Largest Teapot|-131984|-29819
+Appalachia|TopOfTheWorldMarker|Top of the World|39089|14204
+Appalachia|TownMarker|Beckley|-188171|-123048
+Appalachia|TownMarker|Berkeley Springs|128446|27640
+Appalachia|TownMarker|Berkeley Springs West|122162|24310
+Appalachia|TownMarker|Clarksburg|-24616|167986
+Appalachia|TownMarker|Flatwoods|-105199|20756
+Appalachia|TownMarker|Grafton|-52128|149376
+Appalachia|TownMarker|Harpers Ferry|161323|3190
+Appalachia|TownMarker|Helvetia|-36213|33151
+Appalachia|TownMarker|Huntersville|65688|-90680
+Appalachia|TownMarker|Lewisburg|-59970|-111602
+Appalachia|TownMarker|Monongah|56136|84520
+Appalachia|TownMarker|Point Pleasant|-176638|74856
+Appalachia|TownMarker|Summersville|-44471|-17940
+Appalachia|TownMarker|Sutton|-60226|24458
+Appalachia|TownMarker|The Wayward|-81239|47701
+Appalachia|TownRuinsMarker|Abandoned Bog Town|181758|-92985
+Appalachia|TownRuinsMarker|Mosstown|136903|71334
+Appalachia|TownRuinsMarker|New Gad|-58422|-38562
+Appalachia|TownRuinsMarker|Tanagra Town|191892|14195
+Appalachia|TownRuinsMarker|Welch|-152528|-133755
+Appalachia|TrainStationMarker|Berkeley Springs Station|136789|15103
+Appalachia|TrainStationMarker|Charleston Station|-114762|-34818
+Appalachia|TrainStationMarker|Grafton Station|-59420|142807
+Appalachia|TrainStationMarker|Lewisburg Station|-62554|-117329
+Appalachia|TrainStationMarker|Morgantown Station|-28920|100932
+Appalachia|TrainStationMarker|Pleasant Valley Station|49105|10025
+Appalachia|TrainStationMarker|R&G Station|9983|-132309
+Appalachia|TrainStationMarker|Sunnytop Station|74518|130566
+Appalachia|TrainStationMarker|Sutton Station|-60197|12390
+Appalachia|TrainStationMarker|Watoga Station|149827|-150058
+Appalachia|TrainStationMarker|Welch Station|-148980|-132179
+Appalachia|TrainStationMarker|Whitespring Station|20095|-46750
+Appalachia|TrainTrackMark|98 NAR Regional|22413|-9693
+Appalachia|TrainTrackMark|Flooded Trainyard|175688|-143005
+Appalachia|TrainTrackMark|Morgantown Trainyard|-30925|91603
+Appalachia|TrainTrackMark|Mount Blair Trainyard|-132583|-121600
+Appalachia|TrainTrackMark|New Appalachian Central Trainyard|13435|-21413
+Appalachia|Vault51Marker|Vault 51|-125273|202332
+Appalachia|Vault63Marker|Vault 63|-96290|-146559
+Appalachia|Vault76Marker|Vault 76|-103763|94019
+Appalachia|Vault79Marker|Vault 79|145375|186773
+Appalachia|Vault94Marker|Vault 94|145156|137186
+Appalachia|Vault96Marker|Vault 96|31362|-160241
+Appalachia|VaultMarker|Vault-Tec University|-8020|82071
+Appalachia|WhitespringResort|The Whitespring Resort|6663|-52810
+Appalachia|WoodShackMarker|Big Fred's BBQ Shack|59671|-18744
+Appalachia|WoodShackMarker|Bootlegger's Shack|165779|-83623
+Appalachia|WoodShackMarker|Darling Sister's Lab|-149399|165315
+Appalachia|WoodShackMarker|Hunter's Shack|160462|126138
+Appalachia|WoodShackMarker|Lewis & Sons Farming Supply|-174756|-42305
+Appalachia|WoodShackMarker|Lost Home|122773|-164478
+Appalachia|WoodShackMarker|Moonshiner's Shack|-109155|84144
+Appalachia|WoodShackMarker|Mountainside Bed & Breakfast|7455|-100350
+Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
+Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
+Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
 39984
 ==Total entities by PrimitiveShape by Space==

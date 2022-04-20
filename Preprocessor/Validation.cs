@@ -15,7 +15,6 @@ namespace Mappalachia
 		public static readonly Regex validLockLevel = new Regex("^(Advanced \\(Level 1\\)|Chained|Expert \\(Level 2\\)|Inaccessible|Master \\(Level 3\\)|Novice \\(Level 0\\)|Opens Door|Requires Key|Requires Terminal|Unknown|Barred)$");
 		public static readonly Regex validSignature = new Regex("[A-Z_]{4}");
 		public static readonly Regex validSQLiteBoolean = new Regex("^(0|1)$");
-		public static readonly Regex validMapMarkerName = new Regex("^(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 		public static readonly Regex unescapedDoubleQuote = new Regex("(?<!\\\\)(\")");
 
 		public static readonly List<string> decimalHeaders = new List<string> { "x", "y", "z", "boundX", "boundY", "boundZ", "rotZ" };

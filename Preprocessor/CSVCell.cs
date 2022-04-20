@@ -214,16 +214,11 @@ namespace Mappalachia
 
 					return;
 
+				// We assume these have been handled by MapMarkers class, and will be dropped from position tables later, so ignore
 				case "mapMarkerName":
-					// Empty or recognized map marker naming scheme
-					if (data != string.Empty && !Validation.validMapMarkerName.IsMatch(data))
-					{
-						ReportValidationError();
-					}
-
+				case "label":
 					return;
 
-				case "label":
 				case "npc":
 				case "component":
 					// Nothing really to validate for here since they're just in-game strings
