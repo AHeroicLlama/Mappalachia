@@ -73,7 +73,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT label, mapMarkerName, x, y FROM Map_Markers GROUP BY mapMarkerName;.
+        ///   Looks up a localized string similar to SELECT DISTINCT mapMarkerName FROM Map_Markers;.
         /// </summary>
         internal static string getAllUniqueMapMarkers {
             get {
