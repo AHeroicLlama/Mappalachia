@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
@@ -24,7 +25,7 @@ namespace Mappalachia
 		static readonly string imgFileNameMapMilitary = "military.jpg";
 		static readonly string worldspaceMapFileExtension = ".jpg";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
-		static readonly string mapMarkerFileExtension = ".png";
+		static readonly string mapMarkerFileExtension = ".svg";
 
 		static readonly string tempImageFolder = @"temp\";
 		static readonly string tempImageBaseFileName = "mappalachia_preview";
@@ -283,22 +284,53 @@ namespace Mappalachia
 
 		public static Image GetMapMarker(string mapMarkerName)
         {
-			try
+			// Sort of like a constructor for the dict
+			if (mapMarkerimageCache.Count == 0)
 			{
-				// Cache the image if not already
-				if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
+				try
 				{
-					mapMarkerimageCache.Add(mapMarkerName, Image.FromFile(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension));
+					BuildMapMarkerCache();
 				}
-			}
-			catch (Exception e)
+				catch (Exception e)
+				{
+					// Parallel caching failed but we may still be able to find some icons or just series-cache
+					Notify.Error("Mappalachia encountered an error building the map marker icon cache.\n" + genericExceptionHelpText + e);
+				}
+            }
+
+			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{
-				Notify.Error("Mappalachia was unable to find or read the map marker image file for '" + mapMarkerName + "'.\n" + genericExceptionHelpText + e);
-				mapMarkerimageCache.Add(mapMarkerName, new Bitmap(2, 2));
+				try
+				{
+					CacheMarker(mapMarkerName);
+				}
+				catch (Exception e)
+				{
+					Notify.Error("Mappalachia was unable to find or read the map marker image file for '" + mapMarkerName + "'.\n" + genericExceptionHelpText + e);
+					mapMarkerimageCache.Add(mapMarkerName, new Bitmap(2, 2));
+				}
 			}
 
 			return new Bitmap(mapMarkerimageCache[mapMarkerName]);
         }
+
+		// Parallel draws all the SVG map markers into a dictionary
+		static void BuildMapMarkerCache()
+		{
+			List<string> markerNames = Database.GetUniqueMarkerNames();
+			Parallel.ForEach(markerNames, markerName =>
+			{
+				CacheMarker(markerName);
+			});
+		}
+
+		static void CacheMarker(string mapMarkerName)
+        {
+			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
+			{
+				mapMarkerimageCache.Add(mapMarkerName, Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension).Draw(Map.markerIconSize, 0));
+			}
+		}
 
 		// Read preferences from file
 		public static List<string> ReadPreferences()

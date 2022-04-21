@@ -21,6 +21,7 @@ namespace Mappalachia
 		public static readonly int mapDimension = 4096; // All background images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
+		public static readonly int markerIconSize = 50; // The width of drawn map marker icon images (aspect ratio preserved)
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string

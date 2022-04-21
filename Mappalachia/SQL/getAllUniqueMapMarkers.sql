@@ -1,0 +1,1 @@
+SELECT label, mapMarkerName, x, y FROM Map_Markers GROUP BY mapMarkerName;
