@@ -492,8 +492,7 @@ namespace Mappalachia
 			List<string> markerNames = new List<string>();
 			SqliteCommand query = connection.CreateCommand();
 
-			// TODO BUG cannot add one more SQL file as a project resource or it says it doesn't exist??
-			query.CommandText = "SELECT DISTINCT mapMarkerName FROM Map_Markers;";
+			query.CommandText = Properties.Resources.getAllUniqueMapMarkers;
 			query.Parameters.Clear();
 
 			SqliteDataReader reader = query.ExecuteReader();

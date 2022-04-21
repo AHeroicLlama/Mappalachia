@@ -73,6 +73,15 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT label, mapMarkerName, x, y FROM Map_Markers GROUP BY mapMarkerName;.
+        /// </summary>
+        internal static string getAllUniqueMapMarkers {
+            get {
+                return ResourceManager.GetString("getAllUniqueMapMarkers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT z
         ///FROM Position_Data
         ///WHERE spaceFormID = $spaceFormID
@@ -99,7 +108,8 @@ namespace Mappalachia.Properties {
         /// <summary>
         ///   Looks up a localized string similar to SELECT x, y, z, magnitude FROM Scrap_Search
         ///WHERE component = $scrap AND Scrap_Search.spaceFormID = $spaceFormID
-        ///ORDER BY z ASC.
+        ///ORDER BY z ASC
+        ///.
         /// </summary>
         internal static string getCoordsScrap {
             get {
@@ -142,7 +152,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT label, x, y FROM Map_Markers WHERE spaceFormID = $spaceFormID;
+        ///   Looks up a localized string similar to SELECT label, mapMarkerName, x, y FROM Map_Markers WHERE spaceFormID = $spaceFormID;
         ///.
         /// </summary>
         internal static string getMapMarkers {
@@ -196,7 +206,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName
+        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace
         ///FROM Space_Info
         ///ORDER BY isWorldspace DESC, spaceDisplayName
         ///.
@@ -226,7 +236,8 @@ namespace Mappalachia.Properties {
         ///INNER JOIN Space_Info ON NPC_Search.spaceFormId = Space_Info.spaceFormID
         ///WHERE NPC = $npc and chance &gt;= $chance
         ///GROUP BY spaceEditorId
-        ///ORDER BY isWorldspace DESC, amount DESC.
+        ///ORDER BY NPC_Search.spaceFormID = $spaceFormID DESC, amount DESC
+        ///.
         /// </summary>
         internal static string searchNPCEverywhere {
             get {
@@ -238,7 +249,8 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT component, SUM(magnitude), COUNT(*), spaceEditorId, spaceDisplayName
         ///FROM Scrap_Search
         ///INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID
-        ///WHERE component = $scrap AND Scrap_Search.spaceFormID = $spaceFormID.
+        ///WHERE component = $scrap AND Scrap_Search.spaceFormID = $spaceFormID
+        ///.
         /// </summary>
         internal static string searchScrap {
             get {
@@ -252,7 +264,8 @@ namespace Mappalachia.Properties {
         ///INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID
         ///WHERE component = $scrap
         ///GROUP BY spaceEditorId
-        ///ORDER BY isWorldspace DESC, amount DESC.
+        ///ORDER BY Scrap_Search.spaceFormID = $spaceFormID DESC, amount DESC
+        ///.
         /// </summary>
         internal static string searchScrapEverywhere {
             get {
@@ -287,7 +300,7 @@ namespace Mappalachia.Properties {
         ///lockLevel IN ($allowedLockTypes) AND
         ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos;))
         ///
-        ///ORDER BY is [rest of string was truncated]&quot;;.
+        ///ORDER BY St [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchStandardEverywhere {
             get {
