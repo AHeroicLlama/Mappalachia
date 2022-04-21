@@ -29,9 +29,9 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,7 +40,9 @@ namespace Mappalachia
             this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.militaryStyleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showMapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMapIconsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMapLabelsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -176,7 +178,7 @@ namespace Mappalachia
             this.brightnessMenuItem,
             this.militaryStyleMenuItem,
             this.grayscaleMenuItem,
-            this.showMapMarkersMenuItem,
+            this.mapMarkersMenuItem,
             this.hideLegendMenuItem,
             this.exportToFileMenuItem,
             this.clearMenuItem,
@@ -226,13 +228,31 @@ namespace Mappalachia
             this.grayscaleMenuItem.ToolTipText = "Toggle if the underlying map image is in grayscale or full color.";
             this.grayscaleMenuItem.Click += new System.EventHandler(this.Map_Grayscale);
             // 
-            // showMapMarkersMenuItem
+            // mapMarkersMenuItem
             // 
-            this.showMapMarkersMenuItem.Name = "showMapMarkersMenuItem";
-            this.showMapMarkersMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.showMapMarkersMenuItem.Text = "Show Map Markers";
-            this.showMapMarkersMenuItem.ToolTipText = "Draw the labels for named locations on the map.";
-            this.showMapMarkersMenuItem.Click += new System.EventHandler(this.Map_ShowMapMarkers);
+            this.mapMarkersMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showMapIconsMenuItem,
+            this.showMapLabelsMenuItem});
+            this.mapMarkersMenuItem.Name = "mapMarkersMenuItem";
+            this.mapMarkersMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.mapMarkersMenuItem.Text = "Map Markers";
+            this.mapMarkersMenuItem.ToolTipText = "Toggle Icons or Labels for map locations.";
+            // 
+            // showMapIconsMenuItem
+            // 
+            this.showMapIconsMenuItem.Name = "showMapIconsMenuItem";
+            this.showMapIconsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showMapIconsMenuItem.Text = "Icons";
+            this.showMapIconsMenuItem.ToolTipText = "Toggle visual icons for the map locations.";
+            this.showMapIconsMenuItem.Click += new System.EventHandler(this.Map_MapMarkers_Icons);
+            // 
+            // showMapLabelsMenuItem
+            // 
+            this.showMapLabelsMenuItem.Name = "showMapLabelsMenuItem";
+            this.showMapLabelsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showMapLabelsMenuItem.Text = "Labels";
+            this.showMapLabelsMenuItem.ToolTipText = "Toggle labels for names of the map locations.";
+            this.showMapLabelsMenuItem.Click += new System.EventHandler(this.Map_MapMarkers_Labels);
             // 
             // hideLegendMenuItem
             // 
@@ -532,8 +552,8 @@ namespace Mappalachia
             this.gridViewSearchResults.AllowUserToDeleteRows = false;
             this.gridViewSearchResults.AllowUserToOrderColumns = true;
             this.gridViewSearchResults.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
+            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -567,8 +587,8 @@ namespace Mappalachia
             // columnSearchFormID
             // 
             this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle5;
             this.columnSearchFormID.HeaderText = "FormID";
             this.columnSearchFormID.Name = "columnSearchFormID";
             this.columnSearchFormID.ReadOnly = true;
@@ -768,8 +788,8 @@ namespace Mappalachia
             this.gridViewLegend.AllowUserToDeleteRows = false;
             this.gridViewLegend.AllowUserToOrderColumns = true;
             this.gridViewLegend.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
-            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
+            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.gridViewLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -1189,7 +1209,7 @@ namespace Mappalachia
             // pictureBoxMapPreview
             // 
             this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBoxMapPreview.Location = new System.Drawing.Point(9, 0);
+            this.pictureBoxMapPreview.Location = new System.Drawing.Point(7, 0);
             this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
             this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1429,10 +1449,12 @@ namespace Mappalachia
         private System.Windows.Forms.Button buttonHeightDistribution;
         private System.Windows.Forms.ComboBox comboBoxSpace;
         private System.Windows.Forms.ToolStripMenuItem searchInAllSpacesMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showMapMarkersMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mapMarkersMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideLegendMenuItem;
         private System.Windows.Forms.PictureBox pictureBoxSpaceFiller;
         private System.Windows.Forms.ToolStripMenuItem updateMapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showMapIconsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showMapLabelsMenuItem;
     }
 }
 

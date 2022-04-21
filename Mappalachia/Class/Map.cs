@@ -35,8 +35,8 @@ namespace Mappalachia
 
 		// Font and text
 		public static readonly int legendFontSize = 48;
-		public static readonly int mapMarkerFontSize = 18;
-		static readonly int fontDropShadowOffset = 2;
+		public static readonly int mapMarkerFontSize = 21;
+		static readonly int fontDropShadowOffset = 3;
 		static readonly int mapMarkerMaxRadius = 140; // Maximum width before a map marker label will enter a new line
 		static readonly int mapMarkerPadding = 5; // Workaround - inflate the draw radius of the map marker by this much to prevent characters being chopped off the end of lines
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
@@ -132,10 +132,7 @@ namespace Mappalachia
 			};
 			Rectangle rect = new Rectangle(0, 0, mapDimension, mapDimension);
 
-			if (SettingsMap.showMapMarkers)
-			{
-				DrawMapMarkers(graphic);
-			}
+			DrawMapMarkers(graphic);
 
 			graphic.DrawImage(backgroundLayer, points, rect, GraphicsUnit.Pixel, attributes);
 
@@ -493,30 +490,51 @@ namespace Mappalachia
 
 		static void DrawMapMarkers(Graphics imageGraphic)
 		{
-			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+			if (!SettingsMap.showMapIcons && !SettingsMap.showMapLabels)
+            {
+				return;
+            }
 
-			foreach (MapMarker marker in Database.GetMapMarkers(SettingsSpace.GetCurrentFormID()))
+			List<MapMarker> markers = Database.GetMapMarkers(SettingsSpace.GetCurrentFormID());
+
+			if (SettingsMap.showMapIcons)
 			{
-				Image markerImage = IOManager.GetMapMarker(marker.markerName);
-				imageGraphic.DrawImage(markerImage, new Point((int)(marker.x - (markerImage.Width / 2)), (int)(marker.y - (markerImage.Height / 2))));
+				// Draw all markers first on a lower layer
+				foreach (MapMarker marker in markers)
+				{
+					Image markerImage = IOManager.GetMapMarker(marker.markerName);
+					imageGraphic.DrawImage(markerImage, new PointF((float)marker.x - (markerImage.Width / 2), (float)marker.y - (markerImage.Height / 2)));
+				}
+			}
 
-				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxRadius, mapMarkerMaxRadius));
-				textBounds.Width += mapMarkerPadding;
-				textBounds.Height += mapMarkerPadding;
+			if (SettingsMap.showMapLabels)
+			{
+				// Now draw map marker labels on top
+				imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+				foreach (MapMarker marker in markers)
+				{
+					Image markerImage = IOManager.GetMapMarker(marker.markerName);
 
-				// Draw Drop shadow first
-				imageGraphic.DrawString(marker.label, mapMarkerFont, dropShadowBrush,
-					new RectangleF(
-						(float)marker.x - (textBounds.Width / 2) + fontDropShadowOffset,
-						(float)marker.y - (textBounds.Height / 2) + fontDropShadowOffset,
-						textBounds.Width, textBounds.Height), stringFormatCenter);
+					int markerHeightOffset = SettingsMap.showMapIcons ? markerImage.Height / 2 : 0;
 
-				// Draw the map marker label
-				imageGraphic.DrawString(marker.label, mapMarkerFont, brushWhite,
-					new RectangleF(
-						(float)marker.x - (textBounds.Width / 2),
-						(float)marker.y - (textBounds.Height / 2),
-						textBounds.Width, textBounds.Height), stringFormatCenter);
+					SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxRadius, mapMarkerMaxRadius));
+					textBounds.Width += mapMarkerPadding;
+					textBounds.Height += mapMarkerPadding;
+
+					// Draw Drop shadow first
+					imageGraphic.DrawString(marker.label, mapMarkerFont, dropShadowBrush,
+						new RectangleF(
+							(float)marker.x - (textBounds.Width / 2) + fontDropShadowOffset,
+							(float)marker.y + fontDropShadowOffset + markerHeightOffset,
+							textBounds.Width, textBounds.Height), stringFormatCenter);
+
+					// Draw the map marker label
+					imageGraphic.DrawString(marker.label, mapMarkerFont, brushWhite,
+						new RectangleF(
+							(float)marker.x - (textBounds.Width / 2),
+							(float)marker.y + markerHeightOffset,
+							textBounds.Width, textBounds.Height), stringFormatCenter);
+				}
 			}
 		}
 

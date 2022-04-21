@@ -290,14 +290,14 @@ namespace Mappalachia
 				{
 					mapMarkerimageCache.Add(mapMarkerName, Image.FromFile(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension));
 				}
-
-				return new Bitmap(mapMarkerimageCache[mapMarkerName]);
 			}
 			catch (Exception e)
 			{
 				Notify.Error("Mappalachia was unable to find or read the map marker image file for '" + mapMarkerName + "'.\n" + genericExceptionHelpText + e);
-				return new Bitmap(8, 8);
+				mapMarkerimageCache.Add(mapMarkerName, new Bitmap(2, 2));
 			}
+
+			return new Bitmap(mapMarkerimageCache[mapMarkerName]);
         }
 
 		// Read preferences from file
