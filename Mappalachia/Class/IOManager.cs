@@ -39,7 +39,6 @@ namespace Mappalachia
 
 		public static readonly string genericExceptionHelpText =
 			"To counter common errors, please check that:\n" +
-			"- Windows is up to date and you have the latest .Net Framework 4.8 installed.\n" +
 			"- Any security software has not accidentally removed or quarantined Mappalachia files, or is otherwise interfering.\n" +
 			"- The entire Mappalachia installation has been unzipped into one folder, with the same folder structure it came with.\n" +
 			"- None of the installation has been moved, renamed, or deleted.\n" +

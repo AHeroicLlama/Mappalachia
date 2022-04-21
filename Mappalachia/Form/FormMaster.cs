@@ -19,14 +19,20 @@ namespace Mappalachia
 
 		public ProgressBar progressBar;
 
-		static bool warnedLVLINotUsed = false; // Flag for if we've displayed certain warnings, so as to only show once per run
+		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
 		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 
+		static readonly float designDPI = 96; // The DPI which the form was designed for
+
 		public FormMaster()
 		{
 			InitializeComponent();
+			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
+			splitContainerMain.Panel1.AutoScrollMinSize = new Size(
+				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Width * dpiScaling),
+				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Height * dpiScaling));
 
 			Map.progressBarMain = progressBarMain;
 			progressBar = progressBarMain;
@@ -598,6 +604,8 @@ namespace Mappalachia
 			{
 				gridViewSearchResults.Enabled = true;
 			}
+
+			GC.Collect();
 		}
 
 		static void NotifyIfNoResults()

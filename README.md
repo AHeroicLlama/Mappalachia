@@ -48,6 +48,7 @@ If you fancy doing some data mining or development with Mappalachia then you may
 * Contributors to and developers of XEdit and FO76Edit, namely Eckserah.
 * Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
 * Gilpo for providing great ideas and feedback for new Mappalachia features.
+* frame for reporting and helping to test DPI scaling issues.
 * Everyone who ever gave feedback to the original Mappalachia. Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
 
 #### License

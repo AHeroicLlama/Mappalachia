@@ -1,7 +1,7 @@
 # Customization options
 
 ## Map Settings
-Under the 'Map' menu, there are several options which allow you to change the appearance of the overall map, in addition to some reset options;
+Under the 'Map' menu, there are several options which allow you to change the appearance of the overall map;
 
 ### Brightness
 This option brings up a dialog which allows you to tweak the percentage brightness of the underlying map image. Enter any value from 5% to 300%.
