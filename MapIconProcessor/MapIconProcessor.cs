@@ -7,11 +7,15 @@ namespace Mappalachia
 		static readonly string extractPathRelative = @"..\\..\\..\\extract\\sprites";
 		static readonly string outputPathRelative = @"..\\..\\..\\..\\Mappalachia\\img\\mapmarker";
 		static readonly string markerListFilePath = @"..\\..\\..\\..\\Database\\requiredMarkers.txt";
+		static readonly string missingMarkersFile = @outputPathRelative + "\\" + "MissingMarkers.error";
 		static readonly Regex validIconFolder = new Regex(extractPathRelative + @"\\DefineSprite_[0-9]{2,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 		static readonly string fileExtension = ".svg";
 
 		static void Main()
 		{
+			// Cleanup prior run
+			File.Delete(missingMarkersFile);
+
 			if (!File.Exists(markerListFilePath))
             {
 				Console.WriteLine("requiredMarkers.txt not found at " + Path.GetFullPath(markerListFilePath) + ". Please build the database first to generate this file.");
@@ -20,7 +24,8 @@ namespace Mappalachia
 				return;
 			}
 
-			List<string> requiredMarkerNames = new List<string>(File.ReadAllLines(markerListFilePath));
+			// Map marker names from the database, along with a bool indicating if they're accounted for
+			Dictionary<string, bool> requiredMarkerNames = new Dictionary<string, bool>(File.ReadAllLines(markerListFilePath).ToDictionary(line => line, value => false));
 
 			if (!Directory.Exists(outputPathRelative))
             {
@@ -34,6 +39,7 @@ namespace Mappalachia
             {
 				Match match = validIconFolder.Match(iconFolder);
 
+				// A folder which doesn't even look like an icon at all - skip entirely
 				if (!match.Success)
                 {
 					continue;
@@ -41,17 +47,38 @@ namespace Mappalachia
 
 				string iconName = match.Groups[1].Captures[0].ToString();
 
-				if (!requiredMarkerNames.Contains(iconName))
+				// This is a marker but we don't need it, so also skip
+				if (!requiredMarkerNames.ContainsKey(iconName))
                 {
 					Console.WriteLine("Skipping " + iconName);
 					continue;
                 }
 
-				Console.WriteLine("Copying " + iconName);
-				File.Copy(iconFolder + "\\1" + fileExtension, outputPathRelative + "\\" + iconName + fileExtension, true);
+				// Looks like we want this icon - copy and rename appropriately
+				try
+				{
+					Console.WriteLine("Copying " + iconName);
+					File.Copy(iconFolder + "\\1" + fileExtension, outputPathRelative + "\\" + iconName + fileExtension, true);
+					requiredMarkerNames[iconName] = true;
+				}
+				catch (FileNotFoundException)
+				{
+					// Mark it as missing so it is handled later
+					requiredMarkerNames[iconName] = false;
+				}
 			}
 
-			Console.WriteLine("Press any key");
+			// Verify each marker in the database was accounted for
+			foreach (KeyValuePair<string, bool> marker in requiredMarkerNames)
+            {
+				if (marker.Value == false)
+                {
+					Console.WriteLine("ERROR: File for marker " + marker.Key + " was not found anywhere in any appropriately named subfolder of the extract folder.");
+					File.AppendAllText(missingMarkersFile, marker.Key + "\n");
+				}
+            }
+
+			Console.WriteLine("\nFinished " + (File.Exists(missingMarkersFile) ? "with errors" : "successfully") + "\nPress any key");
 			Console.ReadKey();
 		}
 	}
