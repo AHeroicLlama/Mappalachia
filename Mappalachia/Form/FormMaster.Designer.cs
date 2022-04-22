@@ -29,9 +29,9 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -190,14 +190,14 @@ namespace Mappalachia
             // updateMapToolStripMenuItem
             // 
             this.updateMapToolStripMenuItem.Name = "updateMapToolStripMenuItem";
-            this.updateMapToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.updateMapToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.updateMapToolStripMenuItem.Text = "Update Map";
             this.updateMapToolStripMenuItem.Click += new System.EventHandler(this.Map_UpdateMap);
             // 
             // viewMenuItem
             // 
             this.viewMenuItem.Name = "viewMenuItem";
-            this.viewMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.viewMenuItem.Size = new System.Drawing.Size(216, 22);
             this.viewMenuItem.Text = "View...";
             this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
             this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
@@ -205,7 +205,8 @@ namespace Mappalachia
             // brightnessMenuItem
             // 
             this.brightnessMenuItem.Name = "brightnessMenuItem";
-            this.brightnessMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.brightnessMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.brightnessMenuItem.Size = new System.Drawing.Size(216, 22);
             this.brightnessMenuItem.Text = "Adjust Brightness...";
             this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
             this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
@@ -213,7 +214,7 @@ namespace Mappalachia
             // militaryStyleMenuItem
             // 
             this.militaryStyleMenuItem.Name = "militaryStyleMenuItem";
-            this.militaryStyleMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.militaryStyleMenuItem.Size = new System.Drawing.Size(216, 22);
             this.militaryStyleMenuItem.Text = "Military Style";
             this.militaryStyleMenuItem.ToolTipText = "Swap the Appalachia map for the version found on the Targeting Computer and in Tr" +
     "ain Stations.";
@@ -223,7 +224,7 @@ namespace Mappalachia
             // 
             this.grayscaleMenuItem.Name = "grayscaleMenuItem";
             this.grayscaleMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.grayscaleMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.grayscaleMenuItem.Size = new System.Drawing.Size(216, 22);
             this.grayscaleMenuItem.Text = "Grayscale";
             this.grayscaleMenuItem.ToolTipText = "Toggle if the underlying map image is in grayscale or full color.";
             this.grayscaleMenuItem.Click += new System.EventHandler(this.Map_Grayscale);
@@ -234,14 +235,14 @@ namespace Mappalachia
             this.showMapIconsMenuItem,
             this.showMapLabelsMenuItem});
             this.mapMarkersMenuItem.Name = "mapMarkersMenuItem";
-            this.mapMarkersMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.mapMarkersMenuItem.Size = new System.Drawing.Size(216, 22);
             this.mapMarkersMenuItem.Text = "Map Markers";
             this.mapMarkersMenuItem.ToolTipText = "Toggle Icons or Labels for map locations.";
             // 
             // showMapIconsMenuItem
             // 
             this.showMapIconsMenuItem.Name = "showMapIconsMenuItem";
-            this.showMapIconsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showMapIconsMenuItem.Size = new System.Drawing.Size(107, 22);
             this.showMapIconsMenuItem.Text = "Icons";
             this.showMapIconsMenuItem.ToolTipText = "Toggle visual icons for the map locations.";
             this.showMapIconsMenuItem.Click += new System.EventHandler(this.Map_MapMarkers_Icons);
@@ -249,7 +250,7 @@ namespace Mappalachia
             // showMapLabelsMenuItem
             // 
             this.showMapLabelsMenuItem.Name = "showMapLabelsMenuItem";
-            this.showMapLabelsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showMapLabelsMenuItem.Size = new System.Drawing.Size(107, 22);
             this.showMapLabelsMenuItem.Text = "Labels";
             this.showMapLabelsMenuItem.ToolTipText = "Toggle labels for names of the map locations.";
             this.showMapLabelsMenuItem.Click += new System.EventHandler(this.Map_MapMarkers_Labels);
@@ -257,7 +258,7 @@ namespace Mappalachia
             // hideLegendMenuItem
             // 
             this.hideLegendMenuItem.Name = "hideLegendMenuItem";
-            this.hideLegendMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.hideLegendMenuItem.Size = new System.Drawing.Size(216, 22);
             this.hideLegendMenuItem.Text = "Hide Legend";
             this.hideLegendMenuItem.ToolTipText = "Do not draw the legend on the left of the map image.";
             this.hideLegendMenuItem.Click += new System.EventHandler(this.Map_HideLegend);
@@ -266,7 +267,7 @@ namespace Mappalachia
             // 
             this.exportToFileMenuItem.Name = "exportToFileMenuItem";
             this.exportToFileMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.exportToFileMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.exportToFileMenuItem.Size = new System.Drawing.Size(216, 22);
             this.exportToFileMenuItem.Text = "Export To File...";
             this.exportToFileMenuItem.ToolTipText = "Save the current map image to a file.";
             this.exportToFileMenuItem.Click += new System.EventHandler(this.Map_Export);
@@ -275,7 +276,7 @@ namespace Mappalachia
             // 
             this.clearMenuItem.Name = "clearMenuItem";
             this.clearMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.clearMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.clearMenuItem.Size = new System.Drawing.Size(216, 22);
             this.clearMenuItem.Text = "Clear";
             this.clearMenuItem.ToolTipText = "Remove all mapped items from the legend and update the map.";
             this.clearMenuItem.Click += new System.EventHandler(this.Map_Clear);
@@ -284,7 +285,7 @@ namespace Mappalachia
             // 
             this.resetMenuItem.Name = "resetMenuItem";
             this.resetMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resetMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.resetMenuItem.Size = new System.Drawing.Size(216, 22);
             this.resetMenuItem.Text = "Reset";
             this.resetMenuItem.ToolTipText = "Completely reset the map.";
             this.resetMenuItem.Click += new System.EventHandler(this.Map_Reset);
@@ -552,8 +553,8 @@ namespace Mappalachia
             this.gridViewSearchResults.AllowUserToDeleteRows = false;
             this.gridViewSearchResults.AllowUserToOrderColumns = true;
             this.gridViewSearchResults.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
-            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.gridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -587,8 +588,8 @@ namespace Mappalachia
             // columnSearchFormID
             // 
             this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnSearchFormID.HeaderText = "FormID";
             this.columnSearchFormID.Name = "columnSearchFormID";
             this.columnSearchFormID.ReadOnly = true;
@@ -788,8 +789,8 @@ namespace Mappalachia
             this.gridViewLegend.AllowUserToDeleteRows = false;
             this.gridViewLegend.AllowUserToOrderColumns = true;
             this.gridViewLegend.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
-            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.gridViewLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -1209,7 +1210,7 @@ namespace Mappalachia
             // pictureBoxMapPreview
             // 
             this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBoxMapPreview.Location = new System.Drawing.Point(7, 0);
+            this.pictureBoxMapPreview.Location = new System.Drawing.Point(6, 0);
             this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
             this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);

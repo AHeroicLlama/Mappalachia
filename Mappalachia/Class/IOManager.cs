@@ -328,7 +328,8 @@ namespace Mappalachia
         {
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{
-				mapMarkerimageCache.Add(mapMarkerName, Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension).Draw(Map.markerIconSize, 0));
+				Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);
+				mapMarkerimageCache.Add(mapMarkerName, document.Draw((int)((double)document.Width * Map.markerIconScale), 0));
 			}
 		}
 
