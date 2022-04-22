@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-4c6bc72368ae19428bca83e790ff7f27
+797a14d6b69032bb37ba7ee40735a887
 ==File Size== 
 372322304 
 ==Tables== 
@@ -440,7 +440,7 @@ Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
 Appalachia|RadioactiveAreaMarker|Emmett Mt. Disposal Site|56146|-51808
 Appalachia|RadioactiveAreaMarker|Federal Disposal Field HZ-21|-510|-154826
 Appalachia|RadioactiveAreaMarker|Safe 'n Clean Disposal|13174|-33844
-Appalachia|RaiderSettlementMarker|Bleeding Kate's Grinder|-61230|-73357
+Appalachia|RaiderSettlementMarker|Bleeding Kate's Grindhouse|-61230|-73357
 Appalachia|RaiderSettlementMarker|Knife Edge|46264|199612
 Appalachia|RaiderSettlementMarker|Metal Dome|70720|100496
 Appalachia|RaiderSettlementMarker|North Cutthroat Camp|70571|24889

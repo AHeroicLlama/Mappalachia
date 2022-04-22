@@ -52,25 +52,26 @@ namespace Mappalachia
 
 		static readonly Dictionary<string, string> wrongLabelNames = new Dictionary<string, string>()
 		{
-			{ "Mountain Region", "Colonel Kelly Monument" },
-			{ "The Savage Divide", "Monorail Elevator" },
-			{ "Cranberry Bog Region", "Quarry X3" },
 			{ "Animal Cave", "Hopewell Cave" },
+			{ "Bleeding Kate's Grinder", "Bleeding Kate's Grindhouse" },
+			{ "Cranberry Bog Region", "Quarry X3" },
+			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },
+			{ "Hornwright Air Cleanser Site #01", "Hornwright Air Purifier Site #01" },
+			{ "Hornwright Air Cleanser Site #02", "Hornwright Air Purifier Site #02" },
+			{ "Hornwright Air Cleanser Site #03", "Hornwright Air Purifier Site #03" },
+			{ "Hornwright Air Cleanser Site #04", "Hornwright Air Purifier Site #04" },
 			{ "Lumber Camp", "Sylvie & Sons Logging Camp" },
 			{ "Mine Shaft No. 9", "AMS Testing Site" },
+			{ "Mountain Region", "Colonel Kelly Monument" },
 			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
 			{ "Relay Tower 3", "Relay Tower DP-B5-21" },
 			{ "Relay Tower 4", "Relay Tower LW-B1-22" },
 			{ "Relay Tower 5", "Relay Tower HG-B7-09" },
 			{ "Relay Tower 6", "Relay Tower EM-B1-27" },
-			{ "Hornwright Air Cleanser Site #01", "Hornwright Air Purifier Site #01" },
-			{ "Hornwright Air Cleanser Site #02", "Hornwright Air Purifier Site #02" },
-			{ "Hornwright Air Cleanser Site #03", "Hornwright Air Purifier Site #03" },
-			{ "Hornwright Air Cleanser Site #04", "Hornwright Air Purifier Site #04" },
-			{ "World's Largest Teapot", "The Giant Teapot" },
 			{ "Sundew Grove 02", "Veiled Sundew Grove" },
 			{ "Sundew Grove 03", "Creekside Sundew Grove" },
-			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },
+			{ "The Savage Divide", "Monorail Elevator" },
+			{ "World's Largest Teapot", "The Giant Teapot" },
 		};
 
 		// Pull the MapMarker display text from position data and store it in a new file
