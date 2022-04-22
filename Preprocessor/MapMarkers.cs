@@ -12,6 +12,7 @@ namespace Mappalachia
 		static readonly Regex validMapMarkerName = new Regex("^(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 		static readonly Regex badMapMarkerNames = new Regex("^(Door|Quest|PowerArmorLoc|PlayerLoc)Marker$");
 		static readonly Regex biomeNames = new Regex("^(The )?(Mire|Cranberry Bog|Forest|Toxic Valley|Savage Divide|Mountain)( Region)?$");
+
 		static readonly Dictionary<string, string> locationMarkerCorrection = new Dictionary<string, string>()
 		{
 			{ "Ammo Dump", bloodEagleMarker },
@@ -49,11 +50,27 @@ namespace Mappalachia
 			{ "Vault 79", "Vault79Marker" },
 		};
 
-		static readonly Dictionary<string, string> inaccurateBiomeNames = new Dictionary<string, string>()
+		static readonly Dictionary<string, string> wrongLabelNames = new Dictionary<string, string>()
 		{
 			{ "Mountain Region", "Colonel Kelly Monument" },
 			{ "The Savage Divide", "Monorail Elevator" },
 			{ "Cranberry Bog Region", "Quarry X3" },
+			{ "Animal Cave", "Hopewell Cave" },
+			{ "Lumber Camp", "Sylvie & Sons Logging Camp" },
+			{ "Mine Shaft No. 9", "AMS Testing Site" },
+			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
+			{ "Relay Tower 3", "Relay Tower DP-B5-21" },
+			{ "Relay Tower 4", "Relay Tower LW-B1-22" },
+			{ "Relay Tower 5", "Relay Tower HG-B7-09" },
+			{ "Relay Tower 6", "Relay Tower EM-B1-27" },
+			{ "Hornwright Air Cleanser Site #01", "Hornwright Air Purifier Site #01" },
+			{ "Hornwright Air Cleanser Site #02", "Hornwright Air Purifier Site #02" },
+			{ "Hornwright Air Cleanser Site #03", "Hornwright Air Purifier Site #03" },
+			{ "Hornwright Air Cleanser Site #04", "Hornwright Air Purifier Site #04" },
+			{ "World's Largest Teapot", "The Giant Teapot" },
+			{ "Sundew Grove 02", "Veiled Sundew Grove" },
+			{ "Sundew Grove 03", "Creekside Sundew Grove" },
+			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },
 		};
 
 		// Pull the MapMarker display text from position data and store it in a new file
@@ -80,13 +97,13 @@ namespace Mappalachia
 				or the game changes them on the fly, but some labels and icons are different in-game.
 				This appears to largely but not exclusively affect content changed or added with Wastelanders */
 
-				// Somehow a few locations are named as their parent region
-				// There is also a Mire marker which marks nothing particular so we drop it
-				if (inaccurateBiomeNames.ContainsKey(label))
+				// Swap or amend some entirely wrong names
+				if (wrongLabelNames.ContainsKey(label))
                 {
-					label = inaccurateBiomeNames[label];
+					label = wrongLabelNames[label];
                 }
 
+				// This marker is in the data but not in-game and does not represent anything particular, so we drop it
 				if (label == "Mire")
                 {
 					continue;
@@ -126,7 +143,8 @@ namespace Mappalachia
 				// Perform our own specialized validation
 				if (badMapMarkerNames.IsMatch(iconName) ||
 					!validMapMarkerName.IsMatch(iconName) ||
-					biomeNames.IsMatch(label))
+					biomeNames.IsMatch(label) ||
+					wrongLabelNames.ContainsKey(label))
 				{
 					throw new System.Exception("Map Marker failed internal validation: " + label + ", " + iconName);
 				}

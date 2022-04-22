@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-ba6b435562f779d88309154ba80c31b2
+4c6bc72368ae19428bca83e790ff7f27
 ==File Size== 
 372322304 
 ==Tables== 
@@ -180,10 +180,10 @@ Appalachia|BunkerMarker|Drop Site C2|194823|-105313
 Appalachia|BunkerMarker|Drop Site G3|140874|-108719
 Appalachia|BunkerMarker|Drop Site V9|191372|-157601
 Appalachia|BunkerMarker|Ella Ames' Bunker|165802|102922
-Appalachia|BunkerMarker|Hornwright Air Cleanser Site #01|-108156|-78438
-Appalachia|BunkerMarker|Hornwright Air Cleanser Site #02|-67522|-101460
-Appalachia|BunkerMarker|Hornwright Air Cleanser Site #03|-121065|-133268
-Appalachia|BunkerMarker|Hornwright Air Cleanser Site #04|-187098|-108617
+Appalachia|BunkerMarker|Hornwright Air Purifier Site #01|-108156|-78438
+Appalachia|BunkerMarker|Hornwright Air Purifier Site #02|-67522|-101460
+Appalachia|BunkerMarker|Hornwright Air Purifier Site #03|-121065|-133268
+Appalachia|BunkerMarker|Hornwright Air Purifier Site #04|-187098|-108617
 Appalachia|BunkerMarker|Raleigh Clay's Bunker|185467|59527
 Appalachia|BunkerMarker|Ransacked Bunker|193738|688
 Appalachia|BunkerMarker|Whitespring Bunker|4697|-64374
@@ -208,11 +208,11 @@ Appalachia|CapitalBuildingMarker|Charleston Capitol Building|-91983|-57828
 Appalachia|CarMarker|Tyler County Dirt Track|-157335|138174
 Appalachia|CastleMarker|Prickett's Fort|60920|193668
 Appalachia|CaveMarker|Abandoned Waste Dump|185034|26724
-Appalachia|CaveMarker|Animal Cave|114047|114129
 Appalachia|CaveMarker|Carleton Mine|21935|158383
 Appalachia|CaveMarker|Gauley Mine|-58605|62688
 Appalachia|CaveMarker|Gauley Mine Exit|-47691|71024
 Appalachia|CaveMarker|Hawke's Refuge|119104|7828
+Appalachia|CaveMarker|Hopewell Cave|114047|114129
 Appalachia|CaveMarker|Makeshift Vault|-83329|160208
 Appalachia|CaveMarker|Mysterious Cave|143425|200808
 Appalachia|CaveMarker|The Deep|-34473|-38131
@@ -249,10 +249,10 @@ Appalachia|ElectricalSubstationMarker|Thunder Mountain Substation TM-02|143836|-
 Appalachia|ElevatedHighwayMarker|New River Gorge Bridge - East|-91369|13638
 Appalachia|ElevatedHighwayMarker|New River Gorge Bridge - West|-123988|-10693
 Appalachia|EncampmentMarker|Dolly Sods Campground|155137|76716
-Appalachia|EncampmentMarker|Lumber Camp|114952|92363
 Appalachia|EncampmentMarker|Overseer's Camp|-80761|44228
 Appalachia|EncampmentMarker|Overseer's Home|-55264|25824
 Appalachia|EncampmentMarker|Striker Row|-113545|-167811
+Appalachia|EncampmentMarker|Sylvie & Sons Logging Camp|114952|92363
 Appalachia|ExcavatorMarker|Mount Blair|-130864|-101848
 Appalachia|FactoryMarker|Abandoned Mine Shaft 1|-142953|-146883
 Appalachia|FactoryMarker|Braxson's Quality Medical Supplies|202367|69695
@@ -299,14 +299,14 @@ Appalachia|FissureMarker|Fissure Site|-9071|-11032
 Appalachia|FissureMarker|Fissure Site|19005|34150
 Appalachia|FissureMarker|Fissure Site|153700|182385
 Appalachia|FissureMarker|Fissure Site Alpha|196808|-165776
+Appalachia|ForestedMarker|Creekside Sundew Grove|161083|-75948
 Appalachia|ForestedMarker|Deathclaw Island|-173625|131148
 Appalachia|ForestedMarker|Dolly Sods Wilderness|155697|86001
 Appalachia|ForestedMarker|Orwell Orchards|-129767|-3180
 Appalachia|ForestedMarker|Overgrown Sundew Grove|184257|-172164
 Appalachia|ForestedMarker|Sparse Sundew Grove|123314|-172568
 Appalachia|ForestedMarker|Spruce Knob Campground|41424|-113384
-Appalachia|ForestedMarker|Sundew Grove 02|172190|-119552
-Appalachia|ForestedMarker|Sundew Grove 03|161083|-75948
+Appalachia|ForestedMarker|Veiled Sundew Grove|172190|-119552
 Appalachia|GoodneighborMarker|Eastern Regional Penitentiary|-29106|127399
 Appalachia|GoodneighborMarker|Fort Defiance|107048|-131600
 Appalachia|GraveyardMarker|Philippi Battlefield Cemetery|38982|171176
@@ -385,7 +385,7 @@ Appalachia|MonorailMarker|Pylon V-13|190422|-94971
 Appalachia|MonumentMarker|Sugarmaple|-54753|-51561
 Appalachia|NukaColaQuantumPlant|Kanawha Nuka-Cola Plant|-162145|-53493
 Appalachia|OfficeMarker|Camp Venture|160282|-39098
-Appalachia|OfficeMarker|Garrahan Excavations Headquarters|-73688|-160896
+Appalachia|OfficeMarker|Garrahan Mining Headquarters|-73688|-160896
 Appalachia|OfficeMarker|Sons of Dane Compound|102917|95314
 Appalachia|OfficeMarker|Valley Galleria|196567|-12605
 Appalachia|OverlookMarker|Bastion Park|-22556|-108924
@@ -408,6 +408,7 @@ Appalachia|PowerPlantMarker|Monongah Power Plant|39088|74024
 Appalachia|PowerPlantMarker|Poseidon Energy Plant WV-06|-132032|-40972
 Appalachia|PowerPlantMarker|Thunder Mountain Power Plant|192590|98395
 Appalachia|PumpkinMarker|Pumpkin House|126173|133519
+Appalachia|QuarryMarker|AMS Testing Site|-125069|-146867
 Appalachia|QuarryMarker|Abandoned Mine Shaft 2|-97592|-137752
 Appalachia|QuarryMarker|Abandoned Mine Shaft 3|-73909|-126054
 Appalachia|QuarryMarker|Abandoned Mine Shaft 4|-170476|-113432
@@ -424,17 +425,16 @@ Appalachia|QuarryMarker|Burning Mine|-84358|-102236
 Appalachia|QuarryMarker|Crater Outpost|-6712|199312
 Appalachia|QuarryMarker|Glassed Cavern|200480|-161792
 Appalachia|QuarryMarker|Kerwood Mine|130051|-64741
-Appalachia|QuarryMarker|Mine Shaft No. 9|-125069|-146867
 Appalachia|QuarryMarker|Monongah Mine|58020|111115
 Appalachia|QuarryMarker|Old Mold Quarry|198971|-95572
 Appalachia|QuarryMarker|Quarry X3|157733|-112080
 Appalachia|RadioTowerMarker|KMAX Transmission|190575|-38899
-Appalachia|RadioTowerMarker|Relay Tower 2|-6316|34602
-Appalachia|RadioTowerMarker|Relay Tower 3|-45863|-84858
-Appalachia|RadioTowerMarker|Relay Tower 4|105336|88146
-Appalachia|RadioTowerMarker|Relay Tower 5|-132480|-72652
-Appalachia|RadioTowerMarker|Relay Tower 6|-119286|37573
+Appalachia|RadioTowerMarker|Relay Tower DP-B5-21|-45863|-84858
 Appalachia|RadioTowerMarker|Relay Tower EL-B1-02|78400|-160561
+Appalachia|RadioTowerMarker|Relay Tower EM-B1-27|-119286|37573
+Appalachia|RadioTowerMarker|Relay Tower HG-B7-09|-132480|-72652
+Appalachia|RadioTowerMarker|Relay Tower HN-B1-12|-6316|34602
+Appalachia|RadioTowerMarker|Relay Tower LW-B1-22|105336|88146
 Appalachia|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
 Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
 Appalachia|RadioactiveAreaMarker|Emmett Mt. Disposal Site|56146|-51808
@@ -465,7 +465,7 @@ Appalachia|SkiResortMarker|Sunnytop Ski Lanes Base Lodge|98128|144048
 Appalachia|SkiResortMarker|White Powder Winter Sports|-950|18368
 Appalachia|SkullRingMarker|Ohio River Adventures|-187831|-32302
 Appalachia|SpaceStationMarker|The Crater|26681|198625
-Appalachia|TeapotMarker|World's Largest Teapot|-131984|-29819
+Appalachia|TeapotMarker|The Giant Teapot|-131984|-29819
 Appalachia|TopOfTheWorldMarker|Top of the World|39089|14204
 Appalachia|TownMarker|Beckley|-188171|-123048
 Appalachia|TownMarker|Berkeley Springs|128446|27640
