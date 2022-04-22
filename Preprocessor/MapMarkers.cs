@@ -49,6 +49,13 @@ namespace Mappalachia
 			{ "Vault 79", "Vault79Marker" },
 		};
 
+		static readonly Dictionary<string, string> inaccurateBiomeNames = new Dictionary<string, string>()
+		{
+			{ "Mountain Region", "Colonel Kelly Monument" },
+			{ "The Savage Divide", "Monorail Elevator" },
+			{ "Cranberry Bog Region", "Quarry X3" },
+		};
+
 		// Pull the MapMarker display text from position data and store it in a new file
 		public static CSVFile ProcessMapMarkers(CSVFile positionData)
 		{
@@ -73,17 +80,16 @@ namespace Mappalachia
 				or the game changes them on the fly, but some labels and icons are different in-game.
 				This appears to largely but not exclusively affect content changed or added with Wastelanders */
 
-				// Bethesda?
-				if (label == "Mountain Region")
+				// Somehow a few locations are named as their parent region
+				// There is also a Mire marker which marks nothing particular so we drop it
+				if (inaccurateBiomeNames.ContainsKey(label))
                 {
-					label = "Colonel Kelly Monument";
-				}
+					label = inaccurateBiomeNames[label];
+                }
 
-				// Fix random biome markers which aren't visible in-game
-				// Notably this must occur *after* Colonel Kelly Monument is fixed
-				if (biomeNames.IsMatch(label))
-				{
-					continue; // Skip this row, dropping it from the output
+				if (label == "Mire")
+                {
+					continue;
 				}
 
 				// Large collection of incorrect Wastelanders icons - suspect xedit bug?
@@ -119,7 +125,8 @@ namespace Mappalachia
 
 				// Perform our own specialized validation
 				if (badMapMarkerNames.IsMatch(iconName) ||
-					!validMapMarkerName.IsMatch(iconName))
+					!validMapMarkerName.IsMatch(iconName) ||
+					biomeNames.IsMatch(label))
 				{
 					throw new System.Exception("Map Marker failed internal validation: " + label + ", " + iconName);
 				}

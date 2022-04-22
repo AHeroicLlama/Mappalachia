@@ -13,8 +13,9 @@ namespace Mappalachia
 
 		static void Main()
 		{
-			// Cleanup prior run
+			// Cleanup prior run, removing any potentially unneeded icons
 			File.Delete(missingMarkersFile);
+			Directory.Delete(outputPathRelative, true);
 
 			if (!File.Exists(markerListFilePath))
             {

@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-aafbeb1644d0603f0459db0587e4596c
+ba6b435562f779d88309154ba80c31b2
 ==File Size== 
 372322304 
 ==Tables== 
@@ -380,6 +380,7 @@ Appalachia|MilitaryBaseMarker|Site Charlie|1654|-118165
 Appalachia|MilitaryBaseMarker|Survey Camp Alpha|165245|-154790
 Appalachia|MilitaryBaseMarker|The Thorn|109348|-103587
 Appalachia|MilitaryBaseMarker|US-13C Bivouac|99475|-59043
+Appalachia|MonorailMarker|Monorail Elevator|84839|-128044
 Appalachia|MonorailMarker|Pylon V-13|190422|-94971
 Appalachia|MonumentMarker|Sugarmaple|-54753|-51561
 Appalachia|NukaColaQuantumPlant|Kanawha Nuka-Cola Plant|-162145|-53493
@@ -426,6 +427,7 @@ Appalachia|QuarryMarker|Kerwood Mine|130051|-64741
 Appalachia|QuarryMarker|Mine Shaft No. 9|-125069|-146867
 Appalachia|QuarryMarker|Monongah Mine|58020|111115
 Appalachia|QuarryMarker|Old Mold Quarry|198971|-95572
+Appalachia|QuarryMarker|Quarry X3|157733|-112080
 Appalachia|RadioTowerMarker|KMAX Transmission|190575|-38899
 Appalachia|RadioTowerMarker|Relay Tower 2|-6316|34602
 Appalachia|RadioTowerMarker|Relay Tower 3|-45863|-84858
