@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-797a14d6b69032bb37ba7ee40735a887
+98781f861d143073e67e8387dd15544c
 ==File Size== 
 372322304 
 ==Tables== 
@@ -270,13 +270,13 @@ Appalachia|FactoryMarker|WV Lumber Co.|-167683|191450
 Appalachia|FarmMarker|Aaronholt Homestead|-125064|177016
 Appalachia|FarmMarker|Anchor Farm|-121045|120973
 Appalachia|FarmMarker|Becker Farm|-74553|151041
+Appalachia|FarmMarker|Beckwith Farm|43307|-7498
 Appalachia|FarmMarker|Billings Homestead|-168635|-11953
 Appalachia|FarmMarker|Cobbleton Farm|-91855|161216
 Appalachia|FarmMarker|Dabney Homestead|187358|-24214
 Appalachia|FarmMarker|Delano Grange|183759|11699
 Appalachia|FarmMarker|Graninger Farm|8478|174230
 Appalachia|FarmMarker|Mac's Farm|171107|-71433
-Appalachia|FarmMarker|Maybell Pond|43307|-7498
 Appalachia|FarmMarker|Schram Homestead|-158848|-3712
 Appalachia|FarmMarker|Smith Farm|-30844|152512
 Appalachia|FarmMarker|Sunrise Field|153895|-162532
@@ -336,6 +336,7 @@ Appalachia|HouseTrailerMarker|Yellow Sandy's Still|90268|20260
 Appalachia|IndustrialDomeMarker|Dyer Chemical|176066|62784
 Appalachia|IndustrialDomeMarker|R & G Processing Services|2637|-121061
 Appalachia|IndustrialDomeMarker|Tygart Water Treatment|-32916|6401
+Appalachia|IndustrialStacksMarker|Monongah Power Plant Yard|44675|73761
 Appalachia|IndustrialStacksMarker|Thunder Mt. Power Plant Yard|189452|94526
 Appalachia|JunkyardMarker|Charleston Landfill|-126835|-61721
 Appalachia|JunkyardMarker|Gorge Junkyard|-55635|91589

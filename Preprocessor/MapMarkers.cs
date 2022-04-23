@@ -61,6 +61,7 @@ namespace Mappalachia
 			{ "Hornwright Air Cleanser Site #03", "Hornwright Air Purifier Site #03" },
 			{ "Hornwright Air Cleanser Site #04", "Hornwright Air Purifier Site #04" },
 			{ "Lumber Camp", "Sylvie & Sons Logging Camp" },
+			{ "Maybell Pond", "Beckwith Farm" },
 			{ "Mine Shaft No. 9", "AMS Testing Site" },
 			{ "Mountain Region", "Colonel Kelly Monument" },
 			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
@@ -79,6 +80,9 @@ namespace Mappalachia
 		{
 			List<string> newFileHeader = new List<string> { "spaceFormID", "label", "mapMarkerName", "x", "y" };
 			List<CSVRow> newFileRows = new List<CSVRow>();
+
+			// Monongah workshop (003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it - manually add back
+			newFileRows.Add(new CSVRow("0025DA15,Monongah Power Plant Yard,IndustrialStacksMarker,44675.304687,73761.358125", newFileHeader));
 
 			foreach (CSVRow row in positionData.rows)
 			{
