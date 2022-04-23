@@ -14,13 +14,14 @@ namespace Mappalachia
 	{
 		// Map-image coordinate scaling. Gathered manually by eye with reference points from in-game
 		public static double scaling = 142;
-		static double xOffset = 1.7;
-		static double yOffset = 5.2;
+		static readonly double xOffset = 1.7;
+		static readonly double yOffset = 5.2;
 
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All background images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
+		public static readonly double markerIconScale = 2.5; // The scaling applied to map marker icons
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -35,14 +36,13 @@ namespace Mappalachia
 
 		// Font and text
 		public static readonly int legendFontSize = 48;
-		public static readonly int mapMarkerFontSize = 18;
-		static readonly int fontDropShadowOffset = 2;
-		static readonly int mapMarkerMaxRadius = 140; // Maximum width before a map marker label will enter a new line
-		static readonly int mapMarkerPadding = 5; // Workaround - inflate the draw radius of the map marker by this much to prevent characters being chopped off the end of lines
+		public static readonly int mapLabelFontSize = 21;
+		static readonly int fontDropShadowOffset = 3;
+		static readonly int mapLabelMaxWidth = 180; // Maximum width before a map marker label will enter a new line
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
-		static readonly Font mapMarkerFont = new Font(fontCollection.Families[0], mapMarkerFontSize, GraphicsUnit.Pixel);
+		static readonly Font mapLabelFont = new Font(fontCollection.Families[0], mapLabelFontSize, GraphicsUnit.Pixel);
 		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
 		static readonly RectangleF infoTextBounds = new RectangleF(plotXMin, 0, mapDimension - plotXMin, mapDimension);
 		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
@@ -132,10 +132,7 @@ namespace Mappalachia
 			};
 			Rectangle rect = new Rectangle(0, 0, mapDimension, mapDimension);
 
-			if (SettingsMap.showMapMarkers)
-			{
-				DrawMapMarkers(graphic);
-			}
+			DrawMapMarkers(graphic);
 
 			graphic.DrawImage(backgroundLayer, points, rect, GraphicsUnit.Pixel, attributes);
 
@@ -279,7 +276,7 @@ namespace Mappalachia
 							(point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() ||
 							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
 						{
-								continue;
+							continue;
 						}
 
 						// Override colors in Topographic mode
@@ -493,27 +490,45 @@ namespace Mappalachia
 
 		static void DrawMapMarkers(Graphics imageGraphic)
 		{
-			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
-
-			foreach (MapMarker marker in Database.GetMapMarkers(SettingsSpace.GetCurrentFormID()))
+			if (!SettingsMap.showMapIcons && !SettingsMap.showMapLabels)
 			{
-				SizeF textBounds = imageGraphic.MeasureString(marker.label, mapMarkerFont, new SizeF(mapMarkerMaxRadius, mapMarkerMaxRadius));
-				textBounds.Width += mapMarkerPadding;
-				textBounds.Height += mapMarkerPadding;
+				return;
+			}
 
-				// Draw Drop shadow first
-				imageGraphic.DrawString(marker.label, mapMarkerFont, dropShadowBrush,
-					new RectangleF(
-						(float)marker.x - (textBounds.Width / 2) + fontDropShadowOffset,
-						(float)marker.y - (textBounds.Height / 2) + fontDropShadowOffset,
-						textBounds.Width, textBounds.Height), stringFormatCenter);
+			List<MapMarker> markers = Database.GetMapMarkers(SettingsSpace.GetCurrentFormID());
 
-				// Draw the map marker label
-				imageGraphic.DrawString(marker.label, mapMarkerFont, brushWhite,
-					new RectangleF(
-						(float)marker.x - (textBounds.Width / 2),
-						(float)marker.y - (textBounds.Height / 2),
-						textBounds.Width, textBounds.Height), stringFormatCenter);
+			if (SettingsMap.showMapIcons)
+			{
+				// Draw all markers first on a lower layer
+				foreach (MapMarker marker in markers)
+				{
+					Image markerImage = IOManager.GetMapMarker(marker.markerName);
+					imageGraphic.DrawImage(markerImage, new PointF((float)marker.x - (markerImage.Width / 2f), (float)marker.y - (markerImage.Height / 2f)));
+				}
+			}
+
+			if (SettingsMap.showMapLabels)
+			{
+				// Now draw map marker labels on top
+				imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+				foreach (MapMarker marker in markers)
+				{
+					Image markerImage = IOManager.GetMapMarker(marker.markerName);
+					SizeF textBounds = imageGraphic.MeasureString(marker.label, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
+					float labelHeightOffset = SettingsMap.showMapIcons ? markerImage.Height / 2f : -textBounds.Height / 2f;
+
+					RectangleF textBox = new RectangleF(
+							(float)marker.x - (textBounds.Width / 2),
+							(float)marker.y + labelHeightOffset,
+							textBounds.Width, textBounds.Height);
+
+					// Draw Drop shadow first
+					imageGraphic.DrawString(marker.label, mapLabelFont, dropShadowBrush,
+						new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
+
+					// Draw the map marker label
+					imageGraphic.DrawString(marker.label, mapLabelFont, brushWhite, textBox, stringFormatCenter);
+				}
 			}
 		}
 

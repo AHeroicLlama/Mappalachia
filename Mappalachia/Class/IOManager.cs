@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
@@ -17,18 +18,22 @@ namespace Mappalachia
 		static readonly string imgFolder = @"img\";
 		static readonly string dataFolder = @"data\";
 		static readonly string fontFolder = @"font\";
+		static readonly string mapMarkerfolder = imgFolder + @"mapmarker\";
 
 		static readonly string fontFileName = "futura_condensed_bold.ttf";
 		static readonly string databaseFileName = "mappalachia.db";
 		static readonly string imgFileNameMapMilitary = "military.jpg";
 		static readonly string worldspaceMapFileExtension = ".jpg";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
+		static readonly string mapMarkerFileExtension = ".svg";
 
 		static readonly string tempImageFolder = @"temp\";
 		static readonly string tempImageBaseFileName = "mappalachia_preview";
 		static readonly string tempImageFileExtension = ".png";
 
 		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
+		static readonly Dictionary<string, Image> mapMarkerimageCache = new Dictionary<string, Image>();
+
 		static Image imageMapMilitary;
 
 		static int tempImageLockedCount = 0;
@@ -83,7 +88,7 @@ namespace Mappalachia
 			if (File.Exists(idealTempFile))
 			{
 				try
-				{	// If we can re-use the old location, let's
+				{   // If we can re-use the old location, let's
 					File.Delete(idealTempFile);
 					return idealTempFile;
 				}
@@ -275,6 +280,57 @@ namespace Mappalachia
 		public static Image EmptyMapBackground()
 		{
 			return new Bitmap(Map.mapDimension, Map.mapDimension);
+		}
+
+		public static Image GetMapMarker(string mapMarkerName)
+		{
+			// Sort of like a constructor for the dict
+			if (mapMarkerimageCache.Count == 0)
+			{
+				try
+				{
+					BuildMapMarkerCache();
+				}
+				catch (Exception e)
+				{
+					// Parallel caching failed but we may still be able to find some icons or just series-cache
+					Notify.Error("Mappalachia encountered an error building the map marker icon cache.\n" + genericExceptionHelpText + e);
+				}
+			}
+
+			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
+			{
+				try
+				{
+					CacheMarker(mapMarkerName);
+				}
+				catch (Exception e)
+				{
+					Notify.Error("Mappalachia was unable to find or read the map marker image file for '" + mapMarkerName + "'.\n" + genericExceptionHelpText + e);
+					mapMarkerimageCache.Add(mapMarkerName, new Bitmap(2, 2));
+				}
+			}
+
+			return new Bitmap(mapMarkerimageCache[mapMarkerName]);
+		}
+
+		// Parallel draws all the SVG map markers into a dictionary
+		static void BuildMapMarkerCache()
+		{
+			List<string> markerNames = Database.GetUniqueMarkerNames();
+			Parallel.ForEach(markerNames, markerName =>
+			{
+				CacheMarker(markerName);
+			});
+		}
+
+		static void CacheMarker(string mapMarkerName)
+		{
+			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
+			{
+				Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);
+				mapMarkerimageCache.Add(mapMarkerName, document.Draw((int)((double)document.Width * Map.markerIconScale), 0));
+			}
 		}
 
 		// Read preferences from file

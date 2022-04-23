@@ -29,7 +29,7 @@
 
 		// Set the appropriate settings if recommended settings are chosen
 		public static void UpdateRecommendation()
-        {
+		{
 			if (useRecommended)
 			{
 				// Worldspace - prefer JPEG allowing for compression

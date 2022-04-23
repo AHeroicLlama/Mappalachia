@@ -24,4 +24,4 @@ Using git to visualize how the file changed, this report essentially acts as a c
 Checking this report should be a key step in updating the database for a new game version. While we would expect the values to change, any large changes, or empty fields should immediately signify an error.
 
 ### Next steps
-You should now have successfully extracted and assembled the Mappalachia database. At this point you can move on to development of the actual [end-user GUI program, Mappalachia](GUI.md).
+You should now have successfully extracted and assembled the Mappalachia database. You may optionally want to [extract the map marker icons](IconExtraction.md), otherwise you can move on to development of the actual [end-user GUI program, Mappalachia](GUI.md).

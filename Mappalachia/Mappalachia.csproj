@@ -8,6 +8,7 @@
 		<RootNamespace>Mappalachia</RootNamespace>
 		<AssemblyName>Mappalachia</AssemblyName>
 		<ApplicationIcon>favicon_small.ico</ApplicationIcon>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -47,10 +48,26 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Svg" Version="3.4.2" />
 	</ItemGroup>
 
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-	  <Exec Command="xcopy $(ProjectDir)\data\* $(TargetDir)\data\ /y&#xD;&#xA;xcopy $(ProjectDir)\font\* $(TargetDir)\font\ /y&#xD;&#xA;xcopy $(ProjectDir)\img\* $(TargetDir)\img\ /y&#xD;&#xA;&#xD;&#xA;xcopy $(ProjectDir)\data\* $(ProjectDir)\publish\data\ /y&#xD;&#xA;xcopy $(ProjectDir)\font\* $(ProjectDir)\publish\font\ /y&#xD;&#xA;xcopy $(ProjectDir)\img\* $(ProjectDir)\publish\img\ /y" />
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy $(ProjectDir)\data\* $(TargetDir)\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(TargetDir)\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\* $(TargetDir)\img\ /y /s&#xD;&#xA;&#xD;&#xA;xcopy $(ProjectDir)\data\* $(ProjectDir)\publish\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(ProjectDir)\publish\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\* $(ProjectDir)\publish\img\ /y /s" />
 	</Target>
 
 </Project>

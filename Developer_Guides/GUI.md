@@ -2,6 +2,7 @@
 
 ### Prerequisites and assumptions
 * You have already [built the database](Ingest.md) OR have a copy of `mappalachia.db` from a release
+* You have already [extracted the map marker icons](IconExtraction.md), or, are confident they do not need updating
 * An installation of Visual Studio
 * Experience using Mappalachia as an end user
 * Competency in C# .NET and SQLite SQL

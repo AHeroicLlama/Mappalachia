@@ -160,7 +160,7 @@ namespace Mappalachia
 		{
 			{ string.Empty,			"Not locked" },
 			{ "Novice (Level 0)",	"Level 0" },
-			{ "Advanced (Level 1)", "Level 1" },
+			{ "Advanced (Level 1)",	"Level 1" },
 			{ "Expert (Level 2)",	"Level 2" },
 			{ "Master (Level 3)",	"Level 3" },
 		};

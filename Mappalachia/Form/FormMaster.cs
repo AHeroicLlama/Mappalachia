@@ -72,7 +72,7 @@ namespace Mappalachia
 			UpdateTopographColorBands(false);
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
-			UpdateMapShowMapMarkers(false);
+			UpdateMapMarker(false);
 			UpdateHideLegend(false);
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces(false);
@@ -427,10 +427,11 @@ namespace Mappalachia
 			}
 		}
 
-		// Update check mark in the UI with current MapSettings for Show Map Markers
-		void UpdateMapShowMapMarkers(bool reDraw)
+		// Update check mark in the UI with current MapSettings for Map Markers
+		void UpdateMapMarker(bool reDraw)
 		{
-			showMapMarkersMenuItem.Checked = SettingsMap.showMapMarkers;
+			showMapLabelsMenuItem.Checked = SettingsMap.showMapLabels;
+			showMapIconsMenuItem.Checked = SettingsMap.showMapIcons;
 
 			if (reDraw)
 			{
@@ -780,11 +781,18 @@ namespace Mappalachia
 			UpdateMapGrayscale(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
-		// Map > Show Map Markers - toggle rendering map marker labels on map draw
-		private void Map_ShowMapMarkers(object sender, EventArgs e)
+		// Map > Map Markers > Labels - toggle rendering map marker labels on map draw
+		private void Map_MapMarkers_Labels(object sender, EventArgs e)
 		{
-			SettingsMap.showMapMarkers = !SettingsMap.showMapMarkers;
-			UpdateMapShowMapMarkers(SettingsSpace.CurrentSpaceIsWorld());
+			SettingsMap.showMapLabels = !SettingsMap.showMapLabels;
+			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
+		}
+
+		// Map > Map Markers > icons - toggle rendering map marker icons on map draw
+		private void Map_MapMarkers_Icons(object sender, EventArgs e)
+		{
+			SettingsMap.showMapIcons = !SettingsMap.showMapIcons;
+			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Hide Legend - toggle drawing of LHS legend
@@ -816,7 +824,8 @@ namespace Mappalachia
 			SettingsMap.brightness = SettingsMap.brightnessDefault;
 			SettingsMap.layerMilitary = SettingsMap.layerMilitaryDefault;
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
-			SettingsMap.showMapMarkers = SettingsMap.showMapMarkersDefault;
+			SettingsMap.showMapLabels = SettingsMap.showMapLabelsDefault;
+			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
 			SettingsMap.hideLegend = SettingsMap.hideLegendDefault;
 
 			comboBoxSpace.SelectedIndex = 0;
@@ -828,7 +837,7 @@ namespace Mappalachia
 
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
-			UpdateMapShowMapMarkers(false);
+			UpdateMapMarker(false);
 			UpdateHideLegend(false);
 
 			SizeMapToFrame();
@@ -974,8 +983,14 @@ namespace Mappalachia
 			UpdateChecker.CheckForUpdate(true);
 		}
 
-		// Donate to the Author - Launch donate URL
-		void Donate(object sender, EventArgs e)
+		// Donate > Patreon
+		private void viaPatreonToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Process.Start(new ProcessStartInfo { FileName = "https://www.patreon.com/user?u=73036527", UseShellExecute = true });
+		}
+
+		// Donate > PayPal
+		private void viaPayPalToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Process.Start(new ProcessStartInfo { FileName = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url", UseShellExecute = true });
 		}
@@ -1050,7 +1065,7 @@ namespace Mappalachia
 		{
 			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
-			showMapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
+			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
 			grayscaleMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
 			militaryStyleMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
 		}
@@ -1646,5 +1661,5 @@ namespace Mappalachia
 			catch (Exception)
 			{ } // If this fails, we're already exiting and there is no action to take
 		}
-    }
+	}
 }

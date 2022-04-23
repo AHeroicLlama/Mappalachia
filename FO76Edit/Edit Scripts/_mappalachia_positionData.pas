@@ -10,7 +10,7 @@ unit _mappalachia_positionData;
 		outputFile = ProgramPath + 'Output\Position_Data.csv';
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ'); // Write CSV column headers
+		outputStrings.add('spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName'); // Write CSV column headers
 
 		AddMessage('Beginning Mappalachia exterior position data export...');
 		ripWorldspaces();
@@ -153,7 +153,8 @@ unit _mappalachia_positionData;
 				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Y')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
-				rotZ);
+				rotZ + ',' +
+				GetEditValue(ElementByName(ElementByName(ElementByName(item, 'Map Marker'), 'TNAM - TNAM'), 'Type')));
 		end;
 	end;
 end.

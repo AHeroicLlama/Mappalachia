@@ -10,14 +10,16 @@
 		public static readonly int brightnessDefault = 50;
 		public static readonly bool layerMilitaryDefault = false;
 		public static readonly bool grayScaleDefault = false;
-		public static readonly bool showMapMarkersDefault = false;
+		public static readonly bool showMapLabelsDefault = false;
+		public static readonly bool showMapIconsDefault = false;
 		public static readonly bool hideLegendDefault = false;
 
 		// User-definable settings
 		public static int brightness = brightnessDefault;
 		public static bool layerMilitary = layerMilitaryDefault;
 		public static bool grayScale = grayScaleDefault;
-		public static bool showMapMarkers = showMapMarkersDefault;
+		public static bool showMapLabels = showMapLabelsDefault;
+		public static bool showMapIcons = showMapIconsDefault;
 		public static bool hideLegend = hideLegendDefault;
 	}
 }

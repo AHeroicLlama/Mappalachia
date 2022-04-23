@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 5;
+		static readonly int prefsIteration = 6;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -45,7 +45,8 @@ namespace Mappalachia.Class
 			settings.Add("brightness=" + SettingsMap.brightness);
 			settings.Add("layerMilitary=" + BoolToIntStr(SettingsMap.layerMilitary));
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
-			settings.Add("showMapMarkers=" + BoolToIntStr(SettingsMap.showMapMarkers));
+			settings.Add("showMapLabels=" + BoolToIntStr(SettingsMap.showMapLabels));
+			settings.Add("showMapIcons=" + BoolToIntStr(SettingsMap.showMapIcons));
 			settings.Add("hideLegend=" + BoolToIntStr(SettingsMap.hideLegend));
 
 			// SettingsSearch
@@ -150,8 +151,13 @@ namespace Mappalachia.Class
 							SettingsMap.grayScale = StrIntToBool(value);
 							break;
 
-						case "showMapMarkers":
-							SettingsMap.showMapMarkers = StrIntToBool(value);
+						case "showMapMarkers": // Historic name
+						case "showMapLabels":
+							SettingsMap.showMapLabels = StrIntToBool(value);
+							break;
+
+						case "showMapIcons":
+							SettingsMap.showMapIcons = StrIntToBool(value);
 							break;
 
 						case "hideLegend":

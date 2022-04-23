@@ -481,10 +481,28 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				mapMarkers.Add(new MapMarker(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2)));
+				mapMarkers.Add(new MapMarker(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3)));
 			}
 
 			return mapMarkers;
+		}
+
+		public static List<string> GetUniqueMarkerNames()
+		{
+			List<string> markerNames = new List<string>();
+			SqliteCommand query = connection.CreateCommand();
+
+			query.CommandText = Properties.Resources.getAllUniqueMapMarkers;
+			query.Parameters.Clear();
+
+			SqliteDataReader reader = query.ExecuteReader();
+
+			while (reader.Read())
+			{
+				markerNames.Add(reader.GetString(0));
+			}
+
+			return markerNames;
 		}
 	}
 }

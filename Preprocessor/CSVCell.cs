@@ -214,7 +214,11 @@ namespace Mappalachia
 
 					return;
 
-				case "mapMarker":
+				// We assume these have been handled by MapMarkers class, and will be dropped from position tables later, so ignore
+				case "mapMarkerName":
+				case "label":
+					return;
+
 				case "npc":
 				case "component":
 					// Nothing really to validate for here since they're just in-game strings

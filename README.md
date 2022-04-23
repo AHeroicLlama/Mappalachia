@@ -36,9 +36,10 @@ The database is developed and produced in 3 key steps.
 
 If you fancy doing some data mining or development with Mappalachia then you may be interested in the following documentation;
 
-* [**FO76Edit scripts**](Developer_Guides/EditScripts.md) covers using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
+* [**FO76Edit scripts**](Developer_Guides/EditScripts.md) explains using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
 * [**Preprocessor**](Developer_Guides/Preprocessor.md) covers compiling and using the CLI tool to process and refine the rough data into proper CSVs.
-* [**Ingest**](Developer_Guides/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
+* [**Database Ingest**](Developer_Guides/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
+* [**Map Icon extraction**](Developer_Guides/IconExtraction.md) explains the process of exporting map marker icons from the game to Mappalachia.
 * [**GUI**](Developer_Guides/GUI.md) covers developing the Mappalachia GUI itself.
 
 
@@ -51,13 +52,14 @@ If you fancy doing some data mining or development with Mappalachia then you may
 * frame for reporting and helping to test DPI scaling issues.
 * Everyone who ever gave feedback to the original Mappalachia. Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
 
-#### License
+#### Licensing
 
 This project is licensed under the GNU General Public License 3.0 - see [LICENSE.md](LICENSE.md) for details.<br/>
-Third-party assets and technologies, including but not limited to game data, images and information exported from Fallout 76, and also technologies such as SQLite are each subject to their own terms.
+Mappalachia uses technologies such as [SQLite](https://www.sqlite.org/index.html) and [SVG.NET](https://github.com/svg-net/SVG) which are each subject to their own licenses.<br/>
+Use of other third-party assets are covered below.
 
 #### Legal/Disclaimer
 
-Mappalachia is provided as a non-commercial, free tool solely for the benefit of players of Fallout 76. Mappalachia and its creator are neither affiliated with - nor endorsed by - ZeniMax Media or any of its subsidiaries including Bethesda Softworks LLC. Game assets including but not limited to images, characters, names and other core game data used for mapping are extracted from a purchased copy of Fallout 76 and are shared here with the game's community in good faith.<br/>
+Mappalachia is provided as a non-commercial, free tool solely for the benefit of players of Fallout 76. Mappalachia and its creator are neither affiliated with - nor endorsed by - ZeniMax Media or any of its subsidiaries including Bethesda Softworks LLC. Game assets including but not limited to images, characters, names and other game data used for mapping are extracted from a purchased copy of Fallout 76 and are shared here with the game's community in good faith and with an understanding that this lies within fair use.<br/>
 Any game data shared here is done so with the explicit purpose of making maps for the benefit of the community, and great care has been taken to minimize such data so that it cannot be reconstructed in any meaningful way.<br/>
 If you have any concerns or queries, please direct them to mappalachia.feedback@gmail.com

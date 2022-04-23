@@ -1,0 +1,1 @@
+SELECT DISTINCT mapMarkerName FROM Map_Markers;
