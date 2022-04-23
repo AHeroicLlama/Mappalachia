@@ -12,8 +12,9 @@ Military Style toggles the underlying map image to be the version from the nuke 
 ### Grayscale
 This toggles the underlying map image to be in grayscale (black and white) or full color.
 
-### Show Map Markers
-By selecting this, Mappalachia will label the name of all in-game map markers at their respective positions on the map.
+### Map Marker options
+You can independently toggle map marker Icons or Labels to appear against their respective locations on the map.<br/>
+'Icons' shows the in-game map icons for named locations, whereas 'Labels' annotates their name onto the map.
 
 ### Hide Legend
 This option will prevent the left-hand-side legend being displayed.
