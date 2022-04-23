@@ -18,7 +18,7 @@ namespace Mappalachia
 			Directory.Delete(outputPathRelative, true);
 
 			if (!File.Exists(markerListFilePath))
-            {
+			{
 				Console.WriteLine("requiredMarkers.txt not found at " + Path.GetFullPath(markerListFilePath) + ". Please build the database first to generate this file.");
 				Console.WriteLine("Press any key");
 				Console.ReadKey();
@@ -29,20 +29,20 @@ namespace Mappalachia
 			Dictionary<string, bool> requiredMarkerNames = new Dictionary<string, bool>(File.ReadAllLines(markerListFilePath).ToDictionary(line => line, value => false));
 
 			if (!Directory.Exists(outputPathRelative))
-            {
+			{
 				Directory.CreateDirectory(outputPathRelative);
-            }
+			}
 
 			Console.WriteLine("Reading raw extracts from " + Path.GetFullPath(extractPathRelative));
 			Console.WriteLine("Placing outputs at " + Path.GetFullPath(outputPathRelative));
 
 			foreach (string iconFolder in Directory.GetDirectories(extractPathRelative.Replace("\\\\", "\\")))
-            {
+			{
 				Match match = validIconFolder.Match(iconFolder);
 
 				// A folder which doesn't even look like an icon at all - skip entirely
 				if (!match.Success)
-                {
+				{
 					continue;
 				}
 
@@ -50,10 +50,10 @@ namespace Mappalachia
 
 				// This is a marker but we don't need it, so also skip
 				if (!requiredMarkerNames.ContainsKey(iconName))
-                {
+				{
 					Console.WriteLine("Skipping " + iconName);
 					continue;
-                }
+				}
 
 				// Looks like we want this icon - copy and rename appropriately
 				try
@@ -71,13 +71,13 @@ namespace Mappalachia
 
 			// Verify each marker in the database was accounted for
 			foreach (KeyValuePair<string, bool> marker in requiredMarkerNames)
-            {
+			{
 				if (marker.Value == false)
-                {
+				{
 					Console.WriteLine("ERROR: File for marker " + marker.Key + " was not found anywhere in any appropriately named subfolder of the extract folder.");
 					File.AppendAllText(missingMarkersFile, marker.Key + "\n");
 				}
-            }
+			}
 
 			Console.WriteLine("\nFinished " + (File.Exists(missingMarkersFile) ? "with errors" : "successfully") + "\nPress any key");
 			Console.ReadKey();

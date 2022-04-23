@@ -14,8 +14,8 @@ namespace Mappalachia
 	{
 		// Map-image coordinate scaling. Gathered manually by eye with reference points from in-game
 		public static double scaling = 142;
-		static double xOffset = 1.7;
-		static double yOffset = 5.2;
+		static readonly double xOffset = 1.7;
+		static readonly double yOffset = 5.2;
 
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All background images should be this^2
@@ -276,7 +276,7 @@ namespace Mappalachia
 							(point.z + (point.boundZ / 2d) < SettingsSpace.GetMinHeightCoordBound() ||
 							point.z - (point.boundZ / 2d) > SettingsSpace.GetMaxHeightCoordBound()))
 						{
-								continue;
+							continue;
 						}
 
 						// Override colors in Topographic mode
@@ -491,9 +491,9 @@ namespace Mappalachia
 		static void DrawMapMarkers(Graphics imageGraphic)
 		{
 			if (!SettingsMap.showMapIcons && !SettingsMap.showMapLabels)
-            {
+			{
 				return;
-            }
+			}
 
 			List<MapMarker> markers = Database.GetMapMarkers(SettingsSpace.GetCurrentFormID());
 

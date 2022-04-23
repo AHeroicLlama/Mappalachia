@@ -88,7 +88,7 @@ namespace Mappalachia
 			if (File.Exists(idealTempFile))
 			{
 				try
-				{	// If we can re-use the old location, let's
+				{   // If we can re-use the old location, let's
 					File.Delete(idealTempFile);
 					return idealTempFile;
 				}
@@ -283,7 +283,7 @@ namespace Mappalachia
 		}
 
 		public static Image GetMapMarker(string mapMarkerName)
-        {
+		{
 			// Sort of like a constructor for the dict
 			if (mapMarkerimageCache.Count == 0)
 			{
@@ -296,7 +296,7 @@ namespace Mappalachia
 					// Parallel caching failed but we may still be able to find some icons or just series-cache
 					Notify.Error("Mappalachia encountered an error building the map marker icon cache.\n" + genericExceptionHelpText + e);
 				}
-            }
+			}
 
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{
@@ -312,7 +312,7 @@ namespace Mappalachia
 			}
 
 			return new Bitmap(mapMarkerimageCache[mapMarkerName]);
-        }
+		}
 
 		// Parallel draws all the SVG map markers into a dictionary
 		static void BuildMapMarkerCache()
@@ -325,7 +325,7 @@ namespace Mappalachia
 		}
 
 		static void CacheMarker(string mapMarkerName)
-        {
+		{
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{
 				Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);

@@ -17,7 +17,7 @@ namespace Mappalachia.Class
 
 		public static void Error(string text)
 		{
-			 MessageBox.Show(text, "Mappalachia - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			MessageBox.Show(text, "Mappalachia - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 	}
 }

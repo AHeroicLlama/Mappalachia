@@ -104,13 +104,13 @@ namespace Mappalachia
 
 				// Swap or amend some entirely wrong names
 				if (wrongLabelNames.ContainsKey(label))
-                {
+				{
 					label = wrongLabelNames[label];
-                }
+				}
 
 				// This marker is in the data but not in-game and does not represent anything particular, so we drop it
 				if (label == "Mire")
-                {
+				{
 					continue;
 				}
 
@@ -118,7 +118,7 @@ namespace Mappalachia
 				if (locationMarkerCorrection.ContainsKey(label))
 				{
 					iconName = locationMarkerCorrection[label];
-                }
+				}
 
 				// Misnamed workshop
 				if (label == "Hemlock Holes" && iconName == "FactoryMarker")
@@ -128,9 +128,9 @@ namespace Mappalachia
 
 				// Removes "Fast Travel Point: " from some (typically station) names
 				if (label.StartsWith(fastTravelBadString))
-                {
+				{
 					label = label.Replace(fastTravelBadString, string.Empty);
-                }
+				}
 
 				// Fix fissure site naming - Rename Zeta to Alpha, drop names from all others
 				if (label.StartsWith(fissureSite))

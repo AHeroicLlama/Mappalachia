@@ -16,7 +16,7 @@ namespace Mappalachia.Class
 		public int zMin;
 		public int zMax;
 		public double heightRange;
-		bool isWorldsapce;
+		readonly bool isWorldsapce;
 
 		List<int> zPlots;
 
