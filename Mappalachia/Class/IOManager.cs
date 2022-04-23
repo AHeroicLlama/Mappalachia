@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -32,7 +33,7 @@ namespace Mappalachia
 		static readonly string tempImageFileExtension = ".png";
 
 		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
-		static readonly Dictionary<string, Image> mapMarkerimageCache = new Dictionary<string, Image>();
+		static readonly ConcurrentDictionary<string, Image> mapMarkerimageCache = new ConcurrentDictionary<string, Image>();
 
 		static Image imageMapMilitary;
 
@@ -88,7 +89,8 @@ namespace Mappalachia
 			if (File.Exists(idealTempFile))
 			{
 				try
-				{   // If we can re-use the old location, let's
+				{
+					// If we can re-use the old location, let's
 					File.Delete(idealTempFile);
 					return idealTempFile;
 				}
@@ -291,11 +293,8 @@ namespace Mappalachia
 				{
 					BuildMapMarkerCache();
 				}
-				catch (Exception e)
-				{
-					// Parallel caching failed but we may still be able to find some icons or just series-cache
-					Notify.Error("Mappalachia encountered an error building the map marker icon cache.\n" + genericExceptionHelpText + e);
-				}
+				catch (Exception)
+				{ } // Parallel caching failed but we can still try to draw them on-demand in series
 			}
 
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
@@ -307,7 +306,10 @@ namespace Mappalachia
 				catch (Exception e)
 				{
 					Notify.Error("Mappalachia was unable to find or read the map marker image file for '" + mapMarkerName + "'.\n" + genericExceptionHelpText + e);
-					mapMarkerimageCache.Add(mapMarkerName, new Bitmap(2, 2));
+					if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
+					{
+						mapMarkerimageCache[mapMarkerName] = new Bitmap(2, 2);
+					}
 				}
 			}
 
@@ -326,10 +328,12 @@ namespace Mappalachia
 
 		static void CacheMarker(string mapMarkerName)
 		{
+			Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);
+			Bitmap marker = document.Draw((int)((double)document.Width * Map.markerIconScale), 0);
+
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{
-				Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);
-				mapMarkerimageCache.Add(mapMarkerName, document.Draw((int)((double)document.Width * Map.markerIconScale), 0));
+				mapMarkerimageCache[mapMarkerName] = marker;
 			}
 		}
 
