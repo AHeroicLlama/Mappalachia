@@ -287,7 +287,7 @@ namespace Mappalachia
 		public static Image GetMapMarker(string mapMarkerName)
 		{
 			// Sort of like a constructor for the dict
-			if (mapMarkerimageCache.Count == 0)
+			if (mapMarkerimageCache.IsEmpty)
 			{
 				try
 				{

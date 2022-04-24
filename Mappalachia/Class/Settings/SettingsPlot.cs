@@ -6,6 +6,7 @@ static class SettingsPlot
 		Icon,
 		Heatmap,
 		Topography,
+		Cluster,
 	}
 
 	public static Mode mode = Mode.Icon;
@@ -29,5 +30,10 @@ static class SettingsPlot
 	public static bool IsTopographic()
 	{
 		return mode == Mode.Topography;
+	}
+
+	public static bool IsCluster()
+	{
+		return mode == Mode.Cluster;
 	}
 }

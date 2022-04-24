@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Linq;
 using System.Windows.Forms;
 using Mappalachia.Class;
 
@@ -22,6 +23,8 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 		public static readonly double markerIconScale = 2.5; // The scaling applied to map marker icons
+		static readonly double clusteringRange = 200;
+		static readonly int clusterRefinementMaxIterations = 100;
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -65,11 +68,7 @@ namespace Mappalachia
 			return finalImage;
 		}
 
-		// Returns the result of Pythagoras theorem on 2 integers
-		static double Pythagoras(int a, int b)
-		{
-			return Math.Sqrt((a * a) + (b * b));
-		}
+
 
 		// Scale a coordinate from game coordinates down to map coordinates.
 		public static double ScaleCoordinate(int coord, bool isYAxis)
@@ -411,7 +410,7 @@ namespace Mappalachia
 								}
 
 								// Pythagoras on the x and y dist gives us the 'as the crow flies' distance between the squares
-								double distance = Pythagoras(squareX - x, squareY - y);
+								double distance = DataHelper.Pythagoras(squareX - x, squareY - y);
 
 								// Weight and hence brightness is modified by 1/x^2 + 1 where x is the distance from actual item
 								double additionalWeight = point.weight * (1d / ((distance * distance) + 1));
@@ -463,9 +462,221 @@ namespace Mappalachia
 					}
 				}
 			}
+			else if (SettingsPlot.IsCluster())
+			{
+				List<MapCluster> clusters = new List<MapCluster>();
+				List<MapDataPoint> points = new List<MapDataPoint>();
+
+
+				// unroll all MapDataPoints
+				foreach (MapItem mapItem in FormMaster.legendItems)
+				{
+					foreach (MapDataPoint point in mapItem.GetPlots())
+					{
+						points.Add(point);
+					}
+				}
+
+				// First pass. Top-level - take a datapoint and make a new cluster if it's so-far not a member
+				// This generates an imperfect but good start for clustering points together
+				foreach (MapDataPoint outerPoint in points)
+				{
+					// if it's already a member move on
+					if (outerPoint.IsMemberOfCluster())
+					{
+						continue;
+					}
+
+					// Start a new cluster
+					MapCluster cluster = new MapCluster(outerPoint);
+					clusters.Add(cluster);
+
+					// Inner-level - scan all datapoints for nearby points to add to this cluster, and add them to this cluster
+					foreach (MapDataPoint innerPoint in points)
+					{
+						if (innerPoint.IsMemberOfCluster())
+						{
+							continue;
+						}
+
+						double clusterXDist = Math.Abs(innerPoint.x - outerPoint.x);
+						double clusterYDist = Math.Abs(innerPoint.y - outerPoint.y);
+						double totalDist = DataHelper.Pythagoras(clusterXDist, clusterYDist);
+
+						if (totalDist < clusteringRange)
+						{
+							cluster.AddMember(innerPoint);
+						}
+					}
+				}
+
+				// todo remove
+				//imageGraphic = Graphics.FromImage(finalImage);
+				//DrawMapClusters(clusters, imageGraphic);
+				//mapFrame.Image = finalImage;
+				//Application.DoEvents();
+
+				/* Second pass - we've now put points into clusters arbitrarily based on which point(s) we selected first.
+				However it is still possible for one point to be a member of a cluster which it is not closest to,
+				as it was simply "adopted" by its parent cluster first.
+				So now we iterate over all points against all clusters, and assess which of these clusters they should actually be members of,
+				based off closest location, and then move them to the closer cluster.
+				I believe it is possible for this algorithm to never reach an end as an equilibrium is possible with points being bounced between clusters.
+				So we must decide on n passes of the datapoints and stop.*/
+
+				for (int i = 0; i < clusterRefinementMaxIterations; i++)
+				{
+					int movedPoints = 0;
+					foreach (MapDataPoint point in points)
+					{
+						MapCluster closestCluster = null;
+						foreach (MapCluster cluster in clusters)
+						{
+							if (closestCluster == null)
+							{
+								closestCluster = cluster;
+							}
+
+							if (cluster.GetDistance(point) < closestCluster.GetDistance(point))
+							{
+								closestCluster = cluster;
+							}
+						}
+
+						// Swap to the nearest cluster
+						if (point.GetParentCluster() != closestCluster)
+						{
+							point.LeaveCluster();
+							closestCluster.AddMember(point);
+							movedPoints++;
+						}
+
+						// todo remove
+						//imageGraphic = Graphics.FromImage(finalImage);
+						//DrawMapClusters(clusters, imageGraphic);
+						//mapFrame.Image = finalImage;
+						//Application.DoEvents();
+					}
+
+					Console.WriteLine("Pass " + i + " moved " + movedPoints + " points.");
+					if (movedPoints == 0)
+					{
+						break;
+					}
+
+					// todo remove
+					//imageGraphic = Graphics.FromImage(finalImage);
+					//DrawMapClusters(clusters, imageGraphic);
+					//mapFrame.Image = finalImage;
+					//Application.DoEvents();
+				}
+
+				DrawMapClusters(clusters, imageGraphic);
+			}
 
 			GC.Collect();
 			mapFrame.Image = finalImage;
+		}
+
+		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
+		{
+			int circleRadius = (int)(clusteringRange);
+			int circleLineThickness = 4;
+			Pen pen = new Pen(SettingsPlotStyle.GetFirstColor(), circleLineThickness);
+			Pen thinPen = new Pen(Color.White, 1);
+			int xSize = 8;
+
+			foreach (MapCluster cluster in clusters)
+			{
+				double clusterXCenter = cluster.GetXCenter();
+				double clusterYCenter = cluster.GetYCenter();
+
+				// Debug
+				foreach (MapDataPoint point in cluster.GetMembers())
+				{
+					imageGraphic.DrawLine(pen,
+						new PointF((float)point.x - xSize, (float)point.y - xSize),
+						new PointF((float)point.x + xSize, (float)point.y + xSize));
+					imageGraphic.DrawLine(pen,
+						new PointF((float)point.x + xSize, (float)point.y - xSize),
+						new PointF((float)point.x - xSize, (float)point.y + xSize));
+
+					imageGraphic.DrawLine(thinPen,
+						new PointF((float)point.x, (float)point.y),
+						new PointF((float)clusterXCenter, (float)clusterYCenter));
+				}
+
+				if (cluster.GetMemberCount() > 1)
+				{
+					imageGraphic.DrawPolygon(pen, GetConvexHull(cluster.GetMembers()).ToArray());
+				}
+
+				//imageGraphic.DrawEllipse(
+				//	pen,
+				//	new RectangleF((float)clusterXCenter - circleRadius, (float)clusterYCenter - circleRadius, circleRadius * 2, circleRadius * 2));
+
+				string num = cluster.GetMemberCount().ToString();
+
+				SizeF textBounds = imageGraphic.MeasureString(num, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
+
+				RectangleF textBox = new RectangleF(
+						(float)clusterXCenter - (textBounds.Width / 2),
+						(float)clusterYCenter - (textBounds.Height / 2),
+						textBounds.Width, textBounds.Height);
+
+				// Draw Drop shadow first
+				imageGraphic.DrawString(num, mapLabelFont, dropShadowBrush,
+					new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
+
+				// Draw the count
+				imageGraphic.DrawString(num, mapLabelFont, brushWhite, textBox, stringFormatCenter);
+			}
+
+			GC.Collect();
+		}
+
+		public static double cross(PointF O, PointF A, PointF B)
+		{
+			return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);
+		}
+
+		// credit https://stackoverflow.com/a/46371357
+		public static List<PointF> GetConvexHull(List<MapDataPoint> points)
+		{
+			if (points == null)
+				return null;
+
+			if (points.Count <= 1)
+				return new List<PointF>() { MapDataPointToPoint(points[0]) };
+
+			int n = points.Count, k = 0;
+			List<PointF> H = new List<PointF>(new PointF[2 * n]);
+
+			points.Sort((a, b) =>
+				 a.x == b.x ? a.y.CompareTo(b.y) : a.x.CompareTo(b.x));
+
+			// Build lower hull
+			for (int i = 0; i < n; ++i)
+			{
+				while (k >= 2 && cross(H[k - 2], H[k - 1], MapDataPointToPoint(points[i])) <= 0)
+					k--;
+				H[k++] = MapDataPointToPoint(points[i]);
+			}
+
+			// Build upper hull
+			for (int i = n - 2, t = k + 1; i >= 0; i--)
+			{
+				while (k >= t && cross(H[k - 2], H[k - 1], MapDataPointToPoint(points[i])) <= 0)
+					k--;
+				H[k++] = MapDataPointToPoint(points[i]);
+			}
+
+			return H.Take(k - 1).ToList();
+		}
+
+		static PointF MapDataPointToPoint(MapDataPoint point)
+		{
+			return new PointF((float)point.x, (float)point.y);
 		}
 
 		static void DrawInfoWatermark(Graphics imageGraphic)

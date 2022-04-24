@@ -1,3 +1,5 @@
+using Mappalachia.Class;
+
 namespace Mappalachia
 {
 	// A single data point to be mapped (one totally unique instance of an object)
@@ -12,6 +14,7 @@ namespace Mappalachia
 		public double boundY;
 		public int boundZ;
 		public int rotationZ;
+		MapCluster parentCluster; // Cluster this belongs to
 
 		public MapDataPoint(int x, int y, int z)
 		{
@@ -43,6 +46,26 @@ namespace Mappalachia
 
 			// Default weight, can be assigned to later
 			weight = 1d;
+		}
+
+		public void SetClusterMembership(MapCluster cluster)
+		{
+			parentCluster = cluster;
+		}
+
+		public void LeaveCluster()
+		{
+			parentCluster.RemoveMember(this);
+		}
+
+		public MapCluster GetParentCluster()
+		{
+			return parentCluster;
+		}
+
+		public bool IsMemberOfCluster()
+		{
+			return parentCluster != null;
 		}
 	}
 }

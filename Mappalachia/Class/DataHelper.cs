@@ -7,6 +7,12 @@ namespace Mappalachia
 	// Provides data helper methods, data translation and sorting
 	static class DataHelper
 	{
+		// Returns the result of Pythagoras theorem on 2 integers
+		public static double Pythagoras(double a, double b)
+		{
+			return Math.Sqrt((a * a) + (b * b));
+		}
+
 		static readonly Dictionary<string, string> signatureDescription = new Dictionary<string, string>
 		{
 			{ "STAT", "Environmental scenery which does not move and cannot be interacted with." },

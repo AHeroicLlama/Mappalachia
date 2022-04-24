@@ -305,6 +305,10 @@ namespace Mappalachia
 					modeTopographyMenuItem.Checked = true;
 					drawVolumesMenuItem.Enabled = true;
 					break;
+				case SettingsPlot.Mode.Cluster:
+					modeClusterMenuItem.Checked = true;
+					drawVolumesMenuItem.Enabled = false;
+					break;
 			}
 
 			PlotIcon.ResetCache(); // Reset the plot icon cache, as we are changing plot modes
@@ -321,6 +325,7 @@ namespace Mappalachia
 			modeIconMenuItem.Checked = false;
 			modeHeatmapMenuItem.Checked = false;
 			modeTopographyMenuItem.Checked = false;
+			modeClusterMenuItem.Checked = false;
 		}
 
 		// Update the UI with the currently selected heatmap color mode
@@ -877,6 +882,13 @@ namespace Mappalachia
 		private void Plot_Mode_Topography(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Topography;
+			UpdatePlotMode(true);
+		}
+
+		// Plot Settings > Mode > Cluster - Change plot mode to Cluster
+		private void Plot_Mode_Cluster(object sender, EventArgs e)
+		{
+			SettingsPlot.mode = SettingsPlot.Mode.Cluster;
 			UpdatePlotMode(true);
 		}
 

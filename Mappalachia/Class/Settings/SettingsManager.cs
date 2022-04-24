@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 6;
+		static readonly int prefsIteration = 7;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -194,6 +194,10 @@ namespace Mappalachia.Class
 
 								case "Topography":
 									SettingsPlot.mode = SettingsPlot.Mode.Topography;
+									break;
+
+								case "Cluster":
+									SettingsPlot.mode = SettingsPlot.Mode.Cluster;
 									break;
 
 								default:
