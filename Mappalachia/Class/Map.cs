@@ -14,17 +14,20 @@ namespace Mappalachia
 	public static class Map
 	{
 		// Map-image coordinate scaling. Gathered manually by eye with reference points from in-game
-		public static double scaling = 142;
-		static readonly double xOffset = 1.7;
-		static readonly double yOffset = 5.2;
+		public static float scaling = 142;
+		static readonly float xOffset = 1.7f;
+		static readonly float yOffset = 5.2f;
 
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All background images should be this^2
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 		public static readonly double markerIconScale = 2.5; // The scaling applied to map marker icons
-		static readonly double clusteringRange = 200;
+		static readonly float clusteringRange = 100;
 		static readonly int clusterRefinementMaxIterations = 100;
+		static readonly float clusterMinPolygonArea = 250;
+		static readonly int clusterPolygonLineThickness = 4;
+		static readonly int clusterBoundingCircleMinRadius = 20;
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -68,17 +71,15 @@ namespace Mappalachia
 			return finalImage;
 		}
 
-
-
 		// Scale a coordinate from game coordinates down to map coordinates.
-		public static double ScaleCoordinate(int coord, bool isYAxis)
+		public static float ScaleCoordinate(int coord, bool isYAxis)
 		{
 			if (isYAxis)
 			{
 				coord *= -1;
 			}
 
-			return (coord / scaling) + (mapDimension / 2d) + (isYAxis ? yOffset : xOffset);
+			return (coord / scaling) + (mapDimension / 2f) + (isYAxis ? yOffset : xOffset);
 		}
 
 		// Attach the map image to the PictureBox on the master form
@@ -298,15 +299,6 @@ namespace Mappalachia
 							volumeBrush = new SolidBrush(volumeColor);
 						}
 
-						point.x += spaceScaling.xOffset;
-						point.y += spaceScaling.yOffset;
-
-						// Multiply the coordinates by the scaling, but multiply around 0,0
-						point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
-						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
-						point.boundX *= spaceScaling.scale;
-						point.boundY *= spaceScaling.scale;
-
 						// If this meets all the criteria to be suitable to be drawn as a volume
 						if (point.primitiveShape != string.Empty && // This is a primitive shape at all
 							SettingsPlot.drawVolumes && // Volume drawing is enabled
@@ -331,7 +323,7 @@ namespace Mappalachia
 									continue; // If we reach this, we dropped the drawing of a volume. Verify we've covered all shapes via the database summary.txt
 							}
 
-							volumeImage = ImageTools.RotateImage(volumeImage, point.rotationZ);
+							volumeImage = ImageHelper.RotateImage(volumeImage, point.rotationZ);
 							imageGraphic.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
 						}
 
@@ -388,12 +380,6 @@ namespace Mappalachia
 							continue;
 						}
 
-						point.x += spaceScaling.xOffset;
-						point.y += spaceScaling.yOffset;
-
-						point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
-						point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
-
 						// Identify which grid square this MapDataPoint falls within
 						int squareX = (int)Math.Floor(point.x / pixelsPerSquare);
 						int squareY = (int)Math.Floor(point.y / pixelsPerSquare);
@@ -410,7 +396,7 @@ namespace Mappalachia
 								}
 
 								// Pythagoras on the x and y dist gives us the 'as the crow flies' distance between the squares
-								double distance = DataHelper.Pythagoras(squareX - x, squareY - y);
+								double distance = GeometryHelper.Pythagoras(squareX - x, squareY - y);
 
 								// Weight and hence brightness is modified by 1/x^2 + 1 where x is the distance from actual item
 								double additionalWeight = point.weight * (1d / ((distance * distance) + 1));
@@ -467,8 +453,7 @@ namespace Mappalachia
 				List<MapCluster> clusters = new List<MapCluster>();
 				List<MapDataPoint> points = new List<MapDataPoint>();
 
-
-				// unroll all MapDataPoints
+				// Unroll all MapDataPoints
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
 					foreach (MapDataPoint point in mapItem.GetPlots())
@@ -501,7 +486,7 @@ namespace Mappalachia
 
 						double clusterXDist = Math.Abs(innerPoint.x - outerPoint.x);
 						double clusterYDist = Math.Abs(innerPoint.y - outerPoint.y);
-						double totalDist = DataHelper.Pythagoras(clusterXDist, clusterYDist);
+						double totalDist = GeometryHelper.Pythagoras(clusterXDist, clusterYDist);
 
 						if (totalDist < clusteringRange)
 						{
@@ -510,12 +495,6 @@ namespace Mappalachia
 					}
 				}
 
-				// todo remove
-				//imageGraphic = Graphics.FromImage(finalImage);
-				//DrawMapClusters(clusters, imageGraphic);
-				//mapFrame.Image = finalImage;
-				//Application.DoEvents();
-
 				/* Second pass - we've now put points into clusters arbitrarily based on which point(s) we selected first.
 				However it is still possible for one point to be a member of a cluster which it is not closest to,
 				as it was simply "adopted" by its parent cluster first.
@@ -523,10 +502,10 @@ namespace Mappalachia
 				based off closest location, and then move them to the closer cluster.
 				I believe it is possible for this algorithm to never reach an end as an equilibrium is possible with points being bounced between clusters.
 				So we must decide on n passes of the datapoints and stop.*/
-
 				for (int i = 0; i < clusterRefinementMaxIterations; i++)
 				{
 					int movedPoints = 0;
+
 					foreach (MapDataPoint point in points)
 					{
 						MapCluster closestCluster = null;
@@ -550,25 +529,12 @@ namespace Mappalachia
 							closestCluster.AddMember(point);
 							movedPoints++;
 						}
-
-						// todo remove
-						//imageGraphic = Graphics.FromImage(finalImage);
-						//DrawMapClusters(clusters, imageGraphic);
-						//mapFrame.Image = finalImage;
-						//Application.DoEvents();
 					}
 
-					Console.WriteLine("Pass " + i + " moved " + movedPoints + " points.");
 					if (movedPoints == 0)
 					{
 						break;
 					}
-
-					// todo remove
-					//imageGraphic = Graphics.FromImage(finalImage);
-					//DrawMapClusters(clusters, imageGraphic);
-					//mapFrame.Image = finalImage;
-					//Application.DoEvents();
 				}
 
 				DrawMapClusters(clusters, imageGraphic);
@@ -580,103 +546,48 @@ namespace Mappalachia
 
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
-			int circleRadius = (int)(clusteringRange);
-			int circleLineThickness = 4;
-			Pen pen = new Pen(SettingsPlotStyle.GetFirstColor(), circleLineThickness);
-			Pen thinPen = new Pen(Color.White, 1);
-			int xSize = 8;
+			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), clusterPolygonLineThickness);
 
 			foreach (MapCluster cluster in clusters)
 			{
-				double clusterXCenter = cluster.GetXCenter();
-				double clusterYCenter = cluster.GetYCenter();
-
-				// Debug
-				foreach (MapDataPoint point in cluster.GetMembers())
-				{
-					imageGraphic.DrawLine(pen,
-						new PointF((float)point.x - xSize, (float)point.y - xSize),
-						new PointF((float)point.x + xSize, (float)point.y + xSize));
-					imageGraphic.DrawLine(pen,
-						new PointF((float)point.x + xSize, (float)point.y - xSize),
-						new PointF((float)point.x - xSize, (float)point.y + xSize));
-
-					imageGraphic.DrawLine(thinPen,
-						new PointF((float)point.x, (float)point.y),
-						new PointF((float)clusterXCenter, (float)clusterYCenter));
-				}
-
+				List<PointF> convexHull = GeometryHelper.GetConvexHull(cluster.GetPoints());
 				if (cluster.GetMemberCount() > 1)
 				{
-					imageGraphic.DrawPolygon(pen, GetConvexHull(cluster.GetMembers()).ToArray());
+					cluster.xCentroid = convexHull.Average(point => point.X);
+					cluster.yCentroid = convexHull.Average(point => point.Y);
+
+					// Convex hull too small or maybe thin etc, use bounding circle
+					if (GeometryHelper.AreaOfPolygon(convexHull) < (clusterMinPolygonArea))
+					{
+						float radius = Math.Max(clusterBoundingCircleMinRadius, cluster.GetBoundingRadius());
+
+						imageGraphic.DrawEllipse(
+							clusterPolygonPen,
+							new RectangleF(cluster.xCentroid - radius, cluster.yCentroid - radius, radius * 2, radius * 2));
+					}
+					else
+					{
+						imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.ToArray());
+					}
 				}
 
-				//imageGraphic.DrawEllipse(
-				//	pen,
-				//	new RectangleF((float)clusterXCenter - circleRadius, (float)clusterYCenter - circleRadius, circleRadius * 2, circleRadius * 2));
+				string number = Math.Round(cluster.GetMemberWeight(), 1).ToString();
 
-				string num = cluster.GetMemberCount().ToString();
-
-				SizeF textBounds = imageGraphic.MeasureString(num, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
-
+				SizeF textBounds = imageGraphic.MeasureString(number, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
 				RectangleF textBox = new RectangleF(
-						(float)clusterXCenter - (textBounds.Width / 2),
-						(float)clusterYCenter - (textBounds.Height / 2),
+						cluster.xCentroid - (textBounds.Width / 2),
+						cluster.yCentroid - (textBounds.Height / 2),
 						textBounds.Width, textBounds.Height);
 
 				// Draw Drop shadow first
-				imageGraphic.DrawString(num, mapLabelFont, dropShadowBrush,
+				imageGraphic.DrawString(number, mapLabelFont, dropShadowBrush,
 					new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
 
 				// Draw the count
-				imageGraphic.DrawString(num, mapLabelFont, brushWhite, textBox, stringFormatCenter);
+				imageGraphic.DrawString(number, mapLabelFont, brushWhite, textBox, stringFormatCenter);
 			}
 
 			GC.Collect();
-		}
-
-		public static double cross(PointF O, PointF A, PointF B)
-		{
-			return (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);
-		}
-
-		// credit https://stackoverflow.com/a/46371357
-		public static List<PointF> GetConvexHull(List<MapDataPoint> points)
-		{
-			if (points == null)
-				return null;
-
-			if (points.Count <= 1)
-				return new List<PointF>() { MapDataPointToPoint(points[0]) };
-
-			int n = points.Count, k = 0;
-			List<PointF> H = new List<PointF>(new PointF[2 * n]);
-
-			points.Sort((a, b) =>
-				 a.x == b.x ? a.y.CompareTo(b.y) : a.x.CompareTo(b.x));
-
-			// Build lower hull
-			for (int i = 0; i < n; ++i)
-			{
-				while (k >= 2 && cross(H[k - 2], H[k - 1], MapDataPointToPoint(points[i])) <= 0)
-					k--;
-				H[k++] = MapDataPointToPoint(points[i]);
-			}
-
-			// Build upper hull
-			for (int i = n - 2, t = k + 1; i >= 0; i--)
-			{
-				while (k >= t && cross(H[k - 2], H[k - 1], MapDataPointToPoint(points[i])) <= 0)
-					k--;
-				H[k++] = MapDataPointToPoint(points[i]);
-			}
-
-			return H.Take(k - 1).ToList();
-		}
-
-		static PointF MapDataPointToPoint(MapDataPoint point)
-		{
-			return new PointF((float)point.x, (float)point.y);
 		}
 
 		static void DrawInfoWatermark(Graphics imageGraphic)
@@ -911,7 +822,7 @@ namespace Mappalachia
 			// Example: parent colors exist at 0.2 and 0.4, child color exists at 0.35. Normalized between parents it is therefore 0.75
 			double rangeBetweenColors = (colorValue - (colorBelow * rangePerColor)) * (colorCount - 1);
 
-			return ImageTools.LerpColors(SettingsPlotStyle.paletteColor[colorBelow], SettingsPlotStyle.paletteColor[colorAbove], rangeBetweenColors);
+			return ImageHelper.LerpColors(SettingsPlotStyle.paletteColor[colorBelow], SettingsPlotStyle.paletteColor[colorAbove], rangeBetweenColors);
 		}
 
 		public static void Open()

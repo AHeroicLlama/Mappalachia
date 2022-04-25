@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 namespace Mappalachia.Class
 {
 	// Methods for tweaking and applying effects to images.
-	static class ImageTools
+	static class ImageHelper
 	{
 		// Shift the ARGB values of an image
 		public static Image AdjustARGB(Image image, Color argb)

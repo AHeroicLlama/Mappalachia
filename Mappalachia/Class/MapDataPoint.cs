@@ -1,12 +1,13 @@
 using Mappalachia.Class;
+using System.Drawing;
 
 namespace Mappalachia
 {
 	// A single data point to be mapped (one totally unique instance of an object)
 	public class MapDataPoint
 	{
-		public double x;
-		public double y;
+		public float x;
+		public float y;
 		public int z; // Height
 		public double weight; // The magnitude/importance of this plot (EG 2.0 may represent 2x scrap from a single junk, or 0.33 may represent a 33% chance of spawning)
 		public string primitiveShape; // The name of the primitive shape which describes this item (only typically applicable to ACTI)
@@ -66,6 +67,11 @@ namespace Mappalachia
 		public bool IsMemberOfCluster()
 		{
 			return parentCluster != null;
+		}
+
+		public PointF GetPoint()
+		{
+			return new PointF(x, y);
 		}
 	}
 }

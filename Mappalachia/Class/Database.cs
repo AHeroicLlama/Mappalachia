@@ -436,7 +436,7 @@ namespace Mappalachia
 			{
 				coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2))
 				{
-					weight = reader.GetInt32(3),
+					weight = reader.GetDouble(3),
 				});
 			}
 
