@@ -379,6 +379,7 @@ namespace Mappalachia
 			this.modeClusterMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
 			this.modeClusterMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeClusterMenuItem.Text = "Cluster";
+			this.modeClusterMenuItem.ToolTipText = "Group nearby plots together, displaying the amount within the cluster.";
 			this.modeClusterMenuItem.Click += new System.EventHandler(this.Plot_Mode_Cluster);
 			// 
 			// plotStyleSettingsMenuItem
@@ -1242,7 +1243,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-2, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-3, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);

@@ -72,5 +72,82 @@ namespace Mappalachia.Class
 		{
 			return ((a.X - o.X) * (b.Y - o.Y)) - ((a.Y - o.Y) * (b.X - o.X));
 		}
+
+		// returns the angle formed at o where a->o becomes o->b
+		public static double VectorAngle(PointF a, PointF o, PointF b)
+		{
+			return RadToDeg(Math.Atan2(b.Y - o.Y, b.X - o.X) -
+							Math.Atan2(a.Y - o.Y, a.X - o.X));
+		}
+
+		public static double GetPolygonSmallestAngle(List<PointF> polygon)
+		{
+			if (polygon.Count <= 2)
+			{
+				return 0;
+			}
+
+			double smallestAngle = 360;
+			for (int i = 0; i < polygon.Count; i++)
+			{
+				PointF a = GetCyclicItem(polygon, i - 1);
+				PointF b = GetCyclicItem(polygon, i);
+				PointF c = GetCyclicItem(polygon, i + 1);
+
+				double angle = Math.Abs(VectorAngle(a, b, c));
+
+				if (angle < smallestAngle)
+				{
+					smallestAngle = angle;
+				}
+			}
+
+			return smallestAngle;
+		}
+
+		// Returns the original polygon with points closer than the threshold merged into a single point
+		public static List<PointF> ReducePolygon(List<PointF> polygon, float threshold)
+		{
+			List<PointF> newPolygon = new List<PointF>();
+
+			for (int i = 0; i < polygon.Count; i++)
+			{
+				if (Pythagoras(GetCyclicItem(polygon, i), GetCyclicItem(polygon, i + 1)) > threshold)
+				{
+					newPolygon.Add(polygon[i]);
+				}
+			}
+
+			// If we discarded all points, return a single point representing them all
+			if (newPolygon.Count == 0)
+			{
+				newPolygon = new List<PointF>() { GetCentroid(polygon) };
+			}
+
+			return newPolygon;
+		}
+
+		public static double RadToDeg(double rad)
+		{
+			return rad * (180 / Math.PI);
+		}
+
+		public static PointF GetCentroid(List<PointF> polygon)
+		{
+			return new PointF(polygon.Average(point => point.X), polygon.Average(point => point.Y));
+		}
+
+		// returns the nth item in a list as if it were cyclic (supports <0 or >n)
+		public static T GetCyclicItem<T>(List<T> collection, int n)
+		{
+			n %= collection.Count;
+
+			if (n < 0)
+			{
+				n = collection.Count + n;
+			}
+
+			return collection[n];
+		}
 	}
 }

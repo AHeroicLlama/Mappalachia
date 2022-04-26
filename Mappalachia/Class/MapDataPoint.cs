@@ -69,7 +69,7 @@ namespace Mappalachia
 			return parentCluster != null;
 		}
 
-		public PointF GetPoint()
+		public PointF Get2DPoint()
 		{
 			return new PointF(x, y);
 		}

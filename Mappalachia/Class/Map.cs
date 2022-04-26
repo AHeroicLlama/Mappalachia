@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -23,11 +24,16 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 		public static readonly double markerIconScale = 2.5; // The scaling applied to map marker icons
-		static readonly float clusteringRange = 100;
-		static readonly int clusterRefinementMaxIterations = 100;
-		static readonly float clusterMinPolygonArea = 250;
+
+		// Cluster mode tuning
+		static readonly float clusteringRange = 100; // Max distance between plots for them to belong to the same cluster
+		static readonly int clusterRefinementMaxIterations = 100; // Hard cap to stop clustering iterations after this many times
+		static readonly float clusterMinPolygonArea = 250; // The minimum area px^2 that a cluster polygon must fill or else uses a centroid-centered bounding circle
 		static readonly int clusterPolygonLineThickness = 4;
-		static readonly int clusterBoundingCircleMinRadius = 20;
+		static readonly int clusterBoundingCircleMinRadius = 15; // Clusters given a bounding circle are rendered at least this big
+		static readonly int clusterPolygonPointReductionRange = 5; // Points in the cluster convex hull this close together are merged
+		static readonly int clusterMinimumAngle = 10; // A cluster convex hull with an interior angle tighter than this are dropped as too 'pointy' and fall back to the circle
+		static readonly Brush clusterWeightBrush = new SolidBrush(Color.FromArgb(200, Color.White));
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -463,6 +469,7 @@ namespace Mappalachia
 				}
 
 				// First pass. Top-level - take a datapoint and make a new cluster if it's so-far not a member
+				// Then go round all unadopted points and see if they're suitable to be a member
 				// This generates an imperfect but good start for clustering points together
 				foreach (MapDataPoint outerPoint in points)
 				{
@@ -484,9 +491,7 @@ namespace Mappalachia
 							continue;
 						}
 
-						double clusterXDist = Math.Abs(innerPoint.x - outerPoint.x);
-						double clusterYDist = Math.Abs(innerPoint.y - outerPoint.y);
-						double totalDist = GeometryHelper.Pythagoras(clusterXDist, clusterYDist);
+						double totalDist = GeometryHelper.Pythagoras(innerPoint.Get2DPoint(), outerPoint.Get2DPoint());
 
 						if (totalDist < clusteringRange)
 						{
@@ -495,7 +500,7 @@ namespace Mappalachia
 					}
 				}
 
-				/* Second pass - we've now put points into clusters arbitrarily based on which point(s) we selected first.
+				/* Second pass - we've now put all in-range points into clusters arbitrarily based on which point(s) we selected first.
 				However it is still possible for one point to be a member of a cluster which it is not closest to,
 				as it was simply "adopted" by its parent cluster first.
 				So now we iterate over all points against all clusters, and assess which of these clusters they should actually be members of,
@@ -505,24 +510,11 @@ namespace Mappalachia
 				for (int i = 0; i < clusterRefinementMaxIterations; i++)
 				{
 					int movedPoints = 0;
-
 					foreach (MapDataPoint point in points)
 					{
-						MapCluster closestCluster = null;
-						foreach (MapCluster cluster in clusters)
-						{
-							if (closestCluster == null)
-							{
-								closestCluster = cluster;
-							}
+						MapCluster closestCluster = clusters.MinBy(cluster => cluster.GetDistance(point));
 
-							if (cluster.GetDistance(point) < closestCluster.GetDistance(point))
-							{
-								closestCluster = cluster;
-							}
-						}
-
-						// Swap to the nearest cluster
+						// Move point to the nearest cluster
 						if (point.GetParentCluster() != closestCluster)
 						{
 							point.LeaveCluster();
@@ -531,6 +523,12 @@ namespace Mappalachia
 						}
 					}
 
+					//DrawMapClusters(clusters, imageGraphic);
+					//GC.Collect();
+					//mapFrame.Image = finalImage;
+					//Application.DoEvents();
+
+					// Finally none needed moving - we're done
 					if (movedPoints == 0)
 					{
 						break;
@@ -547,23 +545,29 @@ namespace Mappalachia
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
 			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), clusterPolygonLineThickness);
+			Pen thinPen = new Pen(Color.White, 1);
+			Pen thinGreenPen = new Pen(Color.Lime, 1);
+
+			List<double> rankedWeights = clusters.OrderBy(cluster => cluster.GetMemberWeight()).Select(cluster => cluster.GetMemberWeight()).ToList();
+			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
 
 			foreach (MapCluster cluster in clusters)
 			{
 				List<PointF> convexHull = GeometryHelper.GetConvexHull(cluster.GetPoints());
-				if (cluster.GetMemberCount() > 1)
-				{
-					cluster.xCentroid = convexHull.Average(point => point.X);
-					cluster.yCentroid = convexHull.Average(point => point.Y);
+				PointF centroid = GeometryHelper.GetCentroid(cluster.GetPoints());
 
-					// Convex hull too small or maybe thin etc, use bounding circle
-					if (GeometryHelper.AreaOfPolygon(convexHull) < (clusterMinPolygonArea))
+				if (convexHull.Count > 1)
+				{
+					convexHull = GeometryHelper.ReducePolygon(convexHull, clusterPolygonPointReductionRange);
+
+					// Convex hull too small or pointy
+					if (GeometryHelper.AreaOfPolygon(convexHull) < clusterMinPolygonArea || GeometryHelper.GetPolygonSmallestAngle(convexHull) < clusterMinimumAngle)
 					{
 						float radius = Math.Max(clusterBoundingCircleMinRadius, cluster.GetBoundingRadius());
 
 						imageGraphic.DrawEllipse(
 							clusterPolygonPen,
-							new RectangleF(cluster.xCentroid - radius, cluster.yCentroid - radius, radius * 2, radius * 2));
+							new RectangleF(centroid.X - radius, centroid.Y - radius, radius * 2, radius * 2));
 					}
 					else
 					{
@@ -571,20 +575,32 @@ namespace Mappalachia
 					}
 				}
 
-				string number = Math.Round(cluster.GetMemberWeight(), 1).ToString();
+				////DEBUG
+				//foreach (PointF point in cluster.GetPoints())
+				//{
+				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
+				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
+				//	imageGraphic.DrawLine(thinPen, cluster.GetCentroid(), point);
+				//}
 
-				SizeF textBounds = imageGraphic.MeasureString(number, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
+				double weight = cluster.GetMemberWeight();
+				string printWeight = Math.Round(weight, 1).ToString();
+
+				float fontSize = Math.Min(Math.Max(20, mapLabelFontSize * (float)(weight / averageWeight)), 50);
+				Font sizedFont = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
+
+				SizeF textBounds = imageGraphic.MeasureString(printWeight, sizedFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
 				RectangleF textBox = new RectangleF(
-						cluster.xCentroid - (textBounds.Width / 2),
-						cluster.yCentroid - (textBounds.Height / 2),
+						centroid.X - (textBounds.Width / 2),
+						centroid.Y - (textBounds.Height / 2),
 						textBounds.Width, textBounds.Height);
 
 				// Draw Drop shadow first
-				imageGraphic.DrawString(number, mapLabelFont, dropShadowBrush,
+				imageGraphic.DrawString(printWeight, sizedFont, dropShadowBrush,
 					new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
 
 				// Draw the count
-				imageGraphic.DrawString(number, mapLabelFont, brushWhite, textBox, stringFormatCenter);
+				imageGraphic.DrawString(printWeight, sizedFont, clusterWeightBrush, textBox, stringFormatCenter);
 			}
 
 			GC.Collect();
