@@ -13,8 +13,10 @@ namespace Mappalachia.Class
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
 		{
-			List<string> settings = new List<string>();
-			settings.Add("#Mappalachia Preferences file. Modify at your own risk. Edits will be overwritten.");
+			List<string> settings = new List<string>
+			{
+				"#Mappalachia Preferences file. Modify at your own risk. Edits will be overwritten.",
+			};
 
 			// Gather collections into lists for later
 			List<string> colors = new List<string>();

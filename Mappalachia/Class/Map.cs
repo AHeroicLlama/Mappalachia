@@ -148,6 +148,8 @@ namespace Mappalachia
 		// Construct the final map by drawing plots over the background layer
 		public static void Draw()
 		{
+			Stopwatch stopwatch = Stopwatch.StartNew();
+
 			// Reset the current image to the background layer
 			finalImage = new Bitmap(backgroundLayer);
 
@@ -491,7 +493,10 @@ namespace Mappalachia
 							continue;
 						}
 
-						double totalDist = GeometryHelper.Pythagoras(innerPoint.Get2DPoint(), outerPoint.Get2DPoint());
+						// Pythagoras
+						float xDist = innerPoint.x - outerPoint.x;
+						float yDist = innerPoint.y - outerPoint.y;
+						double totalDist = Math.Sqrt((xDist * xDist) + (yDist * yDist));
 
 						if (totalDist < clusteringRange)
 						{
@@ -512,7 +517,8 @@ namespace Mappalachia
 					int movedPoints = 0;
 					foreach (MapDataPoint point in points)
 					{
-						MapCluster closestCluster = clusters.MinBy(cluster => cluster.GetDistance(point));
+						// TODO optimize this all the way down
+						MapCluster closestCluster = clusters.MinBy(cluster => cluster.GetPolygon().GetDistance(point.Get2DPoint()));
 
 						// Move point to the nearest cluster
 						if (point.GetParentCluster() != closestCluster)
@@ -522,11 +528,6 @@ namespace Mappalachia
 							movedPoints++;
 						}
 					}
-
-					//DrawMapClusters(clusters, imageGraphic);
-					//GC.Collect();
-					//mapFrame.Image = finalImage;
-					//Application.DoEvents();
 
 					// Finally none needed moving - we're done
 					if (movedPoints == 0)
@@ -540,6 +541,7 @@ namespace Mappalachia
 
 			GC.Collect();
 			mapFrame.Image = finalImage;
+			Console.WriteLine("Draw took " + stopwatch.Elapsed);
 		}
 
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
@@ -553,17 +555,18 @@ namespace Mappalachia
 
 			foreach (MapCluster cluster in clusters)
 			{
-				List<PointF> convexHull = GeometryHelper.GetConvexHull(cluster.GetPoints());
-				PointF centroid = GeometryHelper.GetCentroid(cluster.GetPoints());
+				Polygon convexHull = cluster.GetPolygon().GetConvexHull();
+				PointF centroid = cluster.GetPolygon().GetCentroid();
 
-				if (convexHull.Count > 1)
+				if (convexHull.GetVerts().Count > 1)
 				{
-					convexHull = GeometryHelper.ReducePolygon(convexHull, clusterPolygonPointReductionRange);
+					convexHull.Reduce(clusterPolygonPointReductionRange);
+					centroid = convexHull.GetCentroid();
 
 					// Convex hull too small or pointy
-					if (GeometryHelper.AreaOfPolygon(convexHull) < clusterMinPolygonArea || GeometryHelper.GetPolygonSmallestAngle(convexHull) < clusterMinimumAngle)
+					if (convexHull.GetArea() < clusterMinPolygonArea || convexHull.GetSmallestAngle() < clusterMinimumAngle)
 					{
-						float radius = Math.Max(clusterBoundingCircleMinRadius, cluster.GetBoundingRadius());
+						float radius = Math.Max(clusterBoundingCircleMinRadius, convexHull.GetBoundingRadius());
 
 						imageGraphic.DrawEllipse(
 							clusterPolygonPen,
@@ -571,17 +574,17 @@ namespace Mappalachia
 					}
 					else
 					{
-						imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.ToArray());
+						imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
 					}
 				}
 
 				////DEBUG
-				//foreach (PointF point in cluster.GetPoints())
-				//{
-				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
-				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
-				//	imageGraphic.DrawLine(thinPen, cluster.GetCentroid(), point);
-				//}
+				foreach (PointF point in cluster.GetPolygon().GetVerts())
+				{
+					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
+					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
+					imageGraphic.DrawLine(thinPen, cluster.GetPolygon().GetCentroid(), point);
+				}
 
 				double weight = cluster.GetMemberWeight();
 				string printWeight = Math.Round(weight, 1).ToString();

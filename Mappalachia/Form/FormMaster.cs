@@ -996,13 +996,13 @@ namespace Mappalachia
 		}
 
 		// Donate > Patreon
-		private void viaPatreonToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Donate_ViaPatreon(object sender, EventArgs e)
 		{
 			Process.Start(new ProcessStartInfo { FileName = "https://www.patreon.com/user?u=73036527", UseShellExecute = true });
 		}
 
 		// Donate > PayPal
-		private void viaPayPalToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Donate_ViaPayPal(object sender, EventArgs e)
 		{
 			Process.Start(new ProcessStartInfo { FileName = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url", UseShellExecute = true });
 		}

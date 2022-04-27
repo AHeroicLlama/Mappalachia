@@ -338,8 +338,8 @@ namespace Mappalachia
 			// 
 			this.plotModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.modeIconMenuItem,
-            this.modeHeatmapMenuItem,
             this.modeTopographyMenuItem,
+            this.modeHeatmapMenuItem,
             this.modeClusterMenuItem});
 			this.plotModeMenuItem.Name = "plotModeMenuItem";
 			this.plotModeMenuItem.Size = new System.Drawing.Size(204, 22);
@@ -350,7 +350,7 @@ namespace Mappalachia
 			// 
 			this.modeIconMenuItem.Name = "modeIconMenuItem";
 			this.modeIconMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
-			this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeIconMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeIconMenuItem.Text = "Icon";
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -359,7 +359,7 @@ namespace Mappalachia
 			// 
 			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
 			this.modeHeatmapMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeHeatmapMenuItem.Text = "Heatmap";
 			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
 			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
@@ -368,7 +368,7 @@ namespace Mappalachia
 			// 
 			this.modeTopographyMenuItem.Name = "modeTopographyMenuItem";
 			this.modeTopographyMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
-			this.modeTopographyMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeTopographyMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeTopographyMenuItem.Text = "Topographic";
 			this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
 			this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
@@ -377,7 +377,7 @@ namespace Mappalachia
 			// 
 			this.modeClusterMenuItem.Name = "modeClusterMenuItem";
 			this.modeClusterMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-			this.modeClusterMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeClusterMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeClusterMenuItem.Text = "Cluster";
 			this.modeClusterMenuItem.ToolTipText = "Group nearby plots together, displaying the amount within the cluster.";
 			this.modeClusterMenuItem.Click += new System.EventHandler(this.Plot_Mode_Cluster);
@@ -567,18 +567,18 @@ namespace Mappalachia
 			// donatePatreonMenuItem
 			// 
 			this.donatePatreonMenuItem.Name = "donatePatreonMenuItem";
-			this.donatePatreonMenuItem.Size = new System.Drawing.Size(134, 22);
+			this.donatePatreonMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.donatePatreonMenuItem.Text = "Via Patreon";
 			this.donatePatreonMenuItem.ToolTipText = "Donate a custom monthly amount.";
-			this.donatePatreonMenuItem.Click += new System.EventHandler(this.viaPatreonToolStripMenuItem_Click);
+			this.donatePatreonMenuItem.Click += new System.EventHandler(this.Donate_ViaPatreon);
 			// 
 			// donatePayPalMenuItem
 			// 
 			this.donatePayPalMenuItem.Name = "donatePayPalMenuItem";
-			this.donatePayPalMenuItem.Size = new System.Drawing.Size(134, 22);
+			this.donatePayPalMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.donatePayPalMenuItem.Text = "Via PayPal";
 			this.donatePayPalMenuItem.ToolTipText = "Make a one-off or repeating donation.";
-			this.donatePayPalMenuItem.Click += new System.EventHandler(this.viaPayPalToolStripMenuItem_Click);
+			this.donatePayPalMenuItem.Click += new System.EventHandler(this.Donate_ViaPayPal);
 			// 
 			// gridViewSearchResults
 			// 
@@ -1243,7 +1243,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-3, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-4, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
