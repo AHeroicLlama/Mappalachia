@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +10,10 @@ namespace Mappalachia.Class
 		List<PointF> verts;
 		PointF centroid;
 		bool centroidStale = true;
+
+		public float centroidX;
+		public float centroidY;
+		public bool centroidFloatsStale = true;
 
 		public Polygon()
 		{
@@ -23,7 +27,8 @@ namespace Mappalachia.Class
 
 		public Polygon(PointF vert)
 		{
-			this.verts = new List<PointF>() { vert };
+			verts = new List<PointF>();
+			AddVert(vert);
 		}
 
 		public List<PointF> GetVerts()
@@ -35,12 +40,14 @@ namespace Mappalachia.Class
 		{
 			verts.Add(newVert);
 			centroidStale = true;
+			centroidFloatsStale = true;
 		}
 
 		public void RemoveVert(PointF vert)
 		{
 			verts.Remove(vert);
 			centroidStale = true;
+			centroidFloatsStale = true;
 		}
 
 		public PointF GetCentroid()
@@ -54,9 +61,11 @@ namespace Mappalachia.Class
 			return centroid;
 		}
 
-		public float GetDistance(PointF point)
+		public void RefreshCentroids()
 		{
-			return GeometryHelper.Pythagoras(GetCentroid(), point);
+			centroidX = verts.Average(point => point.X);
+			centroidY = verts.Average(point => point.Y);
+			centroidFloatsStale = false;
 		}
 
 		// Transforms the polygon into one with points closer than the threshold merged into a single point

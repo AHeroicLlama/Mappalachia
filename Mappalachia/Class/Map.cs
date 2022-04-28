@@ -404,10 +404,10 @@ namespace Mappalachia
 								}
 
 								// Pythagoras on the x and y dist gives us the 'as the crow flies' distance between the squares
-								double distance = GeometryHelper.Pythagoras(squareX - x, squareY - y);
+								double distanceSqrd = ((squareX - x) * (squareX - x)) + ((squareY - y) * (squareY - y));
 
 								// Weight and hence brightness is modified by 1/x^2 + 1 where x is the distance from actual item
-								double additionalWeight = point.weight * (1d / ((distance * distance) + 1));
+								double additionalWeight = point.weight * (1d / (distanceSqrd + 1));
 								squares[x, y].weights[heatmapLegendGroup] += additionalWeight;
 							}
 						}
@@ -466,6 +466,13 @@ namespace Mappalachia
 				{
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
+						if (SettingsSpace.CurrentSpaceIsWorld() &&
+							(point.x < plotXMin || point.x >= plotXMax ||
+							point.y < plotYMin || point.y >= plotYMax))
+						{
+							continue;
+						}
+
 						points.Add(point);
 					}
 				}
@@ -496,9 +503,9 @@ namespace Mappalachia
 						// Pythagoras
 						float xDist = innerPoint.x - outerPoint.x;
 						float yDist = innerPoint.y - outerPoint.y;
-						double totalDist = Math.Sqrt((xDist * xDist) + (yDist * yDist));
+						double totalDistSqrd = (xDist * xDist) + (yDist * yDist);
 
-						if (totalDist < clusteringRange)
+						if (totalDistSqrd < clusteringRange * clusteringRange)
 						{
 							cluster.AddMember(innerPoint);
 						}
@@ -517,8 +524,19 @@ namespace Mappalachia
 					int movedPoints = 0;
 					foreach (MapDataPoint point in points)
 					{
-						// TODO optimize this all the way down
-						MapCluster closestCluster = clusters.MinBy(cluster => cluster.GetPolygon().GetDistance(point.Get2DPoint()));
+						// Peformance focus - inlining and direct variable access
+						MapCluster closestCluster = clusters.MinBy(cluster =>
+						{
+							if (cluster.polygon.centroidFloatsStale)
+							{
+								cluster.polygon.RefreshCentroids();
+							}
+
+							// Pythagoras
+							float a = point.x - cluster.polygon.centroidX;
+							float b = point.y - cluster.polygon.centroidY;
+							return (a * a) + (b * b);
+						});
 
 						// Move point to the nearest cluster
 						if (point.GetParentCluster() != closestCluster)
@@ -547,10 +565,6 @@ namespace Mappalachia
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
 			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), clusterPolygonLineThickness);
-			Pen thinPen = new Pen(Color.White, 1);
-			Pen thinGreenPen = new Pen(Color.Lime, 1);
-
-			List<double> rankedWeights = clusters.OrderBy(cluster => cluster.GetMemberWeight()).Select(cluster => cluster.GetMemberWeight()).ToList();
 			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
 
 			foreach (MapCluster cluster in clusters)
@@ -579,6 +593,8 @@ namespace Mappalachia
 				}
 
 				////DEBUG
+				Pen thinPen = new Pen(Color.White, 1);
+				Pen thinGreenPen = new Pen(Color.Lime, 1);
 				foreach (PointF point in cluster.GetPolygon().GetVerts())
 				{
 					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));

@@ -6,7 +6,7 @@ namespace Mappalachia.Class
 	public class MapCluster
 	{
 		public List<MapDataPoint> members = new List<MapDataPoint>();
-		Polygon polygon;
+		public Polygon polygon;
 
 		// Create a new cluster with the initial single point
 		public MapCluster(MapDataPoint mapDataPoint)
