@@ -20,8 +20,7 @@ However for a more regularly updated version, user Eckserah has spent significan
 Once you have downloaded FO76Edit, you should simply be able to dump the contents of the zip into the `\FO76Edit\` folder. (You will note that the `Edit Scripts\` folder is already in place, populated with Mappalachia scripts).<br/>
 
 ### Launching FO76Edit
-If you installed Fallout 76 through Steam, or installed Fallout 76 in a non-default directory, you will need to launch FO76Edit with a launch parameter `-D:"<Path_to_FO76_Data_folder>"`.<br/>
-If you installed Fallout 76 via Bethesda.net and installed in the default location, you shouldn't need to take any extra steps.<br/>
+If there are errors opening FO76Edit regarding being unable to open a registry key or find a file path, this is likely because it doesn't know where your Fallout 76 installation is. In which case you will need to launch it with the parameter `-D:"<Path_to_FO76_Data_folder>"`, for example `FO76Edit64.exe -D:"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data"`.<br/>
 Once in FO76Edit you will be prompted with which ESM to load. Select SeventySix.esm and hit OK. Wait for the background loader to finish.<br/>
 
 ### Running the Mappalachia export scripts
