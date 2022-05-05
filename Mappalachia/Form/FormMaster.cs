@@ -17,7 +17,9 @@ namespace Mappalachia
 
 		static List<Space> spaces;
 
-		public ProgressBar progressBar;
+		static ProgressBar progressBar;
+		static Label progressBarLabel;
+		static Form self;
 
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
@@ -34,8 +36,9 @@ namespace Mappalachia
 				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Width * dpiScaling),
 				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Height * dpiScaling));
 
-			Map.progressBarMain = progressBarMain;
+			self = this;
 			progressBar = progressBarMain;
+			progressBarLabel = labelProgressBar;
 
 			// Cleanup on launch in case it didn't run last time
 			IOManager.Cleanup();
@@ -91,6 +94,25 @@ namespace Mappalachia
 
 		// All Methods not directly responding to UI input
 		#region Methods
+
+		public static void UpdateProgressBar(double amount, string labelText)
+		{
+			progressBar.Value = (int)(progressBar.Maximum * amount);
+			progressBarLabel.Text = labelText;
+
+			progressBarLabel.Location = new Point((self.Width / 2) - (progressBarLabel.Width / 2), progressBarLabel.Location.Y);
+			Application.DoEvents();
+		}
+
+		public static void UpdateProgressBar(double amount)
+		{
+			UpdateProgressBar(amount, amount == 1 ? "Ready" : progressBarLabel.Text);
+		}
+
+		public static void UpdateProgressBar(string labelText)
+		{
+			UpdateProgressBar((int)((double)progressBar.Value / progressBar.Maximum), labelText);
+		}
 
 		void SizeMapToFrame()
 		{
@@ -1160,7 +1182,7 @@ namespace Mappalachia
 		{
 			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearch.Enabled = false;
-			progressBarMain.Value = progressBarMain.Minimum;
+			UpdateProgressBar(0, "Searching...");
 
 			// Check for and show warnings
 			WarnWhenLVLINotSelected();
@@ -1172,14 +1194,12 @@ namespace Mappalachia
 				return;
 			}
 
-			// Pre-query - set progress to 1/2
-			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
+			UpdateProgressBar(0.5);
 
 			// Execute the search
 			searchResults = Database.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
 
-			// Post-query - set progress to 3/4
-			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+			UpdateProgressBar(0.75, "Populating UI...");
 
 			// Perform UI update
 			UpdateResultsLockTypeColumnVisibility();
@@ -1191,7 +1211,7 @@ namespace Mappalachia
 
 			// Search complete - re-enable UI and set progress bar to full
 			buttonSearch.Enabled = true;
-			progressBarMain.Value = progressBarMain.Maximum;
+			UpdateProgressBar(1);
 		}
 
 		// Scrap search

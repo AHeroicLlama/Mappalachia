@@ -53,8 +53,8 @@ namespace Mappalachia
 			this.plotSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.plotModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modeIconMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.modeHeatmapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modeTopographyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.modeHeatmapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modeClusterMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.plotStyleSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.heatmapSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -135,6 +135,7 @@ namespace Mappalachia
 			this.buttonAddToLegend = new System.Windows.Forms.Button();
 			this.toolTipControls = new System.Windows.Forms.ToolTip(this.components);
 			this.progressBarMain = new System.Windows.Forms.ProgressBar();
+			this.labelProgressBar = new System.Windows.Forms.Label();
 			this.menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewSearchResults)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridViewLegend)).BeginInit();
@@ -355,15 +356,6 @@ namespace Mappalachia
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
 			// 
-			// modeHeatmapMenuItem
-			// 
-			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
-			this.modeHeatmapMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(176, 22);
-			this.modeHeatmapMenuItem.Text = "Heatmap";
-			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
-			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
-			// 
 			// modeTopographyMenuItem
 			// 
 			this.modeTopographyMenuItem.Name = "modeTopographyMenuItem";
@@ -372,6 +364,15 @@ namespace Mappalachia
 			this.modeTopographyMenuItem.Text = "Topographic";
 			this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
 			this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
+			// 
+			// modeHeatmapMenuItem
+			// 
+			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
+			this.modeHeatmapMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.modeHeatmapMenuItem.Text = "Heatmap";
+			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
+			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
 			// 
 			// modeClusterMenuItem
 			// 
@@ -567,7 +568,7 @@ namespace Mappalachia
 			// donatePatreonMenuItem
 			// 
 			this.donatePatreonMenuItem.Name = "donatePatreonMenuItem";
-			this.donatePatreonMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.donatePatreonMenuItem.Size = new System.Drawing.Size(134, 22);
 			this.donatePatreonMenuItem.Text = "Via Patreon";
 			this.donatePatreonMenuItem.ToolTipText = "Donate a custom monthly amount.";
 			this.donatePatreonMenuItem.Click += new System.EventHandler(this.Donate_ViaPatreon);
@@ -575,7 +576,7 @@ namespace Mappalachia
 			// donatePayPalMenuItem
 			// 
 			this.donatePayPalMenuItem.Name = "donatePayPalMenuItem";
-			this.donatePayPalMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.donatePayPalMenuItem.Size = new System.Drawing.Size(134, 22);
 			this.donatePayPalMenuItem.Text = "Via PayPal";
 			this.donatePayPalMenuItem.ToolTipText = "Make a one-off or repeating donation.";
 			this.donatePayPalMenuItem.Click += new System.EventHandler(this.Donate_ViaPayPal);
@@ -1243,7 +1244,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-4, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(8, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1331,13 +1332,25 @@ namespace Mappalachia
 			// 
 			this.progressBarMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBarMain.Location = new System.Drawing.Point(14, 862);
+			this.progressBarMain.Location = new System.Drawing.Point(14, 867);
 			this.progressBarMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.progressBarMain.Maximum = 10000;
 			this.progressBarMain.Name = "progressBarMain";
 			this.progressBarMain.Size = new System.Drawing.Size(1646, 22);
 			this.progressBarMain.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
 			this.progressBarMain.TabIndex = 7;
+			// 
+			// labelProgressBar
+			// 
+			this.labelProgressBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.labelProgressBar.AutoSize = true;
+			this.labelProgressBar.BackColor = System.Drawing.Color.Transparent;
+			this.labelProgressBar.Location = new System.Drawing.Point(818, 851);
+			this.labelProgressBar.Name = "labelProgressBar";
+			this.labelProgressBar.Size = new System.Drawing.Size(39, 15);
+			this.labelProgressBar.TabIndex = 8;
+			this.labelProgressBar.Text = "Ready";
+			this.labelProgressBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// FormMaster
 			// 
@@ -1346,6 +1359,7 @@ namespace Mappalachia
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.ClientSize = new System.Drawing.Size(1674, 896);
+			this.Controls.Add(this.labelProgressBar);
 			this.Controls.Add(this.progressBarMain);
 			this.Controls.Add(this.splitContainerMain);
 			this.Controls.Add(this.menuStripMain);
@@ -1492,6 +1506,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem donatePatreonMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem donatePayPalMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modeClusterMenuItem;
+		private System.Windows.Forms.Label labelProgressBar;
 	}
 }
 

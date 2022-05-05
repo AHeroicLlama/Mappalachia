@@ -67,7 +67,6 @@ namespace Mappalachia
 
 		// References to FormMaster elements
 		static PictureBox mapFrame;
-		public static ProgressBar progressBarMain;
 
 		static Image finalImage;
 		static Image backgroundLayer;
@@ -148,13 +147,11 @@ namespace Mappalachia
 		// Construct the final map by drawing plots over the background layer
 		public static void Draw()
 		{
-			Stopwatch stopwatch = Stopwatch.StartNew();
-
 			// Reset the current image to the background layer
 			finalImage = new Bitmap(backgroundLayer);
 
 			// Start progress bar off at 0
-			progressBarMain.Value = progressBarMain.Minimum;
+			FormMaster.UpdateProgressBar(0, "Beginning draw...");
 			float progress = 0;
 
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
@@ -179,6 +176,7 @@ namespace Mappalachia
 			{
 				GC.Collect();
 				mapFrame.Image = finalImage;
+				FormMaster.UpdateProgressBar(0, "Ready");
 				return;
 			}
 
@@ -344,8 +342,7 @@ namespace Mappalachia
 
 					// Increment the progress bar per MapItem
 					progress += mapItem.count;
-					progressBarMain.Value = (int)((progress / totalMapDataPoints) * progressBarMain.Maximum);
-					Application.DoEvents();
+					FormMaster.UpdateProgressBar(progress / totalMapDataPoints, "Drawing...");
 				}
 			}
 			else if (SettingsPlot.IsHeatmap())
@@ -415,8 +412,7 @@ namespace Mappalachia
 
 					// Increment the progress bar per MapItem
 					progress += mapItem.count;
-					progressBarMain.Value = (int)((progress / totalMapDataPoints) * progressBarMain.Maximum);
-					Application.DoEvents();
+					FormMaster.UpdateProgressBar(progress / totalMapDataPoints, "Drawing...");
 				}
 
 				// Find the largest weight value of all squares
@@ -476,6 +472,8 @@ namespace Mappalachia
 						points.Add(point);
 					}
 				}
+
+				FormMaster.UpdateProgressBar(0.5, "Rendering Clusters...");
 
 				// First pass. Top-level - take a datapoint and make a new cluster if it's so-far not a member
 				// Then go round all unadopted points and see if they're suitable to be a member
@@ -547,6 +545,9 @@ namespace Mappalachia
 						}
 					}
 
+					// Increment the progress bar up as items refined each pass decreases, minus 5%
+					FormMaster.UpdateProgressBar(Math.Max(0, ((points.Count - movedPoints) / (double)points.Count) - 0.05), $"Refining Clusters (pass {i})...");
+
 					// Finally none needed moving - we're done
 					if (movedPoints == 0)
 					{
@@ -559,7 +560,7 @@ namespace Mappalachia
 
 			GC.Collect();
 			mapFrame.Image = finalImage;
-			Console.WriteLine("Draw took " + stopwatch.Elapsed);
+			FormMaster.UpdateProgressBar(1);
 		}
 
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
@@ -575,7 +576,6 @@ namespace Mappalachia
 				if (convexHull.GetVerts().Count > 1)
 				{
 					convexHull.Reduce(clusterPolygonPointReductionRange);
-					centroid = convexHull.GetCentroid();
 
 					// Convex hull too small or pointy
 					if (convexHull.GetArea() < clusterMinPolygonArea || convexHull.GetSmallestAngle() < clusterMinimumAngle)
@@ -588,8 +588,13 @@ namespace Mappalachia
 					}
 					else
 					{
+						centroid = convexHull.GetCentroid();
 						imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
 					}
+				}
+				else
+				{
+					//TODO solo item - plot icon instead?
 				}
 
 				////DEBUG
