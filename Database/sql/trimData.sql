@@ -6,3 +6,5 @@ DELETE FROM Entity_Info WHERE (
 DELETE FROM Space_Info WHERE (
 	spaceFormID NOT IN (SELECT spaceFormID FROM Position_Data)
 );
+
+DELETE FROM NPC_Search WHERE chance = 0;

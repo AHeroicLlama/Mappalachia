@@ -279,7 +279,7 @@ namespace Mappalachia
 					}
 
 					string name = reader.GetString(0);
-					double spawnChance = Math.Round(reader.GetDouble(1), 2) * 100;
+					double spawnChance = Math.Round(reader.GetDouble(1) * 100, 2);
 
 					results.Add(new MapItem(
 						Type.NPC,

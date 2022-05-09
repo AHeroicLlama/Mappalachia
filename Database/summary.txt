@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-98781f861d143073e67e8387dd15544c
+56e2cb8913d33dfd3cd6d70612131cad
 ==File Size== 
 372322304 
 ==Tables== 
@@ -6409,7 +6409,7 @@ Appalachia|Angler|0.157676521009854|90
 Appalachia|Bloatfly|0.101556776556776|91
 Appalachia|Bloodbug|0.41984126984127|70
 Appalachia|Cave Cricket|0.0810545500251381|170
-Appalachia|Deathclaw|0.282692307692308|10
+Appalachia|Deathclaw|0.314102564102564|9
 Appalachia|Fog Crawler|0.12857905982906|48
 Appalachia|Ghoul|0.496301825845095|1040
 Appalachia|Gulper|0.147427006650308|103
@@ -6432,7 +6432,7 @@ Appalachia|Stingwing|0.571428571428572|6
 Appalachia|Super Mutant|0.452558002402142|802
 Appalachia|Swamp|0.542857142857143|7
 Appalachia|Tick|0.852941176470588|17
-Appalachia|Vicious Dog|0.15876375397652|517
+Appalachia|Vicious Dog|0.160942864325217|510
 Appalachia|Wolf|0.200851290236766|179
 Appalachia|Yao Guai|0.111045284232307|131
 ArktosPharmaLab01|Ghoul|1.0|3
