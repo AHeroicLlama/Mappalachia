@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -76,7 +75,7 @@ namespace Mappalachia.Class
 			{
 				if (userTriggered)
 				{
-					CheckForUpdatesManual("Unable to correctly identify latest release from API response.");
+					CheckForUpdatesManual("Unable to correctly identify latest release from GitHub API response.");
 				}
 
 				return;
@@ -111,7 +110,7 @@ namespace Mappalachia.Class
 
 		static void GoToReleases()
 		{
-			Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia/releases/latest", UseShellExecute = true });
+			Mappalachia.LaunchURL("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
 		}
 	}
 }

@@ -21,24 +21,30 @@ namespace Mappalachia
 		static Label progressBarLabel;
 		static Form self;
 
+		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
-		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 
 		static readonly float designDPI = 96; // The DPI which the form was designed for
 
 		public FormMaster()
 		{
+			if (self != null)
+			{
+				throw new Exception("Cannot create multiple instances of the master form!");
+			}
+
 			InitializeComponent();
-			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
-			splitContainerMain.Panel1.AutoScrollMinSize = new Size(
-				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Width * dpiScaling),
-				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Height * dpiScaling));
 
 			self = this;
 			progressBar = progressBarMain;
 			progressBarLabel = labelProgressBar;
+
+			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
+			splitContainerMain.Panel1.AutoScrollMinSize = new Size(
+				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Width * dpiScaling),
+				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Height * dpiScaling));
 
 			// Cleanup on launch in case it didn't run last time
 			IOManager.Cleanup();
@@ -1008,7 +1014,7 @@ namespace Mappalachia
 		// Help > User Guides - Open help guides at github master
 		void Help_UserGuides(object sender, EventArgs e)
 		{
-			Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides", UseShellExecute = true });
+			Mappalachia.LaunchURL("https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides");
 		}
 
 		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
@@ -1020,13 +1026,13 @@ namespace Mappalachia
 		// Donate > Patreon
 		private void Donate_ViaPatreon(object sender, EventArgs e)
 		{
-			Process.Start(new ProcessStartInfo { FileName = "https://www.patreon.com/user?u=73036527", UseShellExecute = true });
+			Mappalachia.LaunchURL("https://www.patreon.com/user?u=73036527");
 		}
 
 		// Donate > PayPal
 		private void Donate_ViaPayPal(object sender, EventArgs e)
 		{
-			Process.Start(new ProcessStartInfo { FileName = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url", UseShellExecute = true });
+			Mappalachia.LaunchURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
 
 		// Signature select all
