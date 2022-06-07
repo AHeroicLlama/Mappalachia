@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Mappalachia.Class;
 using Mappalachia.Forms;
@@ -17,9 +18,11 @@ namespace Mappalachia
 
 		static List<Space> spaces;
 
-		static ProgressBar progressBar;
-		static Label progressBarLabel;
-		static Form self;
+		static FormMaster self;
+		static bool isDrawing = false;
+
+		static CancellationTokenSource mapDrawCancTokenSource;
+		static CancellationToken mapDrawCancToken;
 
 		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
@@ -35,11 +38,9 @@ namespace Mappalachia
 				throw new Exception("Cannot create multiple instances of the master form!");
 			}
 
-			InitializeComponent();
-
 			self = this;
-			progressBar = progressBarMain;
-			progressBarLabel = labelProgressBar;
+
+			InitializeComponent();
 
 			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
 			splitContainerMain.Panel1.AutoScrollMinSize = new Size(
@@ -86,8 +87,7 @@ namespace Mappalachia
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces(false);
 			UpdateSpawnChance();
-
-			Map.SetOutput(pictureBoxMapPreview);
+			SetIsDrawing(false);
 
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -101,23 +101,81 @@ namespace Mappalachia
 		// All Methods not directly responding to UI input
 		#region Methods
 
+		static void SetIsDrawing(bool isDrawing)
+		{
+			FormMaster.isDrawing = isDrawing;
+			self.buttonDrawMap.Text = isDrawing ? "Cancel" : "Update Map";
+
+			self.mapMenuItem.Enabled = !isDrawing;
+			self.plotSettingsMenuItem.Enabled = !isDrawing;
+
+			mapDrawCancTokenSource = new CancellationTokenSource();
+			mapDrawCancToken = mapDrawCancTokenSource.Token;
+		}
+
+		public static void UpdateUIAsync(Action action)
+		{
+			if (self.InvokeRequired)
+			{
+				self.BeginInvoke(action);
+			}
+			else
+			{
+				action.Invoke();
+			}
+		}
+
+		// Updates the progress value and label text of the main form progress bar.
+		public static void UpdateProgressBar(double amount, string labelText, bool forceRefresh)
+		{
+			UpdateProgressBarText(labelText, forceRefresh);
+
+			UpdateUIAsync(() => {
+				self.progressBarMain.Value = (int)(self.progressBarMain.Maximum * amount);
+			});
+		}
+
+		static void UpdateProgressBarText(string labelText, bool forceRefresh)
+		{
+			UpdateUIAsync(() =>
+			{
+				self.labelProgressBar.Text = labelText;
+				self.labelProgressBar.Location = new Point((self.Width / 2) - (self.labelProgressBar.Width / 2), self.labelProgressBar.Location.Y);
+
+				// Causes the label to repaint, otherwise it won't visually change until we hand back to the UI thead
+				if (forceRefresh)
+				{
+					self.labelProgressBar.Refresh();
+				}
+			});
+		}
+
+		public static void UpdateProgressBar(string labelText, bool forceRefresh)
+		{
+			UpdateProgressBarText(labelText, forceRefresh);
+		}
+
 		public static void UpdateProgressBar(double amount, string labelText)
 		{
-			progressBar.Value = (int)(progressBar.Maximum * amount);
-			progressBarLabel.Text = labelText;
-
-			progressBarLabel.Location = new Point((self.Width / 2) - (progressBarLabel.Width / 2), progressBarLabel.Location.Y);
-			Application.DoEvents();
+			UpdateProgressBar(amount, labelText, false);
 		}
 
 		public static void UpdateProgressBar(double amount)
 		{
-			UpdateProgressBar(amount, amount == 1 ? "Ready" : progressBarLabel.Text);
+			UpdateProgressBar(amount, amount == 1 ? "Ready" : self.labelProgressBar.Text);
 		}
 
 		public static void UpdateProgressBar(string labelText)
 		{
-			UpdateProgressBar((int)((double)progressBar.Value / progressBar.Maximum), labelText);
+			UpdateProgressBarText(labelText, false);
+		}
+
+		public static void SetMapImage(Image image)
+		{
+			UpdateUIAsync(() =>
+			{
+				self.pictureBoxMapPreview.Image = image;
+			});
 		}
 
 		void SizeMapToFrame()
@@ -744,17 +802,33 @@ namespace Mappalachia
 		}
 
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
-		static void DrawMap(bool drawBaseLayer)
+		public static async void DrawMap(bool drawBaseLayer)
 		{
-			if (drawBaseLayer || forceDrawBaseLayer)
+			if (isDrawing)
 			{
-				Map.DrawBaseLayer();
-				forceDrawBaseLayer = false;
+				return;
 			}
-			else
+
+			SetIsDrawing(true);
+
+			try
 			{
-				Map.Draw();
+				if (drawBaseLayer || forceDrawBaseLayer)
+				{
+					await Task.Run(() => Map.DrawBaseLayer(mapDrawCancToken));
+					forceDrawBaseLayer = false;
+				}
+				else
+				{
+					await Task.Run(() => Map.Draw(mapDrawCancToken));
+				}
 			}
+			catch (Exception e)
+			{
+				Notify.Error("Error during map draw.\n\n" + e);
+			}
+
+			SetIsDrawing(false);
 		}
 
 		static void PreviewMap()
@@ -875,7 +949,7 @@ namespace Mappalachia
 
 			SizeMapToFrame();
 
-			Map.DrawBaseLayer();
+			DrawMap(true);
 		}
 
 		// Search Settings > Show FormID - Toggle visibility of FormID column
@@ -1188,7 +1262,7 @@ namespace Mappalachia
 		{
 			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearch.Enabled = false;
-			UpdateProgressBar(0, "Searching...");
+			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Check for and show warnings
 			WarnWhenLVLINotSelected();
@@ -1200,12 +1274,10 @@ namespace Mappalachia
 				return;
 			}
 
-			UpdateProgressBar(0.5);
-
 			// Execute the search
 			searchResults = Database.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
 
-			UpdateProgressBar(0.75, "Populating UI...");
+			UpdateProgressBar(0.50, "Populating UI...", true);
 
 			// Perform UI update
 			UpdateResultsLockTypeColumnVisibility();
@@ -1225,25 +1297,21 @@ namespace Mappalachia
 		{
 			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearchScrap.Enabled = false;
-			progressBarMain.Value = progressBarMain.Minimum;
+			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Perform UI update
 			UpdateResultsLockTypeColumnVisibility();
 
-			// Pre-query - set progress to 1/2
-			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
-
 			searchResults = Database.SearchScrap(listBoxScrap.SelectedItem.ToString(), SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
 
-			// Post-query - set progress to 3/4
-			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+			UpdateProgressBar(0.50, "Populating UI...", true);
 
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
 
 			// Search complete - re-enable UI and set progress bar to full
 			buttonSearchScrap.Enabled = true;
-			progressBarMain.Value = progressBarMain.Maximum;
+			UpdateProgressBar(1);
 		}
 
 		// NPC Search
@@ -1251,13 +1319,10 @@ namespace Mappalachia
 		{
 			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearchNPC.Enabled = false;
-			progressBarMain.Value = progressBarMain.Minimum;
+			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Perform UI update
 			UpdateResultsLockTypeColumnVisibility();
-
-			// Pre-query - set progress to 1/2
-			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
 			searchResults = Database.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
@@ -1265,25 +1330,22 @@ namespace Mappalachia
 				SettingsSpace.GetCurrentFormID(),
 				SettingsSearch.searchInAllSpaces);
 
-			// Post-query - set progress to 3/4
-			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+			UpdateProgressBar(0.50, "Populating UI...", true);
 
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
 
 			// Search complete - re-enable UI and set progress bar to full
 			buttonSearchNPC.Enabled = true;
-			progressBarMain.Value = progressBarMain.Maximum;
+			UpdateProgressBar(1);
 		}
 
 		// Add selected valid items from the search results to the legend.
 		private void ButtonAddToLegend(object sender, EventArgs e)
 		{
-			int totalItems = gridViewSearchResults.SelectedRows.Count;
+			double totalItems = gridViewSearchResults.SelectedRows.Count;
 
-			// Only use or animate the progress bar for adding to legend if this is a large operation
-			bool useProgressBar = totalItems > 5000;
-			float progress = 0;
+			UpdateProgressBar($"Adding {totalItems} items...", true);
 
 			if (totalItems == 0)
 			{
@@ -1304,13 +1366,14 @@ namespace Mappalachia
 			// Record the contents of the legend before we start adding to it
 			List<MapItem> legendItemsBeforeAdd = new List<MapItem>(legendItems);
 
-			if (useProgressBar)
-			{
-				progressBarMain.Value = progressBarMain.Minimum;
-			}
+			int progress = 0;
 
 			foreach (DataGridViewRow row in gridViewSearchResults.SelectedRows.Cast<DataGridViewRow>().Reverse())
 			{
+				progress++;
+
+				UpdateProgressBar(progress / totalItems);
+
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				// Warn if a selected item is another space item or already on the legend list - otherwise add it.
@@ -1333,13 +1396,9 @@ namespace Mappalachia
 
 					legendItems.Add(selectedItem);
 				}
-
-				if (useProgressBar)
-				{
-					progress++;
-					progressBarMain.Value = (int)(progress / totalItems * progressBarMain.Maximum);
-				}
 			}
+
+			UpdateProgressBar("Validating...");
 
 			int totalRejectedItems = rejectedItemsOtherSpace.Count + rejectedItemsDuplicate.Count;
 
@@ -1382,23 +1441,29 @@ namespace Mappalachia
 
 				Notify.Info(message);
 			}
+
+			UpdateProgressBar(1);
 		}
 
 		// Remove selected rows from legend DataGridView
 		private void ButtonRemoveFromLegend(object sender, EventArgs e)
 		{
-			if (gridViewLegend.SelectedRows.Count == 0)
+			int selectedRowsCount = gridViewLegend.SelectedRows.Count;
+
+			if (selectedRowsCount == 0)
 			{
 				Notify.Info("Please select items from the 'items to plot' list first.");
 				return;
 			}
 
 			// If they are removing *everything*, then we can skip the processing below and just wipe the list
-			if (gridViewLegend.SelectedRows.Count == legendItems.Count)
+			if (selectedRowsCount == legendItems.Count)
 			{
 				ClearLegend();
 				return;
 			}
+
+			UpdateProgressBar($"Removing {selectedRowsCount} items...", true);
 
 			List<MapItem> remainingLegendItems = new List<MapItem>();
 			List<int> selectedIndexes = new List<int>();
@@ -1425,6 +1490,7 @@ namespace Mappalachia
 			legendItems = remainingLegendItems;
 
 			UpdateLegendGrid(null);
+			UpdateProgressBar(1);
 		}
 
 		// Handle the entry and assignment of new values to the Legend Group column or Overriding legend text
@@ -1490,6 +1556,13 @@ namespace Mappalachia
 
 		void ButtonDrawMap(object sender, EventArgs e)
 		{
+			if (isDrawing)
+			{
+				buttonDrawMap.Text = "Cancelling...";
+				mapDrawCancTokenSource.Cancel();
+				return;
+			}
+
 			DrawMap(false);
 		}
 

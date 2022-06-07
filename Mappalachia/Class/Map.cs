@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Linq;
-using System.Windows.Forms;
+using System.Threading;
 using Mappalachia.Class;
 
 namespace Mappalachia
@@ -65,9 +64,6 @@ namespace Mappalachia
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; // Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
 
-		// References to FormMaster elements
-		static PictureBox mapFrame;
-
 		static Image finalImage;
 		static Image backgroundLayer;
 
@@ -87,14 +83,23 @@ namespace Mappalachia
 			return (coord / scaling) + (mapDimension / 2f) + (isYAxis ? yOffset : xOffset);
 		}
 
-		// Attach the map image to the PictureBox on the master form
-		public static void SetOutput(PictureBox pictureBox)
+		// Finalise the map draw, displaying the given final image
+		static void FinishDraw(Image finalImage)
 		{
-			mapFrame = pictureBox;
+			FormMaster.SetMapImage(finalImage);
+			FormMaster.UpdateProgressBar(0, "Ready");
+			GC.Collect();
+		}
+
+		static void CancelDraw()
+		{
+			FormMaster.SetMapImage(backgroundLayer);
+			FormMaster.UpdateProgressBar(0, "Cancelled");
+			GC.Collect();
 		}
 
 		// Construct the map background layer, without plotted points
-		public static void DrawBaseLayer()
+		public static void DrawBaseLayer(CancellationToken cancToken)
 		{
 			// Start with the basic image
 			backgroundLayer = IOManager.GetImageForSpace(SettingsSpace.GetSpace());
@@ -141,18 +146,17 @@ namespace Mappalachia
 
 			graphic.DrawImage(backgroundLayer, points, rect, GraphicsUnit.Pixel, attributes);
 
-			Draw(); // Redraw the whole map since we updated the base layer
+			Draw(cancToken); // Redraw the whole map since we updated the base layer
 		}
 
 		// Construct the final map by drawing plots over the background layer
-		public static void Draw()
+		public static void Draw(CancellationToken cancToken)
 		{
 			// Reset the current image to the background layer
 			finalImage = new Bitmap(backgroundLayer);
 
 			// Start progress bar off at 0
 			FormMaster.UpdateProgressBar(0, "Beginning draw...");
-			float progress = 0;
 
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
@@ -174,9 +178,7 @@ namespace Mappalachia
 			// Nothing else to plot - ensure we update for the background layer but then return
 			if (FormMaster.legendItems.Count == 0)
 			{
-				GC.Collect();
-				mapFrame.Image = finalImage;
-				FormMaster.UpdateProgressBar(0, "Ready");
+				FinishDraw(finalImage);
 				return;
 			}
 
@@ -254,11 +256,21 @@ namespace Mappalachia
 				}
 			}
 
+			if (cancToken.IsCancellationRequested)
+			{
+				CancelDraw();
+				return;
+			}
+
 			if (SettingsPlot.IsIconOrTopographic())
 			{
+				float progress = 0;
+
 				// Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
+					FormMaster.UpdateProgressBar("Plotting " + mapItem.editorID + "...");
+
 					// Generate a Plot Icon and colours/brushes to be used for all instances of the MapItem
 					PlotIcon plotIcon = mapItem.GetIcon();
 					Image plotIconImg = SettingsPlot.IsIcon() ? plotIcon.GetIconImage() : null; // Icon mode has icon per MapItem, Topography needs icons per MapDataPoint and will be generated later
@@ -268,6 +280,12 @@ namespace Mappalachia
 					// Iterate over every data point and draw it
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
+						if (cancToken.IsCancellationRequested)
+						{
+							CancelDraw();
+							return;
+						}
+
 						// Skip the point if its origin is outside the surface world
 						if (SettingsSpace.CurrentSpaceIsWorld() &&
 							(point.x < plotXMin || point.x >= plotXMax ||
@@ -342,7 +360,7 @@ namespace Mappalachia
 
 					// Increment the progress bar per MapItem
 					progress += mapItem.count;
-					FormMaster.UpdateProgressBar(progress / totalMapDataPoints, "Drawing...");
+					FormMaster.UpdateProgressBar(progress / totalMapDataPoints);
 				}
 			}
 			else if (SettingsPlot.IsHeatmap())
@@ -362,12 +380,22 @@ namespace Mappalachia
 
 				int pixelsPerSquare = mapDimension / resolution;
 
+				float progress = 0;
+
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
 					int heatmapLegendGroup = SettingsPlotHeatmap.IsDuo() ? mapItem.legendGroup % 2 : 0;
 
+					FormMaster.UpdateProgressBar($"Evaluating weights of {mapItem.editorID}...");
+
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
+						if (cancToken.IsCancellationRequested)
+						{
+							CancelDraw();
+							return;
+						}
+
 						// Skip the point if its origin is outside the surface world
 						if (SettingsSpace.CurrentSpaceIsWorld() &&
 							(point.x < plotXMin || point.x >= plotXMax ||
@@ -410,10 +438,11 @@ namespace Mappalachia
 						}
 					}
 
-					// Increment the progress bar per MapItem
 					progress += mapItem.count;
-					FormMaster.UpdateProgressBar(progress / totalMapDataPoints, "Drawing...");
+					FormMaster.UpdateProgressBar(progress / totalMapDataPoints);
 				}
+
+				FormMaster.UpdateProgressBar("Rendering weighted squares...");
 
 				// Find the largest weight value of all squares
 				double largestWeight = 0;
@@ -442,6 +471,12 @@ namespace Mappalachia
 
 					for (int y = 0; y < resolution; y++)
 					{
+						if (cancToken.IsCancellationRequested)
+						{
+							CancelDraw();
+							return;
+						}
+
 						int yCoord = y * pixelsPerSquare;
 
 						Color color = squares[x, y].GetColor(largestWeight);
@@ -456,6 +491,8 @@ namespace Mappalachia
 			{
 				List<MapCluster> clusters = new List<MapCluster>();
 				List<MapDataPoint> points = new List<MapDataPoint>();
+
+				FormMaster.UpdateProgressBar("Enumerating coordinate points...");
 
 				// Unroll all MapDataPoints
 				foreach (MapItem mapItem in FormMaster.legendItems)
@@ -473,7 +510,7 @@ namespace Mappalachia
 					}
 				}
 
-				FormMaster.UpdateProgressBar(0.5, "Rendering Clusters...");
+				FormMaster.UpdateProgressBar(0.25, "Defining Clusters...");
 
 				// First pass. Top-level - take a datapoint and make a new cluster if it's so-far not a member
 				// Then go round all unadopted points and see if they're suitable to be a member
@@ -493,6 +530,12 @@ namespace Mappalachia
 					// Inner-level - scan all datapoints for nearby points to add to this cluster, and add them to this cluster
 					foreach (MapDataPoint innerPoint in points)
 					{
+						if (cancToken.IsCancellationRequested)
+						{
+							CancelDraw();
+							return;
+						}
+
 						if (innerPoint.IsMemberOfCluster())
 						{
 							continue;
@@ -517,11 +560,17 @@ namespace Mappalachia
 				based off closest location, and then move them to the closer cluster.
 				I believe it is possible for this algorithm to never reach an end as an equilibrium is possible with points being bounced between clusters.
 				So we must decide on n passes of the datapoints and stop.*/
-				for (int i = 0; i < clusterRefinementMaxIterations; i++)
+				for (int i = 1; i <= clusterRefinementMaxIterations; i++)
 				{
 					int movedPoints = 0;
 					foreach (MapDataPoint point in points)
 					{
+						if (cancToken.IsCancellationRequested)
+						{
+							CancelDraw();
+							return;
+						}
+
 						// Peformance focus - inlining and direct variable access
 						MapCluster closestCluster = clusters.MinBy(cluster =>
 						{
@@ -546,7 +595,7 @@ namespace Mappalachia
 					}
 
 					// Increment the progress bar up as items refined each pass decreases, minus 5%
-					FormMaster.UpdateProgressBar(Math.Max(0, ((points.Count - movedPoints) / (double)points.Count) - 0.05), $"Refining Clusters (pass {i})...");
+					FormMaster.UpdateProgressBar(Math.Max(0, ((points.Count - movedPoints) / (double)points.Count) - 0.05), $"Finding Cluster boundaries (pass {i})...");
 
 					// Finally none needed moving - we're done
 					if (movedPoints == 0)
@@ -558,9 +607,7 @@ namespace Mappalachia
 				DrawMapClusters(clusters, imageGraphic);
 			}
 
-			GC.Collect();
-			mapFrame.Image = finalImage;
-			FormMaster.UpdateProgressBar(1);
+			FinishDraw(finalImage);
 		}
 
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
@@ -576,19 +623,18 @@ namespace Mappalachia
 				if (convexHull.GetVerts().Count > 1)
 				{
 					convexHull.Reduce(clusterPolygonPointReductionRange);
+					centroid = convexHull.GetCentroid();
 
 					// Convex hull too small or pointy
 					if (convexHull.GetArea() < clusterMinPolygonArea || convexHull.GetSmallestAngle() < clusterMinimumAngle)
 					{
 						float radius = Math.Max(clusterBoundingCircleMinRadius, convexHull.GetBoundingRadius());
-
 						imageGraphic.DrawEllipse(
 							clusterPolygonPen,
 							new RectangleF(centroid.X - radius, centroid.Y - radius, radius * 2, radius * 2));
 					}
 					else
 					{
-						centroid = convexHull.GetCentroid();
 						imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
 					}
 				}
@@ -598,14 +644,14 @@ namespace Mappalachia
 				}
 
 				////DEBUG
-				Pen thinPen = new Pen(Color.White, 1);
-				Pen thinGreenPen = new Pen(Color.Lime, 1);
-				foreach (PointF point in cluster.GetPolygon().GetVerts())
-				{
-					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
-					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
-					imageGraphic.DrawLine(thinPen, cluster.GetPolygon().GetCentroid(), point);
-				}
+				//Pen thinPen = new Pen(Color.White, 1);
+				//Pen thinGreenPen = new Pen(Color.Lime, 1);
+				//foreach (PointF point in cluster.GetPolygon().GetVerts())
+				//{
+				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
+				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
+				//	imageGraphic.DrawLine(thinPen, centroid, point);
+				//}
 
 				double weight = cluster.GetMemberWeight();
 				string printWeight = Math.Round(weight, 1).ToString();

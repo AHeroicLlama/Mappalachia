@@ -45,7 +45,7 @@ namespace Mappalachia.Class
 		public static void SetSpace(Space space)
 		{
 			currentSpace = space;
-			Map.DrawBaseLayer();
+			FormMaster.DrawMap(true);
 		}
 
 		public static double GetMinHeightCoordBound()
