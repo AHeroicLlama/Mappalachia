@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-56e2cb8913d33dfd3cd6d70612131cad
+d1542be5878f23504f437a1d6667c3d0
 ==File Size== 
-372322304 
+372506624 
 ==Tables== 
 Entity_Info      Map_Markers      Scrap_Search   
 Game_Version     NPC_Search       Space_Info     
@@ -12,9 +12,9 @@ Lock_Levels      Position_Data    Standard_Search
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.6.4.31
+1.6.4.60
 ==Mean Average X/Y/Z Coord==
--12171.5701375277|4830.07683173638|12045.7204590583
+-12087.681618422|4803.9837276352|12052.6036107632
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -27,8 +27,8 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 3696|-6968|-1112|37
 -125269|-37601|6630|36
 2928|-2360|-1112|36
+0|0|0|35
 -128|1664|-608|34
-0|0|0|33
 -1216|2352|128|32
 960|2352|128|32
 -43|4777|519|30
@@ -121,17 +121,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.3564014293037
+21.383761806458
 ==Average Y Bounds Width==
-15.9938061940151
+16.0059974742527
 ==Average Z Bounds Width==
-14.9126743143281
+14.9362217453572
 ==Average Z Rotation==
-3.9816208863805
+3.99800563146557
 ==Average display name string length==
-2.65053521408563
+2.65830650595194
 ==Average editorID string length==
-24.9073629451781
+24.9017993062314
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Sunshine Meadows Industrial Farm|-138578|28356
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
@@ -440,6 +440,7 @@ Appalachia|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
 Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
 Appalachia|RadioactiveAreaMarker|Emmett Mt. Disposal Site|56146|-51808
 Appalachia|RadioactiveAreaMarker|Federal Disposal Field HZ-21|-510|-154826
+Appalachia|RadioactiveAreaMarker|Nuked Crater|68217|-107034
 Appalachia|RadioactiveAreaMarker|Safe 'n Clean Disposal|13174|-33844
 Appalachia|RaiderSettlementMarker|Bleeding Kate's Grindhouse|-61230|-73357
 Appalachia|RaiderSettlementMarker|Knife Edge|46264|199612
@@ -525,7 +526,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-39984
+40071
 ==Total entities by PrimitiveShape by Space==
 AMSHQ01||5164
 AMSHQ01|Box|314
@@ -537,12 +538,12 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3005963
-Appalachia|Box|62642
+Appalachia||3007444
+Appalachia|Box|62977
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
-Appalachia|Plane|40
-Appalachia|Sphere|2347
+Appalachia|Plane|76
+Appalachia|Sphere|2354
 ArktosPharmaLab01||15670
 ArktosPharmaLab01|Box|1483
 ArktosPharmaLab01|Line|11
@@ -596,7 +597,7 @@ CharlestonCapitolCourthouse01|Box|113
 CharlestonCapitolCourthouse01|Sphere|1
 CraterWarRoom01||777
 CraterWarRoom01|Box|21
-CraterWatchstation01||478
+CraterWatchstation01||479
 CraterWatchstation01|Box|16
 CultistCave01||4985
 CultistCave01|Box|142
@@ -677,7 +678,7 @@ HornwrightHQ01|Box|320
 HornwrightHQ01|Line|1
 HornwrightHQ01|Plane|3
 HornwrightHQ01|Sphere|1
-HornwrightSafeRoom01||1018
+HornwrightSafeRoom01||1017
 HornwrightSafeRoom01|Box|27
 KerwoodMine01||5287
 KerwoodMine01|Box|373
@@ -906,7 +907,7 @@ AlleghenyAsylum01|Advanced (Level 1)|4
 AlleghenyAsylum01|Expert (Level 2)|4
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Opens Door|2
-Appalachia||30399
+Appalachia||30494
 Appalachia|Advanced (Level 1)|76
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1076,7 +1077,7 @@ HornwrightHQ01|Advanced (Level 1)|2
 HornwrightHQ01|Expert (Level 2)|1
 HornwrightHQ01|Opens Door|1
 HornwrightHQ01|Requires Key|2
-HornwrightSafeRoom01||233
+HornwrightSafeRoom01||232
 HornwrightSafeRoom01|Requires Key|1
 KerwoodMine01||663
 KerwoodMine01|Advanced (Level 1)|1
@@ -1431,35 +1432,35 @@ AlleghenyAsylum01|SOUN|1
 AlleghenyAsylum01|STAT|631
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|20
-Appalachia|ACTI|825
-Appalachia|ALCH|66
+Appalachia|ACTI|836
+Appalachia|ALCH|67
 Appalachia|AMMO|6
 Appalachia|ARMO|49
 Appalachia|ASPC|42
 Appalachia|BNDS|17
-Appalachia|BOOK|398
+Appalachia|BOOK|405
 Appalachia|CNCY|1
-Appalachia|CONT|524
+Appalachia|CONT|529
 Appalachia|DOOR|348
 Appalachia|FLOR|123
-Appalachia|FURN|437
+Appalachia|FURN|438
 Appalachia|HAZD|31
 Appalachia|IDLM|17
 Appalachia|KEYM|35
-Appalachia|LIGH|232
-Appalachia|LVLI|536
+Appalachia|LIGH|236
+Appalachia|LVLI|537
 Appalachia|MISC|694
-Appalachia|MSTT|601
+Appalachia|MSTT|604
 Appalachia|NOTE|168
-Appalachia|NPC_|671
+Appalachia|NPC_|682
 Appalachia|PROJ|2
-Appalachia|SCOL|8914
+Appalachia|SCOL|8930
 Appalachia|SECH|10
 Appalachia|SOUN|160
-Appalachia|STAT|15134
-Appalachia|TACT|34
+Appalachia|STAT|15164
+Appalachia|TACT|36
 Appalachia|TERM|217
-Appalachia|TXST|372
+Appalachia|TXST|375
 Appalachia|WEAP|43
 ArktosPharmaLab01|ACTI|40
 ArktosPharmaLab01|ASPC|7
@@ -2316,7 +2317,7 @@ HornwrightHQ01|TACT|2
 HornwrightHQ01|TERM|9
 HornwrightHQ01|TXST|33
 HornwrightHQ01|WEAP|1
-HornwrightSafeRoom01|ACTI|11
+HornwrightSafeRoom01|ACTI|10
 HornwrightSafeRoom01|ALCH|2
 HornwrightSafeRoom01|BOOK|1
 HornwrightSafeRoom01|CONT|5
@@ -3825,38 +3826,38 @@ AlleghenyAsylum01|Screw|30|25
 AlleghenyAsylum01|Spring|32|30
 AlleghenyAsylum01|Steel|254|168
 AlleghenyAsylum01|Wood|94|71
-Appalachia|Acid|1377|894
-Appalachia|Adhesive|1153|486
-Appalachia|Aluminum|2145|1507
+Appalachia|Acid|1375|892
+Appalachia|Adhesive|1156|489
+Appalachia|Aluminum|2143|1506
 Appalachia|Antiseptic|872|412
-Appalachia|Asbestos|1612|1194
+Appalachia|Asbestos|1615|1198
 Appalachia|Ballistic Fiber|184|92
-Appalachia|Bone|3404|1295
-Appalachia|Ceramic|3834|3318
+Appalachia|Bone|3412|1302
+Appalachia|Ceramic|3835|3319
 Appalachia|Circuitry|462|366
-Appalachia|Cloth|5776|5140
+Appalachia|Cloth|5775|5143
 Appalachia|Concrete|2301|421
 Appalachia|Copper|1528|1445
 Appalachia|Cork|628|511
 Appalachia|Crystal|324|198
-Appalachia|Fertilizer|1126|385
+Appalachia|Fertilizer|1112|377
 Appalachia|Fiber Optics|40|39
 Appalachia|Fiberglass|934|698
-Appalachia|Gear|1134|957
-Appalachia|Glass|8925|7376
-Appalachia|Gold|76|76
-Appalachia|Lead|5210|2992
-Appalachia|Leather|1914|863
-Appalachia|Nuclear Material|137|137
-Appalachia|Oil|3663|2447
-Appalachia|Plastic|5711|4056
-Appalachia|Rubber|2001|1212
-Appalachia|Screw|1171|1052
+Appalachia|Gear|1135|958
+Appalachia|Glass|8938|7391
+Appalachia|Gold|77|77
+Appalachia|Lead|5262|3039
+Appalachia|Leather|1905|860
+Appalachia|Nuclear Material|136|136
+Appalachia|Oil|3665|2453
+Appalachia|Plastic|5722|4064
+Appalachia|Rubber|2004|1214
+Appalachia|Screw|1176|1057
 Appalachia|Silver|266|225
-Appalachia|Spring|1291|1260
-Appalachia|Steel|15325|9159
+Appalachia|Spring|1292|1261
+Appalachia|Steel|15429|9220
 Appalachia|Ultracite|1|1
-Appalachia|Wood|4780|3337
+Appalachia|Wood|4788|3344
 ArktosPharmaLab01|Acid|48|33
 ArktosPharmaLab01|Adhesive|10|3
 ArktosPharmaLab01|Aluminum|31|25
@@ -6406,35 +6407,35 @@ AMSHQ01|Robot|1.0|2
 AVRMedicalCenter01|Scorched|1.0|21
 AlleghenyAsylum01|Ghoul|1.0|25
 Appalachia|Angler|0.157676521009854|90
-Appalachia|Bloatfly|0.101556776556776|91
+Appalachia|Bloatfly|0.105436991869919|82
 Appalachia|Bloodbug|0.41984126984127|70
-Appalachia|Cave Cricket|0.0810545500251381|170
-Appalachia|Deathclaw|0.314102564102564|9
+Appalachia|Cave Cricket|0.0818847215586345|161
+Appalachia|Deathclaw|0.342948717948718|8
 Appalachia|Fog Crawler|0.12857905982906|48
-Appalachia|Ghoul|0.496301825845095|1040
+Appalachia|Ghoul|0.500460905060419|1030
 Appalachia|Gulper|0.147427006650308|103
 Appalachia|Honey Beast|0.191836734693877|7
-Appalachia|Insect|0.163555471077595|226
-Appalachia|Liberator|0.161205141476881|460
+Appalachia|Insect|0.163912013912014|225
+Appalachia|Liberator|0.163278218694886|450
 Appalachia|Mega Sloth|0.123931623931624|6
 Appalachia|Mirelurk|0.33939306142696|177
-Appalachia|Mole Miner|0.598179611650485|206
-Appalachia|Mole Rat|0.146853178507171|526
+Appalachia|Mole Miner|0.616434010152284|197
+Appalachia|Mole Rat|0.147228240106147|516
 Appalachia|Rad Ant|0.25|14
-Appalachia|Rad Rat|0.0898264319734062|347
+Appalachia|Rad Rat|0.0904765733771671|337
 Appalachia|Rad Scorpion|0.166786370195461|99
 Appalachia|Rad Toad|0.174074074074074|48
 Appalachia|Radroach|0.25|2
-Appalachia|Robot|0.376690929786723|428
-Appalachia|Scorched|0.551218984388629|1120
+Appalachia|Robot|0.383360106480631|419
+Appalachia|Scorched|0.555036272536275|1110
 Appalachia|Snallygaster|0.714285714285714|23
 Appalachia|Stingwing|0.571428571428572|6
-Appalachia|Super Mutant|0.452558002402142|802
+Appalachia|Super Mutant|0.457309366068836|792
 Appalachia|Swamp|0.542857142857143|7
 Appalachia|Tick|0.852941176470588|17
-Appalachia|Vicious Dog|0.160942864325217|510
-Appalachia|Wolf|0.200851290236766|179
-Appalachia|Yao Guai|0.111045284232307|131
+Appalachia|Vicious Dog|0.162803388278388|500
+Appalachia|Wolf|0.201043338683789|178
+Appalachia|Yao Guai|0.111418709495633|130
 ArktosPharmaLab01|Ghoul|1.0|3
 BelchingBetty01|Scorched|1.0|22
 BlackwaterMine01|Mole Miner|1.0|18
