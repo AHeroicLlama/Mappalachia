@@ -87,7 +87,7 @@ namespace Mappalachia
 		static void FinishDraw(Image finalImage)
 		{
 			FormMaster.SetMapImage(finalImage);
-			FormMaster.UpdateProgressBar(0, "Ready");
+			FormMaster.UpdateProgressBar(0);
 			GC.Collect();
 		}
 
@@ -101,6 +101,8 @@ namespace Mappalachia
 		// Construct the map background layer, without plotted points
 		public static void DrawBaseLayer(CancellationToken cancToken)
 		{
+			FormMaster.UpdateProgressBar(0, "Rendering background...");
+
 			// Start with the basic image
 			backgroundLayer = IOManager.GetImageForSpace(SettingsSpace.GetSpace());
 			if (SettingsSpace.drawOutline)
@@ -143,6 +145,8 @@ namespace Mappalachia
 			Rectangle rect = new Rectangle(0, 0, mapDimension, mapDimension);
 
 			DrawMapMarkers(graphic);
+
+			FormMaster.UpdateProgressBar(0.5, "Rendering background...");
 
 			graphic.DrawImage(backgroundLayer, points, rect, GraphicsUnit.Pixel, attributes);
 
@@ -721,9 +725,17 @@ namespace Mappalachia
 				imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 				foreach (MapMarker marker in markers)
 				{
-					Image markerImage = IOManager.GetMapMarker(marker.markerName);
 					SizeF textBounds = imageGraphic.MeasureString(marker.label, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
-					float labelHeightOffset = SettingsMap.showMapIcons ? markerImage.Height / 2f : -textBounds.Height / 2f;
+
+					float labelHeightOffset;
+					if (SettingsMap.showMapIcons)
+					{
+						labelHeightOffset = IOManager.GetMapMarker(marker.markerName).Height / 2f;
+					}
+					else
+					{
+						labelHeightOffset = -textBounds.Height / 2f;
+					}
 
 					RectangleF textBox = new RectangleF(
 							(float)marker.x - (textBounds.Width / 2),

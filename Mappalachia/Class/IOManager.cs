@@ -319,6 +319,7 @@ namespace Mappalachia
 		// Parallel draws all the SVG map markers into a dictionary
 		static void BuildMapMarkerCache()
 		{
+			FormMaster.UpdateProgressBar(0, "Caching rendered map icons...");
 			List<string> markerNames = Database.GetUniqueMarkerNames();
 			Parallel.ForEach(markerNames, markerName =>
 			{

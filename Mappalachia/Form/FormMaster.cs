@@ -42,6 +42,8 @@ namespace Mappalachia
 
 			InitializeComponent();
 
+			UpdateProgressBar(0, "Starting up...");
+
 			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
 			splitContainerMain.Panel1.AutoScrollMinSize = new Size(
 				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Width * dpiScaling),
@@ -96,6 +98,8 @@ namespace Mappalachia
 			PopulateSpaceList();
 
 			tabControlMainSearch.SelectedIndex = 1;
+
+			UpdateProgressBar(0);
 		}
 
 		// All Methods not directly responding to UI input
@@ -162,7 +166,7 @@ namespace Mappalachia
 
 		public static void UpdateProgressBar(double amount)
 		{
-			UpdateProgressBar(amount, amount == 1 ? "Ready" : self.labelProgressBar.Text);
+			UpdateProgressBar(amount, (amount == 0 || amount == 1) ? "Ready" : self.labelProgressBar.Text);
 		}
 
 		public static void UpdateProgressBar(string labelText)
