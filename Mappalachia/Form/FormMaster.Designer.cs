@@ -57,6 +57,11 @@ namespace Mappalachia
 			this.modeHeatmapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modeClusterMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.plotStyleSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TopographColorBandsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand2MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand3MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand4MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.colorBand5MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.heatmapSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.colorModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.monoColorModeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,11 +71,7 @@ namespace Mappalachia
 			this.resolution256MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution512MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution1024MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.TopographColorBandsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.colorBand2MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.colorBand3MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.colorBand4MenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.colorBand5MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.clusterRangeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -328,8 +329,9 @@ namespace Mappalachia
 			this.plotSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plotModeMenuItem,
             this.plotStyleSettingsMenuItem,
-            this.heatmapSettingsMenuItem,
             this.TopographColorBandsMenuItem,
+            this.heatmapSettingsMenuItem,
+            this.clusterRangeMenuItem,
             this.drawVolumesMenuItem});
 			this.plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			this.plotSettingsMenuItem.Size = new System.Drawing.Size(85, 20);
@@ -390,6 +392,46 @@ namespace Mappalachia
 			this.plotStyleSettingsMenuItem.Text = "Plot Style Settings...";
 			this.plotStyleSettingsMenuItem.ToolTipText = "Adjust the appearance of plots on the map.";
 			this.plotStyleSettingsMenuItem.Click += new System.EventHandler(this.Plot_PlotIconSettings);
+			// 
+			// TopographColorBandsMenuItem
+			// 
+			this.TopographColorBandsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.colorBand2MenuItem,
+            this.colorBand3MenuItem,
+            this.colorBand4MenuItem,
+            this.colorBand5MenuItem});
+			this.TopographColorBandsMenuItem.Name = "TopographColorBandsMenuItem";
+			this.TopographColorBandsMenuItem.Size = new System.Drawing.Size(204, 22);
+			this.TopographColorBandsMenuItem.Text = "Topography Color Bands";
+			this.TopographColorBandsMenuItem.ToolTipText = "Select the number of color bandings used in topographic plot mode.";
+			// 
+			// colorBand2MenuItem
+			// 
+			this.colorBand2MenuItem.Name = "colorBand2MenuItem";
+			this.colorBand2MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand2MenuItem.Text = "2";
+			this.colorBand2MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_2);
+			// 
+			// colorBand3MenuItem
+			// 
+			this.colorBand3MenuItem.Name = "colorBand3MenuItem";
+			this.colorBand3MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand3MenuItem.Text = "3";
+			this.colorBand3MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_3);
+			// 
+			// colorBand4MenuItem
+			// 
+			this.colorBand4MenuItem.Name = "colorBand4MenuItem";
+			this.colorBand4MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand4MenuItem.Text = "4";
+			this.colorBand4MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_4);
+			// 
+			// colorBand5MenuItem
+			// 
+			this.colorBand5MenuItem.Name = "colorBand5MenuItem";
+			this.colorBand5MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand5MenuItem.Text = "5";
+			this.colorBand5MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_5);
 			// 
 			// heatmapSettingsMenuItem
 			// 
@@ -472,45 +514,13 @@ namespace Mappalachia
 			this.resolution1024MenuItem.ToolTipText = "1024x1024 squares for the heatmap.";
 			this.resolution1024MenuItem.Click += new System.EventHandler(this.Plot_HeatMap_Resolution_1024);
 			// 
-			// TopographColorBandsMenuItem
+			// clusterRangeMenuItem
 			// 
-			this.TopographColorBandsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.colorBand2MenuItem,
-            this.colorBand3MenuItem,
-            this.colorBand4MenuItem,
-            this.colorBand5MenuItem});
-			this.TopographColorBandsMenuItem.Name = "TopographColorBandsMenuItem";
-			this.TopographColorBandsMenuItem.Size = new System.Drawing.Size(204, 22);
-			this.TopographColorBandsMenuItem.Text = "Topography Color Bands";
-			this.TopographColorBandsMenuItem.ToolTipText = "Select the number of color bandings used in topographic plot mode.";
-			// 
-			// colorBand2MenuItem
-			// 
-			this.colorBand2MenuItem.Name = "colorBand2MenuItem";
-			this.colorBand2MenuItem.Size = new System.Drawing.Size(80, 22);
-			this.colorBand2MenuItem.Text = "2";
-			this.colorBand2MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_2);
-			// 
-			// colorBand3MenuItem
-			// 
-			this.colorBand3MenuItem.Name = "colorBand3MenuItem";
-			this.colorBand3MenuItem.Size = new System.Drawing.Size(80, 22);
-			this.colorBand3MenuItem.Text = "3";
-			this.colorBand3MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_3);
-			// 
-			// colorBand4MenuItem
-			// 
-			this.colorBand4MenuItem.Name = "colorBand4MenuItem";
-			this.colorBand4MenuItem.Size = new System.Drawing.Size(80, 22);
-			this.colorBand4MenuItem.Text = "4";
-			this.colorBand4MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_4);
-			// 
-			// colorBand5MenuItem
-			// 
-			this.colorBand5MenuItem.Name = "colorBand5MenuItem";
-			this.colorBand5MenuItem.Size = new System.Drawing.Size(80, 22);
-			this.colorBand5MenuItem.Text = "5";
-			this.colorBand5MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_5);
+			this.clusterRangeMenuItem.Name = "clusterRangeMenuItem";
+			this.clusterRangeMenuItem.Size = new System.Drawing.Size(204, 22);
+			this.clusterRangeMenuItem.Text = "Cluster Range...";
+			this.clusterRangeMenuItem.ToolTipText = "Set the size of clusters in Cluster Plot Mode.";
+			this.clusterRangeMenuItem.Click += new System.EventHandler(this.Plot_ClusterRange);
 			// 
 			// drawVolumesMenuItem
 			// 
@@ -1244,7 +1254,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(8, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-2, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1507,6 +1517,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem donatePayPalMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modeClusterMenuItem;
 		private System.Windows.Forms.Label labelProgressBar;
+		private System.Windows.Forms.ToolStripMenuItem clusterRangeMenuItem;
 	}
 }
 

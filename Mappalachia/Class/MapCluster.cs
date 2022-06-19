@@ -11,7 +11,6 @@ namespace Mappalachia.Class
 		// Create a new cluster with the initial single point
 		public MapCluster(MapDataPoint mapDataPoint)
 		{
-			polygon = new Polygon();
 			AddMember(mapDataPoint);
 		}
 
@@ -22,7 +21,15 @@ namespace Mappalachia.Class
 
 		public void AddMember(MapDataPoint mapDataPoint)
 		{
-			polygon.AddVert(mapDataPoint.Get2DPoint());
+			if (polygon == null)
+			{
+				polygon = new Polygon(mapDataPoint.Get2DPoint());
+			}
+			else
+			{
+				polygon.AddVert(mapDataPoint.Get2DPoint());
+			}
+
 			mapDataPoint.SetClusterMembership(this);
 			members.Add(mapDataPoint);
 		}

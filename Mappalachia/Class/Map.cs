@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -13,7 +14,7 @@ namespace Mappalachia
 	// The Map image, adjusting it, drawing it and plotting points onto it
 	public static class Map
 	{
-		// Map-image coordinate scaling. Gathered manually by eye with reference points from in-game
+		// Appalachia map-image coordinate scaling. Gathered manually by eye with reference points from in-game
 		public static float scaling = 142;
 		static readonly float xOffset = 1.7f;
 		static readonly float yOffset = 5.2f;
@@ -23,16 +24,6 @@ namespace Mappalachia
 		public static readonly int maxZoom = (int)(mapDimension * 2.0);
 		public static readonly int minZoom = (int)(mapDimension * 0.05);
 		public static readonly double markerIconScale = 2.5; // The scaling applied to map marker icons
-
-		// Cluster mode tuning
-		static readonly float clusteringRange = 100; // Max distance between plots for them to belong to the same cluster
-		static readonly int clusterRefinementMaxIterations = 100; // Hard cap to stop clustering iterations after this many times
-		static readonly float clusterMinPolygonArea = 250; // The minimum area px^2 that a cluster polygon must fill or else uses a centroid-centered bounding circle
-		static readonly int clusterPolygonLineThickness = 4;
-		static readonly int clusterBoundingCircleMinRadius = 15; // Clusters given a bounding circle are rendered at least this big
-		static readonly int clusterPolygonPointReductionRange = 5; // Points in the cluster convex hull this close together are merged
-		static readonly int clusterMinimumAngle = 10; // A cluster convex hull with an interior angle tighter than this are dropped as too 'pointy' and fall back to the circle
-		static readonly Brush clusterWeightBrush = new SolidBrush(Color.FromArgb(200, Color.White));
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -156,12 +147,11 @@ namespace Mappalachia
 		// Construct the final map by drawing plots over the background layer
 		public static void Draw(CancellationToken cancToken)
 		{
-			// Reset the current image to the background layer
-			finalImage = new Bitmap(backgroundLayer);
-
 			// Start progress bar off at 0
 			FormMaster.UpdateProgressBar(0, "Beginning draw...");
 
+			// Reset the current image to the background layer
+			finalImage = new Bitmap(backgroundLayer);
 			Graphics imageGraphic = Graphics.FromImage(finalImage);
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
@@ -496,7 +486,7 @@ namespace Mappalachia
 				List<MapCluster> clusters = new List<MapCluster>();
 				List<MapDataPoint> points = new List<MapDataPoint>();
 
-				FormMaster.UpdateProgressBar("Enumerating coordinate points...");
+				FormMaster.UpdateProgressBar(0.1, "Enumerating coordinate points...");
 
 				// Unroll all MapDataPoints
 				foreach (MapItem mapItem in FormMaster.legendItems)
@@ -556,68 +546,41 @@ namespace Mappalachia
 						float yDist = innerPoint.y - outerPoint.y;
 						double totalDistSqrd = (xDist * xDist) + (yDist * yDist);
 
-						if (totalDistSqrd < clusteringRange * clusteringRange)
+						if (totalDistSqrd < SettingsPlotCluster.clusterRange * SettingsPlotCluster.clusterRange)
 						{
 							cluster.AddMember(innerPoint);
 						}
 					}
 				}
 
-				/* Second pass - we've now put all in-range points into clusters arbitrarily based on which point(s) we selected first.
-				However it is still possible for one point to be a member of a cluster which it is not closest to,
-				as it was simply "adopted" by its parent cluster first.
-				So now we iterate over all points against all clusters, and assess which of these clusters they should actually be members of,
-				based off closest location, and then move them to the closer cluster.
-				I believe it is possible for this algorithm to never reach an end as an equilibrium is possible with points being bounced between clusters.
-				So we must decide on n passes of the datapoints and stop.*/
-				for (int i = 1; i <= clusterRefinementMaxIterations; i++)
+				FormMaster.UpdateProgressBar(0.5, "Refining Clusters...");
+
+				// Second pass - Now the clusters have been defined, verify each point is adopted by its closest cluster, otherwise move it to correct one
+				foreach (MapDataPoint point in points)
 				{
-					int movedPoints = 0;
-					foreach (MapDataPoint point in points)
+					if (cancToken.IsCancellationRequested)
 					{
-						if (cancToken.IsCancellationRequested)
-						{
-							CancelDraw();
-							return;
-						}
-
-						// Peformance focus - inlining and direct variable access
-						MapCluster closestCluster = clusters.MinBy(cluster =>
-						{
-							if (cluster.polygon.centroidFloatsStale)
-							{
-								cluster.polygon.RefreshCentroids();
-							}
-
-							// Pythagoras
-							float a = point.x - cluster.polygon.centroidX;
-							float b = point.y - cluster.polygon.centroidY;
-							return (a * a) + (b * b);
-						});
-
-						// Move point to the nearest cluster
-						if (point.GetParentCluster() != closestCluster)
-						{
-							point.LeaveCluster();
-							closestCluster.AddMember(point);
-							movedPoints++;
-						}
+						CancelDraw();
+						return;
 					}
 
-					// 0-1 scale of how many of the total points have been refined into their most-suitable clusters
-					double refinementLevel = (points.Count - movedPoints) / (double)points.Count;
-
-					// Increment the progress bar up as items refined each pass decreases
-					FormMaster.UpdateProgressBar(Math.Max(0, refinementLevel), $"Refining Cluster boundaries (pass {i}, {refinementLevel * 100:0.000}%)...");
-
-					// Finally none needed - we're done
-					if (movedPoints == 0)
+					MapCluster closestCluster = clusters.MinBy(cluster =>
 					{
-						break;
+						// Pythagoras
+						float a = point.x - cluster.polygon.initialPoint.X;
+						float b = point.y - cluster.polygon.initialPoint.Y;
+						return (a * a) + (b * b);
+					});
+
+					// Move point to the nearest cluster
+					if (point.GetParentCluster() != closestCluster)
+					{
+						point.LeaveCluster();
+						closestCluster.AddMember(point);
 					}
 				}
 
-				FormMaster.UpdateProgressBar("Rendering clusters...");
+				FormMaster.UpdateProgressBar(0.8, "Rendering clusters...");
 				DrawMapClusters(clusters, imageGraphic);
 			}
 
@@ -626,7 +589,7 @@ namespace Mappalachia
 
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
-			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), clusterPolygonLineThickness);
+			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), SettingsPlotCluster.polygonLineThickness);
 			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
 
 			foreach (MapCluster cluster in clusters)
@@ -634,26 +597,26 @@ namespace Mappalachia
 				// Draw the cluster edges
 				Polygon clusterPolygon = cluster.GetPolygon();
 				Polygon convexHull = clusterPolygon.GetConvexHull();
-				convexHull.Reduce(clusterPolygonPointReductionRange);
+				convexHull.ReduceResolution(SettingsPlotCluster.polygonPointReductionRange);
 				PointF centroid = convexHull.GetCentroid();
 
-				////DEBUG
-				//Pen thinPen = new Pen(Color.White, 1);
-				//Pen thinGreenPen = new Pen(Color.Lime, 1);
-				//foreach (PointF point in clusterPolygon.GetVerts())
-				//{
-				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
-				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
-				//	imageGraphic.DrawLine(thinPen, centroid, point);
-				//}
+				//DEBUG
+				Pen thinPen = new Pen(Color.White, 1);
+				Pen thinGreenPen = new Pen(Color.Lime, 1);
+				foreach (PointF point in clusterPolygon.GetVerts())
+				{
+					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
+					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
+					imageGraphic.DrawLine(thinPen, centroid, point);
+				}
 
-				if (convexHull.GetArea() >= clusterMinPolygonArea && convexHull.GetSmallestAngle() >= clusterMinimumAngle)
+				if (convexHull.GetArea() >= SettingsPlotCluster.minimumPolygonArea && convexHull.GetSmallestAngle() >= SettingsPlotCluster.minimumAngle)
 				{
 					imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
 				}
 				else // Convex hull too small or "pointy" - draw a bounding circle (not necessarily minimum bounding, circled is centered on polygon centroid)
 				{
-					float radius = Math.Max(clusterBoundingCircleMinRadius, convexHull.GetFurthestVertDist(centroid));
+					float radius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, convexHull.GetFurthestVertDist(centroid));
 					imageGraphic.DrawEllipse(
 						clusterPolygonPen,
 						new RectangleF(centroid.X - radius, centroid.Y - radius, radius * 2, radius * 2));
@@ -682,7 +645,7 @@ namespace Mappalachia
 					new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
 
 				// Draw the count
-				imageGraphic.DrawString(printWeight, sizedFont, clusterWeightBrush, textBox, stringFormatCenter);
+				imageGraphic.DrawString(printWeight, sizedFont, SettingsPlotCluster.weightBrush, textBox, stringFormatCenter);
 			}
 
 			GC.Collect();

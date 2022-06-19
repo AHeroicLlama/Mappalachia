@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 7;
+		static readonly int prefsIteration = 8;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -79,6 +79,11 @@ namespace Mappalachia.Class
 			// SettingsPlotTopograph
 			settings.Add("[PlotTopograph]");
 			settings.Add("colorBands=" + SettingsPlotTopograph.colorBands);
+
+			// SettingsPlotCluster
+			settings.Add("[PlotCluster]");
+			settings.Add("clusterRange=" + SettingsPlotCluster.clusterRange);
+			settings.Add("liveUpdate=" + BoolToIntStr(SettingsPlotCluster.liveUpdate));
 
 			// SettingsFileExport
 			settings.Add("[FileExport]");
@@ -356,6 +361,20 @@ namespace Mappalachia.Class
 								SettingsPlotTopograph.colorBands = colorBands;
 							}
 
+							break;
+
+						case "clusterRange":
+							int range = Convert.ToInt32(value);
+
+							if (ValidateWithinRange(range, SettingsPlotCluster.minRange, SettingsPlotCluster.maxRange))
+							{
+								SettingsPlotCluster.clusterRange = range;
+							}
+
+							break;
+
+						case "liveUpdate":
+							SettingsPlotCluster.liveUpdate = StrIntToBool(value);
 							break;
 
 						case "useRecommended":

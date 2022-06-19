@@ -78,7 +78,7 @@ namespace Mappalachia
 			// Apply UI layouts according to current settings
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
-			UpdatePlotMode(false);
+			UpdatePlotModeUI();
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
 			UpdateTopographColorBands(false);
@@ -124,6 +124,11 @@ namespace Mappalachia
 
 			mapDrawCancTokenSource = new CancellationTokenSource();
 			mapDrawCancToken = mapDrawCancTokenSource.Token;
+
+			if (!isDrawing)
+			{
+				self.UpdatePlotModeUI();
+			}
 		}
 
 		public static void UpdateUIAsync(Action action)
@@ -391,8 +396,19 @@ namespace Mappalachia
 			}
 		}
 
-		// Update the Plot Settings > Mode options based on the actual value in PlotSettings
+		// Handle a change in plot mode
 		void UpdatePlotMode(bool reDraw)
+		{
+			PlotIcon.ResetCache(); // Reset the plot icon cache, as we are changing plot modes
+
+			if (reDraw)
+			{
+				DrawMap(false);
+			}
+		}
+
+		// Refresh the UI enabled state based on the plot mode
+		void UpdatePlotModeUI()
 		{
 			UncheckAllPlotModes();
 
@@ -400,27 +416,32 @@ namespace Mappalachia
 			{
 				case SettingsPlot.Mode.Icon:
 					modeIconMenuItem.Checked = true;
-					drawVolumesMenuItem.Enabled = true;
+					EnableMenuStrip(heatmapSettingsMenuItem, false);
+					EnableMenuStrip(TopographColorBandsMenuItem, false);
+					EnableMenuStrip(clusterRangeMenuItem, false);
+					EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Heatmap:
 					modeHeatmapMenuItem.Checked = true;
-					drawVolumesMenuItem.Enabled = false;
+					EnableMenuStrip(heatmapSettingsMenuItem, true);
+					EnableMenuStrip(TopographColorBandsMenuItem, false);
+					EnableMenuStrip(clusterRangeMenuItem, false);
+					EnableMenuStrip(drawVolumesMenuItem, false);
 					break;
 				case SettingsPlot.Mode.Topography:
 					modeTopographyMenuItem.Checked = true;
-					drawVolumesMenuItem.Enabled = true;
+					EnableMenuStrip(heatmapSettingsMenuItem, false);
+					EnableMenuStrip(TopographColorBandsMenuItem, true);
+					EnableMenuStrip(clusterRangeMenuItem, false);
+					EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Cluster:
 					modeClusterMenuItem.Checked = true;
-					drawVolumesMenuItem.Enabled = false;
+					EnableMenuStrip(heatmapSettingsMenuItem, false);
+					EnableMenuStrip(TopographColorBandsMenuItem, false);
+					EnableMenuStrip(clusterRangeMenuItem, true);
+					EnableMenuStrip(drawVolumesMenuItem, false);
 					break;
-			}
-
-			PlotIcon.ResetCache(); // Reset the plot icon cache, as we are changing plot modes
-
-			if (reDraw)
-			{
-				DrawMap(false);
 			}
 		}
 
@@ -1099,6 +1120,13 @@ namespace Mappalachia
 		{
 			SettingsPlotTopograph.colorBands = 5;
 			UpdateTopographColorBands(true);
+		}
+
+		// plot Settings > Cluster Range...
+		private void Plot_ClusterRange(object sender, EventArgs e)
+		{
+			FormSetClusterRange formSetCluster = new FormSetClusterRange();
+			formSetCluster.ShowDialog();
 		}
 
 		// Plot Settings > Draw Volumes - Toggle drawing volumes

@@ -8,27 +8,19 @@ namespace Mappalachia.Class
 	public class Polygon
 	{
 		List<PointF> verts;
-		PointF centroid;
-		bool centroidStale = true;
-
-		public float centroidX;
-		public float centroidY;
-		public bool centroidFloatsStale = true;
-
-		public Polygon()
-		{
-			verts = new List<PointF>();
-		}
+		public PointF initialPoint;
 
 		public Polygon(List<PointF> verts)
 		{
 			this.verts = verts;
+			initialPoint = verts[0];
 		}
 
 		public Polygon(PointF vert)
 		{
 			verts = new List<PointF>();
 			AddVert(vert);
+			initialPoint = verts[0];
 		}
 
 		public List<PointF> GetVerts()
@@ -39,37 +31,21 @@ namespace Mappalachia.Class
 		public void AddVert(PointF newVert)
 		{
 			verts.Add(newVert);
-			centroidStale = true;
-			centroidFloatsStale = true;
 		}
 
 		public void RemoveVert(PointF vert)
 		{
 			verts.Remove(vert);
-			centroidStale = true;
-			centroidFloatsStale = true;
 		}
+
 
 		public PointF GetCentroid()
 		{
-			if (centroidStale)
-			{
-				centroid = new PointF(verts.Average(point => point.X), verts.Average(point => point.Y));
-				centroidStale = false;
-			}
-
-			return centroid;
-		}
-
-		public void RefreshCentroids()
-		{
-			centroidX = verts.Average(point => point.X);
-			centroidY = verts.Average(point => point.Y);
-			centroidFloatsStale = false;
+			return new PointF(verts.Average(point => point.X), verts.Average(point => point.Y));
 		}
 
 		// Transforms the polygon into one with points closer than the threshold merged into a single point
-		public void Reduce(float threshold)
+		public void ReduceResolution(float threshold)
 		{
 			List<PointF> newPolygon = new List<PointF>();
 
@@ -90,6 +66,7 @@ namespace Mappalachia.Class
 			verts = newPolygon;
 		}
 
+		// Returns the smallest angle inside the polygon
 		public double GetSmallestAngle()
 		{
 			if (verts.Count <= 2)
