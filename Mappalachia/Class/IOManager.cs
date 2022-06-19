@@ -135,17 +135,18 @@ namespace Mappalachia
 			try
 			{
 				Directory.CreateDirectory(tempImageFolder);
-				image.Save(tempImageFilePath);
 			}
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to store a temporary copy of the map image in its temporary folder at " + tempImageFilePath + ".\n\n" +
+					"Mappalachia was unable to create a folder at " + tempImageFilePath + ".\n\n" +
 					genericExceptionHelpText +
 					e);
 
 				return;
 			}
+
+			WriteToFile(tempImageFilePath, image, ImageFormat.Jpeg, 100);
 
 			try
 			{
@@ -167,6 +168,7 @@ namespace Mappalachia
 		{
 			try
 			{
+				FormMaster.UpdateProgressBar("Writing map image to disk...", true);
 				if (imageFormat == ImageFormat.Png)
 				{
 					image.Save(filePath, ImageFormat.Png);
@@ -186,12 +188,15 @@ namespace Mappalachia
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to save your map to " + filePath + ".\n" +
-					"Please try a different location.\n\n" +
+					"Mappalachia was unable to save your map to " + filePath + ".\n\n" +
 					genericExceptionHelpText +
 					e);
 
 				return;
+			}
+			finally
+			{
+				FormMaster.UpdateProgressBar(0);
 			}
 		}
 

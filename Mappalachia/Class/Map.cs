@@ -501,6 +501,12 @@ namespace Mappalachia
 				// Unroll all MapDataPoints
 				foreach (MapItem mapItem in FormMaster.legendItems)
 				{
+					if (cancToken.IsCancellationRequested)
+					{
+						CancelDraw();
+						return;
+					}
+
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
 						if (SettingsSpace.CurrentSpaceIsWorld() &&
@@ -521,6 +527,12 @@ namespace Mappalachia
 				// This generates an imperfect but good start for clustering points together
 				foreach (MapDataPoint outerPoint in points)
 				{
+					if (cancToken.IsCancellationRequested)
+					{
+						CancelDraw();
+						return;
+					}
+
 					// if it's already a member move on
 					if (outerPoint.IsMemberOfCluster())
 					{
@@ -534,12 +546,6 @@ namespace Mappalachia
 					// Inner-level - scan all datapoints for nearby points to add to this cluster, and add them to this cluster
 					foreach (MapDataPoint innerPoint in points)
 					{
-						if (cancToken.IsCancellationRequested)
-						{
-							CancelDraw();
-							return;
-						}
-
 						if (innerPoint.IsMemberOfCluster())
 						{
 							continue;
@@ -598,16 +604,20 @@ namespace Mappalachia
 						}
 					}
 
-					// Increment the progress bar up as items refined each pass decreases, minus 5%
-					FormMaster.UpdateProgressBar(Math.Max(0, ((points.Count - movedPoints) / (double)points.Count) - 0.05), $"Finding Cluster boundaries (pass {i})...");
+					// 0-1 scale of how many of the total points have been refined into their most-suitable clusters
+					double refinementLevel = (points.Count - movedPoints) / (double)points.Count;
 
-					// Finally none needed moving - we're done
+					// Increment the progress bar up as items refined each pass decreases
+					FormMaster.UpdateProgressBar(Math.Max(0, refinementLevel), $"Refining Cluster boundaries (pass {i}, {refinementLevel * 100:0.000}%)...");
+
+					// Finally none needed - we're done
 					if (movedPoints == 0)
 					{
 						break;
 					}
 				}
 
+				FormMaster.UpdateProgressBar("Rendering clusters...");
 				DrawMapClusters(clusters, imageGraphic);
 			}
 
@@ -621,45 +631,43 @@ namespace Mappalachia
 
 			foreach (MapCluster cluster in clusters)
 			{
-				Polygon convexHull = cluster.GetPolygon().GetConvexHull();
-				PointF centroid = cluster.GetPolygon().GetCentroid();
-
-				if (convexHull.GetVerts().Count > 1)
-				{
-					convexHull.Reduce(clusterPolygonPointReductionRange);
-					centroid = convexHull.GetCentroid();
-
-					// Convex hull too small or pointy
-					if (convexHull.GetArea() < clusterMinPolygonArea || convexHull.GetSmallestAngle() < clusterMinimumAngle)
-					{
-						float radius = Math.Max(clusterBoundingCircleMinRadius, convexHull.GetBoundingRadius());
-						imageGraphic.DrawEllipse(
-							clusterPolygonPen,
-							new RectangleF(centroid.X - radius, centroid.Y - radius, radius * 2, radius * 2));
-					}
-					else
-					{
-						imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
-					}
-				}
-				else
-				{
-					//TODO solo item - plot icon instead?
-				}
+				// Draw the cluster edges
+				Polygon clusterPolygon = cluster.GetPolygon();
+				Polygon convexHull = clusterPolygon.GetConvexHull();
+				convexHull.Reduce(clusterPolygonPointReductionRange);
+				PointF centroid = convexHull.GetCentroid();
 
 				////DEBUG
 				//Pen thinPen = new Pen(Color.White, 1);
 				//Pen thinGreenPen = new Pen(Color.Lime, 1);
-				//foreach (PointF point in cluster.GetPolygon().GetVerts())
+				//foreach (PointF point in clusterPolygon.GetVerts())
 				//{
 				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
 				//	imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
 				//	imageGraphic.DrawLine(thinPen, centroid, point);
 				//}
 
-				double weight = cluster.GetMemberWeight();
-				string printWeight = Math.Round(weight, 1).ToString();
+				if (convexHull.GetArea() >= clusterMinPolygonArea && convexHull.GetSmallestAngle() >= clusterMinimumAngle)
+				{
+					imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
+				}
+				else // Convex hull too small or "pointy" - draw a bounding circle (not necessarily minimum bounding, circled is centered on polygon centroid)
+				{
+					float radius = Math.Max(clusterBoundingCircleMinRadius, convexHull.GetFurthestVertDist(centroid));
+					imageGraphic.DrawEllipse(
+						clusterPolygonPen,
+						new RectangleF(centroid.X - radius, centroid.Y - radius, radius * 2, radius * 2));
+				}
 
+				// Now label the weights
+				double weight = cluster.GetMemberWeight();
+
+				if (weight == 1)
+				{
+					continue;
+				}
+
+				string printWeight = Math.Round(weight, 1).ToString();
 				float fontSize = Math.Min(Math.Max(20, mapLabelFontSize * (float)(weight / averageWeight)), 50);
 				Font sizedFont = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 

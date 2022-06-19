@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30330.147
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mappalachia", "Mappalachia.csproj", "{4E44C396-6917-402E-A3E0-1AB2791624FF}"
 EndProject
@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappalachiaTests", "..\MappalachiaTests\MappalachiaTests.csproj", "{941B1C02-CFF1-4B68-B3F0-24FCAAA037FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{4E44C396-6917-402E-A3E0-1AB2791624FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E44C396-6917-402E-A3E0-1AB2791624FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E44C396-6917-402E-A3E0-1AB2791624FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941B1C02-CFF1-4B68-B3F0-24FCAAA037FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941B1C02-CFF1-4B68-B3F0-24FCAAA037FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941B1C02-CFF1-4B68-B3F0-24FCAAA037FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941B1C02-CFF1-4B68-B3F0-24FCAAA037FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace Mappalachia
@@ -8,6 +7,9 @@ namespace Mappalachia
 	// Provides data helper methods, data translation and sorting
 	static class DataHelper
 	{
+		// A list of entities which are often (mis)represented instead by LVLI in the data
+		public static readonly List<string> typicalLVLIItems = new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" };
+
 		static readonly Dictionary<string, string> signatureDescription = new Dictionary<string, string>
 		{
 			{ "STAT", "Environmental scenery which does not move and cannot be interacted with." },

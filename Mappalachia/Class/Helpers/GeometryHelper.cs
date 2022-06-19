@@ -37,6 +37,11 @@ namespace Mappalachia.Class
 		// returns the nth item in a list as if it were cyclic (supports <0 or >n)
 		public static T GetCyclicItem<T>(List<T> collection, int n)
 		{
+			if (collection.Count == 0)
+			{
+				return default(T);
+			}
+
 			n %= collection.Count;
 
 			if (n < 0)

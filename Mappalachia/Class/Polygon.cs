@@ -115,10 +115,10 @@ namespace Mappalachia.Class
 			return smallestAngle;
 		}
 
-		// Returns the distance of the furthest point from the centroid
-		public float GetBoundingRadius()
+		// Returns the distance of the furthest point from the given point
+		public float GetFurthestVertDist(PointF point)
 		{
-			return verts.Max(vert => GeometryHelper.Pythagoras(GetCentroid(), vert));
+			return verts.Max(vert => GeometryHelper.Pythagoras(point, vert));
 		}
 
 		public double GetArea()
@@ -139,6 +139,11 @@ namespace Mappalachia.Class
 
 		public Polygon GetConvexHull()
 		{
+			if (verts.Count == 1)
+			{
+				return new Polygon(verts[0]);
+			}
+
 			// Monotone Chain https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
 			int k = 0;
 			List<PointF> hull = new List<PointF>(new PointF[2 * verts.Count]);

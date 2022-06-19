@@ -105,13 +105,22 @@ namespace Mappalachia
 		// All Methods not directly responding to UI input
 		#region Methods
 
+		// Enable/Disable/Update UI elements based on if a draw is now in progress
 		static void SetIsDrawing(bool isDrawing)
 		{
 			FormMaster.isDrawing = isDrawing;
 			self.buttonDrawMap.Text = isDrawing ? "Cancel" : "Update Map";
 
-			self.mapMenuItem.Enabled = !isDrawing;
-			self.plotSettingsMenuItem.Enabled = !isDrawing;
+			if (!isDrawing)
+			{
+				UpdateProgressBar(0);
+			}
+
+			self.EnableMenuStrip(self.mapMenuItem, !isDrawing);
+			self.EnableMenuStrip(self.plotSettingsMenuItem, !isDrawing);
+
+			self.buttonAddToLegend.Enabled = !isDrawing;
+			self.buttonRemoveFromLegend.Enabled = !isDrawing;
 
 			mapDrawCancTokenSource = new CancellationTokenSource();
 			mapDrawCancToken = mapDrawCancTokenSource.Token;
@@ -166,7 +175,13 @@ namespace Mappalachia
 
 		public static void UpdateProgressBar(double amount)
 		{
-			UpdateProgressBar(amount, (amount == 0 || amount == 1) ? "Ready" : self.labelProgressBar.Text);
+			// Ensure the bar doesn't stay at full done, and "empties" when a task is finished
+			if (amount == 1)
+			{
+				amount = 0;
+			}
+
+			UpdateProgressBar(amount, amount == 0 ? "Ready" : self.labelProgressBar.Text);
 		}
 
 		public static void UpdateProgressBar(string labelText)
@@ -586,6 +601,17 @@ namespace Mappalachia
 			colorBand5MenuItem.Checked = false;
 		}
 
+		// Recursively enable/disable a tool strip menu item and all children
+		void EnableMenuStrip(ToolStripMenuItem menuItem, bool enabled)
+		{
+			menuItem.Enabled = enabled;
+
+			foreach (ToolStripMenuItem item in menuItem.DropDownItems)
+			{
+				EnableMenuStrip(item, enabled);
+			}
+		}
+
 		// Collect the enabled signatures from the UI to a list for use by a query
 		List<string> GetEnabledSignatures()
 		{
@@ -629,7 +655,7 @@ namespace Mappalachia
 			if (!enabledSignatures.Contains("LVLI"))
 			{
 				// A list of signatures that seem to typically be represented by LVLI
-				foreach (string signatureToWarn in new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" })
+				foreach (string signatureToWarn in DataHelper.typicalLVLIItems)
 				{
 					if (enabledSignatures.Contains(signatureToWarn))
 					{
