@@ -38,7 +38,6 @@ namespace Mappalachia.Class
 			verts.Remove(vert);
 		}
 
-
 		public PointF GetCentroid()
 		{
 			return new PointF(verts.Average(point => point.X), verts.Average(point => point.Y));
@@ -64,32 +63,6 @@ namespace Mappalachia.Class
 			}
 
 			verts = newPolygon;
-		}
-
-		// Returns the smallest angle inside the polygon
-		public double GetSmallestAngle()
-		{
-			if (verts.Count <= 2)
-			{
-				return 0;
-			}
-
-			double smallestAngle = 360;
-			for (int i = 0; i < verts.Count; i++)
-			{
-				PointF a = GeometryHelper.GetCyclicItem(verts, i - 1);
-				PointF b = GeometryHelper.GetCyclicItem(verts, i);
-				PointF c = GeometryHelper.GetCyclicItem(verts, i + 1);
-
-				double angle = Math.Abs(GeometryHelper.VectorAngle(a, b, c));
-
-				if (angle < smallestAngle)
-				{
-					smallestAngle = angle;
-				}
-			}
-
-			return smallestAngle;
 		}
 
 		// Returns the distance of the furthest point from the given point

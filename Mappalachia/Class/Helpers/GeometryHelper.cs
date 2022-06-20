@@ -39,7 +39,7 @@ namespace Mappalachia.Class
 		{
 			if (collection.Count == 0)
 			{
-				return default(T);
+				return default;
 			}
 
 			n %= collection.Count;

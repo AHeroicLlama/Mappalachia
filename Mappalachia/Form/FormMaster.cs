@@ -405,6 +405,8 @@ namespace Mappalachia
 			{
 				DrawMap(false);
 			}
+
+			UpdatePlotModeUI();
 		}
 
 		// Refresh the UI enabled state based on the plot mode

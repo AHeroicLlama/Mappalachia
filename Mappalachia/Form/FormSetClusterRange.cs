@@ -5,8 +5,8 @@ namespace Mappalachia
 {
 	public partial class FormSetClusterRange : Form
 	{
-		static int initialValue;
-		static bool usedLiveUpdate;
+		int initialValue;
+		bool usedLiveUpdate;
 
 		public FormSetClusterRange()
 		{
@@ -77,7 +77,7 @@ namespace Mappalachia
 
 		void LiveUpdate()
 		{
-			if (checkBoxliveUpdate.Checked && SettingsPlot.IsCluster())
+			if (checkBoxliveUpdate.Checked && SettingsPlot.IsCluster() && FormMaster.legendItems.Count > 0)
 			{
 				SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
 				FormMaster.DrawMap(false);
@@ -97,17 +97,15 @@ namespace Mappalachia
 
 		private void textBoxClusterRange_TextChanged(object sender, EventArgs e)
 		{
+			string filteredText = string.Empty;
 			bool changedText = false;
-
 			int initialCaretIndex = textBoxClusterRange.SelectionStart;
-
-			string text = string.Empty;
 
 			foreach (char c in textBoxClusterRange.Text)
 			{
 				if (char.IsDigit(c))
 				{
-					text += c;
+					filteredText += c;
 				}
 				else
 				{
@@ -117,7 +115,7 @@ namespace Mappalachia
 
 			if (changedText)
 			{
-				textBoxClusterRange.Text = text;
+				textBoxClusterRange.Text = filteredText;
 				textBoxClusterRange.SelectionStart = Math.Max(0, Math.Min(initialCaretIndex - 1, textBoxClusterRange.Text.Length - 1));
 			}
 		}

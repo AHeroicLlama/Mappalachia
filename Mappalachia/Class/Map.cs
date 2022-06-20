@@ -610,16 +610,17 @@ namespace Mappalachia
 					imageGraphic.DrawLine(thinPen, centroid, point);
 				}
 
-				if (convexHull.GetArea() >= SettingsPlotCluster.minimumPolygonArea && convexHull.GetSmallestAngle() >= SettingsPlotCluster.minimumAngle)
+				float boundingCircleRadius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, convexHull.GetFurthestVertDist(centroid));
+
+				if ((convexHull.GetArea() >= SettingsPlotCluster.minimumPolygonArea || boundingCircleRadius > SettingsPlotCluster.maximumCircleRadius) && convexHull.GetVerts().Count > 1)
 				{
 					imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
 				}
-				else // Convex hull too small or "pointy" - draw a bounding circle (not necessarily minimum bounding, circled is centered on polygon centroid)
+				else // Convex hull too small or single point - draw a bounding circle (not necessarily minimum bounding, circled is centered on polygon centroid)
 				{
-					float radius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, convexHull.GetFurthestVertDist(centroid));
 					imageGraphic.DrawEllipse(
 						clusterPolygonPen,
-						new RectangleF(centroid.X - radius, centroid.Y - radius, radius * 2, radius * 2));
+						new RectangleF(centroid.X - boundingCircleRadius, centroid.Y - boundingCircleRadius, boundingCircleRadius * 2, boundingCircleRadius * 2));
 				}
 
 				// Now label the weights
