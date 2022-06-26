@@ -5,7 +5,7 @@ namespace Mappalachia
 {
 	public partial class FormSetClusterRange : Form
 	{
-		int initialValue;
+		readonly int initialValue;
 		bool usedLiveUpdate;
 
 		public FormSetClusterRange()

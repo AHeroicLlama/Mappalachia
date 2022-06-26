@@ -592,37 +592,30 @@ namespace Mappalachia
 			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), SettingsPlotCluster.polygonLineThickness);
 			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
 
+			// Steps through MapClusters and generates the reduced convex hull and centroid
 			foreach (MapCluster cluster in clusters)
 			{
-				// Draw the cluster edges
-				Polygon clusterPolygon = cluster.GetPolygon();
-				Polygon convexHull = clusterPolygon.GetConvexHull();
-				convexHull.ReduceResolution(SettingsPlotCluster.polygonPointReductionRange);
-				PointF centroid = convexHull.GetCentroid();
+				cluster.GenerateFinalRenderProperties();
+			}
 
-				//DEBUG
-				Pen thinPen = new Pen(Color.White, 1);
-				Pen thinGreenPen = new Pen(Color.Lime, 1);
-				foreach (PointF point in clusterPolygon.GetVerts())
+			foreach (MapCluster cluster in clusters)
+			{
+				float boundingCircleRadius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, cluster.finalPolygon.GetFurthestVertDist(cluster.finalCentroid));
+
+				if ((cluster.finalPolygon.GetArea() >= SettingsPlotCluster.minimumPolygonArea || boundingCircleRadius > SettingsPlotCluster.maximumCircleRadius) && cluster.finalPolygon.GetVerts().Count > 1)
 				{
-					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y + 4), new PointF(point.X - 4, point.Y - 4));
-					imageGraphic.DrawLine(thinGreenPen, new PointF(point.X + 4, point.Y - 4), new PointF(point.X - 4, point.Y + 4));
-					imageGraphic.DrawLine(thinPen, centroid, point);
-				}
-
-				float boundingCircleRadius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, convexHull.GetFurthestVertDist(centroid));
-
-				if ((convexHull.GetArea() >= SettingsPlotCluster.minimumPolygonArea || boundingCircleRadius > SettingsPlotCluster.maximumCircleRadius) && convexHull.GetVerts().Count > 1)
-				{
-					imageGraphic.DrawPolygon(clusterPolygonPen, convexHull.GetVerts().ToArray());
+					imageGraphic.DrawPolygon(clusterPolygonPen, cluster.finalPolygon.GetVerts().ToArray());
 				}
 				else // Convex hull too small or single point - draw a bounding circle (not necessarily minimum bounding, circled is centered on polygon centroid)
 				{
 					imageGraphic.DrawEllipse(
 						clusterPolygonPen,
-						new RectangleF(centroid.X - boundingCircleRadius, centroid.Y - boundingCircleRadius, boundingCircleRadius * 2, boundingCircleRadius * 2));
+						new RectangleF(cluster.finalCentroid.X - boundingCircleRadius, cluster.finalCentroid.Y - boundingCircleRadius, boundingCircleRadius * 2, boundingCircleRadius * 2));
 				}
+			}
 
+			foreach (MapCluster cluster in clusters)
+			{
 				// Now label the weights
 				double weight = cluster.GetMemberWeight();
 
@@ -637,8 +630,8 @@ namespace Mappalachia
 
 				SizeF textBounds = imageGraphic.MeasureString(printWeight, sizedFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
 				RectangleF textBox = new RectangleF(
-						centroid.X - (textBounds.Width / 2),
-						centroid.Y - (textBounds.Height / 2),
+						cluster.finalCentroid.X - (textBounds.Width / 2),
+						cluster.finalCentroid.Y - (textBounds.Height / 2),
 						textBounds.Width, textBounds.Height);
 
 				// Draw Drop shadow first

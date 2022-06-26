@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace Mappalachia.Class
@@ -7,6 +8,9 @@ namespace Mappalachia.Class
 	{
 		public List<MapDataPoint> members = new List<MapDataPoint>();
 		public Polygon polygon;
+
+		public Polygon finalPolygon;
+		public PointF finalCentroid;
 
 		// Create a new cluster with the initial single point
 		public MapCluster(MapDataPoint mapDataPoint)
@@ -44,6 +48,20 @@ namespace Mappalachia.Class
 		public double GetMemberWeight()
 		{
 			return members.Sum(member => member.weight);
+		}
+
+		public void GenerateFinalRenderProperties()
+		{
+			if (finalPolygon != null)
+			{
+				throw new System.Exception("MapCluster finalPolygon/finalCentroid already generated!");
+			}
+
+			Polygon convexHull = polygon.GetConvexHull();
+			convexHull.ReduceResolution(SettingsPlotCluster.polygonPointReductionRange);
+			finalPolygon = convexHull;
+
+			finalCentroid = finalPolygon.GetCentroid();
 		}
 	}
 }
