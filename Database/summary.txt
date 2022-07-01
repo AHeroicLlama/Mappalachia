@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-847d59abf468b0c958cd7f5499651b44
+27772feb68171950a845d6ba3cc85a3c
 ==File Size== 
 372506624 
 ==Tables== 
@@ -12,7 +12,7 @@ Lock_Levels      Position_Data    Standard_Search
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.6.4.60
+1.6.4.64
 ==Mean Average X/Y/Z Coord==
 -12087.681618422|4803.9837276352|12052.6036107632
 ==Min/Max X/Y/Z Coord==
