@@ -2,6 +2,13 @@
 
 title Mappalachia Database Builder
 
+set sigcheckPath=sigcheck.exe
+set steamPath="C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe"
+set gameVersionFile=gameVersion.csv
+set databaseFile=mappalachia.db
+set summaryFile=summary.txt
+set outputFolder=..\Mappalachia\data
+
 IF NOT EXIST sqlite3.exe (
 	echo sqlite3.exe was not found. Building the Mappalachia database requires sqlite3.exe to be placed in this folder.
 	echo Please grab the sqlite-tools Windows binary from the official distribution at https://www.sqlite.org/download.html
@@ -16,19 +23,29 @@ IF NOT EXIST "../Preprocessor/Output/Position_Data.csv" (
 	EXIT
 )
 
-for /f "skip=1" %%l in (gameVersion.csv) do set gameVersion=%%l
+IF EXIST %steamPath% (
+	IF EXIST %sigcheckPath% (
+		echo Getting game version from exe via Sigcheck...
+		echo version>%gameVersionFile%
+		sigcheck.exe -nobanner -n %steamPath%>>%gameVersionFile%
+	) else (
+		echo Sigcheck was not found at path %sigcheckPath%. For automated version detection please download sigcheck.exe from sysinternals at https://docs.microsoft.com/en-gb/sysinternals/downloads/sigcheck
+		echo Using manual version string from %gameVersionFile%...
+	)
+) else (
+	echo Steam Fallout76.exe was not found at %steamPath%. For automated version detection please ensure Fallout76.exe is installed/updated via Steam at the default location.
+	echo Using manual version string from %gameVersionFile%...
+)
+
+for /f %%l in (%gameVersionFile%) do set gameVersion=%%l
 
 echo Is %gameVersion% the correct game version?
 choice /c YN
 if not %errorlevel%==1 (
-	echo Please correct the game version string in gameVersion.csv
+	echo Please ensure that the correct the game version string is stored in %gameVersionFile% and/or that Fallout 76 is correctly intalled/updated via Steam.
 	PAUSE
 	EXIT
 )
-
-set databaseFile=mappalachia.db
-set summaryFile=summary.txt
-set outputFolder=..\Mappalachia\data
 
 echo Cleaning up old database files...
 del %databaseFile% >nul 2>&1
