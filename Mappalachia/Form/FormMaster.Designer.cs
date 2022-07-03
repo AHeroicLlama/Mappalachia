@@ -71,7 +71,9 @@ namespace Mappalachia
 			this.resolution256MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution512MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution1024MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.clusterSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clusterRangeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.showClusterWebMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -331,7 +333,7 @@ namespace Mappalachia
             this.plotStyleSettingsMenuItem,
             this.TopographColorBandsMenuItem,
             this.heatmapSettingsMenuItem,
-            this.clusterRangeMenuItem,
+            this.clusterSettingsMenuItem,
             this.drawVolumesMenuItem});
 			this.plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			this.plotSettingsMenuItem.Size = new System.Drawing.Size(85, 20);
@@ -353,7 +355,7 @@ namespace Mappalachia
 			// 
 			this.modeIconMenuItem.Name = "modeIconMenuItem";
 			this.modeIconMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
-			this.modeIconMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeIconMenuItem.Text = "Icon";
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -362,7 +364,7 @@ namespace Mappalachia
 			// 
 			this.modeTopographyMenuItem.Name = "modeTopographyMenuItem";
 			this.modeTopographyMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
-			this.modeTopographyMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.modeTopographyMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeTopographyMenuItem.Text = "Topographic";
 			this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
 			this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
@@ -371,7 +373,7 @@ namespace Mappalachia
 			// 
 			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
 			this.modeHeatmapMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeHeatmapMenuItem.Text = "Heatmap";
 			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
 			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
@@ -380,7 +382,7 @@ namespace Mappalachia
 			// 
 			this.modeClusterMenuItem.Name = "modeClusterMenuItem";
 			this.modeClusterMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-			this.modeClusterMenuItem.Size = new System.Drawing.Size(176, 22);
+			this.modeClusterMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.modeClusterMenuItem.Text = "Cluster";
 			this.modeClusterMenuItem.ToolTipText = "Group nearby plots together, displaying the amount within the cluster.";
 			this.modeClusterMenuItem.Click += new System.EventHandler(this.Plot_Mode_Cluster);
@@ -408,28 +410,28 @@ namespace Mappalachia
 			// colorBand2MenuItem
 			// 
 			this.colorBand2MenuItem.Name = "colorBand2MenuItem";
-			this.colorBand2MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand2MenuItem.Size = new System.Drawing.Size(180, 22);
 			this.colorBand2MenuItem.Text = "2";
 			this.colorBand2MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_2);
 			// 
 			// colorBand3MenuItem
 			// 
 			this.colorBand3MenuItem.Name = "colorBand3MenuItem";
-			this.colorBand3MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand3MenuItem.Size = new System.Drawing.Size(180, 22);
 			this.colorBand3MenuItem.Text = "3";
 			this.colorBand3MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_3);
 			// 
 			// colorBand4MenuItem
 			// 
 			this.colorBand4MenuItem.Name = "colorBand4MenuItem";
-			this.colorBand4MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand4MenuItem.Size = new System.Drawing.Size(180, 22);
 			this.colorBand4MenuItem.Text = "4";
 			this.colorBand4MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_4);
 			// 
 			// colorBand5MenuItem
 			// 
 			this.colorBand5MenuItem.Name = "colorBand5MenuItem";
-			this.colorBand5MenuItem.Size = new System.Drawing.Size(80, 22);
+			this.colorBand5MenuItem.Size = new System.Drawing.Size(180, 22);
 			this.colorBand5MenuItem.Text = "5";
 			this.colorBand5MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_5);
 			// 
@@ -441,7 +443,7 @@ namespace Mappalachia
 			this.heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
 			this.heatmapSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
 			this.heatmapSettingsMenuItem.Text = "Heatmap Settings";
-			this.heatmapSettingsMenuItem.ToolTipText = "Adjust settings related to Heatmap mode.";
+			this.heatmapSettingsMenuItem.ToolTipText = "Settings related to Heatmap plot mode.";
 			// 
 			// colorModeMenuItem
 			// 
@@ -449,7 +451,7 @@ namespace Mappalachia
             this.monoColorModeMenuItem,
             this.duoColorModeMenuItem});
 			this.colorModeMenuItem.Name = "colorModeMenuItem";
-			this.colorModeMenuItem.Size = new System.Drawing.Size(137, 22);
+			this.colorModeMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.colorModeMenuItem.Text = "Color Mode";
 			this.colorModeMenuItem.ToolTipText = "Change the heatmap between mono (one color) and duo (two colors).";
 			// 
@@ -478,7 +480,7 @@ namespace Mappalachia
             this.resolution512MenuItem,
             this.resolution1024MenuItem});
 			this.resolutionMenuItem.Name = "resolutionMenuItem";
-			this.resolutionMenuItem.Size = new System.Drawing.Size(137, 22);
+			this.resolutionMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.resolutionMenuItem.Text = "Resolution";
 			this.resolutionMenuItem.ToolTipText = "Change the resolution, and hence precision of the heatmap.";
 			// 
@@ -514,13 +516,32 @@ namespace Mappalachia
 			this.resolution1024MenuItem.ToolTipText = "1024x1024 squares for the heatmap.";
 			this.resolution1024MenuItem.Click += new System.EventHandler(this.Plot_HeatMap_Resolution_1024);
 			// 
+			// clusterSettingsMenuItem
+			// 
+			this.clusterSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clusterRangeMenuItem,
+            this.showClusterWebMenuItem});
+			this.clusterSettingsMenuItem.Name = "clusterSettingsMenuItem";
+			this.clusterSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
+			this.clusterSettingsMenuItem.Text = "Cluster Settings";
+			this.clusterSettingsMenuItem.ToolTipText = "Settings related to Cluster plot mode.";
+			// 
 			// clusterRangeMenuItem
 			// 
 			this.clusterRangeMenuItem.Name = "clusterRangeMenuItem";
-			this.clusterRangeMenuItem.Size = new System.Drawing.Size(204, 22);
-			this.clusterRangeMenuItem.Text = "Cluster Range...";
-			this.clusterRangeMenuItem.ToolTipText = "Set the size of clusters in Cluster Plot Mode.";
-			this.clusterRangeMenuItem.Click += new System.EventHandler(this.Plot_ClusterRange);
+			this.clusterRangeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clusterRangeMenuItem.Text = "Set Cluster Range...";
+			this.clusterRangeMenuItem.ToolTipText = "Set the size of clusters.";
+			this.clusterRangeMenuItem.Click += new System.EventHandler(this.Plot_ClusterSettings_ClusterRange);
+			// 
+			// showClusterWebMenuItem
+			// 
+			this.showClusterWebMenuItem.Name = "showClusterWebMenuItem";
+			this.showClusterWebMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.showClusterWebMenuItem.Text = "Show Cluster Web";
+			this.showClusterWebMenuItem.ToolTipText = "See more info by drawing lines from each point to their cluster parent, creating " +
+    "a \"web\".";
+			this.showClusterWebMenuItem.Click += new System.EventHandler(this.Plot_ClusterSettings_CluserWeb);
 			// 
 			// drawVolumesMenuItem
 			// 
@@ -1254,7 +1275,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-2, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-7, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1517,6 +1538,8 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem donatePayPalMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modeClusterMenuItem;
 		private System.Windows.Forms.Label labelProgressBar;
+		private System.Windows.Forms.ToolStripMenuItem clusterSettingsMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem showClusterWebMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clusterRangeMenuItem;
 	}
 }

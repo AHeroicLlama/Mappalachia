@@ -10,14 +10,19 @@ namespace Mappalachia
 		public static readonly int polygonLineThickness = 4;
 		public static readonly int boundingCircleMinRadius = 15; // Clusters given a bounding circle are rendered at least this big
 		public static readonly int polygonPointReductionRange = 5; // Points in the cluster convex hull this close together are merged
-		public static readonly Brush weightBrush = new SolidBrush(Color.FromArgb(200, Color.White)); // Brush used to paint weight text
+		public static readonly int webLineThickness = 2;
+		public static readonly int minFontSize = 20;
+		public static readonly int maxFontSize = 60;
+		public static readonly Brush weightBrush = new SolidBrush(Color.FromArgb(255, Color.White)); // Brush used to paint weight text
 
 		public static readonly int minRange = boundingCircleMinRadius * 2;
 		public static readonly int maxRange = 800;
 
+		public static readonly bool defaultClusterWeb = false;
 		public static readonly bool defaultLiveUpdate = false;
 		public static readonly int defaultClusterRange = 100;
 
+		public static bool clusterWeb = defaultClusterWeb;
 		public static bool liveUpdate = defaultLiveUpdate;
 		public static int clusterRange = defaultClusterRange;
 	}

@@ -45,8 +45,8 @@
 			this.textBoxClusterRange.Name = "textBoxClusterRange";
 			this.textBoxClusterRange.Size = new System.Drawing.Size(84, 23);
 			this.textBoxClusterRange.TabIndex = 1;
-			this.textBoxClusterRange.TextChanged += new System.EventHandler(this.textBoxClusterRange_TextChanged);
-			this.textBoxClusterRange.Leave += new System.EventHandler(this.textBoxClusterRange_ExitFocus);
+			this.textBoxClusterRange.TextChanged += new System.EventHandler(this.TextBoxClusterRange_TextChanged);
+			this.textBoxClusterRange.Leave += new System.EventHandler(this.TextBoxClusterRange_ExitFocus);
 			// 
 			// trackBarClusterRange
 			// 
@@ -59,10 +59,10 @@
 			this.trackBarClusterRange.SmallChange = 5;
 			this.trackBarClusterRange.TabIndex = 0;
 			this.trackBarClusterRange.Value = 100;
-			this.trackBarClusterRange.Scroll += new System.EventHandler(this.trackBarClusterRange_Scroll);
-			this.trackBarClusterRange.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarClusterRange_KeyUp);
-			this.trackBarClusterRange.Leave += new System.EventHandler(this.trackBarClusterRange_Leave);
-			this.trackBarClusterRange.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarClusterRange_MouseUp);
+			this.trackBarClusterRange.Scroll += new System.EventHandler(this.TrackBarClusterRange_Scroll);
+			this.trackBarClusterRange.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarClusterRange_KeyUp);
+			this.trackBarClusterRange.Leave += new System.EventHandler(this.TrackBarClusterRange_Leave);
+			this.trackBarClusterRange.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarClusterRange_MouseUp);
 			// 
 			// buttonOK
 			// 
@@ -72,7 +72,7 @@
 			this.buttonOK.TabIndex = 3;
 			this.buttonOK.Text = "OK";
 			this.buttonOK.UseVisualStyleBackColor = true;
-			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+			this.buttonOK.Click += new System.EventHandler(this.ButtonOK_Click);
 			// 
 			// buttonCancel
 			// 
@@ -82,7 +82,7 @@
 			this.buttonCancel.TabIndex = 4;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
-			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+			this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
 			// 
 			// checkBoxliveUpdate
 			// 
@@ -94,7 +94,7 @@
 			this.checkBoxliveUpdate.Text = "Live Update";
 			this.toolTip.SetToolTip(this.checkBoxliveUpdate, "Constantly re-draw the map as you change the range.");
 			this.checkBoxliveUpdate.UseVisualStyleBackColor = true;
-			this.checkBoxliveUpdate.CheckedChanged += new System.EventHandler(this.checkBoxliveUpdate_CheckedChanged);
+			this.checkBoxliveUpdate.CheckedChanged += new System.EventHandler(this.CheckBoxliveUpdate_CheckedChanged);
 			// 
 			// FormSetClusterRange
 			// 

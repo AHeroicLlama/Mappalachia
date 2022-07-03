@@ -326,10 +326,7 @@ namespace Mappalachia
 		{
 			FormMaster.UpdateProgressBar(0, "Caching rendered map icons...");
 			List<string> markerNames = Database.GetUniqueMarkerNames();
-			Parallel.ForEach(markerNames, markerName =>
-			{
-				CacheMarker(markerName);
-			});
+			Parallel.ForEach(markerNames, markerName => CacheMarker(markerName));
 		}
 
 		static void CacheMarker(string mapMarkerName)

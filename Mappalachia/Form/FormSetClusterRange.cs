@@ -25,12 +25,12 @@ namespace Mappalachia
 			usedLiveUpdate = false;
 		}
 
-		private void trackBarClusterRange_Scroll(object sender, EventArgs e)
+		private void TrackBarClusterRange_Scroll(object sender, EventArgs e)
 		{
 			textBoxClusterRange.Text = trackBarClusterRange.Value.ToString();
 		}
 
-		private void textBoxClusterRange_ExitFocus(object sender, EventArgs e)
+		private void TextBoxClusterRange_ExitFocus(object sender, EventArgs e)
 		{
 			string text = textBoxClusterRange.Text;
 
@@ -48,7 +48,7 @@ namespace Mappalachia
 			LiveUpdate();
 		}
 
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOK_Click(object sender, EventArgs e)
 		{
 			SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
 
@@ -60,32 +60,22 @@ namespace Mappalachia
 			}
 		}
 
-		private void trackBarClusterRange_Leave(object sender, EventArgs e)
+		private void TrackBarClusterRange_Leave(object sender, EventArgs e)
 		{
 			LiveUpdate();
 		}
 
-		private void trackBarClusterRange_KeyUp(object sender, KeyEventArgs e)
+		private void TrackBarClusterRange_KeyUp(object sender, KeyEventArgs e)
 		{
 			LiveUpdate();
 		}
 
-		private void trackBarClusterRange_MouseUp(object sender, MouseEventArgs e)
+		private void TrackBarClusterRange_MouseUp(object sender, MouseEventArgs e)
 		{
 			LiveUpdate();
 		}
 
-		void LiveUpdate()
-		{
-			if (checkBoxliveUpdate.Checked && SettingsPlot.IsCluster() && FormMaster.legendItems.Count > 0)
-			{
-				SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
-				FormMaster.DrawMap(false);
-				usedLiveUpdate = true;
-			}
-		}
-
-		private void buttonCancel_Click(object sender, EventArgs e)
+		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 			// If they used live update but now wish to cancel, we need to ensure we reset to the initial value
 			if (usedLiveUpdate)
@@ -95,7 +85,7 @@ namespace Mappalachia
 			}
 		}
 
-		private void textBoxClusterRange_TextChanged(object sender, EventArgs e)
+		private void TextBoxClusterRange_TextChanged(object sender, EventArgs e)
 		{
 			string filteredText = string.Empty;
 			bool changedText = false;
@@ -120,9 +110,19 @@ namespace Mappalachia
 			}
 		}
 
-		private void checkBoxliveUpdate_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxliveUpdate_CheckedChanged(object sender, EventArgs e)
 		{
 			SettingsPlotCluster.liveUpdate = checkBoxliveUpdate.Checked;
+		}
+
+		void LiveUpdate()
+		{
+			if (checkBoxliveUpdate.Checked && SettingsPlot.IsCluster() && FormMaster.legendItems.Count > 0)
+			{
+				SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
+				FormMaster.DrawMap(false);
+				usedLiveUpdate = true;
+			}
 		}
 	}
 }

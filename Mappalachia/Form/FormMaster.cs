@@ -82,6 +82,7 @@ namespace Mappalachia
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
 			UpdateTopographColorBands(false);
+			UpdateClusterWeb(false);
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
@@ -148,7 +149,8 @@ namespace Mappalachia
 		{
 			UpdateProgressBarText(labelText, forceRefresh);
 
-			UpdateUIAsync(() => {
+			UpdateUIAsync(() =>
+			{
 				self.progressBarMain.Value = (int)(self.progressBarMain.Maximum * amount);
 			});
 		}
@@ -420,28 +422,28 @@ namespace Mappalachia
 					modeIconMenuItem.Checked = true;
 					EnableMenuStrip(heatmapSettingsMenuItem, false);
 					EnableMenuStrip(TopographColorBandsMenuItem, false);
-					EnableMenuStrip(clusterRangeMenuItem, false);
+					EnableMenuStrip(clusterSettingsMenuItem, false);
 					EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Heatmap:
 					modeHeatmapMenuItem.Checked = true;
 					EnableMenuStrip(heatmapSettingsMenuItem, true);
 					EnableMenuStrip(TopographColorBandsMenuItem, false);
-					EnableMenuStrip(clusterRangeMenuItem, false);
+					EnableMenuStrip(clusterSettingsMenuItem, false);
 					EnableMenuStrip(drawVolumesMenuItem, false);
 					break;
 				case SettingsPlot.Mode.Topography:
 					modeTopographyMenuItem.Checked = true;
 					EnableMenuStrip(heatmapSettingsMenuItem, false);
 					EnableMenuStrip(TopographColorBandsMenuItem, true);
-					EnableMenuStrip(clusterRangeMenuItem, false);
+					EnableMenuStrip(clusterSettingsMenuItem, false);
 					EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Cluster:
 					modeClusterMenuItem.Checked = true;
 					EnableMenuStrip(heatmapSettingsMenuItem, false);
 					EnableMenuStrip(TopographColorBandsMenuItem, false);
-					EnableMenuStrip(clusterRangeMenuItem, true);
+					EnableMenuStrip(clusterSettingsMenuItem, true);
 					EnableMenuStrip(drawVolumesMenuItem, false);
 					break;
 			}
@@ -538,6 +540,16 @@ namespace Mappalachia
 			}
 		}
 
+		void UpdateClusterWeb(bool reDraw)
+		{
+			showClusterWebMenuItem.Checked = SettingsPlotCluster.clusterWeb;
+
+			if (reDraw && SettingsPlot.IsCluster())
+			{
+				DrawMap(false);
+			}
+		}
+
 		// Update check marks in the UI with current MapSettings, and redraw the map if true
 		void UpdateMapLayerSettings(bool reDraw)
 		{
@@ -595,9 +607,9 @@ namespace Mappalachia
 			searchInAllSpacesMenuItem.Checked = SettingsSearch.searchInAllSpaces;
 
 			if (searchAgain)
-            {
+			{
 				AcceptButton.PerformClick();
-            }
+			}
 		}
 
 		// Update the minimum spawn chance % value on the NPC Search tab
@@ -1124,11 +1136,18 @@ namespace Mappalachia
 			UpdateTopographColorBands(true);
 		}
 
-		// plot Settings > Cluster Range...
-		private void Plot_ClusterRange(object sender, EventArgs e)
+		// Plot Settings > Cluster Settings > Cluster Range...
+		private void Plot_ClusterSettings_ClusterRange(object sender, EventArgs e)
 		{
 			FormSetClusterRange formSetCluster = new FormSetClusterRange();
 			formSetCluster.ShowDialog();
+		}
+
+		// Plot Settings > Cluster Settings > Show Cluster Web
+		private void Plot_ClusterSettings_CluserWeb(object sender, EventArgs e)
+		{
+			SettingsPlotCluster.clusterWeb = !SettingsPlotCluster.clusterWeb;
+			UpdateClusterWeb(true);
 		}
 
 		// Plot Settings > Draw Volumes - Toggle drawing volumes

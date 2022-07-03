@@ -83,6 +83,7 @@ namespace Mappalachia.Class
 			// SettingsPlotCluster
 			settings.Add("[PlotCluster]");
 			settings.Add("clusterRange=" + SettingsPlotCluster.clusterRange);
+			settings.Add("clusterWeb=" + BoolToIntStr(SettingsPlotCluster.clusterWeb));
 			settings.Add("liveUpdate=" + BoolToIntStr(SettingsPlotCluster.liveUpdate));
 
 			// SettingsFileExport
@@ -371,6 +372,10 @@ namespace Mappalachia.Class
 								SettingsPlotCluster.clusterRange = range;
 							}
 
+							break;
+
+						case "clusterWeb":
+							SettingsPlotCluster.clusterWeb = StrIntToBool(value);
 							break;
 
 						case "liveUpdate":

@@ -1,7 +1,7 @@
 # Mappalachia Plotting functions
 
 ## Plotting Modes
-Mappalachia has three plotting modes - these are Icon mode (on by default), Heatmap mode, and Topography mode. You can toggle these modes by navigating to Plot Settings > Plot Mode.<br/>
+Mappalachia has four plotting modes - these are Icon mode (on by default), Heatmap mode, Topography mode, and Cluster mode. You can toggle these modes by navigating to Plot Settings > Plot Mode.<br/>
 
 ## Icon Mode
 Icon mode is the default plotting function, and selected items will be mapped using a unique set of pre-defined shapes and colors. It is the most customizable option.
@@ -35,6 +35,18 @@ In Duo Mode, the color assigned from the palette is defined by the number in the
 ### Heatmap Resolution
 You can adjust the resolution of the heatmap by navigating to Plot Settings > Heatmap Settings > Resolution.<br/>
 The resolution indicates the number of grid squares which comprise the heatmap and hence the precision. You may want to play with the resolution to get the best from your map. Too high a resolution can result in the map just being a series of separate dots, and too low of a resolution can reduce the precision of your map and hide any bright spots.
+
+## Cluster mode
+Cluster mode groups nearby points into bounded areas or 'clusters' and labels them with the number of entities inside the cluster. It provides similar utility to heatmap mode, however while providing much more precision and information.<br/>
+In cluster mode all items in the legend are plotted together, and there is no distinction between different items. The color used for the clusters is the first color in the palette.
+
+### Cluster range
+You may adjust the sizes of clusters in Plot Settings > Cluster Settings > Cluster Range... Adjust the slider or enter a number to set the minimum distance for entities to the origin point of their cluster.<br/>
+Tick the 'Live Update' checkbox to cause Mappalachia to update the preview whenever you adjust the value.<br/>
+
+### Cluster web
+By checking Plot Settings > Cluster Settings > Show Cluster Web, you may draw a "web" on the cluster. The web is used to provide further information about the points contained in the cluster. It is formed by drawing a line from every point to the origin of it's cluster.<br/>
+The color used for the lines of the web is the second color in the color pallette.<br/>
 
 ## Draw Volumes
 Draw volumes mode is located at Plot Settings > Draw Volumes, and is on by default.<br/>

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -590,6 +589,7 @@ namespace Mappalachia
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
 			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), SettingsPlotCluster.polygonLineThickness);
+			Pen clusterWebPen = new Pen(SettingsPlotStyle.GetSecondColor(), SettingsPlotCluster.webLineThickness);
 			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
 
 			// Steps through MapClusters and generates the reduced convex hull and centroid
@@ -598,6 +598,7 @@ namespace Mappalachia
 				cluster.GenerateFinalRenderProperties();
 			}
 
+			// Draw the cluster shapes
 			foreach (MapCluster cluster in clusters)
 			{
 				float boundingCircleRadius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, cluster.finalPolygon.GetFurthestVertDist(cluster.finalCentroid));
@@ -612,11 +613,20 @@ namespace Mappalachia
 						clusterPolygonPen,
 						new RectangleF(cluster.finalCentroid.X - boundingCircleRadius, cluster.finalCentroid.Y - boundingCircleRadius, boundingCircleRadius * 2, boundingCircleRadius * 2));
 				}
+
+				// Draw the 'cluster web'
+				if (SettingsPlotCluster.clusterWeb)
+				{
+					foreach (MapDataPoint point in cluster.members)
+					{
+						imageGraphic.DrawLine(clusterWebPen, cluster.finalCentroid, point.Get2DPoint());
+					}
+				}
 			}
 
+			// Now label the cluster weights
 			foreach (MapCluster cluster in clusters)
 			{
-				// Now label the weights
 				double weight = cluster.GetMemberWeight();
 
 				if (weight == 1)
@@ -625,7 +635,7 @@ namespace Mappalachia
 				}
 
 				string printWeight = Math.Round(weight, 1).ToString();
-				float fontSize = Math.Min(Math.Max(20, mapLabelFontSize * (float)(weight / averageWeight)), 50);
+				float fontSize = Math.Min(Math.Max(20, mapLabelFontSize * (float)(weight / averageWeight)), 60);
 				Font sizedFont = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 				SizeF textBounds = imageGraphic.MeasureString(printWeight, sizedFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));

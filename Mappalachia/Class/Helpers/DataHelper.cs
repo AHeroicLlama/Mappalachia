@@ -161,11 +161,11 @@ namespace Mappalachia
 		// Provide a user-friendly name to the lock level
 		static readonly Dictionary<string, string> lockLevelToFriendlyName = new Dictionary<string, string>
 		{
-			{ string.Empty,			"Not locked" },
-			{ "Novice (Level 0)",	"Level 0" },
-			{ "Advanced (Level 1)",	"Level 1" },
-			{ "Expert (Level 2)",	"Level 2" },
-			{ "Master (Level 3)",	"Level 3" },
+			{ string.Empty,         "Not locked" },
+			{ "Novice (Level 0)",   "Level 0" },
+			{ "Advanced (Level 1)", "Level 1" },
+			{ "Expert (Level 2)",   "Level 2" },
+			{ "Master (Level 3)",   "Level 3" },
 		};
 
 		// Inverse the user friendly lock names so we can use the proper lock levels in queries
