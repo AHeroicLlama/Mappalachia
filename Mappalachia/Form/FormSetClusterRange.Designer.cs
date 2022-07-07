@@ -50,14 +50,15 @@
 			// 
 			// trackBarClusterRange
 			// 
-			this.trackBarClusterRange.LargeChange = 20;
+			this.trackBarClusterRange.LargeChange = 50;
 			this.trackBarClusterRange.Location = new System.Drawing.Point(12, 12);
-			this.trackBarClusterRange.Maximum = 150;
-			this.trackBarClusterRange.Minimum = 50;
+			this.trackBarClusterRange.Maximum = 2000;
+			this.trackBarClusterRange.Minimum = 30;
 			this.trackBarClusterRange.Name = "trackBarClusterRange";
 			this.trackBarClusterRange.Size = new System.Drawing.Size(541, 45);
-			this.trackBarClusterRange.SmallChange = 5;
+			this.trackBarClusterRange.SmallChange = 10;
 			this.trackBarClusterRange.TabIndex = 0;
+			this.trackBarClusterRange.TickFrequency = 25;
 			this.trackBarClusterRange.Value = 100;
 			this.trackBarClusterRange.Scroll += new System.EventHandler(this.TrackBarClusterRange_Scroll);
 			this.trackBarClusterRange.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarClusterRange_KeyUp);

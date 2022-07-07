@@ -15,8 +15,8 @@ namespace Mappalachia
 		public static readonly int maxFontSize = 60;
 		public static readonly Brush weightBrush = new SolidBrush(Color.FromArgb(255, Color.White)); // Brush used to paint weight text
 
-		public static readonly int minRange = boundingCircleMinRadius * 2;
-		public static readonly int maxRange = 800;
+		public static readonly int minRange = 1;
+		public static readonly int maxRange = 2000;
 
 		public static readonly bool defaultClusterWeb = false;
 		public static readonly bool defaultLiveUpdate = false;

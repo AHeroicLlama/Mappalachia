@@ -20,8 +20,8 @@ namespace Mappalachia
 
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All background images should be this^2
-		public static readonly int maxZoom = (int)(mapDimension * 2.0);
-		public static readonly int minZoom = (int)(mapDimension * 0.05);
+		public static readonly double maxZoomRatio = 3;
+		public static readonly double minZoomRatio = 0.05;
 		public static readonly double markerIconScale = 2.5; // The scaling applied to map marker icons
 
 		// Legend text positioning
@@ -635,7 +635,7 @@ namespace Mappalachia
 				}
 
 				string printWeight = Math.Round(weight, 1).ToString();
-				float fontSize = Math.Min(Math.Max(20, mapLabelFontSize * (float)(weight / averageWeight)), 60);
+				float fontSize = Math.Min(Math.Max(SettingsPlotCluster.minFontSize, mapLabelFontSize * (float)(weight / averageWeight)), SettingsPlotCluster.maxFontSize);
 				Font sizedFont = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 				SizeF textBounds = imageGraphic.MeasureString(printWeight, sizedFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));

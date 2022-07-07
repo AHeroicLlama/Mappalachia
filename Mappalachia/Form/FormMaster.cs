@@ -1678,8 +1678,8 @@ namespace Mappalachia
 		// Pick up scroll wheel events and apply them to zoom the map preview
 		protected override void OnMouseWheel(MouseEventArgs mouseEvent)
 		{
-			int minZoom = Map.minZoom;
-			int maxZoom = Map.maxZoom;
+			double minZoom = Map.mapDimension * Map.minZoomRatio;
+			double maxZoom = Map.mapDimension * Map.maxZoomRatio;
 
 			// Record the center coord of the 'viewport' (The container of the PictureBox)
 			int viewPortCenterX = splitContainerMain.Panel2.Width / 2;
@@ -1698,8 +1698,8 @@ namespace Mappalachia
 			float zoomRatio = 1 + ((mouseEvent.Delta > 0) ? magnitude : -magnitude);
 
 			// Calculate the new dimensions once zoomed, given zoom limits
-			int newWidth = Math.Max(Math.Min(maxZoom, (int)(width * zoomRatio)), minZoom);
-			int newHeight = Math.Max(Math.Min(maxZoom, (int)(height * zoomRatio)), minZoom);
+			int newWidth = (int)Math.Max(Math.Min(maxZoom, width * zoomRatio), minZoom);
+			int newHeight = (int)Math.Max(Math.Min(maxZoom, height * zoomRatio), minZoom);
 
 			// Calculate the required position offset while also factoring the offset to keep the apparent center pixel the same
 			int widthOffset = (width - newWidth) * apparentCenter.X / Map.mapDimension;

@@ -50,7 +50,14 @@ namespace Mappalachia
 
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
-			SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
+			try
+			{
+				SettingsPlotCluster.clusterRange = int.Parse(textBoxClusterRange.Text);
+			}
+			catch (FormatException)
+			{
+				SettingsPlotCluster.clusterRange = SettingsPlotCluster.defaultClusterRange;
+			}
 
 			Close();
 
@@ -117,7 +124,7 @@ namespace Mappalachia
 
 		void LiveUpdate()
 		{
-			if (checkBoxliveUpdate.Checked && SettingsPlot.IsCluster() && FormMaster.legendItems.Count > 0)
+			if (SettingsPlotCluster.liveUpdate && SettingsPlot.IsCluster() && FormMaster.legendItems.Count > 0)
 			{
 				SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
 				FormMaster.DrawMap(false);
