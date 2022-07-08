@@ -44,7 +44,7 @@
 			this.textBoxClusterRange.Location = new System.Drawing.Point(559, 12);
 			this.textBoxClusterRange.Name = "textBoxClusterRange";
 			this.textBoxClusterRange.Size = new System.Drawing.Size(84, 23);
-			this.textBoxClusterRange.TabIndex = 1;
+			this.textBoxClusterRange.TabIndex = 0;
 			this.textBoxClusterRange.TextChanged += new System.EventHandler(this.TextBoxClusterRange_TextChanged);
 			this.textBoxClusterRange.Leave += new System.EventHandler(this.TextBoxClusterRange_ExitFocus);
 			// 
@@ -52,12 +52,12 @@
 			// 
 			this.trackBarClusterRange.LargeChange = 50;
 			this.trackBarClusterRange.Location = new System.Drawing.Point(12, 12);
-			this.trackBarClusterRange.Maximum = 2000;
+			this.trackBarClusterRange.Maximum = 2048;
 			this.trackBarClusterRange.Minimum = 30;
 			this.trackBarClusterRange.Name = "trackBarClusterRange";
 			this.trackBarClusterRange.Size = new System.Drawing.Size(541, 45);
 			this.trackBarClusterRange.SmallChange = 10;
-			this.trackBarClusterRange.TabIndex = 0;
+			this.trackBarClusterRange.TabIndex = 1;
 			this.trackBarClusterRange.TickFrequency = 25;
 			this.trackBarClusterRange.Value = 100;
 			this.trackBarClusterRange.Scroll += new System.EventHandler(this.TrackBarClusterRange_Scroll);
