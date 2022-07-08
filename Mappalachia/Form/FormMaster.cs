@@ -1167,7 +1167,7 @@ namespace Mappalachia
 		// Help > User Guides - Open help guides at github master
 		void Help_UserGuides(object sender, EventArgs e)
 		{
-			Mappalachia.LaunchURL("https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides");
+			IOManager.LaunchURL("https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides");
 		}
 
 		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
@@ -1179,13 +1179,13 @@ namespace Mappalachia
 		// Donate > Patreon
 		private void Donate_ViaPatreon(object sender, EventArgs e)
 		{
-			Mappalachia.LaunchURL("https://www.patreon.com/user?u=73036527");
+			IOManager.LaunchURL("https://www.patreon.com/user?u=73036527");
 		}
 
 		// Donate > PayPal
 		private void Donate_ViaPayPal(object sender, EventArgs e)
 		{
-			Mappalachia.LaunchURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
+			IOManager.LaunchURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
 
 		// Signature select all

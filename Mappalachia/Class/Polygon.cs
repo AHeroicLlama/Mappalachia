@@ -50,7 +50,7 @@ namespace Mappalachia.Class
 
 			for (int i = 0; i < verts.Count; i++)
 			{
-				if (GeometryHelper.Pythagoras(GeometryHelper.GetCyclicItem(verts, i), GeometryHelper.GetCyclicItem(verts, i + 1)) > threshold)
+				if (GeometryHelper.Pythagoras(DataHelper.GetCyclicItem(verts, i), DataHelper.GetCyclicItem(verts, i + 1)) > threshold)
 				{
 					newPolygon.Add(verts[i]);
 				}

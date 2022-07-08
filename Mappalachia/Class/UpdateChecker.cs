@@ -107,7 +107,7 @@ namespace Mappalachia.Class
 
 		static void GoToReleases()
 		{
-			Mappalachia.LaunchURL("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
+			IOManager.LaunchURL("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
 		}
 	}
 }

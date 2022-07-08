@@ -1,4 +1,4 @@
-using Mappalachia.Class;
+using Mappalachia;
 
 namespace MappalachiaTests
 {
@@ -13,7 +13,7 @@ namespace MappalachiaTests
 			int n = 1;
 			int expectedResult = 1;
 
-			Assert.AreEqual(GeometryHelper.GetCyclicItem(list, n), expectedResult);
+			Assert.AreEqual(DataHelper.GetCyclicItem(list, n), expectedResult);
 		}
 
 		[TestMethod]
@@ -22,7 +22,7 @@ namespace MappalachiaTests
 			int n = -1;
 			int expectedResult = 5;
 
-			Assert.AreEqual(GeometryHelper.GetCyclicItem(list, n), expectedResult);
+			Assert.AreEqual(DataHelper.GetCyclicItem(list, n), expectedResult);
 		}
 
 		[TestMethod]
@@ -31,7 +31,7 @@ namespace MappalachiaTests
 			int n = -6;
 			int expectedResult = 0;
 
-			Assert.AreEqual(GeometryHelper.GetCyclicItem(list, n), expectedResult);
+			Assert.AreEqual(DataHelper.GetCyclicItem(list, n), expectedResult);
 		}
 
 		[TestMethod]
@@ -40,7 +40,7 @@ namespace MappalachiaTests
 			int n = 6;
 			int expectedResult = 0;
 
-			Assert.AreEqual(GeometryHelper.GetCyclicItem(list, n), expectedResult);
+			Assert.AreEqual(DataHelper.GetCyclicItem(list, n), expectedResult);
 		}
 
 		[TestMethod]
@@ -49,7 +49,7 @@ namespace MappalachiaTests
 			int n = 13;
 			int expectedResult = 1;
 
-			Assert.AreEqual(GeometryHelper.GetCyclicItem(list, n), expectedResult);
+			Assert.AreEqual(DataHelper.GetCyclicItem(list, n), expectedResult);
 		}
 
 		[TestMethod]
@@ -58,7 +58,7 @@ namespace MappalachiaTests
 			int n = -13;
 			int expectedResult = 5;
 
-			Assert.AreEqual(GeometryHelper.GetCyclicItem(list, n), expectedResult);
+			Assert.AreEqual(DataHelper.GetCyclicItem(list, n), expectedResult);
 		}
 	}
 }

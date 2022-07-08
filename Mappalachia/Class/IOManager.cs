@@ -417,5 +417,10 @@ namespace Mappalachia
 
 			return gameVersion;
 		}
+
+		public static void LaunchURL(string url)
+		{
+			Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+		}
 	}
 }

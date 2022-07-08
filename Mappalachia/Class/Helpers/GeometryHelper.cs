@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace Mappalachia.Class
 {
-	public static class GeometryHelper
+	static class GeometryHelper
 	{
 		public static float Pythagoras(double a, double b)
 		{
@@ -34,22 +33,6 @@ namespace Mappalachia.Class
 			return rad * (180 / Math.PI);
 		}
 
-		// returns the nth item in a list as if it were cyclic (supports <0 or >n)
-		public static T GetCyclicItem<T>(List<T> collection, int n)
-		{
-			if (collection.Count == 0)
-			{
-				return default;
-			}
 
-			n %= collection.Count;
-
-			if (n < 0)
-			{
-				n = collection.Count + n;
-			}
-
-			return collection[n];
-		}
 	}
 }
