@@ -32,7 +32,5 @@ namespace Mappalachia.Class
 		{
 			return rad * (180 / Math.PI);
 		}
-
-
 	}
 }
