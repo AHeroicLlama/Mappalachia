@@ -332,7 +332,7 @@ namespace Mappalachia
 		static void CacheMarker(string mapMarkerName)
 		{
 			Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);
-			Bitmap marker = document.Draw((int)((double)document.Width * Map.markerIconScale), 0);
+			Image marker = document.Draw((int)(document.Width * Map.markerIconScale), 0);
 
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{

@@ -22,7 +22,7 @@ namespace Mappalachia
 		public static readonly int mapDimension = 4096; // All background images should be this^2
 		public static readonly double maxZoomRatio = 3;
 		public static readonly double minZoomRatio = 0.05;
-		public static readonly double markerIconScale = 2.5; // The scaling applied to map marker icons
+		public static readonly double markerIconScale = 1; // The scaling applied to map marker icons
 
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -690,7 +690,7 @@ namespace Mappalachia
 				foreach (MapMarker marker in markers)
 				{
 					Image markerImage = IOManager.GetMapMarker(marker.markerName);
-					imageGraphic.DrawImage(markerImage, new PointF((float)marker.x - (markerImage.Width / 2f), (float)marker.y - (markerImage.Height / 2f)));
+					imageGraphic.DrawImage(markerImage, (int)(marker.x - (markerImage.Width / 2)), (int)(marker.y - (markerImage.Height / 2)));
 				}
 			}
 
