@@ -37,7 +37,7 @@ namespace Mappalachia
 
 		// Font and text
 		public static readonly int legendFontSize = 48;
-		public static readonly int mapLabelFontSize = 21;
+		public static readonly int mapLabelFontSize = 18;
 		static readonly int fontDropShadowOffset = 3;
 		static readonly int mapLabelMaxWidth = 180; // Maximum width before a map marker label will enter a new line
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
