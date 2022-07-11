@@ -74,6 +74,19 @@ namespace Mappalachia
 					break;
 			}
 
+			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
+			foreach (MapDataPoint point in plots)
+			{
+				point.x += spaceScaling.xOffset;
+				point.y += spaceScaling.yOffset;
+
+				// Multiply the coordinates by the scaling, but multiply around 0,0
+				point.x = ((point.x - (Map.mapDimension / 2)) * spaceScaling.scale) + (Map.mapDimension / 2);
+				point.y = ((point.y - (Map.mapDimension / 2)) * spaceScaling.scale) + (Map.mapDimension / 2);
+				point.boundX *= spaceScaling.scale;
+				point.boundY *= spaceScaling.scale;
+			}
+
 			return plots;
 		}
 
@@ -106,24 +119,24 @@ namespace Mappalachia
 		// Varies on the plotting mode, and further on the heatmap color mode
 		public Color GetLegendColor()
 		{
-			if (SettingsPlot.IsIcon())
+			switch (SettingsPlot.mode)
 			{
-				return GetIcon().color;
-			}
-			else if (SettingsPlot.IsTopographic())
-			{
-				return SettingsPlotTopograph.legendColor;
-			}
-			else if (SettingsPlot.IsHeatmap())
-			{
-				return SettingsPlotHeatmap.IsMono() ?
+				case SettingsPlot.Mode.Icon:
+					return GetIcon().color;
+
+				case SettingsPlot.Mode.Topography:
+					return SettingsPlotTopograph.legendColor;
+
+				case SettingsPlot.Mode.Heatmap:
+					return SettingsPlotHeatmap.IsMono() ?
 					SettingsPlotStyle.GetFirstColor() :
 					(legendGroup % 2 == 0 ? SettingsPlotStyle.GetFirstColor() : SettingsPlotStyle.GetSecondColor());
-			}
-			else
-			{
-				// Failed to match plot mode
-				return Color.Gray;
+
+				case SettingsPlot.Mode.Cluster:
+					return SettingsPlotStyle.GetFirstColor();
+
+				default:
+					return Color.Gray;
 			}
 		}
 

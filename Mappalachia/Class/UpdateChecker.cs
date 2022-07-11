@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
-using System.Text.RegularExpressions;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace Mappalachia.Class
 {
 	public static class UpdateChecker
 	{
-		static readonly string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		static readonly Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
 		public static async void CheckForUpdate(bool userTriggered)
 		{
 			HttpResponseMessage response;
 
+			// Get the GitHub API response
 			try
 			{
 				// Get the latest release info from GitHub API
@@ -42,41 +42,37 @@ namespace Mappalachia.Class
 				return;
 			}
 
+			// Parse the latest version, and compare to latest
 			try
 			{
-				// Extract the value of 'tag_name' from the json string
-				string responseContent = await response.Content.ReadAsStringAsync();
-				string tagName = "\"tag_name\":";
-				int tagValueStart = responseContent.IndexOf(tagName) + tagName.Length;
-				int tagValueLength = responseContent.Substring(tagValueStart).IndexOf(",");
-				string latestVersion = responseContent.Substring(tagValueStart, tagValueLength).Replace("\"", string.Empty);
+				JsonDocument responseDocument = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+				string latestVersionString = responseDocument.RootElement.GetProperty("tag_name").ToString();
+				Version latestVersion = new Version(latestVersionString);
 
-				// Verify the version string is in the format "x.y.y.y" where x is 1-999 and y is 0-999
-				Regex verifyVersion = new Regex(@"^[1-9]{1,3}(\.[0-9]{1,3}){3}$");
-
-				// We got a valid version string from GitHub
-				if (verifyVersion.IsMatch(latestVersion))
+				if (currentVersion < latestVersion)
 				{
-					if (currentVersion != latestVersion)
+					PromptForUpdate(latestVersion.ToString());
+				}
+				else if (currentVersion > latestVersion)
+				{
+					Console.WriteLine($"Unreleased build {currentVersion}");
+
+					if (userTriggered)
 					{
-						PromptForUpdate(latestVersion);
-					}
-					else if (userTriggered)
-					{
-						Notify.Info("Mappalachia is up to date.\n" +
-							"(Version " + currentVersion + ")");
+						Notify.Info("This build is ahead of the latest release.");
 					}
 				}
-				else
+				else if (userTriggered)
 				{
-					throw new ArgumentException("Version number parsed from response was of an incorrect format.");
+					Notify.Info("Mappalachia is up to date.\n" +
+						"(Version " + currentVersion + ")");
 				}
 			}
 			catch (Exception)
 			{
 				if (userTriggered)
 				{
-					CheckForUpdatesManual("Unable to correctly identify latest release from API response.");
+					CheckForUpdatesManual("Unable to parse latest release from GitHub API response.");
 				}
 
 				return;
@@ -93,7 +89,7 @@ namespace Mappalachia.Class
 				"Check manually?", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 			if (question == DialogResult.Yes)
 			{
-				Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia/releases/latest", UseShellExecute = true });
+				GoToReleases();
 			}
 		}
 
@@ -105,8 +101,13 @@ namespace Mappalachia.Class
 				"Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 			if (question == DialogResult.Yes)
 			{
-				Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia/releases/latest", UseShellExecute = true });
+				GoToReleases();
 			}
+		}
+
+		static void GoToReleases()
+		{
+			IOManager.LaunchURL("https://github.com/AHeroicLlama/Mappalachia/releases/latest");
 		}
 	}
 }

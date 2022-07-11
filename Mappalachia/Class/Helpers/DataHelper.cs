@@ -5,8 +5,11 @@ using System.Linq;
 namespace Mappalachia
 {
 	// Provides data helper methods, data translation and sorting
-	static class DataHelper
+	public static class DataHelper
 	{
+		// A list of entities which are often (mis)represented instead by LVLI in the data
+		public static readonly List<string> typicalLVLIItems = new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" };
+
 		static readonly Dictionary<string, string> signatureDescription = new Dictionary<string, string>
 		{
 			{ "STAT", "Environmental scenery which does not move and cannot be interacted with." },
@@ -158,11 +161,11 @@ namespace Mappalachia
 		// Provide a user-friendly name to the lock level
 		static readonly Dictionary<string, string> lockLevelToFriendlyName = new Dictionary<string, string>
 		{
-			{ string.Empty,			"Not locked" },
-			{ "Novice (Level 0)",	"Level 0" },
-			{ "Advanced (Level 1)",	"Level 1" },
-			{ "Expert (Level 2)",	"Level 2" },
-			{ "Master (Level 3)",	"Level 3" },
+			{ string.Empty,         "Not locked" },
+			{ "Novice (Level 0)",   "Level 0" },
+			{ "Advanced (Level 1)", "Level 1" },
+			{ "Expert (Level 2)",   "Level 2" },
+			{ "Master (Level 3)",   "Level 3" },
 		};
 
 		// Inverse the user friendly lock names so we can use the proper lock levels in queries
@@ -277,6 +280,24 @@ namespace Mappalachia
 		public static double GetSpawnChance(string signature, string editorID)
 		{
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
+		}
+
+		// returns the nth item in a list as if it were cyclic (supports <0 or >n)
+		public static T GetCyclicItem<T>(List<T> collection, int n)
+		{
+			if (collection.Count == 0)
+			{
+				return default;
+			}
+
+			n %= collection.Count;
+
+			if (n < 0)
+			{
+				n = collection.Count + n;
+			}
+
+			return collection[n];
 		}
 	}
 }

@@ -135,17 +135,18 @@ namespace Mappalachia
 			try
 			{
 				Directory.CreateDirectory(tempImageFolder);
-				image.Save(tempImageFilePath);
 			}
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to store a temporary copy of the map image in its temporary folder at " + tempImageFilePath + ".\n\n" +
+					"Mappalachia was unable to create a folder at " + tempImageFilePath + ".\n\n" +
 					genericExceptionHelpText +
 					e);
 
 				return;
 			}
+
+			WriteToFile(tempImageFilePath, image, ImageFormat.Jpeg, 100);
 
 			try
 			{
@@ -167,6 +168,7 @@ namespace Mappalachia
 		{
 			try
 			{
+				FormMaster.UpdateProgressBar("Writing map image to disk...", true);
 				if (imageFormat == ImageFormat.Png)
 				{
 					image.Save(filePath, ImageFormat.Png);
@@ -186,12 +188,15 @@ namespace Mappalachia
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to save your map to " + filePath + ".\n" +
-					"Please try a different location.\n\n" +
+					"Mappalachia was unable to save your map to " + filePath + ".\n\n" +
 					genericExceptionHelpText +
 					e);
 
 				return;
+			}
+			finally
+			{
+				FormMaster.UpdateProgressBar(0);
 			}
 		}
 
@@ -287,7 +292,7 @@ namespace Mappalachia
 		public static Image GetMapMarker(string mapMarkerName)
 		{
 			// Sort of like a constructor for the dict
-			if (mapMarkerimageCache.Count == 0)
+			if (mapMarkerimageCache.IsEmpty)
 			{
 				try
 				{
@@ -319,17 +324,15 @@ namespace Mappalachia
 		// Parallel draws all the SVG map markers into a dictionary
 		static void BuildMapMarkerCache()
 		{
+			FormMaster.UpdateProgressBar(0, "Caching rendered map icons...");
 			List<string> markerNames = Database.GetUniqueMarkerNames();
-			Parallel.ForEach(markerNames, markerName =>
-			{
-				CacheMarker(markerName);
-			});
+			Parallel.ForEach(markerNames, markerName => CacheMarker(markerName));
 		}
 
 		static void CacheMarker(string mapMarkerName)
 		{
 			Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);
-			Bitmap marker = document.Draw((int)((double)document.Width * Map.markerIconScale), 0);
+			Image marker = document.Draw((int)(document.Width * Map.markerIconScale), 0);
 
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{
@@ -413,6 +416,11 @@ namespace Mappalachia
 			}
 
 			return gameVersion;
+		}
+
+		public static void LaunchURL(string url)
+		{
+			Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
 		}
 	}
 }

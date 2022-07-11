@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Mappalachia.Class;
 using Mappalachia.Forms;
@@ -17,25 +18,36 @@ namespace Mappalachia
 
 		static List<Space> spaces;
 
-		public ProgressBar progressBar;
+		static FormMaster self;
+		static bool isDrawing = false;
 
+		static CancellationTokenSource mapDrawCancTokenSource;
+		static CancellationToken mapDrawCancToken;
+
+		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
-		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 
 		static readonly float designDPI = 96; // The DPI which the form was designed for
 
 		public FormMaster()
 		{
+			if (self != null)
+			{
+				throw new Exception("Cannot create multiple instances of the master form!");
+			}
+
+			self = this;
+
 			InitializeComponent();
+
+			UpdateProgressBar(0, "Starting up...");
+
 			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
 			splitContainerMain.Panel1.AutoScrollMinSize = new Size(
 				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Width * dpiScaling),
 				(int)(splitContainerMain.Panel1.AutoScrollMinSize.Height * dpiScaling));
-
-			Map.progressBarMain = progressBarMain;
-			progressBar = progressBarMain;
 
 			// Cleanup on launch in case it didn't run last time
 			IOManager.Cleanup();
@@ -66,10 +78,11 @@ namespace Mappalachia
 			// Apply UI layouts according to current settings
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
-			UpdatePlotMode(false);
+			UpdatePlotModeUI();
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
 			UpdateTopographColorBands(false);
+			UpdateClusterWeb(false);
 			UpdateMapLayerSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
@@ -77,8 +90,7 @@ namespace Mappalachia
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces(false);
 			UpdateSpawnChance();
-
-			Map.SetOutput(pictureBoxMapPreview);
+			SetIsDrawing(false);
 
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -87,10 +99,110 @@ namespace Mappalachia
 			PopulateSpaceList();
 
 			tabControlMainSearch.SelectedIndex = 1;
+
+			UpdateProgressBar(0);
 		}
 
 		// All Methods not directly responding to UI input
 		#region Methods
+
+		// Enable/Disable/Update UI elements based on if a draw is now in progress
+		static void SetIsDrawing(bool isDrawing)
+		{
+			FormMaster.isDrawing = isDrawing;
+			self.buttonDrawMap.Text = isDrawing ? "Cancel" : "Update Map";
+
+			if (!isDrawing)
+			{
+				UpdateProgressBar(0);
+			}
+
+			self.EnableMenuStrip(self.mapMenuItem, !isDrawing);
+			self.EnableMenuStrip(self.plotSettingsMenuItem, !isDrawing);
+
+			self.buttonAddToLegend.Enabled = !isDrawing;
+			self.buttonRemoveFromLegend.Enabled = !isDrawing;
+
+			mapDrawCancTokenSource = new CancellationTokenSource();
+			mapDrawCancToken = mapDrawCancTokenSource.Token;
+
+			if (!isDrawing)
+			{
+				self.UpdatePlotModeUI();
+			}
+		}
+
+		public static void UpdateUIAsync(Action action)
+		{
+			if (self.InvokeRequired)
+			{
+				self.BeginInvoke(action);
+			}
+			else
+			{
+				action.Invoke();
+			}
+		}
+
+		// Updates the progress value and label text of the main form progress bar.
+		public static void UpdateProgressBar(double amount, string labelText, bool forceRefresh)
+		{
+			UpdateProgressBarText(labelText, forceRefresh);
+
+			UpdateUIAsync(() =>
+			{
+				self.progressBarMain.Value = (int)(self.progressBarMain.Maximum * amount);
+			});
+		}
+
+		static void UpdateProgressBarText(string labelText, bool forceRefresh)
+		{
+			UpdateUIAsync(() =>
+			{
+				self.labelProgressBar.Text = labelText;
+				self.labelProgressBar.Location = new Point((self.Width / 2) - (self.labelProgressBar.Width / 2), self.labelProgressBar.Location.Y);
+
+				// Causes the label to repaint, otherwise it won't visually change until we hand back to the UI thead
+				if (forceRefresh)
+				{
+					self.labelProgressBar.Refresh();
+				}
+			});
+		}
+
+		public static void UpdateProgressBar(string labelText, bool forceRefresh)
+		{
+			UpdateProgressBarText(labelText, forceRefresh);
+		}
+
+		public static void UpdateProgressBar(double amount, string labelText)
+		{
+			UpdateProgressBar(amount, labelText, false);
+		}
+
+		public static void UpdateProgressBar(double amount)
+		{
+			// Ensure the bar doesn't stay at full done, and "empties" when a task is finished
+			if (amount == 1)
+			{
+				amount = 0;
+			}
+
+			UpdateProgressBar(amount, amount == 0 ? "Ready" : self.labelProgressBar.Text);
+		}
+
+		public static void UpdateProgressBar(string labelText)
+		{
+			UpdateProgressBarText(labelText, false);
+		}
+
+		public static void SetMapImage(Image image)
+		{
+			UpdateUIAsync(() =>
+			{
+				self.pictureBoxMapPreview.Image = image;
+			});
+		}
 
 		void SizeMapToFrame()
 		{
@@ -286,8 +398,21 @@ namespace Mappalachia
 			}
 		}
 
-		// Update the Plot Settings > Mode options based on the actual value in PlotSettings
+		// Handle a change in plot mode
 		void UpdatePlotMode(bool reDraw)
+		{
+			PlotIcon.ResetCache(); // Reset the plot icon cache, as we are changing plot modes
+
+			if (reDraw)
+			{
+				DrawMap(false);
+			}
+
+			UpdatePlotModeUI();
+		}
+
+		// Refresh the UI enabled state based on the plot mode
+		void UpdatePlotModeUI()
 		{
 			UncheckAllPlotModes();
 
@@ -295,23 +420,32 @@ namespace Mappalachia
 			{
 				case SettingsPlot.Mode.Icon:
 					modeIconMenuItem.Checked = true;
-					drawVolumesMenuItem.Enabled = true;
+					EnableMenuStrip(heatmapSettingsMenuItem, false);
+					EnableMenuStrip(TopographColorBandsMenuItem, false);
+					EnableMenuStrip(clusterSettingsMenuItem, false);
+					EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Heatmap:
 					modeHeatmapMenuItem.Checked = true;
-					drawVolumesMenuItem.Enabled = false;
+					EnableMenuStrip(heatmapSettingsMenuItem, true);
+					EnableMenuStrip(TopographColorBandsMenuItem, false);
+					EnableMenuStrip(clusterSettingsMenuItem, false);
+					EnableMenuStrip(drawVolumesMenuItem, false);
 					break;
 				case SettingsPlot.Mode.Topography:
 					modeTopographyMenuItem.Checked = true;
-					drawVolumesMenuItem.Enabled = true;
+					EnableMenuStrip(heatmapSettingsMenuItem, false);
+					EnableMenuStrip(TopographColorBandsMenuItem, true);
+					EnableMenuStrip(clusterSettingsMenuItem, false);
+					EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
-			}
-
-			PlotIcon.ResetCache(); // Reset the plot icon cache, as we are changing plot modes
-
-			if (reDraw)
-			{
-				DrawMap(false);
+				case SettingsPlot.Mode.Cluster:
+					modeClusterMenuItem.Checked = true;
+					EnableMenuStrip(heatmapSettingsMenuItem, false);
+					EnableMenuStrip(TopographColorBandsMenuItem, false);
+					EnableMenuStrip(clusterSettingsMenuItem, true);
+					EnableMenuStrip(drawVolumesMenuItem, false);
+					break;
 			}
 		}
 
@@ -321,6 +455,7 @@ namespace Mappalachia
 			modeIconMenuItem.Checked = false;
 			modeHeatmapMenuItem.Checked = false;
 			modeTopographyMenuItem.Checked = false;
+			modeClusterMenuItem.Checked = false;
 		}
 
 		// Update the UI with the currently selected heatmap color mode
@@ -405,6 +540,16 @@ namespace Mappalachia
 			}
 		}
 
+		void UpdateClusterWeb(bool reDraw)
+		{
+			showClusterWebMenuItem.Checked = SettingsPlotCluster.clusterWeb;
+
+			if (reDraw && SettingsPlot.IsCluster())
+			{
+				DrawMap(false);
+			}
+		}
+
 		// Update check marks in the UI with current MapSettings, and redraw the map if true
 		void UpdateMapLayerSettings(bool reDraw)
 		{
@@ -462,9 +607,9 @@ namespace Mappalachia
 			searchInAllSpacesMenuItem.Checked = SettingsSearch.searchInAllSpaces;
 
 			if (searchAgain)
-            {
+			{
 				AcceptButton.PerformClick();
-            }
+			}
 		}
 
 		// Update the minimum spawn chance % value on the NPC Search tab
@@ -489,6 +634,17 @@ namespace Mappalachia
 			colorBand3MenuItem.Checked = false;
 			colorBand4MenuItem.Checked = false;
 			colorBand5MenuItem.Checked = false;
+		}
+
+		// Recursively enable/disable a tool strip menu item and all children
+		void EnableMenuStrip(ToolStripMenuItem menuItem, bool enabled)
+		{
+			menuItem.Enabled = enabled;
+
+			foreach (ToolStripMenuItem item in menuItem.DropDownItems)
+			{
+				EnableMenuStrip(item, enabled);
+			}
 		}
 
 		// Collect the enabled signatures from the UI to a list for use by a query
@@ -534,7 +690,7 @@ namespace Mappalachia
 			if (!enabledSignatures.Contains("LVLI"))
 			{
 				// A list of signatures that seem to typically be represented by LVLI
-				foreach (string signatureToWarn in new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" })
+				foreach (string signatureToWarn in DataHelper.typicalLVLIItems)
 				{
 					if (enabledSignatures.Contains(signatureToWarn))
 					{
@@ -711,17 +867,33 @@ namespace Mappalachia
 		}
 
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
-		static void DrawMap(bool drawBaseLayer)
+		public static async void DrawMap(bool drawBaseLayer)
 		{
-			if (drawBaseLayer || forceDrawBaseLayer)
+			if (isDrawing)
 			{
-				Map.DrawBaseLayer();
-				forceDrawBaseLayer = false;
+				return;
 			}
-			else
+
+			SetIsDrawing(true);
+
+			try
 			{
-				Map.Draw();
+				if (drawBaseLayer || forceDrawBaseLayer)
+				{
+					await Task.Run(() => Map.DrawBaseLayer(mapDrawCancToken));
+					forceDrawBaseLayer = false;
+				}
+				else
+				{
+					await Task.Run(() => Map.Draw(mapDrawCancToken));
+				}
 			}
+			catch (Exception e)
+			{
+				Notify.Error("Error during map draw.\n\n" + e);
+			}
+
+			SetIsDrawing(false);
 		}
 
 		static void PreviewMap()
@@ -842,7 +1014,7 @@ namespace Mappalachia
 
 			SizeMapToFrame();
 
-			Map.DrawBaseLayer();
+			DrawMap(true);
 		}
 
 		// Search Settings > Show FormID - Toggle visibility of FormID column
@@ -877,6 +1049,13 @@ namespace Mappalachia
 		private void Plot_Mode_Topography(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Topography;
+			UpdatePlotMode(true);
+		}
+
+		// Plot Settings > Mode > Cluster - Change plot mode to Cluster
+		private void Plot_Mode_Cluster(object sender, EventArgs e)
+		{
+			SettingsPlot.mode = SettingsPlot.Mode.Cluster;
 			UpdatePlotMode(true);
 		}
 
@@ -957,6 +1136,20 @@ namespace Mappalachia
 			UpdateTopographColorBands(true);
 		}
 
+		// Plot Settings > Cluster Settings > Cluster Range...
+		private void Plot_ClusterSettings_ClusterRange(object sender, EventArgs e)
+		{
+			FormSetClusterRange formSetCluster = new FormSetClusterRange();
+			formSetCluster.ShowDialog();
+		}
+
+		// Plot Settings > Cluster Settings > Show Cluster Web
+		private void Plot_ClusterSettings_CluserWeb(object sender, EventArgs e)
+		{
+			SettingsPlotCluster.clusterWeb = !SettingsPlotCluster.clusterWeb;
+			UpdateClusterWeb(true);
+		}
+
 		// Plot Settings > Draw Volumes - Toggle drawing volumes
 		private void Plot_DrawVolumes(object sender, EventArgs e)
 		{
@@ -974,7 +1167,7 @@ namespace Mappalachia
 		// Help > User Guides - Open help guides at github master
 		void Help_UserGuides(object sender, EventArgs e)
 		{
-			Process.Start(new ProcessStartInfo { FileName = "https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides", UseShellExecute = true });
+			IOManager.LaunchURL("https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides");
 		}
 
 		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
@@ -984,15 +1177,15 @@ namespace Mappalachia
 		}
 
 		// Donate > Patreon
-		private void viaPatreonToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Donate_ViaPatreon(object sender, EventArgs e)
 		{
-			Process.Start(new ProcessStartInfo { FileName = "https://www.patreon.com/user?u=73036527", UseShellExecute = true });
+			IOManager.LaunchURL("https://www.patreon.com/user?u=73036527");
 		}
 
 		// Donate > PayPal
-		private void viaPayPalToolStripMenuItem_Click(object sender, EventArgs e)
+		private void Donate_ViaPayPal(object sender, EventArgs e)
 		{
-			Process.Start(new ProcessStartInfo { FileName = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url", UseShellExecute = true });
+			IOManager.LaunchURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
 
 		// Signature select all
@@ -1148,7 +1341,7 @@ namespace Mappalachia
 		{
 			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearch.Enabled = false;
-			progressBarMain.Value = progressBarMain.Minimum;
+			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Check for and show warnings
 			WarnWhenLVLINotSelected();
@@ -1160,14 +1353,10 @@ namespace Mappalachia
 				return;
 			}
 
-			// Pre-query - set progress to 1/2
-			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
-
 			// Execute the search
 			searchResults = Database.SearchStandard(textBoxSearch.Text, GetEnabledSignatures(), GetEnabledLockTypes(), SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
 
-			// Post-query - set progress to 3/4
-			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+			UpdateProgressBar(0.50, "Populating UI...", true);
 
 			// Perform UI update
 			UpdateResultsLockTypeColumnVisibility();
@@ -1179,7 +1368,7 @@ namespace Mappalachia
 
 			// Search complete - re-enable UI and set progress bar to full
 			buttonSearch.Enabled = true;
-			progressBarMain.Value = progressBarMain.Maximum;
+			UpdateProgressBar(1);
 		}
 
 		// Scrap search
@@ -1187,25 +1376,21 @@ namespace Mappalachia
 		{
 			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearchScrap.Enabled = false;
-			progressBarMain.Value = progressBarMain.Minimum;
+			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Perform UI update
 			UpdateResultsLockTypeColumnVisibility();
 
-			// Pre-query - set progress to 1/2
-			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
-
 			searchResults = Database.SearchScrap(listBoxScrap.SelectedItem.ToString(), SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
 
-			// Post-query - set progress to 3/4
-			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+			UpdateProgressBar(0.50, "Populating UI...", true);
 
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
 
 			// Search complete - re-enable UI and set progress bar to full
 			buttonSearchScrap.Enabled = true;
-			progressBarMain.Value = progressBarMain.Maximum;
+			UpdateProgressBar(1);
 		}
 
 		// NPC Search
@@ -1213,13 +1398,10 @@ namespace Mappalachia
 		{
 			// Disable the button to reduce stacking search operations and reset the progress bar
 			buttonSearchNPC.Enabled = false;
-			progressBarMain.Value = progressBarMain.Minimum;
+			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Perform UI update
 			UpdateResultsLockTypeColumnVisibility();
-
-			// Pre-query - set progress to 1/2
-			progressBarMain.Value = progressBarMain.Value = progressBarMain.Maximum / 2;
 
 			searchResults = Database.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
@@ -1227,25 +1409,22 @@ namespace Mappalachia
 				SettingsSpace.GetCurrentFormID(),
 				SettingsSearch.searchInAllSpaces);
 
-			// Post-query - set progress to 3/4
-			progressBarMain.Value = progressBarMain.Value = (int)(progressBarMain.Maximum * 0.75);
+			UpdateProgressBar(0.50, "Populating UI...", true);
 
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
 
 			// Search complete - re-enable UI and set progress bar to full
 			buttonSearchNPC.Enabled = true;
-			progressBarMain.Value = progressBarMain.Maximum;
+			UpdateProgressBar(1);
 		}
 
 		// Add selected valid items from the search results to the legend.
 		private void ButtonAddToLegend(object sender, EventArgs e)
 		{
-			int totalItems = gridViewSearchResults.SelectedRows.Count;
+			double totalItems = gridViewSearchResults.SelectedRows.Count;
 
-			// Only use or animate the progress bar for adding to legend if this is a large operation
-			bool useProgressBar = totalItems > 5000;
-			float progress = 0;
+			UpdateProgressBar($"Adding {totalItems} items...", true);
 
 			if (totalItems == 0)
 			{
@@ -1266,13 +1445,14 @@ namespace Mappalachia
 			// Record the contents of the legend before we start adding to it
 			List<MapItem> legendItemsBeforeAdd = new List<MapItem>(legendItems);
 
-			if (useProgressBar)
-			{
-				progressBarMain.Value = progressBarMain.Minimum;
-			}
+			int progress = 0;
 
 			foreach (DataGridViewRow row in gridViewSearchResults.SelectedRows.Cast<DataGridViewRow>().Reverse())
 			{
+				progress++;
+
+				UpdateProgressBar(progress / totalItems);
+
 				MapItem selectedItem = searchResults[Convert.ToInt32(row.Cells["columnSearchIndex"].Value)];
 
 				// Warn if a selected item is another space item or already on the legend list - otherwise add it.
@@ -1295,13 +1475,9 @@ namespace Mappalachia
 
 					legendItems.Add(selectedItem);
 				}
-
-				if (useProgressBar)
-				{
-					progress++;
-					progressBarMain.Value = (int)(progress / totalItems * progressBarMain.Maximum);
-				}
 			}
+
+			UpdateProgressBar("Validating...");
 
 			int totalRejectedItems = rejectedItemsOtherSpace.Count + rejectedItemsDuplicate.Count;
 
@@ -1344,23 +1520,29 @@ namespace Mappalachia
 
 				Notify.Info(message);
 			}
+
+			UpdateProgressBar(1);
 		}
 
 		// Remove selected rows from legend DataGridView
 		private void ButtonRemoveFromLegend(object sender, EventArgs e)
 		{
-			if (gridViewLegend.SelectedRows.Count == 0)
+			int selectedRowsCount = gridViewLegend.SelectedRows.Count;
+
+			if (selectedRowsCount == 0)
 			{
 				Notify.Info("Please select items from the 'items to plot' list first.");
 				return;
 			}
 
 			// If they are removing *everything*, then we can skip the processing below and just wipe the list
-			if (gridViewLegend.SelectedRows.Count == legendItems.Count)
+			if (selectedRowsCount == legendItems.Count)
 			{
 				ClearLegend();
 				return;
 			}
+
+			UpdateProgressBar($"Removing {selectedRowsCount} items...", true);
 
 			List<MapItem> remainingLegendItems = new List<MapItem>();
 			List<int> selectedIndexes = new List<int>();
@@ -1387,6 +1569,7 @@ namespace Mappalachia
 			legendItems = remainingLegendItems;
 
 			UpdateLegendGrid(null);
+			UpdateProgressBar(1);
 		}
 
 		// Handle the entry and assignment of new values to the Legend Group column or Overriding legend text
@@ -1452,6 +1635,13 @@ namespace Mappalachia
 
 		void ButtonDrawMap(object sender, EventArgs e)
 		{
+			if (isDrawing)
+			{
+				buttonDrawMap.Text = "Cancelling...";
+				mapDrawCancTokenSource.Cancel();
+				return;
+			}
+
 			DrawMap(false);
 		}
 
@@ -1488,8 +1678,8 @@ namespace Mappalachia
 		// Pick up scroll wheel events and apply them to zoom the map preview
 		protected override void OnMouseWheel(MouseEventArgs mouseEvent)
 		{
-			int minZoom = Map.minZoom;
-			int maxZoom = Map.maxZoom;
+			double minZoom = Map.mapDimension * Map.minZoomRatio;
+			double maxZoom = Map.mapDimension * Map.maxZoomRatio;
 
 			// Record the center coord of the 'viewport' (The container of the PictureBox)
 			int viewPortCenterX = splitContainerMain.Panel2.Width / 2;
@@ -1508,8 +1698,8 @@ namespace Mappalachia
 			float zoomRatio = 1 + ((mouseEvent.Delta > 0) ? magnitude : -magnitude);
 
 			// Calculate the new dimensions once zoomed, given zoom limits
-			int newWidth = Math.Max(Math.Min(maxZoom, (int)(width * zoomRatio)), minZoom);
-			int newHeight = Math.Max(Math.Min(maxZoom, (int)(height * zoomRatio)), minZoom);
+			int newWidth = (int)Math.Max(Math.Min(maxZoom, width * zoomRatio), minZoom);
+			int newHeight = (int)Math.Max(Math.Min(maxZoom, height * zoomRatio), minZoom);
 
 			// Calculate the required position offset while also factoring the offset to keep the apparent center pixel the same
 			int widthOffset = (width - newWidth) * apparentCenter.X / Map.mapDimension;

@@ -4,13 +4,13 @@ namespace Mappalachia.Class
 {
 	public class SpaceScaling
 	{
-		public double xOffset;
-		public double yOffset;
-		public double scale;
+		public float xOffset;
+		public float yOffset;
+		public float scale;
 
 		static readonly double zoomPadding = Map.plotXMin + SettingsPlotStyle.iconSize; // Number of pixels in from each side where the scaling/zooming will stop
 
-		public SpaceScaling(double xOffset, double yOffset, double scale)
+		public SpaceScaling(float xOffset, float yOffset, float scale)
 		{
 			this.xOffset = xOffset;
 			this.yOffset = yOffset;
@@ -35,9 +35,9 @@ namespace Mappalachia.Class
 				largestWidth = 1;
 			}
 
-			double bestZoomRatio = (Map.mapDimension - (zoomPadding * 2)) / largestWidth;
-			double xOffset = -(xCenter - (Map.mapDimension / 2));
-			double yOffset = -(yCenter - (Map.mapDimension / 2));
+			float bestZoomRatio = (float)((Map.mapDimension - (zoomPadding * 2)) / largestWidth);
+			float xOffset = (float)(-(xCenter - (Map.mapDimension / 2)));
+			float yOffset = (float)(-(yCenter - (Map.mapDimension / 2)));
 
 			return new SpaceScaling(xOffset, yOffset, bestZoomRatio);
 		}

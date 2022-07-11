@@ -37,7 +37,7 @@ namespace Mappalachia.Class
 
 			// Otherwise, duo color mode - return an interpolated color based on assigned weights
 			double increment = weights[0] / squareSumWeight; // Normalized distance between color one and two
-			Color interpolatedColor = ImageTools.LerpColors(SettingsPlotStyle.GetSecondColor(), SettingsPlotStyle.GetFirstColor(), increment);
+			Color interpolatedColor = ImageHelper.LerpColors(SettingsPlotStyle.GetSecondColor(), SettingsPlotStyle.GetFirstColor(), increment);
 
 			return Color.FromArgb((int)alpha, interpolatedColor);
 		}

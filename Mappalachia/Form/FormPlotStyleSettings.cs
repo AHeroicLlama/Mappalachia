@@ -334,7 +334,7 @@ namespace Mappalachia
 
 			Close();
 
-			Map.Draw();
+			FormMaster.DrawMap(false);
 		}
 	}
 }

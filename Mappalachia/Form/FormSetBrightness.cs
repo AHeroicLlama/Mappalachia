@@ -21,7 +21,7 @@ namespace Mappalachia.Forms
 
 			Close();
 
-			Map.DrawBaseLayer();
+			FormMaster.DrawMap(true);
 		}
 	}
 }
