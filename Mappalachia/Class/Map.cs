@@ -20,7 +20,7 @@ namespace Mappalachia
 
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All background images should be this^2
-		public static readonly double maxZoomRatio = 3;
+		public static readonly double maxZoomRatio = 2.5;
 		public static readonly double minZoomRatio = 0.05;
 		public static readonly double markerIconScale = 1; // The scaling applied to map marker icons
 
