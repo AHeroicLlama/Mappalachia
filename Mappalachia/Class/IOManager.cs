@@ -164,7 +164,7 @@ namespace Mappalachia
 		}
 
 		// Write the map image to the location with the file settings given
-		public static void WriteToFile(string filePath, Image image, ImageFormat imageFormat, int jpegQuality)
+		public static void WriteToFile(string filePath, Image image, ImageFormat imageFormat, int jpegQuality, bool openExplorer = false)
 		{
 			try
 			{
@@ -183,6 +183,11 @@ namespace Mappalachia
 				else
 				{
 					throw new ArgumentException("Invalid ImageFormat type " + imageFormat);
+				}
+
+				if (openExplorer)
+				{
+					Process.Start("explorer.exe", "/select," + filePath);
 				}
 			}
 			catch (Exception e)

@@ -11,11 +11,13 @@
 		public static readonly int jpegQualityMin = 20;
 		public static readonly int jpegQualityMax = 100;
 		public static readonly int jpegQualityDefault = 85;
+		public static readonly bool openExplorerDefault = true;
 
 		public static bool useRecommended { get; private set; } = true;
 
 		public static FileType fileType = FileType.JPEG;
 		public static int jpegQuality = jpegQualityDefault;
+		public static bool openExplorer = openExplorerDefault;
 
 		public static bool IsPNG()
 		{
