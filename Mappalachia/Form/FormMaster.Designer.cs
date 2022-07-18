@@ -45,6 +45,7 @@ namespace Mappalachia
 			this.showMapLabelsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.hideLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exportToFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.quickSaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.searchSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -188,6 +189,7 @@ namespace Mappalachia
             this.mapMarkersMenuItem,
             this.hideLegendMenuItem,
             this.exportToFileMenuItem,
+            this.quickSaveMenuItem,
             this.clearMenuItem,
             this.resetMenuItem});
 			this.mapMenuItem.Name = "mapMenuItem";
@@ -279,6 +281,16 @@ namespace Mappalachia
 			this.exportToFileMenuItem.ToolTipText = "Save the current map image to a file.";
 			this.exportToFileMenuItem.Click += new System.EventHandler(this.Map_Export);
 			// 
+			// quickSaveMenuItem
+			// 
+			this.quickSaveMenuItem.Name = "quickSaveMenuItem";
+			this.quickSaveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+			this.quickSaveMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.quickSaveMenuItem.Text = "Quick Save";
+			this.quickSaveMenuItem.ToolTipText = "Quickly saves the current map to a file and displays it in the file explorer.";
+			this.quickSaveMenuItem.Click += new System.EventHandler(this.Map_QuickSave);
+			// 
 			// clearMenuItem
 			// 
 			this.clearMenuItem.Name = "clearMenuItem";
@@ -355,7 +367,7 @@ namespace Mappalachia
 			// 
 			this.modeIconMenuItem.Name = "modeIconMenuItem";
 			this.modeIconMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
-			this.modeIconMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeIconMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeIconMenuItem.Text = "Icon";
 			this.modeIconMenuItem.ToolTipText = "Use icons to represent locations of multiple items on the map.";
 			this.modeIconMenuItem.Click += new System.EventHandler(this.Plot_Mode_Icon);
@@ -364,7 +376,7 @@ namespace Mappalachia
 			// 
 			this.modeTopographyMenuItem.Name = "modeTopographyMenuItem";
 			this.modeTopographyMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.T)));
-			this.modeTopographyMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeTopographyMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeTopographyMenuItem.Text = "Topographic";
 			this.modeTopographyMenuItem.ToolTipText = "Uses color to represent the height of items.";
 			this.modeTopographyMenuItem.Click += new System.EventHandler(this.Plot_Mode_Topography);
@@ -373,7 +385,7 @@ namespace Mappalachia
 			// 
 			this.modeHeatmapMenuItem.Name = "modeHeatmapMenuItem";
 			this.modeHeatmapMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
-			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeHeatmapMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeHeatmapMenuItem.Text = "Heatmap";
 			this.modeHeatmapMenuItem.ToolTipText = "Use a heatmap to represent the density distribution of items.";
 			this.modeHeatmapMenuItem.Click += new System.EventHandler(this.Plot_Mode_Heatmap);
@@ -382,7 +394,7 @@ namespace Mappalachia
 			// 
 			this.modeClusterMenuItem.Name = "modeClusterMenuItem";
 			this.modeClusterMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-			this.modeClusterMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.modeClusterMenuItem.Size = new System.Drawing.Size(176, 22);
 			this.modeClusterMenuItem.Text = "Cluster";
 			this.modeClusterMenuItem.ToolTipText = "Group nearby plots together, displaying the amount within the cluster.";
 			this.modeClusterMenuItem.Click += new System.EventHandler(this.Plot_Mode_Cluster);
@@ -410,28 +422,28 @@ namespace Mappalachia
 			// colorBand2MenuItem
 			// 
 			this.colorBand2MenuItem.Name = "colorBand2MenuItem";
-			this.colorBand2MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand2MenuItem.Size = new System.Drawing.Size(80, 22);
 			this.colorBand2MenuItem.Text = "2";
 			this.colorBand2MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_2);
 			// 
 			// colorBand3MenuItem
 			// 
 			this.colorBand3MenuItem.Name = "colorBand3MenuItem";
-			this.colorBand3MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand3MenuItem.Size = new System.Drawing.Size(80, 22);
 			this.colorBand3MenuItem.Text = "3";
 			this.colorBand3MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_3);
 			// 
 			// colorBand4MenuItem
 			// 
 			this.colorBand4MenuItem.Name = "colorBand4MenuItem";
-			this.colorBand4MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand4MenuItem.Size = new System.Drawing.Size(80, 22);
 			this.colorBand4MenuItem.Text = "4";
 			this.colorBand4MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_4);
 			// 
 			// colorBand5MenuItem
 			// 
 			this.colorBand5MenuItem.Name = "colorBand5MenuItem";
-			this.colorBand5MenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorBand5MenuItem.Size = new System.Drawing.Size(80, 22);
 			this.colorBand5MenuItem.Text = "5";
 			this.colorBand5MenuItem.Click += new System.EventHandler(this.Plot_TopographBands_5);
 			// 
@@ -451,7 +463,7 @@ namespace Mappalachia
             this.monoColorModeMenuItem,
             this.duoColorModeMenuItem});
 			this.colorModeMenuItem.Name = "colorModeMenuItem";
-			this.colorModeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.colorModeMenuItem.Size = new System.Drawing.Size(137, 22);
 			this.colorModeMenuItem.Text = "Color Mode";
 			this.colorModeMenuItem.ToolTipText = "Change the heatmap between mono (one color) and duo (two colors).";
 			// 
@@ -480,7 +492,7 @@ namespace Mappalachia
             this.resolution512MenuItem,
             this.resolution1024MenuItem});
 			this.resolutionMenuItem.Name = "resolutionMenuItem";
-			this.resolutionMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.resolutionMenuItem.Size = new System.Drawing.Size(137, 22);
 			this.resolutionMenuItem.Text = "Resolution";
 			this.resolutionMenuItem.ToolTipText = "Change the resolution, and hence precision of the heatmap.";
 			// 
@@ -529,7 +541,7 @@ namespace Mappalachia
 			// clusterRangeMenuItem
 			// 
 			this.clusterRangeMenuItem.Name = "clusterRangeMenuItem";
-			this.clusterRangeMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.clusterRangeMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.clusterRangeMenuItem.Text = "Set Cluster Range...";
 			this.clusterRangeMenuItem.ToolTipText = "Set the size of clusters.";
 			this.clusterRangeMenuItem.Click += new System.EventHandler(this.Plot_ClusterSettings_ClusterRange);
@@ -537,7 +549,7 @@ namespace Mappalachia
 			// showClusterWebMenuItem
 			// 
 			this.showClusterWebMenuItem.Name = "showClusterWebMenuItem";
-			this.showClusterWebMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.showClusterWebMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.showClusterWebMenuItem.Text = "Show Cluster Web";
 			this.showClusterWebMenuItem.ToolTipText = "See more info by drawing lines from each point to their cluster parent, creating " +
     "a \"web\".";
@@ -1275,7 +1287,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-7, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-10, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1541,6 +1553,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem clusterSettingsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showClusterWebMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clusterRangeMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem quickSaveMenuItem;
 	}
 }
 

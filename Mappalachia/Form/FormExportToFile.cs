@@ -68,8 +68,15 @@ namespace Mappalachia
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
+				string fileName = dialog.FileName;
 				ImageFormat imageFormat = SettingsFileExport.IsPNG() ? ImageFormat.Png : ImageFormat.Jpeg;
-				IOManager.WriteToFile(dialog.FileName, Map.GetImage(), imageFormat, SettingsFileExport.jpegQuality, SettingsFileExport.openExplorer);
+				IOManager.WriteToFile(fileName, Map.GetImage(), imageFormat, SettingsFileExport.jpegQuality);
+
+				if (SettingsFileExport.openExplorer)
+				{
+					IOManager.SelectFile(fileName);
+				}
+
 				Close();
 			}
 		}

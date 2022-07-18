@@ -34,19 +34,19 @@
 		{
 			if (useRecommended)
 			{
-				// Worldspace - prefer JPEG allowing for compression
+				fileType = GetFileTypeRecommendation();
+
+				// Don't adjust the jpeg quality unless it's the recommended type
 				if (SettingsSpace.CurrentSpaceIsWorld())
 				{
-					fileType = FileType.JPEG;
 					jpegQuality = jpegQualityDefault;
 				}
-
-				// Cell - perfer PNG allowing for transparency
-				else
-				{
-					fileType = FileType.PNG;
-				}
 			}
+		}
+
+		public static FileType GetFileTypeRecommendation()
+		{
+			return SettingsSpace.CurrentSpaceIsWorld() ? FileType.JPEG : FileType.PNG;
 		}
 
 		public static void SetUseRecommended(bool newValue)

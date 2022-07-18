@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -979,6 +980,13 @@ namespace Mappalachia
 		{
 			FormExportToFile formExportToFile = new FormExportToFile();
 			formExportToFile.ShowDialog();
+		}
+
+		// Map > Quick Save
+		// Simulates a normal file export operation, but assumes default settings in all cases to quickly get the file written
+		private void Map_QuickSave(object sender, EventArgs e)
+		{
+			IOManager.QuickSaveImage(Map.GetImage(), IOManager.OpenImageMode.SelectInExplorer);
 		}
 
 		// Map > Clear - Remove legend items and remove plotted layers from the map

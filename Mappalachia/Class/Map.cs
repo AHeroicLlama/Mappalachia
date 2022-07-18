@@ -900,7 +900,7 @@ namespace Mappalachia
 
 		public static void Open()
 		{
-			IOManager.OpenImage(finalImage);
+			IOManager.QuickSaveImage(finalImage, IOManager.OpenImageMode.OpenInDefaultFileViewer);
 		}
 	}
 }
