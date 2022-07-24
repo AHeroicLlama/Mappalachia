@@ -18,8 +18,8 @@ namespace Mappalachia
 	{
 		public enum OpenImageMode
 		{
-			SelectInExplorer,
-			OpenInDefaultFileViewer,
+			QuickSaveInExplorer,
+			TempSaveInViewer,
 		}
 
 		static readonly string imgFolder = @"img\";
@@ -35,14 +35,12 @@ namespace Mappalachia
 		static readonly string mapMarkerFileExtension = ".svg";
 
 		static readonly string tempImageFolder = @"temp\";
-		static readonly string tempImageBaseFileName = "mappalachia_preview";
+		static readonly string quickSaveFolder = @"QuickSaves\";
 
 		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
 		static readonly ConcurrentDictionary<string, Image> mapMarkerimageCache = new ConcurrentDictionary<string, Image>();
 
 		static Image imageMapMilitary;
-
-		static int tempImageCount = 0;
 
 		static string gameVersion;
 
@@ -85,28 +83,6 @@ namespace Mappalachia
 			}
 		}
 
-		// Find a new name and place to put a temporary image
-		// Always increment a number in the file name to avoid collisions
-		static string GetNewTempImageFilePath()
-		{
-			tempImageCount++;
-
-			string extension = ".png";
-
-			switch (SettingsFileExport.GetFileTypeRecommendation())
-			{
-				case SettingsFileExport.FileType.PNG:
-					extension = ".png";
-					break;
-
-				case SettingsFileExport.FileType.JPEG:
-					extension = ".jpeg";
-					break;
-			}
-
-			return tempImageFolder + tempImageBaseFileName + "_" + tempImageCount + extension;
-		}
-
 		// Return an open connection to the database. Exit if it fails.
 		public static SqliteConnection OpenDatabase()
 		{
@@ -128,16 +104,16 @@ namespace Mappalachia
 			}
 		}
 
-		static void GenerateTempImageFolder()
+		static void GenerateFolder(string folderName)
 		{
 			try
 			{
-				Directory.CreateDirectory(tempImageFolder);
+				Directory.CreateDirectory(folderName);
 			}
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to create the temporary folder at " + tempImageFolder + "\n" +
+					"Mappalachia was unable to create the directory at " + tempImageFolder + "\n" +
 					"Previewing and quick-saving maps may not be available.\n\n" +
 					genericExceptionHelpText +
 					e);
@@ -149,12 +125,22 @@ namespace Mappalachia
 		// Saves the given map image with recommended paramaters, and either opens it in default file viewer, or selects it in explorer
 		public static void QuickSaveImage(Image image, OpenImageMode openImageMode)
 		{
-			string filePath = GetNewTempImageFilePath();
+			string folderPath = string.Empty;
+
+			if (openImageMode == OpenImageMode.TempSaveInViewer)
+			{
+				folderPath = tempImageFolder;
+			}
+			else if (openImageMode == OpenImageMode.QuickSaveInExplorer)
+			{
+				folderPath = quickSaveFolder;
+			}
+
+			string filePath = $"{folderPath}Mappalachia_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_FFF")}.{SettingsFileExport.GetFileTypeRecommendation()}";
 
 			try
 			{
-				GenerateTempImageFolder();
-
+				GenerateFolder(folderPath);
 				ImageFormat imageFormat;
 
 				switch (SettingsFileExport.GetFileTypeRecommendation())
@@ -174,11 +160,11 @@ namespace Mappalachia
 
 				WriteToFile(filePath, Map.GetImage(), imageFormat, SettingsFileExport.jpegQualityDefault);
 
-				if (openImageMode == OpenImageMode.OpenInDefaultFileViewer)
+				if (openImageMode == OpenImageMode.TempSaveInViewer)
 				{
 					Process.Start(new ProcessStartInfo { FileName = filePath, UseShellExecute = true });
 				}
-				else if (openImageMode == OpenImageMode.SelectInExplorer)
+				else if (openImageMode == OpenImageMode.QuickSaveInExplorer)
 				{
 					SelectFile(filePath);
 				}
