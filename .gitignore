@@ -7,6 +7,9 @@ FO76Edit/Edit Scripts/*
 #SQLite and database generation
 Database/*.db-journal
 
+#fo76utils dlls
+FO76Utils/*.dll
+
 #FO76Edit/Sigcheck/sqlite3
 *.exe
 
