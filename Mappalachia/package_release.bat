@@ -5,6 +5,7 @@ title Mappalachia Release Packager
 set publishFolder=publish
 set outputFile=Mappalachia.zip
 set prefsFile=mappalachia_prefs.ini
+set quickSaveFolder=QuickSaves
 
 echo Checking for published build...
 for %%f in ("Mappalachia.exe" "data\mappalachia.db") do if not exist "%publishFolder%\%%~f" (
@@ -13,8 +14,9 @@ for %%f in ("Mappalachia.exe" "data\mappalachia.db") do if not exist "%publishFo
 	EXIT
 )
 
-echo Removing preferences file prior to zipping...
+echo Removing preferences file and QuickSaves folder prior to zipping...
 del %publishFolder%\%prefsFile%
+rmdir /s %publishFolder%\%quickSaveFolder% /q
 
 echo Zipping release...
 powershell Compress-Archive %publishFolder%\* %outputFile% -Force

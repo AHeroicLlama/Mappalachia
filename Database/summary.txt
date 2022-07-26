@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-425c2a7a3a6a46f78ec4a6c0e3ace3d2
+f9561f844d38c70fff271c2ccd043dd1
 ==File Size== 
-372506624 
+372510720 
 ==Tables== 
 Entity_Info      Map_Markers      Scrap_Search   
 Game_Version     NPC_Search       Space_Info     
@@ -12,9 +12,9 @@ Lock_Levels      Position_Data    Standard_Search
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.6.4.64
+1.6.4.78
 ==Mean Average X/Y/Z Coord==
--12087.681618422|4803.9837276352|12052.6036107632
+-12088.7962755997|4804.11662152305|12052.5425298293
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -121,13 +121,13 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.383761806458
+21.3839294484746
 ==Average Y Bounds Width==
-16.0059974742527
+16.0072501478662
 ==Average Z Bounds Width==
-14.9362217453572
+14.9361983330303
 ==Average Z Rotation==
-3.99800563146557
+3.99799936464545
 ==Average display name string length==
 2.65830650595194
 ==Average editorID string length==
@@ -538,7 +538,7 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3007444
+Appalachia||3007451
 Appalachia|Box|62977
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
@@ -549,7 +549,7 @@ ArktosPharmaLab01|Box|1483
 ArktosPharmaLab01|Line|11
 ArktosPharmaLab01|Plane|13
 ArktosPharmaLab01|Sphere|6
-ArktosPharmaLabDungeon||13374
+ArktosPharmaLabDungeon||13375
 ArktosPharmaLabDungeon|Box|1225
 ArktosPharmaLabDungeon|Line|11
 ArktosPharmaLabDungeon|Plane|13
@@ -803,7 +803,7 @@ UCB01|Line|4
 UCB01|Sphere|1
 UCB02||75
 UCB02|Box|2
-UncannyCaverns01||3795
+UncannyCaverns01||3793
 UncannyCaverns01|Box|432
 UncannyCaverns01|Line|1
 UncannyCaverns01|Sphere|2
@@ -907,7 +907,7 @@ AlleghenyAsylum01|Advanced (Level 1)|4
 AlleghenyAsylum01|Expert (Level 2)|4
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Opens Door|2
-Appalachia||30494
+Appalachia||30495
 Appalachia|Advanced (Level 1)|76
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1457,7 +1457,7 @@ Appalachia|PROJ|2
 Appalachia|SCOL|8930
 Appalachia|SECH|10
 Appalachia|SOUN|160
-Appalachia|STAT|15164
+Appalachia|STAT|15165
 Appalachia|TACT|36
 Appalachia|TERM|217
 Appalachia|TXST|375
@@ -6412,37 +6412,37 @@ Appalachia|Bloodbug|0.41984126984127|70
 Appalachia|Cave Cricket|0.0818847215586345|161
 Appalachia|Deathclaw|0.342948717948718|8
 Appalachia|Fog Crawler|0.12857905982906|48
-Appalachia|Ghoul|0.500460905060419|1030
+Appalachia|Ghoul|0.497154297479442|1038
 Appalachia|Gulper|0.147427006650308|103
-Appalachia|Honey Beast|0.191836734693877|7
-Appalachia|Insect|0.163912013912014|225
-Appalachia|Liberator|0.163278218694886|450
-Appalachia|Mega Sloth|0.123931623931624|6
+Appalachia|Honey Beast|0.234285714285714|10
+Appalachia|Insect|0.160736616745201|233
+Appalachia|Liberator|0.165318754313319|460
+Appalachia|Mega Sloth|0.193732193732194|9
 Appalachia|Mirelurk|0.33939306142696|177
 Appalachia|Mole Miner|0.616434010152284|197
-Appalachia|Mole Rat|0.147228240106147|516
+Appalachia|Mole Rat|0.146070993256108|524
 Appalachia|Rad Ant|0.25|14
-Appalachia|Rad Rat|0.0904765733771671|337
-Appalachia|Rad Scorpion|0.166786370195461|99
+Appalachia|Rad Rat|0.0900348805783591|345
+Appalachia|Rad Scorpion|0.159656815147469|107
 Appalachia|Rad Toad|0.174074074074074|48
 Appalachia|Radroach|0.25|2
 Appalachia|Robot|0.383360106480631|419
-Appalachia|Scorched|0.555036272536275|1110
-Appalachia|Snallygaster|0.714285714285714|23
+Appalachia|Scorched|0.551976488906786|1119
+Appalachia|Snallygaster|0.67032967032967|26
 Appalachia|Stingwing|0.571428571428572|6
-Appalachia|Super Mutant|0.457309366068836|792
+Appalachia|Super Mutant|0.454879129551005|800
 Appalachia|Swamp|0.542857142857143|7
 Appalachia|Tick|0.852941176470588|17
-Appalachia|Vicious Dog|0.162803388278388|500
-Appalachia|Wolf|0.201043338683789|178
-Appalachia|Yao Guai|0.111418709495633|130
+Appalachia|Vicious Dog|0.16136441478469|508
+Appalachia|Wolf|0.198540706605223|186
+Appalachia|Yao Guai|0.10910044062218|138
 ArktosPharmaLab01|Ghoul|1.0|3
 BelchingBetty01|Scorched|1.0|22
 BlackwaterMine01|Mole Miner|1.0|18
 BurningMine01|Mole Miner|1.0|13
 Burrows01|Ghoul|1.0|1
 Burrows01|Robot|1.0|5
-CharlestonCapitolBuilding02|Ghoul|1.0|33
+CharlestonCapitolBuilding02|Ghoul|1.0|38
 DyerChemical01|Ghoul|1.0|8
 DyerChemical01|Robot|1.0|1
 EasternRegionalPen01|Ghoul|1.0|45
