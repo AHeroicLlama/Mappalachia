@@ -16,6 +16,12 @@ namespace Mappalachia
 	// File opening, reading, writing and cleanup operations
 	class IOManager
 	{
+		public enum OpenImageMode
+		{
+			QuickSaveInExplorer,
+			TempSaveInViewer,
+		}
+
 		static readonly string imgFolder = @"img\";
 		static readonly string dataFolder = @"data\";
 		static readonly string fontFolder = @"font\";
@@ -29,15 +35,12 @@ namespace Mappalachia
 		static readonly string mapMarkerFileExtension = ".svg";
 
 		static readonly string tempImageFolder = @"temp\";
-		static readonly string tempImageBaseFileName = "mappalachia_preview";
-		static readonly string tempImageFileExtension = ".png";
+		static readonly string quickSaveFolder = @"QuickSaves\";
 
 		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
 		static readonly ConcurrentDictionary<string, Image> mapMarkerimageCache = new ConcurrentDictionary<string, Image>();
 
 		static Image imageMapMilitary;
-
-		static int tempImageLockedCount = 0;
 
 		static string gameVersion;
 
@@ -80,32 +83,6 @@ namespace Mappalachia
 			}
 		}
 
-		// Find a new place to put a temporary image
-		// Use the default location if it's not used or can be deleted
-		// Otherwise if it is locked, start incrementing on the file name.
-		static string GetNewTempImageFilePath()
-		{
-			string idealTempFile = tempImageFolder + tempImageBaseFileName + tempImageFileExtension;
-			if (File.Exists(idealTempFile))
-			{
-				try
-				{
-					// If we can re-use the old location, let's
-					File.Delete(idealTempFile);
-					return idealTempFile;
-				}
-				catch
-				{
-					tempImageLockedCount++;
-					return tempImageFolder + tempImageBaseFileName + tempImageLockedCount + tempImageFileExtension;
-				}
-			}
-			else
-			{
-				return idealTempFile;
-			}
-		}
-
 		// Return an open connection to the database. Exit if it fails.
 		public static SqliteConnection OpenDatabase()
 		{
@@ -127,35 +104,75 @@ namespace Mappalachia
 			}
 		}
 
-		// Open the current map image in the default viewer
-		public static void OpenImage(Image image)
+		static void GenerateFolder(string folderName)
 		{
-			string tempImageFilePath = GetNewTempImageFilePath();
-
 			try
 			{
-				Directory.CreateDirectory(tempImageFolder);
+				Directory.CreateDirectory(folderName);
 			}
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to create a folder at " + tempImageFilePath + ".\n\n" +
+					"Mappalachia was unable to create the directory at " + tempImageFolder + "\n" +
+					"Previewing and quick-saving maps may not be available.\n\n" +
 					genericExceptionHelpText +
 					e);
 
 				return;
 			}
+		}
 
-			WriteToFile(tempImageFilePath, image, ImageFormat.Jpeg, 100);
+		// Saves the given map image with recommended paramaters, and either opens it in default file viewer, or selects it in explorer
+		public static void QuickSaveImage(Image image, OpenImageMode openImageMode)
+		{
+			string folderPath = string.Empty;
+
+			if (openImageMode == OpenImageMode.TempSaveInViewer)
+			{
+				folderPath = tempImageFolder;
+			}
+			else if (openImageMode == OpenImageMode.QuickSaveInExplorer)
+			{
+				folderPath = quickSaveFolder;
+			}
+
+			string filePath = $"{folderPath}Mappalachia_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss_FFF")}.{SettingsFileExport.GetFileTypeRecommendation()}";
 
 			try
 			{
-				Process.Start(new ProcessStartInfo { FileName = tempImageFilePath, UseShellExecute = true });
+				GenerateFolder(folderPath);
+				ImageFormat imageFormat;
+
+				switch (SettingsFileExport.GetFileTypeRecommendation())
+				{
+					case SettingsFileExport.FileType.PNG:
+						imageFormat = ImageFormat.Png;
+						break;
+
+					case SettingsFileExport.FileType.JPEG:
+						imageFormat = ImageFormat.Jpeg;
+						break;
+
+					default:
+						imageFormat = ImageFormat.Jpeg;
+						break;
+				}
+
+				WriteToFile(filePath, Map.GetImage(), imageFormat, SettingsFileExport.jpegQualityDefault);
+
+				if (openImageMode == OpenImageMode.TempSaveInViewer)
+				{
+					Process.Start(new ProcessStartInfo { FileName = filePath, UseShellExecute = true });
+				}
+				else if (openImageMode == OpenImageMode.QuickSaveInExplorer)
+				{
+					SelectFile(filePath);
+				}
 			}
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to launch your default photo viewer to view the temporary map image at " + tempImageFilePath + ".\n\n" +
+					"Mappalachia was unable to save or open your temporary map image at " + filePath + ".\n\n" +
 					genericExceptionHelpText +
 					e);
 
@@ -197,6 +214,21 @@ namespace Mappalachia
 			finally
 			{
 				FormMaster.UpdateProgressBar(0);
+			}
+		}
+
+		public static void SelectFile(string path)
+		{
+			try
+			{
+				Process.Start("explorer.exe", "/select," + path);
+			}
+			catch (Exception e)
+			{
+				Notify.Error(
+					"Mappalachia was unable to select the given file at " + path + ".\n\n" +
+					genericExceptionHelpText +
+					e);
 			}
 		}
 

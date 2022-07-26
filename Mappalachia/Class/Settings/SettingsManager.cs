@@ -91,6 +91,7 @@ namespace Mappalachia.Class
 			settings.Add("useRecommended=" + BoolToIntStr(SettingsFileExport.useRecommended));
 			settings.Add("fileType=" + SettingsFileExport.fileType);
 			settings.Add("jpegQuality=" + SettingsFileExport.jpegQuality);
+			settings.Add("openExplorer=" + BoolToIntStr(SettingsFileExport.openExplorer));
 
 			// Write the list of strings to the prefs file
 			IOManager.WritePreferences(settings);
@@ -409,6 +410,10 @@ namespace Mappalachia.Class
 								SettingsFileExport.jpegQuality = jpegQuality;
 							}
 
+							break;
+
+						case "openExplorer":
+							SettingsFileExport.openExplorer = StrIntToBool(value);
 							break;
 
 						// Legacy settings - ignore

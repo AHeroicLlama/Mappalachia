@@ -20,8 +20,8 @@ If you are happy with the items, press the 'Update Map' button (or select Map > 
 ### Previewing and sharing the map
 You can pan and zoom this map preview by left-clicking and dragging, or using the scroll wheel respectively (or equivalent touch gestures).<br/>
 Double-clicking the map (or selecting Map > View) will open the preview in full in your default image viewer, which may provide an easier viewing experience.<br/>
-In order to export and share the map, navigate to Map > Export To File.<br/>
-For sharing images online, it is recommended to leave 'Use recommended settings' ticked.
+In order to quickly export and share the map, use 'Map > Quick Save' (Ctrl+Shift+S).<br/>
+For more control over export settings, use 'Map > Export To File...'<br/>
 
 ### Clear & Reset
 At the bottom of the 'Map' menu you can select 'Clear' or 'Reset'.<br/>

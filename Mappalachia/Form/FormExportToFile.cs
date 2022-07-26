@@ -35,6 +35,11 @@ namespace Mappalachia
 			UpdateFormState();
 		}
 
+		private void checkBoxShowDirectory_CheckedChanged(object sender, EventArgs e)
+		{
+			SettingsFileExport.openExplorer = checkBoxShowDirectory.Checked;
+		}
+
 		// Update the values and enabled states of the form members when something relevant changes
 		void UpdateFormState()
 		{
@@ -43,6 +48,7 @@ namespace Mappalachia
 			radioButtonPNG.Checked = SettingsFileExport.IsPNG();
 			radioButtonJPEG.Checked = SettingsFileExport.IsJPEG();
 			numericUpDownJPEGQuality.Value = SettingsFileExport.jpegQuality;
+			checkBoxShowDirectory.Checked = SettingsFileExport.openExplorer;
 
 			// Update the form enabled states accordingly
 			radioButtonJPEG.Enabled = !checkBoxUseRecommended.Checked;
@@ -62,8 +68,15 @@ namespace Mappalachia
 
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
+				string fileName = dialog.FileName;
 				ImageFormat imageFormat = SettingsFileExport.IsPNG() ? ImageFormat.Png : ImageFormat.Jpeg;
-				IOManager.WriteToFile(dialog.FileName, Map.GetImage(), imageFormat, SettingsFileExport.jpegQuality);
+				IOManager.WriteToFile(fileName, Map.GetImage(), imageFormat, SettingsFileExport.jpegQuality);
+
+				if (SettingsFileExport.openExplorer)
+				{
+					IOManager.SelectFile(fileName);
+				}
+
 				Close();
 			}
 		}
