@@ -38,7 +38,10 @@ namespace Mappalachia
 			this.updateMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.militaryStyleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.backgroundImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.normalBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.militaryBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.satelliteBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showMapIconsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -184,7 +187,7 @@ namespace Mappalachia
             this.updateMapToolStripMenuItem,
             this.viewMenuItem,
             this.brightnessMenuItem,
-            this.militaryStyleMenuItem,
+            this.backgroundImageToolStripMenuItem,
             this.grayscaleMenuItem,
             this.mapMarkersMenuItem,
             this.hideLegendMenuItem,
@@ -220,14 +223,36 @@ namespace Mappalachia
 			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
 			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
 			// 
-			// militaryStyleMenuItem
+			// backgroundImageToolStripMenuItem
 			// 
-			this.militaryStyleMenuItem.Name = "militaryStyleMenuItem";
-			this.militaryStyleMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.militaryStyleMenuItem.Text = "Military Style";
-			this.militaryStyleMenuItem.ToolTipText = "Swap the Appalachia map for the version found on the Targeting Computer and in Tr" +
-    "ain Stations.";
-			this.militaryStyleMenuItem.Click += new System.EventHandler(this.Map_MilitaryStyle);
+			this.backgroundImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.normalBackgroundMenuItem,
+            this.militaryBackgroundMenuItem,
+            this.satelliteBackgroundMenuItem});
+			this.backgroundImageToolStripMenuItem.Name = "backgroundImageToolStripMenuItem";
+			this.backgroundImageToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.backgroundImageToolStripMenuItem.Text = "Background Image";
+			// 
+			// normalBackgroundMenuItem
+			// 
+			this.normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
+			this.normalBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.normalBackgroundMenuItem.Text = "Normal";
+			this.normalBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Normal);
+			// 
+			// militaryBackgroundMenuItem
+			// 
+			this.militaryBackgroundMenuItem.Name = "militaryBackgroundMenuItem";
+			this.militaryBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.militaryBackgroundMenuItem.Text = "Military";
+			this.militaryBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Military);
+			// 
+			// satelliteBackgroundMenuItem
+			// 
+			this.satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
+			this.satelliteBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.satelliteBackgroundMenuItem.Text = "Satellite";
+			this.satelliteBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Satellite);
 			// 
 			// grayscaleMenuItem
 			// 
@@ -1287,7 +1312,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(9, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(6, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1465,7 +1490,6 @@ namespace Mappalachia
 		private System.Windows.Forms.Button buttonSelectAllLock;
 		private System.Windows.Forms.DataGridView gridViewLegend;
 		private System.Windows.Forms.Label labelLegend;
-		private System.Windows.Forms.ToolStripMenuItem militaryStyleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem brightnessMenuItem;
 		private System.Windows.Forms.Button buttonSearchScrap;
 		private System.Windows.Forms.Button buttonSearchNPC;
@@ -1554,6 +1578,10 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem showClusterWebMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clusterRangeMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem quickSaveMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem backgroundImageToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem normalBackgroundMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem militaryBackgroundMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem satelliteBackgroundMenuItem;
 	}
 }
 

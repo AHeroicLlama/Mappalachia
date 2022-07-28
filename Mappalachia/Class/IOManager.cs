@@ -29,7 +29,8 @@ namespace Mappalachia
 
 		static readonly string fontFileName = "futura_condensed_bold.ttf";
 		static readonly string databaseFileName = "mappalachia.db";
-		static readonly string imgFileNameMapMilitary = "military.jpg";
+		static readonly string imgFileNameAppalachiaMilitary = "Appalachia_military.jpg";
+		static readonly string imgFileNameAppalachiaSatellite = "Appalachia_render.jpg";
 		static readonly string worldspaceMapFileExtension = ".jpg";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
 		static readonly string mapMarkerFileExtension = ".svg";
@@ -40,7 +41,8 @@ namespace Mappalachia
 		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
 		static readonly ConcurrentDictionary<string, Image> mapMarkerimageCache = new ConcurrentDictionary<string, Image>();
 
-		static Image imageMapMilitary;
+		static Image imageAppalachiaMilitary;
+		static Image imageAppalachiaSatellite;
 
 		static string gameVersion;
 
@@ -259,13 +261,20 @@ namespace Mappalachia
 		{
 			if (space.IsWorldspace())
 			{
-				// Return the military map if this is Appalachia and they requested military
-				if (SettingsMap.layerMilitary && space.editorID.Equals("Appalachia"))
+				// Return the non-standard maps if this is Appalachia and they requested it
+				if (space.editorID.Equals("Appalachia"))
 				{
-					return GetImageAppalachiaMilitary();
+					if (SettingsMap.background == SettingsMap.Background.Military)
+					{
+						return GetImageAppalachiaMilitary();
+					}
+					else if (SettingsMap.background == SettingsMap.Background.Satellite)
+					{
+						return GetImageAppalachiaSatellite();
+					}
 				}
 
-				// Otherwise look for the background image for the worldspace
+				// Otherwise look for the default background image for the worldspace
 				string editorID = space.editorID;
 				string filepath = imgFolder + editorID + worldspaceMapFileExtension;
 
@@ -300,20 +309,38 @@ namespace Mappalachia
 
 		public static Image GetImageAppalachiaMilitary()
 		{
-			if (imageMapMilitary == null)
+			if (imageAppalachiaMilitary == null)
 			{
 				try
 				{
-					imageMapMilitary = Image.FromFile(imgFolder + imgFileNameMapMilitary);
+					imageAppalachiaMilitary = Image.FromFile(imgFolder + imgFileNameAppalachiaMilitary);
 				}
 				catch (Exception e)
 				{
-					Notify.Error("Mappalachia was unable to read the file '" + imgFileNameMapMilitary + "'.\n" + genericExceptionHelpText + e);
-					imageMapMilitary = EmptyMapBackground();
+					Notify.Error("Mappalachia was unable to read the file '" + imgFileNameAppalachiaMilitary + "'.\n" + genericExceptionHelpText + e);
+					imageAppalachiaMilitary = EmptyMapBackground();
 				}
 			}
 
-			return new Bitmap(imageMapMilitary);
+			return new Bitmap(imageAppalachiaMilitary);
+		}
+
+		public static Image GetImageAppalachiaSatellite()
+		{
+			if (imageAppalachiaSatellite == null)
+			{
+				try
+				{
+					imageAppalachiaSatellite = Image.FromFile(imgFolder + imgFileNameAppalachiaSatellite);
+				}
+				catch (Exception e)
+				{
+					Notify.Error("Mappalachia was unable to read the file '" + imgFileNameAppalachiaSatellite + "'.\n" + genericExceptionHelpText + e);
+					imageAppalachiaSatellite = EmptyMapBackground();
+				}
+			}
+
+			return new Bitmap(imageAppalachiaSatellite);
 		}
 
 		public static Image EmptyMapBackground()

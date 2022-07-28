@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 8;
+		static readonly int prefsIteration = 9;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -45,7 +45,7 @@ namespace Mappalachia.Class
 			// SettingsMap
 			settings.Add("[Map]");
 			settings.Add("brightness=" + SettingsMap.brightness);
-			settings.Add("layerMilitary=" + BoolToIntStr(SettingsMap.layerMilitary));
+			settings.Add("appalachiaBackground=" + SettingsMap.background);
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 			settings.Add("showMapLabels=" + BoolToIntStr(SettingsMap.showMapLabels));
 			settings.Add("showMapIcons=" + BoolToIntStr(SettingsMap.showMapIcons));
@@ -152,8 +152,25 @@ namespace Mappalachia.Class
 
 							break;
 
-						case "layerMilitary":
-							SettingsMap.layerMilitary = StrIntToBool(value);
+						case "appalachiaBackground":
+							switch (value)
+							{
+								case "Normal":
+									SettingsMap.background = SettingsMap.Background.Normal;
+									break;
+
+								case "Military":
+									SettingsMap.background = SettingsMap.Background.Military;
+									break;
+
+								case "Satellite":
+									SettingsMap.background = SettingsMap.Background.Satellite;
+									break;
+
+								default:
+									throw new ArgumentException("Invalid background image.");
+							}
+
 							break;
 
 						case "grayScale":
@@ -421,6 +438,7 @@ namespace Mappalachia.Class
 						case "layerNWMorgantown":
 						case "layerNWFlatwoods":
 						case "searchInterior":
+						case "layerMilitary":
 							break;
 
 						default:
