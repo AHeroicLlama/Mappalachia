@@ -29,19 +29,19 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
 			this.menuStripMain = new System.Windows.Forms.MenuStrip();
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.backgroundImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.normalBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.militaryBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.satelliteBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showMapIconsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,8 +186,8 @@ namespace Mappalachia
 			this.mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateMapToolStripMenuItem,
             this.viewMenuItem,
-            this.brightnessMenuItem,
             this.backgroundImageToolStripMenuItem,
+            this.brightnessMenuItem,
             this.grayscaleMenuItem,
             this.mapMarkersMenuItem,
             this.hideLegendMenuItem,
@@ -214,15 +214,6 @@ namespace Mappalachia
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
 			// 
-			// brightnessMenuItem
-			// 
-			this.brightnessMenuItem.Name = "brightnessMenuItem";
-			this.brightnessMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-			this.brightnessMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.brightnessMenuItem.Text = "Adjust Brightness...";
-			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
-			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
-			// 
 			// backgroundImageToolStripMenuItem
 			// 
 			this.backgroundImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -232,12 +223,14 @@ namespace Mappalachia
 			this.backgroundImageToolStripMenuItem.Name = "backgroundImageToolStripMenuItem";
 			this.backgroundImageToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
 			this.backgroundImageToolStripMenuItem.Text = "Background Image";
+			this.backgroundImageToolStripMenuItem.ToolTipText = "Swap the background image of the map.";
 			// 
 			// normalBackgroundMenuItem
 			// 
 			this.normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
 			this.normalBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.normalBackgroundMenuItem.Text = "Normal";
+			this.normalBackgroundMenuItem.ToolTipText = "The normal in-game map image.";
 			this.normalBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Normal);
 			// 
 			// militaryBackgroundMenuItem
@@ -245,6 +238,7 @@ namespace Mappalachia
 			this.militaryBackgroundMenuItem.Name = "militaryBackgroundMenuItem";
 			this.militaryBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.militaryBackgroundMenuItem.Text = "Military";
+			this.militaryBackgroundMenuItem.ToolTipText = "The military-style map from the nuke launch interface.";
 			this.militaryBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Military);
 			// 
 			// satelliteBackgroundMenuItem
@@ -252,7 +246,17 @@ namespace Mappalachia
 			this.satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
 			this.satelliteBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.satelliteBackgroundMenuItem.Text = "Satellite";
+			this.satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Appalachia world.";
 			this.satelliteBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Satellite);
+			// 
+			// brightnessMenuItem
+			// 
+			this.brightnessMenuItem.Name = "brightnessMenuItem";
+			this.brightnessMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+			this.brightnessMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.brightnessMenuItem.Text = "Adjust Brightness...";
+			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
+			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
 			// 
 			// grayscaleMenuItem
 			// 
@@ -655,8 +659,8 @@ namespace Mappalachia
 			this.gridViewSearchResults.AllowUserToDeleteRows = false;
 			this.gridViewSearchResults.AllowUserToOrderColumns = true;
 			this.gridViewSearchResults.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-			this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
+			this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
 			this.gridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -690,8 +694,8 @@ namespace Mappalachia
 			// columnSearchFormID
 			// 
 			this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle5;
 			this.columnSearchFormID.HeaderText = "FormID";
 			this.columnSearchFormID.Name = "columnSearchFormID";
 			this.columnSearchFormID.ReadOnly = true;
@@ -891,8 +895,8 @@ namespace Mappalachia
 			this.gridViewLegend.AllowUserToDeleteRows = false;
 			this.gridViewLegend.AllowUserToOrderColumns = true;
 			this.gridViewLegend.AllowUserToResizeRows = false;
-			dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
-			this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
+			this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
 			this.gridViewLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -1312,7 +1316,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(6, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(9, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
