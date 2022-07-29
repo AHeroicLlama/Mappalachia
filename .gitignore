@@ -4,6 +4,9 @@ FO76Edit/Edit Scripts/*
 #Exception for Mappalachia Edit Scripts
 !FO76Edit/Edit Scripts/_mappalachia_*.pas
 
+#World render DDS files
+Mappalachia/img/*.dds
+
 #SQLite and database generation
 Database/*.db-journal
 
