@@ -14,7 +14,7 @@ namespace BackgroundRenderer
 
 		static SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
 
-		static int resolution = 4096; //1024, 4096, 16384
+		static int resolution = 16384; //1024, 4096, 16384
 		static bool SSAA = true;
 
 		public static void Main()
@@ -33,15 +33,15 @@ namespace BackgroundRenderer
 
 			query = connection.CreateCommand();
 			query.CommandText =
-				"SELECT spaceFormID, spaceEditorID\n" +
+				"SELECT spaceFormID, spaceEditorID, isWorldspace\n" +
 				"FROM Space_Info";
 			query.Parameters.Clear();
 			reader = query.ExecuteReader();
 
 			while (reader.Read())
 			{
-				// Skip Appalachia which has it's formID set to "" to save DB disk space
-				if (reader.GetString(0) == string.Empty)
+				// Skip worldspaces
+				if (reader.GetInt16(2) == 1)
 				{
 					continue;
 				}
@@ -77,7 +77,7 @@ namespace BackgroundRenderer
 				int range = Math.Max(xRange, yRange);
 				double scale = (double)resolution / range;
 
-				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {imageDirectory}{space.editorID}.dds {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {xOffset} {yOffset} 65536 -light 1.25 63.435 41.8103 -ssaa {(SSAA ? 1 : 0)} -hqm meshes -env textures/shared/cubemaps/mipblur_defaultoutside1.dds -wtxt textures/water/defaultwater.dds -ltxtres 1024 -mip 0 -lmip 1 -mlod 0 -ndis 1");
+				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {imageDirectory}{space.editorID}.dds {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {xOffset} {yOffset} 65536 -light 1.25 63.435 41.8103 -ssaa {(SSAA ? 1 : 0)} -hqm meshes -env textures/shared/cubemaps/mipblur_defaultoutside1.dds -wtxt textures/water/defaultwater.dds -ltxtres 2048 -mip 0 -lmip 1 -mlod 0 -ndis 1");
 				render.WaitForExit();
 			}
 		}
