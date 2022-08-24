@@ -22,6 +22,7 @@ FO76Utils/*.dll
 
 #Various logging/debugging outputs
 *.txt
+!errors.txt
 !summary.txt
 
 #MapIconProcessor raw SWF extracts

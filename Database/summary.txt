@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-f9561f844d38c70fff271c2ccd043dd1
+04668e2308f8e42f049d2d16643961a9
 ==File Size== 
-372510720 
+372514816 
 ==Tables== 
 Entity_Info      Map_Markers      Scrap_Search   
 Game_Version     NPC_Search       Space_Info     
@@ -6481,137 +6481,137 @@ WatogaMunicipalCenter01|Scorched|1.0|9
 WendigoCave01|Mirelurk|1.0|14
 WestTek01|Super Mutant|1.0|41
 ==Space Info==
-|Appalachia|Appalachia|1
-003E3FFA|ThunderMtPowerPlant01|Thunder Mountain Power|0
-005A7C2E|FortAtlasDungeon01|Atlas Substructure|0
-005B1E4A|SheltersVaultLivingQuarters01|Vault Quarters Shelter|0
-000042F4|SugarGroveMissileSilo01|Missile Silo Alpha|0
-005B59C8|RaiderCave03|Raider Den|0
-001294F4|WhitespringBunker01|Whitespring Bunker|0
-0001A69E|ValleyGalleria01|Valley Galleria|0
-0039E892|FreeStatesBunker06|Abandoned Bunker|0
-0043CE8E|MorgantownApartment01|Shadowbreeze Apartments|0
-005A6C66|FoundationSupplyRoom01|Foundation Supply Room|0
-005F12A2|UncannyCaverns02|Hidden Crevice|0
-00081A9D|WatogaMunicipalCenter01|Watoga Municipal Center|0
-0053F689|OverseersHome01|Overseer's Home|0
-005B7D87|Vault94Dungeon|Vault 94|0
-00620445|SheltersMissileSilo|Abandoned Mine Shelter|0
-00004183|WatogaHighSchool01|Watoga High School|0
-000072BB|AVRMedicalCenter01|AVR Medical Center|0
-000125A3|VTecAgCenter01|Vault-Tec Ag Research Center|0
-0041BC67|MorgantownAirportTerminal02|Morgantown Airport Terminal|0
-005A5547|SheltersVaultServerRoom01|Server Room Shelter|0
-0060D363|SheltersCave01|Abandoned Mine Shelter|0
-005A7AD1|BlueRidgeOffice01|Blue Ridge Office|0
-0000F0FB|BigBendTunnel01|Big Bend Tunnels|0
-00574627|RollinsLaborCamp01|Rollins Prison|0
-0002E506|EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|0
-0061961E|ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|0
-00412190|RobcoExperimentalCache01|RobCo Auto-Cache #001|0
-0056BF32|SugarGrove02|Sugar Grove Data Center|0
-005ACD84|CraterWarRoom01|The Crater War Room|0
-0054B502|CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|0
-005C38D6|SheltersClaimCenter01|Shelters Claim Center|0
-000402E2|SamBlackwellsDeathclawCave|Cavern|0
-0053F947|LousMine01|Carleton Mine|0
-005AFB11|RaiderCave01|Deserted Mine|0
-00004C43|GlassedCavern01|Glassed Cavern|0
-0004FF09|FreeStatesBunker03|Ella Ames' Bunker|0
-003FEE25|HornwrightSafeRoom01|Hornwright Estate Safe Room|0
-000644DB|GarrahanMiningHQ01|Garrahan Mining HQ|0
-00473CE3|Burrows01|The Burrows|0
-00590AB3|WatogaTowers01|Watoga Towers|0
-0001AB97|WatogaEmergencyServices01|Watoga Emergency Services|0
-0039EFE3|BelchingBetty01|Belching Betty|0
-00431DED|PoseidonPlant02|Poseidon Energy Plant Expansion|0
-0000D343|WatogaCivicCenter01|Watoga Civic Center|0
-0062E263|SheltersCave02|Forbidden Digsite Shelter|0
-00044FEC|GauleyMine01|Gauley Mine|0
-0010FE68|TheRustyPick01|The Rusty Pick|0
-0012D4C2|BlackwaterMine01|Blackwater Mine|0
-00175BC8|SamBlackwellBunker02|Sam Blackwell's Bunker|0
-004306B0|TopOfTheWorld01|Mezzanine Level|0
-0060A6C0|Vault51Dungeon|Vault 51|0
-0000BAF8|PoseidonPlant01|Poseidon Energy Plant WV-06|0
-0009085C|DaggersDen01|Dagger's Den|0
-00008CEA|AlleghenyAsylum01|Fort Defiance|0
-00018BFE|CharGen01|Vault 76|0
-002A94AE|MTR08LodeBaring02|Abandoned Mine Shaft Kittery|0
-00589E9E|MonongahMine01|Monongah Mine|0
-0000237C|RobCoResearchCenter01|RobCo Research Center|0
-005500E0|CharlestonCapitolBuilding02|Charleston Capitol Building|0
-004738DF|TheNukashine01|The Nukashine|0
-00115C47|CultistCave01|Lucky Hole Mine|0
-0011B7B9|RiversideManor01|Riverside Manor|0
-00406B95|WatogaUnderground01|Watoga Underground|0
-004429C9|MonongahMissileSilo01|Missile Silo Bravo|0
-0016B4B7|KerwoodMine01|Kerwood Mine|0
-004060AF|Vault79GoldVaultOperations|Gold Vault Operations|0
-0001A559|AMSHQ01|AMS Headquarters|0
-000491C9|SugarGrove01|Sugar Grove|0
-00413025|GraftonSteelUnderground01|Grafton Steel Underground|0
-00004E11|WendigoCave01|Wendigo Cave|0
-005C2E07|LewisandSonsFarmingSupply01|Putnam Residence|0
-00477C6A|FraternityHouse01|Pi House|0
-0058D442|BurdetteManorBasement01|Burdette Manor Basement|0
-00473A0C|VanLoweTaxidermy01|Van Lowe Taxidermy|0
-005F119A|WestTek02|FEV Production Facility|0
-005C28B8|OrwellOrchardsShelter01|Orwell Bomb Shelter|0
-004429CA|SpruceKnobMissileSilo01|Missile Silo Charlie|0
-006143D4|UncannyCavernsDungeon|Uncanny Caverns|0
-00478804|FraternityHouse02|Eta Psi House|0
-004041F2|TheWayward01|The Wayward|0
-00004017|VaultTecU01|Vault-Tec University|0
-005C60DB|DaggersDen02|Dagger's Throne Room|0
-005D6247|Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|0
-0009219B|DyerChemical01|Dyer Chemical Sewer|0
-005F119B|AMSHQ02|AMS Headquarters Basement Lab|0
-0000748D|WestTek01|West Tek Research Center|0
-005767ED|UCB02|Auxiliary Control Room|0
-005DD731|Vault96Dungeon|Vault 96|0
-0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0
-0040593B|RaiderRaidTrailerInt|Trailer Interior|0
-004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0
-0051EF4D|CharGen05|Vault 76|0
-0011F9E7|Vault94Entrance|Vault 94 Entrance|0
-0051EF57|CharGen02|Vault 76|0
-0060F37B|WatogaHighSchoolDungeon|Watoga High School|0
-000780B1|WatogaMunicipalCenter02|Watoga Municipal Center|0
-00004018|BurningMine01|The Burning Mine|0
-00428C5C|UCB01|The Deep|0
-005661B4|Vault79Entrance|Vault 79|0
-005B1E48|SheltersVaultAtrium01|Vault Atrium Shelter|0
-005B2BF4|RaiderCave02|Makeshift Vault|0
-0010BA9C|MorgantownHighSchool01|Morgantown High School|0
-005D0FA0|EnclaveResearchFacility01|Enclave Research Facility|0
-005F26C8|HarpersFerryDungeon01|Harpers Ferry Tunnel|0
-00044A50|Vault63Entrance|Vault 63 Entrance|0
-000073EE|NukaColaQuantumPlant01|Kanawha Nuka-Cola Plant|0
-000531FE|FreeStatesBunker02|Carson Family Bunker|0
-001D7232|HornwrightHQ01|Hornwright Industrial HQ|0
-00401116|Vault79Main|Vault 79|0
-0051EF4E|CharGen04|Vault 76|0
-00004586|EasternRegionalPen01|Eastern Regional Penitentiary|0
-00098971|WhitespringResort01|Whitespring Resort|0
-003D3915|MonongahPowerPlant01|Monongah Power Plant|0
-00403719|SettlerBugOutCave|Secluded Cave|0
-00411C65|DuncanDuncanRobotics01|Duncan & Duncan Robotics|0
-005661B5|GraftonPawnShop01|Grafton Pawn Shop|0
-00003AAB|FortAtlas01|Fort Atlas|0
-00540E15|SpruceKnobCampground01|Spruce Knob Boat Rental|0
-00052C5F|FreeStatesBunker01|Abbie's Bunker|0
-001CD6F7|FreeStatesBunker04|Raleigh Clay's Bunker|0
-0010A265|RadioResearchCenter01|Radio Astronomy Research Center|0
-005B5251|SheltersVaultReception01|Vault Lobby Shelter|0
-0040FA9B|WVLumberCo01|WV Lumber Co. Office|0
-001D4AB5|MamaDolceProcessing01|Mama Dolce's Food Processing|0
-0040A2C1|TheCraterCore01|The Crater Core|0
-00474DC9|ArktosPharmaLab01|Arktos Pharma Biome Lab|0
-005A5545|SheltersVaultStorageRoom01|Vault Utility Room Shelter|0
-0003BDBB|UncannyCaverns01|Uncanny Caverns|0
-0040C1A7|CraterWatchstation01|Crater Watchstation Worksite|0
-0051EF4F|CharGen03|Vault 76|0
-0039E891|FreeStatesBunker07|Ransacked Bunker|0
-005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0
-003F880F|FoundationInt01|Foundation Interior|0
+|Appalachia|Appalachia|1|2818|-13424|809637|787925
+003E3FFA|ThunderMtPowerPlant01|Thunder Mountain Power|0|-806|-612|8792|8219
+005A7C2E|FortAtlasDungeon01|Atlas Substructure|0|4363|-9226|28981|21426
+005B1E4A|SheltersVaultLivingQuarters01|Vault Quarters Shelter|0|-4288|-2378|5248|6420
+000042F4|SugarGroveMissileSilo01|Missile Silo Alpha|0|-8234|-30161|14036|15134
+005B59C8|RaiderCave03|Raider Den|0|1056|-849|6899|7589
+001294F4|WhitespringBunker01|Whitespring Bunker|0|-16858|-6933|12491|11440
+0001A69E|ValleyGalleria01|Valley Galleria|0|163|-1144|11080|11248
+0039E892|FreeStatesBunker06|Abandoned Bunker|0|165|1480|2458|2416
+0043CE8E|MorgantownApartment01|Shadowbreeze Apartments|0|-387|-310|1777|2128
+005A6C66|FoundationSupplyRoom01|Foundation Supply Room|0|-134|210|1267|1834
+005F12A2|UncannyCaverns02|Hidden Crevice|0|1079|315|5831|8041
+00081A9D|WatogaMunicipalCenter01|Watoga Municipal Center|0|768|350|2805|3028
+0053F689|OverseersHome01|Overseer's Home|0|2005|822|1787|2015
+005B7D87|Vault94Dungeon|Vault 94|0|-12586|-527|10449|10768
+00620445|SheltersMissileSilo|Abandoned Mine Shelter|0|1368|287|5440|6545
+00004183|WatogaHighSchool01|Watoga High School|0|-1571|2284|8313|7160
+000072BB|AVRMedicalCenter01|AVR Medical Center|0|2840|-659|6856|6106
+000125A3|VTecAgCenter01|Vault-Tec Ag Research Center|0|13|2004|2843|5033
+0041BC67|MorgantownAirportTerminal02|Morgantown Airport Terminal|0|85|39|5256|4792
+005A5547|SheltersVaultServerRoom01|Server Room Shelter|0|4870|-1401|12108|12014
+0060D363|SheltersCave01|Abandoned Mine Shelter|0|1004|778|6984|6187
+005A7AD1|BlueRidgeOffice01|Blue Ridge Office|0|-107|-101|3249|3250
+0000F0FB|BigBendTunnel01|Big Bend Tunnels|0|1888|17175|14326|34178
+00574627|RollinsLaborCamp01|Rollins Prison|0|245|473|2538|2893
+0002E506|EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|0|1356|1004|8581|11128
+0061961E|ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|0|-5489|-2981|19401|13550
+00412190|RobcoExperimentalCache01|RobCo Auto-Cache #001|0|-3624|2403|8091|4589
+0056BF32|SugarGrove02|Sugar Grove Data Center|0|-58|700|1941|3321
+005ACD84|CraterWarRoom01|The Crater War Room|0|-307|1165|2616|4870
+0054B502|CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|0|2307|-2239|4614|4479
+005C38D6|SheltersClaimCenter01|Shelters Claim Center|0|-4898|144|2764|1038
+000402E2|SamBlackwellsDeathclawCave|Cavern|0|-5632|2061|20224|8151
+0053F947|LousMine01|Carleton Mine|0|-7512|17618|20804|16770
+005AFB11|RaiderCave01|Deserted Mine|0|850|1905|8496|8283
+00004C43|GlassedCavern01|Glassed Cavern|0|-2827|-324|21520|22121
+0004FF09|FreeStatesBunker03|Ella Ames' Bunker|0|1134|1822|2751|2162
+003FEE25|HornwrightSafeRoom01|Hornwright Estate Safe Room|0|75|896|3270|2048
+000644DB|GarrahanMiningHQ01|Garrahan Mining HQ|0|538|648|9161|25967
+00473CE3|Burrows01|The Burrows|0|-752|4172|18622|21026
+00590AB3|WatogaTowers01|Watoga Towers|0|-828|494|2552|1904
+0001AB97|WatogaEmergencyServices01|Watoga Emergency Services|0|454|778|2996|2537
+0039EFE3|BelchingBetty01|Belching Betty|0|-1294|12787|9537|26227
+00431DED|PoseidonPlant02|Poseidon Energy Plant Expansion|0|-2341|3011|8546|15696
+0000D343|WatogaCivicCenter01|Watoga Civic Center|0|3397|1264|8130|8381
+0062E263|SheltersCave02|Forbidden Digsite Shelter|0|2088|-656|9152|6816
+00044FEC|GauleyMine01|Gauley Mine|0|1508|1723|12600|9764
+0010FE68|TheRustyPick01|The Rusty Pick|0|1687|1773|3885|6461
+0012D4C2|BlackwaterMine01|Blackwater Mine|0|1292|-1378|20492|8870
+00175BC8|SamBlackwellBunker02|Sam Blackwell's Bunker|0|568|1441|3108|4030
+004306B0|TopOfTheWorld01|Mezzanine Level|0|105|230|8593|8581
+0060A6C0|Vault51Dungeon|Vault 51|0|-982|-1358|7861|11744
+0000BAF8|PoseidonPlant01|Poseidon Energy Plant WV-06|0|-2722|3475|8380|15322
+0009085C|DaggersDen01|Dagger's Den|0|7452|826|8083|8517
+00008CEA|AlleghenyAsylum01|Fort Defiance|0|-137|1546|15387|4203
+00018BFE|CharGen01|Vault 76|0|1715|1176|9755|8656
+002A94AE|MTR08LodeBaring02|Abandoned Mine Shaft Kittery|0|4275|7780|12526|15530
+00589E9E|MonongahMine01|Monongah Mine|0|-7225|10298|14227|20372
+0000237C|RobCoResearchCenter01|RobCo Research Center|0|-2584|1383|8240|6511
+005500E0|CharlestonCapitolBuilding02|Charleston Capitol Building|0|-117|-1037|9066|6413
+004738DF|TheNukashine01|The Nukashine|0|564|899|1335|1803
+00115C47|CultistCave01|Lucky Hole Mine|0|-794|-2826|10861|11802
+0011B7B9|RiversideManor01|Riverside Manor|0|2608|492|6640|5720
+00406B95|WatogaUnderground01|Watoga Underground|0|1972|5124|35196|20531
+004429C9|MonongahMissileSilo01|Missile Silo Bravo|0|-7626|-18947|15252|37561
+0016B4B7|KerwoodMine01|Kerwood Mine|0|-763|1488|14101|16521
+004060AF|Vault79GoldVaultOperations|Gold Vault Operations|0|-2064|-6915|8466|8075
+0001A559|AMSHQ01|AMS Headquarters|0|-62|-120|4228|4113
+000491C9|SugarGrove01|Sugar Grove|0|1284|4656|5304|6368
+00413025|GraftonSteelUnderground01|Grafton Steel Underground|0|-68|-3795|13479|24482
+00004E11|WendigoCave01|Wendigo Cave|0|8971|-2210|17575|15295
+005C2E07|LewisandSonsFarmingSupply01|Putnam Residence|0|-284|-157|1081|1737
+00477C6A|FraternityHouse01|Pi House|0|546|998|1265|1011
+0058D442|BurdetteManorBasement01|Burdette Manor Basement|0|392|744|1312|2061
+00473A0C|VanLoweTaxidermy01|Van Lowe Taxidermy|0|1624|87|1968|1647
+005F119A|WestTek02|FEV Production Facility|0|8320|2592|8960|7872
+005C28B8|OrwellOrchardsShelter01|Orwell Bomb Shelter|0|1740|814|5288|4316
+004429CA|SpruceKnobMissileSilo01|Missile Silo Charlie|0|-8234|-30161|14036|15134
+006143D4|UncannyCavernsDungeon|Uncanny Caverns|0|3148|4581|11648|11590
+00478804|FraternityHouse02|Eta Psi House|0|472|1143|960|1281
+004041F2|TheWayward01|The Wayward|0|1858|-158|4959|4435
+00004017|VaultTecU01|Vault-Tec University|0|-4774|730|11101|9184
+005C60DB|DaggersDen02|Dagger's Throne Room|0|792|-1423|5785|2768
+005D6247|Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|0|-2031|-7354|6091|6734
+0009219B|DyerChemical01|Dyer Chemical Sewer|0|9302|3068|8048|7721
+005F119B|AMSHQ02|AMS Headquarters Basement Lab|0|-616|-2510|3312|4765
+0000748D|WestTek01|West Tek Research Center|0|10314|479|7135|7961
+005767ED|UCB02|Auxiliary Control Room|0|-228|212|712|712
+005DD731|Vault96Dungeon|Vault 96|0|9438|-1326|15884|14282
+0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0|3733|1296|9994|15560
+0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|839|491
+004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|1598|1536
+0051EF4D|CharGen05|Vault 76|0|1715|1176|9755|8656
+0011F9E7|Vault94Entrance|Vault 94 Entrance|0|5684|15752|5465|2724
+0051EF57|CharGen02|Vault 76|0|1715|1176|9755|8656
+0060F37B|WatogaHighSchoolDungeon|Watoga High School|0|-1571|2284|8313|7160
+000780B1|WatogaMunicipalCenter02|Watoga Municipal Center|0|7|500|2676|3188
+00004018|BurningMine01|The Burning Mine|0|-815|-4495|12752|12266
+00428C5C|UCB01|The Deep|0|6095|-6886|16362|19021
+005661B4|Vault79Entrance|Vault 79|0|2048|2048|4592|4800
+005B1E48|SheltersVaultAtrium01|Vault Atrium Shelter|0|-5836|488|2200|4308
+005B2BF4|RaiderCave02|Makeshift Vault|0|1387|2132|4995|6317
+0010BA9C|MorgantownHighSchool01|Morgantown High School|0|1396|-2890|4366|7818
+005D0FA0|EnclaveResearchFacility01|Enclave Research Facility|0|958|3608|15220|11696
+005F26C8|HarpersFerryDungeon01|Harpers Ferry Tunnel|0|-2221|-1026|18030|16965
+00044A50|Vault63Entrance|Vault 63 Entrance|0|6758|-124|3980|3976
+000073EE|NukaColaQuantumPlant01|Kanawha Nuka-Cola Plant|0|343|-40|9358|5036
+000531FE|FreeStatesBunker02|Carson Family Bunker|0|-44|1528|2366|2512
+001D7232|HornwrightHQ01|Hornwright Industrial HQ|0|742|404|3363|5719
+00401116|Vault79Main|Vault 79|0|-1440|-2646|23247|21687
+0051EF4E|CharGen04|Vault 76|0|1715|1176|9755|8656
+00004586|EasternRegionalPen01|Eastern Regional Penitentiary|0|2936|-92|6512|10695
+00098971|WhitespringResort01|Whitespring Resort|0|-8168|8432|16336|16864
+003D3915|MonongahPowerPlant01|Monongah Power Plant|0|-1219|2479|9402|6369
+00403719|SettlerBugOutCave|Secluded Cave|0|311|742|2073|2143
+00411C65|DuncanDuncanRobotics01|Duncan & Duncan Robotics|0|-3433|63|6611|5316
+005661B5|GraftonPawnShop01|Grafton Pawn Shop|0|-916|-289|1675|1639
+00003AAB|FortAtlas01|Fort Atlas|0|20|199|8152|4365
+00540E15|SpruceKnobCampground01|Spruce Knob Boat Rental|0|-751|432|1794|1152
+00052C5F|FreeStatesBunker01|Abbie's Bunker|0|505|1092|2987|2423
+001CD6F7|FreeStatesBunker04|Raleigh Clay's Bunker|0|535|1938|4173|2566
+0010A265|RadioResearchCenter01|Radio Astronomy Research Center|0|-891|164|3081|4285
+005B5251|SheltersVaultReception01|Vault Lobby Shelter|0|6134|-7519|1612|3426
+0040FA9B|WVLumberCo01|WV Lumber Co. Office|0|3267|-1060|2743|3347
+001D4AB5|MamaDolceProcessing01|Mama Dolce's Food Processing|0|840|1280|3472|5632
+0040A2C1|TheCraterCore01|The Crater Core|0|1389|-213|16091|3545
+00474DC9|ArktosPharmaLab01|Arktos Pharma Biome Lab|0|-5489|-2981|19401|13550
+005A5545|SheltersVaultStorageRoom01|Vault Utility Room Shelter|0|2001|-29|2722|1038
+0003BDBB|UncannyCaverns01|Uncanny Caverns|0|1980|4821|9312|11254
+0040C1A7|CraterWatchstation01|Crater Watchstation Worksite|0|-1243|-3555|5758|9546
+0051EF4F|CharGen03|Vault 76|0|1715|1176|9755|8656
+0039E891|FreeStatesBunker07|Ransacked Bunker|0|1125|2081|2890|2829
+005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0|3469|339|7986|7381
+003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|13495|19828

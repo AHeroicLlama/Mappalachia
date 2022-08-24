@@ -17,7 +17,6 @@ namespace Mappalachia.Class
 		static Space currentSpace;
 
 		// User-definable settings
-		public static bool drawOutline = true;
 		public static int minHeightPerc = 0;
 		public static int maxHeightPerc = 100;
 

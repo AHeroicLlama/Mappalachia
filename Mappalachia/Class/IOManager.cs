@@ -31,7 +31,7 @@ namespace Mappalachia
 		static readonly string databaseFileName = "mappalachia.db";
 		static readonly string imgFileNameAppalachiaMilitary = "Appalachia_military.jpg";
 		static readonly string imgFileNameAppalachiaSatellite = "Appalachia_render.jpg";
-		static readonly string worldspaceMapFileExtension = ".jpg";
+		static readonly string MapFileExtension = ".jpg";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
 		static readonly string mapMarkerFileExtension = ".svg";
 
@@ -259,50 +259,41 @@ namespace Mappalachia
 		// Returns the appropriate background image for the map based on current settings
 		public static Image GetImageForSpace(Space space)
 		{
-			if (space.IsWorldspace())
+			// Return the non-standard maps if this is Appalachia and they requested it
+			if (space.editorID.Equals("Appalachia"))
 			{
-				// Return the non-standard maps if this is Appalachia and they requested it
-				if (space.editorID.Equals("Appalachia"))
+				if (SettingsMap.background == SettingsMap.Background.Military)
 				{
-					if (SettingsMap.background == SettingsMap.Background.Military)
-					{
-						return GetImageAppalachiaMilitary();
-					}
-					else if (SettingsMap.background == SettingsMap.Background.Satellite)
-					{
-						return GetImageAppalachiaSatellite();
-					}
+					return GetImageAppalachiaMilitary();
 				}
-
-				// Otherwise look for the default background image for the worldspace
-				string editorID = space.editorID;
-				string filepath = imgFolder + editorID + worldspaceMapFileExtension;
-
-				try
+				else if (SettingsMap.background == SettingsMap.Background.Satellite)
 				{
-					// Cache the image if not already
-					if (!worldspaceMapImageCache.ContainsKey(editorID))
-					{
-						worldspaceMapImageCache.Add(editorID, Image.FromFile(filepath));
-					}
-
-					return new Bitmap(worldspaceMapImageCache[editorID]);
-				}
-				catch (FileNotFoundException e)
-				{
-					Notify.Error("Mappalachia was unable to find a background map image for the worldspace '" + editorID + "'.\n" + e);
-					return EmptyMapBackground();
-				}
-				catch (Exception e)
-				{
-					Notify.Error("Mappalachia was unable to read the file '" + filepath + "'.\n" + genericExceptionHelpText + e);
-					return EmptyMapBackground();
+					return GetImageAppalachiaSatellite();
 				}
 			}
 
-			// Interior so return empty background
-			else
+			// Otherwise look for the default background image for the worldspace
+			string editorID = space.editorID;
+			string filepath = imgFolder + (!space.IsWorldspace() ? "\\cell\\" : string.Empty) + editorID + MapFileExtension;
+
+			try
 			{
+				// Cache the image if not already
+				if (!worldspaceMapImageCache.ContainsKey(editorID))
+				{
+					worldspaceMapImageCache.Add(editorID, Image.FromFile(filepath));
+				}
+
+				return new Bitmap(worldspaceMapImageCache[editorID]);
+			}
+			catch (FileNotFoundException e)
+			{
+				Notify.Error("Mappalachia was unable to find a background map image for the worldspace '" + editorID + "'.\n" + e);
+				return EmptyMapBackground();
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia was unable to read the file '" + filepath + "'.\n" + genericExceptionHelpText + e);
 				return EmptyMapBackground();
 			}
 		}

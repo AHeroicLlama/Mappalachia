@@ -46,7 +46,7 @@
 
 		public static FileType GetFileTypeRecommendation()
 		{
-			return SettingsSpace.CurrentSpaceIsWorld() ? FileType.JPEG : FileType.PNG;
+			return FileType.JPEG;
 		}
 
 		public static void SetUseRecommended(bool newValue)

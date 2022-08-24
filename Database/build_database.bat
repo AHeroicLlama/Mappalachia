@@ -63,6 +63,9 @@ sqlite3.exe %databaseFile% < sql/replaceEscapedChars.sql
 echo Building combined tables...
 sqlite3.exe %databaseFile% < sql/buildCombinedTables.sql
 
+echo Finding space ranges...
+sqlite3.exe %databaseFile% < sql/getSpaceScales.sql
+
 echo Trimming database...
 sqlite3.exe %databaseFile% < sql/trimData.sql
 

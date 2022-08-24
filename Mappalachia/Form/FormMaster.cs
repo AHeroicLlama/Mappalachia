@@ -989,7 +989,7 @@ namespace Mappalachia
 		private void Map_Grayscale(object sender, EventArgs e)
 		{
 			SettingsMap.grayScale = !SettingsMap.grayScale;
-			UpdateMapGrayscale(SettingsSpace.CurrentSpaceIsWorld());
+			UpdateMapGrayscale(true);
 		}
 
 		// Map > Map Markers > Labels - toggle rendering map marker labels on map draw
@@ -1290,19 +1290,13 @@ namespace Mappalachia
 			numericMaxZ.Value = numericMinZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
 			UpdateCellorWorldExclusiveState();
+			SizeMapToFrame();
 			SettingsFileExport.UpdateRecommendation();
-		}
-
-		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
-		{
-			SettingsSpace.drawOutline = checkBoxSpaceDrawOutline.Checked;
-			DrawMap(true);
 		}
 
 		// Toggle availability of controls which depend on current Space
 		void UpdateCellorWorldExclusiveState()
 		{
-			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
 			grayscaleMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();

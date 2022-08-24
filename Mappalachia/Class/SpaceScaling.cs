@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 		public float yOffset;
 		public float scale;
 
-		static readonly double zoomPadding = Map.plotXMin + SettingsPlotStyle.iconSize; // Number of pixels in from each side where the scaling/zooming will stop
+		static readonly double zoomPadding = 0; // Number of pixels in from each side where the scaling/zooming will stop
 
 		public SpaceScaling(float xOffset, float yOffset, float scale)
 		{

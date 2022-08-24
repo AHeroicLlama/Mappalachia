@@ -29,9 +29,9 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
 			this.menuStripMain = new System.Windows.Forms.MenuStrip();
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,7 +120,6 @@ namespace Mappalachia
 			this.tabControlMainSearch = new System.Windows.Forms.TabControl();
 			this.tabPageSpace = new System.Windows.Forms.TabPage();
 			this.pictureBoxSpaceFiller = new System.Windows.Forms.PictureBox();
-			this.checkBoxSpaceDrawOutline = new System.Windows.Forms.CheckBox();
 			this.groupBoxHeightCropping = new System.Windows.Forms.GroupBox();
 			this.labelMaxHeight = new System.Windows.Forms.Label();
 			this.labelMinHeight = new System.Windows.Forms.Label();
@@ -228,7 +227,7 @@ namespace Mappalachia
 			// normalBackgroundMenuItem
 			// 
 			this.normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
-			this.normalBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.normalBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			this.normalBackgroundMenuItem.Text = "Normal";
 			this.normalBackgroundMenuItem.ToolTipText = "The normal in-game map image.";
 			this.normalBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Normal);
@@ -236,7 +235,7 @@ namespace Mappalachia
 			// militaryBackgroundMenuItem
 			// 
 			this.militaryBackgroundMenuItem.Name = "militaryBackgroundMenuItem";
-			this.militaryBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.militaryBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			this.militaryBackgroundMenuItem.Text = "Military";
 			this.militaryBackgroundMenuItem.ToolTipText = "The military-style map from the nuke launch interface.";
 			this.militaryBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Military);
@@ -244,7 +243,7 @@ namespace Mappalachia
 			// satelliteBackgroundMenuItem
 			// 
 			this.satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
-			this.satelliteBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.satelliteBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			this.satelliteBackgroundMenuItem.Text = "Satellite";
 			this.satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Appalachia world.";
 			this.satelliteBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Satellite);
@@ -659,8 +658,8 @@ namespace Mappalachia
 			this.gridViewSearchResults.AllowUserToDeleteRows = false;
 			this.gridViewSearchResults.AllowUserToOrderColumns = true;
 			this.gridViewSearchResults.AllowUserToResizeRows = false;
-			dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
-			this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+			this.gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this.gridViewSearchResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -694,8 +693,8 @@ namespace Mappalachia
 			// columnSearchFormID
 			// 
 			this.columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
 			this.columnSearchFormID.HeaderText = "FormID";
 			this.columnSearchFormID.Name = "columnSearchFormID";
 			this.columnSearchFormID.ReadOnly = true;
@@ -895,8 +894,8 @@ namespace Mappalachia
 			this.gridViewLegend.AllowUserToDeleteRows = false;
 			this.gridViewLegend.AllowUserToOrderColumns = true;
 			this.gridViewLegend.AllowUserToResizeRows = false;
-			dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
-			this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+			this.gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
 			this.gridViewLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -1070,7 +1069,6 @@ namespace Mappalachia
 			this.tabPageSpace.AutoScroll = true;
 			this.tabPageSpace.BackColor = System.Drawing.SystemColors.ControlDark;
 			this.tabPageSpace.Controls.Add(this.pictureBoxSpaceFiller);
-			this.tabPageSpace.Controls.Add(this.checkBoxSpaceDrawOutline);
 			this.tabPageSpace.Controls.Add(this.groupBoxHeightCropping);
 			this.tabPageSpace.Controls.Add(this.comboBoxSpace);
 			this.tabPageSpace.Location = new System.Drawing.Point(4, 24);
@@ -1093,22 +1091,6 @@ namespace Mappalachia
 			this.pictureBoxSpaceFiller.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.pictureBoxSpaceFiller.TabIndex = 9;
 			this.pictureBoxSpaceFiller.TabStop = false;
-			// 
-			// checkBoxSpaceDrawOutline
-			// 
-			this.checkBoxSpaceDrawOutline.AutoSize = true;
-			this.checkBoxSpaceDrawOutline.Checked = true;
-			this.checkBoxSpaceDrawOutline.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxSpaceDrawOutline.Location = new System.Drawing.Point(7, 38);
-			this.checkBoxSpaceDrawOutline.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.checkBoxSpaceDrawOutline.Name = "checkBoxSpaceDrawOutline";
-			this.checkBoxSpaceDrawOutline.Size = new System.Drawing.Size(95, 19);
-			this.checkBoxSpaceDrawOutline.TabIndex = 5;
-			this.checkBoxSpaceDrawOutline.Text = "Draw Outline";
-			this.toolTipControls.SetToolTip(this.checkBoxSpaceDrawOutline, "Renders a subtle outline of all items in the cell as a background to visualize th" +
-        "e cell structure.");
-			this.checkBoxSpaceDrawOutline.UseVisualStyleBackColor = true;
-			this.checkBoxSpaceDrawOutline.CheckedChanged += new System.EventHandler(this.CheckBoxSpaceDrawOutline_CheckedChanged);
 			// 
 			// groupBoxHeightCropping
 			// 
@@ -1316,7 +1298,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(9, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(8, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1449,7 +1431,6 @@ namespace Mappalachia
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNPCSpawnThreshold)).EndInit();
 			this.tabControlMainSearch.ResumeLayout(false);
 			this.tabPageSpace.ResumeLayout(false);
-			this.tabPageSpace.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpaceFiller)).EndInit();
 			this.groupBoxHeightCropping.ResumeLayout(false);
 			this.groupBoxHeightCropping.PerformLayout();
@@ -1559,7 +1540,6 @@ namespace Mappalachia
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocationID;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
         private System.Windows.Forms.TabPage tabPageSpace;
-        private System.Windows.Forms.CheckBox checkBoxSpaceDrawOutline;
         private System.Windows.Forms.GroupBox groupBoxHeightCropping;
         private System.Windows.Forms.Label labelMaxHeight;
         private System.Windows.Forms.Label labelMinHeight;
