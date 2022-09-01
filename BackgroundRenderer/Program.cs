@@ -24,7 +24,6 @@ namespace BackgroundRenderer
 
 		static bool SSAA = true;
 
-
 		public static void Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
@@ -55,7 +54,7 @@ namespace BackgroundRenderer
 
 			query = connection.CreateCommand();
 			query.CommandText =
-				"SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xRange, yRange\n" +
+				"SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax\n" +
 				"FROM Space_Info";
 			query.Parameters.Clear();
 			reader = query.ExecuteReader();
@@ -75,7 +74,7 @@ namespace BackgroundRenderer
 					continue;
 				}
 
-				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6)));
+				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(8))));
 			}
 
 			Console.WriteLine($"\nRendering {spaces.Count} cells at {resolution}*{resolution}px");

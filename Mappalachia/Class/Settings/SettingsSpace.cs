@@ -49,12 +49,12 @@ namespace Mappalachia.Class
 
 		public static double GetMinHeightCoordBound()
 		{
-			return ((minHeightPerc / 100d) * currentSpace.heightRange) + currentSpace.zMin;
+			return ((minHeightPerc / 100d) * currentSpace.zRange) + currentSpace.zMin;
 		}
 
 		public static double GetMaxHeightCoordBound()
 		{
-			return ((maxHeightPerc / 100d) * currentSpace.heightRange) + currentSpace.zMin;
+			return ((maxHeightPerc / 100d) * currentSpace.zRange) + currentSpace.zMin;
 		}
 	}
 }

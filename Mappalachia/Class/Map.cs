@@ -170,8 +170,6 @@ namespace Mappalachia
 				return;
 			}
 
-			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
-
 			// Draw a height-color key in Topography mode
 			if (SettingsPlot.IsTopographic())
 			{
@@ -665,7 +663,7 @@ namespace Mappalachia
 					((SettingsSpace.minHeightPerc == 0 && SettingsSpace.maxHeightPerc == 100) ?
 						string.Empty :
 						"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n") +
-					"Scale: 1:" + Math.Round(currentSpace.GetScaling().scale, 2) + "\n\n" +
+					"Scale: 1:" + Math.Round(currentSpace.scale, 2) + "\n\n" +
 					infoText;
 			}
 

@@ -128,7 +128,8 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3) == 1));
+				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetString(2), (reader.GetInt32(3) == 1), reader.GetInt32(4), reader.GetInt32(5),
+						reader.GetInt32(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetInt32(9)));
 			}
 
 			return spaces;
@@ -170,31 +171,6 @@ namespace Mappalachia
 			}
 
 			return coordinates;
-		}
-
-		// Gets the coordinate extremities of a space (mins and maxes of all dimensions)
-		public static (double minX, double maxX, double minY, double maxY, int minZ, int maxZ) GetSpaceExtremities(string spaceFormID)
-		{
-			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = Properties.Resources.getSpaceExtremities;
-
-			query.Parameters.Clear();
-			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
-
-			SqliteDataReader reader = query.ExecuteReader();
-
-			while (reader.Read())
-			{
-				return (
-					Map.ScaleCoordinate(reader.GetInt32(0), false),
-					Map.ScaleCoordinate(reader.GetInt32(1), false),
-					Map.ScaleCoordinate(reader.GetInt32(2), true),
-					Map.ScaleCoordinate(reader.GetInt32(3), true),
-					reader.GetInt32(4),
-					reader.GetInt32(5));
-			}
-
-			throw new System.Exception("Failed to find coordinate space extremities of " + spaceFormID);
 		}
 
 		// Conducts the standard search and returns the found items

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mappalachia.Class
 {
@@ -9,61 +10,37 @@ namespace Mappalachia.Class
 		public string formID;
 		public string editorID;
 		public string displayName;
-		public double xMin;
-		public double xMax;
-		public double yMin;
-		public double yMax;
+		public float xOffset;
+		public float yOffset;
+		public float xRange;
+		public float yRange;
 		public int zMin;
-		public int zMax;
-		public double heightRange;
-		readonly bool isWorldsapce;
+		public int zRange;
+		public float scale;
+		readonly bool isWorldspace;
 
 		List<int> zPlots;
 
-		public Space(string formID, string editorID, string displayName, bool isWorldspace)
+		public Space(string formID, string editorID, string displayName, bool isWorldspace, int xCenter, int yCenter, int xMin, int xMax, int yMin, int yMax)
 		{
 			this.formID = formID;
 			this.editorID = editorID;
 			this.displayName = displayName;
-			this.isWorldsapce = isWorldspace;
-		}
+			this.isWorldspace = isWorldspace;
+			this.xRange = Math.Abs(Map.ScaleCoordinate(xMax, false) - Map.ScaleCoordinate(xMin, false));
+			this.yRange = Math.Abs(Map.ScaleCoordinate(yMax, true) - Map.ScaleCoordinate(yMin, true));
 
-		// Gets the plotting data and coordinate extremities
-		void InitializePlotData()
-		{
-			if (IsWorldspace())
+			xOffset = -Map.ScaleCoordinate(xCenter, false) + (Map.mapDimension / 2);
+			yOffset = -Map.ScaleCoordinate(yCenter, true) + (Map.mapDimension / 2);
+
+			scale = IsWorldspace() ? 1 : Map.mapDimension / (float)Math.Max(xRange, yRange);
+
+			if (!IsWorldspace())
 			{
-				return;
+				zPlots = Database.GetAllSpaceZCoords(formID);
+				zMin = zPlots.Min();
+				zRange = Math.Abs(zPlots.Max() - zMin);
 			}
-
-			zPlots = Database.GetAllSpaceZCoords(formID);
-			(double, double, double, double, int, int) extremities = Database.GetSpaceExtremities(formID);
-
-			xMin = extremities.Item1;
-			xMax = extremities.Item2;
-
-			yMin = extremities.Item3;
-			yMax = extremities.Item4;
-
-			zMin = extremities.Item5;
-			zMax = extremities.Item6;
-
-			heightRange = Math.Abs(zMax - zMin);
-		}
-
-		public SpaceScaling GetScaling()
-		{
-			if (IsWorldspace())
-			{
-				return new SpaceScaling(0, 0, 1);
-			}
-
-			if (zPlots == null)
-			{
-				InitializePlotData();
-			}
-
-			return SpaceScaling.GetSpaceScaling(this);
 		}
 
 		// Returns the distribution of Y coordinates for items in the space, broken into x bins
@@ -74,11 +51,6 @@ namespace Mappalachia.Class
 				return new double[] { 0, 1 };
 			}
 
-			if (zPlots == null)
-			{
-				InitializePlotData();
-			}
-
 			int precision = SettingsSpace.heightPrecision;
 
 			// Count how many items fall into the arbitrary <precision># different bins
@@ -86,7 +58,7 @@ namespace Mappalachia.Class
 			foreach (int point in zPlots)
 			{
 				// Calculate which numeric bin this item would fall into
-				int placementBin = (int)(((point - zMin) / heightRange) * precision);
+				int placementBin = (int)(((point - zMin) / zRange) * precision);
 
 				// At least one value will be exactly the precision value, (it's the highest thing)
 				// But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
@@ -113,7 +85,7 @@ namespace Mappalachia.Class
 		// Returns if this Space is a Worldspace
 		public bool IsWorldspace()
 		{
-			return isWorldsapce;
+			return isWorldspace;
 		}
 	}
 }
