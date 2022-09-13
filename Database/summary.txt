@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-d190e5f2a69235cfbfc2672a5de5bf7c
+e922f9251ba9e3ab021242ce64f0990e
 ==File Size== 
-372514816 
+382181376 
 ==Tables== 
 Entity_Info      Map_Markers      Scrap_Search   
 Game_Version     NPC_Search       Space_Info     
@@ -12,9 +12,9 @@ Lock_Levels      Position_Data    Standard_Search
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.6.4.78
+1.7.0.22
 ==Mean Average X/Y/Z Coord==
--12088.7962755997|4804.11662152305|12052.5425298293
+-11907.8586738723|4671.7560773943|11831.6565801993
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -27,9 +27,9 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 3696|-6968|-1112|37
 -125269|-37601|6630|36
 2928|-2360|-1112|36
-0|0|0|35
 -128|1664|-608|34
 -1216|2352|128|32
+0|0|0|32
 960|2352|128|32
 -43|4777|519|30
 1988|4809|518|30
@@ -59,16 +59,25 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 1536|0|0|24
 -19952|104540|11034|22
 -15789|103340|11026|22
+-12313|-9137|4261|22
+-11535|1118|-276|22
 -3708|-154012|33461|22
 -256|256|0|22
 -256|1024|0|22
 0|1280|0|22
 33916|77986|21778|22
+-12363|-8955|4261|21
+-12215|-9011|4437|21
+-10406|404|-459|21
 -6|-11|-2289|21
 0|-256|0|21
 512|1024|0|21
 33690|77021|21776|21
 -79616|-138368|31616|20
+-13119|2726|-100|20
+-12975|1883|-99|20
+-11529|1391|-100|20
+-844|-790|-163|20
 -512|640|0|20
 -512|768|0|20
 -512|1024|0|20
@@ -109,29 +118,20 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 512|1536|0|17
 651|-1390|384|17
 768|1536|0|17
-768|1792|256|17
-1024|1536|0|17
-1280|0|256|17
-1291|1938|384|17
-1536|-256|0|17
-1920|-2944|0|17
-1920|-2176|0|17
-3072|1280|256|17
-4107|-1390|512|17
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.3839294484746
+21.7184499336946
 ==Average Y Bounds Width==
-16.0072501478662
+16.2275783726295
 ==Average Z Bounds Width==
-14.9361983330303
+15.177072675896
 ==Average Z Rotation==
-3.99799936464545
+4.07931718017708
 ==Average display name string length==
-2.65830650595194
+2.66667469473279
 ==Average editorID string length==
-24.9017993062314
+25.0094891741528
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Sunshine Meadows Industrial Farm|-138578|28356
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
@@ -513,7 +513,8 @@ Appalachia|Vault79Marker|Vault 79|145375|186773
 Appalachia|Vault94Marker|Vault 94|145156|137186
 Appalachia|Vault96Marker|Vault 96|31362|-160241
 Appalachia|VaultMarker|Vault-Tec University|-8020|82071
-Appalachia|WhitespringResort|The Whitespring Resort|6663|-52810
+Appalachia|WhitespringResort|The Whitespring North Entrance|942|-49735
+Appalachia|WhitespringResort|The Whitespring Resort|6665|-52810
 Appalachia|WoodShackMarker|Big Fred's BBQ Shack|59671|-18744
 Appalachia|WoodShackMarker|Bootlegger's Shack|165779|-83623
 Appalachia|WoodShackMarker|Darling Sister's Lab|-149399|165315
@@ -526,25 +527,25 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-40071
+41521
 ==Total entities by PrimitiveShape by Space==
 AMSHQ01||5164
 AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-AVRMedicalCenter01||5744
+AVRMedicalCenter01||5742
 AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3007451
-Appalachia|Box|62977
+Appalachia||3008002
+Appalachia|Box|62995
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
 Appalachia|Plane|76
 Appalachia|Sphere|2354
-ArktosPharmaLab01||15670
+ArktosPharmaLab01||15649
 ArktosPharmaLab01|Box|1483
 ArktosPharmaLab01|Line|11
 ArktosPharmaLab01|Plane|13
@@ -570,23 +571,23 @@ BurdetteManorBasement01|Box|9
 BurningMine01||5740
 BurningMine01|Box|392
 BurningMine01|Sphere|1
-Burrows01||19489
+Burrows01||19487
 Burrows01|Box|643
 Burrows01|Line|42
 Burrows01|Sphere|1
-CharGen01||6912
+CharGen01||6913
 CharGen01|Box|137
 CharGen01|Line|2
-CharGen02||6791
+CharGen02||6792
 CharGen02|Box|137
 CharGen02|Line|2
-CharGen03||6791
+CharGen03||6792
 CharGen03|Box|137
 CharGen03|Line|2
-CharGen04||6791
+CharGen04||6792
 CharGen04|Box|137
 CharGen04|Line|2
-CharGen05||6791
+CharGen05||6792
 CharGen05|Box|137
 CharGen05|Line|2
 CharlestonCapitolBuilding02||7179
@@ -607,8 +608,8 @@ DaggersDen01||1618
 DaggersDen01|Box|39
 DaggersDen01|Plane|1
 DaggersDen01|Sphere|1
-DaggersDen02||467
-DaggersDen02|Box|19
+DaggersDen02||468
+DaggersDen02|Box|20
 DaggersDen02|Sphere|1
 DuncanDuncanRobotics01||1311
 DuncanDuncanRobotics01|Box|53
@@ -659,7 +660,7 @@ GarrahanMiningHQ01|Line|3
 GarrahanMiningHQ01|Sphere|7
 GauleyMine01||4017
 GauleyMine01|Box|160
-GlassedCavern01||8292
+GlassedCavern01||8291
 GlassedCavern01|Box|742
 GlassedCavern01|Line|4
 GlassedCavern01|Sphere|6
@@ -685,7 +686,7 @@ KerwoodMine01|Box|373
 KerwoodMine01|Line|7
 LewisandSonsFarmingSupply01||458
 LewisandSonsFarmingSupply01|Box|3
-LousMine01||6854
+LousMine01||6719
 LousMine01|Box|268
 LousMine01|Line|5
 MTR08LodeBaring01||3231
@@ -710,7 +711,7 @@ MorgantownAirportTerminal02|Sphere|1
 MorgantownApartment01||1282
 MorgantownApartment01|Box|79
 MorgantownApartment01|Sphere|1
-MorgantownHighSchool01||5778
+MorgantownHighSchool01||5779
 MorgantownHighSchool01|Box|175
 MountBlairWarehouseBasement01||312
 MountBlairWarehouseBasement01|Box|7
@@ -721,7 +722,7 @@ OrwellOrchardsShelter01|Box|52
 OrwellOrchardsShelter01|Sphere|1
 OverseersHome01||1208
 OverseersHome01|Box|42
-PoseidonPlant01||15286
+PoseidonPlant01||15283
 PoseidonPlant01|Box|373
 PoseidonPlant01|Line|4
 PoseidonPlant02||3827
@@ -733,8 +734,8 @@ RaiderCave01||1004
 RaiderCave01|Box|12
 RaiderCave02||1733
 RaiderCave02|Box|141
-RaiderCave03||994
-RaiderCave03|Box|14
+RaiderCave03||1010
+RaiderCave03|Box|18
 RaiderRaidTrailerInt||95
 RaiderRaidTrailerInt|Box|11
 RiversideManor01||7072
@@ -753,13 +754,15 @@ SamBlackwellsDeathclawCave|Box|101
 SettlerBugOutCave||369
 SettlerBugOutCave|Box|3
 SheltersCave01||459
-SheltersCave01|Box|76
+SheltersCave01|Box|75
 SheltersCave02||574
 SheltersCave02|Box|34
 SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
 SheltersMissileSilo||441
 SheltersMissileSilo|Box|52
+SheltersPittTrench01||996
+SheltersPittTrench01|Box|106
 SheltersVaultAtrium01||2199
 SheltersVaultAtrium01|Box|69
 SheltersVaultLivingQuarters01||2596
@@ -780,12 +783,12 @@ SugarGrove02||270
 SugarGrove02|Box|1
 SugarGroveMissileSilo01||15061
 SugarGroveMissileSilo01|Box|629
-TheCraterCore01||1232
+TheCraterCore01||1233
 TheCraterCore01|Box|47
 TheCraterCore01|Plane|9
 TheNukashine01||1474
 TheNukashine01|Box|63
-TheRustyPick01||2356
+TheRustyPick01||2355
 TheRustyPick01|Box|87
 TheWayward01||1660
 TheWayward01|Box|59
@@ -813,7 +816,7 @@ UncannyCavernsDungeon||6748
 UncannyCavernsDungeon|Box|658
 UncannyCavernsDungeon|Line|1
 UncannyCavernsDungeon|Sphere|3
-VTecAgCenter01||3042
+VTecAgCenter01||3044
 VTecAgCenter01|Box|92
 ValleyGalleria01||8118
 ValleyGalleria01|Box|513
@@ -848,17 +851,17 @@ Vault94Entrance|Line|1
 Vault96Dungeon||20261
 Vault96Dungeon|Box|1491
 Vault96Dungeon|Sphere|6
-VaultTecU01||10313
+VaultTecU01||10314
 VaultTecU01|Box|399
-WVLumberCo01||1501
+WVLumberCo01||1500
 WVLumberCo01|Box|47
 WatogaCivicCenter01||10826
 WatogaCivicCenter01|Box|669
 WatogaCivicCenter01|Line|9
-WatogaCivicCenterDungeon||8438
+WatogaCivicCenterDungeon||8439
 WatogaCivicCenterDungeon|Box|490
 WatogaCivicCenterDungeon|Sphere|1
-WatogaEmergencyServices01||1835
+WatogaEmergencyServices01||1834
 WatogaEmergencyServices01|Box|71
 WatogaHighSchool01||9560
 WatogaHighSchool01|Box|545
@@ -877,16 +880,30 @@ WendigoCave01||6291
 WendigoCave01|Box|447
 WendigoCave01|Line|4
 WestTek01||11268
-WestTek01|Box|536
+WestTek01|7|3
+WestTek01|Box|513
 WestTek01|Sphere|2
 WestTek02||4964
 WestTek02|Box|162
 WestTek02|Sphere|1
 WhitespringBunker01||15833
 WhitespringBunker01|Box|500
-WhitespringResort01||16072
-WhitespringResort01|Box|314
-WhitespringResort01|Ellipsoid|1
+WhitespringMall01||6803
+WhitespringMall01|Box|137
+WhitespringRefuge01||11269
+WhitespringRefuge01|Box|224
+XPDPitt01Foundry||16369
+XPDPitt01Foundry|7|12
+XPDPitt01Foundry|Box|548
+XPDPitt01Foundry|Plane|6
+XPDPitt01Foundry|Sphere|1
+XPDPitt01Industrial||18696
+XPDPitt01Industrial|Box|1442
+XPDPitt01Industrial|Sphere|1
+XPDPitt02Sanctum||17557
+XPDPitt02Sanctum|Box|476
+XPDPitt02Trench||19683
+XPDPitt02Trench|Box|1541
 ==Total entities by LockLevel by Space==
 AMSHQ01||874
 AMSHQ01|Advanced (Level 1)|4
@@ -899,7 +916,7 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||495
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|1
-AVRMedicalCenter01||872
+AVRMedicalCenter01||877
 AVRMedicalCenter01|Advanced (Level 1)|5
 AVRMedicalCenter01|Expert (Level 2)|1
 AlleghenyAsylum01||1263
@@ -907,8 +924,8 @@ AlleghenyAsylum01|Advanced (Level 1)|4
 AlleghenyAsylum01|Expert (Level 2)|4
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Opens Door|2
-Appalachia||30495
-Appalachia|Advanced (Level 1)|76
+Appalachia||30513
+Appalachia|Advanced (Level 1)|77
 Appalachia|Barred|1
 Appalachia|Chained|1
 Appalachia|Expert (Level 2)|45
@@ -919,7 +936,7 @@ Appalachia|Opens Door|87
 Appalachia|Requires Key|21
 Appalachia|Requires Terminal|8
 Appalachia|Unknown|1
-ArktosPharmaLab01||2110
+ArktosPharmaLab01||2114
 ArktosPharmaLab01|Advanced (Level 1)|3
 ArktosPharmaLab01|Expert (Level 2)|2
 ArktosPharmaLab01|Master (Level 3)|1
@@ -951,7 +968,7 @@ BurningMine01||1029
 BurningMine01|Advanced (Level 1)|2
 BurningMine01|Expert (Level 2)|1
 BurningMine01|Requires Key|1
-Burrows01||2156
+Burrows01||2155
 Burrows01|Advanced (Level 1)|1
 Burrows01|Expert (Level 2)|3
 Burrows01|Master (Level 3)|3
@@ -959,12 +976,12 @@ Burrows01|Novice (Level 0)|1
 Burrows01|Opens Door|5
 Burrows01|Requires Key|1
 Burrows01|Requires Terminal|1
-CharGen01||1005
+CharGen01||1006
 CharGen01|Opens Door|1
-CharGen02||915
-CharGen03||915
-CharGen04||915
-CharGen05||915
+CharGen02||916
+CharGen03||916
+CharGen04||916
+CharGen05||916
 CharlestonCapitolBuilding02||1401
 CharlestonCapitolBuilding02|Advanced (Level 1)|1
 CharlestonCapitolBuilding02|Expert (Level 2)|2
@@ -986,7 +1003,7 @@ DaggersDen01||531
 DaggersDen01|Advanced (Level 1)|1
 DaggersDen01|Opens Door|1
 DaggersDen01|Requires Key|1
-DaggersDen02||155
+DaggersDen02||157
 DaggersDen02|Opens Door|1
 DaggersDen02|Requires Key|2
 DuncanDuncanRobotics01||541
@@ -1054,7 +1071,7 @@ GauleyMine01||867
 GauleyMine01|Advanced (Level 1)|2
 GauleyMine01|Inaccessible|1
 GauleyMine01|Opens Door|2
-GlassedCavern01||1179
+GlassedCavern01||1178
 GlassedCavern01|Advanced (Level 1)|3
 GlassedCavern01|Expert (Level 2)|2
 GlassedCavern01|Master (Level 3)|1
@@ -1087,7 +1104,7 @@ KerwoodMine01|Opens Door|1
 KerwoodMine01|Requires Key|4
 LewisandSonsFarmingSupply01||271
 LewisandSonsFarmingSupply01|Opens Door|1
-LousMine01||960
+LousMine01||948
 LousMine01|Advanced (Level 1)|1
 LousMine01|Novice (Level 0)|2
 LousMine01|Opens Door|1
@@ -1116,13 +1133,13 @@ MonongahPowerPlant01|Opens Door|3
 MorgantownAirportTerminal02||1308
 MorgantownAirportTerminal02|Advanced (Level 1)|1
 MorgantownAirportTerminal02|Novice (Level 0)|3
-MorgantownAirportTerminal02|Opens Door|1
+MorgantownAirportTerminal02|Opens Door|2
 MorgantownAirportTerminal02|Requires Terminal|1
 MorgantownApartment01||469
 MorgantownApartment01|Advanced (Level 1)|1
 MorgantownApartment01|Expert (Level 2)|1
 MorgantownApartment01|Novice (Level 0)|2
-MorgantownHighSchool01||998
+MorgantownHighSchool01||1002
 MorgantownHighSchool01|Advanced (Level 1)|4
 MorgantownHighSchool01|Expert (Level 2)|3
 MorgantownHighSchool01|Opens Door|2
@@ -1158,7 +1175,7 @@ RaiderCave01||307
 RaiderCave01|Novice (Level 0)|1
 RaiderCave02||521
 RaiderCave02|Expert (Level 2)|1
-RaiderCave03||272
+RaiderCave03||276
 RaiderRaidTrailerInt||85
 RiversideManor01||1212
 RiversideManor01|Advanced (Level 1)|2
@@ -1189,6 +1206,7 @@ SheltersCave02||63
 SheltersClaimCenter01||314
 SheltersClaimCenter01|Requires Key|1
 SheltersMissileSilo||72
+SheltersPittTrench01||216
 SheltersVaultAtrium01||253
 SheltersVaultLivingQuarters01||207
 SheltersVaultReception01||216
@@ -1219,7 +1237,7 @@ TheCraterCore01||475
 TheCraterCore01|Master (Level 3)|1
 TheCraterCore01|Requires Key|1
 TheNukashine01||516
-TheRustyPick01||743
+TheRustyPick01||741
 TheWayward01||571
 TheWayward01|Expert (Level 2)|1
 TheWayward01|Requires Key|1
@@ -1244,8 +1262,8 @@ UncannyCavernsDungeon||765
 UncannyCavernsDungeon|Advanced (Level 1)|1
 UncannyCavernsDungeon|Inaccessible|1
 UncannyCavernsDungeon|Opens Door|2
-VTecAgCenter01||827
-VTecAgCenter01|Opens Door|4
+VTecAgCenter01||832
+VTecAgCenter01|Opens Door|3
 VTecAgCenter01|Requires Terminal|1
 ValleyGalleria01||1210
 ValleyGalleria01|Advanced (Level 1)|2
@@ -1290,15 +1308,15 @@ VaultTecU01|Inaccessible|1
 VaultTecU01|Master (Level 3)|1
 VaultTecU01|Novice (Level 0)|1
 VaultTecU01|Opens Door|2
-WVLumberCo01||556
+WVLumberCo01||557
 WVLumberCo01|Novice (Level 0)|1
 WatogaCivicCenter01||1273
 WatogaCivicCenter01|Advanced (Level 1)|4
 WatogaCivicCenter01|Expert (Level 2)|2
 WatogaCivicCenter01|Opens Door|1
 WatogaCivicCenter01|Requires Key|4
-WatogaCivicCenterDungeon||1014
-WatogaEmergencyServices01||451
+WatogaCivicCenterDungeon||1015
+WatogaEmergencyServices01||457
 WatogaEmergencyServices01|Advanced (Level 1)|1
 WatogaEmergencyServices01|Expert (Level 2)|3
 WatogaEmergencyServices01|Master (Level 3)|1
@@ -1346,14 +1364,36 @@ WhitespringBunker01|Advanced (Level 1)|1
 WhitespringBunker01|Master (Level 3)|2
 WhitespringBunker01|Novice (Level 0)|1
 WhitespringBunker01|Opens Door|5
-WhitespringResort01||1341
-WhitespringResort01|Advanced (Level 1)|2
-WhitespringResort01|Expert (Level 2)|3
-WhitespringResort01|Inaccessible|1
-WhitespringResort01|Master (Level 3)|2
-WhitespringResort01|Novice (Level 0)|1
-WhitespringResort01|Opens Door|4
-WhitespringResort01|Requires Key|1
+WhitespringMall01||979
+WhitespringMall01|Advanced (Level 1)|1
+WhitespringMall01|Expert (Level 2)|1
+WhitespringMall01|Master (Level 3)|2
+WhitespringMall01|Opens Door|6
+WhitespringRefuge01||1118
+WhitespringRefuge01|Advanced (Level 1)|2
+WhitespringRefuge01|Inaccessible|4
+WhitespringRefuge01|Opens Door|4
+XPDPitt01Foundry||1831
+XPDPitt01Foundry|Advanced (Level 1)|11
+XPDPitt01Foundry|Expert (Level 2)|5
+XPDPitt01Foundry|Master (Level 3)|3
+XPDPitt01Foundry|Novice (Level 0)|2
+XPDPitt01Foundry|Opens Door|5
+XPDPitt01Industrial||3204
+XPDPitt01Industrial|Advanced (Level 1)|18
+XPDPitt01Industrial|Expert (Level 2)|3
+XPDPitt01Industrial|Inaccessible|2
+XPDPitt01Industrial|Master (Level 3)|1
+XPDPitt01Industrial|Opens Door|2
+XPDPitt02Sanctum||2078
+XPDPitt02Sanctum|Advanced (Level 1)|1
+XPDPitt02Sanctum|Inaccessible|4
+XPDPitt02Sanctum|Master (Level 3)|2
+XPDPitt02Sanctum|Opens Door|4
+XPDPitt02Trench||2586
+XPDPitt02Trench|Advanced (Level 1)|4
+XPDPitt02Trench|Expert (Level 2)|5
+XPDPitt02Trench|Opens Door|5
 ==Total entities by Category by Space==
 AMSHQ01|ACTI|25
 AMSHQ01|ASPC|1
@@ -1394,7 +1434,7 @@ AVRMedicalCenter01|ASPC|3
 AVRMedicalCenter01|BNDS|1
 AVRMedicalCenter01|BOOK|1
 AVRMedicalCenter01|CNCY|1
-AVRMedicalCenter01|CONT|30
+AVRMedicalCenter01|CONT|31
 AVRMedicalCenter01|DOOR|9
 AVRMedicalCenter01|FURN|28
 AVRMedicalCenter01|HAZD|1
@@ -1402,13 +1442,13 @@ AVRMedicalCenter01|IDLM|2
 AVRMedicalCenter01|LIGH|12
 AVRMedicalCenter01|LVLI|40
 AVRMedicalCenter01|MISC|92
-AVRMedicalCenter01|MSTT|37
+AVRMedicalCenter01|MSTT|38
 AVRMedicalCenter01|NOTE|1
 AVRMedicalCenter01|NPC_|7
 AVRMedicalCenter01|SCOL|47
 AVRMedicalCenter01|SOUN|1
 AVRMedicalCenter01|STAT|514
-AVRMedicalCenter01|TERM|3
+AVRMedicalCenter01|TERM|6
 AVRMedicalCenter01|TXST|24
 AVRMedicalCenter01|WEAP|1
 AlleghenyAsylum01|ACTI|30
@@ -1432,41 +1472,41 @@ AlleghenyAsylum01|SOUN|1
 AlleghenyAsylum01|STAT|631
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|20
-Appalachia|ACTI|836
-Appalachia|ALCH|67
+Appalachia|ACTI|839
+Appalachia|ALCH|66
 Appalachia|AMMO|6
 Appalachia|ARMO|49
 Appalachia|ASPC|42
 Appalachia|BNDS|17
 Appalachia|BOOK|405
 Appalachia|CNCY|1
-Appalachia|CONT|529
-Appalachia|DOOR|348
+Appalachia|CONT|530
+Appalachia|DOOR|349
 Appalachia|FLOR|123
-Appalachia|FURN|438
+Appalachia|FURN|439
 Appalachia|HAZD|31
 Appalachia|IDLM|17
 Appalachia|KEYM|35
 Appalachia|LIGH|236
-Appalachia|LVLI|537
+Appalachia|LVLI|544
 Appalachia|MISC|694
-Appalachia|MSTT|604
+Appalachia|MSTT|603
 Appalachia|NOTE|168
-Appalachia|NPC_|682
+Appalachia|NPC_|684
 Appalachia|PROJ|2
-Appalachia|SCOL|8930
+Appalachia|SCOL|8932
 Appalachia|SECH|10
 Appalachia|SOUN|160
-Appalachia|STAT|15165
+Appalachia|STAT|15167
 Appalachia|TACT|36
-Appalachia|TERM|217
+Appalachia|TERM|219
 Appalachia|TXST|375
 Appalachia|WEAP|43
 ArktosPharmaLab01|ACTI|40
 ArktosPharmaLab01|ASPC|7
 ArktosPharmaLab01|BNDS|4
 ArktosPharmaLab01|BOOK|3
-ArktosPharmaLab01|CONT|45
+ArktosPharmaLab01|CONT|46
 ArktosPharmaLab01|DOOR|15
 ArktosPharmaLab01|FLOR|19
 ArktosPharmaLab01|FURN|36
@@ -1482,7 +1522,7 @@ ArktosPharmaLab01|SCOL|375
 ArktosPharmaLab01|SOUN|30
 ArktosPharmaLab01|STAT|1072
 ArktosPharmaLab01|TACT|1
-ArktosPharmaLab01|TERM|5
+ArktosPharmaLab01|TERM|8
 ArktosPharmaLab01|TXST|59
 ArktosPharmaLabDungeon|ACTI|35
 ArktosPharmaLabDungeon|ASPC|7
@@ -1605,7 +1645,7 @@ BurningMine01|SCOL|66
 BurningMine01|SOUN|1
 BurningMine01|STAT|691
 BurningMine01|TXST|34
-Burrows01|ACTI|41
+Burrows01|ACTI|40
 Burrows01|ALCH|4
 Burrows01|ASPC|24
 Burrows01|BNDS|1
@@ -1636,7 +1676,7 @@ CharGen01|ALCH|5
 CharGen01|ARMO|3
 CharGen01|ASPC|3
 CharGen01|BNDS|2
-CharGen01|BOOK|6
+CharGen01|BOOK|7
 CharGen01|CONT|17
 CharGen01|DOOR|8
 CharGen01|FURN|79
@@ -1658,7 +1698,7 @@ CharGen02|ALCH|5
 CharGen02|ARMO|3
 CharGen02|ASPC|3
 CharGen02|BNDS|2
-CharGen02|BOOK|2
+CharGen02|BOOK|3
 CharGen02|CONT|17
 CharGen02|DOOR|8
 CharGen02|FURN|21
@@ -1680,7 +1720,7 @@ CharGen03|ALCH|5
 CharGen03|ARMO|3
 CharGen03|ASPC|3
 CharGen03|BNDS|2
-CharGen03|BOOK|2
+CharGen03|BOOK|3
 CharGen03|CONT|17
 CharGen03|DOOR|8
 CharGen03|FURN|21
@@ -1702,7 +1742,7 @@ CharGen04|ALCH|5
 CharGen04|ARMO|3
 CharGen04|ASPC|3
 CharGen04|BNDS|2
-CharGen04|BOOK|2
+CharGen04|BOOK|3
 CharGen04|CONT|17
 CharGen04|DOOR|8
 CharGen04|FURN|21
@@ -1724,7 +1764,7 @@ CharGen05|ALCH|5
 CharGen05|ARMO|3
 CharGen05|ASPC|3
 CharGen05|BNDS|2
-CharGen05|BOOK|2
+CharGen05|BOOK|3
 CharGen05|CONT|17
 CharGen05|DOOR|8
 CharGen05|FURN|21
@@ -1851,7 +1891,7 @@ DaggersDen01|SOUN|4
 DaggersDen01|STAT|308
 DaggersDen01|TXST|6
 DaggersDen01|WEAP|1
-DaggersDen02|ACTI|5
+DaggersDen02|ACTI|6
 DaggersDen02|BOOK|1
 DaggersDen02|CONT|3
 DaggersDen02|DOOR|2
@@ -1862,7 +1902,7 @@ DaggersDen02|MISC|8
 DaggersDen02|MSTT|2
 DaggersDen02|NPC_|3
 DaggersDen02|SCOL|10
-DaggersDen02|STAT|106
+DaggersDen02|STAT|107
 DaggersDen02|TXST|1
 DuncanDuncanRobotics01|ACTI|21
 DuncanDuncanRobotics01|ALCH|1
@@ -2219,7 +2259,7 @@ GauleyMine01|STAT|550
 GauleyMine01|TACT|1
 GauleyMine01|TXST|28
 GauleyMine01|WEAP|2
-GlassedCavern01|ACTI|23
+GlassedCavern01|ACTI|22
 GlassedCavern01|ASPC|2
 GlassedCavern01|BNDS|1
 GlassedCavern01|CONT|44
@@ -2366,7 +2406,7 @@ LewisandSonsFarmingSupply01|NPC_|4
 LewisandSonsFarmingSupply01|SCOL|1
 LewisandSonsFarmingSupply01|STAT|140
 LousMine01|ACTI|36
-LousMine01|ALCH|5
+LousMine01|ALCH|4
 LousMine01|ARMO|2
 LousMine01|ASPC|1
 LousMine01|BNDS|4
@@ -2377,13 +2417,13 @@ LousMine01|FLOR|1
 LousMine01|FURN|14
 LousMine01|IDLM|2
 LousMine01|LIGH|37
-LousMine01|LVLI|27
+LousMine01|LVLI|28
 LousMine01|MISC|22
 LousMine01|MSTT|22
 LousMine01|NPC_|12
 LousMine01|SCOL|83
 LousMine01|SOUN|7
-LousMine01|STAT|622
+LousMine01|STAT|610
 LousMine01|TACT|1
 LousMine01|TERM|6
 LousMine01|TXST|26
@@ -2505,7 +2545,7 @@ MorgantownAirportTerminal02|ALCH|1
 MorgantownAirportTerminal02|ASPC|2
 MorgantownAirportTerminal02|BNDS|3
 MorgantownAirportTerminal02|BOOK|7
-MorgantownAirportTerminal02|CONT|48
+MorgantownAirportTerminal02|CONT|49
 MorgantownAirportTerminal02|DOOR|11
 MorgantownAirportTerminal02|FURN|32
 MorgantownAirportTerminal02|IDLM|2
@@ -2543,21 +2583,21 @@ MorgantownHighSchool01|ASPC|2
 MorgantownHighSchool01|BNDS|1
 MorgantownHighSchool01|BOOK|2
 MorgantownHighSchool01|CNCY|1
-MorgantownHighSchool01|CONT|29
+MorgantownHighSchool01|CONT|30
 MorgantownHighSchool01|DOOR|18
-MorgantownHighSchool01|FURN|23
+MorgantownHighSchool01|FURN|22
 MorgantownHighSchool01|IDLM|2
 MorgantownHighSchool01|KEYM|2
 MorgantownHighSchool01|LIGH|15
 MorgantownHighSchool01|LVLI|33
 MorgantownHighSchool01|MISC|127
-MorgantownHighSchool01|MSTT|38
+MorgantownHighSchool01|MSTT|39
 MorgantownHighSchool01|NOTE|1
 MorgantownHighSchool01|NPC_|8
 MorgantownHighSchool01|SCOL|48
 MorgantownHighSchool01|SOUN|1
 MorgantownHighSchool01|STAT|612
-MorgantownHighSchool01|TERM|2
+MorgantownHighSchool01|TERM|5
 MorgantownHighSchool01|TXST|18
 MountBlairWarehouseBasement01|ACTI|3
 MountBlairWarehouseBasement01|CONT|5
@@ -2729,16 +2769,16 @@ RaiderCave03|BNDS|1
 RaiderCave03|BOOK|2
 RaiderCave03|CONT|6
 RaiderCave03|DOOR|4
-RaiderCave03|FURN|14
-RaiderCave03|IDLM|1
+RaiderCave03|FURN|12
+RaiderCave03|IDLM|2
 RaiderCave03|LIGH|5
 RaiderCave03|LVLI|17
 RaiderCave03|MISC|10
 RaiderCave03|MSTT|6
-RaiderCave03|NPC_|9
+RaiderCave03|NPC_|12
 RaiderCave03|SCOL|17
 RaiderCave03|STAT|166
-RaiderCave03|TXST|2
+RaiderCave03|TXST|4
 RaiderRaidTrailerInt|CONT|7
 RaiderRaidTrailerInt|DOOR|1
 RaiderRaidTrailerInt|FURN|2
@@ -2903,6 +2943,13 @@ SheltersMissileSilo|MSTT|1
 SheltersMissileSilo|SCOL|1
 SheltersMissileSilo|STAT|46
 SheltersMissileSilo|TXST|12
+SheltersPittTrench01|ACTI|4
+SheltersPittTrench01|LIGH|3
+SheltersPittTrench01|SCOL|40
+SheltersPittTrench01|SECH|1
+SheltersPittTrench01|SOUN|2
+SheltersPittTrench01|STAT|165
+SheltersPittTrench01|TXST|1
 SheltersVaultAtrium01|ACTI|3
 SheltersVaultAtrium01|LIGH|8
 SheltersVaultAtrium01|MSTT|19
@@ -3064,14 +3111,14 @@ TheRustyPick01|FLOR|2
 TheRustyPick01|FURN|7
 TheRustyPick01|IDLM|1
 TheRustyPick01|LIGH|19
-TheRustyPick01|LVLI|32
+TheRustyPick01|LVLI|31
 TheRustyPick01|MISC|45
 TheRustyPick01|MSTT|12
 TheRustyPick01|NOTE|2
 TheRustyPick01|NPC_|7
 TheRustyPick01|SCOL|39
 TheRustyPick01|SOUN|3
-TheRustyPick01|STAT|472
+TheRustyPick01|STAT|471
 TheRustyPick01|TERM|1
 TheRustyPick01|TXST|12
 TheRustyPick01|WEAP|31
@@ -3213,20 +3260,20 @@ UncannyCavernsDungeon|TXST|29
 VTecAgCenter01|ACTI|8
 VTecAgCenter01|ASPC|2
 VTecAgCenter01|BOOK|3
-VTecAgCenter01|CONT|25
-VTecAgCenter01|DOOR|13
+VTecAgCenter01|CONT|27
+VTecAgCenter01|DOOR|12
 VTecAgCenter01|FURN|9
 VTecAgCenter01|IDLM|1
 VTecAgCenter01|LIGH|10
 VTecAgCenter01|LVLI|27
 VTecAgCenter01|MISC|71
-VTecAgCenter01|MSTT|29
+VTecAgCenter01|MSTT|30
 VTecAgCenter01|NOTE|1
 VTecAgCenter01|NPC_|5
 VTecAgCenter01|SCOL|29
 VTecAgCenter01|SOUN|2
-VTecAgCenter01|STAT|578
-VTecAgCenter01|TERM|4
+VTecAgCenter01|STAT|577
+VTecAgCenter01|TERM|7
 VTecAgCenter01|TXST|15
 ValleyGalleria01|ACTI|43
 ValleyGalleria01|ARMO|1
@@ -3457,7 +3504,7 @@ WVLumberCo01|BOOK|1
 WVLumberCo01|CONT|20
 WVLumberCo01|DOOR|2
 WVLumberCo01|FURN|26
-WVLumberCo01|LIGH|18
+WVLumberCo01|LIGH|19
 WVLumberCo01|LVLI|68
 WVLumberCo01|MISC|96
 WVLumberCo01|MSTT|16
@@ -3506,22 +3553,22 @@ WatogaCivicCenterDungeon|NOTE|1
 WatogaCivicCenterDungeon|NPC_|2
 WatogaCivicCenterDungeon|SCOL|73
 WatogaCivicCenterDungeon|SOUN|2
-WatogaCivicCenterDungeon|STAT|636
+WatogaCivicCenterDungeon|STAT|637
 WatogaCivicCenterDungeon|TXST|73
 WatogaEmergencyServices01|ACTI|19
-WatogaEmergencyServices01|CONT|17
+WatogaEmergencyServices01|CONT|19
 WatogaEmergencyServices01|DOOR|8
 WatogaEmergencyServices01|FURN|11
 WatogaEmergencyServices01|IDLM|2
 WatogaEmergencyServices01|LIGH|11
 WatogaEmergencyServices01|LVLI|19
 WatogaEmergencyServices01|MISC|40
-WatogaEmergencyServices01|MSTT|19
+WatogaEmergencyServices01|MSTT|20
 WatogaEmergencyServices01|NOTE|1
 WatogaEmergencyServices01|NPC_|10
 WatogaEmergencyServices01|SCOL|35
 WatogaEmergencyServices01|STAT|254
-WatogaEmergencyServices01|TERM|3
+WatogaEmergencyServices01|TERM|6
 WatogaEmergencyServices01|TXST|7
 WatogaHighSchool01|ACTI|25
 WatogaHighSchool01|ASPC|1
@@ -3699,28 +3746,136 @@ WhitespringBunker01|STAT|1096
 WhitespringBunker01|TACT|11
 WhitespringBunker01|TERM|16
 WhitespringBunker01|TXST|32
-WhitespringResort01|ACTI|22
-WhitespringResort01|AMMO|3
-WhitespringResort01|ARMO|6
-WhitespringResort01|ASPC|1
-WhitespringResort01|BNDS|2
-WhitespringResort01|BOOK|1
-WhitespringResort01|CONT|61
-WhitespringResort01|DOOR|28
-WhitespringResort01|FLOR|1
-WhitespringResort01|FURN|35
-WhitespringResort01|IDLM|2
-WhitespringResort01|LIGH|23
-WhitespringResort01|LVLI|87
-WhitespringResort01|MISC|214
-WhitespringResort01|MSTT|31
-WhitespringResort01|NOTE|5
-WhitespringResort01|NPC_|46
-WhitespringResort01|SCOL|77
-WhitespringResort01|STAT|699
-WhitespringResort01|TERM|8
-WhitespringResort01|TXST|2
-WhitespringResort01|WEAP|1
+WhitespringMall01|ACTI|15
+WhitespringMall01|AMMO|3
+WhitespringMall01|ARMO|6
+WhitespringMall01|ASPC|1
+WhitespringMall01|BNDS|2
+WhitespringMall01|BOOK|1
+WhitespringMall01|CONT|50
+WhitespringMall01|DOOR|15
+WhitespringMall01|FLOR|1
+WhitespringMall01|FURN|28
+WhitespringMall01|IDLM|2
+WhitespringMall01|LIGH|14
+WhitespringMall01|LVLI|79
+WhitespringMall01|MISC|177
+WhitespringMall01|MSTT|21
+WhitespringMall01|NOTE|2
+WhitespringMall01|NPC_|36
+WhitespringMall01|SCOL|60
+WhitespringMall01|STAT|467
+WhitespringMall01|TERM|7
+WhitespringMall01|TXST|1
+WhitespringMall01|WEAP|1
+WhitespringRefuge01|ACTI|29
+WhitespringRefuge01|ARMO|2
+WhitespringRefuge01|ASPC|1
+WhitespringRefuge01|BOOK|2
+WhitespringRefuge01|CONT|39
+WhitespringRefuge01|DOOR|25
+WhitespringRefuge01|FLOR|1
+WhitespringRefuge01|FURN|46
+WhitespringRefuge01|IDLM|2
+WhitespringRefuge01|LIGH|22
+WhitespringRefuge01|LVLI|20
+WhitespringRefuge01|MISC|120
+WhitespringRefuge01|MSTT|44
+WhitespringRefuge01|NOTE|3
+WhitespringRefuge01|NPC_|25
+WhitespringRefuge01|SCOL|65
+WhitespringRefuge01|STAT|663
+WhitespringRefuge01|TERM|3
+WhitespringRefuge01|TXST|14
+WhitespringRefuge01|WEAP|2
+XPDPitt01Foundry|ACTI|45
+XPDPitt01Foundry|AMMO|2
+XPDPitt01Foundry|ARMO|3
+XPDPitt01Foundry|BNDS|2
+XPDPitt01Foundry|BOOK|12
+XPDPitt01Foundry|CONT|70
+XPDPitt01Foundry|DOOR|11
+XPDPitt01Foundry|FURN|37
+XPDPitt01Foundry|HAZD|1
+XPDPitt01Foundry|IDLM|2
+XPDPitt01Foundry|LIGH|36
+XPDPitt01Foundry|LVLI|114
+XPDPitt01Foundry|MISC|185
+XPDPitt01Foundry|MSTT|66
+XPDPitt01Foundry|NOTE|2
+XPDPitt01Foundry|NPC_|15
+XPDPitt01Foundry|SCOL|231
+XPDPitt01Foundry|SOUN|21
+XPDPitt01Foundry|STAT|946
+XPDPitt01Foundry|TERM|3
+XPDPitt01Foundry|TXST|49
+XPDPitt01Foundry|WEAP|4
+XPDPitt01Industrial|ACTI|35
+XPDPitt01Industrial|AMMO|1
+XPDPitt01Industrial|ASPC|2
+XPDPitt01Industrial|BNDS|5
+XPDPitt01Industrial|BOOK|11
+XPDPitt01Industrial|CONT|69
+XPDPitt01Industrial|DOOR|24
+XPDPitt01Industrial|FLOR|5
+XPDPitt01Industrial|FURN|53
+XPDPitt01Industrial|HAZD|3
+XPDPitt01Industrial|IDLM|3
+XPDPitt01Industrial|LIGH|54
+XPDPitt01Industrial|LVLI|71
+XPDPitt01Industrial|MISC|115
+XPDPitt01Industrial|MSTT|88
+XPDPitt01Industrial|NOTE|2
+XPDPitt01Industrial|NPC_|27
+XPDPitt01Industrial|SCOL|563
+XPDPitt01Industrial|SECH|3
+XPDPitt01Industrial|SOUN|5
+XPDPitt01Industrial|STAT|2012
+XPDPitt01Industrial|TERM|2
+XPDPitt01Industrial|TXST|76
+XPDPitt01Industrial|WEAP|1
+XPDPitt02Sanctum|ACTI|42
+XPDPitt02Sanctum|ALCH|1
+XPDPitt02Sanctum|BNDS|4
+XPDPitt02Sanctum|BOOK|16
+XPDPitt02Sanctum|CONT|40
+XPDPitt02Sanctum|DOOR|28
+XPDPitt02Sanctum|FLOR|2
+XPDPitt02Sanctum|FURN|45
+XPDPitt02Sanctum|IDLM|3
+XPDPitt02Sanctum|LIGH|35
+XPDPitt02Sanctum|LVLI|73
+XPDPitt02Sanctum|MISC|198
+XPDPitt02Sanctum|MSTT|85
+XPDPitt02Sanctum|NOTE|2
+XPDPitt02Sanctum|NPC_|26
+XPDPitt02Sanctum|SCOL|178
+XPDPitt02Sanctum|SOUN|5
+XPDPitt02Sanctum|STAT|1259
+XPDPitt02Sanctum|TERM|1
+XPDPitt02Sanctum|TXST|46
+XPDPitt02Trench|ACTI|38
+XPDPitt02Trench|ASPC|1
+XPDPitt02Trench|BNDS|2
+XPDPitt02Trench|BOOK|17
+XPDPitt02Trench|CNCY|1
+XPDPitt02Trench|CONT|63
+XPDPitt02Trench|DOOR|10
+XPDPitt02Trench|FURN|48
+XPDPitt02Trench|HAZD|13
+XPDPitt02Trench|IDLM|3
+XPDPitt02Trench|LIGH|37
+XPDPitt02Trench|LVLI|89
+XPDPitt02Trench|MISC|73
+XPDPitt02Trench|MSTT|83
+XPDPitt02Trench|NOTE|2
+XPDPitt02Trench|NPC_|36
+XPDPitt02Trench|SCOL|461
+XPDPitt02Trench|SOUN|2
+XPDPitt02Trench|STAT|1512
+XPDPitt02Trench|TERM|6
+XPDPitt02Trench|TXST|101
+XPDPitt02Trench|WEAP|2
 ==Total Scrap and Junk per Component per Space==
 AMSHQ01|Acid|1|1
 AMSHQ01|Aluminum|7|4
@@ -3828,36 +3983,36 @@ AlleghenyAsylum01|Steel|254|168
 AlleghenyAsylum01|Wood|94|71
 Appalachia|Acid|1375|892
 Appalachia|Adhesive|1156|489
-Appalachia|Aluminum|2143|1506
+Appalachia|Aluminum|2144|1507
 Appalachia|Antiseptic|872|412
-Appalachia|Asbestos|1615|1198
+Appalachia|Asbestos|1617|1199
 Appalachia|Ballistic Fiber|184|92
 Appalachia|Bone|3412|1302
-Appalachia|Ceramic|3835|3319
-Appalachia|Circuitry|462|366
-Appalachia|Cloth|5775|5143
+Appalachia|Ceramic|3838|3323
+Appalachia|Circuitry|463|367
+Appalachia|Cloth|5784|5148
 Appalachia|Concrete|2301|421
-Appalachia|Copper|1528|1445
+Appalachia|Copper|1529|1446
 Appalachia|Cork|628|511
 Appalachia|Crystal|324|198
 Appalachia|Fertilizer|1112|377
 Appalachia|Fiber Optics|40|39
-Appalachia|Fiberglass|934|698
+Appalachia|Fiberglass|938|700
 Appalachia|Gear|1135|958
-Appalachia|Glass|8938|7391
+Appalachia|Glass|8950|7403
 Appalachia|Gold|77|77
-Appalachia|Lead|5262|3039
+Appalachia|Lead|5265|3042
 Appalachia|Leather|1905|860
 Appalachia|Nuclear Material|136|136
-Appalachia|Oil|3665|2453
-Appalachia|Plastic|5722|4064
+Appalachia|Oil|3667|2454
+Appalachia|Plastic|5724|4065
 Appalachia|Rubber|2004|1214
-Appalachia|Screw|1176|1057
-Appalachia|Silver|266|225
+Appalachia|Screw|1178|1059
+Appalachia|Silver|265|224
 Appalachia|Spring|1292|1261
-Appalachia|Steel|15429|9220
+Appalachia|Steel|15435|9223
 Appalachia|Ultracite|1|1
-Appalachia|Wood|4788|3344
+Appalachia|Wood|4793|3347
 ArktosPharmaLab01|Acid|48|33
 ArktosPharmaLab01|Adhesive|10|3
 ArktosPharmaLab01|Aluminum|31|25
@@ -3866,7 +4021,7 @@ ArktosPharmaLab01|Asbestos|15|11
 ArktosPharmaLab01|Bone|4|2
 ArktosPharmaLab01|Ceramic|43|43
 ArktosPharmaLab01|Circuitry|11|7
-ArktosPharmaLab01|Cloth|30|30
+ArktosPharmaLab01|Cloth|29|29
 ArktosPharmaLab01|Copper|40|31
 ArktosPharmaLab01|Crystal|7|7
 ArktosPharmaLab01|Fertilizer|77|16
@@ -5783,14 +5938,14 @@ VTecAgCenter01|Adhesive|2|2
 VTecAgCenter01|Aluminum|5|5
 VTecAgCenter01|Asbestos|10|7
 VTecAgCenter01|Bone|23|9
-VTecAgCenter01|Ceramic|52|52
-VTecAgCenter01|Circuitry|4|4
+VTecAgCenter01|Ceramic|51|51
+VTecAgCenter01|Circuitry|3|3
 VTecAgCenter01|Cloth|23|23
 VTecAgCenter01|Concrete|17|3
-VTecAgCenter01|Copper|8|7
+VTecAgCenter01|Copper|7|6
 VTecAgCenter01|Cork|4|2
 VTecAgCenter01|Fertilizer|1|1
-VTecAgCenter01|Fiberglass|5|5
+VTecAgCenter01|Fiberglass|4|4
 VTecAgCenter01|Gear|5|5
 VTecAgCenter01|Glass|19|16
 VTecAgCenter01|Lead|35|26
@@ -6143,11 +6298,11 @@ WatogaEmergencyServices01|Gear|3|3
 WatogaEmergencyServices01|Glass|13|12
 WatogaEmergencyServices01|Lead|3|3
 WatogaEmergencyServices01|Oil|4|4
-WatogaEmergencyServices01|Plastic|16|15
+WatogaEmergencyServices01|Plastic|15|14
 WatogaEmergencyServices01|Rubber|13|12
 WatogaEmergencyServices01|Screw|1|1
 WatogaEmergencyServices01|Spring|4|4
-WatogaEmergencyServices01|Steel|27|19
+WatogaEmergencyServices01|Steel|26|18
 WatogaEmergencyServices01|Wood|20|13
 WatogaHighSchool01|Adhesive|5|1
 WatogaHighSchool01|Aluminum|47|24
@@ -6372,36 +6527,166 @@ WhitespringBunker01|Silver|2|1
 WhitespringBunker01|Spring|13|13
 WhitespringBunker01|Steel|76|47
 WhitespringBunker01|Wood|43|29
-WhitespringResort01|Acid|19|9
-WhitespringResort01|Aluminum|37|20
-WhitespringResort01|Antiseptic|1|1
-WhitespringResort01|Asbestos|18|12
-WhitespringResort01|Ballistic Fiber|12|6
-WhitespringResort01|Bone|9|5
-WhitespringResort01|Ceramic|408|310
-WhitespringResort01|Circuitry|25|23
-WhitespringResort01|Cloth|111|86
-WhitespringResort01|Coal|1|1
-WhitespringResort01|Concrete|26|6
-WhitespringResort01|Copper|44|40
-WhitespringResort01|Cork|11|9
-WhitespringResort01|Crystal|30|16
-WhitespringResort01|Fertilizer|12|3
-WhitespringResort01|Fiberglass|41|30
-WhitespringResort01|Gear|29|21
-WhitespringResort01|Glass|144|99
-WhitespringResort01|Gold|13|13
-WhitespringResort01|Lead|33|31
-WhitespringResort01|Leather|38|20
-WhitespringResort01|Nuclear Material|3|3
-WhitespringResort01|Oil|31|23
-WhitespringResort01|Plastic|79|60
-WhitespringResort01|Rubber|16|11
-WhitespringResort01|Screw|41|25
-WhitespringResort01|Silver|34|26
-WhitespringResort01|Spring|57|45
-WhitespringResort01|Steel|303|198
-WhitespringResort01|Wood|148|89
+WhitespringMall01|Acid|4|2
+WhitespringMall01|Aluminum|35|19
+WhitespringMall01|Asbestos|14|8
+WhitespringMall01|Ballistic Fiber|12|6
+WhitespringMall01|Bone|8|4
+WhitespringMall01|Ceramic|136|101
+WhitespringMall01|Circuitry|19|17
+WhitespringMall01|Cloth|81|62
+WhitespringMall01|Copper|35|31
+WhitespringMall01|Cork|11|9
+WhitespringMall01|Crystal|28|14
+WhitespringMall01|Fiberglass|29|21
+WhitespringMall01|Gear|29|21
+WhitespringMall01|Glass|96|65
+WhitespringMall01|Gold|11|11
+WhitespringMall01|Lead|33|31
+WhitespringMall01|Leather|36|18
+WhitespringMall01|Nuclear Material|1|1
+WhitespringMall01|Oil|31|23
+WhitespringMall01|Plastic|69|50
+WhitespringMall01|Rubber|14|10
+WhitespringMall01|Screw|40|24
+WhitespringMall01|Silver|33|25
+WhitespringMall01|Spring|55|43
+WhitespringMall01|Steel|256|154
+WhitespringMall01|Wood|95|60
+WhitespringRefuge01|Acid|1|1
+WhitespringRefuge01|Aluminum|18|12
+WhitespringRefuge01|Antiseptic|5|4
+WhitespringRefuge01|Asbestos|10|7
+WhitespringRefuge01|Bone|1|1
+WhitespringRefuge01|Ceramic|157|119
+WhitespringRefuge01|Circuitry|10|6
+WhitespringRefuge01|Cloth|50|35
+WhitespringRefuge01|Concrete|3|1
+WhitespringRefuge01|Copper|8|7
+WhitespringRefuge01|Cork|2|1
+WhitespringRefuge01|Crystal|3|3
+WhitespringRefuge01|Fiber Optics|3|3
+WhitespringRefuge01|Fiberglass|13|9
+WhitespringRefuge01|Gear|6|6
+WhitespringRefuge01|Glass|64|46
+WhitespringRefuge01|Gold|2|2
+WhitespringRefuge01|Lead|12|10
+WhitespringRefuge01|Leather|8|5
+WhitespringRefuge01|Nuclear Material|2|2
+WhitespringRefuge01|Oil|3|2
+WhitespringRefuge01|Plastic|73|44
+WhitespringRefuge01|Rubber|22|16
+WhitespringRefuge01|Screw|8|8
+WhitespringRefuge01|Silver|1|1
+WhitespringRefuge01|Spring|11|11
+WhitespringRefuge01|Steel|107|83
+WhitespringRefuge01|Wood|108|65
+XPDPitt01Foundry|Acid|79|43
+XPDPitt01Foundry|Adhesive|70|28
+XPDPitt01Foundry|Aluminum|63|45
+XPDPitt01Foundry|Antiseptic|57|27
+XPDPitt01Foundry|Asbestos|35|24
+XPDPitt01Foundry|Bone|4|2
+XPDPitt01Foundry|Ceramic|47|43
+XPDPitt01Foundry|Circuitry|19|17
+XPDPitt01Foundry|Cloth|107|94
+XPDPitt01Foundry|Concrete|14|2
+XPDPitt01Foundry|Copper|49|45
+XPDPitt01Foundry|Cork|1|1
+XPDPitt01Foundry|Crystal|5|3
+XPDPitt01Foundry|Fiber Optics|1|1
+XPDPitt01Foundry|Fiberglass|42|34
+XPDPitt01Foundry|Gear|56|50
+XPDPitt01Foundry|Glass|116|103
+XPDPitt01Foundry|Gold|1|1
+XPDPitt01Foundry|Lead|144|67
+XPDPitt01Foundry|Leather|2|1
+XPDPitt01Foundry|Nuclear Material|9|9
+XPDPitt01Foundry|Oil|123|88
+XPDPitt01Foundry|Plastic|129|85
+XPDPitt01Foundry|Rubber|39|25
+XPDPitt01Foundry|Screw|43|42
+XPDPitt01Foundry|Silver|2|2
+XPDPitt01Foundry|Spring|30|30
+XPDPitt01Foundry|Steel|566|349
+XPDPitt01Foundry|Wood|147|113
+XPDPitt01Industrial|Acid|44|26
+XPDPitt01Industrial|Adhesive|22|12
+XPDPitt01Industrial|Aluminum|13|13
+XPDPitt01Industrial|Antiseptic|23|10
+XPDPitt01Industrial|Asbestos|31|20
+XPDPitt01Industrial|Ceramic|57|49
+XPDPitt01Industrial|Circuitry|15|15
+XPDPitt01Industrial|Cloth|71|71
+XPDPitt01Industrial|Copper|21|21
+XPDPitt01Industrial|Crystal|1|1
+XPDPitt01Industrial|Fertilizer|24|6
+XPDPitt01Industrial|Fiberglass|13|10
+XPDPitt01Industrial|Gear|19|15
+XPDPitt01Industrial|Glass|54|43
+XPDPitt01Industrial|Lead|67|48
+XPDPitt01Industrial|Leather|3|1
+XPDPitt01Industrial|Nuclear Material|5|5
+XPDPitt01Industrial|Oil|29|19
+XPDPitt01Industrial|Plastic|58|39
+XPDPitt01Industrial|Rubber|20|13
+XPDPitt01Industrial|Screw|25|24
+XPDPitt01Industrial|Spring|21|19
+XPDPitt01Industrial|Steel|220|131
+XPDPitt01Industrial|Wood|68|49
+XPDPitt02Sanctum|Acid|22|13
+XPDPitt02Sanctum|Adhesive|26|12
+XPDPitt02Sanctum|Aluminum|39|23
+XPDPitt02Sanctum|Antiseptic|11|6
+XPDPitt02Sanctum|Asbestos|33|26
+XPDPitt02Sanctum|Ballistic Fiber|6|3
+XPDPitt02Sanctum|Bone|46|23
+XPDPitt02Sanctum|Ceramic|62|57
+XPDPitt02Sanctum|Circuitry|14|14
+XPDPitt02Sanctum|Cloth|81|72
+XPDPitt02Sanctum|Concrete|112|16
+XPDPitt02Sanctum|Copper|40|36
+XPDPitt02Sanctum|Cork|17|17
+XPDPitt02Sanctum|Fertilizer|5|2
+XPDPitt02Sanctum|Fiberglass|18|16
+XPDPitt02Sanctum|Gear|30|24
+XPDPitt02Sanctum|Glass|151|125
+XPDPitt02Sanctum|Gold|2|2
+XPDPitt02Sanctum|Lead|105|45
+XPDPitt02Sanctum|Leather|8|4
+XPDPitt02Sanctum|Nuclear Material|1|1
+XPDPitt02Sanctum|Oil|57|44
+XPDPitt02Sanctum|Plastic|89|69
+XPDPitt02Sanctum|Rubber|57|30
+XPDPitt02Sanctum|Screw|34|33
+XPDPitt02Sanctum|Silver|4|4
+XPDPitt02Sanctum|Spring|41|41
+XPDPitt02Sanctum|Steel|322|210
+XPDPitt02Sanctum|Wood|70|49
+XPDPitt02Trench|Acid|21|19
+XPDPitt02Trench|Adhesive|15|15
+XPDPitt02Trench|Aluminum|9|8
+XPDPitt02Trench|Antiseptic|37|18
+XPDPitt02Trench|Asbestos|23|18
+XPDPitt02Trench|Ceramic|17|17
+XPDPitt02Trench|Circuitry|5|4
+XPDPitt02Trench|Cloth|78|74
+XPDPitt02Trench|Copper|5|5
+XPDPitt02Trench|Crystal|2|2
+XPDPitt02Trench|Fiber Optics|2|2
+XPDPitt02Trench|Fiberglass|7|4
+XPDPitt02Trench|Gear|25|21
+XPDPitt02Trench|Glass|72|61
+XPDPitt02Trench|Lead|90|38
+XPDPitt02Trench|Leather|10|5
+XPDPitt02Trench|Nuclear Material|4|4
+XPDPitt02Trench|Oil|69|49
+XPDPitt02Trench|Plastic|25|20
+XPDPitt02Trench|Rubber|4|2
+XPDPitt02Trench|Screw|12|12
+XPDPitt02Trench|Spring|12|12
+XPDPitt02Trench|Steel|237|142
+XPDPitt02Trench|Wood|55|49
 ==Average (variable only) Spawn chance and Count per NPC per Space==
 AMSHQ01|Robot|1.0|2
 AVRMedicalCenter01|Scorched|1.0|21
@@ -6410,14 +6695,14 @@ Appalachia|Angler|0.157676521009854|90
 Appalachia|Bloatfly|0.105436991869919|82
 Appalachia|Bloodbug|0.41984126984127|70
 Appalachia|Cave Cricket|0.0818847215586345|161
-Appalachia|Deathclaw|0.342948717948718|8
-Appalachia|Fog Crawler|0.12857905982906|48
+Appalachia|Deathclaw|0.235042735042735|6
+Appalachia|Fog Crawler|0.124222585924714|47
 Appalachia|Ghoul|0.497154297479442|1038
 Appalachia|Gulper|0.147427006650308|103
 Appalachia|Honey Beast|0.234285714285714|10
 Appalachia|Insect|0.160736616745201|233
 Appalachia|Liberator|0.165318754313319|460
-Appalachia|Mega Sloth|0.193732193732194|9
+Appalachia|Mega Sloth|0.176282051282051|8
 Appalachia|Mirelurk|0.33939306142696|177
 Appalachia|Mole Miner|0.616434010152284|197
 Appalachia|Mole Rat|0.146070993256108|524
@@ -6486,17 +6771,19 @@ WestTek01|Super Mutant|1.0|41
 005A7C2E|FortAtlasDungeon01|Atlas Substructure|0|4363|-9226|-10127|18854|-19939|1487
 005B1E4A|SheltersVaultLivingQuarters01|Vault Quarters Shelter|0|-4288|-2378|-6912|-1664|-5588|832
 000042F4|SugarGroveMissileSilo01|Missile Silo Alpha|0|-8234|-30161|-15252|-1216|-37728|-22594
-005B59C8|RaiderCave03|Raider Den|0|1056|-849|-2393|4506|-4644|2945
+005B59C8|RaiderCave03|Mirelurk Den|0|1056|-849|-2393|4506|-4644|2945
 001294F4|WhitespringBunker01|Whitespring Bunker|0|-16858|-6933|-23104|-10613|-12653|-1213
 0001A69E|ValleyGalleria01|Valley Galleria|0|163|-1144|-5377|5703|-6768|4480
 0039E892|FreeStatesBunker06|Abandoned Bunker|0|165|1480|-1064|1394|272|2688
 0043CE8E|MorgantownApartment01|Shadowbreeze Apartments|0|-387|-310|-1276|501|-1374|754
 005A6C66|FoundationSupplyRoom01|Foundation Supply Room|0|-134|210|-768|499|-707|1127
 005F12A2|UncannyCaverns02|Hidden Crevice|0|1079|315|-1836|3995|-3705|4336
+006378CE|XPDPitt02Trench|The Pitt - Trench|0|-3173|-8795|-21685|15339|-27015|9424
 00081A9D|WatogaMunicipalCenter01|Watoga Municipal Center|0|768|350|-634|2171|-1164|1864
 0053F689|OverseersHome01|Overseer's Home|0|2005|822|1112|2899|-185|1830
 005B7D87|Vault94Dungeon|Vault 94|0|-12586|-527|-17811|-7362|-5911|4857
 00620445|SheltersMissileSilo|Abandoned Mine Shelter|0|1368|287|-1352|4088|-2985|3560
+00664055|SheltersPittTrench01|The Pitt Trench Shelter|0|1958|1059|-3195|7112|-5571|7690
 00004183|WatogaHighSchool01|Watoga High School|0|-1571|2284|-5728|2585|-1296|5864
 000072BB|AVRMedicalCenter01|AVR Medical Center|0|2840|-659|-588|6268|-3712|2394
 000125A3|VTecAgCenter01|Vault-Tec Ag Research Center|0|13|2004|-1408|1435|-512|4521
@@ -6506,8 +6793,10 @@ WestTek01|Super Mutant|1.0|41
 005A7AD1|BlueRidgeOffice01|Blue Ridge Office|0|-107|-101|-1732|1517|-1726|1524
 0000F0FB|BigBendTunnel01|Big Bend Tunnels|0|1888|17175|-5275|9051|86|34264
 00574627|RollinsLaborCamp01|Rollins Prison|0|245|473|-1024|1514|-973|1920
+006378CF|XPDPitt02Sanctum|Sanctum|0|3368|103|-3137|9874|-5889|6096
 0002E506|EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|0|1356|1004|-2934|5647|-4560|6568
 0061961E|ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|0|-5489|-2981|-15190|4211|-9756|3794
+0062406E|XPDPitt01Foundry|The Foundry|0|1735|4360|-5058|8529|-2416|11136
 00412190|RobcoExperimentalCache01|RobCo Auto-Cache #001|0|-3624|2403|-7670|421|109|4698
 0056BF32|SugarGrove02|Sugar Grove Data Center|0|-58|700|-1029|912|-960|2361
 005ACD84|CraterWarRoom01|The Crater War Room|0|-307|1165|-1615|1001|-1270|3600
@@ -6561,6 +6850,7 @@ WestTek01|Super Mutant|1.0|41
 004429CA|SpruceKnobMissileSilo01|Missile Silo Charlie|0|-8234|-30161|-15252|-1216|-37728|-22594
 006143D4|UncannyCavernsDungeon|Uncanny Caverns|0|3148|4581|-2676|8972|-1214|10376
 00478804|FraternityHouse02|Eta Psi House|0|472|1143|-8|952|503|1784
+0062781C|WhitespringMall01|Whitespring Mall|0|-7336|8301|-12496|-2176|6428|10175
 004041F2|TheWayward01|The Wayward|0|1858|-158|-621|4338|-2376|2059
 00004017|VaultTecU01|Vault-Tec University|0|-4774|730|-10325|776|-3862|5322
 005C60DB|DaggersDen02|Dagger's Throne Room|0|792|-1423|-2100|3685|-2807|-39
@@ -6574,6 +6864,7 @@ WestTek01|Super Mutant|1.0|41
 0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|-516|323|-257|234
 004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|-702|896|-2112|-576
 0051EF4D|CharGen05|Vault 76|0|1715|1176|-3162|6593|-3152|5504
+00616199|XPDPitt01Industrial|The Pitt - Industrial|0|-4744|-2255|-20382|10894|-15918|11408
 0011F9E7|Vault94Entrance|Vault 94 Entrance|0|5684|15752|2952|8417|14390|17114
 0051EF57|CharGen02|Vault 76|0|1715|1176|-3162|6593|-3152|5504
 0060F37B|WatogaHighSchoolDungeon|Watoga High School|0|-1571|2284|-5728|2585|-1296|5864
@@ -6593,7 +6884,6 @@ WestTek01|Super Mutant|1.0|41
 00401116|Vault79Main|Vault 79|0|-1440|-2646|-13064|10183|-13490|8197
 0051EF4E|CharGen04|Vault 76|0|1715|1176|-3162|6593|-3152|5504
 00004586|EasternRegionalPen01|Eastern Regional Penitentiary|0|2936|-92|-320|6192|-5440|5255
-00098971|WhitespringResort01|Whitespring Resort|0|-8168|8432|-16336|0|0|16864
 003D3915|MonongahPowerPlant01|Monongah Power Plant|0|-1219|2479|-5920|3482|-705|5664
 00403719|SettlerBugOutCave|Secluded Cave|0|311|742|-725|1348|-329|1814
 00411C65|DuncanDuncanRobotics01|Duncan & Duncan Robotics|0|-3433|63|-6739|-128|-2595|2721
@@ -6615,3 +6905,4 @@ WestTek01|Super Mutant|1.0|41
 0039E891|FreeStatesBunker07|Ransacked Bunker|0|1125|2081|-320|2570|667|3496
 005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0|3469|339|-524|7462|-3351|4030
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872
+006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864
