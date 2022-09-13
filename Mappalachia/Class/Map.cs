@@ -330,6 +330,7 @@ namespace Mappalachia
 								case "Box":
 								case "Line":
 								case "Plane":
+								case "7": // Temp workaround while XEdit does not recognise shape
 									volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
 									break;
 								case "Sphere":
