@@ -10,7 +10,7 @@
 
 ## Development of Mappalachia
 Now that we are finished with the 'data mining' part of the process, we can focus solely on the end-user product.<br/>
-You will find the entire project under `\Mappalachia\Mappalachia.sln`<br/>
+You will find the GUI project `Mappalachia` under the main solution, `Mappalachia.sln`<br/>
 Mappalachia uses .NET 6, and also relies heavily on Microsoft.Data.Sqlite package plus others to provide connectivity to the database.<br/>
 
 As this point, you should simply be able to 'start debugging' in Visual Studio to get it to run.
