@@ -761,7 +761,7 @@ namespace Mappalachia
 			this.columnSearchLocation.Name = "columnSearchLocation";
 			this.columnSearchLocation.ReadOnly = true;
 			this.columnSearchLocation.ToolTipText = "The location where these items can be found. Either the surface world (Apppalachi" +
-    "a) or an interior \'cell\'.";
+    "a) or a \'cell\'.";
 			// 
 			// columnSearchLocationID
 			// 

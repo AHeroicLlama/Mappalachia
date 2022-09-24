@@ -248,7 +248,7 @@ namespace Mappalachia
 
 				while (reader.Read())
 				{
-					// Sub-query for interior can return null
+					// Sub-query for cell can return null
 					if (reader.IsDBNull(0))
 					{
 						continue;
@@ -324,7 +324,7 @@ namespace Mappalachia
 
 				while (reader.Read())
 				{
-					// Sub-query for interior can return null
+					// Sub-query for cell can return null
 					if (reader.IsDBNull(0))
 					{
 						continue;

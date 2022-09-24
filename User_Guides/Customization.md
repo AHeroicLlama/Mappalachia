@@ -6,8 +6,11 @@ Under the 'Map' menu, there are several options which allow you to change the ap
 ### Brightness
 This option brings up a dialog which allows you to tweak the percentage brightness of the underlying map image. Enter any value from 5% to 300%.
 
-### Military Style
-Military Style toggles the underlying map image to be the version from the nuke targeting computer. This setting is only available when 'Appalachia' is the selected space.
+### Background Image
+Change the background image of the map. This setting is only available when 'Appalachia' is the selected space.
+- Normal: The standard in-game pause menu map.
+- Military: The map from the nuke targeting computer.
+- Satellite: A top-down render of the Appalachia world.
 
 ### Grayscale
 This toggles the underlying map image to be in grayscale (black and white) or full color.

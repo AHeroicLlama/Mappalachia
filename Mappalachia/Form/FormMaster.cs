@@ -1795,7 +1795,7 @@ namespace Mappalachia
 				}
 			}
 
-			// Give the technical name of an interior cell display name for those curious
+			// Give the technical name of a cell display name for those curious
 			else if (gridViewSearchResults.Columns[e.ColumnIndex].Name == "columnSearchLocation")
 			{
 				hoveredCell.ToolTipText = gridViewSearchResults.Rows[e.RowIndex].Cells["columnSearchLocationID"].Value.ToString();

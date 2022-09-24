@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace BackgroundRenderer
 {
-	public partial class Program
+	public partial class BackgroundRenderer
 	{
 		static string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
 		static string thisAppPath = Directory.GetCurrentDirectory();
@@ -14,8 +14,6 @@ namespace BackgroundRenderer
 
 		static double maxScale = 16;
 		static double minScale = 0.02;
-
-		static SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
 
 		// 16384 by default (16k - allows us to supersample then scale down to 4k)
 		/* 4096 if the cell is unusually small and causes the scale to be too high...
@@ -47,22 +45,20 @@ namespace BackgroundRenderer
 				Console.WriteLine();
 			}
 
-			SqliteCommand query;
-			SqliteDataReader reader;
-			connection.Open();
 			List<Space> spaces = new List<Space>();
 
-			query = connection.CreateCommand();
-			query.CommandText =
-				"SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax\n" +
-				"FROM Space_Info";
+			SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
+			connection.Open();
+
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = "SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax FROM Space_Info";
 			query.Parameters.Clear();
-			reader = query.ExecuteReader();
+			SqliteDataReader reader = query.ExecuteReader();
 
 			while (reader.Read())
 			{
 				// Skip worldspaces
-				if (reader.GetInt16(2) == 1)
+				if (reader.GetInt32(2) == 1)
 				{
 					continue;
 				}

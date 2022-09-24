@@ -81,9 +81,6 @@ sqlite3.exe %databaseFile% VACUUM
 echo Building indices...
 sqlite3.exe %databaseFile% < sql/createIndices.sql
 
-echo Noting required Map Marker images...
-sqlite3.exe %databaseFile% < sql/getMapMarkerNames.sql > requiredMarkers.txt
-
 echo Creating new summary with db file info...
 echo ==Database name== > %summaryFile%
 echo %databaseFile% >> %summaryFile%
