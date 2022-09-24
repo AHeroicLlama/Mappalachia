@@ -83,7 +83,7 @@ namespace Mappalachia
 			UpdateHeatMapResolution(false);
 			UpdateTopographColorBands(false);
 			UpdateClusterWeb(false);
-			UpdateMapLayerSettings(false);
+			UpdateMapBackgroundSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
 			UpdateHideLegend(false);
@@ -551,9 +551,27 @@ namespace Mappalachia
 		}
 
 		// Update check marks in the UI with current MapSettings, and redraw the map if true
-		void UpdateMapLayerSettings(bool reDraw)
+		void UpdateMapBackgroundSettings(bool reDraw)
 		{
-			militaryStyleMenuItem.Checked = SettingsMap.layerMilitary;
+			UncheckAllBackgrounds();
+
+			switch (SettingsMap.background)
+			{
+				case SettingsMap.Background.Normal:
+					normalBackgroundMenuItem.Checked = true;
+					break;
+
+				case SettingsMap.Background.Military:
+					militaryBackgroundMenuItem.Checked = true;
+					break;
+
+				case SettingsMap.Background.Satellite:
+					satelliteBackgroundMenuItem.Checked = true;
+					break;
+
+				default:
+					throw new Exception("Unsupported background type " + SettingsMap.background);
+			}
 
 			if (reDraw)
 			{
@@ -634,6 +652,13 @@ namespace Mappalachia
 			colorBand3MenuItem.Checked = false;
 			colorBand4MenuItem.Checked = false;
 			colorBand5MenuItem.Checked = false;
+		}
+
+		void UncheckAllBackgrounds()
+		{
+			normalBackgroundMenuItem.Checked = false;
+			militaryBackgroundMenuItem.Checked = false;
+			satelliteBackgroundMenuItem.Checked = false;
 		}
 
 		// Recursively enable/disable a tool strip menu item and all children
@@ -932,11 +957,25 @@ namespace Mappalachia
 			PreviewMap();
 		}
 
-		// Map > Military Style - Toggle the map background to be military
-		void Map_MilitaryStyle(object sender, EventArgs e)
+		// Map > Background Image > Normal - Toggle the map background to the in-game menu version
+		void Map_Image_Normal(object sender, EventArgs e)
 		{
-			SettingsMap.layerMilitary = !SettingsMap.layerMilitary;
-			UpdateMapLayerSettings(true);
+			SettingsMap.background = SettingsMap.Background.Normal;
+			UpdateMapBackgroundSettings(true);
+		}
+
+		// Map > Background Image > Military - Toggle the map background to the military version
+		void Map_Image_Military(object sender, EventArgs e)
+		{
+			SettingsMap.background = SettingsMap.Background.Military;
+			UpdateMapBackgroundSettings(true);
+		}
+
+		// Map > Background Image > Satellite - Toggle the map background to the top-down render
+		void Map_Image_Satellite(object sender, EventArgs e)
+		{
+			SettingsMap.background = SettingsMap.Background.Satellite;
+			UpdateMapBackgroundSettings(true);
 		}
 
 		// Map > Brightness... - Open the brightness adjust form
@@ -950,7 +989,7 @@ namespace Mappalachia
 		private void Map_Grayscale(object sender, EventArgs e)
 		{
 			SettingsMap.grayScale = !SettingsMap.grayScale;
-			UpdateMapGrayscale(SettingsSpace.CurrentSpaceIsWorld());
+			UpdateMapGrayscale(true);
 		}
 
 		// Map > Map Markers > Labels - toggle rendering map marker labels on map draw
@@ -1001,7 +1040,7 @@ namespace Mappalachia
 			ClearLegend();
 
 			SettingsMap.brightness = SettingsMap.brightnessDefault;
-			SettingsMap.layerMilitary = SettingsMap.layerMilitaryDefault;
+			SettingsMap.background = SettingsMap.backgroundDefault;
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapLabels = SettingsMap.showMapLabelsDefault;
 			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
@@ -1014,7 +1053,7 @@ namespace Mappalachia
 			numericMinZ.Value = 0;
 			numericMaxZ.Value = 100;
 
-			UpdateMapLayerSettings(false);
+			UpdateMapBackgroundSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
 			UpdateHideLegend(false);
@@ -1251,23 +1290,17 @@ namespace Mappalachia
 			numericMaxZ.Value = numericMinZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
 			UpdateCellorWorldExclusiveState();
+			SizeMapToFrame();
 			SettingsFileExport.UpdateRecommendation();
-		}
-
-		private void CheckBoxSpaceDrawOutline_CheckedChanged(object sender, EventArgs e)
-		{
-			SettingsSpace.drawOutline = checkBoxSpaceDrawOutline.Checked;
-			DrawMap(true);
 		}
 
 		// Toggle availability of controls which depend on current Space
 		void UpdateCellorWorldExclusiveState()
 		{
-			checkBoxSpaceDrawOutline.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
 			grayscaleMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			militaryStyleMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
+			militaryBackgroundMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
 		}
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
@@ -1762,7 +1795,7 @@ namespace Mappalachia
 				}
 			}
 
-			// Give the technical name of an interior cell display name for those curious
+			// Give the technical name of a cell display name for those curious
 			else if (gridViewSearchResults.Columns[e.ColumnIndex].Name == "columnSearchLocation")
 			{
 				hoveredCell.ToolTipText = gridViewSearchResults.Rows[e.RowIndex].Cells["columnSearchLocationID"].Value.ToString();

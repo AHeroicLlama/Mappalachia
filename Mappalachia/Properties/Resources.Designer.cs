@@ -194,19 +194,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT min(x), max(x), min(y), max(y), min(z), max(z)
-        ///FROM Position_Data
-        ///WHERE spaceFormID = $spaceFormID
-        ///.
-        /// </summary>
-        internal static string getSpaceExtremities {
-            get {
-                return ResourceManager.GetString("getSpaceExtremities", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace
+        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, xCenter, yCenter, xRange, yRange
         ///FROM Space_Info
         ///ORDER BY isWorldspace DESC, spaceDisplayName
         ///.

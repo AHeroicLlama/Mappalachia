@@ -37,8 +37,11 @@ namespace Mappalachia
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.backgroundImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.normalBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.militaryBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.satelliteBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.militaryStyleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showMapIconsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,7 +120,6 @@ namespace Mappalachia
 			this.tabControlMainSearch = new System.Windows.Forms.TabControl();
 			this.tabPageSpace = new System.Windows.Forms.TabPage();
 			this.pictureBoxSpaceFiller = new System.Windows.Forms.PictureBox();
-			this.checkBoxSpaceDrawOutline = new System.Windows.Forms.CheckBox();
 			this.groupBoxHeightCropping = new System.Windows.Forms.GroupBox();
 			this.labelMaxHeight = new System.Windows.Forms.Label();
 			this.labelMinHeight = new System.Windows.Forms.Label();
@@ -183,8 +185,8 @@ namespace Mappalachia
 			this.mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateMapToolStripMenuItem,
             this.viewMenuItem,
+            this.backgroundImageToolStripMenuItem,
             this.brightnessMenuItem,
-            this.militaryStyleMenuItem,
             this.grayscaleMenuItem,
             this.mapMarkersMenuItem,
             this.hideLegendMenuItem,
@@ -211,6 +213,41 @@ namespace Mappalachia
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
 			// 
+			// backgroundImageToolStripMenuItem
+			// 
+			this.backgroundImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.normalBackgroundMenuItem,
+            this.militaryBackgroundMenuItem,
+            this.satelliteBackgroundMenuItem});
+			this.backgroundImageToolStripMenuItem.Name = "backgroundImageToolStripMenuItem";
+			this.backgroundImageToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.backgroundImageToolStripMenuItem.Text = "Background Image";
+			this.backgroundImageToolStripMenuItem.ToolTipText = "Swap the background image of the map.";
+			// 
+			// normalBackgroundMenuItem
+			// 
+			this.normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
+			this.normalBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			this.normalBackgroundMenuItem.Text = "Normal";
+			this.normalBackgroundMenuItem.ToolTipText = "The normal in-game map image.";
+			this.normalBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Normal);
+			// 
+			// militaryBackgroundMenuItem
+			// 
+			this.militaryBackgroundMenuItem.Name = "militaryBackgroundMenuItem";
+			this.militaryBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			this.militaryBackgroundMenuItem.Text = "Military";
+			this.militaryBackgroundMenuItem.ToolTipText = "The military-style map from the nuke launch interface.";
+			this.militaryBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Military);
+			// 
+			// satelliteBackgroundMenuItem
+			// 
+			this.satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
+			this.satelliteBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			this.satelliteBackgroundMenuItem.Text = "Satellite";
+			this.satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Appalachia world.";
+			this.satelliteBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Satellite);
+			// 
 			// brightnessMenuItem
 			// 
 			this.brightnessMenuItem.Name = "brightnessMenuItem";
@@ -219,15 +256,6 @@ namespace Mappalachia
 			this.brightnessMenuItem.Text = "Adjust Brightness...";
 			this.brightnessMenuItem.ToolTipText = "Adjust the brightness of the underlying map.";
 			this.brightnessMenuItem.Click += new System.EventHandler(this.Map_Brightness);
-			// 
-			// militaryStyleMenuItem
-			// 
-			this.militaryStyleMenuItem.Name = "militaryStyleMenuItem";
-			this.militaryStyleMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.militaryStyleMenuItem.Text = "Military Style";
-			this.militaryStyleMenuItem.ToolTipText = "Swap the Appalachia map for the version found on the Targeting Computer and in Tr" +
-    "ain Stations.";
-			this.militaryStyleMenuItem.Click += new System.EventHandler(this.Map_MilitaryStyle);
 			// 
 			// grayscaleMenuItem
 			// 
@@ -733,7 +761,7 @@ namespace Mappalachia
 			this.columnSearchLocation.Name = "columnSearchLocation";
 			this.columnSearchLocation.ReadOnly = true;
 			this.columnSearchLocation.ToolTipText = "The location where these items can be found. Either the surface world (Apppalachi" +
-    "a) or an interior \'cell\'.";
+    "a) or a \'cell\'.";
 			// 
 			// columnSearchLocationID
 			// 
@@ -1041,7 +1069,6 @@ namespace Mappalachia
 			this.tabPageSpace.AutoScroll = true;
 			this.tabPageSpace.BackColor = System.Drawing.SystemColors.ControlDark;
 			this.tabPageSpace.Controls.Add(this.pictureBoxSpaceFiller);
-			this.tabPageSpace.Controls.Add(this.checkBoxSpaceDrawOutline);
 			this.tabPageSpace.Controls.Add(this.groupBoxHeightCropping);
 			this.tabPageSpace.Controls.Add(this.comboBoxSpace);
 			this.tabPageSpace.Location = new System.Drawing.Point(4, 24);
@@ -1064,22 +1091,6 @@ namespace Mappalachia
 			this.pictureBoxSpaceFiller.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.pictureBoxSpaceFiller.TabIndex = 9;
 			this.pictureBoxSpaceFiller.TabStop = false;
-			// 
-			// checkBoxSpaceDrawOutline
-			// 
-			this.checkBoxSpaceDrawOutline.AutoSize = true;
-			this.checkBoxSpaceDrawOutline.Checked = true;
-			this.checkBoxSpaceDrawOutline.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxSpaceDrawOutline.Location = new System.Drawing.Point(7, 38);
-			this.checkBoxSpaceDrawOutline.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.checkBoxSpaceDrawOutline.Name = "checkBoxSpaceDrawOutline";
-			this.checkBoxSpaceDrawOutline.Size = new System.Drawing.Size(95, 19);
-			this.checkBoxSpaceDrawOutline.TabIndex = 5;
-			this.checkBoxSpaceDrawOutline.Text = "Draw Outline";
-			this.toolTipControls.SetToolTip(this.checkBoxSpaceDrawOutline, "Renders a subtle outline of all items in the cell as a background to visualize th" +
-        "e cell structure.");
-			this.checkBoxSpaceDrawOutline.UseVisualStyleBackColor = true;
-			this.checkBoxSpaceDrawOutline.CheckedChanged += new System.EventHandler(this.CheckBoxSpaceDrawOutline_CheckedChanged);
 			// 
 			// groupBoxHeightCropping
 			// 
@@ -1287,7 +1298,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(9, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(8, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1420,7 +1431,6 @@ namespace Mappalachia
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNPCSpawnThreshold)).EndInit();
 			this.tabControlMainSearch.ResumeLayout(false);
 			this.tabPageSpace.ResumeLayout(false);
-			this.tabPageSpace.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpaceFiller)).EndInit();
 			this.groupBoxHeightCropping.ResumeLayout(false);
 			this.groupBoxHeightCropping.PerformLayout();
@@ -1465,7 +1475,6 @@ namespace Mappalachia
 		private System.Windows.Forms.Button buttonSelectAllLock;
 		private System.Windows.Forms.DataGridView gridViewLegend;
 		private System.Windows.Forms.Label labelLegend;
-		private System.Windows.Forms.ToolStripMenuItem militaryStyleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem brightnessMenuItem;
 		private System.Windows.Forms.Button buttonSearchScrap;
 		private System.Windows.Forms.Button buttonSearchNPC;
@@ -1531,7 +1540,6 @@ namespace Mappalachia
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocationID;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
         private System.Windows.Forms.TabPage tabPageSpace;
-        private System.Windows.Forms.CheckBox checkBoxSpaceDrawOutline;
         private System.Windows.Forms.GroupBox groupBoxHeightCropping;
         private System.Windows.Forms.Label labelMaxHeight;
         private System.Windows.Forms.Label labelMinHeight;
@@ -1554,6 +1562,10 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem showClusterWebMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clusterRangeMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem quickSaveMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem backgroundImageToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem normalBackgroundMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem militaryBackgroundMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem satelliteBackgroundMenuItem;
 	}
 }
 

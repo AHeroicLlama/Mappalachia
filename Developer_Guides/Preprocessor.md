@@ -14,6 +14,7 @@ It carries out several key steps;
 
 ## How to use the Preprocessor
 You simply need to build and run the preprocessor exe. There are no arguments or inputs required. The preprocessor assumes you have run the export scripts and have left the outputted CSVs where they were exported to.<br/>
+To do this, find the Preprocessor project inside the main Mappalachia solution at `Mappalachia.sln`, then build and start the `Preprocessor` project.<br/>
 Much like the export scripts, once complete the preprocessor will generate a new folder, `\Preprocessor\Output\` which contains 6 preprocessed CSVs.<br/>
 If any issues arise (most likely due to failing validation, after a new game update changes something), they will be reported to the console via a raised Exception.<br/>
 *Please note: Due to being heavily parallelized, the preprocessor tends to allocate around 8GB memory (and is therefore configured as 64-bit).*

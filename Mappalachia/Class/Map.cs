@@ -95,11 +95,6 @@ namespace Mappalachia
 
 			// Start with the basic image
 			backgroundLayer = IOManager.GetImageForSpace(SettingsSpace.GetSpace());
-			if (SettingsSpace.drawOutline)
-			{
-				Graphics backgroundGraphics = Graphics.FromImage(backgroundLayer);
-				DrawCellBackground(backgroundGraphics);
-			}
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
 			float b = SettingsMap.brightness / 100f;
@@ -174,8 +169,6 @@ namespace Mappalachia
 				FinishDraw(finalImage);
 				return;
 			}
-
-			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
 
 			// Draw a height-color key in Topography mode
 			if (SettingsPlot.IsTopographic())
@@ -668,8 +661,10 @@ namespace Mappalachia
 			{
 				infoText =
 					currentSpace.displayName + " (" + currentSpace.editorID + ")\n" +
-					"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n" +
-					"Scale: 1:" + Math.Round(currentSpace.GetScaling().scale, 2) + "\n\n" +
+					((SettingsSpace.minHeightPerc == 0 && SettingsSpace.maxHeightPerc == 100) ?
+						string.Empty :
+						"Height distribution: " + SettingsSpace.minHeightPerc + "% - " + SettingsSpace.maxHeightPerc + "%\n") +
+					"Scale: 1:" + Math.Round(currentSpace.scale, 2) + "\n\n" +
 					infoText;
 			}
 
@@ -822,51 +817,6 @@ namespace Mappalachia
 			}
 
 			return skippedLegends;
-		}
-
-		// Draws an outline of all items in the current space to act as background/template
-		static void DrawCellBackground(Graphics backgroundLayer)
-		{
-			if (SettingsSpace.CurrentSpaceIsWorld())
-			{
-				return;
-			}
-
-			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
-
-			int outlineWidth = SettingsSpace.outlineWidth;
-			int outlineSize = SettingsSpace.outlineSize;
-
-			Image plotIconImg = new Bitmap(outlineSize, outlineSize);
-			Graphics plotIconGraphic = Graphics.FromImage(plotIconImg);
-			plotIconGraphic.SmoothingMode = SmoothingMode.AntiAlias;
-			Color outlineColor = Color.FromArgb(SettingsSpace.outlineAlpha, SettingsSpace.outlineColor);
-			Pen outlinePen = new Pen(outlineColor, outlineWidth);
-			plotIconGraphic.DrawEllipse(
-				outlinePen,
-				new RectangleF(outlineWidth, outlineWidth, outlineSize - (outlineWidth * 2), outlineSize - (outlineWidth * 2)));
-
-			// Iterate over every data point and draw it
-			foreach (MapDataPoint point in Database.GetAllSpaceCoords(SettingsSpace.GetCurrentFormID()))
-			{
-				// If this coordinate exceeds the user-selected space mapping height bounds, skip it
-				// (Also accounts for the z-height of volumes)
-				if (point.z < SettingsSpace.GetMinHeightCoordBound() || point.z > SettingsSpace.GetMaxHeightCoordBound())
-				{
-					continue;
-				}
-
-				point.x += spaceScaling.xOffset;
-				point.y += spaceScaling.yOffset;
-
-				// Multiply the coordinates by the scaling, but multiply around 0,0
-				point.x = ((point.x - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
-				point.y = ((point.y - (mapDimension / 2)) * spaceScaling.scale) + (mapDimension / 2);
-				point.boundX *= spaceScaling.scale;
-				point.boundY *= spaceScaling.scale;
-
-				backgroundLayer.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
-			}
 		}
 
 		// Return a color for the topograph plot given its normalized altitude, interpolated against the user-defined selection of topographic plot colors

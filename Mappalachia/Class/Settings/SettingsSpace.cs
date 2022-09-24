@@ -17,7 +17,6 @@ namespace Mappalachia.Class
 		static Space currentSpace;
 
 		// User-definable settings
-		public static bool drawOutline = true;
 		public static int minHeightPerc = 0;
 		public static int maxHeightPerc = 100;
 
@@ -50,12 +49,12 @@ namespace Mappalachia.Class
 
 		public static double GetMinHeightCoordBound()
 		{
-			return ((minHeightPerc / 100d) * currentSpace.heightRange) + currentSpace.zMin;
+			return ((minHeightPerc / 100d) * currentSpace.zRange) + currentSpace.zMin;
 		}
 
 		public static double GetMaxHeightCoordBound()
 		{
-			return ((maxHeightPerc / 100d) * currentSpace.heightRange) + currentSpace.zMin;
+			return ((maxHeightPerc / 100d) * currentSpace.zRange) + currentSpace.zMin;
 		}
 	}
 }

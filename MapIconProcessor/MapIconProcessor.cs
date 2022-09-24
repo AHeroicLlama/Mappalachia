@@ -1,42 +1,54 @@
 ﻿using System.Text.RegularExpressions;
+using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
 {
 	static class MapIconProcessor
 	{
-		static readonly string extractPathRelative = @"..\\..\\..\\extract\\sprites";
-		static readonly string outputPathRelative = @"..\\..\\..\\..\\Mappalachia\\img\\mapmarker";
-		static readonly string markerListFilePath = @"..\\..\\..\\..\\Database\\requiredMarkers.txt";
-		static readonly string missingMarkersFile = @outputPathRelative + "\\" + "MissingMarkers.error";
-		static readonly Regex validIconFolder = new Regex(extractPathRelative + @"\\DefineSprite_[0-9]{2,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
+		static readonly string mappalachiaRoot = @"..\\..\\..\\..\\";
+
+		static readonly string databasePath = mappalachiaRoot + @"Mappalachia\\data\\mappalachia.db";
+		static readonly string mapIconProcessorPath = mappalachiaRoot + @"MapIconProcessor\\";
+
+		static readonly string extractPath = mapIconProcessorPath + @"extract\\sprites";
+		static readonly string outputPath = mappalachiaRoot + @"\\Mappalachia\\img\\mapmarker";
+		static readonly string missingMarkersFile = outputPath + @"\\MissingMarkers.error";
 		static readonly string fileExtension = ".svg";
+
+		static readonly Regex validIconFolder = new Regex(extractPath + @"\\DefineSprite_[0-9]{2,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
 		static void Main()
 		{
 			// Cleanup prior run, removing any potentially unneeded icons
-			File.Delete(missingMarkersFile);
-			Directory.Delete(outputPathRelative, true);
+			Directory.Delete(outputPath, true);
 
-			if (!File.Exists(markerListFilePath))
+			List<string> mapMarkers = new List<string>();
+
+			SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
+			connection.Open();
+
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = "SELECT DISTINCT mapMarkerName FROM Map_Markers";
+			query.Parameters.Clear();
+			SqliteDataReader reader = query.ExecuteReader();
+
+			while (reader.Read())
 			{
-				Console.WriteLine("requiredMarkers.txt not found at " + Path.GetFullPath(markerListFilePath) + ". Please build the database first to generate this file.");
-				Console.WriteLine("Press any key");
-				Console.ReadKey();
-				return;
+				mapMarkers.Add(reader.GetString(0));
 			}
 
 			// Map marker names from the database, along with a bool indicating if they're accounted for
-			Dictionary<string, bool> requiredMarkerNames = new Dictionary<string, bool>(File.ReadAllLines(markerListFilePath).ToDictionary(line => line, value => false));
+			Dictionary<string, bool> requiredMarkerNames = new Dictionary<string, bool>(mapMarkers.ToDictionary(line => line, value => false));
 
-			if (!Directory.Exists(outputPathRelative))
+			if (!Directory.Exists(outputPath))
 			{
-				Directory.CreateDirectory(outputPathRelative);
+				Directory.CreateDirectory(outputPath);
 			}
 
-			Console.WriteLine("Reading raw extracts from " + Path.GetFullPath(extractPathRelative));
-			Console.WriteLine("Placing outputs at " + Path.GetFullPath(outputPathRelative));
+			Console.WriteLine("Reading raw extracts from " + Path.GetFullPath(extractPath));
+			Console.WriteLine("Placing outputs at " + Path.GetFullPath(outputPath));
 
-			foreach (string iconFolder in Directory.GetDirectories(extractPathRelative.Replace("\\\\", "\\")))
+			foreach (string iconFolder in Directory.GetDirectories(extractPath.Replace("\\\\", "\\")))
 			{
 				Match match = validIconFolder.Match(iconFolder);
 
@@ -59,7 +71,7 @@ namespace Mappalachia
 				try
 				{
 					Console.WriteLine("Copying " + iconName);
-					File.Copy(iconFolder + "\\1" + fileExtension, outputPathRelative + "\\" + iconName + fileExtension, true);
+					File.Copy(iconFolder + "\\1" + fileExtension, outputPath + "\\" + iconName + fileExtension, true);
 					requiredMarkerNames[iconName] = true;
 				}
 				catch (FileNotFoundException)

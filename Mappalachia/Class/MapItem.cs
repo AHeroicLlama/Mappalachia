@@ -74,17 +74,17 @@ namespace Mappalachia
 					break;
 			}
 
-			SpaceScaling spaceScaling = SettingsSpace.GetSpace().GetScaling();
+			Space currentSpace = SettingsSpace.GetSpace();
 			foreach (MapDataPoint point in plots)
 			{
-				point.x += spaceScaling.xOffset;
-				point.y += spaceScaling.yOffset;
+				point.x += currentSpace.xOffset;
+				point.y += currentSpace.yOffset;
 
 				// Multiply the coordinates by the scaling, but multiply around 0,0
-				point.x = ((point.x - (Map.mapDimension / 2)) * spaceScaling.scale) + (Map.mapDimension / 2);
-				point.y = ((point.y - (Map.mapDimension / 2)) * spaceScaling.scale) + (Map.mapDimension / 2);
-				point.boundX *= spaceScaling.scale;
-				point.boundY *= spaceScaling.scale;
+				point.x = ((point.x - (Map.mapDimension / 2)) * currentSpace.scale) + (Map.mapDimension / 2);
+				point.y = ((point.y - (Map.mapDimension / 2)) * currentSpace.scale) + (Map.mapDimension / 2);
+				point.boundX *= currentSpace.scale;
+				point.boundY *= currentSpace.scale;
 			}
 
 			return plots;

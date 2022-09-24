@@ -27,12 +27,14 @@ A number of User guides exist for Mappalachia in document form;<br/>
 
 ## Info for Developers
 
-Alongside the source code for the GUI itself, this repository also contains the necessary scripts and code used to export, preprocess and build the Mappalachia database.
+Alongside the source code for the GUI itself, this repository also contains the necessary scripts and code used to export, preprocess and build the Mappalachia database and supporting image assets.
 
-The database is developed and produced in 3 key steps.
+The required information is compiled in 5 key steps.
 1. Extract the raw data in CSV using FO76Edit
 2. Refine and preprocess the data
 3. Ingest the data into a database
+4. (Optional) Image Asset extraction and rendering
+5. Image Asset and data validation
 
 If you fancy doing some data mining or development with Mappalachia then you may be interested in the following documentation;
 
@@ -40,7 +42,9 @@ If you fancy doing some data mining or development with Mappalachia then you may
 * [**Preprocessor**](Developer_Guides/Preprocessor.md) covers compiling and using the CLI tool to process and refine the rough data into proper CSVs.
 * [**Database Ingest**](Developer_Guides/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
 * [**Map Icon extraction**](Developer_Guides/IconExtraction.md) explains the process of exporting map marker icons from the game to Mappalachia.
-* [**GUI**](Developer_Guides/GUI.md) covers developing the Mappalachia GUI itself.
+* [**Background Image Rendering**](Developer_Guides/BackgroundRendering.md) explains using the powerful fo76utils to render top-down views of locations, used for map background.
+* [**Image Asset Validation**](Developer_Guides/ImageAssetValidation.md) walks through how all image assets can be validated ready for a release.
+* [**GUI**](Developer_Guides/GUI.md) covers developing the Mappalachia GUI itself, including how to update Mappalachia following a new game update.
 
 
 ## Thanks
@@ -48,6 +52,7 @@ If you fancy doing some data mining or development with Mappalachia then you may
 * Every single person who has so generously donated to say thanks for Mappalachia.
 * Contributors to and developers of XEdit and FO76Edit, namely Eckserah.
 * Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
+* [fo76utils](https://github.com/fo76utils) for their excellent and powerful render tool, used to render backgrounds for all cell maps and the Appalachia satellite map option.
 * Gilpo for providing great ideas and feedback for new Mappalachia features.
 * frame for reporting and helping to test DPI scaling issues.
 * Everyone who ever gave feedback to the original Mappalachia. Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
