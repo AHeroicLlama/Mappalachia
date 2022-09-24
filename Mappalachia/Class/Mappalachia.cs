@@ -13,6 +13,7 @@ namespace Mappalachia
 			{
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
+				Console.WriteLine("Dedicated to Molly.");
 				Application.Run(new FormMaster());
 			}
 			catch (Exception e)
