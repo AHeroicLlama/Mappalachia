@@ -13,11 +13,6 @@ namespace Mappalachia
 	// The Map image, adjusting it, drawing it and plotting points onto it
 	public static class Map
 	{
-		// Appalachia map-image coordinate scaling. Gathered manually by eye with reference points from in-game
-		public static float scaling = 142;
-		static readonly float xOffset = 1.7f;
-		static readonly float yOffset = 5.2f;
-
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All background images should be this^2
 		public static readonly double maxZoomRatio = 2.5;
@@ -65,12 +60,7 @@ namespace Mappalachia
 		// Scale a coordinate from game coordinates down to map coordinates.
 		public static float ScaleCoordinate(int coord, bool isYAxis)
 		{
-			if (isYAxis)
-			{
-				coord *= -1;
-			}
-
-			return (coord / scaling) + (mapDimension / 2f) + (isYAxis ? yOffset : xOffset);
+			return isYAxis ? -coord : coord;
 		}
 
 		// Finalise the map draw, displaying the given final image
@@ -698,15 +688,9 @@ namespace Mappalachia
 				{
 					SizeF textBounds = imageGraphic.MeasureString(marker.label, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
 
-					float labelHeightOffset;
-					if (SettingsMap.showMapIcons)
-					{
-						labelHeightOffset = IOManager.GetMapMarker(marker.markerName).Height / 2f;
-					}
-					else
-					{
-						labelHeightOffset = -textBounds.Height / 2f;
-					}
+					float labelHeightOffset = SettingsMap.showMapIcons ?
+						IOManager.GetMapMarker(marker.markerName).Height / 2f :
+						-textBounds.Height / 2f;
 
 					RectangleF textBox = new RectangleF(
 							(float)marker.x - (textBounds.Width / 2),
@@ -851,7 +835,7 @@ namespace Mappalachia
 
 		public static void Open()
 		{
-			IOManager.QuickSaveImage(finalImage, IOManager.OpenImageMode.TempSaveInViewer);
+			IOManager.QuickSaveImage(IOManager.OpenImageMode.TempSaveInViewer);
 		}
 	}
 }

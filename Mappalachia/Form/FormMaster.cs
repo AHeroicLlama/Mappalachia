@@ -1024,7 +1024,7 @@ namespace Mappalachia
 		// Simulates a normal file export operation, but assumes default settings in all cases to quickly get the file written
 		private void Map_QuickSave(object sender, EventArgs e)
 		{
-			IOManager.QuickSaveImage(Map.GetImage(), IOManager.OpenImageMode.QuickSaveInExplorer);
+			IOManager.QuickSaveImage(IOManager.OpenImageMode.QuickSaveInExplorer);
 		}
 
 		// Map > Clear - Remove legend items and remove plotted layers from the map

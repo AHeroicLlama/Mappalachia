@@ -1,5 +1,5 @@
-using Mappalachia.Class;
 using System.Drawing;
+using Mappalachia.Class;
 
 namespace Mappalachia
 {
@@ -27,8 +27,8 @@ namespace Mappalachia
 			Initialize(x, y, z);
 
 			this.primitiveShape = primitiveShape;
-			this.boundX = boundX / Map.scaling;
-			this.boundY = boundY / Map.scaling;
+			this.boundX = boundX;
+			this.boundY = boundY;
 			this.boundZ = boundZ;
 			this.rotationZ = rotationZ;
 

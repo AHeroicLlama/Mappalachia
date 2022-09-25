@@ -22,7 +22,7 @@ namespace Mappalachia.Class
 
 		public static bool CurrentSpaceIsWorld()
 		{
-			// If this is called mid-form load, assumes worlspace
+			// If this is called mid-form load, assumes worldspace
 			return GetSpace() == null || GetSpace().IsWorldspace();
 		}
 

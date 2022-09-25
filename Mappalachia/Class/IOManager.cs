@@ -125,7 +125,7 @@ namespace Mappalachia
 		}
 
 		// Saves the given map image with recommended paramaters, and either opens it in default file viewer, or selects it in explorer
-		public static void QuickSaveImage(Image image, OpenImageMode openImageMode)
+		public static void QuickSaveImage(OpenImageMode openImageMode)
 		{
 			string folderPath = string.Empty;
 

@@ -35,7 +35,7 @@ namespace Mappalachia
 			UpdateFormState();
 		}
 
-		private void checkBoxShowDirectory_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxShowDirectory_CheckedChanged(object sender, EventArgs e)
 		{
 			SettingsFileExport.openExplorer = checkBoxShowDirectory.Checked;
 		}
