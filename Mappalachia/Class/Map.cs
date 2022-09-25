@@ -30,6 +30,13 @@ namespace Mappalachia
 		static readonly int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension - (legendYPadding * 2)); // Used for MeasureString to calculate legend string dimensions
 
+		// Map marker nudge
+		// Adjust map markers away from their true coordinate so that they're instead more like in-game
+		// In *pixels*
+		static readonly float markerNudgeX = 2f;
+		static readonly float markerNudgeY = 6f;
+		static readonly float markerNudgeScale = 1.005f;
+
 		// Font and text
 		public static readonly int legendFontSize = 48;
 		public static readonly int mapLabelFontSize = 18;
@@ -57,10 +64,28 @@ namespace Mappalachia
 			return finalImage;
 		}
 
-		// Scale a coordinate from game coordinates down to map coordinates.
+		// Scale a coordinate generically for use on the map image coordinate system (Basically flip the Y axis)
 		public static float ScaleCoordinate(int coord, bool isYAxis)
 		{
 			return isYAxis ? -coord : coord;
+		}
+
+		// Scales a coordinate down from world- to image-space coordiates, given the variables of the currently selected Space
+		public static float ScaleCoordinateToSpace(float coord, bool isYAxis)
+		{
+			Space currentSpace = SettingsSpace.GetSpace();
+			coord += isYAxis ? currentSpace.yOffset : currentSpace.xOffset;
+			coord = ((coord - (mapDimension / 2)) * currentSpace.scale) + (mapDimension / 2);
+
+			return coord;
+		}
+
+		public static float NudgeMapMarker(float coord, bool isYAxis)
+		{
+			coord += isYAxis ? markerNudgeY : markerNudgeX;
+			coord = ((coord - (mapDimension / 2)) * markerNudgeScale) + (mapDimension / 2);
+
+			return coord;
 		}
 
 		// Finalise the map draw, displaying the given final image

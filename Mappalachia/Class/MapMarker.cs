@@ -11,8 +11,10 @@
 		{
 			this.label = label;
 			this.markerName = markerName;
-			this.x = Map.ScaleCoordinate(x, false);
-			this.y = Map.ScaleCoordinate(y, true);
+
+			// Scale the coord to the image (flip y), then scale it to the given space, then apply a special correction for map markers
+			this.x = Map.NudgeMapMarker(Map.ScaleCoordinateToSpace(Map.ScaleCoordinate(x, false), false), false);
+			this.y = Map.NudgeMapMarker(Map.ScaleCoordinateToSpace(Map.ScaleCoordinate(y, true), true), true);
 		}
 	}
 }
