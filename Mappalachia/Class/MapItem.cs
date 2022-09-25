@@ -77,12 +77,9 @@ namespace Mappalachia
 			Space currentSpace = SettingsSpace.GetSpace();
 			foreach (MapDataPoint point in plots)
 			{
-				point.x += currentSpace.xOffset;
-				point.y += currentSpace.yOffset;
+				point.x = Map.ScaleCoordinateToSpace(point.x, false);
+				point.y = Map.ScaleCoordinateToSpace(point.y, true);
 
-				// Multiply the coordinates by the scaling, but multiply around 0,0
-				point.x = ((point.x - (Map.mapDimension / 2)) * currentSpace.scale) + (Map.mapDimension / 2);
-				point.y = ((point.y - (Map.mapDimension / 2)) * currentSpace.scale) + (Map.mapDimension / 2);
 				point.boundX *= currentSpace.scale;
 				point.boundY *= currentSpace.scale;
 			}

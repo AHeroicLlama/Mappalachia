@@ -194,7 +194,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, xCenter, yCenter, xRange, yRange
+        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax
         ///FROM Space_Info
         ///ORDER BY isWorldspace DESC, spaceDisplayName
         ///.
