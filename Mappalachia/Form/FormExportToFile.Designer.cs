@@ -154,7 +154,7 @@
 			this.checkBoxShowDirectory.Text = "Show in directory after";
 			this.toolTipControls.SetToolTip(this.checkBoxShowDirectory, "Brings up the file explorer to the saved image, once saved.");
 			this.checkBoxShowDirectory.UseVisualStyleBackColor = true;
-			this.checkBoxShowDirectory.CheckedChanged += new System.EventHandler(this.checkBoxShowDirectory_CheckedChanged);
+			this.checkBoxShowDirectory.CheckedChanged += new System.EventHandler(this.CheckBoxShowDirectory_CheckedChanged);
 			// 
 			// FormExportToFile
 			// 

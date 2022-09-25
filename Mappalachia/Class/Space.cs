@@ -30,10 +30,22 @@ namespace Mappalachia.Class
 			this.xRange = Math.Abs(Map.ScaleCoordinate(xMax, false) - Map.ScaleCoordinate(xMin, false));
 			this.yRange = Math.Abs(Map.ScaleCoordinate(yMax, true) - Map.ScaleCoordinate(yMin, true));
 
-			xOffset = -Map.ScaleCoordinate(xCenter, false) + (Map.mapDimension / 2);
-			yOffset = -Map.ScaleCoordinate(yCenter, true) + (Map.mapDimension / 2);
+			// Manual calibration. Unlike cells which will dynamically resize based on their contents
+			// the 'overworld' has a set map size, so plots must be scaled to fit
+			if (editorID == "Appalachia")
+			{
+				xOffset = 2000f;
+				yOffset = 2000f;
 
-			scale = IsWorldspace() ? 1 : Map.mapDimension / (float)Math.Max(xRange, yRange);
+				scale = 0.007001f;
+			}
+			else
+			{
+				xOffset = -Map.ScaleCoordinate(xCenter, false) + (Map.mapDimension / 2);
+				yOffset = -Map.ScaleCoordinate(yCenter, true) + (Map.mapDimension / 2);
+
+				scale = Map.mapDimension / (float)Math.Max(xRange, yRange);
+			}
 
 			if (!IsWorldspace())
 			{
@@ -58,7 +70,7 @@ namespace Mappalachia.Class
 			foreach (int point in zPlots)
 			{
 				// Calculate which numeric bin this item would fall into
-				int placementBin = (int)(((point - zMin) / zRange) * precision);
+				int placementBin = (int)(((point - zMin) / (double)zRange) * precision);
 
 				// At least one value will be exactly the precision value, (it's the highest thing)
 				// But trying to put this in a bin results in accessing element n of array of size n, which is out of bounds
