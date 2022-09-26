@@ -19,8 +19,8 @@ In the `BackgroundRenderer\` folder, execute `Render_Appalachia.bat`.<br/>
 If you're only updating the Appalachia map, you can skip ahead to 'Converting to JPG'.
 
 ## Rendering all Cells
-In the main `Mappalachia.sln`, build and run the `BackgroundRenderer` project. It will prompt you to press enter to render all cells, otherwise you may paste a space-separated list of FormIDs of specific cells you wish to render.<br/>
-View the `summary.txt` from the database build process in git to easily find new FormIDs.<br/>
+In the main `Mappalachia.sln`, build and run the `BackgroundRenderer` project. It will prompt you to press enter to render all cells, otherwise you may paste a space-separated list of EditorIDs of specific cells you wish to render.<br/>
+View the `summary.txt` from the database build process in git to easily find new EditorIDs.<br/>
 The background renderer will connect to the database to identify which cells should be rendered, therefore the database must be up to date and compiled.<br/>
 The background renderer will also need to access Fallout 76 game assets directly from your installation in order to render them. If your Fallout 76 is installed in a non-standard path, edit the `fo76DataPath` string accordingly before building.<br/>
 The render process is very computationally expensive and slow, expect rendering all cells to take multiple hours.<br/>

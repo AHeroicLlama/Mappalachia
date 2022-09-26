@@ -26,7 +26,7 @@ namespace BackgroundRenderer
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
-			Console.WriteLine("Paste space-separated FormIDs of Cells you need rendering. Otherwise paste nothing to render all");
+			Console.WriteLine("Paste space-separated EditorIDs of Cells you need rendering. Otherwise paste nothing to render all");
 			string arg = Console.ReadLine();
 			List<string> args = arg.Split(' ').Where(a => !string.IsNullOrWhiteSpace(a)).ToList();
 
@@ -36,10 +36,10 @@ namespace BackgroundRenderer
 			}
 			else
 			{
-				Console.WriteLine("\nOnly rendering Cells with the following FormIDs:");
-				foreach (string formid in args)
+				Console.WriteLine("\nOnly rendering Cells with the following EditorIDs:");
+				foreach (string editorId in args)
 				{
-					Console.WriteLine(formid);
+					Console.WriteLine(editorId);
 				}
 
 				Console.WriteLine();
@@ -64,7 +64,7 @@ namespace BackgroundRenderer
 				}
 
 				// We specified certain cells, so skip everything not asked for
-				if (args.Count > 0 && !args.Contains(reader.GetString(0)))
+				if (args.Count > 0 && !args.Contains(reader.GetString(1)))
 				{
 					Console.WriteLine("Skipping " + reader.GetString(1));
 					continue;
