@@ -39,10 +39,10 @@ The required information is compiled in 5 key steps.
 If you fancy doing some data mining or development with Mappalachia then you may be interested in the following documentation;
 
 * [**FO76Edit scripts**](Developer_Guides/EditScripts.md) explains using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
-* [**Preprocessor**](Developer_Guides/Preprocessor.md) covers compiling and using the CLI tool to process and refine the rough data into proper CSVs.
+* [**Preprocessor**](Developer_Guides/Preprocessor.md) covers using the CLI tool to process and refine the rough data into suitable CSVs.
 * [**Database Ingest**](Developer_Guides/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
 * [**Map Icon extraction**](Developer_Guides/IconExtraction.md) explains the process of exporting map marker icons from the game to Mappalachia.
-* [**Background Image Rendering**](Developer_Guides/BackgroundRendering.md) explains using the powerful fo76utils to render top-down views of locations, used for map background.
+* [**Background Image Rendering**](Developer_Guides/BackgroundRendering.md) explains using the powerful fo76utils to render top-down views of locations, used for map backgrounds.
 * [**Image Asset Validation**](Developer_Guides/ImageAssetValidation.md) walks through how all image assets can be validated ready for a release.
 * [**GUI**](Developer_Guides/GUI.md) covers developing the Mappalachia GUI itself, including how to update Mappalachia following a new game update.
 
