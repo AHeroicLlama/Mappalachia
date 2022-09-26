@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
+using Microsoft.Data.Sqlite;
 using System.Diagnostics;
 
 namespace BackgroundRenderer
@@ -70,7 +70,7 @@ namespace BackgroundRenderer
 					continue;
 				}
 
-				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(8))));
+				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(7))));
 			}
 
 			Console.WriteLine($"\nRendering {spaces.Count} cells at {resolution}*{resolution}px");
