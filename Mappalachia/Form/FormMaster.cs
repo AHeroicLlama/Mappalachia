@@ -90,7 +90,6 @@ namespace Mappalachia
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces(false);
 			UpdateSpawnChance();
-			SetIsDrawing(false);
 
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -129,6 +128,7 @@ namespace Mappalachia
 			if (!isDrawing)
 			{
 				self.UpdatePlotModeUI();
+				self.UpdateCellorWorldExclusiveState();
 			}
 		}
 
@@ -961,21 +961,21 @@ namespace Mappalachia
 		void Map_Image_Normal(object sender, EventArgs e)
 		{
 			SettingsMap.background = SettingsMap.Background.Normal;
-			UpdateMapBackgroundSettings(true);
+			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Background Image > Military - Toggle the map background to the military version
 		void Map_Image_Military(object sender, EventArgs e)
 		{
 			SettingsMap.background = SettingsMap.Background.Military;
-			UpdateMapBackgroundSettings(true);
+			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Background Image > Satellite - Toggle the map background to the top-down render
 		void Map_Image_Satellite(object sender, EventArgs e)
 		{
 			SettingsMap.background = SettingsMap.Background.Satellite;
-			UpdateMapBackgroundSettings(true);
+			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Brightness... - Open the brightness adjust form
@@ -1299,8 +1299,7 @@ namespace Mappalachia
 		{
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			grayscaleMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			militaryBackgroundMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
+			backgroundImageMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
 		}
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
