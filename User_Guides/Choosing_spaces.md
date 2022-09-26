@@ -25,4 +25,4 @@ Please note that this unfortunately does not affect the background image.
 ## Additional info
 When the selected space is not an exterior world, Mappalachia adds some extra info to the map.<br/>
 You will see the current space, selected height distribution and scale are provided.<br/>
-The scale is auto-calculated by Mappalachia, and it represents the best fit possible while still containing everything within the cell. The ratio relates to the size versus the normal Appalachia map.
+The scale is auto-calculated by Mappalachia, and it represents the best fit possible while still containing everything within the cell. The ratio relates the size to other cell maps.
