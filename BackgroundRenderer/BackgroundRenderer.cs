@@ -15,6 +15,35 @@ namespace BackgroundRenderer
 		static double maxScale = 16;
 		static double minScale = 0.02;
 
+		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
+		static Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
+		{
+			{"AMSHQ01", 3000},
+			{"BlueRidgeOffice01", 350},
+			{"CraterWarRoom01", 50},
+			{"CraterWatchstation01", -700},
+			{"DuncanDuncanRobotics01", 500},
+			{"FortAtlas01", -1300},
+			{"FoundationSupplyRoom01", 200},
+			{"FraternityHouse01", 850},
+			{"FraternityHouse02", 850},
+			{"LewisandSonsFarmingSupply01", 500},
+			{"OverseersHome01", 675},
+			{"PoseidonPlant02", 3000},
+			{"RaiderCave01", 300},
+			{"RaiderCave03", 300},
+			{"RaiderRaidTrailerInt", 150},
+			{"SugarGrove02", 1000},
+			{"TheWayward01", 400},
+			{"TopOfTheWorld01", -1800},
+			{"ValleyGalleria01", 700},
+			{"Vault63Entrance", 4750},
+			{"Vault79Entrance", -200},
+			{"VTecAgCenter01", 400},
+			{"WVLumberCo01", 1000},
+			{"XPDPitt02Sanctum", 700},
+		};
+
 		// 16384 by default (16k - allows us to supersample then scale down to 4k)
 		/* 4096 if the cell is unusually small and causes the scale to be too high...
 		(errors.txt will be written) (EG UCB02 and RaiderRaidTrailerInt) */
@@ -63,14 +92,24 @@ namespace BackgroundRenderer
 					continue;
 				}
 
+				string editorId = reader.GetString(1);
+
 				// We specified certain cells, so skip everything not asked for
-				if (args.Count > 0 && !args.Contains(reader.GetString(1)))
+				if (args.Count > 0 && !args.Contains(editorId))
 				{
-					Console.WriteLine("Skipping " + reader.GetString(1));
+					Console.WriteLine("Skipping " + editorId);
 					continue;
 				}
 
-				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(7))));
+				// Skip CharGen02-05 as they are duplicates of 01
+				// Mappalachia GUI will target CharGen01 for all of these
+				if (editorId.StartsWith("CharGen") && editorId != "CharGen01")
+				{
+					Console.WriteLine($"Skipping {editorId} as duplicate");
+					continue;
+				}
+
+				spaces.Add(new Space(reader.GetString(0), editorId, reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(7))));
 			}
 
 			Console.WriteLine($"\nRendering {spaces.Count} cells at {resolution}*{resolution}px");
@@ -91,7 +130,15 @@ namespace BackgroundRenderer
 					File.AppendAllText(imageDirectory + "\\errors.txt", error);
 				}
 
-				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {imageDirectory}{space.editorID}.dds {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter} {space.yCenter} 65536 -light 1.25 63.435 41.8103 -ssaa {(SSAA ? 1 : 0)} -hqm meshes -env textures/shared/cubemaps/mipblur_defaultoutside1.dds -wtxt textures/water/defaultwater.dds -ltxtres 1024 -mip 0 -lmip 1 -mlod 0 -ndis 1");
+				// Default camera height unless a custom height was defined to cut into roofs
+				int cameraY = 65536;
+				if (recommendedHeights.ContainsKey(space.editorID))
+				{
+					cameraY = recommendedHeights[space.editorID];
+				}
+
+				string file = $"{imageDirectory}{space.editorID}.dds";
+				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {file} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter} {space.yCenter} {cameraY} -light 1.25 63.435 41.8103 -ssaa {(SSAA ? 1 : 0)} -hqm meshes -env textures/shared/cubemaps/mipblur_defaultoutside1.dds -wtxt textures/water/defaultwater.dds -ltxtres 1024 -mip 0 -lmip 1 -mlod 0 -ndis 1");
 				render.WaitForExit();
 			}
 		}

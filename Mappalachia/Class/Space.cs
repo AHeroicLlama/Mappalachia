@@ -27,8 +27,8 @@ namespace Mappalachia.Class
 			this.editorID = editorID;
 			this.displayName = displayName;
 			this.isWorldspace = isWorldspace;
-			this.xRange = Math.Abs(Map.ScaleCoordinate(xMax, false) - Map.ScaleCoordinate(xMin, false));
-			this.yRange = Math.Abs(Map.ScaleCoordinate(yMax, true) - Map.ScaleCoordinate(yMin, true));
+			this.xRange = Math.Abs(Map.CorrectAxis(xMax, false) - Map.CorrectAxis(xMin, false));
+			this.yRange = Math.Abs(Map.CorrectAxis(yMax, true) - Map.CorrectAxis(yMin, true));
 
 			// Manual calibration. Unlike cells which will dynamically resize based on their contents
 			// the 'overworld' has a set map size, so plots must be scaled to fit
@@ -41,8 +41,8 @@ namespace Mappalachia.Class
 			}
 			else
 			{
-				xOffset = -Map.ScaleCoordinate(xCenter, false) + (Map.mapDimension / 2);
-				yOffset = -Map.ScaleCoordinate(yCenter, true) + (Map.mapDimension / 2);
+				xOffset = -Map.CorrectAxis(xCenter, false) + (Map.mapDimension / 2);
+				yOffset = -Map.CorrectAxis(yCenter, true) + (Map.mapDimension / 2);
 
 				scale = Map.mapDimension / (float)Math.Max(xRange, yRange);
 			}

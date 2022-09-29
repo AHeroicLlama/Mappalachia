@@ -49,7 +49,7 @@ namespace Mappalachia.Class
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 			settings.Add("showMapLabels=" + BoolToIntStr(SettingsMap.showMapLabels));
 			settings.Add("showMapIcons=" + BoolToIntStr(SettingsMap.showMapIcons));
-			settings.Add("hideLegend=" + BoolToIntStr(SettingsMap.hideLegend));
+			settings.Add("legendMode=" + SettingsMap.legendMode);
 
 			// SettingsSearch
 			settings.Add("[Search]");
@@ -186,8 +186,25 @@ namespace Mappalachia.Class
 							SettingsMap.showMapIcons = StrIntToBool(value);
 							break;
 
-						case "hideLegend":
-							SettingsMap.hideLegend = StrIntToBool(value);
+						case "legendMode":
+							switch (value)
+							{
+								case "Compact":
+									SettingsMap.legendMode = SettingsMap.LegendMode.Compact;
+									break;
+
+								case "Extended":
+									SettingsMap.legendMode = SettingsMap.LegendMode.Extended;
+									break;
+
+								case "Hidden":
+									SettingsMap.legendMode = SettingsMap.LegendMode.Hidden;
+									break;
+
+								default:
+									throw new ArgumentException("Invalid legend style.");
+							}
+
 							break;
 
 						case "showFormID":
@@ -439,6 +456,7 @@ namespace Mappalachia.Class
 						case "layerNWFlatwoods":
 						case "searchInterior":
 						case "layerMilitary":
+						case "hideLegend":
 							break;
 
 						default:
