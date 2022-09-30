@@ -1,3 +1,2 @@
 *.sql linguist-detectable=true
 *.sql linguist-language=sql
-*.jpg filter=lfs diff=lfs merge=lfs -text
