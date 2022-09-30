@@ -73,7 +73,9 @@ namespace Mappalachia
 		{
 			Space currentSpace = SettingsSpace.GetSpace();
 			coord += isYAxis ? currentSpace.yOffset : currentSpace.xOffset;
-			coord = ((coord - (mapDimension / 2)) * currentSpace.scale) + (mapDimension / 2);
+			coord = ((coord - (mapDimension / 2)) * currentSpace.scale * currentSpace.nudgeScale) + (mapDimension / 2);
+
+			coord += isYAxis ? currentSpace.nudgeY : currentSpace.nudgeX;
 
 			return coord;
 		}

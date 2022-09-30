@@ -23,7 +23,7 @@ namespace Mappalachia
 				{
 					new Task(() => ProcessSpatialFile("Position_Data.csv")),
 					new Task(() => ProcessBasicFile("Entity_Info.csv")),
-					new Task(() => ProcessBasicFile("Space_Info.csv")),
+					new Task(() => ProcessSpaceFile()),
 					new Task(() => GenerateNPCSpawnFile()),
 					new Task(() => GenerateQuantifiedJunkScrapFile()),
 				};
@@ -66,6 +66,17 @@ namespace Mappalachia
 		static void ProcessBasicFile(string fileName)
 		{
 			CSVFile file = GenericOpen(fileName);
+			GenericProcess(file);
+			GenericClose(file);
+		}
+
+		// Adds the custom nudge values to the space_info file
+		static void ProcessSpaceFile()
+		{
+			CSVFile file = GenericOpen("Space_Info.csv");
+
+			file = SpaceNudge.AddNudgeToSpaces(file);
+
 			GenericProcess(file);
 			GenericClose(file);
 		}

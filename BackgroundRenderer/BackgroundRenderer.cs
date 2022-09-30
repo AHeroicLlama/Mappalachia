@@ -15,6 +15,8 @@ namespace BackgroundRenderer
 		static double maxScale = 16;
 		static double minScale = 0.02;
 
+		static bool openFileAfterRender = false;
+
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
 		{
@@ -80,7 +82,7 @@ namespace BackgroundRenderer
 			connection.Open();
 
 			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = "SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax FROM Space_Info";
+			query.CommandText = "SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale FROM Space_Info";
 			query.Parameters.Clear();
 			SqliteDataReader reader = query.ExecuteReader();
 
@@ -109,7 +111,7 @@ namespace BackgroundRenderer
 					continue;
 				}
 
-				spaces.Add(new Space(reader.GetString(0), editorId, reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(7))));
+				spaces.Add(new Space(reader.GetString(0), editorId, reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(7)), reader.GetInt32(9), reader.GetInt32(10), reader.GetFloat(11)));
 			}
 
 			Console.WriteLine($"\nRendering {spaces.Count} cells at {resolution}*{resolution}px");
@@ -121,7 +123,7 @@ namespace BackgroundRenderer
 				Console.WriteLine($"\n0x{space.formID} : {space.editorID} ({i} of {spaces.Count})");
 
 				int range = Math.Max(space.xRange, space.yRange);
-				double scale = (double)resolution / range;
+				double scale = ((double)resolution / range) * space.nudgeScale;
 
 				if (scale > maxScale || scale < minScale)
 				{
@@ -138,8 +140,13 @@ namespace BackgroundRenderer
 				}
 
 				string file = $"{imageDirectory}{space.editorID}.dds";
-				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {file} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter} {space.yCenter} {cameraY} -light 1.25 63.435 41.8103 -ssaa {(SSAA ? 1 : 0)} -hqm meshes -env textures/shared/cubemaps/mipblur_defaultoutside1.dds -wtxt textures/water/defaultwater.dds -ltxtres 1024 -mip 0 -lmip 1 -mlod 0 -ndis 1");
+				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {file} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX / scale)} {space.yCenter + (space.nudgeY / scale)} {cameraY} -light 1.25 63.435 41.8103 -ssaa {(SSAA ? 1 : 0)} -hqm meshes -env textures/shared/cubemaps/mipblur_defaultoutside1.dds -wtxt textures/water/defaultwater.dds -ltxtres 1024 -mip 0 -lmip 1 -mlod 0 -ndis 1");
 				render.WaitForExit();
+
+				if (openFileAfterRender)
+				{
+					Process.Start(new ProcessStartInfo { FileName = file, UseShellExecute = true });
+				}
 			}
 		}
 	}

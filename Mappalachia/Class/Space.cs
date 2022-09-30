@@ -19,9 +19,19 @@ namespace Mappalachia.Class
 		public float scale;
 		readonly bool isWorldspace;
 
+		/* custom 'nudge' values - auto-centering some cells has undesirable consequences
+		because unreachable assets are placed far away from the playable area.
+		For cells affected significantly by this, we manually step in and adjust the auto-center and auto-scaling for the cell
+		This means the playable area is centered and fills the map.
+		Note that we do not override the auto-scale/center but we further adjust it
+		These values are hardcoded in by the preprocessor*/
+		public int nudgeX;
+		public int nudgeY;
+		public float nudgeScale;
+
 		List<int> zPlots;
 
-		public Space(string formID, string editorID, string displayName, bool isWorldspace, int xCenter, int yCenter, int xMin, int xMax, int yMin, int yMax)
+		public Space(string formID, string editorID, string displayName, bool isWorldspace, int xCenter, int yCenter, int xMin, int xMax, int yMin, int yMax, int nudgeX, int nudgeY, float nudgeScale)
 		{
 			this.formID = formID;
 			this.editorID = editorID;
@@ -29,6 +39,9 @@ namespace Mappalachia.Class
 			this.isWorldspace = isWorldspace;
 			this.xRange = Math.Abs(Map.CorrectAxis(xMax, false) - Map.CorrectAxis(xMin, false));
 			this.yRange = Math.Abs(Map.CorrectAxis(yMax, true) - Map.CorrectAxis(yMin, true));
+			this.nudgeX = nudgeX;
+			this.nudgeY = nudgeY;
+			this.nudgeScale = nudgeScale;
 
 			// Manual calibration. Unlike cells which will dynamically resize based on their contents
 			// the 'overworld' has a set map size, so plots must be scaled to fit
@@ -38,6 +51,10 @@ namespace Mappalachia.Class
 				yOffset = 2000f;
 
 				scale = 0.007001f;
+
+				this.nudgeX = 0;
+				this.nudgeY = 0;
+				this.nudgeScale = 1f;
 			}
 			else
 			{
