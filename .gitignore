@@ -6,7 +6,7 @@ FO76Edit/Edit Scripts/*
 
 #World render DDS files
 Mappalachia/img/*.dds
-Mappalachia/img/cell/*.png
+Mappalachia/img/cell/*.jpg
 
 #SQLite and database generation
 Database/*.db-journal
