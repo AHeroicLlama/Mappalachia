@@ -8,7 +8,7 @@
 * A release of [fo76utils](https://github.com/fo76utils/fo76utils), specifically the render utility
 
 ### Note
-Background image rendering is optional, as background images are already stored in the repository. You should only need to run this step if you believe the cells or worldspaces have changed significantly since a game release. It is not recommended to re-render all spaces unless completely necessary. The database summary will indicate if a space has changed significantly, and the [Image Asset Validator](ImageAssetValidation.md) will identify that all required files are at least present.
+Background image rendering is optional. If you need the images present for debugging, take them from a release. You should only need to run this step if you believe the cells or worldspaces have changed significantly since a game release. It is not recommended to re-render all spaces unless completely necessary. The database summary will indicate if a space has changed significantly, and the [Image Asset Validator](ImageAssetValidation.md) will identify that all required files are at least present.
 
 ## Setup
 At the root of the repository (beside the `readme.md`), create the folder `FO76Utils\`. Extract [a release of fo76utils](https://github.com/fo76utils/fo76utils/releases) inside here. We only need `render.exe` and the 3 .DLLs prefixed 'lib' which it requires. You can delete any other files if you wish.<br/>

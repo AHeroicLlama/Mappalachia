@@ -14,7 +14,8 @@
 		For cells affected significantly by this, we manually step in and adjust the auto-center and auto-scaling for the cell
 		This means the playable area is centered and fills the map.
 		Note that we do not override the auto-scale/center but we further adjust it
-		These values are hardcoded in by the preprocessor*/
+		These values are hardcoded in by the preprocessor.
+		The values represent absolute pixels in a 4096x4096 image, but will scale correctly for any size output*/
 		public int nudgeX;
 		public int nudgeY;
 		public float nudgeScale;

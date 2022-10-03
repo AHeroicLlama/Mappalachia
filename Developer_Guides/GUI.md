@@ -28,7 +28,7 @@ To use this copy in your debugging, you should recreate the `\Mappalachia\data\`
 ## Packaging a release.
 In order to package a Mappalachia release there are a few steps.
 * Make sure the database has been newly compiled from the latest Fallout 76 version. (Including all prior steps - [Extraction with Edit Scripts](EditScripts.md) and [Preprocessing](preprocessor.md)).
-* Verify using git that the database summary report (`Database\summary.txt`) has not indicated any issues.
+* Verify using git that the database summary report (`Database\summary.txt`) has not indicated any issues. Particularly look for large changes in averaged values, or any changes in cell table info.
 * Verify using git that the skipped cells report (`FO76Edit\Output\SkippedCells.csv`) does not indicate any in-game cells have been incorrectly skipped.
 * You should assess if any map marker icons may have changed or been added and if so, [run the extraction](IconExtraction.md).
 * You should assess if any cells or worldspaces have been added or have changed in a way significant enough to outdate their rendered background image. If so, [run the background renderer](BackgroundRendering.md).
