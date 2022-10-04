@@ -101,7 +101,7 @@ namespace ImageAssetChecker
 
 				string editorId = space.GetEditorId();
 				bool isWorldSpace = space.IsWorldspace();
-				string subDirectory = (isWorldSpace ? string.Empty : cellDirectoryPath);
+				string subDirectory = isWorldSpace ? string.Empty : cellDirectoryPath;
 
 				string expectedFile = imageDirectory + subDirectory + editorId + backgroundImageFileType;
 

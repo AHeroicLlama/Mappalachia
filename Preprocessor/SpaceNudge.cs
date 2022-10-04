@@ -13,9 +13,9 @@ namespace Mappalachia
 			{
 				string spaceEditorId = row.GetCellFromColumn("spaceEditorID");
 
-				int nudgeX = 0;
-				int nudgeY = 0;
-				float nudgeScale = 1f;
+				int nudgeX;
+				int nudgeY;
+				float nudgeScale;
 
 				switch (spaceEditorId)
 				{
