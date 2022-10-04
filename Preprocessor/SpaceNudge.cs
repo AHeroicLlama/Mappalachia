@@ -92,7 +92,7 @@ namespace Mappalachia
 						break;
 
 					case "SamBlackwellsDeathclawCave":
-						nudgeX = 2200;
+						nudgeX = -2200;
 						nudgeY = 200;
 						nudgeScale = 1.9f;
 						break;

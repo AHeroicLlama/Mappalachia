@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-d0991a44b702aedcf4f8232bd3cef913
+602839ad92e32fd4752a626772332b00
 ==File Size== 
 382181376 
 ==Tables== 
@@ -6802,7 +6802,7 @@ WestTek01|Super Mutant|1.0|41
 005ACD84|CraterWarRoom01|The Crater War Room|0|-307|1165|-1615|1001|-1270|3600|0|0|1.0
 0054B502|CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|0|2307|-2239|0|4614|-4479|0|-1300|-850|1.3
 005C38D6|SheltersClaimCenter01|Shelters Claim Center|0|-4898|144|-6280|-3516|-375|663|0|0|1.0
-000402E2|SamBlackwellsDeathclawCave|Cavern|0|-5632|2061|-15744|4480|-2014|6137|2200|200|1.9
+000402E2|SamBlackwellsDeathclawCave|Cavern|0|-5632|2061|-15744|4480|-2014|6137|-2200|200|1.9
 0053F947|LousMine01|Carleton Mine|0|-7512|17618|-17914|2890|9233|26003|0|0|1.0
 005AFB11|RaiderCave01|Deserted Mine|0|850|1905|-3398|5098|-2236|6047|0|0|1.0
 00004C43|GlassedCavern01|Glassed Cavern|0|-2827|-324|-13587|7933|-11385|10736|0|0|1.0
