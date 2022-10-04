@@ -10,7 +10,7 @@
 
 		public static readonly int jpegQualityMin = 20;
 		public static readonly int jpegQualityMax = 100;
-		public static readonly int jpegQualityDefault = 89;
+		public static readonly int jpegQualityDefault = 86;
 		public static readonly bool openExplorerDefault = false;
 
 		public static bool useRecommended { get; private set; } = true;

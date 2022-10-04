@@ -664,7 +664,7 @@ namespace Mappalachia
 
 			if (!currentSpace.IsWorldspace())
 			{
-				infoText = $"{currentSpace.displayName} ({currentSpace.editorID}), Scale 1:{Math.Round(currentSpace.scale, 2)}" +
+				infoText = $"{currentSpace.displayName} ({currentSpace.editorID}), Scale 1:{Math.Round(currentSpace.scale * currentSpace.nudgeScale, 2)}" +
 					((SettingsSpace.minHeightPerc != 0 || SettingsSpace.maxHeightPerc != 100) ?
 						$", Height: {SettingsSpace.minHeightPerc}% - {SettingsSpace.maxHeightPerc}%" : string.Empty) +
 						"\n" + infoText;
