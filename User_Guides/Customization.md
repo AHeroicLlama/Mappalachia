@@ -19,8 +19,11 @@ This toggles the underlying map image to be in grayscale (black and white) or fu
 You can independently toggle map marker Icons or Labels to appear against their respective locations on the map.<br/>
 'Icons' shows the in-game map icons for named locations, whereas 'Labels' annotates their name onto the map.
 
-### Hide Legend
-This option will prevent the left-hand-side legend being displayed.
+### Legend Style
+This provides control over how (or if) the legend is drawn.
+- Compact: The default mode, the legend is drawn up against the left hand side, inside the map image.
+- Extended: The final image is expanded, drawing the legend fully outside of the original map image, ensuring none of the map can be obscured.
+- Hidden: No legend is drawn.
 
 ## Plot Style Settings
 By navigating to Plot Settings > Plot Style Settings you can access full control over the visuals of the plots displayed on the map.<br/>
