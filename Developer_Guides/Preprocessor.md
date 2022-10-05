@@ -11,6 +11,7 @@ It carries out several key steps;
 * Data validation, based on expected values for each column.
 * Data minimization, removing junk data and excess precision, leaving the bare minimum required for Mappalachia to function.
 * Combination and transformation of certain tables - notably the final Junk and NPC tables are each formed from a combination of data points from originally exported CSVs.
+* It also injects position "nudges" to the CSV for the Space_Info table
 
 ## How to use the Preprocessor
 You simply need to build and run the preprocessor exe. There are no arguments or inputs required. The preprocessor assumes you have run the export scripts and have left the outputted CSVs where they were exported to.<br/>

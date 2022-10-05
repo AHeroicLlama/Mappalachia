@@ -9,7 +9,7 @@ You can quick-swap to a different space by double clicking its name in the searc
 
 ## Space-specific settings
 Some settings are specific to certain spaces, and may be disabled depending on your selected space - they are;
-* 'Background Image', 'Grayscale' and 'Show Map Markers' options which are only available when 'Appalachia' is selected.
+* 'Background Image' and 'Show Map Markers' options which are only available when 'Appalachia' is selected.
 * 'Height Cropping' controls which are only available when 'Appalachia' is not selected.
 
 ## Background image
@@ -25,4 +25,4 @@ Please note that this unfortunately does not affect the background image.
 ## Additional info
 When the selected space is not an exterior world, Mappalachia adds some extra info to the map.<br/>
 You will see the current space, selected height distribution and scale are provided.<br/>
-The scale is auto-calculated by Mappalachia, and it represents the best fit possible while still containing everything within the cell. The ratio relates to the size versus the normal Appalachia map.
+The scale is auto-calculated by Mappalachia, and it represents the best fit possible while still containing everything within the cell. The ratio relates the size to other cell maps.

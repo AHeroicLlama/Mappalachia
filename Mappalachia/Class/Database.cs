@@ -129,7 +129,7 @@ namespace Mappalachia
 			while (reader.Read())
 			{
 				spaces.Add(new Space(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3) == 1, reader.GetInt32(4), reader.GetInt32(5),
-						reader.GetInt32(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetInt32(9)));
+						reader.GetInt32(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetInt32(9), reader.GetInt32(10), reader.GetInt32(11), reader.GetFloat(12)));
 			}
 
 			return spaces;

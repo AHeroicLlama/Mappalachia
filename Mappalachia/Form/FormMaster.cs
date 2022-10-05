@@ -86,11 +86,10 @@ namespace Mappalachia
 			UpdateMapBackgroundSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
-			UpdateHideLegend(false);
+			UpdateLegendStyle(false);
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces(false);
 			UpdateSpawnChance();
-			SetIsDrawing(false);
 
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -129,6 +128,7 @@ namespace Mappalachia
 			if (!isDrawing)
 			{
 				self.UpdatePlotModeUI();
+				self.UpdateCellorWorldExclusiveState();
 			}
 		}
 
@@ -458,6 +458,14 @@ namespace Mappalachia
 			modeClusterMenuItem.Checked = false;
 		}
 
+		// Remove any check boxes from the legend style menu choices
+		void UncheckAllLegendStyles()
+		{
+			compactLegendMenuItem.Checked = false;
+			extendedLegendMenuItem.Checked = false;
+			hiddenLegendMenuItem.Checked = false;
+		}
+
 		// Update the UI with the currently selected heatmap color mode
 		void UpdateHeatMapColorMode(bool reDraw)
 		{
@@ -602,10 +610,26 @@ namespace Mappalachia
 			}
 		}
 
-		// Update check mark in the UI with current MapSettings for Hide Legend
-		void UpdateHideLegend(bool reDraw)
+		// Update check marks for legend style with SettingsMap
+		void UpdateLegendStyle(bool reDraw)
 		{
-			hideLegendMenuItem.Checked = SettingsMap.hideLegend;
+			UncheckAllLegendStyles();
+
+			switch (SettingsMap.legendMode)
+			{
+				case SettingsMap.LegendMode.Compact:
+					compactLegendMenuItem.Checked = true;
+					break;
+				case SettingsMap.LegendMode.Extended:
+					extendedLegendMenuItem.Checked = true;
+					break;
+				case SettingsMap.LegendMode.Hidden:
+					hiddenLegendMenuItem.Checked = true;
+					break;
+
+				default:
+					throw new Exception("Unknown legend stlye " + SettingsMap.legendMode);
+			}
 
 			if (reDraw)
 			{
@@ -961,21 +985,21 @@ namespace Mappalachia
 		void Map_Image_Normal(object sender, EventArgs e)
 		{
 			SettingsMap.background = SettingsMap.Background.Normal;
-			UpdateMapBackgroundSettings(true);
+			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Background Image > Military - Toggle the map background to the military version
 		void Map_Image_Military(object sender, EventArgs e)
 		{
 			SettingsMap.background = SettingsMap.Background.Military;
-			UpdateMapBackgroundSettings(true);
+			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Background Image > Satellite - Toggle the map background to the top-down render
 		void Map_Image_Satellite(object sender, EventArgs e)
 		{
 			SettingsMap.background = SettingsMap.Background.Satellite;
-			UpdateMapBackgroundSettings(true);
+			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Brightness... - Open the brightness adjust form
@@ -1006,11 +1030,25 @@ namespace Mappalachia
 			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
-		// Map > Hide Legend - toggle drawing of LHS legend
-		private void Map_HideLegend(object sender, EventArgs e)
+		// Map > Legend Style > Compact
+		void Map_Legend_Compact(object sender, EventArgs e)
 		{
-			SettingsMap.hideLegend = !SettingsMap.hideLegend;
-			UpdateHideLegend(legendItems.Count > 0);
+			SettingsMap.legendMode = SettingsMap.LegendMode.Compact;
+			UpdateLegendStyle(legendItems.Count > 0);
+		}
+
+		// Map > Legend Style > Extended
+		void Map_Legend_Extended(object sender, EventArgs e)
+		{
+			SettingsMap.legendMode = SettingsMap.LegendMode.Extended;
+			UpdateLegendStyle(legendItems.Count > 0);
+		}
+
+		// Map > Legend Style > Hidden
+		void Map_Legend_Hidden(object sender, EventArgs e)
+		{
+			SettingsMap.legendMode = SettingsMap.LegendMode.Hidden;
+			UpdateLegendStyle(legendItems.Count > 0);
 		}
 
 		// Map > Export To File - Open the export to file dialog
@@ -1044,7 +1082,7 @@ namespace Mappalachia
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapLabels = SettingsMap.showMapLabelsDefault;
 			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
-			SettingsMap.hideLegend = SettingsMap.hideLegendDefault;
+			SettingsMap.legendMode = SettingsMap.legendModeDefault;
 
 			comboBoxSpace.SelectedIndex = 0;
 
@@ -1056,7 +1094,7 @@ namespace Mappalachia
 			UpdateMapBackgroundSettings(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
-			UpdateHideLegend(false);
+			UpdateLegendStyle(false);
 
 			SizeMapToFrame();
 
@@ -1299,8 +1337,7 @@ namespace Mappalachia
 		{
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			grayscaleMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			militaryBackgroundMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
+			backgroundImageMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
 		}
 
 		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)

@@ -37,7 +37,7 @@ namespace Mappalachia
 			this.mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.updateMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.backgroundImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.backgroundImageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.normalBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.militaryBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.satelliteBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +46,10 @@ namespace Mappalachia
 			this.mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showMapIconsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showMapLabelsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.hideLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.legendStyleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.compactLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.extendedLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.hiddenLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exportToFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.quickSaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -185,11 +188,11 @@ namespace Mappalachia
 			this.mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateMapToolStripMenuItem,
             this.viewMenuItem,
-            this.backgroundImageToolStripMenuItem,
+            this.backgroundImageMenuItem,
             this.brightnessMenuItem,
             this.grayscaleMenuItem,
             this.mapMarkersMenuItem,
-            this.hideLegendMenuItem,
+            this.legendStyleMenuItem,
             this.exportToFileMenuItem,
             this.quickSaveMenuItem,
             this.clearMenuItem,
@@ -213,16 +216,16 @@ namespace Mappalachia
 			this.viewMenuItem.ToolTipText = "Open the map in the default image viewer.";
 			this.viewMenuItem.Click += new System.EventHandler(this.Map_View);
 			// 
-			// backgroundImageToolStripMenuItem
+			// backgroundImageMenuItem
 			// 
-			this.backgroundImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.backgroundImageMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.normalBackgroundMenuItem,
             this.militaryBackgroundMenuItem,
             this.satelliteBackgroundMenuItem});
-			this.backgroundImageToolStripMenuItem.Name = "backgroundImageToolStripMenuItem";
-			this.backgroundImageToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.backgroundImageToolStripMenuItem.Text = "Background Image";
-			this.backgroundImageToolStripMenuItem.ToolTipText = "Swap the background image of the map.";
+			this.backgroundImageMenuItem.Name = "backgroundImageMenuItem";
+			this.backgroundImageMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.backgroundImageMenuItem.Text = "Background Image";
+			this.backgroundImageMenuItem.ToolTipText = "Swap the background image of the map.";
 			// 
 			// normalBackgroundMenuItem
 			// 
@@ -292,13 +295,40 @@ namespace Mappalachia
 			this.showMapLabelsMenuItem.ToolTipText = "Toggle labels for names of the map locations.";
 			this.showMapLabelsMenuItem.Click += new System.EventHandler(this.Map_MapMarkers_Labels);
 			// 
-			// hideLegendMenuItem
+			// legendStyleMenuItem
 			// 
-			this.hideLegendMenuItem.Name = "hideLegendMenuItem";
-			this.hideLegendMenuItem.Size = new System.Drawing.Size(216, 22);
-			this.hideLegendMenuItem.Text = "Hide Legend";
-			this.hideLegendMenuItem.ToolTipText = "Do not draw the legend on the left of the map image.";
-			this.hideLegendMenuItem.Click += new System.EventHandler(this.Map_HideLegend);
+			this.legendStyleMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compactLegendMenuItem,
+            this.extendedLegendMenuItem,
+            this.hiddenLegendMenuItem});
+			this.legendStyleMenuItem.Name = "legendStyleMenuItem";
+			this.legendStyleMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.legendStyleMenuItem.Text = "Legend Style";
+			this.legendStyleMenuItem.ToolTipText = "Change where or if the legend is drawn.";
+			// 
+			// compactLegendMenuItem
+			// 
+			this.compactLegendMenuItem.Name = "compactLegendMenuItem";
+			this.compactLegendMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.compactLegendMenuItem.Text = "Compact";
+			this.compactLegendMenuItem.ToolTipText = "Draw the legend inside the map image, on the side.";
+			this.compactLegendMenuItem.Click += new System.EventHandler(this.Map_Legend_Compact);
+			// 
+			// extendedLegendMenuItem
+			// 
+			this.extendedLegendMenuItem.Name = "extendedLegendMenuItem";
+			this.extendedLegendMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.extendedLegendMenuItem.Text = "Extended";
+			this.extendedLegendMenuItem.ToolTipText = "Expand the map image to draw the legend outisde the map, beside it.";
+			this.extendedLegendMenuItem.Click += new System.EventHandler(this.Map_Legend_Extended);
+			// 
+			// hiddenLegendMenuItem
+			// 
+			this.hiddenLegendMenuItem.Name = "hiddenLegendMenuItem";
+			this.hiddenLegendMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.hiddenLegendMenuItem.Text = "Hidden";
+			this.hiddenLegendMenuItem.ToolTipText = "Do not draw the legend.";
+			this.hiddenLegendMenuItem.Click += new System.EventHandler(this.Map_Legend_Hidden);
 			// 
 			// exportToFileMenuItem
 			// 
@@ -1298,7 +1328,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(8, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(6, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1549,7 +1579,6 @@ namespace Mappalachia
         private System.Windows.Forms.ComboBox comboBoxSpace;
         private System.Windows.Forms.ToolStripMenuItem searchInAllSpacesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mapMarkersMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hideLegendMenuItem;
         private System.Windows.Forms.PictureBox pictureBoxSpaceFiller;
         private System.Windows.Forms.ToolStripMenuItem updateMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showMapIconsMenuItem;
@@ -1562,10 +1591,14 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem showClusterWebMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem clusterRangeMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem quickSaveMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem backgroundImageToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem backgroundImageMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem normalBackgroundMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem militaryBackgroundMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem satelliteBackgroundMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem legendStyleMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem compactLegendMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem extendedLegendMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem hiddenLegendMenuItem;
 	}
 }
 

@@ -146,8 +146,9 @@ namespace Mappalachia
 
 					return;
 
+				case "nudgeScale":
 				case "chance":
-					// Spawn chances must be exactly doubles
+					// Spawn chances or scales must be exactly doubles
 					if (!double.TryParse(data, out _))
 					{
 						ReportValidationError();
@@ -158,7 +159,9 @@ namespace Mappalachia
 				case "x":
 				case "y":
 				case "z":
-					// Coordinate cells must be exactly integers
+				case "nudgeX":
+				case "nudgeY":
+					// Coordinate and offset cells must be exactly integers
 					if (!int.TryParse(data, out _))
 					{
 						ReportValidationError();
