@@ -793,6 +793,7 @@ namespace Mappalachia
 			{
 				gridViewSearchResults.Rows.Add(
 					mapItem.uniqueIdentifier,
+					mapItem.label,
 					mapItem.editorID,
 					mapItem.displayName,
 					DataHelper.ConvertSignature(mapItem.signature, false),

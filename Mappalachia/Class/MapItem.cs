@@ -32,10 +32,11 @@ namespace Mappalachia
 		public readonly string spaceEditorID; // EditorID of the location
 		public int legendGroup; // User-definable grouping value
 		public string overridingLegendText = string.Empty; // The user-provided legend text, if given
+		public string label; // The "label" (XEdit 'ShortName') attached to the reference
 
 		List<MapDataPoint> plots;
 
-		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string spaceEditorID, string spaceName)
+		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string spaceEditorID, string spaceName, string label)
 		{
 			this.type = type;
 			this.uniqueIdentifier = uniqueIdentifier;
@@ -47,6 +48,7 @@ namespace Mappalachia
 			this.count = count;
 			this.spaceName = spaceName;
 			this.spaceEditorID = spaceEditorID;
+			this.label = label;
 		}
 
 		// The lock type is relevant only if it's a 'standard', lockable item with modified/filtered lock types.
@@ -64,7 +66,7 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Standard:
-					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes);
+					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes, label);
 					break;
 				case Type.NPC:
 					plots = Database.GetNPCCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), weight);
@@ -102,6 +104,7 @@ namespace Mappalachia
 				return (displayName == string.Empty ?
 							editorID :
 							editorID + " (" + displayName + ")") +
+						(label == string.Empty ? string.Empty : $" ({label})") +
 						(GetLockRelevant() ?
 							" (" + string.Join(", ", DataHelper.ConvertLockLevel(filteredLockTypes, false)) + ")" :
 							string.Empty);
@@ -155,7 +158,7 @@ namespace Mappalachia
 			switch (mapItem.type)
 			{
 				case Type.Standard:
-					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.filteredLockTypes.SequenceEqual(filteredLockTypes);
+					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.filteredLockTypes.SequenceEqual(filteredLockTypes) && mapItem.label == label;
 				case Type.NPC:
 					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.weight == weight;
 				case Type.Scrap:
@@ -170,7 +173,7 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Standard:
-					return (uniqueIdentifier + string.Join(string.Empty, filteredLockTypes)).GetHashCode();
+					return (uniqueIdentifier + string.Join(string.Empty, filteredLockTypes) + label).GetHashCode();
 				case Type.NPC:
 					return (uniqueIdentifier + weight).GetHashCode();
 				case Type.Scrap:

@@ -210,7 +210,8 @@ namespace Mappalachia
 						DataHelper.GetSpawnChance(signature, editorID), // Spawn chance
 						reader.GetInt32(5), // Count
 						reader.GetString(6), // Space EditorID
-						reader.GetString(7))); // Space Display Name/location
+						reader.GetString(7), // Space Display Name/location
+						reader.GetString(8))); // Entity reference "label"
 				}
 
 				return results;
@@ -267,7 +268,8 @@ namespace Mappalachia
 						spawnChance,
 						reader.GetInt32(2), // Count
 						reader.GetString(3), // Space editorID
-						reader.GetString(4))); // Space Display Name/location
+						reader.GetString(4), // Space Display Name/location
+						string.Empty)); // label
 				}
 
 				// Expand the NPC search, by also conducting a standard search of only NPC_, ignorant of lock filter
@@ -342,7 +344,8 @@ namespace Mappalachia
 						spawnChance,
 						reader.GetInt32(2), // Count
 						reader.GetString(3), // Space editorID
-						reader.GetString(4))); // Space Display Name/location
+						reader.GetString(4), // Space Display Name/location
+						string.Empty)); // label
 				}
 
 				return results;
@@ -358,7 +361,7 @@ namespace Mappalachia
 		}
 
 		// Return the coordinate locations and boundaries of instances of a FormID
-		public static List<MapDataPoint> GetStandardCoords(string formID, string spaceFormID, List<string> filteredLockTypes)
+		public static List<MapDataPoint> GetStandardCoords(string formID, string spaceFormID, List<string> filteredLockTypes, string label)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
@@ -372,6 +375,7 @@ namespace Mappalachia
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$formID", formID);
 			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+			query.Parameters.AddWithValue("$label", label);
 
 			SqliteDataReader reader = query.ExecuteReader();
 
