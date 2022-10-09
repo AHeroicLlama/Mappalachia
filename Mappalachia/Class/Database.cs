@@ -135,25 +135,6 @@ namespace Mappalachia
 			return spaces;
 		}
 
-		// Gets the coordinate locations of everything within a space
-		public static List<MapDataPoint> GetAllSpaceCoords(string spaceFormID)
-		{
-			List<MapDataPoint> coordinates = new List<MapDataPoint>();
-
-			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = Properties.Resources.getAllCoordsSpace;
-			query.Parameters.Clear();
-			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
-			SqliteDataReader reader = query.ExecuteReader();
-
-			while (reader.Read())
-			{
-				coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
-			}
-
-			return coordinates;
-		}
-
 		// Gets the z coordinate of everything within a space
 		public static List<int> GetAllSpaceZCoords(string spaceFormID)
 		{
