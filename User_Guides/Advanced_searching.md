@@ -10,7 +10,7 @@ Note: Due to oddities in how Fallout 76 is built, a great number of items are ca
 
 ## Search field
 The search field operates as a case-insensitive 'contains' search - meaning anything with your search term anywhere within it will be returned, for example "cap" will return results for "FloraFirecap".<br/>
-This searches both the in-game displayed name (where applicable), and Bethesda's internal name for the object.<br/>
+This searches both the in-game displayed name (where applicable), Bethesda's internal name for the object (AKA EditorID), and the "label" of the instance (AKA Reference EditorID).<br/>
 Additionally the space character is treated as a wildcard for any number of characters, meaning "Grafton Monster" will be able to return matches for "GraftonMonster".<br/>
 Leaving the search field blank will return everything (while still respecting selected filters).<br/>
 Finally, data miners and modders will find that you are able to search for items via their FormID too. You can view the FormID for returned items by selecting Search Settings > Show FormID.<br/>

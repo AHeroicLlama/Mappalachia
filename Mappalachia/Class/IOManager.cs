@@ -285,13 +285,23 @@ namespace Mappalachia
 
 			try
 			{
-				// Cache the image if not already
-				if (!worldspaceMapImageCache.ContainsKey(editorID))
+				// Use the cache of the image (if cached)
+				if (space.IsWorldspace())
 				{
-					worldspaceMapImageCache.Add(editorID, Image.FromFile(filepath));
+					// Cache the image if not already
+					if (!worldspaceMapImageCache.ContainsKey(editorID))
+					{
+						worldspaceMapImageCache.Add(editorID, Image.FromFile(filepath));
+					}
+
+					return new Bitmap(worldspaceMapImageCache[editorID]);
 				}
 
-				return new Bitmap(worldspaceMapImageCache[editorID]);
+				// Don't cache the image - read from disk
+				else
+				{
+					return new Bitmap(Image.FromFile(filepath));
+				}
 			}
 			catch (FileNotFoundException e)
 			{

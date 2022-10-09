@@ -362,6 +362,8 @@ namespace Mappalachia
 				"NoCampAllowed",
 				"PowerArmorFurniture",
 				"RETrigger",
+				"P01C_Bucket_Loot",
+				"SFM04_Organic_Pod",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
@@ -778,6 +780,8 @@ namespace Mappalachia
 		// Wipe and re-populate the search results UI element with the items in "List<MapItem> searchResults"
 		void UpdateSearchResultsGrid()
 		{
+			bool labelColumnShouldBeShown = false;
+
 			int count = searchResults.Count;
 			if (count > searchResultsLargeAmount)
 			{
@@ -804,6 +808,13 @@ namespace Mappalachia
 					mapItem.spaceEditorID,
 					index); // Index relates the UI row to the List<MapItem>, even if the UI is sorted
 
+				// If the label column is not already visible, but this item has a label, set it to visible
+				// (Does not act until end of grid fill to avoid flashing)
+				if (!labelColumnShouldBeShown && mapItem.label != string.Empty)
+				{
+					labelColumnShouldBeShown = true;
+				}
+
 				index++;
 			}
 
@@ -811,6 +822,8 @@ namespace Mappalachia
 			{
 				gridViewSearchResults.Enabled = true;
 			}
+
+			gridViewSearchResults.Columns["columnLabel"].Visible = labelColumnShouldBeShown;
 
 			GC.Collect();
 		}
