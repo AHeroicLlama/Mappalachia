@@ -27,5 +27,6 @@ CREATE INDEX Index_PositionData_CoverAll ON Position_Data (
     boundX,
     boundY,
     boundZ,
-    rotZ
+    rotZ,
+    label
 );

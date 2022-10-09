@@ -68,6 +68,12 @@ INNER JOIN Space_Info ON Standard_Search.spaceFormID = Space_Info.spaceFormID
 GROUP BY spaceEditorId, category
 ORDER BY spaceEditorId, category;
 
+SELECT '==Total entities by Label by Space==';
+SELECT spaceEditorId, label, COUNT(*) AS count FROM Standard_Search
+INNER JOIN Space_Info ON Standard_Search.spaceFormID = Space_Info.spaceFormID
+GROUP BY spaceEditorId, label
+ORDER BY spaceEditorId, label;
+
 SELECT '==Total Scrap and Junk per Component per Space==';
 SELECT spaceEditorID, component, SUM(magnitude), COUNT(*)  FROM Scrap_Search
 INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID

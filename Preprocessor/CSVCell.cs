@@ -52,6 +52,16 @@ namespace Mappalachia
 				}
 			}
 
+			// Remove the [XXXX:ABCDEF12] from the "shortName" so we can get the "label" of the reference
+			else if (columnName == "shortName")
+			{
+				Match match = Validation.shortNameIsolateRef.Match(data);
+				if (match.Success)
+				{
+					data = match.Groups[1].Value.Trim();
+				}
+			}
+
 			// Grab the 8-char FormID only
 			else
 			{
@@ -129,6 +139,7 @@ namespace Mappalachia
 				case "spaceEditorID":
 				case "displayName":
 				case "spaceDisplayName":
+				case "shortName":
 					// editorID and displayName must have had any double quotes escaped by now
 					if (Validation.unescapedDoubleQuote.IsMatch(data))
 					{

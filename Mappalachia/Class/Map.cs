@@ -39,7 +39,8 @@ namespace Mappalachia
 		public static readonly int legendFontSize = 48;
 		public static readonly int mapLabelFontSize = 18;
 		static readonly int fontDropShadowOffset = 3;
-		static readonly int mapLabelMaxWidth = 180; // Maximum width before a map marker label will enter a new line
+		static readonly int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
+		static readonly int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
@@ -698,16 +699,16 @@ namespace Mappalachia
 				imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 				foreach (MapMarker marker in markers)
 				{
-					SizeF textBounds = imageGraphic.MeasureString(marker.label, mapLabelFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
+					SizeF textBounds = imageGraphic.MeasureString(marker.label, mapLabelFont, new SizeF(mapLabelMaxWidth - mapLabelBuffer, mapLabelMaxWidth - mapLabelBuffer));
 
 					float labelHeightOffset = SettingsMap.showMapIcons ?
 						IOManager.GetMapMarker(marker.markerName).Height / 2f :
 						-textBounds.Height / 2f;
 
 					RectangleF textBox = new RectangleF(
-							(float)marker.x - (textBounds.Width / 2),
+							(float)marker.x - (textBounds.Width / 2) - (mapLabelBuffer / 2),
 							(float)marker.y + labelHeightOffset,
-							textBounds.Width, textBounds.Height);
+							textBounds.Width + mapLabelBuffer, textBounds.Height);
 
 					// Draw Drop shadow first
 					imageGraphic.DrawString(marker.label, mapLabelFont, dropShadowBrush,
