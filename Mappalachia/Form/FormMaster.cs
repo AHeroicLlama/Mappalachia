@@ -978,6 +978,11 @@ namespace Mappalachia
 			MessageBox.Show(textVisualization, "Height distribution for " + SettingsSpace.GetSpace().editorID);
 		}
 
+		static void OpenDiscord()
+		{
+			IOManager.LaunchURL("https://discord.gg/Z2GMpm6rad");
+		}
+
 		#endregion
 
 		// All Methods which represent responses to UI input
@@ -1274,6 +1279,12 @@ namespace Mappalachia
 			UpdateChecker.CheckForUpdate(true);
 		}
 
+		// Help > Via Discord - Launch the discord invite
+		private void Help_ViaDiscord(object sender, EventArgs e)
+		{
+			OpenDiscord();
+		}
+
 		// Donate > Patreon
 		void Donate_ViaPatreon(object sender, EventArgs e)
 		{
@@ -1284,6 +1295,12 @@ namespace Mappalachia
 		void Donate_ViaPayPal(object sender, EventArgs e)
 		{
 			IOManager.LaunchURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
+		}
+
+		// "Join the Discord" top-level menu item
+		private void JoinDiscord(object sender, EventArgs e)
+		{
+			OpenDiscord();
 		}
 
 		// Signature select all
