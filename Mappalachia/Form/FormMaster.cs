@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Mappalachia.Class;
+using Mappalachia.Class.Helpers;
 using Mappalachia.Forms;
 
 namespace Mappalachia
@@ -116,8 +117,8 @@ namespace Mappalachia
 				UpdateProgressBar(0);
 			}
 
-			self.EnableMenuStrip(self.mapMenuItem, !isDrawing);
-			self.EnableMenuStrip(self.plotSettingsMenuItem, !isDrawing);
+			FormsHelper.EnableMenuStrip(self.mapMenuItem, !isDrawing);
+			FormsHelper.EnableMenuStrip(self.plotSettingsMenuItem, !isDrawing);
 
 			self.buttonAddToLegend.Enabled = !isDrawing;
 			self.buttonRemoveFromLegend.Enabled = !isDrawing;
@@ -369,6 +370,14 @@ namespace Mappalachia
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
 		}
 
+		// Toggle availability of controls which depend on current Space
+		void UpdateCellorWorldExclusiveState()
+		{
+			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
+			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
+			backgroundImageMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
+		}
+
 		// Update the visiblity of the lock type column in the results view, given current settings
 		void UpdateResultsLockTypeColumnVisibility()
 		{
@@ -422,31 +431,31 @@ namespace Mappalachia
 			{
 				case SettingsPlot.Mode.Icon:
 					modeIconMenuItem.Checked = true;
-					EnableMenuStrip(heatmapSettingsMenuItem, false);
-					EnableMenuStrip(TopographColorBandsMenuItem, false);
-					EnableMenuStrip(clusterSettingsMenuItem, false);
-					EnableMenuStrip(drawVolumesMenuItem, true);
+					FormsHelper.EnableMenuStrip(heatmapSettingsMenuItem, false);
+					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, false);
+					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, false);
+					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Heatmap:
 					modeHeatmapMenuItem.Checked = true;
-					EnableMenuStrip(heatmapSettingsMenuItem, true);
-					EnableMenuStrip(TopographColorBandsMenuItem, false);
-					EnableMenuStrip(clusterSettingsMenuItem, false);
-					EnableMenuStrip(drawVolumesMenuItem, false);
+					FormsHelper.EnableMenuStrip(heatmapSettingsMenuItem, true);
+					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, false);
+					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, false);
+					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, false);
 					break;
 				case SettingsPlot.Mode.Topography:
 					modeTopographyMenuItem.Checked = true;
-					EnableMenuStrip(heatmapSettingsMenuItem, false);
-					EnableMenuStrip(TopographColorBandsMenuItem, true);
-					EnableMenuStrip(clusterSettingsMenuItem, false);
-					EnableMenuStrip(drawVolumesMenuItem, true);
+					FormsHelper.EnableMenuStrip(heatmapSettingsMenuItem, false);
+					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, true);
+					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, false);
+					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Cluster:
 					modeClusterMenuItem.Checked = true;
-					EnableMenuStrip(heatmapSettingsMenuItem, false);
-					EnableMenuStrip(TopographColorBandsMenuItem, false);
-					EnableMenuStrip(clusterSettingsMenuItem, true);
-					EnableMenuStrip(drawVolumesMenuItem, false);
+					FormsHelper.EnableMenuStrip(heatmapSettingsMenuItem, false);
+					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, false);
+					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, true);
+					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, false);
 					break;
 			}
 		}
@@ -538,7 +547,7 @@ namespace Mappalachia
 					colorBand5MenuItem.Checked = true;
 					break;
 				default:
-					SettingsPlotTopograph.colorBands = 3;
+					SettingsPlotTopograph.colorBands = SettingsPlotTopograph.defaultColorBands;
 					Notify.Error("Unsupported number of Topograph color bands. Defaulting to " + SettingsPlotTopograph.colorBands);
 					UpdateTopographColorBands(reDraw);
 					break;
@@ -687,17 +696,6 @@ namespace Mappalachia
 			satelliteBackgroundMenuItem.Checked = false;
 		}
 
-		// Recursively enable/disable a tool strip menu item and all children
-		void EnableMenuStrip(ToolStripMenuItem menuItem, bool enabled)
-		{
-			menuItem.Enabled = enabled;
-
-			foreach (ToolStripMenuItem item in menuItem.DropDownItems)
-			{
-				EnableMenuStrip(item, enabled);
-			}
-		}
-
 		// Collect the enabled signatures from the UI to a list for use by a query
 		List<string> GetEnabledSignatures()
 		{
@@ -780,6 +778,8 @@ namespace Mappalachia
 		// Wipe and re-populate the search results UI element with the items in "List<MapItem> searchResults"
 		void UpdateSearchResultsGrid()
 		{
+			FormsHelper.ClearDataGridViewSort(gridViewSearchResults);
+
 			bool labelColumnShouldBeShown = false;
 
 			int count = searchResults.Count;
@@ -828,7 +828,7 @@ namespace Mappalachia
 			GC.Collect();
 		}
 
-		static void NotifyIfNoResults()
+		void NotifyIfNoResults()
 		{
 			if (searchResults.Count == 0)
 			{
@@ -912,7 +912,7 @@ namespace Mappalachia
 		}
 
 		// Find the next-lowest free legend group value in LegendItems
-		static int FindLowestAvailableLegendGroupValue()
+		int FindLowestAvailableLegendGroupValue()
 		{
 			int n = legendItems.Count;
 			bool[] takenIndices = new bool[n];
@@ -984,7 +984,7 @@ namespace Mappalachia
 		#region UI Controls
 
 		// Map > Update Map - analogous to update map button - draw the map
-		private void Map_UpdateMap(object sender, EventArgs e)
+		void Map_UpdateMap(object sender, EventArgs e)
 		{
 			DrawMap(false);
 		}
@@ -1024,21 +1024,21 @@ namespace Mappalachia
 		}
 
 		// Map > Grayscale - Toggle grayscale drawing of map base layer
-		private void Map_Grayscale(object sender, EventArgs e)
+		void Map_Grayscale(object sender, EventArgs e)
 		{
 			SettingsMap.grayScale = !SettingsMap.grayScale;
 			UpdateMapGrayscale(true);
 		}
 
 		// Map > Map Markers > Labels - toggle rendering map marker labels on map draw
-		private void Map_MapMarkers_Labels(object sender, EventArgs e)
+		void Map_MapMarkers_Labels(object sender, EventArgs e)
 		{
 			SettingsMap.showMapLabels = !SettingsMap.showMapLabels;
 			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Map Markers > icons - toggle rendering map marker icons on map draw
-		private void Map_MapMarkers_Icons(object sender, EventArgs e)
+		void Map_MapMarkers_Icons(object sender, EventArgs e)
 		{
 			SettingsMap.showMapIcons = !SettingsMap.showMapIcons;
 			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
@@ -1074,7 +1074,7 @@ namespace Mappalachia
 
 		// Map > Quick Save
 		// Simulates a normal file export operation, but assumes default settings in all cases to quickly get the file written
-		private void Map_QuickSave(object sender, EventArgs e)
+		void Map_QuickSave(object sender, EventArgs e)
 		{
 			IOManager.QuickSaveImage(IOManager.OpenImageMode.QuickSaveInExplorer);
 		}
@@ -1123,133 +1123,133 @@ namespace Mappalachia
 		}
 
 		// Search Settings > Search in all Spaces - Toggles search results being returned for all spaces
-		private void Search_SearchInAllSpaces(object sender, EventArgs e)
+		void Search_SearchInAllSpaces(object sender, EventArgs e)
 		{
 			SettingsSearch.searchInAllSpaces = !SettingsSearch.searchInAllSpaces;
 			UpdateSearchInAllSpaces(true);
 		}
 
 		// Plot Settings > Mode > Icon - Change plot mode to icon
-		private void Plot_Mode_Icon(object sender, EventArgs e)
+		void Plot_Mode_Icon(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Icon;
 			UpdatePlotMode(true);
 		}
 
 		// Plot Settings > Mode > Heatmap - Change plot mode to heatmap
-		private void Plot_Mode_Heatmap(object sender, EventArgs e)
+		void Plot_Mode_Heatmap(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Heatmap;
 			UpdatePlotMode(true);
 		}
 
 		// Plot Settings > Mode > Topography - Change plot mode to Topography
-		private void Plot_Mode_Topography(object sender, EventArgs e)
+		void Plot_Mode_Topography(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Topography;
 			UpdatePlotMode(true);
 		}
 
 		// Plot Settings > Mode > Cluster - Change plot mode to Cluster
-		private void Plot_Mode_Cluster(object sender, EventArgs e)
+		void Plot_Mode_Cluster(object sender, EventArgs e)
 		{
 			SettingsPlot.mode = SettingsPlot.Mode.Cluster;
 			UpdatePlotMode(true);
 		}
 
 		// Plot Settings > Plot Icon Settings - Open plot settings form
-		private void Plot_PlotIconSettings(object sender, EventArgs e)
+		void Plot_PlotIconSettings(object sender, EventArgs e)
 		{
 			FormPlotStyleSettings formPlotSettings = new FormPlotStyleSettings();
 			formPlotSettings.ShowDialog();
 		}
 
 		// Plot Settings > Heatmap Settings > Color Mode > Mono - Change color mode to mono
-		private void Plot_HeatMap_ColorMode_Mono(object sender, EventArgs e)
+		void Plot_HeatMap_ColorMode_Mono(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Mono;
 			UpdateHeatMapColorMode(true);
 		}
 
 		// Plot Settings > Heatmap Settings > Color Mode > Duo - Change color mode to duo
-		private void Plot_HeatMap_ColorMode_Duo(object sender, EventArgs e)
+		void Plot_HeatMap_ColorMode_Duo(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.colorMode = SettingsPlotHeatmap.ColorMode.Duo;
 			UpdateHeatMapColorMode(true);
 		}
 
 		// Plot Settings > Heatmap Settings > Resolution > 128 - Change resolution to 128
-		private void Plot_HeatMap_Resolution_128(object sender, EventArgs e)
+		void Plot_HeatMap_Resolution_128(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 128;
 			UpdateHeatMapResolution(true);
 		}
 
 		// Plot Settings > Heatmap Settings > Resolution > 256 - Change resolution to 256
-		private void Plot_HeatMap_Resolution_256(object sender, EventArgs e)
+		void Plot_HeatMap_Resolution_256(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 256;
 			UpdateHeatMapResolution(true);
 		}
 
 		// Plot Settings > Heatmap Settings > Resolution > 512 - Change resolution to 512
-		private void Plot_HeatMap_Resolution_512(object sender, EventArgs e)
+		void Plot_HeatMap_Resolution_512(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 512;
 			UpdateHeatMapResolution(true);
 		}
 
 		// Plot Settings > Heatmap Settings > Resolution > 1024 - Change resolution to 1024
-		private void Plot_HeatMap_Resolution_1024(object sender, EventArgs e)
+		void Plot_HeatMap_Resolution_1024(object sender, EventArgs e)
 		{
 			SettingsPlotHeatmap.resolution = 1024;
 			UpdateHeatMapResolution(true);
 		}
 
 		// Plot Settings > Topograph color bands > 2
-		private void Plot_TopographBands_2(object sender, EventArgs e)
+		void Plot_TopographBands_2(object sender, EventArgs e)
 		{
 			SettingsPlotTopograph.colorBands = 2;
 			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Topograph color bands > 3
-		private void Plot_TopographBands_3(object sender, EventArgs e)
+		void Plot_TopographBands_3(object sender, EventArgs e)
 		{
 			SettingsPlotTopograph.colorBands = 3;
 			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Topograph color bands > 4
-		private void Plot_TopographBands_4(object sender, EventArgs e)
+		void Plot_TopographBands_4(object sender, EventArgs e)
 		{
 			SettingsPlotTopograph.colorBands = 4;
 			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Topograph color bands > 5
-		private void Plot_TopographBands_5(object sender, EventArgs e)
+		void Plot_TopographBands_5(object sender, EventArgs e)
 		{
 			SettingsPlotTopograph.colorBands = 5;
 			UpdateTopographColorBands(true);
 		}
 
 		// Plot Settings > Cluster Settings > Cluster Range...
-		private void Plot_ClusterSettings_ClusterRange(object sender, EventArgs e)
+		void Plot_ClusterSettings_ClusterRange(object sender, EventArgs e)
 		{
 			FormSetClusterRange formSetCluster = new FormSetClusterRange();
 			formSetCluster.ShowDialog();
 		}
 
 		// Plot Settings > Cluster Settings > Show Cluster Web
-		private void Plot_ClusterSettings_CluserWeb(object sender, EventArgs e)
+		void Plot_ClusterSettings_CluserWeb(object sender, EventArgs e)
 		{
 			SettingsPlotCluster.clusterWeb = !SettingsPlotCluster.clusterWeb;
 			UpdateClusterWeb(true);
 		}
 
 		// Plot Settings > Draw Volumes - Toggle drawing volumes
-		private void Plot_DrawVolumes(object sender, EventArgs e)
+		void Plot_DrawVolumes(object sender, EventArgs e)
 		{
 			SettingsPlot.drawVolumes = !SettingsPlot.drawVolumes;
 			UpdateVolumeEnabledState(true);
@@ -1269,19 +1269,19 @@ namespace Mappalachia
 		}
 
 		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
-		private void Help_CheckForUpdates(object sender, EventArgs e)
+		void Help_CheckForUpdates(object sender, EventArgs e)
 		{
 			UpdateChecker.CheckForUpdate(true);
 		}
 
 		// Donate > Patreon
-		private void Donate_ViaPatreon(object sender, EventArgs e)
+		void Donate_ViaPatreon(object sender, EventArgs e)
 		{
 			IOManager.LaunchURL("https://www.patreon.com/user?u=73036527");
 		}
 
 		// Donate > PayPal
-		private void Donate_ViaPayPal(object sender, EventArgs e)
+		void Donate_ViaPayPal(object sender, EventArgs e)
 		{
 			IOManager.LaunchURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
@@ -1296,7 +1296,7 @@ namespace Mappalachia
 		}
 
 		// Signature select recommended
-		private void ButtonSelectRecommendedSignature(object sender, EventArgs e)
+		void ButtonSelectRecommendedSignature(object sender, EventArgs e)
 		{
 			SelectRecommendedSignatures();
 		}
@@ -1329,7 +1329,7 @@ namespace Mappalachia
 		}
 
 		// User changed select Space - Update in Settings Class and wipe search results and legend
-		private void ComboBoxSpace_SelectedIndexChanged(object sender, EventArgs e)
+		void ComboBoxSpace_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			// If we're searching in all spaces we don't need to reset search results
 			if (!SettingsSearch.searchInAllSpaces)
@@ -1346,21 +1346,13 @@ namespace Mappalachia
 			SettingsFileExport.UpdateRecommendation();
 		}
 
-		// Toggle availability of controls which depend on current Space
-		void UpdateCellorWorldExclusiveState()
-		{
-			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
-			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			backgroundImageMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
-		}
-
-		private void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
+		void ButtonSpaceHeightDistribution_Click(object sender, EventArgs e)
 		{
 			ShowHeightDistribution();
 		}
 
 		// Height range changed - maintain the min safely below the max
-		private void NumericMinZ_ValueChanged(object sender, EventArgs e)
+		void NumericMinZ_ValueChanged(object sender, EventArgs e)
 		{
 			if (numericMaxZ.Value <= numericMinZ.Value)
 			{
@@ -1383,7 +1375,7 @@ namespace Mappalachia
 		}
 
 		// Height range changed - maintain the max safely above the min
-		private void NumericMaxZ_ValueChanged(object sender, EventArgs e)
+		void NumericMaxZ_ValueChanged(object sender, EventArgs e)
 		{
 			if (numericMinZ.Value >= numericMaxZ.Value)
 			{
@@ -1406,23 +1398,23 @@ namespace Mappalachia
 		}
 
 		// Select the value to overwrite when entered
-		private void NumericMinZ_Enter(object sender, EventArgs e)
+		void NumericMinZ_Enter(object sender, EventArgs e)
 		{
 			numericMinZ.Select(0, numericMinZ.Text.Length);
 		}
 
-		private void NumericMaxZ_Enter(object sender, EventArgs e)
+		void NumericMaxZ_Enter(object sender, EventArgs e)
 		{
 			numericMaxZ.Select(0, numericMaxZ.Text.Length);
 		}
 
 		// Clicked on - pass to enter event
-		private void NumericMinZ_MouseDown(object sender, MouseEventArgs e)
+		void NumericMinZ_MouseDown(object sender, MouseEventArgs e)
 		{
 			NumericMinZ_Enter(sender, e);
 		}
 
-		private void NumericMaxZ_MouseDown(object sender, MouseEventArgs e)
+		void NumericMaxZ_MouseDown(object sender, MouseEventArgs e)
 		{
 			NumericMaxZ_Enter(sender, e);
 		}
@@ -1511,7 +1503,7 @@ namespace Mappalachia
 		}
 
 		// Add selected valid items from the search results to the legend.
-		private void ButtonAddToLegend(object sender, EventArgs e)
+		void ButtonAddToLegend(object sender, EventArgs e)
 		{
 			double totalItems = gridViewSearchResults.SelectedRows.Count;
 
@@ -1616,7 +1608,7 @@ namespace Mappalachia
 		}
 
 		// Remove selected rows from legend DataGridView
-		private void ButtonRemoveFromLegend(object sender, EventArgs e)
+		void ButtonRemoveFromLegend(object sender, EventArgs e)
 		{
 			int selectedRowsCount = gridViewLegend.SelectedRows.Count;
 
@@ -1664,7 +1656,7 @@ namespace Mappalachia
 		}
 
 		// Handle the entry and assignment of new values to the Legend Group column or Overriding legend text
-		private void GridViewLegend_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		void GridViewLegend_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			DataGridViewRow editedRow = gridViewLegend.Rows[e.RowIndex];
 			DataGridViewCell editedCell = editedRow.Cells[e.ColumnIndex];
@@ -1708,16 +1700,9 @@ namespace Mappalachia
 				foreach (MapItem mapItem in legendItems.FindAll(m => m.legendGroup == targetLegendGroup))
 				{
 					// If the value entered was blank/deleted, reset to default
-					if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
-					{
-						mapItem.overridingLegendText = string.Empty;
-					}
-
-					// Else use the overridden text
-					else
-					{
-						mapItem.overridingLegendText = cellValue.ToString();
-					}
+					mapItem.overridingLegendText = (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString())) ?
+						string.Empty :
+						cellValue.ToString();
 				}
 
 				BeginInvoke((MethodInvoker)delegate { UpdateLegendGrid(editedItem); });
@@ -1737,13 +1722,13 @@ namespace Mappalachia
 		}
 
 		// Double click map for preview
-		private void MapPreview_MouseDoubleClick(object sender, MouseEventArgs e)
+		void MapPreview_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			PreviewMap();
 		}
 
 		// Record left click location on map in order to pan with mouse
-		private void MapPreview_MouseDown(object sender, MouseEventArgs mouseEvent)
+		void MapPreview_MouseDown(object sender, MouseEventArgs mouseEvent)
 		{
 			if (mouseEvent.Button == MouseButtons.Left)
 			{
@@ -1752,7 +1737,7 @@ namespace Mappalachia
 		}
 
 		// Pan the map while left mouse is held
-		private void MapPreview_MouseMove(object sender, MouseEventArgs mouseEvent)
+		void MapPreview_MouseMove(object sender, MouseEventArgs mouseEvent)
 		{
 			if (mouseEvent.Button == MouseButtons.Left)
 			{
@@ -1854,7 +1839,7 @@ namespace Mappalachia
 		}
 
 		// Set the current Space when double clicking on another Space in search results
-		private void GridViewSearchResults_MouseDoubleClick(object sender, MouseEventArgs e)
+		void GridViewSearchResults_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			int mouseOverRow = gridViewSearchResults.HitTest(e.X, e.Y).RowIndex;
 			int mouseOverColumn = gridViewSearchResults.HitTest(e.X, e.Y).ColumnIndex;
@@ -1876,7 +1861,7 @@ namespace Mappalachia
 		}
 
 		// Explain Legend Group on mouseover with tooltip
-		private void GridViewLegend_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+		void GridViewLegend_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
 		{
 			// Only apply to Legend Group column
 			DataGridViewColumn column = gridViewLegend.Columns[e.ColumnIndex];
@@ -1922,7 +1907,7 @@ namespace Mappalachia
 		}
 
 		// User updated value in min spawn chance - update the setting too
-		private void NumericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
+		void NumericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
 		{
 			SettingsSearch.spawnChance = (int)numericUpDownNPCSpawnThreshold.Value;
 		}

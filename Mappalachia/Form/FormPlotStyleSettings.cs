@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Mappalachia.Class;
 
@@ -10,7 +9,6 @@ namespace Mappalachia
 	public partial class FormPlotStyleSettings : Form
 	{
 		static List<PlotIconShape> placeholderShapePalette = new List<PlotIconShape>(); // Holds the currently *selected* shape settings (not currently applied ones)
-		static readonly Regex htmlColor = new Regex("ff[0-9a-f]{6}"); // Match the alpha-less 'html' color returned from a ColorDialog
 		static int lastSelectedShapeIndex = 0;
 
 		public FormPlotStyleSettings()
@@ -27,6 +25,12 @@ namespace Mappalachia
 			trackBarShadowOpacity.Maximum = SettingsPlotStyle.iconOpacityPercentMax / 10;
 
 			LoadSettingsIntoForm();
+		}
+
+		// Apply a color to a ListViewItem matching the color on its text
+		static void AddBackColor(ListViewItem item)
+		{
+			item.BackColor = ImageHelper.GetColorFromText(item.Text);
 		}
 
 		// Reverse-normalize values to fit form and apply them to the form
@@ -55,7 +59,7 @@ namespace Mappalachia
 			List<Color> tempColorPalette = new List<Color>();
 			foreach (ListViewItem colorName in listViewColorPalette.Items)
 			{
-				tempColorPalette.Add(GetColorFromText(colorName.Text));
+				tempColorPalette.Add(ImageHelper.GetColorFromText(colorName.Text));
 			}
 
 			SettingsPlotStyle.paletteColor = new List<Color>(tempColorPalette);
@@ -69,28 +73,6 @@ namespace Mappalachia
 			}
 
 			SettingsPlotStyle.paletteShape = new List<PlotIconShape>(tempShapePalette);
-		}
-
-		// Find a color by its name or html code
-		static Color GetColorFromText(string colorNameOrCode)
-		{
-			try
-			{
-				return htmlColor.Match(colorNameOrCode).Success ?
-					ColorTranslator.FromHtml("#" + colorNameOrCode) :
-					Color.FromName(colorNameOrCode);
-			}
-			catch (Exception)
-			{
-				Notify.Error("Invalid color name " + colorNameOrCode + ". Unable to display color on palette.");
-				return Color.Gray;
-			}
-		}
-
-		// Apply a color to a ListViewItem matching the color on its text
-		static void AddBackColor(ListViewItem item)
-		{
-			item.BackColor = GetColorFromText(item.Text);
 		}
 
 		// Load the palette selected in the UI, to the UI list
@@ -125,7 +107,7 @@ namespace Mappalachia
 			foreach (Color color in newPalette)
 			{
 				// Add the color items back to the UI, and backcolor them with themselves
-				AddBackColor(listViewColorPalette.Items.Add(GetColorFromText(color.Name).Name));
+				AddBackColor(listViewColorPalette.Items.Add(ImageHelper.GetColorFromText(color.Name).Name));
 			}
 		}
 

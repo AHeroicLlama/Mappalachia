@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 namespace Mappalachia.Class
 {
 	// Methods for tweaking and applying effects to images.
 	static class ImageHelper
 	{
+		static readonly Regex htmlColor = new Regex("ff[0-9a-f]{6}"); // Match the alpha-less 'html' hex color
+
 		// Shift the ARGB values of an image
 		public static Image AdjustARGB(Image image, Color argb)
 		{
@@ -106,6 +109,22 @@ namespace Mappalachia.Class
 				(int)(colorX.R + ((colorY.R - colorX.R) * range)),
 				(int)(colorX.G + ((colorY.G - colorX.G) * range)),
 				(int)(colorX.B + ((colorY.B - colorX.B) * range)));
+		}
+
+		// Find a color by its name or html code
+		public static Color GetColorFromText(string colorNameOrCode)
+		{
+			try
+			{
+				return htmlColor.Match(colorNameOrCode).Success ?
+					ColorTranslator.FromHtml("#" + colorNameOrCode) :
+					Color.FromName(colorNameOrCode);
+			}
+			catch (Exception)
+			{
+				Notify.Error("Invalid color name " + colorNameOrCode + ". Unable to display color on palette.");
+				return Color.Gray;
+			}
 		}
 	}
 }

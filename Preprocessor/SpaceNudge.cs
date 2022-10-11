@@ -158,8 +158,12 @@ namespace Mappalachia
 						break;
 				}
 
-				newFileRows.Add(new CSVRow($"{row.GetCellFromColumn("spaceFormID")},{row.GetCellFromColumn("spaceEditorID")}," +
-					$"{row.GetCellFromColumn("spaceDisplayName")},{row.GetCellFromColumn("isWorldspace")},{nudgeX},{nudgeY},{nudgeScale}", newFileHeader));
+				newFileRows.Add(new CSVRow(
+					$"{row.GetCellFromColumn("spaceFormID")}," +
+					$"{row.GetCellFromColumn("spaceEditorID")}," +
+					$"{row.GetCellFromColumn("spaceDisplayName")}," +
+					$"{row.GetCellFromColumn("isWorldspace")}," +
+					$"{nudgeX},{nudgeY},{nudgeScale}", newFileHeader));
 			}
 
 			return new CSVFile("Space_Info.csv", newFileHeader, newFileRows);
