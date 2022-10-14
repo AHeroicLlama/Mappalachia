@@ -50,9 +50,9 @@ The color used for the lines of the web is the second color in the color pallett
 
 ## Draw Volumes
 Draw volumes mode is located at Plot Settings > Draw Volumes, and is on by default.<br/>
-This setting tells Mappalachia - assuming the volume is large enough - to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
+This setting tells Mappalachia to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
 For example, by plotting 'NoCampAllowedTrigger' with 'Draw Volumes' enabled, you will see more precisely *where* you can't build CAMPs, including the precise extents of these areas.<br/>
-Volumes below a certain area will still be drawn as an icon, in order for them to remain visible.<br/>
+Volumes below a certain area will still be drawn as an icon, in order for them to remain visible. Additionally for performance reasons, some very large volumes will also be represented by an icon.<br/>
 Draw Volumes applies to Icon and Topography mode.
 
 ## Legend Group
