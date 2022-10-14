@@ -73,5 +73,12 @@ namespace Mappalachia
 		{
 			return new PointF(x, y);
 		}
+
+		// Returns the volume of the *bounding box* of the 'volume' shape of the data point in pixels (typically 0)
+		public double GetVolumeBounds()
+		{
+			double boundsWith = GeometryHelper.GetMaximumBoundingBoxWidth(boundX, boundY);
+			return boundsWith * boundsWith;
+		}
 	}
 }

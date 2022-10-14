@@ -32,5 +32,11 @@ namespace Mappalachia.Class
 		{
 			return rad * (180 / Math.PI);
 		}
+
+		// Returns the maximum possible width of the bounding square of a quad with dimensions x/y, but an unknown rotation
+		public static double GetMaximumBoundingBoxWidth(double width, double height)
+		{
+			return Pythagoras(width, height);
+		}
 	}
 }

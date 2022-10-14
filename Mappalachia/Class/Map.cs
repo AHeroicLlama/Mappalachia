@@ -19,6 +19,9 @@ namespace Mappalachia
 		public static readonly double minZoomRatio = 0.05;
 		public static readonly double markerIconScale = 1; // The scaling applied to map marker icons
 
+		static readonly int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
+		static readonly int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
+
 		// Legend text positioning
 		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
 		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
@@ -319,7 +322,8 @@ namespace Mappalachia
 						// If this meets all the criteria to be suitable to be drawn as a volume
 						if (point.primitiveShape != string.Empty && // This is a primitive shape at all
 							SettingsPlot.drawVolumes && // Volume drawing is enabled
-							point.boundX >= minVolumeDimension && point.boundY >= minVolumeDimension) // This is large enough to be visible if drawn as a volume
+							point.boundX >= minVolumeDimension && point.boundY >= minVolumeDimension && // This is large enough to be visible if drawn as a volume
+							point.GetVolumeBounds() <= volumeRejectThreshold) // This is not too large so as to cause memory problems
 						{
 							Image volumeImage = new Bitmap((int)point.boundX, (int)point.boundY);
 							Graphics volumeGraphic = Graphics.FromImage(volumeImage);
@@ -342,6 +346,12 @@ namespace Mappalachia
 
 							volumeImage = ImageHelper.RotateImage(volumeImage, point.rotationZ);
 							imageGraphic.DrawImage(volumeImage, (float)(point.x - (volumeImage.Width / 2)), (float)(point.y - (volumeImage.Height / 2)));
+
+							// Run GC if we just drew a very large volume
+							if (point.GetVolumeBounds() > volumeGCThreshold)
+							{
+								GC.Collect();
+							}
 						}
 
 						// This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon, or topographic plot
