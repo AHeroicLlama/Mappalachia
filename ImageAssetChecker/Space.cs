@@ -2,8 +2,8 @@
 {
 	internal class Space
 	{
-		string editorId;
-		bool isWorldspace;
+		readonly string editorId;
+		readonly bool isWorldspace;
 
 		public Space(string editorId, bool isWorldspace)
 		{

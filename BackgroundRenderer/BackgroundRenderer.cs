@@ -1,5 +1,5 @@
-using Microsoft.Data.Sqlite;
 using System.Diagnostics;
+using Microsoft.Data.Sqlite;
 
 namespace BackgroundRenderer
 {
@@ -20,31 +20,31 @@ namespace BackgroundRenderer
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
 		{
-			{"AMSHQ01", 3000},
-			{"BlueRidgeOffice01", 350},
-			{"CraterWarRoom01", 50},
-			{"CraterWatchstation01", -700},
-			{"DuncanDuncanRobotics01", 500},
-			{"FortAtlas01", -1300},
-			{"FoundationSupplyRoom01", 200},
-			{"FraternityHouse01", 850},
-			{"FraternityHouse02", 850},
-			{"LewisandSonsFarmingSupply01", 500},
-			{"OverseersHome01", 675},
-			{"PoseidonPlant02", 3000},
-			{"RaiderCave01", 300},
-			{"RaiderCave03", 300},
-			{"RaiderRaidTrailerInt", 150},
-			{"SugarGrove02", 1000},
-			{"TheWayward01", 400},
-			{"TopOfTheWorld01", -1800},
-			{"ValleyGalleria01", 700},
-			{"Vault63Entrance", 4750},
-			{"Vault79Entrance", -200},
-			{"VTecAgCenter01", 400},
-			{"WVLumberCo01", 1000},
-			{"XPDPitt02Sanctum", 700},
-			{"TheCraterCore01", 100},
+			{ "AMSHQ01", 3000 },
+			{ "BlueRidgeOffice01", 350 },
+			{ "CraterWarRoom01", 50 },
+			{ "CraterWatchstation01", -700 },
+			{ "DuncanDuncanRobotics01", 500 },
+			{ "FortAtlas01", -1300 },
+			{ "FoundationSupplyRoom01", 200 },
+			{ "FraternityHouse01", 850 },
+			{ "FraternityHouse02", 850 },
+			{ "LewisandSonsFarmingSupply01", 500 },
+			{ "OverseersHome01", 675 },
+			{ "PoseidonPlant02", 3000 },
+			{ "RaiderCave01", 300 },
+			{ "RaiderCave03", 300 },
+			{ "RaiderRaidTrailerInt", 150 },
+			{ "SugarGrove02", 1000 },
+			{ "TheWayward01", 400 },
+			{ "TopOfTheWorld01", -1800 },
+			{ "ValleyGalleria01", 700 },
+			{ "Vault63Entrance", 4750 },
+			{ "Vault79Entrance", -200 },
+			{ "VTecAgCenter01", 400 },
+			{ "WVLumberCo01", 1000 },
+			{ "XPDPitt02Sanctum", 700 },
+			{ "TheCraterCore01", 100 },
 		};
 
 		// 16384 by default (16k - allows us to supersample then scale down to 4k)

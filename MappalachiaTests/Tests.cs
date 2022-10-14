@@ -5,7 +5,7 @@ namespace MappalachiaTests
 	[TestClass]
 	public class Tests
 	{
-		List<int> list = new List<int> { 0, 1, 2, 3, 4, 5 };
+		readonly List<int> list = new List<int> { 0, 1, 2, 3, 4, 5 };
 
 		[TestMethod]
 		public void TestCyclicListAccessor_N0()

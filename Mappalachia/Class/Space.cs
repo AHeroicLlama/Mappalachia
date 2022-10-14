@@ -29,7 +29,7 @@ namespace Mappalachia.Class
 		public int nudgeY;
 		public float nudgeScale;
 
-		List<int> zPlots;
+		readonly List<int> zPlots;
 
 		public Space(string formID, string editorID, string displayName, bool isWorldspace, int xCenter, int yCenter, int xMin, int xMax, int yMin, int yMax, int nudgeX, int nudgeY, float nudgeScale)
 		{

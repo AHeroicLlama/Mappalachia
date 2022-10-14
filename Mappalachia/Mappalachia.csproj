@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
-		<UseWindowsForms>true</UseWindowsForms>
+		<UseWindowsForms>True</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>Mappalachia</RootNamespace>
 		<AssemblyName>Mappalachia</AssemblyName>
@@ -44,6 +44,10 @@
 
 	<ItemGroup>
 	  <Content Include="favicon_small.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
 	</ItemGroup>
 
 	<ItemGroup>
