@@ -1,7 +1,9 @@
 ==Database name== 
 mappalachia.db 
+==SQLite version== 
+3.39.4 2022-09-29 15:55:41 a29f9949895322123f7c38fbe94c649a9d6e6c9cd0c3b41c96d694552f26b309
 ==Checksum== 
-d4805dc8c5786c8ffebd04e9b5dadf2d
+284e66c8db8e4d3bea48d4c0edcb146e
 ==File Size== 
 391520256 
 ==Tables== 
