@@ -27,6 +27,12 @@ namespace Mappalachia
 				// Replace (") with (\") and (') with ('')
 				data = data.Replace("\"", "\\\"").Replace("'", "''");
 			}
+
+			// Temp conversion due to XEdit error
+			if (columnName == "primitiveShape" && data == "7")
+			{
+				data = "Box";
+			}
 		}
 
 		// Reduce long references and names to just the data required in them - typically just the FormID

@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==Checksum== 
-8dacb1380e17825a484a63ee142ad3e9
+d4805dc8c5786c8ffebd04e9b5dadf2d
 ==File Size== 
 391520256 
 ==Tables== 
@@ -880,8 +880,7 @@ WendigoCave01||6291
 WendigoCave01|Box|447
 WendigoCave01|Line|4
 WestTek01||11268
-WestTek01|7|3
-WestTek01|Box|513
+WestTek01|Box|516
 WestTek01|Sphere|2
 WestTek02||4964
 WestTek02|Box|162
@@ -893,8 +892,7 @@ WhitespringMall01|Box|137
 WhitespringRefuge01||11269
 WhitespringRefuge01|Box|224
 XPDPitt01Foundry||16369
-XPDPitt01Foundry|7|12
-XPDPitt01Foundry|Box|548
+XPDPitt01Foundry|Box|560
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
 XPDPitt01Industrial||18696
