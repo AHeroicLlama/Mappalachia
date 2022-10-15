@@ -43,6 +43,13 @@ namespace Mappalachia
 
 			InitializeComponent();
 
+			// Hack to prevent the panels inheriting the backcolor of the whole splitter
+			splitContainerMain.Panel1.BackColor = splitContainerMain.Panel1.BackColor;
+			splitContainerMain.Panel2.BackColor = splitContainerMain.Panel2.BackColor;
+
+			// Makes the splitcontainer divider visible
+			splitContainerMain.BackColor = SystemColors.ControlDark;
+
 			UpdateProgressBar(0, "Starting up...");
 
 			float dpiScaling = 1 / (designDPI / CreateGraphics().DpiX);
