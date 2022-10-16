@@ -27,11 +27,20 @@ namespace Mappalachia
 				// Replace (") with (\") and (') with ('')
 				data = data.Replace("\"", "\\\"").Replace("'", "''");
 			}
+		}
 
+		// Correct potentially mistranslated raw data
+		public void CorrectAnomalies()
+		{
 			// Temp conversion due to XEdit error
 			if (columnName == "primitiveShape" && data == "7")
 			{
 				data = "Box";
+			}
+
+			if (columnName == "lockLevel" && data == "Opens Door")
+			{
+				data = "Novice (Level 0)";
 			}
 		}
 
