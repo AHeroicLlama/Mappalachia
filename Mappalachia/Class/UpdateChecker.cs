@@ -96,12 +96,22 @@ namespace Mappalachia.Class
 		// Tell the user the latest version is available as an update, and prompt to download
 		static void PromptForUpdate(string latestVersion)
 		{
+			// If they declined the update and the cooldown window has not expired yet
+			if (DateTime.Now - SettingsUpdate.lastDeclinedUpdate < SettingsUpdate.GetCooldownPeriod())
+			{
+				return;
+			}
+
 			DialogResult question = MessageBox.Show(
 				"A new version of Mappalachia, " + latestVersion + " is now available! \nVisit the releases page to download it?",
 				"Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 			if (question == DialogResult.Yes)
 			{
 				GoToReleases();
+			}
+			else if (question == DialogResult.No)
+			{
+				SettingsUpdate.lastDeclinedUpdate = DateTime.Now;
 			}
 		}
 
