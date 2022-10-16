@@ -3,7 +3,7 @@
 title Mappalachia Database Builder
 
 set sigcheckPath=sigcheck.exe
-set steamPath="C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe"
+set steamPath="C:\Program Files (x86)\Steam\steamapps\common\Fallout 76 Playtest\Fallout76.exe"
 set gameVersionFile=gameVersion.csv
 set databaseFile=mappalachia.db
 set summaryFile=summary.txt
@@ -56,6 +56,9 @@ sqlite3.exe %databaseFile% < sql/createTables.sql
 
 echo Importing CSVs into new tables...
 sqlite3.exe %databaseFile% < SQLiteBatchCSVImport.txt
+
+echo Adding PTS marker...
+sqlite3.exe %databaseFile% < sql/appendPTS.sql
 
 echo Replacing previously escaped characters...
 sqlite3.exe %databaseFile% < sql/replaceEscapedChars.sql

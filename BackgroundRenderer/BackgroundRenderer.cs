@@ -5,7 +5,7 @@ namespace BackgroundRenderer
 {
 	public partial class BackgroundRenderer
 	{
-		static readonly string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
+		static readonly string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout 76 Playtest\\Data";
 		static readonly string thisAppPath = Directory.GetCurrentDirectory();
 		static readonly string mappalachiaRoot = thisAppPath + "..\\..\\..\\..\\..\\";
 		static readonly string databasePath = mappalachiaRoot + "Mappalachia\\data\\mappalachia.db";
