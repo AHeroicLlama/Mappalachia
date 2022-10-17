@@ -12,6 +12,12 @@ namespace Mappalachia.Class
 
 		public static async void CheckForUpdate(bool userTriggered)
 		{
+			// If this is an auto-check and the cooldown window from a previous decline has not expired yet
+			if (!userTriggered && DateTime.Now - SettingsUpdate.lastDeclinedUpdate < SettingsUpdate.GetCooldownPeriod())
+			{
+				return;
+			}
+
 			HttpResponseMessage response;
 
 			// Get the GitHub API response
@@ -51,12 +57,10 @@ namespace Mappalachia.Class
 
 				if (currentVersion < latestVersion)
 				{
-					PromptForUpdate(latestVersion.ToString());
+					PromptForUpdate(latestVersion.ToString(), userTriggered);
 				}
 				else if (currentVersion > latestVersion)
 				{
-					Console.WriteLine($"Unreleased build {currentVersion}");
-
 					if (userTriggered)
 					{
 						Notify.Info("This build is ahead of the latest release.");
@@ -94,14 +98,8 @@ namespace Mappalachia.Class
 		}
 
 		// Tell the user the latest version is available as an update, and prompt to download
-		static void PromptForUpdate(string latestVersion)
+		static void PromptForUpdate(string latestVersion, bool userTriggered)
 		{
-			// If they declined the update and the cooldown window has not expired yet
-			if (DateTime.Now - SettingsUpdate.lastDeclinedUpdate < SettingsUpdate.GetCooldownPeriod())
-			{
-				return;
-			}
-
 			DialogResult question = MessageBox.Show(
 				"A new version of Mappalachia, " + latestVersion + " is now available! \nVisit the releases page to download it?",
 				"Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -109,7 +107,9 @@ namespace Mappalachia.Class
 			{
 				GoToReleases();
 			}
-			else if (question == DialogResult.No)
+
+			// If they decline the auto-update prompt
+			else if (question == DialogResult.No && !userTriggered)
 			{
 				SettingsUpdate.lastDeclinedUpdate = DateTime.Now;
 			}
