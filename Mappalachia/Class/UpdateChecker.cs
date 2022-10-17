@@ -52,11 +52,25 @@ namespace Mappalachia.Class
 			try
 			{
 				JsonDocument responseDocument = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
-				string latestVersionString = responseDocument.RootElement.GetProperty("tag_name").ToString();
-				Version latestVersion = new Version(latestVersionString);
+				bool isDraft = responseDocument.RootElement.GetProperty("draft").GetBoolean();
+				bool isPreRelease = responseDocument.RootElement.GetProperty("prerelease").GetBoolean();
+				Version latestVersion = new Version(responseDocument.RootElement.GetProperty("tag_name").ToString());
 
-				if (currentVersion < latestVersion)
+				if (latestVersion > currentVersion)
 				{
+					if (isDraft || isPreRelease)
+					{
+						// If it's a draft/pre - warn manual checkers, abort auto-checkers
+						if (userTriggered)
+						{
+							Notify.Warn("The latest release is marked as a pre-release or draft release.\nAlthough available now, it is not recommended to download it yet.");
+						}
+						else
+						{
+							return;
+						}
+					}
+
 					PromptForUpdate(latestVersion.ToString(), userTriggered);
 				}
 				else if (currentVersion > latestVersion)
