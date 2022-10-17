@@ -116,8 +116,8 @@ namespace Mappalachia.Class
 		{
 			try
 			{
-				return htmlColor.Match(colorNameOrCode).Success ?
-					ColorTranslator.FromHtml("#" + colorNameOrCode) :
+				return htmlColor.Match(colorNameOrCode.ToLower()).Success ?
+					ColorTranslator.FromHtml("#" + colorNameOrCode.ToLower()) :
 					Color.FromName(colorNameOrCode);
 			}
 			catch (Exception)
