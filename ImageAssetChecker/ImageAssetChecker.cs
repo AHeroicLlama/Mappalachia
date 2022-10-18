@@ -142,7 +142,6 @@ namespace ImageAssetChecker
 				{
 					throw new FileNotFoundException("Unable to find background image file " + expectedFile);
 				}
-
 			}
 
 			// Reverse of the above - validate that each file matches to an editorId (Checks we have no pointless files)
@@ -193,7 +192,6 @@ namespace ImageAssetChecker
 				{
 					throw new FileNotFoundException("Unable to find map marker file " + expectedFile);
 				}
-
 			}
 
 			// Reverse of the above - validate that each file matches to a requested map marker in the DB

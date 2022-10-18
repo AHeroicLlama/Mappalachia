@@ -9,8 +9,8 @@ namespace Mappalachia
 	{
 		// These paths assume the repo structure. They also assume you've already ran the XEdit scripts.
 		// Change as necessary.
-		static readonly string inputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//..//FO76Edit//Output//";
-		static readonly string outputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//Output";
+		static readonly string inputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//..//..//FO76Edit//Output//";
+		static readonly string outputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//..//Output";
 
 		static async Task Main()
 		{
@@ -121,6 +121,7 @@ namespace Mappalachia
 		static void GenericProcess(CSVFile file)
 		{
 			file.Sanitize();
+			file.CorrectAnomalies();
 			file.ReduceReferences();
 			file.ReduceDecimals();
 		}

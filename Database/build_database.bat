@@ -84,6 +84,8 @@ sqlite3.exe %databaseFile% < sql/createIndices.sql
 echo Creating new summary with db file info...
 echo ==Database name== > %summaryFile%
 echo %databaseFile% >> %summaryFile%
+echo ==SQLite version== >> %summaryFile%
+sqlite3.exe --version >> %summaryFile%
 echo ==Checksum== >> %summaryFile%
 certutil -hashfile %databaseFile% MD5 | findstr /V ":" >> %summaryFile%
 echo ==File Size== >> %summaryFile%

@@ -13,7 +13,7 @@
 		public static readonly int jpegQualityDefault = 86;
 		public static readonly bool openExplorerDefault = false;
 
-		public static bool useRecommended { get; private set; } = true;
+		public static bool useRecommended = true;
 
 		public static FileType fileType = FileType.JPEG;
 		public static int jpegQuality = jpegQualityDefault;

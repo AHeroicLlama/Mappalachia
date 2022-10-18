@@ -29,6 +29,21 @@ namespace Mappalachia
 			}
 		}
 
+		// Correct potentially mistranslated raw data
+		public void CorrectAnomalies()
+		{
+			// Temp conversion due to XEdit error
+			if (columnName == "primitiveShape" && data == "7")
+			{
+				data = "Box";
+			}
+
+			if (columnName == "lockLevel" && data == "Opens Door")
+			{
+				data = "Novice (Level 0)";
+			}
+		}
+
 		// Reduce long references and names to just the data required in them - typically just the FormID
 		public void ReduceReferences()
 		{

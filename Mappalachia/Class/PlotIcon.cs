@@ -9,6 +9,42 @@ namespace Mappalachia.Class
 	{
 		static Dictionary<int, PlotIcon> plotIconCache = new Dictionary<int, PlotIcon>();
 
+		// Pull PlotIcon settings from the currently applied PlotSettings
+		readonly int size = SettingsPlotStyle.iconSize;
+		readonly int lineWidth = SettingsPlotStyle.lineWidth;
+		readonly int iconOpacityPercent = SettingsPlotStyle.iconOpacityPercent;
+		readonly int shadowOpacityPercent = SettingsPlotStyle.shadowOpacityPercent;
+		readonly float halfSize;
+		readonly float quartSize;
+		readonly float threeQuartSize;
+		readonly Pen pen;
+		readonly Brush brush;
+		readonly Bitmap bitmap;
+		readonly Graphics icon;
+		readonly PlotIconShape shape;
+		readonly int shadowOffset = 2;
+
+		public Color color;
+		Image iconImage;
+
+		public PlotIcon(Color color, PlotIconShape shape)
+		{
+			this.color = color;
+			this.shape = shape;
+
+			// All icon shape coordinates target points on a 4x4 grid
+			// This way, icon shapes can be mixed & matched and still look proper
+			halfSize = size / 2f;
+			quartSize = size / 4f;
+			threeQuartSize = quartSize * 3;
+
+			pen = new Pen(Color.White, lineWidth);
+			brush = new SolidBrush(Color.White);
+			bitmap = new Bitmap(size, size);
+			icon = Graphics.FromImage(bitmap);
+			icon.SmoothingMode = SmoothingMode.AntiAlias;
+		}
+
 		// Gets a PlotIcon for a given legend group. Returns cached version if available
 		public static PlotIcon GetIconForGroup(int group)
 		{
@@ -53,42 +89,6 @@ namespace Mappalachia.Class
 		public static void ResetCache()
 		{
 			plotIconCache = new Dictionary<int, PlotIcon>();
-		}
-
-		// Pull PlotIcon settings from the currently applied PlotSettings
-		readonly int size = SettingsPlotStyle.iconSize;
-		readonly int lineWidth = SettingsPlotStyle.lineWidth;
-		readonly int iconOpacityPercent = SettingsPlotStyle.iconOpacityPercent;
-		readonly int shadowOpacityPercent = SettingsPlotStyle.shadowOpacityPercent;
-		readonly float halfSize;
-		readonly float quartSize;
-		readonly float threeQuartSize;
-		readonly Pen pen;
-		readonly Brush brush;
-		readonly Bitmap bitmap;
-		readonly Graphics icon;
-		readonly PlotIconShape shape;
-		readonly int shadowOffset = 2;
-
-		public Color color;
-		Image iconImage;
-
-		public PlotIcon(Color color, PlotIconShape shape)
-		{
-			this.color = color;
-			this.shape = shape;
-
-			// All icon shape coordinates target points on a 4x4 grid
-			// This way, icon shapes can be mixed & matched and still look proper
-			halfSize = size / 2f;
-			quartSize = size / 4f;
-			threeQuartSize = quartSize * 3;
-
-			pen = new Pen(Color.White, lineWidth);
-			brush = new SolidBrush(Color.White);
-			bitmap = new Bitmap(size, size);
-			icon = Graphics.FromImage(bitmap);
-			icon.SmoothingMode = SmoothingMode.AntiAlias;
 		}
 
 		// Draw and return the icon image

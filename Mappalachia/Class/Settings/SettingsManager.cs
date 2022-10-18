@@ -8,7 +8,7 @@ namespace Mappalachia.Class
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 9;
+		static readonly int prefsIteration = 10;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -92,6 +92,10 @@ namespace Mappalachia.Class
 			settings.Add("fileType=" + SettingsFileExport.fileType);
 			settings.Add("jpegQuality=" + SettingsFileExport.jpegQuality);
 			settings.Add("openExplorer=" + BoolToIntStr(SettingsFileExport.openExplorer));
+
+			// Update
+			settings.Add("[Update]");
+			settings.Add("lastDeclinedUpdateTime=" + SettingsUpdate.lastDeclinedUpdate);
 
 			// Write the list of strings to the prefs file
 			IOManager.WritePreferences(settings);
@@ -448,6 +452,10 @@ namespace Mappalachia.Class
 
 						case "openExplorer":
 							SettingsFileExport.openExplorer = StrIntToBool(value);
+							break;
+
+						case "lastDeclinedUpdateTime":
+							SettingsUpdate.lastDeclinedUpdate = DateTime.Parse(value);
 							break;
 
 						// Legacy settings - ignore

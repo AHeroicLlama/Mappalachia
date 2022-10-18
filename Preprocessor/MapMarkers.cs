@@ -135,14 +135,7 @@ namespace Mappalachia
 				// Fix fissure site naming - Rename Zeta to Alpha, drop names from all others
 				if (label.StartsWith(fissureSite))
 				{
-					if (label == "Fissure Site Zeta")
-					{
-						label = "Fissure Site Alpha";
-					}
-					else
-					{
-						label = fissureSite;
-					}
+					label = (label == "Fissure Site Zeta") ? "Fissure Site Alpha" : fissureSite;
 				}
 
 				// Perform our own specialized validation

@@ -33,13 +33,13 @@ SELECT AVG(rotZ) FROM Position_Data;
 SELECT '==Average display name string length==';
 SELECT AVG(length) FROM
 (
-    SELECT LENGTH(displayName) AS length FROM Entity_Info
+	SELECT LENGTH(displayName) AS length FROM Entity_Info
 );
 
 SELECT '==Average editorID string length==';
 SELECT AVG(length) FROM
 (
-    SELECT LENGTH(editorID) AS length FROM Entity_Info
+	SELECT LENGTH(editorID) AS length FROM Entity_Info
 );
 
 SELECT '==Map Markers==';
@@ -51,31 +51,31 @@ SELECT '==Total Unique entities==';
 SELECT COUNT(DISTINCT referenceFormID) FROM Position_Data;
 
 SELECT '==Total entities by PrimitiveShape by Space==';
-SELECT spaceEditorId, primitiveShape, COUNT(*) AS count FROM Position_Data
+SELECT spaceEditorId, primitiveShape, COUNT(*) FROM Position_Data
 INNER JOIN Space_Info ON Position_Data.spaceFormID = Space_Info.spaceFormID
 GROUP BY spaceEditorId, primitiveShape
 ORDER BY spaceEditorId, primitiveShape;
 
 SELECT '==Total entities by LockLevel by Space==';
-SELECT spaceEditorId, lockLevel, COUNT(*) AS count FROM Standard_Search
+SELECT spaceEditorId, lockLevel, SUM(amount) FROM Standard_Search
 INNER JOIN Space_Info ON Standard_Search.spaceFormID = Space_Info.spaceFormID
 GROUP BY spaceEditorId, lockLevel
 ORDER BY spaceEditorId, lockLevel;
 
 SELECT '==Total entities by Category by Space==';
-SELECT spaceEditorId, category, COUNT(*) AS count FROM Standard_Search
+SELECT spaceEditorId, category, SUM(amount) FROM Standard_Search
 INNER JOIN Space_Info ON Standard_Search.spaceFormID = Space_Info.spaceFormID
 GROUP BY spaceEditorId, category
 ORDER BY spaceEditorId, category;
 
 SELECT '==Total entities by Label by Space==';
-SELECT spaceEditorId, label, COUNT(*) AS count FROM Standard_Search
+SELECT spaceEditorId, label, SUM(amount) FROM Standard_Search
 INNER JOIN Space_Info ON Standard_Search.spaceFormID = Space_Info.spaceFormID
 GROUP BY spaceEditorId, label
 ORDER BY spaceEditorId, label;
 
 SELECT '==Total Scrap and Junk per Component per Space==';
-SELECT spaceEditorID, component, SUM(magnitude), COUNT(*)  FROM Scrap_Search
+SELECT spaceEditorID, component, SUM(magnitude), COUNT(*) FROM Scrap_Search
 INNER JOIN Space_Info ON Scrap_Search.spaceFormID = Space_Info.spaceFormID
 GROUP BY Space_Info.spaceFormID, component
 ORDER BY spaceEditorID, component;

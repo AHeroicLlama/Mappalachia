@@ -7,7 +7,8 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 ![GitHub](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
 [![GitHub](https://img.shields.io/github/v/release/aheroicllama/mappalachia)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br/>
 ![GitHub](https://img.shields.io/badge/game%20version-1.7.0.22-green)<br/>
-[![GitHub](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)<br/>
+[![GitHub](https://img.shields.io/discord/1029499482028646400?label=Discord&logo=Discord)](https://discord.gg/Z2GMpm6rad)<br/>
+[![GitHub](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)
 
 ## Download and Installation
 
@@ -24,6 +25,9 @@ A number of User guides exist for Mappalachia in document form;<br/>
 * [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the intelligent NPC and Scrap search functions, as well as using filters to find exactly what you need.
 * [**Advanced Plotting**](User_Guides/Advanced_plotting.md) details the powerful heatmap mode, as well as topographical and cluster plotting, item grouping and volume mapping.
 * [**Interiors and other Spaces**](User_Guides/Choosing_spaces.md) explains the mapping of other spaces such as interiors.
+
+## Discord
+[Join the Mappalachia Discord](https://discord.gg/Z2GMpm6rad) for discussion and help.
 
 ## Info for Developers
 

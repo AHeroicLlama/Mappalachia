@@ -1,65 +1,65 @@
-using Microsoft.Data.Sqlite;
 using System.Diagnostics;
+using Microsoft.Data.Sqlite;
 
 namespace BackgroundRenderer
 {
 	public partial class BackgroundRenderer
 	{
-		static string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
-		static string thisAppPath = Directory.GetCurrentDirectory();
-		static string mappalachiaRoot = thisAppPath + "..\\..\\..\\..\\..\\";
-		static string databasePath = mappalachiaRoot + "Mappalachia\\data\\mappalachia.db";
-		static string imageDirectory =  mappalachiaRoot + "Mappalachia\\img\\";
-		static string utilsRenderPath = mappalachiaRoot + "FO76Utils\\render.exe";
+		static readonly string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
+		static readonly string thisAppPath = Directory.GetCurrentDirectory();
+		static readonly string mappalachiaRoot = thisAppPath + "..\\..\\..\\..\\..\\";
+		static readonly string databasePath = mappalachiaRoot + "Mappalachia\\data\\mappalachia.db";
+		static readonly string imageDirectory = mappalachiaRoot + "Mappalachia\\img\\";
+		static readonly string utilsRenderPath = mappalachiaRoot + "FO76Utils\\render.exe";
 
-		static double maxScale = 16;
-		static double minScale = 0.02;
+		static readonly double maxScale = 16;
+		static readonly double minScale = 0.02;
 
-		static bool openFileAfterRender = false;
+		static readonly bool openFileAfterRender = false;
 
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
-		static Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
+		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
 		{
-			{"AMSHQ01", 3000},
-			{"BlueRidgeOffice01", 350},
-			{"CraterWarRoom01", 50},
-			{"CraterWatchstation01", -700},
-			{"DuncanDuncanRobotics01", 500},
-			{"FortAtlas01", -1300},
-			{"FoundationSupplyRoom01", 200},
-			{"FraternityHouse01", 850},
-			{"FraternityHouse02", 850},
-			{"LewisandSonsFarmingSupply01", 500},
-			{"OverseersHome01", 675},
-			{"PoseidonPlant02", 3000},
-			{"RaiderCave01", 300},
-			{"RaiderCave03", 300},
-			{"RaiderRaidTrailerInt", 150},
-			{"SugarGrove02", 1000},
-			{"TheWayward01", 400},
-			{"TopOfTheWorld01", -1800},
-			{"ValleyGalleria01", 700},
-			{"Vault63Entrance", 4750},
-			{"Vault79Entrance", -200},
-			{"VTecAgCenter01", 400},
-			{"WVLumberCo01", 1000},
-			{"XPDPitt02Sanctum", 700},
-			{"TheCraterCore01", 100},
+			{ "AMSHQ01", 3000 },
+			{ "BlueRidgeOffice01", 350 },
+			{ "CraterWarRoom01", 50 },
+			{ "CraterWatchstation01", -700 },
+			{ "DuncanDuncanRobotics01", 500 },
+			{ "FortAtlas01", -1300 },
+			{ "FoundationSupplyRoom01", 200 },
+			{ "FraternityHouse01", 850 },
+			{ "FraternityHouse02", 850 },
+			{ "LewisandSonsFarmingSupply01", 500 },
+			{ "OverseersHome01", 675 },
+			{ "PoseidonPlant02", 3000 },
+			{ "RaiderCave01", 300 },
+			{ "RaiderCave03", 300 },
+			{ "RaiderRaidTrailerInt", 150 },
+			{ "SugarGrove02", 1000 },
+			{ "TheWayward01", 400 },
+			{ "TopOfTheWorld01", -1800 },
+			{ "ValleyGalleria01", 700 },
+			{ "Vault63Entrance", 4750 },
+			{ "Vault79Entrance", -200 },
+			{ "VTecAgCenter01", 400 },
+			{ "WVLumberCo01", 1000 },
+			{ "XPDPitt02Sanctum", 700 },
+			{ "TheCraterCore01", 100 },
 		};
 
 		// 16384 by default (16k - allows us to supersample then scale down to 4k)
 		/* 4096 if the cell is unusually small and causes the scale to be too high...
 		(errors.txt will be written) (EG UCB02 and RaiderRaidTrailerInt) */
-		static int resolution = 16384;
+		static readonly int resolution = 16384;
 
-		static bool SSAA = true;
+		static readonly bool SSAA = true;
 
 		public static void Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
 			Console.WriteLine("Paste space-separated EditorIDs of Cells you need rendering. Otherwise paste nothing to render all");
-			string arg = Console.ReadLine();
+			string arg = Console.ReadLine() ?? string.Empty;
 			List<string> args = arg.Split(' ').Where(a => !string.IsNullOrWhiteSpace(a)).ToList();
 
 			if (args.Count == 0)
