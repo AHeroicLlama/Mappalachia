@@ -120,7 +120,7 @@ namespace Mappalachia.Properties {
         /// <summary>
         ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
         ///FROM Position_Data
-        ///WHERE spaceFormID = $spaceFormID AND referenceFormID = $formID AND lockLevel IN ($allowedLockTypes)
+        ///WHERE spaceFormID = $spaceFormID AND referenceFormID = $formID AND lockLevel IN ($allowedLockTypes) AND label = $label
         ///ORDER BY z ASC
         ///.
         /// </summary>
@@ -194,7 +194,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax
+        ///   Looks up a localized string similar to SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale
         ///FROM Space_Info
         ///ORDER BY isWorldspace DESC, spaceDisplayName
         ///.
@@ -262,15 +262,14 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName
+        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label
         ///FROM Standard_Search
         ///JOIN Space_Info ON Standard_Search.spaceFormId = Space_Info.spaceFormID
         ///JOIN Entity_Info ON Standard_Search.referenceFormID = Entity_Info.entityFormID
         ///WHERE
         ///(category IN ($allowedSignatures) AND
         ///lockLevel IN ($allowedLockTypes) AND
-        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos;)
-        ///AND Standard_S [rest of string was truncated]&quot;;.
+        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos; OR label  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchStandard {
             get {
@@ -279,16 +278,14 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName
+        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label
         ///FROM Standard_Search
         ///JOIN Space_Info ON Standard_Search.spaceFormId = Space_Info.spaceFormID
         ///JOIN Entity_Info ON Standard_Search.referenceFormID = Entity_Info.entityFormID
         ///WHERE
         ///(category IN ($allowedSignatures) AND
         ///lockLevel IN ($allowedLockTypes) AND
-        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos;))
-        ///
-        ///ORDER BY St [rest of string was truncated]&quot;;.
+        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos; OR label  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchStandardEverywhere {
             get {

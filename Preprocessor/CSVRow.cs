@@ -54,6 +54,15 @@ namespace Mappalachia
 			}
 		}
 
+		// Correct potentially mistranslated raw data
+		public void CorrectAnomalies()
+		{
+			foreach (CSVCell cell in cells)
+			{
+				cell.CorrectAnomalies();
+			}
+		}
+
 		// Reduce long references and names to just the data required in them - typically just the FormID
 		public void ReduceReferences()
 		{

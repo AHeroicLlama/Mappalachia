@@ -38,6 +38,12 @@ namespace Mappalachia
 			Parallel.ForEach(rows, row => row.Sanitize());
 		}
 
+		// Correct potentially mistranslated raw data
+		public void CorrectAnomalies()
+		{
+			Parallel.ForEach(rows, row => row.CorrectAnomalies());
+		}
+
 		// Reduce long references and names to just the data required in them - typically just the FormID
 		public void ReduceReferences()
 		{

@@ -12,6 +12,12 @@ namespace Mappalachia.Class
 
 		public static async void CheckForUpdate(bool userTriggered)
 		{
+			// If this is an auto-check and the cooldown window from a previous decline has not expired yet
+			if (!userTriggered && DateTime.Now - SettingsUpdate.lastDeclinedUpdate < SettingsUpdate.GetCooldownPeriod())
+			{
+				return;
+			}
+
 			HttpResponseMessage response;
 
 			// Get the GitHub API response
@@ -46,17 +52,29 @@ namespace Mappalachia.Class
 			try
 			{
 				JsonDocument responseDocument = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
-				string latestVersionString = responseDocument.RootElement.GetProperty("tag_name").ToString();
-				Version latestVersion = new Version(latestVersionString);
+				bool isDraft = responseDocument.RootElement.GetProperty("draft").GetBoolean();
+				bool isPreRelease = responseDocument.RootElement.GetProperty("prerelease").GetBoolean();
+				Version latestVersion = new Version(responseDocument.RootElement.GetProperty("tag_name").ToString());
 
-				if (currentVersion < latestVersion)
+				if (latestVersion > currentVersion)
 				{
-					PromptForUpdate(latestVersion.ToString());
+					if (isDraft || isPreRelease)
+					{
+						// If it's a draft/pre - warn manual checkers, abort auto-checkers
+						if (userTriggered)
+						{
+							Notify.Warn("The latest release is marked as a pre-release or draft release.\nAlthough available now, it is not recommended to download it yet.");
+						}
+						else
+						{
+							return;
+						}
+					}
+
+					PromptForUpdate(latestVersion.ToString(), userTriggered);
 				}
 				else if (currentVersion > latestVersion)
 				{
-					Console.WriteLine($"Unreleased build {currentVersion}");
-
 					if (userTriggered)
 					{
 						Notify.Info("This build is ahead of the latest release.");
@@ -94,7 +112,7 @@ namespace Mappalachia.Class
 		}
 
 		// Tell the user the latest version is available as an update, and prompt to download
-		static void PromptForUpdate(string latestVersion)
+		static void PromptForUpdate(string latestVersion, bool userTriggered)
 		{
 			DialogResult question = MessageBox.Show(
 				"A new version of Mappalachia, " + latestVersion + " is now available! \nVisit the releases page to download it?",
@@ -102,6 +120,12 @@ namespace Mappalachia.Class
 			if (question == DialogResult.Yes)
 			{
 				GoToReleases();
+			}
+
+			// If they decline the auto-update prompt
+			else if (question == DialogResult.No && !userTriggered)
+			{
+				SettingsUpdate.lastDeclinedUpdate = DateTime.Now;
 			}
 		}
 

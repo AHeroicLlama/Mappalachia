@@ -15,8 +15,8 @@ for %%f in ("Mappalachia.exe" "data\mappalachia.db") do if not exist "%publishFo
 )
 
 echo Removing preferences file and QuickSaves folder prior to zipping...
-del %publishFolder%\%prefsFile%
-rmdir /s %publishFolder%\%quickSaveFolder% /q
+del %publishFolder%\%prefsFile% > nul 2>&1
+rmdir /s %publishFolder%\%quickSaveFolder% /q > nul 2>&1
 
 echo Zipping release...
 powershell Compress-Archive %publishFolder%\* %outputFile% -Force
