@@ -44,7 +44,6 @@ unit _mappalachia_lib;
 	// Something like 1/3 space data are just leftover test/debug spaces or otherwise inaccessible, so skipping them helps performance and data size
 	function shouldProcessSpace(spaceName, spaceEditorID: String): Boolean;
 	begin
-		// Skip these spaces but don't log that we skipped them, as most debug spaces are like this
 		if 	(spaceName = '') or
 			(spaceEditorID = '') or
 			(spaceName = 'Quick Test Cell') or
@@ -76,13 +75,6 @@ unit _mappalachia_lib;
 		else result := true;
 	end;
 
-	// Find the signature of a referenced entity by parsing the reference
-	// EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "MISC"
-	function sigFromRef(reference: String): String;
-	begin
-		result := copy(reference, pos('[', reference) + 1, 4);
-	end;
-
 	// Find the display name of a referenced entity by parsing the reference
 	// EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "Pre-War Money"
 	function nameFromRef(reference: String): String;
@@ -93,6 +85,45 @@ unit _mappalachia_lib;
 		secondPos = pos('"', firstSubStr) - 1;
 	begin
 		result := copy(reference, firstPos, secondPos);
+	end;
+
+	// Is this signature one we expect to see in the world, and therefore worth processing?
+	function shouldProcessSig(sig: String): Boolean;
+	begin
+		if (sig = 'ACTI') or
+			(sig = 'ALCH') or
+			(sig = 'AMMO') or
+			(sig = 'ARMO') or
+			(sig = 'ASPC') or
+			(sig = 'BNDS') or
+			(sig = 'BOOK') or
+			(sig = 'CNCY') or
+			(sig = 'CONT') or
+			(sig = 'DOOR') or
+			(sig = 'FLOR') or
+			(sig = 'FURN') or
+			(sig = 'HAZD') or
+			(sig = 'IDLM') or
+			(sig = 'KEYM') or
+			(sig = 'LIGH') or
+			(sig = 'LVLI') or
+			(sig = 'MISC') or
+			(sig = 'MSTT') or
+			(sig = 'NOTE') or
+			(sig = 'NPC_') or
+			(sig = 'PROJ') or
+			(sig = 'SCOL') or
+			(sig = 'SECH') or
+			(sig = 'SOUN') or
+			(sig = 'STAT') or
+			(sig = 'TACT') or
+			(sig = 'TERM') or
+			(sig = 'TXST') or
+			(sig = 'WEAP')
+		then begin
+			result := true
+		end
+		else result := false;
 	end;
 
 	// Finds a representative name for LVLIs without a displayName, by referring to their leveled lists

@@ -7,14 +7,23 @@ namespace Mappalachia
 {
 	static class Preprocessor
 	{
-		// These paths assume the repo structure. They also assume you've already ran the XEdit scripts.
-		// Change as necessary.
-		static readonly string inputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//..//..//FO76Edit//Output//";
-		static readonly string outputPathx64 = AppDomain.CurrentDomain.BaseDirectory + "..//..//..//..//Output";
+		static string inputPath;
+		static string outputPath;
 
 		static async Task Main()
 		{
 			Console.Title = "Mappalachia Preprocessor";
+
+			// Step back out of bin until we find the Mappalachia root
+			string mappalachiaRoot = AppDomain.CurrentDomain.BaseDirectory;
+			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(mappalachiaRoot))) != "Mappalachia")
+			{
+				mappalachiaRoot += "..\\";
+			}
+
+			inputPath = mappalachiaRoot + "//FO76Edit//Output//";
+			outputPath = mappalachiaRoot + "//Preprocessor//Output//";
+
 			try
 			{
 				// Store all preprocessor tasks in a list
@@ -114,7 +123,7 @@ namespace Mappalachia
 		// Shorthand to instantiate a new CSVFile from file name
 		static CSVFile GenericOpen(string fileName)
 		{
-			return new CSVFile(inputPathx64 + fileName);
+			return new CSVFile(inputPath + fileName);
 		}
 
 		// Apply the standard processing to the CSVFile
@@ -130,8 +139,8 @@ namespace Mappalachia
 		static void GenericClose(CSVFile file)
 		{
 			file.Validate();
-			Directory.CreateDirectory(outputPathx64);
-			file.WriteToFile(outputPathx64 + "//");
+			Directory.CreateDirectory(outputPath);
+			file.WriteToFile(outputPath + "//");
 
 			file.rows = null;
 			GC.Collect();
