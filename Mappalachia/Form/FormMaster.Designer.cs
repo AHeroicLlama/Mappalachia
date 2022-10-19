@@ -640,7 +640,7 @@ namespace Mappalachia
 			// aboutMenuItem
 			// 
 			this.aboutMenuItem.Name = "aboutMenuItem";
-			this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.aboutMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.aboutMenuItem.Text = "About...";
 			this.aboutMenuItem.ToolTipText = "Information about Mappalachia.";
 			this.aboutMenuItem.Click += new System.EventHandler(this.Help_About);
@@ -648,7 +648,7 @@ namespace Mappalachia
 			// checkForUpdatesMenuItem
 			// 
 			this.checkForUpdatesMenuItem.Name = "checkForUpdatesMenuItem";
-			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.checkForUpdatesMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.checkForUpdatesMenuItem.Text = "Check for Updates";
 			this.checkForUpdatesMenuItem.ToolTipText = "Automatically check if a new version is available.";
 			this.checkForUpdatesMenuItem.Click += new System.EventHandler(this.Help_CheckForUpdates);
@@ -656,7 +656,7 @@ namespace Mappalachia
 			// userGuidesMenuItem
 			// 
 			this.userGuidesMenuItem.Name = "userGuidesMenuItem";
-			this.userGuidesMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.userGuidesMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.userGuidesMenuItem.Text = "User Guides";
 			this.userGuidesMenuItem.ToolTipText = "View the user guide documentation online.";
 			this.userGuidesMenuItem.Click += new System.EventHandler(this.Help_UserGuides);
@@ -664,7 +664,7 @@ namespace Mappalachia
 			// viaDiscordMenuItem
 			// 
 			this.viaDiscordMenuItem.Name = "viaDiscordMenuItem";
-			this.viaDiscordMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.viaDiscordMenuItem.Size = new System.Drawing.Size(171, 22);
 			this.viaDiscordMenuItem.Text = "Via Discord";
 			this.viaDiscordMenuItem.ToolTipText = "Join the Mappalachia Discord server for help.";
 			this.viaDiscordMenuItem.Click += new System.EventHandler(this.Help_ViaDiscord);
@@ -756,7 +756,7 @@ namespace Mappalachia
 			// columnLabel
 			// 
 			this.columnLabel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnLabel.FillWeight = 200F;
+			this.columnLabel.FillWeight = 120F;
 			this.columnLabel.HeaderText = "Label";
 			this.columnLabel.Name = "columnLabel";
 			this.columnLabel.ReadOnly = true;
@@ -1620,6 +1620,8 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem compactLegendMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem extendedLegendMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem hiddenLegendMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem joinDiscordMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem viaDiscordMenuItem;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchFormID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnLabel;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchEditorID;
@@ -1631,8 +1633,6 @@ namespace Mappalachia
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocation;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchLocationID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnSearchIndex;
-		private System.Windows.Forms.ToolStripMenuItem joinDiscordMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem viaDiscordMenuItem;
 	}
 }
 
