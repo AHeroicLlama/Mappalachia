@@ -382,6 +382,7 @@ namespace Mappalachia
 				"Tales from West Virginia",
 				"Fusion Core",
 				"Alien Blaster",
+				"Strange Encounter",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
