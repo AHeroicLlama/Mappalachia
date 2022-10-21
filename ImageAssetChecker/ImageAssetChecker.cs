@@ -38,7 +38,7 @@ namespace ImageAssetChecker
 			ValidateBackgroundImages();
 			ValidateMapMarkers();
 
-			Console.WriteLine($"\nValidation finished. {spaces.Count} Spaces, {mapMarkers.Count} Map Markers.");
+			Console.WriteLine($"\nValidation finished. {spaces.Count} cells, {mapMarkers.Count} Map Markers.");
 			Console.ReadKey();
 		}
 
@@ -102,45 +102,22 @@ namespace ImageAssetChecker
 				string editorId = space.GetEditorId();
 				bool isWorldSpace = space.IsWorldspace();
 				string subDirectory = isWorldSpace ? string.Empty : cellDirectoryPath;
-
 				string expectedFile = imageDirectory + subDirectory + editorId + backgroundImageFileType;
 
-				// Validate file exists at all
-				if (File.Exists(expectedFile))
+				ValidateImageFile(expectedFile, isWorldSpace);
+
+				// Run a second validation for the rendered version of worldspace maps
+				if (isWorldSpace)
 				{
-					Console.WriteLine("Image file exists " + expectedFile);
-
-					// Validate file size
-					long sizeInBytes = new FileInfo(expectedFile).Length;
-					long sizeInKB = sizeInBytes / 1024;
-					int maxFileSizeKB = isWorldSpace ? maxMapSizeKBWorldspace : maxMapSizeKBCell;
-
-					if (sizeInKB > minMapSizeKB && sizeInKB < maxFileSizeKB)
-					{
-						Console.WriteLine($"File size OK ({sizeInKB}KB)");
-					}
-					else
-					{
-						throw new Exception($"File {expectedFile} is of an unusual file size ({sizeInKB}KB). Please check this.");
-					}
-
-					// Validate image dimensions
-					using Image image = Image.FromFile(expectedFile);
-					int width = image.Width;
-					int height = image.Height;
-
-					if (width == expectedImageResolution && height == expectedImageResolution)
-					{
-						Console.WriteLine($"Image dimensions OK ({width}x{height})");
-					}
-					else
-					{
-						throw new Exception($"File {expectedFile} is not of the correct dimensions. Expected: {expectedImageResolution}x{expectedImageResolution}, actual: {width}x{height}.");
-					}
+					expectedFile = imageDirectory + subDirectory + editorId + "_render" + backgroundImageFileType;
+					ValidateImageFile(expectedFile, isWorldSpace);
 				}
-				else
+
+				// Appalachia only - extra bespoke check for military map
+				if (space.GetEditorId() == "Appalachia")
 				{
-					throw new FileNotFoundException("Unable to find background image file " + expectedFile);
+					expectedFile = imageDirectory + subDirectory + editorId + "_military" + backgroundImageFileType;
+					ValidateImageFile(expectedFile, isWorldSpace);
 				}
 			}
 
@@ -158,6 +135,46 @@ namespace ImageAssetChecker
 				{
 					throw new Exception($"File {file} doesn't appear to match to any EditorID in the database. Can it be deleted? (EditorID \"{expectedEditorId}\" not present)");
 				}
+			}
+		}
+
+		static void ValidateImageFile(string expectedFile, bool isWorldSpace)
+		{
+			if (File.Exists(expectedFile))
+			{
+				Console.WriteLine("Image file exists " + expectedFile);
+			}
+			else
+			{
+				throw new FileNotFoundException("Unable to find background image file " + expectedFile);
+			}
+
+			// Validate file size
+			long sizeInBytes = new FileInfo(expectedFile).Length;
+			long sizeInKB = sizeInBytes / 1024;
+			int maxFileSizeKB = isWorldSpace ? maxMapSizeKBWorldspace : maxMapSizeKBCell;
+
+			if (sizeInKB > minMapSizeKB && sizeInKB < maxFileSizeKB)
+			{
+				Console.WriteLine($"File size OK ({sizeInKB}KB)");
+			}
+			else
+			{
+				throw new Exception($"File {expectedFile} is of an unusual file size ({sizeInKB}KB). Please check this.");
+			}
+
+			// Validate image dimensions
+			using Image image = Image.FromFile(expectedFile);
+			int width = image.Width;
+			int height = image.Height;
+
+			if (width == expectedImageResolution && height == expectedImageResolution)
+			{
+				Console.WriteLine($"Image dimensions OK ({width}x{height})");
+			}
+			else
+			{
+				throw new Exception($"File {expectedFile} is not of the correct dimensions. Expected: {expectedImageResolution}x{expectedImageResolution}, actual: {width}x{height}.");
 			}
 		}
 
