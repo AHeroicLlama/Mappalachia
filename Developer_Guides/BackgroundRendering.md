@@ -15,7 +15,7 @@ At the root of the repository (beside the `readme.md`), create the folder `FO76U
 ImageMagick is used to convert DDS renders to JPG, and for downscaling where required. In the `Render_Appalachia.bat`, and the Background Render project, the path to the current installation of ImageMagick is hardcoded. You may need to adjust these paths to target your installation version.<br/>
 
 ## Rendering Appalachia
-In the `BackgroundRenderer\` folder, execute `Render_Appalachia.bat`. Once completed, the rendered Appalachia jpg will be placed at the expected location for the GUI to find it.<br/>Note: This render takes *a lot* of computing power. (16k at 2x SSAA = 64k (4.3bn px) raw image, downscaled to 4k). If necessary, edit the script to render straight to 4k.<br/>
+In the `BackgroundRenderer\` folder, execute `Render_Appalachia.bat`. Once completed, the rendered Appalachia jpg will be placed at the expected location for the GUI to find it.<br/>Note: This render takes *a lot* of computing power. (16k at 2x SSAA downscaled to 4k). If necessary, edit the script to render straight to 4k.<br/>
 
 ## Rendering all Cells
 In the main `Mappalachia.sln`, build and run the `BackgroundRenderer` project. It will prompt you to press enter to render all cells, otherwise you may paste a space-separated list of EditorIDs of specific cells you wish to render.<br/>

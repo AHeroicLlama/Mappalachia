@@ -17,9 +17,10 @@ namespace BackgroundRenderer
 		static readonly double maxScale = 16;
 		static readonly double minScale = 0.02;
 
-		static readonly int targetRenderResolution = 4096; // use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
+		static readonly int targetRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
 		static readonly int nativeResolution = 4096;
 		static readonly int SSAA = 2; // 0,1,2
+		static readonly bool keepDDSRender = false;
 		static readonly int jpegQuality = 85;
 
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
@@ -191,7 +192,11 @@ namespace BackgroundRenderer
 					Console.WriteLine($"Converting and downsampling with ImageMagick...");
 					Process magickResizeConvert = Process.Start("CMD.exe", "/C " + $"\"{magickPath}\" convert {renderFile} -resize {nativeResolution}x{nativeResolution} -quality {jpegQuality} JPEG:{convertedFile}");
 					magickResizeConvert.WaitForExit();
-					File.Delete(renderFile);
+
+					if (!keepDDSRender)
+					{
+						File.Delete(renderFile);
+					}
 				}
 				else
 				{
