@@ -21,7 +21,7 @@
 		public static readonly int brightnessMin = 5;
 		public static readonly int brightnessMax = 300;
 
-		public static readonly int brightnessDefault = 50;
+		public static readonly int brightnessDefault = 75;
 		public static readonly Background backgroundDefault = Background.Normal;
 		public static readonly bool grayScaleDefault = false;
 		public static readonly bool showMapLabelsDefault = false;

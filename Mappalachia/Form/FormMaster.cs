@@ -383,6 +383,7 @@ namespace Mappalachia
 				"Fusion Core",
 				"Alien Blaster",
 				"Strange Encounter",
+				"Ginseng",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
