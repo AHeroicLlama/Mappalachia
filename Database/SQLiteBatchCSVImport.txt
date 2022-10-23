@@ -5,4 +5,5 @@
 .import "../Preprocessor/Output/Entity_Info.csv" Entity_Info
 .import "../Preprocessor/Output/Position_Data.csv" Position_Data
 .import "../Preprocessor/Output/Map_Markers.csv" Map_Markers
+.import "../Preprocessor/Output/Region.csv" Region
 .import gameVersion.csv Game_Version

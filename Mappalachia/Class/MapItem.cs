@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Mappalachia.Class;
 
 namespace Mappalachia
 {
@@ -11,6 +10,7 @@ namespace Mappalachia
 		Standard,
 		Scrap,
 		NPC,
+		Region,
 	}
 
 	// Any item in the game which can show up in search results or could exist on the legend key and be mapped
@@ -60,6 +60,11 @@ namespace Mappalachia
 				!filteredLockTypes.OrderBy(e => e).SequenceEqual(Database.GetLockTypes().OrderBy(e => e));
 		}
 
+		public bool IsRegion()
+		{
+			return type == Type.Region;
+		}
+
 		// Get the image-scaled coordinate points for all instances of this MapItem
 		public List<MapDataPoint> GetPlots()
 		{
@@ -74,6 +79,9 @@ namespace Mappalachia
 				case Type.Scrap:
 					plots = Database.GetScrapCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID());
 					break;
+				case Type.Region:
+					plots = Database.GetRegionCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID());
+					break;
 			}
 
 			Space currentSpace = SettingsSpace.GetSpace();
@@ -87,6 +95,17 @@ namespace Mappalachia
 			}
 
 			return plots;
+		}
+
+		// Return the entire Region object represented here
+		public Region GetRegion()
+		{
+			if (!IsRegion())
+			{
+				throw new InvalidOperationException("Not a Region type");
+			}
+
+			return new Region(Database.GetRegionPoints(uniqueIdentifier, SettingsSpace.GetCurrentFormID()));
 		}
 
 		// Get a user-friendly or user-defined text representation of the MapItem to be used on the legend
@@ -119,6 +138,11 @@ namespace Mappalachia
 		// Varies on the plotting mode, and further on the heatmap color mode
 		public Color GetLegendColor()
 		{
+			if (IsRegion())
+			{
+				return GetIcon().color;
+			}
+
 			switch (SettingsPlot.mode)
 			{
 				case SettingsPlot.Mode.Icon:
@@ -142,7 +166,7 @@ namespace Mappalachia
 
 		public PlotIcon GetIcon()
 		{
-			return PlotIcon.GetIconForGroup(legendGroup);
+			return PlotIcon.GetIconForGroup(legendGroup, this);
 		}
 
 		// Override equals to compare MapItem - we use the unique identifier and if they're a normal item, also the filtered lock type.
@@ -162,6 +186,7 @@ namespace Mappalachia
 				case Type.NPC:
 					return mapItem.uniqueIdentifier == uniqueIdentifier && mapItem.weight == weight;
 				case Type.Scrap:
+				case Type.Region:
 					return mapItem.uniqueIdentifier == uniqueIdentifier;
 				default:
 					throw new Exception("Unsupported MapItem type " + mapItem.type);
@@ -177,6 +202,7 @@ namespace Mappalachia
 				case Type.NPC:
 					return (uniqueIdentifier + weight).GetHashCode();
 				case Type.Scrap:
+				case Type.Region:
 					return uniqueIdentifier.GetHashCode();
 				default:
 					throw new Exception("Unsupported MapItem type " + type);

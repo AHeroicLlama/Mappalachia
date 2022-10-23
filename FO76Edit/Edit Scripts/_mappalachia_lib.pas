@@ -38,6 +38,7 @@ unit _mappalachia_lib;
 			if(signature = 'MISC') then _mappalachia_junkScrap.ripItem(item)
 		else if(signature = 'LCTN') then _mappalachia_location.ripItem(item)
 		else if(signature = 'CMPO') then _mappalachia_componentQuantity.ripItem(item)
+		else if(signature = 'REGN') then _mappalachia_region.ripItem(item)
 	end;
 
 	// Do we need to process this interior space, given its in-game name or editorID?
@@ -83,6 +84,18 @@ unit _mappalachia_lib;
 		firstPos = pos('"', reference) + 1;
 		firstSubStr = copy(reference, firstPos, len - firstPos);
 		secondPos = pos('"', firstSubStr) - 1;
+	begin
+		result := copy(reference, firstPos, secondPos);
+	end;
+
+	// Find the FormID of a referenced WRLD by parsing the edit value
+	// EG "Appalachia "Appalachia" [WRLD:0025DA15]" becomes "0025DA15"
+	function wrldFormIdFromRef(reference: String): String;
+	const
+		len = Length(reference);
+		firstPos = pos('[WRLD:', reference) + 6;
+		firstSubStr = copy(reference, firstPos, len - firstPos);
+		secondPos = 8; //FormID length
 	begin
 		result := copy(reference, firstPos, secondPos);
 	end;

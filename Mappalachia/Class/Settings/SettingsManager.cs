@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// Handles the parsing of settings between file and memory.
 	static class SettingsManager

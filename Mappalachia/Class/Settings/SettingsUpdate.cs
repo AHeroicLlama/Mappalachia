@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// Settings related to the Update Checker
 	class SettingsUpdate

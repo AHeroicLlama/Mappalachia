@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Windows.Forms;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	public static class UpdateChecker
 	{

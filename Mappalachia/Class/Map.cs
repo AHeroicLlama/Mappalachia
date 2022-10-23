@@ -6,7 +6,6 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Linq;
 using System.Threading;
-using Mappalachia.Class;
 
 namespace Mappalachia
 {
@@ -57,6 +56,8 @@ namespace Mappalachia
 		// Volume plots
 		public static readonly int volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; // Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
+
+		static readonly int regionEdgeThickness = 5;
 
 		static Image finalImage;
 		static Image backgroundLayer;
@@ -161,7 +162,8 @@ namespace Mappalachia
 		// Draw a height-color key in Topography mode
 		static void DrawTopographicKey(Graphics graphic)
 		{
-			if (!SettingsPlot.IsTopographic())
+			// If there is no need to draw the key
+			if (!SettingsPlot.IsTopographic() || FormMaster.GetNonRegionLegendItems().Count == 0)
 			{
 				return;
 			}
@@ -198,7 +200,7 @@ namespace Mappalachia
 			DrawInfoWatermark(imageGraphic);
 
 			// Nothing else to plot - ensure we update for the background layer but then return
-			if (FormMaster.legendItems.Count == 0)
+			if (FormMaster.GetAllLegendItems().Count == 0)
 			{
 				FinishDraw(finalImage);
 				return;
@@ -209,8 +211,10 @@ namespace Mappalachia
 				DrawTopographicKey(imageGraphic);
 			}
 
+			DrawRegions(FormMaster.GetRegionLegendItems(), imageGraphic);
+
 			// Count how many Map Data Points are due to be mapped
-			int totalMapDataPoints = FormMaster.legendItems.Sum(mapItem => mapItem.count);
+			int totalMapDataPoints = FormMaster.GetAllLegendItems().Sum(mapItem => mapItem.count);
 
 			// Loop through every MapDataPoint represented by all the MapItems to find the min/max z coord in the dataset
 			bool first = true;
@@ -219,7 +223,7 @@ namespace Mappalachia
 			double zRange = 0;
 			if (SettingsPlot.IsTopographic())
 			{
-				foreach (MapItem mapItem in FormMaster.legendItems)
+				foreach (MapItem mapItem in FormMaster.GetNonRegionLegendItems())
 				{
 					foreach (MapDataPoint point in mapItem.GetPlots())
 					{
@@ -266,7 +270,7 @@ namespace Mappalachia
 				float progress = 0;
 
 				// Processing each MapItem in serial, draw plots for every matching valid MapDataPoint
-				foreach (MapItem mapItem in FormMaster.legendItems)
+				foreach (MapItem mapItem in FormMaster.GetNonRegionLegendItems())
 				{
 					FormMaster.UpdateProgressBar("Plotting " + mapItem.editorID + "...");
 
@@ -385,7 +389,7 @@ namespace Mappalachia
 
 				float progress = 0;
 
-				foreach (MapItem mapItem in FormMaster.legendItems)
+				foreach (MapItem mapItem in FormMaster.GetNonRegionLegendItems())
 				{
 					int heatmapLegendGroup = SettingsPlotHeatmap.IsDuo() ? mapItem.legendGroup % 2 : 0;
 
@@ -484,7 +488,7 @@ namespace Mappalachia
 				FormMaster.UpdateProgressBar(0.1, "Enumerating coordinate points...");
 
 				// Unroll all MapDataPoints
-				foreach (MapItem mapItem in FormMaster.legendItems)
+				foreach (MapItem mapItem in FormMaster.GetNonRegionLegendItems())
 				{
 					if (cancToken.IsCancellationRequested)
 					{
@@ -594,8 +598,37 @@ namespace Mappalachia
 			FinishDraw(finalImage);
 		}
 
+		static void DrawRegions(List<MapItem> items, Graphics imageGraphic)
+		{
+			foreach (MapItem item in items)
+			{
+				Region region = item.GetRegion();
+				Color color = item.GetLegendColor();
+				Pen pen = new Pen(color, regionEdgeThickness);
+
+				for (int i = 0; i < region.GetSubRegionCount(); i++)
+				{
+					List<PointF> rawPoints = new List<PointF>();
+
+					foreach (RegionPoint point in region.GetSubRegionPoints(i))
+					{
+						rawPoints.Add(new PointF(
+							ScaleCoordinateToSpace(CorrectAxis(point.x, false), false),
+							ScaleCoordinateToSpace(CorrectAxis(point.y, true), true)));
+					}
+
+					imageGraphic.DrawPolygon(pen, rawPoints.ToArray());
+				}
+			}
+		}
+
 		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
+			if (clusters.Count == 0)
+			{
+				return;
+			}
+
 			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), SettingsPlotCluster.polygonLineThickness);
 			Pen clusterWebPen = new Pen(SettingsPlotStyle.GetSecondColor(), SettingsPlotCluster.webLineThickness);
 			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
@@ -733,7 +766,7 @@ namespace Mappalachia
 		// Returns the number of items missed off the legend due to size constraints
 		static void DrawLegend(Font font, Graphics imageGraphic)
 		{
-			if (FormMaster.legendItems.Count == 0 || SettingsMap.HiddenMargin())
+			if (FormMaster.GetAllLegendItems().Count == 0 || SettingsMap.HiddenMargin())
 			{
 				return;
 			}
@@ -743,7 +776,7 @@ namespace Mappalachia
 
 			// Calculate the total height of all legend strings with their plot icons beside, combined
 			int legendTotalHeight = 0;
-			foreach (MapItem mapItem in FormMaster.legendItems)
+			foreach (MapItem mapItem in FormMaster.GetAllLegendItems())
 			{
 				// Skip legend groups that are merged/overridden and have already been accounted for
 				if (drawnGroups.Contains(mapItem.legendGroup) && overridingLegendText.ContainsKey(mapItem.legendGroup))
@@ -767,7 +800,7 @@ namespace Mappalachia
 			drawnGroups = new List<int>();
 
 			// Loop over every MapItem and draw the legend
-			foreach (MapItem mapItem in FormMaster.legendItems)
+			foreach (MapItem mapItem in FormMaster.GetAllLegendItems())
 			{
 				// Skip legend groups that are merged/overridden and have already been drawn
 				if (drawnGroups.Contains(mapItem.legendGroup) && overridingLegendText.ContainsKey(mapItem.legendGroup))
@@ -781,7 +814,7 @@ namespace Mappalachia
 				PlotIcon icon = mapItem.GetIcon();
 				Image plotIconImg = SettingsPlot.IsIconOrTopographic() ? icon.GetIconImage() : null;
 
-				Color legendColor = SettingsPlot.IsTopographic() ? SettingsPlotTopograph.legendColor : mapItem.GetLegendColor();
+				Color legendColor = mapItem.GetLegendColor();
 				Brush textBrush = new SolidBrush(legendColor);
 
 				int iconHeight = SettingsPlot.IsIconOrTopographic() ?
@@ -800,7 +833,7 @@ namespace Mappalachia
 				// If the legend text/item fits on the map vertically
 				if (legendCaretHeight > legendYPadding && legendCaretHeight + legendHeight < mapDimension - legendYPadding)
 				{
-					if (SettingsPlot.IsIconOrTopographic())
+					if (SettingsPlot.IsIconOrTopographic() && !mapItem.IsRegion())
 					{
 						imageGraphic.DrawImage(plotIconImg, (float)(legendIconX - (plotIconImg.Width / 2d)), (float)(legendCaretHeight - (plotIconImg.Height / 2d) + (legendHeight / 2d)));
 					}

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// A single square on a heatmap, storing the 'weighting' for each color
 	class HeatMapGridSquare

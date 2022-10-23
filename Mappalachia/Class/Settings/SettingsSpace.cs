@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// Settings relating to Space selection
 	class SettingsSpace

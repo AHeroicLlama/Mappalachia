@@ -1,6 +1,6 @@
 using System;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// The shape settings that can be applied to a PlotIcon
 	public class PlotIconShape

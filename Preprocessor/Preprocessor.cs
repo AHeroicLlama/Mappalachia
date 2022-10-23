@@ -32,6 +32,7 @@ namespace Mappalachia
 				{
 					new Task(() => ProcessSpatialFile("Position_Data.csv")),
 					new Task(() => ProcessBasicFile("Entity_Info.csv")),
+					new Task(() => ProcessBasicFile("Region.csv")),
 					new Task(() => ProcessSpaceFile()),
 					new Task(() => GenerateNPCSpawnFile()),
 					new Task(() => GenerateQuantifiedJunkScrapFile()),

@@ -1,4 +1,4 @@
-﻿namespace Mappalachia.Class
+﻿namespace Mappalachia
 {
 	public static class SettingsFileExport
 	{

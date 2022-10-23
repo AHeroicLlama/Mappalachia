@@ -65,7 +65,7 @@ unit _mappalachia_entityInfo;
 			outputStrings.Add(
 				IntToHex(FixedFormId(item), 8) + ',' +
 				sanitize(bestDisplayName) + ',' +
-				sanitize(editorId) + ',' +
+				editorId + ',' +
 				signature
 			);
 		end;

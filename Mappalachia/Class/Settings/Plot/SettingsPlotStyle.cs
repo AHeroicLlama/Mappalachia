@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Mappalachia.Class;
+using Mappalachia;
 
 // Plot Icon Settings and their defaults, used in FormPlotIconSettings
 static class SettingsPlotStyle

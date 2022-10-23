@@ -45,6 +45,7 @@ namespace Mappalachia
 			{ "SECH", "Trigger for echo sound effect." },
 			{ "PROJ", "An 'armed' weapon such as a mine." },
 			{ "CNCY", string.Empty },
+			{ "REGN", "Defines the edges of map regions." },
 		};
 
 		// Provide a user-friendly name for each signature which best represents what a typical player would know them as
@@ -80,6 +81,7 @@ namespace Mappalachia
 			{ "SECH", "Echo" },
 			{ "PROJ", "Projectile" },
 			{ "CNCY", "Currency" },
+			{ "REGN", "Region" },
 		};
 
 		// Provides a pre-ordered list of each signature in a suggested sort order for the UI
@@ -269,10 +271,10 @@ namespace Mappalachia
 		// Escape functional SQL characters and wildcard on space
 		public static string ProcessSearchString(string input)
 		{
-			return input.Trim()
+			return "%" + input.Trim()
 				.Replace("_", "\\_")
 				.Replace("%", "\\%")
-				.Replace(" ", "%");
+				.Replace(" ", "%") + "%";
 		}
 
 		// Indicate the spawn chance of a standard item based on understandings of LVLI

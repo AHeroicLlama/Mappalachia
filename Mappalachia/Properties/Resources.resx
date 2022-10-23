@@ -130,6 +130,9 @@
   <data name="getCoordsNPC" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getCoordsNPC.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="getCoordsRegion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\getCoordsRegion.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="getCoordsScrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\getCoordsScrap.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -162,6 +165,12 @@
   </data>
   <data name="searchNPCEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchNPCEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="searchRegion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchRegion.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="searchRegionEverywhere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\SQL\searchRegionEverywhere.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="searchScrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SQL\searchScrap.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

@@ -1,4 +1,6 @@
 // Generic plot settings
+using Mappalachia;
+
 static class SettingsPlot
 {
 	public enum Mode
@@ -30,6 +32,12 @@ static class SettingsPlot
 	public static bool IsTopographic()
 	{
 		return mode == Mode.Topography;
+	}
+
+	// Given the current state, should we use the single topograph legend color?
+	public static bool ShouldUseSingleTopographColor(MapItem mapItem)
+	{
+		return IsTopographic() && !mapItem.IsRegion();
 	}
 
 	public static bool IsCluster()

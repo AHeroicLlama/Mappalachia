@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// A customizable Image used to represent a plot on the map
 	public class PlotIcon
@@ -46,12 +46,12 @@ namespace Mappalachia.Class
 		}
 
 		// Gets a PlotIcon for a given legend group. Returns cached version if available
-		public static PlotIcon GetIconForGroup(int group)
+		public static PlotIcon GetIconForGroup(int group, MapItem mapItem)
 		{
 			int colorTotal = SettingsPlotStyle.paletteColor.Count;
 			int shapeTotal = SettingsPlotStyle.paletteShape.Count;
 
-			if (SettingsPlot.IsTopographic())
+			if (SettingsPlot.ShouldUseSingleTopographColor(mapItem))
 			{
 				colorTotal = 1; // Force a unique shape per group in topography mode, as color becomes indistinguishable
 			}
@@ -72,7 +72,8 @@ namespace Mappalachia.Class
 			int shapeIndex = (group / colorTotal) % shapeTotal;
 
 			// Generate the PlotIcon
-			Color color = SettingsPlot.IsTopographic() ? SettingsPlotTopograph.legendColor : SettingsPlotStyle.paletteColor[colorIndex];
+			Color color = SettingsPlot.ShouldUseSingleTopographColor(mapItem) ? SettingsPlotTopograph.legendColor : SettingsPlotStyle.paletteColor[colorIndex];
+
 			PlotIconShape shape = SettingsPlotStyle.paletteShape[shapeIndex];
 			PlotIcon plotIcon = new PlotIcon(color, shape);
 
