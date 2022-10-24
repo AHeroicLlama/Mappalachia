@@ -82,6 +82,7 @@ namespace Mappalachia
 			this.clusterRangeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.showClusterWebMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.fillRegionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.checkForUpdatesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -412,7 +413,8 @@ namespace Mappalachia
             this.TopographColorBandsMenuItem,
             this.heatmapSettingsMenuItem,
             this.clusterSettingsMenuItem,
-            this.drawVolumesMenuItem});
+            this.drawVolumesMenuItem,
+            this.fillRegionsMenuItem});
 			this.plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			this.plotSettingsMenuItem.Size = new System.Drawing.Size(85, 20);
 			this.plotSettingsMenuItem.Text = "Plot Settings";
@@ -629,6 +631,14 @@ namespace Mappalachia
 			this.drawVolumesMenuItem.ToolTipText = "Instead of an icon, draw the boundaries of in-game volumes such as triggers/activ" +
     "ators. (Only applicable in Icon or Topography mode)";
 			this.drawVolumesMenuItem.Click += new System.EventHandler(this.Plot_DrawVolumes);
+			// 
+			// fillRegionsMenuItem
+			// 
+			this.fillRegionsMenuItem.Name = "fillRegionsMenuItem";
+			this.fillRegionsMenuItem.Size = new System.Drawing.Size(204, 22);
+			this.fillRegionsMenuItem.Text = "Fill Regions";
+			this.fillRegionsMenuItem.ToolTipText = "When using the Region search, fill regions with a transparent color.";
+			this.fillRegionsMenuItem.Click += new System.EventHandler(this.Plot_FillRegions);
 			// 
 			// helpMenuItem
 			// 
@@ -1399,7 +1409,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-4, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(-7, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1678,6 +1688,7 @@ namespace Mappalachia
 		private System.Windows.Forms.GroupBox groupBoxRegionSearch;
 		private System.Windows.Forms.Button buttonRegionSearch;
 		private System.Windows.Forms.TextBox textBoxRegionSearch;
+		private System.Windows.Forms.ToolStripMenuItem fillRegionsMenuItem;
 	}
 }
 

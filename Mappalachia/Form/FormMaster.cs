@@ -85,6 +85,7 @@ namespace Mappalachia
 			// Apply UI layouts according to current settings
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
+			UpdateFillRegionsState(false);
 			UpdatePlotModeUI();
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
@@ -319,9 +320,9 @@ namespace Mappalachia
 		// Fill the list of Scrap types that can be chosen to search
 		void PopulateScrapList()
 		{
-			foreach (string npcSpawn in Database.GetScrapTypes())
+			foreach (string scrapType in Database.GetScrapTypes())
 			{
-				listBoxScrap.Items.Add(npcSpawn);
+				listBoxScrap.Items.Add(scrapType);
 			}
 
 			listBoxScrap.SelectedIndex = 0;
@@ -383,6 +384,7 @@ namespace Mappalachia
 				"Alien Blaster",
 				"Strange Encounter",
 				"Ginseng",
+				"Silo Exterior",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
@@ -434,6 +436,17 @@ namespace Mappalachia
 		void UpdateVolumeEnabledState(bool reDraw)
 		{
 			drawVolumesMenuItem.Checked = SettingsPlot.drawVolumes;
+
+			if (reDraw)
+			{
+				DrawMap(false);
+			}
+		}
+
+		// Update the map settings > fill regions check, based on current settings
+		void UpdateFillRegionsState(bool reDraw)
+		{
+			fillRegionsMenuItem.Checked = SettingsPlot.fillRegions;
 
 			if (reDraw)
 			{
@@ -697,7 +710,7 @@ namespace Mappalachia
 			}
 		}
 
-		// Update the minimum spawn chance % value on the NPC Search tab
+		// Update the minimum spawn chance % value on the NPC Search
 		void UpdateSpawnChance()
 		{
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
@@ -1308,6 +1321,13 @@ namespace Mappalachia
 		{
 			SettingsPlot.drawVolumes = !SettingsPlot.drawVolumes;
 			UpdateVolumeEnabledState(true);
+		}
+
+		// Plot Settings > Fill Regions - toggle fill of region draws
+		void Plot_FillRegions(object sender, EventArgs e)
+		{
+			SettingsPlot.fillRegions = !SettingsPlot.fillRegions;
+			UpdateFillRegionsState(true);
 		}
 
 		// Help > About - Show the About box

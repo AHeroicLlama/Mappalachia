@@ -17,6 +17,8 @@ namespace Mappalachia
 		readonly float halfSize;
 		readonly float quartSize;
 		readonly float threeQuartSize;
+		readonly float fullSize;
+		readonly float zeroSize = 0;
 		readonly Pen pen;
 		readonly Brush brush;
 		readonly Bitmap bitmap;
@@ -37,6 +39,7 @@ namespace Mappalachia
 			halfSize = size / 2f;
 			quartSize = size / 4f;
 			threeQuartSize = quartSize * 3;
+			fullSize = size - 1; // Offset by 1px due to pen drawing width apparently being biased (prevents visual oddities)
 
 			pen = new Pen(Color.White, lineWidth);
 			brush = new SolidBrush(Color.White);
@@ -109,10 +112,10 @@ namespace Mappalachia
 
 			if (shape.crosshairOuter)
 			{
-				icon.DrawLine(pen, halfSize, size, halfSize, threeQuartSize); // Top
-				icon.DrawLine(pen, halfSize, 0, halfSize, quartSize); // Bottom
-				icon.DrawLine(pen, 0, halfSize, quartSize, halfSize); // Left
-				icon.DrawLine(pen, size, halfSize, threeQuartSize, halfSize); // Right
+				icon.DrawLine(pen, halfSize, fullSize, halfSize, threeQuartSize); // Top
+				icon.DrawLine(pen, halfSize, zeroSize, halfSize, quartSize); // Bottom
+				icon.DrawLine(pen, zeroSize, halfSize, quartSize, halfSize); // Left
+				icon.DrawLine(pen, fullSize, halfSize, threeQuartSize, halfSize); // Right
 			}
 
 			if (shape.diamond)
@@ -161,6 +164,44 @@ namespace Mappalachia
 					{
 						icon.DrawEllipse(pen, halfRadiusRect);
 					}
+				}
+			}
+
+			if (shape.frame)
+			{
+				// Top-left
+				icon.DrawLine(pen, zeroSize, zeroSize, zeroSize, quartSize); // Top
+				icon.DrawLine(pen, zeroSize, zeroSize, quartSize, zeroSize); // Left
+
+				// Top-right
+				icon.DrawLine(pen, threeQuartSize, zeroSize, fullSize, zeroSize); // Top
+				icon.DrawLine(pen, fullSize, zeroSize, fullSize, quartSize); // Right
+
+				// Bottom-left
+				icon.DrawLine(pen, zeroSize, fullSize, quartSize, fullSize); // Bottom
+				icon.DrawLine(pen, zeroSize, threeQuartSize, zeroSize, fullSize); // Left
+
+				// Bottom-right
+				icon.DrawLine(pen, threeQuartSize, fullSize, fullSize, fullSize); // Bottom
+				icon.DrawLine(pen, fullSize, threeQuartSize, fullSize, fullSize); // Right
+			}
+
+			if (shape.marker)
+			{
+				PointF[] triCorners =
+				{
+					new PointF(quartSize, zeroSize), // Top-left
+					new PointF(threeQuartSize, zeroSize), // Top-right
+					new PointF(halfSize, halfSize), // Point
+				};
+
+				if (shape.fill)
+				{
+					icon.FillPolygon(brush, triCorners);
+				}
+				else
+				{
+					icon.DrawPolygon(pen, triCorners);
 				}
 			}
 

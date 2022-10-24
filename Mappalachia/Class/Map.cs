@@ -54,9 +54,11 @@ namespace Mappalachia
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Volume plots
-		public static readonly int volumeOpacity = 128;
+		public static readonly byte volumeOpacity = 128;
 		public static readonly uint minVolumeDimension = 8; // Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
 
+		// Region plots
+		public static readonly byte regionOpacity = 32;
 		static readonly int regionEdgeThickness = 5;
 
 		static Image finalImage;
@@ -603,8 +605,12 @@ namespace Mappalachia
 			foreach (MapItem item in items)
 			{
 				Region region = item.GetRegion();
+
 				Color color = item.GetLegendColor();
 				Pen pen = new Pen(color, regionEdgeThickness);
+
+				Color alphaColor = Color.FromArgb(regionOpacity, color.R, color.G, color.B);
+				Brush brush = new SolidBrush(alphaColor);
 
 				for (int i = 0; i < region.GetSubRegionCount(); i++)
 				{
@@ -617,7 +623,13 @@ namespace Mappalachia
 							ScaleCoordinateToSpace(CorrectAxis(point.y, true), true)));
 					}
 
-					imageGraphic.DrawPolygon(pen, rawPoints.ToArray());
+					PointF[] points = rawPoints.ToArray();
+					imageGraphic.DrawPolygon(pen, points);
+
+					if (SettingsPlot.fillRegions)
+					{
+						imageGraphic.FillPolygon(brush, points);
+					}
 				}
 			}
 		}

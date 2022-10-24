@@ -8,7 +8,7 @@ namespace Mappalachia
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 10;
+		static readonly int prefsIteration = 11;
 
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
@@ -35,6 +35,8 @@ namespace Mappalachia
 					BoolToIntStr(shape.circle) +
 					BoolToIntStr(shape.crosshairInner) +
 					BoolToIntStr(shape.crosshairOuter) +
+					BoolToIntStr(shape.frame) +
+					BoolToIntStr(shape.marker) +
 					BoolToIntStr(shape.fill));
 			}
 
@@ -61,6 +63,7 @@ namespace Mappalachia
 			settings.Add("[Plot]");
 			settings.Add("mode=" + SettingsPlot.mode);
 			settings.Add("drawVolumes=" + BoolToIntStr(SettingsPlot.drawVolumes));
+			settings.Add("fillRegions=" + BoolToIntStr(SettingsPlot.fillRegions));
 
 			// SettingsPlotIcon
 			settings.Add("[PlotIcon]");
@@ -257,6 +260,10 @@ namespace Mappalachia
 							SettingsPlot.drawVolumes = StrIntToBool(value);
 							break;
 
+						case "fillRegions":
+							SettingsPlot.fillRegions = StrIntToBool(value);
+							break;
+
 						case "iconSize":
 							int iconSize = Convert.ToInt32(value);
 							if (ValidateWithinRange(iconSize, SettingsPlotStyle.iconSizeMin, SettingsPlotStyle.iconSizeMax))
@@ -333,8 +340,10 @@ namespace Mappalachia
 								throw new ArgumentException("Too few shapes defined.");
 							}
 
+							bool preShapeExpansion = prefsIteration < 11;
+
 							// The total variables which define a shape
-							int totalShapeOptions = 6;
+							int totalShapeOptions = preShapeExpansion ? 6 : 8;
 
 							List<PlotIconShape> loadedShapePalette = new List<PlotIconShape>();
 
@@ -345,8 +354,8 @@ namespace Mappalachia
 									throw new ArgumentException("Malformed shape \"" + shape + "\".");
 								}
 
-								// First 5 digits represent the shape options. All 0 would be no shape, hence invisible
-								if (shape.StartsWith("00000"))
+								// First n-1 digits represent the shape options. All 0 would be no shape, hence invisible
+								if (shape.StartsWith(new string('0', totalShapeOptions - 1)))
 								{
 									throw new ArgumentException("Shape cannot have false values for every shape type setting.");
 								}
@@ -356,9 +365,26 @@ namespace Mappalachia
 								bool circle = StrIntToBool(shape[2]);
 								bool crosshairInner = StrIntToBool(shape[3]);
 								bool crosshairOuter = StrIntToBool(shape[4]);
-								bool fill = StrIntToBool(shape[5]);
 
-								loadedShapePalette.Add(new PlotIconShape(diamond, square, circle, crosshairInner, crosshairOuter, fill));
+								bool fill = false;
+								bool frame = false;
+								bool marker = false;
+
+								// Backwards compatibility for prefs files prior to frame and marker being added
+								if (preShapeExpansion)
+								{
+									fill = StrIntToBool(shape[5]);
+									frame = false;
+									marker = false;
+								}
+								else
+								{
+									frame = StrIntToBool(shape[5]);
+									marker = StrIntToBool(shape[6]);
+									fill = StrIntToBool(shape[7]);
+								}
+
+								loadedShapePalette.Add(new PlotIconShape(diamond, square, circle, crosshairInner, crosshairOuter, frame, marker, fill));
 							}
 
 							// Overwrite the default palette with our loaded palette
