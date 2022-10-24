@@ -14,8 +14,8 @@ namespace Mappalachia
 	{
 		// Hidden settings
 		public static readonly int mapDimension = 4096; // All background images should be this^2
-		public static readonly double maxZoomRatio = 2.2;
-		public static readonly double minZoomRatio = 0.05;
+		public static readonly double maxZoomRatio = 2;
+		public static readonly double minZoomRatio = 0.1;
 		public static readonly double markerIconScale = 1; // The scaling applied to map marker icons
 
 		static readonly int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px

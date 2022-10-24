@@ -1867,8 +1867,7 @@ namespace Mappalachia
 				(int)((viewPortCenterY - location.Y) * (Map.mapDimension / (float)height)));
 
 			// Calculate how much to zoom
-			float magnitude = Math.Abs(mouseEvent.Delta) / 1500f;
-			float zoomRatio = 1 + ((mouseEvent.Delta > 0) ? magnitude : -magnitude);
+			float zoomRatio = 1 + (mouseEvent.Delta / 1500f);
 
 			// Calculate the new dimensions once zoomed, given zoom limits
 			int newWidth = (int)Math.Max(Math.Min(maxZoom, width * zoomRatio), minZoom);

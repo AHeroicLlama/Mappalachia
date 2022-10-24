@@ -39,13 +39,14 @@ namespace Mappalachia
 			halfSize = size / 2f;
 			quartSize = size / 4f;
 			threeQuartSize = quartSize * 3;
-			fullSize = size - 1; // Offset by 1px due to pen drawing width apparently being biased (prevents visual oddities)
+			fullSize = size;
 
 			pen = new Pen(Color.White, lineWidth);
 			brush = new SolidBrush(Color.White);
 			bitmap = new Bitmap(size, size);
 			icon = Graphics.FromImage(bitmap);
 			icon.SmoothingMode = SmoothingMode.AntiAlias;
+			icon.PixelOffsetMode = PixelOffsetMode.Half;
 		}
 
 		// Gets a PlotIcon for a given legend group. Returns cached version if available
