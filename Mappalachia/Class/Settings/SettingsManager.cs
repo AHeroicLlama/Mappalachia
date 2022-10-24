@@ -10,6 +10,9 @@ namespace Mappalachia
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
 		static readonly int prefsIteration = 11;
 
+		// The prefs version on the file we're reading
+		static int incomingPrefsIteration = prefsIteration;
+
 		// Gather all settings and write them to the preferences file
 		public static void SaveSettings()
 		{
@@ -147,7 +150,7 @@ namespace Mappalachia
 					switch (key)
 					{
 						case "version":
-							// Nothing to do
+							incomingPrefsIteration = Convert.ToInt32(value);
 							break;
 
 						case "brightness":
@@ -340,7 +343,7 @@ namespace Mappalachia
 								throw new ArgumentException("Too few shapes defined.");
 							}
 
-							bool preShapeExpansion = prefsIteration < 11;
+							bool preShapeExpansion = incomingPrefsIteration < 11;
 
 							// The total variables which define a shape
 							int totalShapeOptions = preShapeExpansion ? 6 : 8;
