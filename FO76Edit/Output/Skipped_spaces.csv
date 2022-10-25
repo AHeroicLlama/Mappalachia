@@ -303,6 +303,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0052BB57,zCUTTestAliasRefillCell,Quick Test Cell,0
 0059BCB3,PackInF1SurvivalTentXmasStorageCell,,0
 005B703F,PackInSheltersEntranceBasicCavePropStorageCell,,0
+006822A3,PackInATXPackInEventFurnitureAppleBarrelStorageCellDUPLICATE000,,0
 00005029,PackInPACKMtnTopCreosoteShrubSmall01StorageCell,,0
 00093B5D,,,0
 00192DC9,PackInBld02Angle45BrickACom01PackInStorageCell,,0
@@ -466,6 +467,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00602DD7,PackInWorkshopFloraPumpkinVine01packinStorageCell,,0
 00634B1B,PackInXPDObjModAssassinationTerritoryPackinStorageCell,,0
 006371C7,PackInATXFirstRespondersFireStationPKINStorageCell,,0
+00683DE7,PackInATXAppleBucketPKINStorageCell,,0
 0003BD6E,,,0
 00044A0E,zCUTWarehouseTestCenter,Testing Center,0
 00084D02,PackInLvlFeralGhoulAmbushMantelPackInStorageCell,,0
@@ -793,6 +795,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0054B503,zCUTDebugTrevorCapitol,Quick Test Cell,0
 005F1417,zCUTProtoExpo06,Quick Test Cell,0
 00620537,WarehouseExpeditionsHub,Warehouse Expeditions Dungeon,0
+0067A2B7,PackInF1LeanToTentPKINStorageCell,,0
 00018559,PackInLewisburgAwningsStarterPackStorageCell,,0
 00056011,,,0
 0006DE7D,,,0
@@ -994,6 +997,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005A609E,COPY0002,,0
 005C895A,PackInSheltersEntranceVaultReceptionSmallStorageCell,,0
 005E9466,PackInTurretBubbleWallPackInStorageCell,,0
+00677892,PackInATXMedievalPortcullisPKINStorageCell,,0
 00001698,PackInWorkshopPACKWrhsPrefab01StorageCell,,0
 000028F4,,,0
 0000E0F0,PackInFEVDecalTrap02StorageCell,,0
@@ -1537,6 +1541,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005A3333,PackInF1SurvivalTentSettlerStorageCell,,0
 005ACA5F,PackInATXRedRocketGaragePowerArmorStorageCell,,0
 00649B43,76TestQDJP,,0
+0067E18B,PackInATXPackInAppleBarrelStorageCell,,0
 0001C3C9,PackInPACKFloodlandsRocks02StorageCell,,0
 0003BDA5,,,0
 0004721D,zCUTTestCharGen04,Vault 76,0

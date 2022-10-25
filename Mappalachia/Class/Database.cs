@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
@@ -171,7 +170,7 @@ namespace Mappalachia
 
 				query.CommandText = queryString;
 				query.Parameters.Clear();
-				query.Parameters.AddWithValue("$searchTerm", "%" + searchTerm + "%");
+				query.Parameters.AddWithValue("$searchTerm", searchTerm);
 				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 				SqliteDataReader reader = query.ExecuteReader();
@@ -341,6 +340,62 @@ namespace Mappalachia
 			}
 		}
 
+		// Conducts the region search and returns the found items
+		public static List<MapItem> SearchRegion(string searchTerm, string spaceFormID, bool allSpaces)
+		{
+			try
+			{
+				List<MapItem> results = new List<MapItem>();
+
+				searchTerm = DataHelper.ProcessSearchString(searchTerm);
+				SqliteCommand query = connection.CreateCommand();
+
+				query.CommandText = allSpaces ? Properties.Resources.searchRegionEverywhere : Properties.Resources.searchRegion;
+				query.Parameters.Clear();
+				query.Parameters.AddWithValue("$searchTerm", searchTerm);
+				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+
+				SqliteDataReader reader = query.ExecuteReader();
+
+				// Collect some variables which will always be the same for every result and are required for an instance of MapItem
+				string signature = DataHelper.ConvertSignature("REGN", false);
+				List<string> lockTypes = GetLockTypes();
+				double spawnChance = DataHelper.GetSpawnChance("REGN", string.Empty);
+
+				while (reader.Read())
+				{
+					// Sub-query for cell can return null
+					if (reader.IsDBNull(0))
+					{
+						continue;
+					}
+
+					results.Add(new MapItem(
+						Type.Region,
+						reader.GetString(0), // FormID
+						reader.GetString(1), // Editor ID
+						string.Empty, // Display Name
+						signature,
+						lockTypes, // The Lock Types filtered for this set of items.
+						spawnChance,
+						1, // Count
+						reader.GetString(2), // Space editorID
+						reader.GetString(3), // Space Display Name/location
+						string.Empty)); // label
+				}
+
+				return results;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapItem>();
+			}
+		}
+
 		// Return the coordinate locations and boundaries of instances of a FormID
 		public static List<MapDataPoint> GetStandardCoords(string formID, string spaceFormID, List<string> filteredLockTypes, string label)
 		{
@@ -427,6 +482,42 @@ namespace Mappalachia
 			}
 
 			return coordinates;
+		}
+
+		// Return the basic list of coordinates of all verts of a region - only suitable for basic plotting not full region plotting
+		public static List<MapDataPoint> GetRegionCoords(string regionFormID, string spaceFormID)
+		{
+			List<RegionPoint> regionPoints = GetRegionPoints(regionFormID, spaceFormID);
+			List<MapDataPoint> points = new List<MapDataPoint>();
+
+			foreach (RegionPoint regionPoint in regionPoints)
+			{
+				points.Add(new MapDataPoint(regionPoint.x, regionPoint.y, 0));
+			}
+
+			return points;
+		}
+
+		// Return the Region Points of the given region
+		public static List<RegionPoint> GetRegionPoints(string regionFormID, string spaceFormID)
+		{
+			List<RegionPoint> regions = new List<RegionPoint>();
+
+			SqliteCommand query = connection.CreateCommand();
+
+			query.CommandText = Properties.Resources.getCoordsRegion;
+			query.Parameters.Clear();
+			query.Parameters.AddWithValue("$regionFormID", regionFormID);
+			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+
+			SqliteDataReader reader = query.ExecuteReader();
+
+			while (reader.Read())
+			{
+				regions.Add(new RegionPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3)));
+			}
+
+			return regions;
 		}
 
 		public static List<MapMarker> GetMapMarkers(string spaceFormID)

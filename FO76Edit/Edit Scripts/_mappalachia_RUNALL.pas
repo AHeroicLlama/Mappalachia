@@ -7,6 +7,7 @@ uses
 	_mappalachia_junkScrap,
 	_mappalachia_location,
 	_mappalachia_positionData,
+	_mappalachia_region,
 	_mappalachia_spaceInfo;
 
 	function initialize: Integer;
@@ -19,6 +20,9 @@ uses
 
 		AddMessage('Now running _mappalachia_location...');
 		_mappalachia_location.initialize();
+
+		AddMessage('Now running _mappalachia_region...');
+		_mappalachia_region.initialize();
 
 		AddMessage('Now running _mappalachia_spaceInfo...');
 		_mappalachia_spaceInfo.initialize();

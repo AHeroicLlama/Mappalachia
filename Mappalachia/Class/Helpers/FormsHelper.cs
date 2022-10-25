@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Mappalachia.Class.Helpers
+namespace Mappalachia
 {
 	static class FormsHelper
 	{

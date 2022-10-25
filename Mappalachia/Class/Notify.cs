@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// Neatly packaged message boxes
 	public static class Notify

@@ -47,7 +47,7 @@ unit _mappalachia_positionData;
 
 					if(FixedFormId(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
 						cellFormID := IntToHex(FixedFormId(cell), 8);
-						if not(shouldProcessSpace(sanitize(DisplayName(cell)), sanitize(EditorID(cell)))) then continue; // Skip this CELL if it's some QA/Debug cell
+						if not(shouldProcessSpace(DisplayName(cell), EditorID(cell))) then continue; // Skip this CELL if it's some QA/Debug cell
 
 						// Rip persistent items...
 						cellChild := FindChildGroup(ChildGroup(ElementByIndex(subBlock, l)), 8, ElementByIndex(subBlock, l));
@@ -76,7 +76,7 @@ unit _mappalachia_positionData;
 		category := GroupBySignature(targetESM, 'WRLD');
 		for i := 0 to ElementCount(category) -1 do begin // Iterate over every worldspace within the worldspace category
 			worldspace := elementByIndex(category, i);
-			spaceEditorID := sanitize(EditorID(worldspace));
+			spaceEditorID := EditorID(worldspace);
 			spaceDisplayName := sanitize(DisplayName(worldspace));
 			if(FixedFormId(worldspace) <> 0) and (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin
 				ripWorldspace(spaceEditorID);

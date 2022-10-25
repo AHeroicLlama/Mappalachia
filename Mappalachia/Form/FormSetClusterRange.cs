@@ -124,7 +124,7 @@ namespace Mappalachia
 
 		void LiveUpdate()
 		{
-			if (SettingsPlotCluster.liveUpdate && SettingsPlot.IsCluster() && FormMaster.legendItems.Count > 0)
+			if (SettingsPlotCluster.liveUpdate && SettingsPlot.IsCluster() && FormMaster.GetNonRegionLegendItems().Count > 0)
 			{
 				SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
 				FormMaster.DrawMap(false);

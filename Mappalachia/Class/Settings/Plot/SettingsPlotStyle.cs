@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Mappalachia.Class;
+using Mappalachia;
 
 // Plot Icon Settings and their defaults, used in FormPlotIconSettings
 static class SettingsPlotStyle
@@ -13,11 +13,12 @@ static class SettingsPlotStyle
 
 	public static readonly List<PlotIconShape> paletteShapeDefault = new List<PlotIconShape>
 		{
-			// 				Diamond square circle inner outer  fill
-			new PlotIconShape(false, false, true, false, true, false),
-			new PlotIconShape(true, false, false, false, false, false),
-			new PlotIconShape(false, false, false, true, false, false),
-			new PlotIconShape(false, true, true, false, false, false),
+			// 				Diamond square circle inner outer  frame  marker  fill
+			new PlotIconShape(false, false, true, false, true, false, false, false),
+			new PlotIconShape(true, false, false, false, false, false, false, false),
+			new PlotIconShape(false, false, false, false, false, false, true, true),
+			new PlotIconShape(false, true, false, false, false, false, false, false),
+			new PlotIconShape(false, false, false, false, false, true, false, false),
 		};
 
 	public static readonly List<Color> paletteColorDefault = new List<Color>

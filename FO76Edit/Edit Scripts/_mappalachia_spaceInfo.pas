@@ -71,10 +71,10 @@ unit _mappalachia_spaceInfo;
 		spaceEditorID, spaceDisplayName : IInterface;
 		entry : String;
 	begin
-		spaceEditorID := sanitize(EditorID(space));
+		spaceEditorID := EditorID(space);
 		spaceDisplayName := sanitize(DisplayName(space));
 
-		entry := IntToHex(FixedFormId(space), 8) + ',' + spaceEditorID + ',' + sanitize(spaceDisplayName) + ',' + intToStr(isWorldspace);
+		entry := IntToHex(FixedFormId(space), 8) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace);
 
 		if (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin // Put valid in-game spacess in the right file, otherwise storing debug spaces elsewhere for the record
 			outputStrings.Add(entry);

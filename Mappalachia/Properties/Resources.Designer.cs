@@ -106,6 +106,17 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT regionNum, coordNum, x, y FROM Region
+        ///WHERE regionFormID = $regionFormID AND Region.spaceFormID = $spaceFormID
+        ///.
+        /// </summary>
+        internal static string getCoordsRegion {
+            get {
+                return ResourceManager.GetString("getCoordsRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT x, y, z, magnitude FROM Scrap_Search
         ///WHERE component = $scrap AND Scrap_Search.spaceFormID = $spaceFormID
         ///ORDER BY z ASC
@@ -230,6 +241,34 @@ namespace Mappalachia.Properties {
         internal static string searchNPCEverywhere {
             get {
                 return ResourceManager.GetString("searchNPCEverywhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT regionFormID, regionEditorId, spaceEditorId, spaceDisplayName
+        ///FROM Region
+        ///INNER JOIN Space_Info ON Region.spaceFormID = Space_Info.spaceFormID
+        ///WHERE (regionEditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR regionFormID LIKE $searchTerm ESCAPE &apos;\&apos;) AND Region.spaceFormID = $spaceFormID
+        ///GROUP BY regionFormID, spaceEditorID.
+        /// </summary>
+        internal static string searchRegion {
+            get {
+                return ResourceManager.GetString("searchRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT regionFormID, regionEditorId, spaceEditorId, spaceDisplayName
+        ///FROM Region
+        ///INNER JOIN Space_Info ON Region.spaceFormID = Space_Info.spaceFormID
+        ///WHERE regionEditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR regionFormID LIKE $searchTerm ESCAPE &apos;\&apos;
+        ///GROUP BY regionFormID, spaceEditorID
+        ///ORDER BY Region.spaceFormID = $spaceFormID DESC
+        ///.
+        /// </summary>
+        internal static string searchRegionEverywhere {
+            get {
+                return ResourceManager.GetString("searchRegionEverywhere", resourceCulture);
             }
         }
         
