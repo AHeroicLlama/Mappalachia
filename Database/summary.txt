@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.39.4 2022-09-29 15:55:41 a29f9949895322123f7c38fbe94c649a9d6e6c9cd0c3b41c96d694552f26b309
 ==Checksum== 
-f4f7e4b93a293eb881bd586f00450246
+d718e0d761b18809db90d201172041df
 ==File Size== 
-391614464 
+391569408 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.0.22
+1.7.1.19
 ==Mean Average X/Y/Z Coord==
--11907.8586738723|4671.7560773943|11831.6565801993
+-11930.3466339679|4664.36641267287|11831.6272095848
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7184499336946
+21.7179010345564
 ==Average Y Bounds Width==
-16.2275783726295
+16.2262656308306
 ==Average Z Bounds Width==
-15.177072675896
+15.1760898263761
 ==Average Z Rotation==
-4.07931718017708
+4.08006179389647
 ==Average display name string length==
-2.66667469473279
+2.66614480466304
 ==Average editorID string length==
-25.0094891741528
+25.0095621176357
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Sunshine Meadows Industrial Farm|-138578|28356
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
@@ -529,7 +529,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-41521
+41518
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|55
@@ -742,12 +742,12 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3008002
-Appalachia|Box|62995
+Appalachia||3007499
+Appalachia|Box|62994
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
 Appalachia|Plane|76
-Appalachia|Sphere|2354
+Appalachia|Sphere|2352
 ArktosPharmaLab01||15649
 ArktosPharmaLab01|Box|1483
 ArktosPharmaLab01|Line|11
@@ -1094,17 +1094,17 @@ WhitespringMall01||6803
 WhitespringMall01|Box|137
 WhitespringRefuge01||11269
 WhitespringRefuge01|Box|224
-XPDPitt01Foundry||16369
-XPDPitt01Foundry|Box|560
+XPDPitt01Foundry||16368
+XPDPitt01Foundry|Box|563
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
-XPDPitt01Industrial||18696
+XPDPitt01Industrial||18697
 XPDPitt01Industrial|Box|1442
 XPDPitt01Industrial|Sphere|1
 XPDPitt02Sanctum||17557
-XPDPitt02Sanctum|Box|476
-XPDPitt02Trench||19683
-XPDPitt02Trench|Box|1541
+XPDPitt02Sanctum|Box|477
+XPDPitt02Trench||19686
+XPDPitt02Trench|Box|1544
 ==Total entities by LockLevel by Space==
 AMSHQ01||5466
 AMSHQ01|Advanced (Level 1)|4
@@ -1125,7 +1125,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3074187
+Appalachia||3073681
 Appalachia|Advanced (Level 1)|318
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1559,23 +1559,23 @@ WhitespringRefuge01||11464
 WhitespringRefuge01|Advanced (Level 1)|2
 WhitespringRefuge01|Inaccessible|21
 WhitespringRefuge01|Novice (Level 0)|6
-XPDPitt01Foundry||16904
+XPDPitt01Foundry||16906
 XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
-XPDPitt01Industrial||20107
+XPDPitt01Industrial||20108
 XPDPitt01Industrial|Advanced (Level 1)|24
 XPDPitt01Industrial|Expert (Level 2)|3
 XPDPitt01Industrial|Inaccessible|2
 XPDPitt01Industrial|Master (Level 3)|1
 XPDPitt01Industrial|Novice (Level 0)|2
-XPDPitt02Sanctum||18022
+XPDPitt02Sanctum||18023
 XPDPitt02Sanctum|Advanced (Level 1)|1
 XPDPitt02Sanctum|Inaccessible|4
 XPDPitt02Sanctum|Master (Level 3)|2
 XPDPitt02Sanctum|Novice (Level 0)|4
-XPDPitt02Trench||21204
+XPDPitt02Trench||21210
 XPDPitt02Trench|Advanced (Level 1)|4
 XPDPitt02Trench|Expert (Level 2)|8
 XPDPitt02Trench|Novice (Level 0)|8
@@ -1657,7 +1657,7 @@ AlleghenyAsylum01|SOUN|4
 AlleghenyAsylum01|STAT|11109
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
-Appalachia|ACTI|21623
+Appalachia|ACTI|21616
 Appalachia|ALCH|265
 Appalachia|AMMO|59
 Appalachia|ARMO|103
@@ -1668,21 +1668,21 @@ Appalachia|CNCY|257
 Appalachia|CONT|12316
 Appalachia|DOOR|2478
 Appalachia|FLOR|45271
-Appalachia|FURN|14883
+Appalachia|FURN|14872
 Appalachia|HAZD|990
-Appalachia|IDLM|17038
+Appalachia|IDLM|17031
 Appalachia|KEYM|36
 Appalachia|LIGH|7963
 Appalachia|LVLI|71589
-Appalachia|MISC|35803
-Appalachia|MSTT|22999
+Appalachia|MISC|35802
+Appalachia|MSTT|22996
 Appalachia|NOTE|177
-Appalachia|NPC_|7433
+Appalachia|NPC_|7424
 Appalachia|PROJ|93
-Appalachia|SCOL|353255
+Appalachia|SCOL|353210
 Appalachia|SECH|253
 Appalachia|SOUN|5904
-Appalachia|STAT|2378445
+Appalachia|STAT|2378022
 Appalachia|TACT|57
 Appalachia|TERM|364
 Appalachia|TXST|62282
@@ -3991,7 +3991,7 @@ XPDPitt01Foundry|NOTE|2
 XPDPitt01Foundry|NPC_|81
 XPDPitt01Foundry|SCOL|1911
 XPDPitt01Foundry|SOUN|39
-XPDPitt01Foundry|STAT|11227
+XPDPitt01Foundry|STAT|11229
 XPDPitt01Foundry|TERM|3
 XPDPitt01Foundry|TXST|574
 XPDPitt01Foundry|WEAP|6
@@ -4015,11 +4015,11 @@ XPDPitt01Industrial|NPC_|82
 XPDPitt01Industrial|SCOL|1490
 XPDPitt01Industrial|SECH|8
 XPDPitt01Industrial|SOUN|10
-XPDPitt01Industrial|STAT|15101
+XPDPitt01Industrial|STAT|15102
 XPDPitt01Industrial|TERM|2
 XPDPitt01Industrial|TXST|1088
 XPDPitt01Industrial|WEAP|1
-XPDPitt02Sanctum|ACTI|161
+XPDPitt02Sanctum|ACTI|162
 XPDPitt02Sanctum|ALCH|6
 XPDPitt02Sanctum|BNDS|58
 XPDPitt02Sanctum|BOOK|16
@@ -4057,7 +4057,7 @@ XPDPitt02Trench|NOTE|2
 XPDPitt02Trench|NPC_|147
 XPDPitt02Trench|SCOL|2097
 XPDPitt02Trench|SOUN|2
-XPDPitt02Trench|STAT|15010
+XPDPitt02Trench|STAT|15016
 XPDPitt02Trench|TERM|6
 XPDPitt02Trench|TXST|1300
 XPDPitt02Trench|WEAP|2
@@ -4098,7 +4098,7 @@ AVRMedicalCenter01|RS03_Inoculation_PT2|1
 AVRMedicalCenter01|RS03_Inoculation_TerminalRef|1
 AVRMedicalCenter01|RS06_Manual_DiseaseHolotapeLocation|1
 AVRMedicalCenter01|RS06_Manual_PT5|1
-AlleghenyAsylum01||14983
+AlleghenyAsylum01||14982
 AlleghenyAsylum01|BoS01CircuitBreakerREF|1
 AlleghenyAsylum01|BoS01IntroDoorREF|1
 AlleghenyAsylum01|BoS02EndMarker|1
@@ -4121,6 +4121,7 @@ AlleghenyAsylum01|LC004_LightBulbSoundMarker002|1
 AlleghenyAsylum01|LC004_LightDisableMarker|1
 AlleghenyAsylum01|LC004_LightEnableMarker|1
 AlleghenyAsylum01|LC004_PowerOnSoundMarker|1
+AlleghenyAsylum01|LaserGrid02_BoS02_Ref|1
 AlleghenyAsylum01|LaserGridBoS02REF|1
 AlleghenyAsylum01|TestElevDoorARef083|1
 AlleghenyAsylum01|TestElevDoorARef084|1
@@ -4129,7 +4130,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3069874
+Appalachia||3069368
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -13138,7 +13139,7 @@ WhitespringRefuge01|XPD_Hub_Responders_SkippyMarker|1
 WhitespringRefuge01|XPD_Hub_Responders_SkippyMarker_Junk|1
 WhitespringRefuge01|XPD_Hub_Responders_SkippyMarker_MissionHub|1
 WhitespringRefuge01|XPD_WhitespringGreeterRef|1
-XPDPitt01Foundry||16872
+XPDPitt01Foundry||16874
 XPDPitt01Foundry|EXM1Pitt1_Shipping_Door_Interior0|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint00|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint01|1
@@ -13203,7 +13204,7 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
-XPDPitt01Industrial||19950
+XPDPitt01Industrial||19951
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM001|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_Sandbox|1
@@ -13393,7 +13394,7 @@ XPDPitt01Industrial|XPD_Pitt01_UnionNaysayer_Ref|1
 XPDPitt01Industrial|XPD_Pitt01_Wicker_CowerMarker_Ref|1
 XPDPitt01Industrial|XPD_VertibirdPilot_01_LandingPad_Marker_Ref|1
 XPDPitt01Industrial|XPD_VertibirdPilot_01_Vertibird_Marker_Ref002|1
-XPDPitt02Sanctum||17935
+XPDPitt02Sanctum||17936
 XPDPitt02Sanctum|Pitt02_BossRoom_Marker|1
 XPDPitt02Sanctum|Pitt02_CatacombsGate_Marker|1
 XPDPitt02Sanctum|Pitt02_CathedralEntrance_Marker|1
@@ -13492,7 +13493,7 @@ XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_Collapsed|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_FallingRocks|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_Boarded|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_FallingRocks|1
-XPDPitt02Trench||21067
+XPDPitt02Trench||21073
 XPDPitt02Trench|AmbEWS_DummyRef|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_SCM|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_Sandbox|1
@@ -13764,7 +13765,7 @@ Appalachia|Ballistic Fiber|184|92
 Appalachia|Bone|3412|1302
 Appalachia|Ceramic|3838|3323
 Appalachia|Circuitry|463|367
-Appalachia|Cloth|5784|5148
+Appalachia|Cloth|5783|5147
 Appalachia|Concrete|2301|421
 Appalachia|Copper|1529|1446
 Appalachia|Cork|628|511
@@ -16557,7 +16558,7 @@ WestTek01|Super Mutant|1.0|41
 0053F689|OverseersHome01|Overseer's Home|0|2005|822|1112|2899|-185|1830|0|0|1.0
 005B7D87|Vault94Dungeon|Vault 94|0|-12586|-527|-17811|-7362|-5911|4857|0|0|1.0
 00620445|SheltersMissileSilo|Abandoned Mine Shelter|0|1368|287|-1352|4088|-2985|3560|0|0|1.0
-00664055|SheltersPittTrench01|The Pitt Trench Shelter|0|1958|1059|-3195|7112|-5571|7690|0|0|1.0
+00664055|SheltersPittTrench01|Neighborhood Square Shelter|0|1958|1059|-3195|7112|-5571|7690|0|0|1.0
 00004183|WatogaHighSchool01|Watoga High School|0|-1571|2284|-5728|2585|-1296|5864|0|0|1.0
 000072BB|AVRMedicalCenter01|AVR Medical Center|0|2840|-659|-588|6268|-3712|2394|0|0|1.0
 000125A3|VTecAgCenter01|Vault-Tec Ag Research Center|0|13|2004|-1408|1435|-512|4521|500|-850|1.3
