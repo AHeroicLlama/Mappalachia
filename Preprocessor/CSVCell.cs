@@ -124,6 +124,7 @@ namespace Mappalachia
 				case "referenceFormID":
 				case "spaceFormID":
 				case "junkFormID":
+				case "regionFormID":
 					// FormID Cells must only contain the FormID alone
 					if (!Validation.matchFormID.IsMatch(data))
 					{
@@ -152,20 +153,12 @@ namespace Mappalachia
 
 				case "editorID":
 				case "spaceEditorID":
+				case "regionEditorID":
 				case "displayName":
 				case "spaceDisplayName":
 				case "shortName":
 					// editorID and displayName must have had any double quotes escaped by now
 					if (Validation.unescapedDoubleQuote.IsMatch(data))
-					{
-						ReportValidationError();
-					}
-
-					return;
-
-				case "componentQuantity":
-					// Component quantity must be an integer
-					if (!int.TryParse(data, out _))
 					{
 						ReportValidationError();
 					}
@@ -187,7 +180,10 @@ namespace Mappalachia
 				case "z":
 				case "nudgeX":
 				case "nudgeY":
-					// Coordinate and offset cells must be exactly integers
+				case "componentQuantity":
+				case "regionNum":
+				case "coordNum":
+					// Coordinates, offsets and counts must be exactly integers
 					if (!int.TryParse(data, out _))
 					{
 						ReportValidationError();

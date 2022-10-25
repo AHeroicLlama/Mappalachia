@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Mappalachia.Class;
-using Mappalachia.Class.Helpers;
 using Mappalachia.Forms;
 
 namespace Mappalachia
@@ -14,8 +12,8 @@ namespace Mappalachia
 	// The main form with map preview and all GUI controls inside it
 	public partial class FormMaster : Form
 	{
-		public static List<MapItem> legendItems = new List<MapItem>();
-		public static List<MapItem> searchResults = new List<MapItem>();
+		static List<MapItem> legendItems = new List<MapItem>();
+		static List<MapItem> searchResults = new List<MapItem>();
 
 		static List<Space> spaces;
 
@@ -68,6 +66,7 @@ namespace Mappalachia
 			PopulateVariableNPCSpawnList();
 			PopulateScrapList();
 			ProvideSearchHint();
+			ProvideRegionSearchHint();
 
 			// Auto-select text box text and use search button with enter
 			textBoxSearch.Select();
@@ -86,6 +85,7 @@ namespace Mappalachia
 			// Apply UI layouts according to current settings
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
+			UpdateFillRegionsState(false);
 			UpdatePlotModeUI();
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
@@ -320,9 +320,9 @@ namespace Mappalachia
 		// Fill the list of Scrap types that can be chosen to search
 		void PopulateScrapList()
 		{
-			foreach (string npcSpawn in Database.GetScrapTypes())
+			foreach (string scrapType in Database.GetScrapTypes())
 			{
-				listBoxScrap.Items.Add(npcSpawn);
+				listBoxScrap.Items.Add(scrapType);
 			}
 
 			listBoxScrap.SelectedIndex = 0;
@@ -359,7 +359,7 @@ namespace Mappalachia
 				"Overseer's Cache",
 				"Vein",
 				"Instrument",
-				"Recipe: Delbert's",
+				"Recipe",
 				"Protest Sign",
 				"Trunk Boss",
 				"Treasure Map Mound",
@@ -368,13 +368,40 @@ namespace Mappalachia
 				"Teddy Bear",
 				"Workbench",
 				"NoCampAllowed",
-				"PowerArmorFurniture",
+				"PowerArmorFurniture_",
 				"RETrigger",
 				"P01C_Bucket_Loot",
 				"SFM04_Organic_Pod",
+				"Flora",
+				"LPI_Food",
+				"LvlCritter",
+				"LPI_Drink_Alcohol",
+				"Wind Chimes",
+				"Pre War Money",
+				"LPI_Chem",
+				"Tales from West Virginia",
+				"Fusion Core",
+				"Alien Blaster",
+				"Strange Encounter",
+				"Ginseng",
+				"Silo Exterior",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
+		}
+
+		// Fill the region search box with a suggested search term.
+		void ProvideRegionSearchHint()
+		{
+			List<string> searchTermHints = new List<string>
+			{
+				"76Border",
+				"NonNukableZone",
+				"WorkshopMunitionsFactory",
+				"ObjectRegion",
+			};
+
+			textBoxRegionSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
 		}
 
 		// Toggle availability of controls which depend on current Space
@@ -409,6 +436,17 @@ namespace Mappalachia
 		void UpdateVolumeEnabledState(bool reDraw)
 		{
 			drawVolumesMenuItem.Checked = SettingsPlot.drawVolumes;
+
+			if (reDraw)
+			{
+				DrawMap(false);
+			}
+		}
+
+		// Update the map settings > fill regions check, based on current settings
+		void UpdateFillRegionsState(bool reDraw)
+		{
+			fillRegionsMenuItem.Checked = SettingsPlot.fillRegions;
 
 			if (reDraw)
 			{
@@ -672,7 +710,7 @@ namespace Mappalachia
 			}
 		}
 
-		// Update the minimum spawn chance % value on the NPC Search tab
+		// Update the minimum spawn chance % value on the NPC Search
 		void UpdateSpawnChance()
 		{
 			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
@@ -701,6 +739,24 @@ namespace Mappalachia
 			normalBackgroundMenuItem.Checked = false;
 			militaryBackgroundMenuItem.Checked = false;
 			satelliteBackgroundMenuItem.Checked = false;
+		}
+
+		// Return every MapItem in the items to plot
+		public static List<MapItem> GetAllLegendItems()
+		{
+			return legendItems;
+		}
+
+		// Return every non-REGN (Type Region) MapItem in the items to plot
+		public static List<MapItem> GetNonRegionLegendItems()
+		{
+			return legendItems.Where(l => !l.IsRegion()).ToList();
+		}
+
+		// Return only REGN (Type Region) MapItem in the items to plot
+		public static List<MapItem> GetRegionLegendItems()
+		{
+			return legendItems.Where(l => l.IsRegion()).ToList();
 		}
 
 		// Collect the enabled signatures from the UI to a list for use by a query
@@ -1267,6 +1323,13 @@ namespace Mappalachia
 			UpdateVolumeEnabledState(true);
 		}
 
+		// Plot Settings > Fill Regions - toggle fill of region draws
+		void Plot_FillRegions(object sender, EventArgs e)
+		{
+			SettingsPlot.fillRegions = !SettingsPlot.fillRegions;
+			UpdateFillRegionsState(true);
+		}
+
 		// Help > About - Show the About box
 		void Help_About(object sender, EventArgs e)
 		{
@@ -1481,8 +1544,6 @@ namespace Mappalachia
 		// Scrap search
 		void ButtonSearchScrap(object sender, EventArgs e)
 		{
-			// Disable the button to reduce stacking search operations and reset the progress bar
-			buttonSearchScrap.Enabled = false;
 			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Perform UI update
@@ -1495,16 +1556,12 @@ namespace Mappalachia
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
 
-			// Search complete - re-enable UI and set progress bar to full
-			buttonSearchScrap.Enabled = true;
 			UpdateProgressBar(1);
 		}
 
 		// NPC Search
 		void ButtonSearchNPC(object sender, EventArgs e)
 		{
-			// Disable the button to reduce stacking search operations and reset the progress bar
-			buttonSearchNPC.Enabled = false;
 			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Perform UI update
@@ -1521,8 +1578,24 @@ namespace Mappalachia
 			UpdateSearchResultsGrid();
 			NotifyIfNoResults();
 
-			// Search complete - re-enable UI and set progress bar to full
-			buttonSearchNPC.Enabled = true;
+			UpdateProgressBar(1);
+		}
+
+		// Region search
+		void ButtonSearchRegion(object sender, EventArgs e)
+		{
+			UpdateProgressBar(0.25, "Searching...", true);
+
+			// Perform UI update
+			UpdateResultsLockTypeColumnVisibility();
+
+			searchResults = Database.SearchRegion(textBoxRegionSearch.Text, SettingsSpace.GetCurrentFormID(), SettingsSearch.searchInAllSpaces);
+
+			UpdateProgressBar(0.50, "Populating UI...", true);
+
+			UpdateSearchResultsGrid();
+			NotifyIfNoResults();
+
 			UpdateProgressBar(1);
 		}
 
@@ -1794,8 +1867,7 @@ namespace Mappalachia
 				(int)((viewPortCenterY - location.Y) * (Map.mapDimension / (float)height)));
 
 			// Calculate how much to zoom
-			float magnitude = Math.Abs(mouseEvent.Delta) / 1500f;
-			float zoomRatio = 1 + ((mouseEvent.Delta > 0) ? magnitude : -magnitude);
+			float zoomRatio = 1 + (mouseEvent.Delta / 1500f);
 
 			// Calculate the new dimensions once zoomed, given zoom limits
 			int newWidth = (int)Math.Max(Math.Min(maxZoom, width * zoomRatio), minZoom);
@@ -1916,6 +1988,11 @@ namespace Mappalachia
 		void SetAcceptButtonNPC(object sender, EventArgs e)
 		{
 			AcceptButton = buttonSearchNPC;
+		}
+
+		void SetAcceptButtonRegion(object sender, EventArgs e)
+		{
+			AcceptButton = buttonRegionSearch;
 		}
 
 		// Change the default enter action depending on the currently selected control

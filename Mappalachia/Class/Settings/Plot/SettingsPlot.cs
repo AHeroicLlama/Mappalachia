@@ -1,4 +1,6 @@
 // Generic plot settings
+using Mappalachia;
+
 static class SettingsPlot
 {
 	public enum Mode
@@ -11,6 +13,7 @@ static class SettingsPlot
 
 	public static Mode mode = Mode.Icon;
 	public static bool drawVolumes = true; // Draw volumes when in icon/topograph mode
+	public static bool fillRegions = true; // Fill regions with transparent color
 
 	public static bool IsHeatmap()
 	{
@@ -30,6 +33,12 @@ static class SettingsPlot
 	public static bool IsTopographic()
 	{
 		return mode == Mode.Topography;
+	}
+
+	// Given the current state, should we use the single topograph legend color?
+	public static bool ShouldUseSingleTopographColor(MapItem mapItem)
+	{
+		return IsTopographic() && !mapItem.IsRegion();
 	}
 
 	public static bool IsCluster()

@@ -30,7 +30,7 @@ namespace Mappalachia
 			{ "TXST", "A decal applied to a surface such as paint or dirt." },
 			{ "DOOR", string.Empty },
 			{ "ALCH", "Food, drink, chems etc." },
-			{ "SOUN", string.Empty },
+			{ "SOUN", "Trigger for sound effect." },
 			{ "NOTE", string.Empty },
 			{ "FLOR", "Collectable natural resource." },
 			{ "ARMO", string.Empty },
@@ -43,8 +43,9 @@ namespace Mappalachia
 			{ "IDLM", "Allows an npc to enter an idle animation." },
 			{ "BNDS", "A curved line shape. Usually used for power lines." },
 			{ "SECH", "Trigger for echo sound effect." },
-			{ "PROJ", "An 'armed' bullet/missile or thrown weapon." },
+			{ "PROJ", "An 'armed' weapon such as a mine." },
 			{ "CNCY", string.Empty },
+			{ "REGN", "Defines the edges of map regions." },
 		};
 
 		// Provide a user-friendly name for each signature which best represents what a typical player would know them as
@@ -62,24 +63,25 @@ namespace Mappalachia
 			{ "FURN", "Furniture" },
 			{ "LVLI", "Loot" },
 			{ "TERM", "Terminal" },
-			{ "TXST", "Texture set" },
+			{ "TXST", "Decal" },
 			{ "DOOR", "Door" },
 			{ "ALCH", "Aid" },
 			{ "SOUN", "Sound" },
 			{ "NOTE", "Holotape" },
 			{ "FLOR", "Flora" },
 			{ "ARMO", "Armor/Apparel" },
-			{ "ASPC", "Acoustic space" },
+			{ "ASPC", "Acoustics" },
 			{ "WEAP", "Weapon" },
 			{ "KEYM", "Key" },
-			{ "TACT", "Talking activator" },
+			{ "TACT", "Voice activator" },
 			{ "HAZD", "Hazard" },
 			{ "AMMO", "Ammo" },
 			{ "IDLM", "Idle marker" },
-			{ "BNDS", "Bendable spline" },
-			{ "SECH", "Echo marker" },
+			{ "BNDS", "Spline" },
+			{ "SECH", "Echo" },
 			{ "PROJ", "Projectile" },
 			{ "CNCY", "Currency" },
+			{ "REGN", "Region" },
 		};
 
 		// Provides a pre-ordered list of each signature in a suggested sort order for the UI
@@ -184,7 +186,6 @@ namespace Mappalachia
 			"Requires Key",
 			"Chained",
 			"Barred",
-			"Opens Door",
 			"Inaccessible",
 			"Unknown",
 		};
@@ -270,10 +271,10 @@ namespace Mappalachia
 		// Escape functional SQL characters and wildcard on space
 		public static string ProcessSearchString(string input)
 		{
-			return input.Trim()
+			return "%" + input.Trim()
 				.Replace("_", "\\_")
 				.Replace("%", "\\%")
-				.Replace(" ", "%");
+				.Replace(" ", "%") + "%";
 		}
 
 		// Indicate the spawn chance of a standard item based on understandings of LVLI
@@ -282,7 +283,7 @@ namespace Mappalachia
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
 
-		// returns the nth item in a list as if it were cyclic (supports <0 or >n)
+		// Returns the nth item in a list as if it were cyclic (supports <0 or >n)
 		public static T GetCyclicItem<T>(List<T> collection, int n)
 		{
 			if (collection.Count == 0)

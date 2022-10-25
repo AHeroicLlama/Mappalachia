@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// Methods for tweaking and applying effects to images.
 	static class ImageHelper

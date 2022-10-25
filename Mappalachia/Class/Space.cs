@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// Represents a CELL or WRLD.
 	public class Space

@@ -50,6 +50,12 @@ ORDER BY spaceEditorID ASC, mapMarkerName ASC, label ASC;
 SELECT '==Total Unique entities==';
 SELECT COUNT(DISTINCT referenceFormID) FROM Position_Data;
 
+SELECT '==Regions==';
+SELECT 'Space|Region|subRegions|maxVerts';
+SELECT spaceEditorID, regionEditorID, max(regionNum) + 1 AS subRegions, max(coordNum) + 1 AS maxVerts FROM Region
+INNER JOIN Space_Info ON Region.spaceFormID = Space_Info.spaceFormID
+GROUP BY regionEditorID;
+
 SELECT '==Total entities by PrimitiveShape by Space==';
 SELECT spaceEditorId, primitiveShape, COUNT(*) FROM Position_Data
 INNER JOIN Space_Info ON Position_Data.spaceFormID = Space_Info.spaceFormID

@@ -28,8 +28,8 @@ unit _mappalachia_entityInfo;
 			signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
 			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
 
-			// Ignore Worldspace and Cells, as they cannot exist inside themselves
-			if (signature = 'CELL') or (signature = 'WRLD') then continue;
+			// Only export relevant signatures
+			if (not(shouldProcessSig(signature))) then continue;
 
 			for j := 0 to ElementCount(signatureGroup) -1 do begin
 				ripItem(elementByIndex(signatureGroup, j), signature);
@@ -65,7 +65,7 @@ unit _mappalachia_entityInfo;
 			outputStrings.Add(
 				IntToHex(FixedFormId(item), 8) + ',' +
 				sanitize(bestDisplayName) + ',' +
-				sanitize(editorId) + ',' +
+				editorId + ',' +
 				signature
 			);
 		end;

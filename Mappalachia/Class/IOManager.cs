@@ -8,7 +8,6 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
 namespace Mappalachia

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	// A customizable Image used to represent a plot on the map
 	public class PlotIcon
@@ -17,6 +17,8 @@ namespace Mappalachia.Class
 		readonly float halfSize;
 		readonly float quartSize;
 		readonly float threeQuartSize;
+		readonly float fullSize;
+		readonly float zeroSize = 0;
 		readonly Pen pen;
 		readonly Brush brush;
 		readonly Bitmap bitmap;
@@ -37,21 +39,23 @@ namespace Mappalachia.Class
 			halfSize = size / 2f;
 			quartSize = size / 4f;
 			threeQuartSize = quartSize * 3;
+			fullSize = size;
 
 			pen = new Pen(Color.White, lineWidth);
 			brush = new SolidBrush(Color.White);
 			bitmap = new Bitmap(size, size);
 			icon = Graphics.FromImage(bitmap);
 			icon.SmoothingMode = SmoothingMode.AntiAlias;
+			icon.PixelOffsetMode = PixelOffsetMode.Half;
 		}
 
 		// Gets a PlotIcon for a given legend group. Returns cached version if available
-		public static PlotIcon GetIconForGroup(int group)
+		public static PlotIcon GetIconForGroup(int group, MapItem mapItem)
 		{
 			int colorTotal = SettingsPlotStyle.paletteColor.Count;
 			int shapeTotal = SettingsPlotStyle.paletteShape.Count;
 
-			if (SettingsPlot.IsTopographic())
+			if (SettingsPlot.ShouldUseSingleTopographColor(mapItem))
 			{
 				colorTotal = 1; // Force a unique shape per group in topography mode, as color becomes indistinguishable
 			}
@@ -72,7 +76,8 @@ namespace Mappalachia.Class
 			int shapeIndex = (group / colorTotal) % shapeTotal;
 
 			// Generate the PlotIcon
-			Color color = SettingsPlot.IsTopographic() ? SettingsPlotTopograph.legendColor : SettingsPlotStyle.paletteColor[colorIndex];
+			Color color = SettingsPlot.ShouldUseSingleTopographColor(mapItem) ? SettingsPlotTopograph.legendColor : SettingsPlotStyle.paletteColor[colorIndex];
+
 			PlotIconShape shape = SettingsPlotStyle.paletteShape[shapeIndex];
 			PlotIcon plotIcon = new PlotIcon(color, shape);
 
@@ -108,10 +113,10 @@ namespace Mappalachia.Class
 
 			if (shape.crosshairOuter)
 			{
-				icon.DrawLine(pen, halfSize, size, halfSize, threeQuartSize); // Top
-				icon.DrawLine(pen, halfSize, 0, halfSize, quartSize); // Bottom
-				icon.DrawLine(pen, 0, halfSize, quartSize, halfSize); // Left
-				icon.DrawLine(pen, size, halfSize, threeQuartSize, halfSize); // Right
+				icon.DrawLine(pen, halfSize, fullSize, halfSize, threeQuartSize); // Top
+				icon.DrawLine(pen, halfSize, zeroSize, halfSize, quartSize); // Bottom
+				icon.DrawLine(pen, zeroSize, halfSize, quartSize, halfSize); // Left
+				icon.DrawLine(pen, fullSize, halfSize, threeQuartSize, halfSize); // Right
 			}
 
 			if (shape.diamond)
@@ -160,6 +165,44 @@ namespace Mappalachia.Class
 					{
 						icon.DrawEllipse(pen, halfRadiusRect);
 					}
+				}
+			}
+
+			if (shape.frame)
+			{
+				// Top-left
+				icon.DrawLine(pen, zeroSize, zeroSize, zeroSize, quartSize); // Top
+				icon.DrawLine(pen, zeroSize, zeroSize, quartSize, zeroSize); // Left
+
+				// Top-right
+				icon.DrawLine(pen, threeQuartSize, zeroSize, fullSize, zeroSize); // Top
+				icon.DrawLine(pen, fullSize, zeroSize, fullSize, quartSize); // Right
+
+				// Bottom-left
+				icon.DrawLine(pen, zeroSize, fullSize, quartSize, fullSize); // Bottom
+				icon.DrawLine(pen, zeroSize, threeQuartSize, zeroSize, fullSize); // Left
+
+				// Bottom-right
+				icon.DrawLine(pen, threeQuartSize, fullSize, fullSize, fullSize); // Bottom
+				icon.DrawLine(pen, fullSize, threeQuartSize, fullSize, fullSize); // Right
+			}
+
+			if (shape.marker)
+			{
+				PointF[] triCorners =
+				{
+					new PointF(quartSize, zeroSize), // Top-left
+					new PointF(threeQuartSize, zeroSize), // Top-right
+					new PointF(halfSize, halfSize), // Point
+				};
+
+				if (shape.fill)
+				{
+					icon.FillPolygon(brush, triCorners);
+				}
+				else
+				{
+					icon.DrawPolygon(pen, triCorners);
 				}
 			}
 

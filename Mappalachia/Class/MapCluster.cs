@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Linq;
 
-namespace Mappalachia.Class
+namespace Mappalachia
 {
 	public class MapCluster
 	{

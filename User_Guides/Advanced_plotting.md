@@ -55,6 +55,9 @@ For example, by plotting 'NoCampAllowedTrigger' with 'Draw Volumes' enabled, you
 Volumes below a certain area will still be drawn as an icon, in order for them to remain visible. Additionally for performance reasons, some very large volumes will also be represented by an icon.<br/>
 Draw Volumes applies to Icon and Topography mode.
 
+## Fill Regions
+This option defines if regions plotted with the region search are drawn with a transparent fill, or are left as just their edges.
+
 ## Legend Group
 Under the 'items to plot' list, you will find the Legend Group column. This column is editable and allows you to enter a number.<br/>
 By changing the number assigned to each item, you are able to group items together and have them plotted against the same icon.<br/>

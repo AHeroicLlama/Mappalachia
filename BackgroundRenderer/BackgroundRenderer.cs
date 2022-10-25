@@ -5,17 +5,23 @@ namespace BackgroundRenderer
 {
 	public partial class BackgroundRenderer
 	{
+		static readonly string magickPath = "C:\\Program Files\\ImageMagick-7.1.0-Q16-HDRI\\magick.exe";
 		static readonly string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout 76 Playtest\\Data";
 		static readonly string thisAppPath = Directory.GetCurrentDirectory();
 		static readonly string mappalachiaRoot = thisAppPath + "..\\..\\..\\..\\..\\";
-		static readonly string databasePath = mappalachiaRoot + "Mappalachia\\data\\mappalachia.db";
-		static readonly string imageDirectory = mappalachiaRoot + "Mappalachia\\img\\";
-		static readonly string utilsRenderPath = mappalachiaRoot + "FO76Utils\\render.exe";
+		static readonly string databasePath = Path.GetFullPath(mappalachiaRoot + "Mappalachia\\data\\mappalachia.db");
+		static readonly string imageDirectory = Path.GetFullPath(mappalachiaRoot + "Mappalachia\\img\\");
+		static readonly string outputDirectory = Path.GetFullPath(imageDirectory + "cell\\");
+		static readonly string utilsRenderPath = Path.GetFullPath(mappalachiaRoot + "FO76Utils\\render.exe");
 
 		static readonly double maxScale = 16;
 		static readonly double minScale = 0.02;
 
-		static readonly bool openFileAfterRender = false;
+		static readonly int targetRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
+		static readonly int nativeResolution = 4096;
+		static readonly int SSAA = 2; // 0,1,2
+		static readonly bool keepDDSRender = false;
+		static readonly int jpegQuality = 85;
 
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
@@ -47,20 +53,44 @@ namespace BackgroundRenderer
 			{ "TheCraterCore01", 100 },
 		};
 
-		// 16384 by default (16k - allows us to supersample then scale down to 4k)
-		/* 4096 if the cell is unusually small and causes the scale to be too high...
-		(errors.txt will be written) (EG UCB02 and RaiderRaidTrailerInt) */
-		static readonly int resolution = 16384;
-
-		static readonly bool SSAA = true;
+		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
+		static readonly List<string> extraSmallCells = new List<string>()
+		{
+			"UCB02",
+			"RaiderRaidTrailerInt",
+		};
 
 		public static void Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
+			if (!File.Exists(magickPath))
+			{
+				Console.WriteLine($"Can't find ImageMagick at {magickPath}, please check the hardcoded path is correct and you have an installation at that path.");
+				Console.ReadKey();
+				return;
+			}
+
+			if (!File.Exists(utilsRenderPath))
+			{
+				Console.WriteLine($"Can't find fo76utils render at {utilsRenderPath}, please check the hardcoded path is correct and you have it placed at that path.");
+				Console.ReadKey();
+				return;
+			}
+
+			if (!File.Exists(databasePath))
+			{
+				Console.WriteLine($"Can't find Mappalachia database at {databasePath}, please check the database has been built or copied from a release to that path.");
+				Console.ReadKey();
+				return;
+			}
+
 			Console.WriteLine("Paste space-separated EditorIDs of Cells you need rendering. Otherwise paste nothing to render all");
 			string arg = Console.ReadLine() ?? string.Empty;
 			List<string> args = arg.Split(' ').Where(a => !string.IsNullOrWhiteSpace(a)).ToList();
+
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.Start();
 
 			if (args.Count == 0)
 			{
@@ -75,6 +105,12 @@ namespace BackgroundRenderer
 				}
 
 				Console.WriteLine();
+			}
+
+			Console.WriteLine($"Final outputs will be placed at {outputDirectory}");
+			if (!Directory.Exists(outputDirectory))
+			{
+				Directory.CreateDirectory(outputDirectory);
 			}
 
 			List<Space> spaces = new List<Space>();
@@ -115,22 +151,27 @@ namespace BackgroundRenderer
 				spaces.Add(new Space(reader.GetString(0), editorId, reader.GetInt32(3), reader.GetInt32(4), Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)), Math.Abs(reader.GetInt32(8) - reader.GetInt32(7)), reader.GetInt32(9), reader.GetInt32(10), reader.GetFloat(11)));
 			}
 
-			Console.WriteLine($"\nRendering {spaces.Count} cells at {resolution}*{resolution}px");
+			Console.WriteLine($"\nRendering {spaces.Count} cells at {targetRenderResolution}*{targetRenderResolution}px");
 			int i = 0;
 
 			foreach (Space space in spaces)
 			{
 				i++;
 				Console.WriteLine($"\n0x{space.formID} : {space.editorID} ({i} of {spaces.Count})");
+				int resolution = targetRenderResolution;
+
+				if (resolution > nativeResolution && extraSmallCells.Contains(space.editorID))
+				{
+					Console.WriteLine($"Rendering space {space.editorID} at {nativeResolution} instead due to small size");
+					resolution = nativeResolution;
+				}
 
 				int range = Math.Max(space.xRange, space.yRange);
 				double scale = ((double)resolution / range) * space.nudgeScale;
 
 				if (scale > maxScale || scale < minScale)
 				{
-					string error = $"Space {space.editorID} too small or large to render at this resolution! (Scale of {scale} outside range {minScale}-{maxScale}). Change the render resolution in order to preserve the scale\nFormID: {space.formID}\n";
-					Console.WriteLine(error);
-					File.AppendAllText(imageDirectory + "\\errors.txt", error);
+					LogError($"Space {space.editorID} too small or large to render at this resolution! (Scale of {scale} outside range {minScale}-{maxScale}). Change the render resolution in order to preserve the scale\nFormID: {space.formID}\n");
 				}
 
 				// Default camera height unless a custom height was defined to cut into roofs
@@ -140,15 +181,46 @@ namespace BackgroundRenderer
 					cameraY = recommendedHeights[space.editorID];
 				}
 
-				string file = $"{imageDirectory}{space.editorID}.dds";
-				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {file} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (resolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (resolution / 4096d) / scale)} {cameraY} -light 1.25 63.435 41.8103 -ssaa {(SSAA ? 1 : 0)} -hqm meshes -env textures/shared/cubemaps/mipblur_defaultoutside1.dds -wtxt textures/water/defaultwater.dds -ltxtres 1024 -mip 0 -lmip 1 -mlod 0 -ndis 1");
+				string renderFile = $"{imageDirectory}{space.editorID}.dds";
+				string convertedFile = $"{outputDirectory}{space.editorID}.jpg";
+
+				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (targetRenderResolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (targetRenderResolution / 4096d) / scale)} {cameraY} -light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -ssaa {SSAA} -hqm meshes -ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog");
 				render.WaitForExit();
 
-				if (openFileAfterRender)
+				if (File.Exists(renderFile))
 				{
-					Process.Start(new ProcessStartInfo { FileName = file, UseShellExecute = true });
+					Console.WriteLine($"Converting and downsampling with ImageMagick...");
+					Process magickResizeConvert = Process.Start("CMD.exe", "/C " + $"\"{magickPath}\" convert {renderFile} -resize {nativeResolution}x{nativeResolution} -quality {jpegQuality} JPEG:{convertedFile}");
+					magickResizeConvert.WaitForExit();
+
+					if (!keepDDSRender)
+					{
+						File.Delete(renderFile);
+					}
+				}
+				else
+				{
+					LogError($"No file {renderFile}, maybe it was not rendered?");
+				}
+
+				// Calc and log est time remaining during batch job
+				if (i != spaces.Count)
+				{
+					int remainingCells = spaces.Count - i;
+					TimeSpan timePerCell = stopwatch.Elapsed / i;
+					TimeSpan estTimeRemain = timePerCell * remainingCells;
+					Console.WriteLine("\nEst. Time remaining: " + estTimeRemain);
 				}
 			}
+
+			Console.WriteLine($"Finished in {stopwatch.Elapsed}");
+			Console.ReadKey();
+		}
+
+		static void LogError(string err)
+		{
+			Console.WriteLine(err);
+			File.AppendAllText(imageDirectory + "\\errors.txt", err);
 		}
 	}
 }

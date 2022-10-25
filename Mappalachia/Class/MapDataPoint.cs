@@ -1,5 +1,4 @@
 using System.Drawing;
-using Mappalachia.Class;
 
 namespace Mappalachia
 {
