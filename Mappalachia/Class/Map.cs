@@ -661,7 +661,7 @@ namespace Mappalachia
 					imageGraphic.DrawPolygon(clusterPolygonPen, cluster.finalPolygon.GetVerts().ToArray());
 				}
 
-				// Convex hull too small or single point - draw a bounding circle (not necessarily minimum bounding, circled is centered on polygon centroid)
+				// Convex hull too small or single point - draw a bounding circle (not necessarily minimum bounding, circle is centered on polygon centroid)
 				else
 				{
 					imageGraphic.DrawEllipse(
@@ -690,7 +690,7 @@ namespace Mappalachia
 				}
 
 				string printWeight = Math.Round(weight, 1).ToString();
-				float fontSize = Math.Min(Math.Max(SettingsPlotCluster.minFontSize, mapLabelFontSize * (float)(weight / averageWeight)), SettingsPlotCluster.maxFontSize);
+				float fontSize = Math.Min(Math.Max(SettingsPlotCluster.minFontSize, mapLabelFontSize * (float)(weight / averageWeight)), Math.Max(Math.Min(SettingsPlotCluster.maxFontSize, SettingsPlotCluster.clusterRange), SettingsPlotCluster.minFontSize));
 				Font sizedFont = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
 				SizeF textBounds = imageGraphic.MeasureString(printWeight, sizedFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
