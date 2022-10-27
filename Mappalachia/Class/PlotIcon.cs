@@ -196,14 +196,7 @@ namespace Mappalachia
 					new PointF(halfSize, halfSize), // Point
 				};
 
-				if (shape.fill)
-				{
-					icon.FillPolygon(brush, triCorners);
-				}
-				else
-				{
-					icon.DrawPolygon(pen, triCorners);
-				}
+				icon.FillPolygon(brush, triCorners);
 			}
 
 			iconImage = ImageHelper.AdjustARGB(bitmap, Color.FromArgb((int)(iconOpacityPercent / 100f * 255f), color));
