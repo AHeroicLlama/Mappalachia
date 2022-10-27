@@ -42,9 +42,9 @@ namespace Mappalachia
 			{ "Moth-Home", cultistMarker },
 			{ "Sacrament", cultistMarker },
 			{ "Foundation", "HammerWingMarker" },
-			{ "Hawke's Refuge", "CaveMarker" },
+			{ "Dagger's Den", "CaveMarker" },
 			{ "Ohio River Adventures", "SkullRingMarker" },
-			{ "The Crater", "SpaceStationMarker" },
+			{ "The Crater", "SkullRingMarker" },
 			{ "The Rusty Pick", "LegendaryPurveyorMarker" },
 			{ "Vault 51", "Vault51Marker" },
 			{ "Vault 79", "Vault79Marker" },
@@ -54,8 +54,12 @@ namespace Mappalachia
 		{
 			{ "Animal Cave", "Hopewell Cave" },
 			{ "Bleeding Kate's Grinder", "Bleeding Kate's Grindhouse" },
+			{ "Building Summersville Dam", "Summersville Dam" },
+			{ "Burning Mine", "The Burning Mine" },
 			{ "Cranberry Bog Region", "Quarry X3" },
+			{ "Crater Outpost", "Crater Watchstation" },
 			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },
+			{ "Hawke's Refuge", "Dagger's Den" },
 			{ "Hornwright Air Cleanser Site #01", "Hornwright Air Purifier Site #01" },
 			{ "Hornwright Air Cleanser Site #02", "Hornwright Air Purifier Site #02" },
 			{ "Hornwright Air Cleanser Site #03", "Hornwright Air Purifier Site #03" },
@@ -64,15 +68,26 @@ namespace Mappalachia
 			{ "Maybell Pond", "Beckwith Farm" },
 			{ "Mine Shaft No. 9", "AMS Testing Site" },
 			{ "Mountain Region", "Colonel Kelly Monument" },
+			{ "Nuked Crater", "Foundation Outpost" },
 			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
 			{ "Relay Tower 3", "Relay Tower DP-B5-21" },
 			{ "Relay Tower 4", "Relay Tower LW-B1-22" },
 			{ "Relay Tower 5", "Relay Tower HG-B7-09" },
 			{ "Relay Tower 6", "Relay Tower EM-B1-27" },
+			{ "Schram Homestead", "Silva Homestead" },
 			{ "Sundew Grove 02", "Veiled Sundew Grove" },
 			{ "Sundew Grove 03", "Creekside Sundew Grove" },
 			{ "The Savage Divide", "Monorail Elevator" },
 			{ "World's Largest Teapot", "The Giant Teapot" },
+		};
+
+		static readonly List<string> removedLabels = new List<string>()
+		{
+			"Fissure Site Delta",
+			"Fissure Site Theta",
+			"Fissure Site Kappa",
+			"Fissure Site Tau",
+			"Mire",
 		};
 
 		// Pull the MapMarker display text from position data and store it in a new file
@@ -108,19 +123,13 @@ namespace Mappalachia
 					label = wrongLabelNames[label];
 				}
 
-				// This marker is in the data but not in-game and does not represent anything particular, so we drop it
-				if (label == "Mire")
+				// This marker is in the data but not in-game so we drop it
+				if (removedLabels.Contains(label))
 				{
 					continue;
 				}
 
-				// Large collection of incorrect Wastelanders icons - suspect xedit bug?
-				if (locationMarkerCorrection.ContainsKey(label))
-				{
-					iconName = locationMarkerCorrection[label];
-				}
-
-				// Misnamed workshop
+				// Misnamed workshop - can't correct with wrongLabelNames because there is 1 genuine Hemlock Holes too
 				if (label == "Hemlock Holes" && iconName == "FactoryMarker")
 				{
 					label = "Hemlock Holes Maintenance";
@@ -136,6 +145,12 @@ namespace Mappalachia
 				if (label.StartsWith(fissureSite))
 				{
 					label = (label == "Fissure Site Zeta") ? "Fissure Site Alpha" : fissureSite;
+				}
+
+				// Large collection of incorrect icons - Correct markers after labels have bene corrected
+				if (locationMarkerCorrection.ContainsKey(label))
+				{
+					iconName = locationMarkerCorrection[label];
 				}
 
 				// Perform our own specialized validation

@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.39.4 2022-09-29 15:55:41 a29f9949895322123f7c38fbe94c649a9d6e6c9cd0c3b41c96d694552f26b309
 ==Checksum== 
-d718e0d761b18809db90d201172041df
+7dbd6b9283305d237c6f1568d9759ffc
 ==File Size== 
 391569408 
 ==Tables== 
@@ -211,9 +211,9 @@ Appalachia|CarMarker|Tyler County Dirt Track|-157335|138174
 Appalachia|CastleMarker|Prickett's Fort|60920|193668
 Appalachia|CaveMarker|Abandoned Waste Dump|185034|26724
 Appalachia|CaveMarker|Carleton Mine|21935|158383
+Appalachia|CaveMarker|Dagger's Den|119104|7828
 Appalachia|CaveMarker|Gauley Mine|-58605|62688
 Appalachia|CaveMarker|Gauley Mine Exit|-47691|71024
-Appalachia|CaveMarker|Hawke's Refuge|119104|7828
 Appalachia|CaveMarker|Hopewell Cave|114047|114129
 Appalachia|CaveMarker|Makeshift Vault|-83329|160208
 Appalachia|CaveMarker|Mysterious Cave|143425|200808
@@ -279,7 +279,7 @@ Appalachia|FarmMarker|Dabney Homestead|187358|-24214
 Appalachia|FarmMarker|Delano Grange|183759|11699
 Appalachia|FarmMarker|Graninger Farm|8478|174230
 Appalachia|FarmMarker|Mac's Farm|171107|-71433
-Appalachia|FarmMarker|Schram Homestead|-158848|-3712
+Appalachia|FarmMarker|Silva Homestead|-158848|-3712
 Appalachia|FarmMarker|Smith Farm|-30844|152512
 Appalachia|FarmMarker|Sunrise Field|153895|-162532
 Appalachia|FarmMarker|Superior Sunset Farm|122641|-101570
@@ -289,16 +289,12 @@ Appalachia|FillingStationMarker|Big B's Rest Stop|163349|-17718
 Appalachia|FillingStationMarker|Red Rocket Filling Station|-112109|-131743
 Appalachia|FillingStationMarker|Red Rocket Mega Stop|137392|148800
 Appalachia|FissureMarker|Fissure Site|173252|-159284
-Appalachia|FissureMarker|Fissure Site|35581|195062
 Appalachia|FissureMarker|Fissure Site|152676|-66537
 Appalachia|FissureMarker|Fissure Site|58897|-150970
-Appalachia|FissureMarker|Fissure Site|-98966|177503
 Appalachia|FissureMarker|Fissure Site|-38686|-70772
 Appalachia|FissureMarker|Fissure Site|-120767|-162346
 Appalachia|FissureMarker|Fissure Site|129596|75406
 Appalachia|FissureMarker|Fissure Site|112458|124837
-Appalachia|FissureMarker|Fissure Site|-9071|-11032
-Appalachia|FissureMarker|Fissure Site|19005|34150
 Appalachia|FissureMarker|Fissure Site|153700|182385
 Appalachia|FissureMarker|Fissure Site Alpha|196808|-165776
 Appalachia|ForestedMarker|Creekside Sundew Grove|161083|-75948
@@ -424,13 +420,13 @@ Appalachia|QuarryMarker|Big Bend Tunnel East|112944|-149488
 Appalachia|QuarryMarker|Big Bend Tunnel West|-44088|-120808
 Appalachia|QuarryMarker|Blackwater Mine|28169|-46520
 Appalachia|QuarryMarker|Brim Quarry|-161282|-84759
-Appalachia|QuarryMarker|Burning Mine|-84358|-102236
-Appalachia|QuarryMarker|Crater Outpost|-6712|199312
+Appalachia|QuarryMarker|Crater Watchstation|-6712|199312
 Appalachia|QuarryMarker|Glassed Cavern|200480|-161792
 Appalachia|QuarryMarker|Kerwood Mine|130051|-64741
 Appalachia|QuarryMarker|Monongah Mine|58020|111115
 Appalachia|QuarryMarker|Old Mold Quarry|198971|-95572
 Appalachia|QuarryMarker|Quarry X3|157733|-112080
+Appalachia|QuarryMarker|The Burning Mine|-84358|-102236
 Appalachia|RadioTowerMarker|KMAX Transmission|190575|-38899
 Appalachia|RadioTowerMarker|Relay Tower DP-B5-21|-45863|-84858
 Appalachia|RadioTowerMarker|Relay Tower EL-B1-02|78400|-160561
@@ -442,7 +438,7 @@ Appalachia|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
 Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
 Appalachia|RadioactiveAreaMarker|Emmett Mt. Disposal Site|56146|-51808
 Appalachia|RadioactiveAreaMarker|Federal Disposal Field HZ-21|-510|-154826
-Appalachia|RadioactiveAreaMarker|Nuked Crater|68217|-107034
+Appalachia|RadioactiveAreaMarker|Foundation Outpost|68217|-107034
 Appalachia|RadioactiveAreaMarker|Safe 'n Clean Disposal|13174|-33844
 Appalachia|RaiderSettlementMarker|Bleeding Kate's Grindhouse|-61230|-73357
 Appalachia|RaiderSettlementMarker|Knife Edge|46264|199612
@@ -468,7 +464,7 @@ Appalachia|SkiResortMarker|Sunnytop Ski Lanes|85613|131252
 Appalachia|SkiResortMarker|Sunnytop Ski Lanes Base Lodge|98128|144048
 Appalachia|SkiResortMarker|White Powder Winter Sports|-950|18368
 Appalachia|SkullRingMarker|Ohio River Adventures|-187831|-32302
-Appalachia|SpaceStationMarker|The Crater|26681|198625
+Appalachia|SkullRingMarker|The Crater|26681|198625
 Appalachia|TeapotMarker|The Giant Teapot|-131984|-29819
 Appalachia|TopOfTheWorldMarker|Top of the World|39089|14204
 Appalachia|TownMarker|Beckley|-188171|-123048
