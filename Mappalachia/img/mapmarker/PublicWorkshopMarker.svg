@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- A Heroic Llama note: This file has manual edits to the svg element height and width, and g transform height and width -->
+<!-- This is because somehow the pure datamined version has uneven padding which would offset the draw in Mappalachia -->
+<!-- MapIconProcessor will intentionally skip changing this file to avoid overwriting these manual edits -->
+<!-- This *should* be fine, assuming the file never changes... -->
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="26.85px" width="26.85px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 13.3, 13.35)">
+    <use height="19.95" id="Sizer_mc" transform="matrix(1.0, 0.0, 0.0, 1.0, -9.95, -9.95)" width="19.95" xlink:href="#sprite0"/>
+    <use height="26.8" transform="matrix(1.0, 0.0, 0.0, 1.0, -13.3, -13.35)" width="26.8" xlink:href="#shape1"/>
+    <use height="32.1" transform="matrix(0.6663, 0.0, 0.0, 0.6663, -10.6947, -10.6447)" width="32.1" xlink:href="#sprite1"/>
+    <use height="13.1" transform="matrix(1.0, 0.0, 0.0, 1.0, -8.65, -6.3)" width="16.5" xlink:href="#shape3"/>
+  </g>
+  <defs>
+    <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)">
+      <use height="19.95" transform="matrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)" width="19.95" xlink:href="#shape0"/>
+    </g>
+    <g id="shape0" transform="matrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)">
+      <path d="M0.0 0.0 L19.95 0.0 19.95 19.95 0.0 19.95 0.0 0.0" fill="#000000" fill-opacity="0.003921569" fill-rule="evenodd" stroke="none"/>
+    </g>
+    <g id="shape1" transform="matrix(1.0, 0.0, 0.0, 1.0, 13.3, 13.35)">
+      <path d="M13.5 0.05 Q13.5 5.6 9.55 9.5 5.65 13.45 0.1 13.45 -5.45 13.45 -9.4 9.5 -13.3 5.6 -13.3 0.05 -13.3 -5.5 -9.4 -9.45 -5.45 -13.35 0.1 -13.35 5.65 -13.35 9.55 -9.45 13.5 -5.5 13.5 0.05" fill="#ffffff" fill-opacity="0.09803922" fill-rule="evenodd" stroke="none"/>
+    </g>
+    <g id="sprite1" transform="matrix(1.0, 0.0, 0.0, 1.0, 16.05, 16.05)">
+      <use height="32.1" transform="matrix(1.0, 0.0, 0.0, 1.0, -16.05, -16.05)" width="32.1" xlink:href="#shape2"/>
+    </g>
+    <g id="shape2" transform="matrix(1.0, 0.0, 0.0, 1.0, 16.05, 16.05)">
+      <path d="M0.0 15.0 Q-6.2 15.0 -10.6 10.6 -15.0 6.2 -15.0 0.0 -15.0 -6.2 -10.6 -10.6 -6.2 -15.0 0.0 -15.0 6.25 -15.0 10.6 -10.6 15.0 -6.2 15.0 0.0 15.0 6.2 10.6 10.6 6.2 15.0 0.0 15.0" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M0.0 -14.85 Q-6.1 -14.85 -10.5 -10.5 -14.85 -6.1 -14.85 0.0 -14.85 6.1 -10.5 10.45 -6.1 14.85 0.0 14.85 6.1 14.85 10.5 10.45 14.85 6.1 14.85 0.0 14.85 -6.1 10.5 -10.5 6.2 -14.85 0.0 -14.85 M0.0 16.05 Q-6.65 16.05 -11.35 11.35 -16.05 6.65 -16.05 0.0 -16.05 -6.65 -11.35 -11.35 -6.65 -16.05 0.0 -16.05 6.65 -16.05 11.35 -11.35 16.05 -6.65 16.05 0.0 16.05 6.65 11.35 11.35 6.65 16.05 0.0 16.05" fill="#ffffff" fill-rule="evenodd" stroke="none"/>
+    </g>
+    <g id="shape3" transform="matrix(1.0, 0.0, 0.0, 1.0, 8.65, 6.3)">
+      <path d="M-4.7 4.45 Q-3.45 3.65 -1.85 1.9 L-0.25 3.5 -2.85 6.2 Q-3.35 6.95 -4.15 6.7 -5.0 6.55 -5.2 5.75 -5.35 4.9 -4.7 4.45 M-3.95 6.3 L-3.35 6.05 -3.1 5.5 Q-3.1 5.15 -3.35 4.9 -3.6 4.65 -3.95 4.65 -4.35 4.65 -4.5 4.9 L-4.75 5.5 -4.6 6.05 -3.95 6.3 M5.15 4.65 Q5.55 5.0 5.55 5.45 L5.3 6.05 4.4 6.7 Q3.9 6.95 3.55 6.45 L-3.15 -0.8 -2.0 -1.95 -0.65 -0.7 4.0 3.55 5.15 4.65 M-4.25 -1.1 L-4.85 -1.0 Q-5.35 -0.85 -5.45 -0.3 L-5.75 0.2 -6.45 0.95 Q-6.7 1.2 -6.95 0.95 L-8.5 -0.7 Q-8.75 -0.85 -8.5 -1.2 L-7.65 -2.05 -7.25 -2.2 Q-6.75 -2.3 -6.65 -2.75 L-6.5 -3.5 -6.4 -3.75 -5.1 -5.1 -4.75 -5.25 Q-4.45 -5.1 -4.0 -5.45 -2.45 -6.35 -1.25 -6.3 0.0 -6.2 0.75 -5.2 L0.85 -4.95 0.85 -4.7 0.4 -4.5 -0.25 -4.75 Q-1.45 -5.05 -1.95 -4.5 L-2.45 -3.5 -2.45 -3.05 Q-2.35 -2.8 -2.65 -2.55 L-3.85 -1.3 -4.25 -1.1 M7.75 -4.35 Q8.0 -3.35 7.75 -2.5 7.5 -1.5 7.0 -1.05 6.5 -0.6 5.35 -0.45 L4.3 -0.45 Q3.6 -0.5 3.0 0.15 L2.25 0.9 0.6 -0.6 1.5 -1.5 Q2.1 -2.05 2.0 -2.85 1.85 -4.0 2.35 -5.0 2.8 -6.0 4.15 -6.2 L5.25 -6.2 6.0 -6.1 4.15 -4.35 Q3.8 -4.0 3.8 -3.55 3.8 -3.2 4.1 -2.8 L4.65 -2.35 Q5.25 -2.0 5.8 -2.5 L7.75 -4.35" fill="#ffffff" fill-rule="evenodd" stroke="none"/>
+    </g>
+  </defs>
+</svg>

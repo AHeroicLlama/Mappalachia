@@ -17,10 +17,18 @@ namespace Mappalachia
 
 		static readonly Regex validIconFolder = new Regex(extractPath + @"\\DefineSprite_[0-9]{2,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
+		static readonly string workshopMarker = "PublicWorkshopMarker"; // This icon needs special handling
+
 		static void Main()
 		{
-			// Cleanup prior run, removing any potentially unneeded icons
-			Directory.Delete(outputPath, true);
+			// Cleanup prior run, removing all icons (Except the special case)
+			foreach (string file in Directory.GetFiles(outputPath))
+			{
+				if (Path.GetFileName(file) != workshopMarker + fileExtension)
+				{
+					File.Delete(file);
+				}
+			}
 
 			List<string> mapMarkers = new List<string>();
 
@@ -64,6 +72,14 @@ namespace Mappalachia
 				if (!requiredMarkerNames.ContainsKey(iconName))
 				{
 					Console.WriteLine("Skipping " + iconName);
+					continue;
+				}
+
+				// Don't copy this marker because we don't want to overwrite some edits manually made to it
+				if (iconName == workshopMarker)
+				{
+					Console.WriteLine($"\n## {workshopMarker} is required but we will not copy the file!\n");
+					requiredMarkerNames[workshopMarker] = true; // Mark as checked
 					continue;
 				}
 

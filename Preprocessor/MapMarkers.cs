@@ -7,6 +7,7 @@ namespace Mappalachia
 	{
 		static readonly string bloodEagleMarker = "BloodEagleMarker";
 		static readonly string cultistMarker = "CultistMarker";
+		static readonly string workshopMarker = "PublicWorkshopMarker";
 		static readonly string fastTravelBadString = "Fast Travel Point: ";
 		static readonly string fissureSite = "Fissure Site";
 		static readonly Regex validMapMarkerName = new Regex("^(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
@@ -41,6 +42,27 @@ namespace Mappalachia
 			{ "Lucky Hole Mine", cultistMarker },
 			{ "Moth-Home", cultistMarker },
 			{ "Sacrament", cultistMarker },
+			{ "Abandoned Bog Town", workshopMarker },
+			{ "Beckley Mine Exhibit", workshopMarker },
+			{ "Berkeley Springs West", workshopMarker },
+			{ "Billings Homestead", workshopMarker },
+			{ "Charleston Landfill", workshopMarker },
+			{ "Converted Munitions Factory", workshopMarker },
+			{ "Dabney Homestead", workshopMarker },
+			{ "Dolly Sods Campground", workshopMarker },
+			{ "Federal Disposal Field HZ-21", workshopMarker },
+			{ "Gorge Junkyard", workshopMarker },
+			{ "Grafton Steel Yard", workshopMarker },
+			{ "Hemlock Holes Maintenance", workshopMarker },
+			{ "Lakeside Cabins", workshopMarker },
+			{ "Monongah Power Plant Yard", workshopMarker },
+			{ "Mount Blair", workshopMarker },
+			{ "Poseidon Energy Plant Yard", workshopMarker },
+			{ "Red Rocket Mega Stop", workshopMarker },
+			{ "Sunshine Meadows Industrial Farm", workshopMarker },
+			{ "Thunder Mt. Power Plant Yard", workshopMarker },
+			{ "Tyler County Dirt Track", workshopMarker },
+			{ "Wade Airport", workshopMarker },
 			{ "Foundation", "HammerWingMarker" },
 			{ "Dagger's Den", "CaveMarker" },
 			{ "Ohio River Adventures", "SkullRingMarker" },
@@ -97,7 +119,7 @@ namespace Mappalachia
 			List<CSVRow> newFileRows = new List<CSVRow>();
 
 			// Monongah workshop (003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it - manually add back
-			newFileRows.Add(new CSVRow("0025DA15,Monongah Power Plant Yard,IndustrialStacksMarker,44675.304687,73761.358125", newFileHeader));
+			newFileRows.Add(new CSVRow($"0025DA15,Monongah Power Plant Yard,{workshopMarker},44675.304687,73761.358125", newFileHeader));
 
 			foreach (CSVRow row in positionData.rows)
 			{
