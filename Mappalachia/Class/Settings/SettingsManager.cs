@@ -51,6 +51,7 @@ namespace Mappalachia
 			settings.Add("[Map]");
 			settings.Add("brightness=" + SettingsMap.brightness);
 			settings.Add("appalachiaBackground=" + SettingsMap.background);
+			settings.Add("highlightWater=" + BoolToIntStr(SettingsMap.highlightWater));
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 			settings.Add("showMapLabels=" + BoolToIntStr(SettingsMap.showMapLabels));
 			settings.Add("showMapIcons=" + BoolToIntStr(SettingsMap.showMapIcons));
@@ -181,6 +182,10 @@ namespace Mappalachia
 									throw new ArgumentException("Invalid background image.");
 							}
 
+							break;
+
+						case "highlightWater":
+							SettingsMap.highlightWater = StrIntToBool(value);
 							break;
 
 						case "grayScale":

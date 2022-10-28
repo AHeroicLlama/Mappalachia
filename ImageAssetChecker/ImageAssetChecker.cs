@@ -11,6 +11,7 @@ namespace ImageAssetChecker
 		static readonly int expectedImageResolution = 4096;
 
 		static readonly string backgroundImageFileType = ".jpg";
+		static readonly string maskImageFileType = ".png";
 		static readonly string mapMarkerImageFileType = ".svg";
 
 		static readonly string cellDirectoryPath = "cell\\";
@@ -113,10 +114,13 @@ namespace ImageAssetChecker
 					ValidateImageFile(expectedFile, isWorldSpace);
 				}
 
-				// Appalachia only - extra bespoke check for military map
+				// Appalachia only - extra bespoke checks
 				if (space.GetEditorId() == "Appalachia")
 				{
 					expectedFile = imageDirectory + subDirectory + editorId + "_military" + backgroundImageFileType;
+					ValidateImageFile(expectedFile, isWorldSpace);
+
+					expectedFile = imageDirectory + subDirectory + editorId + "_waterMask" + maskImageFileType;
 					ValidateImageFile(expectedFile, isWorldSpace);
 				}
 			}

@@ -77,7 +77,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="xcopy $(ProjectDir)\data\* $(TargetDir)\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(TargetDir)\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.jpg $(TargetDir)\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.svg $(TargetDir)\img\ /y /s&#xD;&#xA;&#xD;&#xA;xcopy $(ProjectDir)\data\* $(ProjectDir)\publish\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(ProjectDir)\publish\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.jpg $(ProjectDir)\publish\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.svg $(ProjectDir)\publish\img\ /y /s" />
+	  <Exec Command="xcopy $(ProjectDir)\data\* $(TargetDir)\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(TargetDir)\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.jpg $(TargetDir)\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.png $(TargetDir)\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.svg $(TargetDir)\img\ /y /s&#xD;&#xA;&#xD;&#xA;xcopy $(ProjectDir)\data\* $(ProjectDir)\publish\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(ProjectDir)\publish\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.jpg $(ProjectDir)\publish\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.png $(ProjectDir)\publish\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.svg $(ProjectDir)\publish\img\ /y /s" />
 	</Target>
 
 </Project>

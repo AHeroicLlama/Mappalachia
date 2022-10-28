@@ -92,6 +92,7 @@ namespace Mappalachia
 			UpdateTopographColorBands(false);
 			UpdateClusterWeb(false);
 			UpdateMapBackgroundSettings(false);
+			UpdateMapHighlightWater(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
 			UpdateLegendStyle(false);
@@ -385,6 +386,7 @@ namespace Mappalachia
 				"Strange Encounter",
 				"Ginseng",
 				"Silo Exterior",
+				"Pumpkin",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
@@ -409,7 +411,8 @@ namespace Mappalachia
 		{
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			backgroundImageMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
+			backgroundImageMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
+			highlightWaterMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
 		}
 
 		// Update the visiblity of the lock type column in the results view, given current settings
@@ -636,6 +639,17 @@ namespace Mappalachia
 				default:
 					throw new Exception("Unsupported background type " + SettingsMap.background);
 			}
+
+			if (reDraw)
+			{
+				DrawMap(true);
+			}
+		}
+
+		// Update check mark in the UI with current MapSettings for Highlight Water
+		void UpdateMapHighlightWater(bool reDraw)
+		{
+			highlightWaterMenuItem.Checked = SettingsMap.highlightWater;
 
 			if (reDraw)
 			{
@@ -1084,6 +1098,13 @@ namespace Mappalachia
 			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
+		// Map > Highlight Water - Toggle rendering of water mask overlay on background
+		void Map_HighlightWater(object sender, EventArgs e)
+		{
+			SettingsMap.highlightWater = !SettingsMap.highlightWater;
+			UpdateMapHighlightWater(SettingsSpace.CurrentSpaceIsAppalachia());
+		}
+
 		// Map > Brightness... - Open the brightness adjust form
 		void Map_Brightness(object sender, EventArgs e)
 		{
@@ -1161,6 +1182,7 @@ namespace Mappalachia
 
 			SettingsMap.brightness = SettingsMap.brightnessDefault;
 			SettingsMap.background = SettingsMap.backgroundDefault;
+			SettingsMap.highlightWater = SettingsMap.highlightWaterDefault;
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapLabels = SettingsMap.showMapLabelsDefault;
 			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
@@ -1175,6 +1197,7 @@ namespace Mappalachia
 
 			UpdateMapBackgroundSettings(false);
 			UpdateMapGrayscale(false);
+			UpdateMapHighlightWater(false);
 			UpdateMapMarker(false);
 			UpdateLegendStyle(false);
 

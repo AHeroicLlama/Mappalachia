@@ -30,6 +30,7 @@ namespace Mappalachia
 		static readonly string databaseFileName = "mappalachia.db";
 		static readonly string imgFileNameAppalachiaMilitary = "Appalachia_military.jpg";
 		static readonly string imgFileNameAppalachiaSatellite = "Appalachia_render.jpg";
+		static readonly string imgFileNameAppalachiaWaterMask = "Appalachia_waterMask.png";
 		static readonly string MapFileExtension = ".jpg";
 		static readonly string settingsFileName = "mappalachia_prefs.ini";
 		static readonly string mapMarkerFileExtension = ".svg";
@@ -42,6 +43,7 @@ namespace Mappalachia
 
 		static Image imageAppalachiaMilitary;
 		static Image imageAppalachiaSatellite;
+		static Image imageAppalachiaWaterMask;
 
 		static string gameVersion;
 
@@ -259,7 +261,7 @@ namespace Mappalachia
 		public static Image GetImageForSpace(Space space)
 		{
 			// Return the non-standard maps if this is Appalachia and they requested it
-			if (space.editorID.Equals("Appalachia"))
+			if (space.IsAppalachia())
 			{
 				if (SettingsMap.background == SettingsMap.Background.Military)
 				{
@@ -348,6 +350,24 @@ namespace Mappalachia
 			}
 
 			return new Bitmap(imageAppalachiaSatellite);
+		}
+
+		public static Image GetImageAppalachiaWaterMask()
+		{
+			if (imageAppalachiaWaterMask == null)
+			{
+				try
+				{
+					imageAppalachiaWaterMask = Image.FromFile(imgFolder + imgFileNameAppalachiaWaterMask);
+				}
+				catch (Exception e)
+				{
+					Notify.Error("Mappalachia was unable to read the file '" + imgFileNameAppalachiaWaterMask + "'.\n" + genericExceptionHelpText + e);
+					imageAppalachiaWaterMask = EmptyMapBackground();
+				}
+			}
+
+			return new Bitmap(imageAppalachiaWaterMask);
 		}
 
 		public static Image EmptyMapBackground()

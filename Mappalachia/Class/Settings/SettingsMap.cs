@@ -27,6 +27,7 @@
 		public static readonly bool showMapLabelsDefault = false;
 		public static readonly bool showMapIconsDefault = false;
 		public static readonly LegendMode legendModeDefault = LegendMode.Compact;
+		public static readonly bool highlightWaterDefault = false;
 
 		// User-definable settings
 		public static int brightness = brightnessDefault;
@@ -35,6 +36,7 @@
 		public static bool showMapLabels = showMapLabelsDefault;
 		public static bool showMapIcons = showMapIconsDefault;
 		public static LegendMode legendMode = legendModeDefault;
+		public static bool highlightWater = highlightWaterDefault;
 
 		public static bool ExtendedMargin()
 		{

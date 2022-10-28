@@ -3,12 +3,12 @@
 The complete mapping tool for Fallout 76.<br/>
 Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 game world.
 
-[![GitHub all releases](https://img.shields.io/github/downloads/AHeroicLlama/Mappalachia/total)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br>
-![GitHub](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
-[![GitHub](https://img.shields.io/github/v/release/aheroicllama/mappalachia)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br/>
-![GitHub](https://img.shields.io/badge/game%20version-1.7.1.19-green)<br/>
-[![GitHub](https://img.shields.io/discord/1029499482028646400?label=Discord&logo=Discord)](https://discord.gg/Z2GMpm6rad)<br/>
-[![GitHub](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)
+[![Latest release](https://img.shields.io/github/downloads/AHeroicLlama/Mappalachia/total)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br>
+![](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
+[![Latest release](https://img.shields.io/github/v/release/aheroicllama/mappalachia)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br/>
+![](https://img.shields.io/badge/game%20version-1.7.1.19-green)<br/>
+[![Discord](https://img.shields.io/discord/1029499482028646400?label=Discord&logo=Discord)](https://discord.gg/Z2GMpm6rad)<br/>
+[![License](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)
 
 ## Download and Installation
 

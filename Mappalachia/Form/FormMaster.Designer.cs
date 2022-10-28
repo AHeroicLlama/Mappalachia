@@ -41,6 +41,7 @@ namespace Mappalachia
 			this.normalBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.militaryBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.satelliteBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.highlightWaterMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -198,6 +199,7 @@ namespace Mappalachia
             this.updateMapToolStripMenuItem,
             this.viewMenuItem,
             this.backgroundImageMenuItem,
+            this.highlightWaterMenuItem,
             this.brightnessMenuItem,
             this.grayscaleMenuItem,
             this.mapMarkersMenuItem,
@@ -259,6 +261,15 @@ namespace Mappalachia
 			this.satelliteBackgroundMenuItem.Text = "Satellite";
 			this.satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Appalachia world.";
 			this.satelliteBackgroundMenuItem.Click += new System.EventHandler(this.Map_Image_Satellite);
+			// 
+			// highlightWaterMenuItem
+			// 
+			this.highlightWaterMenuItem.Name = "highlightWaterMenuItem";
+			this.highlightWaterMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+			this.highlightWaterMenuItem.Size = new System.Drawing.Size(216, 22);
+			this.highlightWaterMenuItem.Text = "Highlight Water";
+			this.highlightWaterMenuItem.ToolTipText = "Overlays a colored mask to highlight bodies of water.";
+			this.highlightWaterMenuItem.Click += new System.EventHandler(this.Map_HighlightWater);
 			// 
 			// brightnessMenuItem
 			// 
@@ -1409,7 +1420,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(9, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(5, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1689,6 +1700,7 @@ namespace Mappalachia
 		private System.Windows.Forms.Button buttonRegionSearch;
 		private System.Windows.Forms.TextBox textBoxRegionSearch;
 		private System.Windows.Forms.ToolStripMenuItem fillRegionsMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem highlightWaterMenuItem;
 	}
 }
 

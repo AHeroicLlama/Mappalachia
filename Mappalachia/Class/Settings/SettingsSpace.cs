@@ -26,6 +26,11 @@ namespace Mappalachia
 			return GetSpace() == null || GetSpace().IsWorldspace();
 		}
 
+		public static bool CurrentSpaceIsAppalachia()
+		{
+			return GetSpace() == null || GetSpace().IsAppalachia();
+		}
+
 		public static string GetCurrentFormID()
 		{
 			return GetSpace().formID;

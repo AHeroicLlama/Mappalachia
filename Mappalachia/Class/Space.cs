@@ -45,7 +45,7 @@ namespace Mappalachia
 
 			// Manual calibration. Unlike cells which will dynamically resize based on their contents
 			// the 'overworld' has a set map size, so plots must be scaled to fit
-			if (editorID == "Appalachia")
+			if (IsAppalachia())
 			{
 				xOffset = 2000f;
 				yOffset = 2000f;
@@ -115,6 +115,11 @@ namespace Mappalachia
 		public bool IsWorldspace()
 		{
 			return isWorldspace;
+		}
+
+		public bool IsAppalachia()
+		{
+			return editorID == "Appalachia";
 		}
 	}
 }

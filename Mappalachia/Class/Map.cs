@@ -120,6 +120,12 @@ namespace Mappalachia
 			backgroundLayer = IOManager.GetImageForSpace(SettingsSpace.GetSpace());
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
+
+			if (SettingsMap.highlightWater && SettingsSpace.CurrentSpaceIsAppalachia())
+			{
+				graphic.DrawImage(IOManager.GetImageAppalachiaWaterMask(), new Point(0, 0));
+			}
+
 			float b = SettingsMap.brightness / 100f;
 
 			// Apply grayscale color matrix, or just apply brightness adjustments
@@ -572,7 +578,7 @@ namespace Mappalachia
 				}
 
 				FormMaster.UpdateProgressBar(0.8, "Rendering clusters...");
-				DrawMapClusters(clusters, imageGraphic);
+				DrawClusters(clusters, imageGraphic);
 			}
 
 			// Create a new wider bitmap with graphic, then print the legend to that and store it as the final image
@@ -634,7 +640,7 @@ namespace Mappalachia
 			}
 		}
 
-		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
+		static void DrawClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
 			if (clusters.Count == 0)
 			{
