@@ -57,10 +57,7 @@ namespace Mappalachia
 				throw new System.Exception("MapCluster finalPolygon/finalCentroid already generated!");
 			}
 
-			Polygon convexHull = polygon.GetConvexHull();
-			convexHull.ReduceResolution(SettingsPlotCluster.polygonPointReductionRange);
-			finalPolygon = convexHull;
-
+			finalPolygon = polygon.GetConvexHull();
 			finalCentroid = finalPolygon.GetCentroid();
 		}
 	}

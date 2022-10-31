@@ -90,7 +90,6 @@ namespace Mappalachia
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
 			UpdateTopographColorBands(false);
-			UpdateClusterWeb(false);
 			UpdateMapBackgroundSettings(false);
 			UpdateMapHighlightWater(false);
 			UpdateMapGrayscale(false);
@@ -602,16 +601,6 @@ namespace Mappalachia
 			}
 
 			if (reDraw && SettingsPlot.IsTopographic())
-			{
-				DrawMap(false);
-			}
-		}
-
-		void UpdateClusterWeb(bool reDraw)
-		{
-			showClusterWebMenuItem.Checked = SettingsPlotCluster.clusterWeb;
-
-			if (reDraw && SettingsPlot.IsCluster())
 			{
 				DrawMap(false);
 			}
@@ -1325,18 +1314,11 @@ namespace Mappalachia
 			UpdateTopographColorBands(true);
 		}
 
-		// Plot Settings > Cluster Settings > Cluster Range...
-		void Plot_ClusterSettings_ClusterRange(object sender, EventArgs e)
+		// Plot Settings > Cluster Settings...
+		void Plot_ClusterSettings(object sender, EventArgs e)
 		{
 			FormSetClusterRange formSetCluster = new FormSetClusterRange();
 			formSetCluster.ShowDialog();
-		}
-
-		// Plot Settings > Cluster Settings > Show Cluster Web
-		void Plot_ClusterSettings_CluserWeb(object sender, EventArgs e)
-		{
-			SettingsPlotCluster.clusterWeb = !SettingsPlotCluster.clusterWeb;
-			UpdateClusterWeb(true);
 		}
 
 		// Plot Settings > Draw Volumes - Toggle drawing volumes

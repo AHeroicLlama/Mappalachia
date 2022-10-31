@@ -80,8 +80,6 @@ namespace Mappalachia
 			this.resolution512MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resolution1024MenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clusterSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.clusterRangeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.showClusterWebMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fillRegionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -609,30 +607,11 @@ namespace Mappalachia
 			// 
 			// clusterSettingsMenuItem
 			// 
-			this.clusterSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clusterRangeMenuItem,
-            this.showClusterWebMenuItem});
 			this.clusterSettingsMenuItem.Name = "clusterSettingsMenuItem";
 			this.clusterSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
-			this.clusterSettingsMenuItem.Text = "Cluster Settings";
+			this.clusterSettingsMenuItem.Text = "Cluster Settings...";
 			this.clusterSettingsMenuItem.ToolTipText = "Settings related to Cluster plot mode.";
-			// 
-			// clusterRangeMenuItem
-			// 
-			this.clusterRangeMenuItem.Name = "clusterRangeMenuItem";
-			this.clusterRangeMenuItem.Size = new System.Drawing.Size(175, 22);
-			this.clusterRangeMenuItem.Text = "Set Cluster Range...";
-			this.clusterRangeMenuItem.ToolTipText = "Set the size of clusters.";
-			this.clusterRangeMenuItem.Click += new System.EventHandler(this.Plot_ClusterSettings_ClusterRange);
-			// 
-			// showClusterWebMenuItem
-			// 
-			this.showClusterWebMenuItem.Name = "showClusterWebMenuItem";
-			this.showClusterWebMenuItem.Size = new System.Drawing.Size(175, 22);
-			this.showClusterWebMenuItem.Text = "Show Cluster Web";
-			this.showClusterWebMenuItem.ToolTipText = "See more info by drawing lines from each point to their cluster parent, creating " +
-    "a \"web\".";
-			this.showClusterWebMenuItem.Click += new System.EventHandler(this.Plot_ClusterSettings_CluserWeb);
+			this.clusterSettingsMenuItem.Click += new System.EventHandler(this.Plot_ClusterSettings);
 			// 
 			// drawVolumesMenuItem
 			// 
@@ -1420,7 +1399,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			this.pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			this.pictureBoxMapPreview.Location = new System.Drawing.Point(5, 0);
+			this.pictureBoxMapPreview.Location = new System.Drawing.Point(4, 0);
 			this.pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			this.pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1672,8 +1651,6 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem modeClusterMenuItem;
 		private System.Windows.Forms.Label labelProgressBar;
 		private System.Windows.Forms.ToolStripMenuItem clusterSettingsMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem showClusterWebMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem clusterRangeMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem quickSaveMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem backgroundImageMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem normalBackgroundMenuItem;

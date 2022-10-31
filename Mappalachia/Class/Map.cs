@@ -45,11 +45,13 @@ namespace Mappalachia
 		static readonly int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
+		static readonly Brush brushRed = new SolidBrush(Color.Red);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
 		static readonly Font mapLabelFont = new Font(fontCollection.Families[0], mapLabelFontSize, GraphicsUnit.Pixel);
 		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
 		static readonly RectangleF infoTextBounds = new RectangleF(legendIconX, 0, mapDimension - legendIconX, mapDimension);
 		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
+		static readonly StringFormat stringFormatBottomCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
 		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
@@ -649,30 +651,25 @@ namespace Mappalachia
 
 			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), SettingsPlotCluster.polygonLineThickness);
 			Pen clusterWebPen = new Pen(SettingsPlotStyle.GetSecondColor(), SettingsPlotCluster.webLineThickness);
-			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
 
-			// Steps through MapClusters and generates the reduced convex hull and centroid
-			foreach (MapCluster cluster in clusters)
+			// Drop clusters not within weight
+			clusters = clusters.Where(c => c.GetMemberWeight() >= SettingsPlotCluster.minClusterWeight).ToList();
+
+			if (clusters.Count == 0)
 			{
-				cluster.GenerateFinalRenderProperties();
+				string warning = $"Cluster settings too restrictive! No clusters match current criteria.\n\n\n\n";
+				imageGraphic.DrawString(warning, legendFont, brushRed, infoTextBounds, stringFormatBottomCenter);
 			}
+
+			// Step through clusters and generate the convex hull and centroid
+			clusters.ForEach(c => c.GenerateFinalRenderProperties());
 
 			// Draw the cluster shapes
 			foreach (MapCluster cluster in clusters)
 			{
-				float boundingCircleRadius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, cluster.finalPolygon.GetFurthestVertDist(cluster.finalCentroid));
-
-				if ((cluster.finalPolygon.GetArea() >= SettingsPlotCluster.minimumPolygonArea || boundingCircleRadius > SettingsPlotCluster.maximumCircleRadius) && cluster.finalPolygon.GetVerts().Count > 1)
+				if (cluster.finalPolygon.GetVerts().Count > 1)
 				{
 					imageGraphic.DrawPolygon(clusterPolygonPen, cluster.finalPolygon.GetVerts().ToArray());
-				}
-
-				// Convex hull too small or single point - draw a bounding circle (not necessarily minimum bounding, circle is centered on polygon centroid)
-				else
-				{
-					imageGraphic.DrawEllipse(
-						clusterPolygonPen,
-						new RectangleF(cluster.finalCentroid.X - boundingCircleRadius, cluster.finalCentroid.Y - boundingCircleRadius, boundingCircleRadius * 2, boundingCircleRadius * 2));
 				}
 
 				// Draw the 'cluster web'
@@ -688,29 +685,22 @@ namespace Mappalachia
 			// Now label the cluster weights
 			foreach (MapCluster cluster in clusters)
 			{
-				double weight = cluster.GetMemberWeight();
+				string weight = Math.Round(cluster.GetMemberWeight(), 1).ToString();
+				int fontSize = Math.Max(Math.Min(SettingsPlotCluster.fontSize, SettingsPlotCluster.clusterRange), SettingsPlotCluster.minFontSize);
+				Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
-				if (weight == 1)
-				{
-					continue;
-				}
-
-				string printWeight = Math.Round(weight, 1).ToString();
-				float fontSize = Math.Min(Math.Max(SettingsPlotCluster.minFontSize, mapLabelFontSize * (float)(weight / averageWeight)), Math.Max(Math.Min(SettingsPlotCluster.maxFontSize, SettingsPlotCluster.clusterRange), SettingsPlotCluster.minFontSize));
-				Font sizedFont = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
-
-				SizeF textBounds = imageGraphic.MeasureString(printWeight, sizedFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
+				SizeF textBounds = imageGraphic.MeasureString(weight, font, new SizeF(256, 128));
 				RectangleF textBox = new RectangleF(
 						cluster.finalCentroid.X - (textBounds.Width / 2),
 						cluster.finalCentroid.Y - (textBounds.Height / 2),
 						textBounds.Width, textBounds.Height);
 
 				// Draw Drop shadow first
-				imageGraphic.DrawString(printWeight, sizedFont, dropShadowBrush,
+				imageGraphic.DrawString(weight, font, dropShadowBrush,
 					new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
 
 				// Draw the count
-				imageGraphic.DrawString(printWeight, sizedFont, SettingsPlotCluster.weightBrush, textBox, stringFormatCenter);
+				imageGraphic.DrawString(weight, font, SettingsPlotCluster.weightBrush, textBox, stringFormatCenter);
 			}
 
 			GC.Collect();
@@ -721,7 +711,7 @@ namespace Mappalachia
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 			Space currentSpace = SettingsSpace.GetSpace();
 
-			string infoText = $"(Game version {IOManager.GetGameVersion()}) - Made with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			string infoText = $"Game version {IOManager.GetGameVersion()} | Made with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
 			if (!currentSpace.IsWorldspace())
 			{
@@ -729,6 +719,11 @@ namespace Mappalachia
 					((SettingsSpace.minHeightPerc != 0 || SettingsSpace.maxHeightPerc != 100) ?
 						$", Height: {SettingsSpace.minHeightPerc}% - {SettingsSpace.maxHeightPerc}%" : string.Empty) +
 						"\n" + infoText;
+			}
+
+			if (SettingsPlot.IsCluster() && SettingsPlotCluster.minClusterWeight > 1)
+			{
+				infoText = $"(Clusters larger than {SettingsPlotCluster.minClusterWeight - 1})\n" + infoText;
 			}
 
 			imageGraphic.DrawString(infoText, legendFont, brushWhite, infoTextBounds, stringFormatBottomRight);
