@@ -53,3 +53,6 @@ dotnet_diagnostic.SA1124.severity = none
 
 # IDE0053: Use expression body for lambda expressions
 dotnet_diagnostic.IDE0053.severity = none
+
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none

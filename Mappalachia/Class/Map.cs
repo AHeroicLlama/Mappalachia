@@ -708,12 +708,14 @@ namespace Mappalachia
 				RectangleF textBox = new RectangleF(
 						cluster.finalCentroid.X - (textBounds.Width / 2),
 						cluster.finalCentroid.Y - (textBounds.Height / 2),
-						textBounds.Width, textBounds.Height);
+						textBounds.Width,
+						textBounds.Height);
 
 				RectangleF textBoxDropShadow = new RectangleF(
 						textBox.X + fontDropShadowOffset,
 						textBox.Y + fontDropShadowOffset,
-						textBox.Width, textBox.Height);
+						textBox.Width,
+						textBox.Height);
 
 				imageGraphic.DrawString(weight, font, dropShadowBrush, textBoxDropShadow, stringFormatCenter);
 				imageGraphic.DrawString(weight, font, SettingsPlotCluster.weightBrush, textBox, stringFormatCenter);

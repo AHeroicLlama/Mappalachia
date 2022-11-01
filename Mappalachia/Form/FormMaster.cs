@@ -1013,7 +1013,7 @@ namespace Mappalachia
 
 		// Draws the map, and if a draw is in progress, queues the job up to run immediately after the current draw job
 		// Will only stack up to one additional draw job
-		public static async void QueueDraw(bool drawBaseLayer)
+		public static void QueueDraw(bool drawBaseLayer)
 		{
 			if (isDrawing)
 			{
