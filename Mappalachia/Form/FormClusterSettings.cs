@@ -9,6 +9,7 @@ namespace Mappalachia
 		readonly int initialWeightCapValue;
 		readonly bool initialWebValue;
 		bool usedLiveUpdate;
+		bool initialized = false;
 
 		public FormSetClusterRange()
 		{
@@ -32,36 +33,7 @@ namespace Mappalachia
 			initialWebValue = SettingsPlotCluster.clusterWeb;
 
 			usedLiveUpdate = false;
-		}
-
-		private void TrackBarClusterRange_Leave(object sender, EventArgs e)
-		{
-			LiveUpdate();
-		}
-
-		private void TrackBarClusterRange_KeyUp(object sender, KeyEventArgs e)
-		{
-			LiveUpdate();
-		}
-
-		private void TrackBarClusterRange_MouseUp(object sender, MouseEventArgs e)
-		{
-			LiveUpdate();
-		}
-
-		private void TrackBarMinClusterWeight_Leave(object sender, EventArgs e)
-		{
-			LiveUpdate();
-		}
-
-		private void TrackBarMinClusterWeight_KeyUp(object sender, KeyEventArgs e)
-		{
-			LiveUpdate();
-		}
-
-		private void TrackBarMinClusterWeight_MouseUp(object sender, MouseEventArgs e)
-		{
-			LiveUpdate();
+			initialized = true;
 		}
 
 		private void CheckBoxDrawClusterWeb_CheckedChanged(object sender, EventArgs e)
@@ -75,16 +47,31 @@ namespace Mappalachia
 			LiveUpdate();
 		}
 
+		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)
+		{
+			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
+			LiveUpdate();
+		}
+
+		private void TrackBarMinClusterWeight_ValueChanged(object sender, EventArgs e)
+		{
+			labelMinClusterWeight.Text = $"Min. Cluster Weight ({trackBarMinClusterWeight.Value})";
+			LiveUpdate();
+		}
+
 		void LiveUpdate()
 		{
-			if (SettingsPlotCluster.liveUpdate && SettingsPlot.IsCluster() && FormMaster.GetNonRegionLegendItems().Count > 0)
+			// If the form is still loading or liveUpdate is off or it's not in cluster mode or there are no clusters to draw
+			if (!initialized || !SettingsPlotCluster.liveUpdate || !SettingsPlot.IsCluster() || FormMaster.GetNonRegionLegendItems().Count == 0)
 			{
-				SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
-				SettingsPlotCluster.minClusterWeight = trackBarMinClusterWeight.Value;
-				SettingsPlotCluster.clusterWeb = checkBoxDrawClusterWeb.Checked;
-				usedLiveUpdate = true;
-				FormMaster.DrawMap(false);
+				return;
 			}
+
+			SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
+			SettingsPlotCluster.minClusterWeight = trackBarMinClusterWeight.Value;
+			SettingsPlotCluster.clusterWeb = checkBoxDrawClusterWeb.Checked;
+			usedLiveUpdate = true;
+			FormMaster.QueueDraw(false);
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)
@@ -97,7 +84,7 @@ namespace Mappalachia
 
 			if (SettingsPlot.IsCluster())
 			{
-				FormMaster.DrawMap(false);
+				FormMaster.QueueDraw(false);
 			}
 		}
 
@@ -113,14 +100,10 @@ namespace Mappalachia
 			}
 		}
 
-		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)
+		// Offset the window to the left so it doesn't obscure the map preview when it loads
+		private void FormSetClusterRange_Load(object sender, EventArgs e)
 		{
-			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
-		}
-
-		private void TrackBarMinClusterWeight_ValueChanged(object sender, EventArgs e)
-		{
-			labelMinClusterWeight.Text = $"Min. Cluster Weight ({trackBarMinClusterWeight.Value})";
+			Location = new System.Drawing.Point(Location.X - (Width / 2), Location.Y);
 		}
 	}
 }

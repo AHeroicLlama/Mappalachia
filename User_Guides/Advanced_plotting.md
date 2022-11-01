@@ -37,22 +37,28 @@ You can adjust the resolution of the heatmap by navigating to Plot Settings > He
 The resolution indicates the number of grid squares which comprise the heatmap and hence the precision. You may want to play with the resolution to get the best from your map. Too high a resolution can result in the map just being a series of separate dots, and too low of a resolution can reduce the precision of your map and hide any bright spots.
 
 ## Cluster mode
-Cluster mode groups nearby points into bounded areas or 'clusters' and labels them with the number of entities inside the cluster. It provides similar utility to heatmap mode, however while providing much more precision and information.<br/>
-In cluster mode all items in the legend are plotted together, and there is no distinction between different items. The color used for the clusters is the first color in the palette.
+Cluster mode groups nearby points into bounded areas or 'clusters' and labels them with the number of entities inside the cluster. It provides additional control and precision versus heatmap mode.<br/>
+In cluster mode all items in the legend are plotted together, and there is no distinction between different items. The color used for the clusters is the first color in the palette.<br/>
+Cluster settings can be controlled under Plot Settings > Cluster Settings... Here you can fine tune the maximum size and minimum weight desired for exactly your use case.
 
 ### Cluster range
-You may adjust the sizes of clusters in Plot Settings > Cluster Settings > Cluster Range... Adjust the slider or enter a number to set the minimum distance for entities to the origin point of their cluster.<br/>
-Tick the 'Live Update' checkbox to cause Mappalachia to update the preview whenever you adjust the value.<br/>
+In Cluster Settings, adjust the top slider to set the maximum size of a cluster. It is given that smaller clusters offer more precision.<br/>
+
+### Min Cluster weight
+Again in Cluster Settings, you may use the other slider to adjust the minimum cluster weight. (The weight being the expected count of entities within the cluster). Clusters with a weight lower than the minimum are hidden. This feature makes it easier to identify and narrow down on just the highest value clusters.
 
 ### Cluster web
-By checking Plot Settings > Cluster Settings > Show Cluster Web, you may draw a "web" on the cluster. The web is used to provide further information about the points contained in the cluster. It is formed by drawing a line from every point to the origin of it's cluster.<br/>
-The color used for the lines of the web is the second color in the color pallette.<br/>
+By checking 'Cluster Web' in Cluster Settings, you may draw a "web" on the cluster. The web is used to provide further information about the points contained in the cluster. It is formed by drawing a line from every point to the origin of it's cluster.<br/>
+The color used for the lines of the web is the second color in the color palette.<br/>
+
+### Live Update
+Tick the 'Live Update' checkbox to cause Mappalachia to update the preview whenever you adjust any cluster values.<br/>
 
 ## Draw Volumes
 Draw volumes mode is located at Plot Settings > Draw Volumes, and is on by default.<br/>
 This setting tells Mappalachia to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
 For example, by plotting 'NoCampAllowedTrigger' with 'Draw Volumes' enabled, you will see more precisely *where* you can't build CAMPs, including the precise extents of these areas.<br/>
-Volumes below a certain area will still be drawn as an icon, in order for them to remain visible. Additionally for performance reasons, some very large volumes will also be represented by an icon.<br/>
+For performance reasons, some very large volumes will just be represented by an icon.<br/>
 Draw Volumes applies to Icon and Topography mode.
 
 ## Fill Regions

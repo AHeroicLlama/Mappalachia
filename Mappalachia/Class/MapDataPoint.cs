@@ -30,12 +30,6 @@ namespace Mappalachia
 			this.boundY = boundY;
 			this.boundZ = boundZ;
 			this.rotationZ = rotationZ;
-
-			// Special case to ensure Line volumes (Default width 16 units) have enough pixel width to still be visible
-			if (primitiveShape == "Line" && boundY == 16)
-			{
-				this.boundY = Map.minVolumeDimension;
-			}
 		}
 
 		void Initialize(int x, int y, int z)

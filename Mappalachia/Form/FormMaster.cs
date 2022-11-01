@@ -19,6 +19,8 @@ namespace Mappalachia
 
 		static FormMaster self;
 		static bool isDrawing = false;
+		static bool followUpDrawRequested = false; // Somebody requested us to re-draw *again* after the current draw
+		static bool followUpDrawBaseLayer = false;
 
 		static CancellationTokenSource mapDrawCancTokenSource;
 		static CancellationToken mapDrawCancToken;
@@ -137,7 +139,22 @@ namespace Mappalachia
 			{
 				self.UpdatePlotModeUI();
 				self.UpdateCellorWorldExclusiveState();
+
+				// If somebody raised the flag to followup this convening draw with another
+				if (followUpDrawRequested)
+				{
+					DrawMap(followUpDrawBaseLayer);
+
+					// New draw commenced - lower the flag
+					followUpDrawRequested = false;
+					followUpDrawBaseLayer = false;
+				}
 			}
+		}
+
+		public static bool IsDrawing()
+		{
+			return isDrawing;
 		}
 
 		public static void UpdateUIAsync(Action action)
@@ -375,7 +392,7 @@ namespace Mappalachia
 				"Flora",
 				"LPI_Food",
 				"LvlCritter",
-				"LPI_Drink_Alcohol",
+				"Alcohol",
 				"Wind Chimes",
 				"Pre War Money",
 				"LPI_Chem",
@@ -384,7 +401,6 @@ namespace Mappalachia
 				"Alien Blaster",
 				"Strange Encounter",
 				"Ginseng",
-				"Silo Exterior",
 				"Pumpkin",
 			};
 
@@ -993,6 +1009,21 @@ namespace Mappalachia
 
 			int earliestIndex = Array.IndexOf(takenIndices, false);
 			return earliestIndex < 0 ? n : earliestIndex;
+		}
+
+		// Draws the map, and if a draw is in progress, queues the job up to run immediately after the current draw job
+		// Will only stack up to one additional draw job
+		public static async void QueueDraw(bool drawBaseLayer)
+		{
+			if (isDrawing)
+			{
+				followUpDrawRequested = true;
+				followUpDrawBaseLayer = drawBaseLayer;
+			}
+			else
+			{
+				DrawMap(drawBaseLayer);
+			}
 		}
 
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot

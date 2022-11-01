@@ -8,8 +8,8 @@ namespace Mappalachia
 		public static readonly int polygonLineThickness = 3;
 		public static readonly int webLineThickness = 1;
 		public static readonly int fontSize = 55;
-		public static readonly int minFontSize = 30;
-		public static readonly Brush weightBrush = new SolidBrush(Color.FromArgb(255, Color.White)); // Brush used to paint weight text
+		public static readonly int minFontSize = 40;
+		public static readonly Brush weightBrush = new SolidBrush(Color.FromArgb(170, Color.White)); // Brush used to paint weight text
 
 		public static readonly int minRange = 1;
 		public static readonly int maxRange = 2000;

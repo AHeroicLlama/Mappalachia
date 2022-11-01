@@ -45,20 +45,16 @@
 			// 
 			// trackBarClusterRange
 			// 
-			this.trackBarClusterRange.LargeChange = 10;
 			this.trackBarClusterRange.Location = new System.Drawing.Point(159, 12);
 			this.trackBarClusterRange.Maximum = 2000;
 			this.trackBarClusterRange.Minimum = 1;
 			this.trackBarClusterRange.Name = "trackBarClusterRange";
 			this.trackBarClusterRange.Size = new System.Drawing.Size(475, 45);
-			this.trackBarClusterRange.SmallChange = 5;
 			this.trackBarClusterRange.TabIndex = 1;
 			this.trackBarClusterRange.TickFrequency = 100;
+			this.toolTip.SetToolTip(this.trackBarClusterRange, "Adjust the maximum size of clusters.");
 			this.trackBarClusterRange.Value = 100;
 			this.trackBarClusterRange.ValueChanged += new System.EventHandler(this.TrackBarClusterRange_ValueChanged);
-			this.trackBarClusterRange.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarClusterRange_KeyUp);
-			this.trackBarClusterRange.Leave += new System.EventHandler(this.TrackBarClusterRange_Leave);
-			this.trackBarClusterRange.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarClusterRange_MouseUp);
 			// 
 			// buttonOK
 			// 
@@ -91,7 +87,7 @@
 			this.checkBoxliveUpdate.Size = new System.Drawing.Size(88, 19);
 			this.checkBoxliveUpdate.TabIndex = 7;
 			this.checkBoxliveUpdate.Text = "Live Update";
-			this.toolTip.SetToolTip(this.checkBoxliveUpdate, "Constantly re-draw the map as you change the range.");
+			this.toolTip.SetToolTip(this.checkBoxliveUpdate, "Constantly re-draw the map as you change cluster values.");
 			this.checkBoxliveUpdate.UseVisualStyleBackColor = true;
 			this.checkBoxliveUpdate.CheckedChanged += new System.EventHandler(this.CheckBoxliveUpdate_CheckedChanged);
 			// 
@@ -104,11 +100,9 @@
 			this.trackBarMinClusterWeight.Size = new System.Drawing.Size(475, 45);
 			this.trackBarMinClusterWeight.TabIndex = 4;
 			this.trackBarMinClusterWeight.TickFrequency = 10;
+			this.toolTip.SetToolTip(this.trackBarMinClusterWeight, "Adjust the minimum weight of clusters.");
 			this.trackBarMinClusterWeight.Value = 100;
 			this.trackBarMinClusterWeight.ValueChanged += new System.EventHandler(this.TrackBarMinClusterWeight_ValueChanged);
-			this.trackBarMinClusterWeight.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarMinClusterWeight_KeyUp);
-			this.trackBarMinClusterWeight.Leave += new System.EventHandler(this.TrackBarMinClusterWeight_Leave);
-			this.trackBarMinClusterWeight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarMinClusterWeight_MouseUp);
 			// 
 			// labelClusterRange
 			// 
@@ -119,6 +113,7 @@
 			this.labelClusterRange.Size = new System.Drawing.Size(115, 15);
 			this.labelClusterRange.TabIndex = 0;
 			this.labelClusterRange.Text = "Cluster Range (1234)";
+			this.toolTip.SetToolTip(this.labelClusterRange, "Adjust the maximum size of clusters.");
 			// 
 			// labelMinClusterWeight
 			// 
@@ -129,6 +124,7 @@
 			this.labelMinClusterWeight.Size = new System.Drawing.Size(141, 15);
 			this.labelMinClusterWeight.TabIndex = 3;
 			this.labelMinClusterWeight.Text = "Min. Cluster Weight (123)";
+			this.toolTip.SetToolTip(this.labelMinClusterWeight, "Adjust the minimum weight of clusters.");
 			// 
 			// checkBoxDrawClusterWeb
 			// 
@@ -139,6 +135,7 @@
 			this.checkBoxDrawClusterWeb.Size = new System.Drawing.Size(120, 19);
 			this.checkBoxDrawClusterWeb.TabIndex = 6;
 			this.checkBoxDrawClusterWeb.Text = "Draw Cluster Web";
+			this.toolTip.SetToolTip(this.checkBoxDrawClusterWeb, "Draw a \'web\' identifying the cluster\'s member entities.");
 			this.checkBoxDrawClusterWeb.UseVisualStyleBackColor = true;
 			this.checkBoxDrawClusterWeb.CheckedChanged += new System.EventHandler(this.CheckBoxDrawClusterWeb_CheckedChanged);
 			// 
@@ -162,6 +159,7 @@
 			this.Name = "FormSetClusterRange";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Cluster Settings";
+			this.Load += new System.EventHandler(this.FormSetClusterRange_Load);
 			((System.ComponentModel.ISupportInitialize)(this.trackBarClusterRange)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarMinClusterWeight)).EndInit();
 			this.ResumeLayout(false);
