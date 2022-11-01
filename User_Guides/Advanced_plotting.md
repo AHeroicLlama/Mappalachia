@@ -21,7 +21,7 @@ Heatmap mode is more appropriate for large collections of items such as flora - 
 ### Weighting
 Heatmap mode is uniquely powerful because it allows us to display a range of brightnesses or 'weight' per item. We can leverage this to assign a weight to mapped items.<br/>
 Therefore, you will find that when mapping Scrap or NPCs in Heatmap mode, each item will not have equal weight, but instead the brightness they generate on the heatmap will represent the amount of scrap they give, or the spawn chance of the NPC.<br/>
-For example, standard search items will all have a weight of 1.0, but an NPC  with a 50% spawn chance will have just a 0.5 weight, also for example, a junk item containing 1 lead will have a weight of 1.0, but a junk item containing 3 lead will have a weight of 3.0.<br/>
+For example, standard search items will all have a weight of 1.0, but an NPC with a 50% spawn chance will have just a 0.5 weight, also for example, a junk item containing 1 lead will have a weight of 1.0, but a junk item containing 3 lead will have a weight of 3.0.<br/>
 For this reason, Heatmap mode is vastly superior when mapping junk, as standard Icon mode cannot imply the value or 'weight' of items, but only if they exist or not.<br/>
 It is also great for NPC mapping as it doesn't just map the *potential* spawn amounts but actually the *expected* spawn amounts.
 

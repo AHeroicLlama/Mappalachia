@@ -4,7 +4,7 @@
 * You have already [built the database](Ingest.md)
 * A copy of [Besthesda Archive Extractor](https://www.nexusmods.com/fallout4/mods/78/?) (BAE)
 * An installation of [JPEXS Free Flash Decompiler](https://github.com/jindrapetrik/jpexs-decompiler/releases/latest)
-    * Which will itself require [Java](https://www.java.com/en/download/)
+	* Which will itself require [Java](https://www.java.com/en/download/)
 * An installation of Visual Studio
 
 ### Note
