@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 
 namespace Mappalachia
 {
@@ -7,12 +6,6 @@ namespace Mappalachia
 	class SettingsSpace
 	{
 		public const int heightPrecision = 25; // The definition (percentage increments) used in incrementing the height bounds and visualizing too
-
-		// Settings for pseudo-plot-icons used to draw space outline
-		public const int outlineWidth = 3;
-		public const int outlineSize = 25;
-		public static readonly Color outlineColor = Color.White;
-		public const int outlineAlpha = 200;
 
 		static Space currentSpace;
 

@@ -119,14 +119,25 @@ namespace Mappalachia
 
 			if (type == Type.Standard)
 			{
-				// Return the editorID, plus the displayName (if it exists), plus the lock levels (if they're relevant)
-				return (string.IsNullOrEmpty(displayName) ?
-							editorID :
-							editorID + " (" + displayName + ")") +
-						(string.IsNullOrEmpty(label) ? string.Empty : $" ({label})") +
-						(GetLockRelevant() ?
-							" (" + string.Join(", ", DataHelper.ConvertLockLevel(filteredLockTypes, false)) + ")" :
-							string.Empty);
+				string lockRemark = string.Empty;
+
+				if (GetLockRelevant())
+				{
+					// If the filtered types are all but "Not locked"
+					if (filteredLockTypes.OrderBy(e => e).SequenceEqual(Database.GetLockTypes().Where(l => !string.IsNullOrEmpty(l)).OrderBy(e => e)))
+					{
+						lockRemark = " (Locked)";
+					}
+					else
+					{
+						lockRemark = " (" + string.Join(", ", DataHelper.ConvertLockLevel(filteredLockTypes, false)) + ")";
+					}
+				}
+
+				string labelRemark = !string.IsNullOrEmpty(label) ? $" ({label})" : string.Empty;
+				string nameRemark = !string.IsNullOrEmpty(displayName) ? $" ({displayName})" : string.Empty;
+
+				return editorID + nameRemark + labelRemark + lockRemark;
 			}
 			else
 			{
