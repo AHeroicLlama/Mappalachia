@@ -5,8 +5,8 @@ namespace BackgroundRenderer
 {
 	public partial class BackgroundRenderer
 	{
-		static readonly string magickPath = "C:\\Program Files\\ImageMagick-7.1.0-Q16-HDRI\\magick.exe";
-		static readonly string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
+		const string magickPath = "C:\\Program Files\\ImageMagick-7.1.0-Q16-HDRI\\magick.exe";
+		const string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
 		static readonly string thisAppPath = Directory.GetCurrentDirectory();
 		static readonly string mappalachiaRoot = thisAppPath + "..\\..\\..\\..\\..\\";
 		static readonly string databasePath = Path.GetFullPath(mappalachiaRoot + "Mappalachia\\data\\mappalachia.db");
@@ -14,14 +14,14 @@ namespace BackgroundRenderer
 		static readonly string outputDirectory = Path.GetFullPath(imageDirectory + "cell\\");
 		static readonly string utilsRenderPath = Path.GetFullPath(mappalachiaRoot + "FO76Utils\\render.exe");
 
-		static readonly double maxScale = 16;
-		static readonly double minScale = 0.02;
+		const double maxScale = 16;
+		const double minScale = 0.02;
 
-		static readonly int targetRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
-		static readonly int nativeResolution = 4096;
-		static readonly int SSAA = 2; // 0,1,2
-		static readonly bool keepDDSRender = false;
-		static readonly int jpegQuality = 85;
+		const int targetRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
+		const int nativeResolution = 4096;
+		const int SSAA = 2; // 0,1,2
+		const bool keepDDSRender = false;
+		const int jpegQuality = 85;
 
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()

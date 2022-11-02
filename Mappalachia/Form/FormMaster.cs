@@ -25,18 +25,18 @@ namespace Mappalachia
 		static CancellationTokenSource mapDrawCancTokenSource;
 		static CancellationToken mapDrawCancToken;
 
-		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
+		const int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
 
-		static readonly float designDPI = 96; // The DPI which the form was designed for
+		const float designDPI = 96; // The DPI which the form was designed for
 
 		public FormMaster()
 		{
 			if (self != null)
 			{
-				throw new Exception("Cannot create multiple instances of the master form!");
+				throw new InvalidOperationException("Cannot create multiple instances of the master form!");
 			}
 
 			self = this;
@@ -642,7 +642,7 @@ namespace Mappalachia
 					break;
 
 				default:
-					throw new Exception("Unsupported background type " + SettingsMap.background);
+					throw new NotSupportedException("Unsupported background type " + SettingsMap.background);
 			}
 
 			if (reDraw)
@@ -703,7 +703,7 @@ namespace Mappalachia
 					break;
 
 				default:
-					throw new Exception("Unknown legend stlye " + SettingsMap.legendMode);
+					throw new NotSupportedException("Unknown legend style " + SettingsMap.legendMode);
 			}
 
 			if (reDraw)
@@ -892,7 +892,7 @@ namespace Mappalachia
 
 				// If the label column is not already visible, but this item has a label, set it to visible
 				// (Does not act until end of grid fill to avoid flashing)
-				if (!labelColumnShouldBeShown && mapItem.label != string.Empty)
+				if (!labelColumnShouldBeShown && !string.IsNullOrEmpty(mapItem.label))
 				{
 					labelColumnShouldBeShown = true;
 				}
@@ -1885,7 +1885,7 @@ namespace Mappalachia
 		}
 
 		// Pick up scroll wheel events and apply them to zoom the map preview
-		protected override void OnMouseWheel(MouseEventArgs mouseEvent)
+		protected override void OnMouseWheel(MouseEventArgs e)
 		{
 			double minZoom = Map.mapDimension * Map.minZoomRatio;
 			double maxZoom = Map.mapDimension * Map.maxZoomRatio;
@@ -1903,7 +1903,7 @@ namespace Mappalachia
 				(int)((viewPortCenterY - location.Y) * (Map.mapDimension / (float)height)));
 
 			// Calculate how much to zoom
-			float zoomRatio = 1 + (mouseEvent.Delta / 1500f);
+			float zoomRatio = 1 + (e.Delta / 1500f);
 
 			// Calculate the new dimensions once zoomed, given zoom limits
 			int newWidth = (int)Math.Max(Math.Min(maxZoom, width * zoomRatio), minZoom);

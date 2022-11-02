@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -16,11 +17,6 @@ namespace Mappalachia
 		public MapCluster(MapDataPoint mapDataPoint)
 		{
 			AddMember(mapDataPoint);
-		}
-
-		public Polygon GetPolygon()
-		{
-			return polygon;
 		}
 
 		public void AddMember(MapDataPoint mapDataPoint)
@@ -54,7 +50,7 @@ namespace Mappalachia
 		{
 			if (finalPolygon != null)
 			{
-				throw new System.Exception("MapCluster finalPolygon/finalCentroid already generated!");
+				throw new InvalidOperationException("MapCluster finalPolygon/finalCentroid already generated!");
 			}
 
 			finalPolygon = polygon.GetConvexHull();

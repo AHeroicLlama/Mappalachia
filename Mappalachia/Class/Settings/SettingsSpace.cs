@@ -6,13 +6,13 @@ namespace Mappalachia
 	// Settings relating to Space selection
 	class SettingsSpace
 	{
-		public static readonly int heightPrecision = 25; // The definition (percentage increments) used in incrementing the height bounds and visualizing too
+		public const int heightPrecision = 25; // The definition (percentage increments) used in incrementing the height bounds and visualizing too
 
 		// Settings for pseudo-plot-icons used to draw space outline
-		public static readonly int outlineWidth = 3;
-		public static readonly int outlineSize = 25;
+		public const int outlineWidth = 3;
+		public const int outlineSize = 25;
 		public static readonly Color outlineColor = Color.White;
-		public static readonly int outlineAlpha = 200;
+		public const int outlineAlpha = 200;
 
 		static Space currentSpace;
 

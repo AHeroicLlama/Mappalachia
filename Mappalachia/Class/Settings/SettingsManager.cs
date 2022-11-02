@@ -8,7 +8,7 @@ namespace Mappalachia
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 11;
+		const int prefsIteration = 11;
 
 		// The prefs version on the file we're reading
 		static int incomingPrefsIteration = prefsIteration;
@@ -462,11 +462,11 @@ namespace Mappalachia
 						case "fileType":
 							if (value == "PNG")
 							{
-								SettingsFileExport.fileType = SettingsFileExport.FileType.PNG;
+								SettingsFileExport.fileType = SettingsFileExport.ExtensionType.PNG;
 							}
 							else if (value == "JPEG")
 							{
-								SettingsFileExport.fileType = SettingsFileExport.FileType.JPEG;
+								SettingsFileExport.fileType = SettingsFileExport.ExtensionType.JPEG;
 							}
 							else
 							{

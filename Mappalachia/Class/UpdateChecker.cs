@@ -26,7 +26,7 @@ namespace Mappalachia
 				// Get the latest release info from GitHub API
 				HttpClient httpClient = new HttpClient();
 				httpClient.DefaultRequestHeaders.Add("User-Agent", "AHeroicLlama/Mappalachia");
-				response = await httpClient.GetAsync("https://api.github.com/repos/AHeroicLlama/Mappalachia/releases/latest");
+				response = await httpClient.GetAsync(new Uri("https://api.github.com/repos/AHeroicLlama/Mappalachia/releases/latest"));
 
 				if (!response.IsSuccessStatusCode)
 				{

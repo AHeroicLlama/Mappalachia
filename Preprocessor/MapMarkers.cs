@@ -5,11 +5,11 @@ namespace Mappalachia
 {
 	internal static class MapMarkers
 	{
-		static readonly string bloodEagleMarker = "BloodEagleMarker";
-		static readonly string cultistMarker = "CultistMarker";
-		static readonly string workshopMarker = "PublicWorkshopMarker";
-		static readonly string fastTravelBadString = "Fast Travel Point: ";
-		static readonly string fissureSite = "Fissure Site";
+		const string bloodEagleMarker = "BloodEagleMarker";
+		const string cultistMarker = "CultistMarker";
+		const string workshopMarker = "PublicWorkshopMarker";
+		const string fastTravelBadString = "Fast Travel Point: ";
+		const string fissureSite = "Fissure Site";
 		static readonly Regex validMapMarkerName = new Regex("^(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 		static readonly Regex badMapMarkerNames = new Regex("^(Door|Quest|PowerArmorLoc|PlayerLoc)Marker$");
 		static readonly Regex biomeNames = new Regex("^(The )?(Mire|Cranberry Bog|Forest|Toxic Valley|Savage Divide|Mountain)( Region)?$");

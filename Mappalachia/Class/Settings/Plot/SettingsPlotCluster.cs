@@ -5,21 +5,21 @@ namespace Mappalachia
 	static class SettingsPlotCluster
 	{
 		// Cluster mode tuning
-		public static readonly int polygonLineThickness = 3;
-		public static readonly int webLineThickness = 1;
-		public static readonly int fontSize = 55;
-		public static readonly int minFontSize = 40;
+		public const int polygonLineThickness = 3;
+		public const int webLineThickness = 1;
+		public const int fontSize = 55;
+		public const int minFontSize = 40;
 		public static readonly Brush weightBrush = new SolidBrush(Color.FromArgb(170, Color.White)); // Brush used to paint weight text
 
-		public static readonly int minRange = 1;
-		public static readonly int maxRange = 2000;
-		public static readonly int minWeightCap = 1;
-		public static readonly int maxWeightCap = 200;
+		public const int minRange = 1;
+		public const int maxRange = 2000;
+		public const int minWeightCap = 1;
+		public const int maxWeightCap = 200;
 
-		public static readonly bool defaultClusterWeb = false;
-		public static readonly bool defaultLiveUpdate = true;
-		public static readonly int defaultClusterRange = 100;
-		public static readonly int defaultClusterWeightCap = 3;
+		public const bool defaultClusterWeb = false;
+		public const bool defaultLiveUpdate = true;
+		public const int defaultClusterRange = 100;
+		public const int defaultClusterWeightCap = 3;
 
 		public static bool clusterWeb = defaultClusterWeb;
 		public static bool liveUpdate = defaultLiveUpdate;

@@ -5,19 +5,19 @@ namespace Mappalachia
 {
 	static class MapIconProcessor
 	{
-		static readonly string mappalachiaRoot = @"..\\..\\..\\..\\";
+		const string mappalachiaRoot = @"..\\..\\..\\..\\";
 
-		static readonly string databasePath = mappalachiaRoot + @"Mappalachia\\data\\mappalachia.db";
-		static readonly string mapIconProcessorPath = mappalachiaRoot + @"MapIconProcessor\\";
+		const string databasePath = mappalachiaRoot + @"Mappalachia\\data\\mappalachia.db";
+		const string mapIconProcessorPath = mappalachiaRoot + @"MapIconProcessor\\";
 
-		static readonly string extractPath = mapIconProcessorPath + @"extract\\sprites";
-		static readonly string outputPath = mappalachiaRoot + @"\\Mappalachia\\img\\mapmarker";
-		static readonly string missingMarkersFile = outputPath + @"\\MissingMarkers.error";
-		static readonly string fileExtension = ".svg";
+		const string extractPath = mapIconProcessorPath + @"extract\\sprites";
+		const string outputPath = mappalachiaRoot + @"\\Mappalachia\\img\\mapmarker";
+		const string missingMarkersFile = outputPath + @"\\MissingMarkers.error";
+		const string fileExtension = ".svg";
 
 		static readonly Regex validIconFolder = new Regex(extractPath + @"\\DefineSprite_[0-9]{2,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
-		static readonly string workshopMarker = "PublicWorkshopMarker"; // This icon needs special handling
+		const string workshopMarker = "PublicWorkshopMarker"; // This icon needs special handling
 
 		static void Main()
 		{

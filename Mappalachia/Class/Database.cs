@@ -8,16 +8,10 @@ namespace Mappalachia
 	// Direct SQL queries and their execution
 	static class Database
 	{
-		static readonly SqliteConnection connection;
+		static readonly SqliteConnection connection = IOManager.OpenDatabase();
 
 		static List<string> lockTypes;
 		static List<string> signatures;
-
-		// Instantiate the connection to the database
-		static Database()
-		{
-			connection = IOManager.OpenDatabase();
-		}
 
 		// Return the game version associated to the database
 		public static string GetGameVersion()
@@ -420,7 +414,7 @@ namespace Mappalachia
 				string primitiveShape = reader.GetString(3);
 
 				// Identify if this item has a primitive shape and use the appropriate constructor
-				if (primitiveShape == string.Empty)
+				if (string.IsNullOrEmpty(primitiveShape))
 				{
 					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
 				}

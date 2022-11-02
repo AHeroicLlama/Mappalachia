@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+[assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("Mappalachia")]
 [assembly: AssemblyDescription("The complete mapping tool for Fallout 76.\r\n" +
 	"Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 game world.")]

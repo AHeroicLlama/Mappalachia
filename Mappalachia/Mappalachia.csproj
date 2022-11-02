@@ -10,6 +10,7 @@
 		<ApplicationIcon>favicon_small.ico</ApplicationIcon>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<Platforms>AnyCPU;x86</Platforms>
+		<AnalysisLevel>latest-all</AnalysisLevel>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

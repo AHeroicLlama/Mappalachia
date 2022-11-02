@@ -112,7 +112,7 @@ namespace Mappalachia
 		// forceDefault to ignore user override and return to auto-generated
 		public string GetLegendText(bool forceDefault)
 		{
-			if (!forceDefault && overridingLegendText != string.Empty)
+			if (!forceDefault && !string.IsNullOrEmpty(overridingLegendText))
 			{
 				return overridingLegendText;
 			}
@@ -120,10 +120,10 @@ namespace Mappalachia
 			if (type == Type.Standard)
 			{
 				// Return the editorID, plus the displayName (if it exists), plus the lock levels (if they're relevant)
-				return (displayName == string.Empty ?
+				return (string.IsNullOrEmpty(displayName) ?
 							editorID :
 							editorID + " (" + displayName + ")") +
-						(label == string.Empty ? string.Empty : $" ({label})") +
+						(string.IsNullOrEmpty(label) ? string.Empty : $" ({label})") +
 						(GetLockRelevant() ?
 							" (" + string.Join(", ", DataHelper.ConvertLockLevel(filteredLockTypes, false)) + ")" :
 							string.Empty);
@@ -189,7 +189,7 @@ namespace Mappalachia
 				case Type.Region:
 					return mapItem.uniqueIdentifier == uniqueIdentifier;
 				default:
-					throw new Exception("Unsupported MapItem type " + mapItem.type);
+					return false;
 			}
 		}
 
@@ -205,7 +205,7 @@ namespace Mappalachia
 				case Type.Region:
 					return uniqueIdentifier.GetHashCode();
 				default:
-					throw new Exception("Unsupported MapItem type " + type);
+					return -1;
 			}
 		}
 	}

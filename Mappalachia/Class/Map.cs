@@ -13,37 +13,37 @@ namespace Mappalachia
 	public static class Map
 	{
 		// Hidden settings
-		public static readonly int mapDimension = 4096; // All background images should be this^2
-		public static readonly double maxZoomRatio = 2;
-		public static readonly double minZoomRatio = 0.1;
-		public static readonly double markerIconScale = 1; // The scaling applied to map marker icons
+		public const int mapDimension = 4096; // All background images should be this^2
+		public const double maxZoomRatio = 2;
+		public const double minZoomRatio = 0.1;
+		public const double markerIconScale = 1; // The scaling applied to map marker icons
 
-		static readonly int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
-		static readonly int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
+		const int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
+		const int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
 
 		// Legend text positioning
-		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
-		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
-		static readonly int topographKeyX = 3610;
-		static readonly int legendXMin = 116; // The padding in from the left where legend text begins
-		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
-		static readonly int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
+		const int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
+		public const int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
+		const int topographKeyX = 3610;
+		const int legendXMin = 116; // The padding in from the left where legend text begins
+		const int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
+		const int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension - (legendYPadding * 2)); // Used for MeasureString to calculate legend string dimensions
 
 		// Map marker nudge
 		// Adjust map markers away from their true coordinate so that they're instead more like in-game
 		// In *pixels*
-		static readonly float markerNudgeX = 2f;
-		static readonly float markerNudgeY = 6f;
-		static readonly float markerNudgeScale = 1.005f;
+		const float markerNudgeX = 2f;
+		const float markerNudgeY = 6f;
+		const float markerNudgeScale = 1.005f;
 
 		// Font and text
-		public static readonly int legendFontSize = 48;
-		public static readonly int mapLabelFontSize = 18;
-		static readonly int fontDropShadowOffset = 3;
-		static readonly int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
-		static readonly int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
-		static readonly int warningTextHeight = 200; // height in px off the bottom of image that red warning text is written.
+		public const int legendFontSize = 48;
+		public const int mapLabelFontSize = 18;
+		const int fontDropShadowOffset = 3;
+		const int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
+		const int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
+		const int warningTextHeight = 200; // height in px off the bottom of image that red warning text is written.
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
 		static readonly Brush brushRed = new SolidBrush(Color.Red);
@@ -59,12 +59,12 @@ namespace Mappalachia
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Volume plots
-		public static readonly byte volumeOpacity = 128;
-		public static readonly double minVolumeDimension = 5; // Minimum X or Y dimension in pixels (Those smaller are blown up to this dimension)
+		public const byte volumeOpacity = 128;
+		public const double minVolumeDimension = 5; // Minimum X or Y dimension in pixels (Those smaller are blown up to this dimension)
 
 		// Region plots
-		public static readonly byte regionOpacity = 32;
-		static readonly int regionEdgeThickness = 5;
+		public const byte regionOpacity = 32;
+		const int regionEdgeThickness = 5;
 
 		static Image finalImage;
 		static Image backgroundLayer;
@@ -361,7 +361,7 @@ namespace Mappalachia
 									volumeGraphic.FillEllipse(volumeBrush, new RectangleF(0, 0, (float)Math.Round(point.boundX), (float)Math.Round(point.boundY)));
 									break;
 								default:
-									throw new Exception($"Shape \"{point.primitiveShape}\" is unsupported."); // Verify we've covered all shapes via the database summary.txt
+									throw new NotSupportedException($"Shape \"{point.primitiveShape}\" is unsupported."); // Verify we've covered all shapes via the database summary.txt
 							}
 
 							volumeImage = ImageHelper.RotateImage(volumeImage, point.rotationZ);
