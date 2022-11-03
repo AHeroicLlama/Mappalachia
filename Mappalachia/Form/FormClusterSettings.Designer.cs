@@ -101,7 +101,7 @@
 			this.trackBarMinClusterWeight.TabIndex = 4;
 			this.trackBarMinClusterWeight.TickFrequency = 10;
 			this.toolTip.SetToolTip(this.trackBarMinClusterWeight, "Adjust the minimum weight of clusters.");
-			this.trackBarMinClusterWeight.Value = 100;
+			this.trackBarMinClusterWeight.Value = 3;
 			this.trackBarMinClusterWeight.ValueChanged += new System.EventHandler(this.TrackBarMinClusterWeight_ValueChanged);
 			// 
 			// labelClusterRange

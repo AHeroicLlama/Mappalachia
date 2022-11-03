@@ -173,6 +173,16 @@ namespace Mappalachia
 				{
 					string editorID = reader.GetString(1);
 					string signature = reader.GetString(3);
+					double spawnChance = -1;
+
+					if (string.IsNullOrEmpty(reader.GetString(9)))
+					{
+						spawnChance = DataHelper.GetSpawnChance(signature, editorID);
+					}
+					else
+					{
+						spawnChance = 100 - reader.GetDouble(9);
+					}
 
 					results.Add(new MapItem(
 						Type.Standard,
@@ -181,7 +191,7 @@ namespace Mappalachia
 						reader.GetString(2), // Display Name
 						signature, // Signature
 						allowedLockTypes, // The Lock Types filtered for this set of items.
-						DataHelper.GetSpawnChance(signature, editorID), // Spawn chance
+						spawnChance, // Spawn chance
 						reader.GetInt32(5), // Count
 						reader.GetString(6), // Space EditorID
 						reader.GetString(7), // Space Display Name/location
@@ -391,7 +401,7 @@ namespace Mappalachia
 		}
 
 		// Return the coordinate locations and boundaries of instances of a FormID
-		public static List<MapDataPoint> GetStandardCoords(string formID, string spaceFormID, List<string> filteredLockTypes, string label)
+		public static List<MapDataPoint> GetStandardCoords(string formID, string spaceFormID, List<string> filteredLockTypes, string label, double weight)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
@@ -416,11 +426,12 @@ namespace Mappalachia
 				// Identify if this item has a primitive shape and use the appropriate constructor
 				if (string.IsNullOrEmpty(primitiveShape))
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)) { weight = weight });
 				}
 				else
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7)));
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2),
+						primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7)) { weight = weight });
 				}
 			}
 

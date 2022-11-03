@@ -1,11 +1,11 @@
 -- Create effectively a copy of position_data without coordinates, and joined to editorid and display names, to be used to easily search from
 CREATE TABLE 'Standard_Search' AS
-SELECT referenceFormId, signature as category, lockLevel, amount, pos_space as spaceFormId, label FROM
+SELECT referenceFormId, signature as category, lockLevel, amount, pos_space as spaceFormId, label, percChanceNone FROM
 
 (SELECT referenceFormId, spaceFormId as pos_space, lockLevel, locationFormId, label, count(*) as amount FROM Position_Data GROUP BY pos_space, referenceFormId, lockLevel, label)
 
 INNER JOIN
-(SELECT entityFormID, signature FROM Entity_Info)
+(SELECT entityFormID, signature, percChanceNone FROM Entity_Info)
 ON referenceFormID = entityFormID
 
 INNER JOIN

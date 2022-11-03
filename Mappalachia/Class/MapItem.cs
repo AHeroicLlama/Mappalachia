@@ -71,7 +71,7 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Standard:
-					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes, label);
+					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes, label, weight == -1 ? 1 : weight / 100d);
 					break;
 				case Type.NPC:
 					plots = Database.GetNPCCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), weight);

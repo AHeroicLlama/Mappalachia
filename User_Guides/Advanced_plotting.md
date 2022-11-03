@@ -39,7 +39,8 @@ The resolution indicates the number of grid squares which comprise the heatmap a
 ## Cluster mode
 Cluster mode groups nearby points into bounded areas or 'clusters' and labels them with the number of entities inside the cluster. It provides additional control and precision versus heatmap mode.<br/>
 In cluster mode all items in the legend are plotted together, and there is no distinction between different items. The color used for the clusters is the first color in the palette.<br/>
-Cluster settings can be controlled under Plot Settings > Cluster Settings... Here you can fine tune the maximum size and minimum weight desired for exactly your use case.
+Cluster settings can be controlled under Plot Settings > Cluster Settings... Here you can fine tune the maximum size and minimum weight desired for exactly your use case.<br/>
+The value drawn against the cluster will usually represent the count of items inside it, but for entities with varying spawn chances, it will instead represent the expected count of items given their spawn odds.
 
 ### Cluster range
 In Cluster Settings, adjust the top slider to set the maximum size of a cluster. It is given that smaller clusters offer more precision.<br/>

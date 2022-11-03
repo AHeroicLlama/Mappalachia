@@ -32,8 +32,21 @@ namespace Mappalachia
 			initialWeightCapValue = SettingsPlotCluster.minClusterWeight;
 			initialWebValue = SettingsPlotCluster.clusterWeb;
 
+			UpdateRangeLabel();
+			UpdateWeightLabel();
+
 			usedLiveUpdate = false;
 			initialized = true;
+		}
+
+		void UpdateRangeLabel()
+		{
+			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
+		}
+
+		void UpdateWeightLabel()
+		{
+			labelMinClusterWeight.Text = $"Min. Cluster Weight ({trackBarMinClusterWeight.Value})";
 		}
 
 		private void CheckBoxDrawClusterWeb_CheckedChanged(object sender, EventArgs e)
@@ -49,13 +62,13 @@ namespace Mappalachia
 
 		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)
 		{
-			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
+			UpdateRangeLabel();
 			LiveUpdate();
 		}
 
 		private void TrackBarMinClusterWeight_ValueChanged(object sender, EventArgs e)
 		{
-			labelMinClusterWeight.Text = $"Min. Cluster Weight ({trackBarMinClusterWeight.Value})";
+			UpdateWeightLabel();
 			LiveUpdate();
 		}
 

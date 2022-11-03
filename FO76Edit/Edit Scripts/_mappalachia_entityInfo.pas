@@ -20,7 +20,7 @@ unit _mappalachia_entityInfo;
 		signature : String;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('entityFormID,displayName,editorID,signature'); // Write CSV column headers
+		outputStrings.add('entityFormID,displayName,editorID,signature,percChanceNone'); // Write CSV column headers
 
 		// Rip everything down to the end 'leaves' of the hierarchy tree
 		for i := 0 to ElementCount(targetESM) - 1 do begin
@@ -66,7 +66,8 @@ unit _mappalachia_entityInfo;
 				IntToHex(FixedFormId(item), 8) + ',' +
 				sanitize(bestDisplayName) + ',' +
 				editorId + ',' +
-				signature
+				signature + ',' +
+				GetEditValue(ElementBySignature(item, 'LVLD'))
 			);
 		end;
 	end;
