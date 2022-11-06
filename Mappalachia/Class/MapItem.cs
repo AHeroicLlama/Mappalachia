@@ -17,9 +17,6 @@ namespace Mappalachia
 	// NOT a unique reference to an instance of an item, but rather a description of all of the same type of item.
 	public class MapItem
 	{
-		// Signatures which could be affected by a lock level
-		static readonly List<string> lockableTypes = new List<string> { "CONT", "DOOR", "TERM" };
-
 		public readonly Type type; // What type of search did this item come from and what does it represent
 		public readonly string uniqueIdentifier; // The FormID, Scrap name or NPC name which this MapItem represents
 		public readonly string editorID; // The editorID of the item
@@ -56,7 +53,7 @@ namespace Mappalachia
 		{
 			return
 				type == Type.Standard &&
-				lockableTypes.Contains(signature) &&
+				DataHelper.lockableTypes.Contains(signature) &&
 				!filteredLockTypes.OrderBy(e => e).SequenceEqual(Database.GetLockTypes().OrderBy(e => e));
 		}
 

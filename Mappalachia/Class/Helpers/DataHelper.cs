@@ -190,6 +190,9 @@ namespace Mappalachia
 			"Unknown",
 		};
 
+		// Signatures which could be affected by a lock level
+		public static readonly List<string> lockableTypes = new List<string> { "CONT", "DOOR", "TERM" };
+
 		// Convert a signature to the proper or user-friendly version of itself
 		// Works regardless of the current state of the given signature
 		public static string ConvertSignature(string signature, bool properName)
