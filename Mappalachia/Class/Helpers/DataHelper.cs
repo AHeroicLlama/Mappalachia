@@ -281,7 +281,7 @@ namespace Mappalachia
 		}
 
 		// Indicate the spawn chance of a standard item based on understandings of LVLI
-		public static double GetSpawnChance(string signature, string editorID)
+		public static float GetSpawnChance(string signature, string editorID)
 		{
 			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}

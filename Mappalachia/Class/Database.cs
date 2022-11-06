@@ -173,7 +173,7 @@ namespace Mappalachia
 				{
 					string editorID = reader.GetString(1);
 					string signature = reader.GetString(3);
-					double spawnChance = -1;
+					float spawnChance = -1;
 
 					if (string.IsNullOrEmpty(reader.GetString(9)))
 					{
@@ -181,7 +181,7 @@ namespace Mappalachia
 					}
 					else
 					{
-						spawnChance = 100 - reader.GetDouble(9);
+						spawnChance = 100 - reader.GetFloat(9);
 					}
 
 					results.Add(new MapItem(
@@ -240,7 +240,7 @@ namespace Mappalachia
 					}
 
 					string name = reader.GetString(0);
-					double spawnChance = Math.Round(reader.GetDouble(1) * 100, 2);
+					float spawnChance = (float)Math.Round(reader.GetFloat(1) * 100, 2);
 
 					results.Add(new MapItem(
 						Type.NPC,
@@ -306,7 +306,7 @@ namespace Mappalachia
 				// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 				string signature = DataHelper.ConvertSignature("MISC", false);
 				List<string> lockTypes = GetLockTypes();
-				double spawnChance = DataHelper.GetSpawnChance("MISC", string.Empty);
+				float spawnChance = DataHelper.GetSpawnChance("MISC", string.Empty);
 
 				while (reader.Read())
 				{
@@ -364,7 +364,7 @@ namespace Mappalachia
 				// Collect some variables which will always be the same for every result and are required for an instance of MapItem
 				string signature = DataHelper.ConvertSignature("REGN", false);
 				List<string> lockTypes = GetLockTypes();
-				double spawnChance = DataHelper.GetSpawnChance("REGN", string.Empty);
+				float spawnChance = DataHelper.GetSpawnChance("REGN", string.Empty);
 
 				while (reader.Read())
 				{
@@ -401,7 +401,7 @@ namespace Mappalachia
 		}
 
 		// Return the coordinate locations and boundaries of instances of a FormID
-		public static List<MapDataPoint> GetStandardCoords(string formID, string spaceFormID, List<string> filteredLockTypes, string label, double weight)
+		public static List<MapDataPoint> GetStandardCoords(string formID, string spaceFormID, List<string> filteredLockTypes, string label, float weight)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
@@ -458,7 +458,7 @@ namespace Mappalachia
 			{
 				coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2))
 				{
-					weight = reader.GetDouble(3),
+					weight = reader.GetFloat(3),
 				});
 			}
 

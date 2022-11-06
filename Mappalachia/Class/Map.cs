@@ -60,7 +60,7 @@ namespace Mappalachia
 
 		// Volume plots
 		public const byte volumeOpacity = 128;
-		public const double minVolumeDimension = 15; // Minimum X or Y dimension in pixels (Those smaller are blown up to this dimension)
+		public const float minVolumeDimension = 15f; // Minimum X or Y dimension in pixels (Those smaller are blown up to this dimension)
 
 		// Region plots
 		public const byte regionOpacity = 32;

@@ -23,7 +23,7 @@ namespace Mappalachia
 		public readonly string displayName; // The Display Name of the item where applicable
 		public readonly string signature; // The signature eg MISC
 		public readonly List<string> filteredLockTypes; // The lock types which were selected when this item was picked from the database
-		public readonly double weight; // The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
+		public readonly float weight; // The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
 		public readonly int count; // How many of this item did we find.
 		public readonly string spaceName; // Display Name of the location where this item was placed.
 		public readonly string spaceEditorID; // EditorID of the location
@@ -33,7 +33,7 @@ namespace Mappalachia
 
 		List<MapDataPoint> plots;
 
-		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string spaceEditorID, string spaceName, string label)
+		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, float weight, int count, string spaceEditorID, string spaceName, string label)
 		{
 			this.type = type;
 			this.uniqueIdentifier = uniqueIdentifier;
@@ -68,7 +68,7 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Standard:
-					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes, label, weight == -1 ? 1 : weight / 100d);
+					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes, label, weight == -1 ? 1 : weight / 100f);
 					break;
 				case Type.NPC:
 					plots = Database.GetNPCCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), weight);
