@@ -73,5 +73,12 @@ namespace Mappalachia
 			double boundsWith = GeometryHelper.GetMaximumBoundingBoxWidth(boundX, boundY);
 			return boundsWith * boundsWith;
 		}
+
+		// Return if this volume in isolation is suitable to be drawn as a volume
+		public bool QualifiesForVolumeDraw()
+		{
+			return !string.IsNullOrEmpty(primitiveShape) && // This has a primitive shape assigned
+				GetVolumeBounds() <= Map.volumeRejectThreshold; // This is not too large so as to cause memory problems
+		}
 	}
 }

@@ -90,8 +90,8 @@ namespace Mappalachia
 				point.x = Map.ScaleCoordinateToSpace(point.x, false);
 				point.y = Map.ScaleCoordinateToSpace(point.y, true);
 
-				point.boundX *= currentSpace.scale;
-				point.boundY *= currentSpace.scale;
+				point.boundX = Math.Max(point.boundX * currentSpace.scale, Map.minVolumeDimension);
+				point.boundY = Math.Max(point.boundY * currentSpace.scale, Map.minVolumeDimension);
 			}
 
 			return plots;

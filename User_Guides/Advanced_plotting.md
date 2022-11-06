@@ -59,7 +59,7 @@ Tick the 'Live Update' checkbox to cause Mappalachia to update the preview whene
 Draw volumes mode is located at Plot Settings > Draw Volumes, and is on by default.<br/>
 This setting tells Mappalachia to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
 For example, by plotting 'NoCampAllowedTrigger' with 'Draw Volumes' enabled, you will see more precisely *where* you can't build CAMPs, including the precise extents of these areas.<br/>
-For performance reasons, some very large volumes will just be represented by an icon.<br/>
+Very small volumes will be slightly exaggerated to ensure they remain visible. Additionally for performance reasons, some very large volumes will just be represented by an icon.<br/>
 Draw Volumes applies to Icon and Topography mode.
 
 ## Fill Regions

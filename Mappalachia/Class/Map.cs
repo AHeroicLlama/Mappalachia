@@ -19,7 +19,7 @@ namespace Mappalachia
 		public const double markerIconScale = 1; // The scaling applied to map marker icons
 
 		const int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
-		const int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
+		public const int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
 
 		// Legend text positioning
 		const int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
@@ -60,7 +60,7 @@ namespace Mappalachia
 
 		// Volume plots
 		public const byte volumeOpacity = 128;
-		public const double minVolumeDimension = 5; // Minimum X or Y dimension in pixels (Those smaller are blown up to this dimension)
+		public const double minVolumeDimension = 15; // Minimum X or Y dimension in pixels (Those smaller are blown up to this dimension)
 
 		// Region plots
 		public const byte regionOpacity = 32;
@@ -126,6 +126,7 @@ namespace Mappalachia
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
 
+			// Overlay the water mask if required
 			if (SettingsMap.highlightWater && SettingsSpace.CurrentSpaceIsAppalachia())
 			{
 				graphic.DrawImage(IOManager.GetImageAppalachiaWaterMask(), new Point(0, 0));
@@ -336,15 +337,9 @@ namespace Mappalachia
 							volumeBrush = new SolidBrush(volumeColor);
 						}
 
-						// If this meets all the criteria to be suitable to be drawn as a volume
-						if (!string.IsNullOrEmpty(point.primitiveShape) && // This is a primitive shape at all
-							SettingsPlot.drawVolumes && // Volume drawing is enabled
-							point.GetVolumeBounds() <= volumeRejectThreshold) // This is not too large so as to cause memory problems
+						// If we should draw this as a volume
+						if (SettingsPlot.drawVolumes && point.QualifiesForVolumeDraw())
 						{
-							// Inflate very small bounds slightly so they remain visible, but still representative
-							point.boundX = Math.Max(point.boundX, minVolumeDimension);
-							point.boundY = Math.Max(point.boundY, minVolumeDimension);
-
 							Image volumeImage = new Bitmap((int)Math.Round(point.boundX), (int)Math.Round(point.boundY));
 							Graphics volumeGraphic = Graphics.FromImage(volumeImage);
 							volumeGraphic.SmoothingMode = SmoothingMode.AntiAlias;
@@ -361,7 +356,7 @@ namespace Mappalachia
 									volumeGraphic.FillEllipse(volumeBrush, new RectangleF(0, 0, (float)Math.Round(point.boundX), (float)Math.Round(point.boundY)));
 									break;
 								default:
-									throw new NotSupportedException($"Shape \"{point.primitiveShape}\" is unsupported."); // Verify we've covered all shapes via the database summary.txt
+									throw new NotSupportedException($"Shape \"{point.primitiveShape}\" is unsupported.");
 							}
 
 							volumeImage = ImageHelper.RotateImage(volumeImage, point.rotationZ);
