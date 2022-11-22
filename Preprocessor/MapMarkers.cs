@@ -89,6 +89,7 @@ namespace Mappalachia
 			{ "Lumber Camp", "Sylvie & Sons Logging Camp" },
 			{ "Maybell Pond", "Beckwith Farm" },
 			{ "Mine Shaft No. 9", "AMS Testing Site" },
+			{ "Mire", "Harpers Ferry Tunnel" },
 			{ "Mountain Region", "Colonel Kelly Monument" },
 			{ "Nuked Crater", "Foundation Outpost" },
 			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
@@ -109,7 +110,6 @@ namespace Mappalachia
 			"Fissure Site Theta",
 			"Fissure Site Kappa",
 			"Fissure Site Tau",
-			"Mire",
 		};
 
 		// Pull the MapMarker display text from position data and store it in a new file
