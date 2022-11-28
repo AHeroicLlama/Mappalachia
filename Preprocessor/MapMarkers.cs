@@ -20,6 +20,7 @@ namespace Mappalachia
 			{ "Bloody Frank's", bloodEagleMarker },
 			{ "Cliffwatch", bloodEagleMarker },
 			{ "Crimson Prospect", bloodEagleMarker },
+			{ "Dagger's Den", bloodEagleMarker },
 			{ "Hunter's Ridge", bloodEagleMarker },
 			{ "Ripper Alley", bloodEagleMarker },
 			{ "Rollins Labor Camp", bloodEagleMarker },
@@ -64,7 +65,6 @@ namespace Mappalachia
 			{ "Tyler County Dirt Track", workshopMarker },
 			{ "Wade Airport", workshopMarker },
 			{ "Foundation", "HammerWingMarker" },
-			{ "Dagger's Den", "CaveMarker" },
 			{ "Ohio River Adventures", "SkullRingMarker" },
 			{ "The Crater", "SkullRingMarker" },
 			{ "The Rusty Pick", "LegendaryPurveyorMarker" },
@@ -80,6 +80,7 @@ namespace Mappalachia
 			{ "Burning Mine", "The Burning Mine" },
 			{ "Cranberry Bog Region", "Quarry X3" },
 			{ "Crater Outpost", "Crater Watchstation" },
+			{ "Emmett Mt. Disposal Site", "Emmett Mountain Disposal Site" },
 			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },
 			{ "Hawke's Refuge", "Dagger's Den" },
 			{ "Hornwright Air Cleanser Site #01", "Hornwright Air Purifier Site #01" },
@@ -90,6 +91,7 @@ namespace Mappalachia
 			{ "Maybell Pond", "Beckwith Farm" },
 			{ "Mine Shaft No. 9", "AMS Testing Site" },
 			{ "Mire", "Harpers Ferry Tunnel" },
+			{ "Morgantown Regional Airfield", "Morgantown Airport" },
 			{ "Mountain Region", "Colonel Kelly Monument" },
 			{ "Nuked Crater", "Foundation Outpost" },
 			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
@@ -100,6 +102,7 @@ namespace Mappalachia
 			{ "Schram Homestead", "Silva Homestead" },
 			{ "Sundew Grove 02", "Veiled Sundew Grove" },
 			{ "Sundew Grove 03", "Creekside Sundew Grove" },
+			{ "The Burrows", "The Burrows South" },
 			{ "The Savage Divide", "Monorail Elevator" },
 			{ "World's Largest Teapot", "The Giant Teapot" },
 		};
@@ -163,10 +166,10 @@ namespace Mappalachia
 					label = label.Replace(fastTravelBadString, string.Empty);
 				}
 
-				// Fix fissure site naming - Rename Zeta to Alpha, drop names from all others
+				// Fix fissure site naming - Rename Zeta to Prime, drop names from all others
 				if (label.StartsWith(fissureSite))
 				{
-					label = (label == "Fissure Site Zeta") ? "Fissure Site Alpha" : fissureSite;
+					label = (label == "Fissure Site Zeta") ? "Fissure Site Prime" : fissureSite;
 				}
 
 				// Large collection of incorrect icons - Correct markers after labels have bene corrected

@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.39.4 2022-09-29 15:55:41 a29f9949895322123f7c38fbe94c649a9d6e6c9cd0c3b41c96d694552f26b309
 ==Checksum== 
-91f2b1c80f2eecd13e1a42af18c82d86
+f18efa69c16c7c1f2e984f912f13d5e5
 ==File Size== 
 391729152 
 ==Tables== 
@@ -138,7 +138,7 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
 Appalachia|AirfieldMarker|Horizon's Rest|-20789|31098
-Appalachia|AirfieldMarker|Morgantown Regional Airfield|-19705|101313
+Appalachia|AirfieldMarker|Morgantown Airport|-19705|101313
 Appalachia|AmusementParkMarker|Camden Park|-179637|-77694
 Appalachia|AmusementParkMarker|Lake Reynolds|-65793|-120832
 Appalachia|AmusementParkMarker|Tyler County Fairgrounds|-147238|142782
@@ -149,6 +149,7 @@ Appalachia|BloodEagleMarker|Ammo Dump|91944|99391
 Appalachia|BloodEagleMarker|Bloody Frank's|130070|33913
 Appalachia|BloodEagleMarker|Cliffwatch|-2449|-8936
 Appalachia|BloodEagleMarker|Crimson Prospect|140233|-102150
+Appalachia|BloodEagleMarker|Dagger's Den|119104|7828
 Appalachia|BloodEagleMarker|Hunter's Ridge|-149650|51465
 Appalachia|BloodEagleMarker|Ripper Alley|74686|-65500
 Appalachia|BloodEagleMarker|Rollins Labor Camp|-98042|-115047
@@ -207,7 +208,6 @@ Appalachia|CapitalBuildingMarker|Charleston Capitol Building|-91983|-57828
 Appalachia|CastleMarker|Prickett's Fort|60920|193668
 Appalachia|CaveMarker|Abandoned Waste Dump|185034|26724
 Appalachia|CaveMarker|Carleton Mine|21935|158383
-Appalachia|CaveMarker|Dagger's Den|119104|7828
 Appalachia|CaveMarker|Gauley Mine|-58605|62688
 Appalachia|CaveMarker|Gauley Mine Exit|-47691|71024
 Appalachia|CaveMarker|Hopewell Cave|114047|114129
@@ -283,7 +283,7 @@ Appalachia|FissureMarker|Fissure Site|-120767|-162346
 Appalachia|FissureMarker|Fissure Site|129596|75406
 Appalachia|FissureMarker|Fissure Site|112458|124837
 Appalachia|FissureMarker|Fissure Site|153700|182385
-Appalachia|FissureMarker|Fissure Site Alpha|196808|-165776
+Appalachia|FissureMarker|Fissure Site Prime|196808|-165776
 Appalachia|ForestedMarker|Creekside Sundew Grove|161083|-75948
 Appalachia|ForestedMarker|Deathclaw Island|-173625|131148
 Appalachia|ForestedMarker|Dolly Sods Wilderness|155697|86001
@@ -440,7 +440,7 @@ Appalachia|RadioTowerMarker|Relay Tower HN-B1-12|-6316|34602
 Appalachia|RadioTowerMarker|Relay Tower LW-B1-22|105336|88146
 Appalachia|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
 Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
-Appalachia|RadioactiveAreaMarker|Emmett Mt. Disposal Site|56146|-51808
+Appalachia|RadioactiveAreaMarker|Emmett Mountain Disposal Site|56146|-51808
 Appalachia|RadioactiveAreaMarker|Foundation Outpost|68217|-107034
 Appalachia|RadioactiveAreaMarker|Safe 'n Clean Disposal|13174|-33844
 Appalachia|RaiderSettlementMarker|Bleeding Kate's Grindhouse|-61230|-73357
@@ -458,8 +458,8 @@ Appalachia|SatelliteMarker|National Isolated Radio Array|88244|-37538
 Appalachia|SatelliteMarker|National Radio Astronomy Research Center|112631|-43120
 Appalachia|SatelliteMarker|Sugar Grove|118973|-15204
 Appalachia|SettlementMarker|The Retreat|162313|45172
-Appalachia|SewerMarker|The Burrows|157951|-3957
 Appalachia|SewerMarker|The Burrows North|155171|1920
+Appalachia|SewerMarker|The Burrows South|157951|-3957
 Appalachia|SewerMarker|Watoga Underground|152463|-141432
 Appalachia|SkiResortMarker|Pleasant Valley Ski Resort|47368|15758
 Appalachia|SkiResortMarker|Sunnytop Ski Lanes|85613|131252
