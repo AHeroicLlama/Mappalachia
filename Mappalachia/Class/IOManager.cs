@@ -21,33 +21,35 @@ namespace Mappalachia
 			TempSaveInViewer,
 		}
 
-		static readonly string imgFolder = @"img\";
-		static readonly string dataFolder = @"data\";
-		static readonly string fontFolder = @"font\";
-		static readonly string mapMarkerfolder = imgFolder + @"mapmarker\";
+		const string imgFolder = @"img\";
+		const string dataFolder = @"data\";
+		const string fontFolder = @"font\";
+		const string mapMarkerfolder = imgFolder + @"mapmarker\";
 
-		static readonly string fontFileName = "futura_condensed_bold.ttf";
-		static readonly string databaseFileName = "mappalachia.db";
-		static readonly string imgFileNameAppalachiaMilitary = "Appalachia_military.jpg";
-		static readonly string imgFileNameAppalachiaSatellite = "Appalachia_render.jpg";
-		static readonly string MapFileExtension = ".jpg";
-		static readonly string settingsFileName = "mappalachia_prefs.ini";
-		static readonly string mapMarkerFileExtension = ".svg";
+		const string fontFileName = "futura_condensed_bold.ttf";
+		const string databaseFileName = "mappalachia.db";
+		const string imgFileNameAppalachiaMilitary = "Appalachia_military.jpg";
+		const string imgFileNameAppalachiaSatellite = "Appalachia_render.jpg";
+		const string imgFileNameAppalachiaWaterMask = "Appalachia_waterMask.png";
+		const string MapFileExtension = ".jpg";
+		const string settingsFileName = "mappalachia_prefs.ini";
+		const string mapMarkerFileExtension = ".svg";
 
-		static readonly string tempImageFolder = @"temp\";
-		static readonly string quickSaveFolder = @"QuickSaves\";
+		const string tempImageFolder = @"temp\";
+		const string quickSaveFolder = @"QuickSaves\";
 
 		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
 		static readonly ConcurrentDictionary<string, Image> mapMarkerimageCache = new ConcurrentDictionary<string, Image>();
 
 		static Image imageAppalachiaMilitary;
 		static Image imageAppalachiaSatellite;
+		static Image imageAppalachiaWaterMask;
 
 		static string gameVersion;
 
 		static PrivateFontCollection fontCollection;
 
-		public static readonly string genericExceptionHelpText =
+		public const string genericExceptionHelpText =
 			"To counter common errors, please check that:\n" +
 			"- Any security software has not accidentally removed or quarantined Mappalachia files, or is otherwise interfering.\n" +
 			"- The entire Mappalachia installation has been unzipped into one folder, with the same folder structure it came with.\n" +
@@ -69,7 +71,7 @@ namespace Mappalachia
 				}
 
 				// Expired all codecs without finding correct one
-				throw new Exception("Codec not found in available ImageDecoders");
+				throw new KeyNotFoundException("Codec not found in available ImageDecoders");
 			}
 			catch (Exception e)
 			{
@@ -146,11 +148,11 @@ namespace Mappalachia
 
 				switch (SettingsFileExport.GetFileTypeRecommendation())
 				{
-					case SettingsFileExport.FileType.PNG:
+					case SettingsFileExport.ExtensionType.PNG:
 						imageFormat = ImageFormat.Png;
 						break;
 
-					case SettingsFileExport.FileType.JPEG:
+					case SettingsFileExport.ExtensionType.JPEG:
 						imageFormat = ImageFormat.Jpeg;
 						break;
 
@@ -259,7 +261,7 @@ namespace Mappalachia
 		public static Image GetImageForSpace(Space space)
 		{
 			// Return the non-standard maps if this is Appalachia and they requested it
-			if (space.editorID.Equals("Appalachia"))
+			if (space.IsAppalachia())
 			{
 				if (SettingsMap.background == SettingsMap.Background.Military)
 				{
@@ -348,6 +350,24 @@ namespace Mappalachia
 			}
 
 			return new Bitmap(imageAppalachiaSatellite);
+		}
+
+		public static Image GetImageAppalachiaWaterMask()
+		{
+			if (imageAppalachiaWaterMask == null)
+			{
+				try
+				{
+					imageAppalachiaWaterMask = Image.FromFile(imgFolder + imgFileNameAppalachiaWaterMask);
+				}
+				catch (Exception e)
+				{
+					Notify.Error("Mappalachia was unable to read the file '" + imgFileNameAppalachiaWaterMask + "'.\n" + genericExceptionHelpText + e);
+					imageAppalachiaWaterMask = EmptyMapBackground();
+				}
+			}
+
+			return new Bitmap(imageAppalachiaWaterMask);
 		}
 
 		public static Image EmptyMapBackground()

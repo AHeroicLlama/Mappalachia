@@ -18,15 +18,16 @@
 		}
 
 		// Min/maxes and defaults
-		public static readonly int brightnessMin = 5;
-		public static readonly int brightnessMax = 300;
+		public const int brightnessMin = 5;
+		public const int brightnessMax = 300;
 
-		public static readonly int brightnessDefault = 50;
-		public static readonly Background backgroundDefault = Background.Normal;
-		public static readonly bool grayScaleDefault = false;
-		public static readonly bool showMapLabelsDefault = false;
-		public static readonly bool showMapIconsDefault = false;
-		public static readonly LegendMode legendModeDefault = LegendMode.Compact;
+		public const int brightnessDefault = 50;
+		public const Background backgroundDefault = Background.Normal;
+		public const bool grayScaleDefault = false;
+		public const bool showMapLabelsDefault = false;
+		public const bool showMapIconsDefault = false;
+		public const LegendMode legendModeDefault = LegendMode.Compact;
+		public const bool highlightWaterDefault = false;
 
 		// User-definable settings
 		public static int brightness = brightnessDefault;
@@ -35,6 +36,7 @@
 		public static bool showMapLabels = showMapLabelsDefault;
 		public static bool showMapIcons = showMapIconsDefault;
 		public static LegendMode legendMode = legendModeDefault;
+		public static bool highlightWater = highlightWaterDefault;
 
 		public static bool ExtendedMargin()
 		{

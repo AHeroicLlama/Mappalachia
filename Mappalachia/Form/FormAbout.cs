@@ -25,7 +25,7 @@ namespace Mappalachia
 				if (attributes.Length > 0)
 				{
 					AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-					if (titleAttribute.Title != string.Empty)
+					if (!string.IsNullOrEmpty(titleAttribute.Title))
 					{
 						return titleAttribute.Title;
 					}

@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Drawing;
 
 namespace Mappalachia
 {
 	// Settings relating to Space selection
 	class SettingsSpace
 	{
-		public static readonly int heightPrecision = 25; // The definition (percentage increments) used in incrementing the height bounds and visualizing too
-
-		// Settings for pseudo-plot-icons used to draw space outline
-		public static readonly int outlineWidth = 3;
-		public static readonly int outlineSize = 25;
-		public static readonly Color outlineColor = Color.White;
-		public static readonly int outlineAlpha = 200;
+		public const int heightPrecision = 25; // The definition (percentage increments) used in incrementing the height bounds and visualizing too
 
 		static Space currentSpace;
 
@@ -24,6 +17,11 @@ namespace Mappalachia
 		{
 			// If this is called mid-form load, assumes worldspace
 			return GetSpace() == null || GetSpace().IsWorldspace();
+		}
+
+		public static bool CurrentSpaceIsAppalachia()
+		{
+			return GetSpace() == null || GetSpace().IsAppalachia();
 		}
 
 		public static string GetCurrentFormID()

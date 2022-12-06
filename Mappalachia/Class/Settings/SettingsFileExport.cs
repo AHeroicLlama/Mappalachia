@@ -2,31 +2,31 @@
 {
 	public static class SettingsFileExport
 	{
-		public enum FileType
+		public enum ExtensionType
 		{
 			PNG,
 			JPEG,
 		}
 
-		public static readonly int jpegQualityMin = 20;
-		public static readonly int jpegQualityMax = 100;
-		public static readonly int jpegQualityDefault = 86;
-		public static readonly bool openExplorerDefault = false;
+		public const int jpegQualityMin = 20;
+		public const int jpegQualityMax = 100;
+		public const int jpegQualityDefault = 86;
+		public const bool openExplorerDefault = false;
 
 		public static bool useRecommended = true;
 
-		public static FileType fileType = FileType.JPEG;
+		public static ExtensionType fileType = ExtensionType.JPEG;
 		public static int jpegQuality = jpegQualityDefault;
 		public static bool openExplorer = openExplorerDefault;
 
 		public static bool IsPNG()
 		{
-			return fileType == FileType.PNG;
+			return fileType == ExtensionType.PNG;
 		}
 
 		public static bool IsJPEG()
 		{
-			return fileType == FileType.JPEG;
+			return fileType == ExtensionType.JPEG;
 		}
 
 		// Set the appropriate settings if recommended settings are chosen
@@ -44,9 +44,9 @@
 			}
 		}
 
-		public static FileType GetFileTypeRecommendation()
+		public static ExtensionType GetFileTypeRecommendation()
 		{
-			return FileType.JPEG;
+			return ExtensionType.JPEG;
 		}
 
 		public static void SetUseRecommended(bool newValue)

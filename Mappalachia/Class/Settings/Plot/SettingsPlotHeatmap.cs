@@ -20,7 +20,7 @@ static class SettingsPlotHeatmap
 	}
 
 	// Not user-definable
-	public static readonly int blendDistance = 10;
+	public const int blendDistance = 10;
 
 	// Updating this? Check FormMaster.UpdateHeatMapResolution()
 	public static readonly List<int> validResolutions = new List<int> { 128, 256, 512, 1024 };

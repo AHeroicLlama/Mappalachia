@@ -1,4 +1,4 @@
-SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label
+SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label, percChanceNone
 FROM Standard_Search
 JOIN Space_Info ON Standard_Search.spaceFormId = Space_Info.spaceFormID
 JOIN Entity_Info ON Standard_Search.referenceFormID = Entity_Info.entityFormID

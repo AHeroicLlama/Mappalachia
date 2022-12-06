@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+[assembly: CLSCompliant(true)]
 [assembly: AssemblyTitle("Mappalachia")]
 [assembly: AssemblyDescription("The complete mapping tool for Fallout 76.\r\n" +
 	"Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 game world.")]
@@ -33,6 +35,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.7.4.0")]
-[assembly: AssemblyFileVersion("1.7.4.0")]
+[assembly: AssemblyVersion("1.7.5.0")]
+[assembly: AssemblyFileVersion("1.7.5.0")]
 [assembly: NeutralResourcesLanguage("en-US")]

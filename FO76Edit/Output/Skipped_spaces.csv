@@ -307,6 +307,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0059BCB3,PackInF1SurvivalTentXmasStorageCell,,0
 005B703F,PackInSheltersEntranceBasicCavePropStorageCell,,0
 0066923F,,,0
+006822A3,PackInATXPackInEventFurnitureAppleBarrelStorageCellDUPLICATE000,,0
 00005029,PackInPACKMtnTopCreosoteShrubSmall01StorageCell,,0
 00093B5D,,,0
 00192DC9,PackInBld02Angle45BrickACom01PackInStorageCell,,0
@@ -471,6 +472,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00602DD7,PackInWorkshopFloraPumpkinVine01packinStorageCell,,0
 00634B1B,PackInXPDObjModAssassinationTerritoryPackinStorageCell,,0
 006371C7,PackInATXFirstRespondersFireStationPKINStorageCell,,0
+00683DE7,PackInATXAppleBucketPKINStorageCell,,0
 0003BD6E,,,0
 00044A0E,zCUTWarehouseTestCenter,Testing Center,0
 00084D02,PackInLvlFeralGhoulAmbushMantelPackInStorageCell,,0
@@ -1513,6 +1515,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0055E337,zCUTZachTest05,RobCo Auto-Supply Cache #001,0
 006039B3,,,0
 00620F3B,PackInATXCollectronpackinFETCHStorageCell,,0
+0068C01F,DebugBadenG,,0
 00000025,NavMeshGenCell,,0
 00013DB9,,,0
 0001F7A9,76QASmoke02,Quick Test Cell,0

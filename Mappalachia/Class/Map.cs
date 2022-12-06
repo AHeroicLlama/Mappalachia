@@ -13,53 +13,58 @@ namespace Mappalachia
 	public static class Map
 	{
 		// Hidden settings
-		public static readonly int mapDimension = 4096; // All background images should be this^2
-		public static readonly double maxZoomRatio = 2;
-		public static readonly double minZoomRatio = 0.1;
-		public static readonly double markerIconScale = 1; // The scaling applied to map marker icons
+		public const int mapDimension = 4096; // All background images should be this^2
+		public const double maxZoomRatio = 2;
+		public const double minZoomRatio = 0.1;
+		public const double markerIconScale = 1; // The scaling applied to map marker icons
 
-		static readonly int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
-		static readonly int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
+		const int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
+		public const int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
 
 		// Legend text positioning
-		static readonly int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
-		public static readonly int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
-		static readonly int topographKeyX = 3610;
-		static readonly int legendXMin = 116; // The padding in from the left where legend text begins
-		static readonly int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
-		static readonly int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
+		const int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
+		public const int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
+		const int topographKeyX = 3610;
+		const int legendXMin = 116; // The padding in from the left where legend text begins
+		const int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
+		const int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension - (legendYPadding * 2)); // Used for MeasureString to calculate legend string dimensions
 
 		// Map marker nudge
 		// Adjust map markers away from their true coordinate so that they're instead more like in-game
 		// In *pixels*
-		static readonly float markerNudgeX = 2f;
-		static readonly float markerNudgeY = 6f;
-		static readonly float markerNudgeScale = 1.005f;
+		const float markerNudgeX = 2f;
+		const float markerNudgeY = 6f;
+		const float markerNudgeScale = 1.005f;
 
 		// Font and text
-		public static readonly int legendFontSize = 48;
-		public static readonly int mapLabelFontSize = 18;
-		static readonly int fontDropShadowOffset = 3;
-		static readonly int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
-		static readonly int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
-		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
+		public const int legendFontSize = 48;
+		public const int mapLabelFontSize = 18;
+		const int fontDropShadowOffset = 3;
+		const int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
+		const int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
+		const int warningTextHeight = 200; // height in px off the bottom of image that red warning text is written.
+		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
+		static readonly Brush brushRed = new SolidBrush(Color.Red);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
 		static readonly Font mapLabelFont = new Font(fontCollection.Families[0], mapLabelFontSize, GraphicsUnit.Pixel);
 		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
 		static readonly RectangleF infoTextBounds = new RectangleF(legendIconX, 0, mapDimension - legendIconX, mapDimension);
+		static readonly RectangleF infoTextDropShadowBounds = new RectangleF(infoTextBounds.X + fontDropShadowOffset, infoTextBounds.Y + fontDropShadowOffset, infoTextBounds.Width, infoTextBounds.Height);
+		static readonly RectangleF warningTextBounds = new RectangleF(legendIconX, 0, mapDimension - legendIconX, mapDimension - warningTextHeight);
 		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
+		static readonly StringFormat stringFormatBottomCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
 		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Volume plots
-		public static readonly byte volumeOpacity = 128;
-		public static readonly uint minVolumeDimension = 8; // Minimum X or Y dimension in pixels below which a volume will use a plot icon instead
+		public const byte volumeOpacity = 128;
+		public const float minVolumeDimension = 15f; // Minimum X or Y dimension in pixels (Those smaller are blown up to this dimension)
 
 		// Region plots
-		public static readonly byte regionOpacity = 32;
-		static readonly int regionEdgeThickness = 5;
+		public const byte regionOpacity = 32;
+		const int regionEdgeThickness = 5;
 
 		static Image finalImage;
 		static Image backgroundLayer;
@@ -120,6 +125,13 @@ namespace Mappalachia
 			backgroundLayer = IOManager.GetImageForSpace(SettingsSpace.GetSpace());
 
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
+
+			// Overlay the water mask if required
+			if (SettingsMap.highlightWater && SettingsSpace.CurrentSpaceIsAppalachia())
+			{
+				graphic.DrawImage(IOManager.GetImageAppalachiaWaterMask(), new Point(0, 0));
+			}
+
 			float b = SettingsMap.brightness / 100f;
 
 			// Apply grayscale color matrix, or just apply brightness adjustments
@@ -325,13 +337,10 @@ namespace Mappalachia
 							volumeBrush = new SolidBrush(volumeColor);
 						}
 
-						// If this meets all the criteria to be suitable to be drawn as a volume
-						if (point.primitiveShape != string.Empty && // This is a primitive shape at all
-							SettingsPlot.drawVolumes && // Volume drawing is enabled
-							point.boundX >= minVolumeDimension && point.boundY >= minVolumeDimension && // This is large enough to be visible if drawn as a volume
-							point.GetVolumeBounds() <= volumeRejectThreshold) // This is not too large so as to cause memory problems
+						// If we should draw this as a volume
+						if (SettingsPlot.drawVolumes && point.QualifiesForVolumeDraw())
 						{
-							Image volumeImage = new Bitmap((int)point.boundX, (int)point.boundY);
+							Image volumeImage = new Bitmap((int)Math.Round(point.boundX), (int)Math.Round(point.boundY));
 							Graphics volumeGraphic = Graphics.FromImage(volumeImage);
 							volumeGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 
@@ -340,14 +349,14 @@ namespace Mappalachia
 								case "Box":
 								case "Line":
 								case "Plane":
-									volumeGraphic.FillRectangle(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
+									volumeGraphic.FillRectangle(volumeBrush, new RectangleF(0, 0, (float)Math.Round(point.boundX), (float)Math.Round(point.boundY)));
 									break;
 								case "Sphere":
 								case "Ellipsoid":
-									volumeGraphic.FillEllipse(volumeBrush, new Rectangle(0, 0, (int)point.boundX, (int)point.boundY));
+									volumeGraphic.FillEllipse(volumeBrush, new RectangleF(0, 0, (float)Math.Round(point.boundX), (float)Math.Round(point.boundY)));
 									break;
 								default:
-									continue; // If we reach this, we dropped the drawing of a volume. Verify we've covered all shapes via the database summary.txt
+									throw new NotSupportedException($"Shape \"{point.primitiveShape}\" is unsupported.");
 							}
 
 							volumeImage = ImageHelper.RotateImage(volumeImage, point.rotationZ);
@@ -572,7 +581,7 @@ namespace Mappalachia
 				}
 
 				FormMaster.UpdateProgressBar(0.8, "Rendering clusters...");
-				DrawMapClusters(clusters, imageGraphic);
+				DrawClusters(clusters, imageGraphic);
 			}
 
 			// Create a new wider bitmap with graphic, then print the legend to that and store it as the final image
@@ -634,7 +643,7 @@ namespace Mappalachia
 			}
 		}
 
-		static void DrawMapClusters(List<MapCluster> clusters, Graphics imageGraphic)
+		static void DrawClusters(List<MapCluster> clusters, Graphics imageGraphic)
 		{
 			if (clusters.Count == 0)
 			{
@@ -643,30 +652,33 @@ namespace Mappalachia
 
 			Pen clusterPolygonPen = new Pen(SettingsPlotStyle.GetFirstColor(), SettingsPlotCluster.polygonLineThickness);
 			Pen clusterWebPen = new Pen(SettingsPlotStyle.GetSecondColor(), SettingsPlotCluster.webLineThickness);
-			double averageWeight = clusters.Average(cluster => cluster.GetMemberWeight());
 
-			// Steps through MapClusters and generates the reduced convex hull and centroid
-			foreach (MapCluster cluster in clusters)
+			double largestClusterWeight = clusters.OrderByDescending(c => c.GetMemberWeight()).First().GetMemberWeight();
+
+			// The effective weight cap given we always draw the largest cluster if the min weight was too restrictive
+			// This value will either be the users cap, or the weight of the next "heaviest" cluster, for which we're going to force draw
+			int localWeightCap = (int)Math.Min(largestClusterWeight, SettingsPlotCluster.minClusterWeight);
+
+			// Drop clusters not within local weight cap
+			clusters = clusters.Where(c => c.GetMemberWeight() >= localWeightCap).ToList();
+
+			// If we're resultantly overriding the cap to draw the next best
+			if (localWeightCap < SettingsPlotCluster.minClusterWeight)
 			{
-				cluster.GenerateFinalRenderProperties();
+				string plural = clusters.Count > 1 ? "s" : string.Empty;
+				string warning = $"Min. cluster weight too high. Showing next-largest cluster{plural}.";
+				imageGraphic.DrawString(warning, legendFont, brushRed, warningTextBounds, stringFormatBottomCenter);
 			}
+
+			// Step through clusters and generate the convex hull and centroid
+			clusters.ForEach(c => c.GenerateFinalRenderProperties());
 
 			// Draw the cluster shapes
 			foreach (MapCluster cluster in clusters)
 			{
-				float boundingCircleRadius = Math.Max(SettingsPlotCluster.boundingCircleMinRadius, cluster.finalPolygon.GetFurthestVertDist(cluster.finalCentroid));
-
-				if ((cluster.finalPolygon.GetArea() >= SettingsPlotCluster.minimumPolygonArea || boundingCircleRadius > SettingsPlotCluster.maximumCircleRadius) && cluster.finalPolygon.GetVerts().Count > 1)
+				if (cluster.finalPolygon.GetVerts().Count > 1)
 				{
 					imageGraphic.DrawPolygon(clusterPolygonPen, cluster.finalPolygon.GetVerts().ToArray());
-				}
-
-				// Convex hull too small or single point - draw a bounding circle (not necessarily minimum bounding, circled is centered on polygon centroid)
-				else
-				{
-					imageGraphic.DrawEllipse(
-						clusterPolygonPen,
-						new RectangleF(cluster.finalCentroid.X - boundingCircleRadius, cluster.finalCentroid.Y - boundingCircleRadius, boundingCircleRadius * 2, boundingCircleRadius * 2));
 				}
 
 				// Draw the 'cluster web'
@@ -682,29 +694,26 @@ namespace Mappalachia
 			// Now label the cluster weights
 			foreach (MapCluster cluster in clusters)
 			{
-				double weight = cluster.GetMemberWeight();
+				string weight = Math.Round(cluster.GetMemberWeight(), 1).ToString();
+				int fontSize = Math.Max(Math.Min(SettingsPlotCluster.fontSize, SettingsPlotCluster.clusterRange), SettingsPlotCluster.minFontSize);
+				Font font = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
 
-				if (weight == 1)
-				{
-					continue;
-				}
+				SizeF textBounds = imageGraphic.MeasureString(weight, font, new SizeF(256, 128));
 
-				string printWeight = Math.Round(weight, 1).ToString();
-				float fontSize = Math.Min(Math.Max(SettingsPlotCluster.minFontSize, mapLabelFontSize * (float)(weight / averageWeight)), SettingsPlotCluster.maxFontSize);
-				Font sizedFont = new Font(fontCollection.Families[0], fontSize, GraphicsUnit.Pixel);
-
-				SizeF textBounds = imageGraphic.MeasureString(printWeight, sizedFont, new SizeF(mapLabelMaxWidth, mapLabelMaxWidth));
 				RectangleF textBox = new RectangleF(
 						cluster.finalCentroid.X - (textBounds.Width / 2),
 						cluster.finalCentroid.Y - (textBounds.Height / 2),
-						textBounds.Width, textBounds.Height);
+						textBounds.Width,
+						textBounds.Height);
 
-				// Draw Drop shadow first
-				imageGraphic.DrawString(printWeight, sizedFont, dropShadowBrush,
-					new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
+				RectangleF textBoxDropShadow = new RectangleF(
+						textBox.X + fontDropShadowOffset,
+						textBox.Y + fontDropShadowOffset,
+						textBox.Width,
+						textBox.Height);
 
-				// Draw the count
-				imageGraphic.DrawString(printWeight, sizedFont, SettingsPlotCluster.weightBrush, textBox, stringFormatCenter);
+				imageGraphic.DrawString(weight, font, dropShadowBrush, textBoxDropShadow, stringFormatCenter);
+				imageGraphic.DrawString(weight, font, SettingsPlotCluster.weightBrush, textBox, stringFormatCenter);
 			}
 
 			GC.Collect();
@@ -715,7 +724,7 @@ namespace Mappalachia
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 			Space currentSpace = SettingsSpace.GetSpace();
 
-			string infoText = $"(Game version {IOManager.GetGameVersion()}) - Made with Mappalachia - github.com/AHeroicLlama/Mappalachia";
+			string infoText = $"Game version {IOManager.GetGameVersion()} | Made with Mappalachia - github.com/AHeroicLlama/Mappalachia";
 
 			if (!currentSpace.IsWorldspace())
 			{
@@ -725,6 +734,14 @@ namespace Mappalachia
 						"\n" + infoText;
 			}
 
+			if (SettingsPlot.IsCluster() && FormMaster.GetAllLegendItems().Count > 0)
+			{
+				string weightString = SettingsPlotCluster.minClusterWeight > 1 ? $" weight {SettingsPlotCluster.minClusterWeight}+," : string.Empty;
+				string separator = SettingsSpace.CurrentSpaceIsWorld() ? "\n" : " | ";
+				infoText = $"(Clusters of{weightString} range {SettingsPlotCluster.clusterRange}px){separator}" + infoText;
+			}
+
+			imageGraphic.DrawString(infoText, legendFont, dropShadowBrush, infoTextDropShadowBounds, stringFormatBottomRight);
 			imageGraphic.DrawString(infoText, legendFont, brushWhite, infoTextBounds, stringFormatBottomRight);
 		}
 

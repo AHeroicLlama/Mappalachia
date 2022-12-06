@@ -14,14 +14,14 @@ namespace BackgroundRenderer
 		static readonly string outputDirectory = Path.GetFullPath(imageDirectory + "cell\\");
 		static readonly string utilsRenderPath = Path.GetFullPath(mappalachiaRoot + "FO76Utils\\render.exe");
 
-		static readonly double maxScale = 16;
-		static readonly double minScale = 0.02;
+		const double maxScale = 16;
+		const double minScale = 0.02;
 
-		static readonly int targetRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
-		static readonly int nativeResolution = 4096;
-		static readonly int SSAA = 2; // 0,1,2
-		static readonly bool keepDDSRender = false;
-		static readonly int jpegQuality = 85;
+		const int targetRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
+		const int nativeResolution = 4096;
+		const int SSAA = 2; // 0,1,2
+		const bool keepDDSRender = false;
+		const int jpegQuality = 85;
 
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
@@ -184,7 +184,7 @@ namespace BackgroundRenderer
 				string renderFile = $"{imageDirectory}{space.editorID}.dds";
 				string convertedFile = $"{outputDirectory}{space.editorID}.jpg";
 
-				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (targetRenderResolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (targetRenderResolution / 4096d) / scale)} {cameraY} -light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -ssaa {SSAA} -hqm meshes -ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog");
+				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (targetRenderResolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (targetRenderResolution / 4096d) / scale)} {cameraY} -light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} -ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud -xm effects");
 				render.WaitForExit();
 
 				if (File.Exists(renderFile))

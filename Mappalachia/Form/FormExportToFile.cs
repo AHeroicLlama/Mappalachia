@@ -24,7 +24,7 @@ namespace Mappalachia
 
 		private void RadioButtonPNG_CheckedChanged(object sender, EventArgs e)
 		{
-			SettingsFileExport.fileType = radioButtonPNG.Checked ? SettingsFileExport.FileType.PNG : SettingsFileExport.FileType.JPEG;
+			SettingsFileExport.fileType = radioButtonPNG.Checked ? SettingsFileExport.ExtensionType.PNG : SettingsFileExport.ExtensionType.JPEG;
 			UpdateFormState();
 		}
 
