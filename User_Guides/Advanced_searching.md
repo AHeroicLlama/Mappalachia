@@ -39,5 +39,5 @@ Much like NPC Spawns, the list of available junk is generated dynamically from t
 ## Region Search
 The final item on the NPC/Scrap/Region Search tab is Region search. This niche feature allows you to search for and plot defined world regions.<br/>
 These regions generally represent biome boundaries, workshop borders, the playable zone, and the non-nuke zone in the forest.<br/>
-The search field here behaves the same as the standard search field - in that it will return anything containing your term, and you can leave it empty to return all results. It will also search for the FormID of the region.</br>
+The search field here behaves the same as the standard search field - in that it will return anything containing your term, and you can leave it empty to return all results. It can also search for the FormID of the region.</br>
 Region search is distinct from volume plotting, as regions are complex polygons (sometimes multiple) - they also have infinite height. Due to this, they ignore the current plotting mode as they cannot be represented by a single position. However, their color can still be customized by changing the legend group.<br/>

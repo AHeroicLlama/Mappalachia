@@ -6,10 +6,10 @@ using Mappalachia;
 static class SettingsPlotStyle
 {
 	// Defaults
-	static readonly int iconSizeDefault = 40;
-	static readonly int lineWidthDefault = 3;
-	static readonly int iconOpacityPercentDefault = 100;
-	static readonly int shadowOpacityPercentDefault = 40;
+	const int iconSizeDefault = 40;
+	const int lineWidthDefault = 3;
+	const int iconOpacityPercentDefault = 100;
+	const int shadowOpacityPercentDefault = 40;
 
 	public static readonly List<PlotIconShape> paletteShapeDefault = new List<PlotIconShape>
 		{
@@ -61,14 +61,14 @@ static class SettingsPlotStyle
 		};
 
 	// Min/Maxes - these control the min/maxes on the form.
-	public static readonly int iconSizeMin = 10;
-	public static readonly int iconSizeMax = 100;
-	public static readonly int lineWidthMin = 1;
-	public static readonly int lineWidthMax = 8;
-	public static readonly int iconOpacityPercentMin = 10;
-	public static readonly int iconOpacityPercentMax = 100;
-	public static readonly int shadowOpacityPercentMin = 0;
-	public static readonly int shadowOpacityPercentMax = 100;
+	public const int iconSizeMin = 10;
+	public const int iconSizeMax = 100;
+	public const int lineWidthMin = 1;
+	public const int lineWidthMax = 8;
+	public const int iconOpacityPercentMin = 10;
+	public const int iconOpacityPercentMax = 100;
+	public const int shadowOpacityPercentMin = 0;
+	public const int shadowOpacityPercentMax = 100;
 
 	// Settings variables;
 	public static int iconSize;

@@ -8,6 +8,7 @@ FO76Edit/Edit Scripts/*
 Mappalachia/img/*.dds
 Mappalachia/img/cell/*.jpg
 Mappalachia/img/*_render.jpg
+Mappalachia/img/*_waterMask.png
 
 #SQLite and database generation
 Database/*.db-journal

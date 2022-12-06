@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -41,50 +40,6 @@ namespace Mappalachia
 		public PointF GetCentroid()
 		{
 			return new PointF(verts.Average(point => point.X), verts.Average(point => point.Y));
-		}
-
-		// Transforms the polygon into one with points closer than the threshold merged into a single point
-		public void ReduceResolution(float threshold)
-		{
-			List<PointF> newPolygon = new List<PointF>();
-
-			for (int i = 0; i < verts.Count; i++)
-			{
-				if (GeometryHelper.Pythagoras(DataHelper.GetCyclicItem(verts, i), DataHelper.GetCyclicItem(verts, i + 1)) > threshold)
-				{
-					newPolygon.Add(verts[i]);
-				}
-			}
-
-			// If we discarded all points, return a single point representing them all
-			if (newPolygon.Count == 0)
-			{
-				newPolygon = new List<PointF>() { GetCentroid() };
-			}
-
-			verts = newPolygon;
-		}
-
-		// Returns the distance of the furthest point from the given point
-		public float GetFurthestVertDist(PointF point)
-		{
-			return verts.Max(vert => GeometryHelper.Pythagoras(point, vert));
-		}
-
-		public double GetArea()
-		{
-			double area = 0;
-			int b;
-
-			for (int i = 0; i < verts.Count; i++)
-			{
-				b = (i + 1) % verts.Count;
-
-				area += verts[i].X * verts[b].Y;
-				area -= verts[i].Y * verts[b].X;
-			}
-
-			return Math.Abs(area / 2);
 		}
 
 		public Polygon GetConvexHull()

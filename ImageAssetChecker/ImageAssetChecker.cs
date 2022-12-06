@@ -4,17 +4,18 @@ namespace ImageAssetChecker
 {
 	internal class ImageAssetChecker
 	{
-		static readonly int minMapSizeKB = 100;
-		static readonly int maxMapSizeKBCell = 10000;
-		static readonly int maxMapSizeKBWorldspace = 50000;
-		static readonly int maxMarkerSizeKB = 50;
-		static readonly int expectedImageResolution = 4096;
+		const int minMapSizeKB = 100;
+		const int maxMapSizeKBCell = 10000;
+		const int maxMapSizeKBWorldspace = 50000;
+		const int maxMarkerSizeKB = 50;
+		const int expectedImageResolution = 4096;
 
-		static readonly string backgroundImageFileType = ".jpg";
-		static readonly string mapMarkerImageFileType = ".svg";
+		const string backgroundImageFileType = ".jpg";
+		const string maskImageFileType = ".png";
+		const string mapMarkerImageFileType = ".svg";
 
-		static readonly string cellDirectoryPath = "cell\\";
-		static readonly string mapMarkerDirectoryPath = "mapmarker\\";
+		const string cellDirectoryPath = "cell\\";
+		const string mapMarkerDirectoryPath = "mapmarker\\";
 
 		static readonly string thisAppPath = Directory.GetCurrentDirectory();
 		static readonly string mappalachiaRoot = Path.GetFullPath(thisAppPath + "..\\..\\..\\..\\..\\");
@@ -113,10 +114,13 @@ namespace ImageAssetChecker
 					ValidateImageFile(expectedFile, isWorldSpace);
 				}
 
-				// Appalachia only - extra bespoke check for military map
+				// Appalachia only - extra bespoke checks
 				if (space.GetEditorId() == "Appalachia")
 				{
 					expectedFile = imageDirectory + subDirectory + editorId + "_military" + backgroundImageFileType;
+					ValidateImageFile(expectedFile, isWorldSpace);
+
+					expectedFile = imageDirectory + subDirectory + editorId + "_waterMask" + maskImageFileType;
 					ValidateImageFile(expectedFile, isWorldSpace);
 				}
 			}

@@ -19,22 +19,24 @@ namespace Mappalachia
 
 		static FormMaster self;
 		static bool isDrawing = false;
+		static bool followUpDrawRequested = false; // Somebody requested us to re-draw *again* after the current draw
+		static bool followUpDrawBaseLayer = false;
 
 		static CancellationTokenSource mapDrawCancTokenSource;
 		static CancellationToken mapDrawCancToken;
 
-		static readonly int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
+		const int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
 		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
 
-		static readonly float designDPI = 96; // The DPI which the form was designed for
+		const float designDPI = 96; // The DPI which the form was designed for
 
 		public FormMaster()
 		{
 			if (self != null)
 			{
-				throw new Exception("Cannot create multiple instances of the master form!");
+				throw new InvalidOperationException("Cannot create multiple instances of the master form!");
 			}
 
 			self = this;
@@ -90,8 +92,8 @@ namespace Mappalachia
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
 			UpdateTopographColorBands(false);
-			UpdateClusterWeb(false);
 			UpdateMapBackgroundSettings(false);
+			UpdateMapHighlightWater(false);
 			UpdateMapGrayscale(false);
 			UpdateMapMarker(false);
 			UpdateLegendStyle(false);
@@ -137,7 +139,22 @@ namespace Mappalachia
 			{
 				self.UpdatePlotModeUI();
 				self.UpdateCellorWorldExclusiveState();
+
+				// If somebody raised the flag to followup this convening draw with another
+				if (followUpDrawRequested)
+				{
+					DrawMap(followUpDrawBaseLayer);
+
+					// New draw commenced - lower the flag
+					followUpDrawRequested = false;
+					followUpDrawBaseLayer = false;
+				}
 			}
+		}
+
+		public static bool IsDrawing()
+		{
+			return isDrawing;
 		}
 
 		public static void UpdateUIAsync(Action action)
@@ -375,7 +392,7 @@ namespace Mappalachia
 				"Flora",
 				"LPI_Food",
 				"LvlCritter",
-				"LPI_Drink_Alcohol",
+				"Alcohol",
 				"Wind Chimes",
 				"Pre War Money",
 				"LPI_Chem",
@@ -384,7 +401,7 @@ namespace Mappalachia
 				"Alien Blaster",
 				"Strange Encounter",
 				"Ginseng",
-				"Silo Exterior",
+				"Pumpkin",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
@@ -409,7 +426,8 @@ namespace Mappalachia
 		{
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			backgroundImageMenuItem.Enabled = SettingsSpace.GetSpace().editorID == "Appalachia";
+			backgroundImageMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
+			highlightWaterMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
 		}
 
 		// Update the visiblity of the lock type column in the results view, given current settings
@@ -604,16 +622,6 @@ namespace Mappalachia
 			}
 		}
 
-		void UpdateClusterWeb(bool reDraw)
-		{
-			showClusterWebMenuItem.Checked = SettingsPlotCluster.clusterWeb;
-
-			if (reDraw && SettingsPlot.IsCluster())
-			{
-				DrawMap(false);
-			}
-		}
-
 		// Update check marks in the UI with current MapSettings, and redraw the map if true
 		void UpdateMapBackgroundSettings(bool reDraw)
 		{
@@ -634,8 +642,19 @@ namespace Mappalachia
 					break;
 
 				default:
-					throw new Exception("Unsupported background type " + SettingsMap.background);
+					throw new NotSupportedException("Unsupported background type " + SettingsMap.background);
 			}
+
+			if (reDraw)
+			{
+				DrawMap(true);
+			}
+		}
+
+		// Update check mark in the UI with current MapSettings for Highlight Water
+		void UpdateMapHighlightWater(bool reDraw)
+		{
+			highlightWaterMenuItem.Checked = SettingsMap.highlightWater;
 
 			if (reDraw)
 			{
@@ -684,7 +703,7 @@ namespace Mappalachia
 					break;
 
 				default:
-					throw new Exception("Unknown legend stlye " + SettingsMap.legendMode);
+					throw new NotSupportedException("Unknown legend style " + SettingsMap.legendMode);
 			}
 
 			if (reDraw)
@@ -873,7 +892,7 @@ namespace Mappalachia
 
 				// If the label column is not already visible, but this item has a label, set it to visible
 				// (Does not act until end of grid fill to avoid flashing)
-				if (!labelColumnShouldBeShown && mapItem.label != string.Empty)
+				if (!labelColumnShouldBeShown && !string.IsNullOrEmpty(mapItem.label))
 				{
 					labelColumnShouldBeShown = true;
 				}
@@ -992,6 +1011,21 @@ namespace Mappalachia
 			return earliestIndex < 0 ? n : earliestIndex;
 		}
 
+		// Draws the map, and if a draw is in progress, queues the job up to run immediately after the current draw job
+		// Will only stack up to one additional draw job
+		public static void QueueDraw(bool drawBaseLayer)
+		{
+			if (isDrawing)
+			{
+				followUpDrawRequested = true;
+				followUpDrawBaseLayer = drawBaseLayer;
+			}
+			else
+			{
+				DrawMap(drawBaseLayer);
+			}
+		}
+
 		// User-activated draw. Draw the plot points onto the map, if there is anything to plot
 		public static async void DrawMap(bool drawBaseLayer)
 		{
@@ -1084,6 +1118,13 @@ namespace Mappalachia
 			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
+		// Map > Highlight Water - Toggle rendering of water mask overlay on background
+		void Map_HighlightWater(object sender, EventArgs e)
+		{
+			SettingsMap.highlightWater = !SettingsMap.highlightWater;
+			UpdateMapHighlightWater(SettingsSpace.CurrentSpaceIsAppalachia());
+		}
+
 		// Map > Brightness... - Open the brightness adjust form
 		void Map_Brightness(object sender, EventArgs e)
 		{
@@ -1161,6 +1202,7 @@ namespace Mappalachia
 
 			SettingsMap.brightness = SettingsMap.brightnessDefault;
 			SettingsMap.background = SettingsMap.backgroundDefault;
+			SettingsMap.highlightWater = SettingsMap.highlightWaterDefault;
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapLabels = SettingsMap.showMapLabelsDefault;
 			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
@@ -1175,6 +1217,7 @@ namespace Mappalachia
 
 			UpdateMapBackgroundSettings(false);
 			UpdateMapGrayscale(false);
+			UpdateMapHighlightWater(false);
 			UpdateMapMarker(false);
 			UpdateLegendStyle(false);
 
@@ -1302,18 +1345,11 @@ namespace Mappalachia
 			UpdateTopographColorBands(true);
 		}
 
-		// Plot Settings > Cluster Settings > Cluster Range...
-		void Plot_ClusterSettings_ClusterRange(object sender, EventArgs e)
+		// Plot Settings > Cluster Settings...
+		void Plot_ClusterSettings(object sender, EventArgs e)
 		{
 			FormSetClusterRange formSetCluster = new FormSetClusterRange();
 			formSetCluster.ShowDialog();
-		}
-
-		// Plot Settings > Cluster Settings > Show Cluster Web
-		void Plot_ClusterSettings_CluserWeb(object sender, EventArgs e)
-		{
-			SettingsPlotCluster.clusterWeb = !SettingsPlotCluster.clusterWeb;
-			UpdateClusterWeb(true);
 		}
 
 		// Plot Settings > Draw Volumes - Toggle drawing volumes
@@ -1849,7 +1885,7 @@ namespace Mappalachia
 		}
 
 		// Pick up scroll wheel events and apply them to zoom the map preview
-		protected override void OnMouseWheel(MouseEventArgs mouseEvent)
+		protected override void OnMouseWheel(MouseEventArgs e)
 		{
 			double minZoom = Map.mapDimension * Map.minZoomRatio;
 			double maxZoom = Map.mapDimension * Map.maxZoomRatio;
@@ -1867,7 +1903,7 @@ namespace Mappalachia
 				(int)((viewPortCenterY - location.Y) * (Map.mapDimension / (float)height)));
 
 			// Calculate how much to zoom
-			float zoomRatio = 1 + (mouseEvent.Delta / 1500f);
+			float zoomRatio = 1 + (e.Delta / 1500f);
 
 			// Calculate the new dimensions once zoomed, given zoom limits
 			int newWidth = (int)Math.Max(Math.Min(maxZoom, width * zoomRatio), minZoom);

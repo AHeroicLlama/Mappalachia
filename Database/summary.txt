@@ -1,11 +1,11 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.39.4 2022-09-29 15:55:41 a29f9949895322123f7c38fbe94c649a9d6e6c9cd0c3b41c96d694552f26b309
+3.40.0 2022-11-16 12:10:08 89c459e766ea7e9165d0beeb124708b955a4950d0f4792f457465d71b158d318
 ==Checksum== 
-d718e0d761b18809db90d201172041df
+6a66aa01efccafb59c1cd602c39d1272
 ==File Size== 
-391569408 
+393179136 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.1.19
+1.7.2.9
 ==Mean Average X/Y/Z Coord==
--11930.3466339679|4664.36641267287|11831.6272095848
+-11978.0609463416|4519.66390596787|11814.6808150567
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -123,24 +123,22 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7179010345564
+21.7211495241608
 ==Average Y Bounds Width==
-16.2262656308306
+16.2408366585698
 ==Average Z Bounds Width==
-15.1760898263761
+15.2203599877756
 ==Average Z Rotation==
-4.08006179389647
+4.09046250250636
 ==Average display name string length==
-2.66614480466304
+2.67031216566415
 ==Average editorID string length==
-25.0095621176357
+24.9730391574142
 ==Map Markers==
-Appalachia|AgriculturalCenterMarker|Sunshine Meadows Industrial Farm|-138578|28356
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
 Appalachia|AirfieldMarker|Horizon's Rest|-20789|31098
-Appalachia|AirfieldMarker|Morgantown Regional Airfield|-19705|101313
-Appalachia|AirfieldMarker|Wade Airport|-88012|-37758
+Appalachia|AirfieldMarker|Morgantown Airport|-19705|101313
 Appalachia|AmusementParkMarker|Camden Park|-179637|-77694
 Appalachia|AmusementParkMarker|Lake Reynolds|-65793|-120832
 Appalachia|AmusementParkMarker|Tyler County Fairgrounds|-147238|142782
@@ -151,6 +149,7 @@ Appalachia|BloodEagleMarker|Ammo Dump|91944|99391
 Appalachia|BloodEagleMarker|Bloody Frank's|130070|33913
 Appalachia|BloodEagleMarker|Cliffwatch|-2449|-8936
 Appalachia|BloodEagleMarker|Crimson Prospect|140233|-102150
+Appalachia|BloodEagleMarker|Dagger's Den|119104|7828
 Appalachia|BloodEagleMarker|Hunter's Ridge|-149650|51465
 Appalachia|BloodEagleMarker|Ripper Alley|74686|-65500
 Appalachia|BloodEagleMarker|Rollins Labor Camp|-98042|-115047
@@ -197,7 +196,6 @@ Appalachia|CabinMarker|Groves Family Cabin|-139934|174279
 Appalachia|CabinMarker|Investigator's Cabin|55724|-68951
 Appalachia|CabinMarker|Isolated Cabin|-88356|67999
 Appalachia|CabinMarker|Kiddie Corner Cabins|-12731|181510
-Appalachia|CabinMarker|Lakeside Cabins|-61107|-25872
 Appalachia|CabinMarker|Marigold Pavilion|-153870|79406
 Appalachia|CabinMarker|Middle Mountain Cabins|46490|-37821
 Appalachia|CabinMarker|New River Gorge Resort|-81063|12838
@@ -207,13 +205,11 @@ Appalachia|CabinMarker|Pylon Ambush Site|-82630|-92095
 Appalachia|CabinMarker|Seneca Rocks Visitor Center|55774|56635
 Appalachia|CabinMarker|Sunday Brothers' Cabin|138232|1426
 Appalachia|CapitalBuildingMarker|Charleston Capitol Building|-91983|-57828
-Appalachia|CarMarker|Tyler County Dirt Track|-157335|138174
 Appalachia|CastleMarker|Prickett's Fort|60920|193668
 Appalachia|CaveMarker|Abandoned Waste Dump|185034|26724
 Appalachia|CaveMarker|Carleton Mine|21935|158383
 Appalachia|CaveMarker|Gauley Mine|-58605|62688
 Appalachia|CaveMarker|Gauley Mine Exit|-47691|71024
-Appalachia|CaveMarker|Hawke's Refuge|119104|7828
 Appalachia|CaveMarker|Hopewell Cave|114047|114129
 Appalachia|CaveMarker|Makeshift Vault|-83329|160208
 Appalachia|CaveMarker|Mysterious Cave|143425|200808
@@ -242,7 +238,6 @@ Appalachia|DamMarker|Grafton Dam|7850|118972
 Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-01|72331|139118
 Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-02|21025|-54635
 Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-03|-44231|-126107
-Appalachia|ElectricalSubstationMarker|Poseidon Energy Plant Yard|-124848|-41712
 Appalachia|ElectricalSubstationMarker|Poseidon Power Substation PX-01|-143224|20096
 Appalachia|ElectricalSubstationMarker|Poseidon Power Substation PX-02|-36059|-514
 Appalachia|ElectricalSubstationMarker|Poseidon Power Substation PX-03|32639|137795
@@ -250,19 +245,14 @@ Appalachia|ElectricalSubstationMarker|Thunder Mountain Substation TM-01|145498|1
 Appalachia|ElectricalSubstationMarker|Thunder Mountain Substation TM-02|143836|-120232
 Appalachia|ElevatedHighwayMarker|New River Gorge Bridge - East|-91369|13638
 Appalachia|ElevatedHighwayMarker|New River Gorge Bridge - West|-123988|-10693
-Appalachia|EncampmentMarker|Dolly Sods Campground|155137|76716
 Appalachia|EncampmentMarker|Overseer's Camp|-80761|44228
 Appalachia|EncampmentMarker|Overseer's Home|-55264|25824
 Appalachia|EncampmentMarker|Striker Row|-113545|-167811
 Appalachia|EncampmentMarker|Sylvie & Sons Logging Camp|114952|92363
-Appalachia|ExcavatorMarker|Mount Blair|-130864|-101848
 Appalachia|FactoryMarker|Abandoned Mine Shaft 1|-142953|-146883
 Appalachia|FactoryMarker|Braxson's Quality Medical Supplies|202367|69695
-Appalachia|FactoryMarker|Converted Munitions Factory|111171|181850
 Appalachia|FactoryMarker|Gilman Lumber Mill|-104499|69616
 Appalachia|FactoryMarker|Grafton Steel|18474|132207
-Appalachia|FactoryMarker|Grafton Steel Yard|17764|126612
-Appalachia|FactoryMarker|Hemlock Holes Maintenance|-59552|183736
 Appalachia|FactoryMarker|Hornwright Testing Site #02|-161902|-153298
 Appalachia|FactoryMarker|Hornwright Testing Site #03|-100634|-149839
 Appalachia|FactoryMarker|Hornwright Testing Site #04|-163087|-94511
@@ -273,13 +263,11 @@ Appalachia|FarmMarker|Aaronholt Homestead|-125064|177016
 Appalachia|FarmMarker|Anchor Farm|-121045|120973
 Appalachia|FarmMarker|Becker Farm|-74553|151041
 Appalachia|FarmMarker|Beckwith Farm|43307|-7498
-Appalachia|FarmMarker|Billings Homestead|-168635|-11953
 Appalachia|FarmMarker|Cobbleton Farm|-91855|161216
-Appalachia|FarmMarker|Dabney Homestead|187358|-24214
 Appalachia|FarmMarker|Delano Grange|183759|11699
 Appalachia|FarmMarker|Graninger Farm|8478|174230
 Appalachia|FarmMarker|Mac's Farm|171107|-71433
-Appalachia|FarmMarker|Schram Homestead|-158848|-3712
+Appalachia|FarmMarker|Silva Homestead|-158848|-3712
 Appalachia|FarmMarker|Smith Farm|-30844|152512
 Appalachia|FarmMarker|Sunrise Field|153895|-162532
 Appalachia|FarmMarker|Superior Sunset Farm|122641|-101570
@@ -287,20 +275,15 @@ Appalachia|FarmMarker|Wixon Homestead|-97563|58504
 Appalachia|FarmMarker|Woods Estate|-42441|172901
 Appalachia|FillingStationMarker|Big B's Rest Stop|163349|-17718
 Appalachia|FillingStationMarker|Red Rocket Filling Station|-112109|-131743
-Appalachia|FillingStationMarker|Red Rocket Mega Stop|137392|148800
 Appalachia|FissureMarker|Fissure Site|173252|-159284
-Appalachia|FissureMarker|Fissure Site|35581|195062
 Appalachia|FissureMarker|Fissure Site|152676|-66537
 Appalachia|FissureMarker|Fissure Site|58897|-150970
-Appalachia|FissureMarker|Fissure Site|-98966|177503
 Appalachia|FissureMarker|Fissure Site|-38686|-70772
 Appalachia|FissureMarker|Fissure Site|-120767|-162346
 Appalachia|FissureMarker|Fissure Site|129596|75406
 Appalachia|FissureMarker|Fissure Site|112458|124837
-Appalachia|FissureMarker|Fissure Site|-9071|-11032
-Appalachia|FissureMarker|Fissure Site|19005|34150
 Appalachia|FissureMarker|Fissure Site|153700|182385
-Appalachia|FissureMarker|Fissure Site Alpha|196808|-165776
+Appalachia|FissureMarker|Fissure Site Prime|196808|-165776
 Appalachia|ForestedMarker|Creekside Sundew Grove|161083|-75948
 Appalachia|ForestedMarker|Deathclaw Island|-173625|131148
 Appalachia|ForestedMarker|Dolly Sods Wilderness|155697|86001
@@ -338,10 +321,6 @@ Appalachia|HouseTrailerMarker|Yellow Sandy's Still|90268|20260
 Appalachia|IndustrialDomeMarker|Dyer Chemical|176066|62784
 Appalachia|IndustrialDomeMarker|R & G Processing Services|2637|-121061
 Appalachia|IndustrialDomeMarker|Tygart Water Treatment|-32916|6401
-Appalachia|IndustrialStacksMarker|Monongah Power Plant Yard|44675|73761
-Appalachia|IndustrialStacksMarker|Thunder Mt. Power Plant Yard|189452|94526
-Appalachia|JunkyardMarker|Charleston Landfill|-126835|-61721
-Appalachia|JunkyardMarker|Gorge Junkyard|-55635|91589
 Appalachia|LandmarkMarker|Devil's Backbone|80368|-88648
 Appalachia|LandmarkMarker|Seneca Rocks|66176|53120
 Appalachia|LegendaryPurveyorMarker|The Rusty Pick|-113349|-74720
@@ -387,6 +366,7 @@ Appalachia|MonorailMarker|Monorail Elevator|84839|-128044
 Appalachia|MonorailMarker|Pylon V-13|190422|-94971
 Appalachia|MonumentMarker|Sugarmaple|-54753|-51561
 Appalachia|NukaColaQuantumPlant|Kanawha Nuka-Cola Plant|-162145|-53493
+Appalachia|NukaColaQuantumPlant|Nuka-World On Tour|-76414|-112611
 Appalachia|OfficeMarker|Camp Venture|160282|-39098
 Appalachia|OfficeMarker|Garrahan Mining Headquarters|-73688|-160896
 Appalachia|OfficeMarker|Sons of Dane Compound|102917|95314
@@ -410,6 +390,27 @@ Appalachia|PondLakeMarker|Twin Lakes|47135|-79247
 Appalachia|PowerPlantMarker|Monongah Power Plant|39088|74024
 Appalachia|PowerPlantMarker|Poseidon Energy Plant WV-06|-132032|-40972
 Appalachia|PowerPlantMarker|Thunder Mountain Power Plant|192590|98395
+Appalachia|PublicWorkshopMarker|Abandoned Bog Town|181758|-92985
+Appalachia|PublicWorkshopMarker|Beckley Mine Exhibit|-190632|-127912
+Appalachia|PublicWorkshopMarker|Berkeley Springs West|122162|24310
+Appalachia|PublicWorkshopMarker|Billings Homestead|-168635|-11953
+Appalachia|PublicWorkshopMarker|Charleston Landfill|-126835|-61721
+Appalachia|PublicWorkshopMarker|Converted Munitions Factory|111171|181850
+Appalachia|PublicWorkshopMarker|Dabney Homestead|187358|-24214
+Appalachia|PublicWorkshopMarker|Dolly Sods Campground|155137|76716
+Appalachia|PublicWorkshopMarker|Federal Disposal Field HZ-21|-510|-154826
+Appalachia|PublicWorkshopMarker|Gorge Junkyard|-55635|91589
+Appalachia|PublicWorkshopMarker|Grafton Steel Yard|17764|126612
+Appalachia|PublicWorkshopMarker|Hemlock Holes Maintenance|-59552|183736
+Appalachia|PublicWorkshopMarker|Lakeside Cabins|-61107|-25872
+Appalachia|PublicWorkshopMarker|Monongah Power Plant Yard|44675|73761
+Appalachia|PublicWorkshopMarker|Mount Blair|-130864|-101848
+Appalachia|PublicWorkshopMarker|Poseidon Energy Plant Yard|-124848|-41712
+Appalachia|PublicWorkshopMarker|Red Rocket Mega Stop|137392|148800
+Appalachia|PublicWorkshopMarker|Sunshine Meadows Industrial Farm|-138578|28356
+Appalachia|PublicWorkshopMarker|Thunder Mt. Power Plant Yard|189452|94526
+Appalachia|PublicWorkshopMarker|Tyler County Dirt Track|-157335|138174
+Appalachia|PublicWorkshopMarker|Wade Airport|-88012|-37758
 Appalachia|PumpkinMarker|Pumpkin House|126173|133519
 Appalachia|QuarryMarker|AMS Testing Site|-125069|-146867
 Appalachia|QuarryMarker|Abandoned Mine Shaft 2|-97592|-137752
@@ -424,13 +425,13 @@ Appalachia|QuarryMarker|Big Bend Tunnel East|112944|-149488
 Appalachia|QuarryMarker|Big Bend Tunnel West|-44088|-120808
 Appalachia|QuarryMarker|Blackwater Mine|28169|-46520
 Appalachia|QuarryMarker|Brim Quarry|-161282|-84759
-Appalachia|QuarryMarker|Burning Mine|-84358|-102236
-Appalachia|QuarryMarker|Crater Outpost|-6712|199312
+Appalachia|QuarryMarker|Crater Watchstation|-6712|199312
 Appalachia|QuarryMarker|Glassed Cavern|200480|-161792
 Appalachia|QuarryMarker|Kerwood Mine|130051|-64741
 Appalachia|QuarryMarker|Monongah Mine|58020|111115
 Appalachia|QuarryMarker|Old Mold Quarry|198971|-95572
 Appalachia|QuarryMarker|Quarry X3|157733|-112080
+Appalachia|QuarryMarker|The Burning Mine|-84358|-102236
 Appalachia|RadioTowerMarker|KMAX Transmission|190575|-38899
 Appalachia|RadioTowerMarker|Relay Tower DP-B5-21|-45863|-84858
 Appalachia|RadioTowerMarker|Relay Tower EL-B1-02|78400|-160561
@@ -440,9 +441,8 @@ Appalachia|RadioTowerMarker|Relay Tower HN-B1-12|-6316|34602
 Appalachia|RadioTowerMarker|Relay Tower LW-B1-22|105336|88146
 Appalachia|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
 Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
-Appalachia|RadioactiveAreaMarker|Emmett Mt. Disposal Site|56146|-51808
-Appalachia|RadioactiveAreaMarker|Federal Disposal Field HZ-21|-510|-154826
-Appalachia|RadioactiveAreaMarker|Nuked Crater|68217|-107034
+Appalachia|RadioactiveAreaMarker|Emmett Mountain Disposal Site|56146|-51808
+Appalachia|RadioactiveAreaMarker|Foundation Outpost|68217|-107034
 Appalachia|RadioactiveAreaMarker|Safe 'n Clean Disposal|13174|-33844
 Appalachia|RaiderSettlementMarker|Bleeding Kate's Grindhouse|-61230|-73357
 Appalachia|RaiderSettlementMarker|Knife Edge|46264|199612
@@ -453,27 +453,25 @@ Appalachia|RaiderSettlementMarker|The Freak Show|85048|-102228
 Appalachia|RaiderSettlementMarker|The Sludge Hole|77198|41365
 Appalachia|RailroadMarker|Charleston Trainyard|-116534|-47774
 Appalachia|RailroadMarker|NAR Repair Yard|129114|-153675
-Appalachia|SancHillsMarker|Beckley Mine Exhibit|-190632|-127912
 Appalachia|SancHillsMarker|Colonel Kelly Monument|31673|149672
 Appalachia|SancHillsMarker|Miners Monument|-28868|-82873
 Appalachia|SatelliteMarker|National Isolated Radio Array|88244|-37538
 Appalachia|SatelliteMarker|National Radio Astronomy Research Center|112631|-43120
 Appalachia|SatelliteMarker|Sugar Grove|118973|-15204
 Appalachia|SettlementMarker|The Retreat|162313|45172
-Appalachia|SewerMarker|The Burrows|157951|-3957
 Appalachia|SewerMarker|The Burrows North|155171|1920
+Appalachia|SewerMarker|The Burrows South|157951|-3957
 Appalachia|SewerMarker|Watoga Underground|152463|-141432
 Appalachia|SkiResortMarker|Pleasant Valley Ski Resort|47368|15758
 Appalachia|SkiResortMarker|Sunnytop Ski Lanes|85613|131252
 Appalachia|SkiResortMarker|Sunnytop Ski Lanes Base Lodge|98128|144048
 Appalachia|SkiResortMarker|White Powder Winter Sports|-950|18368
 Appalachia|SkullRingMarker|Ohio River Adventures|-187831|-32302
-Appalachia|SpaceStationMarker|The Crater|26681|198625
+Appalachia|SkullRingMarker|The Crater|26681|198625
 Appalachia|TeapotMarker|The Giant Teapot|-131984|-29819
 Appalachia|TopOfTheWorldMarker|Top of the World|39089|14204
 Appalachia|TownMarker|Beckley|-188171|-123048
 Appalachia|TownMarker|Berkeley Springs|128446|27640
-Appalachia|TownMarker|Berkeley Springs West|122162|24310
 Appalachia|TownMarker|Clarksburg|-24616|167986
 Appalachia|TownMarker|Flatwoods|-105199|20756
 Appalachia|TownMarker|Grafton|-52128|149376
@@ -486,7 +484,6 @@ Appalachia|TownMarker|Point Pleasant|-176638|74856
 Appalachia|TownMarker|Summersville|-44471|-17940
 Appalachia|TownMarker|Sutton|-60226|24458
 Appalachia|TownMarker|The Wayward|-81239|47701
-Appalachia|TownRuinsMarker|Abandoned Bog Town|181758|-92985
 Appalachia|TownRuinsMarker|Mosstown|136903|71334
 Appalachia|TownRuinsMarker|New Gad|-58422|-38562
 Appalachia|TownRuinsMarker|Tanagra Town|191892|14195
@@ -505,6 +502,7 @@ Appalachia|TrainStationMarker|Welch Station|-148980|-132179
 Appalachia|TrainStationMarker|Whitespring Station|20095|-46750
 Appalachia|TrainTrackMark|98 NAR Regional|22413|-9693
 Appalachia|TrainTrackMark|Flooded Trainyard|175688|-143005
+Appalachia|TrainTrackMark|Harpers Ferry Tunnel|183554|2929
 Appalachia|TrainTrackMark|Morgantown Trainyard|-30925|91603
 Appalachia|TrainTrackMark|Mount Blair Trainyard|-132583|-121600
 Appalachia|TrainTrackMark|New Appalachian Central Trainyard|13435|-21413
@@ -529,7 +527,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-41518
+42061
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|55
@@ -742,12 +740,12 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3007499
-Appalachia|Box|62994
+Appalachia||3011612
+Appalachia|Box|63166
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
-Appalachia|Plane|76
-Appalachia|Sphere|2352
+Appalachia|Plane|98
+Appalachia|Sphere|2351
 ArktosPharmaLab01||15649
 ArktosPharmaLab01|Box|1483
 ArktosPharmaLab01|Line|11
@@ -835,7 +833,7 @@ FortAtlasDungeon01||12349
 FortAtlasDungeon01|Box|308
 FortAtlasDungeon01|Sphere|8
 FoundationInt01||4998
-FoundationInt01|Box|369
+FoundationInt01|Box|370
 FoundationInt01|Line|4
 FoundationSupplyRoom01||521
 FoundationSupplyRoom01|Box|8
@@ -964,8 +962,8 @@ SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
 SheltersMissileSilo||441
 SheltersMissileSilo|Box|52
-SheltersPittTrench01||996
-SheltersPittTrench01|Box|106
+SheltersPittTrench01||1012
+SheltersPittTrench01|Box|132
 SheltersVaultAtrium01||2199
 SheltersVaultAtrium01|Box|69
 SheltersVaultLivingQuarters01||2596
@@ -974,6 +972,8 @@ SheltersVaultReception01||1508
 SheltersVaultReception01|Box|36
 SheltersVaultServerRoom01||3853
 SheltersVaultServerRoom01|Box|113
+SheltersVaultStorageFacility||3868
+SheltersVaultStorageFacility|Box|201
 SheltersVaultStorageRoom01||733
 SheltersVaultStorageRoom01|Box|42
 SpruceKnobCampground01||583
@@ -1003,6 +1003,9 @@ TopOfTheWorld01||4236
 TopOfTheWorld01|Box|413
 TopOfTheWorld01|Line|2
 TopOfTheWorld01|Sphere|1
+TunnelOfLoveMineshaft01||4304
+TunnelOfLoveMineshaft01|Box|112
+TunnelOfLoveMineshaft01|Plane|1
 UCB01||4434
 UCB01|Box|130
 UCB01|Line|4
@@ -1082,8 +1085,8 @@ WatogaUnderground01|Box|541
 WendigoCave01||6291
 WendigoCave01|Box|447
 WendigoCave01|Line|4
-WestTek01||11268
-WestTek01|Box|516
+WestTek01||11271
+WestTek01|Box|513
 WestTek01|Sphere|2
 WestTek02||4964
 WestTek02|Box|162
@@ -1092,18 +1095,18 @@ WhitespringBunker01||15833
 WhitespringBunker01|Box|500
 WhitespringMall01||6803
 WhitespringMall01|Box|137
-WhitespringRefuge01||11269
+WhitespringRefuge01||11272
 WhitespringRefuge01|Box|224
-XPDPitt01Foundry||16368
-XPDPitt01Foundry|Box|563
+XPDPitt01Foundry||16372
+XPDPitt01Foundry|Box|559
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
-XPDPitt01Industrial||18697
+XPDPitt01Industrial||18698
 XPDPitt01Industrial|Box|1442
 XPDPitt01Industrial|Sphere|1
 XPDPitt02Sanctum||17557
 XPDPitt02Sanctum|Box|477
-XPDPitt02Trench||19686
+XPDPitt02Trench||19687
 XPDPitt02Trench|Box|1544
 ==Total entities by LockLevel by Space==
 AMSHQ01||5466
@@ -1125,14 +1128,14 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3073681
+Appalachia||3077986
 Appalachia|Advanced (Level 1)|318
 Appalachia|Barred|1
 Appalachia|Chained|1
 Appalachia|Expert (Level 2)|197
 Appalachia|Inaccessible|22
 Appalachia|Master (Level 3)|85
-Appalachia|Novice (Level 0)|319
+Appalachia|Novice (Level 0)|320
 Appalachia|Requires Key|90
 Appalachia|Requires Terminal|9
 Appalachia|Unknown|1
@@ -1235,7 +1238,7 @@ FortAtlasDungeon01|Advanced (Level 1)|1
 FortAtlasDungeon01|Expert (Level 2)|1
 FortAtlasDungeon01|Novice (Level 0)|3
 FortAtlasDungeon01|Requires Terminal|1
-FoundationInt01||5371
+FoundationInt01||5372
 FoundationSupplyRoom01||529
 FraternityHouse01||1215
 FraternityHouse01|Advanced (Level 1)|1
@@ -1394,11 +1397,12 @@ SheltersCave02||608
 SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersMissileSilo||493
-SheltersPittTrench01||1102
+SheltersPittTrench01||1144
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
 SheltersVaultReception01||1544
 SheltersVaultServerRoom01||3966
+SheltersVaultStorageFacility||4069
 SheltersVaultStorageRoom01||775
 SpruceKnobCampground01||594
 SpruceKnobCampground01|Novice (Level 0)|1
@@ -1437,6 +1441,7 @@ TopOfTheWorld01||4645
 TopOfTheWorld01|Advanced (Level 1)|2
 TopOfTheWorld01|Expert (Level 2)|1
 TopOfTheWorld01|Master (Level 3)|4
+TunnelOfLoveMineshaft01||4417
 UCB01||4565
 UCB01|Advanced (Level 1)|2
 UCB01|Novice (Level 0)|1
@@ -1555,7 +1560,7 @@ WhitespringMall01|Advanced (Level 1)|1
 WhitespringMall01|Expert (Level 2)|1
 WhitespringMall01|Master (Level 3)|3
 WhitespringMall01|Novice (Level 0)|8
-WhitespringRefuge01||11464
+WhitespringRefuge01||11467
 WhitespringRefuge01|Advanced (Level 1)|2
 WhitespringRefuge01|Inaccessible|21
 WhitespringRefuge01|Novice (Level 0)|6
@@ -1564,7 +1569,7 @@ XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
-XPDPitt01Industrial||20108
+XPDPitt01Industrial||20109
 XPDPitt01Industrial|Advanced (Level 1)|24
 XPDPitt01Industrial|Expert (Level 2)|3
 XPDPitt01Industrial|Inaccessible|2
@@ -1575,7 +1580,7 @@ XPDPitt02Sanctum|Advanced (Level 1)|1
 XPDPitt02Sanctum|Inaccessible|4
 XPDPitt02Sanctum|Master (Level 3)|2
 XPDPitt02Sanctum|Novice (Level 0)|4
-XPDPitt02Trench||21210
+XPDPitt02Trench||21211
 XPDPitt02Trench|Advanced (Level 1)|4
 XPDPitt02Trench|Expert (Level 2)|8
 XPDPitt02Trench|Novice (Level 0)|8
@@ -1657,36 +1662,36 @@ AlleghenyAsylum01|SOUN|4
 AlleghenyAsylum01|STAT|11109
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
-Appalachia|ACTI|21616
-Appalachia|ALCH|265
+Appalachia|ACTI|21715
+Appalachia|ALCH|267
 Appalachia|AMMO|59
 Appalachia|ARMO|103
 Appalachia|ASPC|2377
-Appalachia|BNDS|10306
-Appalachia|BOOK|459
+Appalachia|BNDS|10304
+Appalachia|BOOK|471
 Appalachia|CNCY|257
-Appalachia|CONT|12316
-Appalachia|DOOR|2478
-Appalachia|FLOR|45271
-Appalachia|FURN|14872
-Appalachia|HAZD|990
-Appalachia|IDLM|17031
+Appalachia|CONT|12353
+Appalachia|DOOR|2504
+Appalachia|FLOR|45261
+Appalachia|FURN|14977
+Appalachia|HAZD|994
+Appalachia|IDLM|17017
 Appalachia|KEYM|36
-Appalachia|LIGH|7963
-Appalachia|LVLI|71589
-Appalachia|MISC|35802
-Appalachia|MSTT|22996
+Appalachia|LIGH|8151
+Appalachia|LVLI|71538
+Appalachia|MISC|35701
+Appalachia|MSTT|23071
 Appalachia|NOTE|177
-Appalachia|NPC_|7424
+Appalachia|NPC_|7415
 Appalachia|PROJ|93
-Appalachia|SCOL|353210
+Appalachia|SCOL|353213
 Appalachia|SECH|253
 Appalachia|SOUN|5904
-Appalachia|STAT|2378022
-Appalachia|TACT|57
-Appalachia|TERM|364
-Appalachia|TXST|62282
-Appalachia|WEAP|152
+Appalachia|STAT|2381743
+Appalachia|TACT|61
+Appalachia|TERM|369
+Appalachia|TXST|62485
+Appalachia|WEAP|161
 ArktosPharmaLab01|ACTI|354
 ArktosPharmaLab01|ASPC|14
 ArktosPharmaLab01|BNDS|116
@@ -2244,7 +2249,7 @@ FoundationInt01|NOTE|10
 FoundationInt01|NPC_|21
 FoundationInt01|SCOL|199
 FoundationInt01|SOUN|13
-FoundationInt01|STAT|4033
+FoundationInt01|STAT|4034
 FoundationInt01|TERM|1
 FoundationInt01|TXST|339
 FoundationSupplyRoom01|ACTI|4
@@ -3133,7 +3138,7 @@ SheltersPittTrench01|LIGH|7
 SheltersPittTrench01|SCOL|168
 SheltersPittTrench01|SECH|1
 SheltersPittTrench01|SOUN|2
-SheltersPittTrench01|STAT|854
+SheltersPittTrench01|STAT|896
 SheltersPittTrench01|TXST|56
 SheltersVaultAtrium01|ACTI|16
 SheltersVaultAtrium01|LIGH|49
@@ -3161,6 +3166,13 @@ SheltersVaultServerRoom01|MSTT|120
 SheltersVaultServerRoom01|SCOL|316
 SheltersVaultServerRoom01|STAT|3204
 SheltersVaultServerRoom01|TXST|83
+SheltersVaultStorageFacility|ACTI|12
+SheltersVaultStorageFacility|DOOR|1
+SheltersVaultStorageFacility|LIGH|79
+SheltersVaultStorageFacility|MSTT|93
+SheltersVaultStorageFacility|SCOL|140
+SheltersVaultStorageFacility|STAT|3574
+SheltersVaultStorageFacility|TXST|170
 SheltersVaultStorageRoom01|ACTI|7
 SheltersVaultStorageRoom01|DOOR|1
 SheltersVaultStorageRoom01|LIGH|21
@@ -3312,7 +3324,7 @@ TheWayward01|ALCH|7
 TheWayward01|BNDS|15
 TheWayward01|CONT|20
 TheWayward01|DOOR|7
-TheWayward01|FURN|44
+TheWayward01|FURN|43
 TheWayward01|IDLM|5
 TheWayward01|LIGH|99
 TheWayward01|LVLI|5
@@ -3321,7 +3333,7 @@ TheWayward01|MSTT|85
 TheWayward01|NPC_|20
 TheWayward01|SCOL|40
 TheWayward01|SOUN|1
-TheWayward01|STAT|940
+TheWayward01|STAT|941
 TheWayward01|TACT|1
 TheWayward01|TXST|37
 ThunderMtPowerPlant01|ACTI|185
@@ -3363,6 +3375,26 @@ TopOfTheWorld01|STAT|2813
 TopOfTheWorld01|TERM|2
 TopOfTheWorld01|TXST|310
 TopOfTheWorld01|WEAP|3
+TunnelOfLoveMineshaft01|ACTI|61
+TunnelOfLoveMineshaft01|ALCH|2
+TunnelOfLoveMineshaft01|ARMO|1
+TunnelOfLoveMineshaft01|BNDS|49
+TunnelOfLoveMineshaft01|BOOK|1
+TunnelOfLoveMineshaft01|CONT|12
+TunnelOfLoveMineshaft01|DOOR|5
+TunnelOfLoveMineshaft01|FLOR|69
+TunnelOfLoveMineshaft01|FURN|43
+TunnelOfLoveMineshaft01|LIGH|163
+TunnelOfLoveMineshaft01|LVLI|23
+TunnelOfLoveMineshaft01|MISC|64
+TunnelOfLoveMineshaft01|MSTT|32
+TunnelOfLoveMineshaft01|NPC_|1
+TunnelOfLoveMineshaft01|SCOL|346
+TunnelOfLoveMineshaft01|STAT|3475
+TunnelOfLoveMineshaft01|TACT|1
+TunnelOfLoveMineshaft01|TERM|1
+TunnelOfLoveMineshaft01|TXST|62
+TunnelOfLoveMineshaft01|WEAP|6
 UCB01|ACTI|31
 UCB01|ASPC|7
 UCB01|BNDS|8
@@ -3956,21 +3988,21 @@ WhitespringMall01|WEAP|1
 WhitespringRefuge01|ACTI|93
 WhitespringRefuge01|ARMO|3
 WhitespringRefuge01|ASPC|1
-WhitespringRefuge01|BOOK|2
-WhitespringRefuge01|CONT|161
+WhitespringRefuge01|BOOK|1
+WhitespringRefuge01|CONT|162
 WhitespringRefuge01|DOOR|101
 WhitespringRefuge01|FLOR|1
 WhitespringRefuge01|FURN|332
 WhitespringRefuge01|IDLM|100
 WhitespringRefuge01|LIGH|455
 WhitespringRefuge01|LVLI|93
-WhitespringRefuge01|MISC|365
+WhitespringRefuge01|MISC|367
 WhitespringRefuge01|MSTT|131
 WhitespringRefuge01|NOTE|3
 WhitespringRefuge01|NPC_|43
 WhitespringRefuge01|SCOL|174
 WhitespringRefuge01|STAT|9386
-WhitespringRefuge01|TERM|3
+WhitespringRefuge01|TERM|4
 WhitespringRefuge01|TXST|42
 WhitespringRefuge01|WEAP|4
 XPDPitt01Foundry|ACTI|235
@@ -4015,7 +4047,7 @@ XPDPitt01Industrial|NPC_|82
 XPDPitt01Industrial|SCOL|1490
 XPDPitt01Industrial|SECH|8
 XPDPitt01Industrial|SOUN|10
-XPDPitt01Industrial|STAT|15102
+XPDPitt01Industrial|STAT|15103
 XPDPitt01Industrial|TERM|2
 XPDPitt01Industrial|TXST|1088
 XPDPitt01Industrial|WEAP|1
@@ -4057,7 +4089,7 @@ XPDPitt02Trench|NOTE|2
 XPDPitt02Trench|NPC_|147
 XPDPitt02Trench|SCOL|2097
 XPDPitt02Trench|SOUN|2
-XPDPitt02Trench|STAT|15016
+XPDPitt02Trench|STAT|15017
 XPDPitt02Trench|TERM|6
 XPDPitt02Trench|TXST|1300
 XPDPitt02Trench|WEAP|2
@@ -4130,7 +4162,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3069368
+Appalachia||3073577
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -4635,7 +4667,21 @@ Appalachia|BoSz03StartMarker|1
 Appalachia|BootleggersShack_LocationCenter|1
 Appalachia|BootleggersShack_LocationEdge|1
 Appalachia|Boss3|1
+Appalachia|BossDips|1
+Appalachia|BossStageFour|1
+Appalachia|BossStageOne|1
+Appalachia|BossStageThree|1
+Appalachia|BossStageThree001|1
+Appalachia|BossStageTwo|1
 Appalachia|BossTrigger|1
+Appalachia|BottleMarker01|1
+Appalachia|BottleMarker02|1
+Appalachia|BottleMarker03|1
+Appalachia|BottleMarker04|1
+Appalachia|BottleMarker05|1
+Appalachia|BottleMarker06|1
+Appalachia|BottleMarker07|1
+Appalachia|BottleMarker08|1
 Appalachia|BridgeTestStartRef|1
 Appalachia|Burdette_EM|1
 Appalachia|BurrowsLeftManholeLoadDoor|1
@@ -4705,11 +4751,15 @@ Appalachia|CampClutterEnable|1
 Appalachia|CampMcClintock_LocationCenter|1
 Appalachia|CampMcClintock_LocationEdge|1
 Appalachia|CampVentureArmorWorkbenchRef|1
-Appalachia|CappyTartget|1
-Appalachia|CappyTartget001|1
-Appalachia|CappyTartget002|1
-Appalachia|CappyTartget003|1
-Appalachia|CappyTartget004|1
+Appalachia|CappyImposterHandler|1
+Appalachia|CappyMarker01|1
+Appalachia|CappyMarker02|1
+Appalachia|CappyMarker03|1
+Appalachia|CappyMarker04|1
+Appalachia|CappyMarker05|1
+Appalachia|CappyMarker06|1
+Appalachia|CappyMarker07|1
+Appalachia|CappyMarker08|1
 Appalachia|Challenge_Church_Charleston|1
 Appalachia|Challenge_Church_HomeShrine|1
 Appalachia|Challenge_Church_SwampChurch1|1
@@ -4751,6 +4801,11 @@ Appalachia|CharCap_Extto01SouthUpper|1
 Appalachia|CharlestonCapitolMapMarker|1
 Appalachia|CharlestonLandfillCenterMarker|1
 Appalachia|CharlestonLandfillWorkshopRef|1
+Appalachia|ChickenPatrolStart|1
+Appalachia|ChickenPatrolStart001|1
+Appalachia|ChickenPatrolStart002|1
+Appalachia|ChickenPatrolStart003|1
+Appalachia|ChickenPatrolStart004|1
 Appalachia|ClaraMomSkeleton|1
 Appalachia|ClarasSkeleton|1
 Appalachia|ClarksburgCenterMarker|1
@@ -4778,8 +4833,8 @@ Appalachia|D01C_ToxicWasteMarker03|1
 Appalachia|D01C_ToxicWasteMarker04|1
 Appalachia|D01C_Treadly_StayAtMarker|1
 Appalachia|D01c_ToxicWasteMarker05|1
-Appalachia|D11_JP_SpawnCenter003|1
 Appalachia|D11_MascotMarker02|1
+Appalachia|D11_MascotMarker03|1
 Appalachia|D11_MascotMarker_03|1
 Appalachia|DABCultPOI01|1
 Appalachia|DABCultPOI02|1
@@ -5388,12 +5443,63 @@ Appalachia|E08B_SpawnCenter03|1
 Appalachia|E08B_SpawnPoint|1
 Appalachia|E08B_SpawnVolume|1
 Appalachia|E08B_Trigger01Ref|1
-Appalachia|E09A_SpawnCenter00|1
-Appalachia|E09A_SpawnCenter01|1
+Appalachia|E09A_DisableMarker|1
+Appalachia|E09A_DisableMarker002|1
+Appalachia|E09A_DisableMarker003|1
+Appalachia|E09A_DisableMarker004|1
+Appalachia|E09A_EventRootMain001|1
+Appalachia|E09A_NukePoint|1
+Appalachia|E09A_SpawnCenter001|1
+Appalachia|E09A_SpawnCenter002|1
+Appalachia|E09A_SpawnCenter003|1
+Appalachia|E09B_CappyReal|1
+Appalachia|E09B_CappyReal001|1
+Appalachia|E09B_CappyReal002|1
+Appalachia|E09B_CappyReal003|1
+Appalachia|E09B_CappyReal005|1
+Appalachia|E09B_CappyReal006|1
+Appalachia|E09B_CappyReal007|1
+Appalachia|E09B_CappyReal008|1
+Appalachia|E09B_CappyReal009|1
+Appalachia|E09B_CappyReal010|1
+Appalachia|E09B_CappyReal011|1
+Appalachia|E09B_CappyReal012|1
+Appalachia|E09B_CappyReal013|1
+Appalachia|E09B_CappyReal014|1
+Appalachia|E09B_GoldenCappy00|1
+Appalachia|E09B_GoldenCappy01|1
+Appalachia|E09B_GoldenCappy02|1
+Appalachia|E09B_GoldenCappy03|1
+Appalachia|E09B_GoldenCappy04|1
+Appalachia|E09B_GoldenCappy05|1
 Appalachia|E09B_MascotMarker01|1
+Appalachia|E09B_RealCappySwap|1
+Appalachia|E09B_RealCappySwap001|1
+Appalachia|E09B_RealCappySwap02|1
+Appalachia|E09B_RealCappySwap03|1
+Appalachia|E09B_RealCappySwap04|1
+Appalachia|E09B_RealCappySwap05|1
+Appalachia|E09B_RealCappySwap06|1
+Appalachia|E09B_RealCappySwap07|1
 Appalachia|E09B_STW_EventRootMain|1
-Appalachia|E09B_STW_SpawnCenterMain|1
-Appalachia|E09B_STW_SpawnCenterNew|1
+Appalachia|E09B_SpawnCenterMid|1
+Appalachia|E09B_TentTopTrigger|1
+Appalachia|E09D_GWWS_BountyHunter_Spawn01|1
+Appalachia|E09D_GWWS_BountyHunter_Spawn02|1
+Appalachia|E09D_GWWS_BountyHunter_Spawn03|1
+Appalachia|E09D_GWWS_BountyHunter_Spawn04|1
+Appalachia|E09D_GWWS_BountyHunter_Spawn05|1
+Appalachia|E09D_GWWS_BountyHunter_Spawn06|1
+Appalachia|E09D_GWWS_SpawnCentre01|1
+Appalachia|E09D_GWWS_VarmitSpawn06|1
+Appalachia|E09D_GWWS_VarmitSpawn08|1
+Appalachia|E09D_GWWS_VarmitSpawn09|1
+Appalachia|E09D_GWWS_VarmitSpawn10|1
+Appalachia|E09D_MW_Root_NWOT_WildWestShowdown|1
+Appalachia|E09D_RespawnPoint|1
+Appalachia|E09D_SentrySpawnMarker|1
+Appalachia|E09b_StageTrigger|1
+Appalachia|E09b_TentTop_Trigger|1
 Appalachia|EN01_DebugMarker|1
 Appalachia|EN01_MiscIntroMarker|1
 Appalachia|EN01_MiscTapeObjRadialMarker|1
@@ -5469,6 +5575,7 @@ Appalachia|EN07_EnableMarker_FissureTau|1
 Appalachia|EN07_EnableMarker_FissureTheta|1
 Appalachia|EN07_Fissure01DebugMarker|1
 Appalachia|EN07_Fissure01DebugMarker001|1
+Appalachia|EN07_Fissure01_CenterMarker002|1
 Appalachia|EN07_InvisDoor_SiloA|1
 Appalachia|EN07_InvisibleDoor_MN|1
 Appalachia|EN07_InvisibleDoor_SK|1
@@ -5522,11 +5629,7 @@ Appalachia|ENz04_AttackMarker007|1
 Appalachia|ENz04_AttackMarker008|1
 Appalachia|ENz04_PatrolMarkerEndPoint006|1
 Appalachia|ENz04_PatrolMarkerEndPoint007|1
-Appalachia|ENz04_PatrolMarkerEndPoint008|1
-Appalachia|ENz04_PatrolMarkerEndPoint009|1
-Appalachia|ENz04_PatrolMarkerEndPoint010|1
 Appalachia|ENz04_PatrolMarkerEndPoint011|1
-Appalachia|ENz04_PatrolMarkerEndPoint012|1
 Appalachia|ENz04_PatrolMarkerEndPoint013|1
 Appalachia|ENz04_PatrolMarkerEndPoint014|1
 Appalachia|ENz04_PatrolMarkerEndPoint015|1
@@ -5633,8 +5736,6 @@ Appalachia|EX002_WhitespringMall_ShopToInterior_LoadDoor01|1
 Appalachia|EasternRegionalPenMapMarkerHeadingRef|1
 Appalachia|EasternRegionalPenMapMarkerRef|1
 Appalachia|EasternRegionalPen_EventRoot|1
-Appalachia|EggMarker2|1
-Appalachia|EggMarker3|1
 Appalachia|EggMarker4|1
 Appalachia|EggMarker5|1
 Appalachia|EllaAmesBunkerMapMarkerREF|1
@@ -5645,6 +5746,7 @@ Appalachia|En07_SiloExplosionREF_SG001|1
 Appalachia|En07_SiloExplosionREF_SK|1
 Appalachia|EncWavesFF08_CenterLoc|1
 Appalachia|ErrolStandStop|1
+Appalachia|EventTriggerBox|1
 Appalachia|Event_Root_RelayTower01Ext|1
 Appalachia|Event_Root_RelayTower02Ext|1
 Appalachia|Event_Root_RelayTower03Ext|1
@@ -6029,10 +6131,10 @@ Appalachia|ForwardTowerPrefer|1
 Appalachia|FoundationMapMarker|1
 Appalachia|FoundationOutpostMapMarker|1
 Appalachia|FoundationOutpost_Building_One_LOD_Marker|1
-Appalachia|FoundationOutpost_Building_Two_Three_LOD_Marker|1
 Appalachia|FoundationOutpost_Watchtower_LOD_Marker|1
 Appalachia|Foundation_ExtLoadDoor_Quartermaster|1
 Appalachia|FrontSatDoor|1
+Appalachia|Fundementalstage|1
 Appalachia|GarrahanEstateCardReader|1
 Appalachia|GarrahanEstateElevatorLowToMid|1
 Appalachia|GarrahanEstateElevatorLowToUp|1
@@ -6084,6 +6186,8 @@ Appalachia|HunterHuntedPublicTransmitterRef|1
 Appalachia|HuntersRidgeMarker|1
 Appalachia|HuntersvilleMapMarkerHeadingRef|1
 Appalachia|HuntersvilleMapMarkerRef|1
+Appalachia|Imposter|1
+Appalachia|ImposterMarker|1
 Appalachia|InvisibleDoorFromFloor3B|1
 Appalachia|InvisibleDoorToFloor3B|1
 Appalachia|JMLargeCranberryBogPOI01Marker|1
@@ -6599,6 +6703,16 @@ Appalachia|MountBlairWorkshopRef|1
 Appalachia|MountainsideBB_BasementEnableMarker|1
 Appalachia|MunitionsFactoryCenterMarker|1
 Appalachia|MunitionsFactoryWorkshopRef|1
+Appalachia|NWOT_BeneathStartMarker|1
+Appalachia|NWOT_Beneath_RaiderCorpse|1
+Appalachia|NWOT_Beneath_ReachedMineTrigger|1
+Appalachia|NWOT_Beneath_SuppliesMarker001|1
+Appalachia|NWOT_PatSnadboxRoot|1
+Appalachia|NWOT_Pete_IdleMarker|1
+Appalachia|NWOT_Pete_SandboxRoot|1
+Appalachia|NWOT_PossumRef|1
+Appalachia|NWOT_REF_RadioTransmitter_NW|1
+Appalachia|NukaWorldMapMarker|1
 Appalachia|Nukashine_WakeUpLocation_01|1
 Appalachia|Nukashine_WakeUpLocation_02|1
 Appalachia|Nukashine_WakeUpLocation_03|1
@@ -6635,7 +6749,9 @@ Appalachia|Nukashine_WakeUpLocation_33|1
 Appalachia|Nukashine_WakeUpLocation_34|1
 Appalachia|Nukashine_WakeUpLocation_35|1
 Appalachia|Nukashine_WakeUpLocation_36|1
+Appalachia|NukeMarker|1
 Appalachia|NukedCrater|1
+Appalachia|Nwot_NoCamp2|1
 Appalachia|OBJBucketExcavatorEnableMarker|1
 Appalachia|OBLargeMountainPOI03Marker|1
 Appalachia|OBLargeMountainPOI04Marker|1
@@ -6707,7 +6823,6 @@ Appalachia|P01B_Goto_Camp|1
 Appalachia|P01B_Goto_Shop|1
 Appalachia|P01B_Lying_BriceActivator|1
 Appalachia|P01B_Lying_Cophat|1
-Appalachia|P01B_Lying_PoliceBag|1
 Appalachia|P01B_Lying_QuestStartTrigger|1
 Appalachia|P01B_Lying_Skele1|1
 Appalachia|P01B_Lying_Skele2|1
@@ -6901,7 +7016,6 @@ Appalachia|P01C_VendingMachine_PS_Adams|1
 Appalachia|P01C_VendingMachine_PS_PC|1
 Appalachia|P01C_Watoga_Enable_Marker|1
 Appalachia|P01C_WavyWillards_Enable_Marker|1
-Appalachia|P01C_Whitespring_Enable_Marker|1
 Appalachia|P01E_Heart_AreaMarker|1
 Appalachia|P01E_Heart_HeartShapedBoxObject|1
 Appalachia|P01E_Heart_RobotSpawnMarker|1
@@ -8338,6 +8452,30 @@ Appalachia|SRMSmallMountainPOI01Marker|1
 Appalachia|SRMSmallMountainPOI02Marker|1
 Appalachia|SRMSmallMountainPOI03Marker|1
 Appalachia|SRMSmallSwampForestPOI01Marker|1
+Appalachia|STWBlueLightParent|1
+Appalachia|STWRedLightParent|1
+Appalachia|STWYellowLightParent|1
+Appalachia|STW_BlueLight|1
+Appalachia|STW_BlueLight002|1
+Appalachia|STW_BlueLight003|1
+Appalachia|STW_BlueLight004|1
+Appalachia|STW_BlueLight005|1
+Appalachia|STW_BlueLight006|1
+Appalachia|STW_BlueLight007|1
+Appalachia|STW_Flashing_Lights|1
+Appalachia|STW_XMarkerMultiRefLOD|1
+Appalachia|STW_YellowLight|1
+Appalachia|STW_YellowLight001|1
+Appalachia|STW_YellowLight002|1
+Appalachia|STW_YellowLight003|1
+Appalachia|STW_YellowLight004|1
+Appalachia|STW_YellowLight005|1
+Appalachia|STW_redLight|1
+Appalachia|STW_redLight001|1
+Appalachia|STW_redLight002|1
+Appalachia|STW_redLight003|1
+Appalachia|STW_redLight004|1
+Appalachia|STW_redLight005|1
 Appalachia|SalsGrindersMapMarker|1
 Appalachia|SecondaryBridgeIdle|1
 Appalachia|SecondaryBridgePrefer|1
@@ -8388,6 +8526,7 @@ Appalachia|TNTDomeDoorSugarGrove|1
 Appalachia|TNTDomeDoorSuvivalistTrainingCamp|1
 Appalachia|TNTDomeDoorVTU|1
 Appalachia|TNTDoorNukaCola|1
+Appalachia|TOL_Outside_Door|1
 Appalachia|TSMTNPOI|1
 Appalachia|TSSmallForestPOI01Marker|1
 Appalachia|TSSmallForestPOI02Marker|1
@@ -9300,18 +9439,8 @@ Appalachia|babylon_sa_wilderness_nw|1
 Appalachia|babylon_sa_wilderness_sw|1
 Appalachia|boss4|1
 Appalachia|boss5|1
-Appalachia|bossspawnpoint|1
-Appalachia|bossspawnpoint001|1
-Appalachia|bossspawnpoint002|1
-Appalachia|bossspawnpoint003|1
 Appalachia|bossspawnpoint004|1
-Appalachia|bossspawnpoint005|1
-Appalachia|bossspawnpoint006|1
-Appalachia|bossspawnpoint007|1
-Appalachia|bossspawnpoint008|1
-Appalachia|bossspawnpoint009|1
 Appalachia|bossspawnpoint010|1
-Appalachia|bossspawnpoint011|1
 Appalachia|cliifwatch_xmarker|1
 Appalachia|crosshair_Xmarker|1
 Appalachia|cutthroat_xmarker|1
@@ -9322,7 +9451,6 @@ Appalachia|dyer_chem_patrol_bridge_node011|1
 Appalachia|dyer_chem_patrol_bridge_node012|1
 Appalachia|e02a_Drum_AH|1
 Appalachia|e05_caravan_vendorchest_EugenieREF|1
-Appalachia|eggmarker1|1
 Appalachia|event_ENs02_AbandonedBogTown|1
 Appalachia|event_ENs02_Clarksburg|1
 Appalachia|event_ENs02_HarpersFerry|1
@@ -9415,6 +9543,7 @@ Appalachia|mtr04_Loudspeaker|1
 Appalachia|mtr04_arrivalTrigger|1
 Appalachia|mtr04_newrivergorgeposter|1
 Appalachia|mtr04_ohioriverposter|1
+Appalachia|nwot_NoCamp|1
 Appalachia|objectiveMarker_Bonfire02|1
 Appalachia|objectivemarker_Bonfire1|1
 Appalachia|objectivemarker_Bonfire2|1
@@ -10465,7 +10594,7 @@ FortAtlasDungeon01|WaterRoom_Moleminer_EWSModule|1
 FortAtlasDungeon01|WaterVolume03|1
 FortAtlasDungeon01|WaterVolume04|1
 FortAtlasDungeon01|WaterVolume06|1
-FoundationInt01||5346
+FoundationInt01||5347
 FoundationInt01|AubrieSandboxMarker|1
 FoundationInt01|FoundationSoldiersSandboxMarker|1
 FoundationInt01|Foundation_Interior_DirectTravelPoint|1
@@ -11415,11 +11544,12 @@ SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersMissileSilo||493
-SheltersPittTrench01||1102
+SheltersPittTrench01||1144
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
 SheltersVaultReception01||1544
 SheltersVaultServerRoom01||3966
+SheltersVaultStorageFacility||4069
 SheltersVaultStorageRoom01||775
 SpruceKnobCampground01||594
 SpruceKnobCampground01|W05_MQR_204P_RoccoInstanceMarker|1
@@ -11780,6 +11910,46 @@ TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_07|1
 TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_08|1
 TopOfTheWorld01|W05_MQ_101P_MegRef|1
 TopOfTheWorld01|W05_MQ_101P_RaiderBRef|1
+TunnelOfLoveMineshaft01||4378
+TunnelOfLoveMineshaft01|E09C_ArenaSpawn01|1
+TunnelOfLoveMineshaft01|E09C_ArenaSpawn02|1
+TunnelOfLoveMineshaft01|E09C_BrokenTracks_ObjectiveMarker_Radius3250|1
+TunnelOfLoveMineshaft01|E09C_DeathclawNestSpawn01|1
+TunnelOfLoveMineshaft01|E09C_DeathclawNestSpawn02|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn01|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn02|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn03|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn04|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn05|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn06|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn07|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn08|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn09|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn10|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn11|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn12|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn13|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn14|1
+TunnelOfLoveMineshaft01|E09C_DecorationSpawn15|1
+TunnelOfLoveMineshaft01|E09C_Decorations_ObjectiveMarker_Radius2000|1
+TunnelOfLoveMineshaft01|E09C_DialogueResetTrigger|1
+TunnelOfLoveMineshaft01|E09C_FakeMissHandyRef|1
+TunnelOfLoveMineshaft01|E09C_FakeMissHandySpawn01|1
+TunnelOfLoveMineshaft01|E09C_FakeMissHandySpawn02|1
+TunnelOfLoveMineshaft01|E09C_FakeMissHandySpawn03|1
+TunnelOfLoveMineshaft01|E09C_LoveTunnel_Root|1
+TunnelOfLoveMineshaft01|E09C_MrHandyWeddingMarker|1
+TunnelOfLoveMineshaft01|E09C_MrLovelyMoveToWeddingMarker|1
+TunnelOfLoveMineshaft01|E09C_MrLovelyStartMarker|1
+TunnelOfLoveMineshaft01|E09C_RespawnMarker|1
+TunnelOfLoveMineshaft01|E09C_TunnelADeco_EnableMarkerRef|1
+TunnelOfLoveMineshaft01|E09C_TunnelBDeco_EnableMarkerRef|1
+TunnelOfLoveMineshaft01|E09C_TunnelCDeco_EnableMarkerRef|1
+TunnelOfLoveMineshaft01|E09C_TunnelDDeco_EnableMarkerRef|1
+TunnelOfLoveMineshaft01|E09C_TunnelEDeco_EnableMarkerRef|1
+TunnelOfLoveMineshaft01|E09C_TunnelFDeco_EnableMarkerRef|1
+TunnelOfLoveMineshaft01|E09C_WeddingTest|1
+TunnelOfLoveMineshaft01|TOL_Inside_Door|1
 UCB01||4567
 UCB01|W05_MQS_202P_UCB02Door_REF|1
 UCB01|motherlode_travel_test|1
@@ -12936,7 +13106,7 @@ WhitespringMall01|TestElevDoorTriggerARef130|1
 WhitespringMall01|TestElevDoorTriggerARef134|1
 WhitespringMall01|TestElevDoorTriggerARef136|1
 WhitespringMall01|WhitespringMall_Interior_DirectTravelPoint|1
-WhitespringRefuge01||11291
+WhitespringRefuge01||11294
 WhitespringRefuge01|EX001_WhitespringRefuge_ElevToMall_LoadDoor01|1
 WhitespringRefuge01|EX001_WhitespringRefuge_ElevToMall_LoadDoor02|1
 WhitespringRefuge01|EX001_WhitespringRefuge_ElevToMall_LoadDoor03|1
@@ -13159,10 +13329,10 @@ XPDPitt01Foundry|RespawnEntrance02Temp01|1
 XPDPitt01Foundry|RespawnEntrance02Temp02|1
 XPDPitt01Foundry|RespawnEntrance02Temp03|1
 XPDPitt01Foundry|RespawnEntrance02Temp04|1
-XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget00_Trigger01|1
-XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget01_Trigger|1
-XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget02_Trigger|1
-XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget03_Trigger|1
+XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget00_Trigger|1
+XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget01_Trigger00|1
+XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget02_Trigger00|1
+XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget03_Trigger00|1
 XPDPitt01Foundry|XPD_ObjMod_CarryAndThrow_ObjectTarget04_Trigger01|1
 XPDPitt01Foundry|XPD_Pitt01_CarryAndThrow_SCM_00_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_CarryAndThrow_SCM_01_Ref|1
@@ -13204,7 +13374,7 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
-XPDPitt01Industrial||19951
+XPDPitt01Industrial||19952
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM001|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_Sandbox|1
@@ -13493,7 +13663,7 @@ XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_Collapsed|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_FallingRocks|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_Boarded|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_FallingRocks|1
-XPDPitt02Trench||21073
+XPDPitt02Trench||21074
 XPDPitt02Trench|AmbEWS_DummyRef|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_SCM|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_Sandbox|1
@@ -13651,6 +13821,194 @@ XPDPitt02Trench|XPD_Pitt02_Survivor_TrainTunnel|1
 XPDPitt02Trench|XPD_Pitt02_Survivor_TrainTunnel001|1
 XPDPitt02Trench|XPD_Pitt02_Survivor_TrainTunnel002|1
 XPDPitt02Trench|XPD_Pitt02_TrainTunnel_ProxTrigger|1
+==Total standard entities by spawnChance by Space==
+AMSHQ01|50|6
+AMSHQ01|75|1
+AMSHQ01|100|5474
+AMSHQ02|100|1993
+AVRMedicalCenter01|100|5936
+AlleghenyAsylum01|100|15013
+Appalachia|50|42
+Appalachia|75|136
+Appalachia|85|72
+Appalachia|100|3078780
+ArktosPharmaLab01|50|1
+ArktosPharmaLab01|75|1
+ArktosPharmaLab01|100|17160
+ArktosPharmaLabDungeon|50|1
+ArktosPharmaLabDungeon|75|1
+ArktosPharmaLabDungeon|100|14626
+BelchingBetty01|100|5220
+BigBendTunnel01|100|7551
+BlackwaterMine01|100|6164
+BlueRidgeOffice01|50|1
+BlueRidgeOffice01|100|761
+BurdetteManorBasement01|100|499
+BurningMine01|100|6133
+Burrows01|75|8
+Burrows01|100|20165
+CharGen01|100|7052
+CharGen02|100|6931
+CharGen03|100|6931
+CharGen04|100|6931
+CharGen05|100|6931
+CharlestonCapitolBuilding02|75|1
+CharlestonCapitolBuilding02|100|7550
+CharlestonCapitolCourthouse01|100|2374
+CraterWarRoom01|100|798
+CraterWatchstation01|100|495
+CultistCave01|100|5130
+DaggersDen01|100|1659
+DaggersDen02|100|489
+DuncanDuncanRobotics01|100|1365
+DyerChemical01|100|3212
+EasternRegionalPen01|100|11438
+EmmettMountainDisposalSite01|50|4
+EmmettMountainDisposalSite01|75|6
+EmmettMountainDisposalSite01|100|4847
+EnclaveResearchFacility01|100|18733
+FortAtlas01|100|5184
+FortAtlasDungeon01|100|12665
+FoundationInt01|100|5372
+FoundationSupplyRoom01|100|529
+FraternityHouse01|100|1216
+FraternityHouse02|100|925
+FreeStatesBunker01|100|1129
+FreeStatesBunker02|100|981
+FreeStatesBunker03|100|1043
+FreeStatesBunker04|100|1254
+FreeStatesBunker06|100|949
+FreeStatesBunker07|100|1049
+GarrahanMiningHQ01|100|9132
+GauleyMine01|100|4177
+GlassedCavern01|100|9043
+GraftonPawnShop01|100|1478
+GraftonSteelUnderground01|50|2
+GraftonSteelUnderground01|75|19
+GraftonSteelUnderground01|100|23617
+HarpersFerryDungeon01|100|13072
+HornwrightHQ01|50|3
+HornwrightHQ01|100|5951
+HornwrightSafeRoom01|50|1
+HornwrightSafeRoom01|75|2
+HornwrightSafeRoom01|100|1041
+KerwoodMine01|100|5667
+LewisandSonsFarmingSupply01|100|461
+LousMine01|75|3
+LousMine01|100|6989
+MTR08LodeBaring01|100|3409
+MTR08LodeBaring02|100|3281
+MamaDolceProcessing01|100|3074
+MonongahMine01|100|6922
+MonongahMissileSilo01|75|4
+MonongahMissileSilo01|100|15686
+MonongahPowerPlant01|100|11083
+MorgantownAirportTerminal02|75|2
+MorgantownAirportTerminal02|100|5251
+MorgantownApartment01|100|1362
+MorgantownHighSchool01|100|5954
+MountBlairWarehouseBasement01|100|319
+NukaColaQuantumPlant01|100|5477
+OrwellOrchardsShelter01|100|2209
+OverseersHome01|100|1250
+PoseidonPlant01|100|15660
+PoseidonPlant02|100|4189
+RadioResearchCenter01|100|3472
+RaiderCave01|100|1016
+RaiderCave02|100|1874
+RaiderCave03|100|1028
+RaiderRaidTrailerInt|100|106
+RiversideManor01|100|7433
+RobCoResearchCenter01|50|3
+RobCoResearchCenter01|100|8757
+RobcoExperimentalCache01|100|3068
+RollinsLaborCamp01|100|149
+SamBlackwellBunker02|100|2113
+SamBlackwellsDeathclawCave|100|1927
+SettlerBugOutCave|100|372
+SheltersCave01|100|534
+SheltersCave02|100|608
+SheltersClaimCenter01|100|976
+SheltersMissileSilo|100|493
+SheltersPittTrench01|100|1144
+SheltersVaultAtrium01|100|2268
+SheltersVaultLivingQuarters01|100|2644
+SheltersVaultReception01|100|1544
+SheltersVaultServerRoom01|100|3966
+SheltersVaultStorageFacility|100|4069
+SheltersVaultStorageRoom01|100|775
+SpruceKnobCampground01|75|1
+SpruceKnobCampground01|100|594
+SpruceKnobMissileSilo01|75|4
+SpruceKnobMissileSilo01|100|15676
+SugarGrove01|100|8279
+SugarGrove02|100|271
+SugarGroveMissileSilo01|75|4
+SugarGroveMissileSilo01|100|15686
+TheCraterCore01|100|1289
+TheNukashine01|100|1537
+TheRustyPick01|100|2442
+TheWayward01|100|1719
+ThunderMtPowerPlant01|100|9415
+TopOfTheWorld01|100|4652
+TunnelOfLoveMineshaft01|100|4417
+UCB01|100|4569
+UCB02|100|77
+UncannyCaverns01|100|4228
+UncannyCaverns02|100|3191
+UncannyCavernsDungeon|100|7410
+VTecAgCenter01|50|9
+VTecAgCenter01|100|3127
+ValleyGalleria01|100|8633
+VanLoweTaxidermy01|75|3
+VanLoweTaxidermy01|100|1963
+Vault51Dungeon|100|9604
+Vault63Entrance|100|350
+Vault79Entrance|100|1546
+Vault79GoldVaultOperations|100|4698
+Vault79Main|50|1
+Vault79Main|100|18850
+Vault94Dungeon|50|6
+Vault94Dungeon|75|6
+Vault94Dungeon|100|17472
+Vault94DungeonGECK|50|1
+Vault94DungeonGECK|75|5
+Vault94DungeonGECK|100|4598
+Vault94Entrance|100|1320
+Vault96Dungeon|75|4
+Vault96Dungeon|100|21754
+VaultTecU01|75|1
+VaultTecU01|100|10712
+WVLumberCo01|50|1
+WVLumberCo01|75|3
+WVLumberCo01|100|1543
+WatogaCivicCenter01|100|11504
+WatogaCivicCenterDungeon|100|8930
+WatogaEmergencyServices01|100|1905
+WatogaHighSchool01|100|10105
+WatogaHighSchoolDungeon|100|9842
+WatogaMunicipalCenter01|100|2692
+WatogaMunicipalCenter02|100|812
+WatogaTowers01|100|584
+WatogaUnderground01|100|20162
+WendigoCave01|100|6742
+WestTek01|100|11786
+WestTek02|75|1
+WestTek02|100|5126
+WhitespringBunker01|100|16333
+WhitespringMall01|100|6940
+WhitespringRefuge01|100|11496
+XPDPitt01Foundry|50|9
+XPDPitt01Foundry|75|11
+XPDPitt01Foundry|100|16918
+XPDPitt01Industrial|50|4
+XPDPitt01Industrial|75|3
+XPDPitt01Industrial|100|20134
+XPDPitt02Sanctum|75|2
+XPDPitt02Sanctum|100|18032
+XPDPitt02Trench|50|4
+XPDPitt02Trench|75|8
+XPDPitt02Trench|100|21219
 ==Total Scrap and Junk per Component per Space==
 AMSHQ01|Acid|1|1
 AMSHQ01|Aluminum|7|4
@@ -13756,38 +14114,38 @@ AlleghenyAsylum01|Screw|30|25
 AlleghenyAsylum01|Spring|32|30
 AlleghenyAsylum01|Steel|254|168
 AlleghenyAsylum01|Wood|94|71
-Appalachia|Acid|1375|892
-Appalachia|Adhesive|1156|489
-Appalachia|Aluminum|2144|1507
+Appalachia|Acid|1356|875
+Appalachia|Adhesive|1155|489
+Appalachia|Aluminum|2127|1499
 Appalachia|Antiseptic|872|412
-Appalachia|Asbestos|1617|1199
+Appalachia|Asbestos|1610|1196
 Appalachia|Ballistic Fiber|184|92
-Appalachia|Bone|3412|1302
-Appalachia|Ceramic|3838|3323
-Appalachia|Circuitry|463|367
-Appalachia|Cloth|5783|5147
+Appalachia|Bone|3416|1304
+Appalachia|Ceramic|3810|3290
+Appalachia|Circuitry|461|365
+Appalachia|Cloth|5764|5130
 Appalachia|Concrete|2301|421
-Appalachia|Copper|1529|1446
+Appalachia|Copper|1522|1440
 Appalachia|Cork|628|511
-Appalachia|Crystal|324|198
-Appalachia|Fertilizer|1112|377
+Appalachia|Crystal|323|197
+Appalachia|Fertilizer|1064|374
 Appalachia|Fiber Optics|40|39
-Appalachia|Fiberglass|938|700
-Appalachia|Gear|1135|958
-Appalachia|Glass|8950|7403
-Appalachia|Gold|77|77
-Appalachia|Lead|5265|3042
-Appalachia|Leather|1905|860
+Appalachia|Fiberglass|936|699
+Appalachia|Gear|1134|957
+Appalachia|Glass|8961|7407
+Appalachia|Gold|75|75
+Appalachia|Lead|5278|3054
+Appalachia|Leather|1913|861
 Appalachia|Nuclear Material|136|136
-Appalachia|Oil|3667|2454
-Appalachia|Plastic|5724|4065
-Appalachia|Rubber|2004|1214
-Appalachia|Screw|1178|1059
+Appalachia|Oil|3662|2450
+Appalachia|Plastic|5694|4044
+Appalachia|Rubber|1984|1200
+Appalachia|Screw|1175|1056
 Appalachia|Silver|265|224
-Appalachia|Spring|1292|1261
-Appalachia|Steel|15435|9223
+Appalachia|Spring|1283|1252
+Appalachia|Steel|15455|9218
 Appalachia|Ultracite|1|1
-Appalachia|Wood|4793|3347
+Appalachia|Wood|4771|3332
 ArktosPharmaLab01|Acid|48|33
 ArktosPharmaLab01|Adhesive|10|3
 ArktosPharmaLab01|Aluminum|31|25
@@ -15648,6 +16006,28 @@ TopOfTheWorld01|Silver|1|1
 TopOfTheWorld01|Spring|13|13
 TopOfTheWorld01|Steel|131|93
 TopOfTheWorld01|Wood|76|50
+TunnelOfLoveMineshaft01|Acid|1|1
+TunnelOfLoveMineshaft01|Adhesive|12|5
+TunnelOfLoveMineshaft01|Aluminum|5|5
+TunnelOfLoveMineshaft01|Antiseptic|2|1
+TunnelOfLoveMineshaft01|Asbestos|1|1
+TunnelOfLoveMineshaft01|Ballistic Fiber|4|2
+TunnelOfLoveMineshaft01|Bone|1|1
+TunnelOfLoveMineshaft01|Ceramic|2|2
+TunnelOfLoveMineshaft01|Cloth|10|10
+TunnelOfLoveMineshaft01|Concrete|17|3
+TunnelOfLoveMineshaft01|Copper|4|4
+TunnelOfLoveMineshaft01|Cork|8|4
+TunnelOfLoveMineshaft01|Gear|1|1
+TunnelOfLoveMineshaft01|Lead|37|17
+TunnelOfLoveMineshaft01|Leather|13|6
+TunnelOfLoveMineshaft01|Oil|13|9
+TunnelOfLoveMineshaft01|Plastic|3|3
+TunnelOfLoveMineshaft01|Rubber|5|5
+TunnelOfLoveMineshaft01|Screw|1|1
+TunnelOfLoveMineshaft01|Spring|3|3
+TunnelOfLoveMineshaft01|Steel|48|31
+TunnelOfLoveMineshaft01|Wood|13|11
 UCB01|Aluminum|7|3
 UCB01|Asbestos|2|2
 UCB01|Ceramic|6|6
@@ -16333,7 +16713,7 @@ WhitespringRefuge01|Aluminum|18|12
 WhitespringRefuge01|Antiseptic|5|4
 WhitespringRefuge01|Asbestos|10|7
 WhitespringRefuge01|Bone|1|1
-WhitespringRefuge01|Ceramic|157|119
+WhitespringRefuge01|Ceramic|158|120
 WhitespringRefuge01|Circuitry|10|6
 WhitespringRefuge01|Cloth|50|35
 WhitespringRefuge01|Concrete|3|1
@@ -16353,9 +16733,9 @@ WhitespringRefuge01|Plastic|73|44
 WhitespringRefuge01|Rubber|22|16
 WhitespringRefuge01|Screw|8|8
 WhitespringRefuge01|Silver|1|1
-WhitespringRefuge01|Spring|11|11
+WhitespringRefuge01|Spring|12|12
 WhitespringRefuge01|Steel|107|83
-WhitespringRefuge01|Wood|108|65
+WhitespringRefuge01|Wood|109|66
 XPDPitt01Foundry|Acid|79|43
 XPDPitt01Foundry|Adhesive|70|28
 XPDPitt01Foundry|Aluminum|63|45
@@ -16472,14 +16852,14 @@ Appalachia|Bloodbug|0.41984126984127|70
 Appalachia|Cave Cricket|0.0818847215586345|161
 Appalachia|Deathclaw|0.235042735042735|6
 Appalachia|Fog Crawler|0.124222585924714|47
-Appalachia|Ghoul|0.497154297479442|1038
+Appalachia|Ghoul|0.491273061192651|1026
 Appalachia|Gulper|0.147427006650308|103
 Appalachia|Honey Beast|0.234285714285714|10
 Appalachia|Insect|0.160736616745201|233
 Appalachia|Liberator|0.165318754313319|460
 Appalachia|Mega Sloth|0.176282051282051|8
 Appalachia|Mirelurk|0.33939306142696|177
-Appalachia|Mole Miner|0.616434010152284|197
+Appalachia|Mole Miner|0.6064453125|192
 Appalachia|Mole Rat|0.146070993256108|524
 Appalachia|Rad Ant|0.25|14
 Appalachia|Rad Rat|0.0900348805783591|345
@@ -16558,7 +16938,7 @@ WestTek01|Super Mutant|1.0|41
 0053F689|OverseersHome01|Overseer's Home|0|2005|822|1112|2899|-185|1830|0|0|1.0
 005B7D87|Vault94Dungeon|Vault 94|0|-12586|-527|-17811|-7362|-5911|4857|0|0|1.0
 00620445|SheltersMissileSilo|Abandoned Mine Shelter|0|1368|287|-1352|4088|-2985|3560|0|0|1.0
-00664055|SheltersPittTrench01|Neighborhood Square Shelter|0|1958|1059|-3195|7112|-5571|7690|0|0|1.0
+00664055|SheltersPittTrench01|Neighborhood Square Shelter|0|1958|1279|-3195|7112|-5571|8129|0|0|1.0
 00004183|WatogaHighSchool01|Watoga High School|0|-1571|2284|-5728|2585|-1296|5864|0|0|1.0
 000072BB|AVRMedicalCenter01|AVR Medical Center|0|2840|-659|-588|6268|-3712|2394|0|0|1.0
 000125A3|VTecAgCenter01|Vault-Tec Ag Research Center|0|13|2004|-1408|1435|-512|4521|500|-850|1.3
@@ -16586,6 +16966,7 @@ WestTek01|Super Mutant|1.0|41
 000644DB|GarrahanMiningHQ01|Garrahan Mining HQ|0|538|648|-4042|5119|-12335|13632|0|650|1.3
 00473CE3|Burrows01|The Burrows|0|-752|4172|-10063|8559|-6341|14685|0|0|1.0
 00590AB3|WatogaTowers01|Watoga Towers|0|-828|494|-2104|448|-458|1446|-1200|0|1.1
+0068083D|SheltersVaultStorageFacility|Vault Storage Facility Shelter|0|520|75|-2392|3433|-2748|2898|0|0|1.0
 0001AB97|WatogaEmergencyServices01|Watoga Emergency Services|0|454|778|-1044|1952|-490|2047|0|0|1.0
 0039EFE3|BelchingBetty01|Belching Betty|0|-1294|12787|-6063|3474|-326|25901|0|0|1.0
 00431DED|PoseidonPlant02|Poseidon Energy Plant Expansion|0|-2341|3011|-6614|1932|-4837|10859|-400|-2700|2.0
@@ -16669,6 +17050,7 @@ WestTek01|Super Mutant|1.0|41
 001CD6F7|FreeStatesBunker04|Raleigh Clay's Bunker|0|535|1938|-1551|2622|655|3221|0|0|1.0
 0010A265|RadioResearchCenter01|Radio Astronomy Research Center|0|-891|164|-2432|649|-1978|2307|0|0|1.0
 005B5251|SheltersVaultReception01|Vault Lobby Shelter|0|6134|-7519|5328|6940|-9232|-5806|0|0|1.0
+00659CB1|TunnelOfLoveMineshaft01|Tunnel of Love|0|2494|-214|-2767|7755|-7875|7447|0|0|1.0
 0040FA9B|WVLumberCo01|WV Lumber Co. Office|0|3267|-1060|1896|4639|-2734|613|0|0|1.0
 001D4AB5|MamaDolceProcessing01|Mama Dolce's Food Processing|0|840|1280|-896|2576|-1536|4096|0|0|1.0
 0040A2C1|TheCraterCore01|The Crater Core|0|1389|-213|-6656|9435|-1986|1559|3650|0|2.6

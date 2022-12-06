@@ -8,7 +8,7 @@ namespace Mappalachia
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		static readonly int prefsIteration = 11;
+		const int prefsIteration = 11;
 
 		// The prefs version on the file we're reading
 		static int incomingPrefsIteration = prefsIteration;
@@ -51,6 +51,7 @@ namespace Mappalachia
 			settings.Add("[Map]");
 			settings.Add("brightness=" + SettingsMap.brightness);
 			settings.Add("appalachiaBackground=" + SettingsMap.background);
+			settings.Add("highlightWater=" + BoolToIntStr(SettingsMap.highlightWater));
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 			settings.Add("showMapLabels=" + BoolToIntStr(SettingsMap.showMapLabels));
 			settings.Add("showMapIcons=" + BoolToIntStr(SettingsMap.showMapIcons));
@@ -89,6 +90,7 @@ namespace Mappalachia
 			// SettingsPlotCluster
 			settings.Add("[PlotCluster]");
 			settings.Add("clusterRange=" + SettingsPlotCluster.clusterRange);
+			settings.Add("minClusterWeight=" + SettingsPlotCluster.minClusterWeight);
 			settings.Add("clusterWeb=" + BoolToIntStr(SettingsPlotCluster.clusterWeb));
 			settings.Add("liveUpdate=" + BoolToIntStr(SettingsPlotCluster.liveUpdate));
 
@@ -181,6 +183,10 @@ namespace Mappalachia
 									throw new ArgumentException("Invalid background image.");
 							}
 
+							break;
+
+						case "highlightWater":
+							SettingsMap.highlightWater = StrIntToBool(value);
 							break;
 
 						case "grayScale":
@@ -434,10 +440,18 @@ namespace Mappalachia
 
 						case "clusterRange":
 							int range = Convert.ToInt32(value);
-
 							if (ValidateWithinRange(range, SettingsPlotCluster.minRange, SettingsPlotCluster.maxRange))
 							{
 								SettingsPlotCluster.clusterRange = range;
+							}
+
+							break;
+
+						case "minClusterWeight":
+							int weightCap = Convert.ToInt32(value);
+							if (ValidateWithinRange(weightCap, SettingsPlotCluster.minWeightCap, SettingsPlotCluster.maxWeightCap))
+							{
+								SettingsPlotCluster.minClusterWeight = weightCap;
 							}
 
 							break;
@@ -457,11 +471,11 @@ namespace Mappalachia
 						case "fileType":
 							if (value == "PNG")
 							{
-								SettingsFileExport.fileType = SettingsFileExport.FileType.PNG;
+								SettingsFileExport.fileType = SettingsFileExport.ExtensionType.PNG;
 							}
 							else if (value == "JPEG")
 							{
-								SettingsFileExport.fileType = SettingsFileExport.FileType.JPEG;
+								SettingsFileExport.fileType = SettingsFileExport.ExtensionType.JPEG;
 							}
 							else
 							{

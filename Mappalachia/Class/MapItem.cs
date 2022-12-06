@@ -17,16 +17,13 @@ namespace Mappalachia
 	// NOT a unique reference to an instance of an item, but rather a description of all of the same type of item.
 	public class MapItem
 	{
-		// Signatures which could be affected by a lock level
-		static readonly List<string> lockableTypes = new List<string> { "CONT", "DOOR", "TERM" };
-
 		public readonly Type type; // What type of search did this item come from and what does it represent
 		public readonly string uniqueIdentifier; // The FormID, Scrap name or NPC name which this MapItem represents
 		public readonly string editorID; // The editorID of the item
 		public readonly string displayName; // The Display Name of the item where applicable
 		public readonly string signature; // The signature eg MISC
 		public readonly List<string> filteredLockTypes; // The lock types which were selected when this item was picked from the database
-		public readonly double weight; // The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
+		public readonly float weight; // The spawn chance or weighting of this item (eg 2x scrap from junk = 2.0, 33% chance of NPC spawn = 0.33). -1 means "Varies"
 		public readonly int count; // How many of this item did we find.
 		public readonly string spaceName; // Display Name of the location where this item was placed.
 		public readonly string spaceEditorID; // EditorID of the location
@@ -36,7 +33,7 @@ namespace Mappalachia
 
 		List<MapDataPoint> plots;
 
-		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, double weight, int count, string spaceEditorID, string spaceName, string label)
+		public MapItem(Type type, string uniqueIdentifier, string editorID, string displayName, string signature, List<string> filteredLockTypes, float weight, int count, string spaceEditorID, string spaceName, string label)
 		{
 			this.type = type;
 			this.uniqueIdentifier = uniqueIdentifier;
@@ -56,7 +53,7 @@ namespace Mappalachia
 		{
 			return
 				type == Type.Standard &&
-				lockableTypes.Contains(signature) &&
+				DataHelper.lockableTypes.Contains(signature) &&
 				!filteredLockTypes.OrderBy(e => e).SequenceEqual(Database.GetLockTypes().OrderBy(e => e));
 		}
 
@@ -71,7 +68,7 @@ namespace Mappalachia
 			switch (type)
 			{
 				case Type.Standard:
-					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes, label);
+					plots = Database.GetStandardCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), filteredLockTypes, label, weight == -1 ? 1 : weight / 100f);
 					break;
 				case Type.NPC:
 					plots = Database.GetNPCCoords(uniqueIdentifier, SettingsSpace.GetCurrentFormID(), weight);
@@ -90,8 +87,8 @@ namespace Mappalachia
 				point.x = Map.ScaleCoordinateToSpace(point.x, false);
 				point.y = Map.ScaleCoordinateToSpace(point.y, true);
 
-				point.boundX *= currentSpace.scale;
-				point.boundY *= currentSpace.scale;
+				point.boundX = Math.Max(point.boundX * currentSpace.scale, Map.minVolumeDimension);
+				point.boundY = Math.Max(point.boundY * currentSpace.scale, Map.minVolumeDimension);
 			}
 
 			return plots;
@@ -112,21 +109,32 @@ namespace Mappalachia
 		// forceDefault to ignore user override and return to auto-generated
 		public string GetLegendText(bool forceDefault)
 		{
-			if (!forceDefault && overridingLegendText != string.Empty)
+			if (!forceDefault && !string.IsNullOrEmpty(overridingLegendText))
 			{
 				return overridingLegendText;
 			}
 
 			if (type == Type.Standard)
 			{
-				// Return the editorID, plus the displayName (if it exists), plus the lock levels (if they're relevant)
-				return (displayName == string.Empty ?
-							editorID :
-							editorID + " (" + displayName + ")") +
-						(label == string.Empty ? string.Empty : $" ({label})") +
-						(GetLockRelevant() ?
-							" (" + string.Join(", ", DataHelper.ConvertLockLevel(filteredLockTypes, false)) + ")" :
-							string.Empty);
+				string lockRemark = string.Empty;
+
+				if (GetLockRelevant())
+				{
+					// If the filtered types are all but "Not locked"
+					if (filteredLockTypes.OrderBy(e => e).SequenceEqual(Database.GetLockTypes().Where(l => !string.IsNullOrEmpty(l)).OrderBy(e => e)))
+					{
+						lockRemark = " (Locked)";
+					}
+					else
+					{
+						lockRemark = " (" + string.Join(", ", DataHelper.ConvertLockLevel(filteredLockTypes, false)) + ")";
+					}
+				}
+
+				string labelRemark = !string.IsNullOrEmpty(label) ? $" ({label})" : string.Empty;
+				string nameRemark = !string.IsNullOrEmpty(displayName) ? $" ({displayName})" : string.Empty;
+
+				return editorID + nameRemark + labelRemark + lockRemark;
 			}
 			else
 			{
@@ -189,7 +197,7 @@ namespace Mappalachia
 				case Type.Region:
 					return mapItem.uniqueIdentifier == uniqueIdentifier;
 				default:
-					throw new Exception("Unsupported MapItem type " + mapItem.type);
+					return false;
 			}
 		}
 
@@ -205,7 +213,7 @@ namespace Mappalachia
 				case Type.Region:
 					return uniqueIdentifier.GetHashCode();
 				default:
-					throw new Exception("Unsupported MapItem type " + type);
+					return -1;
 			}
 		}
 	}

@@ -8,10 +8,10 @@ namespace Mappalachia
 		public float x;
 		public float y;
 		public int z; // Height
-		public double weight; // The magnitude/importance of this plot (EG 2.0 may represent 2x scrap from a single junk, or 0.33 may represent a 33% chance of spawning)
+		public float weight; // The magnitude/importance of this plot (EG 2.0 may represent 2x scrap from a single junk, or 0.33 may represent a 33% chance of spawning)
 		public string primitiveShape; // The name of the primitive shape which describes this item (only typically applicable to ACTI)
-		public double boundX; // The bounds of the primitiveShape
-		public double boundY;
+		public float boundX; // The bounds of the primitiveShape
+		public float boundY;
 		public int boundZ;
 		public int rotationZ;
 		MapCluster parentCluster; // Cluster this belongs to
@@ -30,12 +30,6 @@ namespace Mappalachia
 			this.boundY = boundY;
 			this.boundZ = boundZ;
 			this.rotationZ = rotationZ;
-
-			// Special case to ensure Line volumes (Default width 16 units) have enough pixel width to still be visible
-			if (primitiveShape == "Line" && boundY == 16)
-			{
-				this.boundY = Map.minVolumeDimension;
-			}
 		}
 
 		void Initialize(int x, int y, int z)
@@ -45,7 +39,7 @@ namespace Mappalachia
 			this.z = z;
 
 			// Default weight, can be assigned to later
-			weight = 1d;
+			weight = 1f;
 		}
 
 		public void SetClusterMembership(MapCluster cluster)
@@ -78,6 +72,13 @@ namespace Mappalachia
 		{
 			double boundsWith = GeometryHelper.GetMaximumBoundingBoxWidth(boundX, boundY);
 			return boundsWith * boundsWith;
+		}
+
+		// Return if this volume in isolation is suitable to be drawn as a volume
+		public bool QualifiesForVolumeDraw()
+		{
+			return !string.IsNullOrEmpty(primitiveShape) && // This has a primitive shape assigned
+				GetVolumeBounds() <= Map.volumeRejectThreshold; // This is not too large so as to cause memory problems
 		}
 	}
 }

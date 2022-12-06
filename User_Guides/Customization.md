@@ -12,6 +12,9 @@ Change the background image of the map. This setting is only available when 'App
 - Military: The map from the nuke targeting computer.
 - Satellite: A top-down render of the Appalachia world.
 
+### Highlight Water
+This option will add a colored overlay which clearly highlights the surface of all bodies of water.
+
 ### Grayscale
 This toggles the underlying map image to be in grayscale (black and white) or full color.
 

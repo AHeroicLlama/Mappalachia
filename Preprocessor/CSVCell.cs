@@ -195,7 +195,8 @@ namespace Mappalachia
 				case "boundY":
 				case "boundZ":
 				case "rotZ":
-					// Boundary dimensions or rotations may be blank or otherwise integers
+				case "percChanceNone":
+					// Boundary dimensions, rotations, or LVLI ChanceNone may be blank or otherwise integers
 					if (data != string.Empty && !int.TryParse(data, out _))
 					{
 						ReportValidationError();
