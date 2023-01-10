@@ -23,18 +23,22 @@ IF NOT EXIST "../Preprocessor/Output/Position_Data.csv" (
 	EXIT
 )
 
-IF EXIST %steamPath% (
-	IF EXIST %sigcheckPath% (
-		echo Getting game version from exe via Sigcheck...
-		echo version>%gameVersionFile%
-		sigcheck.exe -nobanner -n %steamPath%>>%gameVersionFile%
+IF "%1"=="override" (
+	echo Skipping automated game version checking.
+) else (
+	IF EXIST %steamPath% (
+		IF EXIST %sigcheckPath% (
+			echo Getting game version from exe via Sigcheck...
+			echo version>%gameVersionFile%
+			sigcheck.exe -nobanner -n %steamPath%>>%gameVersionFile%
+		) else (
+			echo Sigcheck was not found at path %sigcheckPath%. For automated version detection please download sigcheck.exe from sysinternals at https://docs.microsoft.com/en-gb/sysinternals/downloads/sigcheck
+			echo Using manual version string from %gameVersionFile%...
+		)
 	) else (
-		echo Sigcheck was not found at path %sigcheckPath%. For automated version detection please download sigcheck.exe from sysinternals at https://docs.microsoft.com/en-gb/sysinternals/downloads/sigcheck
+		echo Steam Fallout76.exe was not found at %steamPath%. For automated version detection please ensure Fallout76.exe is installed/updated via Steam at the default location.
 		echo Using manual version string from %gameVersionFile%...
 	)
-) else (
-	echo Steam Fallout76.exe was not found at %steamPath%. For automated version detection please ensure Fallout76.exe is installed/updated via Steam at the default location.
-	echo Using manual version string from %gameVersionFile%...
 )
 
 for /f %%l in (%gameVersionFile%) do set gameVersion=%%l
@@ -42,7 +46,8 @@ for /f %%l in (%gameVersionFile%) do set gameVersion=%%l
 echo Is %gameVersion% the correct game version?
 choice /c YN
 if not %errorlevel%==1 (
-	echo Please ensure that the correct the game version string is stored in %gameVersionFile% and/or that Fallout 76 is correctly intalled/updated via Steam.
+	echo Please ensure that Fallout 76 is correctly intalled/updated via Steam, otherwise that the correct game version string is stored in %gameVersionFile%.
+	echo If the game EXE itself has the wrong version number, call this script with the argument "override" and supply the correct version in %gameVersionFile%.
 	PAUSE
 	EXIT
 )
