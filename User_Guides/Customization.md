@@ -7,10 +7,11 @@ Under the 'Map' menu, there are several options which allow you to change the ap
 This option brings up a dialog which allows you to tweak the percentage brightness of the underlying map image. Enter any value from 5% to 300%.
 
 ### Background Image
-Change the background image of the map. This setting is only available when 'Appalachia' is the selected space.
+Change the background image of the map. Except 'None', these options only apply when 'Appalachia' is the selected space.
 - Normal: The standard in-game pause menu map.
 - Military: The map from the nuke targeting computer.
 - Satellite: A top-down render of the Appalachia world.
+- None: No background (Useful for further edits).
 
 ### Highlight Water
 This option will add a colored overlay which clearly highlights the surface of all bodies of water.
