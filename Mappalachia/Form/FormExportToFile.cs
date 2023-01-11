@@ -10,7 +10,7 @@ namespace Mappalachia
 		{
 			InitializeComponent();
 			SettingsFileExport.UpdateRecommendation();
-        }
+		}
 
 		private void FormExportToFile_Load(object sender, EventArgs e)
 		{

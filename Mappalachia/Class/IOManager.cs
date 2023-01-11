@@ -258,7 +258,7 @@ namespace Mappalachia
 			if (SettingsMap.background == SettingsMap.Background.None)
 			{
 				return EmptyMapBackground();
-            }
+			}
 
 			// Return the non-standard maps if this is Appalachia and they requested it
 			if (space.IsAppalachia())
