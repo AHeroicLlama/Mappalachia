@@ -6,7 +6,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 [![Latest release](https://img.shields.io/github/downloads/AHeroicLlama/Mappalachia/total)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br>
 ![](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
 [![Latest release](https://img.shields.io/github/v/release/aheroicllama/mappalachia)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br/>
-![](https://img.shields.io/badge/game%20version-1.7.2.9-green)<br/>
+![](https://img.shields.io/badge/game%20version-1.7.2.18-green)<br/>
 [![Discord](https://img.shields.io/discord/1029499482028646400?label=Discord&logo=Discord)](https://discord.gg/Z2GMpm6rad)<br/>
 [![License](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)
 

@@ -27,6 +27,7 @@ FO76Utils/*.dll
 *.txt
 !errors.txt
 !summary.txt
+!SQLiteBatchCSVImport.txt
 
 #MapIconProcessor raw SWF extracts
 MapIconProcessor/extract
