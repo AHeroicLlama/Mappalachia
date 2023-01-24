@@ -116,16 +116,13 @@ namespace Mappalachia
 			catch (Exception e)
 			{
 				Notify.Error(
-					"Mappalachia was unable to create the directory at " + tempImageFolder + "\n" +
-					"Previewing and quick-saving maps may not be available.\n\n" +
+					"Mappalachia was unable to create the directory at " + folderName + "\n\n" +
 					genericExceptionHelpText +
 					e);
-
-				return;
 			}
 		}
 
-		// Saves the given map image with recommended paramaters, and either opens it in default file viewer, or selects it in explorer
+		// Saves the map image with recommended paramaters, and either opens it in default file viewer, or selects it in explorer
 		public static void QuickSaveImage(OpenImageMode openImageMode)
 		{
 			string folderPath = string.Empty;
@@ -183,7 +180,7 @@ namespace Mappalachia
 			}
 		}
 
-		// Write the map image to the location with the file settings given
+		// Write the given image to the location with the file settings given
 		public static void WriteToFile(string filePath, Image image, ImageFormat imageFormat, int jpegQuality)
 		{
 			try
@@ -211,8 +208,6 @@ namespace Mappalachia
 					"Mappalachia was unable to save your map to " + filePath + ".\n\n" +
 					genericExceptionHelpText +
 					e);
-
-				return;
 			}
 			finally
 			{
@@ -260,6 +255,11 @@ namespace Mappalachia
 		// Returns the appropriate background image for the map based on current settings
 		public static Image GetImageForSpace(Space space)
 		{
+			if (SettingsMap.background == SettingsMap.Background.None)
+			{
+				return EmptyMapBackground();
+			}
+
 			// Return the non-standard maps if this is Appalachia and they requested it
 			if (space.IsAppalachia())
 			{

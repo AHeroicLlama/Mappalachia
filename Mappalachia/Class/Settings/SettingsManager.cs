@@ -179,6 +179,10 @@ namespace Mappalachia
 									SettingsMap.background = SettingsMap.Background.Satellite;
 									break;
 
+								case "None":
+									SettingsMap.background = SettingsMap.Background.None;
+									break;
+
 								default:
 									throw new ArgumentException("Invalid background image.");
 							}

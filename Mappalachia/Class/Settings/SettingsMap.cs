@@ -8,6 +8,7 @@
 			Normal,
 			Military,
 			Satellite,
+			None,
 		}
 
 		public enum LegendMode

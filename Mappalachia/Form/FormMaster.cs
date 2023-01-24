@@ -426,8 +426,10 @@ namespace Mappalachia
 		{
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			backgroundImageMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
 			highlightWaterMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
+			normalBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
+			militaryBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
+			satelliteBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsAppalachia();
 		}
 
 		// Update the visiblity of the lock type column in the results view, given current settings
@@ -641,6 +643,10 @@ namespace Mappalachia
 					satelliteBackgroundMenuItem.Checked = true;
 					break;
 
+				case SettingsMap.Background.None:
+					noneBackgroundMenuItem.Checked = true;
+					break;
+
 				default:
 					throw new NotSupportedException("Unsupported background type " + SettingsMap.background);
 			}
@@ -758,6 +764,7 @@ namespace Mappalachia
 			normalBackgroundMenuItem.Checked = false;
 			militaryBackgroundMenuItem.Checked = false;
 			satelliteBackgroundMenuItem.Checked = false;
+			noneBackgroundMenuItem.Checked = false;
 		}
 
 		// Return every MapItem in the items to plot
@@ -1116,6 +1123,22 @@ namespace Mappalachia
 		{
 			SettingsMap.background = SettingsMap.Background.Satellite;
 			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
+		}
+
+		// Map > Background Image > None - Toggle the map background off (transparent)
+		void Map_Image_None(object sender, EventArgs e)
+		{
+			// If we're in a cell and None is already selected (Other options are disabled so user has clicked this to attempt to turn it off)
+			if (!SettingsSpace.CurrentSpaceIsAppalachia() && SettingsMap.background == SettingsMap.Background.None)
+			{
+				SettingsMap.background = SettingsMap.Background.Normal;
+			}
+			else
+			{
+				SettingsMap.background = SettingsMap.Background.None;
+			}
+
+			UpdateMapBackgroundSettings(true);
 		}
 
 		// Map > Highlight Water - Toggle rendering of water mask overlay on background

@@ -20,8 +20,8 @@ namespace BackgroundRenderer
 		const int targetRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
 		const int nativeResolution = 4096;
 		const int SSAA = 2; // 0,1,2
-		const bool keepDDSRender = false;
-		const int jpegQuality = 85;
+		const bool keepDDSRender = false; // Whether or not to keep the raw DDS outputs after they're converted to JPEG
+		const int jpegQuality = 85; // The % quality of the final JPEGs
 
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()

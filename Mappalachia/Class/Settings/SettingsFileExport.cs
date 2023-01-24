@@ -46,7 +46,7 @@
 
 		public static ExtensionType GetFileTypeRecommendation()
 		{
-			return ExtensionType.JPEG;
+			return SettingsMap.background == SettingsMap.Background.None ? ExtensionType.PNG : ExtensionType.JPEG;
 		}
 
 		public static void SetUseRecommended(bool newValue)
