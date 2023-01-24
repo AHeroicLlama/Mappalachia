@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.40.1 2022-12-28 14:03:47 df5c253c0b3dd24916e4ec7cf77d3db5294cc9fd45ae7b9c5e82ad8197f38a24
 ==Checksum== 
-80d9b8d4b6c2556aa96573a267d7fa2e
+ee5ea8dc12ddcd21d6a93938ac018217
 ==File Size== 
 393179136 
 ==Tables== 
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.2.9
+1.7.2.18
 ==Mean Average X/Y/Z Coord==
--11978.0609463416|4519.66390596787|11814.6808150567
+-11977.9388346728|4519.88310682485|11814.6681127496
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7211495241608
+21.7211883117794
 ==Average Y Bounds Width==
-16.2408366585698
+16.2408656599528
 ==Average Z Bounds Width==
-15.2203599877756
+15.2203871668858
 ==Average Z Rotation==
-4.09046250250636
+4.09046980687574
 ==Average display name string length==
-2.67031216566415
+2.67054991559877
 ==Average editorID string length==
-24.9730391574142
+24.9733482323292
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -740,7 +740,7 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3011612
+Appalachia||3011605
 Appalachia|Box|63166
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
@@ -1064,7 +1064,7 @@ WVLumberCo01|Box|47
 WatogaCivicCenter01||10826
 WatogaCivicCenter01|Box|669
 WatogaCivicCenter01|Line|9
-WatogaCivicCenterDungeon||8439
+WatogaCivicCenterDungeon||8438
 WatogaCivicCenterDungeon|Box|490
 WatogaCivicCenterDungeon|Sphere|1
 WatogaEmergencyServices01||1834
@@ -1101,7 +1101,7 @@ XPDPitt01Foundry||16372
 XPDPitt01Foundry|Box|559
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
-XPDPitt01Industrial||18698
+XPDPitt01Industrial||18699
 XPDPitt01Industrial|Box|1442
 XPDPitt01Industrial|Sphere|1
 XPDPitt02Sanctum||17557
@@ -1128,7 +1128,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3077986
+Appalachia||3077979
 Appalachia|Advanced (Level 1)|318
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1507,7 +1507,7 @@ WatogaCivicCenter01|Advanced (Level 1)|4
 WatogaCivicCenter01|Expert (Level 2)|2
 WatogaCivicCenter01|Novice (Level 0)|1
 WatogaCivicCenter01|Requires Key|8
-WatogaCivicCenterDungeon||8930
+WatogaCivicCenterDungeon||8929
 WatogaEmergencyServices01||1899
 WatogaEmergencyServices01|Advanced (Level 1)|1
 WatogaEmergencyServices01|Expert (Level 2)|4
@@ -1569,7 +1569,7 @@ XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
-XPDPitt01Industrial||20109
+XPDPitt01Industrial||20110
 XPDPitt01Industrial|Advanced (Level 1)|24
 XPDPitt01Industrial|Expert (Level 2)|3
 XPDPitt01Industrial|Inaccessible|2
@@ -1687,7 +1687,7 @@ Appalachia|PROJ|93
 Appalachia|SCOL|353213
 Appalachia|SECH|253
 Appalachia|SOUN|5904
-Appalachia|STAT|2381743
+Appalachia|STAT|2381736
 Appalachia|TACT|61
 Appalachia|TERM|369
 Appalachia|TXST|62485
@@ -3770,7 +3770,7 @@ WatogaCivicCenterDungeon|NOTE|1
 WatogaCivicCenterDungeon|NPC_|8
 WatogaCivicCenterDungeon|SCOL|163
 WatogaCivicCenterDungeon|SOUN|4
-WatogaCivicCenterDungeon|STAT|7204
+WatogaCivicCenterDungeon|STAT|7203
 WatogaCivicCenterDungeon|TXST|432
 WatogaEmergencyServices01|ACTI|46
 WatogaEmergencyServices01|CONT|34
@@ -4044,7 +4044,7 @@ XPDPitt01Industrial|MISC|417
 XPDPitt01Industrial|MSTT|434
 XPDPitt01Industrial|NOTE|2
 XPDPitt01Industrial|NPC_|82
-XPDPitt01Industrial|SCOL|1490
+XPDPitt01Industrial|SCOL|1491
 XPDPitt01Industrial|SECH|8
 XPDPitt01Industrial|SOUN|10
 XPDPitt01Industrial|STAT|15103
@@ -4162,7 +4162,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3073577
+Appalachia||3073570
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -10685,10 +10685,10 @@ FreeStatesBunker07|W05_MQS_203P_RadcliffFurn2|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn1|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn2|1
 GarrahanMiningHQ01||9107
-GarrahanMiningHQ01|Garrahan01ToExt_Left|1
-GarrahanMiningHQ01|Garrahan01ToExt_Right|1
 GarrahanMiningHQ01|GarrahanHQToExtBack|1
 GarrahanMiningHQ01|GarrahanHQ_Garage01ToExt|1
+GarrahanMiningHQ01|GarrahanMiningHQ_LeftExit|1
+GarrahanMiningHQ01|GarrahanMiningHQ_RightExit|1
 GarrahanMiningHQ01|MTR02LabMarker|1
 GarrahanMiningHQ01|MTR02Start|1
 GarrahanMiningHQ01|MTR02_MinerArmorBenchRef|1
@@ -12801,7 +12801,7 @@ WatogaCivicCenter01|WL019_EnabledForQuestMatch03Ref_SpotlightsOff|1
 WatogaCivicCenter01|WL019_EnabledForQuestMatch03Ref_SpotlightsOn|1
 WatogaCivicCenter01|WL019_EnabledForQuestPostMatchRef|1
 WatogaCivicCenter01|WL019_EnabledForQuestRef|1
-WatogaCivicCenterDungeon||8906
+WatogaCivicCenterDungeon||8905
 WatogaCivicCenterDungeon|DailyOps_Global_RaiderArena_SpawnExclusion01|1
 WatogaCivicCenterDungeon|DailyOps_Mode01_Activator00_PackIn006|1
 WatogaCivicCenterDungeon|DailyOps_Mode01_Activator01_PackIn006DUPLICATE000|1
@@ -13374,7 +13374,7 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
-XPDPitt01Industrial||19952
+XPDPitt01Industrial||19953
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM001|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_Sandbox|1
@@ -13831,7 +13831,7 @@ AlleghenyAsylum01|100|15013
 Appalachia|50|42
 Appalachia|75|136
 Appalachia|85|72
-Appalachia|100|3078780
+Appalachia|100|3078773
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17160
@@ -13983,7 +13983,7 @@ WVLumberCo01|50|1
 WVLumberCo01|75|3
 WVLumberCo01|100|1543
 WatogaCivicCenter01|100|11504
-WatogaCivicCenterDungeon|100|8930
+WatogaCivicCenterDungeon|100|8929
 WatogaEmergencyServices01|100|1905
 WatogaHighSchool01|100|10105
 WatogaHighSchoolDungeon|100|9842
@@ -14003,7 +14003,7 @@ XPDPitt01Foundry|75|11
 XPDPitt01Foundry|100|16918
 XPDPitt01Industrial|50|4
 XPDPitt01Industrial|75|3
-XPDPitt01Industrial|100|20134
+XPDPitt01Industrial|100|20135
 XPDPitt02Sanctum|75|2
 XPDPitt02Sanctum|100|18032
 XPDPitt02Trench|50|4
@@ -14133,7 +14133,8 @@ Appalachia|Fiber Optics|40|39
 Appalachia|Fiberglass|936|699
 Appalachia|Gear|1134|957
 Appalachia|Glass|8961|7407
-Appalachia|Gold|75|75
+Appalachia|Gold|78|78
+Appalachia|Gunpowder|1|1
 Appalachia|Lead|5278|3054
 Appalachia|Leather|1913|861
 Appalachia|Nuclear Material|136|136
@@ -14141,7 +14142,7 @@ Appalachia|Oil|3662|2450
 Appalachia|Plastic|5694|4044
 Appalachia|Rubber|1984|1200
 Appalachia|Screw|1175|1056
-Appalachia|Silver|265|224
+Appalachia|Silver|262|221
 Appalachia|Spring|1283|1252
 Appalachia|Steel|15455|9218
 Appalachia|Ultracite|1|1
@@ -16696,7 +16697,7 @@ WhitespringMall01|Crystal|28|14
 WhitespringMall01|Fiberglass|29|21
 WhitespringMall01|Gear|29|21
 WhitespringMall01|Glass|96|65
-WhitespringMall01|Gold|11|11
+WhitespringMall01|Gold|12|12
 WhitespringMall01|Lead|33|31
 WhitespringMall01|Leather|36|18
 WhitespringMall01|Nuclear Material|1|1
@@ -16704,7 +16705,7 @@ WhitespringMall01|Oil|31|23
 WhitespringMall01|Plastic|69|50
 WhitespringMall01|Rubber|14|10
 WhitespringMall01|Screw|40|24
-WhitespringMall01|Silver|33|25
+WhitespringMall01|Silver|32|24
 WhitespringMall01|Spring|55|43
 WhitespringMall01|Steel|256|154
 WhitespringMall01|Wood|95|60
@@ -17020,7 +17021,7 @@ WestTek01|Super Mutant|1.0|41
 0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|-516|323|-257|234|0|0|1.0
 004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|-702|896|-2112|-576|0|0|1.0
 0051EF4D|CharGen05|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
-00616199|XPDPitt01Industrial|The Pitt - Industrial|0|-4744|-2255|-20382|10894|-15918|11408|0|0|1.0
+00616199|XPDPitt01Industrial|The Pitt - Industrial|0|-4744|-1415|-20382|10894|-15918|13088|0|0|1.0
 0011F9E7|Vault94Entrance|Vault 94 Entrance|0|5684|15752|2952|8417|14390|17114|0|0|1.0
 0051EF57|CharGen02|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 0060F37B|WatogaHighSchoolDungeon|Watoga High School|0|-1571|2284|-5728|2585|-1296|5864|0|0|1.0
