@@ -8,7 +8,7 @@ namespace Mappalachia
 	static class SettingsManager
 	{
 		// Keep a record on the prefs file of the preferences file version to assist future compatibility
-		const int prefsIteration = 11;
+		const int prefsIteration = 12;
 
 		// The prefs version on the file we're reading
 		static int incomingPrefsIteration = prefsIteration;
@@ -55,6 +55,7 @@ namespace Mappalachia
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 			settings.Add("showMapLabels=" + BoolToIntStr(SettingsMap.showMapLabels));
 			settings.Add("showMapIcons=" + BoolToIntStr(SettingsMap.showMapIcons));
+			settings.Add("grayScaleMapIcons=" + BoolToIntStr(SettingsMap.grayScaleMapIcons));
 			settings.Add("legendMode=" + SettingsMap.legendMode);
 
 			// SettingsSearch
@@ -204,6 +205,10 @@ namespace Mappalachia
 
 						case "showMapIcons":
 							SettingsMap.showMapIcons = StrIntToBool(value);
+							break;
+
+						case "grayScaleMapIcons":
+							SettingsMap.grayScaleMapIcons = StrIntToBool(value);
 							break;
 
 						case "legendMode":

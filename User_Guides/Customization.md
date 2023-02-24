@@ -21,7 +21,8 @@ This toggles the underlying map image to be in grayscale (black and white) or fu
 
 ### Map Marker options
 You can independently toggle map marker Icons or Labels to appear against their respective locations on the map.<br/>
-'Icons' shows the in-game map icons for named locations, whereas 'Labels' annotates their name onto the map.
+'Icons' shows the in-game map icons for named locations, whereas 'Labels' annotates their name onto the map.<br/>
+If the whole-map 'Grayscale' option is enabled, this will also grayscale icons. However in a color map, you can make just icons grayscale by selecting 'Grayscale Icons'.
 
 ### Legend Style
 This provides control over how (or if) the legend is drawn.

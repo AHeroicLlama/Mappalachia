@@ -132,29 +132,9 @@ namespace Mappalachia
 				graphic.DrawImage(IOManager.GetImageAppalachiaWaterMask(), new Point(0, 0));
 			}
 
-			float b = SettingsMap.brightness / 100f;
-
-			// Apply grayscale color matrix, or just apply brightness adjustments
-			ColorMatrix matrix = SettingsMap.grayScale ?
-				new ColorMatrix(new float[][]
-					{
-						new float[] { 0.299f * b, 0.299f * b, 0.299f * b, 0, 0 },
-						new float[] { 0.587f * b, 0.587f * b, 0.587f * b, 0, 0 },
-						new float[] { 0.114f * b, 0.114f * b, 0.114f * b, 0, 0 },
-						new float[] { 0, 0, 0, 1, 0 },
-						new float[] { 0, 0, 0, 0, 1 },
-					}) :
-				new ColorMatrix(new float[][]
-					{
-						new float[] { b, 0, 0, 0, 0 },
-						new float[] { 0, b, 0, 0, 0 },
-						new float[] { 0, 0, b, 0, 0 },
-						new float[] { 0, 0, 0, 1, 0 },
-						new float[] { 0, 0, 0, 0, 1 },
-					});
-
+			// Assign suitable ColorMatrix attribute given user selected Brightness and Grayscale state
 			ImageAttributes attributes = new ImageAttributes();
-			attributes.SetColorMatrix(matrix);
+			attributes.SetColorMatrix(ImageHelper.GenerateColorMatrix(SettingsMap.brightness / 100f, SettingsMap.grayScale));
 
 			Point[] points =
 			{
@@ -760,6 +740,12 @@ namespace Mappalachia
 				foreach (MapMarker marker in markers)
 				{
 					Image markerImage = IOManager.GetMapMarker(marker.markerName);
+
+					if (SettingsMap.grayScaleMapIcons)
+					{
+						markerImage = ImageHelper.AdjustBrightnessOrGrayscale(markerImage, 1, true);
+					}
+
 					imageGraphic.DrawImage(markerImage, (int)(marker.x - (markerImage.Width / 2)), (int)(marker.y - (markerImage.Height / 2)));
 				}
 			}
