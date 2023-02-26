@@ -1105,6 +1105,13 @@ namespace Mappalachia
 			PreviewMap();
 		}
 
+		// Map > Set Title... - Open the Set Map Title form
+		void Map_SetTitle(object sender, EventArgs e)
+		{
+			FormSetTitle formSetTitle = new FormSetTitle();
+			formSetTitle.ShowDialog();
+		}
+
 		// Map > Background Image > Normal - Toggle the map background to the in-game menu version
 		void Map_Image_Normal(object sender, EventArgs e)
 		{
@@ -1253,6 +1260,7 @@ namespace Mappalachia
 			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
 			SettingsMap.grayScaleMapIcons = SettingsMap.grayScaleMapIconsDefault;
 			SettingsMap.legendMode = SettingsMap.legendModeDefault;
+			SettingsMap.title = SettingsMap.titleDefault;
 
 			comboBoxSpace.SelectedIndex = 0;
 

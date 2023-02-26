@@ -3,6 +3,9 @@
 ## Map Settings
 Under the 'Map' menu, there are several options which allow you to change the appearance of the overall map;
 
+### Title
+This allows you to set a title for the map - it will show in the bottom-right, and will be the default filename when saving the map image.
+
 ### Brightness
 This option brings up a dialog which allows you to tweak the percentage brightness of the underlying map image. Enter any value from 5% to 300%.
 

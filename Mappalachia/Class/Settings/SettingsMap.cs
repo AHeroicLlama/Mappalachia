@@ -18,10 +18,11 @@
 			Hidden,
 		}
 
-		// Min/maxes and defaults
+		// Min/maxes
 		public const int brightnessMin = 5;
 		public const int brightnessMax = 300;
 
+		// Defaults
 		public const int brightnessDefault = 50;
 		public const Background backgroundDefault = Background.Normal;
 		public const bool grayScaleDefault = false;
@@ -30,6 +31,7 @@
 		public const bool grayScaleMapIconsDefault = false;
 		public const LegendMode legendModeDefault = LegendMode.Compact;
 		public const bool highlightWaterDefault = false;
+		public static readonly string titleDefault = string.Empty;
 
 		// User-definable settings
 		public static int brightness = brightnessDefault;
@@ -40,6 +42,7 @@
 		public static bool grayScaleMapIcons = grayScaleMapIconsDefault;
 		public static LegendMode legendMode = legendModeDefault;
 		public static bool highlightWater = highlightWaterDefault;
+		public static string title = titleDefault;
 
 		public static bool ExtendedMargin()
 		{

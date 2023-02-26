@@ -508,5 +508,12 @@ namespace Mappalachia
 		{
 			Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
 		}
+
+		// Approximately removes illegal characters from a would-be filename
+		// Only use for better suggested filenames, not safe for direct file writing
+		public static string SanitizeFilename(string filename)
+		{
+			return string.Concat(filename.Split(Path.GetInvalidFileNameChars())).Trim().TrimEnd('.');
+		}
 	}
 }
