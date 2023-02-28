@@ -28,8 +28,6 @@ namespace Mappalachia
 		const int legendXMin = 116; // The padding in from the left where legend text begins
 		const int legendWidth = plotXMin - legendXMin; // The resultant width (or length) of legend text rows in pixels
 		const int legendYPadding = 80; // Vertical space at top/bottom of image where legend text will not be drawn
-		const int titleRightPadding = 224; // Pads to the inner border of the normal game map image
-		const int titleMaxLeft = 1500;
 		static readonly SizeF legendBounds = new SizeF(legendWidth, mapDimension - (legendYPadding * 2)); // Used for MeasureString to calculate legend string dimensions
 
 		// Map marker nudge
@@ -42,22 +40,22 @@ namespace Mappalachia
 		// Font and text
 		public const int legendFontSize = 48;
 		public const int mapLabelFontSize = 18;
-		public const int titleFontSize = 56;
+		public const int titleFontSize = 72;
 		const int fontDropShadowOffset = 3;
 		const int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
 		const int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
 		const int warningTextHeight = 300; // height in px off the bottom of image that red warning text is written.
-		const int titleTextHeight = 200; // height in px off the bottom of image that the title text is written.
+
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
 		static readonly Brush brushRed = new SolidBrush(Color.Red);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
 		static readonly Font mapLabelFont = new Font(fontCollection.Families[0], mapLabelFontSize, GraphicsUnit.Pixel);
 		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
-		static readonly Font titleFont = new Font(fontCollection.Families[0], titleFontSize, FontStyle.Italic, GraphicsUnit.Pixel);
+		static readonly Font titleFont = new Font(fontCollection.Families[0], titleFontSize, FontStyle.Bold, GraphicsUnit.Pixel);
 		static readonly RectangleF infoTextBounds = new RectangleF(legendIconX, 0, mapDimension - legendIconX, mapDimension);
 		static readonly RectangleF warningTextBounds = new RectangleF(legendIconX, 0, mapDimension - legendIconX, mapDimension - warningTextHeight);
-		static readonly RectangleF titleTextBounds = new RectangleF(mapDimension - titleMaxLeft, 0, titleMaxLeft - titleRightPadding, mapDimension - titleTextHeight);
+		static readonly RectangleF titleTextBounds = new RectangleF(2200, 0, 1730, mapDimension);
 
 		static readonly RectangleF infoTextDropShadowBounds = GeometryHelper.OffsetRect(infoTextBounds, fontDropShadowOffset);
 		static readonly RectangleF titleTextDropShadowBounds = GeometryHelper.OffsetRect(titleTextBounds, fontDropShadowOffset);
@@ -65,6 +63,7 @@ namespace Mappalachia
 		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
 		static readonly StringFormat stringFormatBottomCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far }; // Align the text bottom-center
 		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
+		static readonly StringFormat stringFormatTopRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near }; // Align the text top-right
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Volume plots
@@ -749,8 +748,8 @@ namespace Mappalachia
 
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-			imageGraphic.DrawString(title, titleFont, dropShadowBrush, titleTextDropShadowBounds, stringFormatBottomRight);
-			imageGraphic.DrawString(title, titleFont, brushWhite, titleTextBounds, stringFormatBottomRight);
+			imageGraphic.DrawString(title, titleFont, dropShadowBrush, titleTextDropShadowBounds, stringFormatTopRight);
+			imageGraphic.DrawString(title, titleFont, brushWhite, titleTextBounds, stringFormatTopRight);
 		}
 
 		static void DrawMapMarkers(Graphics imageGraphic)
