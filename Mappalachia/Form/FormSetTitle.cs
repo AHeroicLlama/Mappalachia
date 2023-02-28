@@ -14,14 +14,7 @@ namespace Mappalachia
 
 		private void ButtonOK_Click(object sender, System.EventArgs e)
 		{
-			bool change = false;
-
 			if (SettingsMap.title != textBoxTitle.Text)
-			{
-				change = true;
-			}
-
-			if (change)
 			{
 				SettingsMap.title = textBoxTitle.Text;
 				FormMaster.DrawMap(true);
