@@ -1,11 +1,11 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.40.1 2022-12-28 14:03:47 df5c253c0b3dd24916e4ec7cf77d3db5294cc9fd45ae7b9c5e82ad8197f38a24
+3.41.0 2023-02-21 18:09:37 05941c2a04037fc3ed2ffae11f5d2260706f89431f463518740f72ada350866d
 ==Checksum== 
 820f492f97005530e6861c17d0f66bd4
 ==File Size== 
-393179136 
+395784192 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -16,7 +16,7 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Game Version==
 PTS 1.7.2.9
 ==Mean Average X/Y/Z Coord==
--11977.9388346728|4519.88310682485|11814.6681127496
+-11931.9128642866|4474.73132520674|11750.7654946716
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -29,9 +29,9 @@ PTS 1.7.2.9
 3696|-6968|-1112|37
 -125269|-37601|6630|36
 2928|-2360|-1112|36
+0|0|0|35
 -128|1664|-608|34
 -1216|2352|128|32
-0|0|0|32
 960|2352|128|32
 -43|4777|519|30
 1988|4809|518|30
@@ -43,11 +43,13 @@ PTS 1.7.2.9
 1024|1792|-608|29
 -129108|-37082|6630|28
 -79616|-138368|30208|28
+1408|-384|256|28
 -11852|-31565|3080|27
 -8774|-28029|3591|27
 -128|4608|512|27
 -79616|-138368|28096|26
 0|1024|0|26
+512|1024|256|25
 1280|1792|-608|25
 1648|-1848|-1112|25
 3584|0|256|25
@@ -56,8 +58,6 @@ PTS 1.7.2.9
 0|256|0|24
 0|768|0|24
 256|1536|0|24
-512|1024|256|24
-1408|-384|256|24
 1536|0|0|24
 -19952|104540|11034|22
 -15789|103340|11026|22
@@ -93,6 +93,7 @@ PTS 1.7.2.9
 -1024|-784|384|19
 0|1024|256|19
 512|1280|-512|19
+1408|-128|256|19
 -19828|103268|11034|18
 -12138|-29760|3079|18
 -7129|-27618|3591|18
@@ -110,30 +111,29 @@ PTS 1.7.2.9
 1024|-256|0|18
 1024|768|0|18
 1280|3840|512|18
+1920|-2944|0|18
+1920|-2176|0|18
 2547|4482|512|18
+2943|-2815|-384|18
 3595|1426|384|18
 4107|1170|512|18
 4107|1426|512|18
 -1024|-784|128|17
 0|1280|256|17
-0|1536|256|17
-512|1536|0|17
-651|-1390|384|17
-768|1536|0|17
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7211883117794
+21.7307438655308
 ==Average Y Bounds Width==
-16.2408656599528
+16.247239009898
 ==Average Z Bounds Width==
-15.2203871668858
+15.2188433720632
 ==Average Z Rotation==
-4.09046980687574
+4.09176385925301
 ==Average display name string length==
-2.67054991559877
+2.67020796197267
 ==Average editorID string length==
-24.9733482323292
+24.9733808674985
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -527,7 +527,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-42061
+42075
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|55
@@ -740,18 +740,18 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3011605
-Appalachia|Box|63166
+Appalachia||3010926
+Appalachia|Box|63173
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
 Appalachia|Plane|98
-Appalachia|Sphere|2351
+Appalachia|Sphere|2353
 ArktosPharmaLab01||15649
 ArktosPharmaLab01|Box|1483
 ArktosPharmaLab01|Line|11
 ArktosPharmaLab01|Plane|13
 ArktosPharmaLab01|Sphere|6
-ArktosPharmaLabDungeon||13375
+ArktosPharmaLabDungeon||13370
 ArktosPharmaLabDungeon|Box|1225
 ArktosPharmaLabDungeon|Line|11
 ArktosPharmaLabDungeon|Plane|13
@@ -763,7 +763,7 @@ BigBendTunnel01||6829
 BigBendTunnel01|Box|721
 BigBendTunnel01|Sphere|1
 BlackwaterMine01||5836
-BlackwaterMine01|Box|323
+BlackwaterMine01|Box|325
 BlackwaterMine01|Line|5
 BlueRidgeOffice01||746
 BlueRidgeOffice01|Box|16
@@ -791,12 +791,15 @@ CharGen04|Line|2
 CharGen05||6792
 CharGen05|Box|137
 CharGen05|Line|2
-CharlestonCapitolBuilding02||7179
+CharlestonCapitolBuilding02||7177
 CharlestonCapitolBuilding02|Box|371
 CharlestonCapitolBuilding02|Sphere|1
 CharlestonCapitolCourthouse01||2260
 CharlestonCapitolCourthouse01|Box|113
 CharlestonCapitolCourthouse01|Sphere|1
+CharlestonCapitolDungeon||7890
+CharlestonCapitolDungeon|Box|338
+CharlestonCapitolDungeon|Sphere|1
 CraterWarRoom01||777
 CraterWarRoom01|Box|21
 CraterWatchstation01||479
@@ -855,10 +858,14 @@ FreeStatesBunker06|Box|38
 FreeStatesBunker06|Line|1
 FreeStatesBunker07||1003
 FreeStatesBunker07|Box|46
-GarrahanMiningHQ01||8792
+GarrahanMiningHQ01||8861
 GarrahanMiningHQ01|Box|330
 GarrahanMiningHQ01|Line|3
 GarrahanMiningHQ01|Sphere|7
+GarrahanMiningHQDungeon||7400
+GarrahanMiningHQDungeon|Box|291
+GarrahanMiningHQDungeon|Line|2
+GarrahanMiningHQDungeon|Sphere|1
 GauleyMine01||4017
 GauleyMine01|Box|160
 GlassedCavern01||8291
@@ -890,15 +897,15 @@ LewisandSonsFarmingSupply01|Box|3
 LousMine01||6719
 LousMine01|Box|268
 LousMine01|Line|5
-MTR08LodeBaring01||3231
-MTR08LodeBaring01|Box|176
+MTR08LodeBaring01||3229
+MTR08LodeBaring01|Box|177
 MTR08LodeBaring01|Sphere|2
-MTR08LodeBaring02||3108
-MTR08LodeBaring02|Box|172
+MTR08LodeBaring02||3109
+MTR08LodeBaring02|Box|174
 MTR08LodeBaring02|Line|1
 MamaDolceProcessing01||2940
 MamaDolceProcessing01|Box|134
-MonongahMine01||6096
+MonongahMine01||6097
 MonongahMine01|Box|825
 MonongahMine01|Sphere|1
 MonongahMissileSilo01||15060
@@ -912,8 +919,11 @@ MorgantownAirportTerminal02|Sphere|1
 MorgantownApartment01||1282
 MorgantownApartment01|Box|79
 MorgantownApartment01|Sphere|1
-MorgantownHighSchool01||5779
+MorgantownHighSchool01||5778
 MorgantownHighSchool01|Box|175
+MorgantownHighSchoolDungeon||5401
+MorgantownHighSchoolDungeon|Box|159
+MorgantownHighSchoolDungeon|Sphere|1
 MountBlairWarehouseBasement01||312
 MountBlairWarehouseBasement01|Box|7
 NukaColaQuantumPlant01||5164
@@ -962,8 +972,8 @@ SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
 SheltersMissileSilo||441
 SheltersMissileSilo|Box|52
-SheltersPittTrench01||1012
-SheltersPittTrench01|Box|132
+SheltersPittTrench01||1010
+SheltersPittTrench01|Box|133
 SheltersVaultAtrium01||2199
 SheltersVaultAtrium01|Box|69
 SheltersVaultLivingQuarters01||2596
@@ -1054,8 +1064,8 @@ Vault94DungeonGECK|Sphere|1
 Vault94Entrance||1242
 Vault94Entrance|Box|77
 Vault94Entrance|Line|1
-Vault96Dungeon||20261
-Vault96Dungeon|Box|1491
+Vault96Dungeon||20260
+Vault96Dungeon|Box|1492
 Vault96Dungeon|Sphere|6
 VaultTecU01||10314
 VaultTecU01|Box|399
@@ -1071,7 +1081,7 @@ WatogaEmergencyServices01||1834
 WatogaEmergencyServices01|Box|71
 WatogaHighSchool01||9560
 WatogaHighSchool01|Box|545
-WatogaHighSchoolDungeon||9331
+WatogaHighSchoolDungeon||9318
 WatogaHighSchoolDungeon|Box|510
 WatogaHighSchoolDungeon|Sphere|1
 WatogaMunicipalCenter01||2618
@@ -1107,7 +1117,7 @@ XPDPitt01Industrial|Sphere|1
 XPDPitt02Sanctum||17557
 XPDPitt02Sanctum|Box|477
 XPDPitt02Trench||19687
-XPDPitt02Trench|Box|1544
+XPDPitt02Trench|Box|1550
 ==Total entities by LockLevel by Space==
 AMSHQ01||5466
 AMSHQ01|Advanced (Level 1)|4
@@ -1128,7 +1138,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3077979
+Appalachia||3077309
 Appalachia|Advanced (Level 1)|318
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1144,7 +1154,7 @@ ArktosPharmaLab01|Advanced (Level 1)|3
 ArktosPharmaLab01|Expert (Level 2)|2
 ArktosPharmaLab01|Master (Level 3)|1
 ArktosPharmaLab01|Novice (Level 0)|1
-ArktosPharmaLabDungeon||14623
+ArktosPharmaLabDungeon||14618
 ArktosPharmaLabDungeon|Advanced (Level 1)|3
 ArktosPharmaLabDungeon|Expert (Level 2)|1
 ArktosPharmaLabDungeon|Master (Level 3)|1
@@ -1158,7 +1168,7 @@ BigBendTunnel01|Chained|1
 BigBendTunnel01|Expert (Level 2)|1
 BigBendTunnel01|Novice (Level 0)|6
 BigBendTunnel01|Requires Key|1
-BlackwaterMine01||6148
+BlackwaterMine01||6150
 BlackwaterMine01|Advanced (Level 1)|3
 BlackwaterMine01|Expert (Level 2)|1
 BlackwaterMine01|Master (Level 3)|1
@@ -1183,7 +1193,7 @@ CharGen02||6931
 CharGen03||6931
 CharGen04||6931
 CharGen05||6931
-CharlestonCapitolBuilding02||7543
+CharlestonCapitolBuilding02||7541
 CharlestonCapitolBuilding02|Advanced (Level 1)|1
 CharlestonCapitolBuilding02|Expert (Level 2)|2
 CharlestonCapitolBuilding02|Master (Level 3)|1
@@ -1192,6 +1202,11 @@ CharlestonCapitolCourthouse01||2371
 CharlestonCapitolCourthouse01|Advanced (Level 1)|1
 CharlestonCapitolCourthouse01|Expert (Level 2)|1
 CharlestonCapitolCourthouse01|Novice (Level 0)|1
+CharlestonCapitolDungeon||8224
+CharlestonCapitolDungeon|Advanced (Level 1)|1
+CharlestonCapitolDungeon|Expert (Level 2)|2
+CharlestonCapitolDungeon|Master (Level 3)|1
+CharlestonCapitolDungeon|Novice (Level 0)|1
 CraterWarRoom01||798
 CraterWatchstation01||495
 CultistCave01||5122
@@ -1258,11 +1273,15 @@ FreeStatesBunker06||948
 FreeStatesBunker06|Expert (Level 2)|1
 FreeStatesBunker07||1048
 FreeStatesBunker07|Expert (Level 2)|1
-GarrahanMiningHQ01||9119
+GarrahanMiningHQ01||9188
 GarrahanMiningHQ01|Advanced (Level 1)|1
 GarrahanMiningHQ01|Expert (Level 2)|3
 GarrahanMiningHQ01|Master (Level 3)|1
 GarrahanMiningHQ01|Novice (Level 0)|8
+GarrahanMiningHQDungeon||7690
+GarrahanMiningHQDungeon|Expert (Level 2)|1
+GarrahanMiningHQDungeon|Master (Level 3)|1
+GarrahanMiningHQDungeon|Novice (Level 0)|2
 GauleyMine01||4172
 GauleyMine01|Advanced (Level 1)|2
 GauleyMine01|Inaccessible|1
@@ -1304,14 +1323,14 @@ LousMine01||6985
 LousMine01|Advanced (Level 1)|1
 LousMine01|Novice (Level 0)|3
 LousMine01|Requires Terminal|3
-MTR08LodeBaring01||3408
+MTR08LodeBaring01||3407
 MTR08LodeBaring01|Novice (Level 0)|1
-MTR08LodeBaring02||3280
+MTR08LodeBaring02||3283
 MTR08LodeBaring02|Novice (Level 0)|1
 MamaDolceProcessing01||3067
 MamaDolceProcessing01|Advanced (Level 1)|5
 MamaDolceProcessing01|Novice (Level 0)|2
-MonongahMine01||6920
+MonongahMine01||6921
 MonongahMine01|Inaccessible|1
 MonongahMine01|Novice (Level 0)|1
 MonongahMissileSilo01||15650
@@ -1331,10 +1350,13 @@ MorgantownApartment01||1357
 MorgantownApartment01|Advanced (Level 1)|1
 MorgantownApartment01|Expert (Level 2)|1
 MorgantownApartment01|Novice (Level 0)|3
-MorgantownHighSchool01||5944
+MorgantownHighSchool01||5943
 MorgantownHighSchool01|Advanced (Level 1)|5
 MorgantownHighSchool01|Expert (Level 2)|3
 MorgantownHighSchool01|Novice (Level 0)|2
+MorgantownHighSchoolDungeon||5558
+MorgantownHighSchoolDungeon|Advanced (Level 1)|1
+MorgantownHighSchoolDungeon|Expert (Level 2)|2
 MountBlairWarehouseBasement01||319
 NukaColaQuantumPlant01||5465
 NukaColaQuantumPlant01|Advanced (Level 1)|4
@@ -1397,7 +1419,7 @@ SheltersCave02||608
 SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersMissileSilo||493
-SheltersPittTrench01||1144
+SheltersPittTrench01||1143
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
 SheltersVaultReception01||1544
@@ -1483,8 +1505,8 @@ Vault79Main|Master (Level 3)|3
 Vault79Main|Novice (Level 0)|2
 Vault79Main|Requires Key|2
 Vault79Main|Requires Terminal|2
-Vault94Dungeon||17458
-Vault94Dungeon|Advanced (Level 1)|6
+Vault94Dungeon||17459
+Vault94Dungeon|Advanced (Level 1)|5
 Vault94Dungeon|Expert (Level 2)|10
 Vault94Dungeon|Inaccessible|2
 Vault94Dungeon|Master (Level 3)|1
@@ -1517,8 +1539,8 @@ WatogaHighSchool01|Advanced (Level 1)|1
 WatogaHighSchool01|Expert (Level 2)|3
 WatogaHighSchool01|Master (Level 3)|1
 WatogaHighSchool01|Novice (Level 0)|3
-WatogaHighSchoolDungeon||9835
-WatogaHighSchoolDungeon|Expert (Level 2)|3
+WatogaHighSchoolDungeon||9823
+WatogaHighSchoolDungeon|Expert (Level 2)|2
 WatogaHighSchoolDungeon|Master (Level 3)|1
 WatogaHighSchoolDungeon|Novice (Level 0)|3
 WatogaMunicipalCenter01||2683
@@ -1580,7 +1602,7 @@ XPDPitt02Sanctum|Advanced (Level 1)|1
 XPDPitt02Sanctum|Inaccessible|4
 XPDPitt02Sanctum|Master (Level 3)|2
 XPDPitt02Sanctum|Novice (Level 0)|4
-XPDPitt02Trench||21211
+XPDPitt02Trench||21217
 XPDPitt02Trench|Advanced (Level 1)|4
 XPDPitt02Trench|Expert (Level 2)|8
 XPDPitt02Trench|Novice (Level 0)|8
@@ -1670,24 +1692,24 @@ Appalachia|ASPC|2377
 Appalachia|BNDS|10304
 Appalachia|BOOK|471
 Appalachia|CNCY|257
-Appalachia|CONT|12353
+Appalachia|CONT|12366
 Appalachia|DOOR|2504
-Appalachia|FLOR|45261
-Appalachia|FURN|14977
+Appalachia|FLOR|45253
+Appalachia|FURN|14976
 Appalachia|HAZD|994
 Appalachia|IDLM|17017
 Appalachia|KEYM|36
 Appalachia|LIGH|8151
-Appalachia|LVLI|71538
-Appalachia|MISC|35701
+Appalachia|LVLI|71532
+Appalachia|MISC|35699
 Appalachia|MSTT|23071
 Appalachia|NOTE|177
 Appalachia|NPC_|7415
 Appalachia|PROJ|93
-Appalachia|SCOL|353213
+Appalachia|SCOL|353138
 Appalachia|SECH|253
 Appalachia|SOUN|5904
-Appalachia|STAT|2381736
+Appalachia|STAT|2381145
 Appalachia|TACT|61
 Appalachia|TERM|369
 Appalachia|TXST|62485
@@ -1724,14 +1746,12 @@ ArktosPharmaLabDungeon|FURN|37
 ArktosPharmaLabDungeon|HAZD|2
 ArktosPharmaLabDungeon|IDLM|30
 ArktosPharmaLabDungeon|LIGH|1227
-ArktosPharmaLabDungeon|LVLI|280
+ArktosPharmaLabDungeon|LVLI|278
 ArktosPharmaLabDungeon|MISC|367
 ArktosPharmaLabDungeon|MSTT|268
-ArktosPharmaLabDungeon|NOTE|1
 ArktosPharmaLabDungeon|SCOL|954
 ArktosPharmaLabDungeon|SOUN|91
 ArktosPharmaLabDungeon|STAT|9852
-ArktosPharmaLabDungeon|TERM|2
 ArktosPharmaLabDungeon|TXST|1101
 BelchingBetty01|ACTI|50
 BelchingBetty01|ASPC|6
@@ -1773,9 +1793,9 @@ BlackwaterMine01|ACTI|59
 BlackwaterMine01|ALCH|2
 BlackwaterMine01|ASPC|4
 BlackwaterMine01|BNDS|44
-BlackwaterMine01|CONT|94
+BlackwaterMine01|CONT|95
 BlackwaterMine01|DOOR|11
-BlackwaterMine01|FURN|50
+BlackwaterMine01|FURN|49
 BlackwaterMine01|HAZD|12
 BlackwaterMine01|IDLM|37
 BlackwaterMine01|LIGH|200
@@ -1786,7 +1806,7 @@ BlackwaterMine01|NOTE|3
 BlackwaterMine01|NPC_|21
 BlackwaterMine01|SCOL|371
 BlackwaterMine01|SOUN|18
-BlackwaterMine01|STAT|4283
+BlackwaterMine01|STAT|4285
 BlackwaterMine01|TERM|5
 BlackwaterMine01|TXST|350
 BlueRidgeOffice01|ACTI|8
@@ -1988,15 +2008,15 @@ CharlestonCapitolBuilding02|MISC|170
 CharlestonCapitolBuilding02|MSTT|177
 CharlestonCapitolBuilding02|NOTE|2
 CharlestonCapitolBuilding02|NPC_|40
-CharlestonCapitolBuilding02|SCOL|586
+CharlestonCapitolBuilding02|SCOL|585
 CharlestonCapitolBuilding02|SOUN|2
-CharlestonCapitolBuilding02|STAT|5257
+CharlestonCapitolBuilding02|STAT|5256
 CharlestonCapitolBuilding02|TERM|12
 CharlestonCapitolBuilding02|TXST|296
 CharlestonCapitolCourthouse01|ACTI|34
 CharlestonCapitolCourthouse01|ALCH|1
 CharlestonCapitolCourthouse01|BOOK|2
-CharlestonCapitolCourthouse01|CONT|36
+CharlestonCapitolCourthouse01|CONT|35
 CharlestonCapitolCourthouse01|DOOR|20
 CharlestonCapitolCourthouse01|FLOR|1
 CharlestonCapitolCourthouse01|FURN|34
@@ -2007,11 +2027,30 @@ CharlestonCapitolCourthouse01|MISC|107
 CharlestonCapitolCourthouse01|MSTT|68
 CharlestonCapitolCourthouse01|NOTE|1
 CharlestonCapitolCourthouse01|NPC_|23
-CharlestonCapitolCourthouse01|SCOL|148
+CharlestonCapitolCourthouse01|SCOL|149
 CharlestonCapitolCourthouse01|STAT|1649
 CharlestonCapitolCourthouse01|TERM|4
 CharlestonCapitolCourthouse01|TXST|76
 CharlestonCapitolCourthouse01|WEAP|1
+CharlestonCapitolDungeon|ACTI|36
+CharlestonCapitolDungeon|ASPC|13
+CharlestonCapitolDungeon|BNDS|10
+CharlestonCapitolDungeon|BOOK|1
+CharlestonCapitolDungeon|CONT|134
+CharlestonCapitolDungeon|DOOR|11
+CharlestonCapitolDungeon|FLOR|2
+CharlestonCapitolDungeon|FURN|91
+CharlestonCapitolDungeon|IDLM|22
+CharlestonCapitolDungeon|LIGH|307
+CharlestonCapitolDungeon|LVLI|109
+CharlestonCapitolDungeon|MISC|248
+CharlestonCapitolDungeon|MSTT|217
+CharlestonCapitolDungeon|NPC_|5
+CharlestonCapitolDungeon|SCOL|657
+CharlestonCapitolDungeon|SOUN|2
+CharlestonCapitolDungeon|STAT|6081
+CharlestonCapitolDungeon|TXST|282
+CharlestonCapitolDungeon|WEAP|1
 CraterWarRoom01|ACTI|7
 CraterWarRoom01|AMMO|29
 CraterWarRoom01|ARMO|14
@@ -2154,7 +2193,7 @@ EmmettMountainDisposalSite01|ACTI|123
 EmmettMountainDisposalSite01|ALCH|2
 EmmettMountainDisposalSite01|ASPC|1
 EmmettMountainDisposalSite01|BNDS|28
-EmmettMountainDisposalSite01|CONT|31
+EmmettMountainDisposalSite01|CONT|32
 EmmettMountainDisposalSite01|DOOR|7
 EmmettMountainDisposalSite01|FURN|90
 EmmettMountainDisposalSite01|HAZD|28
@@ -2166,7 +2205,7 @@ EmmettMountainDisposalSite01|MSTT|136
 EmmettMountainDisposalSite01|NPC_|16
 EmmettMountainDisposalSite01|SCOL|568
 EmmettMountainDisposalSite01|SOUN|12
-EmmettMountainDisposalSite01|STAT|3316
+EmmettMountainDisposalSite01|STAT|3315
 EmmettMountainDisposalSite01|TERM|1
 EmmettMountainDisposalSite01|TXST|124
 EnclaveResearchFacility01|ACTI|717
@@ -2423,11 +2462,30 @@ GarrahanMiningHQ01|MISC|176
 GarrahanMiningHQ01|MSTT|187
 GarrahanMiningHQ01|NOTE|1
 GarrahanMiningHQ01|NPC_|34
-GarrahanMiningHQ01|SCOL|467
+GarrahanMiningHQ01|SCOL|466
 GarrahanMiningHQ01|SOUN|15
-GarrahanMiningHQ01|STAT|6965
+GarrahanMiningHQ01|STAT|7035
 GarrahanMiningHQ01|TERM|7
 GarrahanMiningHQ01|TXST|286
+GarrahanMiningHQDungeon|ACTI|46
+GarrahanMiningHQDungeon|ARMO|1
+GarrahanMiningHQDungeon|ASPC|16
+GarrahanMiningHQDungeon|BNDS|80
+GarrahanMiningHQDungeon|CONT|83
+GarrahanMiningHQDungeon|DOOR|3
+GarrahanMiningHQDungeon|FLOR|7
+GarrahanMiningHQDungeon|FURN|49
+GarrahanMiningHQDungeon|HAZD|1
+GarrahanMiningHQDungeon|IDLM|52
+GarrahanMiningHQDungeon|LIGH|168
+GarrahanMiningHQDungeon|LVLI|91
+GarrahanMiningHQDungeon|MISC|140
+GarrahanMiningHQDungeon|MSTT|142
+GarrahanMiningHQDungeon|NPC_|1
+GarrahanMiningHQDungeon|SCOL|392
+GarrahanMiningHQDungeon|SOUN|12
+GarrahanMiningHQDungeon|STAT|6155
+GarrahanMiningHQDungeon|TXST|255
 GauleyMine01|ACTI|58
 GauleyMine01|ASPC|3
 GauleyMine01|BNDS|11
@@ -2628,7 +2686,7 @@ MTR08LodeBaring01|FURN|34
 MTR08LodeBaring01|HAZD|11
 MTR08LodeBaring01|IDLM|59
 MTR08LodeBaring01|LIGH|74
-MTR08LodeBaring01|LVLI|272
+MTR08LodeBaring01|LVLI|271
 MTR08LodeBaring01|MISC|52
 MTR08LodeBaring01|MSTT|93
 MTR08LodeBaring01|NPC_|11
@@ -2652,7 +2710,7 @@ MTR08LodeBaring02|MSTT|84
 MTR08LodeBaring02|NPC_|13
 MTR08LodeBaring02|SCOL|68
 MTR08LodeBaring02|SOUN|1
-MTR08LodeBaring02|STAT|2339
+MTR08LodeBaring02|STAT|2342
 MTR08LodeBaring02|TERM|1
 MTR08LodeBaring02|TXST|109
 MamaDolceProcessing01|ACTI|45
@@ -2674,7 +2732,7 @@ MamaDolceProcessing01|TXST|77
 MonongahMine01|ACTI|134
 MonongahMine01|BNDS|102
 MonongahMine01|BOOK|4
-MonongahMine01|CONT|22
+MonongahMine01|CONT|23
 MonongahMine01|DOOR|7
 MonongahMine01|FLOR|1
 MonongahMine01|FURN|77
@@ -2778,17 +2836,33 @@ MorgantownHighSchool01|DOOR|41
 MorgantownHighSchool01|FURN|91
 MorgantownHighSchool01|IDLM|52
 MorgantownHighSchool01|KEYM|2
-MorgantownHighSchool01|LIGH|125
+MorgantownHighSchool01|LIGH|124
 MorgantownHighSchool01|LVLI|86
-MorgantownHighSchool01|MISC|463
+MorgantownHighSchool01|MISC|462
 MorgantownHighSchool01|MSTT|140
 MorgantownHighSchool01|NOTE|1
 MorgantownHighSchool01|NPC_|24
 MorgantownHighSchool01|SCOL|138
 MorgantownHighSchool01|SOUN|7
-MorgantownHighSchool01|STAT|4396
+MorgantownHighSchool01|STAT|4397
 MorgantownHighSchool01|TERM|5
 MorgantownHighSchool01|TXST|182
+MorgantownHighSchoolDungeon|ACTI|48
+MorgantownHighSchoolDungeon|ASPC|23
+MorgantownHighSchoolDungeon|BNDS|2
+MorgantownHighSchoolDungeon|CNCY|4
+MorgantownHighSchoolDungeon|CONT|101
+MorgantownHighSchoolDungeon|DOOR|7
+MorgantownHighSchoolDungeon|FURN|59
+MorgantownHighSchoolDungeon|IDLM|26
+MorgantownHighSchoolDungeon|LIGH|116
+MorgantownHighSchoolDungeon|LVLI|75
+MorgantownHighSchoolDungeon|MISC|376
+MorgantownHighSchoolDungeon|MSTT|123
+MorgantownHighSchoolDungeon|SCOL|118
+MorgantownHighSchoolDungeon|SOUN|7
+MorgantownHighSchoolDungeon|STAT|4305
+MorgantownHighSchoolDungeon|TXST|171
 MountBlairWarehouseBasement01|ACTI|3
 MountBlairWarehouseBasement01|CONT|5
 MountBlairWarehouseBasement01|DOOR|3
@@ -3134,11 +3208,10 @@ SheltersMissileSilo|SCOL|1
 SheltersMissileSilo|STAT|388
 SheltersMissileSilo|TXST|71
 SheltersPittTrench01|ACTI|14
+SheltersPittTrench01|FURN|1
 SheltersPittTrench01|LIGH|7
 SheltersPittTrench01|SCOL|168
-SheltersPittTrench01|SECH|1
-SheltersPittTrench01|SOUN|2
-SheltersPittTrench01|STAT|896
+SheltersPittTrench01|STAT|897
 SheltersPittTrench01|TXST|56
 SheltersVaultAtrium01|ACTI|16
 SheltersVaultAtrium01|LIGH|49
@@ -3627,8 +3700,8 @@ Vault94Dungeon|HAZD|1
 Vault94Dungeon|IDLM|170
 Vault94Dungeon|LIGH|713
 Vault94Dungeon|LVLI|314
-Vault94Dungeon|MISC|396
-Vault94Dungeon|MSTT|159
+Vault94Dungeon|MISC|397
+Vault94Dungeon|MSTT|158
 Vault94Dungeon|NPC_|42
 Vault94Dungeon|SCOL|1135
 Vault94Dungeon|SOUN|74
@@ -3683,13 +3756,13 @@ Vault96Dungeon|LIGH|980
 Vault96Dungeon|LVLI|106
 Vault96Dungeon|MISC|531
 Vault96Dungeon|MSTT|298
-Vault96Dungeon|NOTE|15
+Vault96Dungeon|NOTE|17
 Vault96Dungeon|NPC_|141
 Vault96Dungeon|SCOL|1456
 Vault96Dungeon|SOUN|28
-Vault96Dungeon|STAT|16191
+Vault96Dungeon|STAT|16192
 Vault96Dungeon|TACT|1
-Vault96Dungeon|TERM|14
+Vault96Dungeon|TERM|11
 Vault96Dungeon|TXST|1267
 Vault96Dungeon|WEAP|6
 VaultTecU01|ACTI|85
@@ -3804,9 +3877,8 @@ WatogaHighSchool01|SCOL|650
 WatogaHighSchool01|STAT|7271
 WatogaHighSchool01|TERM|8
 WatogaHighSchool01|TXST|399
-WatogaHighSchoolDungeon|ACTI|156
+WatogaHighSchoolDungeon|ACTI|155
 WatogaHighSchoolDungeon|ASPC|10
-WatogaHighSchoolDungeon|BOOK|5
 WatogaHighSchoolDungeon|CONT|87
 WatogaHighSchoolDungeon|DOOR|94
 WatogaHighSchoolDungeon|FURN|133
@@ -3818,7 +3890,6 @@ WatogaHighSchoolDungeon|MSTT|164
 WatogaHighSchoolDungeon|NOTE|1
 WatogaHighSchoolDungeon|SCOL|648
 WatogaHighSchoolDungeon|STAT|7267
-WatogaHighSchoolDungeon|TERM|7
 WatogaHighSchoolDungeon|TXST|399
 WatogaMunicipalCenter01|ACTI|22
 WatogaMunicipalCenter01|ASPC|13
@@ -4089,7 +4160,7 @@ XPDPitt02Trench|NOTE|2
 XPDPitt02Trench|NPC_|147
 XPDPitt02Trench|SCOL|2097
 XPDPitt02Trench|SOUN|2
-XPDPitt02Trench|STAT|15017
+XPDPitt02Trench|STAT|15023
 XPDPitt02Trench|TERM|6
 XPDPitt02Trench|TXST|1300
 XPDPitt02Trench|WEAP|2
@@ -4162,7 +4233,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3073570
+Appalachia||3072897
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -4659,6 +4730,7 @@ Appalachia|BoSr01_PA02|1
 Appalachia|BoSr01_PA03|1
 Appalachia|BoSr01_SpawnCenter_ScorchBeast|1
 Appalachia|BoSr01_SpawnCenter_Scorched|1
+Appalachia|BoSr01_TurretASAM|1
 Appalachia|BoSr02_SensorScanSpawn01A_Marker|1
 Appalachia|BoSr02_SensorScanSpawn01B_Marker|1
 Appalachia|BoSr02_SensorScanSpawn01C_Marker|1
@@ -6446,6 +6518,7 @@ Appalachia|MTNS04SpawnMarker|1
 Appalachia|MTNS04_DeathTamboMarker|1
 Appalachia|MTNS04_EnableMarker|1
 Appalachia|MTNS04_GuitarSwordMarker|1
+Appalachia|MTNS04_JukeboxRef|1
 Appalachia|MTNS04_WarDrumMarker|1
 Appalachia|MTNS05StartMarker|1
 Appalachia|MTNS06QuestGiverMarker|1
@@ -6821,6 +6894,7 @@ Appalachia|P01B_Forest_FollowUp13|1
 Appalachia|P01B_Forest_FollowUp14|1
 Appalachia|P01B_Goto_Camp|1
 Appalachia|P01B_Goto_Shop|1
+Appalachia|P01B_Lying_02_PoliceCarBag_Ref|1
 Appalachia|P01B_Lying_BriceActivator|1
 Appalachia|P01B_Lying_Cophat|1
 Appalachia|P01B_Lying_QuestStartTrigger|1
@@ -9630,7 +9704,7 @@ ArktosPharmaLab01|TestElevDoorTriggerARef082|1
 ArktosPharmaLab01|UD001_CodeARef|1
 ArktosPharmaLab01|UD001_CodeBRef|1
 ArktosPharmaLab01|UD001_CodeCRef|1
-ArktosPharmaLabDungeon||14603
+ArktosPharmaLabDungeon||14598
 ArktosPharmaLabDungeon|DailyOps_Mode01_Activator00_PackIn011|1
 ArktosPharmaLabDungeon|DailyOps_Mode01_Activator01_PackIn011|1
 ArktosPharmaLabDungeon|DailyOps_Mode01_Activator02_PackIn011|1
@@ -9751,7 +9825,7 @@ BigBendTunnel01|E05_Start_FrontBrahmin|1
 BigBendTunnel01|E05_Start_Guard|1
 BigBendTunnel01|E05_Start_Merchant|1
 BigBendTunnel01|MTR03_AreaSpawnerMarkerREF|1
-BlackwaterMine01||6152
+BlackwaterMine01||6154
 BlackwaterMine01|MTNL01BlackwaterGhoulMarker|1
 BlackwaterMine01|MTNL01BlackwaterTerminalMarker|1
 BlackwaterMine01|MTNL01_SpawnCenter|1
@@ -10073,7 +10147,7 @@ CharGen05|XMarkerHeading_CharGen05Start03|1
 CharGen05|XMarkerHeading_CharGen05Start04|1
 CharGen05|XMarkerHeading_CharGen05Start05|1
 CharGen05|XMarkerHeading_CharGen05Start06|1
-CharlestonCapitolBuilding02||7524
+CharlestonCapitolBuilding02||7522
 CharlestonCapitolBuilding02|BoS02DMBPrinterB2REF|1
 CharlestonCapitolBuilding02|BoS02DMBPrinterC1REF|1
 CharlestonCapitolBuilding02|BoS02DMVBot_B2_REF|1
@@ -10110,6 +10184,35 @@ CharlestonCapitolCourthouse01|EN06_ScannerDebugREF001|1
 CharlestonCapitolCourthouse01|MTNL01CharlestonRosalynnsKeyMarker001|1
 CharlestonCapitolCourthouse01|MTNL01_Rose_Locker|1
 CharlestonCapitolCourthouse01|P01B_Forest_FollowUp02|1
+CharlestonCapitolDungeon||8201
+CharlestonCapitolDungeon|DMVRadioREF_16|1
+CharlestonCapitolDungeon|DMVRadioREF_17|1
+CharlestonCapitolDungeon|DMVRadioREF_18|1
+CharlestonCapitolDungeon|DMVRadioREF_19|1
+CharlestonCapitolDungeon|DMVRadioREF_20|1
+CharlestonCapitolDungeon|DMVRadioTransmitterREF002|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Activator00_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Activator01_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Activator02_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Activator03_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_AmbientEWSTrigger_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_EWSModule00_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_EWSModule01_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_EWSModule02_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_EWSModule03_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_EWSModule04_PackIn013|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn00_01_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn00_02_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn00_03_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn01_01_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn01_02_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn01_03_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn02_01_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn02_02_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn02_03_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn03_01_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn03_02_PackIn014|1
+CharlestonCapitolDungeon|DailyOps_Mode01_Respawn03_03_PackIn014|1
 CraterWarRoom01||789
 CraterWarRoom01|BS01_BurkeRef|1
 CraterWarRoom01|BS01_MQ05_Raiders_PierceMarker|1
@@ -10684,7 +10787,7 @@ FreeStatesBunker07|W05_MQS_203P_RadcliffFurn1|1
 FreeStatesBunker07|W05_MQS_203P_RadcliffFurn2|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn1|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn2|1
-GarrahanMiningHQ01||9107
+GarrahanMiningHQ01||9176
 GarrahanMiningHQ01|GarrahanHQToExtBack|1
 GarrahanMiningHQ01|GarrahanHQ_Garage01ToExt|1
 GarrahanMiningHQ01|GarrahanMiningHQ_LeftExit|1
@@ -10710,6 +10813,36 @@ GarrahanMiningHQ01|WaterVolume62|1
 GarrahanMiningHQ01|WaterVolume63|1
 GarrahanMiningHQ01|WaterVolume67|1
 GarrahanMiningHQ01|WaterVolume72|1
+GarrahanMiningHQDungeon||7665
+GarrahanMiningHQDungeon|DailyOps_Mode01_Activator00_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Activator01_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Activator02_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Activator03_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_AmbientEWSTrigger_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_EWSModule00_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_EWSModule01_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_EWSModule02_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_EWSModule03_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_EWSModule04_PackIn012|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn00_01_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn00_02_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn00_03_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn01_01_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn01_02_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn01_03_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn02_01_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn02_02_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn02_03_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn03_01_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn03_02_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_Mode01_Respawn03_03_PackIn013|1
+GarrahanMiningHQDungeon|DailyOps_ReturnDoor_PackIn014|1
+GarrahanMiningHQDungeon|DailyOps_ReturnDoor_PackIn015|1
+GarrahanMiningHQDungeon|W05_007PatentlyFalse_SchematicsLoc001|1
+GarrahanMiningHQDungeon|WaterVolume119|1
+GarrahanMiningHQDungeon|WaterVolume121|1
+GarrahanMiningHQDungeon|WaterVolume122|1
+GarrahanMiningHQDungeon|WaterVolume83|1
 GauleyMine01||4157
 GauleyMine01|MTR03SpawnCenter002|1
 GauleyMine01|MTR03_BossTriggerVolume002|1
@@ -11041,7 +11174,7 @@ LousMine01|W05_MQR_201P_WeaselWall02SafetyMarker|1
 LousMine01|floorChunksEnableMarker|1
 LousMine01|wallPushVolumes01EnableMarker|1
 LousMine01|wallPushVolumes02EnableMarker|1
-MTR08LodeBaring01||3337
+MTR08LodeBaring01||3336
 MTR08LodeBaring01|AluminumEnableMarker|1
 MTR08LodeBaring01|AluminumEnableMarker02|1
 MTR08LodeBaring01|AluminumEnableMarker03|1
@@ -11114,7 +11247,7 @@ MTR08LodeBaring01|UraniumEnableMarker002|1
 MTR08LodeBaring01|UraniumEnableMarker02|1
 MTR08LodeBaring01|UraniumEnableMarker03|1
 MTR08LodeBaring01|zw_lodebaring01ent|1
-MTR08LodeBaring02||3205
+MTR08LodeBaring02||3208
 MTR08LodeBaring02|AluminumEnableMarker001|1
 MTR08LodeBaring02|AluminumEnableMarker06|1
 MTR08LodeBaring02|AluminumEnableMarker07|1
@@ -11197,7 +11330,7 @@ MamaDolceProcessing01|EN07_Death_AreaObjREF|1
 MamaDolceProcessing01|EN07_Death_StealthLabTerminalREF|1
 MamaDolceProcessing01|MamaDolceProcessingLoadDoorInt|1
 MamaDolceProcessing01|MamaDolceProcessing_LocationCenter|1
-MonongahMine01||6891
+MonongahMine01||6892
 MonongahMine01|E06_Colossus_AmbushTrigger|1
 MonongahMine01|E06_Colossus_DoorEnableMarker|1
 MonongahMine01|E06_Colossus_DropTrigger001|1
@@ -11331,8 +11464,31 @@ MorgantownApartment01|MorgantownApartment_LoadDoor_Closet_Ext001|1
 MorgantownApartment01|MorgantownApartment_LoadDoor_MainDoor_Ext001|1
 MorgantownApartment01|MorgantownApartment_LoadDoor_Roof_Ext001|1
 MorgantownApartment01|MorgantownApartment_LoadDoor_UnderRoof_Ext001|1
-MorgantownHighSchool01||5953
+MorgantownHighSchool01||5952
 MorgantownHighSchool01|W05_Topo01REF|1
+MorgantownHighSchoolDungeon||5539
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Activator00_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Activator01_PackIn006|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Activator02_PackIn006|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Activator03_PackIn006|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_AmbientEWSTrigger_PackIn006|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_EWSModule00_PackIn011|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_EWSModule01_PackIn011|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_EWSModule02_PackIn011|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_EWSModule03_PackIn011|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_EWSModule04_PackIn011|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn00_01_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn00_02_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn00_03_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn01_01_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn01_02_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn01_03_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn02_01_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn02_02_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn02_03_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_01_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_02_PackIn012|1
+MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_03_PackIn012|1
 MountBlairWarehouseBasement01||319
 NukaColaQuantumPlant01||5457
 NukaColaQuantumPlant01|BMO_BunkerKeyLocker|1
@@ -11544,7 +11700,7 @@ SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersMissileSilo||493
-SheltersPittTrench01||1144
+SheltersPittTrench01||1143
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
 SheltersVaultReception01||1544
@@ -12847,7 +13003,7 @@ WatogaHighSchool01|WatogaHighSchool_StaticCol09|1
 WatogaHighSchool01|WatogaHighSchool_StaticCol10|1
 WatogaHighSchool01|WatogaHighSchool_StaticCol11|1
 WatogaHighSchool01|WatogaHighSchool_StaticCol12|1
-WatogaHighSchoolDungeon||9813
+WatogaHighSchoolDungeon||9800
 WatogaHighSchoolDungeon|DailyOps_Mode01_Activator00_PackIn009|1
 WatogaHighSchoolDungeon|DailyOps_Mode01_Activator01_PackIn009|1
 WatogaHighSchoolDungeon|DailyOps_Mode01_Activator02_PackIn009|1
@@ -13663,7 +13819,7 @@ XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_Collapsed|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_FallingRocks|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_Boarded|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_FallingRocks|1
-XPDPitt02Trench||21074
+XPDPitt02Trench||21080
 XPDPitt02Trench|AmbEWS_DummyRef|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_SCM|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_Sandbox|1
@@ -13831,16 +13987,16 @@ AlleghenyAsylum01|100|15013
 Appalachia|50|42
 Appalachia|75|136
 Appalachia|85|72
-Appalachia|100|3078773
+Appalachia|100|3078103
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17160
 ArktosPharmaLabDungeon|50|1
 ArktosPharmaLabDungeon|75|1
-ArktosPharmaLabDungeon|100|14626
+ArktosPharmaLabDungeon|100|14621
 BelchingBetty01|100|5220
 BigBendTunnel01|100|7551
-BlackwaterMine01|100|6164
+BlackwaterMine01|100|6166
 BlueRidgeOffice01|50|1
 BlueRidgeOffice01|100|761
 BurdetteManorBasement01|100|499
@@ -13853,8 +14009,9 @@ CharGen03|100|6931
 CharGen04|100|6931
 CharGen05|100|6931
 CharlestonCapitolBuilding02|75|1
-CharlestonCapitolBuilding02|100|7550
+CharlestonCapitolBuilding02|100|7548
 CharlestonCapitolCourthouse01|100|2374
+CharlestonCapitolDungeon|100|8229
 CraterWarRoom01|100|798
 CraterWatchstation01|100|495
 CultistCave01|100|5130
@@ -13879,7 +14036,8 @@ FreeStatesBunker03|100|1043
 FreeStatesBunker04|100|1254
 FreeStatesBunker06|100|949
 FreeStatesBunker07|100|1049
-GarrahanMiningHQ01|100|9132
+GarrahanMiningHQ01|100|9201
+GarrahanMiningHQDungeon|100|7694
 GauleyMine01|100|4177
 GlassedCavern01|100|9043
 GraftonPawnShop01|100|1478
@@ -13896,17 +14054,18 @@ KerwoodMine01|100|5667
 LewisandSonsFarmingSupply01|100|461
 LousMine01|75|3
 LousMine01|100|6989
-MTR08LodeBaring01|100|3409
-MTR08LodeBaring02|100|3281
+MTR08LodeBaring01|100|3408
+MTR08LodeBaring02|100|3284
 MamaDolceProcessing01|100|3074
-MonongahMine01|100|6922
+MonongahMine01|100|6923
 MonongahMissileSilo01|75|4
 MonongahMissileSilo01|100|15686
 MonongahPowerPlant01|100|11083
 MorgantownAirportTerminal02|75|2
 MorgantownAirportTerminal02|100|5251
 MorgantownApartment01|100|1362
-MorgantownHighSchool01|100|5954
+MorgantownHighSchool01|100|5953
+MorgantownHighSchoolDungeon|100|5561
 MountBlairWarehouseBasement01|100|319
 NukaColaQuantumPlant01|100|5477
 OrwellOrchardsShelter01|100|2209
@@ -13930,7 +14089,7 @@ SheltersCave01|100|534
 SheltersCave02|100|608
 SheltersClaimCenter01|100|976
 SheltersMissileSilo|100|493
-SheltersPittTrench01|100|1144
+SheltersPittTrench01|100|1143
 SheltersVaultAtrium01|100|2268
 SheltersVaultLivingQuarters01|100|2644
 SheltersVaultReception01|100|1544
@@ -13986,7 +14145,7 @@ WatogaCivicCenter01|100|11504
 WatogaCivicCenterDungeon|100|8929
 WatogaEmergencyServices01|100|1905
 WatogaHighSchool01|100|10105
-WatogaHighSchoolDungeon|100|9842
+WatogaHighSchoolDungeon|100|9829
 WatogaMunicipalCenter01|100|2692
 WatogaMunicipalCenter02|100|812
 WatogaTowers01|100|584
@@ -14008,7 +14167,7 @@ XPDPitt02Sanctum|75|2
 XPDPitt02Sanctum|100|18032
 XPDPitt02Trench|50|4
 XPDPitt02Trench|75|8
-XPDPitt02Trench|100|21219
+XPDPitt02Trench|100|21225
 ==Total Scrap and Junk per Component per Space==
 AMSHQ01|Acid|1|1
 AMSHQ01|Aluminum|7|4
@@ -14132,7 +14291,7 @@ Appalachia|Fertilizer|1064|374
 Appalachia|Fiber Optics|40|39
 Appalachia|Fiberglass|936|699
 Appalachia|Gear|1134|957
-Appalachia|Glass|8961|7407
+Appalachia|Glass|8960|7406
 Appalachia|Gold|78|78
 Appalachia|Gunpowder|1|1
 Appalachia|Lead|5278|3054
@@ -14144,7 +14303,7 @@ Appalachia|Rubber|1984|1200
 Appalachia|Screw|1175|1056
 Appalachia|Silver|262|221
 Appalachia|Spring|1283|1252
-Appalachia|Steel|15455|9218
+Appalachia|Steel|15454|9217
 Appalachia|Ultracite|1|1
 Appalachia|Wood|4771|3332
 ArktosPharmaLab01|Acid|48|33
@@ -14539,6 +14698,31 @@ CharlestonCapitolCourthouse01|Silver|1|1
 CharlestonCapitolCourthouse01|Spring|12|12
 CharlestonCapitolCourthouse01|Steel|19|12
 CharlestonCapitolCourthouse01|Wood|10|9
+CharlestonCapitolDungeon|Acid|1|1
+CharlestonCapitolDungeon|Adhesive|2|2
+CharlestonCapitolDungeon|Aluminum|13|8
+CharlestonCapitolDungeon|Antiseptic|3|2
+CharlestonCapitolDungeon|Asbestos|11|7
+CharlestonCapitolDungeon|Bone|35|13
+CharlestonCapitolDungeon|Ceramic|29|27
+CharlestonCapitolDungeon|Circuitry|5|5
+CharlestonCapitolDungeon|Cloth|90|84
+CharlestonCapitolDungeon|Copper|10|10
+CharlestonCapitolDungeon|Cork|10|7
+CharlestonCapitolDungeon|Crystal|13|5
+CharlestonCapitolDungeon|Fiberglass|8|6
+CharlestonCapitolDungeon|Gear|33|21
+CharlestonCapitolDungeon|Glass|32|24
+CharlestonCapitolDungeon|Lead|8|4
+CharlestonCapitolDungeon|Leather|2|1
+CharlestonCapitolDungeon|Oil|7|5
+CharlestonCapitolDungeon|Plastic|37|28
+CharlestonCapitolDungeon|Rubber|6|5
+CharlestonCapitolDungeon|Screw|24|21
+CharlestonCapitolDungeon|Silver|4|4
+CharlestonCapitolDungeon|Spring|24|24
+CharlestonCapitolDungeon|Steel|47|31
+CharlestonCapitolDungeon|Wood|32|24
 CraterWarRoom01|Asbestos|13|8
 CraterWarRoom01|Ceramic|3|3
 CraterWarRoom01|Cloth|17|13
@@ -15003,6 +15187,32 @@ GarrahanMiningHQ01|Silver|1|1
 GarrahanMiningHQ01|Spring|14|14
 GarrahanMiningHQ01|Steel|83|43
 GarrahanMiningHQ01|Wood|18|16
+GarrahanMiningHQDungeon|Acid|1|1
+GarrahanMiningHQDungeon|Adhesive|1|1
+GarrahanMiningHQDungeon|Aluminum|3|2
+GarrahanMiningHQDungeon|Antiseptic|2|1
+GarrahanMiningHQDungeon|Asbestos|16|10
+GarrahanMiningHQDungeon|Ceramic|32|29
+GarrahanMiningHQDungeon|Circuitry|1|1
+GarrahanMiningHQDungeon|Cloth|8|7
+GarrahanMiningHQDungeon|Copper|12|9
+GarrahanMiningHQDungeon|Cork|2|2
+GarrahanMiningHQDungeon|Crystal|7|3
+GarrahanMiningHQDungeon|Fiber Optics|1|1
+GarrahanMiningHQDungeon|Fiberglass|1|1
+GarrahanMiningHQDungeon|Gear|4|4
+GarrahanMiningHQDungeon|Glass|40|33
+GarrahanMiningHQDungeon|Gold|2|2
+GarrahanMiningHQDungeon|Lead|16|12
+GarrahanMiningHQDungeon|Leather|11|3
+GarrahanMiningHQDungeon|Oil|13|11
+GarrahanMiningHQDungeon|Plastic|25|15
+GarrahanMiningHQDungeon|Rubber|2|1
+GarrahanMiningHQDungeon|Screw|7|6
+GarrahanMiningHQDungeon|Silver|1|1
+GarrahanMiningHQDungeon|Spring|13|13
+GarrahanMiningHQDungeon|Steel|65|33
+GarrahanMiningHQDungeon|Wood|17|15
 GauleyMine01|Acid|14|8
 GauleyMine01|Adhesive|15|6
 GauleyMine01|Aluminum|5|4
@@ -15400,7 +15610,7 @@ MorgantownHighSchool01|Crystal|7|5
 MorgantownHighSchool01|Fiber Optics|4|4
 MorgantownHighSchool01|Fiberglass|5|5
 MorgantownHighSchool01|Gear|9|9
-MorgantownHighSchool01|Glass|69|56
+MorgantownHighSchool01|Glass|68|55
 MorgantownHighSchool01|Lead|47|31
 MorgantownHighSchool01|Leather|36|16
 MorgantownHighSchool01|Nuclear Material|3|3
@@ -15412,6 +15622,33 @@ MorgantownHighSchool01|Silver|3|3
 MorgantownHighSchool01|Spring|13|13
 MorgantownHighSchool01|Steel|107|63
 MorgantownHighSchool01|Wood|69|38
+MorgantownHighSchoolDungeon|Acid|3|3
+MorgantownHighSchoolDungeon|Adhesive|4|3
+MorgantownHighSchoolDungeon|Aluminum|47|28
+MorgantownHighSchoolDungeon|Antiseptic|9|5
+MorgantownHighSchoolDungeon|Asbestos|22|18
+MorgantownHighSchoolDungeon|Bone|22|7
+MorgantownHighSchoolDungeon|Ceramic|19|18
+MorgantownHighSchoolDungeon|Circuitry|5|5
+MorgantownHighSchoolDungeon|Cloth|101|99
+MorgantownHighSchoolDungeon|Copper|13|12
+MorgantownHighSchoolDungeon|Cork|29|20
+MorgantownHighSchoolDungeon|Crystal|7|5
+MorgantownHighSchoolDungeon|Fiber Optics|4|4
+MorgantownHighSchoolDungeon|Fiberglass|5|5
+MorgantownHighSchoolDungeon|Gear|8|8
+MorgantownHighSchoolDungeon|Glass|51|41
+MorgantownHighSchoolDungeon|Lead|46|30
+MorgantownHighSchoolDungeon|Leather|34|15
+MorgantownHighSchoolDungeon|Nuclear Material|2|2
+MorgantownHighSchoolDungeon|Oil|18|13
+MorgantownHighSchoolDungeon|Plastic|135|84
+MorgantownHighSchoolDungeon|Rubber|37|28
+MorgantownHighSchoolDungeon|Screw|16|13
+MorgantownHighSchoolDungeon|Silver|3|3
+MorgantownHighSchoolDungeon|Spring|13|13
+MorgantownHighSchoolDungeon|Steel|98|59
+MorgantownHighSchoolDungeon|Wood|61|34
 MountBlairWarehouseBasement01|Acid|2|1
 MountBlairWarehouseBasement01|Adhesive|9|2
 MountBlairWarehouseBasement01|Aluminum|2|1
@@ -16283,7 +16520,7 @@ Vault94Dungeon|Nuclear Material|1|1
 Vault94Dungeon|Oil|30|19
 Vault94Dungeon|Plastic|37|28
 Vault94Dungeon|Rubber|25|18
-Vault94Dungeon|Screw|21|20
+Vault94Dungeon|Screw|22|21
 Vault94Dungeon|Silver|2|1
 Vault94Dungeon|Spring|27|27
 Vault94Dungeon|Steel|149|91
@@ -16958,6 +17195,7 @@ WestTek01|Super Mutant|1.0|41
 005ACD84|CraterWarRoom01|The Crater War Room|0|-307|1165|-1615|1001|-1270|3600|0|0|1.0
 0054B502|CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|0|2307|-2239|0|4614|-4479|0|-1300|-850|1.3
 005C38D6|SheltersClaimCenter01|Shelters Claim Center|0|-4898|144|-6280|-3516|-375|663|0|0|1.0
+0066FCB2|GarrahanMiningHQDungeon|Garrahan Mining HQ|0|538|311|-4042|5119|-12335|12958|0|-250|2.0
 000402E2|SamBlackwellsDeathclawCave|Cavern|0|-5632|2061|-15744|4480|-2014|6137|-2200|200|1.9
 0053F947|LousMine01|Carleton Mine|0|-7512|17618|-17914|2890|9233|26003|0|0|1.0
 005AFB11|RaiderCave01|Deserted Mine|0|850|1905|-3398|5098|-2236|6047|0|0|1.0
@@ -16971,6 +17209,7 @@ WestTek01|Super Mutant|1.0|41
 0001AB97|WatogaEmergencyServices01|Watoga Emergency Services|0|454|778|-1044|1952|-490|2047|0|0|1.0
 0039EFE3|BelchingBetty01|Belching Betty|0|-1294|12787|-6063|3474|-326|25901|0|0|1.0
 00431DED|PoseidonPlant02|Poseidon Energy Plant Expansion|0|-2341|3011|-6614|1932|-4837|10859|-400|-2700|2.0
+00675A19|MorgantownHighSchoolDungeon|Morgantown High School|0|1396|-2890|-787|3579|-6799|1019|0|0|1.0
 0000D343|WatogaCivicCenter01|Watoga Civic Center|0|3397|1264|-668|7462|-2926|5455|0|0|1.0
 0062E263|SheltersCave02|Forbidden Digsite Shelter|0|2088|-656|-2488|6664|-4064|2752|0|0|1.0
 00044FEC|GauleyMine01|Gauley Mine|0|1508|1723|-4792|7808|-3159|6605|0|0|1.0
@@ -17017,6 +17256,7 @@ WestTek01|Super Mutant|1.0|41
 0000748D|WestTek01|West Tek Research Center|0|10314|479|6747|13882|-3501|4460|0|0|1.0
 005767ED|UCB02|Auxiliary Control Room|0|-228|212|-584|128|-144|568|0|0|1.0
 005DD731|Vault96Dungeon|Vault 96|0|9438|-1326|1496|17380|-8467|5815|0|0|1.0
+00672089|CharlestonCapitolDungeon|Charleston Capitol Building|0|-27|-1037|-4650|4595|-4244|2169|0|0|1.0
 0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0|3733|1296|-1264|8730|-6484|9076|0|0|1.0
 0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|-516|323|-257|234|0|0|1.0
 004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|-702|896|-2112|-576|0|0|1.0

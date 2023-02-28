@@ -3,6 +3,9 @@
 ## Map Settings
 Under the 'Map' menu, there are several options which allow you to change the appearance of the overall map;
 
+### Title
+This allows you to set a title for the map - it will show in the bottom-right, and will be the default filename when saving the map image.
+
 ### Brightness
 This option brings up a dialog which allows you to tweak the percentage brightness of the underlying map image. Enter any value from 5% to 300%.
 
@@ -21,7 +24,8 @@ This toggles the underlying map image to be in grayscale (black and white) or fu
 
 ### Map Marker options
 You can independently toggle map marker Icons or Labels to appear against their respective locations on the map.<br/>
-'Icons' shows the in-game map icons for named locations, whereas 'Labels' annotates their name onto the map.
+'Icons' shows the in-game map icons for named locations, whereas 'Labels' annotates their name onto the map.<br/>
+If the whole-map 'Grayscale' option is enabled, this will also grayscale icons. However in a color map, you can make just icons grayscale by selecting 'Grayscale Icons'.
 
 ### Legend Style
 This provides control over how (or if) the legend is drawn.

@@ -60,10 +60,12 @@ namespace Mappalachia
 		// Show the save dialog, then ask IOManager to write the file
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
+			string userFileName = IOManager.SanitizeFilename(SettingsMap.title);
+
 			SaveFileDialog dialog = new SaveFileDialog
 			{
 				Filter = SettingsFileExport.IsPNG() ? "PNG|*.png" : "JPEG|*.jpeg",
-				FileName = "Mappalachia Map",
+				FileName = string.IsNullOrWhiteSpace(userFileName) ? "Mappalachia Map" : userFileName,
 			};
 
 			if (dialog.ShowDialog() == DialogResult.OK)

@@ -684,6 +684,7 @@ namespace Mappalachia
 		{
 			showMapLabelsMenuItem.Checked = SettingsMap.showMapLabels;
 			showMapIconsMenuItem.Checked = SettingsMap.showMapIcons;
+			grayScaleMapIconsMenuItem.Checked = SettingsMap.grayScaleMapIcons;
 
 			if (reDraw)
 			{
@@ -1104,6 +1105,13 @@ namespace Mappalachia
 			PreviewMap();
 		}
 
+		// Map > Set Title... - Open the Set Map Title form
+		void Map_SetTitle(object sender, EventArgs e)
+		{
+			FormSetTitle formSetTitle = new FormSetTitle();
+			formSetTitle.ShowDialog();
+		}
+
 		// Map > Background Image > Normal - Toggle the map background to the in-game menu version
 		void Map_Image_Normal(object sender, EventArgs e)
 		{
@@ -1169,10 +1177,31 @@ namespace Mappalachia
 			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
-		// Map > Map Markers > icons - toggle rendering map marker icons on map draw
+		// Map > Map Markers > Icons - toggle rendering map marker icons on map draw
 		void Map_MapMarkers_Icons(object sender, EventArgs e)
 		{
 			SettingsMap.showMapIcons = !SettingsMap.showMapIcons;
+
+			// If we turned off icons - also disable their grayscale state
+			if (!SettingsMap.showMapIcons)
+			{
+				SettingsMap.grayScaleMapIcons = false;
+			}
+
+			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
+		}
+
+		// Map > Map Markers > Grayscale Icons - toggle grayscale drawing of map icons, where selected
+		void Map_MapMarkers_GrayscaleIcons(object sender, EventArgs e)
+		{
+			SettingsMap.grayScaleMapIcons = !SettingsMap.grayScaleMapIcons;
+
+			// If we turned on grayscale - enable icons generally
+			if (SettingsMap.grayScaleMapIcons && !SettingsMap.showMapIcons)
+			{
+				SettingsMap.showMapIcons = true;
+			}
+
 			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
@@ -1229,7 +1258,9 @@ namespace Mappalachia
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapLabels = SettingsMap.showMapLabelsDefault;
 			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
+			SettingsMap.grayScaleMapIcons = SettingsMap.grayScaleMapIconsDefault;
 			SettingsMap.legendMode = SettingsMap.legendModeDefault;
+			SettingsMap.title = SettingsMap.titleDefault;
 
 			comboBoxSpace.SelectedIndex = 0;
 

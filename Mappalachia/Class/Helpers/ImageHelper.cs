@@ -126,5 +126,48 @@ namespace Mappalachia
 				return Color.Gray;
 			}
 		}
+
+		public static Image AdjustBrightnessOrGrayscale(Image image, float brightness, bool grayscale)
+		{
+			Image newImage = new Bitmap(image.Width, image.Height);
+			Graphics graphic = Graphics.FromImage(newImage);
+
+			ImageAttributes attributes = new ImageAttributes();
+			attributes.SetColorMatrix(GenerateColorMatrix(brightness, grayscale));
+
+			Point[] points =
+			{
+				new Point(0, 0),
+				new Point(newImage.Width, 0),
+				new Point(0, newImage.Height),
+			};
+
+			Rectangle rect = new Rectangle(0, 0, newImage.Width, newImage.Height);
+			graphic.DrawImage(image, points, rect, GraphicsUnit.Pixel, attributes);
+
+			return newImage;
+		}
+
+		// Returns a ColorMatrix suitable for modifying the brightness and/or grayscale of an image
+		public static ColorMatrix GenerateColorMatrix(float brightness, bool grayscale)
+		{
+			return grayscale ?
+				new ColorMatrix(new float[][]
+				{
+					new float[] { 0.299f * brightness, 0.299f * brightness, 0.299f * brightness, 0, 0 },
+					new float[] { 0.587f * brightness, 0.587f * brightness, 0.587f * brightness, 0, 0 },
+					new float[] { 0.114f * brightness, 0.114f * brightness, 0.114f * brightness, 0, 0 },
+					new float[] { 0, 0, 0, 1, 0 },
+					new float[] { 0, 0, 0, 0, 1 },
+				}) :
+				new ColorMatrix(new float[][]
+				{
+					new float[] { brightness, 0, 0, 0, 0 },
+					new float[] { 0, brightness, 0, 0, 0 },
+					new float[] { 0, 0, brightness, 0, 0 },
+					new float[] { 0, 0, 0, 1, 0 },
+					new float[] { 0, 0, 0, 0, 1 },
+				});
+		}
 	}
 }
