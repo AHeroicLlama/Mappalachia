@@ -1133,6 +1133,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0061F9C7,PackInATXRustedChainLinkGate256PKINStorageCell,,0
 00669707,,,0
 0067498B,,,0
+006960B3,SheltersNuclearTestBunker,Nuclear Test Bunker,0
 0000E7D1,zCUTVault9402OLD,Vault 94 OLD,0
 0000ED49,76HoldingCellMD02,Quick Test Cell,0
 00011B61,zCUTStartCell01,Quick Test Cell,0
@@ -1824,6 +1825,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00570D76,zCUT76DebugNormGym,76 QA Smoke,0
 005AD3DE,PackInATXCollectronpackinFasnachtStorageCell,,0
 005DBDF6,PackInATXDisplayMannequinRackFemaleStorageCell,,0
+00697592,PackInF1NukaColaTentPKINStorageCell,,0
 000028F8,,,0
 00002D44,,,0
 00004D4C,zCUTUnusedVault12002COPY0000,Vault 120,0

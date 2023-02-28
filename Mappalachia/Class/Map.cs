@@ -21,7 +21,7 @@ namespace Mappalachia
 		const int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
 		public const int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
 
-		// Legend text positioning
+		// Text positioning
 		const int legendIconX = 59; // The X Coord of the plot icon that is drawn next to each legend string
 		public const int plotXMin = 650; // Number of pixels in from the left of the map image where the player cannot reach
 		const int topographKeyX = 3610;
@@ -40,22 +40,30 @@ namespace Mappalachia
 		// Font and text
 		public const int legendFontSize = 48;
 		public const int mapLabelFontSize = 18;
+		public const int titleFontSize = 72;
 		const int fontDropShadowOffset = 3;
 		const int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
 		const int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
-		const int warningTextHeight = 200; // height in px off the bottom of image that red warning text is written.
+		const int warningTextHeight = 300; // height in px off the bottom of image that red warning text is written.
+
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
 		static readonly Brush brushRed = new SolidBrush(Color.Red);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
 		static readonly Font mapLabelFont = new Font(fontCollection.Families[0], mapLabelFontSize, GraphicsUnit.Pixel);
 		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
+		static readonly Font titleFont = new Font(fontCollection.Families[0], titleFontSize, FontStyle.Bold, GraphicsUnit.Pixel);
 		static readonly RectangleF infoTextBounds = new RectangleF(legendIconX, 0, mapDimension - legendIconX, mapDimension);
-		static readonly RectangleF infoTextDropShadowBounds = new RectangleF(infoTextBounds.X + fontDropShadowOffset, infoTextBounds.Y + fontDropShadowOffset, infoTextBounds.Width, infoTextBounds.Height);
 		static readonly RectangleF warningTextBounds = new RectangleF(legendIconX, 0, mapDimension - legendIconX, mapDimension - warningTextHeight);
+		static readonly RectangleF titleTextBounds = new RectangleF(2200, 0, 1730, mapDimension);
+
+		static readonly RectangleF infoTextDropShadowBounds = GeometryHelper.OffsetRect(infoTextBounds, fontDropShadowOffset);
+		static readonly RectangleF titleTextDropShadowBounds = GeometryHelper.OffsetRect(titleTextBounds, fontDropShadowOffset);
+
 		static readonly StringFormat stringFormatBottomRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
-		static readonly StringFormat stringFormatBottomCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far }; // Align the text bottom-right
+		static readonly StringFormat stringFormatBottomCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far }; // Align the text bottom-center
 		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
+		static readonly StringFormat stringFormatTopRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near }; // Align the text top-right
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Volume plots
@@ -132,29 +140,9 @@ namespace Mappalachia
 				graphic.DrawImage(IOManager.GetImageAppalachiaWaterMask(), new Point(0, 0));
 			}
 
-			float b = SettingsMap.brightness / 100f;
-
-			// Apply grayscale color matrix, or just apply brightness adjustments
-			ColorMatrix matrix = SettingsMap.grayScale ?
-				new ColorMatrix(new float[][]
-					{
-						new float[] { 0.299f * b, 0.299f * b, 0.299f * b, 0, 0 },
-						new float[] { 0.587f * b, 0.587f * b, 0.587f * b, 0, 0 },
-						new float[] { 0.114f * b, 0.114f * b, 0.114f * b, 0, 0 },
-						new float[] { 0, 0, 0, 1, 0 },
-						new float[] { 0, 0, 0, 0, 1 },
-					}) :
-				new ColorMatrix(new float[][]
-					{
-						new float[] { b, 0, 0, 0, 0 },
-						new float[] { 0, b, 0, 0, 0 },
-						new float[] { 0, 0, b, 0, 0 },
-						new float[] { 0, 0, 0, 1, 0 },
-						new float[] { 0, 0, 0, 0, 1 },
-					});
-
+			// Assign suitable ColorMatrix attribute given user selected Brightness and Grayscale state
 			ImageAttributes attributes = new ImageAttributes();
-			attributes.SetColorMatrix(matrix);
+			attributes.SetColorMatrix(ImageHelper.GenerateColorMatrix(SettingsMap.brightness / 100f, SettingsMap.grayScale));
 
 			Point[] points =
 			{
@@ -210,7 +198,8 @@ namespace Mappalachia
 			imageGraphic.SmoothingMode = SmoothingMode.AntiAlias;
 			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
-			// Draw the bottom-right info/watermark paragraph
+			// Draw the bottom-right info/watermark paragraph and title
+			DrawTitle(imageGraphic);
 			DrawInfoWatermark(imageGraphic);
 
 			// Nothing else to plot - ensure we update for the background layer but then return
@@ -745,6 +734,24 @@ namespace Mappalachia
 			imageGraphic.DrawString(infoText, legendFont, brushWhite, infoTextBounds, stringFormatBottomRight);
 		}
 
+		// Draw the user-defined title of the map
+		static void DrawTitle(Graphics imageGraphic)
+		{
+			string title = SettingsMap.title;
+
+			if (string.IsNullOrWhiteSpace(title))
+			{
+				return;
+			}
+
+			title = $"\"{title}\"";
+
+			imageGraphic.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+			imageGraphic.DrawString(title, titleFont, dropShadowBrush, titleTextDropShadowBounds, stringFormatTopRight);
+			imageGraphic.DrawString(title, titleFont, brushWhite, titleTextBounds, stringFormatTopRight);
+		}
+
 		static void DrawMapMarkers(Graphics imageGraphic)
 		{
 			if (!SettingsMap.showMapIcons && !SettingsMap.showMapLabels)
@@ -760,6 +767,12 @@ namespace Mappalachia
 				foreach (MapMarker marker in markers)
 				{
 					Image markerImage = IOManager.GetMapMarker(marker.markerName);
+
+					if (SettingsMap.grayScaleMapIcons)
+					{
+						markerImage = ImageHelper.AdjustBrightnessOrGrayscale(markerImage, 1, true);
+					}
+
 					imageGraphic.DrawImage(markerImage, (int)(marker.x - (markerImage.Width / 2)), (int)(marker.y - (markerImage.Height / 2)));
 				}
 			}

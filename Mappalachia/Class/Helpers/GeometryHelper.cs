@@ -38,5 +38,11 @@ namespace Mappalachia
 		{
 			return Pythagoras(width, height);
 		}
+
+		// Returns the rectangle offset by the given amount
+		public static RectangleF OffsetRect(RectangleF rect, float offset)
+		{
+			return new RectangleF(rect.X + offset, rect.Y + offset, rect.Width, rect.Height);
+		}
 	}
 }

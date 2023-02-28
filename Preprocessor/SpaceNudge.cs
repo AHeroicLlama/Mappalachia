@@ -67,6 +67,12 @@ namespace Mappalachia
 						nudgeScale = 1.3f;
 						break;
 
+					case "GarrahanMiningHQDungeon":
+						nudgeX = 0;
+						nudgeY = -250;
+						nudgeScale = 2f;
+						break;
+
 					case "MonongahMissileSilo01":
 						nudgeX = 300;
 						nudgeY = -2450;

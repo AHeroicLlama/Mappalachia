@@ -13,7 +13,7 @@ namespace Mappalachia
 
 		public const int minRange = 1;
 		public const int maxRange = 2000;
-		public const int minWeightCap = 1;
+		public const int minWeightCap = 0;
 		public const int maxWeightCap = 200;
 
 		public const bool defaultClusterWeb = false;
