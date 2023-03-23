@@ -77,6 +77,16 @@ namespace Mappalachia
 				}
 			}
 
+			// Keep just the ABCDEF12 from the [XXXX:ABCDEF12] at the end
+			else if (columnName == "instanceID")
+			{
+				Match match = Validation.shortNameGetRef.Match(data);
+				if (match.Success)
+				{
+					data = match.Groups[1].Value.Trim();
+				}
+			}
+
 			// Grab the 8-char FormID only
 			else
 			{
@@ -125,6 +135,7 @@ namespace Mappalachia
 				case "spaceFormID":
 				case "junkFormID":
 				case "regionFormID":
+				case "instanceID":
 					// FormID Cells must only contain the FormID alone
 					if (!Validation.matchFormID.IsMatch(data))
 					{

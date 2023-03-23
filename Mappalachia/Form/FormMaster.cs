@@ -88,6 +88,7 @@ namespace Mappalachia
 			UpdateResultsLockTypeColumnVisibility();
 			UpdateVolumeEnabledState(false);
 			UpdateFillRegionsState(false);
+			UpdateShowRefFormIDState(false);
 			UpdatePlotModeUI();
 			UpdateHeatMapColorMode(false);
 			UpdateHeatMapResolution(false);
@@ -474,6 +475,17 @@ namespace Mappalachia
 			}
 		}
 
+		// Update the map settings > Show Reference Form IDs check, based on current settings
+		void UpdateShowRefFormIDState(bool reDraw)
+		{
+			showReferenceFormIDsMenuItem.Checked = SettingsPlot.labelInstanceIDs;
+
+			if (reDraw)
+			{
+				DrawMap(false);
+			}
+		}
+
 		// Handle a change in plot mode
 		void UpdatePlotMode(bool reDraw)
 		{
@@ -500,6 +512,7 @@ namespace Mappalachia
 					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, false);
 					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, false);
 					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, true);
+					FormsHelper.EnableMenuStrip(showReferenceFormIDsMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Heatmap:
 					modeHeatmapMenuItem.Checked = true;
@@ -507,6 +520,7 @@ namespace Mappalachia
 					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, false);
 					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, false);
 					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, false);
+					FormsHelper.EnableMenuStrip(showReferenceFormIDsMenuItem, false);
 					break;
 				case SettingsPlot.Mode.Topography:
 					modeTopographyMenuItem.Checked = true;
@@ -514,6 +528,7 @@ namespace Mappalachia
 					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, true);
 					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, false);
 					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, true);
+					FormsHelper.EnableMenuStrip(showReferenceFormIDsMenuItem, true);
 					break;
 				case SettingsPlot.Mode.Cluster:
 					modeClusterMenuItem.Checked = true;
@@ -521,6 +536,7 @@ namespace Mappalachia
 					FormsHelper.EnableMenuStrip(TopographColorBandsMenuItem, false);
 					FormsHelper.EnableMenuStrip(clusterSettingsMenuItem, true);
 					FormsHelper.EnableMenuStrip(drawVolumesMenuItem, false);
+					FormsHelper.EnableMenuStrip(showReferenceFormIDsMenuItem, false);
 					break;
 			}
 		}
@@ -1418,6 +1434,13 @@ namespace Mappalachia
 		{
 			SettingsPlot.fillRegions = !SettingsPlot.fillRegions;
 			UpdateFillRegionsState(true);
+		}
+
+		// Plot Settings > Show Reference Form IDs - toggle label of instance IDs
+		void Plot_ShowRefFormIDs(object sender, EventArgs e)
+		{
+			SettingsPlot.labelInstanceIDs = !SettingsPlot.labelInstanceIDs;
+			UpdateShowRefFormIDState(SettingsPlot.IsIconOrTopographic());
 		}
 
 		// Help > About - Show the About box

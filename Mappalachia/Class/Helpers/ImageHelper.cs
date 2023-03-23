@@ -169,5 +169,11 @@ namespace Mappalachia
 					new float[] { 0, 0, 0, 0, 1 },
 				});
 		}
+
+		public static Color GetRandomColor()
+		{
+			Random rnd = new Random();
+			return Color.FromArgb(255, rnd.Next(256), rnd.Next(256), rnd.Next(256));
+		}
 	}
 }

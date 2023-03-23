@@ -14,14 +14,16 @@ namespace Mappalachia
 		public float boundY;
 		public int boundZ;
 		public int rotationZ;
+		public string instanceFormID; // The Form ID of the instance (NOT the FormID of the entity it places)
 		MapCluster parentCluster; // Cluster this belongs to
 
-		public MapDataPoint(int x, int y, int z)
+		public MapDataPoint(int x, int y, int z, string instanceFormID = "00000000")
 		{
 			Initialize(x, y, z);
+			this.instanceFormID = instanceFormID;
 		}
 
-		public MapDataPoint(int x, int y, int z, string primitiveShape, int boundX, int boundY, int boundZ, int rotationZ)
+		public MapDataPoint(int x, int y, int z, string primitiveShape, int boundX, int boundY, int boundZ, int rotationZ, string instanceFormID = "00000000")
 		{
 			Initialize(x, y, z);
 
@@ -30,6 +32,7 @@ namespace Mappalachia
 			this.boundY = boundY;
 			this.boundZ = boundZ;
 			this.rotationZ = rotationZ;
+			this.instanceFormID = instanceFormID;
 		}
 
 		void Initialize(int x, int y, int z)

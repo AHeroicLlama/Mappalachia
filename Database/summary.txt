@@ -3,16 +3,17 @@ mappalachia.db
 ==SQLite version== 
 3.41.1 2023-03-10 12:13:52 20399f3eda5ec249d147ba9e48da6e87f969d7966a9a896764ca437ff7e737ff
 ==Checksum== 
-6f569574e087e5850edf2ac54bbad322
+6f6fa4293847d04b966ded690b09d6d9
 ==File Size== 
-395784192 
+535154688 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
 Lock_Levels      Position_Data    Space_Info     
 ==Indices== 
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
-Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
+Index_PositionData_InstanceID   Index_StandardSearch_RefSpace 
+Index_PositionData_SpaceXYZ   
 ==Game Version==
 1.7.3.15
 ==Mean Average X/Y/Z Coord==
@@ -17304,3 +17305,5 @@ WestTek01|Super Mutant|1.0|41
 005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0|3469|339|-524|7462|-3351|4030|0|0|1.0
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
+==Instance IDs Count Vs Distinct==
+3940887|3940887

@@ -7,7 +7,7 @@ DROP TABLE Quantified_Scrap;
 -- Indexes must be (re)built after this occurs.
 
 -- Dropping the columns locationFormID, spawnClass and mapMarkerName.
-CREATE TABLE temp AS SELECT spaceFormID, referenceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotZ, label FROM Position_Data;
+CREATE TABLE temp AS SELECT spaceFormID, referenceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotZ, label, instanceFormID FROM Position_Data;
 DROP TABLE Position_Data;
 ALTER TABLE temp RENAME TO Position_Data;
 

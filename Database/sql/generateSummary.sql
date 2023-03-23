@@ -100,3 +100,6 @@ ORDER BY spaceEditorID;
 
 SELECT '==Space Info==';
 SELECT * FROM Space_Info;
+
+SELECT '==Instance IDs Count Vs Distinct==';
+SELECT COUNT(*), COUNT(DISTINCT(instanceFormID)) FROM Position_Data;
