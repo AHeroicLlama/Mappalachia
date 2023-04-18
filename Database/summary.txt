@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.41.0 2023-02-21 18:09:37 05941c2a04037fc3ed2ffae11f5d2260706f89431f463518740f72ada350866d
+3.41.2 2023-03-22 11:56:21 0d1fc92f94cb6b76bffe3ec34d69cffde2924203304e8ffc4155597af0c191da
 ==Checksum== 
-51bc2eca82a4a9585c4612d2fbc283c5
+3e51d94ea8c311efe01acbaf8d16aa8a
 ==File Size== 
 395784192 
 ==Tables== 
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.3.15
+1.7.4.3
 ==Mean Average X/Y/Z Coord==
--11931.9128642866|4474.73132520674|11750.7654946716
+-11931.9076325164|4474.60071953308|11750.7865319221
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -123,13 +123,13 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7307438655308
+21.7307328371847
 ==Average Y Bounds Width==
-16.247239009898
+16.247230764429
 ==Average Z Bounds Width==
-15.2188433720632
+15.2188356485047
 ==Average Z Rotation==
-4.09176385925301
+4.09176178268406
 ==Average display name string length==
 2.67020796197267
 ==Average editorID string length==
@@ -740,7 +740,7 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3010926
+Appalachia||3010929
 Appalachia|Box|63173
 Appalachia|Ellipsoid|1
 Appalachia|Line|1802
@@ -972,7 +972,7 @@ SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
 SheltersMissileSilo||441
 SheltersMissileSilo|Box|52
-SheltersPittTrench01||1010
+SheltersPittTrench01||1009
 SheltersPittTrench01|Box|133
 SheltersVaultAtrium01||2199
 SheltersVaultAtrium01|Box|69
@@ -1138,7 +1138,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3077309
+Appalachia||3077312
 Appalachia|Advanced (Level 1)|318
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1419,7 +1419,7 @@ SheltersCave02||608
 SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersMissileSilo||493
-SheltersPittTrench01||1143
+SheltersPittTrench01||1142
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
 SheltersVaultReception01||1544
@@ -1684,7 +1684,7 @@ AlleghenyAsylum01|SOUN|4
 AlleghenyAsylum01|STAT|11109
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
-Appalachia|ACTI|21715
+Appalachia|ACTI|21713
 Appalachia|ALCH|267
 Appalachia|AMMO|59
 Appalachia|ARMO|103
@@ -1694,8 +1694,8 @@ Appalachia|BOOK|471
 Appalachia|CNCY|257
 Appalachia|CONT|12366
 Appalachia|DOOR|2504
-Appalachia|FLOR|45253
-Appalachia|FURN|14976
+Appalachia|FLOR|45254
+Appalachia|FURN|14974
 Appalachia|HAZD|994
 Appalachia|IDLM|17017
 Appalachia|KEYM|36
@@ -1709,7 +1709,7 @@ Appalachia|PROJ|93
 Appalachia|SCOL|353138
 Appalachia|SECH|253
 Appalachia|SOUN|5904
-Appalachia|STAT|2381145
+Appalachia|STAT|2381151
 Appalachia|TACT|61
 Appalachia|TERM|369
 Appalachia|TXST|62485
@@ -3208,7 +3208,6 @@ SheltersMissileSilo|SCOL|1
 SheltersMissileSilo|STAT|388
 SheltersMissileSilo|TXST|71
 SheltersPittTrench01|ACTI|14
-SheltersPittTrench01|FURN|1
 SheltersPittTrench01|LIGH|7
 SheltersPittTrench01|SCOL|168
 SheltersPittTrench01|STAT|897
@@ -4233,7 +4232,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3072897
+Appalachia||3072900
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -11700,7 +11699,7 @@ SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersMissileSilo||493
-SheltersPittTrench01||1143
+SheltersPittTrench01||1142
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
 SheltersVaultReception01||1544
@@ -13987,7 +13986,7 @@ AlleghenyAsylum01|100|15013
 Appalachia|50|42
 Appalachia|75|136
 Appalachia|85|72
-Appalachia|100|3078103
+Appalachia|100|3078106
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17160
@@ -14089,7 +14088,7 @@ SheltersCave01|100|534
 SheltersCave02|100|608
 SheltersClaimCenter01|100|976
 SheltersMissileSilo|100|493
-SheltersPittTrench01|100|1143
+SheltersPittTrench01|100|1142
 SheltersVaultAtrium01|100|2268
 SheltersVaultLivingQuarters01|100|2644
 SheltersVaultReception01|100|1544
