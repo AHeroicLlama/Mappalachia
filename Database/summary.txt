@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.41.2 2023-03-22 11:56:21 0d1fc92f94cb6b76bffe3ec34d69cffde2924203304e8ffc4155597af0c191da
 ==Checksum== 
-3e51d94ea8c311efe01acbaf8d16aa8a
+54a0dd10f6fe69d4b7d5daf93ffcd192
 ==File Size== 
 535154688 
 ==Tables== 
@@ -17305,4 +17305,4 @@ WestTek01|Super Mutant|1.0|41
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-3940887|3940887
+3940889|3940889
