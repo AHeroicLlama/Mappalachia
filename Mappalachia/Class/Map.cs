@@ -378,8 +378,10 @@ namespace Mappalachia
 										textBounds.Width,
 										textBounds.Height);
 
-								imageGraphic.DrawString(text, mapLabelFont, new SolidBrush(ImageHelper.GetRandomColor()), textBox, stringFormatTopCenter);
-							}
+								// Use the 6 least significant fiures of the hex formid to define the color, override the alpha to 255
+								Color color = ImageHelper.GetColorFromText(string.Concat("FF", text.AsSpan(2)));
+								imageGraphic.DrawString(text, mapLabelFont, new SolidBrush(color), textBox, stringFormatTopCenter);
+                            }
 						}
 					}
 
