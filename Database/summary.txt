@@ -3,17 +3,16 @@ mappalachia.db
 ==SQLite version== 
 3.41.2 2023-03-22 11:56:21 0d1fc92f94cb6b76bffe3ec34d69cffde2924203304e8ffc4155597af0c191da
 ==Checksum== 
-54a0dd10f6fe69d4b7d5daf93ffcd192
+a2bdeece04ce72d83b917079fcaed0ea
 ==File Size== 
-535154688 
+431947776 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
 Lock_Levels      Position_Data    Space_Info     
 ==Indices== 
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
-Index_PositionData_InstanceID   Index_StandardSearch_RefSpace 
-Index_PositionData_SpaceXYZ   
+Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
 1.7.4.3
 ==Mean Average X/Y/Z Coord==

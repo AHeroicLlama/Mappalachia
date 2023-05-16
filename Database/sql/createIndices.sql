@@ -28,10 +28,5 @@ CREATE INDEX Index_PositionData_CoverAll ON Position_Data (
 	boundY,
 	boundZ,
 	rotZ,
-	label,
-	instanceFormID
-);
-
-CREATE INDEX Index_PositionData_InstanceID ON Position_Data (
-	instanceFormID
+	label
 );
