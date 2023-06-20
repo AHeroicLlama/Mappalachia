@@ -150,6 +150,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005A0384,zCUTTestOrionWatogaCivicCenter,Quick Test Cell,0
 005FF9B0,,,0
 0061DAF0,DebugMattTDUPLICATE000,Quick Test Cell,0
+006DF04C,PackInMOONHerdWorkshopItemPaddockGatePKINStorageCell,,0
 00017A52,COPY0255,,0
 0005712A,PackInLvlRadRoachAmbushFloorStorageCell,,0
 0009BD2A,zCUTDebugRange,DebugRange,0
@@ -423,6 +424,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005F87BF,zCUTDebugAlexB,Quick Test Cell,0
 005FBC17,PackInATXCollectronpackinNukaColaStorageCell,,0
 0067D4BF,DebugBrentC,Quick Test Cell,0
+00684B7F,PackInMoonCommunalCampfirePackInStorageCell,,0
 00004061,,,0
 0003104D,PackInWorkshopPortaPottyPackinStorageCell,,0
 0005F105,zCUT76AITestCellTick,Quick Test Cell,0
@@ -991,6 +993,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005DB488,PackInATXGuttedCarGatePackInStorageCell,,0
 005EE150,PackInSuperMutantTubePackInStorageCell,,0
 0064F1A8,WarehouseTestPathing,Quick Test Cell,0
+00699460,MCD11TestCell,Quick Test Cell,0
 000028EA,,,0
 00088A9E,zCUTTestBruce,Quick Test Cell,0
 000A5E96,PackInLvlFEVHoundDefaultPackInStorageCell,,0
@@ -1477,6 +1480,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005B7167,PackInSheltersEntranceMansionLargeStorageCell,,0
 005F5FA7,DebugJohnB,Quick Test Cell,0
 0060209F,PackInATXBarrierRedBrickGate256PKINStorageCell,,0
+006957FF,76HoldingCellMoon,Quick Test Cell,0
 00002339,PackInPACKToxicBasinGroupMed02StorageCell,,0
 000028B1,,,0
 00003AA9,PackInPACKToxicTreeClusterMed05StorageCell,,0
@@ -1541,6 +1545,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0056BAE1,COPY0005,,0
 00586D41,PackInDenizenPackInSettlerFarmerStorageCell,,0
 005A70E1,,,0
+006C88E9,DebugFKhan,Quick Test Cell,0
 0000E12F,PackInPACKToxicTreeClusterSm05StorageCell,,0
 0000ED4B,,,0
 0001358F,PackInPACKForestTreeX04StorageCell,,0
@@ -1630,6 +1635,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0048683D,PackInStorageCellDUPLICATE006,,0
 0051AD49,PackInMSiloOperationsConsoleRight04StorageCell,,0
 00590369,zCUTClarksburgPharmacy01,Clarksburg Pharmacy,0
+006CD0F1,DebugGreenScreen,DebugGreenScreen,0
 000028F7,,,0
 00021BCB,,,0
 001466FF,PackInTrapGunWallVertAutoPackinStorageCell,,0
