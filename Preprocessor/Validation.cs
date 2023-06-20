@@ -17,6 +17,7 @@ namespace Mappalachia
 		public static readonly Regex validSQLiteBoolean = new Regex("^(0|1)$");
 		public static readonly Regex unescapedDoubleQuote = new Regex("(?<!\\\\)(\")");
 		public static readonly Regex shortNameIsolateRef = new Regex("^(.*) ?\\[[A-Z_]{4}:[0-9A-F]{8}\\]$");
+		public static readonly Regex shortNameGetRef = new Regex("^.* ?\\[[A-Z_]{4}:([0-9A-F]{8})\\]$");
 
 		public static readonly List<string> decimalHeaders = new List<string> { "x", "y", "z", "boundX", "boundY", "boundZ", "rotZ" };
 	}

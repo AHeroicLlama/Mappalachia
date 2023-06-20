@@ -69,6 +69,7 @@ namespace Mappalachia
 			settings.Add("mode=" + SettingsPlot.mode);
 			settings.Add("drawVolumes=" + BoolToIntStr(SettingsPlot.drawVolumes));
 			settings.Add("fillRegions=" + BoolToIntStr(SettingsPlot.fillRegions));
+			settings.Add("showRefFormIDs=" + BoolToIntStr(SettingsPlot.labelInstanceIDs));
 
 			// SettingsPlotIcon
 			settings.Add("[PlotIcon]");
@@ -280,6 +281,10 @@ namespace Mappalachia
 
 						case "fillRegions":
 							SettingsPlot.fillRegions = StrIntToBool(value);
+							break;
+
+						case "showRefFormIDs":
+							SettingsPlot.labelInstanceIDs = StrIntToBool(value);
 							break;
 
 						case "iconSize":
