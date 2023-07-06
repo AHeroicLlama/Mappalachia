@@ -65,6 +65,10 @@ Draw Volumes applies to Icon and Topography mode.
 ## Fill Regions
 This option defines if regions plotted with the region search are drawn with a transparent fill, or are left as just their edges.
 
+## Show Reference FormIDs
+An advanced option for data miners, selecting Plot Settings > Show Reference Form IDs will annotate the Form ID of plotted entities onto the map, below their plot.<br/>
+This only applies to Icon or Topographic plots of entities from the 'Standard' search.
+
 ## Legend Group
 Under the 'items to plot' list, you will find the Legend Group column. This column is editable and allows you to enter a number.<br/>
 By changing the number assigned to each item, you are able to group items together and have them plotted against the same icon.<br/>

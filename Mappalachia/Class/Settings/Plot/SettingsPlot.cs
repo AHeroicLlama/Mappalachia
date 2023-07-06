@@ -14,6 +14,7 @@ static class SettingsPlot
 	public static Mode mode = Mode.Icon;
 	public static bool drawVolumes = true; // Draw volumes when in icon/topograph mode
 	public static bool fillRegions = true; // Fill regions with transparent color
+	public static bool labelInstanceIDs = false; // Label each MapDataPoint with its FormID
 
 	public static bool IsHeatmap()
 	{

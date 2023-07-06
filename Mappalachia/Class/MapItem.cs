@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace Mappalachia
 {
-	public enum Type
-	{
-		Standard,
-		Scrap,
-		NPC,
-		Region,
-	}
-
 	// Any item in the game which can show up in search results or could exist on the legend key and be mapped
 	// NOT a unique reference to an instance of an item, but rather a description of all of the same type of item.
 	public class MapItem
 	{
+		public enum Type
+		{
+			Standard,
+			Scrap,
+			NPC,
+			Region,
+		}
+
 		public readonly Type type; // What type of search did this item come from and what does it represent
 		public readonly string uniqueIdentifier; // The FormID, Scrap name or NPC name which this MapItem represents
 		public readonly string editorID; // The editorID of the item

@@ -85,6 +85,7 @@ namespace Mappalachia
 			clusterSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			drawVolumesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			fillRegionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			showReferenceFormIDsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			checkForUpdatesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -411,7 +412,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { plotModeMenuItem, plotStyleSettingsMenuItem, TopographColorBandsMenuItem, heatmapSettingsMenuItem, clusterSettingsMenuItem, drawVolumesMenuItem, fillRegionsMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { plotModeMenuItem, plotStyleSettingsMenuItem, TopographColorBandsMenuItem, heatmapSettingsMenuItem, clusterSettingsMenuItem, drawVolumesMenuItem, fillRegionsMenuItem, showReferenceFormIDsMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new System.Drawing.Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -420,7 +421,7 @@ namespace Mappalachia
 			// 
 			plotModeMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { modeIconMenuItem, modeTopographyMenuItem, modeHeatmapMenuItem, modeClusterMenuItem });
 			plotModeMenuItem.Name = "plotModeMenuItem";
-			plotModeMenuItem.Size = new System.Drawing.Size(204, 22);
+			plotModeMenuItem.Size = new System.Drawing.Size(208, 22);
 			plotModeMenuItem.Text = "Plot Mode";
 			plotModeMenuItem.ToolTipText = "Change the way Mappalachia represents items on the map.";
 			// 
@@ -463,7 +464,7 @@ namespace Mappalachia
 			// plotStyleSettingsMenuItem
 			// 
 			plotStyleSettingsMenuItem.Name = "plotStyleSettingsMenuItem";
-			plotStyleSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
+			plotStyleSettingsMenuItem.Size = new System.Drawing.Size(208, 22);
 			plotStyleSettingsMenuItem.Text = "Plot Style Settings...";
 			plotStyleSettingsMenuItem.ToolTipText = "Adjust the appearance of plots on the map.";
 			plotStyleSettingsMenuItem.Click += Plot_PlotIconSettings;
@@ -472,7 +473,7 @@ namespace Mappalachia
 			// 
 			TopographColorBandsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { colorBand2MenuItem, colorBand3MenuItem, colorBand4MenuItem, colorBand5MenuItem });
 			TopographColorBandsMenuItem.Name = "TopographColorBandsMenuItem";
-			TopographColorBandsMenuItem.Size = new System.Drawing.Size(204, 22);
+			TopographColorBandsMenuItem.Size = new System.Drawing.Size(208, 22);
 			TopographColorBandsMenuItem.Text = "Topography Color Bands";
 			TopographColorBandsMenuItem.ToolTipText = "Select the number of color bandings used in topographic plot mode.";
 			// 
@@ -508,7 +509,7 @@ namespace Mappalachia
 			// 
 			heatmapSettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { colorModeMenuItem, resolutionMenuItem });
 			heatmapSettingsMenuItem.Name = "heatmapSettingsMenuItem";
-			heatmapSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
+			heatmapSettingsMenuItem.Size = new System.Drawing.Size(208, 22);
 			heatmapSettingsMenuItem.Text = "Heatmap Settings";
 			heatmapSettingsMenuItem.ToolTipText = "Settings related to Heatmap plot mode.";
 			// 
@@ -579,7 +580,7 @@ namespace Mappalachia
 			// clusterSettingsMenuItem
 			// 
 			clusterSettingsMenuItem.Name = "clusterSettingsMenuItem";
-			clusterSettingsMenuItem.Size = new System.Drawing.Size(204, 22);
+			clusterSettingsMenuItem.Size = new System.Drawing.Size(208, 22);
 			clusterSettingsMenuItem.Text = "Cluster Settings...";
 			clusterSettingsMenuItem.ToolTipText = "Settings related to Cluster plot mode.";
 			clusterSettingsMenuItem.Click += Plot_ClusterSettings;
@@ -587,7 +588,7 @@ namespace Mappalachia
 			// drawVolumesMenuItem
 			// 
 			drawVolumesMenuItem.Name = "drawVolumesMenuItem";
-			drawVolumesMenuItem.Size = new System.Drawing.Size(204, 22);
+			drawVolumesMenuItem.Size = new System.Drawing.Size(208, 22);
 			drawVolumesMenuItem.Text = "Draw Volumes";
 			drawVolumesMenuItem.ToolTipText = "Instead of an icon, draw the boundaries of in-game volumes such as triggers/activators. (Only applicable in Icon or Topography mode)";
 			drawVolumesMenuItem.Click += Plot_DrawVolumes;
@@ -595,10 +596,18 @@ namespace Mappalachia
 			// fillRegionsMenuItem
 			// 
 			fillRegionsMenuItem.Name = "fillRegionsMenuItem";
-			fillRegionsMenuItem.Size = new System.Drawing.Size(204, 22);
+			fillRegionsMenuItem.Size = new System.Drawing.Size(208, 22);
 			fillRegionsMenuItem.Text = "Fill Regions";
 			fillRegionsMenuItem.ToolTipText = "When using the Region search, fill regions with a transparent color.";
 			fillRegionsMenuItem.Click += Plot_FillRegions;
+			// 
+			// showReferenceFormIDsMenuItem
+			// 
+			showReferenceFormIDsMenuItem.Name = "showReferenceFormIDsMenuItem";
+			showReferenceFormIDsMenuItem.Size = new System.Drawing.Size(208, 22);
+			showReferenceFormIDsMenuItem.Text = "Show Reference Form IDs";
+			showReferenceFormIDsMenuItem.ToolTipText = "Annotates the Form ID of the Reference for plots.";
+			showReferenceFormIDsMenuItem.Click += Plot_ShowRefFormIDs;
 			// 
 			// helpMenuItem
 			// 
@@ -1329,7 +1338,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-5, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-7, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1607,6 +1616,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem noneBackgroundMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem grayScaleMapIconsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setTitleMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem showReferenceFormIDsMenuItem;
 	}
 }
 

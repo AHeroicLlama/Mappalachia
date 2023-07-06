@@ -64,6 +64,7 @@ namespace Mappalachia
 		static readonly StringFormat stringFormatBottomCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Far }; // Align the text bottom-center
 		static readonly StringFormat stringFormatBottomLeft = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far }; // Align the text bottom-left
 		static readonly StringFormat stringFormatTopRight = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near }; // Align the text top-right
+		static readonly StringFormat stringFormatTopCenter = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near }; // Align the text top-right
 		static readonly StringFormat stringFormatCenter = new StringFormat() { Alignment = StringAlignment.Center }; // Align the text centrally
 
 		// Volume plots
@@ -361,7 +362,26 @@ namespace Mappalachia
 						// This MapDataPoint is not suitable to be drawn as a volume - draw a normal plot icon, or topographic plot
 						else
 						{
+							// Draw the plot icon
 							imageGraphic.DrawImage(plotIconImg, (float)(point.x - (plotIconImg.Width / 2d)), (float)(point.y - (plotIconImg.Height / 2d)));
+
+							// Optionally label the Form ID of the MapDataPoint
+							if (SettingsPlot.labelInstanceIDs && mapItem.type == MapItem.Type.Standard)
+							{
+								string text = point.instanceFormID;
+
+								SizeF textBounds = imageGraphic.MeasureString(text, mapLabelFont);
+
+								RectangleF textBox = new RectangleF(
+										point.x - (textBounds.Width / 2),
+										point.y + (plotIconImg.Height / 2),
+										textBounds.Width,
+										textBounds.Height);
+
+								// Use the 6 least significant fiures of the hex formid to define the color, override the alpha to 255
+								Color color = ImageHelper.GetColorFromText(string.Concat("FF", text.AsSpan(2)));
+								imageGraphic.DrawString(text, mapLabelFont, new SolidBrush(color), textBox, stringFormatTopCenter);
+                            }
 						}
 					}
 

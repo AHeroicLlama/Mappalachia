@@ -185,7 +185,7 @@ namespace Mappalachia
 					}
 
 					results.Add(new MapItem(
-						Type.Standard,
+						MapItem.Type.Standard,
 						reader.GetString(0), // FormID
 						editorID, // Editor ID
 						reader.GetString(2), // Display Name
@@ -243,7 +243,7 @@ namespace Mappalachia
 					float spawnChance = (float)Math.Round(reader.GetFloat(1) * 100, 2);
 
 					results.Add(new MapItem(
-						Type.NPC,
+						MapItem.Type.NPC,
 						name, // FormID
 						name + " [Min " + spawnChance + "%]", // Editor ID
 						name, // Display Name
@@ -319,7 +319,7 @@ namespace Mappalachia
 					string name = reader.GetString(0);
 
 					results.Add(new MapItem(
-						Type.Scrap,
+						MapItem.Type.Scrap,
 						name, // FormID
 						name + " scraps from junk", // Editor ID
 						name, // Display Name
@@ -375,7 +375,7 @@ namespace Mappalachia
 					}
 
 					results.Add(new MapItem(
-						Type.Region,
+						MapItem.Type.Region,
 						reader.GetString(0), // FormID
 						reader.GetString(1), // Editor ID
 						string.Empty, // Display Name
@@ -426,12 +426,12 @@ namespace Mappalachia
 				// Identify if this item has a primitive shape and use the appropriate constructor
 				if (string.IsNullOrEmpty(primitiveShape))
 				{
-					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)) { weight = weight });
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetString(8)) { weight = weight });
 				}
 				else
 				{
 					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2),
-						primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7))
+						primitiveShape, reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7), reader.GetString(8))
 					{ weight = weight });
 				}
 			}

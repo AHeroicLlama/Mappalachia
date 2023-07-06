@@ -9,7 +9,7 @@ You can quick-swap to a different space by double clicking its name in the searc
 
 ## Space-specific settings
 Some settings are specific to certain spaces, and may be disabled depending on your selected space - they are;
-* 'Background Image' and 'Show Map Markers' options which are only available when 'Appalachia' is selected.
+* 'Background Image', 'Highlight Water', and 'Show Map Markers' options which are only available when 'Appalachia' is selected.
 * 'Height Cropping' controls which are only available when 'Appalachia' is not selected.
 
 ## Background image

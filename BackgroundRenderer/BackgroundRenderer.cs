@@ -51,6 +51,8 @@ namespace BackgroundRenderer
 			{ "WVLumberCo01", 1000 },
 			{ "XPDPitt02Sanctum", 700 },
 			{ "TheCraterCore01", 100 },
+			{ "SheltersSoundStage", 1000 },
+			{ "SheltersToxicWasteland", 2000 },
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k

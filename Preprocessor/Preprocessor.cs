@@ -62,6 +62,7 @@ namespace Mappalachia
 		{
 			CSVFile file = GenericOpen(fileName);
 			file = NPCSpawnHelper.AddMonsterClassColumn(file);
+			file = GenericCSVHelper.DuplicateColumn(file, "shortName", "instanceID");
 
 			// Strip the map markers data out the position file before they are reduced away
 			CSVFile mapMarkersFile = MapMarkers.ProcessMapMarkers(file);
