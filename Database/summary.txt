@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-60c427e4a45a9d35f8572faebb378d42
+f1c7a00457ffbc8c66046d45d6deae5c
 ==File Size== 
-432484352 
+432480256 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -17162,83 +17162,82 @@ XPDPitt02Trench|Spring|12|12
 XPDPitt02Trench|Steel|237|142
 XPDPitt02Trench|Wood|55|49
 ==Average (variable only) Spawn chance and Count per NPC per Space==
-AMSHQ01|Robot|1.0|2
-AVRMedicalCenter01|Scorched|1.0|21
-AlleghenyAsylum01|Ghoul|1.0|25
-Appalachia|Angler|0.159511826557281|88
-Appalachia|Bloatfly|0.105436991869919|82
-Appalachia|Bloodbug|0.41984126984127|70
-Appalachia|Cave Cricket|0.0819471321829811|159
-Appalachia|Deathclaw|0.235042735042735|6
-Appalachia|Fog Crawler|0.126324786324786|45
-Appalachia|Ghoul|0.493731961121666|1020
-Appalachia|Gulper|0.148823124070649|101
-Appalachia|Honey Beast|0.191836734693878|7
-Appalachia|Insect|0.16229658260226|229
-Appalachia|Liberator|0.1661423524088|456
-Appalachia|Mega Sloth|0.176282051282051|8
-Appalachia|Mirelurk|0.319045714311987|169
-Appalachia|Mole Miner|0.6064453125|192
-Appalachia|Mole Rat|0.146914362985792|518
-Appalachia|Rad Ant|0.25|14
-Appalachia|Rad Rat|0.0903317798229305|339
-Appalachia|Rad Scorpion|0.157975649350649|100
-Appalachia|Rad Toad|0.174074074074074|48
-Appalachia|Radroach|0.25|2
-Appalachia|Robot|0.384829828444935|417
-Appalachia|Scorched|0.554557170392752|1113
-Appalachia|Snallygaster|0.67032967032967|26
-Appalachia|Stingwing|0.571428571428572|6
-Appalachia|Super Mutant|0.457043217417903|794
-Appalachia|Swamp|0.542857142857143|7
-Appalachia|Tick|0.852941176470588|17
-Appalachia|Vicious Dog|0.153991070967932|497
-Appalachia|Wolf|0.199764521193093|182
-Appalachia|Yao Guai|0.105552716017832|129
-ArktosPharmaLab01|Ghoul|1.0|3
-BelchingBetty01|Scorched|1.0|22
-BlackwaterMine01|Mole Miner|1.0|18
-BurningMine01|Mole Miner|1.0|13
-Burrows01|Ghoul|1.0|1
-Burrows01|Robot|1.0|5
-CharlestonCapitolBuilding02|Ghoul|1.0|38
-DyerChemical01|Ghoul|1.0|8
-DyerChemical01|Robot|1.0|1
-EasternRegionalPen01|Ghoul|1.0|45
-FraternityHouse01|Ghoul|1.0|2
-GarrahanMiningHQ01|Robot|1.0|17
-GauleyMine01|Scorched|1.0|2
-GlassedCavern01|Scorched|1.0|31
-HornwrightHQ01|Scorched|1.0|14
-KerwoodMine01|Mole Miner|1.0|18
-MTR08LodeBaring01|Mole Miner|1.0|8
-MTR08LodeBaring02|Mole Miner|1.0|10
-MamaDolceProcessing01|Liberator|1.0|17
-MamaDolceProcessing01|Robot|1.0|3
-MonongahPowerPlant01|Ghoul|1.0|18
-MonongahPowerPlant01|Mole Miner|1.0|1
-MorgantownApartment01|Ghoul|1.0|6
-MorgantownHighSchool01|Scorched|1.0|18
-NukaColaQuantumPlant01|Ghoul|1.0|18
-PoseidonPlant01|Scorched|1.0|46
-RadioResearchCenter01|Scorched|1.0|15
-RiversideManor01|Scorched|1.0|14
-SugarGrove01|Robot|1.0|8
-ThunderMtPowerPlant01|Scorched|1.0|36
-UncannyCaverns01|Bloatfly|0.2|1
-UncannyCaverns01|Cave Cricket|0.2|1
-UncannyCaverns01|Mirelurk|1.0|10
-UncannyCaverns01|Mole Rat|0.2|1
-UncannyCaverns01|Rad Rat|0.2|1
-UncannyCaverns01|Wolf|0.2|1
-VTecAgCenter01|Ghoul|1.0|6
-ValleyGalleria01|Scorched|1.0|20
-WatogaCivicCenter01|Scorched|1.0|17
-WatogaEmergencyServices01|Ghoul|1.0|5
-WatogaHighSchool01|Robot|1.0|20
-WatogaMunicipalCenter01|Scorched|1.0|9
-WendigoCave01|Mirelurk|1.0|14
-WestTek01|Super Mutant|1.0|41
+AMSHQ01|Robot|100.0|2
+AVRMedicalCenter01|Scorched|100.0|21
+AlleghenyAsylum01|Ghoul|100.0|25
+Appalachia|Angler|15.95|88
+Appalachia|Bloatfly|10.55|82
+Appalachia|Bloodbug|41.98|70
+Appalachia|Cave Cricket|8.19|159
+Appalachia|Deathclaw|23.5|6
+Appalachia|Fog Crawler|12.63|45
+Appalachia|Ghoul|49.37|1020
+Appalachia|Gulper|17.44|108
+Appalachia|Honey Beast|19.18|7
+Appalachia|Insect|16.23|229
+Appalachia|Liberator|16.61|456
+Appalachia|Mega Sloth|17.63|8
+Appalachia|Mirelurk|31.9|169
+Appalachia|Mole Miner|60.64|192
+Appalachia|Mole Rat|14.69|518
+Appalachia|Rad Ant|25.0|14
+Appalachia|Rad Rat|9.03|339
+Appalachia|Rad Scorpion|15.8|100
+Appalachia|Rad Toad|17.41|48
+Appalachia|Radroach|25.0|2
+Appalachia|Robot|38.48|417
+Appalachia|Scorched|55.46|1113
+Appalachia|Snallygaster|67.03|26
+Appalachia|Stingwing|57.15|6
+Appalachia|Super Mutant|45.7|794
+Appalachia|Tick|85.29|17
+Appalachia|Vicious Dog|15.4|497
+Appalachia|Wolf|19.98|182
+Appalachia|Yao Guai|10.55|129
+ArktosPharmaLab01|Ghoul|100.0|3
+BelchingBetty01|Scorched|100.0|22
+BlackwaterMine01|Mole Miner|100.0|18
+BurningMine01|Mole Miner|100.0|13
+Burrows01|Ghoul|100.0|1
+Burrows01|Robot|100.0|5
+CharlestonCapitolBuilding02|Ghoul|100.0|38
+DyerChemical01|Ghoul|100.0|8
+DyerChemical01|Robot|100.0|1
+EasternRegionalPen01|Ghoul|100.0|45
+FraternityHouse01|Ghoul|100.0|2
+GarrahanMiningHQ01|Robot|100.0|17
+GauleyMine01|Scorched|100.0|2
+GlassedCavern01|Scorched|100.0|31
+HornwrightHQ01|Scorched|100.0|14
+KerwoodMine01|Mole Miner|100.0|18
+MTR08LodeBaring01|Mole Miner|100.0|8
+MTR08LodeBaring02|Mole Miner|100.0|10
+MamaDolceProcessing01|Liberator|100.0|17
+MamaDolceProcessing01|Robot|100.0|3
+MonongahPowerPlant01|Ghoul|100.0|18
+MonongahPowerPlant01|Mole Miner|100.0|1
+MorgantownApartment01|Ghoul|100.0|6
+MorgantownHighSchool01|Scorched|100.0|18
+NukaColaQuantumPlant01|Ghoul|100.0|18
+PoseidonPlant01|Scorched|100.0|46
+RadioResearchCenter01|Scorched|100.0|15
+RiversideManor01|Scorched|100.0|14
+SugarGrove01|Robot|100.0|8
+ThunderMtPowerPlant01|Scorched|100.0|36
+UncannyCaverns01|Bloatfly|20.0|1
+UncannyCaverns01|Cave Cricket|20.0|1
+UncannyCaverns01|Mirelurk|100.0|10
+UncannyCaverns01|Mole Rat|20.0|1
+UncannyCaverns01|Rad Rat|20.0|1
+UncannyCaverns01|Wolf|20.0|1
+VTecAgCenter01|Ghoul|100.0|6
+ValleyGalleria01|Scorched|100.0|20
+WatogaCivicCenter01|Scorched|100.0|17
+WatogaEmergencyServices01|Ghoul|100.0|5
+WatogaHighSchool01|Robot|100.0|20
+WatogaMunicipalCenter01|Scorched|100.0|9
+WendigoCave01|Mirelurk|100.0|14
+WestTek01|Super Mutant|100.0|41
 ==Space Info==
 |Appalachia|Appalachia|1|2818|-13424|-402000|407637|-407387|380538|0|0|1.0
 003E3FFA|ThunderMtPowerPlant01|Thunder Mountain Power|0|-806|-612|-5202|3590|-4722|3497|0|0|1.0
