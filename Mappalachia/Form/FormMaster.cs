@@ -778,7 +778,7 @@ namespace Mappalachia
 		// Return every MapItem in the items to plot
 		public static List<MapItem> GetAllLegendItems()
 		{
-			return legendItems;
+			return legendItems.OrderBy(l => l.legendGroup).ToList();
 		}
 
 		// Return every non-REGN (Type Region) MapItem in the items to plot
