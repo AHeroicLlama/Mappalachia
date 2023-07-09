@@ -968,6 +968,8 @@ namespace Mappalachia
 					indexToSelect = legendItems.IndexOf(legendItems.Where(m => m.editorID == lastSelectedItem.editorID).First());
 				}
 
+				gridViewLegend.ClearSelection();
+
 				// Select and scroll to the best new index
 				gridViewLegend.Rows[indexToSelect].Selected = true;
 				gridViewLegend.FirstDisplayedScrollingRowIndex = indexToSelect;
