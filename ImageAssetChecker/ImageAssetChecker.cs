@@ -18,9 +18,9 @@ namespace ImageAssetChecker
 		const string mapMarkerDirectoryPath = "mapmarker\\";
 
 		static readonly string thisAppPath = Directory.GetCurrentDirectory();
-		static readonly string mappalachiaRoot = Path.GetFullPath(thisAppPath + "..\\..\\..\\..\\..\\");
-		static readonly string databasePath = mappalachiaRoot + "Mappalachia\\data\\mappalachia.db";
-		static readonly string imageDirectory = mappalachiaRoot + "Mappalachia\\img\\";
+		static readonly string commonwealthCartographyRoot = Path.GetFullPath(thisAppPath + "..\\..\\..\\..\\..\\");
+		static readonly string databasePath = commonwealthCartographyRoot + "CommonwealthCartography\\data\\commonwealth_cartography.db";
+		static readonly string imageDirectory = commonwealthCartographyRoot + "CommonwealthCartography\\img\\";
 
 		static SqliteConnection connection;
 
@@ -29,7 +29,7 @@ namespace ImageAssetChecker
 
 		public static void Main()
 		{
-			Console.Title = "Mappalachia Image Asset Checker";
+			Console.Title = "Commonwealth Cartography Image Asset Checker";
 
 			connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
 			connection.Open();
@@ -114,8 +114,8 @@ namespace ImageAssetChecker
 					ValidateImageFile(expectedFile, isWorldSpace);
 				}
 
-				// Appalachia only - extra bespoke checks
-				if (space.GetEditorId() == "Appalachia")
+				// Commonwealth only - extra bespoke checks
+				if (space.GetEditorId() == "Commonwealth")
 				{
 					expectedFile = imageDirectory + subDirectory + editorId + "_military" + backgroundImageFileType;
 					ValidateImageFile(expectedFile, isWorldSpace);

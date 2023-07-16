@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Mappalachia
+namespace CommonwealthCartography
 {
 	static class Preprocessor
 	{
@@ -12,17 +12,17 @@ namespace Mappalachia
 
 		static async Task Main()
 		{
-			Console.Title = "Mappalachia Preprocessor";
+			Console.Title = "Commonwealth Cartography Preprocessor";
 
-			// Step back out of bin until we find the Mappalachia root
-			string mappalachiaRoot = AppDomain.CurrentDomain.BaseDirectory;
-			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(mappalachiaRoot))) != "Mappalachia")
+			// Step back out of bin until we find the CommonwealthCartography root
+			string CommonwealthCartographyRoot = AppDomain.CurrentDomain.BaseDirectory;
+			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(CommonwealthCartographyRoot))) != "CommonwealthCartography")
 			{
-				mappalachiaRoot += "..\\";
+				CommonwealthCartographyRoot += "..\\";
 			}
 
-			inputPath = mappalachiaRoot + "//FO76Edit//Output//";
-			outputPath = mappalachiaRoot + "//Preprocessor//Output//";
+			inputPath = CommonwealthCartographyRoot + "//FO4Edit//Output//";
+			outputPath = CommonwealthCartographyRoot + "//Preprocessor//Output//";
 
 			try
 			{

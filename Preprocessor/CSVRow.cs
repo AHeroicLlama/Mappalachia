@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mappalachia
+namespace CommonwealthCartography
 {
 	class CSVRow
 	{

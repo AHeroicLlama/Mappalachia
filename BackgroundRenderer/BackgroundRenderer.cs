@@ -6,13 +6,13 @@ namespace BackgroundRenderer
 	public partial class BackgroundRenderer
 	{
 		const string magickPath = "C:\\Program Files\\ImageMagick-7.1.0-Q16-HDRI\\magick.exe";
-		const string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
+		const string fo4DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout 4\\Data";
 		static readonly string thisAppPath = Directory.GetCurrentDirectory();
-		static readonly string mappalachiaRoot = thisAppPath + "..\\..\\..\\..\\..\\";
-		static readonly string databasePath = Path.GetFullPath(mappalachiaRoot + "Mappalachia\\data\\mappalachia.db");
-		static readonly string imageDirectory = Path.GetFullPath(mappalachiaRoot + "Mappalachia\\img\\");
+		static readonly string commonwealthCartographyRoot = thisAppPath + "..\\..\\..\\..\\..\\";
+		static readonly string databasePath = Path.GetFullPath(commonwealthCartographyRoot + "CommonwealthCartography\\data\\commonwealth_cartography.db");
+		static readonly string imageDirectory = Path.GetFullPath(commonwealthCartographyRoot + "CommonwealthCartography\\img\\");
 		static readonly string outputDirectory = Path.GetFullPath(imageDirectory + "cell\\");
-		static readonly string utilsRenderPath = Path.GetFullPath(mappalachiaRoot + "FO76Utils\\render.exe");
+		static readonly string utilsRenderPath = Path.GetFullPath(commonwealthCartographyRoot + "FO76Utils\\render.exe");
 
 		const double maxScale = 16;
 		const double minScale = 0.02;
@@ -26,45 +26,18 @@ namespace BackgroundRenderer
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
 		{
-			{ "AMSHQ01", 3000 },
-			{ "BlueRidgeOffice01", 350 },
-			{ "CraterWarRoom01", 50 },
-			{ "CraterWatchstation01", -700 },
-			{ "DuncanDuncanRobotics01", 500 },
-			{ "FortAtlas01", -1300 },
-			{ "FoundationSupplyRoom01", 200 },
-			{ "FraternityHouse01", 850 },
-			{ "FraternityHouse02", 850 },
-			{ "LewisandSonsFarmingSupply01", 500 },
-			{ "OverseersHome01", 675 },
-			{ "PoseidonPlant02", 3000 },
-			{ "RaiderCave01", 300 },
-			{ "RaiderCave03", 300 },
-			{ "RaiderRaidTrailerInt", 150 },
-			{ "SugarGrove02", 1000 },
-			{ "TheWayward01", 400 },
-			{ "TopOfTheWorld01", -1800 },
-			{ "ValleyGalleria01", 700 },
-			{ "Vault63Entrance", 4750 },
-			{ "Vault79Entrance", -200 },
-			{ "VTecAgCenter01", 400 },
-			{ "WVLumberCo01", 1000 },
-			{ "XPDPitt02Sanctum", 700 },
-			{ "TheCraterCore01", 100 },
-			{ "SheltersSoundStage", 1000 },
-			{ "SheltersToxicWasteland", 2000 },
+
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
 		static readonly List<string> extraSmallCells = new List<string>()
 		{
-			"UCB02",
-			"RaiderRaidTrailerInt",
+
 		};
 
 		public static void Main()
 		{
-			Console.Title = "Mappalachia Background Renderer";
+			Console.Title = "Commonwealth Cartography Background Renderer";
 
 			if (!File.Exists(magickPath))
 			{
@@ -82,7 +55,7 @@ namespace BackgroundRenderer
 
 			if (!File.Exists(databasePath))
 			{
-				Console.WriteLine($"Can't find Mappalachia database at {databasePath}, please check the database has been built or copied from a release to that path.");
+				Console.WriteLine($"Can't find Commonwealth Cartography database at {databasePath}, please check the database has been built or copied from a release to that path.");
 				Console.ReadKey();
 				return;
 			}
@@ -143,7 +116,7 @@ namespace BackgroundRenderer
 				}
 
 				// Skip CharGen02-05 as they are duplicates of 01
-				// Mappalachia GUI will target CharGen01 for all of these
+				// Commonwealth Cartography GUI will target CharGen01 for all of these
 				if (editorId.StartsWith("CharGen") && editorId != "CharGen01")
 				{
 					Console.WriteLine($"Skipping {editorId} as duplicate");
@@ -186,7 +159,7 @@ namespace BackgroundRenderer
 				string renderFile = $"{imageDirectory}{space.editorID}.dds";
 				string convertedFile = $"{outputDirectory}{space.editorID}.jpg";
 
-				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} \"{fo76DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (targetRenderResolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (targetRenderResolution / 4096d) / scale)} {cameraY} -light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} -ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud -xm effects");
+				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo4DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} \"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (targetRenderResolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (targetRenderResolution / 4096d) / scale)} {cameraY} -light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} -ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud -xm effects");
 				render.WaitForExit();
 
 				if (File.Exists(renderFile))

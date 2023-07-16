@@ -1,17 +1,17 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.Data.Sqlite;
 
-namespace Mappalachia
+namespace CommonwealthCartography
 {
 	static class MapIconProcessor
 	{
-		const string mappalachiaRoot = @"..\\..\\..\\..\\";
+		const string commonwealthCartographyRoot = @"..\\..\\..\\..\\";
 
-		const string databasePath = mappalachiaRoot + @"Mappalachia\\data\\mappalachia.db";
-		const string mapIconProcessorPath = mappalachiaRoot + @"MapIconProcessor\\";
+		const string databasePath = commonwealthCartographyRoot + @"CommonwealthCartography\\data\\commonwealth_cartography.db";
+		const string mapIconProcessorPath = commonwealthCartographyRoot + @"MapIconProcessor\\";
 
 		const string extractPath = mapIconProcessorPath + @"extract\\sprites";
-		const string outputPath = mappalachiaRoot + @"\\Mappalachia\\img\\mapmarker";
+		const string outputPath = commonwealthCartographyRoot + @"\\CommonwealthCartography\\img\\mapmarker";
 		const string missingMarkersFile = outputPath + @"\\MissingMarkers.error";
 		const string fileExtension = ".svg";
 

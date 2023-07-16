@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Mappalachia Preprocessor")]
+[assembly: AssemblyTitle("Commonwealth Cartography Preprocessor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Mappalachia Preprocessor")]
+[assembly: AssemblyProduct("Commonwealth Cartography Preprocessor")]
 [assembly: AssemblyCopyright("2020")]
 [assembly: AssemblyTrademark("AHeroicLlama")]
 [assembly: AssemblyCulture("")]

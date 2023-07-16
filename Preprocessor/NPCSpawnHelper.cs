@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Mappalachia
+namespace CommonwealthCartography
 {
 	// Functionality for dealing with Location and NPC Spawns
 	class NPCSpawnHelper

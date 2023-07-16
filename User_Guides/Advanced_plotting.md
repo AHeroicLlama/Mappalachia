@@ -1,7 +1,7 @@
-# Mappalachia Plotting functions
+# Commonwealth Cartography Plotting functions
 
 ## Plotting Modes
-Mappalachia has four plotting modes - these are Icon mode (on by default), Heatmap mode, Topography mode, and Cluster mode. You can toggle these modes by navigating to Plot Settings > Plot Mode.<br/>
+Commonwealth Cartography has four plotting modes - these are Icon mode (on by default), Heatmap mode, Topography mode, and Cluster mode. You can toggle these modes by navigating to Plot Settings > Plot Mode.<br/>
 
 ## Icon Mode
 Icon mode is the default plotting function, and selected items will be mapped using a unique set of pre-defined shapes and colors. It is the most customizable option.
@@ -15,7 +15,7 @@ Under Plot Settings > Topography Color Bands you can select the number of unique
 If your color palette contains less colors than the selected value, then only the colors present will be used.
 
 ## Heatmap Mode
-When in Heatmap mode, Mappalachia will represent the density of items with an intensity of color on the map.<br/>
+When in Heatmap mode, Commonwealth Cartography will represent the density of items with an intensity of color on the map.<br/>
 Heatmap mode is more appropriate for large collections of items such as flora - where it is more valuable to know not the exact positions of items, but rather where they have the highest density, and therefore where you should go to find the most.<br/>
 
 ### Weighting
@@ -53,11 +53,11 @@ By checking 'Cluster Web' in Cluster Settings, you may draw a "web" on the clust
 The color used for the lines of the web is the second color in the color palette.<br/>
 
 ### Live Update
-Tick the 'Live Update' checkbox to cause Mappalachia to update the preview whenever you adjust any cluster values.<br/>
+Tick the 'Live Update' checkbox to cause Commonwealth Cartography to update the preview whenever you adjust any cluster values.<br/>
 
 ## Draw Volumes
 Draw volumes mode is located at Plot Settings > Draw Volumes, and is on by default.<br/>
-This setting tells Mappalachia to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
+This setting tells Commonwealth Cartography to draw the full outline of in-game volumes and triggers instead of just being plotted as a single icon.<br/>
 For example, by plotting 'NoCampAllowedTrigger' with 'Draw Volumes' enabled, you will see more precisely *where* you can't build CAMPs, including the precise extents of these areas.<br/>
 Very small volumes will be slightly exaggerated to ensure they remain visible. Additionally for performance reasons, some very large volumes will just be represented by an icon.<br/>
 Draw Volumes applies to Icon and Topography mode.
@@ -76,7 +76,7 @@ For example, by default you may have legend groups 0,1,2 and these are represent
 You can enter any positive integer into this column.<br/>
 When adding items to the legend list, each item will be assigned a new legend group. However, if you select 'Add as Group', they will be added under the same legend group.<br/>
 The color and shape of the plot icon is defined by the Legend Group, and also the Color Palette and Shape Palette defined in the plot style settings. (See [Customization](Customization.md) for more on style settings).<br/>
-When plotting unique legend groups, Mappalachia will use every available color and shape combination before repeating icons.
+When plotting unique legend groups, Commonwealth Cartography will use every available color and shape combination before repeating icons.
 
 ### Overriding and grouping the legend
 By editing the 'Display name' column of the legend list, you are able to override and hence group the legend text for given legend groups. Simply enter your desired legend against the legend group you wish to overwrite.<br/>

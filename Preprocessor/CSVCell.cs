@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Mappalachia
+namespace CommonwealthCartography
 {
 	class CSVCell
 	{

@@ -1,0 +1,84 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWindowsForms>True</UseWindowsForms>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<RootNamespace>CommonwealthCartography</RootNamespace>
+		<AssemblyName>Commonwealth Cartography</AssemblyName>
+		<ApplicationIcon>favicon_small.ico</ApplicationIcon>
+		<RunPostBuildEvent>Always</RunPostBuildEvent>
+		<Platforms>AnyCPU;x86</Platforms>
+		<AnalysisLevel>latest-all</AnalysisLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="data\**" />
+	  <Compile Remove="font\**" />
+	  <Compile Remove="img\**" />
+	  <Compile Remove="publish\**" />
+	  <EmbeddedResource Remove="data\**" />
+	  <EmbeddedResource Remove="font\**" />
+	  <EmbeddedResource Remove="img\**" />
+	  <EmbeddedResource Remove="publish\**" />
+	  <None Remove="data\**" />
+	  <None Remove="font\**" />
+	  <None Remove="img\**" />
+	  <None Remove="publish\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="CommonwealthCartography.zip" />
+	  <None Remove="package_release.bat" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="favicon_small.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.Sqlite">
+			<Version>7.0.7</Version>
+		</PackageReference>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Svg" Version="3.4.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy $(ProjectDir)\data\* $(TargetDir)\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(TargetDir)\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.jpg $(TargetDir)\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.png $(TargetDir)\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.svg $(TargetDir)\img\ /y /s&#xD;&#xA;&#xD;&#xA;xcopy $(ProjectDir)\data\* $(ProjectDir)\publish\data\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\font\* $(ProjectDir)\publish\font\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.jpg $(ProjectDir)\publish\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.png $(ProjectDir)\publish\img\ /y /s&#xD;&#xA;xcopy $(ProjectDir)\img\*.svg $(ProjectDir)\publish\img\ /y /s" />
+	</Target>
+
+</Project>

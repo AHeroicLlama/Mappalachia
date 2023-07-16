@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mappalachia
+namespace CommonwealthCartography
 {
 	internal class SpaceNudge
 	{

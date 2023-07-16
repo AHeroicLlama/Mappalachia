@@ -1,15 +1,15 @@
 @echo off
 
-title Mappalachia Release Packager
+title Commonwealth Cartography Release Packager
 
 set publishFolder=publish
-set outputFile=Mappalachia.zip
-set prefsFile=mappalachia_prefs.ini
+set outputFile=CommonwealthCartography.zip
+set prefsFile=commonwealth_cartography.ini
 set quickSaveFolder=QuickSaves
 
 echo Checking for published build...
-for %%f in ("Mappalachia.exe" "data\mappalachia.db") do if not exist "%publishFolder%\%%~f" (
-	echo Mappalachia build not found in the %publishFolder% directory. Please rebuild from within VS under release configuration.
+for %%f in ("CommonwealthCartography.exe" "data\commonwealth_cartography.db") do if not exist "%publishFolder%\%%~f" (
+	echo Commonwealth Cartography build not found in the %publishFolder% directory. Please rebuild from within VS under release configuration.
 	PAUSE
 	EXIT
 )

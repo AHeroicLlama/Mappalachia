@@ -6,7 +6,7 @@
 		<UseWindowsForms>False</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
-		<RootNamespace>Mappalachia</RootNamespace>
+		<RootNamespace>CommonwealthCartography</RootNamespace>
 		<AssemblyName>Preprocessor</AssemblyName>
 		<Configurations>Release;Debug</Configurations>
 		<Platforms>AnyCPU;x64</Platforms>

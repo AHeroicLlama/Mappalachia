@@ -1,16 +1,16 @@
 @echo off
 
-title Mappalachia Database Builder
+title Commonwealth Cartography Database Builder
 
 set sigcheckPath=sigcheck.exe
-set steamPath="C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe"
+set steamPath="C:\Program Files (x86)\Steam\steamapps\common\Fallout 4\Fallout4.exe"
 set gameVersionFile=gameVersion.csv
-set databaseFile=mappalachia.db
+set databaseFile=commonwealth_cartography.db
 set summaryFile=summary.txt
-set outputFolder=..\Mappalachia\data
+set outputFolder=..\CommonwealthCartography\data
 
 IF NOT EXIST sqlite3.exe (
-	echo sqlite3.exe was not found. Building the Mappalachia database requires sqlite3.exe to be placed in this folder.
+	echo sqlite3.exe was not found. Building the Commonwealth Cartography database requires sqlite3.exe to be placed in this folder.
 	echo Please grab the sqlite-tools Windows binary from the official distribution at https://www.sqlite.org/download.html
 	PAUSE
 	EXIT
@@ -36,7 +36,7 @@ IF "%1"=="override" (
 			echo Using manual version string from %gameVersionFile%...
 		)
 	) else (
-		echo Steam Fallout76.exe was not found at %steamPath%. For automated version detection please ensure Fallout76.exe is installed/updated via Steam at the default location.
+		echo Steam Fallout4.exe was not found at %steamPath%. For automated version detection please ensure Fallout4.exe is installed/updated via Steam at the default location.
 		echo Using manual version string from %gameVersionFile%...
 	)
 )
@@ -46,7 +46,7 @@ for /f %%l in (%gameVersionFile%) do set gameVersion=%%l
 echo Is %gameVersion% the correct game version?
 choice /c YN
 if not %errorlevel%==1 (
-	echo Please ensure that Fallout 76 is correctly intalled/updated via Steam, otherwise that the correct game version string is stored in %gameVersionFile%.
+	echo Please ensure that Fallout 4 is correctly intalled/updated via Steam, otherwise that the correct game version string is stored in %gameVersionFile%.
 	echo If the game EXE itself has the wrong version number, call this script with the argument "override" and supply the correct version in %gameVersionFile%.
 	PAUSE
 	EXIT
@@ -106,7 +106,7 @@ sqlite3.exe %databaseFile% .indices >> %summaryFile%
 echo Populating main summary report...
 sqlite3.exe %databaseFile% < sql/generateSummary.sql >> %summaryFile%
 
-echo Moving database to Mappalachia program...
+echo Moving database to Commonwealth Cartography program...
 IF NOT EXIST %outputFolder% (
 	mkdir %outputFolder%
 )

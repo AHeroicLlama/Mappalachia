@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Mappalachia
+namespace CommonwealthCartography
 {
 	internal static class MapMarkers
 	{

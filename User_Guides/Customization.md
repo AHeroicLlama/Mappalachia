@@ -10,10 +10,9 @@ This allows you to set a title for the map - it will show in the bottom-right, a
 This option brings up a dialog which allows you to tweak the percentage brightness of the underlying map image. Enter any value from 5% to 300%.
 
 ### Background Image
-Change the background image of the map. Except 'None', these options only apply when 'Appalachia' is the selected space.
+Change the background image of the map. Except 'None', these options only apply when 'Commonwealth' is the selected space.
 - Normal: The standard in-game pause menu map.
-- Military: The map from the nuke targeting computer.
-- Satellite: A top-down render of the Appalachia world.
+- Satellite: A top-down render of the Commonwealth world.
 - None: No background (Useful for further edits).
 
 ### Highlight Water
@@ -43,7 +42,7 @@ These icon settings apply to both Icon and Topography plotting modes.
 ### Colors and shapes
 At the bottom of the form are two collections or 'Palettes' - of colors and shapes.<br/>
 These palettes are used to determine the available combinations of shapes and colors that will be used to plot items on the map.<br/>
-Mappalachia will draw from this palette of colors - and/or shapes depending on the plotting mode - to define the visual style of map plots. Where appropriate, it will cycle through combinations of colors and/or shapes in order to generate new plots as necessary.
+Commonwealth Cartography will draw from this palette of colors - and/or shapes depending on the plotting mode - to define the visual style of map plots. Where appropriate, it will cycle through combinations of colors and/or shapes in order to generate new plots as necessary.
 
 On the left hand side is the color palette used to varying extents in all plotting modes.<br/>
 You may add or remove colors to the palette, or select a premade palette using the drop-down.<br/>
