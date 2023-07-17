@@ -2,7 +2,6 @@
 unit CommonwealthCartography;
 
 uses
-	_commonwealthCartography_componentQuantity,
 	_commonwealthCartography_entityInfo,
 	_commonwealthCartography_junkScrap,
 	_commonwealthCartography_location,
@@ -12,9 +11,6 @@ uses
 
 	function initialize: Integer;
 	begin
-		AddMessage('Now running _commonwealthCartography_componentQuantity...');
-		_commonwealthCartography_componentQuantity.initialize();
-
 		AddMessage('Now running _commonwealthCartography_junkScrap...');
 		_commonwealthCartography_junkScrap.initialize();
 

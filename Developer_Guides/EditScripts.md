@@ -5,7 +5,7 @@
 
 ## Familiar with FO4Edit?
 If you know what you're doing with FO4Edit, you'll need to drop a FO4Edit installation onto the `\FO4Edit\` folder and then run the `_commonwealthCartography_RUNALL.pas` script. This will run all Commonwealth Cartography export scripts consecutively.<br/>
-Once complete the folder `\FO4Edit\Output\` should be populated with 7 CSV files (including one informational CSV noting the debug cells for which extraction was skipped), and you can move on to the preprocessor.
+Once complete the folder `\FO4Edit\Output\` should be populated with 6 CSV files (including one informational CSV noting the debug cells for which extraction was skipped), and you can move on to the preprocessor.
 <br/><br/>
 
 ## Not familiar with FO4Edit?
@@ -27,7 +27,7 @@ Once in FO4Edit you will be prompted with which ESM to load. Select SeventySix.e
 Expand SeventySix.esm in the tree on the left. Right click any element and select 'Apply Script...'.<br/>
 Select `_commonwealthCartography_RUNALL` as your script to run.<br/>
 This script runs all Commonwealth Cartography scripts consecutively and should take approximately 26 minutes.<br/>
-Once completed you should see the folder `\FO4Edit\Output\` has been populated with 7 CSV files, including one informational CSV noting the debug cells for which extraction was skipped.<br/>
+Once completed you should see the folder `\FO4Edit\Output\` has been populated with 6 CSV files, including one informational CSV noting the debug cells for which extraction was skipped.<br/>
 <br/>
 
 ### Next steps

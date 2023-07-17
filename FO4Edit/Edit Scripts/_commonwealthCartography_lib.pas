@@ -37,7 +37,6 @@ unit _commonwealthCartography_lib;
 	begin
 			if(signature = 'MISC') then _commonwealthCartography_junkScrap.ripItem(item)
 		else if(signature = 'LCTN') then _commonwealthCartography_location.ripItem(item)
-		else if(signature = 'CMPO') then _commonwealthCartography_componentQuantity.ripItem(item)
 		else if(signature = 'REGN') then _commonwealthCartography_region.ripItem(item)
 	end;
 
@@ -65,9 +64,6 @@ unit _commonwealthCartography_lib;
 			(pos('Test', spaceName) <> 0) or
 			(pos('Cell', spaceName) <> 0) or
 			(pos('Debug', spaceName) <> 0) or
-
-			(pos('Goodneighbor', spaceEditorID) <> 0) or
-			(pos('DiamondCity', spaceEditorID) <> 0) or
 
 			(pos('Warehouse', spaceEditorID) = 1)
 		then begin
@@ -97,7 +93,10 @@ unit _commonwealthCartography_lib;
 		firstSubStr = copy(reference, firstPos, len - firstPos);
 		secondPos = 8; //FormID length
 	begin
-		result := copy(reference, firstPos, secondPos);
+		if (pos('<', reference) <> 0) then begin
+			result := copy(reference, 2, 8);
+		end
+		else result := copy(reference, firstPos, secondPos);
 	end;
 
 	// Is this signature one we expect to see in the world, and therefore worth processing?

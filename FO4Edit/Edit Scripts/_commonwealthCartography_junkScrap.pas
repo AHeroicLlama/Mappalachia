@@ -12,7 +12,7 @@ unit _commonwealthCartography_junkScrap;
 
 	procedure ripItem(item : IInterface);
 	const
-		MCQPEntry = ElementBySignature(item, 'MCQP');
+		MCQPEntry = ElementBySignature(item, 'CVPA');
 		formID = IntToHex(FixedFormId(item), 8);
 	var
 		i : Integer;
@@ -22,7 +22,7 @@ unit _commonwealthCartography_junkScrap;
 			currentComponent := ElementByName(MCQPEntry, 'Component #' + IntToStr(i));
 			outputStrings.Add(
 				GetEditValue(ElementByName(currentComponent, 'Component')) + ',' +
-				GetEditValue(ElementByName(currentComponent, 'Component Count Keyword')) + ',' +
+				GetEditValue(ElementByName(currentComponent, 'Count')) + ',' +
 				formID
 			);
 		end;
