@@ -5,10 +5,10 @@ FO4Edit/Edit Scripts/*
 !FO4Edit/Edit Scripts/_commonwealthCartography_*.pas
 
 #World render DDS files
-CommonwealthCartography	/img/*.dds
-CommonwealthCartography	/img/cell/*.jpg
-CommonwealthCartography	/img/*_render.jpg
-CommonwealthCartography	/img/*_waterMask.png
+CommonwealthCartography/img/*.dds
+CommonwealthCartography/img/cell/*.jpg
+CommonwealthCartography/img/*_render.jpg
+CommonwealthCartography/img/*_waterMask.png
 
 #SQLite and database generation
 Database/*.db-journal

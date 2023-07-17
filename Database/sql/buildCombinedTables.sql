@@ -16,7 +16,7 @@ ON pos_space = space_space;
 CREATE TABLE 'NPC_Search' AS
 SELECT npc, chance, x, y, z, spaceFormId
 FROM Position_Data
-INNER JOIN NPC_Spawn ON class = spawnClass AND Position_Data.locationFormId = NPC_Spawn.locationFormId;
+INNER JOIN NPC_Spawn ON Position_Data.locationFormId = NPC_Spawn.locationFormId;
 
 CREATE TABLE 'Scrap_Search' AS
 SELECT component, componentQuantity AS magnitude, x, y, z, spaceFormId

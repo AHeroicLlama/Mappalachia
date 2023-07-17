@@ -16,7 +16,7 @@ namespace CommonwealthCartography
 
 			// Step back out of bin until we find the CommonwealthCartography root
 			string CommonwealthCartographyRoot = AppDomain.CurrentDomain.BaseDirectory;
-			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(CommonwealthCartographyRoot))) != "CommonwealthCartography")
+			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(CommonwealthCartographyRoot))) != "Commonwealth_Cartography")
 			{
 				CommonwealthCartographyRoot += "..\\";
 			}
@@ -35,7 +35,7 @@ namespace CommonwealthCartography
 					new Task(() => ProcessBasicFile("Region.csv")),
 					new Task(() => ProcessSpaceFile()),
 					new Task(() => GenerateNPCSpawnFile()),
-					new Task(() => GenerateQuantifiedJunkScrapFile()),
+					new Task(() => ProcessBasicFile("Junk_Scrap.csv")),
 				};
 
 				// Start all tasks
@@ -61,7 +61,6 @@ namespace CommonwealthCartography
 		static void ProcessSpatialFile(string fileName)
 		{
 			CSVFile file = GenericOpen(fileName);
-			file = NPCSpawnHelper.AddMonsterClassColumn(file);
 			file = GenericCSVHelper.DuplicateColumn(file, "shortName", "instanceID");
 
 			// Strip the map markers data out the position file before they are reduced away
@@ -98,28 +97,11 @@ namespace CommonwealthCartography
 			CSVFile locationFile = GenericOpen("Location.csv");
 			GenericProcess(locationFile);
 
-			CSVFile npcSpawns = NPCSpawnHelper.ProcessNPCSpawns(locationFile, NPCSpawnHelper.SumLocationSpawnChances(locationFile));
+			CSVFile npcSpawns = NPCSpawnHelper.ProcessNPCSpawns(locationFile);
 			locationFile.rows = null;
 
 			GenericProcess(npcSpawns);
 			GenericClose(npcSpawns);
-		}
-
-		// Process the Junk Scrap and Component Quantity CSVFiles and then use them to generate a new file for Quantified Junk Scrap
-		static void GenerateQuantifiedJunkScrapFile()
-		{
-			CSVFile componentQuantityFile = GenericOpen("Component_Quantity.csv");
-			GenericProcess(componentQuantityFile);
-
-			CSVFile junkScrapFile = GenericOpen("Junk_Scrap.csv");
-			GenericProcess(junkScrapFile);
-
-			CSVFile quantifiedJunkScrap = JunkScrap.ProcessJunkScrap(junkScrapFile, componentQuantityFile);
-			junkScrapFile.rows = null;
-			componentQuantityFile.rows = null;
-
-			GenericProcess(quantifiedJunkScrap);
-			GenericClose(quantifiedJunkScrap);
 		}
 
 		// Shorthand to instantiate a new CSVFile from file name

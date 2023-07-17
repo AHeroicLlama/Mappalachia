@@ -28,143 +28,142 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
+			components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSetClusterRange));
-			this.trackBarClusterRange = new System.Windows.Forms.TrackBar();
-			this.buttonOK = new System.Windows.Forms.Button();
-			this.buttonCancel = new System.Windows.Forms.Button();
-			this.checkBoxliveUpdate = new System.Windows.Forms.CheckBox();
-			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.trackBarMinClusterWeight = new System.Windows.Forms.TrackBar();
-			this.labelClusterRange = new System.Windows.Forms.Label();
-			this.labelMinClusterWeight = new System.Windows.Forms.Label();
-			this.checkBoxDrawClusterWeb = new System.Windows.Forms.CheckBox();
-			((System.ComponentModel.ISupportInitialize)(this.trackBarClusterRange)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBarMinClusterWeight)).BeginInit();
-			this.SuspendLayout();
+			trackBarClusterRange = new System.Windows.Forms.TrackBar();
+			buttonOK = new System.Windows.Forms.Button();
+			buttonCancel = new System.Windows.Forms.Button();
+			checkBoxliveUpdate = new System.Windows.Forms.CheckBox();
+			toolTip = new System.Windows.Forms.ToolTip(components);
+			trackBarMinClusterWeight = new System.Windows.Forms.TrackBar();
+			labelClusterRange = new System.Windows.Forms.Label();
+			labelMinClusterWeight = new System.Windows.Forms.Label();
+			checkBoxDrawClusterWeb = new System.Windows.Forms.CheckBox();
+			((System.ComponentModel.ISupportInitialize)trackBarClusterRange).BeginInit();
+			((System.ComponentModel.ISupportInitialize)trackBarMinClusterWeight).BeginInit();
+			SuspendLayout();
 			// 
 			// trackBarClusterRange
 			// 
-			this.trackBarClusterRange.Location = new System.Drawing.Point(159, 12);
-			this.trackBarClusterRange.Maximum = 2000;
-			this.trackBarClusterRange.Minimum = 1;
-			this.trackBarClusterRange.Name = "trackBarClusterRange";
-			this.trackBarClusterRange.Size = new System.Drawing.Size(475, 45);
-			this.trackBarClusterRange.TabIndex = 1;
-			this.trackBarClusterRange.TickFrequency = 100;
-			this.toolTip.SetToolTip(this.trackBarClusterRange, "Adjust the maximum size of clusters.");
-			this.trackBarClusterRange.Value = 100;
-			this.trackBarClusterRange.ValueChanged += new System.EventHandler(this.TrackBarClusterRange_ValueChanged);
+			trackBarClusterRange.Location = new System.Drawing.Point(159, 12);
+			trackBarClusterRange.Maximum = 2000;
+			trackBarClusterRange.Minimum = 1;
+			trackBarClusterRange.Name = "trackBarClusterRange";
+			trackBarClusterRange.Size = new System.Drawing.Size(475, 45);
+			trackBarClusterRange.TabIndex = 1;
+			trackBarClusterRange.TickFrequency = 100;
+			toolTip.SetToolTip(trackBarClusterRange, "Adjust the maximum size of clusters.");
+			trackBarClusterRange.Value = 100;
+			trackBarClusterRange.ValueChanged += TrackBarClusterRange_ValueChanged;
 			// 
 			// buttonOK
 			// 
-			this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonOK.Location = new System.Drawing.Point(249, 163);
-			this.buttonOK.Name = "buttonOK";
-			this.buttonOK.Size = new System.Drawing.Size(75, 23);
-			this.buttonOK.TabIndex = 8;
-			this.buttonOK.Text = "OK";
-			this.buttonOK.UseVisualStyleBackColor = true;
-			this.buttonOK.Click += new System.EventHandler(this.ButtonOK_Click);
+			buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+			buttonOK.Location = new System.Drawing.Point(249, 163);
+			buttonOK.Name = "buttonOK";
+			buttonOK.Size = new System.Drawing.Size(75, 23);
+			buttonOK.TabIndex = 8;
+			buttonOK.Text = "OK";
+			buttonOK.UseVisualStyleBackColor = true;
+			buttonOK.Click += ButtonOK_Click;
 			// 
 			// buttonCancel
 			// 
-			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonCancel.Location = new System.Drawing.Point(330, 163);
-			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-			this.buttonCancel.TabIndex = 9;
-			this.buttonCancel.Text = "Cancel";
-			this.buttonCancel.UseVisualStyleBackColor = true;
-			this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
+			buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+			buttonCancel.Location = new System.Drawing.Point(330, 163);
+			buttonCancel.Name = "buttonCancel";
+			buttonCancel.Size = new System.Drawing.Size(75, 23);
+			buttonCancel.TabIndex = 9;
+			buttonCancel.Text = "Cancel";
+			buttonCancel.UseVisualStyleBackColor = true;
+			buttonCancel.Click += ButtonCancel_Click;
 			// 
 			// checkBoxliveUpdate
 			// 
-			this.checkBoxliveUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.checkBoxliveUpdate.AutoSize = true;
-			this.checkBoxliveUpdate.Location = new System.Drawing.Point(155, 166);
-			this.checkBoxliveUpdate.Name = "checkBoxliveUpdate";
-			this.checkBoxliveUpdate.Size = new System.Drawing.Size(88, 19);
-			this.checkBoxliveUpdate.TabIndex = 7;
-			this.checkBoxliveUpdate.Text = "Live Update";
-			this.toolTip.SetToolTip(this.checkBoxliveUpdate, "Constantly re-draw the map as you change cluster values.");
-			this.checkBoxliveUpdate.UseVisualStyleBackColor = true;
-			this.checkBoxliveUpdate.CheckedChanged += new System.EventHandler(this.CheckBoxliveUpdate_CheckedChanged);
+			checkBoxliveUpdate.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+			checkBoxliveUpdate.AutoSize = true;
+			checkBoxliveUpdate.Location = new System.Drawing.Point(155, 166);
+			checkBoxliveUpdate.Name = "checkBoxliveUpdate";
+			checkBoxliveUpdate.Size = new System.Drawing.Size(88, 19);
+			checkBoxliveUpdate.TabIndex = 7;
+			checkBoxliveUpdate.Text = "Live Update";
+			toolTip.SetToolTip(checkBoxliveUpdate, "Constantly re-draw the map as you change cluster values.");
+			checkBoxliveUpdate.UseVisualStyleBackColor = true;
+			checkBoxliveUpdate.CheckedChanged += CheckBoxliveUpdate_CheckedChanged;
 			// 
 			// trackBarMinClusterWeight
 			// 
-			this.trackBarMinClusterWeight.Location = new System.Drawing.Point(159, 63);
-			this.trackBarMinClusterWeight.Maximum = 200;
-			this.trackBarMinClusterWeight.Minimum = 1;
-			this.trackBarMinClusterWeight.Name = "trackBarMinClusterWeight";
-			this.trackBarMinClusterWeight.Size = new System.Drawing.Size(475, 45);
-			this.trackBarMinClusterWeight.TabIndex = 4;
-			this.trackBarMinClusterWeight.TickFrequency = 10;
-			this.toolTip.SetToolTip(this.trackBarMinClusterWeight, "Adjust the minimum weight of clusters.");
-			this.trackBarMinClusterWeight.Value = 3;
-			this.trackBarMinClusterWeight.ValueChanged += new System.EventHandler(this.TrackBarMinClusterWeight_ValueChanged);
+			trackBarMinClusterWeight.Location = new System.Drawing.Point(159, 63);
+			trackBarMinClusterWeight.Maximum = 200;
+			trackBarMinClusterWeight.Minimum = 1;
+			trackBarMinClusterWeight.Name = "trackBarMinClusterWeight";
+			trackBarMinClusterWeight.Size = new System.Drawing.Size(475, 45);
+			trackBarMinClusterWeight.TabIndex = 4;
+			trackBarMinClusterWeight.TickFrequency = 10;
+			toolTip.SetToolTip(trackBarMinClusterWeight, "Adjust the minimum weight of clusters.");
+			trackBarMinClusterWeight.Value = 3;
+			trackBarMinClusterWeight.ValueChanged += TrackBarMinClusterWeight_ValueChanged;
 			// 
 			// labelClusterRange
 			// 
-			this.labelClusterRange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.labelClusterRange.AutoSize = true;
-			this.labelClusterRange.Location = new System.Drawing.Point(38, 21);
-			this.labelClusterRange.Name = "labelClusterRange";
-			this.labelClusterRange.Size = new System.Drawing.Size(115, 15);
-			this.labelClusterRange.TabIndex = 0;
-			this.labelClusterRange.Text = "Cluster Range (1234)";
-			this.toolTip.SetToolTip(this.labelClusterRange, "Adjust the maximum size of clusters.");
+			labelClusterRange.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+			labelClusterRange.AutoSize = true;
+			labelClusterRange.Location = new System.Drawing.Point(38, 21);
+			labelClusterRange.Name = "labelClusterRange";
+			labelClusterRange.Size = new System.Drawing.Size(115, 15);
+			labelClusterRange.TabIndex = 0;
+			labelClusterRange.Text = "Cluster Range (1234)";
+			toolTip.SetToolTip(labelClusterRange, "Adjust the maximum size of clusters.");
 			// 
 			// labelMinClusterWeight
 			// 
-			this.labelMinClusterWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.labelMinClusterWeight.AutoSize = true;
-			this.labelMinClusterWeight.Location = new System.Drawing.Point(12, 72);
-			this.labelMinClusterWeight.Name = "labelMinClusterWeight";
-			this.labelMinClusterWeight.Size = new System.Drawing.Size(141, 15);
-			this.labelMinClusterWeight.TabIndex = 3;
-			this.labelMinClusterWeight.Text = "Min. Cluster Weight (123)";
-			this.toolTip.SetToolTip(this.labelMinClusterWeight, "Adjust the minimum weight of clusters.");
+			labelMinClusterWeight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+			labelMinClusterWeight.AutoSize = true;
+			labelMinClusterWeight.Location = new System.Drawing.Point(12, 72);
+			labelMinClusterWeight.Name = "labelMinClusterWeight";
+			labelMinClusterWeight.Size = new System.Drawing.Size(141, 15);
+			labelMinClusterWeight.TabIndex = 3;
+			labelMinClusterWeight.Text = "Min. Cluster Weight (123)";
+			toolTip.SetToolTip(labelMinClusterWeight, "Adjust the minimum weight of clusters.");
 			// 
 			// checkBoxDrawClusterWeb
 			// 
-			this.checkBoxDrawClusterWeb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.checkBoxDrawClusterWeb.AutoSize = true;
-			this.checkBoxDrawClusterWeb.Location = new System.Drawing.Point(33, 112);
-			this.checkBoxDrawClusterWeb.Name = "checkBoxDrawClusterWeb";
-			this.checkBoxDrawClusterWeb.Size = new System.Drawing.Size(120, 19);
-			this.checkBoxDrawClusterWeb.TabIndex = 6;
-			this.checkBoxDrawClusterWeb.Text = "Draw Cluster Web";
-			this.toolTip.SetToolTip(this.checkBoxDrawClusterWeb, "Draw a \'web\' identifying the cluster\'s member entities.");
-			this.checkBoxDrawClusterWeb.UseVisualStyleBackColor = true;
-			this.checkBoxDrawClusterWeb.CheckedChanged += new System.EventHandler(this.CheckBoxDrawClusterWeb_CheckedChanged);
+			checkBoxDrawClusterWeb.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+			checkBoxDrawClusterWeb.AutoSize = true;
+			checkBoxDrawClusterWeb.Location = new System.Drawing.Point(33, 112);
+			checkBoxDrawClusterWeb.Name = "checkBoxDrawClusterWeb";
+			checkBoxDrawClusterWeb.Size = new System.Drawing.Size(120, 19);
+			checkBoxDrawClusterWeb.TabIndex = 6;
+			checkBoxDrawClusterWeb.Text = "Draw Cluster Web";
+			toolTip.SetToolTip(checkBoxDrawClusterWeb, "Draw a 'web' identifying the cluster's member entities.");
+			checkBoxDrawClusterWeb.UseVisualStyleBackColor = true;
+			checkBoxDrawClusterWeb.CheckedChanged += CheckBoxDrawClusterWeb_CheckedChanged;
 			// 
 			// FormSetClusterRange
 			// 
-			this.AcceptButton = this.buttonOK;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size(646, 191);
-			this.Controls.Add(this.checkBoxDrawClusterWeb);
-			this.Controls.Add(this.labelMinClusterWeight);
-			this.Controls.Add(this.labelClusterRange);
-			this.Controls.Add(this.trackBarMinClusterWeight);
-			this.Controls.Add(this.checkBoxliveUpdate);
-			this.Controls.Add(this.buttonCancel);
-			this.Controls.Add(this.buttonOK);
-			this.Controls.Add(this.trackBarClusterRange);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "FormSetClusterRange";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Cluster Settings";
-			this.Load += new System.EventHandler(this.FormSetClusterRange_Load);
-			((System.ComponentModel.ISupportInitialize)(this.trackBarClusterRange)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBarMinClusterWeight)).EndInit();
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AcceptButton = buttonOK;
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			CancelButton = buttonCancel;
+			ClientSize = new System.Drawing.Size(646, 191);
+			Controls.Add(checkBoxDrawClusterWeb);
+			Controls.Add(labelMinClusterWeight);
+			Controls.Add(labelClusterRange);
+			Controls.Add(trackBarMinClusterWeight);
+			Controls.Add(checkBoxliveUpdate);
+			Controls.Add(buttonCancel);
+			Controls.Add(buttonOK);
+			Controls.Add(trackBarClusterRange);
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+			Name = "FormSetClusterRange";
+			StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			Text = "Cluster Settings";
+			Load += FormSetClusterRange_Load;
+			((System.ComponentModel.ISupportInitialize)trackBarClusterRange).EndInit();
+			((System.ComponentModel.ISupportInitialize)trackBarMinClusterWeight).EndInit();
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

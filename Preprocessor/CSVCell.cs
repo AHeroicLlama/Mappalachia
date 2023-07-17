@@ -233,15 +233,6 @@ namespace CommonwealthCartography
 
 					return;
 
-				case "spawnClass":
-					// Class (monster) can only be two exact strings or empty
-					if (data != string.Empty && !Validation.validNpcClass.IsMatch(data))
-					{
-						ReportValidationError();
-					}
-
-					return;
-
 				case "isWorldspace":
 					// Boolean
 					if (!Validation.validSQLiteBoolean.IsMatch(data))

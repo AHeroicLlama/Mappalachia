@@ -159,7 +159,7 @@ namespace BackgroundRenderer
 				string renderFile = $"{imageDirectory}{space.editorID}.dds";
 				string convertedFile = $"{outputDirectory}{space.editorID}.jpg";
 
-				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo4DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} \"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (targetRenderResolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (targetRenderResolution / 4096d) / scale)} {cameraY} -light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} -ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud -xm effects");
+				Process render = Process.Start("CMD.exe", "/C " + $"{utilsRenderPath} \"{fo4DataPath}\\Fallout4.esm\" {renderFile} {resolution} {resolution} \"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {space.xCenter - (space.nudgeX * (targetRenderResolution / 4096d) / scale)} {space.yCenter + (space.nudgeY * (targetRenderResolution / 4096d) / scale)} {cameraY} -light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} -ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud -xm effects");
 				render.WaitForExit();
 
 				if (File.Exists(renderFile))

@@ -7,7 +7,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>CommonwealthCartography</RootNamespace>
 		<AssemblyName>Commonwealth Cartography</AssemblyName>
-		<ApplicationIcon>favicon_small.ico</ApplicationIcon>
+		<ApplicationIcon>favicon_small_C.ico</ApplicationIcon>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<Platforms>AnyCPU;x86</Platforms>
 		<AnalysisLevel>latest-all</AnalysisLevel>
@@ -44,7 +44,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="favicon_small.ico" />
+	  <Content Include="favicon_small_C.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
