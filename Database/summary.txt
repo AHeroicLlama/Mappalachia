@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-60c427e4a45a9d35f8572faebb378d42
+774cfc573b047262fb1a1556d0caf2f6
 ==File Size== 
-432484352 
+432553984 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.4.21
+1.7.5.4
 ==Mean Average X/Y/Z Coord==
--11822.858457849|4405.11409080091|11751.7098871648
+-11821.0372556831|4403.9931860146|11750.2063964995
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7357290819972
+21.7521210075413
 ==Average Y Bounds Width==
-16.2554867089986
+16.261060435347
 ==Average Z Bounds Width==
-15.231270952726
+15.2419573026065
 ==Average Z Rotation==
-4.09842024651444
+4.10258915226095
 ==Average display name string length==
-2.6935396115724
+2.69200217499232
 ==Average editorID string length==
-24.9935892886713
+24.9965483817584
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -527,7 +527,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-42273
+42299
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|55
@@ -740,8 +740,8 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3013896
-Appalachia|Box|63357
+Appalachia||3013892
+Appalachia|Box|63368
 Appalachia|Ellipsoid|3
 Appalachia|Line|1802
 Appalachia|Plane|105
@@ -974,6 +974,8 @@ SheltersMissileSilo||442
 SheltersMissileSilo|Box|51
 SheltersPittTrench01||1009
 SheltersPittTrench01|Box|133
+SheltersRootCellar||382
+SheltersRootCellar|Box|123
 SheltersSoundStage||790
 SheltersSoundStage|Box|115
 SheltersToxicWasteland||515
@@ -1017,8 +1019,8 @@ TopOfTheWorld01||4236
 TopOfTheWorld01|Box|413
 TopOfTheWorld01|Line|2
 TopOfTheWorld01|Sphere|1
-TunnelOfLoveMineshaft01||4304
-TunnelOfLoveMineshaft01|Box|112
+TunnelOfLoveMineshaft01||4305
+TunnelOfLoveMineshaft01|Box|113
 TunnelOfLoveMineshaft01|Plane|1
 UCB01||4434
 UCB01|Box|130
@@ -1115,7 +1117,7 @@ XPDPitt01Foundry||16372
 XPDPitt01Foundry|Box|559
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
-XPDPitt01Industrial||18699
+XPDPitt01Industrial||18698
 XPDPitt01Industrial|Box|1442
 XPDPitt01Industrial|Sphere|1
 XPDPitt02Sanctum||17557
@@ -1142,7 +1144,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3080465
+Appalachia||3080472
 Appalachia|Advanced (Level 1)|319
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1424,6 +1426,7 @@ SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
+SheltersRootCellar||505
 SheltersSoundStage||905
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
@@ -1469,7 +1472,7 @@ TopOfTheWorld01||4645
 TopOfTheWorld01|Advanced (Level 1)|2
 TopOfTheWorld01|Expert (Level 2)|1
 TopOfTheWorld01|Master (Level 3)|4
-TunnelOfLoveMineshaft01||4417
+TunnelOfLoveMineshaft01||4419
 UCB01||4565
 UCB01|Advanced (Level 1)|2
 UCB01|Novice (Level 0)|1
@@ -1597,7 +1600,7 @@ XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
-XPDPitt01Industrial||20110
+XPDPitt01Industrial||20109
 XPDPitt01Industrial|Advanced (Level 1)|24
 XPDPitt01Industrial|Expert (Level 2)|3
 XPDPitt01Industrial|Inaccessible|2
@@ -1701,7 +1704,7 @@ Appalachia|CNCY|257
 Appalachia|CONT|12377
 Appalachia|DOOR|2505
 Appalachia|FLOR|45228
-Appalachia|FURN|14979
+Appalachia|FURN|14976
 Appalachia|HAZD|994
 Appalachia|IDLM|16926
 Appalachia|KEYM|36
@@ -1715,10 +1718,10 @@ Appalachia|PROJ|93
 Appalachia|SCOL|353359
 Appalachia|SECH|253
 Appalachia|SOUN|5920
-Appalachia|STAT|2383838
+Appalachia|STAT|2383847
 Appalachia|TACT|62
 Appalachia|TERM|370
-Appalachia|TXST|62610
+Appalachia|TXST|62611
 Appalachia|WEAP|164
 ArktosPharmaLab01|ACTI|354
 ArktosPharmaLab01|ASPC|14
@@ -3219,6 +3222,12 @@ SheltersPittTrench01|LIGH|7
 SheltersPittTrench01|SCOL|168
 SheltersPittTrench01|STAT|897
 SheltersPittTrench01|TXST|56
+SheltersRootCellar|ACTI|13
+SheltersRootCellar|LIGH|9
+SheltersRootCellar|MSTT|1
+SheltersRootCellar|SCOL|10
+SheltersRootCellar|STAT|374
+SheltersRootCellar|TXST|98
 SheltersSoundStage|ACTI|30
 SheltersSoundStage|LIGH|38
 SheltersSoundStage|MSTT|16
@@ -3483,7 +3492,7 @@ TunnelOfLoveMineshaft01|MISC|64
 TunnelOfLoveMineshaft01|MSTT|32
 TunnelOfLoveMineshaft01|NPC_|1
 TunnelOfLoveMineshaft01|SCOL|346
-TunnelOfLoveMineshaft01|STAT|3475
+TunnelOfLoveMineshaft01|STAT|3477
 TunnelOfLoveMineshaft01|TACT|1
 TunnelOfLoveMineshaft01|TERM|1
 TunnelOfLoveMineshaft01|TXST|62
@@ -4126,7 +4135,7 @@ XPDPitt01Industrial|BOOK|11
 XPDPitt01Industrial|CONT|158
 XPDPitt01Industrial|DOOR|54
 XPDPitt01Industrial|FLOR|8
-XPDPitt01Industrial|FURN|198
+XPDPitt01Industrial|FURN|197
 XPDPitt01Industrial|HAZD|32
 XPDPitt01Industrial|IDLM|194
 XPDPitt01Industrial|LIGH|291
@@ -4253,7 +4262,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3076004
+Appalachia||3076011
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -4606,10 +4615,10 @@ Appalachia|BS02_E01_Metal_SpawnD|1
 Appalachia|BS02_E01_Metal_WaveSpawnCenter|1
 Appalachia|BS02_E01_PappasStartLoc|1
 Appalachia|BS02_E01_RiflemanHoldPos|1
-Appalachia|BS02_E01_RiflemanStartLoc|1
+Appalachia|BS02_E01_RiflemanStartLoc_Copy01|1
 Appalachia|BS02_E01_ScoutStartLoc|1
 Appalachia|BS02_E01_TechnicianHoldPos|1
-Appalachia|BS02_E01_TechnicianStartLoc|1
+Appalachia|BS02_E01_TechnicianStartLoc_Copy01|1
 Appalachia|BS02_MQ04_Conscience_Vault96Ext_Marker|1
 Appalachia|BS02_SpecialVendor_EnableMarker_Crater|1
 Appalachia|BS02_SpecialVendor_EnableMarker_FortAtlas|1
@@ -11778,6 +11787,7 @@ SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
+SheltersRootCellar||505
 SheltersSoundStage||905
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
@@ -12145,7 +12155,7 @@ TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_07|1
 TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_08|1
 TopOfTheWorld01|W05_MQ_101P_MegRef|1
 TopOfTheWorld01|W05_MQ_101P_RaiderBRef|1
-TunnelOfLoveMineshaft01||4378
+TunnelOfLoveMineshaft01||4380
 TunnelOfLoveMineshaft01|E09C_ArenaSpawn01|1
 TunnelOfLoveMineshaft01|E09C_ArenaSpawn02|1
 TunnelOfLoveMineshaft01|E09C_BrokenTracks_ObjectiveMarker_Radius3250|1
@@ -13609,7 +13619,7 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
-XPDPitt01Industrial||19953
+XPDPitt01Industrial||19952
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM001|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_Sandbox|1
@@ -14066,7 +14076,7 @@ AlleghenyAsylum01|100|15013
 Appalachia|50|42
 Appalachia|75|136
 Appalachia|85|72
-Appalachia|100|3081262
+Appalachia|100|3081269
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17160
@@ -14169,6 +14179,7 @@ SheltersCave02|100|608
 SheltersClaimCenter01|100|976
 SheltersMissileSilo|100|493
 SheltersPittTrench01|100|1142
+SheltersRootCellar|100|505
 SheltersSoundStage|100|905
 SheltersToxicWasteland|100|527
 SheltersVaultAtrium01|100|2268
@@ -14191,7 +14202,7 @@ TheRustyPick01|100|2442
 TheWayward01|100|1719
 ThunderMtPowerPlant01|100|9415
 TopOfTheWorld01|100|4652
-TunnelOfLoveMineshaft01|100|4417
+TunnelOfLoveMineshaft01|100|4419
 UCB01|100|4569
 UCB02|100|77
 UncannyCaverns01|100|4228
@@ -14243,7 +14254,7 @@ XPDPitt01Foundry|75|11
 XPDPitt01Foundry|100|16918
 XPDPitt01Industrial|50|4
 XPDPitt01Industrial|75|3
-XPDPitt01Industrial|100|20135
+XPDPitt01Industrial|100|20134
 XPDPitt02Sanctum|75|2
 XPDPitt02Sanctum|100|18032
 XPDPitt02Trench|50|4
@@ -17162,83 +17173,82 @@ XPDPitt02Trench|Spring|12|12
 XPDPitt02Trench|Steel|237|142
 XPDPitt02Trench|Wood|55|49
 ==Average (variable only) Spawn chance and Count per NPC per Space==
-AMSHQ01|Robot|1.0|2
-AVRMedicalCenter01|Scorched|1.0|21
-AlleghenyAsylum01|Ghoul|1.0|25
-Appalachia|Angler|0.159511826557281|88
-Appalachia|Bloatfly|0.105436991869919|82
-Appalachia|Bloodbug|0.41984126984127|70
-Appalachia|Cave Cricket|0.0819471321829811|159
-Appalachia|Deathclaw|0.235042735042735|6
-Appalachia|Fog Crawler|0.126324786324786|45
-Appalachia|Ghoul|0.493731961121666|1020
-Appalachia|Gulper|0.148823124070649|101
-Appalachia|Honey Beast|0.191836734693878|7
-Appalachia|Insect|0.16229658260226|229
-Appalachia|Liberator|0.1661423524088|456
-Appalachia|Mega Sloth|0.176282051282051|8
-Appalachia|Mirelurk|0.319045714311987|169
-Appalachia|Mole Miner|0.6064453125|192
-Appalachia|Mole Rat|0.146914362985792|518
-Appalachia|Rad Ant|0.25|14
-Appalachia|Rad Rat|0.0903317798229305|339
-Appalachia|Rad Scorpion|0.157975649350649|100
-Appalachia|Rad Toad|0.174074074074074|48
-Appalachia|Radroach|0.25|2
-Appalachia|Robot|0.384829828444935|417
-Appalachia|Scorched|0.554557170392752|1113
-Appalachia|Snallygaster|0.67032967032967|26
-Appalachia|Stingwing|0.571428571428572|6
-Appalachia|Super Mutant|0.457043217417903|794
-Appalachia|Swamp|0.542857142857143|7
-Appalachia|Tick|0.852941176470588|17
-Appalachia|Vicious Dog|0.153991070967932|497
-Appalachia|Wolf|0.199764521193093|182
-Appalachia|Yao Guai|0.105552716017832|129
-ArktosPharmaLab01|Ghoul|1.0|3
-BelchingBetty01|Scorched|1.0|22
-BlackwaterMine01|Mole Miner|1.0|18
-BurningMine01|Mole Miner|1.0|13
-Burrows01|Ghoul|1.0|1
-Burrows01|Robot|1.0|5
-CharlestonCapitolBuilding02|Ghoul|1.0|38
-DyerChemical01|Ghoul|1.0|8
-DyerChemical01|Robot|1.0|1
-EasternRegionalPen01|Ghoul|1.0|45
-FraternityHouse01|Ghoul|1.0|2
-GarrahanMiningHQ01|Robot|1.0|17
-GauleyMine01|Scorched|1.0|2
-GlassedCavern01|Scorched|1.0|31
-HornwrightHQ01|Scorched|1.0|14
-KerwoodMine01|Mole Miner|1.0|18
-MTR08LodeBaring01|Mole Miner|1.0|8
-MTR08LodeBaring02|Mole Miner|1.0|10
-MamaDolceProcessing01|Liberator|1.0|17
-MamaDolceProcessing01|Robot|1.0|3
-MonongahPowerPlant01|Ghoul|1.0|18
-MonongahPowerPlant01|Mole Miner|1.0|1
-MorgantownApartment01|Ghoul|1.0|6
-MorgantownHighSchool01|Scorched|1.0|18
-NukaColaQuantumPlant01|Ghoul|1.0|18
-PoseidonPlant01|Scorched|1.0|46
-RadioResearchCenter01|Scorched|1.0|15
-RiversideManor01|Scorched|1.0|14
-SugarGrove01|Robot|1.0|8
-ThunderMtPowerPlant01|Scorched|1.0|36
-UncannyCaverns01|Bloatfly|0.2|1
-UncannyCaverns01|Cave Cricket|0.2|1
-UncannyCaverns01|Mirelurk|1.0|10
-UncannyCaverns01|Mole Rat|0.2|1
-UncannyCaverns01|Rad Rat|0.2|1
-UncannyCaverns01|Wolf|0.2|1
-VTecAgCenter01|Ghoul|1.0|6
-ValleyGalleria01|Scorched|1.0|20
-WatogaCivicCenter01|Scorched|1.0|17
-WatogaEmergencyServices01|Ghoul|1.0|5
-WatogaHighSchool01|Robot|1.0|20
-WatogaMunicipalCenter01|Scorched|1.0|9
-WendigoCave01|Mirelurk|1.0|14
-WestTek01|Super Mutant|1.0|41
+AMSHQ01|Robot|100.0|2
+AVRMedicalCenter01|Scorched|100.0|21
+AlleghenyAsylum01|Ghoul|100.0|25
+Appalachia|Angler|15.95|88
+Appalachia|Bloatfly|10.55|82
+Appalachia|Bloodbug|41.98|70
+Appalachia|Cave Cricket|8.19|159
+Appalachia|Deathclaw|23.5|6
+Appalachia|Fog Crawler|12.63|45
+Appalachia|Ghoul|49.37|1020
+Appalachia|Gulper|17.44|108
+Appalachia|Honey Beast|19.18|7
+Appalachia|Insect|16.23|229
+Appalachia|Liberator|16.61|456
+Appalachia|Mega Sloth|17.63|8
+Appalachia|Mirelurk|31.9|169
+Appalachia|Mole Miner|60.64|192
+Appalachia|Mole Rat|14.69|518
+Appalachia|Rad Ant|25.0|14
+Appalachia|Rad Rat|9.03|339
+Appalachia|Rad Scorpion|15.8|100
+Appalachia|Rad Toad|17.41|48
+Appalachia|Radroach|25.0|2
+Appalachia|Robot|38.48|417
+Appalachia|Scorched|55.46|1113
+Appalachia|Snallygaster|67.03|26
+Appalachia|Stingwing|57.15|6
+Appalachia|Super Mutant|45.7|794
+Appalachia|Tick|85.29|17
+Appalachia|Vicious Dog|15.4|497
+Appalachia|Wolf|19.98|182
+Appalachia|Yao Guai|10.55|129
+ArktosPharmaLab01|Ghoul|100.0|3
+BelchingBetty01|Scorched|100.0|22
+BlackwaterMine01|Mole Miner|100.0|18
+BurningMine01|Mole Miner|100.0|13
+Burrows01|Ghoul|100.0|1
+Burrows01|Robot|100.0|5
+CharlestonCapitolBuilding02|Ghoul|100.0|38
+DyerChemical01|Ghoul|100.0|8
+DyerChemical01|Robot|100.0|1
+EasternRegionalPen01|Ghoul|100.0|45
+FraternityHouse01|Ghoul|100.0|2
+GarrahanMiningHQ01|Robot|100.0|17
+GauleyMine01|Scorched|100.0|2
+GlassedCavern01|Scorched|100.0|31
+HornwrightHQ01|Scorched|100.0|14
+KerwoodMine01|Mole Miner|100.0|18
+MTR08LodeBaring01|Mole Miner|100.0|8
+MTR08LodeBaring02|Mole Miner|100.0|10
+MamaDolceProcessing01|Liberator|100.0|17
+MamaDolceProcessing01|Robot|100.0|3
+MonongahPowerPlant01|Ghoul|100.0|18
+MonongahPowerPlant01|Mole Miner|100.0|1
+MorgantownApartment01|Ghoul|100.0|6
+MorgantownHighSchool01|Scorched|100.0|18
+NukaColaQuantumPlant01|Ghoul|100.0|18
+PoseidonPlant01|Scorched|100.0|46
+RadioResearchCenter01|Scorched|100.0|15
+RiversideManor01|Scorched|100.0|14
+SugarGrove01|Robot|100.0|8
+ThunderMtPowerPlant01|Scorched|100.0|36
+UncannyCaverns01|Bloatfly|20.0|1
+UncannyCaverns01|Cave Cricket|20.0|1
+UncannyCaverns01|Mirelurk|100.0|10
+UncannyCaverns01|Mole Rat|20.0|1
+UncannyCaverns01|Rad Rat|20.0|1
+UncannyCaverns01|Wolf|20.0|1
+VTecAgCenter01|Ghoul|100.0|6
+ValleyGalleria01|Scorched|100.0|20
+WatogaCivicCenter01|Scorched|100.0|17
+WatogaEmergencyServices01|Ghoul|100.0|5
+WatogaHighSchool01|Robot|100.0|20
+WatogaMunicipalCenter01|Scorched|100.0|9
+WendigoCave01|Mirelurk|100.0|14
+WestTek01|Super Mutant|100.0|41
 ==Space Info==
 |Appalachia|Appalachia|1|2818|-13424|-402000|407637|-407387|380538|0|0|1.0
 003E3FFA|ThunderMtPowerPlant01|Thunder Mountain Power|0|-806|-612|-5202|3590|-4722|3497|0|0|1.0
@@ -17383,9 +17393,10 @@ WestTek01|Super Mutant|1.0|41
 0003BDBB|UncannyCaverns01|Uncanny Caverns|0|1980|4821|-2676|6636|-806|10448|0|0|1.0
 0040C1A7|CraterWatchstation01|Crater Watchstation Worksite|0|-1243|-3555|-4122|1636|-8328|1218|-150|-2000|1.8
 0051EF4F|CharGen03|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
+006D8953|SheltersRootCellar|Root Cellar Dungeon|0|3217|-2288|682|5752|-3736|-841|0|0|1.0
 0039E891|FreeStatesBunker07|Ransacked Bunker|0|1125|2081|-320|2570|667|3496|0|0|1.0
 005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0|3469|339|-524|7462|-3351|4030|0|0|1.0
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-3945489|3945489
+3946002|3946002

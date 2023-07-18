@@ -52,7 +52,7 @@ unit _mappalachia_lib;
 			(pos('PackIn', spaceEditorID) <> 0) or
 			(pos('COPY', spaceEditorID) <> 0) or
 			(pos('zCUT', spaceEditorID) <> 0) or
-			(pos('Cell', spaceEditorID) <> 0) or
+			((pos('Cell', spaceEditorID) <> 0) and (pos('Cellar', spaceEditorID) = 0)) or // 'Cell' but not 'Cellar'
 			(pos('Test', spaceEditorID) <> 0) or
 			(pos('Holding', spaceEditorID) <> 0) or
 			(pos('Debug', spaceEditorID) <> 0) or
@@ -63,7 +63,7 @@ unit _mappalachia_lib;
 			(pos('Smoke', spaceEditorID) <> 0) or
 
 			(pos('Test', spaceName) <> 0) or
-			(pos('Cell', spaceName) <> 0) or
+			((pos('Cell', spaceName) <> 0) and (pos('Cellar', spaceName) = 0)) or // 'Cell' but not 'Cellar'
 			(pos('Debug', spaceName) <> 0) or
 
 			(pos('Goodneighbor', spaceEditorID) <> 0) or

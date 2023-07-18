@@ -53,6 +53,7 @@ namespace BackgroundRenderer
 			{ "TheCraterCore01", 100 },
 			{ "SheltersSoundStage", 1000 },
 			{ "SheltersToxicWasteland", 2000 },
+			{ "SheltersRootCellar", 300 },
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k

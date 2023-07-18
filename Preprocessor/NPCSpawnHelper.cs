@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Mappalachia
@@ -44,7 +45,7 @@ namespace Mappalachia
 				}
 
 				// The NPC spawn chance is its individual chance over the sum spawn chances of the given location
-				double rowSpawnChance = double.Parse(row.GetCellFromColumn("value")) / locationOverallOdds;
+				double rowSpawnChance = Math.Round((double.Parse(row.GetCellFromColumn("value")) / locationOverallOdds) * 100, 2);
 
 				rows.Add(new CSVRow(rowNPC + "," + rowClass + "," + rowFormID + "," + rowSpawnChance, npcSpawnHeader));
 			}
@@ -104,6 +105,8 @@ namespace Mappalachia
 			name = new StringBuilder(name)
 			.Replace("ESSChanceSub", string.Empty)
 			.Replace("ESSChanceMain", string.Empty)
+			.Replace("ESSChanceCritterA", string.Empty)
+			.Replace("ESSChanceCritterB", string.Empty)
 
 			// Drop the editor labels
 			.Replace("LARGE", string.Empty)
@@ -125,6 +128,9 @@ namespace Mappalachia
 			.Replace("CaveCricket", "Cave Cricket")
 			.Replace("Mutations", "Snallygaster")
 			.Replace("GraftonMonster", "Grafton Monster")
+			.Replace("Swamp", "Gulper")
+			.Replace("RadFrog", "Frog")
+			.Replace("RadStag", "Radstag")
 			.ToString();
 
 			return name;

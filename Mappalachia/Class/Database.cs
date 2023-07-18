@@ -212,7 +212,7 @@ namespace Mappalachia
 
 		// Conducts the NPC search and returns the found items.
 		// Also merges results with standard search results for the same name, then drops items containing "Corpse"
-		public static List<MapItem> SearchNPC(string searchTerm, int minChance, string spaceFormID, bool allSpaces)
+		public static List<MapItem> SearchNPC(string searchTerm, string spaceFormID, bool allSpaces)
 		{
 			try
 			{
@@ -222,7 +222,6 @@ namespace Mappalachia
 				query.CommandText = allSpaces ? Properties.Resources.searchNPCEverywhere : Properties.Resources.searchNPC;
 				query.Parameters.Clear();
 				query.Parameters.AddWithValue("$npc", searchTerm);
-				query.Parameters.AddWithValue("$chance", minChance / 100.00);
 				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 				SqliteDataReader reader = query.ExecuteReader();
@@ -240,12 +239,12 @@ namespace Mappalachia
 					}
 
 					string name = reader.GetString(0);
-					float spawnChance = (float)Math.Round(reader.GetFloat(1) * 100, 2);
+					float spawnChance = reader.GetFloat(1);
 
 					results.Add(new MapItem(
 						MapItem.Type.NPC,
 						name, // FormID
-						name + " [Min " + spawnChance + "%]", // Editor ID
+						$"{name} [{spawnChance}%]", // Editor ID
 						name, // Display Name
 						signature,
 						lockTypes, // The Lock Types filtered for this set of items.
@@ -440,7 +439,7 @@ namespace Mappalachia
 		}
 
 		// Return the coordinate locations of instances of an NPC above given min spawn chance
-		public static List<MapDataPoint> GetNPCCoords(string npc, string spaceFormID, double minChance)
+		public static List<MapDataPoint> GetNPCCoords(string npc, string spaceFormID, double chance)
 		{
 			List<MapDataPoint> coordinates = new List<MapDataPoint>();
 
@@ -449,7 +448,7 @@ namespace Mappalachia
 			query.CommandText = Properties.Resources.getCoordsNPC;
 			query.Parameters.Clear();
 			query.Parameters.AddWithValue("$npc", npc);
-			query.Parameters.AddWithValue("$chance", minChance / 100.00);
+			query.Parameters.AddWithValue("$chance", Math.Round(chance, 2));
 			query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
 
 			SqliteDataReader reader = query.ExecuteReader();
