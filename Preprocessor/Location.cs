@@ -8,12 +8,16 @@ namespace Mappalachia
 		public readonly string locationFormID;
 		public double oddsMain;
 		public double oddsSub;
+		public double oddsCritterA;
+		public double oddsCritterB;
 
 		public Location(string locationFormID)
 		{
 			this.locationFormID = locationFormID;
 			oddsMain = 0;
 			oddsSub = 0;
+			oddsCritterA = 0;
+			oddsCritterB = 0;
 		}
 
 		public double GetOdds(string npcClass)
@@ -24,6 +28,10 @@ namespace Mappalachia
 					return oddsMain;
 				case "Sub":
 					return oddsSub;
+				case "CritterA":
+					return oddsCritterA;
+				case "CritterB":
+					return oddsCritterB;
 				default:
 					throw new Exception("NPC Class " + npcClass + " is not recognised");
 			}
@@ -39,6 +47,12 @@ namespace Mappalachia
 					return;
 				case "Sub":
 					oddsSub += double.Parse(odds);
+					return;
+				case "CritterA":
+					oddsCritterA += double.Parse(odds);
+					return;
+				case "CritterB":
+					oddsCritterB += double.Parse(odds);
 					return;
 				default:
 					return; // Do nothing - we're only interested in Main and Sub
