@@ -93,7 +93,7 @@ GROUP BY Space_Info.spaceFormID, component
 ORDER BY spaceEditorID, component;
 
 SELECT '==Average (variable only) Spawn chance and Count per NPC per Space==';
-SELECT Space_Info.spaceEditorID, NPC, AVG(chance), COUNT(*) FROM NPC_Search
+SELECT Space_Info.spaceEditorID, NPC, ROUND(AVG(chance), 2), COUNT(*) FROM NPC_Search
 INNER JOIN Space_Info ON Space_Info.spaceFormID = NPC_Search.spaceFormID
 GROUP BY NPC_Search.spaceFormID, NPC
 ORDER BY spaceEditorID;

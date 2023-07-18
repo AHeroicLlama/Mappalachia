@@ -79,8 +79,6 @@ namespace CommonwealthCartography
 			SettingsManager.LoadSettings();
 
 			// Apply min/max values according to current settings
-			numericUpDownNPCSpawnThreshold.Minimum = SettingsSearch.spawnChanceMin;
-			numericUpDownNPCSpawnThreshold.Maximum = SettingsSearch.spawnChanceMax;
 			numericMinZ.Increment = SettingsSpace.GetHeightBinSize();
 			numericMaxZ.Increment = numericMinZ.Increment;
 
@@ -100,7 +98,6 @@ namespace CommonwealthCartography
 			UpdateLegendStyle(false);
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces(false);
-			UpdateSpawnChance();
 
 			// Check for updates, only notify if update found
 			UpdateChecker.CheckForUpdate(false);
@@ -754,12 +751,6 @@ namespace CommonwealthCartography
 			}
 		}
 
-		// Update the minimum spawn chance % value on the NPC Search
-		void UpdateSpawnChance()
-		{
-			numericUpDownNPCSpawnThreshold.Value = SettingsSearch.spawnChance;
-		}
-
 		// Unselect all resolution options under heatmap resolution. Used to remove any current selection
 		void UncheckAllResolutions()
 		{
@@ -789,7 +780,7 @@ namespace CommonwealthCartography
 		// Return every MapItem in the items to plot
 		public static List<MapItem> GetAllLegendItems()
 		{
-			return legendItems;
+			return legendItems.OrderBy(l => l.legendGroup).ToList();
 		}
 
 		// Return every non-REGN (Type Region) MapItem in the items to plot
@@ -978,6 +969,8 @@ namespace CommonwealthCartography
 				{
 					indexToSelect = legendItems.IndexOf(legendItems.Where(m => m.editorID == lastSelectedItem.editorID).First());
 				}
+
+				gridViewLegend.ClearSelection();
 
 				// Select and scroll to the best new index
 				gridViewLegend.Rows[indexToSelect].Selected = true;
@@ -1684,7 +1677,6 @@ namespace CommonwealthCartography
 
 			searchResults = Database.SearchNPC(
 				listBoxNPC.SelectedItem.ToString(),
-				SettingsSearch.spawnChance,
 				SettingsSpace.GetCurrentFormID(),
 				SettingsSearch.searchInAllSpaces);
 
@@ -2111,21 +2103,9 @@ namespace CommonwealthCartography
 		}
 
 		// Change the default enter action depending on the currently selected control
-		void NumericUpDownNPCSpawnThreshold_MouseEnter(object sender, EventArgs e)
-		{
-			AcceptButton = buttonSearchNPC;
-		}
-
-		// Change the default enter action depending on the currently selected control
 		void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			AcceptButton = tabControlMainSearch.SelectedTab == tabPageStandard ? buttonSearch : buttonSearchNPC;
-		}
-
-		// User updated value in min spawn chance - update the setting too
-		void NumericUpDownNPCSpawnThreshold_ValueChanged(object sender, EventArgs e)
-		{
-			SettingsSearch.spawnChance = (int)numericUpDownNPCSpawnThreshold.Value;
 		}
 
 		#endregion

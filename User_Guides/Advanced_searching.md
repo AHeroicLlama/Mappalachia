@@ -20,12 +20,12 @@ By navigating to Search Settings and toggling on 'Search in all Spaces' you can 
 You cannot however plot items which belong to a different space than the one currently selected. To learn more about making maps for other spaces, please see [Interiors and other Spaces](Choosing_spaces.md).
 
 ## NPC Search
-By changing the tab at the top to 'NPC/Scrap/Region Search' you may use a separate search which can intelligently indicate NPC spawns, most notably including the many cases where NPC Spawns are not guaranteed but instead selected from a pool of options.<br/>
+By changing the tab at the top to 'NPC/Scrap/Region Search' you may use a separate search which can intelligently indicate variable-odds NPC spawns.<br/>
 You will notice that there is no search field here but instead you must select the NPC by name. This list is generated dynamically from the data exported from the game.<br/>
+Search results will be broken down by all possible spawn chances of the selected NPC, so you can for example choose to map only 100% chance spawns, or maybe 100% and 50% spawn odds.
 
-You may also define your minimum desired spawn chance. This value will filter search results to only those with a spawn chance greater than or equal to your provided odds.<br/>
 This intelligent NPC Search will also aggregate the search results with a 'Standard Search' for the same name of the NPC category.<br/>
-For example, by selecting 'Snallygaster' and searching, you should see the top result on the results list will be the variable spawns where Snallygasters *may* spawn (alongside an indicated spawn chance). Then the rest of the results will be other matches for Snallygaster - these being non-variable, guaranteed spawns.<br/>
+For example, by selecting 'Snallygaster' and searching, you should see the top results on the results list will be the variable spawns where Snallygasters *may* spawn (alongside an indicated spawn chance). Then the following the results will be other matches for Snallygaster - these being non-variable, guaranteed spawns.<br/>
 
 *Note: The NPC Search is not perfect. You may notice some oddities in this list, for example that there is no Wendigo option, or that most robots are grouped into a generic 'Robot' category. This is again due to the way in which Bethesda built the game - Commonwealth Cartography uses this data to produce an almost complete list, but there are numerous complex and niche possible variables which trigger spawning, which might cause the NPC data might be missing a few spawns. However, there should be no false entries, only missing entries, and if an NPC is not present on this list, you may still be able to find them from a 'Standard Search'.*
 

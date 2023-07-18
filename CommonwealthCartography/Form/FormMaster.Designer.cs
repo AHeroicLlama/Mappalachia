@@ -119,8 +119,6 @@ namespace CommonwealthCartography
 			columnLegendGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			columnLegendDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			labelLegend = new System.Windows.Forms.Label();
-			labelMinSpawnChance = new System.Windows.Forms.Label();
-			numericUpDownNPCSpawnThreshold = new System.Windows.Forms.NumericUpDown();
 			buttonSearchScrap = new System.Windows.Forms.Button();
 			buttonSearchNPC = new System.Windows.Forms.Button();
 			listBoxScrap = new System.Windows.Forms.ListBox();
@@ -158,7 +156,6 @@ namespace CommonwealthCartography
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)gridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)gridViewLegend).BeginInit();
-			((System.ComponentModel.ISupportInitialize)numericUpDownNPCSpawnThreshold).BeginInit();
 			tabControlMainSearch.SuspendLayout();
 			tabPageSpace.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBoxSpaceFiller).BeginInit();
@@ -957,31 +954,6 @@ namespace CommonwealthCartography
 			labelLegend.TabIndex = 0;
 			labelLegend.Text = "Items to plot";
 			// 
-			// labelMinSpawnChance
-			// 
-			labelMinSpawnChance.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-			labelMinSpawnChance.AutoSize = true;
-			labelMinSpawnChance.Location = new System.Drawing.Point(15, 186);
-			labelMinSpawnChance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			labelMinSpawnChance.Name = "labelMinSpawnChance";
-			labelMinSpawnChance.Size = new System.Drawing.Size(92, 15);
-			labelMinSpawnChance.TabIndex = 5;
-			labelMinSpawnChance.Text = "Min Chance (%)";
-			toolTipControls.SetToolTip(labelMinSpawnChance, "The minimum spawn chance to show results for.");
-			// 
-			// numericUpDownNPCSpawnThreshold
-			// 
-			numericUpDownNPCSpawnThreshold.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-			numericUpDownNPCSpawnThreshold.Location = new System.Drawing.Point(115, 184);
-			numericUpDownNPCSpawnThreshold.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			numericUpDownNPCSpawnThreshold.Name = "numericUpDownNPCSpawnThreshold";
-			numericUpDownNPCSpawnThreshold.Size = new System.Drawing.Size(50, 23);
-			numericUpDownNPCSpawnThreshold.TabIndex = 1;
-			toolTipControls.SetToolTip(numericUpDownNPCSpawnThreshold, "The minimum spawn chance to show results for.");
-			numericUpDownNPCSpawnThreshold.ValueChanged += NumericUpDownNPCSpawnThreshold_ValueChanged;
-			numericUpDownNPCSpawnThreshold.Click += SetAcceptButtonNPC;
-			numericUpDownNPCSpawnThreshold.Enter += NumericUpDownNPCSpawnThreshold_MouseEnter;
-			// 
 			// buttonSearchScrap
 			// 
 			buttonSearchScrap.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
@@ -1031,7 +1003,7 @@ namespace CommonwealthCartography
 			listBoxNPC.Location = new System.Drawing.Point(7, 22);
 			listBoxNPC.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			listBoxNPC.Name = "listBoxNPC";
-			listBoxNPC.Size = new System.Drawing.Size(165, 154);
+			listBoxNPC.Size = new System.Drawing.Size(165, 184);
 			listBoxNPC.TabIndex = 0;
 			listBoxNPC.SelectedIndexChanged += SetAcceptButtonNPC;
 			listBoxNPC.Enter += SetAcceptButtonNPC;
@@ -1322,8 +1294,6 @@ namespace CommonwealthCartography
 			// groupBoxNPCSearch
 			// 
 			groupBoxNPCSearch.Controls.Add(listBoxNPC);
-			groupBoxNPCSearch.Controls.Add(labelMinSpawnChance);
-			groupBoxNPCSearch.Controls.Add(numericUpDownNPCSpawnThreshold);
 			groupBoxNPCSearch.Controls.Add(buttonSearchNPC);
 			groupBoxNPCSearch.Location = new System.Drawing.Point(8, 6);
 			groupBoxNPCSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -1465,7 +1435,6 @@ namespace CommonwealthCartography
 			menuStripMain.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)gridViewSearchResults).EndInit();
 			((System.ComponentModel.ISupportInitialize)gridViewLegend).EndInit();
-			((System.ComponentModel.ISupportInitialize)numericUpDownNPCSpawnThreshold).EndInit();
 			tabControlMainSearch.ResumeLayout(false);
 			tabPageSpace.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)pictureBoxSpaceFiller).EndInit();
@@ -1482,7 +1451,6 @@ namespace CommonwealthCartography
 			groupBoxRegionSearch.PerformLayout();
 			groupBoxScrapSearch.ResumeLayout(false);
 			groupBoxNPCSearch.ResumeLayout(false);
-			groupBoxNPCSearch.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapPreview).EndInit();
 			splitContainerMain.Panel1.ResumeLayout(false);
 			splitContainerMain.Panel1.PerformLayout();
@@ -1518,8 +1486,6 @@ namespace CommonwealthCartography
 		private System.Windows.Forms.Button buttonSearchNPC;
 		private System.Windows.Forms.ListBox listBoxScrap;
 		private System.Windows.Forms.ListBox listBoxNPC;
-		private System.Windows.Forms.Label labelMinSpawnChance;
-		private System.Windows.Forms.NumericUpDown numericUpDownNPCSpawnThreshold;
 		private System.Windows.Forms.ToolStripMenuItem searchSettingsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem userGuidesMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showFormIDMenuItem;

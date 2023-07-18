@@ -62,7 +62,6 @@ namespace CommonwealthCartography
 			settings.Add("[Search]");
 			settings.Add("showFormID=" + BoolToIntStr(SettingsSearch.showFormID));
 			settings.Add("searchInAllSpaces=" + BoolToIntStr(SettingsSearch.searchInAllSpaces));
-			settings.Add("spawnChance=" + SettingsSearch.spawnChance);
 
 			// SettingsPlot
 			settings.Add("[Plot]");
@@ -239,15 +238,6 @@ namespace CommonwealthCartography
 
 						case "searchInAllSpaces":
 							SettingsSearch.searchInAllSpaces = StrIntToBool(value);
-							break;
-
-						case "spawnChance":
-							int spawnChance = Convert.ToInt32(value);
-							if (ValidateWithinRange(spawnChance, SettingsSearch.spawnChanceMin, SettingsSearch.spawnChanceMax))
-							{
-								SettingsSearch.spawnChance = spawnChance;
-							}
-
 							break;
 
 						case "mode":
@@ -522,6 +512,7 @@ namespace CommonwealthCartography
 						case "searchInterior":
 						case "layerMilitary":
 						case "hideLegend":
+						case "spawnChance":
 							break;
 
 						default:
