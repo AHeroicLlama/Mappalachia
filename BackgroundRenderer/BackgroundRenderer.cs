@@ -170,6 +170,13 @@ namespace BackgroundRenderer
 				}
 
 				int range = Math.Max(space.xRange, space.yRange);
+
+				if (range == 0)
+				{
+					LogError($"Space {space.editorID} has a natural range of 0. Does it need to be mapped?");
+					range = 1;
+				}
+
 				double scale = ((double)resolution / range) * space.nudgeScale;
 
 				if (scale > maxScale || scale < minScale)
