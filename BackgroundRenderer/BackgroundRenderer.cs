@@ -174,7 +174,8 @@ namespace BackgroundRenderer
 
 				if (scale > maxScale || scale < minScale)
 				{
-					LogError($"Space {space.editorID} too small or large to render at this resolution! (Scale of {scale} outside range {minScale}-{maxScale}). Change the render resolution in order to preserve the scale\nFormID: {space.formID}\n");
+					LogError($"Space {space.editorID} too small or large to render at this resolution! (Scale of {scale} outside range {minScale}-{maxScale})." +
+						$" Change the render resolution in order to preserve the scale. FormID: {space.formID}");
 				}
 
 				// Default camera height unless a custom height was defined to cut into roofs
@@ -223,7 +224,7 @@ namespace BackgroundRenderer
 		static void LogError(string err)
 		{
 			Console.WriteLine(err);
-			File.AppendAllText(imageDirectory + "\\errors.txt", err);
+			File.AppendAllText(imageDirectory + "\\errors.txt", err + "\n");
 		}
 	}
 }
