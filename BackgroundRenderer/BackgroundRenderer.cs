@@ -34,7 +34,10 @@ namespace BackgroundRenderer
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
 		static readonly List<string> extraSmallCells = new List<string>()
 		{
-
+			"ElevTransHiTechInstitute",
+			"ElevTransHiTech",
+			"ElevTransPub",
+			"MassFusion02Trans",
 		};
 
 		public static void Main()
@@ -169,6 +172,7 @@ namespace BackgroundRenderer
 				{
 					LogError($"Space {space.editorID} too small or large to render at this resolution! (Scale of {scale} outside range {minScale}-{maxScale})." +
 						$" Change the render resolution in order to preserve the scale. FormID: {space.formID}");
+					continue;
 				}
 
 				// Default camera height unless a custom height was defined to cut into roofs

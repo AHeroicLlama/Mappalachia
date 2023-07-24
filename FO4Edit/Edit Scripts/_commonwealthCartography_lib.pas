@@ -46,6 +46,9 @@ unit _commonwealthCartography_lib;
 	begin
 		if 	(spaceName = '') or
 			(spaceEditorID = '') or
+			(spaceEditorID = 'DiamondCityFX') or // These 3 cells appear normal, but only contain 1 entity
+			(spaceEditorID = 'ccTOSFO4001') or
+			(spaceEditorID = 'Vault111Start') or
 			(spaceName = 'Quick Test Cell') or
 
 			(pos('PackIn', spaceEditorID) <> 0) or
