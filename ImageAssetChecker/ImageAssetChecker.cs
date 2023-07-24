@@ -94,12 +94,6 @@ namespace ImageAssetChecker
 			// Validate each Space in the database has a corresponding image jpg file
 			foreach (Space space in spaces)
 			{
-				// Skip checking CharGen02-05 as they're duplicates of 01. Background renderer and main GUI account for this
-				if (space.GetEditorId().StartsWith("CharGen") && space.GetEditorId() != "CharGen01")
-				{
-					continue;
-				}
-
 				string editorId = space.GetEditorId();
 				bool isWorldSpace = space.IsWorldspace();
 				string subDirectory = isWorldSpace ? string.Empty : cellDirectoryPath;

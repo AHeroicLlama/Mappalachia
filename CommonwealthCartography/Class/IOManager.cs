@@ -276,12 +276,6 @@ namespace CommonwealthCartography
 			// Otherwise look for the default background image for the worldspace
 			string editorID = space.editorID;
 
-			// Special case for duplicate cells which can share an image
-			if (editorID.StartsWith("CharGen"))
-			{
-				editorID = "CharGen01";
-			}
-
 			string filepath = imgFolder + (!space.IsWorldspace() ? "\\cell\\" : string.Empty) + editorID + MapFileExtension;
 
 			try
