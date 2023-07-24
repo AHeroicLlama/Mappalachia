@@ -104,3 +104,6 @@ dotnet_diagnostic.SA1203.severity = none
 
 # CA1062: Validate arguments of public methods
 dotnet_diagnostic.CA1062.severity = none
+
+# SA1118: The parameter spans multiple lines
+dotnet_diagnostic.SA1118.severity = none
