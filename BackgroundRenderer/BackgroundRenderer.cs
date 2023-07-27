@@ -192,7 +192,7 @@ namespace BackgroundRenderer
 				string renderCommand = $"{utilsRenderPath} \"{fo4DataPath}\\Fallout4.esm\" {renderFile} {resolution} {resolution} " +
 					$"\"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} " +
-					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm fog -xm cloud -xm effects";
+					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -deftxt 0x000AB07E -xm fog -xm cloud -xm effects";
 
 				string resizeCommand = $"\"{magickPath}\" convert {renderFile} -resize {nativeResolution}x{nativeResolution} " +
 						$"-quality {(space.isWorldspace ? worldspaceQuality : cellQuality)} JPEG:{convertedFile}";
