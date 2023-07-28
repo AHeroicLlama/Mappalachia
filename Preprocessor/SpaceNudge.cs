@@ -6,7 +6,7 @@ namespace CommonwealthCartography
 	{
 		public static CSVFile AddNudgeToSpaces(CSVFile spaceInfoFile)
 		{
-			List<string> newFileHeader = new List<string> { "spaceFormID", "spaceEditorID", "spaceDisplayName", "isWorldspace", "nudgeX", "nudgeY", "nudgeScale" };
+			List<string> newFileHeader = new List<string> { "spaceFormID", "spaceEditorID", "spaceDisplayName", "isWorldspace", "nudgeX", "nudgeY", "nudgeScale", "esmNumber" };
 			List<CSVRow> newFileRows = new List<CSVRow>();
 
 			foreach (CSVRow row in spaceInfoFile.rows)
@@ -31,7 +31,7 @@ namespace CommonwealthCartography
 					$"{row.GetCellFromColumn("spaceEditorID")}," +
 					$"{row.GetCellFromColumn("spaceDisplayName")}," +
 					$"{row.GetCellFromColumn("isWorldspace")}," +
-					$"{nudgeX},{nudgeY},{nudgeScale}", newFileHeader));
+					$"{nudgeX},{nudgeY},{nudgeScale},{row.GetCellFromColumn("esmNumber")}", newFileHeader));
 			}
 
 			return new CSVFile("Space_Info.csv", newFileHeader, newFileRows);

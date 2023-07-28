@@ -65,6 +65,9 @@ sqlite3.exe %databaseFile% < SQLiteBatchCSVImport.txt
 echo Replacing previously escaped characters...
 sqlite3.exe %databaseFile% < sql/replaceEscapedChars.sql
 
+echo De-Duping ESMs...
+sqlite3.exe %databaseFile% < sql/deDupeEsms.sql
+
 echo Building combined tables...
 sqlite3.exe %databaseFile% < sql/buildCombinedTables.sql
 

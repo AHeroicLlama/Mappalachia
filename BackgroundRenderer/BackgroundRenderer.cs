@@ -99,7 +99,7 @@ namespace BackgroundRenderer
 			connection.Open();
 
 			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = "SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale FROM Space_Info ORDER BY isWorldspace desc";
+			query.CommandText = "SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale, esmNumber FROM Space_Info ORDER BY isWorldspace desc";
 			query.Parameters.Clear();
 			SqliteDataReader reader = query.ExecuteReader();
 
@@ -131,7 +131,8 @@ namespace BackgroundRenderer
 					Math.Abs(reader.GetInt32(8) - reader.GetInt32(7)),
 					reader.GetInt32(9),
 					reader.GetInt32(10),
-					reader.GetFloat(11)));
+					reader.GetFloat(11),
+					reader.GetInt32(12)));
 			}
 
 			Console.WriteLine($"\nRendering {spaces.Count} space{(spaces.Count == 1 ? string.Empty : "s")}. Cells at {cellRenderResolution}px, Worldspaces at {worldspaceRenderResolution}px");
@@ -143,10 +144,10 @@ namespace BackgroundRenderer
 				Console.WriteLine($"\n0x{space.formID} : {space.editorID} ({i} of {spaces.Count})");
 				int resolution = space.isWorldspace ? worldspaceRenderResolution : cellRenderResolution;
 
-				if (resolution > nativeResolution && extraSmallCells.Contains(space.editorID))
+				if (extraSmallCells.Contains(space.editorID))
 				{
 					Console.WriteLine($"Rendering space {space.editorID} at {nativeResolution} instead due to small size");
-					resolution = nativeResolution;
+					resolution = 2048;
 				}
 
 				int range = Math.Max(space.xRange, space.yRange);
@@ -157,16 +158,17 @@ namespace BackgroundRenderer
 					continue;
 				}
 
-				double scale = ((double)resolution / range) * space.nudgeScale;
-
 				// Override Commonwealth scale to match in-game map
 				if (space.editorID == "Commonwealth")
 				{
 					// TODO find proper scale
-					scale = 0.028 / (16384d / worldspaceRenderResolution);
-					space.xCenter = 0;
-					space.yCenter = 0;
+					space.nudgeScale = 1.85f;
+					space.xCenter = -20000;
+					space.yCenter = 2000;
+					space.esmNumber = 0;
 				}
+
+				double scale = ((double)resolution / range) * space.nudgeScale;
 
 				if (scale > maxScale || scale < minScale)
 				{
@@ -189,7 +191,9 @@ namespace BackgroundRenderer
 				double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
 				double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
 
-				string renderCommand = $"{utilsRenderPath} \"{fo4DataPath}\\Fallout4.esm\" {renderFile} {resolution} {resolution} " +
+				Console.WriteLine(GetESM(space.esmNumber));
+
+				string renderCommand = $"{utilsRenderPath} \"{fo4DataPath}\\{GetESM(space.esmNumber)}\" {renderFile} {resolution} {resolution} " +
 					$"\"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} " +
 					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -deftxt 0x000AB07E -xm fog -xm cloud -xm effects";
@@ -224,7 +228,7 @@ namespace BackgroundRenderer
 
 					string waterMaskRenderFile = $"{imageDirectory}{space.editorID}_waterMask.dds";
 
-					string waterMaskRenderCommand = $"{utilsRenderPath} \"{fo4DataPath}\\Fallout4.esm\" {waterMaskRenderFile} {resolution} {resolution} " +
+					string waterMaskRenderCommand = $"{utilsRenderPath} \"{fo4DataPath}\\{GetESM(space.esmNumber)}\" {waterMaskRenderFile} {resolution} {resolution} " +
 						$"\"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 						$"-light 1 0 0 -ssaa {SSAA} -ltxtres 64 -wtxt \"\" -wrefl 0 -watercolor 0x7F0000FF " +
 						$"-xm bog -xm swamp -xm forest -xm grass -xm plants -xm trees -xm water -xm fog -xm cloud -xm effects";
@@ -245,6 +249,27 @@ namespace BackgroundRenderer
 
 			Console.WriteLine($"Finished in {stopwatch.Elapsed}");
 			Console.ReadKey();
+		}
+
+		static string GetESM(int esmNumber)
+		{
+			switch (esmNumber)
+			{
+				case 0:
+					return "Fallout4.esm";
+				case 2:
+					return "DLCRobot.esm";
+				case 4:
+					return "DLCCoast.esm";
+				case 6:
+					return "DLCworkshop03.esm";
+				case 7:
+					return "DLCNukaWorld.esm";
+
+				default:
+					LogError("Unknown ESM number (" + esmNumber + ")");
+					return string.Empty;
+			}
 		}
 
 		static void LogError(string err)

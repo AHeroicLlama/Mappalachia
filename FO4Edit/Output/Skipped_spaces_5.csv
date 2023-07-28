@@ -1,3 +1,3 @@
-spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
-01000B7F,TestDrewWorkshop,Quick Test Cell,0
-0100095A,TestCory01,Quick Test Cell,0
+spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,esmNumber
+01000B7F,TestDrewWorkshop,Quick Test Cell,0,5
+0100095A,TestCory01,Quick Test Cell,0,5

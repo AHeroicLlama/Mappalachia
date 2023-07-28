@@ -2,7 +2,7 @@
 CREATE TABLE NPC_Spawn(npc TEXT, locationFormID TEXT, chance REAL);
 CREATE TABLE Quantified_Scrap(component TEXT, componentQuantity INTEGER, junkFormID TEXT);
 CREATE TABLE Entity_Info(entityFormID TEXT, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);
-CREATE TABLE Space_Info(spaceFormID TEXT, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, nudgeX INTEGER, nudgeY INTEGER, nudgeScale REAL);
-CREATE TABLE Position_Data(spaceFormID TEXT, referenceFormID TEXT, x INTEGER, y INTEGER, z INTEGER, locationFormID TEXT, lockLevel TEXT, primitiveShape TEXT, boundX INTEGER, boundY INTEGER, boundZ INTEGER, rotZ INTEGER, mapMarkerName TEXT, label TEXT, instanceFormID TEXT);
-CREATE TABLE Map_Markers(spaceFormID TEXT, label TEXT, mapMarkerName TEXT, x INTEGER, y INTEGER);
+CREATE TABLE Space_Info(spaceFormID TEXT, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, nudgeX INTEGER, nudgeY INTEGER, nudgeScale REAL, esmNumber INTEGER);
+CREATE TABLE Position_Data(spaceFormID TEXT, referenceFormID TEXT, x INTEGER, y INTEGER, z INTEGER, locationFormID TEXT, lockLevel TEXT, primitiveShape TEXT, boundX INTEGER, boundY INTEGER, boundZ INTEGER, rotZ INTEGER, mapMarkerName TEXT, label TEXT, esmNumber INTEGER, instanceFormID TEXT);
+CREATE TABLE Map_Markers(spaceFormID TEXT, label TEXT, mapMarkerName TEXT, x INTEGER, y INTEGER, esmNumber INTEGER);
 CREATE TABLE Region(spaceFormID TEXT, regionFormID TEXT, regionEditorID TEXT, regionNum INTEGER, coordNum INTEGER, x INTEGER, y INTEGER);

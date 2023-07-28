@@ -1,7 +1,7 @@
-spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
-01001E0A,,,0
-01001E0B,,,0
-01001E0C,,,0
-01001E0D,PackInDLC06CeilingLIghtStorageCell,,0
-01003F89,,,0
-010022A5,,,0
+spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,esmNumber
+01001E0A,,,0,6
+01001E0B,,,0,6
+01001E0C,,,0,6
+01001E0D,PackInDLC06CeilingLIghtStorageCell,,0,6
+01003F89,,,0,6
+010022A5,,,0,6

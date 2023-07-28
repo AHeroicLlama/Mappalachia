@@ -14,8 +14,8 @@ unit _commonwealthCartography_spaceInfo;
 		outputStrings := TStringList.Create;
 
 		// Write CSV column headers
-		skippedSpaces.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace');
-		outputStrings.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace');
+		skippedSpaces.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,esmNumber');
+		outputStrings.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,esmNumber');
 
 		ripWorldSpaces();
 		ripCells();
@@ -79,7 +79,7 @@ unit _commonwealthCartography_spaceInfo;
 		spaceEditorID := EditorID(space);
 		spaceDisplayName := sanitize(DisplayName(space));
 
-		entry := IntToHex(FixedFormId(space), 8) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace);
+		entry := IntToHex(FixedFormId(space), 8) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace) + ',' + intToStr(esmNumber);
 
 		if (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin // Put valid in-game spacess in the right file, otherwise storing debug spaces elsewhere for the record
 			outputStrings.Add(entry);

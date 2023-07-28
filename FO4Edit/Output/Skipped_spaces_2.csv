@@ -1,28 +1,28 @@
-spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
-01002710,,,0
-01008084,TestCorrie,Quick Test Cell,0
-010008A2,DLC01LairHoldingCell,DLC01 Holding Cell,0
-010026B6,,,0
-0100A5BE,,,0
-0100C0D0,,,0
-0100C0D1,,,0
-0100E4EA,,,0
-0100C0D2,,,0
-01004BB6,PackInDLC01MechDoorGroup07StorageCell,,0
-0100E4EB,,,0
-01002623,TestTony,BoS Holding Cell,0
-01004BB7,PackInDLC01MechDoorGroup06StorageCell,,0
-01004BB8,PackInDLC01MechDoorGroup05StorageCell,,0
-0100112A,TestCory01,Quick Test Cell,0
-01008025,testau,Marker Cell,0
-0100A163,,,0
-0100C39B,,,0
-01004BB9,PackInDLC01MechDoorGroup04StorageCell,,0
-0100D436,,,0
-01004BBA,PackInDLC01MechDoorGroup03StorageCell,,0
-0001F7A9,QASmoke,Tunnels,0
-01004BBB,PackInDLC01MechDoorGroup02StorageCell,,0
-01004BBC,PackInDLC01MechDoorGroup01StorageCell,,0
-0100A5BD,,,0
-0100248F,DLC01HoldingCell,Quick Test Cell,0
-0100C0CF,,,0
+spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,esmNumber
+01002710,,,0,2
+01008084,TestCorrie,Quick Test Cell,0,2
+010008A2,DLC01LairHoldingCell,DLC01 Holding Cell,0,2
+010026B6,,,0,2
+0100A5BE,,,0,2
+0100C0D0,,,0,2
+0100C0D1,,,0,2
+0100E4EA,,,0,2
+0100C0D2,,,0,2
+01004BB6,PackInDLC01MechDoorGroup07StorageCell,,0,2
+0100E4EB,,,0,2
+01002623,TestTony,BoS Holding Cell,0,2
+01004BB7,PackInDLC01MechDoorGroup06StorageCell,,0,2
+01004BB8,PackInDLC01MechDoorGroup05StorageCell,,0,2
+0100112A,TestCory01,Quick Test Cell,0,2
+01008025,testau,Marker Cell,0,2
+0100A163,,,0,2
+0100C39B,,,0,2
+01004BB9,PackInDLC01MechDoorGroup04StorageCell,,0,2
+0100D436,,,0,2
+01004BBA,PackInDLC01MechDoorGroup03StorageCell,,0,2
+0001F7A9,QASmoke,Tunnels,0,2
+01004BBB,PackInDLC01MechDoorGroup02StorageCell,,0,2
+01004BBC,PackInDLC01MechDoorGroup01StorageCell,,0,2
+0100A5BD,,,0,2
+0100248F,DLC01HoldingCell,Quick Test Cell,0,2
+0100C0CF,,,0,2

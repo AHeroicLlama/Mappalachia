@@ -194,6 +194,7 @@ namespace CommonwealthCartography
 				case "componentQuantity":
 				case "regionNum":
 				case "coordNum":
+				case "esmNumber":
 					// Coordinates, offsets and counts must be exactly integers
 					if (!int.TryParse(data, out _))
 					{

@@ -27,7 +27,7 @@ namespace CommonwealthCartography
 		// Pull the MapMarker display text from position data and store it in a new file
 		public static CSVFile ProcessMapMarkers(CSVFile positionData)
 		{
-			List<string> newFileHeader = new List<string> { "spaceFormID", "label", "mapMarkerName", "x", "y" };
+			List<string> newFileHeader = new List<string> { "spaceFormID", "label", "mapMarkerName", "x", "y", "esmNumber" };
 			List<CSVRow> newFileRows = new List<CSVRow>();
 
 			foreach (CSVRow row in positionData.rows)
@@ -60,12 +60,6 @@ namespace CommonwealthCartography
 					continue;
 				}
 
-				// Misnamed workshop - can't correct with wrongLabelNames because there is 1 genuine Hemlock Holes too
-				if (label == "Hemlock Holes" && iconName == "FactoryMarker")
-				{
-					label = "Hemlock Holes Maintenance";
-				}
-
 				// Removes "Fast Travel Point: " from some (typically station) names
 				if (label.StartsWith(fastTravelBadString))
 				{
@@ -92,7 +86,8 @@ namespace CommonwealthCartography
 					label + "," +
 					iconName + "," +
 					row.GetCellFromColumn("x") + "," +
-					row.GetCellFromColumn("y");
+					row.GetCellFromColumn("y") + "," +
+					row.GetCellFromColumn("esmNumber");
 
 				newFileRows.Add(new CSVRow(newRow, newFileHeader));
 			}

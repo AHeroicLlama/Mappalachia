@@ -10,7 +10,7 @@ unit _commonwealthCartography_positionData;
 		outputFile = ProgramPath + 'Output\Position_Data_' + IntToStr(esmNumber) + '.csv';
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName'); // Write CSV column headers
+		outputStrings.add('spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName,esmNumber'); // Write CSV column headers
 
 		AddMessage('Beginning Commonwealth Cartography exterior position data export...');
 		ripWorldspaces();
@@ -158,7 +158,8 @@ unit _commonwealthCartography_positionData;
 				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
 				rotZ + ',' +
 				GetEditValue(ElementByName(ElementByName(ElementByName(item, 'Map Marker'), 'TNAM - TNAM'), 'Type')) + ',' +
-				sanitize(shortName));
+				sanitize(shortName) + ',' +
+				intToStr(esmNumber));
 		end;
 	end;
 end.

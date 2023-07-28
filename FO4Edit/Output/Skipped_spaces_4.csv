@@ -1,77 +1,77 @@
-spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
-01000810,TestClaraCoast,Clara Land,1
-010014F4,TestMadCoast,,1
-010041A0,,,0
-010108D8,,,0
-0100FC08,,,0
-0104926E,,,0
-01006E5A,TestMattD,Quick Test Cell,0
-01040D4E,,,0
-0104FC04,,,0
-01032370,PackInDLC03REPackInObjectStorageCell,,0
-010108CE,,,0
-010041A1,,,0
-0100FC09,,,0
-01011E7D,,,0
-01040D4F,,,0
-0104FC05,,,0
-01032371,PackInDLC03REPackInChokepointStorageCell,,0
-010108CF,,,0
-010509CF,,,0
-010041A2,,,0
-0100291A,TestCory01,Quick Test Cell,0
-0100FC0A,,,0
-01037930,DLC03Vault118HoldingCell,V118 Holding Cell,0
-01011E7E,,,0
-01040D50,,,0
-0104358C,,,0
-0104E4FA,PackInDLC03HavokOilLampwithHookStorageCell,,0
-01032372,PackInDLC03REPackInCampStorageCell,,0
-01036AEE,,,0
-010108D0,,,0
-010509D0,,,0
-01019CE7,DLC03AliasCell,Quick Test Cell,0
-0103F1C7,PackInDLC03HangingPlant01StorageCell,,0
-0100FC0B,,,0
-01001B79,DLC03FringeCoveDocks01,Quick Test Cell,0
-010501C5,,,0
-01040D51,,,0
-01008B4F,PackInDLC03InformationBoardMediumPackInStorageCell,,0
-010108D1,,,0
-010041A4,,,0
-0105460E,,,0
-0100FC0C,,,0
-01008B50,PackInDLC03InformationBoardSmallPackInStorageCell,,0
-01054456,PackInDLC03LvlAnglerAmbushPackInNEWStorageCell,,0
-01032374,PackInDLC03REPackInAssaultStorageCell,,0
-010540DC,,,0
-010108D2,,,0
-0104FFAA,,,0
-010041A5,,,0
-0104B64F,DLC03REHoldingCell,Quick Test Cell,0
-0104B357,PackInDLC03LvlGulperAmbushPackInStorageCell,,0
-01008831,TestTony,Quick Test Cell,0
-01008B51,PackInDLC03InformationBoardLargePackInStorageCell,,0
-0104FBAF,DLC03Adv017SpawnCell,Quick Test Cell,0
-010540DD,,,0
-010108D3,,,0
-01014177,,,0
-010041A6,,,0
-0100FC0E,,,0
-01048EC8,,,0
-001DFB07,,,0
-010041A7,,,0
-0100FC0F,,,0
-010108D5,,,0
-0103803E,TestGrantDLC03,Quick Test Cell,0
-0103236E,PackInDLC03REPackInTravelStorageCell,,0
-010108D6,,,0
-0100FC07,,,0
-0100FC11,,,0
-01000801,DLC03DungeonTemplate,Quick Test Cell,0
-01040D4D,,,0
-0104FC03,,,0
-0103236F,PackInDLC03REPackInSceneStorageCell,,0
-010542CB,,,0
-0100419F,,,0
-010108D7,,,0
+spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,esmNumber
+01000810,TestClaraCoast,Clara Land,1,4
+010014F4,TestMadCoast,,1,4
+010041A0,,,0,4
+010108D8,,,0,4
+0100FC08,,,0,4
+0104926E,,,0,4
+01006E5A,TestMattD,Quick Test Cell,0,4
+01040D4E,,,0,4
+0104FC04,,,0,4
+01032370,PackInDLC03REPackInObjectStorageCell,,0,4
+010108CE,,,0,4
+010041A1,,,0,4
+0100FC09,,,0,4
+01011E7D,,,0,4
+01040D4F,,,0,4
+0104FC05,,,0,4
+01032371,PackInDLC03REPackInChokepointStorageCell,,0,4
+010108CF,,,0,4
+010509CF,,,0,4
+010041A2,,,0,4
+0100291A,TestCory01,Quick Test Cell,0,4
+0100FC0A,,,0,4
+01037930,DLC03Vault118HoldingCell,V118 Holding Cell,0,4
+01011E7E,,,0,4
+01040D50,,,0,4
+0104358C,,,0,4
+0104E4FA,PackInDLC03HavokOilLampwithHookStorageCell,,0,4
+01032372,PackInDLC03REPackInCampStorageCell,,0,4
+01036AEE,,,0,4
+010108D0,,,0,4
+010509D0,,,0,4
+01019CE7,DLC03AliasCell,Quick Test Cell,0,4
+0103F1C7,PackInDLC03HangingPlant01StorageCell,,0,4
+0100FC0B,,,0,4
+01001B79,DLC03FringeCoveDocks01,Quick Test Cell,0,4
+010501C5,,,0,4
+01040D51,,,0,4
+01008B4F,PackInDLC03InformationBoardMediumPackInStorageCell,,0,4
+010108D1,,,0,4
+010041A4,,,0,4
+0105460E,,,0,4
+0100FC0C,,,0,4
+01008B50,PackInDLC03InformationBoardSmallPackInStorageCell,,0,4
+01054456,PackInDLC03LvlAnglerAmbushPackInNEWStorageCell,,0,4
+01032374,PackInDLC03REPackInAssaultStorageCell,,0,4
+010540DC,,,0,4
+010108D2,,,0,4
+0104FFAA,,,0,4
+010041A5,,,0,4
+0104B64F,DLC03REHoldingCell,Quick Test Cell,0,4
+0104B357,PackInDLC03LvlGulperAmbushPackInStorageCell,,0,4
+01008831,TestTony,Quick Test Cell,0,4
+01008B51,PackInDLC03InformationBoardLargePackInStorageCell,,0,4
+0104FBAF,DLC03Adv017SpawnCell,Quick Test Cell,0,4
+010540DD,,,0,4
+010108D3,,,0,4
+01014177,,,0,4
+010041A6,,,0,4
+0100FC0E,,,0,4
+01048EC8,,,0,4
+001DFB07,,,0,4
+010041A7,,,0,4
+0100FC0F,,,0,4
+010108D5,,,0,4
+0103803E,TestGrantDLC03,Quick Test Cell,0,4
+0103236E,PackInDLC03REPackInTravelStorageCell,,0,4
+010108D6,,,0,4
+0100FC07,,,0,4
+0100FC11,,,0,4
+01000801,DLC03DungeonTemplate,Quick Test Cell,0,4
+01040D4D,,,0,4
+0104FC03,,,0,4
+0103236F,PackInDLC03REPackInSceneStorageCell,,0,4
+010542CB,,,0,4
+0100419F,,,0,4
+010108D7,,,0,4

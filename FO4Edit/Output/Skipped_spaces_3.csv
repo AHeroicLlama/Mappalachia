@@ -1,5 +1,5 @@
-spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
-01000BE3,DLC02HoldingCell,Quick Test Cell,0
-0100091F,CTESTCOPY0000,Quick Test Cell,0
-00000025,NavMeshGenCell,,0
-01000C10,DLC02TestTraps,Quick Test Cell,0
+spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,esmNumber
+01000BE3,DLC02HoldingCell,Quick Test Cell,0,3
+0100091F,CTESTCOPY0000,Quick Test Cell,0,3
+00000025,NavMeshGenCell,,0,3
+01000C10,DLC02TestTraps,Quick Test Cell,0,3
