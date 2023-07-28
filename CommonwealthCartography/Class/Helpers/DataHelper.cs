@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,8 +7,8 @@ namespace CommonwealthCartography
 	// Provides data helper methods, data translation and sorting
 	public static class DataHelper
 	{
-		// A list of entities which are often (mis)represented instead by LVLI in the data
-		public static readonly List<string> typicalLVLIItems = new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" };
+		// A list of entities which are often (mis)represented instead by MISC in the data
+		public static readonly List<string> typicalMISCItems = new List<string> { "FLOR", "ALCH", "WEAP", "ARMO", "BOOK", "AMMO" };
 
 		static readonly Dictionary<string, string> signatureDescription = new Dictionary<string, string>
 		{
@@ -18,14 +18,14 @@ namespace CommonwealthCartography
 				"Activators can mark out designated areas, trigger events, or act as 'hit-boxes' for interaction." },
 			{ "LIGH", string.Empty },
 			{ "NPC_", "Non-player character." },
-			{ "MISC", "Junk, Scrap or Mod." },
+			{ "MISC", "Junk, Scrap or other levelled Loot." },
 			{ "MSTT", "Environmental scenery which animates or responds to physics." },
 			{ "BOOK", "Note, Plan or Recipe." },
 			{ "CONT", "Anything which can hold items." },
 			{ "FURN", "Object or position which a character can use to enter into an animation.\n" +
 				"Includes workbenches and instruments, but also NPC ambush positions such as scorchbeast spawns." },
-			{ "LVLI", "Lootable object which has some odds of spawning (up to and including 100% chances)\n" +
-				"Many items of different categories are in fact included under this one." },
+			//{ "LVLI", "Lootable object which has some odds of spawning (up to and including 100% chances)\n" +
+			//	"Many items of different categories are in fact included under this one." },
 			{ "TERM", string.Empty },
 			{ "TXST", "A decal applied to a surface such as paint or dirt." },
 			{ "DOOR", string.Empty },
@@ -42,9 +42,9 @@ namespace CommonwealthCartography
 			{ "AMMO", string.Empty },
 			{ "IDLM", "Allows an npc to enter an idle animation." },
 			{ "BNDS", "A curved line shape. Usually used for power lines." },
-			{ "SECH", "Trigger for echo sound effect." },
+			//{ "SECH", "Trigger for echo sound effect." },
 			{ "PROJ", "An 'armed' weapon such as a mine." },
-			{ "CNCY", string.Empty },
+			//{ "CNCY", string.Empty },
 			{ "REGN", "Defines the edges of map regions." },
 		};
 
@@ -56,12 +56,12 @@ namespace CommonwealthCartography
 			{ "ACTI", "Activator" },
 			{ "LIGH", "Light" },
 			{ "NPC_", "NPC" },
-			{ "MISC", "Junk/Scrap" },
+			{ "MISC", "Junk/Loot" },
 			{ "MSTT", "Moveable static" },
 			{ "BOOK", "Note/Plan" },
 			{ "CONT", "Container" },
 			{ "FURN", "Furniture" },
-			{ "LVLI", "Loot" },
+			//{ "LVLI", "Loot" },
 			{ "TERM", "Terminal" },
 			{ "TXST", "Decal" },
 			{ "DOOR", "Door" },
@@ -78,9 +78,9 @@ namespace CommonwealthCartography
 			{ "AMMO", "Ammo" },
 			{ "IDLM", "Idle marker" },
 			{ "BNDS", "Spline" },
-			{ "SECH", "Echo" },
+			//{ "SECH", "Echo" },
 			{ "PROJ", "Projectile" },
-			{ "CNCY", "Currency" },
+			//{ "CNCY", "Currency" },
 			{ "REGN", "Region" },
 		};
 
@@ -89,7 +89,7 @@ namespace CommonwealthCartography
 		// Items not on this list are added to the bottom
 		public static readonly List<string> suggestedSignatureSort = new List<string>
 		{
-			"LVLI",
+			//"LVLI",
 			"FLOR",
 			"NPC_",
 			"MISC",
@@ -106,7 +106,7 @@ namespace CommonwealthCartography
 			"WEAP",
 			"AMMO",
 			"PROJ",
-			"CNCY",
+			//"CNCY",
 			"KEYM",
 			"ACTI",
 			"TACT",
@@ -115,7 +115,7 @@ namespace CommonwealthCartography
 			"IDLM",
 			"LIGH",
 			"SOUN",
-			"SECH",
+			//"SECH",
 			"ASPC",
 			"TXST",
 			"BNDS",
@@ -125,7 +125,7 @@ namespace CommonwealthCartography
 		// This helps prevent new users being flooded with less relevant or more technical results.
 		public static readonly List<string> recommendedSignatures = new List<string>
 		{
-			"LVLI",
+			//"LVLI",
 			"FLOR",
 			"NPC_",
 			"MISC",
@@ -142,7 +142,7 @@ namespace CommonwealthCartography
 			"WEAP",
 			"AMMO",
 			"PROJ",
-			"CNCY",
+			//"CNCY",
 			"KEYM",
 			"ACTI",
 			/*"TACT",
@@ -164,10 +164,6 @@ namespace CommonwealthCartography
 		static readonly Dictionary<string, string> lockLevelToFriendlyName = new Dictionary<string, string>
 		{
 			{ string.Empty,         "Not locked" },
-			{ "Novice (Level 0)",   "Level 0" },
-			{ "Advanced (Level 1)", "Level 1" },
-			{ "Expert (Level 2)",   "Level 2" },
-			{ "Master (Level 3)",   "Level 3" },
 		};
 
 		// Inverse the user friendly lock names so we can use the proper lock levels in queries
@@ -178,10 +174,11 @@ namespace CommonwealthCartography
 		public static readonly List<string> suggestedLockLevelSort = new List<string>
 		{
 			string.Empty,
-			"Novice (Level 0)",
-			"Advanced (Level 1)",
-			"Expert (Level 2)",
-			"Master (Level 3)",
+			"Novice 1",
+			"Novice 25",
+			"Advanced",
+			"Expert",
+			"Master",
 			"Requires Terminal",
 			"Requires Key",
 			"Chained",
@@ -280,10 +277,10 @@ namespace CommonwealthCartography
 				.Replace(" ", "%") + "%";
 		}
 
-		// Indicate the spawn chance of a standard item based on understandings of LVLI
+		// Indicate the spawn chance of a standard item based on understandings of LVLI/MISC
 		public static float GetSpawnChance(string signature, string editorID)
 		{
-			return (signature == "LVLI" || editorID.Contains("ChanceNone")) ? -1 : 100;
+			return (signature == "MISC" || editorID.Contains("ChanceNone")) ? -1 : 100;
 		}
 
 		// Returns the nth item in a list as if it were cyclic (supports <0 or >n)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,7 +27,7 @@ namespace CommonwealthCartography
 		static CancellationToken mapDrawCancToken;
 
 		const int searchResultsLargeAmount = 50; // Size of search results at which we need to disable the DataGridView before we populate it
-		static bool warnedLVLINotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
+		static bool warnedMISCNotUsed = false; // Flag for if we've displayed this warning, so as to only show once per run
 		static bool forceDrawBaseLayer = false; // Force a base layer redraw at the next draw event
 		static Point lastMouseDownPos;
 
@@ -368,39 +369,22 @@ namespace CommonwealthCartography
 		{
 			List<string> searchTermHints = new List<string>
 			{
-				// TODO Generate for fo4
 				"Nuka Cola",
 				"Caps Stash",
 				"Thistle",
-				"Overseer's Cache",
-				"Vein",
-				"Instrument",
-				"Recipe",
-				"Protest Sign",
 				"Trunk Boss",
-				"Treasure Map Mound",
-				"Hardpoint",
 				"Rare",
 				"Teddy Bear",
 				"Workbench",
-				"NoCampAllowed",
-				"PowerArmorFurniture_",
+				"PowerArmorFurniture",
 				"RETrigger",
-				"P01C_Bucket_Loot",
-				"SFM04_Organic_Pod",
 				"Flora",
-				"LPI_Food",
-				"LvlCritter",
-				"Alcohol",
-				"Wind Chimes",
 				"Pre War Money",
-				"LPI_Chem",
-				"Tales from West Virginia",
 				"Fusion Core",
-				"Alien Blaster",
-				"Strange Encounter",
-				"Ginseng",
-				"Pumpkin",
+				"UFO Crash Site",
+				"Jet",
+				"San Francisco Sunlights",
+				"Synth",
 			};
 
 			textBoxSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
@@ -411,11 +395,9 @@ namespace CommonwealthCartography
 		{
 			List<string> searchTermHints = new List<string>
 			{
-				// TODO Generate for fo4
-				"76Border",
-				"NonNukableZone",
-				"WorkshopMunitionsFactory",
-				"ObjectRegion",
+				"Border",
+				"MapDistrict",
+				"Glowing Sea Audio",
 			};
 
 			textBoxRegionSearch.Text = searchTermHints[new Random().Next(searchTermHints.Count)];
@@ -819,28 +801,41 @@ namespace CommonwealthCartography
 			return lockTypes;
 		}
 
-		// Warn the user if they appear to be trying to search for something that might actually be in a LVLI, but they have unselected it
-		void WarnWhenLVLINotSelected()
+		Regex gravy = new Regex("a(nother)? settlement (that )?((needs?)|(ha((s)|(ve)) asked for)) y?our help");
+
+		bool Radiant()
+		{
+			if (gravy.IsMatch(textBoxSearch.Text))
+			{
+				Notify.Error("I'll mark it on your map.");
+				return true;
+			}
+
+			return false;
+		}
+
+		// Warn the user if they appear to be trying to search for something that might actually be in a MISC, but they have unselected it
+		void WarnWhenMISCNotSelected()
 		{
 			// Already warned - we only do this once per session
-			if (warnedLVLINotUsed)
+			if (warnedMISCNotUsed)
 			{
 				return;
 			}
 
 			List<string> enabledSignatures = GetEnabledSignatures();
-			if (!enabledSignatures.Contains("LVLI"))
+			if (!enabledSignatures.Contains("MISC"))
 			{
-				// A list of signatures that seem to typically be represented by LVLI
-				foreach (string signatureToWarn in DataHelper.typicalLVLIItems)
+				// A list of signatures that seem to typically be represented by MISC
+				foreach (string signatureToWarn in DataHelper.typicalMISCItems)
 				{
 					if (enabledSignatures.Contains(signatureToWarn))
 					{
 						Notify.Info(
-							"Your search results may be restricted because you have 'Loot' unchecked under the categories filter.\n" +
-							"Many desirable items in Fallout 4 are categorized generically as 'Loot'.\n" +
+							$"Your search results may be restricted because you have '{DataHelper.ConvertSignature("MISC", false)}' unchecked under the categories filter.\n" +
+							$"Many desirable items in Fallout 4 are categorized generically as '{DataHelper.ConvertSignature("MISC", false)}'.\n" +
 							"If you can't find what you're looking for, make sure to enable it and search again.");
-						warnedLVLINotUsed = true;
+						warnedMISCNotUsed = true;
 						return;
 					}
 				}
@@ -1609,12 +1604,13 @@ namespace CommonwealthCartography
 			UpdateProgressBar(0.25, "Searching...", true);
 
 			// Check for and show warnings
-			WarnWhenLVLINotSelected();
+			WarnWhenMISCNotSelected();
 
 			// If there are no filters selected, inform and cancel the search
-			if (WarnWhenAllFiltersBlank())
+			if (WarnWhenAllFiltersBlank() || Radiant())
 			{
 				buttonSearch.Enabled = true;
+				UpdateProgressBar(1);
 				return;
 			}
 
