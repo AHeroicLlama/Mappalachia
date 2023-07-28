@@ -1,4 +1,5 @@
 spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
+00000F93,DiamondCityFX,Diamond City,1
 000782A8,MinutemenHoldingCell,Minutemen Holding Cell,0
 00092A18,PackInSpotlight_Swivel_OffNEWStorageCell,,0
 00155874,COPY0068,,0
@@ -59,7 +60,6 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00173DD8,COPY0101,,0
 00198DA4,,,0
 00199060,PackInDummy_Weap_LaserGun_RifleShortStorageCell,,0
-00001E5A,DmndSurgeryCellar01,Surgery Cellar,0
 00083FFE,PackInLvlStingwingAmbushWallPackInStorageCell,,0
 000A5E92,PackInLvlRadStagDefaultPackInStorageCell,,0
 000B35CE,PackInDummy_Ammo_FusionCellStorageCell,,0
@@ -337,6 +337,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00198DA7,,,0
 00199063,,,0
 002105C3,,,0
+0024A197,ccTOSFO4001,Noir Penthouse,0
 0002F295,REHoldingCell,Quick Test Cell,0
 00072E2D,PackInCeilingLight02StorageCell,,0
 00089399,PackInFloorLampPackInStorageCell,,0
@@ -739,7 +740,6 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0021CA6C,,,0
 0024A2F0,ccEEJFO4VLTInterior01,Quick Test Cell,0
 000A342E,PackInLvlFeralGhoulAggro512CrawlFlatPackInStorageCell,,0
-000A36EA,SanctuaryBasementJahani,Root Cellar,0
 000E4E92,COPY0012,,0
 001184D6,COPY0053DUPLICATE000,,0
 0017B9E6,COPY0107,,0
@@ -794,7 +794,6 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 000A5E9A,PackInLvlGunnerDefaultPackInStorageCell,,0
 000B35D6,PackInDummy_Ammo_AnyStorageCell,,0
 000C4EB2,PackInLvlMirelurkHunterAggro512GroundPackInStorageCell,,0
-0016FC4A,zPOIJoel06,Cellar,0
 0018271E,COPY0188,,0
 0019F4D6,COPY0218,,0
 00220036,,,0
@@ -832,7 +831,6 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00211D6B,,,0
 0021CA77,,,0
 000243CD,PackInDirtSlope01Forest01StorageCell,,0
-0002CFA5,GorskiCabin01,Root Cellar,0
 000815A5,WarehouseBathrooms,Quick Test Cell,0
 000E4E9D,COPY0023,,0
 000E8D81,COPY0040,,0
@@ -852,6 +850,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00198D8F,PackInDummy_Food_AllStorageCell,,0
 0019904B,,,0
 001E48E3,,,0
+000016D9,Vault111Start,Vault 111 Main Entrance,0
 00057129,PackInLvlMoleratAmbushShortStorageCell,,0
 000AECAD,COPY0283,,0
 00170F51,COPY0091,,0

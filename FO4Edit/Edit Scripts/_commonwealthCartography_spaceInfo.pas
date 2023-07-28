@@ -7,8 +7,8 @@ unit _commonwealthCartography_spaceInfo;
 
 	procedure Initialize;
 	const
-		outputFile = ProgramPath + 'Output\Space_Info.csv';
-		skippedspacesFile = ProgramPath + 'Output\Skipped_spaces.csv';
+		outputFile = ProgramPath + 'Output\Space_Info_' + IntToStr(esmNumber) + '.csv';
+		skippedspacesFile = ProgramPath + 'Output\Skipped_spaces_' + IntToStr(esmNumber) + '.csv';
 	begin
 		skippedSpaces := TStringList.Create;
 		outputStrings := TStringList.Create;
@@ -20,12 +20,17 @@ unit _commonwealthCartography_spaceInfo;
 		ripWorldSpaces();
 		ripCells();
 
-		createDir('Output');
-		AddMessage('Writing output to file: ' + outputFile);
-		outputStrings.SaveToFile(outputFile);
+		if (outputStrings.Count > 1) then begin
+			createDir('Output');
+			AddMessage('Writing output to file: ' + outputFile);
+			outputStrings.SaveToFile(outputFile);
+		end;
 
-		AddMessage('Writing skipped spaces to file: ' + skippedSpacesFile);
-		skippedSpaces.SaveToFile(skippedSpacesFile);
+		if (skippedspaces.Count > 1) then begin
+			createDir('Output');
+			AddMessage('Writing skipped spaces to file: ' + skippedSpacesFile);
+			skippedSpaces.SaveToFile(skippedSpacesFile);
+		end;
 	end;
 
 	procedure ripWorldspaces();

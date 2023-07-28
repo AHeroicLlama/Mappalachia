@@ -1,7 +1,9 @@
 // Commonwealth Cartography supporting functions - not to be run directly.
 unit _commonwealthCartography_lib;
 
-	const targetESM = FileByIndex(0);
+	const esmNumber = 0;
+	const targetESM = FileByIndex(esmNumber);
+	const fileName = GetFileName(targetESM);
 
 	// Remove commas and replace them with something safe for CSV
 	function sanitize(input: String): String;
@@ -14,7 +16,7 @@ unit _commonwealthCartography_lib;
 	// See: goToRipItem()
 	function processRecordGroup(signature, fileName, header: String): Integer;
 	const
-		outputFile = ProgramPath + 'Output\' + fileName + '.csv';
+		outputFile = ProgramPath + 'Output\' + fileName + '_' + IntToStr(esmNumber) + '.csv';
 		category = GroupBySignature(targetESM, signature);
 	var
 		i : Integer;
@@ -26,9 +28,11 @@ unit _commonwealthCartography_lib;
 			goToRipItem(elementByIndex(category, i), signature);
 		end;
 
-		AddMessage('Writing output to file: ' + outputFile);
-		createDir('Output');
-		outputStrings.SaveToFile(outputFile);
+		if (outputStrings.Count > 1) then begin
+			AddMessage('Writing output to file: ' + outputFile);
+			createDir('Output');
+			outputStrings.SaveToFile(outputFile);
+		end;
 	end;
 
 	// The ripItem method exists for many units.

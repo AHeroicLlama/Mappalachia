@@ -13,7 +13,7 @@ unit _commonwealthCartography_entityInfo;
 
 	procedure ripFormIDs(); // Primary block for iterating down tree
 	const
-		outputFile = ProgramPath + 'Output\Entity_Info.csv';
+		outputFile = ProgramPath + 'Output\Entity_Info_' + IntToStr(esmNumber) + '.csv';
 	var
 		i, j : Integer; // Iterators
 		signatureGroup : IInterface;
@@ -36,9 +36,11 @@ unit _commonwealthCartography_entityInfo;
 			end;
 		end;
 
-		AddMessage('Writing output to file: ' + outputFile);
-		createDir('Output');
-		outputStrings.SaveToFile(outputFile);
+		if (outputStrings.Count > 1) then begin
+			AddMessage('Writing output to file: ' + outputFile);
+			createDir('Output');
+			outputStrings.SaveToFile(outputFile);
+		end;
 	end;
 
 	procedure ripItem(item : IInterface; signature : String);

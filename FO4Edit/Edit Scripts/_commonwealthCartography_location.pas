@@ -24,7 +24,7 @@ unit _commonwealthCartography_location;
 			if (pos('LocEnc', value) = 1) then begin
 				// Different from 76, 4 seems to have statically assigned spawn types with no weight given where fo76 has multiple weighted variable spawns
 				// Lexington LCTN 00024FA8 seems to be the only place with 2 types (ghouls and raiders), although still no weight is given
-				weight := 10;
+				weight := 1;
 				outputStrings.Add(value + ',' + IntToStr(weight) + ',' + formID);
 			end;
 		end;

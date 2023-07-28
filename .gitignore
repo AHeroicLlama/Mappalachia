@@ -34,7 +34,7 @@ MapIconProcessor/extract
 
 #CSV Output from Edit Scripts & Preprocessor
 */Output/*.csv
-!*Skipped_Spaces.csv
+!*Skipped_Spaces_[0-7].csv
 
 #Packaged Commonwealth Cartography GUI Release
 CommonwealthCartography.zip

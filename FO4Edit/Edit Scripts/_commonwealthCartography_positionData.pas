@@ -7,7 +7,7 @@ unit _commonwealthCartography_positionData;
 
 	procedure Initialize;
 	const
-		outputFile = ProgramPath + 'Output\Position_Data.csv';
+		outputFile = ProgramPath + 'Output\Position_Data_' + IntToStr(esmNumber) + '.csv';
 	begin
 		outputStrings := TStringList.Create;
 		outputStrings.add('spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName'); // Write CSV column headers
@@ -19,9 +19,11 @@ unit _commonwealthCartography_positionData;
 		ripInteriors();
 		AddMessage('Finished Commonwealth Cartography interior position data export.');
 
-		AddMessage('Writing position data output to file: ' + outputFile);
-		createDir('Output');
-		outputStrings.SaveToFile(outputFile);
+		if (outputStrings.Count > 1) then begin
+			AddMessage('Writing position data output to file: ' + outputFile);
+			createDir('Output');
+			outputStrings.SaveToFile(outputFile);
+		end;
 	end;
 
 	// Rips all interiors, uses shouldProcessSpace() to excluce debug cells
@@ -40,7 +42,7 @@ unit _commonwealthCartography_positionData;
 
 			for k := 0 to ElementCount(block) -1 do begin // Iterate over every subBlock within the block
 				subBlock := elementByIndex(block, k);
-				AddMessage(friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
+				AddMessage(fileName + ' (#' + IntToStr(esmNumber) + ') ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
 
 				for l := 0 to ElementCount(subBlock) -1 do begin // Iterate over every cell within the subBlock
 					cell := elementByIndex(subBlock, l);
@@ -101,7 +103,7 @@ unit _commonwealthCartography_positionData;
 
 			for j := 0 to ElementCount(block) - 1 do begin // Iterate over all subBlocks within the block
 				subBlock := elementByIndex(block, j);
-				AddMessage(worldspaceEditorID + ' ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
+				AddMessage(fileName + ' (#' + IntToStr(esmNumber) + ') ' + worldspaceEditorID + ' ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
 
 				if(Signature(subBlock) = 'GRUP') then begin
 					for k := 0 to ElementCount(subBlock) - 1 do begin // Iterate over all cells within the subBlock
