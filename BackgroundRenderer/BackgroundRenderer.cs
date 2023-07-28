@@ -165,7 +165,6 @@ namespace BackgroundRenderer
 					space.nudgeScale = 1.85f;
 					space.xCenter = -20000;
 					space.yCenter = 2000;
-					space.esmNumber = 0;
 				}
 
 				double scale = ((double)resolution / range) * space.nudgeScale;
@@ -191,9 +190,9 @@ namespace BackgroundRenderer
 				double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
 				double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
 
-				Console.WriteLine(GetESM(space.esmNumber));
+				Console.WriteLine(GetESMPath(space.esmNumber));
 
-				string renderCommand = $"{utilsRenderPath} \"{fo4DataPath}\\{GetESM(space.esmNumber)}\" {renderFile} {resolution} {resolution} " +
+				string renderCommand = $"{utilsRenderPath} {GetESMPath(space.esmNumber)} {renderFile} {resolution} {resolution} " +
 					$"\"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} " +
 					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -deftxt 0x000AB07E -xm fog -xm cloud -xm effects";
@@ -228,7 +227,7 @@ namespace BackgroundRenderer
 
 					string waterMaskRenderFile = $"{imageDirectory}{space.editorID}_waterMask.dds";
 
-					string waterMaskRenderCommand = $"{utilsRenderPath} \"{fo4DataPath}\\{GetESM(space.esmNumber)}\" {waterMaskRenderFile} {resolution} {resolution} " +
+					string waterMaskRenderCommand = $"{utilsRenderPath} {GetESMPath(space.esmNumber)} {waterMaskRenderFile} {resolution} {resolution} " +
 						$"\"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 						$"-light 1 0 0 -ssaa {SSAA} -ltxtres 64 -wtxt \"\" -wrefl 0 -watercolor 0x7F0000FF " +
 						$"-xm bog -xm swamp -xm forest -xm grass -xm plants -xm trees -xm water -xm fog -xm cloud -xm effects";
@@ -251,20 +250,21 @@ namespace BackgroundRenderer
 			Console.ReadKey();
 		}
 
-		static string GetESM(int esmNumber)
+		static string GetESMPath(int esmNumber)
 		{
+			string initialPath = $"\"{fo4DataPath}\\Fallout4.esm\"";
 			switch (esmNumber)
 			{
 				case 0:
-					return "Fallout4.esm";
+					return initialPath;
 				case 2:
-					return "DLCRobot.esm";
+					return initialPath + $",\"{fo4DataPath}\\DLCRobot.esm\"";
 				case 4:
-					return "DLCCoast.esm";
+					return initialPath + $",\"{fo4DataPath}\\DLCCoast.esm\"";
 				case 6:
-					return "DLCworkshop03.esm";
+					return initialPath + $",\"{fo4DataPath}\\DLCworkshop03.esm\"";
 				case 7:
-					return "DLCNukaWorld.esm";
+					return initialPath + $",\"{fo4DataPath}\\DLCNukaWorld.esm\"";
 
 				default:
 					LogError("Unknown ESM number (" + esmNumber + ")");
