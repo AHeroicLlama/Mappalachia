@@ -6,7 +6,6 @@
 		public enum Background
 		{
 			Normal,
-			Military,
 			Satellite,
 			None,
 		}

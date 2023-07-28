@@ -40,7 +40,6 @@ namespace CommonwealthCartography
 			setTitleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			backgroundImageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			normalBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			militaryBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			satelliteBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			noneBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			highlightWaterMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -218,7 +217,7 @@ namespace CommonwealthCartography
 			// 
 			// backgroundImageMenuItem
 			// 
-			backgroundImageMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { normalBackgroundMenuItem, militaryBackgroundMenuItem, satelliteBackgroundMenuItem, noneBackgroundMenuItem });
+			backgroundImageMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { normalBackgroundMenuItem, satelliteBackgroundMenuItem, noneBackgroundMenuItem });
 			backgroundImageMenuItem.Name = "backgroundImageMenuItem";
 			backgroundImageMenuItem.Size = new System.Drawing.Size(216, 22);
 			backgroundImageMenuItem.Text = "Background Image";
@@ -227,23 +226,15 @@ namespace CommonwealthCartography
 			// normalBackgroundMenuItem
 			// 
 			normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
-			normalBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			normalBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			normalBackgroundMenuItem.Text = "Normal";
 			normalBackgroundMenuItem.ToolTipText = "The normal in-game map image.";
 			normalBackgroundMenuItem.Click += Map_Image_Normal;
 			// 
-			// militaryBackgroundMenuItem
-			// 
-			militaryBackgroundMenuItem.Name = "militaryBackgroundMenuItem";
-			militaryBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
-			militaryBackgroundMenuItem.Text = "Military";
-			militaryBackgroundMenuItem.ToolTipText = "The military-style map from the nuke launch interface.";
-			militaryBackgroundMenuItem.Click += Map_Image_Military;
-			// 
 			// satelliteBackgroundMenuItem
 			// 
 			satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
-			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			satelliteBackgroundMenuItem.Text = "Satellite";
 			satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Commonwealth.";
 			satelliteBackgroundMenuItem.Click += Map_Image_Satellite;
@@ -251,7 +242,7 @@ namespace CommonwealthCartography
 			// noneBackgroundMenuItem
 			// 
 			noneBackgroundMenuItem.Name = "noneBackgroundMenuItem";
-			noneBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			noneBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			noneBackgroundMenuItem.Text = "None";
 			noneBackgroundMenuItem.ToolTipText = "No background (transparent).";
 			noneBackgroundMenuItem.Click += Map_Image_None;
@@ -1308,7 +1299,7 @@ namespace CommonwealthCartography
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-8, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-9, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1555,7 +1546,6 @@ namespace CommonwealthCartography
 		private System.Windows.Forms.ToolStripMenuItem quickSaveMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem backgroundImageMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem normalBackgroundMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem militaryBackgroundMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem satelliteBackgroundMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem legendStyleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem compactLegendMenuItem;

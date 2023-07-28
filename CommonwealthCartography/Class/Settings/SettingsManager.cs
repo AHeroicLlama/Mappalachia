@@ -172,10 +172,6 @@ namespace CommonwealthCartography
 									SettingsMap.background = SettingsMap.Background.Normal;
 									break;
 
-								case "Military": // TODO does this exist?
-									SettingsMap.background = SettingsMap.Background.Military;
-									break;
-
 								case "Satellite":
 									SettingsMap.background = SettingsMap.Background.Satellite;
 									break;
@@ -503,16 +499,6 @@ namespace CommonwealthCartography
 
 						case "lastDeclinedUpdateTime":
 							SettingsUpdate.lastDeclinedUpdate = DateTime.Parse(value);
-							break;
-
-						// Legacy settings - ignore
-						case "filterWarnings":
-						case "layerNWMorgantown":
-						case "layerNWFlatwoods":
-						case "searchInterior":
-						case "layerMilitary":
-						case "hideLegend":
-						case "spawnChance":
 							break;
 
 						default:

@@ -28,22 +28,15 @@ namespace CommonwealthCartography
 
 		const string fontFileName = "futura_condensed_bold.ttf";
 		const string databaseFileName = "commonwealth_cartography.db";
-		const string imgFileNameCommonwealthMilitary = "Commonwealth_military.jpg"; // TODO - does this exist?
-		const string imgFileNameCommonwealthSatellite = "Commonwealth_render.jpg";
-		const string imgFileNameCommonwealthWaterMask = "Commonwealth_waterMask.png";
 		const string MapFileExtension = ".jpg";
 		const string settingsFileName = "commonwealth_cartography_prefs.ini";
 		const string mapMarkerFileExtension = ".svg";
+		const string waterMaskFileExtension = ".png";
 
 		const string tempImageFolder = @"temp\";
 		const string quickSaveFolder = @"QuickSaves\";
 
-		static readonly Dictionary<string, Image> worldspaceMapImageCache = new Dictionary<string, Image>();
 		static readonly ConcurrentDictionary<string, Image> mapMarkerimageCache = new ConcurrentDictionary<string, Image>();
-
-		static Image imageCommonwealthMilitary;
-		static Image imageCommonwealthSatellite;
-		static Image imageCommonwealthWaterMask;
 
 		static string gameVersion;
 
@@ -255,113 +248,72 @@ namespace CommonwealthCartography
 		// Returns the appropriate background image for the map based on current settings
 		public static Image GetImageForSpace(Space space)
 		{
+			string editorID = space.editorID;
+
+			string filePath = imgFolder + (space.IsWorldspace() ? string.Empty : "\\cell\\");
+			string fileName = editorID + MapFileExtension;
+
 			if (SettingsMap.background == SettingsMap.Background.None)
 			{
 				return EmptyMapBackground();
 			}
 
-			// Return the non-standard maps if this is Commonwealth and they requested it
-			if (space.IsCommonwealth())
+			// If it's a worldspace - but not 'None' background - we assume the render
+			if (SettingsSpace.CurrentSpaceIsWorld() && SettingsMap.background != SettingsMap.Background.None)
 			{
-				if (SettingsMap.background == SettingsMap.Background.Military)
-				{
-					return GetImageCommonwealthMilitary();
-				}
-				else if (SettingsMap.background == SettingsMap.Background.Satellite)
-				{
-					return GetImageCommonwealthSatellite();
-				}
+				fileName = $"{editorID}_render{MapFileExtension}";
 			}
 
-			// Otherwise look for the default background image for the worldspace
-			string editorID = space.editorID;
-
-			string filepath = imgFolder + (!space.IsWorldspace() ? "\\cell\\" : string.Empty) + editorID + MapFileExtension;
+			// Except for Commonwealth - which has the "Normal" image, if selected
+			if (SettingsMap.background == SettingsMap.Background.Normal && SettingsSpace.CurrentSpaceIsCommonwealth())
+			{
+				fileName = $"{editorID}{MapFileExtension}";
+			}
 
 			try
 			{
-				// Use the cache of the image (if cached)
-				if (space.IsWorldspace())
-				{
-					// Cache the image if not already
-					if (!worldspaceMapImageCache.ContainsKey(editorID))
-					{
-						worldspaceMapImageCache.Add(editorID, Image.FromFile(filepath));
-					}
-
-					return new Bitmap(worldspaceMapImageCache[editorID]);
-				}
-
-				// Don't cache the image - read from disk
-				else
-				{
-					return new Bitmap(Image.FromFile(filepath));
-				}
+				return new Bitmap(Image.FromFile(filePath + fileName));
 			}
 			catch (FileNotFoundException e)
 			{
-				Notify.Error("Commonwealth Cartography was unable to find a background map image for the worldspace '" + editorID + "'.\n" + e);
+				Notify.Error("Commonwealth Cartography was unable to find a background map image for the space '" + editorID + "'.\n" + e);
 				return EmptyMapBackground();
 			}
 			catch (Exception e)
 			{
-				Notify.Error("Commonwealth Cartography was unable to read the file '" + filepath + "'.\n" + genericExceptionHelpText + e);
+				Notify.Error("Commonwealth Cartography was unable to read the file '" + filePath + fileName + "'.\n" + genericExceptionHelpText + e);
 				return EmptyMapBackground();
 			}
 		}
 
-		public static Image GetImageCommonwealthMilitary()
+		// Returns the appropriate watermask image for the map based on current settings
+		public static Image GetWaterMaskForSpace(Space space)
 		{
-			if (imageCommonwealthMilitary == null)
+			// This probably shouldn't have been called...
+			if (!SettingsSpace.CurrentSpaceIsWorld())
 			{
-				try
-				{
-					imageCommonwealthMilitary = Image.FromFile(imgFolder + imgFileNameCommonwealthMilitary);
-				}
-				catch (Exception e)
-				{
-					Notify.Error("Commonwealth Cartography was unable to read the file '" + imgFileNameCommonwealthMilitary + "'.\n" + genericExceptionHelpText + e);
-					imageCommonwealthMilitary = EmptyMapBackground();
-				}
+				return EmptyMapBackground();
 			}
 
-			return new Bitmap(imageCommonwealthMilitary);
-		}
+			// Look for the default background image for the worldspace
+			string editorID = space.editorID;
 
-		public static Image GetImageCommonwealthSatellite()
-		{
-			if (imageCommonwealthSatellite == null)
+			string filePath = imgFolder + editorID + "_waterMask" + waterMaskFileExtension;
+
+			try
 			{
-				try
-				{
-					imageCommonwealthSatellite = Image.FromFile(imgFolder + imgFileNameCommonwealthSatellite);
-				}
-				catch (Exception e)
-				{
-					Notify.Error("Commonwealth Cartography was unable to read the file '" + imgFileNameCommonwealthSatellite + "'.\n" + genericExceptionHelpText + e);
-					imageCommonwealthSatellite = EmptyMapBackground();
-				}
+				return new Bitmap(Image.FromFile(filePath));
 			}
-
-			return new Bitmap(imageCommonwealthSatellite);
-		}
-
-		public static Image GetImageCommonwealthWaterMask()
-		{
-			if (imageCommonwealthWaterMask == null)
+			catch (FileNotFoundException e)
 			{
-				try
-				{
-					imageCommonwealthWaterMask = Image.FromFile(imgFolder + imgFileNameCommonwealthWaterMask);
-				}
-				catch (Exception e)
-				{
-					Notify.Error("Commonwealth Cartography was unable to read the file '" + imgFileNameCommonwealthWaterMask + "'.\n" + genericExceptionHelpText + e);
-					imageCommonwealthWaterMask = EmptyMapBackground();
-				}
+				Notify.Error("Commonwealth Cartography was unable to find a watermask image for the space '" + editorID + "'.\n" + e);
+				return EmptyMapBackground();
 			}
-
-			return new Bitmap(imageCommonwealthWaterMask);
+			catch (Exception e)
+			{
+				Notify.Error("Commonwealth Cartography was unable to read the file '" + filePath + "'.\n" + genericExceptionHelpText + e);
+				return EmptyMapBackground();
+			}
 		}
 
 		public static Image EmptyMapBackground()

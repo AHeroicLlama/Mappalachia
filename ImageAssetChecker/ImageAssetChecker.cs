@@ -129,13 +129,6 @@ namespace ImageAssetChecker
 				{
 					expectedFile = imageDirectory + subDirectory + editorId + "_render" + backgroundImageFileType;
 					ValidateImageFile(expectedFile, isWorldSpace);
-				}
-
-				// Commonwealth only - extra bespoke checks
-				if (space.GetEditorId() == "Commonwealth")
-				{
-					expectedFile = imageDirectory + subDirectory + editorId + "_military" + backgroundImageFileType;
-					ValidateImageFile(expectedFile, isWorldSpace);
 
 					expectedFile = imageDirectory + subDirectory + editorId + "_waterMask" + maskImageFileType;
 					ValidateImageFile(expectedFile, isWorldSpace);

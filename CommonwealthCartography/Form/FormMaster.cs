@@ -426,10 +426,9 @@ namespace CommonwealthCartography
 		{
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			highlightWaterMenuItem.Enabled = SettingsSpace.CurrentSpaceIsCommonwealth();
-			normalBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsCommonwealth();
-			militaryBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsCommonwealth();
-			satelliteBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsCommonwealth();
+			highlightWaterMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
+			normalBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsCommonwealth(); // Only Commonwealth has a "normal" UI texture map
+			satelliteBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
 		}
 
 		// Update the visiblity of the lock type column in the results view, given current settings
@@ -650,10 +649,6 @@ namespace CommonwealthCartography
 					normalBackgroundMenuItem.Checked = true;
 					break;
 
-				case SettingsMap.Background.Military:
-					militaryBackgroundMenuItem.Checked = true;
-					break;
-
 				case SettingsMap.Background.Satellite:
 					satelliteBackgroundMenuItem.Checked = true;
 					break;
@@ -772,7 +767,6 @@ namespace CommonwealthCartography
 		void UncheckAllBackgrounds()
 		{
 			normalBackgroundMenuItem.Checked = false;
-			militaryBackgroundMenuItem.Checked = false;
 			satelliteBackgroundMenuItem.Checked = false;
 			noneBackgroundMenuItem.Checked = false;
 		}
@@ -1130,13 +1124,6 @@ namespace CommonwealthCartography
 			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
-		// Map > Background Image > Military - Toggle the map background to the military version
-		void Map_Image_Military(object sender, EventArgs e)
-		{
-			SettingsMap.background = SettingsMap.Background.Military;
-			UpdateMapBackgroundSettings(SettingsSpace.CurrentSpaceIsWorld());
-		}
-
 		// Map > Background Image > Satellite - Toggle the map background to the top-down render
 		void Map_Image_Satellite(object sender, EventArgs e)
 		{
@@ -1148,7 +1135,7 @@ namespace CommonwealthCartography
 		void Map_Image_None(object sender, EventArgs e)
 		{
 			// If we're in a cell and None is already selected (Other options are disabled so user has clicked this to attempt to turn it off)
-			if (!SettingsSpace.CurrentSpaceIsCommonwealth() && SettingsMap.background == SettingsMap.Background.None)
+			if (!SettingsSpace.CurrentSpaceIsWorld() && SettingsMap.background == SettingsMap.Background.None)
 			{
 				SettingsMap.background = SettingsMap.Background.Normal;
 			}
@@ -1164,7 +1151,7 @@ namespace CommonwealthCartography
 		void Map_HighlightWater(object sender, EventArgs e)
 		{
 			SettingsMap.highlightWater = !SettingsMap.highlightWater;
-			UpdateMapHighlightWater(SettingsSpace.CurrentSpaceIsCommonwealth());
+			UpdateMapHighlightWater(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
 		// Map > Brightness... - Open the brightness adjust form
@@ -1534,7 +1521,7 @@ namespace CommonwealthCartography
 
 			ClearLegend();
 			numericMinZ.Value = numericMinZ.Minimum;
-			numericMaxZ.Value = numericMinZ.Maximum;
+			numericMaxZ.Value = numericMaxZ.Maximum;
 			SettingsSpace.SetSpace(spaces[comboBoxSpace.SelectedIndex]);
 			UpdateCellorWorldExclusiveState();
 			SizeMapToFrame();

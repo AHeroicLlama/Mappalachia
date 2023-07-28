@@ -136,9 +136,9 @@ namespace CommonwealthCartography
 			Graphics graphic = Graphics.FromImage(backgroundLayer);
 
 			// Overlay the water mask if required
-			if (SettingsMap.highlightWater && SettingsSpace.CurrentSpaceIsCommonwealth())
+			if (SettingsMap.highlightWater && SettingsSpace.CurrentSpaceIsWorld())
 			{
-				graphic.DrawImage(IOManager.GetImageCommonwealthWaterMask(), new Point(0, 0));
+				graphic.DrawImage(IOManager.GetWaterMaskForSpace(SettingsSpace.GetSpace()), new Point(0, 0));
 			}
 
 			// Assign suitable ColorMatrix attribute given user selected Brightness and Grayscale state
