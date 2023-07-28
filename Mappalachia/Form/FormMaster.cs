@@ -1626,6 +1626,7 @@ namespace Mappalachia
 			if (WarnWhenAllFiltersBlank())
 			{
 				buttonSearch.Enabled = true;
+				UpdateProgressBar(1);
 				return;
 			}
 
