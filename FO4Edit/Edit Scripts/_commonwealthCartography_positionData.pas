@@ -88,7 +88,7 @@ unit _commonwealthCartography_positionData;
 
 	procedure ripWorldspace(worldspaceEditorID: String); // Primary block for iterating down worldspace tree
 	const
-		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
+		worldspace = MainRecordByEditorID(GroupBySignature(targetESM, 'WRLD'), worldspaceEditorID);
 		worldspaceID = IntToHex(FixedFormId(worldspace), 8);
 		blocks = ChildGroup(worldspace);
 		blockCount = ElementCount(blocks);

@@ -3,9 +3,9 @@ commonwealth_cartography.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-6c5f6320c52faa4d87520285a038d1c0
+bc4a317150376920f1619b67a89395a5
 ==File Size== 
-164823040 
+210927616 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -16,15 +16,16 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Game Version==
 1.10.163.0
 ==Mean Average X/Y/Z Coord==
--827.07796324003|-396.457793311596|1331.96015231303
+-3.76795097812326|178.916955951554|1353.88057582441
 ==Min/Max X/Y/Z Coord==
--213381|316690|-235522|169181|-46512|27662
+-213381|316690|-235522|169181|-141089|27662
 ==100 most common xyz coordinates + count==
-0|0|0|113
+0|0|0|644
 0|256|0|55
 0|512|0|47
 256|256|0|45
 -256|256|0|42
+486|-18721|472|39
 0|768|0|37
 256|512|0|37
 256|768|0|37
@@ -64,20 +65,49 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 256|1536|0|22
 512|-256|512|22
 512|1024|0|22
+14494|-27963|461|22
+64211|-15368|174|22
+66509|-12179|1575|22
+-19389|-47401|908|21
+-15348|-53264|266|21
 -512|1280|0|21
 0|256|1024|21
 0|1792|0|21
 256|-1536|0|21
 768|768|0|21
 1792|512|0|21
+22545|-42132|773|21
+36847|-29455|437|21
+63713|-15820|52|21
+64017|-15265|58|21
+64071|-15374|378|21
+67568|-11774|1401|21
+70383|-10084|702|21
+70639|-9681|528|21
 256|512|512|20
 256|1280|0|20
 1536|256|0|20
 1792|-512|0|20
+37661|-28778|591|20
+66439|-12069|1227|20
+66831|-10883|1227|20
+66965|-12438|1400|20
+70193|-10071|529|20
+70376|-10095|529|20
+70454|-9647|528|20
+70556|-10124|704|20
 -256|256|256|19
 256|1792|0|19
 768|512|0|19
 1044|1046|256|19
+25609|-43031|1144|19
+38550|-29529|412|19
+63564|-16785|74|19
+66618|-12359|1224|19
+66726|-12208|1227|19
+66965|-12438|1224|19
+70298|-10550|707|19
+70477|-10579|704|19
 -768|0|0|18
 -768|512|0|18
 0|-512|0|18
@@ -87,53 +117,23 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 768|1024|0|18
 768|1280|0|18
 1472|-64|64|18
--1024|1024|0|17
--768|0|776|17
--256|1792|0|17
-0|-1792|0|17
-512|256|1024|17
-768|-768|0|17
-768|-768|768|17
-1792|256|0|17
--1024|1280|0|16
--512|-256|512|16
-0|512|512|16
-0|2048|0|16
-0|2560|0|16
-256|-1792|0|16
-256|256|1024|16
-512|-768|1024|16
-512|2048|0|16
-768|-768|1024|16
-768|256|768|16
-1216|-320|64|16
-1216|-64|64|16
-1472|-320|64|16
-1536|256|1024|16
-1728|-320|64|16
-1728|-64|64|16
--1024|768|0|15
--384|256|0|15
--256|768|256|15
-0|-1024|512|15
-0|-512|1280|15
-768|0|768|15
-768|512|256|15
-863|865|256|15
+26857|-49619|471|18
+36051|-26548|489|18
+37651|-29011|284|18
 ==Z outliers==
-40
+49
 ==Average X Bounds Width==
-11.9584416963006
+11.932215445771
 ==Average Y Bounds Width==
-9.58765530032979
+9.21750933652795
 ==Average Z Bounds Width==
-7.78145634090117
+7.53281454910129
 ==Average Z Rotation==
-2.07241539081675
+2.02906462284057
 ==Average display name string length==
-2.48487112439298
+2.49022500922169
 ==Average editorID string length==
-21.5908770182211
+21.5974835034223
 ==Map Markers==
 Commonwealth|AirfieldMarker|Boston Airport|48074|-3332
 Commonwealth|AirfieldMarker|Skylanes Flight 1665|-64854|-125006
@@ -168,6 +168,7 @@ Commonwealth|CityMarker|Lexington|-33030|41006
 Commonwealth|CityMarker|Lexington Apartments|-27751|36871
 Commonwealth|CityMarker|Monsignor Plaza|4642|8678
 Commonwealth|CityMarker|Parkview Apartments|-21936|-28362
+Commonwealth|Custom73Marker|Nuka-World Transit Center|-111604|20805
 Commonwealth|CustomHouseMarker|Custom House Tower|32759|-10066
 Commonwealth|DriveInMarker|Starlight Drive In|-39209|57601
 Commonwealth|ElevatedHighwayMarker|Fallen Skybridge|21460|-16121
@@ -256,7 +257,9 @@ Commonwealth|LowRiseBuildingMarker|BADTFL Regional Office|10518|19759
 Commonwealth|LowRiseBuildingMarker|Drumlin Diner|-50291|55079
 Commonwealth|LowRiseBuildingMarker|Lynn Pier Parking|68952|50418
 Commonwealth|LowRiseBuildingMarker|Roadside Pines Motel|-89318|-41436
+Commonwealth|LowRiseBuildingMarker|University Point Pharmacy|19396|-61553
 Commonwealth|LowRiseBuildingMarker|Wilson Atomatoys Corporate HQ|6406|-29624
+Commonwealth|MechanistLairRaidersettlementVassalsettlementPotentialVassalsettlementMarker|The Mechanist's Lair|42649|16275
 Commonwealth|MetroMarker|Andrew Station|21952|-42976
 Commonwealth|MetroMarker|Malden Center|14825|58814
 Commonwealth|MetroMarker|Medical Center Metro|15599|-27821
@@ -292,12 +295,14 @@ Commonwealth|OfficeMarker|Marlborough House|2833|-14438
 Commonwealth|OfficeMarker|Mean Pastries|23950|1205
 Commonwealth|OfficeMarker|Old Corner Bookstore|20928|-6144
 Commonwealth|OfficeMarker|Pickman Gallery|26024|3203
+Commonwealth|OfficeMarker|RobCo Sales & Service Center|42260|3401
 Commonwealth|OfficeMarker|Salem|93444|80552
 Commonwealth|OfficeMarker|Taffington Boathouse|6618|46030
 Commonwealth|OfficeMarker|The Gwinnett Restaurant|32819|-45180
 Commonwealth|OfficeMarker|The Shamrock Taphouse|31491|-17615
 Commonwealth|OfficeMarker|Wattz Consumer Electronics|-6048|22912
 Commonwealth|PierMarker|Egret Tours Marina|-31166|-62889
+Commonwealth|PierMarker|Far Harbor|93942|102910
 Commonwealth|PierMarker|Gibson Point Pier|65373|41444
 Commonwealth|PierMarker|Kingsport Lighthouse|89558|59967
 Commonwealth|PierMarker|Long Wharf|40938|-8881
@@ -364,6 +369,8 @@ Commonwealth|SettlementMarker|Covenant|-7896|47116
 Commonwealth|SettlementMarker|Lynn Woods|42548|90806
 Commonwealth|SettlementMarker|Mass Pike Tunnel East|-5264|-33040
 Commonwealth|SettlementMarker|Mass Pike Tunnel West|-29693|-32666
+Commonwealth|SettlementMarker|Nakano Residence|80002|104176
+Commonwealth|SettlementMarker|Nakano Residence|80813|122126
 Commonwealth|SettlementMarker|Quincy Ruins|27462|-85580
 Commonwealth|SettlementMarker|Sunshine Tidings Co-op|-86686|38379
 Commonwealth|SewerMarker|Fens Street Sewer|-19309|-26817
@@ -403,6 +410,7 @@ Commonwealth|TownRuinsMarker|Jamaica Plain|9969|-63016
 Commonwealth|TownRuinsMarker|Mystic Pines|-24233|46668
 Commonwealth|TownRuinsMarker|Natick Banks|-86800|-47056
 Commonwealth|TownRuinsMarker|Navy Yard|22976|10432
+Commonwealth|TownRuinsMarker|Nuka-World|-116344|17512
 Commonwealth|TownRuinsMarker|Paul Revere House|30939|-1849
 Commonwealth|TownRuinsMarker|Rook Family House|94874|86669
 Commonwealth|TownRuinsMarker|West Everett Estates|13591|38601
@@ -444,13 +452,106 @@ Commonwealth|VaultMarker|Vault 114|8020|-18075
 Commonwealth|VaultMarker|Vault 75|18995|61599
 Commonwealth|VaultMarker|Vault 81|-37803|-23721
 Commonwealth|VaultMarker|Vault 81 Atrium|-40790|-20621
+Commonwealth|VaultMarker|Vault 88|13434|-82545
 Commonwealth|VaultMarker|Vault 95|-49107|-89462
+DLC03FarHarbor|AirfieldMarker|Horizon Flight 1207|17408|16896
+DLC03FarHarbor|BunkerMarker|Wind Farm Maintenance|45873|5712
+DLC03FarHarbor|CaveMarker|Kitteredge Pass|22220|10281
+DLC03FarHarbor|CaveMarker|Pine Crest Cavern|20619|-5739
+DLC03FarHarbor|ChurchMarker|Ruined Church|-14161|-34062
+DLC03FarHarbor|CityMarker|The Commonwealth|64826|34026
+DLC03FarHarbor|DriveInMarker|Beaver Creek Lanes|50353|24250
+DLC03FarHarbor|DriveInMarker|Eden Meadows Cinemas|-6777|21228
+DLC03FarHarbor|EncampmentMarker|Longfellow's Cabin|54576|42430
+DLC03FarHarbor|EncampmentMarker|Oceanarium|-10779|50088
+DLC03FarHarbor|EncampmentMarker|Rayburn Point|-49875|5560
+DLC03FarHarbor|FactoryMarker|Eagle's Cove Tannery|-9600|34816
+DLC03FarHarbor|FactoryMarker|Echo Lake Lumber|-21160|4785
+DLC03FarHarbor|FactoryMarker|Vim! Pop Factory|7204|-30984
+DLC03FarHarbor|FarmMarker|Coastal Pier|4254|61320
+DLC03FarHarbor|FarmMarker|Cranberry Island Bog|29349|-50017
+DLC03FarHarbor|ForestedMarker|Glowing Grove|-22746|-9778
+DLC03FarHarbor|ForestedMarker|Huntress Island|38714|-41461
+DLC03FarHarbor|GoodneighborMarker|Harbor Grand Hotel|42101|-23909
+DLC03FarHarbor|HospitalMarker|Aldersea Day Spa|9189|43632
+DLC03FarHarbor|LandmarkMarker|DiMA's Cache|-59085|13270
+DLC03FarHarbor|LandmarkMarker|Haddock Cove|-35478|-32168
+DLC03FarHarbor|LandmarkMarker|Radiant Crest Shrine|-16066|-18104
+DLC03FarHarbor|ObservatoryMarker|Acadia|38868|5734
+DLC03FarHarbor|ObservatoryMarker|Brooke's Head Lighthouse|-3332|-61117
+DLC03FarHarbor|PierMarker|Cranberry Island Docks|23764|-43163
+DLC03FarHarbor|PierMarker|Cranberry Island Supply Shed|34216|-54418
+DLC03FarHarbor|PierMarker|Fringe Cove Docks|-18234|-50360
+DLC03FarHarbor|PierMarker|Rock Point Camp|-44019|-21604
+DLC03FarHarbor|PondLakeMarker|Briney's Bait and Tackle|-23760|11416
+DLC03FarHarbor|PondLakeMarker|Far Harbor|-17546|-3688
+DLC03FarHarbor|PondLakeMarker|National Park Campground|30376|28183
+DLC03FarHarbor|PondLakeMarker|Old Pond House|29951|-8256
+DLC03FarHarbor|QuarryMarker|Northwood Ridge Quarry|1632|-45296
+DLC03FarHarbor|RadioTowerMarker|Ruined Radio Tower|-2312|-14572
+DLC03FarHarbor|RadioTowerMarker|Zephyr Ridge Camp|-33257|-14917
+DLC03FarHarbor|RadioactiveAreaMarker|Children of Atom Shrine|-29780|-24451
+DLC03FarHarbor|RadioactiveAreaMarker|The Nucleus|-1128|-8282
+DLC03FarHarbor|RadioactiveAreaMarker|The Nucleus|-1048|-8350
+DLC03FarHarbor|SchoolMarker|Waves Crest Orphanage|10361|-53780
+DLC03FarHarbor|SettlementMarker|Far Harbor|55296|34112
+DLC03FarHarbor|SettlementMarker|National Park Visitor's Center|24295|45805
+DLC03FarHarbor|ShipwreckMarker|MS Azalea|67974|-11121
+DLC03FarHarbor|TownRuinsMarker|Far Harbor Ruins|54988|33993
+DLC03FarHarbor|TownRuinsMarker|National Park HQ|13768|34791
+DLC03FarHarbor|TownRuinsMarker|Southwest Harbor|16161|-24412
+DLC03FarHarbor|UrbanRuinsMarker|Cliff's Edge Hotel|31357|36893
 DiamondCity|DiamondCityMarker|Diamond City|-1081|-2098
 DiamondCity|SettlementMarker|Diamond City Market|1373|411
 DiamondCity|SettlementMarker|Home Plate|3163|1861
 Goodneighbor|GoodneighborMarker|Goodneighbor|20826|-11905
+NukaWorld|AirfieldMarker|Nuka-World Airfield|11829|38762
+NukaWorld|CaveMarker|Dry Rock Gulch|-14666|18836
+NukaWorld|CaveMarker|Safari Adventure Reptile House|-5616|38944
+NukaWorld|CityMarker|Commonwealth|3984|-38312
+NukaWorld|Custom66Marker|Fizztop Grille|610|-4877
+NukaWorld|Custom70Marker|Galactic Zone|-15265|-2598
+NukaWorld|Custom73Marker|Nuka-Station|3968|-33504
+NukaWorld|Custom74Marker|Cola-Cars Arena|5120|-18560
+NukaWorld|Custom74Marker|Ferris Wheel|5605|5969
+NukaWorld|Custom74Marker|Fun House|11200|13870
+NukaWorld|Custom74Marker|Grandchester Mystery Mansion|-32753|-38532
+NukaWorld|Custom74Marker|King Cola's Castle|15675|13488
+NukaWorld|Custom74Marker|Mad Mulligan's Minecart Coaster|-11889|21329
+NukaWorld|Custom74Marker|Nuka-Galaxy|-20260|2119
+NukaWorld|Custom74Marker|RobCo Battlezone|-13343|2052
+NukaWorld|Custom74Marker|Starlight Interstellar Theater|-13547|-6762
+NukaWorld|Custom74Marker|Starport Nuka|-17393|-2965
+NukaWorld|Custom74Marker|Vault-Tec: Among the Stars|-17048|-7663
+NukaWorld|Custom75Marker|Cappy's Treehouse|-2283|35822
+NukaWorld|Custom75Marker|Safari Adventure|-1900|37960
+NukaWorld|Custom75Marker|Safari Adventure Primate House|2469|34626
+NukaWorld|Custom75Marker|The Angry Anaconda|-5584|45600
+NukaWorld|Custom78Marker|Fizztop Mountain|3424|-5101
+NukaWorld|Custom79Marker|The Parlor|1341|-12933
+NukaWorld|ElevatedHighwayMarker|Bradberton Overpass|28956|14969
+NukaWorld|EncampmentMarker|Dunmore Homestead|-39280|-31495
+NukaWorld|EncampmentMarker|Evan's Home|-965|-47191
+NukaWorld|EncampmentMarker|Hubologist's Camp|-17041|-34616
+NukaWorld|EncampmentMarker|Moonshiner's Camp|38605|30380
+NukaWorld|FactoryMarker|Nuka-Cola Bottling Plant|12095|28518
+NukaWorld|FillingStationMarker|Nuka-World Red Rocket|22262|32637
+NukaWorld|IndustrialDomeMarker|Nuka-World Power Plant|-57250|6311
+NukaWorld|JunkyardMarker|ERROR: <<NO REF LOCATION>>|-35232|-19872
+NukaWorld|MonumentMarker|Wixon's Shovel Museum|23946|-15326
+NukaWorld|MonumentMarker|World of Refreshment|10494|23507
+NukaWorld|OfficeMarker|Doc Phosphate's Saloon|-15868|18916
+NukaWorld|OfficeMarker|Dry Rock Gulch Theater|-12773|14592
+NukaWorld|PondLakeMarker|Northpoint Reservoir|19078|58841
+NukaWorld|TownMarker|Kiddie Kingdom|11600|10585
+NukaWorld|TownRuinsMarker|Bradberton|29043|46955
+NukaWorld|TownRuinsMarker|Dry Rock Gulch Employee Area|-6915|15566
+NukaWorld|TownRuinsMarker|Morton Residence|37755|41234
+NukaWorld|TownRuinsMarker|Nuka-Town USA|596|-21444
+NukaWorldAmphitheater|Custom80Marker|Bradberton Amphitheater|-2883|-18843
+NukaWorldMarket|TownRuinsMarker|Nuka-Town Market|478|-18702
 ==Total Unique entities==
-25937
+29084
 ==Regions==
 Space|Region|subRegions|maxVerts
 Commonwealth||1|5
@@ -631,11 +732,11 @@ CombatZone01||2409
 CombatZone01|Box|77
 CombatZone01|Line|2
 CombatZone01|Plane|7
-Commonwealth||700034
-Commonwealth|Box|6371
+Commonwealth||707759
+Commonwealth|Box|6542
 Commonwealth|Line|21
 Commonwealth|Plane|18
-Commonwealth|Sphere|138
+Commonwealth|Sphere|140
 ConcordCivicAccess01||1977
 ConcordCivicAccess01|Box|17
 ConcordCivicAccess01|Line|1
@@ -691,6 +792,11 @@ DLC03EagleCoveTannery01||1348
 DLC03EagleCoveTannery01|Box|22
 DLC03EchoLakeLumber01||227
 DLC03EchoLakeLumber01|Box|12
+DLC03FarHarbor||183897
+DLC03FarHarbor|Box|1583
+DLC03FarHarbor|Line|223
+DLC03FarHarbor|Plane|1
+DLC03FarHarbor|Sphere|16
 DLC03FarHarborLastPlank||857
 DLC03FarHarborLastPlank|Box|10
 DLC03HarborGrandHotel01||1960
@@ -717,6 +823,9 @@ DLC03POIBasementArmory|Box|10
 DLC03PineCrestCavern01||2148
 DLC03PineCrestCavern01|Box|101
 DLC03PineCrestCavern01|Line|2
+DLC03VRWorldspace||22869
+DLC03VRWorldspace|Box|16
+DLC03VRWorldspace|Line|1
 DLC03Vault118||7490
 DLC03Vault118|Box|403
 DLC03Vault118|Line|3
@@ -814,7 +923,7 @@ DLC06VaultWorkshop|Sphere|1
 DanversHideout||358
 DanversHideout|Box|4
 DiamondCity||4298
-DiamondCity|Box|71
+DiamondCity|Box|72
 DiamondCity|Ellipsoid|1
 DiamondCity|Plane|59
 DiamondCity|Sphere|2
@@ -1183,6 +1292,16 @@ NorthEndSalemStreetCottage||245
 NorthEndSalemStreetCottage|Box|2
 NorthEndValentiStation||438
 NorthEndValentiStation|Plane|1
+NukaWorld||143562
+NukaWorld|Box|2783
+NukaWorld|Line|10
+NukaWorld|Sphere|46
+NukaWorldAmphitheater||2896
+NukaWorldAmphitheater|Box|73
+NukaWorldAmphitheater|Ellipsoid|1
+NukaWorldMarket||2844
+NukaWorldMarket|Box|13
+NukaWorldMarket|Ellipsoid|1
 OldGulletSinkhole01||703
 OldGulletSinkhole01|Box|6
 OldGulletSinkhole01|Line|2
@@ -1537,14 +1656,14 @@ CombatZone01|Advanced|1
 CombatZone01|Expert|1
 CombatZone01|Inaccessible|1
 CombatZone01|Novice 1|2
-Commonwealth||706183
-Commonwealth|Advanced|114
-Commonwealth|Expert|78
-Commonwealth|Inaccessible|13
+Commonwealth||713161
+Commonwealth|Advanced|116
+Commonwealth|Expert|79
+Commonwealth|Inaccessible|14
 Commonwealth|Master|40
-Commonwealth|Novice 1|142
+Commonwealth|Novice 1|144
 Commonwealth|Novice 25|26
-Commonwealth|Requires Key|10
+Commonwealth|Requires Key|11
 Commonwealth|Requires Terminal|5
 ConcordCivicAccess01||1993
 ConcordCivicAccess01|Novice 1|2
@@ -1604,6 +1723,15 @@ DLC03EagleCoveTannery01|Advanced|1
 DLC03EagleCoveTannery01|Expert|1
 DLC03EchoLakeLumber01||220
 DLC03EchoLakeLumber01|Master|1
+DLC03FarHarbor||121711
+DLC03FarHarbor|Advanced|35
+DLC03FarHarbor|Expert|12
+DLC03FarHarbor|Inaccessible|1
+DLC03FarHarbor|Master|3
+DLC03FarHarbor|Novice 1|45
+DLC03FarHarbor|Novice 25|6
+DLC03FarHarbor|Requires Key|1
+DLC03FarHarbor|Requires Terminal|1
 DLC03FarHarborLastPlank||676
 DLC03HarborGrandHotel01||1999
 DLC03HarborGrandHotel01|Advanced|1
@@ -1621,6 +1749,7 @@ DLC03POI40Int||79
 DLC03POIBasementArmory||232
 DLC03PineCrestCavern01||2067
 DLC03PineCrestCavern01|Novice 1|2
+DLC03VRWorldspace||192
 DLC03Vault118||7417
 DLC03Vault118|Advanced|2
 DLC03Vault118|Expert|3
@@ -1715,7 +1844,7 @@ DLC06VaultWorkshop||6253
 DLC06VaultWorkshop|Requires Terminal|2
 DanversHideout||361
 DanversHideout|Novice 1|1
-DiamondCity||4427
+DiamondCity||4428
 DiamondCity|Advanced|1
 DiamondCity|Novice 1|1
 DiamondCity|Novice 25|2
@@ -2086,6 +2215,17 @@ NorthEndMeanPastries||299
 NorthEndMeanPastries|Expert|1
 NorthEndSalemStreetCottage||247
 NorthEndValentiStation||439
+NukaWorld||109424
+NukaWorld|Advanced|31
+NukaWorld|Expert|19
+NukaWorld|Master|6
+NukaWorld|Novice 1|33
+NukaWorld|Novice 25|2
+NukaWorld|Requires Key|5
+NukaWorld|Requires Terminal|1
+NukaWorldAmphitheater||2529
+NukaWorldAmphitheater|Expert|1
+NukaWorldMarket||2499
 OldGulletSinkhole01||711
 OldNorthChurch01||1701
 ParsonsState01||3000
@@ -3024,33 +3164,33 @@ CombatZone01|STAT|1860
 CombatZone01|TERM|1
 CombatZone01|TXST|69
 CombatZone01|WEAP|8
-Commonwealth|ACTI|6669
-Commonwealth|ALCH|1688
+Commonwealth|ACTI|6726
+Commonwealth|ALCH|1703
 Commonwealth|AMMO|199
 Commonwealth|ARMO|252
 Commonwealth|ASPC|749
-Commonwealth|BNDS|4982
+Commonwealth|BNDS|5013
 Commonwealth|BOOK|104
-Commonwealth|CONT|5294
-Commonwealth|DOOR|1286
-Commonwealth|FLOR|3520
-Commonwealth|FURN|6736
-Commonwealth|HAZD|858
-Commonwealth|IDLM|5828
+Commonwealth|CONT|5345
+Commonwealth|DOOR|1305
+Commonwealth|FLOR|3537
+Commonwealth|FURN|6789
+Commonwealth|HAZD|862
+Commonwealth|IDLM|5900
 Commonwealth|KEYM|12
-Commonwealth|LIGH|6276
-Commonwealth|MISC|11553
-Commonwealth|MSTT|14773
+Commonwealth|LIGH|6409
+Commonwealth|MISC|11791
+Commonwealth|MSTT|14909
 Commonwealth|NOTE|22
-Commonwealth|NPC_|3685
+Commonwealth|NPC_|3720
 Commonwealth|PROJ|282
-Commonwealth|SCOL|33216
-Commonwealth|SOUN|878
-Commonwealth|STAT|584284
+Commonwealth|SCOL|33984
+Commonwealth|SOUN|879
+Commonwealth|STAT|589466
 Commonwealth|TACT|11
-Commonwealth|TERM|141
-Commonwealth|TXST|13118
-Commonwealth|WEAP|195
+Commonwealth|TERM|142
+Commonwealth|TXST|13288
+Commonwealth|WEAP|197
 ConcordCivicAccess01|ACTI|15
 ConcordCivicAccess01|ALCH|12
 ConcordCivicAccess01|AMMO|1
@@ -3355,6 +3495,29 @@ DLC03EchoLakeLumber01|SCOL|4
 DLC03EchoLakeLumber01|SOUN|4
 DLC03EchoLakeLumber01|STAT|122
 DLC03EchoLakeLumber01|TXST|11
+DLC03FarHarbor|ACTI|1143
+DLC03FarHarbor|ALCH|432
+DLC03FarHarbor|AMMO|66
+DLC03FarHarbor|ARMO|49
+DLC03FarHarbor|ASPC|120
+DLC03FarHarbor|BNDS|818
+DLC03FarHarbor|CONT|1370
+DLC03FarHarbor|DOOR|149
+DLC03FarHarbor|FLOR|513
+DLC03FarHarbor|FURN|1169
+DLC03FarHarbor|HAZD|84
+DLC03FarHarbor|IDLM|1264
+DLC03FarHarbor|LIGH|1216
+DLC03FarHarbor|MISC|4740
+DLC03FarHarbor|MSTT|2903
+DLC03FarHarbor|NPC_|159
+DLC03FarHarbor|PROJ|26
+DLC03FarHarbor|SCOL|2242
+DLC03FarHarbor|SOUN|556
+DLC03FarHarbor|STAT|97077
+DLC03FarHarbor|TERM|2
+DLC03FarHarbor|TXST|5661
+DLC03FarHarbor|WEAP|56
 DLC03FarHarborLastPlank|ACTI|4
 DLC03FarHarborLastPlank|ALCH|4
 DLC03FarHarborLastPlank|BNDS|5
@@ -3523,6 +3686,10 @@ DLC03PineCrestCavern01|SOUN|14
 DLC03PineCrestCavern01|STAT|1569
 DLC03PineCrestCavern01|TXST|86
 DLC03PineCrestCavern01|WEAP|4
+DLC03VRWorldspace|ACTI|20
+DLC03VRWorldspace|DOOR|5
+DLC03VRWorldspace|LIGH|4
+DLC03VRWorldspace|STAT|163
 DLC03Vault118|ACTI|59
 DLC03Vault118|ALCH|22
 DLC03Vault118|ARMO|10
@@ -4060,7 +4227,7 @@ DanversHideout|SCOL|14
 DanversHideout|SOUN|4
 DanversHideout|STAT|212
 DanversHideout|TXST|20
-DiamondCity|ACTI|71
+DiamondCity|ACTI|72
 DiamondCity|ALCH|101
 DiamondCity|AMMO|2
 DiamondCity|ASPC|3
@@ -6122,6 +6289,60 @@ NorthEndValentiStation|SCOL|9
 NorthEndValentiStation|STAT|293
 NorthEndValentiStation|TXST|10
 NorthEndValentiStation|WEAP|4
+NukaWorld|ACTI|1078
+NukaWorld|ALCH|344
+NukaWorld|AMMO|12
+NukaWorld|ARMO|35
+NukaWorld|ASPC|55
+NukaWorld|BNDS|385
+NukaWorld|CONT|762
+NukaWorld|DOOR|149
+NukaWorld|FLOR|740
+NukaWorld|FURN|1167
+NukaWorld|HAZD|59
+NukaWorld|IDLM|1576
+NukaWorld|LIGH|2755
+NukaWorld|MISC|2898
+NukaWorld|MSTT|2211
+NukaWorld|NPC_|262
+NukaWorld|PROJ|21
+NukaWorld|SCOL|2543
+NukaWorld|SOUN|63
+NukaWorld|STAT|90144
+NukaWorld|TACT|1
+NukaWorld|TERM|2
+NukaWorld|TXST|2225
+NukaWorld|WEAP|34
+NukaWorldAmphitheater|ACTI|31
+NukaWorldAmphitheater|ALCH|14
+NukaWorldAmphitheater|ARMO|4
+NukaWorldAmphitheater|BNDS|20
+NukaWorldAmphitheater|CONT|14
+NukaWorldAmphitheater|DOOR|6
+NukaWorldAmphitheater|FURN|58
+NukaWorldAmphitheater|IDLM|31
+NukaWorldAmphitheater|LIGH|112
+NukaWorldAmphitheater|MISC|63
+NukaWorldAmphitheater|MSTT|18
+NukaWorldAmphitheater|SCOL|21
+NukaWorldAmphitheater|STAT|2120
+NukaWorldAmphitheater|TXST|18
+NukaWorldMarket|ACTI|2
+NukaWorldMarket|ALCH|47
+NukaWorldMarket|AMMO|7
+NukaWorldMarket|ARMO|2
+NukaWorldMarket|BNDS|20
+NukaWorldMarket|CONT|20
+NukaWorldMarket|DOOR|4
+NukaWorldMarket|FURN|44
+NukaWorldMarket|IDLM|23
+NukaWorldMarket|LIGH|105
+NukaWorldMarket|MISC|130
+NukaWorldMarket|MSTT|37
+NukaWorldMarket|SCOL|11
+NukaWorldMarket|STAT|2017
+NukaWorldMarket|TXST|17
+NukaWorldMarket|WEAP|13
 OldGulletSinkhole01|ACTI|10
 OldGulletSinkhole01|ARMO|1
 OldGulletSinkhole01|BOOK|1
@@ -8149,8 +8370,9 @@ CombatZone01|TheCombatZone01ToExtMain001|1
 CombatZone01|TommyCowerMarker|1
 CombatZone01|TommyRef|1
 CombatZone01|TommyRunMarker02|1
-Commonwealth||703327
+Commonwealth||710246
 Commonwealth|35CourtMapMarker|1
+Commonwealth|ADV017_DogTravelOutOfCommonwealthMarkerRef|1
 Commonwealth|AO_Comment_AbandonedRecently_1024_003|1
 Commonwealth|AO_Comment_AbandonedRecently_128_004|1
 Commonwealth|AO_Comment_AbandonedRecently_128_005|1
@@ -8561,6 +8783,7 @@ Commonwealth|AtomCatGarageMapMarkerRef|1
 Commonwealth|AtomatoysCorporateHQMapMarkerRef|1
 Commonwealth|AtomatoysFactoryMapMarkerRef|1
 Commonwealth|AudioFirePitALP|1
+Commonwealth|AudioFirePitALP001|1
 Commonwealth|BADTFLRegionalOfficeMapMarker|1
 Commonwealth|BHBOSEnableMarker01|1
 Commonwealth|BHBOSEnableMarker02|1
@@ -9141,6 +9364,68 @@ Commonwealth|DBTechHighSchoolExtTo01MainL|1
 Commonwealth|DBTechHighSchoolExtTo01Roof|1
 Commonwealth|DBTechHighSchoolMapMarkerRef|1
 Commonwealth|DCgateIntercom|1
+Commonwealth|DLC01AdaRef|1
+Commonwealth|DLC01CaravanDistressTransmitterRef|1
+Commonwealth|DLC01CaravanHurtzRef|1
+Commonwealth|DLC01CaravanPorterRef|1
+Commonwealth|DLC01CaravanTuringRef|1
+Commonwealth|DLC01CaravanZoeRef|1
+Commonwealth|DLC01Caravan_ActorsEnableMarker|1
+Commonwealth|DLC01Caravan_ClutterEnableMarker|1
+Commonwealth|DLC01Caravan_FireFXEnableMarker1|1
+Commonwealth|DLC01Caravan_FireFXEnableMarker2|1
+Commonwealth|DLC01FortHagenSatelliteArrayEntranceEnableMarker|1
+Commonwealth|DLC01FortHagenSatelliteArrayMapMarker|1
+Commonwealth|DLC01LairMapMarkerHeadingRef01|1
+Commonwealth|DLC01LairMapMarkerRef01|1
+Commonwealth|DLC01LairMapMarkerRef02|1
+Commonwealth|DLC01Lair_ExtExit|1
+Commonwealth|DLC01MQ01_SetStage_2300|1
+Commonwealth|DLC01MQ04FHSAExtMarker|1
+Commonwealth|DLC01MQ04Stage120TriggerRef|1
+Commonwealth|DLC01MQ04Stage160Trigger|1
+Commonwealth|DLC01MechanistRadioTransmitterREF|1
+Commonwealth|DLC01_CaravanSiteMarker|1
+Commonwealth|DLC03KasumiBedRef|1
+Commonwealth|DLC03MQ01BoathouseQT|1
+Commonwealth|DLC03MQ01BreadcrumbQT01|1
+Commonwealth|DLC03MQ01NickInvestigateEnableMarker|1
+Commonwealth|DLC03MQ01NickLOSMarker01|1
+Commonwealth|DLC03MQ01NickLOSMarker02|1
+Commonwealth|DLC03MQ01SetStage100Trigger|1
+Commonwealth|DLC03MQ01SetStage120|1
+Commonwealth|DLC03MQ01SetStage205Trigger|1
+Commonwealth|DLC03MQ01SetStage45Trigger02|1
+Commonwealth|DLC03MQ01SetStage45TriggerREF|1
+Commonwealth|DLC03MQ01SetStage50TriggerREF|1
+Commonwealth|DLC03MQPostQuestCompanionMarker01|1
+Commonwealth|DLC03MQPostQuestKasumiMarker01|1
+Commonwealth|DLC03MQPostQuestKasumiMarker02DUPLICATE000|1
+Commonwealth|DLC03MQPostQuestKenjiMarker01|1
+Commonwealth|DLC03MQPostQuestKenjiMarker02|1
+Commonwealth|DLC03MQPostQuestReiMarker01|1
+Commonwealth|DLC03MQPostQuestReiMarker02|1
+Commonwealth|DLC03MQPostQuestSetStage190TriggerREF|1
+Commonwealth|DLC03NPCDoortoFarHarbor|1
+Commonwealth|DLC03NakanoFrontDooREF|1
+Commonwealth|DLC03NakanoResidenceFakeMapMarker|1
+Commonwealth|DLC03NakanoResidenceMapMarkerREF|1
+Commonwealth|DLC03PostTreasureDig_StashLocation|1
+Commonwealth|DLC03ToFarHarborMapMarker|1
+Commonwealth|DLC04CWTransitCenterDisable|1
+Commonwealth|DLC04MQ00GageStopSceneRef|1
+Commonwealth|DLC04MQ00GunnersSetStage100|1
+Commonwealth|DLC04NukaWorldMapMarker|1
+Commonwealth|DLC04NukaWorldToCommonwealthXMarkerHeadingRef|1
+Commonwealth|DLC04REObjectCT03HarveyTravelRef|1
+Commonwealth|DLC04RETravelTransitCenterRef|1
+Commonwealth|DLC04TransitCenterMapMarkerHeadingRef|1
+Commonwealth|DLC04TransitCenterMapMarkerRef|1
+Commonwealth|DLC06LeaveVaultMarker|1
+Commonwealth|DLC06MQ01EmergencyBroadcastREF|1
+Commonwealth|DLC06Vault88MapMarker|1
+Commonwealth|DLC06VaultWorkshopCaravanTargetMarker|1
+Commonwealth|DLC06WorkshopRadioRef|1
 Commonwealth|DN009_MQ205SetStage500REF01|1
 Commonwealth|DN009_MQ205SetStage500REF02|1
 Commonwealth|DN011OverdueBookVendMachineRefNatick|1
@@ -9834,6 +10119,7 @@ Commonwealth|HalluciGenMapMarkerRef|1
 Commonwealth|HardwareTownMapMarkerRef|1
 Commonwealth|HaymarketMallMapMarkerRef|1
 Commonwealth|HestersConsumerRobotics|1
+Commonwealth|HestersMapMarkerRef|1
 Commonwealth|HollowedOutRockChestRef|1
 Commonwealth|HollowedOutRockChestRef001|1
 Commonwealth|HollyBedRef|1
@@ -10019,6 +10305,7 @@ Commonwealth|JuneWarwickBedRef|1
 Commonwealth|JuneWarwickRef|1
 Commonwealth|KayRef|1
 Commonwealth|KayServicesMarker|1
+Commonwealth|KeepsakeStash|1
 Commonwealth|KesslerGreetingTrigger|1
 Commonwealth|KesslerIntroductionMarker|1
 Commonwealth|KesslerREF|1
@@ -11946,6 +12233,547 @@ DLC03EagleCoveTannery01|AO_Comment_Dark_128_016|1
 DLC03EchoLakeLumber01||219
 DLC03EchoLakeLumber01|AO_Comment_Fortified_256_012|1
 DLC03EchoLakeLumber01|DLC03_EchoLakeLumber01ToExt|1
+DLC03FarHarbor||121275
+DLC03FarHarbor|ADV002GhoulHeadtrackTarget01|1
+DLC03FarHarbor|ADV002GhoulHeadtrackTarget02|1
+DLC03FarHarbor|ADV002_RadioTransmitter|1
+DLC03FarHarbor|ADV007_Proj01CB|1
+DLC03FarHarbor|ADV007_Proj01OFF|1
+DLC03FarHarbor|ADV007_Proj01ON|1
+DLC03FarHarbor|ADV007_Proj02CB|1
+DLC03FarHarbor|ADV007_Proj02OFF|1
+DLC03FarHarbor|ADV007_Proj02ON|1
+DLC03FarHarbor|ADV010BossEncounterMasterRef|1
+DLC03FarHarbor|ADV017PlayerBedRef|1
+DLC03FarHarbor|ADV017_DogTravelOutOfOtherWorldMarkerRef001|1
+DLC03FarHarbor|ADV017_DogTravelToCommonwealthMarkerRef|1
+DLC03FarHarbor|ADV017_HoldPosTriggerRef|1
+DLC03FarHarbor|ADV017_SandboxTriggerRef|1
+DLC03FarHarbor|AO_Comment_Creepy_128_013|1
+DLC03FarHarbor|AO_Comment_Creepy_256_031|1
+DLC03FarHarbor|AO_Comment_Exposed_1024_014|1
+DLC03FarHarbor|AO_Comment_Exposed_512_015|1
+DLC03FarHarbor|AO_Comment_Fortified_256_011|1
+DLC03FarHarbor|AO_Comment_Gory_128_008|1
+DLC03FarHarbor|AO_Comment_Gory_128_009|1
+DLC03FarHarbor|AO_Comment_Gory_512_010|1
+DLC03FarHarbor|AO_Comment_Gross-Disgusting_1024_004|1
+DLC03FarHarbor|AO_Comment_Gross-Disgusting_128_010|1
+DLC03FarHarbor|AO_Comment_Messy_1024_011|1
+DLC03FarHarbor|AO_Comment_Messy_512_020|1
+DLC03FarHarbor|AO_Comment_Smelly_1024_008|1
+DLC03FarHarbor|AO_Comment_Smelly_256_029|1
+DLC03FarHarbor|AO_Comment_Smelly_512_012|1
+DLC03FarHarbor|AO_Comment_Unique_1024_005|1
+DLC03FarHarbor|AO_Comment_Unique_1024_011|1
+DLC03FarHarbor|AO_Comment_Unique_1024_052|1
+DLC03FarHarbor|AO_Comment_Unique_1024_110|1
+DLC03FarHarbor|AO_Comment_Unique_1024_112|1
+DLC03FarHarbor|AO_Comment_Unique_1024_114|1
+DLC03FarHarbor|AO_Comment_Unique_1024_115|1
+DLC03FarHarbor|AO_Comment_Unique_1024_116|1
+DLC03FarHarbor|AO_Comment_Unique_1024_117|1
+DLC03FarHarbor|AO_Comment_Unique_1024_121|1
+DLC03FarHarbor|AO_Comment_Unique_1024_122|1
+DLC03FarHarbor|AO_Comment_Unique_128_008|1
+DLC03FarHarbor|AO_Comment_Unique_128_010|1
+DLC03FarHarbor|AO_Comment_Unique_128_014|1
+DLC03FarHarbor|AO_Comment_Unique_128_015|1
+DLC03FarHarbor|AO_Comment_Unique_128_016|1
+DLC03FarHarbor|AO_Comment_Unique_128_017|1
+DLC03FarHarbor|AO_Comment_Unique_128_017DUPLICATE000|1
+DLC03FarHarbor|AO_Comment_Unique_128_018DUPLICATE000|1
+DLC03FarHarbor|AO_Comment_Unique_256_015|1
+DLC03FarHarbor|AO_Comment_Unique_512_042|1
+DLC03FarHarbor|AO_Comment_Unique_512_045|1
+DLC03FarHarbor|AO_Comment_Unique_512_046|1
+DLC03FarHarbor|AO_Comment_Unique_512_049|1
+DLC03FarHarbor|AO_Comment_Unique_512_053|1
+DLC03FarHarbor|AO_Comment_Watery_1024_008|1
+DLC03FarHarbor|AtomsSpringMapMarker|1
+DLC03FarHarbor|BedBerthaREF|1
+DLC03FarHarbor|BedF03REF|1
+DLC03FarHarbor|BedTonyREF|1
+DLC03FarHarbor|BerthaIntroMarker|1
+DLC03FarHarbor|BerthaLean|1
+DLC03FarHarbor|BerthaLean001|1
+DLC03FarHarbor|BilgePreferred|1
+DLC03FarHarbor|CassieDaltonChairRefDUPLICATE001|1
+DLC03FarHarbor|CliffsEdgeHoldPosMainRef|1
+DLC03FarHarbor|CliffsEdgeHotelMapMarker|1
+DLC03FarHarbor|CliffsEdgeQuickElevatorBottom|1
+DLC03FarHarbor|DLC01AcadiaM01_BloodTrail6|1
+DLC03FarHarbor|DLC01MQ02FightEnableMarker|1
+DLC03FarHarbor|DLC01MQ02Fight_EnemySandboxPrimitive|1
+DLC03FarHarbor|DLC01MQ02Fight_MeleeCombatantsHoldPositionFar|1
+DLC03FarHarbor|DLC01MQ02Fight_OffTheHullTrigger|1
+DLC03FarHarbor|DLC01MQ02Fight_SurvivorSandboxPrimitive|1
+DLC03FarHarbor|DLC01MQ02Fight_SurvivorsHoldPositionClose|1
+DLC03FarHarbor|DLC03ADV011_QueenEnableMarker|1
+DLC03FarHarbor|DLC03AcadiaAttackLeaderMarker|1
+DLC03FarHarbor|DLC03AcadiaAttackSupportMarker01|1
+DLC03FarHarbor|DLC03AcadiaAttackSupportMarker02|1
+DLC03FarHarbor|DLC03AcadiaBOS_VertibirdWaitMarkerLeft|1
+DLC03FarHarbor|DLC03AcadiaBOS_VertibirdWaitMarkerRight|1
+DLC03FarHarbor|DLC03AcadiaBoSAttackTrigger|1
+DLC03FarHarbor|DLC03AcadiaBoSEnableMarker|1
+DLC03FarHarbor|DLC03AcadiaGenericNPCEnableMarker|1
+DLC03FarHarbor|DLC03AcadiaInstAttackTrigger|1
+DLC03FarHarbor|DLC03AcadiaInstEnableMarker|1
+DLC03FarHarbor|DLC03AcadiaM01EnableMarkerRef|1
+DLC03FarHarbor|DLC03AcadiaM01_BloodTrail1|1
+DLC03FarHarbor|DLC03AcadiaM01_BloodTrail2|1
+DLC03FarHarbor|DLC03AcadiaM01_BloodTrail3|1
+DLC03FarHarbor|DLC03AcadiaM01_BloodTrail4|1
+DLC03FarHarbor|DLC03AcadiaM01_BloodTrail5|1
+DLC03FarHarbor|DLC03AcadiaM01_BloodTrail7|1
+DLC03FarHarbor|DLC03AcadiaM01_PT3|1
+DLC03FarHarbor|DLC03AcadiaM01_Stage305Trigger|1
+DLC03FarHarbor|DLC03AcadiaM01_Stage310Trigger|1
+DLC03FarHarbor|DLC03AcadiaM01_Stage315Tigger|1
+DLC03FarHarbor|DLC03AcadiaM01_Stage320Trigger|1
+DLC03FarHarbor|DLC03AcadiaM01_Stage325Trigger|1
+DLC03FarHarbor|DLC03AcadiaM01_Stage330Trigger|1
+DLC03FarHarbor|DLC03AcadiaM01_TrapperBossWallLean|1
+DLC03FarHarbor|DLC03AcadiaM02EnableMarkerRef|1
+DLC03FarHarbor|DLC03AcadiaM03BoatMarkerRef|1
+DLC03FarHarbor|DLC03AcadiaMapMarker|1
+DLC03FarHarbor|DLC03AcadiaParkVisitorsCenterAttackMarker01|1
+DLC03FarHarbor|DLC03AcadiaParkVisitorsCenterAttackMarker02|1
+DLC03FarHarbor|DLC03AcadiaParkVisitorsCenterLocationCenterMarker|1
+DLC03FarHarbor|DLC03Adv011_SetStage10REF|1
+DLC03FarHarbor|DLC03AlderseaDaySpaMapMarker|1
+DLC03FarHarbor|DLC03AtomM01CompanionWaitMarker|1
+DLC03FarHarbor|DLC03AtomM01SecurityDoors|1
+DLC03FarHarbor|DLC03AtomM01SpringQuestMarker|1
+DLC03FarHarbor|DLC03AtomM01_Crawler03TravelMarkerREF|1
+DLC03FarHarbor|DLC03AtomM01_CrawlerMarker03REF|1
+DLC03FarHarbor|DLC03AtomM01_EncounterSetStage81Trigger|1
+DLC03FarHarbor|DLC03AtomM01_FogCrawlerMarkerREF|1
+DLC03FarHarbor|DLC03AtomM01_FogCrawlerMarkerREF001|1
+DLC03FarHarbor|DLC03AtomM01_MotherDestinationMarker|1
+DLC03FarHarbor|DLC03AtomM01_MotherPathMarker01|1
+DLC03FarHarbor|DLC03AtomM01_MotherPathMarker01a|1
+DLC03FarHarbor|DLC03AtomM01_MotherRunMarkerREF|1
+DLC03FarHarbor|DLC03AtomM01_MotherStage1aMarkerREF|1
+DLC03FarHarbor|DLC03AtomM01_MotherStartMarker|1
+DLC03FarHarbor|DLC03AtomM01_MotherWalkMarker|1
+DLC03FarHarbor|DLC03AtomM01_PuzzleDecalEnableMarker|1
+DLC03FarHarbor|DLC03AtomM01_PuzzleMarker01|1
+DLC03FarHarbor|DLC03AtomM01_PuzzleMarker02|1
+DLC03FarHarbor|DLC03AtomM01_PuzzleMarker03|1
+DLC03FarHarbor|DLC03AtomM01_PuzzleSoundSource|1
+DLC03FarHarbor|DLC03AtomM01_PuzzleTriggerEnableMarker001|1
+DLC03FarHarbor|DLC03AtomM01_RETriggerAssault|1
+DLC03FarHarbor|DLC03AtomM01_SetStage25|1
+DLC03FarHarbor|DLC03AtomM01_SetStage31|1
+DLC03FarHarbor|DLC03AtomM01_SetStage35Trigger|1
+DLC03FarHarbor|DLC03AtomM01_SetStage35Trigger001|1
+DLC03FarHarbor|DLC03AtomM01_SetStage37Trigger|1
+DLC03FarHarbor|DLC03AtomM01_SetStage56Trigger|1
+DLC03FarHarbor|DLC03AtomM01_ShrineEntranceMarker|1
+DLC03FarHarbor|DLC03AtomM01_Stag01DisableTrigger|1
+DLC03FarHarbor|DLC03AtomM01_Stag01DisableTrigger001|1
+DLC03FarHarbor|DLC03AtomM01_Stag01PatrolMarker01|1
+DLC03FarHarbor|DLC03AtomM01_Stag01PatrolMarker02|1
+DLC03FarHarbor|DLC03AtomM01_Stag01PatrolMarker03|1
+DLC03FarHarbor|DLC03AtomM01_Stag01PatrolMarker04|1
+DLC03FarHarbor|DLC03AtomM01_Stag02PatrolMarker01|1
+DLC03FarHarbor|DLC03AtomM01_Stag02PatrolMarker02|1
+DLC03FarHarbor|DLC03AtomM01_Stag02PatrolMarker03|1
+DLC03FarHarbor|DLC03AtomM01_Stag02PatrolMarker04|1
+DLC03FarHarbor|DLC03AtomM01_Stag03TravelMarkerREF|1
+DLC03FarHarbor|DLC03AtomM01_Stag04TravelMarkerREF|1
+DLC03FarHarbor|DLC03AtomM01_Stag05PatrolMarker01|1
+DLC03FarHarbor|DLC03AtomM01_Stag05PatrolMarker02|1
+DLC03FarHarbor|DLC03AtomM01_Stag05PatrolMarker03|1
+DLC03FarHarbor|DLC03AtomM01_Stag05PatrolMarker04|1
+DLC03FarHarbor|DLC03AtomM01_Stag05PatrolMarker05|1
+DLC03FarHarbor|DLC03AtomM01_Stag05PatrolMarker06|1
+DLC03FarHarbor|DLC03AtomM01_Stag05PatrolMarker07|1
+DLC03FarHarbor|DLC03AtomM01_StagMarker01|1
+DLC03FarHarbor|DLC03AtomM01_StagMarker02|1
+DLC03FarHarbor|DLC03AtomM01_StagMarker05REF|1
+DLC03FarHarbor|DLC03AtomM01_StagMarkerREF03|1
+DLC03FarHarbor|DLC03AtomM01_StagMarkerREF04|1
+DLC03FarHarbor|DLC03AtomM01_Stage0Marker|1
+DLC03FarHarbor|DLC03AtomM01_Stage40Trigger|1
+DLC03FarHarbor|DLC03AtomM01_WE01|1
+DLC03FarHarbor|DLC03AtomM01_WE02|1
+DLC03FarHarbor|DLC03AtomM01_WE03|1
+DLC03FarHarbor|DLC03AtomM01_WE04|1
+DLC03FarHarbor|DLC03AtomM02GwynethPrayerFurniture|1
+DLC03FarHarbor|DLC03AtomM02POI39MarkerRef|1
+DLC03FarHarbor|DLC03AtomM02_CabinEnableMarker|1
+DLC03FarHarbor|DLC03AtomM02_ChurchEnableMarkerRef|1
+DLC03FarHarbor|DLC03AtomM02_HolotapeMarker|1
+DLC03FarHarbor|DLC03AtomM02_POI12Marker|1
+DLC03FarHarbor|DLC03AtomM02_POI38MarkerRef|1
+DLC03FarHarbor|DLC03AtomM02_PT1|1
+DLC03FarHarbor|DLC03AtomM02_PT2|1
+DLC03FarHarbor|DLC03AtomM02_PT3|1
+DLC03FarHarbor|DLC03AtomM02_SetStage205Trigger|1
+DLC03FarHarbor|DLC03AtomM02_SetStage215Trigger|1
+DLC03FarHarbor|DLC03AtomM02_Stage325Trigger|1
+DLC03FarHarbor|DLC03AtomM02_Stage500Trigger|1
+DLC03FarHarbor|DLC03Boatcollisionmarker|1
+DLC03FarHarbor|DLC03BrookesHeadLighthouseMapMarker|1
+DLC03FarHarbor|DLC03ChildrenExecutionMarker_Allen|1
+DLC03FarHarbor|DLC03ChildrenExecutionMarker_Avery|1
+DLC03FarHarbor|DLC03ChildrenExecutionMarker_F02|1
+DLC03FarHarbor|DLC03ChildrenExecutionMarker_F05|1
+DLC03FarHarbor|DLC03ChildrenExecutionMarker_M07|1
+DLC03FarHarbor|DLC03ChildrenExecutionMarker_M09|1
+DLC03FarHarbor|DLC03ChildrenExecutionMarker_Saboteur|1
+DLC03FarHarbor|DLC03CliffMarker01|1
+DLC03FarHarbor|DLC03CliffMarker02|1
+DLC03FarHarbor|DLC03CoA_CoAFemale01IntroMarker|1
+DLC03FarHarbor|DLC03CoA_CoAMale01IntroMarker|1
+DLC03FarHarbor|DLC03CoA_CoAMale01IntroMarker001|1
+DLC03FarHarbor|DLC03CoA_EntranceSceneSetStage|1
+DLC03FarHarbor|DLC03CoA_Guard01IntroMarker|1
+DLC03FarHarbor|DLC03CoA_Guard01Marker|1
+DLC03FarHarbor|DLC03CoA_Guard02IntroMarker|1
+DLC03FarHarbor|DLC03CoA_RichterIntroMarker|1
+DLC03FarHarbor|DLC03CompanionFarHarborMarker|1
+DLC03FarHarbor|DLC03CoplandsHideoutExtTo01|1
+DLC03FarHarbor|DLC03DaltonFarmEnableMarker|1
+DLC03FarHarbor|DLC03DaltonFarmMapMarkerRef|1
+DLC03FarHarbor|DLC03DisableWhileBOSorINSTRef|1
+DLC03FarHarbor|DLC03EchoLakeBossChestREF|1
+DLC03FarHarbor|DLC03EchoLakeEnableMarker|1
+DLC03FarHarbor|DLC03EchoLakeLumberMapMarker|1
+DLC03FarHarbor|DLC03FHS03AveryMarker|1
+DLC03FarHarbor|DLC03FHS03EndSceneTrigger|1
+DLC03FarHarbor|DLC03FHS03MarinerBoatMarker|1
+DLC03FarHarbor|DLC03FactionCampLeaderMarker|1
+DLC03FarHarbor|DLC03FactionCampMarker|1
+DLC03FarHarbor|DLC03FactionCampSupport01Marker|1
+DLC03FarHarbor|DLC03FactionCampSupport02Marker|1
+DLC03FarHarbor|DLC03FarHarborFF02_CondenserQT1|1
+DLC03FarHarbor|DLC03FarHarborFF02_CondenserQT2|1
+DLC03FarHarbor|DLC03FarHarborFF02_CondenserQT3|1
+DLC03FarHarbor|DLC03FarHarborFF02_CorpseEnableMarker|1
+DLC03FarHarbor|DLC03FarHarborFF02_EnableParent|1
+DLC03FarHarbor|DLC03FarHarborFF02_LvlMirelurk1|1
+DLC03FarHarbor|DLC03FarHarborFF02_LvlMirelurk2|1
+DLC03FarHarbor|DLC03FarHarborFF02_Stage150Trigger|1
+DLC03FarHarbor|DLC03FarHarborM01KillzoneMarker|1
+DLC03FarHarbor|DLC03HarborGrandHotelMapMarker|1
+DLC03FarHarbor|DLC03InstMoseleyPlatformSceneMarker|1
+DLC03FarHarbor|DLC03InstMoseleyPlatformTeleportMarker|1
+DLC03FarHarbor|DLC03MQ01ApproachTrigger|1
+DLC03FarHarbor|DLC03MQ01PlayerFarHarborStartMarker|1
+DLC03FarHarbor|DLC03MQ01SetStage500Trigger|1
+DLC03FarHarbor|DLC03MQ02Fight_PlayerQuickstartMarker|1
+DLC03FarHarbor|DLC03MQ02Fight_PlayerQuickstartMarker2|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartSouth|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest001|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest002|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest003|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest004|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest005|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest006|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest008|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest009|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest010|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest016|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest017|1
+DLC03FarHarbor|DLC03MQ02Fight_SpawnStartWest018|1
+DLC03FarHarbor|DLC03MQ02Fight_SurvivorSpawnSouth|1
+DLC03FarHarbor|DLC03MQ02Fight_SurvivorSpawnWest|1
+DLC03FarHarbor|DLC03MQ02MirelurkSpawnerMarker|1
+DLC03FarHarbor|DLC03MQ02_JaredDefenseMarker|1
+DLC03FarHarbor|DLC03MQ02_JaredRunToWallMarker|1
+DLC03FarHarbor|DLC03MQ02_MarinerLookTargetMarker|1
+DLC03FarHarbor|DLC03MQ02_SurvivorDefenseMarker1|1
+DLC03FarHarbor|DLC03MQ02_SurvivorDefenseMarker2|1
+DLC03FarHarbor|DLC03MQ02_SurvivorDefenseMarker3|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_AllenLee|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_F02|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_F04|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_F05|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_M05|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_M06|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_M07|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_Mariner|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_Mitch|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_SandraLee|1
+DLC03FarHarbor|DLC03MQ05AcadiaAttackMarker_TeddyWright|1
+DLC03FarHarbor|DLC03MQ05DiMASceneTrigger|1
+DLC03FarHarbor|DLC03MQ05QuickPortTrigger|1
+DLC03FarHarbor|DLC03MQ06WindmillSourceREF|1
+DLC03FarHarbor|DLC03MQ06_CaptainWabashBoatREF|1
+DLC03FarHarbor|DLC03MQ06_CodeCaseEnableMarker|1
+DLC03FarHarbor|DLC03MQ06_DigSpotQTMarker|1
+DLC03FarHarbor|DLC03MQ06_ExtNukeMarker|1
+DLC03FarHarbor|DLC03MQ06_FHAttackEnableMarkerREF|1
+DLC03FarHarbor|DLC03MQ06_FHAttackHoldPositionPrimitiveREF|1
+DLC03FarHarbor|DLC03MQ06_FHAttackSandboxMarker|1
+DLC03FarHarbor|DLC03MQ06_FXEnableMarkerREF|1
+DLC03FarHarbor|DLC03MQ06_FarHarborMapMarkerEnableMarker|1
+DLC03FarHarbor|DLC03MQ06_FarHarborPostAttackMapMarker|1
+DLC03FarHarbor|DLC03MQ06_FogCrawlerEncounter|1
+DLC03FarHarbor|DLC03MQ06_MonsterRoarMarkerREF|1
+DLC03FarHarbor|DLC03MQ06_NukeDisableMarkerDUPLICATE000|1
+DLC03FarHarbor|DLC03MQ06_PlayerDigMarker|1
+DLC03FarHarbor|DLC03MQ06_PostAttackMapMarkerTravelREF|1
+DLC03FarHarbor|DLC03MQ06_TownLightsEnableMarkerREF|1
+DLC03FarHarbor|DLC03MQ06_WindFarmBreadCrumbObjMarker|1
+DLC03FarHarbor|DLC03MarinerSuicideMarker|1
+DLC03FarHarbor|DLC03NPCDoorToCommonwealth|1
+DLC03FarHarbor|DLC03NationalParkCampgroundMapMarker|1
+DLC03FarHarbor|DLC03NucleusDebugMarkerREF|1
+DLC03FarHarbor|DLC03POI04MapMarkerRef|1
+DLC03FarHarbor|DLC03POI04RedLight01Ref|1
+DLC03FarHarbor|DLC03POI04RedLight02Ref|1
+DLC03FarHarbor|DLC03POI04RedLight03Ref|1
+DLC03FarHarbor|DLC03POI04_EnableMarker01Ref|1
+DLC03FarHarbor|DLC03POI04_EnableMarker01Ref001|1
+DLC03FarHarbor|DLC03POI04_EnableMarker01Ref002|1
+DLC03FarHarbor|DLC03POI37_ChurchMarkerRef|1
+DLC03FarHarbor|DLC03POI38MapMarkerRef|1
+DLC03FarHarbor|DLC03POI39MapMarkerRef|1
+DLC03FarHarbor|DLC03POIRuinedChurchMapMarkerRef|1
+DLC03FarHarbor|DLC03ToCommonwealthMapMarkerREF|1
+DLC03FarHarbor|DLC03TrailerCollisionMarker|1
+DLC03FarHarbor|DLC03TreeGapCollisionMarker|1
+DLC03FarHarbor|DLC03VertibirdLandingMarker|1
+DLC03FarHarbor|DLC03VimPopFactoryExtTo01CEO|1
+DLC03FarHarbor|DLC03VimPopFactoryExtTo01Front|1
+DLC03FarHarbor|DLC03VimPopFactoryExtTo01Garage|1
+DLC03FarHarbor|DLC03VimPopFactoryExtTo01Roof|1
+DLC03FarHarbor|DLC03VimPopFactoryExtTo02LoadingLow|1
+DLC03FarHarbor|DLC03VimPopFactoryExtTo02RoofHight|1
+DLC03FarHarbor|DLC03VimPopFactoryExtToE02RoofLow|1
+DLC03FarHarbor|DLC03VimPopHQMapMarker|1
+DLC03FarHarbor|DLC03WorkshopRadiantOwned05TransmitterREF|1
+DLC03FarHarbor|DLC03_ADV011_EnableMarker01REF|1
+DLC03FarHarbor|DLC03_ADV011_FightMasterREF|1
+DLC03FarHarbor|DLC03_ADV011_MirelurkEnableMarker|1
+DLC03FarHarbor|DLC03_ADV017CanineMoveMarkerRef|1
+DLC03FarHarbor|DLC03_ADV017_AOCommentDogsPre|1
+DLC03FarHarbor|DLC03_ADV017_IntroEnableMarkerRef|1
+DLC03FarHarbor|DLC03_ADV017_IntroLookMarkerRef|1
+DLC03FarHarbor|DLC03_ADV017_IntroStandMarkerRef|1
+DLC03FarHarbor|DLC03_ADV017_IntroStandMarkerRef02|1
+DLC03FarHarbor|DLC03_AcadiaM01_CookPot|1
+DLC03FarHarbor|DLC03_AcadiaM01_Obj20MarkerRef|1
+DLC03FarHarbor|DLC03_AcadiaM01_Obj40Marker|1
+DLC03FarHarbor|DLC03_AcadiaM01_Stage400Trigger|1
+DLC03FarHarbor|DLC03_AcadiamM01_Obj40Marker2Ref|1
+DLC03FarHarbor|DLC03_BeaverCreekLanesExtTo01Front|1
+DLC03FarHarbor|DLC03_BrineysBaitAndTackleMapMarker|1
+DLC03FarHarbor|DLC03_CliffsEdgeQuickElevatorButtonLowRef|1
+DLC03FarHarbor|DLC03_CliffsEdgeQuickElevatorButtonRef|1
+DLC03FarHarbor|DLC03_EchoLakeLumberExtTo01|1
+DLC03FarHarbor|DLC03_HolySiteChildSandBoxPrimitive|1
+DLC03FarHarbor|DLC03_LongfellowsCabinMapMarker|1
+DLC03FarHarbor|DLC03_NukeCompanionTeleportMarker|1
+DLC03FarHarbor|DLC03_NukeDogmeatTeleportMarker|1
+DLC03FarHarbor|DLC03_POI07EnableMarker|1
+DLC03FarHarbor|DLC03_POI_17_CookingStation|1
+DLC03FarHarbor|DLC03_V118_EzraEscapeMarker|1
+DLC03FarHarbor|DLC03_V118_HotelEscortRef0|1
+DLC03FarHarbor|DLC03_V118_HotelEscortRef1|1
+DLC03FarHarbor|DLC03_V118_HotelEscortRef2|1
+DLC03FarHarbor|DLC03_V118_HotelEscortRef3|1
+DLC03FarHarbor|DLC03_V118_HotelEscortRef4|1
+DLC03FarHarbor|DLC03_V118_HotelEscortRef5|1
+DLC03FarHarbor|DLC03_V118_HotelTravelScene1|1
+DLC03FarHarbor|DLC03_V118_HotelTravelScene2|1
+DLC03FarHarbor|DLC03_V118_HotelTravelScene4|1
+DLC03FarHarbor|DLC03_V118_Package_PearlEscortThroughHotelRef|1
+DLC03FarHarbor|DLC03_V118_Package_PearlEscortToHotelRef|1
+DLC03FarHarbor|DLC03_V118_Package_PearlLoadElevatorMarker2|1
+DLC03FarHarbor|DLC03_V118_Package_PearlTravelOutsideTownRef|1
+DLC03FarHarbor|DLC03_V118_Package_PearlTravelOutsideTownRef1|1
+DLC03FarHarbor|DLC03_V118_Package_PearlTravelOutsideTownRef2|1
+DLC03FarHarbor|DLC03_V118_Package_PearlTravelOutsideTownRef3|1
+DLC03FarHarbor|DLC03_V118_PearlAverySandboxPrim|1
+DLC03FarHarbor|DLC03_Vault118_ExtTo01|1
+DLC03FarHarbor|DLc03AcadiaM02CourserRef|1
+DLC03FarHarbor|DaltonFarmBuildableArea01|1
+DLC03FarHarbor|DaltonFarmBuildableArea03|1
+DLC03FarHarbor|DaltonFarmBuildableArea04|1
+DLC03FarHarbor|DaltonFarmBuildableArea05|1
+DLC03FarHarbor|DaltonFarmBuildableArea07|1
+DLC03FarHarbor|DaltonFarmBuildableArea08|1
+DLC03FarHarbor|DaltonFarmBuildableArea09|1
+DLC03FarHarbor|DaltonFarmBuildableArea10|1
+DLC03FarHarbor|DefendWallAllenLeeMarker|1
+DLC03FarHarbor|DefendWallF04Marker|1
+DLC03FarHarbor|DefendWallM07Marker|1
+DLC03FarHarbor|EMC_ProjectorMaster01|1
+DLC03FarHarbor|EMC_ProjectorMaster02|1
+DLC03FarHarbor|EchoLakeBuildableArea01|1
+DLC03FarHarbor|EchoLakeBuildableArea02|1
+DLC03FarHarbor|EchoLakeBuildableArea03|1
+DLC03FarHarbor|EchoLakeBuildableArea04|1
+DLC03FarHarbor|EchoLakeBuildableArea05|1
+DLC03FarHarbor|EchoLakeBuildableArea06|1
+DLC03FarHarbor|EchoLakeBuildableArea07|1
+DLC03FarHarbor|EchoLakeBuildableArea08|1
+DLC03FarHarbor|EchoLakeBuildableArea09|1
+DLC03FarHarbor|EdenMeadowsCinemasMapMarkerRef|1
+DLC03FarHarbor|EnemiesAttackHullMarker|1
+DLC03FarHarbor|ExecutionStareTarget|1
+DLC03FarHarbor|FF02PT1|1
+DLC03FarHarbor|FF02PT2|1
+DLC03FarHarbor|FF02PT3|1
+DLC03FarHarbor|FHS03MarinerAtRedMarker|1
+DLC03FarHarbor|FarHarborAmbientEnableMarker|1
+DLC03FarHarbor|FarHarborEdgeMarker|1
+DLC03FarHarbor|FarHarborFastTravelMarker|1
+DLC03FarHarbor|FarHarborHullMarker|1
+DLC03FarHarbor|FarHarborMapMarkerREF|1
+DLC03FarHarbor|FarHarborMarker|1
+DLC03FarHarbor|FarHarborS03MarinerIslandBoatMarker|1
+DLC03FarHarbor|FarHarborS03RedDeathIslandBoatMarker|1
+DLC03FarHarbor|HullGateCollisionRef|1
+DLC03FarHarbor|HullGateREFDUPLICATE001|1
+DLC03FarHarbor|HuntressIslandMapMarkerRef|1
+DLC03FarHarbor|IntroAllenMarker|1
+DLC03FarHarbor|IntroMarinerMarker|1
+DLC03FarHarbor|IntroSceneMarinerAndAllenTrigger|1
+DLC03FarHarbor|IntroSceneSmallBerthaTrigger|1
+DLC03FarHarbor|IntroSceneTeddyWrightTrigger|1
+DLC03FarHarbor|IntroTeddyFriendMarker|1
+DLC03FarHarbor|IntroTeddyMarker|1
+DLC03FarHarbor|KasumiBoatEnable|1
+DLC03FarHarbor|KickoutCoATheNucleusMapMarker|1
+DLC03FarHarbor|LastPlankRentalBed|1
+DLC03FarHarbor|LeftCombatZone|1
+DLC03FarHarbor|Level1|1
+DLC03FarHarbor|Level2|1
+DLC03FarHarbor|Level2PanelsBroken|1
+DLC03FarHarbor|Level2PanelsIntact|1
+DLC03FarHarbor|Level3|1
+DLC03FarHarbor|LongfellowBuildableArea01|1
+DLC03FarHarbor|LongfellowBuildableArea02|1
+DLC03FarHarbor|LongfellowBuildableArea03|1
+DLC03FarHarbor|LongfellowBuildableArea04|1
+DLC03FarHarbor|LongfellowBuildableArea05|1
+DLC03FarHarbor|LongfellowBuildableArea06|1
+DLC03FarHarbor|LongfellowBuildableArea08|1
+DLC03FarHarbor|LongfellowBuildableArea09|1
+DLC03FarHarbor|LongfellowBuildableArea11|1
+DLC03FarHarbor|LongfellowBuildableArea12|1
+DLC03FarHarbor|LongfellowDrinkingFurniture|1
+DLC03FarHarbor|M01AveryRunToFightMarker|1
+DLC03FarHarbor|M01EnableMarkerWaveFirst|1
+DLC03FarHarbor|M01EnableMarkerWaveSecond|1
+DLC03FarHarbor|M01FeastMarker_Dottie|1
+DLC03FarHarbor|M01FeastMarker_F02|1
+DLC03FarHarbor|M01FeastMarker_F04|1
+DLC03FarHarbor|M01FeastMarker_F05|1
+DLC03FarHarbor|M01FeastMarker_M06|1
+DLC03FarHarbor|M01FeastMarker_M07|1
+DLC03FarHarbor|M01FeastTrigger|1
+DLC03FarHarbor|M01FirstWaveTrigger|1
+DLC03FarHarbor|M01LongfellowRunToFightMarker|1
+DLC03FarHarbor|M01MarinerPreRunMarker|1
+DLC03FarHarbor|M01MarinerRunMarker|1
+DLC03FarHarbor|M01MarinerRunToFightMarker|1
+DLC03FarHarbor|M01TeddyFeastMarker|1
+DLC03FarHarbor|M01Wave2Spawner|1
+DLC03FarHarbor|MQ01AllenInitialMarker|1
+DLC03FarHarbor|MQ01AveryInitialMarker|1
+DLC03FarHarbor|MQ02AllenAimTarget|1
+DLC03FarHarbor|MQ02AnimalEnableMarker|1
+DLC03FarHarbor|MQ02ChildTalkMarker|1
+DLC03FarHarbor|MQ02EndTrigger|1
+DLC03FarHarbor|MQ02FinalMarker|1
+DLC03FarHarbor|MQ02LongfellowLeavesTownMarker|1
+DLC03FarHarbor|MQ02LongfellowTalkMarker|1
+DLC03FarHarbor|MQ02MirelurkAmbushTrigger|1
+DLC03FarHarbor|MQ02MountainTrailMarker01|1
+DLC03FarHarbor|MQ02MountainTrailMarker02|1
+DLC03FarHarbor|MQ02MountainTrailMarker03|1
+DLC03FarHarbor|MQ02MountainTrailMarker04|1
+DLC03FarHarbor|MQ02MountainTrailMarker05|1
+DLC03FarHarbor|MQ02MountainTrailMarker06|1
+DLC03FarHarbor|MQ02OldManEscortMarker01|1
+DLC03FarHarbor|MQ02OldManEscortMarker02|1
+DLC03FarHarbor|MQ02OutsideFarHarborMarker|1
+DLC03FarHarbor|MQ02PostAttackAllenMarker|1
+DLC03FarHarbor|MQ02PostAttackAveryMarker|1
+DLC03FarHarbor|MQ02PostAttackAveryMarker001|1
+DLC03FarHarbor|MQ02SecondLegMarker|1
+DLC03FarHarbor|MQ02TrapperEnableMarker|1
+DLC03FarHarbor|MQ05AccusedMarker|1
+DLC03FarHarbor|MQ05AllenMarker|1
+DLC03FarHarbor|MQ05AllenPostAttackMarker|1
+DLC03FarHarbor|MQ05AveryMarker|1
+DLC03FarHarbor|MQ05HeadTrackTarget|1
+DLC03FarHarbor|MQ05MarkerAndre|1
+DLC03FarHarbor|MQ05MarkerBrooks|1
+DLC03FarHarbor|MQ05MarkerCassie|1
+DLC03FarHarbor|MQ05MarkerF04|1
+DLC03FarHarbor|MQ05MarkerF05|1
+DLC03FarHarbor|MQ05MarkerM06|1
+DLC03FarHarbor|MQ05MarkerM07|1
+DLC03FarHarbor|MQ05MarkerMariner|1
+DLC03FarHarbor|MQ05MarkerSandraLee|1
+DLC03FarHarbor|MQ05MarkerSmallBertha|1
+DLC03FarHarbor|MQ05MarkerTeddyWright|1
+DLC03FarHarbor|MQ05MarkerUncleKen|1
+DLC03FarHarbor|MQ05MitchMarker|1
+DLC03FarHarbor|MQ06DigSiteMapMarker|1
+DLC03FarHarbor|MarinerBedREF|1
+DLC03FarHarbor|NationalParkHQMapMarker|1
+DLC03FarHarbor|NucleusKickOutMapMarkerSwapMaker|1
+DLC03FarHarbor|OceanariumMapMarkerRef|1
+DLC03FarHarbor|OldPondHouseMapMarkerRef|1
+DLC03FarHarbor|POIStashEnableParent|1
+DLC03FarHarbor|PostCoAKickoutMapMarkerTravelMarker|1
+DLC03FarHarbor|RayburnPointMapMarkerRef|1
+DLC03FarHarbor|RemoveFromCombination|1
+DLC03FarHarbor|RightCombatZone|1
+DLC03FarHarbor|S02BerthaEnRouteMarker|1
+DLC03FarHarbor|S02BerthaMarker|1
+DLC03FarHarbor|S02CaptainMarker|1
+DLC03FarHarbor|S02FinaleTrigger|1
+DLC03FarHarbor|S02TeddyMarker|1
+DLC03FarHarbor|S03CrowdMarker01|1
+DLC03FarHarbor|S03CrowdMarker02|1
+DLC03FarHarbor|S03MarinerReportMarker|1
+DLC03FarHarbor|SouthWestHarborMapMarkerRef|1
+DLC03FarHarbor|TestJeffB3a|1
+DLC03FarHarbor|TestJeffB3b|1
+DLC03FarHarbor|TestJeffB3d|1
+DLC03FarHarbor|TheNucleusMapMarker|1
+DLC03FarHarbor|ThiefIntroMarker|1
+DLC03FarHarbor|WorkshopBuildableArea01|1
+DLC03FarHarbor|WorkshopBuildableArea02|1
+DLC03FarHarbor|WorkshopBuildableArea03|1
+DLC03FarHarbor|WorkshopBuildableArea04|1
+DLC03FarHarbor|WorkshopBuildableArea05|1
+DLC03FarHarbor|WorkshopBuildableArea06|1
+DLC03FarHarbor|WorkshopBuildableArea07|1
+DLC03FarHarbor|WorkshopBuildableArea08|1
+DLC03FarHarbor|WorkshopBuildableArea09|1
+DLC03FarHarbor|ZephyrRidgeCampEnableMarkerRef|1
+DLC03FarHarbor|testJeffB3e|1
+DLC03FarHarbor|testJeffB3f|1
+DLC03FarHarbor|testJeffB3g|1
+DLC03FarHarbor|testJeffb3c|1
+DLC03FarHarbor|xxDLC03RE01|1
+DLC03FarHarbor|xxDLC03RE02|1
+DLC03FarHarbor|xxDLC03RE03|1
+DLC03FarHarbor|xxDLC03RE04|1
+DLC03FarHarbor|xxDLC03RE05|1
+DLC03FarHarbor|xxDLC03RE06|1
+DLC03FarHarbor|xxDLC03RE07|1
+DLC03FarHarbor|xxDLC03RE08|1
+DLC03FarHarbor|xxDLC03RE09|1
+DLC03FarHarbor|xxDLC03RE10|1
+DLC03FarHarbor|xxDLC03RE11|1
+DLC03FarHarbor|xxDLC03RE12|1
+DLC03FarHarbor|xxDLC03RE13|1
+DLC03FarHarbor|xxDLC03RE14|1
+DLC03FarHarbor|xxDLC03RE15|1
 DLC03FarHarborLastPlank||659
 DLC03FarHarborLastPlank|AttackSwap|1
 DLC03FarHarborLastPlank|ChairF02|1
@@ -12081,6 +12909,158 @@ DLC03PineCrestCavern01||2066
 DLC03PineCrestCavern01|AO_Comment_Dusty_256_005|1
 DLC03PineCrestCavern01|AO_Comment_Gory_256_019|1
 DLC03PineCrestCavern01|AO_Comment_Unique_512_032|1
+DLC03VRWorldspace||41
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker01|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker02|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker03|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker04|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker05|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker06|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker07|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker08|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker09|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker10|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker11|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarker12|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarkerMemory01|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarkerMemory02|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarkerMemory03|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarkerMemory04|1
+DLC03VRWorldspace|DLC03MQ04DataReturnMarkerMemory05|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker001|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker002|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker003|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker004|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker005|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker006|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker007|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker008|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker009|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker010|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker011|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker012|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker013|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker014|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker015|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker016|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker017|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker018|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker019|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker020|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker021|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker022|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker023|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker024|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker025|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker026|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker027|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker028|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker029|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker030|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker031|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker032|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker033|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker034|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker035|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker036|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker037|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker038|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker039|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker040|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker041|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker042|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker043|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker044|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker045|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker046|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker047|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker048|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker049|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker050|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker051|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker052|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker053|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker054|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker060|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker061|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker062|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker063|1
+DLC03VRWorldspace|DLC03MQ04Memory01TargetMarker064|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker001|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker002|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker003|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker004|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker005|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker006|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker007|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker008|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker009|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker02|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker03|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker04|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker05|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker06|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker07|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker08|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker09|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker10|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker11|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker12|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker13|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker14|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker15|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker16|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker17|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker18|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker19|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker20|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarker21|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL001|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL002|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL003|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL004|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL005|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL006|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL007|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL008|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL009|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL010|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL011|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL012|1
+DLC03VRWorldspace|DLC03MQ04Memory02TargetMarkerGOAL013|1
+DLC03VRWorldspace|DLC03MQ04VRMemory01TriggerRef|1
+DLC03VRWorldspace|DLC03MQ04VRMemory02TriggerRef|1
+DLC03VRWorldspace|DLC03MQ04VRMemory03TriggerRef|1
+DLC03VRWorldspace|DLC03MQ04VRMemory04TriggerRef|1
+DLC03VRWorldspace|DLC03MQ04VRMemory05TriggerRef|1
+DLC03VRWorldspace|DLC03MQ04VRStartMarker01|1
+DLC03VRWorldspace|DLC03MQ04VRStartMarker02|1
+DLC03VRWorldspace|DLC03MQ04VRStartMarker03|1
+DLC03VRWorldspace|DLC03MQ04VRStartMarker04|1
+DLC03VRWorldspace|DLC03MQ04VRStartMarker05|1
+DLC03VRWorldspace|DLC03MQ04_01SetStage106|1
+DLC03VRWorldspace|DLC03MQ04_01SetStage110|1
+DLC03VRWorldspace|DLC03MQ04_01SetStage160new|1
+DLC03VRWorldspace|DLC03VRExitSimulationTriggerRef|1
+DLC03VRWorldspace|DLC03VRKillCritterTriggerRef|1
+DLC03VRWorldspace|DLC03VRToBanks01|1
+DLC03VRWorldspace|DLC03VRToBanks02|1
+DLC03VRWorldspace|DLC03VRToBanks03|1
+DLC03VRWorldspace|DLC03VRToBanks04|1
+DLC03VRWorldspace|DLC03VRToBanks05|1
+DLC03VRWorldspace|DLC03VRWorkshopDataMaster01|1
+DLC03VRWorldspace|DLC03VRWorkshopDataMaster02|1
+DLC03VRWorldspace|DLC03VRWorkshopDataMaster03|1
+DLC03VRWorldspace|DLC03VRWorkshopDataMaster04|1
+DLC03VRWorldspace|DLC03VRWorkshopDataMaster05|1
+DLC03VRWorldspace|DLC03WorkshopBuildArea01|1
+DLC03VRWorldspace|DLC03WorkshopBuildArea02|1
+DLC03VRWorldspace|DLC03WorkshopBuildArea03|1
+DLC03VRWorldspace|DLC03WorkshopBuildArea04|1
+DLC03VRWorldspace|DLC03WorkshopBuildArea05|1
 DLC03Vault118||7367
 DLC03Vault118|AO_Comment_Clean_512_004|1
 DLC03Vault118|AO_Comment_Dark_1024_003|1
@@ -12676,6 +13656,7 @@ DiamondCity|DCFlag_Inst|1
 DiamondCity|DCFlag_Minutemen|1
 DiamondCity|DCFlag_Rail|1
 DiamondCity|DCSteamMarker|1
+DiamondCity|DLC03MQ01RadioREF|1
 DiamondCity|DarcyIntroMarkerREF|1
 DiamondCity|DialogueDCPiperNatTriggerExterior|1
 DiamondCity|DiamondBlueSky|1
@@ -15295,6 +16276,432 @@ NorthEndHoardersApartment||275
 NorthEndMeanPastries||300
 NorthEndSalemStreetCottage||247
 NorthEndValentiStation||439
+NukaWorld||109126
+NukaWorld|AO_Comment_Creepy_512_018|1
+NukaWorld|AO_Comment_Dusty_256_016|1
+NukaWorld|AO_Comment_Exposed_256_021|1
+NukaWorld|AO_Comment_Exposed_512_015|1
+NukaWorld|AO_Comment_Fortified_512_016|1
+NukaWorld|AO_Comment_Messy_1024_010|1
+NukaWorld|AO_Comment_Messy_256_041|1
+NukaWorld|AO_Comment_Pleasant-Beautiful_512_005|1
+NukaWorld|AO_Comment_Pleasant-Beautiful_512_006|1
+NukaWorld|AO_Comment_Pleasant-Beautiful_512_007|1
+NukaWorld|AO_Comment_Smelly_1024_008|1
+NukaWorld|AO_Comment_Smelly_256_030|1
+NukaWorld|AO_Comment_Smelly_512_012|1
+NukaWorld|AO_Comment_Unique_1024_011|1
+NukaWorld|AO_Comment_Unique_1024_113|1
+NukaWorld|AO_Comment_Unique_1024_114|1
+NukaWorld|AO_Comment_Unique_1024_115|1
+NukaWorld|AO_Comment_Unique_256_003|1
+NukaWorld|AO_Comment_Unique_256_004|1
+NukaWorld|AO_Comment_Watery_512_011|1
+NukaWorld|BottlingPlantExtTo01Aquaduct|1
+NukaWorld|BottlingPlantExtTo01BackUpper|1
+NukaWorld|BottlingPlantExtTo01Main|1
+NukaWorld|DCgateIntercom001|1
+NukaWorld|DLC04AlleyRadioEnableMarker|1
+NukaWorld|DLC04AmongTheStarsMapMarkerHeadingRef|1
+NukaWorld|DLC04AmongTheStarsMapMarkerRef|1
+NukaWorld|DLC04BPDisciplesEnableMarker|1
+NukaWorld|DLC04BPDisciplesFlagEnabler|1
+NukaWorld|DLC04BPFlagPoleMarkerRef|1
+NukaWorld|DLC04BPOperatorFlagEnabler|1
+NukaWorld|DLC04BPOperatorsEnableMarker|1
+NukaWorld|DLC04BPPackEnableMarker|1
+NukaWorld|DLC04BPPackFlagEnabler|1
+NukaWorld|DLC04BPPowerOff|1
+NukaWorld|DLC04BPPowerOn|1
+NukaWorld|DLC04BPPreStateEnableMarker|1
+NukaWorld|DLC04BPRaiderGenericEnableMarker|1
+NukaWorld|DLC04BottlingPlantExtToIntLower|1
+NukaWorld|DLC04BottlingPlantMapMarkerRef|1
+NukaWorld|DLC04BradbertonMapMarkerRef|1
+NukaWorld|DLC04ColaCarsExteriorAlarmSource|1
+NukaWorld|DLC04ColaCarsMapMarkerHeadingRef|1
+NukaWorld|DLC04ColaCarsMapMarkerRef|1
+NukaWorld|DLC04CommonwealthMapMarker|1
+NukaWorld|DLC04CommonwealthToNukaWorldXMarkerHeadingRef|1
+NukaWorld|DLC04DRGDisciplesEnableMarker|1
+NukaWorld|DLC04DRGDisciplesFlagEnabler|1
+NukaWorld|DLC04DRGEmployeeOnlyDoor|1
+NukaWorld|DLC04DRGFlagPoleMarkerRef|1
+NukaWorld|DLC04DRGOperatorFlagEnabler|1
+NukaWorld|DLC04DRGOperatorsEnableMarker|1
+NukaWorld|DLC04DRGPackEnableMarker|1
+NukaWorld|DLC04DRGPackFlagEnabler|1
+NukaWorld|DLC04DRGPowerOff|1
+NukaWorld|DLC04DRGPowerOn|1
+NukaWorld|DLC04DRGPreStateEnableMarker|1
+NukaWorld|DLC04DRGRaiderGenericEnableMarker|1
+NukaWorld|DLC04DialogueHarveySetStage100Ref|1
+NukaWorld|DLC04DisciplesMapMarkerRef|1
+NukaWorld|DLC04DryRockGulchMapMarkerRef|1
+NukaWorld|DLC04DryRockGulchSetStage10Trigger01|1
+NukaWorld|DLC04DryRockGulchSetStage10Trigger02|1
+NukaWorld|DLC04DryRockGulchSetStage10Trigger03|1
+NukaWorld|DLC04DryRockMiscObjectiveQTRef|1
+NukaWorld|DLC04EvanMapMarkerRef|1
+NukaWorld|DLC04EvanMarker|1
+NukaWorld|DLC04FizztopGrilleMapMarker|1
+NukaWorld|DLC04FunhouseExtTo01|1
+NukaWorld|DLC04GZCampGate|1
+NukaWorld|DLC04GZDisciplesEnableMarker|1
+NukaWorld|DLC04GZDisciplesFlagEnabler|1
+NukaWorld|DLC04GZEyebotRadioTransmitter|1
+NukaWorld|DLC04GZFlagPoleMarkerRef|1
+NukaWorld|DLC04GZMain_BattleSite1Trigger|1
+NukaWorld|DLC04GZMain_BattleSite2Trigger|1
+NukaWorld|DLC04GZMain_BattleSite2Trigger001|1
+NukaWorld|DLC04GZMain_StarControlTrigger|1
+NukaWorld|DLC04GZOperatorFlagEnabler|1
+NukaWorld|DLC04GZOperatorsEnableMarker|1
+NukaWorld|DLC04GZPackEnableMarker|1
+NukaWorld|DLC04GZPackFlagEnabler|1
+NukaWorld|DLC04GZPowerOff|1
+NukaWorld|DLC04GZPowerOn|1
+NukaWorld|DLC04GZPreStateEnableMarker|1
+NukaWorld|DLC04GZRaiderGenericEnableMarker|1
+NukaWorld|DLC04GZ_BattlezoneDoorExtExit|1
+NukaWorld|DLC04GZ_BattlezoneDoorExtLeft|1
+NukaWorld|DLC04GZ_BattlezoneDoorExtRight|1
+NukaWorld|DLC04GZ_BeyondEarthExtBot|1
+NukaWorld|DLC04GZ_BeyondEarthExtTop|1
+NukaWorld|DLC04GZ_NukaGalaxyExtEntrance|1
+NukaWorld|DLC04GZ_NukaGalaxyExtExit|1
+NukaWorld|DLC04GZ_StarlightTheaterExt|1
+NukaWorld|DLC04GageDismissMarker|1
+NukaWorld|DLC04GalacticZoneMapMarkerRef|1
+NukaWorld|DLC04Gauntlet_TurretTrapAltDoor|1
+NukaWorld|DLC04Gauntlet_TurretTrapEntryDoor|1
+NukaWorld|DLC04Gauntlet_TurretTrapEntryDoorCollision|1
+NukaWorld|DLC04GrandchesterMapMarkerRef|1
+NukaWorld|DLC04Hub|1
+NukaWorld|DLC04Hub001|1
+NukaWorld|DLC04Hub003|1
+NukaWorld|DLC04HubDiscipleDisableMarker|1
+NukaWorld|DLC04HubDistant|1
+NukaWorld|DLC04HubOperatorsDisableMarker|1
+NukaWorld|DLC04HubPackDisableMarker|1
+NukaWorld|DLC04KKDisciplesEnableMarker|1
+NukaWorld|DLC04KKDisciplesFlagEnabler|1
+NukaWorld|DLC04KKFlagPoleMarkerRef|1
+NukaWorld|DLC04KKOperatorFlagEnabler|1
+NukaWorld|DLC04KKOperatorsEnableMarker|1
+NukaWorld|DLC04KKPackEnableMarker|1
+NukaWorld|DLC04KKPackFlagEnabler|1
+NukaWorld|DLC04KKPowerOff|1
+NukaWorld|DLC04KKPowerOn|1
+NukaWorld|DLC04KKPreStateEnableMarker|1
+NukaWorld|DLC04KKRaiderGenericEnableMarker|1
+NukaWorld|DLC04KatelynSandboxMarker001|1
+NukaWorld|DLC04KiddieKingdomHiddenCappy2|1
+NukaWorld|DLC04KiddieKingdomMapMarkerRef|1
+NukaWorld|DLC04KiddieKingdomTheaterExtTo01Main|1
+NukaWorld|DLC04KiddieKingdomTheaterExtTo01Side|1
+NukaWorld|DLC04MHubMarketCenterMarker|1
+NukaWorld|DLC04MQ00EnableDisableCloudsRef|1
+NukaWorld|DLC04MQ00MoveToMarkerRef|1
+NukaWorld|DLC04MQ00SetStage1000Ref|1
+NukaWorld|DLC04MQ01GageNukaExpressRef|1
+NukaWorld|DLC04MQ01SetStage100Ref|1
+NukaWorld|DLC04MQ01SetStage201Ref|1
+NukaWorld|DLC04MQ01SetStage202Ref|1
+NukaWorld|DLC04MQ01SetStage205Ref|1
+NukaWorld|DLC04MQ01SetStage206Ref|1
+NukaWorld|DLC04MQ01SetStage207Ref|1
+NukaWorld|DLC04MQ01SetStage218Ref|1
+NukaWorld|DLC04MQ01SetStage219Ref|1
+NukaWorld|DLC04MQ01SetStage222Ref|1
+NukaWorld|DLC04MQ01StartRef|1
+NukaWorld|DLC04MQ02GageMarker|1
+NukaWorld|DLC04MQ02OverlookGageMarker|1
+NukaWorld|DLC04MQ02StartMarkerRef|1
+NukaWorld|DLC04MQ03BottlingPlantQTMarker|1
+NukaWorld|DLC04MQ03GZQTMarker|1
+NukaWorld|DLC04MQ03KKQTMarker|1
+NukaWorld|DLC04MQ03SAQTMarker|1
+NukaWorld|DLC04MQ03Start|1
+NukaWorld|DLC04MQ03WWQTMarker|1
+NukaWorld|DLC04MQ04GageDebugMarker|1
+NukaWorld|DLC04MQ04PlayerDebugMarker|1
+NukaWorld|DLC04MQ04_PreAttackSpokespersonMarkerREF|1
+NukaWorld|DLC04MQ04_RaiderAttackSpokespersonMarkerREF|1
+NukaWorld|DLC04MQ04_SetStage160TriggerREF|1
+NukaWorld|DLC04MQ04_ShankStage150MarkerREF|1
+NukaWorld|DLC04MQ05BossMarker01|1
+NukaWorld|DLC04MQ05BossMarker02|1
+NukaWorld|DLC04MQ05BossMarker03|1
+NukaWorld|DLC04MQ05BossObserveMarker01|1
+NukaWorld|DLC04MQ05BossObserveMarker02|1
+NukaWorld|DLC04MQ05BossObserveMarker03|1
+NukaWorld|DLC04MQ05DoorRef|1
+NukaWorld|DLC04MQ05EnemyBossMarker01|1
+NukaWorld|DLC04MQ05EnemyBossMarker02|1
+NukaWorld|DLC04MQ05FinalStageTrigger|1
+NukaWorld|DLC04MQ05GangBossMarker01|1
+NukaWorld|DLC04MQ05MeetingMarker|1
+NukaWorld|DLC04MQ05PPTest|1
+NukaWorld|DLC04MQ05PowerButtonRef|1
+NukaWorld|DLC04MQ05Stage20Trigger|1
+NukaWorld|DLC04MQ05Start|1
+NukaWorld|DLC04MS01BradbertonsOfficeDoorRef|1
+NukaWorld|DLC04MS01CappyEnableMarker|1
+NukaWorld|DLC04MS01PT1|1
+NukaWorld|DLC04MS01PT2|1
+NukaWorld|DLC04MS01Scene1RaiderMarker|1
+NukaWorld|DLC04MS01Scene1SierraMarker|1
+NukaWorld|DLC04MS01SierraSandboxCenter|1
+NukaWorld|DLC04MS01SierraTourStop1|1
+NukaWorld|DLC04MS01SierraTourStop2|1
+NukaWorld|DLC04MS01SierraTourStop3|1
+NukaWorld|DLC04MS01SierraTourStop4|1
+NukaWorld|DLC04MS01SierraTourStop5|1
+NukaWorld|DLC04MS01SierraTourStop6|1
+NukaWorld|DLC04MS01SierraWaitByDoorMarker|1
+NukaWorld|DLC04MS01SierraWander01|1
+NukaWorld|DLC04MS01SierraWander02|1
+NukaWorld|DLC04MS01SierraWander03|1
+NukaWorld|DLC04MS01SierraWander04|1
+NukaWorld|DLC04MS01SierraWander05|1
+NukaWorld|DLC04MS01_CappyQT_DG01|1
+NukaWorld|DLC04MS01_CappyQT_GZ01|1
+NukaWorld|DLC04MS01_CappyQT_GZ02|1
+NukaWorld|DLC04MS01_CappyQT_KK02|1
+NukaWorld|DLC04MS01_CappyQT_NT|1
+NukaWorld|DLC04MS01_CappyQT_SA01|1
+NukaWorld|DLC04MS01_CappyQT_SA02|1
+NukaWorld|DLC04MS02Start|1
+NukaWorld|DLC04MS02WormAmbushEnableParent|1
+NukaWorld|DLC04MS02_CenterMarker|1
+NukaWorld|DLC04MS02_CleansedAlt02_Marker|1
+NukaWorld|DLC04MS02_CleansedAlt03_Marker|1
+NukaWorld|DLC04MS02_CleansedFixShip_Marker002|1
+NukaWorld|DLC04MS02_CleansedSpeechMarker|1
+NukaWorld|DLC04MS02_CleansedStart|1
+NukaWorld|DLC04MS02_CleansedToDara|1
+NukaWorld|DLC04MS02_CleansedWait|1
+NukaWorld|DLC04MS02_DaraFixShip_Marker|1
+NukaWorld|DLC04MS02_DaraMoveToRef|1
+NukaWorld|DLC04MS02_DaraShipPowered_Marker|1
+NukaWorld|DLC04MS02_DaraSpeechMarker|1
+NukaWorld|DLC04MS02_DaraTalkPC|1
+NukaWorld|DLC04MS02_DaraWait|1
+NukaWorld|DLC04MS02_FuseBoxRef|1
+NukaWorld|DLC04MS02_HubologistsMoveToRef|1
+NukaWorld|DLC04MS02_MauriceFixShip_Marker003|1
+NukaWorld|DLC04MS02_MauriceSpeechMarker|1
+NukaWorld|DLC04MS02_MauriceWait|1
+NukaWorld|DLC04MS02_PhilFixShip_Marker001|1
+NukaWorld|DLC04MS02_PhilSpeechMarker|1
+NukaWorld|DLC04MS02_PhilWait|1
+NukaWorld|DLC04MS02_RolandaFixShip_Marker002|1
+NukaWorld|DLC04MS02_RolandaSpeechMarker003|1
+NukaWorld|DLC04MS02_RolandaWait|1
+NukaWorld|DLC04MS02_StartSandboxMarker|1
+NukaWorld|DLC04MS02_TulaFixShip_Marker003|1
+NukaWorld|DLC04MS02_TulaSpeechMarker|1
+NukaWorld|DLC04MS02_TulaWait|1
+NukaWorld|DLC04MS03_GrandchesterDoorRef|1
+NukaWorld|DLC04MS03_LucyRetreatMarker|1
+NukaWorld|DLC04MonorailPAEnterNukaWorldRef|1
+NukaWorld|DLC04MonorailPALeaveNukaWorldRef|1
+NukaWorld|DLC04NIPowerOff|1
+NukaWorld|DLC04NIPowerOn|1
+NukaWorld|DLC04NTPowerOff|1
+NukaWorld|DLC04NTPowerOn|1
+NukaWorld|DLC04NiraMarkerAfterFirstScene|1
+NukaWorld|DLC04NiraMarkerPreFirstScene02|1
+NukaWorld|DLC04NiraPatrolMarkerPreFirstScene01|1
+NukaWorld|DLC04NorthpointMapMarkerRef|1
+NukaWorld|DLC04NukaGalaxyMapMarkerHeadingRef|1
+NukaWorld|DLC04NukaGalaxyMapMarkerRef|1
+NukaWorld|DLC04NukaStationMapMarkerHeadingRef|1
+NukaWorld|DLC04NukaStationMapMarkerRef|1
+NukaWorld|DLC04NukaStationStairwellDoorChain|1
+NukaWorld|DLC04NukaTownUSAMapMarkerHeadingRef|1
+NukaWorld|DLC04NukaTownUSAMapMarkerRef|1
+NukaWorld|DLC04NukaWorldPowerPlantMapMarker|1
+NukaWorld|DLC04NukaWorldRedRocketMapMarkerRef|1
+NukaWorld|DLC04NukacadeExttoIntA|1
+NukaWorld|DLC04NukacadeExttoIntB|1
+NukaWorld|DLC04OperatorsMapMarkerRef|1
+NukaWorld|DLC04PPPowerOff|1
+NukaWorld|DLC04PPPowerOn|1
+NukaWorld|DLC04PackAmpitheaterSleep01Ref|1
+NukaWorld|DLC04PackFightsChair01Ref|1
+NukaWorld|DLC04PackFightsChair02Ref|1
+NukaWorld|DLC04PackFightsChair04Ref|1
+NukaWorld|DLC04PackTheaterExitMarker|1
+NukaWorld|DLC04PhilCongratulateMarker|1
+NukaWorld|DLC04PortNukaMapMarkerHeadingRef|1
+NukaWorld|DLC04PowerPlantCheckpoint_PrequestEncounters|1
+NukaWorld|DLC04RE10Trigger|1
+NukaWorld|DLC04RadioAlleyDiamondCityRef|1
+NukaWorld|DLC04RadioDoctorDiamondCity|1
+NukaWorld|DLC04RadioDoctorEnableMarkerRef|1
+NukaWorld|DLC04RadioPondDiamondCity|1
+NukaWorld|DLC04RadioPondEnableMarkerRef|1
+NukaWorld|DLC04RadioStartTriggerRef|1
+NukaWorld|DLC04RaiderRadioTransmitterRef|1
+NukaWorld|DLC04RedEyeGauntletExteriorRef|1
+NukaWorld|DLC04RedEyeGauntletNukaStationRef|1
+NukaWorld|DLC04RobcoBattlezoneMapMarkerHeadingRef|1
+NukaWorld|DLC04RobcoBattlezoneMapMarkerHeadingRef001|1
+NukaWorld|DLC04RobcoBattlezoneMapMarkerRef|1
+NukaWorld|DLC04SADisciplesEnableMarker|1
+NukaWorld|DLC04SADisciplesFlagEnabler|1
+NukaWorld|DLC04SAFlagPoleMarkerRef|1
+NukaWorld|DLC04SAFlagPoleMarkerRef001|1
+NukaWorld|DLC04SAOperatorFlagEnabler|1
+NukaWorld|DLC04SAOperatorsEnableMarker|1
+NukaWorld|DLC04SAPackEnableMarker|1
+NukaWorld|DLC04SAPackFlagEnabler|1
+NukaWorld|DLC04SAPowerOff|1
+NukaWorld|DLC04SAPowerOn|1
+NukaWorld|DLC04SAPreStateEnableMarker|1
+NukaWorld|DLC04SARaiderGenericEnableMarker|1
+NukaWorld|DLC04SafariAdventureMapMarkerRef|1
+NukaWorld|DLC04SafariPrimateHouseDoor|1
+NukaWorld|DLC04SafariTreehouseButtonOFF|1
+NukaWorld|DLC04SafariTreehouseButtonON|1
+NukaWorld|DLC04SettlementFF01_CrowdTrickleTrigger|1
+NukaWorld|DLC04ShankIntroSetSet10Trigger|1
+NukaWorld|DLC04ShankIntro_KatelynMarkerREF|1
+NukaWorld|DLC04ShankIntro_ShankMarkerREF|1
+NukaWorld|DLC04StarlightTheaterMapMarkerHeadingRef|1
+NukaWorld|DLC04StarlightTheaterMapMarkerRef|1
+NukaWorld|DLC04StarportNukaElevatorMaster|1
+NukaWorld|DLC04StarportNukaMapMarkerRef|1
+NukaWorld|DLC04WorkshopBuildableArea01|1
+NukaWorld|DLC04WorkshopBuildableArea02|1
+NukaWorld|DLC04WorkshopBuildableArea03|1
+NukaWorld|DLC04WorkshopBuildableArea04|1
+NukaWorld|DLC04WorkshopBuildableArea05|1
+NukaWorld|DLC04WorkshopBuildableArea07|1
+NukaWorld|DLC04WorkshopBuildableArea08|1
+NukaWorld|DLC04WorkshopBuildableArea09|1
+NukaWorld|DLC04WorkshopBuildableArea10|1
+NukaWorld|DLC04WorkshopBuildableArea11|1
+NukaWorld|DLC04WorkshopBuildableArea12|1
+NukaWorld|DLC04WorkshopBuildableArea13|1
+NukaWorld|DLC04WorkshopBuildableArea14|1
+NukaWorld|DLC04_BridgeTrash|1
+NukaWorld|DLC04_CleansedMoveMarker|1
+NukaWorld|DLC04_CleansedWait|1
+NukaWorld|DLC04_DRG_01EnableMarkerREF|1
+NukaWorld|DLC04_DRG_02EnableMarkerREF|1
+NukaWorld|DLC04_DRG_03EnableMarkerREF|1
+NukaWorld|DLC04_DRG_CorralQT|1
+NukaWorld|DLC04_DRG_DrinkQT|1
+NukaWorld|DLC04_DRG_DrinkQT01|1
+NukaWorld|DLC04_DRG_DrinkQT03|1
+NukaWorld|DLC04_DiscipleGuard_EnableMarker|1
+NukaWorld|DLC04_DiscipleGuard_EnableMarker001|1
+NukaWorld|DLC04_DiscipleGuard_EnableMarker002|1
+NukaWorld|DLC04_GZ_StarControlCommentMarkerEnableParent|1
+NukaWorld|DLC04_HubRaiderShootingMarker|1
+NukaWorld|DLC04_HubRaiderShootingTarget|1
+NukaWorld|DLC04_HubSS3Marker1|1
+NukaWorld|DLC04_HubSS3Marker2|1
+NukaWorld|DLC04_HubologistCenterMarker|1
+NukaWorld|DLC04_JunkyardWarehouse_Center|1
+NukaWorld|DLC04_KKRoofToTheater|1
+NukaWorld|DLC04_KK_ElevatorFromRoofRef|1
+NukaWorld|DLC04_KK_MarkerRoof|1
+NukaWorld|DLC04_KK_RadiationHazardsEnableParent|1
+NukaWorld|DLC04_KK_RoofMarker01|1
+NukaWorld|DLC04_LucyWindowMarker|1
+NukaWorld|DLC04_MS02_SentrybotBossRef|1
+NukaWorld|DLC04_MS02_Start|1
+NukaWorld|DLC04_MS03_Start|1
+NukaWorld|DLC04_MonorailCompanionWarpMarkerNukaWorld|1
+NukaWorld|DLC04_MonorailCompanionWarpMarkerNukaWorld02|1
+NukaWorld|DLC04_MonorailPlayerWarpMarkerNukaWorld|1
+NukaWorld|DLC04_NukaStationElevator|1
+NukaWorld|DLC04_PhilCongratulateJunkyard_Marker|1
+NukaWorld|DLC04_PowerPlantControlRoomEnableMarker|1
+NukaWorld|DLC04_RedRocketLightsPowerOn|1
+NukaWorld|DoNotDeleteMe|1
+NukaWorld|DoNotDeleteMe001|1
+NukaWorld|HiddenCappyGalacticZone1|1
+NukaWorld|HiddenCappyGalacticZone2|1
+NukaWorld|KKBossFightPrim|1
+NukaWorld|KKTowerEToExt01|1
+NukaWorld|KKTowerNToExt01|1
+NukaWorld|KKTunnels01ToNorth|1
+NukaWorld|KKTunnelsExtToEast|1
+NukaWorld|KKTunnelsExtToSouth|1
+NukaWorld|KKTunnelsExtToWest|1
+NukaWorld|NukaworldJunkyardMapMarkerRef|1
+NukaWorld|PrimateHouse|1
+NukaWorld|PrimateHouse001|1
+NukaWorld|SafariAdventureCappy01|1
+NukaWorld|SafariAdventureCappy02|1
+NukaWorld|ShamrockTaphouseExtTo01Basement001|1
+NukaWorld|TheaterEnableDisable|1
+NukaWorld|WWCappyMarker01|1
+NukaWorld|testJeffB2|1
+NukaWorld|testJeffb1|1
+NukaWorld|trailerStart|1
+NukaWorld|xDLC04POISC01|1
+NukaWorld|xSC20|1
+NukaWorld|xSC28|1
+NukaWorld|xSCE|1
+NukaWorld|xSCG|1
+NukaWorld|xSCTest4|1
+NukaWorld|xxDLC04RE01|1
+NukaWorld|xxDLC04RE02|1
+NukaWorld|xxDLC04RE03|1
+NukaWorld|xxDLC04RE04|1
+NukaWorld|xxDLC04RE05|1
+NukaWorld|xxDLC04RE06|1
+NukaWorld|xxDLC04RE07|1
+NukaWorld|xxDLC04RE08|1
+NukaWorld|xxDLC04RE09|1
+NukaWorld|xxDLC04RE10|1
+NukaWorld|xxDLC04RE11|1
+NukaWorld|xxDLC04RE12|1
+NukaWorld|xxDLC04RE13|1
+NukaWorld|xxDLC04RE14|1
+NukaWorld|xxDLC04RE15|1
+NukaWorld|xxDLC04RE16|1
+NukaWorld|xxDLC04RE17|1
+NukaWorld|xxDLC04RE18|1
+NukaWorld|xxDLC04RE19|1
+NukaWorld|xxDLC04RE20|1
+NukaWorld|xxDLC04RE21|1
+NukaWorldAmphitheater||2509
+NukaWorldAmphitheater|DLC04MasonAudienceMarker|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterDisableCaptivesRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterDisableRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterSandboxAllRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterSandboxBackRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterSandboxGorillaRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterSandboxMainRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterSandboxOutsideRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterSandboxRadStagRef|1
+NukaWorldAmphitheater|DLC04PackAmphitheaterSandboxStage|1
+NukaWorldAmphitheater|DLC04PackAmpitheaterSideSandboxRef|1
+NukaWorldAmphitheater|DLC04PackAmpitheaterSleep02Ref|1
+NukaWorldAmphitheater|DLC04PackEntranceMarker|1
+NukaWorldAmphitheater|DLC04PackFightsAttackerRef001|1
+NukaWorldAmphitheater|DLC04PackFightsChairF03Ref|1
+NukaWorldAmphitheater|DLC04PackFightsChairF04Ref|1
+NukaWorldAmphitheater|DLC04PackFightsChairM05Ref|1
+NukaWorldAmphitheater|DLC04PackFightsChairM06Ref|1
+NukaWorldAmphitheater|DLC04PackFightsDefenderRef001|1
+NukaWorldAmphitheater|DLC04PackMapMarkerRef|1
+NukaWorldAmphitheater|DLC04PackScenes_StartIntroScene|1
+NukaWorldMarket||2492
+NukaWorldMarket|DLC04AaronVendorMarker|1
+NukaWorldMarket|DLC04CaravanMerchantEnableMarker|1
+NukaWorldMarket|DLC04KatelynSandboxMarker|1
+NukaWorldMarket|DLC04MaddoxVendorMarker|1
+NukaWorldMarket|DLC04MarketRadioEnableMarker|1
+NukaWorldMarket|DLC04NukaTownMarketMapMarkerRef|1
+NukaWorldMarket|DLC04RETravelNukaWorldRef|1
 OldGulletSinkhole01||706
 OldGulletSinkhole01|AO_Comment_Quiet_256_015|1
 OldGulletSinkhole01|AO_Comment_Quiet_256_016|1
@@ -16885,7 +18292,7 @@ CharlestownHouse01|100|324
 CharlestownLaundry|100|255
 CollegeSquare01|100|2713
 CombatZone01|100|2495
-Commonwealth|100|706611
+Commonwealth|100|713596
 ConcordCivicAccess01|100|1995
 ConcordFactory|100|598
 ConcordMuseum01|100|3414
@@ -16903,6 +18310,7 @@ DLC03AlderseaDaySpa01|100|1451
 DLC03BeaverCreekLanes01|100|2928
 DLC03EagleCoveTannery01|100|1321
 DLC03EchoLakeLumber01|100|221
+DLC03FarHarbor|100|121815
 DLC03FarHarborLastPlank|100|676
 DLC03HarborGrandHotel01|100|2002
 DLC03KitteredgePass01|100|1151
@@ -16914,6 +18322,7 @@ DLC03NucleusSubInterior01|100|2102
 DLC03POI40Int|100|79
 DLC03POIBasementArmory|100|232
 DLC03PineCrestCavern01|100|2069
+DLC03VRWorldspace|100|192
 DLC03Vault118|100|7425
 DLC03VimPopFactory01|100|2160
 DLC03VimPopFactory02|100|5544
@@ -16948,7 +18357,7 @@ DLC04TransitCenter01|100|787
 DLC04WWMineCart01|100|2458
 DLC06VaultWorkshop|100|6255
 DanversHideout|100|362
-DiamondCity|100|4431
+DiamondCity|100|4432
 DmndAbbotsHouse|100|132
 DmndAllFaithsChapel01|100|230
 DmndArturosHouse01|100|313
@@ -17084,6 +18493,9 @@ NorthEndHoardersApartment|100|275
 NorthEndMeanPastries|100|300
 NorthEndSalemStreetCottage|100|247
 NorthEndValentiStation|100|439
+NukaWorld|100|109521
+NukaWorldAmphitheater|100|2530
+NukaWorldMarket|100|2499
 OldGulletSinkhole01|100|711
 OldNorthChurch01|100|1701
 ParsonsState01|100|3005
@@ -17818,37 +19230,37 @@ CombatZone01|Screw|6|4
 CombatZone01|Spring|5|3
 CombatZone01|Steel|31|17
 CombatZone01|Wood|7|4
-Commonwealth|Acid|321|226
-Commonwealth|Adhesive|295|133
-Commonwealth|Aluminum|1184|532
-Commonwealth|Antiseptic|306|147
-Commonwealth|Asbestos|718|547
-Commonwealth|Ballistic Fiber|6|3
-Commonwealth|Bone|1274|448
-Commonwealth|Ceramic|1491|1141
-Commonwealth|Circuitry|306|139
-Commonwealth|Cloth|2038|1174
+Commonwealth|Acid|324|229
+Commonwealth|Adhesive|316|139
+Commonwealth|Aluminum|1202|541
+Commonwealth|Antiseptic|314|151
+Commonwealth|Asbestos|725|554
+Commonwealth|Ballistic Fiber|10|5
+Commonwealth|Bone|1284|451
+Commonwealth|Ceramic|1543|1171
+Commonwealth|Circuitry|311|140
+Commonwealth|Cloth|2071|1191
 Commonwealth|Concrete|317|65
-Commonwealth|Copper|442|399
-Commonwealth|Cork|139|70
+Commonwealth|Copper|455|412
+Commonwealth|Cork|141|71
 Commonwealth|Crystal|84|40
 Commonwealth|Fertilizer|256|64
 Commonwealth|Fiber Optics|13|11
-Commonwealth|Fiberglass|358|262
-Commonwealth|Gear|658|362
-Commonwealth|Glass|4034|2001
+Commonwealth|Fiberglass|364|267
+Commonwealth|Gear|667|368
+Commonwealth|Glass|4086|2030
 Commonwealth|Gold|38|17
-Commonwealth|Lead|637|119
-Commonwealth|Leather|204|146
-Commonwealth|Nuclear Material|64|59
-Commonwealth|Oil|671|494
-Commonwealth|Plastic|2000|1252
-Commonwealth|Rubber|525|273
-Commonwealth|Screw|529|370
+Commonwealth|Lead|638|120
+Commonwealth|Leather|207|149
+Commonwealth|Nuclear Material|66|61
+Commonwealth|Oil|684|503
+Commonwealth|Plastic|2050|1281
+Commonwealth|Rubber|531|277
+Commonwealth|Screw|538|376
 Commonwealth|Silver|87|40
-Commonwealth|Spring|747|552
-Commonwealth|Steel|5542|2714
-Commonwealth|Wood|1811|1200
+Commonwealth|Spring|764|568
+Commonwealth|Steel|5711|2798
+Commonwealth|Wood|1846|1223
 ConcordCivicAccess01|Acid|2|1
 ConcordCivicAccess01|Adhesive|1|1
 ConcordCivicAccess01|Aluminum|8|4
@@ -18162,6 +19574,37 @@ DLC03EchoLakeLumber01|Fertilizer|12|3
 DLC03EchoLakeLumber01|Glass|2|2
 DLC03EchoLakeLumber01|Spring|3|1
 DLC03EchoLakeLumber01|Steel|3|1
+DLC03FarHarbor|Acid|304|142
+DLC03FarHarbor|Adhesive|200|88
+DLC03FarHarbor|Aluminum|576|293
+DLC03FarHarbor|Antiseptic|130|60
+DLC03FarHarbor|Asbestos|169|131
+DLC03FarHarbor|Ballistic Fiber|32|23
+DLC03FarHarbor|Bone|903|276
+DLC03FarHarbor|Ceramic|643|385
+DLC03FarHarbor|Circuitry|93|42
+DLC03FarHarbor|Cloth|721|429
+DLC03FarHarbor|Concrete|265|53
+DLC03FarHarbor|Copper|194|191
+DLC03FarHarbor|Cork|66|38
+DLC03FarHarbor|Crystal|84|29
+DLC03FarHarbor|Fertilizer|158|44
+DLC03FarHarbor|Fiber Optics|12|12
+DLC03FarHarbor|Fiberglass|158|105
+DLC03FarHarbor|Gear|302|149
+DLC03FarHarbor|Glass|1583|749
+DLC03FarHarbor|Gold|41|16
+DLC03FarHarbor|Lead|59|39
+DLC03FarHarbor|Leather|120|97
+DLC03FarHarbor|Nuclear Material|42|37
+DLC03FarHarbor|Oil|585|342
+DLC03FarHarbor|Plastic|973|526
+DLC03FarHarbor|Rubber|144|89
+DLC03FarHarbor|Screw|183|137
+DLC03FarHarbor|Silver|65|43
+DLC03FarHarbor|Spring|420|291
+DLC03FarHarbor|Steel|2360|1134
+DLC03FarHarbor|Wood|596|393
 DLC03FarHarborLastPlank|Adhesive|2|1
 DLC03FarHarborLastPlank|Aluminum|6|2
 DLC03FarHarborLastPlank|Asbestos|4|4
@@ -20979,6 +22422,78 @@ NorthEndValentiStation|Screw|2|1
 NorthEndValentiStation|Spring|1|1
 NorthEndValentiStation|Steel|9|4
 NorthEndValentiStation|Wood|4|3
+NukaWorld|Acid|74|45
+NukaWorld|Adhesive|99|40
+NukaWorld|Aluminum|298|139
+NukaWorld|Antiseptic|62|28
+NukaWorld|Asbestos|125|87
+NukaWorld|Ballistic Fiber|4|2
+NukaWorld|Bone|404|130
+NukaWorld|Ceramic|217|138
+NukaWorld|Circuitry|56|28
+NukaWorld|Cloth|396|217
+NukaWorld|Concrete|240|48
+NukaWorld|Copper|94|91
+NukaWorld|Cork|79|41
+NukaWorld|Crystal|58|20
+NukaWorld|Fertilizer|48|12
+NukaWorld|Fiber Optics|1|1
+NukaWorld|Fiberglass|94|63
+NukaWorld|Gear|143|68
+NukaWorld|Glass|1300|616
+NukaWorld|Gold|11|7
+NukaWorld|Lead|24|16
+NukaWorld|Leather|71|64
+NukaWorld|Nuclear Material|12|11
+NukaWorld|Oil|194|132
+NukaWorld|Plastic|349|235
+NukaWorld|Rubber|90|51
+NukaWorld|Screw|123|84
+NukaWorld|Silver|20|12
+NukaWorld|Spring|168|100
+NukaWorld|Steel|1463|713
+NukaWorld|Wood|422|248
+NukaWorldAmphitheater|Acid|2|2
+NukaWorldAmphitheater|Aluminum|5|2
+NukaWorldAmphitheater|Antiseptic|4|2
+NukaWorldAmphitheater|Asbestos|2|2
+NukaWorldAmphitheater|Bone|86|30
+NukaWorldAmphitheater|Ceramic|2|1
+NukaWorldAmphitheater|Cloth|2|1
+NukaWorldAmphitheater|Copper|2|2
+NukaWorldAmphitheater|Fiberglass|4|3
+NukaWorldAmphitheater|Glass|16|8
+NukaWorldAmphitheater|Oil|3|1
+NukaWorldAmphitheater|Plastic|15|9
+NukaWorldAmphitheater|Rubber|2|2
+NukaWorldAmphitheater|Screw|1|1
+NukaWorldAmphitheater|Silver|1|1
+NukaWorldAmphitheater|Spring|1|1
+NukaWorldAmphitheater|Steel|17|9
+NukaWorldAmphitheater|Wood|2|1
+NukaWorldMarket|Adhesive|6|3
+NukaWorldMarket|Aluminum|19|8
+NukaWorldMarket|Asbestos|8|5
+NukaWorldMarket|Ballistic Fiber|2|1
+NukaWorldMarket|Bone|7|2
+NukaWorldMarket|Ceramic|26|16
+NukaWorldMarket|Circuitry|2|1
+NukaWorldMarket|Cloth|23|11
+NukaWorldMarket|Concrete|10|2
+NukaWorldMarket|Copper|3|3
+NukaWorldMarket|Cork|1|1
+NukaWorldMarket|Crystal|4|1
+NukaWorldMarket|Gear|4|2
+NukaWorldMarket|Glass|36|19
+NukaWorldMarket|Leather|3|1
+NukaWorldMarket|Oil|4|3
+NukaWorldMarket|Plastic|31|23
+NukaWorldMarket|Rubber|1|1
+NukaWorldMarket|Screw|6|4
+NukaWorldMarket|Silver|2|1
+NukaWorldMarket|Spring|7|3
+NukaWorldMarket|Steel|78|36
+NukaWorldMarket|Wood|17|11
 OldGulletSinkhole01|Aluminum|6|3
 OldGulletSinkhole01|Asbestos|5|4
 OldGulletSinkhole01|Bone|23|8
@@ -22789,13 +24304,16 @@ TheCastle01|Mirelurk|100.0|1
 0021A107|ElevTransHiTechInstitute|Elevator|0|4|72|-48|56|-48|192|0|0|1.0|0
 0021A2AE|zVitalePumphouse01|Pumphouse|0|-115|1123|-896|665|464|1783|0|0|1.0|0
 010008A3|DLC01Lair01|The Mechanist's Lair|0|-3586|-270|-12512|5340|-10141|9600|0|0|1.0|2
+01000B0F|DLC03FarHarbor|The Island|1|-9001|16907|-98522|80519|-76256|110071|0|0|1.0|4
 01000F31|DLC06VaultWorkshop|Vault 88|0|-3208|4167|-13861|7444|-7430|15764|0|0|1.0|6
 01001B7A|DLC03HarborGrandHotel01|Harbor Grand Hotel|0|1869|970|-1921|5659|-869|2810|0|0|1.0|4
+0100290F|NukaWorld|Nuka-World|1|-9692|-2926|-110984|91600|-102241|96388|0|0|1.0|7
 01003392|DLC03FarHarborLastPlank|The Last Plank|0|1182|5182|-467|2832|3585|6779|0|0|1.0|4
 01003A6F|DLC03Nucleus|The Nucleus|0|8506|1054|5565|11448|-2915|5024|0|0|1.0|4
 01003A99|DLC03NucleusCommandCenter01|Nucleus Command Center|0|4266|1930|-1325|9858|-2761|6621|0|0|1.0|4
 010044DF|DLC01FortHagenSatelliteArray01|Fort Hagen Hangar|0|-993|1825|-5137|3151|-1977|5628|0|0|1.0|2
 01004643|DLC03Acadia|Acadia|0|442|-1539|-1400|2284|-4096|1017|0|0|1.0|4
+01004EA4|DLC03VRWorldspace|Simulation|1|144|1261|-9456|9744|-9596|12118|0|0|1.0|4
 010054D8|DLC03VimPopFactory01|Vim! Corporate Headquarters|0|-701|64|-2299|896|-1536|1664|0|0|1.0|4
 010054D9|DLC03Vault118|Vault 118|0|-1392|3328|-6864|4080|-2922|9579|0|0|1.0|4
 010054DA|DLC03BeaverCreekLanes01|Beaver Creek Lanes|0|1792|3260|-1148|4733|3|6517|0|0|1.0|4
@@ -22838,6 +24356,8 @@ TheCastle01|Mirelurk|100.0|1
 01036E8E|DLC03NorthwoodRidgeQuarry01|Northwood Ridge Quarry|0|-1042|2642|-3808|1723|-1165|6449|0|0|1.0|4
 0103A4FD|DLC04BottlingPlant02|Secure Beverageer Lab|0|656|904|-1152|2464|-2304|4112|0|0|1.0|7
 01040F16|DLC03NucleusSubInterior01|The Vessel|0|182|-688|-1111|1475|-4112|2736|0|0|1.0|4
+01052931|NukaWorldAmphitheater|Bradberton Amphitheater|1|-684|-18466|-5769|4401|-22392|-14540|0|0|1.0|7
+01053C58|NukaWorldMarket|Nuka-Town Market|1|981|-18351|-2549|4511|-21672|-15030|0|0|1.0|7
 01054271|DLC03POIBasementArmory|Basement Armory|0|3038|2670|2396|3680|1968|3372|0|0|1.0|4
 ==Instance IDs Count Vs Distinct==
-1394234|1394229
+1762968|1762306
