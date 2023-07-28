@@ -3,7 +3,7 @@ commonwealth_cartography.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-3899c90df090e513bf993021956adcfc
+6c5f6320c52faa4d87520285a038d1c0
 ==File Size== 
 164823040 
 ==Tables== 
@@ -135,320 +135,320 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Average editorID string length==
 21.5908770182211
 ==Map Markers==
-Commonwealth|Airfield|Boston Airport|48074|-3332
-Commonwealth|Airfield|Skylanes Flight 1665|-64854|-125006
-Commonwealth|Airfield|Skylanes Flight 1981|-5565|78981
-Commonwealth|Airfield|Vertibird Wreckage|-62551|-109745
-Commonwealth|Brownstone Townhouse|Back Street Apparel|-10737|-14488
-Commonwealth|Bunker|Boston Mayoral Shelter|-101204|-15323
-Commonwealth|Bunker|Federal Ration Stockpile|-83879|23204
-Commonwealth|Bunker|Federal Supply Cache 84NE|-91049|-74601
-Commonwealth|Bunker|Federal Surveillance Center K-21B|-104787|-84111
-Commonwealth|Bunker|Listening Post Bravo|38354|62591
-Commonwealth|Bunker|Recon Bunker Theta|20120|101840
-Commonwealth|Bunker Hill|Bunker Hill|18232|14378
-Commonwealth|Camper|Fiddler's Green Trailer Estates|-76395|-295
-Commonwealth|Camper|Rocky Narrows Park|-55196|26827
-Commonwealth|Car|Freeway Pileup|13384|-33878
-Commonwealth|Car|Tucker Memorial Bridge|1576|31419
-Commonwealth|Castle|The Castle|48322|-46600
-Commonwealth|Cave|Cave|-75418|-89809
-Commonwealth|Cave|Cave|-71997|-116780
-Commonwealth|Cave|Rocky Cave|-116397|-136729
-Commonwealth|Church|Cambridge Church|3592|18399
-Commonwealth|Church|Forgotten Church|-121180|-86049
-Commonwealth|Church|Holy Mission Congregation|-5428|-17064
-Commonwealth|Church|Hopesmarch Pentecostal Church|-60448|-101169
-Commonwealth|Church|Lonely Chapel|-90838|29423
-Commonwealth|Church|Nahant Chapel|101052|33671
-Commonwealth|Church|Old North Church|29037|1093
-Commonwealth|Church|Trinity Plaza|1343|-22209
-Commonwealth|City|Layton Towers|1303|-30544
-Commonwealth|City|Lexington|-33030|41006
-Commonwealth|City|Lexington Apartments|-27751|36871
-Commonwealth|City|Monsignor Plaza|4642|8678
-Commonwealth|City|Parkview Apartments|-21936|-28362
-Commonwealth|Custom House|Custom House Tower|32759|-10066
-Commonwealth|Drive-In|Starlight Drive In|-39209|57601
-Commonwealth|Elevated Highway|Fallen Skybridge|21460|-16121
-Commonwealth|Elevated Highway|Footbridge Camp|-857|-13236
-Commonwealth|Elevated Highway|Mass Pike Interchange|-69225|-34811
-Commonwealth|Encampment|Abandoned Shack|-104709|-83907
-Commonwealth|Encampment|Back Alley Camp|17511|-31377
-Commonwealth|Encampment|Boston Airport Ruins|47088|-5384
-Commonwealth|Encampment|Charles View Amphitheater|6838|-8582
-Commonwealth|Encampment|Easy City Downs|54544|12409
-Commonwealth|Encampment|Gorski Cabin|-63735|58183
-Commonwealth|Encampment|Peabody House|34691|-93687
-Commonwealth|Encampment|Ranger Cabin|-88074|71694
-Commonwealth|Factory / Industrial Site|Cambridge Warehouse|5762|15112
-Commonwealth|Factory / Industrial Site|Capsized Factory|-85176|-97385
-Commonwealth|Factory / Industrial Site|Electrical Hobbyist's Club|-58187|-53621
-Commonwealth|Factory / Industrial Site|Mass Fusion Containment Shed|19600|78334
-Commonwealth|Factory / Industrial Site|O'Neill Family Manufacturing|-78874|-130105
-Commonwealth|Factory / Industrial Site|Parsons Creamery|49254|99758
-Commonwealth|Factory / Industrial Site|Wicked Shipping Fleet Lockup|-84696|64376
-Commonwealth|Faneuil Hall|Faneuil Hall|26407|-5546
-Commonwealth|Farm|Abernathy Farm|-76640|67872
-Commonwealth|Farm|Breakheart Banks|36038|77692
-Commonwealth|Farm|County Crossing|38674|31457
-Commonwealth|Farm|Finch Farm|55168|47680
-Commonwealth|Farm|Graygarden|-47985|18473
-Commonwealth|Farm|Greentop Nursery|29736|67383
-Commonwealth|Farm|Nordhagen Beach|64215|3311
-Commonwealth|Farm|Oberland Station|-46180|-4998
-Commonwealth|Farm|Somerville Place|-36034|-91752
-Commonwealth|Farm|Tenpines Bluff|-22155|89056
-Commonwealth|Farm|The Slog|52513|70577
-Commonwealth|Farm|Warwick Homestead|57336|-74971
-Commonwealth|Filling Station|Fort Hagen Filling Station|-87137|-1005
-Commonwealth|Filling Station|Red Rocket Truck Stop|-69379|80148
-Commonwealth|Forested|Robotics Pioneer Park|-49668|-68421
-Commonwealth|Gov't Building / Monument|Boston Public Library|-3490|-22646
-Commonwealth|Gov't Building / Monument|Dorchester Heights Monument|29610|-47920
-Commonwealth|Gov't Building / Monument|Fraternal Post 115|-26528|3104
-Commonwealth|Gov't Building / Monument|Massachusetts State House|12895|-12818
-Commonwealth|Gov't Building / Monument|Museum of Freedom|-57012|70392
-Commonwealth|Graveyard|Cambridge Graveyard|-19200|12752
-Commonwealth|Graveyard|North End Graveyard|23840|2976
-Commonwealth|Graveyard|Old Granary Burying Ground|15654|-13778
-Commonwealth|Graveyard|South Boston Graveyard|37030|-47622
-Commonwealth|Graveyard|Wildwood Cemetery|-11694|67820
-Commonwealth|Hospital|Greater Mass Blood Clinic|-87590|-12081
-Commonwealth|Hospital|Kendall Hospital|-15165|9908
-Commonwealth|Hospital|Mass Bay Medical Center|19286|-26527
-Commonwealth|Hospital|Med-Tek Research|23113|54461
-Commonwealth|Hospital|Medford Memorial Hospital|11072|59584
-Commonwealth|Hospital|Milton General Hospital|-7838|-58292
-Commonwealth|Hospital|Parsons State Insane Asylum|52695|86706
-Commonwealth|Hospital|Sandy Coves Convalescent Home|89531|79112
-Commonwealth|Industrial Dome|Beantown Brewery|-42143|4746
-Commonwealth|Industrial Dome|Decayed Reactor Site|-117023|-107646
-Commonwealth|Industrial Dome|Weston Water Treatment Plant|-61251|-1831
-Commonwealth|Industrial Stacks|ArcJet Systems|-67592|20064
-Commonwealth|Industrial Stacks|Cambridge Polymer Labs|-27347|-2568
-Commonwealth|Industrial Stacks|Corvega Assembly Plant|-34808|32128
-Commonwealth|Industrial Stacks|Decrepit Factory|-109093|-121066
-Commonwealth|Industrial Stacks|Factory|27806|-36408
-Commonwealth|Industrial Stacks|General Atomics Factory|37859|-35456
-Commonwealth|Industrial Stacks|Gwinnett Brewery|31750|-41667
-Commonwealth|Industrial Stacks|Longneck Lukowski's Cannery|79992|55488
-Commonwealth|Industrial Stacks|Mahkra Fishpacking|83680|99043
-Commonwealth|Industrial Stacks|Poseiden Energy Turbine #18-F|10178|30224
-Commonwealth|Industrial Stacks|Poseidon Energy|41824|-90112
-Commonwealth|Industrial Stacks|Poseidon Reservoir|-87711|-34165
-Commonwealth|Industrial Stacks|Saugus Ironworks|54454|59023
-Commonwealth|Industrial Stacks|Wilson Atomatoys Factory|18906|-91393
-Commonwealth|Institute|The Institute|-16775|1160
-Commonwealth|Irish Pride|Boxing Gym|26750|2325
-Commonwealth|Irish Pride|Four Leaf Fishpacking Plant|33400|-32500
-Commonwealth|Irish Pride|Irish Pride Industries Shipyard|18848|26224
-Commonwealth|Junkyard|Atom Cats Garage|38379|-71075
-Commonwealth|Junkyard|Big John's Salvage|4970|-44640
-Commonwealth|Junkyard|Hub City Auto Wreckers|61515|57117
-Commonwealth|Junkyard|Jalbert Brothers Disposal|-46588|25836
-Commonwealth|Junkyard|Robotics Disposal Ground|-53451|99312
-Commonwealth|Junkyard|Rotten Landfill|-22614|62544
-Commonwealth|Junkyard|Scrap Palace|-44193|-74941
-Commonwealth|Libertalia|Liberitalia|79545|17805
-Commonwealth|Low-Rise Building|BADTFL Regional Office|10518|19759
-Commonwealth|Low-Rise Building|Drumlin Diner|-50291|55079
-Commonwealth|Low-Rise Building|Lynn Pier Parking|68952|50418
-Commonwealth|Low-Rise Building|Roadside Pines Motel|-89318|-41436
-Commonwealth|Low-Rise Building|Wilson Atomatoys Corporate HQ|6406|-29624
-Commonwealth|Metro Station|Andrew Station|21952|-42976
-Commonwealth|Metro Station|Malden Center|14825|58814
-Commonwealth|Metro Station|Medical Center Metro|15599|-27821
-Commonwealth|Metro Station|Park Street Station|14878|-15941
-Commonwealth|Metro Station|Revere Beach Station|57613|29378
-Commonwealth|Metro Station|Subway Station|-25456|-20336
-Commonwealth|Metro Station|Valenti Station|29381|-3040
-Commonwealth|Metro Station|West Roxbury Station|-7894|-63110
-Commonwealth|Military Base|Coast Guard Pier|-33693|-51815
-Commonwealth|Military Base|Fort Hagen|-87979|-5675
-Commonwealth|Military Base|Fort Strong|76976|-17488
-Commonwealth|Military Base|National Guard Training Yard|39114|39581
-Commonwealth|Military Base|S. Boston Military Checkpoint|14511|-46452
-Commonwealth|Military Base|Waypoint Echo|-51720|-82807
-Commonwealth|Natural Landmark|Boston Common|12706|-17196
-Commonwealth|Natural Landmark|Cambridge Baseball Diamond|-8253|10033
-Commonwealth|Natural Landmark|Christopher Columbus Park|33847|-5221
-Commonwealth|Natural Landmark|Edge of the Glowing Sea|-56092|-78516
-Commonwealth|Natural Landmark|Lil' Gentry Playground|14516|-6060
-Commonwealth|Natural Landmark|Spectacle Island|74771|-59107
-Commonwealth|Office / Civic Building|Apartment|21522|3708
-Commonwealth|Office / Civic Building|Boylston Club|11593|-21005
-Commonwealth|Office / Civic Building|Bridgeway Trust|-9586|-17028
-Commonwealth|Office / Civic Building|C.I.T. Ruins|-16794|-2777
-Commonwealth|Office / Civic Building|Cabot House|18354|2119
-Commonwealth|Office / Civic Building|Cambridge Campus Diner|-22088|7850
-Commonwealth|Office / Civic Building|Fallon's Department Store|-12727|-61942
-Commonwealth|Office / Civic Building|General Atomics Galleria|6244|82260
-Commonwealth|Office / Civic Building|HalluciGen, Inc.|6104|-13656
-Commonwealth|Office / Civic Building|Hesters Consumer Robotics|21673|-29513
-Commonwealth|Office / Civic Building|Hubris Comics|7149|-19573
-Commonwealth|Office / Civic Building|L Street Bathhouse|32952|-52946
-Commonwealth|Office / Civic Building|Marlborough House|2833|-14438
-Commonwealth|Office / Civic Building|Mean Pastries|23950|1205
-Commonwealth|Office / Civic Building|Old Corner Bookstore|20928|-6144
-Commonwealth|Office / Civic Building|Pickman Gallery|26024|3203
-Commonwealth|Office / Civic Building|Salem|93444|80552
-Commonwealth|Office / Civic Building|Taffington Boathouse|6618|46030
-Commonwealth|Office / Civic Building|The Gwinnett Restaurant|32819|-45180
-Commonwealth|Office / Civic Building|The Shamrock Taphouse|31491|-17615
-Commonwealth|Office / Civic Building|Wattz Consumer Electronics|-6048|22912
-Commonwealth|Pier|Egret Tours Marina|-31166|-62889
-Commonwealth|Pier|Gibson Point Pier|65373|41444
-Commonwealth|Pier|Kingsport Lighthouse|89558|59967
-Commonwealth|Pier|Long Wharf|40938|-8881
-Commonwealth|Pier|Nahant Oceanological Society|105583|24731
-Commonwealth|Pier|Nahant Wharf|82154|25431
-Commonwealth|Pier|Reeb Marina|58176|37760
-Commonwealth|Pier|Science Center Gift Shop|9596|6023
-Commonwealth|Police Station|Cambridge Police Station|-28908|10172
-Commonwealth|Police Station|East Boston Police Station|39165|9458
-Commonwealth|Police Station|Nahant Sherrif's Department|83134|28209
-Commonwealth|Police Station|Natick Police Department|-84458|-48120
-Commonwealth|Police Station|Police Precinct 8|-7145|-23396
-Commonwealth|Police Station|Quincy Police Station|29625|-89562
-Commonwealth|Police Station|South Boston Police Department|26156|-42843
-Commonwealth|Pond / Lake|Chestnut Hillock Reservoir|-29037|-24806
-Commonwealth|Pond / Lake|Dark Hollow Pond|9288|74897
-Commonwealth|Pond / Lake|Lake Cochituate|-78974|-44484
-Commonwealth|Pond / Lake|Lake Quannapowitt|4448|93224
-Commonwealth|Pond / Lake|Murkwater Construction Site|5154|-95174
-Commonwealth|Pond / Lake|Neponset Park|21658|-72891
-Commonwealth|Pond / Lake|Old Gullet Sinkhole|21781|68194
-Commonwealth|Pond / Lake|Walden Pond|-69326|44243
-Commonwealth|Pond / Lake|Westing Estate|-47263|-43526
-Commonwealth|Prydwen|The Prydwen|54805|-9272
-Commonwealth|Quarry|Dunwich Borers|66905|69940
-Commonwealth|Quarry|Mass Gravel & Sand|-19939|26626
-Commonwealth|Quarry|Quincy Quarries|14544|-81256
-Commonwealth|Quarry|Thicket Excavations|-45165|82241
-Commonwealth|Radio Tower|Gunners Plaza|-14182|-78684
-Commonwealth|Radio Tower|Outpost Zimonja|-10607|100158
-Commonwealth|Radio Tower|Radio Tower 3SM-U81|14423|88399
-Commonwealth|Radio Tower|Relay Tower 0BB-915|-91277|5005
-Commonwealth|Radio Tower|Relay Tower 0DB-521|-53974|-111388
-Commonwealth|Radio Tower|Relay Tower 0MC-810|25986|38867
-Commonwealth|Radio Tower|Relay Tower 0SC-527|-4279|-48716
-Commonwealth|Radio Tower|Relay Tower 1DL-109|-51070|-11634
-Commonwealth|Radio Tower|WRVR Broadcast Station|-39728|-56840
-Commonwealth|Radioactive Area|Crater House|90652|69405
-Commonwealth|Radioactive Area|Crater of Atom|-99711|-116050
-Commonwealth|Radioactive Area|Hugo's Hole|73386|72232
-Commonwealth|Radioactive Area|Mass Fusion Disposal Site|-70693|-54920
-Commonwealth|Railroad|Bedford Station|-29602|69761
-Commonwealth|Railroad|Boston Police Rationing Site|-16595|-39283
-Commonwealth|Railroad|NH&M Freight Depot|-6427|-39689
-Commonwealth|Railroad - Faction|Mercer Safehouse|27981|17094
-Commonwealth|Railroad - Faction|Railroad HQ|32562|234
-Commonwealth|Ruins - Town|Cambridge Hardware Store|-15113|17892
-Commonwealth|Ruins - Town|Coastal Cottage|69519|89355
-Commonwealth|Ruins - Town|Concord|-60286|72978
-Commonwealth|Ruins - Town|Croup Manor|91189|37248
-Commonwealth|Ruins - Town|Fairline Hill Estates|-13878|-51513
-Commonwealth|Ruins - Town|Forest Grove Marsh|-60895|-18510
-Commonwealth|Ruins - Town|Hardware Town|-23476|-33961
-Commonwealth|Ruins - Town|Hyde Park|7101|-75153
-Commonwealth|Ruins - Town|Ivan's|42081|-43732
-Commonwealth|Ruins - Town|Jamaica Plain|9969|-63016
-Commonwealth|Ruins - Town|Mystic Pines|-24233|46668
-Commonwealth|Ruins - Town|Natick Banks|-86800|-47056
-Commonwealth|Ruins - Town|Navy Yard|22976|10432
-Commonwealth|Ruins - Town|Paul Revere House|30939|-1849
-Commonwealth|Ruins - Town|Rook Family House|94874|86669
-Commonwealth|Ruins - Town|West Everett Estates|13591|38601
-Commonwealth|Ruins - Urban|Brookline Building|-19808|-21239
-Commonwealth|Ruins - Urban|Cambridge Academic Center|-23940|10199
-Commonwealth|Ruins - Urban|Cambridge Crater|-1926|7686
-Commonwealth|Ruins - Urban|Camp Kendall|2235|-1361
-Commonwealth|Ruins - Urban|Campus Law Offices|-19636|5926
-Commonwealth|Ruins - Urban|College Square|-29693|14912
-Commonwealth|Ruins - Urban|East C.I.T. Raider Camp|-9376|-320
-Commonwealth|Ruins - Urban|Evans Way Cul-de-Sac|-13353|-34921
-Commonwealth|Ruins - Urban|Flagon Tunnel|-16448|-18529
-Commonwealth|Ruins - Urban|Founder's Triangle|-21462|-25710
-Commonwealth|Ruins - Urban|Hangman's Alley|-20575|-17968
-Commonwealth|Ruins - Urban|Harbormaster Hotel|28406|-20982
-Commonwealth|Ruins - Urban|Haymarket Mall|21960|-3656
-Commonwealth|Ruins - Urban|Jimbo's Tower|8324|-24087
-Commonwealth|Ruins - Urban|Kendall Parking Garage|-928|3076
-Commonwealth|Ruins - Urban|Major Crossroad|-11872|4696
-Commonwealth|Ruins - Urban|Pizza Parlour|28873|5436
-Commonwealth|Ruins - Urban|Postal Square|26547|-14843
-Commonwealth|Ruins - Urban|Prost Bar|9758|-15683
-Commonwealth|Ruins - Urban|Raider Alleyway Outpost|-4528|-15218
-Commonwealth|Ruins - Urban|Raider Drug Den|25092|17358
-Commonwealth|Ruins - Urban|Shenley's Oyster Bar|4801|-18039
-Commonwealth|Ruins - Urban|Slocum's Joe Corporate HQ|17285|58287
-Commonwealth|Ruins - Urban|Super Duper Mart|-34491|43176
-Commonwealth|Ruins - Urban|Ticker Tape Lounge|21592|-22744
-Commonwealth|Ruins - Urban|Tower Apartments|11462|-3811
-Commonwealth|Ruins - Urban|Union Man's Circle|24922|-47830
-Commonwealth|Ruins - Urban|Warren Theater|10889|-26245
-Commonwealth|Ruins - Urban|Water Street Apartments|21735|-14946
-Commonwealth|Ruins - Urban|Weatherby Savings & Loan|27523|13183
-Commonwealth|Salem|Museum of Witchcraft|84600|73940
-Commonwealth|Sanctuary|Sanctuary|-80768|88175
-Commonwealth|Satellite|Fort Hagen Satellite Array|-100536|-2366
-Commonwealth|Satellite|Revere Satellite Array|51642|37536
-Commonwealth|Satellite|USAF Satellite Station Olivia|-41434|93038
-Commonwealth|School|D.B. Technical High School|13418|-30767
-Commonwealth|School|East Boston Preparatory School|45883|12726
-Commonwealth|School|Malden Middle School|18995|61599
-Commonwealth|School|Shaw High School|-3432|-62775
-Commonwealth|School|South Boston High School|31786|-49233
-Commonwealth|School|Suffolk County Charter School|3078|-84299
-Commonwealth|School|University Point|23472|-57168
-Commonwealth|Sentinel|Sentinel Site|-79766|-141218
-Commonwealth|Settlement|Cambridge Raider Base|-11530|15110
-Commonwealth|Settlement|Combat Zone|13185|-23092
-Commonwealth|Settlement|Covenant|-7896|47116
-Commonwealth|Settlement|Lynn Woods|42548|90806
-Commonwealth|Settlement|Mass Pike Tunnel East|-5264|-33040
-Commonwealth|Settlement|Mass Pike Tunnel West|-29693|-32666
-Commonwealth|Settlement|Quincy Ruins|27462|-85580
-Commonwealth|Settlement|Sunshine Tidings Co-op|-86686|38379
-Commonwealth|Sewer / Utility Tunnels|Fens Street Sewer|-19309|-26817
-Commonwealth|Shipwreck|Cutler Bend|-27474|-74349
-Commonwealth|Shipwreck|Wreck of the FMS Northern Star|60963|-84373
-Commonwealth|Shipwreck|Wreck of the USS Riptide|-17465|-9900
-Commonwealth|Skyscraper|35 Court|29579|-12354
-Commonwealth|Skyscraper|Atlantic Offices|-94748|-94894
-Commonwealth|Skyscraper|Boston Bugle Building|18107|-4094
-Commonwealth|Skyscraper|Cambridge Construction Site|9394|12229
-Commonwealth|Skyscraper|Collegiate Administration Building|-22337|16284
-Commonwealth|Skyscraper|Commonwealth Bank|27367|-8134
-Commonwealth|Skyscraper|Dartmouth Professional Building|-1843|-29406
-Commonwealth|Skyscraper|Garden Terrace|24279|-4064
-Commonwealth|Skyscraper|Greenetech Genetics|-2667|882
-Commonwealth|Skyscraper|Hub 360|22953|-19597
-Commonwealth|Skyscraper|Mass Fusion Building|18694|-7164
-Commonwealth|Skyscraper|Mass Fusion Executive Suite|19808|-7072
-Commonwealth|Skyscraper|Oakwood Residences|16819|-21426
-Commonwealth|Skyscraper|South Fens Tower|-12606|-32759
-Commonwealth|Skyscraper|Ticonderoga|5023|3700
-Commonwealth|Skyscraper|Trinity Tower|3739|-24264
-Commonwealth|Skyscraper|Vault-Tec Regional HQ|12481|-9530
-Commonwealth|Skyscraper|Weatherby Investment Trust|27360|-3820
-Commonwealth|Submarine|Yangtze|41476|-22655
-Commonwealth|Swan Pond|Swan's Pond|11509|-18008
-Commonwealth|Town|Hawthorne Estate|23778|-50444
-Commonwealth|USS Constitution|USS Constitution|27187|-4012
-Commonwealth|USS Constitution|USS Constitution|27234|13175
-Commonwealth|USS Constitution|USS Constitution|27360|-3844
-Commonwealth|Vault|Vault 111|-89272|91369
-Commonwealth|Vault|Vault 114|8020|-18075
-Commonwealth|Vault|Vault 75|18995|61599
-Commonwealth|Vault|Vault 81|-37803|-23721
-Commonwealth|Vault|Vault 81 Atrium|-40790|-20621
-Commonwealth|Vault|Vault 95|-49107|-89462
-DiamondCity|Diamond City|Diamond City|-1081|-2098
-DiamondCity|Settlement|Diamond City Market|1373|411
-DiamondCity|Settlement|Home Plate|3163|1861
-Goodneighbor|Goodneighbor|Goodneighbor|20826|-11905
+Commonwealth|AirfieldMarker|Boston Airport|48074|-3332
+Commonwealth|AirfieldMarker|Skylanes Flight 1665|-64854|-125006
+Commonwealth|AirfieldMarker|Skylanes Flight 1981|-5565|78981
+Commonwealth|AirfieldMarker|Vertibird Wreckage|-62551|-109745
+Commonwealth|BrownstoneTownhouseMarker|Back Street Apparel|-10737|-14488
+Commonwealth|BunkerHillMarker|Bunker Hill|18232|14378
+Commonwealth|BunkerMarker|Boston Mayoral Shelter|-101204|-15323
+Commonwealth|BunkerMarker|Federal Ration Stockpile|-83879|23204
+Commonwealth|BunkerMarker|Federal Supply Cache 84NE|-91049|-74601
+Commonwealth|BunkerMarker|Federal Surveillance Center K-21B|-104787|-84111
+Commonwealth|BunkerMarker|Listening Post Bravo|38354|62591
+Commonwealth|BunkerMarker|Recon Bunker Theta|20120|101840
+Commonwealth|CamperMarker|Fiddler's Green Trailer Estates|-76395|-295
+Commonwealth|CamperMarker|Rocky Narrows Park|-55196|26827
+Commonwealth|CarMarker|Freeway Pileup|13384|-33878
+Commonwealth|CarMarker|Tucker Memorial Bridge|1576|31419
+Commonwealth|CastleMarker|The Castle|48322|-46600
+Commonwealth|CaveMarker|Cave|-75418|-89809
+Commonwealth|CaveMarker|Cave|-71997|-116780
+Commonwealth|CaveMarker|Rocky Cave|-116397|-136729
+Commonwealth|ChurchMarker|Cambridge Church|3592|18399
+Commonwealth|ChurchMarker|Forgotten Church|-121180|-86049
+Commonwealth|ChurchMarker|Holy Mission Congregation|-5428|-17064
+Commonwealth|ChurchMarker|Hopesmarch Pentecostal Church|-60448|-101169
+Commonwealth|ChurchMarker|Lonely Chapel|-90838|29423
+Commonwealth|ChurchMarker|Nahant Chapel|101052|33671
+Commonwealth|ChurchMarker|Old North Church|29037|1093
+Commonwealth|ChurchMarker|Trinity Plaza|1343|-22209
+Commonwealth|CityMarker|Layton Towers|1303|-30544
+Commonwealth|CityMarker|Lexington|-33030|41006
+Commonwealth|CityMarker|Lexington Apartments|-27751|36871
+Commonwealth|CityMarker|Monsignor Plaza|4642|8678
+Commonwealth|CityMarker|Parkview Apartments|-21936|-28362
+Commonwealth|CustomHouseMarker|Custom House Tower|32759|-10066
+Commonwealth|DriveInMarker|Starlight Drive In|-39209|57601
+Commonwealth|ElevatedHighwayMarker|Fallen Skybridge|21460|-16121
+Commonwealth|ElevatedHighwayMarker|Footbridge Camp|-857|-13236
+Commonwealth|ElevatedHighwayMarker|Mass Pike Interchange|-69225|-34811
+Commonwealth|EncampmentMarker|Abandoned Shack|-104709|-83907
+Commonwealth|EncampmentMarker|Back Alley Camp|17511|-31377
+Commonwealth|EncampmentMarker|Boston Airport Ruins|47088|-5384
+Commonwealth|EncampmentMarker|Charles View Amphitheater|6838|-8582
+Commonwealth|EncampmentMarker|Easy City Downs|54544|12409
+Commonwealth|EncampmentMarker|Gorski Cabin|-63735|58183
+Commonwealth|EncampmentMarker|Peabody House|34691|-93687
+Commonwealth|EncampmentMarker|Ranger Cabin|-88074|71694
+Commonwealth|FactoryMarker|Cambridge Warehouse|5762|15112
+Commonwealth|FactoryMarker|Capsized Factory|-85176|-97385
+Commonwealth|FactoryMarker|Electrical Hobbyist's Club|-58187|-53621
+Commonwealth|FactoryMarker|Mass Fusion Containment Shed|19600|78334
+Commonwealth|FactoryMarker|O'Neill Family Manufacturing|-78874|-130105
+Commonwealth|FactoryMarker|Parsons Creamery|49254|99758
+Commonwealth|FactoryMarker|Wicked Shipping Fleet Lockup|-84696|64376
+Commonwealth|FaneuilHallMarker|Faneuil Hall|26407|-5546
+Commonwealth|FarmMarker|Abernathy Farm|-76640|67872
+Commonwealth|FarmMarker|Breakheart Banks|36038|77692
+Commonwealth|FarmMarker|County Crossing|38674|31457
+Commonwealth|FarmMarker|Finch Farm|55168|47680
+Commonwealth|FarmMarker|Graygarden|-47985|18473
+Commonwealth|FarmMarker|Greentop Nursery|29736|67383
+Commonwealth|FarmMarker|Nordhagen Beach|64215|3311
+Commonwealth|FarmMarker|Oberland Station|-46180|-4998
+Commonwealth|FarmMarker|Somerville Place|-36034|-91752
+Commonwealth|FarmMarker|Tenpines Bluff|-22155|89056
+Commonwealth|FarmMarker|The Slog|52513|70577
+Commonwealth|FarmMarker|Warwick Homestead|57336|-74971
+Commonwealth|FillingStationMarker|Fort Hagen Filling Station|-87137|-1005
+Commonwealth|FillingStationMarker|Red Rocket Truck Stop|-69379|80148
+Commonwealth|ForestedMarker|Robotics Pioneer Park|-49668|-68421
+Commonwealth|GraveyardMarker|Cambridge Graveyard|-19200|12752
+Commonwealth|GraveyardMarker|North End Graveyard|23840|2976
+Commonwealth|GraveyardMarker|Old Granary Burying Ground|15654|-13778
+Commonwealth|GraveyardMarker|South Boston Graveyard|37030|-47622
+Commonwealth|GraveyardMarker|Wildwood Cemetery|-11694|67820
+Commonwealth|HospitalMarker|Greater Mass Blood Clinic|-87590|-12081
+Commonwealth|HospitalMarker|Kendall Hospital|-15165|9908
+Commonwealth|HospitalMarker|Mass Bay Medical Center|19286|-26527
+Commonwealth|HospitalMarker|Med-Tek Research|23113|54461
+Commonwealth|HospitalMarker|Medford Memorial Hospital|11072|59584
+Commonwealth|HospitalMarker|Milton General Hospital|-7838|-58292
+Commonwealth|HospitalMarker|Parsons State Insane Asylum|52695|86706
+Commonwealth|HospitalMarker|Sandy Coves Convalescent Home|89531|79112
+Commonwealth|IndustrialDomeMarker|Beantown Brewery|-42143|4746
+Commonwealth|IndustrialDomeMarker|Decayed Reactor Site|-117023|-107646
+Commonwealth|IndustrialDomeMarker|Weston Water Treatment Plant|-61251|-1831
+Commonwealth|IndustrialStacksMarker|ArcJet Systems|-67592|20064
+Commonwealth|IndustrialStacksMarker|Cambridge Polymer Labs|-27347|-2568
+Commonwealth|IndustrialStacksMarker|Corvega Assembly Plant|-34808|32128
+Commonwealth|IndustrialStacksMarker|Decrepit Factory|-109093|-121066
+Commonwealth|IndustrialStacksMarker|Factory|27806|-36408
+Commonwealth|IndustrialStacksMarker|General Atomics Factory|37859|-35456
+Commonwealth|IndustrialStacksMarker|Gwinnett Brewery|31750|-41667
+Commonwealth|IndustrialStacksMarker|Longneck Lukowski's Cannery|79992|55488
+Commonwealth|IndustrialStacksMarker|Mahkra Fishpacking|83680|99043
+Commonwealth|IndustrialStacksMarker|Poseiden Energy Turbine #18-F|10178|30224
+Commonwealth|IndustrialStacksMarker|Poseidon Energy|41824|-90112
+Commonwealth|IndustrialStacksMarker|Poseidon Reservoir|-87711|-34165
+Commonwealth|IndustrialStacksMarker|Saugus Ironworks|54454|59023
+Commonwealth|IndustrialStacksMarker|Wilson Atomatoys Factory|18906|-91393
+Commonwealth|InstituteMarker|The Institute|-16775|1160
+Commonwealth|IrishPrideMarker|Boxing Gym|26750|2325
+Commonwealth|IrishPrideMarker|Four Leaf Fishpacking Plant|33400|-32500
+Commonwealth|IrishPrideMarker|Irish Pride Industries Shipyard|18848|26224
+Commonwealth|JunkyardMarker|Atom Cats Garage|38379|-71075
+Commonwealth|JunkyardMarker|Big John's Salvage|4970|-44640
+Commonwealth|JunkyardMarker|Hub City Auto Wreckers|61515|57117
+Commonwealth|JunkyardMarker|Jalbert Brothers Disposal|-46588|25836
+Commonwealth|JunkyardMarker|Robotics Disposal Ground|-53451|99312
+Commonwealth|JunkyardMarker|Rotten Landfill|-22614|62544
+Commonwealth|JunkyardMarker|Scrap Palace|-44193|-74941
+Commonwealth|LandmarkMarker|Boston Common|12706|-17196
+Commonwealth|LandmarkMarker|Cambridge Baseball Diamond|-8253|10033
+Commonwealth|LandmarkMarker|Christopher Columbus Park|33847|-5221
+Commonwealth|LandmarkMarker|Edge of the Glowing Sea|-56092|-78516
+Commonwealth|LandmarkMarker|Lil' Gentry Playground|14516|-6060
+Commonwealth|LandmarkMarker|Spectacle Island|74771|-59107
+Commonwealth|LibertaliaMarker|Liberitalia|79545|17805
+Commonwealth|LowRiseBuildingMarker|BADTFL Regional Office|10518|19759
+Commonwealth|LowRiseBuildingMarker|Drumlin Diner|-50291|55079
+Commonwealth|LowRiseBuildingMarker|Lynn Pier Parking|68952|50418
+Commonwealth|LowRiseBuildingMarker|Roadside Pines Motel|-89318|-41436
+Commonwealth|LowRiseBuildingMarker|Wilson Atomatoys Corporate HQ|6406|-29624
+Commonwealth|MetroMarker|Andrew Station|21952|-42976
+Commonwealth|MetroMarker|Malden Center|14825|58814
+Commonwealth|MetroMarker|Medical Center Metro|15599|-27821
+Commonwealth|MetroMarker|Park Street Station|14878|-15941
+Commonwealth|MetroMarker|Revere Beach Station|57613|29378
+Commonwealth|MetroMarker|Subway Station|-25456|-20336
+Commonwealth|MetroMarker|Valenti Station|29381|-3040
+Commonwealth|MetroMarker|West Roxbury Station|-7894|-63110
+Commonwealth|MilitaryBaseMarker|Coast Guard Pier|-33693|-51815
+Commonwealth|MilitaryBaseMarker|Fort Hagen|-87979|-5675
+Commonwealth|MilitaryBaseMarker|Fort Strong|76976|-17488
+Commonwealth|MilitaryBaseMarker|National Guard Training Yard|39114|39581
+Commonwealth|MilitaryBaseMarker|S. Boston Military Checkpoint|14511|-46452
+Commonwealth|MilitaryBaseMarker|Waypoint Echo|-51720|-82807
+Commonwealth|MonumentMarker|Boston Public Library|-3490|-22646
+Commonwealth|MonumentMarker|Dorchester Heights Monument|29610|-47920
+Commonwealth|MonumentMarker|Fraternal Post 115|-26528|3104
+Commonwealth|MonumentMarker|Massachusetts State House|12895|-12818
+Commonwealth|MonumentMarker|Museum of Freedom|-57012|70392
+Commonwealth|OfficeMarker|Apartment|21522|3708
+Commonwealth|OfficeMarker|Boylston Club|11593|-21005
+Commonwealth|OfficeMarker|Bridgeway Trust|-9586|-17028
+Commonwealth|OfficeMarker|C.I.T. Ruins|-16794|-2777
+Commonwealth|OfficeMarker|Cabot House|18354|2119
+Commonwealth|OfficeMarker|Cambridge Campus Diner|-22088|7850
+Commonwealth|OfficeMarker|Fallon's Department Store|-12727|-61942
+Commonwealth|OfficeMarker|General Atomics Galleria|6244|82260
+Commonwealth|OfficeMarker|HalluciGen, Inc.|6104|-13656
+Commonwealth|OfficeMarker|Hesters Consumer Robotics|21673|-29513
+Commonwealth|OfficeMarker|Hubris Comics|7149|-19573
+Commonwealth|OfficeMarker|L Street Bathhouse|32952|-52946
+Commonwealth|OfficeMarker|Marlborough House|2833|-14438
+Commonwealth|OfficeMarker|Mean Pastries|23950|1205
+Commonwealth|OfficeMarker|Old Corner Bookstore|20928|-6144
+Commonwealth|OfficeMarker|Pickman Gallery|26024|3203
+Commonwealth|OfficeMarker|Salem|93444|80552
+Commonwealth|OfficeMarker|Taffington Boathouse|6618|46030
+Commonwealth|OfficeMarker|The Gwinnett Restaurant|32819|-45180
+Commonwealth|OfficeMarker|The Shamrock Taphouse|31491|-17615
+Commonwealth|OfficeMarker|Wattz Consumer Electronics|-6048|22912
+Commonwealth|PierMarker|Egret Tours Marina|-31166|-62889
+Commonwealth|PierMarker|Gibson Point Pier|65373|41444
+Commonwealth|PierMarker|Kingsport Lighthouse|89558|59967
+Commonwealth|PierMarker|Long Wharf|40938|-8881
+Commonwealth|PierMarker|Nahant Oceanological Society|105583|24731
+Commonwealth|PierMarker|Nahant Wharf|82154|25431
+Commonwealth|PierMarker|Reeb Marina|58176|37760
+Commonwealth|PierMarker|Science Center Gift Shop|9596|6023
+Commonwealth|PoliceStationMarker|Cambridge Police Station|-28908|10172
+Commonwealth|PoliceStationMarker|East Boston Police Station|39165|9458
+Commonwealth|PoliceStationMarker|Nahant Sherrif's Department|83134|28209
+Commonwealth|PoliceStationMarker|Natick Police Department|-84458|-48120
+Commonwealth|PoliceStationMarker|Police Precinct 8|-7145|-23396
+Commonwealth|PoliceStationMarker|Quincy Police Station|29625|-89562
+Commonwealth|PoliceStationMarker|South Boston Police Department|26156|-42843
+Commonwealth|PondLakeMarker|Chestnut Hillock Reservoir|-29037|-24806
+Commonwealth|PondLakeMarker|Dark Hollow Pond|9288|74897
+Commonwealth|PondLakeMarker|Lake Cochituate|-78974|-44484
+Commonwealth|PondLakeMarker|Lake Quannapowitt|4448|93224
+Commonwealth|PondLakeMarker|Murkwater Construction Site|5154|-95174
+Commonwealth|PondLakeMarker|Neponset Park|21658|-72891
+Commonwealth|PondLakeMarker|Old Gullet Sinkhole|21781|68194
+Commonwealth|PondLakeMarker|Swan's Pond|11509|-18008
+Commonwealth|PondLakeMarker|Walden Pond|-69326|44243
+Commonwealth|PondLakeMarker|Westing Estate|-47263|-43526
+Commonwealth|PrydwenMarker|The Prydwen|54805|-9272
+Commonwealth|QuarryMarker|Dunwich Borers|66905|69940
+Commonwealth|QuarryMarker|Mass Gravel & Sand|-19939|26626
+Commonwealth|QuarryMarker|Quincy Quarries|14544|-81256
+Commonwealth|QuarryMarker|Thicket Excavations|-45165|82241
+Commonwealth|RadioTowerMarker|Gunners Plaza|-14182|-78684
+Commonwealth|RadioTowerMarker|Outpost Zimonja|-10607|100158
+Commonwealth|RadioTowerMarker|Radio Tower 3SM-U81|14423|88399
+Commonwealth|RadioTowerMarker|Relay Tower 0BB-915|-91277|5005
+Commonwealth|RadioTowerMarker|Relay Tower 0DB-521|-53974|-111388
+Commonwealth|RadioTowerMarker|Relay Tower 0MC-810|25986|38867
+Commonwealth|RadioTowerMarker|Relay Tower 0SC-527|-4279|-48716
+Commonwealth|RadioTowerMarker|Relay Tower 1DL-109|-51070|-11634
+Commonwealth|RadioTowerMarker|WRVR Broadcast Station|-39728|-56840
+Commonwealth|RadioactiveAreaMarker|Crater House|90652|69405
+Commonwealth|RadioactiveAreaMarker|Crater of Atom|-99711|-116050
+Commonwealth|RadioactiveAreaMarker|Hugo's Hole|73386|72232
+Commonwealth|RadioactiveAreaMarker|Mass Fusion Disposal Site|-70693|-54920
+Commonwealth|RailroadFactionMarker|Mercer Safehouse|27981|17094
+Commonwealth|RailroadFactionMarker|Railroad HQ|32562|234
+Commonwealth|RailroadMarker|Bedford Station|-29602|69761
+Commonwealth|RailroadMarker|Boston Police Rationing Site|-16595|-39283
+Commonwealth|RailroadMarker|NH&M Freight Depot|-6427|-39689
+Commonwealth|SalemMarker|Museum of Witchcraft|84600|73940
+Commonwealth|SancHillsMarker|Sanctuary|-80768|88175
+Commonwealth|SatelliteMarker|Fort Hagen Satellite Array|-100536|-2366
+Commonwealth|SatelliteMarker|Revere Satellite Array|51642|37536
+Commonwealth|SatelliteMarker|USAF Satellite Station Olivia|-41434|93038
+Commonwealth|SchoolMarker|D.B. Technical High School|13418|-30767
+Commonwealth|SchoolMarker|East Boston Preparatory School|45883|12726
+Commonwealth|SchoolMarker|Malden Middle School|18995|61599
+Commonwealth|SchoolMarker|Shaw High School|-3432|-62775
+Commonwealth|SchoolMarker|South Boston High School|31786|-49233
+Commonwealth|SchoolMarker|Suffolk County Charter School|3078|-84299
+Commonwealth|SchoolMarker|University Point|23472|-57168
+Commonwealth|SentinelMarker|Sentinel Site|-79766|-141218
+Commonwealth|SettlementMarker|Cambridge Raider Base|-11530|15110
+Commonwealth|SettlementMarker|Combat Zone|13185|-23092
+Commonwealth|SettlementMarker|Covenant|-7896|47116
+Commonwealth|SettlementMarker|Lynn Woods|42548|90806
+Commonwealth|SettlementMarker|Mass Pike Tunnel East|-5264|-33040
+Commonwealth|SettlementMarker|Mass Pike Tunnel West|-29693|-32666
+Commonwealth|SettlementMarker|Quincy Ruins|27462|-85580
+Commonwealth|SettlementMarker|Sunshine Tidings Co-op|-86686|38379
+Commonwealth|SewerMarker|Fens Street Sewer|-19309|-26817
+Commonwealth|ShipwreckMarker|Cutler Bend|-27474|-74349
+Commonwealth|ShipwreckMarker|Wreck of the FMS Northern Star|60963|-84373
+Commonwealth|ShipwreckMarker|Wreck of the USS Riptide|-17465|-9900
+Commonwealth|SkyscraperMarker|35 Court|29579|-12354
+Commonwealth|SkyscraperMarker|Atlantic Offices|-94748|-94894
+Commonwealth|SkyscraperMarker|Boston Bugle Building|18107|-4094
+Commonwealth|SkyscraperMarker|Cambridge Construction Site|9394|12229
+Commonwealth|SkyscraperMarker|Collegiate Administration Building|-22337|16284
+Commonwealth|SkyscraperMarker|Commonwealth Bank|27367|-8134
+Commonwealth|SkyscraperMarker|Dartmouth Professional Building|-1843|-29406
+Commonwealth|SkyscraperMarker|Garden Terrace|24279|-4064
+Commonwealth|SkyscraperMarker|Greenetech Genetics|-2667|882
+Commonwealth|SkyscraperMarker|Hub 360|22953|-19597
+Commonwealth|SkyscraperMarker|Mass Fusion Building|18694|-7164
+Commonwealth|SkyscraperMarker|Mass Fusion Executive Suite|19808|-7072
+Commonwealth|SkyscraperMarker|Oakwood Residences|16819|-21426
+Commonwealth|SkyscraperMarker|South Fens Tower|-12606|-32759
+Commonwealth|SkyscraperMarker|Ticonderoga|5023|3700
+Commonwealth|SkyscraperMarker|Trinity Tower|3739|-24264
+Commonwealth|SkyscraperMarker|Vault-Tec Regional HQ|12481|-9530
+Commonwealth|SkyscraperMarker|Weatherby Investment Trust|27360|-3820
+Commonwealth|SubmarineMarker|Yangtze|41476|-22655
+Commonwealth|TownMarker|Hawthorne Estate|23778|-50444
+Commonwealth|TownRuinsMarker|Cambridge Hardware Store|-15113|17892
+Commonwealth|TownRuinsMarker|Coastal Cottage|69519|89355
+Commonwealth|TownRuinsMarker|Concord|-60286|72978
+Commonwealth|TownRuinsMarker|Croup Manor|91189|37248
+Commonwealth|TownRuinsMarker|Fairline Hill Estates|-13878|-51513
+Commonwealth|TownRuinsMarker|Forest Grove Marsh|-60895|-18510
+Commonwealth|TownRuinsMarker|Hardware Town|-23476|-33961
+Commonwealth|TownRuinsMarker|Hyde Park|7101|-75153
+Commonwealth|TownRuinsMarker|Ivan's|42081|-43732
+Commonwealth|TownRuinsMarker|Jamaica Plain|9969|-63016
+Commonwealth|TownRuinsMarker|Mystic Pines|-24233|46668
+Commonwealth|TownRuinsMarker|Natick Banks|-86800|-47056
+Commonwealth|TownRuinsMarker|Navy Yard|22976|10432
+Commonwealth|TownRuinsMarker|Paul Revere House|30939|-1849
+Commonwealth|TownRuinsMarker|Rook Family House|94874|86669
+Commonwealth|TownRuinsMarker|West Everett Estates|13591|38601
+Commonwealth|USSConstitutionMarker|USS Constitution|27187|-4012
+Commonwealth|USSConstitutionMarker|USS Constitution|27234|13175
+Commonwealth|USSConstitutionMarker|USS Constitution|27360|-3844
+Commonwealth|UrbanRuinsMarker|Brookline Building|-19808|-21239
+Commonwealth|UrbanRuinsMarker|Cambridge Academic Center|-23940|10199
+Commonwealth|UrbanRuinsMarker|Cambridge Crater|-1926|7686
+Commonwealth|UrbanRuinsMarker|Camp Kendall|2235|-1361
+Commonwealth|UrbanRuinsMarker|Campus Law Offices|-19636|5926
+Commonwealth|UrbanRuinsMarker|College Square|-29693|14912
+Commonwealth|UrbanRuinsMarker|East C.I.T. Raider Camp|-9376|-320
+Commonwealth|UrbanRuinsMarker|Evans Way Cul-de-Sac|-13353|-34921
+Commonwealth|UrbanRuinsMarker|Flagon Tunnel|-16448|-18529
+Commonwealth|UrbanRuinsMarker|Founder's Triangle|-21462|-25710
+Commonwealth|UrbanRuinsMarker|Hangman's Alley|-20575|-17968
+Commonwealth|UrbanRuinsMarker|Harbormaster Hotel|28406|-20982
+Commonwealth|UrbanRuinsMarker|Haymarket Mall|21960|-3656
+Commonwealth|UrbanRuinsMarker|Jimbo's Tower|8324|-24087
+Commonwealth|UrbanRuinsMarker|Kendall Parking Garage|-928|3076
+Commonwealth|UrbanRuinsMarker|Major Crossroad|-11872|4696
+Commonwealth|UrbanRuinsMarker|Pizza Parlour|28873|5436
+Commonwealth|UrbanRuinsMarker|Postal Square|26547|-14843
+Commonwealth|UrbanRuinsMarker|Prost Bar|9758|-15683
+Commonwealth|UrbanRuinsMarker|Raider Alleyway Outpost|-4528|-15218
+Commonwealth|UrbanRuinsMarker|Raider Drug Den|25092|17358
+Commonwealth|UrbanRuinsMarker|Shenley's Oyster Bar|4801|-18039
+Commonwealth|UrbanRuinsMarker|Slocum's Joe Corporate HQ|17285|58287
+Commonwealth|UrbanRuinsMarker|Super Duper Mart|-34491|43176
+Commonwealth|UrbanRuinsMarker|Ticker Tape Lounge|21592|-22744
+Commonwealth|UrbanRuinsMarker|Tower Apartments|11462|-3811
+Commonwealth|UrbanRuinsMarker|Union Man's Circle|24922|-47830
+Commonwealth|UrbanRuinsMarker|Warren Theater|10889|-26245
+Commonwealth|UrbanRuinsMarker|Water Street Apartments|21735|-14946
+Commonwealth|UrbanRuinsMarker|Weatherby Savings & Loan|27523|13183
+Commonwealth|VaultMarker|Vault 111|-89272|91369
+Commonwealth|VaultMarker|Vault 114|8020|-18075
+Commonwealth|VaultMarker|Vault 75|18995|61599
+Commonwealth|VaultMarker|Vault 81|-37803|-23721
+Commonwealth|VaultMarker|Vault 81 Atrium|-40790|-20621
+Commonwealth|VaultMarker|Vault 95|-49107|-89462
+DiamondCity|DiamondCityMarker|Diamond City|-1081|-2098
+DiamondCity|SettlementMarker|Diamond City Market|1373|411
+DiamondCity|SettlementMarker|Home Plate|3163|1861
+Goodneighbor|GoodneighborMarker|Goodneighbor|20826|-11905
 ==Total Unique entities==
 25937
 ==Regions==

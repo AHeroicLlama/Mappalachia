@@ -14,6 +14,20 @@ namespace CommonwealthCartography
 
 		};
 
+		static readonly Dictionary<string, string> markerNameCorrection = new Dictionary<string, string>()
+		{
+			{ "Gov'tBuildingMonumentMarker", "MonumentMarker" },
+			{ "MetroStationMarker", "MetroMarker" },
+			{ "OfficeCivicBuildingMarker", "OfficeMarker" },
+			{ "NaturalLandmarkMarker", "LandmarkMarker" },
+			{ "RuinsUrbanMarker", "UrbanRuinsMarker" },
+			{ "RuinsTownMarker", "TownRuinsMarker" },
+			{ "FactoryIndustrialSiteMarker", "FactoryMarker" },
+			{ "SewerUtilityTunnelsMarker", "SewerMarker" },
+			{ "SanctuaryMarker", "SancHillsMarker" },
+			{ "SwanPondMarker", "PondLakeMarker" },
+		};
+
 		static readonly Dictionary<string, string> wrongLabelNames = new Dictionary<string, string>()
 		{
 
@@ -41,7 +55,7 @@ namespace CommonwealthCartography
 				}
 
 				string spaceFormID = row.GetCellFromColumn("spaceFormID");
-				string iconName = row.GetCellFromColumn("mapMarkerName");
+				string iconName = row.GetCellFromColumn("mapMarkerName") + "Marker";
 
 				/* Fix incorrect Map Marker Icons.
 				There must be something basic data mining misses, or an XEdit bug
@@ -64,6 +78,14 @@ namespace CommonwealthCartography
 				if (label.StartsWith(fastTravelBadString))
 				{
 					label = label.Replace(fastTravelBadString, string.Empty);
+				}
+
+				iconName = iconName.Replace(" ", string.Empty).Replace("-", string.Empty).Replace("/", string.Empty);
+
+				// Correct the actual marker name
+				if (markerNameCorrection.ContainsKey(iconName))
+				{
+					iconName = markerNameCorrection[iconName];
 				}
 
 				// Large collection of incorrect icons - Correct markers after labels have bene corrected

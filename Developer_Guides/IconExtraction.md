@@ -16,15 +16,15 @@ This stage ensures Commonwealth Cartography has all of the required SVG images t
 We first extract the SWF menu files from the game, and then decompile those to find the stored map marker icons inside, then rename and move them, verifying all icons are accounted for.
 
 ## Extracting the SWFs
-Launch BAE and hit 'File' > 'Open File', navigate to your Fallout 4 installation path, and its `data` folder. Select the two files: `SeventySix - Interface.ba2` and `SeventySix - Interface_en.ba2`.<br/>
+Launch BAE and hit 'File' > 'Open File', navigate to your Fallout 4 installation path, and its `data` folder. Select the file `Fallout4 - Interface.ba2`.<br/>
 Press 'extract' and select any temporary output folder. BAE should extract 100+ SWF files.<br/>
 
 ## Extracting SVG sprites from the SWF
-In your files extracted from BAE, under the `interface` folder, find the file `mapmenu.swf`. Open this file with JPEXS. Some questions may appear, select 'Yes to all'.<br/>
-In JPEXS, on the left hand side displaying the contents of `mapmenu.swf`, select the `sprites` folder.<br/>
+In your files extracted from BAE, under the `interface` folder, find the file `MapMarkers.swf`. Open this file with JPEXS. Some questions may appear, select 'Yes to all'.<br/>
+In JPEXS, on the left hand side displaying the contents of `MapMarkers.swf`, select the `sprites` folder.<br/>
 Under File > Export, select 'Export selection'. Ensure the file type is set as SVG, and the zoom is at 100%.<br/>
 Press OK and select the output location as `CommonwealthCartography\MapIconProcessor\extract\`.<br/>
-Some errors may appear, select 'Ignore All'. The bottom-left of the window will indicate when the extract has finished.<br/>
+If errors appear, select 'Ignore All'. The bottom-left of the window will indicate when the extract has finished.<br/>
 This should now populate a `sprites` folder filled with around 500 sub-folders all prefixed "DefineSprite".
 
 ## MapIconProcessor
