@@ -40,6 +40,65 @@ namespace BackgroundRenderer
 			"MassFusion02Trans",
 		};
 
+		// Debug parameters
+		static readonly bool debugOn = false;
+		static readonly bool renderMeshes = false;
+		static readonly string debugEditorID = "Commonwealth";
+		static readonly int debugNudgeX = 945;
+		static readonly int debugNudgeY = 160;
+		static readonly float debugScale = 1.98f;
+		static readonly int debugCameraZ = 65536;
+
+		// Renders a space with parameters setup for debugging, designed to be used to find the appropriate scale/nudge/z-heights for spaces
+		static void DebugRender()
+		{
+			Console.WriteLine("Debug Rendering " + debugEditorID);
+
+			SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
+			connection.Open();
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = $"SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale, esmNumber FROM Space_Info WHERE spaceEditorID = '{debugEditorID}'";
+			query.Parameters.Clear();
+			SqliteDataReader reader = query.ExecuteReader();
+			reader.Read();
+
+			Space space = new Space(
+				reader.GetString(0),
+				reader.GetString(1),
+				reader.GetBoolean(2),
+				reader.GetInt32(3),
+				reader.GetInt32(4),
+				Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)),
+				Math.Abs(reader.GetInt32(8) - reader.GetInt32(7)),
+				debugNudgeX,
+				debugNudgeY,
+				debugScale,
+				reader.GetInt32(12));
+
+			if (space.formID == string.Empty)
+			{
+				space.formID = "0000003C";
+			}
+
+			int resolution = 2048;
+			int renderResolution = resolution;
+			int range = Math.Max(space.xRange, space.yRange);
+			double scale = ((double)resolution / range) * space.nudgeScale;
+
+			string renderFile = $"{imageDirectory}{space.editorID}{(space.isWorldspace ? "_render_debug" : string.Empty)}.dds";
+			double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
+			double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
+
+			string renderCommand = $"{utilsRenderPath} {GetESMPath(space.esmNumber)} {renderFile} {resolution} {resolution} " +
+				$"\"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {debugCameraZ} " +
+				$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm fog -xm cloud -xm effects {(renderMeshes ? "" : "-xm meshes")}";
+
+			Process render = Process.Start("CMD.exe", "/C " + renderCommand);
+			render.WaitForExit();
+
+			Process.Start(new ProcessStartInfo { FileName = renderFile, UseShellExecute = true });
+		}
+
 		public static void Main()
 		{
 			Console.Title = "Commonwealth Cartography Background Renderer";
@@ -62,6 +121,12 @@ namespace BackgroundRenderer
 			{
 				Console.WriteLine($"Can't find Commonwealth Cartography database at {databasePath}, please check the database has been built or copied from a release to that path.");
 				Console.ReadKey();
+				return;
+			}
+
+			if (debugOn)
+			{
+				DebugRender();
 				return;
 			}
 
@@ -156,15 +221,6 @@ namespace BackgroundRenderer
 				{
 					LogError($"Space {space.editorID} has a natural range of 0. Unable to properly render.");
 					continue;
-				}
-
-				// Override Commonwealth scale to match in-game map
-				if (space.editorID == "Commonwealth")
-				{
-					// TODO find proper scale
-					space.nudgeScale = 1.85f;
-					space.xCenter = -20000;
-					space.yCenter = 2000;
 				}
 
 				double scale = ((double)resolution / range) * space.nudgeScale;

@@ -43,26 +43,10 @@ namespace CommonwealthCartography
 			this.nudgeY = nudgeY;
 			this.nudgeScale = nudgeScale;
 
-			// Manual calibration. Unlike cells which will dynamically resize based on their contents
-			// the 'overworld' has a set map size, so plots must be scaled to fit
-			if (IsCommonwealth())
-			{
-				xOffset = 2000f;
-				yOffset = 2000f;
+			xOffset = -Map.CorrectAxis(xCenter, false) + (Map.mapDimension / 2);
+			yOffset = -Map.CorrectAxis(yCenter, true) + (Map.mapDimension / 2);
 
-				scale = 0.007001f;
-
-				this.nudgeX = 0;
-				this.nudgeY = 0;
-				this.nudgeScale = 1f;
-			}
-			else
-			{
-				xOffset = -Map.CorrectAxis(xCenter, false) + (Map.mapDimension / 2);
-				yOffset = -Map.CorrectAxis(yCenter, true) + (Map.mapDimension / 2);
-
-				scale = Map.mapDimension / (float)Math.Max(xRange, yRange);
-			}
+			scale = Map.mapDimension / (float)Math.Max(xRange, yRange);
 
 			if (!IsWorldspace())
 			{

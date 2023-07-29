@@ -19,6 +19,12 @@ namespace CommonwealthCartography
 
 				switch (spaceEditorId)
 				{
+					case "Commonwealth":
+						nudgeX = 945;
+						nudgeY = 160;
+						nudgeScale = 1.98f;
+						break;
+
 					default:
 						nudgeX = 0;
 						nudgeY = 0;
