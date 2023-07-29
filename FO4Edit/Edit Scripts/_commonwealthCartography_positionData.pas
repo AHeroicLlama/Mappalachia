@@ -26,7 +26,7 @@ unit _commonwealthCartography_positionData;
 		end;
 	end;
 
-	// Rips all interiors, uses shouldProcessSpace() to excluce debug cells
+	// Rips all interiors, uses shouldProcessSpace() to exclude debug cells
 	procedure ripInteriors(); // Primary block for iterating down tree
 	const
 		categoryCount = ElementCount(targetESM);

@@ -91,19 +91,14 @@ unit _commonwealthCartography_lib;
 		result := copy(reference, firstPos, secondPos);
 	end;
 
-	// Find the FormID of a referenced WRLD by parsing the edit value
-	// EG "Commonwealth "Commonwealth" [WRLD:0000003C]" becomes "0000003C"
-	function wrldFormIdFromRef(reference: String): String;
-	const
-		len = Length(reference);
-		firstPos = pos('[WRLD:', reference) + 6;
-		firstSubStr = copy(reference, firstPos, len - firstPos);
-		secondPos = 8; //FormID length
+	// Find the FormID of a reference by parsing the edit value
+	// EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "00059B02"
+	function FormIdFromRef(reference: String): String;
 	begin
 		if (pos('<', reference) <> 0) then begin
 			result := copy(reference, 2, 8);
 		end
-		else result := copy(reference, firstPos, secondPos);
+		else result := copy(reference, Length(reference) - 8, 8);
 	end;
 
 	// Is this signature one we expect to see in the world, and therefore worth processing?
