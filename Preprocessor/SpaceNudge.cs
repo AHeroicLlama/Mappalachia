@@ -25,6 +25,24 @@ namespace CommonwealthCartography
 						nudgeScale = 1.98f;
 						break;
 
+					case "DLC03FarHarbor":
+						nudgeX = -470;
+						nudgeY = -475;
+						nudgeScale = 1.247f;
+						break;
+
+					case "NukaWorld":
+						nudgeX = -100;
+						nudgeY = 330;
+						nudgeScale = 1.66f;
+						break;
+
+					case "SanctuaryHillsWorld":
+						nudgeX = 4300;
+						nudgeY = 5500;
+						nudgeScale = 3.5f;
+						break;
+
 					default:
 						nudgeX = 0;
 						nudgeY = 0;

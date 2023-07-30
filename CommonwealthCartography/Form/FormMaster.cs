@@ -409,7 +409,7 @@ namespace CommonwealthCartography
 			groupBoxHeightCropping.Enabled = !SettingsSpace.CurrentSpaceIsWorld();
 			mapMarkersMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
 			highlightWaterMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
-			normalBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsCommonwealth(); // Only Commonwealth has a "normal" UI texture map
+			normalBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsMainWorldspace(); // Only Commonwealth/Far Harbor/NukaWorld has a "normal" UI texture map
 			satelliteBackgroundMenuItem.Enabled = SettingsSpace.CurrentSpaceIsWorld();
 		}
 
@@ -676,7 +676,6 @@ namespace CommonwealthCartography
 		{
 			showMapLabelsMenuItem.Checked = SettingsMap.showMapLabels;
 			showMapIconsMenuItem.Checked = SettingsMap.showMapIcons;
-			grayScaleMapIconsMenuItem.Checked = SettingsMap.grayScaleMapIcons;
 
 			if (reDraw)
 			{
@@ -1174,27 +1173,6 @@ namespace CommonwealthCartography
 		void Map_MapMarkers_Icons(object sender, EventArgs e)
 		{
 			SettingsMap.showMapIcons = !SettingsMap.showMapIcons;
-
-			// If we turned off icons - also disable their grayscale state
-			if (!SettingsMap.showMapIcons)
-			{
-				SettingsMap.grayScaleMapIcons = false;
-			}
-
-			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
-		}
-
-		// Map > Map Markers > Grayscale Icons - toggle grayscale drawing of map icons, where selected
-		void Map_MapMarkers_GrayscaleIcons(object sender, EventArgs e)
-		{
-			SettingsMap.grayScaleMapIcons = !SettingsMap.grayScaleMapIcons;
-
-			// If we turned on grayscale - enable icons generally
-			if (SettingsMap.grayScaleMapIcons && !SettingsMap.showMapIcons)
-			{
-				SettingsMap.showMapIcons = true;
-			}
-
 			UpdateMapMarker(SettingsSpace.CurrentSpaceIsWorld());
 		}
 
@@ -1251,7 +1229,6 @@ namespace CommonwealthCartography
 			SettingsMap.grayScale = SettingsMap.grayScaleDefault;
 			SettingsMap.showMapLabels = SettingsMap.showMapLabelsDefault;
 			SettingsMap.showMapIcons = SettingsMap.showMapIconsDefault;
-			SettingsMap.grayScaleMapIcons = SettingsMap.grayScaleMapIconsDefault;
 			SettingsMap.legendMode = SettingsMap.legendModeDefault;
 			SettingsMap.title = SettingsMap.titleDefault;
 

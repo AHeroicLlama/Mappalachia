@@ -47,7 +47,6 @@ namespace CommonwealthCartography
 			grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			showMapIconsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			grayScaleMapIconsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			showMapLabelsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			legendStyleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			compactLegendMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -226,7 +225,7 @@ namespace CommonwealthCartography
 			// normalBackgroundMenuItem
 			// 
 			normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
-			normalBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			normalBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			normalBackgroundMenuItem.Text = "Normal";
 			normalBackgroundMenuItem.ToolTipText = "The normal in-game map image.";
 			normalBackgroundMenuItem.Click += Map_Image_Normal;
@@ -234,7 +233,7 @@ namespace CommonwealthCartography
 			// satelliteBackgroundMenuItem
 			// 
 			satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
-			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			satelliteBackgroundMenuItem.Text = "Satellite";
 			satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Commonwealth.";
 			satelliteBackgroundMenuItem.Click += Map_Image_Satellite;
@@ -242,7 +241,7 @@ namespace CommonwealthCartography
 			// noneBackgroundMenuItem
 			// 
 			noneBackgroundMenuItem.Name = "noneBackgroundMenuItem";
-			noneBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			noneBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			noneBackgroundMenuItem.Text = "None";
 			noneBackgroundMenuItem.ToolTipText = "No background (transparent).";
 			noneBackgroundMenuItem.Click += Map_Image_None;
@@ -276,7 +275,7 @@ namespace CommonwealthCartography
 			// 
 			// mapMarkersMenuItem
 			// 
-			mapMarkersMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { showMapIconsMenuItem, grayScaleMapIconsMenuItem, showMapLabelsMenuItem });
+			mapMarkersMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { showMapIconsMenuItem, showMapLabelsMenuItem });
 			mapMarkersMenuItem.Name = "mapMarkersMenuItem";
 			mapMarkersMenuItem.Size = new System.Drawing.Size(216, 22);
 			mapMarkersMenuItem.Text = "Map Markers";
@@ -285,23 +284,15 @@ namespace CommonwealthCartography
 			// showMapIconsMenuItem
 			// 
 			showMapIconsMenuItem.Name = "showMapIconsMenuItem";
-			showMapIconsMenuItem.Size = new System.Drawing.Size(155, 22);
+			showMapIconsMenuItem.Size = new System.Drawing.Size(180, 22);
 			showMapIconsMenuItem.Text = "Icons";
 			showMapIconsMenuItem.ToolTipText = "Toggle visual icons for the map locations.";
 			showMapIconsMenuItem.Click += Map_MapMarkers_Icons;
 			// 
-			// grayScaleMapIconsMenuItem
-			// 
-			grayScaleMapIconsMenuItem.Name = "grayScaleMapIconsMenuItem";
-			grayScaleMapIconsMenuItem.Size = new System.Drawing.Size(155, 22);
-			grayScaleMapIconsMenuItem.Text = "Grayscale Icons";
-			grayScaleMapIconsMenuItem.ToolTipText = "Toggle grayscale map icons.";
-			grayScaleMapIconsMenuItem.Click += Map_MapMarkers_GrayscaleIcons;
-			// 
 			// showMapLabelsMenuItem
 			// 
 			showMapLabelsMenuItem.Name = "showMapLabelsMenuItem";
-			showMapLabelsMenuItem.Size = new System.Drawing.Size(155, 22);
+			showMapLabelsMenuItem.Size = new System.Drawing.Size(180, 22);
 			showMapLabelsMenuItem.Text = "Labels";
 			showMapLabelsMenuItem.ToolTipText = "Toggle labels for names of the map locations.";
 			showMapLabelsMenuItem.Click += Map_MapMarkers_Labels;
@@ -1299,7 +1290,7 @@ namespace CommonwealthCartography
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-9, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-10, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1570,7 +1561,6 @@ namespace CommonwealthCartography
 		private System.Windows.Forms.ToolStripMenuItem fillRegionsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem highlightWaterMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem noneBackgroundMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem grayScaleMapIconsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setTitleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showReferenceFormIDsMenuItem;
 	}

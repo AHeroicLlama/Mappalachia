@@ -264,8 +264,8 @@ namespace CommonwealthCartography
 				fileName = $"{editorID}_render{MapFileExtension}";
 			}
 
-			// Except for Commonwealth - which has the "Normal" image, if selected
-			if (SettingsMap.background == SettingsMap.Background.Normal && SettingsSpace.CurrentSpaceIsCommonwealth())
+			// Except for Commonwealth, Far Harbor, and Nuka-World - which also have the "Normal" image, if selected
+			if (SettingsMap.background == SettingsMap.Background.Normal && SettingsSpace.CurrentSpaceIsMainWorldspace())
 			{
 				fileName = $"{editorID}{MapFileExtension}";
 			}
@@ -365,6 +365,8 @@ namespace CommonwealthCartography
 		{
 			Svg.SvgDocument document = Svg.SvgDocument.Open(mapMarkerfolder + mapMarkerName + mapMarkerFileExtension);
 			Image marker = document.Draw((int)(document.Width * Map.markerIconScale), 0);
+
+			marker = ImageHelper.AdjustARGB(marker, Map.markerColor);
 
 			if (!mapMarkerimageCache.ContainsKey(mapMarkerName))
 			{

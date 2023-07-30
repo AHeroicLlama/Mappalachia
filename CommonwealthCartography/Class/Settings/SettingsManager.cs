@@ -55,7 +55,6 @@ namespace CommonwealthCartography
 			settings.Add("grayScale=" + BoolToIntStr(SettingsMap.grayScale));
 			settings.Add("showMapLabels=" + BoolToIntStr(SettingsMap.showMapLabels));
 			settings.Add("showMapIcons=" + BoolToIntStr(SettingsMap.showMapIcons));
-			settings.Add("grayScaleMapIcons=" + BoolToIntStr(SettingsMap.grayScaleMapIcons));
 			settings.Add("legendMode=" + SettingsMap.legendMode);
 
 			// SettingsSearch
@@ -201,10 +200,6 @@ namespace CommonwealthCartography
 
 						case "showMapIcons":
 							SettingsMap.showMapIcons = StrIntToBool(value);
-							break;
-
-						case "grayScaleMapIcons":
-							SettingsMap.grayScaleMapIcons = StrIntToBool(value);
 							break;
 
 						case "legendMode":

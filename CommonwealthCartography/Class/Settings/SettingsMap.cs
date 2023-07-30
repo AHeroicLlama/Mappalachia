@@ -27,7 +27,6 @@
 		public const bool grayScaleDefault = false;
 		public const bool showMapLabelsDefault = false;
 		public const bool showMapIconsDefault = false;
-		public const bool grayScaleMapIconsDefault = false;
 		public const LegendMode legendModeDefault = LegendMode.Compact;
 		public const bool highlightWaterDefault = false;
 		public static readonly string titleDefault = string.Empty;
@@ -38,7 +37,6 @@
 		public static bool grayScale = grayScaleDefault;
 		public static bool showMapLabels = showMapLabelsDefault;
 		public static bool showMapIcons = showMapIconsDefault;
-		public static bool grayScaleMapIcons = grayScaleMapIconsDefault;
 		public static LegendMode legendMode = legendModeDefault;
 		public static bool highlightWater = highlightWaterDefault;
 		public static string title = titleDefault;

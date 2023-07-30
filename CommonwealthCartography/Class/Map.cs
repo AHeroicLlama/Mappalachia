@@ -16,7 +16,8 @@ namespace CommonwealthCartography
 		public const int mapDimension = 4096; // All background images should be this^2
 		public const double maxZoomRatio = 2;
 		public const double minZoomRatio = 0.1;
-		public const double markerIconScale = 1; // The scaling applied to map marker icons
+		public const float markerIconScale = 2.5f; // The scaling applied to map marker icons
+		public static readonly Color markerColor = Color.FromArgb(220, 0, 255, 0);
 
 		const int volumeGCThreshold = 2000000; // GC after drawing a volume of 2m px
 		public const int volumeRejectThreshold = 4200000; // Reject drawing a volume of 4.2m px
@@ -49,6 +50,7 @@ namespace CommonwealthCartography
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
 		static readonly Brush brushRed = new SolidBrush(Color.Red);
+		static readonly Brush brushMarkerLabel = new SolidBrush(markerColor);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
 		static readonly Font mapLabelFont = new Font(fontCollection.Families[0], mapLabelFontSize, GraphicsUnit.Pixel);
 		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
@@ -787,12 +789,6 @@ namespace CommonwealthCartography
 				foreach (MapMarker marker in markers)
 				{
 					Image markerImage = IOManager.GetMapMarker(marker.markerName);
-
-					if (SettingsMap.grayScaleMapIcons)
-					{
-						markerImage = ImageHelper.AdjustBrightnessOrGrayscale(markerImage, 1, true);
-					}
-
 					imageGraphic.DrawImage(markerImage, (int)(marker.x - (markerImage.Width / 2)), (int)(marker.y - (markerImage.Height / 2)));
 				}
 			}
@@ -819,7 +815,7 @@ namespace CommonwealthCartography
 						new RectangleF(textBox.X + fontDropShadowOffset, textBox.Y + fontDropShadowOffset, textBox.Width, textBox.Height), stringFormatCenter);
 
 					// Draw the map marker label
-					imageGraphic.DrawString(marker.label, mapLabelFont, brushWhite, textBox, stringFormatCenter);
+					imageGraphic.DrawString(marker.label, mapLabelFont, brushMarkerLabel, textBox, stringFormatCenter);
 				}
 			}
 		}

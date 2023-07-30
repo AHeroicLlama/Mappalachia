@@ -19,9 +19,11 @@ namespace CommonwealthCartography
 			return GetSpace() == null || GetSpace().IsWorldspace();
 		}
 
-		public static bool CurrentSpaceIsCommonwealth()
+		// If the current space is the main worldspace or that of a DLC
+		// Commonwealth, Far Harbor, Nuka-World
+		public static bool CurrentSpaceIsMainWorldspace()
 		{
-			return GetSpace() == null || GetSpace().IsCommonwealth();
+			return currentSpace == null || currentSpace.editorID == "Commonwealth" || currentSpace.editorID == "DLC03FarHarbor" || currentSpace.editorID == "NukaWorld";
 		}
 
 		public static string GetCurrentFormID()

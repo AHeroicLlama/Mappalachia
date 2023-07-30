@@ -100,10 +100,5 @@ namespace CommonwealthCartography
 		{
 			return isWorldspace;
 		}
-
-		public bool IsCommonwealth()
-		{
-			return editorID == "Commonwealth";
-		}
 	}
 }

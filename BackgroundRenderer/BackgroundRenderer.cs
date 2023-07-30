@@ -43,10 +43,10 @@ namespace BackgroundRenderer
 		// Debug parameters
 		static readonly bool debugOn = false;
 		static readonly bool renderMeshes = false;
-		static readonly string debugEditorID = "Commonwealth";
-		static readonly int debugNudgeX = 945;
-		static readonly int debugNudgeY = 160;
-		static readonly float debugScale = 1.98f;
+		static readonly string debugEditorID = "";
+		static readonly int debugNudgeX = 0;
+		static readonly int debugNudgeY = 0;
+		static readonly float debugScale = 1f;
 		static readonly int debugCameraZ = 65536;
 
 		// Renders a space with parameters setup for debugging, designed to be used to find the appropriate scale/nudge/z-heights for spaces
