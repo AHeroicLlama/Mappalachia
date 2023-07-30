@@ -91,16 +91,6 @@ unit _commonwealthCartography_lib;
 		result := copy(reference, firstPos, secondPos);
 	end;
 
-	// Find the FormID of a reference by parsing the edit value
-	// EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "00059B02"
-	function FormIdFromRef(reference: String): String;
-	begin
-		if (pos('<', reference) <> 0) then begin
-			result := copy(reference, 2, 8);
-		end
-		else result := copy(reference, Length(reference) - 8, 8);
-	end;
-
 	// Is this signature one we expect to see in the world, and therefore worth processing?
 	function shouldProcessSig(sig: String): Boolean;
 	begin

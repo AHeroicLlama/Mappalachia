@@ -15,7 +15,7 @@ unit _commonwealthCartography_region;
 		REGNEntry = ElementByName(item, 'Region Areas');
 		formID = IntToHex(FixedFormId(item), 8);
 		editorID =  EditorID(item);
-		spaceFormID = FormIdFromRef(GetEditValue(ElementBySignature(item, 'WNAM')));
+		spaceFormID = sanitize(GetEditValue(ElementBySignature(item, 'WNAM')));
 	var
 		i, p : Integer;
 		currentRegionArea, regionAreaPoints, currentPoint : IInterface;

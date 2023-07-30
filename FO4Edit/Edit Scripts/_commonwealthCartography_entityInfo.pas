@@ -65,7 +65,7 @@ unit _commonwealthCartography_entityInfo;
 			end;
 
 			outputStrings.Add(
-				FormIdFromRef(GetEditValue(ElementByName(ElementByName(item, 'Record Header'), 'FormID'))) + ',' +
+				sanitize(GetEditValue(ElementByName(ElementByName(item, 'Record Header'), 'FormID'))) + ',' +
 				sanitize(bestDisplayName) + ',' +
 				editorId + ',' +
 				signature + ',' +
