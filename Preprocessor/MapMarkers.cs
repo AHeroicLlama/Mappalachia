@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace CommonwealthCartography
 {
 	internal static class MapMarkers
 	{
-		const string fastTravelBadString = "Fast Travel Point: ";
-		static readonly Regex validMapMarkerName = new Regex("^(.*)$");
-		static readonly Regex badMapMarkerNames = new Regex("^(Door|Quest|PowerArmorLoc|PlayerLoc)Marker$");
-
 		static readonly Dictionary<string, string> locationMarkerCorrection = new Dictionary<string, string>()
 		{
 
@@ -85,12 +80,6 @@ namespace CommonwealthCartography
 					continue;
 				}
 
-				// Removes "Fast Travel Point: " from some (typically station) names
-				if (label.StartsWith(fastTravelBadString))
-				{
-					label = label.Replace(fastTravelBadString, string.Empty);
-				}
-
 				iconName = iconName.Replace(" ", string.Empty).Replace("-", string.Empty).Replace("/", string.Empty);
 
 				// Correct the actual marker name
@@ -103,14 +92,6 @@ namespace CommonwealthCartography
 				if (locationMarkerCorrection.ContainsKey(label))
 				{
 					iconName = locationMarkerCorrection[label];
-				}
-
-				// Perform our own specialized validation
-				if (badMapMarkerNames.IsMatch(iconName) ||
-					!validMapMarkerName.IsMatch(iconName) ||
-					wrongLabelNames.ContainsKey(label))
-				{
-					throw new System.Exception("Map Marker failed internal validation: " + label + ", " + iconName);
 				}
 
 				// ... Finally, we assume this is a (corrected) map marker

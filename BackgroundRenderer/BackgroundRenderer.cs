@@ -28,7 +28,68 @@ namespace BackgroundRenderer
 		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
 		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
 		{
-
+			{ "BackBayTallOffice01", 700 },
+			{ "BeaconHillBostonBugle", 1000 },
+			{ "BigJohnsSalvage01", 500 },
+			{ "BostonPublicLibrary02", 1100 },
+			{ "CambridgeChurchGraveyard01", 700 },
+			{ "CambridgeCollegeAdminBuilding", 4200 },
+			{ "CambridgeConstructionSiteWarehouse01", 5700 },
+			{ "CambridgeDiner01", -2300 },
+			{ "CambridgeMassChemical01", 0 },
+			{ "CambridgePlumbing01", 500 },
+			{ "CambridgeScienceCenter01", 300 },
+			{ "CharlestownDrugDen", 500 },
+			{ "CharlestownHouse01", 700 },
+			{ "CorvegaAssemblyPlant01", 1100 },
+			{ "CroupManor01", -50 },
+			{ "CustomHouseTower01", 500 },
+			{ "DBTechHighSchool01", 1700 },
+			{ "DLC03AlderseaDaySpa01", 200 },
+			{ "DLC03BeaverCreekLanes01", 600 },
+			{ "DLC03EchoLakeLumber01", 700 },
+			{ "DLC03FarHarborLastPlank", 2000 },
+			{ "DLC03PineCrestCavern01", 0 },
+			{ "DLC03VimPopFactory01", 500 },
+			{ "DLC04ColaCars01", 300 },
+			{ "DLC04Gauntlet01", 2000 },
+			{ "DLC04GrandchesterMansion01", 1000 },
+			{ "DLC04KiddieKingdomTheater01", 1000 },
+			{ "DLC04KiddieKingdomZ01", 700 },
+			{ "DLC04Nukacade01", 500 },
+			{ "DLC04SafariPrimateHouse", 500 },
+			{ "DLC04SafariReptileHouse", 500 },
+			{ "DmndAllFaithsChapel01", 50 },
+			{ "DmndArturosHouse01", 250 },
+			{ "DmndArturosHouse02", 200 },
+			{ "DmndChoiceChops01", 120 },
+			{ "DmndEarlsHouse01", 120 },
+			{ "DmndGreenhouse01", 350 },
+			{ "DmndJohnsHouse01", 300 },
+			{ "DmndMoeCroninsHouse01", 300 },
+			{ "DmndOutfieldShengsHouse01", 300 },
+			{ "DmndPembrokesHouse01", 250 },
+			{ "DmndPlayerHouse01", 600 },
+			{ "DmndPublick01", 500 },
+			{ "DmndSchoolhouse01", 400 },
+			{ "DmndScienceCenter01", 600 },
+			{ "DmndSolomonsHouse01", 250 },
+			{ "DmndStandsCodman01", 650 },
+			{ "DmndStandsHawthorne01", 150 },
+			{ "DmndStandsKellogg01", 300 },
+			{ "DmndStandsTaphouse01", 200 },
+			{ "DmndSurgeryBasement01", 75 },
+			{ "DmndValentines01", 400 },
+			{ "DmndWarehouseA01", 200 },
+			{ "DmndWaterfrontCrockersHouse01", 500 },
+			{ "DmndWaterfrontSunsHouse01", 400 },
+			{ "ElevMinUseTransUtil", 200 },
+			{ "ElevTransHiTech", 200 },
+			{ "ElevTransHiTechInstitute", 200 },
+			{ "ElevTransPub", 200 },
+			{ "ElevTransUtil", 200 },
+			{ "ElevTransVault", 200 },
+			{ "EsplanadeChurch01", 400 },
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
@@ -42,7 +103,7 @@ namespace BackgroundRenderer
 
 		// Debug parameters
 		static readonly bool debugOn = false;
-		static readonly bool renderMeshes = false;
+		static readonly bool renderMeshes = true;
 		static readonly string debugEditorID = "";
 		static readonly int debugNudgeX = 0;
 		static readonly int debugNudgeY = 0;

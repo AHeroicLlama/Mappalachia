@@ -3,7 +3,7 @@ commonwealth_cartography.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-b5b631868899cf12f68867d82fda80c0
+0bf28f78de186742232d7b08fa8a5fb6
 ==File Size== 
 211582976 
 ==Tables== 
@@ -24721,7 +24721,7 @@ TheCastle01|Mirelurk|100.0|1
 00000F94|DiamondCity|Diamond City|1|5239|2870|-3465|13944|-4244|9985|0|0|1.0|4
 000016D8|Vault111Cryo|Vault 111|0|-2052|577|-5705|1600|-2237|3392|0|0|1.0|0
 00001E44|DmndEarlsHouse01|Earl Sterling's House|0|1398|64|894|1903|-320|448|0|0|1.0|0
-00001E45|DmndRadio01|Diamond City Radio|0|1624|-141|1322|1926|-441|159|0|0|1.0|0
+00001E45|DmndRadio01|Diamond City Radio|0|1624|-141|1322|1926|-441|159|1000|0|1.0|0
 00001E47|DmndValentines01|Valentine Detective Agency|0|1414|-126|833|1996|-444|192|0|0|1.0|4
 00001E4A|DmndOutfieldShengsHouse01|Sheng Kawolski's House|0|1459|-72|1178|1741|-336|192|0|0|1.0|0
 00001E4C|DmndStandsHawthorne01|Hawthorne Residence|0|2446|-165|2005|2887|-584|254|0|0|1.0|0
@@ -24731,30 +24731,30 @@ TheCastle01|Mirelurk|100.0|1
 00001E50|DmndStandsKellogg01|Kellogg's House|0|1462|-131|1164|1761|-609|346|0|0|1.0|0
 00001E51|DmndStandsTaphouse01|Colonial Taphouse|0|142|69|-343|627|-374|512|0|0|1.0|0
 00001E52|DmndJohnsHouse01|John and Cathy's House|0|1344|-331|960|1728|-652|-11|0|0|1.0|0
-00001E53|DmndFallons01|Fallon's Basement|0|1705|-208|912|2498|-614|198|0|0|1.0|0
+00001E53|DmndFallons01|Fallon's Basement|0|1705|-208|912|2498|-614|198|1300|0|1.5|0
 00001E54|DmndMoeCroninsHouse01|Moe Cronin's House|0|1348|-64|960|1737|-320|192|0|0|1.0|0
-00001E55|DmndArturosHouse01|Arturo's House|0|2509|99|903|4116|-584|783|0|0|1.0|0
+00001E55|DmndArturosHouse01|Arturo's House|0|2509|99|903|4116|-584|783|2500|-800|2.0|0
 00001E56|DmndCitySurplus01New|Myrna's House|0|1370|-97|907|1834|-576|382|0|0|1.0|0
 00001E57|DmndScienceCenter01|Science! Center|0|1460|-149|1107|1814|-661|363|0|0|1.0|0
-00001E58|DmndPlayerHouse01|Home Plate|0|1884|350|678|3091|-832|1533|0|0|1.0|0
+00001E58|DmndPlayerHouse01|Home Plate|0|1884|350|678|3091|-832|1533|1000|0|1.0|0
 00001E59|DmndSolomonsHouse01|Solomon's House|0|1367|-83|960|1774|-421|254|0|0|1.0|0
 00001E5A|DmndSurgeryCellar01|Surgery Cellar|0|1183|-248|846|1520|-627|130|0|0|1.0|0
-00001E5B|DmndAllFaithsChapel01|All Faiths Chapel|0|1671|-120|976|2367|-501|260|0|0|1.0|0
+00001E5B|DmndAllFaithsChapel01|All Faiths Chapel|0|1671|-120|976|2367|-501|260|1000|0|1.0|0
 00001E5C|DmndChoiceChops01|Polly's House|0|1308|-81|889|1728|-512|349|0|0|1.0|0
 00001E5D|DmndDugoutInn01|Dugout Inn|0|-64|-3922|-1280|1152|-5589|-2256|0|0|1.0|0
 00001E5E|DmndWarehouseA01|Warehouse|0|1555|-66|1189|1921|-325|192|0|0|1.0|0
 00001E5F|DmndWaterfrontSunsHouse01|Doctor Sun's House|0|1514|-67|1055|1973|-352|218|0|0|1.0|0
 00001E60|DmndWaterfrontCrockersHouse01|Doc Crocker's House|0|1431|-168|1135|1728|-591|254|0|0|1.0|0
-00001E63|DmndGreenhouse01|Greenhouse|0|2136|55|805|3468|-378|488|0|0|1.0|0
+00001E63|DmndGreenhouse01|Greenhouse|0|2136|55|805|3468|-378|488|2500|0|2.0|0
 00001E64|DmndSchoolhouse01|Schoolhouse|0|1347|-196|897|1797|-647|255|0|0|1.0|0
 00001E65|DmndPublick01|Publick Occurrences|0|1344|-373|960|1728|-1088|342|0|0|1.0|0
-00001E66|DmndSecurity01|Security Office|0|2155|-2159|-233|4544|-4416|98|0|0|1.0|0
+00001E66|DmndSecurity01|Security Office|0|2155|-2159|-233|4544|-4416|98|0|-1000|1.0|0
 00001E68|DmndAbbotsHouse|Abbot's House|0|1438|-223|1148|1728|-393|-54|0|0|1.0|0
 00001E69|DmndPembrokesHouse01|Pembroke Residence|0|1422|-64|1074|1770|-320|192|0|0|1.0|0
 00002374|UniversityPoint01|University Point: Sedgwick Hall|0|3861|-167|1770|5952|-2544|2209|0|0|1.0|0
 00017DF7|ConcordMuseum01|Museum of Freedom|0|-640|-198|-2304|1024|-2944|2548|0|0|1.0|0
 00017E4D|TrinityTower01|Trinity Tower Mid Level|0|205|3366|-1851|2262|1223|5510|0|0|1.0|0
-000198F1|DmndSurgeryBasement01|Mega Surgery Center|0|1638|-598|1015|2262|-963|-233|0|0|1.0|0
+000198F1|DmndSurgeryBasement01|Mega Surgery Center|0|1638|-598|1015|2262|-963|-233|1800|-500|1.5|0
 0001B0F7|VaultTecOffice01|Vault-Tec Regional HQ|0|2832|-1140|1717|3948|-2540|259|0|0|1.0|0
 0001F398|SanctuaryRosaHouse|Rosa Residence|0|16|80|-320|352|-352|512|0|0|1.0|0
 0001FA25|CambridgePD01|Cambridge Police Station|0|2568|3268|848|4288|1728|4808|0|0|1.0|0
@@ -24766,7 +24766,7 @@ TheCastle01|Mirelurk|100.0|1
 00022880|GoodneighborWarehouse02|Warehouse|0|1411|-59|799|2024|-759|640|0|0|1.0|0
 00022881|GoodneighborWarehouse01|Warehouse|0|1648|-249|748|2548|-994|496|0|0|1.0|0
 00022884|GoodneighborTheMemoryDen|The Memory Den|0|1603|-763|-105|3312|-2038|512|0|0|1.0|0
-0002288B|CollegeSquare01|College Square Station|0|2680|-3864|640|4720|-10048|2320|0|0|1.0|0
+0002288B|CollegeSquare01|College Square Station|0|2680|-3864|640|4720|-10048|2320|0|500|1.3|0
 00022967|GoodneighborWarehouse03|Warehouse|0|1999|-256|1054|2944|-896|384|0|0|1.0|0
 000252BF|SandyCovesHome01|Sandy Coves Convalescent Home|0|4544|1696|3264|5824|-64|3456|0|0|1.0|0
 00026840|BADTFL01|BADTFL Regional Office|0|49|1485|-2001|2099|-183|3153|0|0|1.0|0
@@ -24797,7 +24797,7 @@ TheCastle01|Mirelurk|100.0|1
 0003A317|CabotHouse01|Cabot House|0|200|-352|-641|1042|-1571|867|0|0|1.0|0
 0003A318|BeantownBrewery01|Beantown Brewery|0|-784|659|-3059|1490|-1314|2632|0|0|1.0|0
 0003A870|OldGulletSinkhole01|Old Gullet Sinkhole|0|-480|-928|-1664|704|-3968|2112|0|0|1.0|0
-0003AC6D|DBTechHighSchool01|D.B. Technical High School|0|6690|2667|6|13375|-342|5677|0|0|1.0|0
+0003AC6D|DBTechHighSchool01|D.B. Technical High School|0|6690|2667|6|13375|-342|5677|-2900|0|2.5|0
 0003AF88|HestersRobotics01|Hester's Consumer Robotics|0|-1152|1792|-2816|512|0|3584|0|0|1.0|0
 0003B381|FensStreetSewer01|Fens Street Sewer|0|4014|4793|953|7075|1445|8142|0|0|1.0|0
 0003B6ED|LongneckLukowskis01|Longneck Lukowski's Cannery|0|-1312|-70|-4568|1944|-4572|4432|0|0|1.0|0
@@ -24820,7 +24820,7 @@ TheCastle01|Mirelurk|100.0|1
 00047993|IrishPrideShipyard01|Irish Pride Industries Shipyard|0|1048|1360|-800|2896|-1088|3808|0|0|1.0|0
 00048646|FederalSurvCenter01|Bunker|0|-1544|-901|-3405|317|-2896|1093|0|0|1.0|0
 00048DE3|BostonMayoralShelter01|Boston Mayoral Shelter|0|-819|1340|-4544|2905|-3568|6249|0|0|1.0|0
-00049B72|DunwichBorers01|Dunwich Borers|0|-1629|4187|-8445|5186|-203|8577|0|0|1.0|0
+00049B72|DunwichBorers01|Dunwich Borers|0|-1629|4187|-8445|5186|-203|8577|100|0|1.2|0
 0004A3A6|WestEverettEstates01|Backyard Bunker|0|2077|2504|1771|2384|1377|3632|0|0|1.0|0
 0004ACB4|Financial14|Commonwealth Bank|0|2354|930|920|3788|-3|1863|0|0|1.0|0
 0004AE42|MedfordMemorial01|Medford Memorial Hospital|0|2778|4557|-693|6250|1851|7264|0|0|1.0|0
@@ -24828,7 +24828,7 @@ TheCastle01|Mirelurk|100.0|1
 0004B4D7|ParsonsState03|Parsons State Basement|0|1454|3535|-492|3400|926|6144|0|0|1.0|0
 0004C7ED|GwinnettBrewery01|Gwinnett Restaurant|0|1896|2496|-624|4416|720|4272|0|0|1.0|0
 0004E428|TheBigDig01|The Dig|0|8186|6694|-271|16643|-3280|16668|0|0|1.0|0
-0004E4D6|BackStreetApparel01|Back Street Apparel|0|656|1753|-824|2136|-549|4056|0|0|1.0|0
+0004E4D6|BackStreetApparel01|Back Street Apparel|0|656|1753|-824|2136|-549|4056|400|-300|1.5|0
 000503C6|GwinnettBrewery02|Gwinnett Main Brewery|0|-372|3426|-3008|2263|1311|5542|0|0|1.0|0
 00050C34|PoseidonEnergy02|Poseidon Energy Sublevels|0|320|1088|-1600|2240|-1472|3648|0|0|1.0|0
 000517B3|CambridgeScienceCenter01|Science Center Gift Shop|0|-564|184|-1107|-21|-359|727|0|0|1.0|0
@@ -24836,9 +24836,9 @@ TheCastle01|Mirelurk|100.0|1
 000532B6|NationalGuardTrainingYard01|National Guard Recruitment Office|0|2177|2358|1375|2980|1116|3601|0|0|1.0|0
 00053834|PoseidonReservoir01|Poseidon Reservoir|0|2525|2797|-1525|6576|827|4767|0|0|1.0|0
 00054BD5|Goodneighbor|Goodneighbor|1|15161|-10355|2560|27763|-20320|-390|0|0|1.0|0
-000560EE|CambridgePolymerLabs01|Cambridge Polymer Labs|0|2152|4077|1|4304|0|8154|0|0|1.0|0
+000560EE|CambridgePolymerLabs01|Cambridge Polymer Labs|0|2152|4077|1|4304|0|8154|0|600|1.5|0
 00056BEE|MaldenDrainage01|Malden Drainage|0|296|2428|-3440|4032|1328|3529|0|0|1.0|0
-00057127|CorvegaAssemblyPlant01|Corvega Assembly Plant|0|196|1088|-4343|4736|-3445|5622|0|0|1.0|0
+00057127|CorvegaAssemblyPlant01|Corvega Assembly Plant|0|196|1088|-4343|4736|-3445|5622|200|-500|1.4|0
 0005884C|FaneuilHall01|Faneuil Hall|0|2333|2464|-1525|6192|560|4368|0|0|1.0|0
 0005A117|WestRoxburyStation01|West Roxbury Station|0|187|5352|-1722|2096|-5920|16624|0|0|1.0|0
 0005A925|DanversHideout|Hideout|0|169|528|-1054|1392|-100|1156|0|0|1.0|0
@@ -24859,7 +24859,7 @@ TheCastle01|Mirelurk|100.0|1
 00070116|Financial24|Joe's Spuckies|0|1856|234|1088|2624|-427|896|0|0|1.0|0
 00070117|Financial13|Weatherby Investment Trust|0|306|323|-540|1152|-378|1024|0|0|1.0|0
 00070118|Financial06|Old Corner Bookstore|0|-768|-1752|-2048|512|-3168|-336|0|0|1.0|0
-00074D28|AndrewStation01|Andrew Station|0|7717|6657|-3056|18491|48|13266|0|0|1.0|0
+00074D28|AndrewStation01|Andrew Station|0|7717|6657|-3056|18491|48|13266|2300|700|2.0|0
 000788D4|ConcordSpeakeasy|Concord Speakeasy|0|618|539|-377|1613|-453|1532|0|0|1.0|0
 0007AA38|MedTekResearch02|Med-Tek Sub-Levels|0|2736|256|-448|5920|-2304|2816|0|0|1.0|0
 0007BEF3|Vault11402|Vault 114|0|-890|13833|-3175|1394|11522|16144|0|0|1.0|0
@@ -24867,8 +24867,8 @@ TheCastle01|Mirelurk|100.0|1
 0007D8E6|MassPikeTunnel01|Mass Pike Tunnel|0|-1759|5248|-6143|2624|-3200|13696|0|0|1.0|0
 0007E2C2|ArcjetSystems01|ArcJet Systems|0|1536|-1984|-640|3712|-4992|1024|0|0|1.0|0
 0007FF42|NahantOceanSociety02|Nahant Oceanological Research Lab|0|1316|-70|-212|2844|-1078|938|0|0|1.0|0
-00080465|ArcjetSystems02|ArcJet Engine Core|0|-4364|-2564|-7296|-1432|-6567|1438|0|0|1.0|0
-00084A56|BostonAirportRuins01|Boston Airport Ruins|0|-11458|432|-22912|-5|-3488|4352|0|0|1.0|0
+00080465|ArcjetSystems02|ArcJet Engine Core|0|-4364|-2564|-7296|-1432|-6567|1438|700|-1200|2.0|0
+00084A56|BostonAirportRuins01|Boston Airport Ruins|0|-11458|432|-22912|-5|-3488|4352|2200|0|2.2|0
 00084A59|MassFusion02|Mass Fusion Main Reactor|0|4000|1808|2304|5696|-800|4416|0|0|1.0|0
 0009087E|AtomatoysCorporateHQ01|Wilson Atomatoys Corporate HQ|0|-616|1176|-2336|1104|-160|2512|0|0|1.0|0
 00092B21|RailroadHQ01|Railroad HQ|0|13246|843|11072|15421|-1253|2940|0|0|1.0|4
@@ -24879,9 +24879,9 @@ TheCastle01|Mirelurk|100.0|1
 0009AE25|BobbisNewPlace01|Hawthorne Estate|0|2302|2393|1778|2826|1850|2937|0|0|1.0|0
 0009AE26|SouthBoston25|Church|0|2168|2680|1588|2749|1732|3628|0|0|1.0|0
 0009AE28|SouthBostonPoliceDepartment01|South Boston Police Department|0|1474|1512|207|2741|728|2297|0|0|1.0|0
-0009BFFF|ElevTransUtil|Elevator|0|5|64|-56|66|-64|192|0|0|1.0|0
+0009BFFF|ElevTransUtil|Elevator|0|5|64|-56|66|-64|192|0|-800|1.0|0
 0009C376|SouthBoston35|Factory|0|3305|499|2176|4435|-713|1711|0|0|1.0|0
-0009C775|BostonCommon02|The Boylston Club|0|-54|2037|-640|532|942|3133|0|0|1.0|0
+0009C775|BostonCommon02|The Boylston Club|0|-54|2037|-640|532|942|3133|0|1300|1.5|0
 0009D357|BeaconHillBostonBugle|The Boston Bugle|0|-449|1473|-1265|367|323|2624|0|0|1.0|0
 0009F0A2|Waterfront12|Harbormaster Hotel|0|2190|2833|1498|2882|1883|3783|0|0|1.0|0
 0009FB31|CharlestownLaundry|Charlestown Laundry|0|-445|295|-1024|133|-273|864|0|0|1.0|0
@@ -24893,13 +24893,13 @@ TheCastle01|Mirelurk|100.0|1
 000A1CB7|LaytonTowers01|Layton Towers|0|1207|861|-658|3072|-430|2152|0|0|1.0|0
 000A1CBC|ShenleysOysterBar01|Shenley's Oyster Bar|0|-4|-75|-512|504|-515|365|0|0|1.0|0
 000A36EA|SanctuaryBasementJahani|Root Cellar|0|-181|15|-466|104|-399|429|0|0|1.0|0
-000A3AD4|CambridgeMassChemical01|Mass Chemical|0|3274|339|1327|5222|-982|1660|0|0|1.0|0
+000A3AD4|CambridgeMassChemical01|Mass Chemical|0|3274|339|1327|5222|-982|1660|-700|0|1.3|0
 000A3AD9|CambridgeDiner01|Cambridge Diner|0|2965|-475|2152|3779|-1024|74|0|0|1.0|0
 000A3ADB|CambridgeCollegeAdminBuilding|College Admin Building|0|977|4740|0|1955|4093|5387|0|0|1.0|0
 000A4632|BeaconHillApartments|Apartments|0|234|372|-168|636|-365|1110|0|0|1.0|0
 000A4633|CharlestownDrugDen|Drug Den|0|-288|-44|-832|256|-505|416|0|0|1.0|0
 000A59EA|NorthEndBoxingGym|Boxing Gym|0|-264|691|-929|400|-85|1468|0|0|1.0|0
-000A603B|CambridgeEastCITRaiderCamp01|Office Building|0|2177|2045|1160|3195|769|3321|0|0|1.0|0
+000A603B|CambridgeEastCITRaiderCamp01|Office Building|0|2177|2045|1160|3195|769|3321|0|1700|1.4|0
 000A603D|CambridgeMonsignorPlaza01|Monsignor Plaza|0|2443|1344|-1037|5924|-2059|4748|0|0|1.0|0
 000A7FF4|SanctuaryHillsWorld|Sanctuary Hills|1|-37524|31782|-101371|26322|-42168|105733|4300|5500|3.5|0
 000A87EA|NorthEndMeanPastries|Mean Pastries|0|50|33|-590|690|-574|641|0|0|1.0|0
@@ -24922,22 +24922,22 @@ TheCastle01|Mirelurk|100.0|1
 000C9D24|MassStateHouse01|Massachusetts State House|0|2034|2048|-610|4679|-1228|5324|0|0|1.0|0
 000CA260|PrewarVault111|Vault 111|0|-2262|208|-5705|1181|-2176|2592|0|0|1.0|0
 000CD2AE|FortHagen02|Fort Hagen Command Center|0|-1218|-850|-4539|2103|-4085|2385|0|0|1.0|0
-000CFDA3|CambridgeKendallHospital01|Kendall Hospital|0|-3486|3279|-9385|2412|-688|7246|0|0|1.0|0
+000CFDA3|CambridgeKendallHospital01|Kendall Hospital|0|-3486|3279|-9385|2412|-688|7246|1800|-500|1.0|0
 000D393F|MQ203KelloggsBrain|Memories|0|9388|1068|-5499|24276|-5803|7939|0|0|1.0|0
 000DCC23|ListeningPostBravo01|Listening Post Bravo|0|2861|3119|1434|4288|1823|4416|0|0|1.0|0
-000E214D|DBTechHighSchool02|Medical Center Station|0|4672|1761|-256|9600|-3183|6705|0|0|1.0|0
+000E214D|DBTechHighSchool02|Medical Center Station|0|4672|1761|-256|9600|-3183|6705|-1500|500|1.2|0
 000E2F6F|NationalGuardTrainingYard03|National Guard Armory|0|97|3100|-657|851|2524|3676|0|0|1.0|0
 000E2F70|NationalGuardTrainingYard02|National Guard Barracks|0|133|2031|-1455|1721|679|3383|0|0|1.0|0
 000E3CC4|ConcordFactory|Workhouse|0|-267|-91|-925|391|-670|488|0|0|1.0|0
 000E50B5|TrinityChurch01|Trinity Church|0|2897|-559|175|5620|-2960|1842|0|0|1.0|0
 000E791A|GeneralAtomicsGalleria01|Back Alley Bowling|0|-1472|928|-3712|768|-688|2544|0|0|1.0|0
-000E8D80|ElevTransPub|Elevator|0|4|65|-58|66|-62|192|0|0|1.0|0
-000EBE92|BostonPublicLibrary01|Copley Station|0|3456|6009|-3200|10112|4160|7858|0|0|1.0|0
+000E8D80|ElevTransPub|Elevator|0|4|65|-58|66|-62|192|0|-800|1.0|0
+000EBE92|BostonPublicLibrary01|Copley Station|0|3456|6009|-3200|10112|4160|7858|0|0|1.5|0
 000EBE93|BostonPublicLibrary02|Boston Public Library|0|1296|4422|-2419|5011|694|8150|0|0|1.0|0
 000ECCFD|PrewarTVStudio|Colonial's Department Store|0|136|571|-601|873|133|1010|0|0|1.0|0
 000ECE80|BunkerHill01|Utility Basement|0|724|-1319|-1094|2543|-2966|328|0|0|1.0|0
 000F4BF4|MassFusion01|Mass Fusion Building|0|768|-256|-768|2304|-2048|1536|0|0|1.0|0
-000F7C51|ElevTransHiTech|Elevator|0|4|72|-48|56|-48|192|0|0|1.0|0
+000F7C51|ElevTransHiTech|Elevator|0|4|72|-48|56|-48|192|0|-800|1.0|0
 000FB265|UniversityPoint02|University Credit Union|0|528|1304|-1872|2928|-1056|3664|0|0|1.0|0
 0010F1F0|FourLeafFishpacking02|Marowski's Chem Lab|0|2793|1508|1856|3731|568|2449|0|0|1.0|0
 0011E7EC|Libertalia01|Captain's Cabin|0|2347|1477|132|4563|105|2849|0|0|1.0|0
@@ -24946,8 +24946,8 @@ TheCastle01|Mirelurk|100.0|1
 001379B9|zLexingtonApartments|Apartments|0|62|526|-792|917|-620|1672|0|0|1.0|0
 00137C87|RailroadHQEscapeTunnel|Railroad HQ Escape Tunnel|0|10266|-2240|8827|11706|-5060|579|0|0|1.0|0
 0013A2B1|InstituteCave|Institute Sublevel 21-D|0|548|125|-1152|2248|-1567|1818|0|0|1.0|0
-0013A972|BackBayTallOffice01|Dartmouth Professional Building|0|438|2220|-152|1029|1666|2775|0|0|1.0|0
-0013FEB8|ElevTransVault|Elevator|0|-1|64|-72|69|-64|192|0|0|1.0|0
+0013A972|BackBayTallOffice01|Dartmouth Professional Building|0|438|2220|-152|1029|1666|2775|-300|0|1.0|0
+0013FEB8|ElevTransVault|Elevator|0|-1|64|-72|69|-64|192|0|-800|1.0|0
 00140089|BeaconHillPub|Prost Bar|0|-242|-975|-1147|663|-2515|564|0|0|1.0|0
 001440BE|SaugusIronworks02|Saugus Blast Furnace|0|928|3320|-1744|3600|2064|4576|0|0|1.0|0
 00149CD2|QuincyPD01|Quincy Police Lock up|0|1906|1282|132|3680|105|2460|0|0|1.0|0
@@ -24984,11 +24984,11 @@ TheCastle01|Mirelurk|100.0|1
 001B2ED3|RelayTowerInt05|Storage Compartment|0|-963|-182|-1742|-185|-937|573|0|0|1.0|0
 001B3F74|RelayTowerInt03|Bunker|0|-43|-70|-294|207|-225|84|0|0|1.0|0
 001B9A59|RelayTowerInt17|Storage|0|-185|-65|-441|71|-282|151|0|0|1.0|0
-001BABD5|CambridgePlumbing01|Plumber's Secret|0|61|1673|-1874|1997|606|2740|0|0|1.0|0
+001BABD5|CambridgePlumbing01|Plumber's Secret|0|61|1673|-1874|1997|606|2740|0|0|1.7|0
 001BAE01|FensKenmoreStation|Subway Station|0|-668|1194|-3114|1778|-1878|4266|0|0|1.0|0
 001BD31D|CambridgeParkingGarage01|Kendall Parking|0|2312|2474|683|3941|753|4195|0|0|1.0|0
 001BD54A|FortStrong02|Fort Strong Sublevel|0|2620|1678|-576|5816|-352|3708|0|0|1.0|0
-001C0F91|ElevMinUseTransUtil|Elevator|0|5|64|-56|66|-64|192|0|0|1.0|0
+001C0F91|ElevMinUseTransUtil|Elevator|0|5|64|-56|66|-64|192|0|-800|1.0|0
 001C53EF|TheaterMassBayMedicalCenter02|Mass Bay Medical Radiology|0|2491|-750|269|4714|-1390|-110|0|0|1.0|0
 001C9331|SlocumsJoeHQOffice|Slocum's Joe Offices|0|2065|2040|1518|2613|1312|2769|0|0|1.0|0
 001DE7E3|RelayTowerInt12|Military Bunker|0|128|-896|-128|384|-1152|-640|0|0|1.0|0
@@ -24996,14 +24996,14 @@ TheCastle01|Mirelurk|100.0|1
 001F4190|GlowingSeaPOIDB05Int|Red Rocket|0|-58|830|-776|660|116|1545|0|0|1.0|0
 001F59B9|GlowingSeaPOIDB06Int|Parking Garage|0|-331|274|-9066|8404|-8699|9248|0|0|1.0|0
 0021630B|PrydwenHull03|Prydwen Quarters|0|-720|1409|-1056|-384|1046|1772|0|0|1.0|0
-0021A107|ElevTransHiTechInstitute|Elevator|0|4|72|-48|56|-48|192|0|0|1.0|0
+0021A107|ElevTransHiTechInstitute|Elevator|0|4|72|-48|56|-48|192|0|-800|1.0|0
 0021A2AE|zVitalePumphouse01|Pumphouse|0|-115|1123|-896|665|464|1783|0|0|1.0|0
-010008A3|DLC01Lair01|The Mechanist's Lair|0|-3586|-270|-12512|5340|-10141|9600|0|0|1.0|2
+010008A3|DLC01Lair01|The Mechanist's Lair|0|-3586|-270|-12512|5340|-10141|9600|1000|16000|9.0|2
 01000B0F|DLC03FarHarbor|The Island|1|-9001|16907|-98522|80519|-76256|110071|-470|-475|1.247|4
 01000F31|DLC06VaultWorkshop|Vault 88|0|-3208|4167|-13861|7444|-7430|15764|0|0|1.0|6
 01001B7A|DLC03HarborGrandHotel01|Harbor Grand Hotel|0|1869|970|-1921|5659|-869|2810|0|0|1.0|4
 0100290F|NukaWorld|Nuka-World|1|-9692|-2926|-110984|91600|-102241|96388|-100|330|1.66|7
-01003392|DLC03FarHarborLastPlank|The Last Plank|0|1182|5182|-467|2832|3585|6779|0|0|1.0|4
+01003392|DLC03FarHarborLastPlank|The Last Plank|0|1182|5182|-467|2832|3585|6779|1300|400|2.0|4
 01003A6F|DLC03Nucleus|The Nucleus|0|8506|1054|5565|11448|-2915|5024|0|0|1.0|4
 01003A99|DLC03NucleusCommandCenter01|Nucleus Command Center|0|4266|1930|-1325|9858|-2761|6621|0|0|1.0|4
 010044DF|DLC01FortHagenSatelliteArray01|Fort Hagen Hangar|0|-993|1825|-5137|3151|-1977|5628|0|0|1.0|2
@@ -25011,46 +25011,46 @@ TheCastle01|Mirelurk|100.0|1
 01004EA4|DLC03VRWorldspace|Simulation|1|144|1261|-9456|9744|-9596|12118|0|0|1.0|4
 010054D8|DLC03VimPopFactory01|Vim! Corporate Headquarters|0|-701|64|-2299|896|-1536|1664|0|0|1.0|4
 010054D9|DLC03Vault118|Vault 118|0|-1392|3328|-6864|4080|-2922|9579|0|0|1.0|4
-010054DA|DLC03BeaverCreekLanes01|Beaver Creek Lanes|0|1792|3260|-1148|4733|3|6517|0|0|1.0|4
-010078B6|DLC03EagleCoveTannery01|Eagle's Cove Tannery|0|644|1419|-1400|2689|-785|3624|0|0|1.0|4
+010054DA|DLC03BeaverCreekLanes01|Beaver Creek Lanes|0|1792|3260|-1148|4733|3|6517|-200|600|1.5|4
+010078B6|DLC03EagleCoveTannery01|Eagle's Cove Tannery|0|644|1419|-1400|2689|-785|3624|0|-500|1.5|4
 01007D21|DLC04TransitCenter01|Nuka-World Transit Center|0|-572|-828|-2120|976|-5248|3592|0|0|1.0|7
-0100805B|DLC04ColaCars01|Cola-Cars Arena|0|1740|-1079|-3968|7449|-5151|2992|0|0|1.0|7
+0100805B|DLC04ColaCars01|Cola-Cars Arena|0|1740|-1079|-3968|7449|-5151|2992|2800|1000|2.2|7
 01008B57|DLC04NukaWorldPowerPlant01|Nuka-World Power Plant|0|4468|2550|1003|7933|41|5059|0|0|1.0|7
 0100B46A|DLC04Gauntlet01|Nuka-World Access Tunnels|0|-6144|1576|-10032|-2256|-6400|9552|0|0|1.0|7
 0100CF63|DLC04BradbertonsOffice01|Bradberton's Office|0|-152|927|-2933|2629|-1341|3196|0|0|1.0|7
-0100DC23|DLC04GZTheater01|Starlight Interstellar Theater|0|5701|-1525|-1525|12928|-4488|1438|0|0|1.0|7
-0100F616|DLC04GZBattlezone01|RobCo Battlezone|0|174|-2032|-1861|2210|-5502|1438|0|0|1.0|7
+0100DC23|DLC04GZTheater01|Starlight Interstellar Theater|0|5701|-1525|-1525|12928|-4488|1438|-4000|-500|3.0|7
+0100F616|DLC04GZBattlezone01|RobCo Battlezone|0|174|-2032|-1861|2210|-5502|1438|0|-800|1.5|7
 0101092A|DLC04GZVaultTec01|Vault-Tec: Among the Stars|0|-2240|2089|-4832|352|-510|4688|0|0|1.0|7
-01010CA5|DLC04GZNukaGalaxy01|Nuka-Galaxy|0|8070|12862|4|16136|-4|25728|0|0|1.0|7
-010137CE|DLC03KyeBunker01|Vim! Basement|0|-613|84|-2007|781|-1766|1935|0|0|1.0|4
-010139D2|DLC04GrandchesterMansion01|Grandchester Mystery Mansion|0|1405|2999|-1525|4336|1311|4688|0|0|1.0|7
-01016665|DLC03AlderseaDaySpa01|Aldersea Day Spa|0|-53|637|-2398|2292|-1649|2923|0|0|1.0|4
+01010CA5|DLC04GZNukaGalaxy01|Nuka-Galaxy|0|8070|12862|4|16136|-4|25728|-700|2000|2.0|7
+010137CE|DLC03KyeBunker01|Vim! Basement|0|-613|84|-2007|781|-1766|1935|-500|0|1.5|4
+010139D2|DLC04GrandchesterMansion01|Grandchester Mystery Mansion|0|1405|2999|-1525|4336|1311|4688|-1000|0|1.5|7
+01016665|DLC03AlderseaDaySpa01|Aldersea Day Spa|0|-53|637|-2398|2292|-1649|2923|0|0|1.5|4
 01016E33|DLC03VimPopFactory02|Vim! Factory|0|-4567|1603|-7902|-1232|-2050|5256|0|0|1.0|4
 01018594|DLC04HubPackLair|Nuka-Town Backstage|0|-638|1542|-1798|522|-337|3421|0|0|1.0|7
-01018595|DLC04HubCappysCafe01|Cappy's Cafe|0|321|1674|-1041|1683|768|2581|0|0|1.0|7
+01018595|DLC04HubCappysCafe01|Cappy's Cafe|0|321|1674|-1041|1683|768|2581|-1000|0|1.0|7
 01018596|DLC04HubFizztopMountainInterior01|Fizztop Mountain|0|1553|2077|-751|3857|-135|4290|0|0|1.0|7
 01018597|DLC04HubOperatorLair01|The Parlor|0|1581|1402|139|3024|-153|2958|0|0|1.0|7
 0101951C|DLC04KiddieKingdomTunnels01|Employee Tunnels|0|2088|9484|-2672|6848|-304|19272|0|0|1.0|7
 0101951D|DLC04KiddieKingdomFunHouse01|Fun House|0|1280|336|-1776|4336|-3552|4224|0|0|1.0|7
 0101951E|DLC04BottlingPlant01|The World of Refreshment|0|5440|4160|-1808|12688|1|8319|0|0|1.0|7
-0101951F|DLC04Nukacade01|Nuka-Cade|0|2212|1692|-520|4944|-736|4120|0|0|1.0|7
+0101951F|DLC04Nukacade01|Nuka-Cade|0|2212|1692|-520|4944|-736|4120|500|0|1.5|7
 0101CE22|DLC04HubFizztopGrille01|Fizztop Grille|0|911|1609|-82|1904|459|2759|0|0|1.0|7
 0101E413|DLC04SafariBearCave|Bear Cave|0|-59|1450|-1394|1275|-462|3362|0|0|1.0|7
 0101E414|DLC04SafariWelcomeCenter|Safari Adventure Welcome Center|0|3609|3300|-127|7345|617|5984|0|0|1.0|7
-0101E415|DLC04SafariReptileHouse|Reptile House|0|892|2116|-1041|2826|854|3379|0|0|1.0|7
-0101E416|DLC04SafariPrimateHouse|Primate House|0|140|1267|-1786|2067|-398|2933|0|0|1.0|7
+0101E415|DLC04SafariReptileHouse|Reptile House|0|892|2116|-1041|2826|854|3379|-500|0|1.0|7
+0101E416|DLC04SafariPrimateHouse|Primate House|0|140|1267|-1786|2067|-398|2933|-500|0|1.0|7
 01020668|DLC03KitteredgePass01|Kitteredge Pass|0|1699|327|-1973|5372|-2144|2799|0|0|1.0|4
 010258DD|DLC03PineCrestCavern01|Pine Crest Cavern|0|-323|148|-3270|2624|-5210|5507|0|0|1.0|4
-0102B99D|DLC04KiddieKingdomTheater01|King Cola's Court|0|1600|2976|-768|3968|-192|6144|0|0|1.0|7
-0102B99E|DLC04KiddieKingdomZ01|King Cola's Castle Tower|0|1204|2540|224|2184|1591|3490|0|0|1.0|7
+0102B99D|DLC04KiddieKingdomTheater01|King Cola's Court|0|1600|2976|-768|3968|-192|6144|0|-500|1.3|7
+0102B99E|DLC04KiddieKingdomZ01|King Cola's Castle Tower|0|1204|2540|224|2184|1591|3490|500|0|1.3|7
 0102BF04|DLC03EchoLakeLumber01|Bunker|0|3366|2679|1781|4951|803|4556|0|0|1.0|4
-0102E12D|DLC03WindFarmBuilding01|Wind Farm Maintenance|0|2112|1048|-644|4868|-3026|5123|0|0|1.0|4
+0102E12D|DLC03WindFarmBuilding01|Wind Farm Maintenance|0|2112|1048|-644|4868|-3026|5123|0|-200|1.3|4
 01030BF7|DLC04WWMineCart01|Mad Mulligan's Mine|0|971|1306|-1769|3712|-1147|3760|0|0|1.0|7
 01031A1A|DLC04NWJunkyardUFO01|Ultimate UFO|0|25|45|-460|510|-481|572|0|0|1.0|7
-01036572|DLC03POI40Int|Pump Control|0|128|303|-585|841|-128|735|0|0|1.0|4
-01036E8E|DLC03NorthwoodRidgeQuarry01|Northwood Ridge Quarry|0|-1042|2642|-3808|1723|-1165|6449|0|0|1.0|4
+01036572|DLC03POI40Int|Pump Control|0|128|303|-585|841|-128|735|0|-1500|2.5|4
+01036E8E|DLC03NorthwoodRidgeQuarry01|Northwood Ridge Quarry|0|-1042|2642|-3808|1723|-1165|6449|0|-1000|1.5|4
 0103A4FD|DLC04BottlingPlant02|Secure Beverageer Lab|0|656|904|-1152|2464|-2304|4112|0|0|1.0|7
-01040F16|DLC03NucleusSubInterior01|The Vessel|0|182|-688|-1111|1475|-4112|2736|0|0|1.0|4
+01040F16|DLC03NucleusSubInterior01|The Vessel|0|182|-688|-1111|1475|-4112|2736|300|-2100|2.0|4
 01052931|NukaWorldAmphitheater|Bradberton Amphitheater|1|-684|-18466|-5769|4401|-22392|-14540|0|0|1.0|7
 01053C58|NukaWorldMarket|Nuka-Town Market|1|981|-18351|-2549|4511|-21672|-15030|0|0|1.0|7
 01054271|DLC03POIBasementArmory|Basement Armory|0|3038|2670|2396|3680|1968|3372|0|0|1.0|4
