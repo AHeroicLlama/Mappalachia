@@ -119,19 +119,22 @@ namespace ImageAssetChecker
 			{
 				string editorId = space.GetEditorId();
 				bool isWorldSpace = space.IsWorldspace();
-				string subDirectory = isWorldSpace ? string.Empty : cellDirectoryPath;
-				string expectedFile = imageDirectory + subDirectory + editorId + backgroundImageFileType;
-
-				ValidateImageFile(expectedFile, isWorldSpace);
 
 				// Run a second validation for the rendered version of worldspace maps
 				if (isWorldSpace)
 				{
-					expectedFile = imageDirectory + subDirectory + editorId + "_render" + backgroundImageFileType;
-					ValidateImageFile(expectedFile, isWorldSpace);
+					// Only these 3 worldspaces have UI maps
+					if (editorId == "Commonwealth" || editorId == "DLC03FarHarbor" || editorId == "NukaWorld")
+					{
+						ValidateImageFile(imageDirectory + editorId + backgroundImageFileType, true);
+					}
 
-					expectedFile = imageDirectory + subDirectory + editorId + "_waterMask" + maskImageFileType;
-					ValidateImageFile(expectedFile, isWorldSpace);
+					ValidateImageFile(imageDirectory + editorId + "_render" + backgroundImageFileType, true);
+					ValidateImageFile(imageDirectory + editorId + "_waterMask" + maskImageFileType, true);
+				}
+				else
+				{
+					ValidateImageFile(imageDirectory + cellDirectoryPath + editorId + backgroundImageFileType, true);
 				}
 			}
 

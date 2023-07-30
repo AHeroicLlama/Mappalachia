@@ -3,7 +3,7 @@ commonwealth_cartography.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-3146d4d831e990fd8ca5c646197a7c12
+b5b631868899cf12f68867d82fda80c0
 ==File Size== 
 211582976 
 ==Tables== 
@@ -139,7 +139,7 @@ Commonwealth|AirfieldMarker|Boston Airport|48074|-3332
 Commonwealth|AirfieldMarker|Skylanes Flight 1665|-64854|-125006
 Commonwealth|AirfieldMarker|Skylanes Flight 1981|-5565|78981
 Commonwealth|AirfieldMarker|Vertibird Wreckage|-62551|-109745
-Commonwealth|BrownstoneTownhouseMarker|Back Street Apparel|-10737|-14488
+Commonwealth|BrownstoneMarker|Back Street Apparel|-10737|-14488
 Commonwealth|BunkerHillMarker|Bunker Hill|18232|14378
 Commonwealth|BunkerMarker|Boston Mayoral Shelter|-101204|-15323
 Commonwealth|BunkerMarker|Federal Ration Stockpile|-83879|23204
@@ -168,7 +168,6 @@ Commonwealth|CityMarker|Lexington|-33030|41006
 Commonwealth|CityMarker|Lexington Apartments|-27751|36871
 Commonwealth|CityMarker|Monsignor Plaza|4642|8678
 Commonwealth|CityMarker|Parkview Apartments|-21936|-28362
-Commonwealth|Custom73Marker|Nuka-World Transit Center|-111604|20805
 Commonwealth|CustomHouseMarker|Custom House Tower|32759|-10066
 Commonwealth|DriveInMarker|Starlight Drive In|-39209|57601
 Commonwealth|ElevatedHighwayMarker|Fallen Skybridge|21460|-16121
@@ -253,13 +252,13 @@ Commonwealth|LandmarkMarker|Edge of the Glowing Sea|-56092|-78516
 Commonwealth|LandmarkMarker|Lil' Gentry Playground|14516|-6060
 Commonwealth|LandmarkMarker|Spectacle Island|74771|-59107
 Commonwealth|LibertaliaMarker|Liberitalia|79545|17805
-Commonwealth|LowRiseBuildingMarker|BADTFL Regional Office|10518|19759
-Commonwealth|LowRiseBuildingMarker|Drumlin Diner|-50291|55079
-Commonwealth|LowRiseBuildingMarker|Lynn Pier Parking|68952|50418
-Commonwealth|LowRiseBuildingMarker|Roadside Pines Motel|-89318|-41436
-Commonwealth|LowRiseBuildingMarker|University Point Pharmacy|19396|-61553
-Commonwealth|LowRiseBuildingMarker|Wilson Atomatoys Corporate HQ|6406|-29624
-Commonwealth|MechanistLairRaidersettlementVassalsettlementPotentialVassalsettlementMarker|The Mechanist's Lair|42649|16275
+Commonwealth|LowRiseMarker|BADTFL Regional Office|10518|19759
+Commonwealth|LowRiseMarker|Drumlin Diner|-50291|55079
+Commonwealth|LowRiseMarker|Lynn Pier Parking|68952|50418
+Commonwealth|LowRiseMarker|Roadside Pines Motel|-89318|-41436
+Commonwealth|LowRiseMarker|University Point Pharmacy|19396|-61553
+Commonwealth|LowRiseMarker|Wilson Atomatoys Corporate HQ|6406|-29624
+Commonwealth|MechanistMarker|The Mechanist's Lair|42649|16275
 Commonwealth|MetroMarker|Andrew Station|21952|-42976
 Commonwealth|MetroMarker|Malden Center|14825|58814
 Commonwealth|MetroMarker|Medical Center Metro|15599|-27821
@@ -274,6 +273,7 @@ Commonwealth|MilitaryBaseMarker|Fort Strong|76976|-17488
 Commonwealth|MilitaryBaseMarker|National Guard Training Yard|39114|39581
 Commonwealth|MilitaryBaseMarker|S. Boston Military Checkpoint|14511|-46452
 Commonwealth|MilitaryBaseMarker|Waypoint Echo|-51720|-82807
+Commonwealth|MonorailMarker|Nuka-World Transit Center|-111604|20805
 Commonwealth|MonumentMarker|Boston Public Library|-3490|-22646
 Commonwealth|MonumentMarker|Dorchester Heights Monument|29610|-47920
 Commonwealth|MonumentMarker|Fraternal Post 115|-26528|3104
@@ -324,7 +324,6 @@ Commonwealth|PondLakeMarker|Lake Quannapowitt|4448|93224
 Commonwealth|PondLakeMarker|Murkwater Construction Site|5154|-95174
 Commonwealth|PondLakeMarker|Neponset Park|21658|-72891
 Commonwealth|PondLakeMarker|Old Gullet Sinkhole|21781|68194
-Commonwealth|PondLakeMarker|Swan's Pond|11509|-18008
 Commonwealth|PondLakeMarker|Walden Pond|-69326|44243
 Commonwealth|PondLakeMarker|Westing Estate|-47263|-43526
 Commonwealth|PrydwenMarker|The Prydwen|54805|-9272
@@ -396,6 +395,7 @@ Commonwealth|SkyscraperMarker|Trinity Tower|3739|-24264
 Commonwealth|SkyscraperMarker|Vault-Tec Regional HQ|12481|-9530
 Commonwealth|SkyscraperMarker|Weatherby Investment Trust|27360|-3820
 Commonwealth|SubmarineMarker|Yangtze|41476|-22655
+Commonwealth|SwanPondMarker|Swan's Pond|11509|-18008
 Commonwealth|TownMarker|Hawthorne Estate|23778|-50444
 Commonwealth|TownRuinsMarker|Cambridge Hardware Store|-15113|17892
 Commonwealth|TownRuinsMarker|Coastal Cottage|69519|89355
@@ -509,26 +509,7 @@ NukaWorld|AirfieldMarker|Nuka-World Airfield|11829|38762
 NukaWorld|CaveMarker|Dry Rock Gulch|-14666|18836
 NukaWorld|CaveMarker|Safari Adventure Reptile House|-5616|38944
 NukaWorld|CityMarker|Commonwealth|3984|-38312
-NukaWorld|Custom66Marker|Fizztop Grille|610|-4877
-NukaWorld|Custom70Marker|Galactic Zone|-15265|-2598
-NukaWorld|Custom73Marker|Nuka-Station|3968|-33504
-NukaWorld|Custom74Marker|Cola-Cars Arena|5120|-18560
-NukaWorld|Custom74Marker|Ferris Wheel|5605|5969
-NukaWorld|Custom74Marker|Fun House|11200|13870
-NukaWorld|Custom74Marker|Grandchester Mystery Mansion|-32753|-38532
-NukaWorld|Custom74Marker|King Cola's Castle|15675|13488
-NukaWorld|Custom74Marker|Mad Mulligan's Minecart Coaster|-11889|21329
-NukaWorld|Custom74Marker|Nuka-Galaxy|-20260|2119
-NukaWorld|Custom74Marker|RobCo Battlezone|-13343|2052
-NukaWorld|Custom74Marker|Starlight Interstellar Theater|-13547|-6762
-NukaWorld|Custom74Marker|Starport Nuka|-17393|-2965
-NukaWorld|Custom74Marker|Vault-Tec: Among the Stars|-17048|-7663
-NukaWorld|Custom75Marker|Cappy's Treehouse|-2283|35822
-NukaWorld|Custom75Marker|Safari Adventure|-1900|37960
-NukaWorld|Custom75Marker|Safari Adventure Primate House|2469|34626
-NukaWorld|Custom75Marker|The Angry Anaconda|-5584|45600
-NukaWorld|Custom78Marker|Fizztop Mountain|3424|-5101
-NukaWorld|Custom79Marker|The Parlor|1341|-12933
+NukaWorld|DisciplesMarker|Fizztop Mountain|3424|-5101
 NukaWorld|ElevatedHighwayMarker|Bradberton Overpass|28956|14969
 NukaWorld|EncampmentMarker|Dunmore Homestead|-39280|-31495
 NukaWorld|EncampmentMarker|Evan's Home|-965|-47191
@@ -536,19 +517,38 @@ NukaWorld|EncampmentMarker|Hubologist's Camp|-17041|-34616
 NukaWorld|EncampmentMarker|Moonshiner's Camp|38605|30380
 NukaWorld|FactoryMarker|Nuka-Cola Bottling Plant|12095|28518
 NukaWorld|FillingStationMarker|Nuka-World Red Rocket|22262|32637
+NukaWorld|GalacticMarker|Galactic Zone|-15265|-2598
 NukaWorld|IndustrialDomeMarker|Nuka-World Power Plant|-57250|6311
-NukaWorld|JunkyardMarker|ERROR: <<NO REF LOCATION>>|-35232|-19872
+NukaWorld|JunkyardMarker|Nuka-World Junkyard|-35232|-19872
+NukaWorld|MonorailMarker|Nuka-Station|3968|-33504
 NukaWorld|MonumentMarker|Wixon's Shovel Museum|23946|-15326
 NukaWorld|MonumentMarker|World of Refreshment|10494|23507
 NukaWorld|OfficeMarker|Doc Phosphate's Saloon|-15868|18916
 NukaWorld|OfficeMarker|Dry Rock Gulch Theater|-12773|14592
+NukaWorld|OperatorsMarker|The Parlor|1341|-12933
 NukaWorld|PondLakeMarker|Northpoint Reservoir|19078|58841
+NukaWorld|RaiderSettlementMarker|Fizztop Grille|610|-4877
+NukaWorld|RidesMarker|Cola-Cars Arena|5120|-18560
+NukaWorld|RidesMarker|Ferris Wheel|5605|5969
+NukaWorld|RidesMarker|Fun House|11200|13870
+NukaWorld|RidesMarker|Grandchester Mystery Mansion|-32753|-38532
+NukaWorld|RidesMarker|King Cola's Castle|15675|13488
+NukaWorld|RidesMarker|Mad Mulligan's Minecart Coaster|-11889|21329
+NukaWorld|RidesMarker|Nuka-Galaxy|-20260|2119
+NukaWorld|RidesMarker|RobCo Battlezone|-13343|2052
+NukaWorld|RidesMarker|Starlight Interstellar Theater|-13547|-6762
+NukaWorld|RidesMarker|Starport Nuka|-17393|-2965
+NukaWorld|RidesMarker|Vault-Tec: Among the Stars|-17048|-7663
+NukaWorld|SafariMarker|Cappy's Treehouse|-2283|35822
+NukaWorld|SafariMarker|Safari Adventure|-1900|37960
+NukaWorld|SafariMarker|Safari Adventure Primate House|2469|34626
+NukaWorld|SafariMarker|The Angry Anaconda|-5584|45600
 NukaWorld|TownMarker|Kiddie Kingdom|11600|10585
 NukaWorld|TownRuinsMarker|Bradberton|29043|46955
 NukaWorld|TownRuinsMarker|Dry Rock Gulch Employee Area|-6915|15566
 NukaWorld|TownRuinsMarker|Morton Residence|37755|41234
 NukaWorld|TownRuinsMarker|Nuka-Town USA|596|-21444
-NukaWorldAmphitheater|Custom80Marker|Bradberton Amphitheater|-2883|-18843
+NukaWorldAmphitheater|PackMarker|Bradberton Amphitheater|-2883|-18843
 NukaWorldMarket|TownRuinsMarker|Nuka-Town Market|478|-18702
 ==Total Unique entities==
 29084

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="21.0px" width="20.0px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 10.0, 11.0)">
+    <use data-characterId="172" height="21.0" transform="matrix(1.0, 0.0, 0.0, 1.0, -10.0, -11.0)" width="20.0" xlink:href="#shape0"/>
+  </g>
+  <defs>
+    <g id="shape0" transform="matrix(1.0, 0.0, 0.0, 1.0, 10.0, 11.0)">
+      <path d="M6.8 -7.9 Q8.15 -7.9 9.1 -7.0 10.0 -6.05 10.0 -4.75 L10.0 3.4 Q10.0 4.65 9.1 5.6 8.15 6.5 6.8 6.5 L-0.05 6.5 Q-1.35 6.5 -2.3 5.6 -3.2 4.65 -3.2 3.4 L-3.2 -4.75 Q-3.2 -6.05 -2.3 -7.0 -1.35 -7.9 -0.05 -7.9 L0.2 -7.9 0.15 -7.65 0.2 -7.9 6.8 -7.9 6.8 -7.65 6.8 -7.9 M7.4 0.7 L7.4 -6.05 -0.65 -6.05 -0.65 0.7 7.4 0.7 M0.35 3.7 Q0.8 3.7 1.1 3.4 L1.4 2.7 1.1 2.0 Q0.8 1.7 0.35 1.7 -0.05 1.7 -0.35 2.0 L-0.65 2.7 -0.35 3.4 0.35 3.7 M7.15 3.4 L7.45 2.7 7.15 2.0 Q6.85 1.7 6.45 1.7 6.0 1.7 5.75 2.0 5.4 2.3 5.4 2.7 5.4 3.15 5.75 3.4 L6.45 3.7 Q6.85 3.7 7.15 3.4 M-7.1 -2.7 L-7.1 4.25 -10.0 4.25 -10.0 -2.7 -7.1 -2.7 M-4.2 7.65 L-5.05 7.65 -5.05 10.0 -10.0 10.0 -10.0 4.9 -4.2 4.9 -4.2 7.65" fill="#ffffff" fill-rule="evenodd" stroke="none"/>
+      <path d="M6.8 -7.9 L6.8 -7.65 M6.8 -7.9 Q6.65 -8.6 6.0 -9.1 5.2 -9.7 4.05 -9.7 M0.15 -7.65 L0.2 -7.9 Q0.25 -8.6 0.9 -9.1 1.6 -9.7 2.6 -9.7" fill="none" stroke="#ffffff" stroke-linecap="butt" stroke-linejoin="miter-clip" stroke-miterlimit="4.0" stroke-width="1.0"/>
+      <path d="M-8.55 -3.35 Q-8.55 -7.3 -7.75 -8.6 -6.85 -10.0 -4.25 -10.0 L5.85 -10.0" fill="none" stroke="#ffffff" stroke-linecap="butt" stroke-linejoin="miter-clip" stroke-miterlimit="4.0" stroke-width="2.0"/>
+    </g>
+  </defs>
+</svg>

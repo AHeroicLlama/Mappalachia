@@ -25,7 +25,10 @@ In JPEXS, on the left hand side displaying the contents of `MapMarkers.swf`, sel
 Under File > Export, select 'Export selection'. Ensure the file type is set as SVG, and the zoom is at 100%.<br/>
 Press OK and select the output location as `CommonwealthCartography\MapIconProcessor\extract\`.<br/>
 If errors appear, select 'Ignore All'. The bottom-left of the window will indicate when the extract has finished.<br/>
-This should now populate a `sprites` folder filled with around 50 sub-folders all prefixed "DefineSprite".
+This should now populate a `sprites` folder filled with around 50 sub-folders all prefixed "DefineSprite".<br/>
+<br/>
+Repeat the above again but for the file `Pipboy_MapPage.swf`. This will overwrite some but not all of the previously extracted icons.
+
 
 ## MapIconProcessor
 Now in `CommonwealthCartography.sln`, compile and run the `MapIconProcessor` project.<br/>

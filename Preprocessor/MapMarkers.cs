@@ -25,12 +25,23 @@ namespace CommonwealthCartography
 			{ "FactoryIndustrialSiteMarker", "FactoryMarker" },
 			{ "SewerUtilityTunnelsMarker", "SewerMarker" },
 			{ "SanctuaryMarker", "SancHillsMarker" },
-			{ "SwanPondMarker", "PondLakeMarker" },
+			{ "SwanPondMarker", "SwanPondMarker" },
+			{ "BrownstoneTownhouseMarker", "BrownstoneMarker" },
+			{ "LowRiseBuildingMarker", "LowRiseMarker" },
+			{ "MechanistLairRaidersettlementVassalsettlementPotentialVassalsettlementMarker", "MechanistMarker" },
+			{ "Custom66Marker", "RaiderSettlementMarker" },
+			{ "Custom70Marker", "GalacticMarker" },
+			{ "Custom73Marker", "MonorailMarker" },
+			{ "Custom74Marker", "RidesMarker" },
+			{ "Custom75Marker", "SafariMarker" },
+			{ "Custom78Marker", "DisciplesMarker" },
+			{ "Custom79Marker", "OperatorsMarker" },
+			{ "Custom80Marker", "PackMarker" },
 		};
 
 		static readonly Dictionary<string, string> wrongLabelNames = new Dictionary<string, string>()
 		{
-
+			{ "ERROR: <<NO REF LOCATION>>", "Nuka-World Junkyard" },
 		};
 
 		static readonly List<string> removedLabels = new List<string>()

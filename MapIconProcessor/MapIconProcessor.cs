@@ -90,7 +90,7 @@ namespace CommonwealthCartography
 			{
 				if (marker.Value == false)
 				{
-					Console.WriteLine("ERROR: File for marker " + marker.Key + " was not found anywhere in any appropriately named subfolder of the extract folder.");
+					Console.WriteLine("ERROR: File for marker " + marker.Key + " was not found anywhere in any appropriately named subfolder of the extract folder.\n");
 					File.AppendAllText(missingMarkersFile, marker.Key + "\n");
 				}
 			}
