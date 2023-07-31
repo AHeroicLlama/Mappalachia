@@ -151,7 +151,7 @@ namespace CommonwealthCartography
 			"IDLM",
 			"LIGH",
 			"SOUN",
-			"SECH",
+			//"SECH",
 			"ASPC",
 			"TXST",
 			"BNDS",*/

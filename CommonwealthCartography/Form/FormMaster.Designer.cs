@@ -225,15 +225,15 @@ namespace CommonwealthCartography
 			// normalBackgroundMenuItem
 			// 
 			normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
-			normalBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			normalBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			normalBackgroundMenuItem.Text = "Normal";
-			normalBackgroundMenuItem.ToolTipText = "The normal in-game map image.";
+			normalBackgroundMenuItem.ToolTipText = "The normal in-game Pip-Boy map image.";
 			normalBackgroundMenuItem.Click += Map_Image_Normal;
 			// 
 			// satelliteBackgroundMenuItem
 			// 
 			satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
-			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			satelliteBackgroundMenuItem.Text = "Satellite";
 			satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Commonwealth.";
 			satelliteBackgroundMenuItem.Click += Map_Image_Satellite;
@@ -241,7 +241,7 @@ namespace CommonwealthCartography
 			// noneBackgroundMenuItem
 			// 
 			noneBackgroundMenuItem.Name = "noneBackgroundMenuItem";
-			noneBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
+			noneBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
 			noneBackgroundMenuItem.Text = "None";
 			noneBackgroundMenuItem.ToolTipText = "No background (transparent).";
 			noneBackgroundMenuItem.Click += Map_Image_None;
@@ -284,7 +284,7 @@ namespace CommonwealthCartography
 			// showMapIconsMenuItem
 			// 
 			showMapIconsMenuItem.Name = "showMapIconsMenuItem";
-			showMapIconsMenuItem.Size = new System.Drawing.Size(180, 22);
+			showMapIconsMenuItem.Size = new System.Drawing.Size(107, 22);
 			showMapIconsMenuItem.Text = "Icons";
 			showMapIconsMenuItem.ToolTipText = "Toggle visual icons for the map locations.";
 			showMapIconsMenuItem.Click += Map_MapMarkers_Icons;
@@ -292,7 +292,7 @@ namespace CommonwealthCartography
 			// showMapLabelsMenuItem
 			// 
 			showMapLabelsMenuItem.Name = "showMapLabelsMenuItem";
-			showMapLabelsMenuItem.Size = new System.Drawing.Size(180, 22);
+			showMapLabelsMenuItem.Size = new System.Drawing.Size(107, 22);
 			showMapLabelsMenuItem.Text = "Labels";
 			showMapLabelsMenuItem.ToolTipText = "Toggle labels for names of the map locations.";
 			showMapLabelsMenuItem.Click += Map_MapMarkers_Labels;
@@ -1290,7 +1290,7 @@ namespace CommonwealthCartography
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-10, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-11, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);

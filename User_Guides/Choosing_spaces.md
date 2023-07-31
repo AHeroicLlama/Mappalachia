@@ -9,8 +9,8 @@ You can quick-swap to a different space by double clicking its name in the searc
 
 ## Space-specific settings
 Some settings are specific to certain spaces, and may be disabled depending on your selected space - they are;
-* 'Background Image', 'Highlight Water', and 'Show Map Markers' options which are only available when 'Commonwealth' is selected.
-* 'Height Cropping' controls which are only available when 'Commonwealth' is not selected.
+* 'Background Image', 'Highlight Water', and 'Show Map Markers' options which are only available/applicable when an outdoor "Worldspace" is selected.
+* 'Height Cropping' controls which are only available when an indoor "Cell" is selected.
 
 ## Background image
 When changing the selected space, the map background will automatically change to a top-down rendered view of the location.

@@ -403,7 +403,7 @@
 			checkBoxFrame.Size = new System.Drawing.Size(59, 19);
 			checkBoxFrame.TabIndex = 9;
 			checkBoxFrame.Text = "Frame";
-			toolTipControls.SetToolTip(checkBoxFrame, "A corner-only frame, mocking the in-game map cursor.");
+			toolTipControls.SetToolTip(checkBoxFrame, "A corner-only frame.");
 			checkBoxFrame.UseVisualStyleBackColor = true;
 			// 
 			// groupBoxIconSettings

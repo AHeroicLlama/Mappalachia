@@ -800,7 +800,7 @@ namespace CommonwealthCartography
 			return lockTypes;
 		}
 
-		Regex gravy = new Regex("a(nother)? settlement (that )?((needs?)|(ha((s)|(ve)) asked for)) y?our help");
+		Regex gravy = new Regex("a(nother)? settlement (that )?((needs?)|(ha((s)|(ve)) ((asked)|(sent word)) for)) y?our help");
 
 		bool Radiant()
 		{

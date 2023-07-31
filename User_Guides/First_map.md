@@ -9,8 +9,8 @@ There are 4 key elements to the Commonwealth Cartography Window which you'll be 
 
 ### Searching
 With the 'Standard Search' tab selected - at the top of the page you will see the search field.<br/>
-In this search field, try entering "caps stash" and press the 'Standard Search' button or hit enter.<br/>
-You should now see the 'Search Results' list populate with matches to your search, which in this case should contain a result for "LPI_Loot_CapsStash_Tin" - this name is Bethesda's internal development name for caps stashes.<br/>
+In this search field, try entering "bobblehead" and press the 'Standard Search' button or hit enter.<br/>
+You should now see the 'Search Results' list populate with matches to your search, which in this case should contain (among others) a result for "Agility Bobblehead".<br/>
 
 ### Building the map
 In the search results list, select the item you wish to map (or multiple by holding ctrl or shift), and select 'Add to Map'.<br/>

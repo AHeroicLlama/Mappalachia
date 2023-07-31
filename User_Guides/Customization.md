@@ -10,9 +10,9 @@ This allows you to set a title for the map - it will show in the bottom-right, a
 This option brings up a dialog which allows you to tweak the percentage brightness of the underlying map image. Enter any value from 5% to 300%.
 
 ### Background Image
-Change the background image of the map. Except 'None', these options only apply when 'Commonwealth' is the selected space.
-- Normal: The standard in-game pause menu map.
-- Satellite: A top-down render of the Commonwealth world.
+Change the background image of the map. Only The Commonwealth, Far Harbor, and Nuka-World have the 'normal' option.
+- Normal: The standard in-game Pip-Boy map.
+- Satellite: A top-down render of the space.
 - None: No background (Useful for further edits).
 
 ### Highlight Water
@@ -24,7 +24,6 @@ This toggles the underlying map image to be in grayscale (black and white) or fu
 ### Map Marker options
 You can independently toggle map marker Icons or Labels to appear against their respective locations on the map.<br/>
 'Icons' shows the in-game map icons for named locations, whereas 'Labels' annotates their name onto the map.<br/>
-If the whole-map 'Grayscale' option is enabled, this will also grayscale icons. However in a color map, you can make just icons grayscale by selecting 'Grayscale Icons'.
 
 ### Legend Style
 This provides control over how (or if) the legend is drawn.

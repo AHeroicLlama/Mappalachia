@@ -26,7 +26,7 @@
 		public const Background backgroundDefault = Background.Normal;
 		public const bool grayScaleDefault = false;
 		public const bool showMapLabelsDefault = false;
-		public const bool showMapIconsDefault = false;
+		public const bool showMapIconsDefault = true;
 		public const LegendMode legendModeDefault = LegendMode.Compact;
 		public const bool highlightWaterDefault = false;
 		public static readonly string titleDefault = string.Empty;
