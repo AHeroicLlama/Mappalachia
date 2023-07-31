@@ -90,6 +90,70 @@ namespace BackgroundRenderer
 			{ "ElevTransUtil", 200 },
 			{ "ElevTransVault", 200 },
 			{ "EsplanadeChurch01", 400 },
+			{ "EsplanadeMansion01", 400 },
+			{ "FensParkviewApartments02", -100 },
+			{ "Financial06", -300 },
+			{ "FortHagen01", 600 },
+			{ "FourLeafFishpacking02", 200 },
+			{ "GeneralAtomicsGalleria01", 100 },
+			{ "GlowingSeaPOIDB05Int", 550 },
+			{ "GlowingSeaPOIDB06Int", 1100 },
+			{ "GoodneighborBobbisPlace", 400 },
+			{ "GoodneighborOldStateHouse", 600 },
+			{ "GoodneighborTheMemoryDen", 600 },
+			{ "GoodneighborTheThirdRail", -200 },
+			{ "GoodneighborWarehouse01", 900 },
+			{ "GoodneighborWarehouse02", 600 },
+			{ "GoodneighborWarehouse03", 600 },
+			{ "GwinnettBrewery01", 1000 },
+			{ "HardwareTown01", 500 },
+			{ "HestersRobotics01", 500 },
+			{ "HubrisComics01", 1000 },
+			{ "InstituteTunnel01", 3000 },
+			{ "IrishPrideShipyard01", 1300 },
+			{ "Libertalia01", 1200 },
+			{ "LongneckLukowskis01", 2000 },
+			{ "MassFusion02Trans", 200 },
+			{ "NahantOceanSociety01", 600 },
+			{ "NHMFreightDepot01", 600 },
+			{ "NorthEndBoxingGym", 200 },
+			{ "ParsonsState01", 200 },
+			{ "PickmanGallery01", 1000 },
+			{ "PoseidonEnergy02", 400 },
+			{ "PoseidonReservoir01", 1000 },
+			{ "PrewarTVStudio", 900 },
+			{ "PrydwenHull01", 600 },
+			{ "QuincyPD01", 1000 },
+			{ "RailroadHQ01", 100 },
+			{ "RelayTowerInt03", 100 },
+			{ "RelayTowerInt04", 800 },
+			{ "RelayTowerInt05", 1800 },
+			{ "RelayTowerInt08", 1300 },
+			{ "RelayTowerInt09", 800 },
+			{ "REObject02Interior", 300 },
+			{ "SanctuaryRosaHouse", 100 },
+			{ "SaugusIronworks01", 1000 },
+			{ "SaugusIronworks02", 2000 },
+			{ "SentinelSite01", 100 },
+			{ "SlocumsJoeHQOffice", 200 },
+			{ "SouthBoston25", 300 },
+			{ "SuffolkCountyCharterSchool01", 200 },
+			{ "SuperDuperMart01", 200 },
+			{ "Theater16PearwoodResidences01", -1200 },
+			{ "Theater27TickerTapeLounge", 4600 },
+			{ "TheaterHub360", 200 },
+			{ "TheaterMassBayMedicalCenter01", -2000 },
+			{ "TheaterMassBayMedicalCenter02", 1600 },
+			{ "TheCastle01", 2000 },
+			{ "ThicketExcavations01", 400 },
+			{ "TrinityChurch01", 800 },
+			{ "USSConstitution01", -1900 },
+			{ "Waterfront12", 600 },
+			{ "WRVRBroadcastCenter01", 200 },
+			{ "zLexingtonLaundromat", -600 },
+			{ "zLexingtonPharmacy", -800 },
+			{ "zPOIJoel06", 200 },
+			{ "zWaystation", 200 },
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
@@ -103,7 +167,6 @@ namespace BackgroundRenderer
 
 		// Debug parameters
 		static readonly bool debugOn = false;
-		static readonly bool renderMeshes = true;
 		static readonly string debugEditorID = "";
 		static readonly int debugNudgeX = 0;
 		static readonly int debugNudgeY = 0;
@@ -152,7 +215,7 @@ namespace BackgroundRenderer
 
 			string renderCommand = $"{utilsRenderPath} {GetESMPath(space.esmNumber)} {renderFile} {resolution} {resolution} " +
 				$"\"{fo4DataPath}\" -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {debugCameraZ} " +
-				$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm fog -xm cloud -xm effects {(renderMeshes ? "" : "-xm meshes")}";
+				$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm fog -xm cloud -xm effects {(space.isWorldspace ? "-xm meshes" : "")}";
 
 			Process render = Process.Start("CMD.exe", "/C " + renderCommand);
 			render.WaitForExit();
