@@ -1473,6 +1473,12 @@ namespace Mappalachia
 			IOManager.LaunchURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 		}
 
+		// Donate - Via Ko-Fi
+		void Donate_ViaKoFi(object sender, EventArgs e)
+		{
+			IOManager.LaunchURL("https://ko-fi.com/aheroicllama");
+		}
+
 		// "Join the Discord" top-level menu item
 		private void JoinDiscord(object sender, EventArgs e)
 		{

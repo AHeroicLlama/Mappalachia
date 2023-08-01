@@ -92,6 +92,7 @@ namespace Mappalachia
 			userGuidesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			viaDiscordMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			donateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			viaKoFiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			donatePatreonMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			donatePayPalMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			joinDiscordMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -647,26 +648,34 @@ namespace Mappalachia
 			// 
 			// donateMenuItem
 			// 
-			donateMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { donatePatreonMenuItem, donatePayPalMenuItem });
+			donateMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { viaKoFiToolStripMenuItem, donatePatreonMenuItem, donatePayPalMenuItem });
 			donateMenuItem.Name = "donateMenuItem";
 			donateMenuItem.Size = new System.Drawing.Size(131, 20);
 			donateMenuItem.Text = "Donate to the Author";
-			donateMenuItem.ToolTipText = "Say thanks!";
+			donateMenuItem.ToolTipText = "Say thanks and support the project with a small donation.";
+			// 
+			// viaKoFiToolStripMenuItem
+			// 
+			viaKoFiToolStripMenuItem.Name = "viaKoFiToolStripMenuItem";
+			viaKoFiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			viaKoFiToolStripMenuItem.Text = "Via Ko-Fi";
+			viaKoFiToolStripMenuItem.ToolTipText = "Support the project via Ko-Fi.";
+			viaKoFiToolStripMenuItem.Click += Donate_ViaKoFi;
 			// 
 			// donatePatreonMenuItem
 			// 
 			donatePatreonMenuItem.Name = "donatePatreonMenuItem";
-			donatePatreonMenuItem.Size = new System.Drawing.Size(134, 22);
+			donatePatreonMenuItem.Size = new System.Drawing.Size(180, 22);
 			donatePatreonMenuItem.Text = "Via Patreon";
-			donatePatreonMenuItem.ToolTipText = "Donate a custom monthly amount.";
+			donatePatreonMenuItem.ToolTipText = "Support the project via Patreon.";
 			donatePatreonMenuItem.Click += Donate_ViaPatreon;
 			// 
 			// donatePayPalMenuItem
 			// 
 			donatePayPalMenuItem.Name = "donatePayPalMenuItem";
-			donatePayPalMenuItem.Size = new System.Drawing.Size(134, 22);
+			donatePayPalMenuItem.Size = new System.Drawing.Size(180, 22);
 			donatePayPalMenuItem.Text = "Via PayPal";
-			donatePayPalMenuItem.ToolTipText = "Make a one-off or repeating donation.";
+			donatePayPalMenuItem.ToolTipText = "Support the project via PayPal.";
 			donatePayPalMenuItem.Click += Donate_ViaPayPal;
 			// 
 			// joinDiscordMenuItem
@@ -1308,7 +1317,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-8, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-10, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1583,6 +1592,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem grayScaleMapIconsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setTitleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showReferenceFormIDsMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem viaKoFiToolStripMenuItem;
 	}
 }
 
