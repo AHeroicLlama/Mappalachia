@@ -151,6 +151,7 @@ namespace CommonwealthCartography
 			toolTipControls = new System.Windows.Forms.ToolTip(components);
 			progressBarMain = new System.Windows.Forms.ProgressBar();
 			labelProgressBar = new System.Windows.Forms.Label();
+			viaKoFiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)gridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)gridViewLegend).BeginInit();
@@ -225,7 +226,7 @@ namespace CommonwealthCartography
 			// normalBackgroundMenuItem
 			// 
 			normalBackgroundMenuItem.Name = "normalBackgroundMenuItem";
-			normalBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			normalBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			normalBackgroundMenuItem.Text = "Normal";
 			normalBackgroundMenuItem.ToolTipText = "The normal in-game Pip-Boy map image.";
 			normalBackgroundMenuItem.Click += Map_Image_Normal;
@@ -233,7 +234,7 @@ namespace CommonwealthCartography
 			// satelliteBackgroundMenuItem
 			// 
 			satelliteBackgroundMenuItem.Name = "satelliteBackgroundMenuItem";
-			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			satelliteBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			satelliteBackgroundMenuItem.Text = "Satellite";
 			satelliteBackgroundMenuItem.ToolTipText = "A top-down render of the Commonwealth.";
 			satelliteBackgroundMenuItem.Click += Map_Image_Satellite;
@@ -241,7 +242,7 @@ namespace CommonwealthCartography
 			// noneBackgroundMenuItem
 			// 
 			noneBackgroundMenuItem.Name = "noneBackgroundMenuItem";
-			noneBackgroundMenuItem.Size = new System.Drawing.Size(180, 22);
+			noneBackgroundMenuItem.Size = new System.Drawing.Size(115, 22);
 			noneBackgroundMenuItem.Text = "None";
 			noneBackgroundMenuItem.ToolTipText = "No background (transparent).";
 			noneBackgroundMenuItem.Click += Map_Image_None;
@@ -629,26 +630,26 @@ namespace CommonwealthCartography
 			// 
 			// donateMenuItem
 			// 
-			donateMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { donatePatreonMenuItem, donatePayPalMenuItem });
+			donateMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { viaKoFiToolStripMenuItem, donatePatreonMenuItem, donatePayPalMenuItem });
 			donateMenuItem.Name = "donateMenuItem";
 			donateMenuItem.Size = new System.Drawing.Size(131, 20);
 			donateMenuItem.Text = "Donate to the Author";
-			donateMenuItem.ToolTipText = "Say thanks!";
+			donateMenuItem.ToolTipText = "Say thanks and support the project with a small donation.";
 			// 
 			// donatePatreonMenuItem
 			// 
 			donatePatreonMenuItem.Name = "donatePatreonMenuItem";
-			donatePatreonMenuItem.Size = new System.Drawing.Size(134, 22);
+			donatePatreonMenuItem.Size = new System.Drawing.Size(180, 22);
 			donatePatreonMenuItem.Text = "Via Patreon";
-			donatePatreonMenuItem.ToolTipText = "Donate a custom monthly amount.";
+			donatePatreonMenuItem.ToolTipText = "Support the project via Patreon.";
 			donatePatreonMenuItem.Click += Donate_ViaPatreon;
 			// 
 			// donatePayPalMenuItem
 			// 
 			donatePayPalMenuItem.Name = "donatePayPalMenuItem";
-			donatePayPalMenuItem.Size = new System.Drawing.Size(134, 22);
+			donatePayPalMenuItem.Size = new System.Drawing.Size(180, 22);
 			donatePayPalMenuItem.Text = "Via PayPal";
-			donatePayPalMenuItem.ToolTipText = "Make a one-off or repeating donation.";
+			donatePayPalMenuItem.ToolTipText = "Support the project via Patreon.";
 			donatePayPalMenuItem.Click += Donate_ViaPayPal;
 			// 
 			// joinDiscordMenuItem
@@ -1290,7 +1291,7 @@ namespace CommonwealthCartography
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-11, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-12, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1394,6 +1395,14 @@ namespace CommonwealthCartography
 			labelProgressBar.TabIndex = 8;
 			labelProgressBar.Text = "Ready";
 			labelProgressBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// viaKoFiToolStripMenuItem
+			// 
+			viaKoFiToolStripMenuItem.Name = "viaKoFiToolStripMenuItem";
+			viaKoFiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			viaKoFiToolStripMenuItem.Text = "Via Ko-Fi";
+			viaKoFiToolStripMenuItem.ToolTipText = "Support the project via Ko-Fi.";
+			viaKoFiToolStripMenuItem.Click += Donate_ViaKoFi;
 			// 
 			// FormMaster
 			// 
@@ -1563,6 +1572,7 @@ namespace CommonwealthCartography
 		private System.Windows.Forms.ToolStripMenuItem noneBackgroundMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setTitleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showReferenceFormIDsMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem viaKoFiToolStripMenuItem;
 	}
 }
 
