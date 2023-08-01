@@ -6,7 +6,7 @@
 		<UseWindowsForms>True</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>CommonwealthCartography</RootNamespace>
-		<AssemblyName>Commonwealth Cartography</AssemblyName>
+		<AssemblyName>CommonwealthCartography</AssemblyName>
 		<ApplicationIcon>favicon_small_C.ico</ApplicationIcon>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<Platforms>AnyCPU;x86</Platforms>
