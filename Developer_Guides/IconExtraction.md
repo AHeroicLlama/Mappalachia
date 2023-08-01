@@ -27,7 +27,8 @@ Press OK and select the output location as `CommonwealthCartography\MapIconProce
 If errors appear, select 'Ignore All'. The bottom-left of the window will indicate when the extract has finished.<br/>
 This should now populate a `sprites` folder filled with around 50 sub-folders all prefixed "DefineSprite".<br/>
 <br/>
-Repeat the above again but for the file `Pipboy_MapPage.swf`. This will overwrite some but not all of the previously extracted icons.
+Repeat the above again but for the file `Pipboy_MapPage.swf`. This will overwrite some but not all of the previously extracted icons.<br/>
+Deleted the extracted folder `DefineSprite_69_MetroMarker` as this conflicts with the correct version of the Metro marker.
 
 
 ## MapIconProcessor
