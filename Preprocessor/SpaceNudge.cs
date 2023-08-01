@@ -94,7 +94,7 @@ namespace CommonwealthCartography
 					case "CambridgeKendallHospital01":
 						nudgeX = 1800;
 						nudgeY = -500;
-						nudgeScale = 1f;
+						nudgeScale = 1.4f;
 						break;
 
 					case "CambridgeMassChemical01":
@@ -369,7 +369,7 @@ namespace CommonwealthCartography
 
 					case "FortStrong01":
 						nudgeX = 2000;
-						nudgeY = 1300;
+						nudgeY = -1300;
 						nudgeScale = 2f;
 						break;
 
@@ -439,9 +439,15 @@ namespace CommonwealthCartography
 						nudgeScale = 1.6f;
 						break;
 
+					case "Libertalia01":
+						nudgeX = -1000;
+						nudgeY = 300;
+						nudgeScale = 1.6f;
+						break;
+
 					case "MassFusion02Trans":
-						nudgeX = 1000;
-						nudgeY = -1000;
+						nudgeX = 800;
+						nudgeY = -800;
 						nudgeScale = 1f;
 						break;
 
@@ -506,9 +512,9 @@ namespace CommonwealthCartography
 						break;
 
 					case "RelayTowerInt14":
-						nudgeX = -2500;
+						nudgeX = -2000;
 						nudgeY = 0;
-						nudgeScale = 1f;
+						nudgeScale = 1.7f;
 						break;
 
 					case "SaugusIronworks01":

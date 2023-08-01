@@ -20,10 +20,10 @@ namespace CommonwealthCartography
 			{ "NPC_", "Non-player character." },
 			{ "MISC", "Junk, Scrap or other levelled Loot." },
 			{ "MSTT", "Environmental scenery which animates or responds to physics." },
-			{ "BOOK", "Note, Plan or Recipe." },
+			{ "BOOK", "Note or Magazine." },
 			{ "CONT", "Anything which can hold items." },
 			{ "FURN", "Object or position which a character can use to enter into an animation.\n" +
-				"Includes workbenches and instruments, but also NPC ambush positions such as scorchbeast spawns." },
+				"Includes workbenches and instruments, but also NPC ambush positions." },
 			//{ "LVLI", "Lootable object which has some odds of spawning (up to and including 100% chances)\n" +
 			//	"Many items of different categories are in fact included under this one." },
 			{ "TERM", string.Empty },
@@ -58,7 +58,7 @@ namespace CommonwealthCartography
 			{ "NPC_", "NPC" },
 			{ "MISC", "Junk/Loot" },
 			{ "MSTT", "Moveable static" },
-			{ "BOOK", "Note/Plan" },
+			{ "BOOK", "Note/Magazine" },
 			{ "CONT", "Container" },
 			{ "FURN", "Furniture" },
 			//{ "LVLI", "Loot" },

@@ -3,7 +3,7 @@ commonwealth_cartography.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-be20bf0fe8ebea07db0c0559d448a614
+ad11e60c622cdbbf46e2e6c4d952223b
 ==File Size== 
 211582976 
 ==Tables== 
@@ -24792,7 +24792,7 @@ TheCastle01|Mirelurk|100.0|1
 000379C6|EastBostonPrep01|East Boston Preparatory School|0|-1152|2048|-3584|1280|0|4096|0|0|1.0|0
 00038C8C|MaldenCenter01|Malden Center|0|3186|581|-147|6519|-4598|5760|0|0|1.0|0
 000396E6|CovenantHQ01|Sewer|0|-654|4598|-4267|2959|480|8716|0|0|1.0|0
-00039C9E|FortStrong01|Fort Strong Armory|0|2437|1056|-768|5643|-1472|3584|2000|1300|2.0|0
+00039C9E|FortStrong01|Fort Strong Armory|0|2437|1056|-768|5643|-1472|3584|2000|-1300|2.0|0
 0003A16D|FraternalPost11501|Fraternal Post 115|0|0|1659|-1024|1024|-9|3328|0|0|1.0|0
 0003A317|CabotHouse01|Cabot House|0|200|-352|-641|1042|-1571|867|0|0|1.0|0
 0003A318|BeantownBrewery01|Beantown Brewery|0|-784|659|-3059|1490|-1314|2632|0|0|1.0|0
@@ -24922,7 +24922,7 @@ TheCastle01|Mirelurk|100.0|1
 000C9D24|MassStateHouse01|Massachusetts State House|0|2034|2048|-610|4679|-1228|5324|0|0|1.0|0
 000CA260|PrewarVault111|Vault 111|0|-2262|208|-5705|1181|-2176|2592|0|0|1.0|0
 000CD2AE|FortHagen02|Fort Hagen Command Center|0|-1218|-850|-4539|2103|-4085|2385|0|0|1.0|0
-000CFDA3|CambridgeKendallHospital01|Kendall Hospital|0|-3486|3279|-9385|2412|-688|7246|1800|-500|1.0|0
+000CFDA3|CambridgeKendallHospital01|Kendall Hospital|0|-3486|3279|-9385|2412|-688|7246|1800|-500|1.4|0
 000D393F|MQ203KelloggsBrain|Memories|0|9388|1068|-5499|24276|-5803|7939|2000|-700|2.0|0
 000DCC23|ListeningPostBravo01|Listening Post Bravo|0|2861|3119|1434|4288|1823|4416|0|0|1.0|0
 000E214D|DBTechHighSchool02|Medical Center Station|0|4672|1761|-256|9600|-3183|6705|-1500|500|1.2|0
@@ -24940,7 +24940,7 @@ TheCastle01|Mirelurk|100.0|1
 000F7C51|ElevTransHiTech|Elevator|0|4|72|-48|56|-48|192|0|-800|1.0|0
 000FB265|UniversityPoint02|University Credit Union|0|528|1304|-1872|2928|-1056|3664|-1500|700|1.4|0
 0010F1F0|FourLeafFishpacking02|Marowski's Chem Lab|0|2793|1508|1856|3731|568|2449|0|0|1.0|0
-0011E7EC|Libertalia01|Captain's Cabin|0|2347|1477|132|4563|105|2849|0|0|1.0|0
+0011E7EC|Libertalia01|Captain's Cabin|0|2347|1477|132|4563|105|2849|-1000|300|1.6|0
 0012653A|SentinelSite01|Sentinel Site Prescott|0|-826|2362|-4134|2482|-4208|8932|0|0|1.0|0
 0012CB6E|Financial28|Ruined Skyscraper|0|-1625|384|-3424|174|-1024|1792|0|0|1.0|0
 001379B9|zLexingtonApartments|Apartments|0|62|526|-792|917|-620|1672|0|0|1.3|0
@@ -24953,7 +24953,7 @@ TheCastle01|Mirelurk|100.0|1
 00149CD2|QuincyPD01|Quincy Police Lock up|0|1906|1282|132|3680|105|2460|-4500|2500|3.0|0
 0014A0EE|zWaystation|Waystation|0|-130|148|-350|90|-64|361|0|0|0.8|0
 0014FC54|PrydwenHull02|Prydwen Command Deck|0|-93|23|-1722|1536|-626|672|0|0|1.0|0
-0014FC9B|MassFusion02Trans|Mass Fusion Elevator|0|68|72|-48|184|-48|192|1000|-1000|1.0|0
+0014FC9B|MassFusion02Trans|Mass Fusion Elevator|0|68|72|-48|184|-48|192|800|-800|1.0|0
 0015054F|InstituteTunnel01|Public Works Maintenence Area|0|-597|3275|-10348|9154|-1808|8358|0|0|1.0|0
 00153794|InstituteAdvSystems|Institute Advanced Systems|0|165|1369|-1023|1354|219|2519|0|0|1.0|0
 00153795|InstituteSRB|Institute SRB|0|-494|2016|-1513|525|903|3130|0|0|1.0|0
@@ -24978,7 +24978,7 @@ TheCastle01|Mirelurk|100.0|1
 001B2915|RelayTowerInt15B|Reactor Level|0|947|1753|407|1487|1251|2256|0|0|1.0|0
 001B2916|RelayTowerInt15A|Operations|0|1855|1827|1599|2111|1507|2147|0|0|1.0|0
 001B2917|RelayTowerInt06|Basement|0|-169|163|-681|343|-255|582|0|0|1.0|0
-001B2918|RelayTowerInt14|Reactor Level|0|-1558|443|-2741|-375|-77|964|-2500|0|1.0|0
+001B2918|RelayTowerInt14|Reactor Level|0|-1558|443|-2741|-375|-77|964|-2000|0|1.7|0
 001B2ED1|RelayTowerInt08|Train Car|0|-343|-90|-832|145|-500|319|0|0|1.0|0
 001B2ED2|RelayTowerInt09|Fishing Boat Cabin|0|-231|-165|-400|-62|-310|-20|0|0|1.0|0
 001B2ED3|RelayTowerInt05|Storage Compartment|0|-963|-182|-1742|-185|-937|573|-800|0|1.0|0
