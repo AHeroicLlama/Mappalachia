@@ -457,7 +457,8 @@ namespace Mappalachia
 			{
 				coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2))
 				{
-					weight = reader.GetFloat(3),
+					// Weight in DB and UI is presented as 1-100%, but weights on-map should be 0-1 to represent the expected count of the NPC
+					weight = reader.GetFloat(3) / 100f,
 				});
 			}
 
