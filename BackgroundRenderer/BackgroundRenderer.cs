@@ -222,10 +222,11 @@ namespace BackgroundRenderer
 				double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
 				double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
 
+				// -rq 1 + 2 + 12 + 32 + 256
 				string renderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} " +
 					$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
-					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -hqm meshes -rq 15 -a -scol 1 -ssaa {SSAA} " +
-					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud -xm effects";
+					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq 303 -ssaa {SSAA} " +
+					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud";
 
 				string resizeCommand = $"\"{magickPath}\" convert {renderFile} -resize {nativeResolution}x{nativeResolution} " +
 						$"-quality {(space.isWorldspace ? worldspaceQuality : cellQuality)} JPEG:{convertedFile}";
