@@ -6,7 +6,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 [![Latest release](https://img.shields.io/github/downloads/AHeroicLlama/Mappalachia/total)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br>
 ![](https://img.shields.io/github/last-commit/AHeroicLlama/Mappalachia)<br/>
 [![Latest release](https://img.shields.io/github/v/release/aheroicllama/mappalachia)](https://github.com/AHeroicLlama/Mappalachia/releases/latest)<br/>
-![](https://img.shields.io/badge/game%20version-1.7.5.4-green)<br/>
+![](https://img.shields.io/badge/game%20version-1.7.6.7-green)<br/>
 [![Discord](https://img.shields.io/discord/1029499482028646400?label=Discord&logo=Discord)](https://discord.gg/Z2GMpm6rad)<br/>
 [![License](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)
 
@@ -58,6 +58,7 @@ If you fancy doing some data mining or development with Mappalachia then you may
 * Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
 * [fo76utils](https://github.com/fo76utils) for their excellent and powerful render tool, used to render backgrounds for all cell maps and the Appalachia satellite map option.
 * Gilpo for providing great ideas and feedback for new Mappalachia features.
+* Duchess Flame for useful feature feedback, driving community engagement and moral support.
 * frame for reporting and helping to test DPI scaling issues.
 * Everyone who ever gave feedback to the original Mappalachia. Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
 

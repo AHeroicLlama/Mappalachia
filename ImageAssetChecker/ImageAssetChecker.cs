@@ -21,11 +21,13 @@ namespace ImageAssetChecker
 		static readonly string mappalachiaRoot = Path.GetFullPath(thisAppPath + "..\\..\\..\\..\\..\\");
 		static readonly string databasePath = mappalachiaRoot + "Mappalachia\\data\\mappalachia.db";
 		static readonly string imageDirectory = mappalachiaRoot + "Mappalachia\\img\\";
+		static readonly ConsoleColor defaultConsoleColor = Console.ForegroundColor;
 
 		static SqliteConnection connection;
 
 		static List<Space> spaces;
 		static List<string> mapMarkers;
+		static List<string> errors = new List<string>();
 
 		public static void Main()
 		{
@@ -39,21 +41,33 @@ namespace ImageAssetChecker
 			ValidateBackgroundImages();
 			ValidateMapMarkers();
 
-			Console.WriteLine($"\nValidation finished. {spaces.Count} cells, {mapMarkers.Count} Map Markers.");
+			if (!ValidationSuccessful())
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+
+				Console.WriteLine("\nValidation Failed.\nErrors Reported:");
+
+				foreach (string error in errors)
+				{
+					Console.WriteLine("* " + error);
+				}
+
+				File.AppendAllLines(imageDirectory + "errors.txt", errors);
+			}
+			else
+			{
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.WriteLine($"\nValidation Passed. {spaces.Count} cells, {mapMarkers.Count} Map Markers.");
+			}
+
+			Console.ForegroundColor = defaultConsoleColor;
 			Console.ReadKey();
 		}
 
 		// Populates the main List<Space> with all spaces in the database
 		static void PopulateSpaces()
 		{
-			if (spaces == null)
-			{
-				spaces = new List<Space>();
-			}
-			else
-			{
-				return;
-			}
+			spaces = new List<Space>();
 
 			SqliteCommand query = connection.CreateCommand();
 			query.CommandText = "SELECT spaceEditorID, isWorldspace FROM Space_Info";
@@ -69,14 +83,7 @@ namespace ImageAssetChecker
 		// Populates the main List<string> with all distinct Map Markers in the database
 		static void PopulateMapMarkers()
 		{
-			if (mapMarkers == null)
-			{
-				mapMarkers = new List<string>();
-			}
-			else
-			{
-				return;
-			}
+			mapMarkers = new List<string>();
 
 			SqliteCommand query = connection.CreateCommand();
 			query.CommandText = "SELECT DISTINCT mapMarkerName FROM Map_Markers";
@@ -87,6 +94,22 @@ namespace ImageAssetChecker
 			{
 				mapMarkers.Add(reader.GetString(0));
 			}
+		}
+
+		// Return if errors were reported
+		static bool ValidationSuccessful()
+		{
+			return errors.Count == 0;
+		}
+
+		// Log an error to the error queue
+		static void ReportError(string error)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(error);
+			Console.ForegroundColor = defaultConsoleColor;
+
+			errors.Add(error);
 		}
 
 		static void ValidateBackgroundImages()
@@ -137,7 +160,7 @@ namespace ImageAssetChecker
 				}
 				else
 				{
-					throw new Exception($"File {file} doesn't appear to match to any EditorID in the database. Can it be deleted? (EditorID \"{expectedEditorId}\" not present)");
+					ReportError($"File {file} doesn't appear to match to any EditorID in the database. Can it be deleted? (EditorID \"{expectedEditorId}\" not present)");
 				}
 			}
 		}
@@ -150,7 +173,8 @@ namespace ImageAssetChecker
 			}
 			else
 			{
-				throw new FileNotFoundException("Unable to find background image file " + expectedFile);
+				ReportError("Unable to find background image file " + expectedFile);
+				return;
 			}
 
 			// Validate file size
@@ -164,7 +188,7 @@ namespace ImageAssetChecker
 			}
 			else
 			{
-				throw new Exception($"File {expectedFile} is of an unusual file size ({sizeInKB}KB). Please check this.");
+				ReportError($"File {expectedFile} is of an unusual file size ({sizeInKB}KB). Please check this.");
 			}
 
 			// Validate image dimensions
@@ -178,7 +202,7 @@ namespace ImageAssetChecker
 			}
 			else
 			{
-				throw new Exception($"File {expectedFile} is not of the correct dimensions. Expected: {expectedImageResolution}x{expectedImageResolution}, actual: {width}x{height}.");
+				ReportError($"File {expectedFile} is not of the correct dimensions. Expected: {expectedImageResolution}x{expectedImageResolution}, actual: {width}x{height}.");
 			}
 		}
 
@@ -206,12 +230,12 @@ namespace ImageAssetChecker
 					}
 					else
 					{
-						throw new Exception($"File {expectedFile} is of an unusual file size ({sizeInKB}KB). Please check this.");
+						ReportError($"File {expectedFile} is of an unusual file size ({sizeInKB}KB). Please check this.");
 					}
 				}
 				else
 				{
-					throw new FileNotFoundException("Unable to find map marker file " + expectedFile);
+					ReportError("Unable to find map marker file " + expectedFile);
 				}
 			}
 
@@ -226,7 +250,7 @@ namespace ImageAssetChecker
 				}
 				else
 				{
-					throw new Exception($"File {file} doesn't appear to match to any Map Marker in the database. Can it be deleted? (MapMarker \"{expectedMapMarker}\" not present)");
+					ReportError($"File {file} doesn't appear to match to any Map Marker in the database. Can it be deleted? (MapMarker \"{expectedMapMarker}\" not present)");
 				}
 			}
 		}

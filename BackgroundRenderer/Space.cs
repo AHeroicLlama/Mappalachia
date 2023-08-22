@@ -4,6 +4,7 @@
 	{
 		public string formID;
 		public string editorID;
+		public bool isWorldspace;
 		public int xCenter;
 		public int yCenter;
 		public int xRange;
@@ -20,10 +21,11 @@
 		public int nudgeY;
 		public float nudgeScale;
 
-		public Space(string formID, string editorID, int xCenter, int yCenter, int xRange, int yRange, int nudgeX, int nudgeY, float nudgeScale)
+		public Space(string formID, string editorID, bool isWorldspace, int xCenter, int yCenter, int xRange, int yRange, int nudgeX, int nudgeY, float nudgeScale)
 		{
 			this.formID = formID;
 			this.editorID = editorID;
+			this.isWorldspace = isWorldspace;
 			this.xCenter = xCenter;
 			this.yCenter = yCenter;
 			this.xRange = xRange;
