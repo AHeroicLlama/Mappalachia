@@ -446,6 +446,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00608AC5,,,0
 0063220D,PackInZetanTubePackInStorageCell,,0
 0063540D,,,0
+006C6DBD,PackInSCORES14CollectronpackinAutoMinerStorageCell,,0
 00004007,zCUT76DangerRoom,76 PVP Playground,0
 000042C3,zCUTTestDrewIndScraps,Quick Test Cell,0
 0003D983,PackInLvlBloodbugAmbushCeilingShortPackInStorageCell,,0
@@ -668,6 +669,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005275BC,,,0
 00569020,PackInLGTv96sublightterminalResearchWarmStorageCell,,0
 00574628,zCUTCOMPDeleteThis,Quick Test Cell,0
+006EFE6C,DebugSamuelC01,Quick Test Cell,0
 00007DCB,WarehouseFallout4,Quick Test Cell,0
 001228D7,PackInPACKMtnTopShrubs02StorageCell,,0
 00122FDF,,,0
@@ -2107,3 +2109,4 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00528A13,,,0
 005544E7,PackInLGTv96SScagelightWarmStorageCell,,0
 005A5883,zCUTSheltersUnusedBoSBunker,Bunker Shelter,0
+006EABA3,PackInF1EnclaveMobileRelayTentPKINStorageCell,,0

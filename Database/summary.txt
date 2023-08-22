@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
 ==Checksum== 
-774cfc573b047262fb1a1556d0caf2f6
+e5e2ac1061cfc337f12208c8631a09ac
 ==File Size== 
-432553984 
+433545216 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.5.4
+1.7.6.7
 ==Mean Average X/Y/Z Coord==
--11821.0372556831|4403.9931860146|11750.2063964995
+-11795.8442961587|4399.09453280373|11729.6305187877
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -24,41 +24,46 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 2432|64|-2816|64
 2432|64|-2560|61
 2433|59|-3072|60
+-128|4608|512|42
+3584|0|256|41
 39101|14406|35188|40
 624|-1848|-1112|38
 3696|-6968|-1112|37
 -125269|-37601|6630|36
+-43|4777|519|36
+1988|4809|518|36
+2085|2161|519|36
+2116|3301|514|36
 2928|-2360|-1112|36
+3642|-626|273|36
+3816|1208|263|36
+4115|2168|262|36
 0|0|0|35
 -128|1664|-608|34
 -1216|2352|128|32
 960|2352|128|32
--43|4777|519|30
-1988|4809|518|30
-2085|2161|519|30
-2116|3301|514|30
-3642|-626|273|30
-3816|1208|263|30
-4115|2168|262|30
+1408|-384|256|32
+2547|4482|512|32
 1024|1792|-608|29
 -129108|-37082|6630|28
 -79616|-138368|30208|28
-1408|-384|256|28
 -11852|-31565|3080|27
 -8774|-28029|3591|27
--128|4608|512|27
 -79616|-138368|28096|26
 0|1024|0|26
+256|1536|0|26
 512|1024|256|25
 1280|1792|-608|25
+1536|0|0|25
 1648|-1848|-1112|25
-3584|0|256|25
 -6016|-32034|3328|24
 -6016|-32034|4096|24
+-2850|4792|572|24
 0|256|0|24
 0|768|0|24
-256|1536|0|24
-1536|0|0|24
+1920|1664|512|24
+2176|1664|512|24
+2176|1920|512|24
 -256|256|0|23
 -256|1024|0|23
 -19952|104540|11034|22
@@ -76,6 +81,10 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -6|-11|-2289|21
 0|-256|0|21
 512|1024|0|21
+1280|3840|512|21
+1408|-128|256|21
+1920|-2944|0|21
+1920|-2176|0|21
 33690|77021|21776|21
 -79616|-138368|31616|20
 -13119|2726|-100|20
@@ -84,9 +93,6 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -844|-790|-163|20
 -512|640|0|20
 768|1792|-608|20
-1920|1664|512|20
-2176|1664|512|20
-2176|1920|512|20
 32976|74016|21728|20
 -19709|103409|11034|19
 -1456|-3072|-896|19
@@ -94,7 +100,10 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -256|768|0|19
 0|1024|256|19
 512|1280|-512|19
-1408|-128|256|19
+512|1536|0|19
+768|1536|0|19
+1024|1536|0|19
+3072|1280|256|19
 -19828|103268|11034|18
 -12138|-29760|3079|18
 -7129|-27618|3591|18
@@ -105,35 +114,26 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -512|-1040|512|18
 -384|1664|-608|18
 256|-256|0|18
+256|4224|512|18
 448|1431|-330|18
 512|-512|0|18
+512|4224|512|18
 768|768|-512|18
-1024|-256|0|18
-1024|768|0|18
-1280|3840|512|18
-1920|-2944|0|18
-1920|-2176|0|18
-2547|4482|512|18
-2943|-2815|-384|18
-3595|1426|384|18
-4107|1170|512|18
-4107|1426|512|18
--1024|-784|128|17
--512|256|0|17
+896|-1024|-128|18
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7521210075413
+21.7373730704765
 ==Average Y Bounds Width==
-16.261060435347
+16.2519580448945
 ==Average Z Bounds Width==
-15.2419573026065
+15.2311489642004
 ==Average Z Rotation==
-4.10258915226095
+4.10122008166594
 ==Average display name string length==
-2.69200217499232
+2.71848997730711
 ==Average editorID string length==
-24.9965483817584
+24.997659795764
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -508,7 +508,7 @@ Appalachia|TrainTrackMark|Mount Blair Trainyard|-132583|-121600
 Appalachia|TrainTrackMark|New Appalachian Central Trainyard|13435|-21413
 Appalachia|Vault51Marker|Vault 51|-125273|202332
 Appalachia|Vault63Marker|Vault 63|-96290|-146559
-Appalachia|Vault76Marker|Vault 76|-103763|94019
+Appalachia|Vault76Marker|Vault 76|-103725|94055
 Appalachia|Vault79Marker|Vault 79|145375|186773
 Appalachia|Vault94Marker|Vault 94|145156|137186
 Appalachia|Vault96Marker|Vault 96|31362|-160241
@@ -527,7 +527,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-42299
+42304
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|55
@@ -740,8 +740,8 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3013892
-Appalachia|Box|63368
+Appalachia||3013971
+Appalachia|Box|63372
 Appalachia|Ellipsoid|3
 Appalachia|Line|1802
 Appalachia|Plane|105
@@ -926,6 +926,9 @@ MorgantownHighSchoolDungeon|Box|159
 MorgantownHighSchoolDungeon|Sphere|1
 MountBlairWarehouseBasement01||312
 MountBlairWarehouseBasement01|Box|7
+NPEVault7601||6951
+NPEVault7601|Box|137
+NPEVault7601|Line|2
 NukaColaQuantumPlant01||5164
 NukaColaQuantumPlant01|Box|313
 OrwellOrchardsShelter01||2156
@@ -1005,7 +1008,7 @@ SugarGroveMissileSilo01|Box|629
 TheCraterCore01||1233
 TheCraterCore01|Box|47
 TheCraterCore01|Plane|9
-TheNukashine01||1474
+TheNukashine01||1475
 TheNukashine01|Box|63
 TheRustyPick01||2355
 TheRustyPick01|Box|87
@@ -1111,10 +1114,10 @@ WhitespringBunker01||15833
 WhitespringBunker01|Box|500
 WhitespringMall01||6803
 WhitespringMall01|Box|137
-WhitespringRefuge01||11272
+WhitespringRefuge01||11274
 WhitespringRefuge01|Box|224
-XPDPitt01Foundry||16372
-XPDPitt01Foundry|Box|559
+XPDPitt01Foundry||16376
+XPDPitt01Foundry|Box|555
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
 XPDPitt01Industrial||18698
@@ -1144,7 +1147,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3080472
+Appalachia||3080555
 Appalachia|Advanced (Level 1)|319
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1364,6 +1367,8 @@ MorgantownHighSchoolDungeon||5558
 MorgantownHighSchoolDungeon|Advanced (Level 1)|1
 MorgantownHighSchoolDungeon|Expert (Level 2)|2
 MountBlairWarehouseBasement01||319
+NPEVault7601||7089
+NPEVault7601|Novice (Level 0)|1
 NukaColaQuantumPlant01||5465
 NukaColaQuantumPlant01|Advanced (Level 1)|4
 NukaColaQuantumPlant01|Expert (Level 2)|4
@@ -1459,7 +1464,7 @@ SugarGroveMissileSilo01|Requires Terminal|1
 TheCraterCore01||1287
 TheCraterCore01|Master (Level 3)|1
 TheCraterCore01|Requires Key|1
-TheNukashine01||1537
+TheNukashine01||1538
 TheRustyPick01||2442
 TheWayward01||1717
 TheWayward01|Expert (Level 2)|1
@@ -1591,7 +1596,7 @@ WhitespringMall01|Advanced (Level 1)|1
 WhitespringMall01|Expert (Level 2)|1
 WhitespringMall01|Master (Level 3)|3
 WhitespringMall01|Novice (Level 0)|8
-WhitespringRefuge01||11467
+WhitespringRefuge01||11469
 WhitespringRefuge01|Advanced (Level 1)|2
 WhitespringRefuge01|Inaccessible|21
 WhitespringRefuge01|Novice (Level 0)|6
@@ -1693,35 +1698,35 @@ AlleghenyAsylum01|SOUN|4
 AlleghenyAsylum01|STAT|11109
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
-Appalachia|ACTI|21744
+Appalachia|ACTI|21747
 Appalachia|ALCH|264
 Appalachia|AMMO|59
 Appalachia|ARMO|103
 Appalachia|ASPC|2377
 Appalachia|BNDS|10367
-Appalachia|BOOK|484
+Appalachia|BOOK|485
 Appalachia|CNCY|257
-Appalachia|CONT|12377
+Appalachia|CONT|12394
 Appalachia|DOOR|2505
-Appalachia|FLOR|45228
-Appalachia|FURN|14976
+Appalachia|FLOR|45224
+Appalachia|FURN|14972
 Appalachia|HAZD|994
-Appalachia|IDLM|16926
+Appalachia|IDLM|16935
 Appalachia|KEYM|36
-Appalachia|LIGH|8244
-Appalachia|LVLI|71518
-Appalachia|MISC|35717
-Appalachia|MSTT|23092
-Appalachia|NOTE|177
-Appalachia|NPC_|7395
+Appalachia|LIGH|8245
+Appalachia|LVLI|71650
+Appalachia|MISC|35714
+Appalachia|MSTT|23087
+Appalachia|NOTE|178
+Appalachia|NPC_|7369
 Appalachia|PROJ|93
-Appalachia|SCOL|353359
+Appalachia|SCOL|353356
 Appalachia|SECH|253
 Appalachia|SOUN|5920
-Appalachia|STAT|2383847
+Appalachia|STAT|2383807
 Appalachia|TACT|62
 Appalachia|TERM|370
-Appalachia|TXST|62611
+Appalachia|TXST|62615
 Appalachia|WEAP|164
 ArktosPharmaLab01|ACTI|354
 ArktosPharmaLab01|ASPC|14
@@ -2885,6 +2890,28 @@ MountBlairWarehouseBasement01|NPC_|1
 MountBlairWarehouseBasement01|SCOL|8
 MountBlairWarehouseBasement01|SOUN|3
 MountBlairWarehouseBasement01|STAT|244
+NPEVault7601|ACTI|179
+NPEVault7601|ALCH|30
+NPEVault7601|ARMO|8
+NPEVault7601|ASPC|7
+NPEVault7601|BNDS|6
+NPEVault7601|BOOK|14
+NPEVault7601|CONT|118
+NPEVault7601|DOOR|16
+NPEVault7601|FURN|173
+NPEVault7601|IDLM|28
+NPEVault7601|LIGH|296
+NPEVault7601|LVLI|10
+NPEVault7601|MISC|811
+NPEVault7601|MSTT|1249
+NPEVault7601|NPC_|66
+NPEVault7601|SCOL|66
+NPEVault7601|SECH|3
+NPEVault7601|SOUN|14
+NPEVault7601|STAT|3936
+NPEVault7601|TERM|9
+NPEVault7601|TXST|33
+NPEVault7601|WEAP|18
 NukaColaQuantumPlant01|ACTI|36
 NukaColaQuantumPlant01|ALCH|2
 NukaColaQuantumPlant01|ASPC|14
@@ -3394,6 +3421,7 @@ TheNukashine01|LIGH|42
 TheNukashine01|LVLI|28
 TheNukashine01|MISC|273
 TheNukashine01|MSTT|45
+TheNukashine01|NOTE|1
 TheNukashine01|NPC_|1
 TheNukashine01|SCOL|68
 TheNukashine01|SOUN|8
@@ -4098,7 +4126,7 @@ WhitespringRefuge01|LIGH|455
 WhitespringRefuge01|LVLI|93
 WhitespringRefuge01|MISC|367
 WhitespringRefuge01|MSTT|131
-WhitespringRefuge01|NOTE|3
+WhitespringRefuge01|NOTE|5
 WhitespringRefuge01|NPC_|43
 WhitespringRefuge01|SCOL|174
 WhitespringRefuge01|STAT|9386
@@ -4262,7 +4290,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3076011
+Appalachia||3076094
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -11576,6 +11604,111 @@ MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_01_PackIn012|1
 MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_02_PackIn012|1
 MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_03_PackIn012|1
 MountBlairWarehouseBasement01||319
+NPEVault7601||6986
+NPEVault7601|76CharGenPerkBoardTriggerRef005|1
+NPEVault7601|76ExitTriggerREF02|1
+NPEVault7601|76TrailerCoupleEnabler001|1
+NPEVault7601|76TrailerOverseerEnabler001|1
+NPEVault7601|76TrailerPartyEnabler001|1
+NPEVault7601|76TrailerRoomPipboyEnabler001|1
+NPEVault7601|76TrailerStandeeEnabler001|1
+NPEVault7601|76TrailerTrainingEnabler001|1
+NPEVault7601|76TrailerVaultDoorExitEnabler001|1
+NPEVault7601|76TrailerVaultExitEnabler001|1
+NPEVault7601|76TrailerVaultExitHugEnabler001|1
+NPEVault7601|76TrailerWorkersEnabler001|1
+NPEVault7601|76Trailer_IntroCouple_Actor_Barney001|1
+NPEVault7601|76Trailer_IntroCouple_Actor_Carol001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Alice001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Barney001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Biscuit001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Carol001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Cody001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Kathy001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Louise001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Margret001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Markie001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Phyllis001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Ron001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Sandy001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Violet001|1
+NPEVault7601|76Trailer_IntroParty_Actor_Will001|1
+NPEVault7601|76Trailer_IntroReactorLight04|1
+NPEVault7601|76Trailer_IntroReactorLight05|1
+NPEVault7601|76Trailer_IntroReactorLight06|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Foreman001|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker05|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker07|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker08|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker09|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker10|1
+NPEVault7601|76Trailer_IntroRoomPipboy_Actor_Barney001|1
+NPEVault7601|76Trailer_IntroRoomPipboy_Actor_Carol001|1
+NPEVault7601|76Trailer_IntroStandee_Actor_Sandy001|1
+NPEVault7601|76Trailer_IntroStandee_Actor_Violet001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Alice001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Biscuit001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Cody001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Louise001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Margret001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Markie001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Overseer03|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Overseer04|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Phyllis001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Ron001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Sandy001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Violet001|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Will001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Alice001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Barney001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Carol001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Cody001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Kathy001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Louise001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Margret001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Markie001|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Sandy001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Alice001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Barney001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Biscuit001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Carol001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Cody001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Kathy001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Louise001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Margret001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Markie001|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Ron001|1
+NPEVault7601|CAMPTriggerMarker002|1
+NPEVault7601|CharGenEndMarker002|1
+NPEVault7601|CharGenTrailerRef005|1
+NPEVault7601|Chargen_BreadcrumbQT01_Ref|1
+NPEVault7601|Chargen_BreadcrumbQT02_Ref|1
+NPEVault7601|Chargen_BreadcrumbQT03_Ref|1
+NPEVault7601|Chargen_BreadcrumbQT04_Ref|1
+NPEVault7601|Chargen_BreadcrumbQT05_Ref|1
+NPEVault7601|Chargen_BreadcrumbQT06_Ref|1
+NPEVault7601|Chargen_BreadcrumbQT07_Ref|1
+NPEVault7601|Face01Light002|1
+NPEVault7601|Face02Light002|1
+NPEVault7601|Face03Light002|1
+NPEVault7601|Face04Light002|1
+NPEVault7601|Face05Light002|1
+NPEVault7601|Face06Light002|1
+NPEVault7601|Intro_Party_TrailerEnabler005|1
+NPEVault7601|NPE_LoadoutObjects_EnableMarker_Ref|1
+NPEVault7601|NameOverrideTestMarker001|1
+NPEVault7601|PipeRoomExtFilter002|1
+NPEVault7601|PipeRoomIntFilter002|1
+NPEVault7601|PipeRoomNoFilter002|1
+NPEVault7601|RS01A_Contact_DoorQTMarker02|1
+NPEVault7601|TestChargenDinerScene001|1
+NPEVault7601|TrailerEnabler005|1
+NPEVault7601|XMarkerHeading_CharGen06Start01|1
+NPEVault7601|XMarkerHeading_CharGen06Start02|1
+NPEVault7601|XMarkerHeading_CharGen06Start03|1
+NPEVault7601|XMarkerHeading_CharGen06Start04|1
+NPEVault7601|XMarkerHeading_CharGen06Start05|1
+NPEVault7601|XMarkerHeading_CharGen06Start06|1
 NukaColaQuantumPlant01||5457
 NukaColaQuantumPlant01|BMO_BunkerKeyLocker|1
 NukaColaQuantumPlant01|BMO_LockernoteBox|1
@@ -12001,7 +12134,7 @@ TheCraterCore01|W05_Sandbox_AllRef|1
 TheCraterCore01|W05_Sandbox_BottomRef|1
 TheCraterCore01|W05_Sandbox_TopRef|1
 TheCraterCore01|XPD_ARG_XMarker|1
-TheNukashine01||1532
+TheNukashine01||1533
 TheNukashine01|P01A_Nukashine_BivRef|1
 TheNukashine01|P01A_Nukashine_PastSecretDoorTrigger|1
 TheNukashine01|P01A_Nukashine_SpeakeasyTrigger|1
@@ -13351,7 +13484,7 @@ WhitespringMall01|TestElevDoorTriggerARef130|1
 WhitespringMall01|TestElevDoorTriggerARef134|1
 WhitespringMall01|TestElevDoorTriggerARef136|1
 WhitespringMall01|WhitespringMall_Interior_DirectTravelPoint|1
-WhitespringRefuge01||11294
+WhitespringRefuge01||11296
 WhitespringRefuge01|EX001_WhitespringRefuge_ElevToMall_LoadDoor01|1
 WhitespringRefuge01|EX001_WhitespringRefuge_ElevToMall_LoadDoor02|1
 WhitespringRefuge01|EX001_WhitespringRefuge_ElevToMall_LoadDoor03|1
@@ -14076,7 +14209,7 @@ AlleghenyAsylum01|100|15013
 Appalachia|50|42
 Appalachia|75|136
 Appalachia|85|72
-Appalachia|100|3081269
+Appalachia|100|3081352
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17160
@@ -14156,6 +14289,7 @@ MorgantownApartment01|100|1362
 MorgantownHighSchool01|100|5953
 MorgantownHighSchoolDungeon|100|5561
 MountBlairWarehouseBasement01|100|319
+NPEVault7601|100|7090
 NukaColaQuantumPlant01|100|5477
 OrwellOrchardsShelter01|100|2209
 OverseersHome01|100|1250
@@ -14197,7 +14331,7 @@ SugarGrove02|100|271
 SugarGroveMissileSilo01|75|4
 SugarGroveMissileSilo01|100|15686
 TheCraterCore01|100|1289
-TheNukashine01|100|1537
+TheNukashine01|100|1538
 TheRustyPick01|100|2442
 TheWayward01|100|1719
 ThunderMtPowerPlant01|100|9415
@@ -14248,7 +14382,7 @@ WestTek02|75|1
 WestTek02|100|5126
 WhitespringBunker01|100|16333
 WhitespringMall01|100|6940
-WhitespringRefuge01|100|11496
+WhitespringRefuge01|100|11498
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
 XPDPitt01Foundry|100|16918
@@ -14395,9 +14529,9 @@ Appalachia|Rubber|1990|1203
 Appalachia|Screw|1175|1056
 Appalachia|Silver|262|221
 Appalachia|Spring|1283|1252
-Appalachia|Steel|15458|9220
+Appalachia|Steel|15449|9217
 Appalachia|Ultracite|1|1
-Appalachia|Wood|4764|3327
+Appalachia|Wood|4761|3324
 ArktosPharmaLab01|Acid|48|33
 ArktosPharmaLab01|Adhesive|10|3
 ArktosPharmaLab01|Aluminum|31|25
@@ -15756,6 +15890,31 @@ MountBlairWarehouseBasement01|Screw|1|1
 MountBlairWarehouseBasement01|Spring|1|1
 MountBlairWarehouseBasement01|Steel|13|9
 MountBlairWarehouseBasement01|Wood|2|2
+NPEVault7601|Acid|34|26
+NPEVault7601|Adhesive|78|24
+NPEVault7601|Aluminum|66|42
+NPEVault7601|Antiseptic|54|24
+NPEVault7601|Asbestos|6|6
+NPEVault7601|Ceramic|32|20
+NPEVault7601|Circuitry|54|18
+NPEVault7601|Cloth|210|111
+NPEVault7601|Copper|19|19
+NPEVault7601|Cork|30|18
+NPEVault7601|Crystal|36|12
+NPEVault7601|Fiberglass|43|37
+NPEVault7601|Gear|62|25
+NPEVault7601|Glass|299|162
+NPEVault7601|Lead|16|8
+NPEVault7601|Leather|108|54
+NPEVault7601|Nuclear Material|6|6
+NPEVault7601|Oil|66|24
+NPEVault7601|Plastic|128|77
+NPEVault7601|Rubber|12|6
+NPEVault7601|Screw|62|31
+NPEVault7601|Silver|54|36
+NPEVault7601|Spring|72|30
+NPEVault7601|Steel|205|109
+NPEVault7601|Wood|154|89
 NukaColaQuantumPlant01|Adhesive|13|5
 NukaColaQuantumPlant01|Aluminum|20|17
 NukaColaQuantumPlant01|Asbestos|5|3
@@ -17188,7 +17347,7 @@ Appalachia|Honey Beast|19.18|7
 Appalachia|Insect|16.23|229
 Appalachia|Liberator|16.61|456
 Appalachia|Mega Sloth|17.63|8
-Appalachia|Mirelurk|31.9|169
+Appalachia|Mirelurk|31.09|167
 Appalachia|Mole Miner|60.64|192
 Appalachia|Mole Rat|14.69|518
 Appalachia|Rad Ant|25.0|14
@@ -17197,11 +17356,11 @@ Appalachia|Rad Scorpion|15.8|100
 Appalachia|Rad Toad|17.41|48
 Appalachia|Radroach|25.0|2
 Appalachia|Robot|38.48|417
-Appalachia|Scorched|55.46|1113
+Appalachia|Scorched|55.25|1108
 Appalachia|Snallygaster|67.03|26
 Appalachia|Stingwing|57.15|6
 Appalachia|Super Mutant|45.7|794
-Appalachia|Tick|85.29|17
+Appalachia|Tick|64.29|7
 Appalachia|Vicious Dog|15.4|497
 Appalachia|Wolf|19.98|182
 Appalachia|Yao Guai|10.55|129
@@ -17354,6 +17513,7 @@ WestTek01|Super Mutant|100.0|41
 004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|-702|896|-2112|-576|0|0|1.0
 0051EF4D|CharGen05|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 00616199|XPDPitt01Industrial|The Pitt - Industrial|0|-4744|-1415|-20382|10894|-15918|13088|0|0|1.0
+006BEEC5|NPEVault7601|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 0011F9E7|Vault94Entrance|Vault 94 Entrance|0|5684|15752|2952|8417|14390|17114|0|0|1.0
 0051EF57|CharGen02|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 0060F37B|WatogaHighSchoolDungeon|Watoga High School|0|-1571|2284|-5728|2585|-1296|5864|0|0|1.0
@@ -17399,4 +17559,4 @@ WestTek01|Super Mutant|100.0|41
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-3946002|3946002
+3953178|3953178
