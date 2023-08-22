@@ -13,7 +13,7 @@ The tool will connect to the database so it know which cells, worldspaces, and m
 It will then cross reference to the contents of the `img` folder to verify that each space has an applicable background image file, that the image is of the correct dimensions, and that the file size looks correct. Then it will check for all map markers, also verifying that they exist and that they are of a normal file size.<br/>
 Finally the tool will verify there are no extraneous image files present.<br/>
 
-If it detects any errors, these will be raised via an exception.
+If it detects any errors, these will be logged and again summarized once the check has been completed. In addition, `errors.txt` will be placed in `\Mappalachia\img\` containing the reported errors.
 
 ### Next steps
 With all image assets validated, you can now move on to development of the actual [end-user GUI program, Mappalachia](GUI.md).
