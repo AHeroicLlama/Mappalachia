@@ -89,6 +89,7 @@ namespace Mappalachia
 			{ "Hornwright Air Cleanser Site #04", "Hornwright Air Purifier Site #04" },
 			{ "Lumber Camp", "Sylvie & Sons Logging Camp" },
 			{ "Maybell Pond", "Beckwith Farm" },
+			{ "Middle Mountain Cabins", "Middle Mountain Pitstop" },
 			{ "Mine Shaft No. 9", "AMS Testing Site" },
 			{ "Mire", "Harpers Ferry Tunnel" },
 			{ "Morgantown Regional Airfield", "Morgantown Airport" },
