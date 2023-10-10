@@ -1,11 +1,11 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
+3.43.2 2023-10-10 12:14:04 4310099cce5a487035fa535dd3002c59ac7f1d1bec68d7cf317fd3e769484790 (32-bit)
 ==Checksum== 
-b3578e61d42d00cd7163c2e22c9f2f52
+881fc23d377b0f0d1c37708c5034cce5
 ==File Size== 
-433545216 
+433557504 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.6.7
+1.7.7.6
 ==Mean Average X/Y/Z Coord==
--11795.8442961587|4399.09453280373|11729.6305187877
+-11795.5309981514|4398.94244609776|11729.36151331
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-34417|136069
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 68
 ==Average X Bounds Width==
-21.7373730704765
+21.7373598248335
 ==Average Y Bounds Width==
-16.2519580448945
+16.2516490154475
 ==Average Z Bounds Width==
-15.2311489642004
+15.2311942929242
 ==Average Z Rotation==
-4.10122008166594
+4.10171230485765
 ==Average display name string length==
-2.71848997730711
+2.71823295830576
 ==Average editorID string length==
-24.997659795764
+24.9983454665784
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -527,7 +527,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-42304
+42308
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|55
@@ -977,8 +977,8 @@ SheltersMissileSilo||442
 SheltersMissileSilo|Box|51
 SheltersPittTrench01||1009
 SheltersPittTrench01|Box|133
-SheltersRootCellar||382
-SheltersRootCellar|Box|123
+SheltersRootCellar||463
+SheltersRootCellar|Box|132
 SheltersSoundStage||790
 SheltersSoundStage|Box|115
 SheltersToxicWasteland||515
@@ -1431,7 +1431,7 @@ SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
-SheltersRootCellar||505
+SheltersRootCellar||595
 SheltersSoundStage||905
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
@@ -3249,12 +3249,12 @@ SheltersPittTrench01|LIGH|7
 SheltersPittTrench01|SCOL|168
 SheltersPittTrench01|STAT|897
 SheltersPittTrench01|TXST|56
-SheltersRootCellar|ACTI|13
-SheltersRootCellar|LIGH|9
-SheltersRootCellar|MSTT|1
+SheltersRootCellar|ACTI|14
+SheltersRootCellar|LIGH|14
+SheltersRootCellar|MSTT|4
 SheltersRootCellar|SCOL|10
-SheltersRootCellar|STAT|374
-SheltersRootCellar|TXST|98
+SheltersRootCellar|STAT|446
+SheltersRootCellar|TXST|107
 SheltersSoundStage|ACTI|30
 SheltersSoundStage|LIGH|38
 SheltersSoundStage|MSTT|16
@@ -11920,7 +11920,7 @@ SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
-SheltersRootCellar||505
+SheltersRootCellar||595
 SheltersSoundStage||905
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
@@ -14313,7 +14313,7 @@ SheltersCave02|100|608
 SheltersClaimCenter01|100|976
 SheltersMissileSilo|100|493
 SheltersPittTrench01|100|1142
-SheltersRootCellar|100|505
+SheltersRootCellar|100|595
 SheltersSoundStage|100|905
 SheltersToxicWasteland|100|527
 SheltersVaultAtrium01|100|2268
@@ -17358,7 +17358,7 @@ Appalachia|Radroach|25.0|2
 Appalachia|Robot|38.48|417
 Appalachia|Scorched|55.25|1108
 Appalachia|Snallygaster|67.03|26
-Appalachia|Stingwing|57.15|6
+Appalachia|Stingwing|57.14|6
 Appalachia|Super Mutant|45.7|794
 Appalachia|Tick|64.29|7
 Appalachia|Vicious Dog|15.4|497
@@ -17553,10 +17553,10 @@ WestTek01|Super Mutant|100.0|41
 0003BDBB|UncannyCaverns01|Uncanny Caverns|0|1980|4821|-2676|6636|-806|10448|0|0|1.0
 0040C1A7|CraterWatchstation01|Crater Watchstation Worksite|0|-1243|-3555|-4122|1636|-8328|1218|-150|-2000|1.8
 0051EF4F|CharGen03|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
-006D8953|SheltersRootCellar|Root Cellar Dungeon|0|3217|-2288|682|5752|-3736|-841|0|0|1.0
+006D8953|SheltersRootCellar|Root Cellar Dungeon|0|3217|-2261|682|5752|-3682|-841|0|0|1.0
 0039E891|FreeStatesBunker07|Ransacked Bunker|0|1125|2081|-320|2570|667|3496|0|0|1.0
 005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0|3469|339|-524|7462|-3351|4030|0|0|1.0
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-3953178|3953178
+3953268|3953268
