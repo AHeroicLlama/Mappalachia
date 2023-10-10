@@ -575,6 +575,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00586D46,PackInDenizenPackInSettlerCamperStorageCell,,0
 005FF9B2,PackInATXFenceBarbedWireGatePCKNStorageCell,,0
 0067A496,PackInSCORES11FurnitureTireSwingTreePackInStorageCell,,0
+007263C2,,,0
 00003040,zCUTTestPhil01,Quick Test Cell,0
 000083D8,PackInSLABMedWarehouse01StorageCell,,0
 0000E134,PackInPACKToxicTreeClusterSm03StorageCell,,0
@@ -1105,6 +1106,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0051AD6F,PackInMSiloOperationsConsoleSingleTall06StorageCell,,0
 005AA8A7,zCUTObservatoryLower01OLD,ATLAS Observatory Basement,0
 005DB4BB,,,0
+006F779B,DebugJeffUInstanced01,Quick Test Cell,0
 000043AD,PackInPACKToxicTreeStumpBranches01StorageCell,,0
 000046CD,zCUTTestPurkeyMine01,Quick Test Cell,0
 0000C305,PackInSLABMedChurch01StorageCell,,0
@@ -1912,6 +1914,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005867AD,PackInATXworkshopCollectorScavengepackinRaiderCOPY0000StorageCell,,0
 005B7169,PackInSheltersEntranceRootCellarLargeStorageCell,,0
 0066923D,,,0
+006F898D,DebugJeffUInstanced02,Quick Test Cell,0
 0000D5BF,PackInTESTTreePackInStorageCell,,0
 00116EF7,76QASmoke,76 QA Smoke,0
 00192DC7,PackInBld02CornerBrickACom01PackInStorageCell,,0
