@@ -37,25 +37,28 @@ namespace BackgroundRenderer
 			{ "FoundationSupplyRoom01", 200 },
 			{ "FraternityHouse01", 850 },
 			{ "FraternityHouse02", 850 },
+			{ "IngramMansion01", 500 },
 			{ "LewisandSonsFarmingSupply01", 500 },
 			{ "OverseersHome01", 675 },
 			{ "PoseidonPlant02", 3000 },
 			{ "RaiderCave01", 300 },
 			{ "RaiderCave03", 300 },
 			{ "RaiderRaidTrailerInt", 150 },
+			{ "SheltersRootCellar", 300 },
+			{ "SheltersSoundStage", 1000 },
+			{ "SheltersToxicWasteland", 2000 },
 			{ "SugarGrove02", 1000 },
+			{ "TheCraterCore01", 100 },
 			{ "TheWayward01", 400 },
 			{ "TopOfTheWorld01", -1800 },
+			{ "VTecAgCenter01", 400 },
 			{ "ValleyGalleria01", 700 },
 			{ "Vault63Entrance", 4750 },
 			{ "Vault79Entrance", -200 },
-			{ "VTecAgCenter01", 400 },
 			{ "WVLumberCo01", 1000 },
+			{ "XPDAC02Pier", 400 },
+			{ "XPDAC03CommunityCenter", 600 },
 			{ "XPDPitt02Sanctum", 700 },
-			{ "TheCraterCore01", 100 },
-			{ "SheltersSoundStage", 1000 },
-			{ "SheltersToxicWasteland", 2000 },
-			{ "SheltersRootCellar", 300 },
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
@@ -64,6 +67,65 @@ namespace BackgroundRenderer
 			"UCB02",
 			"RaiderRaidTrailerInt",
 		};
+
+		// Debug parameters
+		static readonly bool debugOn = false;
+		static readonly string debugEditorID = "";
+		static readonly int debugNudgeX = 0;
+		static readonly int debugNudgeY = 0;
+		static readonly float debugScale = 1f;
+		static readonly int debugCameraZ = 65536;
+
+		// Renders a space with parameters setup for debugging, designed to be used to find the appropriate scale/nudge/z-heights for spaces
+		static void DebugRender()
+		{
+			Console.WriteLine("Debug Rendering " + debugEditorID);
+
+			SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
+			connection.Open();
+			SqliteCommand query = connection.CreateCommand();
+			query.CommandText = $"SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale FROM Space_Info WHERE spaceEditorID = '{debugEditorID}'";
+			query.Parameters.Clear();
+			SqliteDataReader reader = query.ExecuteReader();
+			reader.Read();
+
+			Space space = new Space(
+				reader.GetString(0),
+				reader.GetString(1),
+				reader.GetBoolean(2),
+				reader.GetInt32(3),
+				reader.GetInt32(4),
+				Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)),
+				Math.Abs(reader.GetInt32(8) - reader.GetInt32(7)),
+				debugNudgeX,
+				debugNudgeY,
+				debugScale);
+
+			if (space.formID == string.Empty)
+			{
+				space.formID = "0025DA15";
+			}
+
+			int resolution = 2048;
+			int renderResolution = resolution;
+			int range = Math.Max(space.xRange, space.yRange);
+			double scale = ((double)resolution / range) * space.nudgeScale;
+
+			string renderFile = $"{imageDirectory}{space.editorID}{(space.isWorldspace ? "_render_debug" : string.Empty)}.dds";
+			double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
+			double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
+
+			string terrainString = space.isWorldspace ? $"-btd \"{fo76DataPath}\\Terrain\\Appalachia.btd\" " : string.Empty;
+
+			string renderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} " +
+				$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {debugCameraZ} " +
+				$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
+
+			Process render = Process.Start("CMD.exe", "/C " + renderCommand);
+			render.WaitForExit();
+
+			Process.Start(new ProcessStartInfo { FileName = renderFile, UseShellExecute = true });
+		}
 
 		public static void Main()
 		{
@@ -87,6 +149,12 @@ namespace BackgroundRenderer
 			{
 				Console.WriteLine($"Can't find Mappalachia database at {databasePath}, please check the database has been built or copied from a release to that path.");
 				Console.ReadKey();
+				return;
+			}
+
+			if (debugOn)
+			{
+				DebugRender();
 				return;
 			}
 

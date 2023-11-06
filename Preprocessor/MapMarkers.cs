@@ -7,7 +7,10 @@ namespace Mappalachia
 	{
 		const string bloodEagleMarker = "BloodEagleMarker";
 		const string cultistMarker = "CultistMarker";
+		const string raiderMarker = "SkullRingMarker";
 		const string workshopMarker = "PublicWorkshopMarker";
+		const string bosMarker = "BoSMarker";
+
 		const string fastTravelBadString = "Fast Travel Point: ";
 		const string fissureSite = "Fissure Site";
 		static readonly Regex validMapMarkerName = new Regex("^(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
@@ -43,6 +46,9 @@ namespace Mappalachia
 			{ "Lucky Hole Mine", cultistMarker },
 			{ "Moth-Home", cultistMarker },
 			{ "Sacrament", cultistMarker },
+			{ "Organ Cave North", cultistMarker },
+			{ "Organ Cave South", cultistMarker },
+			{ "Organ Cave West", cultistMarker },
 			{ "Abandoned Bog Town", workshopMarker },
 			{ "Beckley Mine Exhibit", workshopMarker },
 			{ "Berkeley Springs West", workshopMarker },
@@ -64,9 +70,13 @@ namespace Mappalachia
 			{ "Thunder Mt. Power Plant Yard", workshopMarker },
 			{ "Tyler County Dirt Track", workshopMarker },
 			{ "Wade Airport", workshopMarker },
+			{ "Ohio River Adventures", raiderMarker },
+			{ "The Crater", raiderMarker },
+			{ "The Coop", raiderMarker },
+			{ "Forward Station Alpha", bosMarker },
+			{ "Forward Station Delta", bosMarker },
+			{ "Forward Station Tango", bosMarker },
 			{ "Foundation", "HammerWingMarker" },
-			{ "Ohio River Adventures", "SkullRingMarker" },
-			{ "The Crater", "SkullRingMarker" },
 			{ "The Rusty Pick", "LegendaryPurveyorMarker" },
 			{ "Vault 51", "Vault51Marker" },
 			{ "Vault 79", "Vault79Marker" },
