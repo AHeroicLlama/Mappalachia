@@ -157,6 +157,84 @@ namespace Mappalachia
 						nudgeScale = 1.6f;
 						break;
 
+					case "XPDAC03CityHall":
+						nudgeX = 500;
+						nudgeY = 0;
+						nudgeScale = 1.4f;
+						break;
+
+					case "XPDAC02Pier":
+						nudgeX = 0;
+						nudgeY = 200;
+						nudgeScale = 1.3f;
+						break;
+
+					case "XPDAC03CommunityCenter":
+						nudgeX = 0;
+						nudgeY = 0;
+						nudgeScale = 2.5f;
+						break;
+
+					case "XPDAC02Boardwalk":
+						nudgeX = -5000;
+						nudgeY = 200;
+						nudgeScale = 4.7f;
+						break;
+
+					case "IngramMansion01":
+						nudgeX = 0;
+						nudgeY = 1000;
+						nudgeScale = 1f;
+						break;
+
+					case "XPDRttP01SteelTowerUpperFloors":
+						nudgeX = 9400;
+						nudgeY = -2500;
+						nudgeScale = 5f;
+						break;
+
+					case "XPDAC01EntertainmentDistrict":
+						nudgeX = -200;
+						nudgeY = -600;
+						nudgeScale = 2f;
+						break;
+
+					case "XPDPitt02ACCJ":
+						nudgeX = -700;
+						nudgeY = 2000;
+						nudgeScale = 2.5f;
+						break;
+
+					case "XPDRttP01SteelTower":
+						nudgeX = -500;
+						nudgeY = 1200;
+						nudgeScale = 1.7f;
+						break;
+
+					case "XPDRttP01SteelTowerRoof":
+						nudgeX = 2000;
+						nudgeY = 0;
+						nudgeScale = 4f;
+						break;
+
+					case "NPECultistCave":
+						nudgeX = 0;
+						nudgeY = 1600;
+						nudgeScale = 1.5f;
+						break;
+
+					case "NVEShelter01":
+						nudgeX = 1000;
+						nudgeY = -200;
+						nudgeScale = 1.4f;
+						break;
+
+					case "XPDAC03FloodedCityCenter":
+						nudgeX = 600;
+						nudgeY = 0;
+						nudgeScale = 1.2f;
+						break;
+
 					default:
 						nudgeX = 0;
 						nudgeY = 0;
