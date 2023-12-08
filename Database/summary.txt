@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.44.2 2023-11-24 11:41:44 ebead0e7230cd33bcec9f95d2183069565b9e709bf745c9b5db65cc0cbf92c0f (64-bit)
 ==Checksum== 
-7c2253774ea9fb1b6c5f4e44159f3865
+cb495b0d3b7f918f7a1fd784b902c9a1
 ==File Size== 
 449691648 
 ==Tables== 
@@ -382,11 +382,11 @@ Appalachia|OverlookMarker|Scenic Overlook|-12691|-145411
 Appalachia|PalaceWindingPathMarker|Palace of the Winding Path|57571|164802
 Appalachia|PierMarker|Summersville Docks|-70893|-44187
 Appalachia|PondLakeMarker|Big Maw|145503|38296
-Appalachia|PondLakeMarker|Cranberry Glade|192808|-120632
 Appalachia|PondLakeMarker|Gnarled Shallows|198829|141223
 Appalachia|PondLakeMarker|Gulper Lagoon|158150|111085
 Appalachia|PondLakeMarker|Highland Marsh|172319|131548
 Appalachia|PondLakeMarker|Lake Eloise|51553|-156468
+Appalachia|PondLakeMarker|Sacramental Glade|192808|-120632
 Appalachia|PondLakeMarker|Solomon's Pond|38767|-64481
 Appalachia|PondLakeMarker|Spruce Knob Channels|26548|-129199
 Appalachia|PondLakeMarker|Spruce Knob Lake|35190|-121222
