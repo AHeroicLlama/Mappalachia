@@ -13,6 +13,8 @@ Using SQLite, a single batch file creates the empty database structure, then ins
 ## Game Version
 The game version string is baked into the database. If you have Fallout 76 installed in the default Steam location, you may enable automatic game version detection by downloading [`sigcheck.exe`](https://docs.microsoft.com/en-gb/sysinternals/downloads/sigcheck) from Sysinternals and placing it in the database folder - if so, the game version string will be automatically gathered from `Fallout76.exe`.<br/>
 Otherwise, before running `build_database.bat`, ensure the correct game version string is stored in `gameVersion.csv`.<br/>
+<br/>
+Sometimes the version of the exe will differ from the version given in-game. The recommended rule is that the version in-game (bottom-left of settings menu) trumps the version of the exe. Where this is the case, you must call the batch script with the `override` argument. This prevents sigcheck from modifying `gameVersion.csv` and instead trusts the value you should have entered into the file previously.
 
 ## Building the database
 Before we can build the database, we need a copy of the sqlite tools windows binary, called sqlite3.exe. This is distributed at the [SQLite downloads page](https://www.sqlite.org/download.html). Under 'Precompiled Binaries for Windows' find the sqlite-tools zip.<br/>
