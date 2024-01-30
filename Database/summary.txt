@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.45.0 2024-01-15 17:01:13 1066602b2b1976fe58b5150777cced894af17c803e068f5918390d6915b46e1d (64-bit)
 ==Checksum== 
-19d1f74ba27a720361a68462642bad42
+7ee0cf97365cf5541fd326cb3cd4dc0f
 ==File Size== 
-449691648 
+449679360 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.8.10
+1.7.9.7
 ==Mean Average X/Y/Z Coord==
--11542.1491666802|4354.97236499601|11401.7878800141
+-11543.8823400728|4355.54119308985|11401.8958248722
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-50907|136069
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 74
 ==Average X Bounds Width==
-21.8197249031648
+21.8149244140989
 ==Average Y Bounds Width==
-16.3040532222077
+16.2985113354327
 ==Average Z Bounds Width==
-15.2882792738574
+15.2829144471585
 ==Average Z Rotation==
-4.11085858994601
+4.11035320835418
 ==Average display name string length==
-2.73819537590652
+2.73801350398982
 ==Average editorID string length==
-25.0667924614091
+25.0670198013049
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -747,8 +747,8 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3016750
-Appalachia|Box|63636
+Appalachia||3016717
+Appalachia|Box|63637
 Appalachia|Ellipsoid|3
 Appalachia|Line|1802
 Appalachia|Plane|105
@@ -989,8 +989,8 @@ SheltersCave02||574
 SheltersCave02|Box|34
 SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
-SheltersHighStakes||2533
-SheltersHighStakes|Box|133
+SheltersHighStakes||2536
+SheltersHighStakes|Box|81
 SheltersMissileSilo||442
 SheltersMissileSilo|Box|51
 SheltersPittTrench01||1009
@@ -1134,17 +1134,17 @@ WhitespringMall01||6810
 WhitespringMall01|Box|137
 WhitespringRefuge01||11459
 WhitespringRefuge01|Box|226
-XPDAC01Casino||13235
+XPDAC01Casino||13256
 XPDAC01Casino|Box|473
 XPDAC01Casino|Plane|1
-XPDAC01EntertainmentDistrict||6257
+XPDAC01EntertainmentDistrict||6254
 XPDAC01EntertainmentDistrict|Box|534
 XPDAC01NightClub||2738
 XPDAC01NightClub|Box|213
 XPDAC02Aquarium||15525
 XPDAC02Aquarium|Box|516
-XPDAC02Boardwalk||9821
-XPDAC02Boardwalk|Box|760
+XPDAC02Boardwalk||9822
+XPDAC02Boardwalk|Box|761
 XPDAC02Boardwalk|Sphere|2
 XPDAC02Pier||7074
 XPDAC02Pier|Box|230
@@ -1154,8 +1154,8 @@ XPDAC03CommunityCenter||4602
 XPDAC03CommunityCenter|Box|38
 XPDAC03FloodedCityCenter||19992
 XPDAC03FloodedCityCenter|Box|67
-XPDPitt01Foundry||16376
-XPDPitt01Foundry|Box|555
+XPDPitt01Foundry||16368
+XPDPitt01Foundry|Box|558
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
 XPDPitt01Industrial||18823
@@ -1193,7 +1193,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3083573
+Appalachia||3083541
 Appalachia|Advanced (Level 1)|322
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1485,7 +1485,7 @@ SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
-SheltersHighStakes||2666
+SheltersHighStakes||2617
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
@@ -1657,13 +1657,13 @@ WhitespringRefuge01||11656
 WhitespringRefuge01|Advanced (Level 1)|2
 WhitespringRefuge01|Inaccessible|21
 WhitespringRefuge01|Novice (Level 0)|6
-XPDAC01Casino||13681
+XPDAC01Casino||13702
 XPDAC01Casino|Advanced (Level 1)|5
 XPDAC01Casino|Inaccessible|3
 XPDAC01Casino|Master (Level 3)|5
 XPDAC01Casino|Novice (Level 0)|14
 XPDAC01Casino|Requires Terminal|1
-XPDAC01EntertainmentDistrict||6784
+XPDAC01EntertainmentDistrict||6781
 XPDAC01EntertainmentDistrict|Advanced (Level 1)|4
 XPDAC01EntertainmentDistrict|Expert (Level 2)|1
 XPDAC01EntertainmentDistrict|Inaccessible|1
@@ -1675,7 +1675,7 @@ XPDAC01NightClub|Novice (Level 0)|1
 XPDAC02Aquarium||16039
 XPDAC02Aquarium|Expert (Level 2)|1
 XPDAC02Aquarium|Novice (Level 0)|1
-XPDAC02Boardwalk||10572
+XPDAC02Boardwalk||10574
 XPDAC02Boardwalk|Expert (Level 2)|1
 XPDAC02Boardwalk|Inaccessible|1
 XPDAC02Boardwalk|Master (Level 3)|1
@@ -1693,7 +1693,7 @@ XPDAC03FloodedCityCenter||20046
 XPDAC03FloodedCityCenter|Advanced (Level 1)|5
 XPDAC03FloodedCityCenter|Expert (Level 2)|1
 XPDAC03FloodedCityCenter|Novice (Level 0)|7
-XPDPitt01Foundry||16906
+XPDPitt01Foundry||16901
 XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
@@ -1805,7 +1805,7 @@ Appalachia|ASPC|2377
 Appalachia|BNDS|10373
 Appalachia|BOOK|495
 Appalachia|CNCY|257
-Appalachia|CONT|12518
+Appalachia|CONT|12515
 Appalachia|DOOR|2526
 Appalachia|FLOR|45207
 Appalachia|FURN|15106
@@ -1813,16 +1813,16 @@ Appalachia|HAZD|995
 Appalachia|IDLM|16918
 Appalachia|KEYM|36
 Appalachia|LIGH|8359
-Appalachia|LVLI|71746
-Appalachia|MISC|36053
-Appalachia|MSTT|23185
+Appalachia|LVLI|71744
+Appalachia|MISC|36047
+Appalachia|MSTT|23179
 Appalachia|NOTE|178
 Appalachia|NPC_|7407
 Appalachia|PROJ|93
 Appalachia|SCOL|353403
 Appalachia|SECH|253
 Appalachia|SOUN|5923
-Appalachia|STAT|2385531
+Appalachia|STAT|2385516
 Appalachia|TACT|62
 Appalachia|TERM|371
 Appalachia|TXST|62869
@@ -3396,10 +3396,10 @@ SheltersClaimCenter01|SCOL|14
 SheltersClaimCenter01|STAT|763
 SheltersClaimCenter01|TERM|1
 SheltersClaimCenter01|TXST|50
-SheltersHighStakes|ACTI|130
+SheltersHighStakes|ACTI|78
 SheltersHighStakes|DOOR|3
-SheltersHighStakes|LIGH|93
-SheltersHighStakes|STAT|2440
+SheltersHighStakes|LIGH|91
+SheltersHighStakes|STAT|2445
 SheltersMissileSilo|ACTI|9
 SheltersMissileSilo|LIGH|15
 SheltersMissileSilo|MSTT|9
@@ -4295,15 +4295,15 @@ WhitespringRefuge01|STAT|9527
 WhitespringRefuge01|TERM|5
 WhitespringRefuge01|TXST|41
 WhitespringRefuge01|WEAP|4
-XPDAC01Casino|ACTI|262
+XPDAC01Casino|ACTI|272
 XPDAC01Casino|ALCH|3
 XPDAC01Casino|ARMO|1
 XPDAC01Casino|ASPC|2
 XPDAC01Casino|BNDS|47
 XPDAC01Casino|BOOK|21
-XPDAC01Casino|CONT|225
+XPDAC01Casino|CONT|229
 XPDAC01Casino|DOOR|75
-XPDAC01Casino|FURN|295
+XPDAC01Casino|FURN|291
 XPDAC01Casino|HAZD|1
 XPDAC01Casino|IDLM|140
 XPDAC01Casino|KEYM|2
@@ -4314,7 +4314,7 @@ XPDAC01Casino|MSTT|285
 XPDAC01Casino|NPC_|69
 XPDAC01Casino|SCOL|377
 XPDAC01Casino|SOUN|12
-XPDAC01Casino|STAT|9876
+XPDAC01Casino|STAT|9887
 XPDAC01Casino|TERM|6
 XPDAC01Casino|TXST|277
 XPDAC01EntertainmentDistrict|ACTI|61
@@ -4331,7 +4331,7 @@ XPDAC01EntertainmentDistrict|NPC_|82
 XPDAC01EntertainmentDistrict|SCOL|902
 XPDAC01EntertainmentDistrict|SECH|2
 XPDAC01EntertainmentDistrict|SOUN|7
-XPDAC01EntertainmentDistrict|STAT|4749
+XPDAC01EntertainmentDistrict|STAT|4746
 XPDAC01EntertainmentDistrict|TXST|453
 XPDAC01NightClub|ACTI|32
 XPDAC01NightClub|ALCH|3
@@ -4385,7 +4385,7 @@ XPDAC02Boardwalk|NPC_|56
 XPDAC02Boardwalk|SCOL|769
 XPDAC02Boardwalk|SECH|16
 XPDAC02Boardwalk|SOUN|25
-XPDAC02Boardwalk|STAT|7281
+XPDAC02Boardwalk|STAT|7283
 XPDAC02Boardwalk|TERM|1
 XPDAC02Boardwalk|TXST|546
 XPDAC02Pier|ACTI|228
@@ -4454,7 +4454,7 @@ XPDAC03FloodedCityCenter|SCOL|717
 XPDAC03FloodedCityCenter|STAT|18542
 XPDAC03FloodedCityCenter|TERM|2
 XPDAC03FloodedCityCenter|TXST|2
-XPDPitt01Foundry|ACTI|235
+XPDPitt01Foundry|ACTI|238
 XPDPitt01Foundry|AMMO|18
 XPDPitt01Foundry|ARMO|9
 XPDPitt01Foundry|BNDS|5
@@ -4472,7 +4472,7 @@ XPDPitt01Foundry|NOTE|2
 XPDPitt01Foundry|NPC_|81
 XPDPitt01Foundry|SCOL|1911
 XPDPitt01Foundry|SOUN|39
-XPDPitt01Foundry|STAT|11229
+XPDPitt01Foundry|STAT|11221
 XPDPitt01Foundry|TERM|3
 XPDPitt01Foundry|TXST|574
 XPDPitt01Foundry|WEAP|6
@@ -4650,7 +4650,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3079120
+Appalachia||3079088
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -12436,7 +12436,7 @@ SettlerBugOutCave|W05_MQ_101P_B_AubrieDeadEnableMarkerRef|1
 SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||976
-SheltersHighStakes||2666
+SheltersHighStakes||2617
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
@@ -14225,7 +14225,7 @@ WhitespringRefuge01|XPD_Hub_Responders_SkippyMarker_Junk|1
 WhitespringRefuge01|XPD_Hub_Responders_SkippyMarker_MissionHub|1
 WhitespringRefuge01|XPD_JeremiahRef|1
 WhitespringRefuge01|XPD_WhitespringGreeterRef|1
-XPDAC01Casino||13675
+XPDAC01Casino||13696
 XPDAC01Casino|AC_MQ02_Stage_CasinoExitMarker|1
 XPDAC01Casino|AC_MQ02_Stage_OutsideLoungeTrigger|1
 XPDAC01Casino|AC_MQ02_Stage_PokerGameTrigger|1
@@ -14260,7 +14260,7 @@ XPDAC01Casino|XPD_AC02_SolveLocksMarker06_Ref|1
 XPDAC01Casino|XPD_AC02_SolveLocksMarker07_Ref|1
 XPDAC01Casino|XPD_AC02_SolveLocksMarker08_Ref|1
 XPDAC01Casino|XPD_AC_CasinoFriendliesDisabler_Ref|1
-XPDAC01EntertainmentDistrict||6782
+XPDAC01EntertainmentDistrict||6779
 XPDAC01EntertainmentDistrict|AC_MQ02_Stage_CasinoQuarterToBoardwalk_Marker|1
 XPDAC01EntertainmentDistrict|AC_MQ02_Stage_Evelyn_CasinoQuarter|1
 XPDAC01EntertainmentDistrict|AC_SQ05_CasinoQuarter_PersistentMarker_REF|1
@@ -14317,7 +14317,7 @@ XPDAC02Aquarium|XPD_AC02_Theater_ProxTrigger|1
 XPDAC02Aquarium|XPD_AC02_VIPBoothDoor|1
 XPDAC02Aquarium|XPD_AC02_Veracio_WallLean_Aquarium|1
 XPDAC02Aquarium|XPD_AC02_WinnersStageMarker|1
-XPDAC02Boardwalk||10539
+XPDAC02Boardwalk||10541
 XPDAC02Boardwalk|AC_MQ02_Stage_TicketClerkRef|1
 XPDAC02Boardwalk|AC_SQ03_BackRoomTrigger|1
 XPDAC02Boardwalk|AC_SQ03_BoardwalkToPier_Marker|1
@@ -14453,7 +14453,7 @@ XPDAC03FloodedCityCenter|XPD_AC03_DefendNPC_Ref|1
 XPDAC03FloodedCityCenter|XPD_AC03_IntroAuditorCombatantsSpawnCenter_Ref|1
 XPDAC03FloodedCityCenter|XPD_AC03_IntroOvergrown_SpawnMarkerRef|1
 XPDAC03FloodedCityCenter|XPD_AC03_PersistentMarker_FloodedCityCenter_Ref|1
-XPDPitt01Foundry||16874
+XPDPitt01Foundry||16869
 XPDPitt01Foundry|EXM1Pitt1_Shipping_Door_Interior0|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint00|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint01|1
@@ -15066,7 +15066,7 @@ AlleghenyAsylum01|100|15013
 Appalachia|50|43
 Appalachia|75|142
 Appalachia|85|72
-Appalachia|100|3084384
+Appalachia|100|3084352
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17161
@@ -15175,7 +15175,7 @@ SettlerBugOutCave|100|372
 SheltersCave01|100|534
 SheltersCave02|100|608
 SheltersClaimCenter01|100|976
-SheltersHighStakes|100|2666
+SheltersHighStakes|100|2617
 SheltersMissileSilo|100|493
 SheltersPittTrench01|100|1142
 SheltersRootCellar|100|595
@@ -15248,12 +15248,12 @@ WestTek02|100|5126
 WhitespringBunker01|100|16333
 WhitespringMall01|100|6947
 WhitespringRefuge01|100|11685
-XPDAC01Casino|100|13709
-XPDAC01EntertainmentDistrict|100|6791
+XPDAC01Casino|100|13730
+XPDAC01EntertainmentDistrict|100|6788
 XPDAC01NightClub|100|2951
 XPDAC02Aquarium|100|16041
 XPDAC02Boardwalk|75|1
-XPDAC02Boardwalk|100|10582
+XPDAC02Boardwalk|100|10584
 XPDAC02Pier|75|2
 XPDAC02Pier|100|7302
 XPDAC03CityHall|100|4106
@@ -15261,7 +15261,7 @@ XPDAC03CommunityCenter|100|4640
 XPDAC03FloodedCityCenter|100|20059
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
-XPDPitt01Foundry|100|16918
+XPDPitt01Foundry|100|16913
 XPDPitt01Industrial|50|4
 XPDPitt01Industrial|75|3
 XPDPitt01Industrial|100|20262
@@ -15381,14 +15381,14 @@ AlleghenyAsylum01|Steel|254|168
 AlleghenyAsylum01|Wood|94|71
 Appalachia|Acid|1371|886
 Appalachia|Adhesive|1171|498
-Appalachia|Aluminum|2145|1512
+Appalachia|Aluminum|2144|1511
 Appalachia|Antiseptic|882|418
-Appalachia|Asbestos|1624|1209
+Appalachia|Asbestos|1623|1208
 Appalachia|Ballistic Fiber|188|94
 Appalachia|Bone|3432|1310
 Appalachia|Ceramic|3838|3310
 Appalachia|Circuitry|472|371
-Appalachia|Cloth|5804|5165
+Appalachia|Cloth|5802|5163
 Appalachia|Concrete|2315|423
 Appalachia|Copper|1525|1442
 Appalachia|Cork|631|513
@@ -15400,18 +15400,18 @@ Appalachia|Gear|1152|972
 Appalachia|Glass|9062|7493
 Appalachia|Gold|80|80
 Appalachia|Gunpowder|1|1
-Appalachia|Lead|5306|3071
+Appalachia|Lead|5305|3070
 Appalachia|Leather|1922|866
 Appalachia|Nuclear Material|139|139
 Appalachia|Oil|3689|2464
-Appalachia|Plastic|5760|4087
-Appalachia|Rubber|2000|1210
+Appalachia|Plastic|5759|4086
+Appalachia|Rubber|1998|1209
 Appalachia|Screw|1198|1070
 Appalachia|Silver|270|227
-Appalachia|Spring|1296|1265
-Appalachia|Steel|15634|9329
+Appalachia|Spring|1295|1264
+Appalachia|Steel|15630|9327
 Appalachia|Ultracite|1|1
-Appalachia|Wood|4832|3368
+Appalachia|Wood|4831|3367
 ArktosPharmaLab01|Acid|48|33
 ArktosPharmaLab01|Adhesive|10|3
 ArktosPharmaLab01|Aluminum|31|25
@@ -18681,4 +18681,4 @@ WestTek01|Super Mutant|100.0|41
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4077546|4077546
+4077480|4077480
