@@ -1,11 +1,11 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.45.0 2024-01-15 17:01:13 1066602b2b1976fe58b5150777cced894af17c803e068f5918390d6915b46e1d (64-bit)
+3.45.2 2024-03-12 11:06:23 d8cd6d49b46a395b13955387d05e9e1a2a47e54fb99f3c9b59835bbefad6af77 (64-bit)
 ==Checksum== 
-7ee0cf97365cf5541fd326cb3cd4dc0f
+084049d39b4bfbacee762a3a9ac1363b
 ==File Size== 
-449679360 
+455102464 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.9.7
+1.7.10.12
 ==Mean Average X/Y/Z Coord==
--11543.8823400728|4355.54119308985|11401.8958248722
+-11438.7424961503|4351.25900924584|11290.7856351356
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-50907|136069
 ==100 most common xyz coordinates + count==
@@ -34,7 +34,7 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 3642|-626|273|42
 3816|1208|263|42
 4115|2168|262|42
-0|0|0|41
+0|0|0|40
 39101|14406|35188|40
 624|-1848|-1112|38
 3696|-6968|-1112|37
@@ -45,47 +45,46 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -2850|4792|572|34
 -128|1664|-608|34
 0|256|0|34
-1536|0|0|34
-0|1024|0|33
-256|1536|0|33
+1536|0|0|33
 -1216|2352|128|32
-0|768|0|32
+256|1536|0|32
 960|2352|128|32
--256|1024|0|31
+0|768|0|31
 -512|768|0|30
 -512|1024|0|30
--256|768|0|29
-0|-256|0|29
+-256|1024|0|29
+0|1024|0|29
 1024|1792|-608|29
 -129108|-37082|6630|28
 -79616|-138368|30208|28
+-256|768|0|28
 1920|1664|512|28
 2176|1664|512|28
 2176|1920|512|28
 -11852|-31565|3080|27
 -8774|-28029|3591|27
--256|0|0|27
+0|-256|0|27
 -79616|-138368|28096|26
+-256|0|0|26
 512|1024|256|26
-0|1280|0|25
-512|1024|0|25
-512|1536|0|25
+1792|768|0|26
 1280|1792|-608|25
-1536|-256|0|25
 1648|-1848|-1112|25
-1792|768|0|25
 4898|1543|-251|25
 -6016|-32034|3328|24
 -6016|-32034|4096|24
--512|256|0|24
-256|1024|0|24
+-2688|-5504|512|24
+0|1280|0|24
+512|1024|0|24
+512|1536|0|24
 768|1536|0|24
 1024|1536|0|24
 1280|3840|512|24
+1536|-256|0|24
 1920|-2944|0|24
 1920|-2176|0|24
-256|-256|0|23
-256|0|0|23
+-512|256|0|23
+-512|640|0|23
 512|-512|0|23
 1024|768|0|23
 1408|-128|256|23
@@ -95,22 +94,24 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -12313|-9137|4261|22
 -11535|1118|-276|22
 -3708|-154012|33461|22
--768|0|0|22
--512|640|0|22
 0|512|0|22
+256|1024|0|22
 768|1792|256|22
 896|896|256|22
 1152|1536|0|22
 1280|768|256|22
 1664|1920|512|22
+1920|-2176|384|22
 2560|-2944|0|22
 33916|77986|21778|22
 -12363|-8955|4261|21
 -12215|-9011|4437|21
 -10406|404|-459|21
+-768|0|0|21
 -6|-11|-2289|21
 0|1024|256|21
-256|1280|0|21
+256|-256|0|21
+256|0|0|21
 256|4224|512|21
 512|4224|512|21
 1024|-256|0|21
@@ -119,21 +120,20 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 1280|3200|512|21
 1280|3328|512|21
 1280|3584|512|21
-1280|4096|512|21
 ==Z outliers==
 74
 ==Average X Bounds Width==
-21.8149244140989
+22.3373151008547
 ==Average Y Bounds Width==
-16.2985113354327
+16.5683214043823
 ==Average Z Bounds Width==
-15.2829144471585
+15.880529489518
 ==Average Z Rotation==
-4.11035320835418
+4.16760068899983
 ==Average display name string length==
-2.73801350398982
+2.73372474917893
 ==Average editorID string length==
-25.0670198013049
+25.1229360687452
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -207,6 +207,7 @@ Appalachia|CabinMarker|Pioneer Scout Camp|3600|137867
 Appalachia|CabinMarker|Pylon Ambush Site|-82630|-92095
 Appalachia|CabinMarker|Seneca Rocks Visitor Center|55774|56635
 Appalachia|CabinMarker|Sunday Brothers' Cabin|138232|1426
+Appalachia|CabinMarker|Surly's Shack|-81000|202063
 Appalachia|CapitalBuildingMarker|Charleston Capitol Building|-91983|-57828
 Appalachia|CastleMarker|Prickett's Fort|60920|193668
 Appalachia|CaveMarker|Abandoned Waste Dump|185034|26724
@@ -215,6 +216,7 @@ Appalachia|CaveMarker|Gauley Mine|-58605|62688
 Appalachia|CaveMarker|Gauley Mine Exit|-47691|71024
 Appalachia|CaveMarker|Hopewell Cave|114047|114129
 Appalachia|CaveMarker|Makeshift Vault|-83329|160208
+Appalachia|CaveMarker|Mire's Eye|194133|186953
 Appalachia|CaveMarker|Mysterious Cave|143425|200808
 Appalachia|CaveMarker|The Deep|-34473|-38131
 Appalachia|CaveMarker|Uncanny Caverns|-41528|-89947
@@ -230,7 +232,6 @@ Appalachia|CowSpotsCreameryMarker|Cow Spots Creamery|-124481|-14415
 Appalachia|CowSpotsCreameryMarker|Lady Janet's Soft Serve|-103994|152996
 Appalachia|CultistMarker|Blakes Offering|199894|-36612
 Appalachia|CultistMarker|Clancy Manor|-92174|182999
-Appalachia|CultistMarker|Ingram Mansion|26293|99600
 Appalachia|CultistMarker|Johnson's Acre|74465|-179824
 Appalachia|CultistMarker|Kanawha County Cemetery|-176698|-24065
 Appalachia|CultistMarker|Lucky Hole Mine|88918|-138108
@@ -356,6 +357,7 @@ Appalachia|LowRiseMarker|Ranger District Office|149723|-90368
 Appalachia|LowRiseMarker|The Whitespring Service Entrance|7427|-58385
 Appalachia|MansionMarker|Hornwright Summer Villa|-47674|-54542
 Appalachia|MansionMarker|Riverside Manor|-70715|-70220
+Appalachia|MansionMarker|The Rose Room|26293|99600
 Appalachia|MansionMarker|Torrance House|-55628|-61977
 Appalachia|MilitaryBaseMarker|Camp McClintock|-69224|-12781
 Appalachia|MilitaryBaseMarker|Firebase Hancock|109835|-172982
@@ -534,7 +536,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-43987
+44454
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|55
@@ -747,11 +749,11 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14278
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3016717
-Appalachia|Box|63637
+Appalachia||3017080
+Appalachia|Box|63700
 Appalachia|Ellipsoid|3
 Appalachia|Line|1802
-Appalachia|Plane|105
+Appalachia|Plane|106
 Appalachia|Sphere|2345
 ArktosPharmaLab01||15650
 ArktosPharmaLab01|Box|1483
@@ -766,7 +768,7 @@ ArktosPharmaLabDungeon|Sphere|4
 BelchingBetty01||5088
 BelchingBetty01|Box|124
 BelchingBetty01|Line|6
-BigBendTunnel01||6829
+BigBendTunnel01||6828
 BigBendTunnel01|Box|721
 BigBendTunnel01|Sphere|1
 BlackwaterMine01||5836
@@ -837,13 +839,13 @@ EmmettMountainDisposalSite01|Line|1
 EmmettMountainDisposalSite01|Sphere|1
 EnclaveResearchFacility01||17862
 EnclaveResearchFacility01|Box|880
-FortAtlas01||4947
+FortAtlas01||4948
 FortAtlas01|Box|237
 FortAtlasDungeon01||12349
 FortAtlasDungeon01|Box|308
 FortAtlasDungeon01|Sphere|8
-FoundationInt01||4998
-FoundationInt01|Box|370
+FoundationInt01||5001
+FoundationInt01|Box|371
 FoundationInt01|Line|4
 FoundationSupplyRoom01||521
 FoundationSupplyRoom01|Box|8
@@ -864,7 +866,7 @@ FreeStatesBunker06||910
 FreeStatesBunker06|Box|38
 FreeStatesBunker06|Line|1
 FreeStatesBunker07||1003
-FreeStatesBunker07|Box|46
+FreeStatesBunker07|Box|47
 GarrahanMiningHQ01||8860
 GarrahanMiningHQ01|Box|330
 GarrahanMiningHQ01|Line|3
@@ -875,7 +877,7 @@ GarrahanMiningHQDungeon|Line|2
 GarrahanMiningHQDungeon|Sphere|1
 GauleyMine01||4017
 GauleyMine01|Box|160
-GlassedCavern01||8291
+GlassedCavern01||8292
 GlassedCavern01|Box|742
 GlassedCavern01|Line|4
 GlassedCavern01|Sphere|6
@@ -896,13 +898,13 @@ HornwrightHQ01|Plane|3
 HornwrightHQ01|Sphere|1
 HornwrightSafeRoom01||1017
 HornwrightSafeRoom01|Box|27
-IngramMansion01||934
-IngramMansion01|Box|2
 KerwoodMine01||5287
 KerwoodMine01|Box|373
 KerwoodMine01|Line|7
 LewisandSonsFarmingSupply01||458
 LewisandSonsFarmingSupply01|Box|3
+LittleRobsHideout01||1363
+LittleRobsHideout01|Box|96
 LousMine01||6719
 LousMine01|Box|268
 LousMine01|Line|5
@@ -914,6 +916,8 @@ MTR08LodeBaring02|Box|174
 MTR08LodeBaring02|Line|1
 MamaDolceProcessing01||2940
 MamaDolceProcessing01|Box|134
+MiresEye01||1529
+MiresEye01|Box|152
 MonongahMine01||6097
 MonongahMine01|Box|825
 MonongahMine01|Sphere|1
@@ -935,7 +939,7 @@ MorgantownHighSchoolDungeon|Box|159
 MorgantownHighSchoolDungeon|Sphere|1
 MountBlairWarehouseBasement01||312
 MountBlairWarehouseBasement01|Box|7
-NPECultistCave||3989
+NPECultistCave||3987
 NPECultistCave|Box|256
 NPEVault7601||6921
 NPEVault7601|Box|141
@@ -952,20 +956,16 @@ OrwellOrchardsShelter01|Box|52
 OrwellOrchardsShelter01|Sphere|1
 OverseersHome01||1208
 OverseersHome01|Box|42
-PoseidonPlant01||15283
-PoseidonPlant01|Box|373
+PoseidonPlant01||15281
+PoseidonPlant01|Box|374
 PoseidonPlant01|Line|4
 PoseidonPlant02||3827
 PoseidonPlant02|Box|360
 PoseidonPlant02|Line|2
 RadioResearchCenter01||3328
 RadioResearchCenter01|Box|144
-RaiderCave01||1350
-RaiderCave01|Box|94
 RaiderCave02||1733
 RaiderCave02|Box|141
-RaiderCave03||1529
-RaiderCave03|Box|152
 RaiderRaidTrailerInt||95
 RaiderRaidTrailerInt|Box|11
 RiversideManor01||7072
@@ -989,6 +989,8 @@ SheltersCave02||574
 SheltersCave02|Box|34
 SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
+SheltersFlatlands||1016
+SheltersFlatlands|Box|518
 SheltersHighStakes||2536
 SheltersHighStakes|Box|81
 SheltersMissileSilo||442
@@ -1023,14 +1025,18 @@ SugarGrove02||270
 SugarGrove02|Box|1
 SugarGroveMissileSilo01||15061
 SugarGroveMissileSilo01|Box|629
-TheCraterCore01||1233
+SurlysShack01||92
+SurlysShack01|Box|29
+TheCraterCore01||1236
 TheCraterCore01|Box|47
 TheCraterCore01|Plane|9
-TheNukashine01||1475
-TheNukashine01|Box|63
+TheNukashine01||1465
+TheNukashine01|Box|55
+TheRoseRoom01||1502
+TheRoseRoom01|Box|37
 TheRustyPick01||2355
 TheRustyPick01|Box|87
-TheWayward01||1660
+TheWayward01||1659
 TheWayward01|Box|59
 ThunderMtPowerPlant01||8918
 ThunderMtPowerPlant01|Box|493
@@ -1040,7 +1046,7 @@ TopOfTheWorld01||4236
 TopOfTheWorld01|Box|413
 TopOfTheWorld01|Line|2
 TopOfTheWorld01|Sphere|1
-TunnelOfLoveMineshaft01||4305
+TunnelOfLoveMineshaft01||4306
 TunnelOfLoveMineshaft01|Box|116
 TunnelOfLoveMineshaft01|Plane|1
 UCB01||4434
@@ -1055,7 +1061,7 @@ UncannyCaverns01|Line|1
 UncannyCaverns01|Sphere|2
 UncannyCaverns02||2955
 UncannyCaverns02|Box|236
-UncannyCavernsDungeon||6748
+UncannyCavernsDungeon||6749
 UncannyCavernsDungeon|Box|658
 UncannyCavernsDungeon|Line|1
 UncannyCavernsDungeon|Sphere|3
@@ -1074,7 +1080,7 @@ Vault51Dungeon|Plane|4
 Vault51Dungeon|Sphere|2
 Vault63Entrance||312
 Vault63Entrance|Box|38
-Vault79Entrance||1466
+Vault79Entrance||1465
 Vault79Entrance|Box|80
 Vault79GoldVaultOperations||4654
 Vault79GoldVaultOperations|Box|44
@@ -1082,7 +1088,7 @@ Vault79Main||18141
 Vault79Main|Box|705
 Vault79Main|Line|5
 Vault94Dungeon||16120
-Vault94Dungeon|Box|1349
+Vault94Dungeon|Box|1350
 Vault94Dungeon|Line|10
 Vault94Dungeon|Sphere|4
 Vault94DungeonGECK||4321
@@ -1132,39 +1138,49 @@ WhitespringBunker01||15833
 WhitespringBunker01|Box|500
 WhitespringMall01||6810
 WhitespringMall01|Box|137
-WhitespringRefuge01||11459
+WhitespringRefuge01||11462
 WhitespringRefuge01|Box|226
-XPDAC01Casino||13256
-XPDAC01Casino|Box|473
+XPDAC01Casino||13336
+XPDAC01Casino|Box|474
 XPDAC01Casino|Plane|1
-XPDAC01EntertainmentDistrict||6254
-XPDAC01EntertainmentDistrict|Box|534
-XPDAC01NightClub||2738
+XPDAC01EntertainmentDistrict||6275
+XPDAC01EntertainmentDistrict|Box|518
+XPDAC01NightClub||2783
 XPDAC01NightClub|Box|213
-XPDAC02Aquarium||15525
-XPDAC02Aquarium|Box|516
-XPDAC02Boardwalk||9822
-XPDAC02Boardwalk|Box|761
+XPDAC02Aquarium||15613
+XPDAC02Aquarium|Box|514
+XPDAC02AquariumDungeon||15342
+XPDAC02AquariumDungeon|Box|489
+XPDAC02AquariumDungeon|Sphere|1
+XPDAC02Boardwalk||9989
+XPDAC02Boardwalk|Box|765
 XPDAC02Boardwalk|Sphere|2
-XPDAC02Pier||7074
-XPDAC02Pier|Box|230
-XPDAC03CityHall||4102
-XPDAC03CityHall|Box|4
-XPDAC03CommunityCenter||4602
-XPDAC03CommunityCenter|Box|38
-XPDAC03FloodedCityCenter||19992
-XPDAC03FloodedCityCenter|Box|67
-XPDPitt01Foundry||16368
+XPDAC02Pier||7228
+XPDAC02Pier|Box|246
+XPDAC02Pier|Plane|2
+XPDAC03CityHall||5948
+XPDAC03CityHall|Box|47
+XPDAC03CityHall|Plane|7
+XPDAC03CommunityCenter||11127
+XPDAC03CommunityCenter|Box|526
+XPDAC03FloodedCityCenter||16129
+XPDAC03FloodedCityCenter|Box|950
+XPDAC03FloodedCityCenter|Plane|5
+XPDPitt01Foundry||16367
 XPDPitt01Foundry|Box|558
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
+XPDPitt01FoundryDungeon||14865
+XPDPitt01FoundryDungeon|Box|485
+XPDPitt01FoundryDungeon|Plane|6
+XPDPitt01FoundryDungeon|Sphere|1
 XPDPitt01Industrial||18823
 XPDPitt01Industrial|Box|1445
 XPDPitt01Industrial|Sphere|1
 XPDPitt02ACCJ||15
 XPDPitt02Sanctum||17557
 XPDPitt02Sanctum|Box|477
-XPDPitt02Trench||19687
+XPDPitt02Trench||19686
 XPDPitt02Trench|Box|1550
 XPDRttP01SteelTower||10029
 XPDRttP01SteelTower|Box|46
@@ -1193,12 +1209,12 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3083541
+Appalachia||3083969
 Appalachia|Advanced (Level 1)|322
 Appalachia|Barred|1
 Appalachia|Chained|1
 Appalachia|Expert (Level 2)|198
-Appalachia|Inaccessible|23
+Appalachia|Inaccessible|22
 Appalachia|Master (Level 3)|86
 Appalachia|Novice (Level 0)|337
 Appalachia|Requires Key|90
@@ -1217,7 +1233,7 @@ BelchingBetty01||5213
 BelchingBetty01|Advanced (Level 1)|1
 BelchingBetty01|Requires Key|3
 BelchingBetty01|Requires Terminal|1
-BigBendTunnel01||7538
+BigBendTunnel01||7537
 BigBendTunnel01|Advanced (Level 1)|4
 BigBendTunnel01|Chained|1
 BigBendTunnel01|Expert (Level 2)|1
@@ -1299,7 +1315,7 @@ EnclaveResearchFacility01|Expert (Level 2)|2
 EnclaveResearchFacility01|Inaccessible|4
 EnclaveResearchFacility01|Master (Level 3)|1
 EnclaveResearchFacility01|Novice (Level 0)|8
-FortAtlas01||5180
+FortAtlas01||5181
 FortAtlas01|Master (Level 3)|1
 FortAtlas01|Novice (Level 0)|2
 FortAtlas01|Requires Terminal|1
@@ -1308,7 +1324,7 @@ FortAtlasDungeon01|Advanced (Level 1)|1
 FortAtlasDungeon01|Expert (Level 2)|1
 FortAtlasDungeon01|Novice (Level 0)|3
 FortAtlasDungeon01|Requires Terminal|1
-FoundationInt01||5372
+FoundationInt01||5376
 FoundationSupplyRoom01||529
 FraternityHouse01||1215
 FraternityHouse01|Advanced (Level 1)|1
@@ -1326,7 +1342,7 @@ FreeStatesBunker04|Advanced (Level 1)|1
 FreeStatesBunker04|Expert (Level 2)|1
 FreeStatesBunker06||948
 FreeStatesBunker06|Expert (Level 2)|1
-FreeStatesBunker07||1048
+FreeStatesBunker07||1049
 FreeStatesBunker07|Expert (Level 2)|1
 GarrahanMiningHQ01||9187
 GarrahanMiningHQ01|Advanced (Level 1)|1
@@ -1341,7 +1357,7 @@ GauleyMine01||4172
 GauleyMine01|Advanced (Level 1)|2
 GauleyMine01|Inaccessible|1
 GauleyMine01|Novice (Level 0)|2
-GlassedCavern01||9034
+GlassedCavern01||9035
 GlassedCavern01|Advanced (Level 1)|3
 GlassedCavern01|Expert (Level 2)|2
 GlassedCavern01|Master (Level 3)|1
@@ -1366,9 +1382,6 @@ HornwrightHQ01|Novice (Level 0)|1
 HornwrightHQ01|Requires Key|3
 HornwrightSafeRoom01||1043
 HornwrightSafeRoom01|Requires Key|1
-IngramMansion01||933
-IngramMansion01|Advanced (Level 1)|1
-IngramMansion01|Inaccessible|2
 KerwoodMine01||5656
 KerwoodMine01|Advanced (Level 1)|1
 KerwoodMine01|Expert (Level 2)|2
@@ -1377,6 +1390,8 @@ KerwoodMine01|Novice (Level 0)|1
 KerwoodMine01|Requires Key|6
 LewisandSonsFarmingSupply01||460
 LewisandSonsFarmingSupply01|Novice (Level 0)|1
+LittleRobsHideout01||1458
+LittleRobsHideout01|Novice (Level 0)|1
 LousMine01||6985
 LousMine01|Advanced (Level 1)|1
 LousMine01|Novice (Level 0)|3
@@ -1388,6 +1403,7 @@ MTR08LodeBaring02|Novice (Level 0)|1
 MamaDolceProcessing01||3067
 MamaDolceProcessing01|Advanced (Level 1)|5
 MamaDolceProcessing01|Novice (Level 0)|2
+MiresEye01||1681
 MonongahMine01||6921
 MonongahMine01|Inaccessible|1
 MonongahMine01|Novice (Level 0)|1
@@ -1416,7 +1432,7 @@ MorgantownHighSchoolDungeon||5558
 MorgantownHighSchoolDungeon|Advanced (Level 1)|1
 MorgantownHighSchoolDungeon|Expert (Level 2)|2
 MountBlairWarehouseBasement01||319
-NPECultistCave||4239
+NPECultistCave||4237
 NPECultistCave|Advanced (Level 1)|1
 NPECultistCave|Novice (Level 0)|5
 NPEVault7601||7062
@@ -1436,7 +1452,7 @@ OrwellOrchardsShelter01|Expert (Level 2)|1
 OverseersHome01||1248
 OverseersHome01|Advanced (Level 1)|1
 OverseersHome01|Requires Key|1
-PoseidonPlant01||15632
+PoseidonPlant01||15631
 PoseidonPlant01|Advanced (Level 1)|7
 PoseidonPlant01|Expert (Level 2)|2
 PoseidonPlant01|Master (Level 3)|4
@@ -1451,11 +1467,8 @@ RadioResearchCenter01|Advanced (Level 1)|3
 RadioResearchCenter01|Expert (Level 2)|2
 RadioResearchCenter01|Novice (Level 0)|2
 RadioResearchCenter01|Requires Key|1
-RaiderCave01||1443
-RaiderCave01|Novice (Level 0)|1
 RaiderCave02||1873
 RaiderCave02|Expert (Level 2)|1
-RaiderCave03||1681
 RaiderRaidTrailerInt||106
 RiversideManor01||7420
 RiversideManor01|Advanced (Level 1)|2
@@ -1485,6 +1498,7 @@ SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
+SheltersFlatlands||1534
 SheltersHighStakes||2617
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
@@ -1518,12 +1532,16 @@ SugarGroveMissileSilo01|Expert (Level 2)|9
 SugarGroveMissileSilo01|Master (Level 3)|9
 SugarGroveMissileSilo01|Novice (Level 0)|3
 SugarGroveMissileSilo01|Requires Terminal|1
-TheCraterCore01||1287
+SurlysShack01||121
+TheCraterCore01||1290
 TheCraterCore01|Master (Level 3)|1
 TheCraterCore01|Requires Key|1
-TheNukashine01||1538
+TheNukashine01||1520
+TheRoseRoom01||1536
+TheRoseRoom01|Advanced (Level 1)|1
+TheRoseRoom01|Requires Key|2
 TheRustyPick01||2442
-TheWayward01||1717
+TheWayward01||1716
 TheWayward01|Expert (Level 2)|1
 TheWayward01|Requires Key|1
 ThunderMtPowerPlant01||9410
@@ -1534,7 +1552,7 @@ TopOfTheWorld01||4645
 TopOfTheWorld01|Advanced (Level 1)|2
 TopOfTheWorld01|Expert (Level 2)|1
 TopOfTheWorld01|Master (Level 3)|4
-TunnelOfLoveMineshaft01||4422
+TunnelOfLoveMineshaft01||4423
 UCB01||4565
 UCB01|Advanced (Level 1)|2
 UCB01|Novice (Level 0)|1
@@ -1544,7 +1562,7 @@ UncannyCaverns01||4225
 UncannyCaverns01|Advanced (Level 1)|1
 UncannyCaverns01|Novice (Level 0)|2
 UncannyCaverns02||3191
-UncannyCavernsDungeon||7404
+UncannyCavernsDungeon||7405
 UncannyCavernsDungeon|Advanced (Level 1)|1
 UncannyCavernsDungeon|Inaccessible|3
 UncannyCavernsDungeon|Novice (Level 0)|2
@@ -1565,7 +1583,7 @@ Vault51Dungeon|Inaccessible|9
 Vault51Dungeon|Master (Level 3)|1
 Vault51Dungeon|Novice (Level 0)|1
 Vault63Entrance||350
-Vault79Entrance||1545
+Vault79Entrance||1544
 Vault79Entrance|Expert (Level 2)|1
 Vault79GoldVaultOperations||4698
 Vault79Main||18822
@@ -1576,7 +1594,7 @@ Vault79Main|Master (Level 3)|3
 Vault79Main|Novice (Level 0)|2
 Vault79Main|Requires Key|2
 Vault79Main|Requires Terminal|2
-Vault94Dungeon||17458
+Vault94Dungeon||17459
 Vault94Dungeon|Advanced (Level 1)|5
 Vault94Dungeon|Expert (Level 2)|10
 Vault94Dungeon|Inaccessible|2
@@ -1653,51 +1671,60 @@ WhitespringMall01|Advanced (Level 1)|1
 WhitespringMall01|Expert (Level 2)|1
 WhitespringMall01|Master (Level 3)|3
 WhitespringMall01|Novice (Level 0)|8
-WhitespringRefuge01||11656
+WhitespringRefuge01||11659
 WhitespringRefuge01|Advanced (Level 1)|2
 WhitespringRefuge01|Inaccessible|21
 WhitespringRefuge01|Novice (Level 0)|6
-XPDAC01Casino||13702
+XPDAC01Casino||13783
 XPDAC01Casino|Advanced (Level 1)|5
 XPDAC01Casino|Inaccessible|3
 XPDAC01Casino|Master (Level 3)|5
 XPDAC01Casino|Novice (Level 0)|14
 XPDAC01Casino|Requires Terminal|1
-XPDAC01EntertainmentDistrict||6781
+XPDAC01EntertainmentDistrict||6787
 XPDAC01EntertainmentDistrict|Advanced (Level 1)|4
 XPDAC01EntertainmentDistrict|Expert (Level 2)|1
-XPDAC01EntertainmentDistrict|Inaccessible|1
 XPDAC01EntertainmentDistrict|Novice (Level 0)|1
-XPDAC01NightClub||2946
+XPDAC01NightClub||2990
 XPDAC01NightClub|Advanced (Level 1)|2
-XPDAC01NightClub|Expert (Level 2)|2
+XPDAC01NightClub|Expert (Level 2)|3
 XPDAC01NightClub|Novice (Level 0)|1
-XPDAC02Aquarium||16039
+XPDAC02Aquarium||16125
 XPDAC02Aquarium|Expert (Level 2)|1
 XPDAC02Aquarium|Novice (Level 0)|1
-XPDAC02Boardwalk||10574
+XPDAC02AquariumDungeon||15830
+XPDAC02AquariumDungeon|Expert (Level 2)|1
+XPDAC02AquariumDungeon|Novice (Level 0)|1
+XPDAC02Boardwalk||10745
 XPDAC02Boardwalk|Expert (Level 2)|1
-XPDAC02Boardwalk|Inaccessible|1
 XPDAC02Boardwalk|Master (Level 3)|1
 XPDAC02Boardwalk|Novice (Level 0)|8
-XPDAC02Pier||7303
+XPDAC02Boardwalk|Requires Key|1
+XPDAC02Pier||7475
 XPDAC02Pier|Expert (Level 2)|1
-XPDAC03CityHall||4099
+XPDAC03CityHall||5988
 XPDAC03CityHall|Advanced (Level 1)|2
 XPDAC03CityHall|Expert (Level 2)|1
-XPDAC03CityHall|Novice (Level 0)|4
-XPDAC03CommunityCenter||4637
-XPDAC03CommunityCenter|Advanced (Level 1)|1
+XPDAC03CityHall|Novice (Level 0)|11
+XPDAC03CommunityCenter||11646
+XPDAC03CommunityCenter|Advanced (Level 1)|5
 XPDAC03CommunityCenter|Novice (Level 0)|2
-XPDAC03FloodedCityCenter||20046
-XPDAC03FloodedCityCenter|Advanced (Level 1)|5
+XPDAC03FloodedCityCenter||17058
+XPDAC03FloodedCityCenter|Advanced (Level 1)|6
 XPDAC03FloodedCityCenter|Expert (Level 2)|1
-XPDAC03FloodedCityCenter|Novice (Level 0)|7
-XPDPitt01Foundry||16901
+XPDAC03FloodedCityCenter|Inaccessible|1
+XPDAC03FloodedCityCenter|Master (Level 3)|3
+XPDAC03FloodedCityCenter|Novice (Level 0)|15
+XPDPitt01Foundry||16900
 XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
+XPDPitt01FoundryDungeon||15334
+XPDPitt01FoundryDungeon|Advanced (Level 1)|8
+XPDPitt01FoundryDungeon|Expert (Level 2)|5
+XPDPitt01FoundryDungeon|Master (Level 3)|3
+XPDPitt01FoundryDungeon|Novice (Level 0)|7
 XPDPitt01Industrial||20237
 XPDPitt01Industrial|Advanced (Level 1)|24
 XPDPitt01Industrial|Expert (Level 2)|3
@@ -1710,7 +1737,7 @@ XPDPitt02Sanctum|Advanced (Level 1)|1
 XPDPitt02Sanctum|Inaccessible|4
 XPDPitt02Sanctum|Master (Level 3)|2
 XPDPitt02Sanctum|Novice (Level 0)|4
-XPDPitt02Trench||21217
+XPDPitt02Trench||21216
 XPDPitt02Trench|Advanced (Level 1)|4
 XPDPitt02Trench|Expert (Level 2)|8
 XPDPitt02Trench|Novice (Level 0)|8
@@ -1797,36 +1824,36 @@ AlleghenyAsylum01|SOUN|4
 AlleghenyAsylum01|STAT|11109
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
-Appalachia|ACTI|21797
-Appalachia|ALCH|265
+Appalachia|ACTI|21821
+Appalachia|ALCH|267
 Appalachia|AMMO|59
 Appalachia|ARMO|104
 Appalachia|ASPC|2377
-Appalachia|BNDS|10373
-Appalachia|BOOK|495
+Appalachia|BNDS|10374
+Appalachia|BOOK|494
 Appalachia|CNCY|257
-Appalachia|CONT|12515
-Appalachia|DOOR|2526
-Appalachia|FLOR|45207
-Appalachia|FURN|15106
+Appalachia|CONT|12521
+Appalachia|DOOR|2527
+Appalachia|FLOR|45211
+Appalachia|FURN|15123
 Appalachia|HAZD|995
-Appalachia|IDLM|16918
+Appalachia|IDLM|16931
 Appalachia|KEYM|36
-Appalachia|LIGH|8359
-Appalachia|LVLI|71744
-Appalachia|MISC|36047
-Appalachia|MSTT|23179
+Appalachia|LIGH|8372
+Appalachia|LVLI|71756
+Appalachia|MISC|36059
+Appalachia|MSTT|23188
 Appalachia|NOTE|178
-Appalachia|NPC_|7407
+Appalachia|NPC_|7417
 Appalachia|PROJ|93
-Appalachia|SCOL|353403
+Appalachia|SCOL|353446
 Appalachia|SECH|253
 Appalachia|SOUN|5923
-Appalachia|STAT|2385516
+Appalachia|STAT|2385758
 Appalachia|TACT|62
 Appalachia|TERM|371
-Appalachia|TXST|62869
-Appalachia|WEAP|175
+Appalachia|TXST|62887
+Appalachia|WEAP|176
 ArktosPharmaLab01|ACTI|355
 ArktosPharmaLab01|ASPC|14
 ArktosPharmaLab01|BNDS|116
@@ -1898,7 +1925,7 @@ BigBendTunnel01|MSTT|288
 BigBendTunnel01|NPC_|75
 BigBendTunnel01|SCOL|252
 BigBendTunnel01|SOUN|1
-BigBendTunnel01|STAT|5345
+BigBendTunnel01|STAT|5344
 BigBendTunnel01|TERM|1
 BigBendTunnel01|TXST|537
 BigBendTunnel01|WEAP|4
@@ -2358,7 +2385,7 @@ FortAtlas01|LVLI|26
 FortAtlas01|MISC|387
 FortAtlas01|MSTT|99
 FortAtlas01|NOTE|3
-FortAtlas01|NPC_|44
+FortAtlas01|NPC_|45
 FortAtlas01|SCOL|238
 FortAtlas01|SOUN|1
 FortAtlas01|STAT|3502
@@ -2387,7 +2414,7 @@ FortAtlasDungeon01|SOUN|14
 FortAtlasDungeon01|STAT|9750
 FortAtlasDungeon01|TERM|3
 FortAtlasDungeon01|TXST|329
-FoundationInt01|ACTI|17
+FoundationInt01|ACTI|18
 FoundationInt01|ASPC|13
 FoundationInt01|BNDS|62
 FoundationInt01|BOOK|2
@@ -2399,10 +2426,10 @@ FoundationInt01|LIGH|153
 FoundationInt01|MISC|222
 FoundationInt01|MSTT|102
 FoundationInt01|NOTE|10
-FoundationInt01|NPC_|21
+FoundationInt01|NPC_|23
 FoundationInt01|SCOL|199
 FoundationInt01|SOUN|13
-FoundationInt01|STAT|4034
+FoundationInt01|STAT|4035
 FoundationInt01|TERM|1
 FoundationInt01|TXST|339
 FoundationSupplyRoom01|ACTI|4
@@ -2556,7 +2583,7 @@ FreeStatesBunker07|MSTT|32
 FreeStatesBunker07|NPC_|4
 FreeStatesBunker07|SCOL|38
 FreeStatesBunker07|SOUN|1
-FreeStatesBunker07|STAT|630
+FreeStatesBunker07|STAT|631
 FreeStatesBunker07|TXST|43
 GarrahanMiningHQ01|ACTI|85
 GarrahanMiningHQ01|ARMO|1
@@ -2638,7 +2665,7 @@ GlassedCavern01|NOTE|5
 GlassedCavern01|NPC_|119
 GlassedCavern01|SCOL|428
 GlassedCavern01|SOUN|41
-GlassedCavern01|STAT|6185
+GlassedCavern01|STAT|6186
 GlassedCavern01|TERM|1
 GlassedCavern01|TXST|690
 GlassedCavern01|WEAP|1
@@ -2735,20 +2762,6 @@ HornwrightSafeRoom01|SCOL|37
 HornwrightSafeRoom01|STAT|806
 HornwrightSafeRoom01|TXST|20
 HornwrightSafeRoom01|WEAP|1
-IngramMansion01|ACTI|11
-IngramMansion01|BOOK|6
-IngramMansion01|CONT|15
-IngramMansion01|DOOR|3
-IngramMansion01|FURN|33
-IngramMansion01|IDLM|4
-IngramMansion01|LIGH|28
-IngramMansion01|LVLI|18
-IngramMansion01|MISC|47
-IngramMansion01|MSTT|5
-IngramMansion01|NPC_|11
-IngramMansion01|SCOL|10
-IngramMansion01|STAT|744
-IngramMansion01|TERM|1
 KerwoodMine01|ACTI|98
 KerwoodMine01|ASPC|1
 KerwoodMine01|BNDS|10
@@ -2781,6 +2794,23 @@ LewisandSonsFarmingSupply01|MSTT|17
 LewisandSonsFarmingSupply01|NPC_|4
 LewisandSonsFarmingSupply01|SCOL|1
 LewisandSonsFarmingSupply01|STAT|264
+LittleRobsHideout01|ACTI|20
+LittleRobsHideout01|BNDS|13
+LittleRobsHideout01|BOOK|1
+LittleRobsHideout01|CONT|6
+LittleRobsHideout01|DOOR|8
+LittleRobsHideout01|FLOR|1
+LittleRobsHideout01|FURN|16
+LittleRobsHideout01|HAZD|1
+LittleRobsHideout01|IDLM|12
+LittleRobsHideout01|LIGH|24
+LittleRobsHideout01|LVLI|9
+LittleRobsHideout01|MISC|21
+LittleRobsHideout01|MSTT|35
+LittleRobsHideout01|NPC_|16
+LittleRobsHideout01|SCOL|64
+LittleRobsHideout01|STAT|1131
+LittleRobsHideout01|TXST|81
 LousMine01|ACTI|282
 LousMine01|ALCH|4
 LousMine01|ARMO|2
@@ -2857,6 +2887,21 @@ MamaDolceProcessing01|SOUN|7
 MamaDolceProcessing01|STAT|2229
 MamaDolceProcessing01|TERM|5
 MamaDolceProcessing01|TXST|77
+MiresEye01|ACTI|44
+MiresEye01|BNDS|9
+MiresEye01|BOOK|2
+MiresEye01|CONT|13
+MiresEye01|DOOR|5
+MiresEye01|FURN|13
+MiresEye01|IDLM|21
+MiresEye01|LIGH|51
+MiresEye01|LVLI|98
+MiresEye01|MISC|50
+MiresEye01|MSTT|81
+MiresEye01|NPC_|14
+MiresEye01|SCOL|32
+MiresEye01|STAT|1109
+MiresEye01|TXST|139
 MonongahMine01|ACTI|134
 MonongahMine01|BNDS|102
 MonongahMine01|BOOK|4
@@ -3009,7 +3054,7 @@ NPECultistCave|BOOK|1
 NPECultistCave|CONT|23
 NPECultistCave|DOOR|4
 NPECultistCave|FLOR|3
-NPECultistCave|FURN|20
+NPECultistCave|FURN|19
 NPECultistCave|HAZD|2
 NPECultistCave|IDLM|12
 NPECultistCave|LIGH|211
@@ -3018,7 +3063,7 @@ NPECultistCave|MISC|33
 NPECultistCave|MSTT|165
 NPECultistCave|NPC_|23
 NPECultistCave|SCOL|98
-NPECultistCave|STAT|3223
+NPECultistCave|STAT|3222
 NPECultistCave|TXST|221
 NPEVault7601|ACTI|178
 NPEVault7601|ALCH|30
@@ -3147,7 +3192,7 @@ PoseidonPlant01|NOTE|1
 PoseidonPlant01|NPC_|64
 PoseidonPlant01|SCOL|394
 PoseidonPlant01|SOUN|31
-PoseidonPlant01|STAT|12937
+PoseidonPlant01|STAT|12936
 PoseidonPlant01|TERM|15
 PoseidonPlant01|TXST|207
 PoseidonPlant02|ACTI|35
@@ -3190,23 +3235,6 @@ RadioResearchCenter01|SOUN|2
 RadioResearchCenter01|STAT|2512
 RadioResearchCenter01|TERM|3
 RadioResearchCenter01|TXST|86
-RaiderCave01|ACTI|13
-RaiderCave01|BNDS|13
-RaiderCave01|BOOK|2
-RaiderCave01|CONT|6
-RaiderCave01|DOOR|8
-RaiderCave01|FLOR|1
-RaiderCave01|FURN|16
-RaiderCave01|HAZD|1
-RaiderCave01|IDLM|12
-RaiderCave01|LIGH|24
-RaiderCave01|LVLI|9
-RaiderCave01|MISC|21
-RaiderCave01|MSTT|35
-RaiderCave01|NPC_|14
-RaiderCave01|SCOL|64
-RaiderCave01|STAT|1124
-RaiderCave01|TXST|81
 RaiderCave02|ACTI|20
 RaiderCave02|BNDS|46
 RaiderCave02|BOOK|3
@@ -3223,21 +3251,6 @@ RaiderCave02|SCOL|98
 RaiderCave02|STAT|1340
 RaiderCave02|TERM|1
 RaiderCave02|TXST|127
-RaiderCave03|ACTI|44
-RaiderCave03|BNDS|9
-RaiderCave03|BOOK|2
-RaiderCave03|CONT|13
-RaiderCave03|DOOR|5
-RaiderCave03|FURN|13
-RaiderCave03|IDLM|21
-RaiderCave03|LIGH|51
-RaiderCave03|LVLI|98
-RaiderCave03|MISC|50
-RaiderCave03|MSTT|81
-RaiderCave03|NPC_|14
-RaiderCave03|SCOL|32
-RaiderCave03|STAT|1109
-RaiderCave03|TXST|139
 RaiderRaidTrailerInt|CONT|7
 RaiderRaidTrailerInt|DOOR|1
 RaiderRaidTrailerInt|FURN|2
@@ -3396,6 +3409,12 @@ SheltersClaimCenter01|SCOL|14
 SheltersClaimCenter01|STAT|763
 SheltersClaimCenter01|TERM|1
 SheltersClaimCenter01|TXST|50
+SheltersFlatlands|ACTI|6
+SheltersFlatlands|ASPC|1
+SheltersFlatlands|LIGH|1
+SheltersFlatlands|SCOL|26
+SheltersFlatlands|STAT|993
+SheltersFlatlands|TXST|507
 SheltersHighStakes|ACTI|78
 SheltersHighStakes|DOOR|3
 SheltersHighStakes|LIGH|91
@@ -3554,6 +3573,20 @@ SugarGroveMissileSilo01|STAT|10777
 SugarGroveMissileSilo01|TERM|27
 SugarGroveMissileSilo01|TXST|298
 SugarGroveMissileSilo01|WEAP|1
+SurlysShack01|BNDS|2
+SurlysShack01|BOOK|1
+SurlysShack01|CONT|2
+SurlysShack01|DOOR|2
+SurlysShack01|FLOR|1
+SurlysShack01|FURN|1
+SurlysShack01|LIGH|7
+SurlysShack01|LVLI|7
+SurlysShack01|MISC|5
+SurlysShack01|MSTT|6
+SurlysShack01|NPC_|1
+SurlysShack01|SCOL|1
+SurlysShack01|STAT|56
+SurlysShack01|TXST|29
 TheCraterCore01|ACTI|6
 TheCraterCore01|ASPC|7
 TheCraterCore01|CONT|34
@@ -3564,32 +3597,49 @@ TheCraterCore01|LIGH|123
 TheCraterCore01|LVLI|7
 TheCraterCore01|MISC|55
 TheCraterCore01|MSTT|22
-TheCraterCore01|NPC_|15
+TheCraterCore01|NPC_|17
 TheCraterCore01|SCOL|24
 TheCraterCore01|SECH|1
 TheCraterCore01|SOUN|9
-TheCraterCore01|STAT|941
+TheCraterCore01|STAT|942
 TheCraterCore01|TERM|2
-TheNukashine01|ACTI|15
+TheNukashine01|ACTI|16
 TheNukashine01|ASPC|3
 TheNukashine01|BNDS|8
 TheNukashine01|BOOK|2
 TheNukashine01|CONT|8
 TheNukashine01|DOOR|7
-TheNukashine01|FURN|23
+TheNukashine01|FURN|25
 TheNukashine01|HAZD|1
 TheNukashine01|IDLM|7
 TheNukashine01|LIGH|42
 TheNukashine01|LVLI|28
-TheNukashine01|MISC|273
+TheNukashine01|MISC|270
 TheNukashine01|MSTT|45
 TheNukashine01|NOTE|1
-TheNukashine01|NPC_|1
-TheNukashine01|SCOL|68
+TheNukashine01|NPC_|6
+TheNukashine01|SCOL|60
 TheNukashine01|SOUN|8
-TheNukashine01|STAT|964
+TheNukashine01|STAT|958
 TheNukashine01|TERM|2
-TheNukashine01|TXST|32
+TheNukashine01|TXST|23
+TheRoseRoom01|ACTI|20
+TheRoseRoom01|ALCH|2
+TheRoseRoom01|BNDS|6
+TheRoseRoom01|BOOK|6
+TheRoseRoom01|CONT|25
+TheRoseRoom01|DOOR|4
+TheRoseRoom01|FURN|60
+TheRoseRoom01|IDLM|7
+TheRoseRoom01|LIGH|71
+TheRoseRoom01|LVLI|22
+TheRoseRoom01|MISC|131
+TheRoseRoom01|MSTT|29
+TheRoseRoom01|NPC_|10
+TheRoseRoom01|SCOL|33
+TheRoseRoom01|STAT|1099
+TheRoseRoom01|TERM|1
+TheRoseRoom01|TXST|13
 TheRustyPick01|ACTI|14
 TheRustyPick01|ARMO|25
 TheRustyPick01|ASPC|2
@@ -3627,7 +3677,7 @@ TheWayward01|SCOL|40
 TheWayward01|SOUN|1
 TheWayward01|STAT|941
 TheWayward01|TACT|1
-TheWayward01|TXST|37
+TheWayward01|TXST|36
 ThunderMtPowerPlant01|ACTI|185
 ThunderMtPowerPlant01|ARMO|2
 ThunderMtPowerPlant01|ASPC|25
@@ -3678,15 +3728,15 @@ TunnelOfLoveMineshaft01|FLOR|69
 TunnelOfLoveMineshaft01|FURN|43
 TunnelOfLoveMineshaft01|LIGH|163
 TunnelOfLoveMineshaft01|LVLI|23
-TunnelOfLoveMineshaft01|MISC|64
+TunnelOfLoveMineshaft01|MISC|63
 TunnelOfLoveMineshaft01|MSTT|32
 TunnelOfLoveMineshaft01|NPC_|1
-TunnelOfLoveMineshaft01|SCOL|346
+TunnelOfLoveMineshaft01|SCOL|347
 TunnelOfLoveMineshaft01|STAT|3480
 TunnelOfLoveMineshaft01|TACT|1
 TunnelOfLoveMineshaft01|TERM|1
 TunnelOfLoveMineshaft01|TXST|62
-TunnelOfLoveMineshaft01|WEAP|6
+TunnelOfLoveMineshaft01|WEAP|7
 UCB01|ACTI|31
 UCB01|ASPC|7
 UCB01|BNDS|8
@@ -3763,7 +3813,7 @@ UncannyCavernsDungeon|NOTE|1
 UncannyCavernsDungeon|NPC_|12
 UncannyCavernsDungeon|SCOL|268
 UncannyCavernsDungeon|SOUN|11
-UncannyCavernsDungeon|STAT|5660
+UncannyCavernsDungeon|STAT|5661
 UncannyCavernsDungeon|TACT|10
 UncannyCavernsDungeon|TXST|643
 VTecAgCenter01|ACTI|17
@@ -3868,7 +3918,7 @@ Vault79Entrance|LIGH|37
 Vault79Entrance|MISC|30
 Vault79Entrance|MSTT|45
 Vault79Entrance|SCOL|128
-Vault79Entrance|STAT|1198
+Vault79Entrance|STAT|1197
 Vault79Entrance|TERM|1
 Vault79Entrance|TXST|71
 Vault79Entrance|WEAP|1
@@ -3924,7 +3974,7 @@ Vault94Dungeon|MSTT|158
 Vault94Dungeon|NPC_|42
 Vault94Dungeon|SCOL|1135
 Vault94Dungeon|SOUN|74
-Vault94Dungeon|STAT|12852
+Vault94Dungeon|STAT|12853
 Vault94Dungeon|TERM|21
 Vault94Dungeon|TXST|1168
 Vault94Dungeon|WEAP|13
@@ -4275,7 +4325,7 @@ WhitespringMall01|STAT|4679
 WhitespringMall01|TERM|13
 WhitespringMall01|TXST|16
 WhitespringMall01|WEAP|1
-WhitespringRefuge01|ACTI|102
+WhitespringRefuge01|ACTI|103
 WhitespringRefuge01|ARMO|3
 WhitespringRefuge01|ASPC|1
 WhitespringRefuge01|BOOK|2
@@ -4289,171 +4339,195 @@ WhitespringRefuge01|LVLI|96
 WhitespringRefuge01|MISC|385
 WhitespringRefuge01|MSTT|133
 WhitespringRefuge01|NOTE|5
-WhitespringRefuge01|NPC_|46
+WhitespringRefuge01|NPC_|47
 WhitespringRefuge01|SCOL|172
-WhitespringRefuge01|STAT|9527
+WhitespringRefuge01|STAT|9528
 WhitespringRefuge01|TERM|5
 WhitespringRefuge01|TXST|41
 WhitespringRefuge01|WEAP|4
-XPDAC01Casino|ACTI|272
+XPDAC01Casino|ACTI|273
 XPDAC01Casino|ALCH|3
 XPDAC01Casino|ARMO|1
 XPDAC01Casino|ASPC|2
 XPDAC01Casino|BNDS|47
-XPDAC01Casino|BOOK|21
+XPDAC01Casino|BOOK|26
 XPDAC01Casino|CONT|229
 XPDAC01Casino|DOOR|75
-XPDAC01Casino|FURN|291
+XPDAC01Casino|FURN|311
 XPDAC01Casino|HAZD|1
-XPDAC01Casino|IDLM|140
+XPDAC01Casino|IDLM|141
 XPDAC01Casino|KEYM|2
-XPDAC01Casino|LIGH|566
+XPDAC01Casino|LIGH|565
 XPDAC01Casino|LVLI|220
-XPDAC01Casino|MISC|947
+XPDAC01Casino|MISC|948
 XPDAC01Casino|MSTT|285
-XPDAC01Casino|NPC_|69
+XPDAC01Casino|NPC_|100
 XPDAC01Casino|SCOL|377
-XPDAC01Casino|SOUN|12
-XPDAC01Casino|STAT|9887
+XPDAC01Casino|SOUN|13
+XPDAC01Casino|STAT|9907
 XPDAC01Casino|TERM|6
-XPDAC01Casino|TXST|277
+XPDAC01Casino|TXST|279
 XPDAC01EntertainmentDistrict|ACTI|61
 XPDAC01EntertainmentDistrict|ASPC|1
 XPDAC01EntertainmentDistrict|CONT|61
-XPDAC01EntertainmentDistrict|DOOR|8
-XPDAC01EntertainmentDistrict|FURN|121
+XPDAC01EntertainmentDistrict|DOOR|9
+XPDAC01EntertainmentDistrict|FURN|122
 XPDAC01EntertainmentDistrict|IDLM|95
-XPDAC01EntertainmentDistrict|LIGH|49
+XPDAC01EntertainmentDistrict|LIGH|50
 XPDAC01EntertainmentDistrict|LVLI|59
 XPDAC01EntertainmentDistrict|MISC|64
-XPDAC01EntertainmentDistrict|MSTT|77
+XPDAC01EntertainmentDistrict|MSTT|81
 XPDAC01EntertainmentDistrict|NPC_|82
 XPDAC01EntertainmentDistrict|SCOL|902
 XPDAC01EntertainmentDistrict|SECH|2
 XPDAC01EntertainmentDistrict|SOUN|7
-XPDAC01EntertainmentDistrict|STAT|4746
-XPDAC01EntertainmentDistrict|TXST|453
+XPDAC01EntertainmentDistrict|STAT|4763
+XPDAC01EntertainmentDistrict|TXST|434
 XPDAC01NightClub|ACTI|32
 XPDAC01NightClub|ALCH|3
 XPDAC01NightClub|BOOK|3
 XPDAC01NightClub|CONT|30
 XPDAC01NightClub|DOOR|16
-XPDAC01NightClub|FURN|125
+XPDAC01NightClub|FURN|128
 XPDAC01NightClub|LIGH|142
 XPDAC01NightClub|LVLI|33
 XPDAC01NightClub|MISC|303
 XPDAC01NightClub|MSTT|80
-XPDAC01NightClub|NPC_|30
+XPDAC01NightClub|NOTE|1
+XPDAC01NightClub|NPC_|62
 XPDAC01NightClub|SCOL|65
 XPDAC01NightClub|SOUN|15
-XPDAC01NightClub|STAT|1907
+XPDAC01NightClub|STAT|1915
+XPDAC01NightClub|TERM|1
 XPDAC01NightClub|TXST|167
-XPDAC02Aquarium|ACTI|76
+XPDAC02Aquarium|ACTI|74
 XPDAC02Aquarium|BNDS|3
 XPDAC02Aquarium|BOOK|7
 XPDAC02Aquarium|CONT|77
 XPDAC02Aquarium|DOOR|53
 XPDAC02Aquarium|FLOR|5
-XPDAC02Aquarium|FURN|118
+XPDAC02Aquarium|FURN|149
 XPDAC02Aquarium|IDLM|73
 XPDAC02Aquarium|LIGH|713
 XPDAC02Aquarium|LVLI|122
 XPDAC02Aquarium|MISC|671
 XPDAC02Aquarium|MSTT|481
-XPDAC02Aquarium|NPC_|49
+XPDAC02Aquarium|NPC_|88
 XPDAC02Aquarium|SCOL|960
 XPDAC02Aquarium|SOUN|46
-XPDAC02Aquarium|STAT|12306
+XPDAC02Aquarium|STAT|12324
 XPDAC02Aquarium|TERM|2
 XPDAC02Aquarium|TXST|279
-XPDAC02Boardwalk|ACTI|736
+XPDAC02AquariumDungeon|ACTI|47
+XPDAC02AquariumDungeon|BNDS|3
+XPDAC02AquariumDungeon|CONT|77
+XPDAC02AquariumDungeon|DOOR|49
+XPDAC02AquariumDungeon|FLOR|5
+XPDAC02AquariumDungeon|FURN|83
+XPDAC02AquariumDungeon|IDLM|31
+XPDAC02AquariumDungeon|LIGH|725
+XPDAC02AquariumDungeon|LVLI|122
+XPDAC02AquariumDungeon|MISC|664
+XPDAC02AquariumDungeon|MSTT|482
+XPDAC02AquariumDungeon|SCOL|959
+XPDAC02AquariumDungeon|SOUN|45
+XPDAC02AquariumDungeon|STAT|12265
+XPDAC02AquariumDungeon|TXST|275
+XPDAC02Boardwalk|ACTI|739
 XPDAC02Boardwalk|ARMO|1
 XPDAC02Boardwalk|ASPC|1
 XPDAC02Boardwalk|BNDS|8
 XPDAC02Boardwalk|BOOK|11
 XPDAC02Boardwalk|CONT|95
-XPDAC02Boardwalk|DOOR|19
+XPDAC02Boardwalk|DOOR|20
 XPDAC02Boardwalk|FLOR|1
-XPDAC02Boardwalk|FURN|155
+XPDAC02Boardwalk|FURN|191
 XPDAC02Boardwalk|HAZD|2
-XPDAC02Boardwalk|IDLM|110
-XPDAC02Boardwalk|LIGH|117
-XPDAC02Boardwalk|LVLI|207
-XPDAC02Boardwalk|MISC|303
-XPDAC02Boardwalk|MSTT|123
-XPDAC02Boardwalk|NPC_|56
-XPDAC02Boardwalk|SCOL|769
+XPDAC02Boardwalk|IDLM|124
+XPDAC02Boardwalk|LIGH|120
+XPDAC02Boardwalk|LVLI|226
+XPDAC02Boardwalk|MISC|311
+XPDAC02Boardwalk|MSTT|125
+XPDAC02Boardwalk|NPC_|106
+XPDAC02Boardwalk|SCOL|768
 XPDAC02Boardwalk|SECH|16
 XPDAC02Boardwalk|SOUN|25
-XPDAC02Boardwalk|STAT|7283
+XPDAC02Boardwalk|STAT|7319
 XPDAC02Boardwalk|TERM|1
 XPDAC02Boardwalk|TXST|546
-XPDAC02Pier|ACTI|228
+XPDAC02Pier|ACTI|248
 XPDAC02Pier|BNDS|11
-XPDAC02Pier|BOOK|3
-XPDAC02Pier|CONT|64
+XPDAC02Pier|BOOK|6
+XPDAC02Pier|CONT|65
 XPDAC02Pier|DOOR|46
-XPDAC02Pier|FURN|97
-XPDAC02Pier|IDLM|38
-XPDAC02Pier|LIGH|366
+XPDAC02Pier|FURN|141
+XPDAC02Pier|IDLM|40
+XPDAC02Pier|LIGH|367
 XPDAC02Pier|LVLI|78
-XPDAC02Pier|MISC|344
-XPDAC02Pier|MSTT|176
-XPDAC02Pier|NPC_|37
-XPDAC02Pier|SCOL|302
+XPDAC02Pier|MISC|346
+XPDAC02Pier|MSTT|177
+XPDAC02Pier|NOTE|3
+XPDAC02Pier|NPC_|64
+XPDAC02Pier|SCOL|299
 XPDAC02Pier|SOUN|4
-XPDAC02Pier|STAT|5396
+XPDAC02Pier|STAT|5450
 XPDAC02Pier|TACT|1
-XPDAC02Pier|TXST|108
+XPDAC02Pier|TXST|125
 XPDAC02Pier|WEAP|5
-XPDAC03CityHall|ACTI|8
-XPDAC03CityHall|BOOK|5
-XPDAC03CityHall|CONT|53
+XPDAC03CityHall|ACTI|13
+XPDAC03CityHall|BNDS|23
+XPDAC03CityHall|BOOK|6
+XPDAC03CityHall|CONT|99
 XPDAC03CityHall|DOOR|8
-XPDAC03CityHall|FURN|55
+XPDAC03CityHall|FURN|54
 XPDAC03CityHall|IDLM|2
-XPDAC03CityHall|LIGH|9
-XPDAC03CityHall|MISC|5
-XPDAC03CityHall|MSTT|8
-XPDAC03CityHall|NPC_|19
-XPDAC03CityHall|SCOL|138
+XPDAC03CityHall|LIGH|102
+XPDAC03CityHall|LVLI|14
+XPDAC03CityHall|MISC|198
+XPDAC03CityHall|MSTT|20
+XPDAC03CityHall|NPC_|34
+XPDAC03CityHall|SCOL|299
 XPDAC03CityHall|SOUN|15
-XPDAC03CityHall|STAT|3777
-XPDAC03CityHall|TERM|3
+XPDAC03CityHall|STAT|5106
+XPDAC03CityHall|TERM|2
+XPDAC03CityHall|TXST|6
 XPDAC03CityHall|WEAP|1
-XPDAC03CommunityCenter|ACTI|83
+XPDAC03CommunityCenter|ACTI|91
+XPDAC03CommunityCenter|BNDS|188
 XPDAC03CommunityCenter|BOOK|5
-XPDAC03CommunityCenter|CONT|27
-XPDAC03CommunityCenter|DOOR|33
-XPDAC03CommunityCenter|FLOR|3
-XPDAC03CommunityCenter|FURN|105
-XPDAC03CommunityCenter|IDLM|79
-XPDAC03CommunityCenter|LIGH|3
-XPDAC03CommunityCenter|LVLI|4
-XPDAC03CommunityCenter|MISC|15
-XPDAC03CommunityCenter|MSTT|16
-XPDAC03CommunityCenter|NPC_|54
-XPDAC03CommunityCenter|SCOL|33
-XPDAC03CommunityCenter|STAT|4178
+XPDAC03CommunityCenter|CONT|135
+XPDAC03CommunityCenter|DOOR|36
+XPDAC03CommunityCenter|FURN|137
+XPDAC03CommunityCenter|IDLM|80
+XPDAC03CommunityCenter|LIGH|296
+XPDAC03CommunityCenter|LVLI|143
+XPDAC03CommunityCenter|MISC|153
+XPDAC03CommunityCenter|MSTT|138
+XPDAC03CommunityCenter|NOTE|1
+XPDAC03CommunityCenter|NPC_|58
+XPDAC03CommunityCenter|SCOL|496
+XPDAC03CommunityCenter|STAT|9345
 XPDAC03CommunityCenter|TERM|2
-XPDAC03FloodedCityCenter|ACTI|241
-XPDAC03FloodedCityCenter|ARMO|2
+XPDAC03CommunityCenter|TXST|349
+XPDAC03FloodedCityCenter|ACTI|302
+XPDAC03FloodedCityCenter|ARMO|3
 XPDAC03FloodedCityCenter|ASPC|1
-XPDAC03FloodedCityCenter|BNDS|4
-XPDAC03FloodedCityCenter|BOOK|3
-XPDAC03FloodedCityCenter|CONT|57
-XPDAC03FloodedCityCenter|DOOR|6
-XPDAC03FloodedCityCenter|FURN|131
-XPDAC03FloodedCityCenter|IDLM|118
-XPDAC03FloodedCityCenter|LIGH|20
-XPDAC03FloodedCityCenter|LVLI|15
-XPDAC03FloodedCityCenter|MISC|33
-XPDAC03FloodedCityCenter|MSTT|70
-XPDAC03FloodedCityCenter|NPC_|95
-XPDAC03FloodedCityCenter|SCOL|717
-XPDAC03FloodedCityCenter|STAT|18542
-XPDAC03FloodedCityCenter|TERM|2
-XPDAC03FloodedCityCenter|TXST|2
+XPDAC03FloodedCityCenter|BNDS|91
+XPDAC03FloodedCityCenter|BOOK|7
+XPDAC03FloodedCityCenter|CONT|110
+XPDAC03FloodedCityCenter|DOOR|11
+XPDAC03FloodedCityCenter|FURN|122
+XPDAC03FloodedCityCenter|IDLM|117
+XPDAC03FloodedCityCenter|KEYM|1
+XPDAC03FloodedCityCenter|LIGH|227
+XPDAC03FloodedCityCenter|LVLI|69
+XPDAC03FloodedCityCenter|MISC|361
+XPDAC03FloodedCityCenter|MSTT|181
+XPDAC03FloodedCityCenter|NPC_|99
+XPDAC03FloodedCityCenter|SCOL|2688
+XPDAC03FloodedCityCenter|STAT|11984
+XPDAC03FloodedCityCenter|TERM|3
+XPDAC03FloodedCityCenter|TXST|707
 XPDPitt01Foundry|ACTI|238
 XPDPitt01Foundry|AMMO|18
 XPDPitt01Foundry|ARMO|9
@@ -4472,10 +4546,29 @@ XPDPitt01Foundry|NOTE|2
 XPDPitt01Foundry|NPC_|81
 XPDPitt01Foundry|SCOL|1911
 XPDPitt01Foundry|SOUN|39
-XPDPitt01Foundry|STAT|11221
+XPDPitt01Foundry|STAT|11220
 XPDPitt01Foundry|TERM|3
 XPDPitt01Foundry|TXST|574
 XPDPitt01Foundry|WEAP|6
+XPDPitt01FoundryDungeon|ACTI|98
+XPDPitt01FoundryDungeon|AMMO|18
+XPDPitt01FoundryDungeon|ARMO|6
+XPDPitt01FoundryDungeon|BNDS|4
+XPDPitt01FoundryDungeon|CONT|215
+XPDPitt01FoundryDungeon|DOOR|21
+XPDPitt01FoundryDungeon|FURN|72
+XPDPitt01FoundryDungeon|HAZD|6
+XPDPitt01FoundryDungeon|IDLM|36
+XPDPitt01FoundryDungeon|LIGH|287
+XPDPitt01FoundryDungeon|LVLI|332
+XPDPitt01FoundryDungeon|MISC|279
+XPDPitt01FoundryDungeon|MSTT|450
+XPDPitt01FoundryDungeon|NPC_|12
+XPDPitt01FoundryDungeon|SCOL|1912
+XPDPitt01FoundryDungeon|SOUN|39
+XPDPitt01FoundryDungeon|STAT|11144
+XPDPitt01FoundryDungeon|TXST|425
+XPDPitt01FoundryDungeon|WEAP|1
 XPDPitt01Industrial|ACTI|220
 XPDPitt01Industrial|AMMO|4
 XPDPitt01Industrial|ASPC|2
@@ -4541,7 +4634,7 @@ XPDPitt02Trench|MISC|349
 XPDPitt02Trench|MSTT|446
 XPDPitt02Trench|NOTE|2
 XPDPitt02Trench|NPC_|147
-XPDPitt02Trench|SCOL|2097
+XPDPitt02Trench|SCOL|2096
 XPDPitt02Trench|SOUN|2
 XPDPitt02Trench|STAT|15023
 XPDPitt02Trench|TERM|6
@@ -4650,7 +4743,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3079088
+Appalachia||3079513
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -4661,6 +4754,7 @@ Appalachia|76ExitEventStartTrigger002|1
 Appalachia|76Exit_CenterBoundary_EnterMarker|1
 Appalachia|76Exit_RightBoundary_EnterMarker|1
 Appalachia|76TrailerEnabler|1
+Appalachia|AC_SQ04_LessonBookDispenser|1
 Appalachia|AMBUSH_SOUTHTREES_LODXMarker|1
 Appalachia|AMBUSH_Shack1_LODXMarker|1
 Appalachia|AMBUSH_Shack2_LODXMarker|1
@@ -8579,7 +8673,7 @@ Appalachia|RSVP00_REF_Container_Cooler_Scott|1
 Appalachia|RSVP00_REF_Container_Garry|1
 Appalachia|RSVP00_REF_Corpse_Colonel|1
 Appalachia|RSVP00_REF_Corpse_Dassa|1
-Appalachia|RSVP00_REF_Corpse_ReverendWinters|1
+Appalachia|RSVP00_REF_Corpse_ReverendWinters_Copy01|1
 Appalachia|RSVP00_REF_Corpse_Scott|1
 Appalachia|RSVP00_REF_Corpse_SofieYates|1
 Appalachia|RSVP00_REF_Corpse_WillieMae|1
@@ -8601,7 +8695,7 @@ Appalachia|RSVP00_REF_Trigger_DelbertBedroom|1
 Appalachia|RSVP00_REF_Trigger_Flatwoods|1
 Appalachia|RSVP00_REF_Trigger_Tavern|1
 Appalachia|RSVP01_Book_Report_WaterJuly_REF|1
-Appalachia|RSVP01_KeshaCorpseRef|1
+Appalachia|RSVP01_KeshaCorpseRef_Copy01|1
 Appalachia|RSVP01_REF_Activator_WaterSupply|1
 Appalachia|RSVP01_REF_Book_Database_Intro|1
 Appalachia|RSVP01_REF_Book_PatientChart_Buzz|1
@@ -9325,6 +9419,7 @@ Appalachia|Test_MTNZ05_StoppedMarker01|1
 Appalachia|TheCraterMapMarker|1
 Appalachia|TheCrosshair_LocationCenter|1
 Appalachia|TheCrosshair_LocationEdge|1
+Appalachia|TheRoseRoomMapMarker|1
 Appalachia|TheRustyPickMapMarker|1
 Appalachia|TheRustyPick_LocationCenter|1
 Appalachia|TheRustyPick_LocationEdge|1
@@ -10222,7 +10317,7 @@ BelchingBetty01|TMRightStairs|1
 BelchingBetty01|TM_left1|1
 BelchingBetty01|TM_leftbottomapproach|1
 BelchingBetty01|zw_belchingbettylowerlevel|1
-BigBendTunnel01||7467
+BigBendTunnel01||7466
 BigBendTunnel01|E05_CP1_BackBrahmin|1
 BigBendTunnel01|E05_CP1_BackBrahmin001|1
 BigBendTunnel01|E05_CP1_BackBrahmin002|1
@@ -10934,7 +11029,7 @@ EnclaveResearchFacility01|BS01_MQ07_Task05_Trigger|1
 EnclaveResearchFacility01|BS01_MQ07_Task06_Trigger|1
 EnclaveResearchFacility01|BS01_MQ07_Task07_Trigger|1
 EnclaveResearchFacility01|BS01_MQ07_WelcomeBack_Trigger|1
-FortAtlas01||5065
+FortAtlas01||5066
 FortAtlas01|Atlas_VernonDodgeFurniture01|1
 FortAtlas01|Atlas_VernonDodgeFurniture02|1
 FortAtlas01|Atlas_VernonDodgeFurniture03|1
@@ -11185,6 +11280,10 @@ FortAtlasDungeon01|WaterVolume03|1
 FortAtlasDungeon01|WaterVolume04|1
 FortAtlasDungeon01|WaterVolume06|1
 FoundationInt01||5347
+FoundationInt01|AC_SQ04_FoundationExitMarker|1
+FoundationInt01|AC_SQ04_FoundationSceneTrigger|1
+FoundationInt01|AC_SQ04_JusticeRef_Foundation|1
+FoundationInt01|AC_SQ04_SettlerRef|1
 FoundationInt01|AubrieSandboxMarker|1
 FoundationInt01|FoundationSoldiersSandboxMarker|1
 FoundationInt01|Foundation_Interior_DirectTravelPoint|1
@@ -11264,7 +11363,7 @@ FreeStatesBunker06|REF_COMP_Astronaut_Actor_Daguerre|1
 FreeStatesBunker06|REF_COMP_Astronaut_Furniture_Wounded|1
 FreeStatesBunker06|REF_COMP_Astronaut_Intro_EnableMarker|1
 FreeStatesBunker06|REF_COMP_Astronaut_Terminal_Bunker|1
-FreeStatesBunker07||1040
+FreeStatesBunker07||1041
 FreeStatesBunker07|FS_JeremiahPart01Ref001|1
 FreeStatesBunker07|W05_MQS_203P_FieldsFurn1|1
 FreeStatesBunker07|W05_MQS_203P_FieldsFurn2|1
@@ -11351,7 +11450,7 @@ GauleyMine01|W05_MQ_004P_Crane_Stage700ObjMarker|1
 GauleyMine01|W05_MQ_004P_Crane_Stage775Trigger|1
 GauleyMine01|W05_MQ_004P_SecondWaveEnableMarker|1
 GauleyMine01|W05_PollyHeadSpawn_GauleyMine|1
-GlassedCavern01||9036
+GlassedCavern01||9037
 GlassedCavern01|BoS03CaveMarker|1
 GlassedCavern01|BoS03RubbleSpawnerREF|1
 GlassedCavern01|BoS03TransponderREF05|1
@@ -11540,38 +11639,6 @@ HornwrightSafeRoom01|W05_MQS_201P_Saferoom|1
 HornwrightSafeRoom01|W05_MQS_201P_Saferoom_REF|1
 HornwrightSafeRoom01|W05_MQS_201P_Saferoom_Scene_REF|1
 HornwrightSafeRoom01|W05_MotherlodeAlwaysOpen|1
-IngramMansion01||905
-IngramMansion01|AC_MQ01_AbbieCowerMarker|1
-IngramMansion01|AC_MQ01_DownstairsTrigger|1
-IngramMansion01|AC_MQ01_EvelynDownstairsMarker|1
-IngramMansion01|AC_MQ01_EvelynStormAwayMarker|1
-IngramMansion01|AC_MQ01_ExitMarker|1
-IngramMansion01|AC_MQ01_HitmanGoon|1
-IngramMansion01|AC_MQ01_HitmanGoonMarker|1
-IngramMansion01|AC_MQ01_HitmanLeaderMarker|1
-IngramMansion01|AC_MQ01_MusicianRef|1
-IngramMansion01|AC_MQ01_Opportunity_AbbieStoolRef|1
-IngramMansion01|AC_MQ01_Opportunity_EvelynToAbbieMarker|1
-IngramMansion01|AC_MQ01_Opportunity_FemaleScavengerMarker|1
-IngramMansion01|AC_MQ01_Opportunity_HitmanStool|1
-IngramMansion01|AC_MQ01_Opportunity_MaleScavengerMarker|1
-IngramMansion01|AC_MQ01_Opportunity_MedicFurn|1
-IngramMansion01|AC_MQ01_Opportunity_MusicianCouch|1
-IngramMansion01|AC_MQ01_Opportunity_PlayerCouch|1
-IngramMansion01|AC_MQ01_Opportunity_ShootMarker|1
-IngramMansion01|AC_MQ01_Opportunity_VinBarFurn|1
-IngramMansion01|AC_MQ01_ScavengerFemale|1
-IngramMansion01|AC_MQ01_ScavengerMale|1
-IngramMansion01|AC_MQ01_TubaRef|1
-IngramMansion01|AC_MQ01_VinBarMarker|1
-IngramMansion01|AC_MQ04_Sins_LabTableDecorEnableMarker_REF|1
-IngramMansion01|AC_MQ04_VinSmokeFurniture_Ref|1
-IngramMansion01|AC_MQ_AbbieRef|1
-IngramMansion01|AC_MQ_AntonioRef|1
-IngramMansion01|AC_MQ_EvelynRef|1
-IngramMansion01|AC_MQ_LabDoor_Ref|1
-IngramMansion01|AC_MQ_VinRef|1
-IngramMansion01|AC_MQ_VinToAbbieMarker|1
 KerwoodMine01||5593
 KerwoodMine01|BS01_BarredDoor|1
 KerwoodMine01|BS01_Bread_Miners|1
@@ -11659,6 +11726,19 @@ LewisandSonsFarmingSupply01|BS01_MQ03_FieldTesting_Couch|1
 LewisandSonsFarmingSupply01|BS01_MQ03_FieldTesting_MartyChair|1
 LewisandSonsFarmingSupply01|BS01_MQ03_FieldTesting_OtherChair|1
 LewisandSonsFarmingSupply01|BS01_MartyPutnam_EnableMarker|1
+LittleRobsHideout01||1447
+LittleRobsHideout01|AC_SQ01_HellsEagles_EnemySpawnTrigger_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_HideoutSpawnCenter_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_InstanceMarker_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_InterviewCameraMarker_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_Interview_TeleportMarker_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_JackFreedMarker_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_Jack_ExitMarker_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_Jack_ThroneMarker_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_LatrineDoor_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_LittleRob_ThroneMarker_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_RobsDoor01_Ref|1
+LittleRobsHideout01|AC_SQ01_HellsEagles_RobsDoor02_Ref|1
 LousMine01||6959
 LousMine01|CrusherTrapFallingDustRocksRoom|1
 LousMine01|Door01_Explosion|1
@@ -11849,6 +11929,7 @@ MamaDolceProcessing01|EN07_Death_AreaObjREF|1
 MamaDolceProcessing01|EN07_Death_StealthLabTerminalREF|1
 MamaDolceProcessing01|MamaDolceProcessingLoadDoorInt|1
 MamaDolceProcessing01|MamaDolceProcessing_LocationCenter|1
+MiresEye01||1681
 MonongahMine01||6892
 MonongahMine01|E06_Colossus_AmbushTrigger|1
 MonongahMine01|E06_Colossus_DoorEnableMarker|1
@@ -12009,7 +12090,7 @@ MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_01_PackIn012|1
 MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_02_PackIn012|1
 MorgantownHighSchoolDungeon|DailyOps_Mode01_Respawn03_03_PackIn012|1
 MountBlairWarehouseBasement01||319
-NPECultistCave||4233
+NPECultistCave||4231
 NPECultistCave|NPE_DQ01_CultistArtifactContainer_Ref|1
 NPECultistCave|NPE_DQ01_CultistArtifactContainer_Ref001|1
 NPECultistCave|NPE_DQ01_CultistArtifactContainer_Ref002|1
@@ -12023,82 +12104,82 @@ NPECultistCave|NorthExitOrganCave|1
 NPECultistCave|SouthExitOrganCave|1
 NPECultistCave|WestExitOrganCave|1
 NPEVault7601||6958
-NPEVault7601|76CharGenPerkBoardTriggerRef005_Copy01_Copy01|1
-NPEVault7601|76ExitTriggerREF02_Copy01_Copy01|1
-NPEVault7601|76TrailerCoupleEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerOverseerEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerPartyEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerRoomPipboyEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerStandeeEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerTrainingEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerVaultDoorExitEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerVaultExitEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerVaultExitHugEnabler001_Copy01_Copy01|1
-NPEVault7601|76TrailerWorkersEnabler001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroCouple_Actor_Barney001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroCouple_Actor_Carol001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Alice001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Barney001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Biscuit001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Carol001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Cody001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Kathy001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Louise001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Margret001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Markie001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Phyllis001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Ron001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Sandy001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Violet001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroParty_Actor_Will001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactorLight04_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactorLight05_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactorLight06_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactor_Actor_Foreman001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactor_Actor_Worker05_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactor_Actor_Worker07_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactor_Actor_Worker08_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactor_Actor_Worker09_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroReactor_Actor_Worker10_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroRoomPipboy_Actor_Barney001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroRoomPipboy_Actor_Carol001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroStandee_Actor_Sandy001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroStandee_Actor_Violet001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Alice001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Biscuit001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Cody001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Louise001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Margret001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Markie001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Overseer03_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Overseer04_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Phyllis001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Ron001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Sandy001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Violet001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroTraining_Actor_Will001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Alice001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Barney001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Carol001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Cody001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Kathy001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Louise001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Margret001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Markie001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Sandy001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Alice001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Barney001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Biscuit001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Carol001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Cody001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Kathy001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Louise001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Margret001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Markie001_Copy01_Copy01|1
-NPEVault7601|76Trailer_IntroVaultExit_Actor_Ron001_Copy01_Copy01|1
-NPEVault7601|CAMPTriggerMarker002_Copy01_Copy01|1
-NPEVault7601|CharGenEndMarker002_Copy01_Copy01|1
-NPEVault7601|CharGenTrailerRef005_Copy01_Copy01|1
+NPEVault7601|76CharGenPerkBoardTriggerRef005_Copy01_Copy01_Copy01|1
+NPEVault7601|76ExitTriggerREF02_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerCoupleEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerOverseerEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerPartyEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerRoomPipboyEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerStandeeEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerTrainingEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerVaultDoorExitEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerVaultExitEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerVaultExitHugEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76TrailerWorkersEnabler001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroCouple_Actor_Barney001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroCouple_Actor_Carol001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Alice001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Barney001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Biscuit001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Carol001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Cody001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Kathy001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Louise001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Margret001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Markie001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Phyllis001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Ron001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Sandy001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Violet001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroParty_Actor_Will001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactorLight04_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactorLight05_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactorLight06_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Foreman001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker05_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker07_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker08_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker09_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroReactor_Actor_Worker10_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroRoomPipboy_Actor_Barney001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroRoomPipboy_Actor_Carol001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroStandee_Actor_Sandy001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroStandee_Actor_Violet001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Alice001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Biscuit001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Cody001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Louise001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Margret001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Markie001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Overseer03_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Overseer04_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Phyllis001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Ron001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Sandy001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Violet001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroTraining_Actor_Will001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Alice001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Barney001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Carol001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Cody001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Kathy001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Louise001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Margret001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Markie001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultDoorExit_Actor_Sandy001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Alice001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Barney001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Biscuit001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Carol001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Cody001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Kathy001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Louise001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Margret001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Markie001_Copy01_Copy01_Copy01|1
+NPEVault7601|76Trailer_IntroVaultExit_Actor_Ron001_Copy01_Copy01_Copy01|1
+NPEVault7601|CAMPTriggerMarker002_Copy01_Copy01_Copy01|1
+NPEVault7601|CharGenEndMarker002_Copy01_Copy01_Copy01|1
+NPEVault7601|CharGenTrailerRef005_Copy01_Copy01_Copy01|1
 NPEVault7601|Chargen_BreadcrumbQT01_Ref|1
 NPEVault7601|Chargen_BreadcrumbQT02_Ref|1
 NPEVault7601|Chargen_BreadcrumbQT03_Ref|1
@@ -12106,23 +12187,23 @@ NPEVault7601|Chargen_BreadcrumbQT04_Ref|1
 NPEVault7601|Chargen_BreadcrumbQT05_Ref|1
 NPEVault7601|Chargen_BreadcrumbQT06_Ref|1
 NPEVault7601|Chargen_BreadcrumbQT07_Ref|1
-NPEVault7601|Face01Light002_Copy01_Copy01|1
-NPEVault7601|Face02Light002_Copy01_Copy01|1
-NPEVault7601|Face03Light002_Copy01_Copy01|1
-NPEVault7601|Face04Light002_Copy01_Copy01|1
-NPEVault7601|Face05Light002_Copy01_Copy01|1
-NPEVault7601|Face06Light002_Copy01_Copy01|1
-NPEVault7601|Intro_Party_TrailerEnabler005_Copy01_Copy01|1
+NPEVault7601|Face01Light002_Copy01_Copy01_Copy01|1
+NPEVault7601|Face02Light002_Copy01_Copy01_Copy01|1
+NPEVault7601|Face03Light002_Copy01_Copy01_Copy01|1
+NPEVault7601|Face04Light002_Copy01_Copy01_Copy01|1
+NPEVault7601|Face05Light002_Copy01_Copy01_Copy01|1
+NPEVault7601|Face06Light002_Copy01_Copy01_Copy01|1
+NPEVault7601|Intro_Party_TrailerEnabler005_Copy01_Copy01_Copy01|1
 NPEVault7601|NPE_LoadoutObjects_EnableMarker_Ref|1
 NPEVault7601|NPE_MQ01_Enjoy_VR76ExitMarker_Ref|1
 NPEVault7601|NPE_SaveFailsafe_Trigger_Ref|1
-NPEVault7601|NameOverrideTestMarker001_Copy01_Copy01|1
-NPEVault7601|PipeRoomExtFilter002_Copy01_Copy01|1
-NPEVault7601|PipeRoomIntFilter002_Copy01_Copy01|1
-NPEVault7601|PipeRoomNoFilter002_Copy01_Copy01|1
-NPEVault7601|RS01A_Contact_DoorQTMarker02_Copy01_Copy01|1
-NPEVault7601|TestChargenDinerScene001_Copy01_Copy01|1
-NPEVault7601|TrailerEnabler005_Copy01_Copy01|1
+NPEVault7601|NameOverrideTestMarker001_Copy01_Copy01_Copy01|1
+NPEVault7601|PipeRoomExtFilter002_Copy01_Copy01_Copy01|1
+NPEVault7601|PipeRoomIntFilter002_Copy01_Copy01_Copy01|1
+NPEVault7601|PipeRoomNoFilter002_Copy01_Copy01_Copy01|1
+NPEVault7601|RS01A_Contact_DoorQTMarker02_Copy01_Copy01_Copy01|1
+NPEVault7601|TestChargenDinerScene001_Copy01_Copy01_Copy01|1
+NPEVault7601|TrailerEnabler005_Copy01_Copy01_Copy01|1
 NPEVault7601|XMarkerHeading_CharGen06Start01|1
 NPEVault7601|XMarkerHeading_CharGen06Start02|1
 NPEVault7601|XMarkerHeading_CharGen06Start03|1
@@ -12131,96 +12212,96 @@ NPEVault7601|XMarkerHeading_CharGen06Start05|1
 NPEVault7601|XMarkerHeading_CharGen06Start06|1
 NVEShelter01||360
 NVEVault7601||7041
-NVEVault7601|76CharGenPerkBoardTriggerRef005_Copy01|1
-NVEVault7601|76ExitTriggerREF02_Copy01|1
-NVEVault7601|76TrailerCoupleEnabler001_Copy01|1
-NVEVault7601|76TrailerOverseerEnabler001_Copy01|1
-NVEVault7601|76TrailerPartyEnabler001_Copy01|1
-NVEVault7601|76TrailerRoomPipboyEnabler001_Copy01|1
-NVEVault7601|76TrailerStandeeEnabler001_Copy01|1
-NVEVault7601|76TrailerTrainingEnabler001_Copy01|1
-NVEVault7601|76TrailerVaultDoorExitEnabler001_Copy01|1
-NVEVault7601|76TrailerVaultExitEnabler001_Copy01|1
-NVEVault7601|76TrailerVaultExitHugEnabler001_Copy01|1
-NVEVault7601|76TrailerWorkersEnabler001_Copy01|1
-NVEVault7601|76Trailer_IntroCouple_Actor_Barney001_Copy01|1
-NVEVault7601|76Trailer_IntroCouple_Actor_Carol001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Alice001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Barney001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Biscuit001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Carol001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Cody001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Kathy001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Louise001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Margret001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Markie001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Phyllis001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Ron001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Sandy001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Violet001_Copy01|1
-NVEVault7601|76Trailer_IntroParty_Actor_Will001_Copy01|1
-NVEVault7601|76Trailer_IntroReactorLight04_Copy01|1
-NVEVault7601|76Trailer_IntroReactorLight05_Copy01|1
-NVEVault7601|76Trailer_IntroReactorLight06_Copy01|1
-NVEVault7601|76Trailer_IntroReactor_Actor_Foreman001_Copy01|1
-NVEVault7601|76Trailer_IntroReactor_Actor_Worker05_Copy01|1
-NVEVault7601|76Trailer_IntroReactor_Actor_Worker07_Copy01|1
-NVEVault7601|76Trailer_IntroReactor_Actor_Worker08_Copy01|1
-NVEVault7601|76Trailer_IntroReactor_Actor_Worker09_Copy01|1
-NVEVault7601|76Trailer_IntroReactor_Actor_Worker10_Copy01|1
-NVEVault7601|76Trailer_IntroRoomPipboy_Actor_Barney001_Copy01|1
-NVEVault7601|76Trailer_IntroRoomPipboy_Actor_Carol001_Copy01|1
-NVEVault7601|76Trailer_IntroStandee_Actor_Sandy001_Copy01|1
-NVEVault7601|76Trailer_IntroStandee_Actor_Violet001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Alice001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Biscuit001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Cody001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Louise001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Margret001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Markie001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Overseer03_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Overseer04_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Phyllis001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Ron001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Sandy001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Violet001_Copy01|1
-NVEVault7601|76Trailer_IntroTraining_Actor_Will001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Alice001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Barney001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Carol001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Cody001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Kathy001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Louise001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Margret001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Markie001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Sandy001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Alice001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Barney001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Biscuit001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Carol001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Cody001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Kathy001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Louise001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Margret001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Markie001_Copy01|1
-NVEVault7601|76Trailer_IntroVaultExit_Actor_Ron001_Copy01|1
-NVEVault7601|CAMPTriggerMarker002_Copy01|1
-NVEVault7601|CharGenEndMarker002_Copy01|1
-NVEVault7601|CharGenTrailerRef005_Copy01|1
-NVEVault7601|Face01Light002_Copy01|1
-NVEVault7601|Face02Light002_Copy01|1
-NVEVault7601|Face03Light002_Copy01|1
-NVEVault7601|Face04Light002_Copy01|1
-NVEVault7601|Face05Light002_Copy01|1
-NVEVault7601|Face06Light002_Copy01|1
-NVEVault7601|Intro_Party_TrailerEnabler005_Copy01|1
-NVEVault7601|NameOverrideTestMarker001_Copy01|1
-NVEVault7601|PipeRoomExtFilter002_Copy01|1
-NVEVault7601|PipeRoomIntFilter002_Copy01|1
-NVEVault7601|PipeRoomNoFilter002_Copy01|1
-NVEVault7601|RS01A_Contact_DoorQTMarker02_Copy01|1
-NVEVault7601|TestChargenDinerScene001_Copy01|1
-NVEVault7601|TrailerEnabler005_Copy01|1
+NVEVault7601|76CharGenPerkBoardTriggerRef005_Copy01_Copy01|1
+NVEVault7601|76ExitTriggerREF02_Copy01_Copy01|1
+NVEVault7601|76TrailerCoupleEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerOverseerEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerPartyEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerRoomPipboyEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerStandeeEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerTrainingEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerVaultDoorExitEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerVaultExitEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerVaultExitHugEnabler001_Copy01_Copy01|1
+NVEVault7601|76TrailerWorkersEnabler001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroCouple_Actor_Barney001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroCouple_Actor_Carol001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Alice001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Barney001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Biscuit001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Carol001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Cody001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Kathy001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Louise001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Margret001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Markie001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Phyllis001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Ron001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Sandy001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Violet001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroParty_Actor_Will001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactorLight04_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactorLight05_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactorLight06_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactor_Actor_Foreman001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactor_Actor_Worker05_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactor_Actor_Worker07_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactor_Actor_Worker08_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactor_Actor_Worker09_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroReactor_Actor_Worker10_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroRoomPipboy_Actor_Barney001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroRoomPipboy_Actor_Carol001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroStandee_Actor_Sandy001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroStandee_Actor_Violet001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Alice001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Biscuit001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Cody001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Louise001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Margret001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Markie001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Overseer03_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Overseer04_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Phyllis001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Ron001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Sandy001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Violet001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroTraining_Actor_Will001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Alice001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Barney001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Carol001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Cody001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Kathy001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Louise001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Margret001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Markie001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultDoorExit_Actor_Sandy001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Alice001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Barney001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Biscuit001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Carol001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Cody001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Kathy001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Louise001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Margret001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Markie001_Copy01_Copy01|1
+NVEVault7601|76Trailer_IntroVaultExit_Actor_Ron001_Copy01_Copy01|1
+NVEVault7601|CAMPTriggerMarker002_Copy01_Copy01|1
+NVEVault7601|CharGenEndMarker002_Copy01_Copy01|1
+NVEVault7601|CharGenTrailerRef005_Copy01_Copy01|1
+NVEVault7601|Face01Light002_Copy01_Copy01|1
+NVEVault7601|Face02Light002_Copy01_Copy01|1
+NVEVault7601|Face03Light002_Copy01_Copy01|1
+NVEVault7601|Face04Light002_Copy01_Copy01|1
+NVEVault7601|Face05Light002_Copy01_Copy01|1
+NVEVault7601|Face06Light002_Copy01_Copy01|1
+NVEVault7601|Intro_Party_TrailerEnabler005_Copy01_Copy01|1
+NVEVault7601|NameOverrideTestMarker001_Copy01_Copy01|1
+NVEVault7601|PipeRoomExtFilter002_Copy01_Copy01|1
+NVEVault7601|PipeRoomIntFilter002_Copy01_Copy01|1
+NVEVault7601|PipeRoomNoFilter002_Copy01_Copy01|1
+NVEVault7601|RS01A_Contact_DoorQTMarker02_Copy01_Copy01|1
+NVEVault7601|TestChargenDinerScene001_Copy01_Copy01|1
+NVEVault7601|TrailerEnabler005_Copy01_Copy01|1
 NVEVault7601|XMarkerHeading_CharGen01Start07|1
 NVEVault7601|XMarkerHeading_CharGen01Start08|1
 NVEVault7601|XMarkerHeading_CharGen01Start09|1
@@ -12264,7 +12345,7 @@ OverseersHome01|W05_MQ_101P_OverseerEnableMarkerRef|1
 OverseersHome01|W05_MQ_101P_SetStage110Trigger|1
 OverseersHome01|W05_MQ_101P_SetStage150Trigger|1
 OverseersHome01|W05_Overseer_InstancedRef|1
-PoseidonPlant01||15640
+PoseidonPlant01||15639
 PoseidonPlant01|AudioEnableMarker_Poseidon_GeneratorRoom|1
 PoseidonPlant01|AudioEnableMarker_Poseidon_ReactorRoom|1
 PoseidonPlant01|LC006_PoseidonPlantLoadExpansion|1
@@ -12296,7 +12377,6 @@ PoseidonPlant02|WL020_Post204P_UnlockedDoor02|1
 RadioResearchCenter01||3470
 RadioResearchCenter01|EN03_RadioResearchDebugMarker|1
 RadioResearchCenter01|MTNM02RadioResearchMarker|1
-RaiderCave01||1444
 RaiderCave02||1857
 RaiderCave02|BS01_MQ05_Raiders_EnableMarker_BoSProtectrons|1
 RaiderCave02|BS01_MQ05_Raiders_EnableMarker_Raiders|1
@@ -12315,7 +12395,6 @@ RaiderCave02|BS01_MQ06A_Raiders_PierceRef|1
 RaiderCave02|BS01_MQ06A_Raiders_ShinCaveMarker001|1
 RaiderCave02|BS01_MQ06A_Raiders_ShinCaveMarker002|1
 RaiderCave02|BS01_MQ06A_Raiders_ShinRef|1
-RaiderCave03||1681
 RaiderRaidTrailerInt||99
 RaiderRaidTrailerInt|W05_MQ_101P_A_AldridgeAliveEnableRef|1
 RaiderRaidTrailerInt|W05_MQ_101P_A_AldridgeAliveRef|1
@@ -12436,6 +12515,7 @@ SettlerBugOutCave|W05_MQ_101P_B_AubrieDeadEnableMarkerRef|1
 SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||976
+SheltersFlatlands||1534
 SheltersHighStakes||2617
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
@@ -12621,7 +12701,10 @@ SugarGroveMissileSilo01|xSCMSilo_Ops|1
 SugarGroveMissileSilo01|xSCMSilo_Reactor|1
 SugarGroveMissileSilo01|xSCMSilo_Residential|1
 SugarGroveMissileSilo01|xSCMSilo_Storage|1
-TheCraterCore01||1258
+SurlysShack01||120
+SurlysShack01|AC_SQ01_HellsEagles_NoteContainer_Ref|1
+TheCraterCore01||1260
+TheCraterCore01|AC_SQ01_HellsEagles_Oscar_ExitMarker_Ref|1
 TheCraterCore01|BrahminSkullCraterRef|1
 TheCraterCore01|Crater_Gail_Room_Marker|1
 TheCraterCore01|Crater_Interior_DirectTravelPoint|1
@@ -12653,12 +12736,64 @@ TheCraterCore01|W05_Sandbox_AllRef|1
 TheCraterCore01|W05_Sandbox_BottomRef|1
 TheCraterCore01|W05_Sandbox_TopRef|1
 TheCraterCore01|XPD_ARG_XMarker|1
-TheNukashine01||1533
+TheNukashine01||1506
+TheNukashine01|AC_SQ04_BrotherhoodHoldUpMarker|1
+TheNukashine01|AC_SQ04_DownstairsTrigger|1
+TheNukashine01|AC_SQ04_HoldUpMarker|1
+TheNukashine01|AC_SQ04_InstrumentFurnRef|1
+TheNukashine01|AC_SQ04_JusticeHoldUpFurn|1
+TheNukashine01|AC_SQ04_JusticeRef_Nukashine|1
+TheNukashine01|AC_SQ04_JusticeWrapUpMarker|1
+TheNukashine01|AC_SQ04_NukashineExitMarker|1
+TheNukashine01|AC_SQ04_ReneRef|1
 TheNukashine01|P01A_Nukashine_BivRef|1
 TheNukashine01|P01A_Nukashine_PastSecretDoorTrigger|1
 TheNukashine01|P01A_Nukashine_SpeakeasyTrigger|1
 TheNukashine01|UD004_NukashineLoadDoorInt|1
 TheNukashine01|XMarker_D01A_Wasted_BrewingObj|1
+TheRoseRoom01||1497
+TheRoseRoom01|AC_MQ01_DownstairsTrigger|1
+TheRoseRoom01|AC_MQ01_EvelynDownstairsMarker|1
+TheRoseRoom01|AC_MQ01_EvelynStormAwayMarker|1
+TheRoseRoom01|AC_MQ01_ExitMarker|1
+TheRoseRoom01|AC_MQ01_HitmanGoon|1
+TheRoseRoom01|AC_MQ01_HitmanLeaderMarker|1
+TheRoseRoom01|AC_MQ01_MusicianRef|1
+TheRoseRoom01|AC_MQ01_Opportunity_AbbieCowerFurn|1
+TheRoseRoom01|AC_MQ01_Opportunity_AbbieStoolRef|1
+TheRoseRoom01|AC_MQ01_Opportunity_AbbieStoolRef001|1
+TheRoseRoom01|AC_MQ01_Opportunity_EvelynFanSelfFurn|1
+TheRoseRoom01|AC_MQ01_Opportunity_EvelynToAbbieMarker|1
+TheRoseRoom01|AC_MQ01_Opportunity_FemaleScavengerMarker|1
+TheRoseRoom01|AC_MQ01_Opportunity_HitmanGoonDrinkingFurn|1
+TheRoseRoom01|AC_MQ01_Opportunity_HitmanStool|1
+TheRoseRoom01|AC_MQ01_Opportunity_MaleScavengerMarker|1
+TheRoseRoom01|AC_MQ01_Opportunity_MedicFurn|1
+TheRoseRoom01|AC_MQ01_Opportunity_MusicianCouch|1
+TheRoseRoom01|AC_MQ01_Opportunity_PlayerCouch|1
+TheRoseRoom01|AC_MQ01_Opportunity_ShootMarker|1
+TheRoseRoom01|AC_MQ01_Opportunity_VinBarFurn|1
+TheRoseRoom01|AC_MQ01_ScavengerFemale|1
+TheRoseRoom01|AC_MQ01_ScavengerMale|1
+TheRoseRoom01|AC_MQ01_TubaRef|1
+TheRoseRoom01|AC_MQ01_VinAfterFightMarker|1
+TheRoseRoom01|AC_MQ03_HonorBound_Abbie_Marker_Ref|1
+TheRoseRoom01|AC_MQ03_HonorBound_RussoHouseMarker_Ref|1
+TheRoseRoom01|AC_MQ04_Sins_AbbieFinaleMarker|1
+TheRoseRoom01|AC_MQ04_Sins_AntonioFinaleMarker|1
+TheRoseRoom01|AC_MQ04_Sins_EvelynFinaleMarker|1
+TheRoseRoom01|AC_MQ04_Sins_FinaleSceneTrigger|1
+TheRoseRoom01|AC_MQ04_Sins_LabTableDecorEnableMarker_REF|1
+TheRoseRoom01|AC_MQ04_Sins_VinFinaleMarker|1
+TheRoseRoom01|AC_MQ04_VinSmokeFurniture_Ref|1
+TheRoseRoom01|AC_MQ_AbbieRef|1
+TheRoseRoom01|AC_MQ_AntonioRef|1
+TheRoseRoom01|AC_MQ_EvelynRef|1
+TheRoseRoom01|AC_MQ_LabDoor_Ref|1
+TheRoseRoom01|AC_MQ_VinRef|1
+TheRoseRoom01|AC_MQ_VinToAbbieMarker|1
+TheRoseRoom01|TheRoseRoom01_Interior_DirectTravelPoint|1
+TheRoseRoom01|TheRoseRoom_Interior_DirectTravelPoint|1
 TheRustyPick01||2428
 TheRustyPick01|LC149_MoleMiner_Idle_01|1
 TheRustyPick01|LC149_MoleMiner_Idle_02|1
@@ -12674,7 +12809,7 @@ TheRustyPick01|LGV01_LegendaryVendorChestRef|1
 TheRustyPick01|LGV01_LegendaryVendor_Marker|1
 TheRustyPick01|LGV01_LegendaryVendor_MarkerStart|1
 TheRustyPick01|TheRustyPick_Interior_DirectTravelPoint|1
-TheWayward01||1644
+TheWayward01||1643
 TheWayward01|Camera_WaywardBar_XMarkerRefPoint|1
 TheWayward01|REF_COMP_Spawn_Available_Companions|1
 TheWayward01|W05_003P_RadioBroadcastMarkerREF|1
@@ -12807,7 +12942,7 @@ TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_07|1
 TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_08|1
 TopOfTheWorld01|W05_MQ_101P_MegRef|1
 TopOfTheWorld01|W05_MQ_101P_RaiderBRef|1
-TunnelOfLoveMineshaft01||4383
+TunnelOfLoveMineshaft01||4384
 TunnelOfLoveMineshaft01|E09C_ArenaSpawn01|1
 TunnelOfLoveMineshaft01|E09C_ArenaSpawn02|1
 TunnelOfLoveMineshaft01|E09C_BrokenTracks_ObjectiveMarker_Radius3250|1
@@ -12917,7 +13052,7 @@ UncannyCaverns02|BS02_MQ01_Penance_ShinExplosionFurn|1
 UncannyCaverns02|BS02_MQ01_Penance_ShinIntRef|1
 UncannyCaverns02|BS02_MQ01_Penance_ShinMineSceneMarker|1
 UncannyCaverns02|BS02_MQ01_Penance_SpawnCenterInt|1
-UncannyCavernsDungeon||7383
+UncannyCavernsDungeon||7384
 UncannyCavernsDungeon|DailyOps_Mode01_Activator00_PackIn010|1
 UncannyCavernsDungeon|DailyOps_Mode01_Activator01_PackIn010|1
 UncannyCavernsDungeon|DailyOps_Mode01_Activator02_PackIn010|1
@@ -13048,7 +13183,7 @@ Vault63Entrance|v63_State2_Enable|1
 Vault63Entrance|v63_State3_Disable|1
 Vault63Entrance|v63_State3_Enable|1
 Vault63Entrance|v63_StateGeneric_Enable|1
-Vault79Entrance||1545
+Vault79Entrance||1544
 Vault79Entrance|W05_V97ExtTerminalREF|1
 Vault79GoldVaultOperations||4678
 Vault79GoldVaultOperations|ColePos1_Marker|1
@@ -13279,7 +13414,7 @@ Vault79Main|WendigoAmbush|1
 Vault79Main|WendigoEatMarker|1
 Vault79Main|testmarkerbry|1
 Vault79Main|v79vent|1
-Vault94Dungeon||17439
+Vault94Dungeon||17440
 Vault94Dungeon|BS013_Vault94Dungeon_Out|1
 Vault94Dungeon|DailyOps_Global_Vault94_Blocker01|1
 Vault94Dungeon|DailyOps_Global_Vault94_Blocker02|1
@@ -14003,7 +14138,7 @@ WhitespringMall01|TestElevDoorTriggerARef130|1
 WhitespringMall01|TestElevDoorTriggerARef134|1
 WhitespringMall01|TestElevDoorTriggerARef136|1
 WhitespringMall01|WhitespringMall_Interior_DirectTravelPoint|1
-WhitespringRefuge01||11464
+WhitespringRefuge01||11466
 WhitespringRefuge01|AC_MQ01_Opportunity_Poster_00|1
 WhitespringRefuge01|AC_MQ01_Opportunity_Poster_01|1
 WhitespringRefuge01|AC_MQ01_Opportunity_Poster_02|1
@@ -14012,6 +14147,7 @@ WhitespringRefuge01|AC_MQ01_Opportunity_Poster_05|1
 WhitespringRefuge01|AC_MQ02_Stage_EvelynBarFurn|1
 WhitespringRefuge01|AC_MQ02_Stage_EvelynIntroMarker|1
 WhitespringRefuge01|AC_MQ02_Stage_EvelynSuperstitionMarker|1
+WhitespringRefuge01|AC_MQ02_Stage_IntroDebugMarker|1
 WhitespringRefuge01|AC_MQ02_Stage_IntroSceneTrigger|1
 WhitespringRefuge01|AC_MQ02_Stage_OrlandoIntroMarker|1
 WhitespringRefuge01|AC_MQ02_Stage_SuperstitiousRefugeeRef|1
@@ -14225,14 +14361,16 @@ WhitespringRefuge01|XPD_Hub_Responders_SkippyMarker_Junk|1
 WhitespringRefuge01|XPD_Hub_Responders_SkippyMarker_MissionHub|1
 WhitespringRefuge01|XPD_JeremiahRef|1
 WhitespringRefuge01|XPD_WhitespringGreeterRef|1
-XPDAC01Casino||13696
+XPDAC01Casino||13775
 XPDAC01Casino|AC_MQ02_Stage_CasinoExitMarker|1
 XPDAC01Casino|AC_MQ02_Stage_OutsideLoungeTrigger|1
 XPDAC01Casino|AC_MQ02_Stage_PokerGameTrigger|1
-XPDAC01Casino|AC_MQ02_Stage_ShadyMobstersChair|1
+XPDAC01Casino|AC_MQ02_Stage_ShadyMobsterChair|1
 XPDAC01Casino|AC_MQ02_Stage_StanRef|1
+XPDAC01Casino|AC_MQ02_Stage_StanleySoriano_EnableMarker|1
 XPDAC01Casino|AC_MQ02_Stage_StansChair|1
 XPDAC01Casino|AC_SQ05_Casino_PersistentMarker_REF|1
+XPDAC01Casino|EXP14_HighRollersLounge_DoormanMarker|1
 XPDAC01Casino|EXP14_HighRollersLounge_MainDoor_Ref|1
 XPDAC01Casino|TestElevDoorARef105|1
 XPDAC01Casino|TestElevDoorARef106|1
@@ -14260,17 +14398,24 @@ XPDAC01Casino|XPD_AC02_SolveLocksMarker06_Ref|1
 XPDAC01Casino|XPD_AC02_SolveLocksMarker07_Ref|1
 XPDAC01Casino|XPD_AC02_SolveLocksMarker08_Ref|1
 XPDAC01Casino|XPD_AC_CasinoFriendliesDisabler_Ref|1
-XPDAC01EntertainmentDistrict||6779
+XPDAC01EntertainmentDistrict||6782
 XPDAC01EntertainmentDistrict|AC_MQ02_Stage_CasinoQuarterToBoardwalk_Marker|1
 XPDAC01EntertainmentDistrict|AC_MQ02_Stage_Evelyn_CasinoQuarter|1
 XPDAC01EntertainmentDistrict|AC_SQ05_CasinoQuarter_PersistentMarker_REF|1
-XPDAC01EntertainmentDistrict|XPDAC01CasinoQuarter_Ambient_Enemy_EnableMarker|1
 XPDAC01EntertainmentDistrict|XPDAC01Casino_DoorLoad001|1
+XPDAC01EntertainmentDistrict|XPDAC01_ManholetoBoardwalk|1
+XPDAC01EntertainmentDistrict|XPDAC01_ManholetoFloodedCity|1
+XPDAC01EntertainmentDistrict|XPD_AC01_Manhole_LoadDoor_Enabler|1
 XPDAC01EntertainmentDistrict|XPD_AC01_MobAllyEnableMarker_Ref|1
 XPDAC01EntertainmentDistrict|XPD_AC02_PersistentMarker|1
 XPDAC01EntertainmentDistrict|XPD_AC02_PlayerOnlyTrigger|1
 XPDAC01EntertainmentDistrict|XPD_NightClub_RightDoor_Ext|1
-XPDAC01NightClub||2944
+XPDAC01NightClub||2984
+XPDAC01NightClub|AC_SQ05_Regent_FabioBackUp_00|1
+XPDAC01NightClub|AC_SQ05_Regent_FabioBackUp_01|1
+XPDAC01NightClub|AC_SQ05_Regent_FabioBackUp_02|1
+XPDAC01NightClub|AC_SQ05_Regent_FabioBackUp_03|1
+XPDAC01NightClub|AC_SQ05_Regent_FabioBackUp_04|1
 XPDAC01NightClub|XPDAC01Casino_HatchDoor001|1
 XPDAC01NightClub|XPDAC01NightClub_Ambient_NPCs_EnableMarker|1
 XPDAC01NightClub|XPD_AC01_BillyBossFightFurniture_Ref|1
@@ -14278,7 +14423,7 @@ XPDAC01NightClub|XPD_AC01_BossDespawnMarker_Ref|1
 XPDAC01NightClub|XPD_AC_PersistentMarker_Quentinos_Ref|1
 XPDAC01NightClub|XPD_NightClub_RightDoor_Int|1
 XPDAC01NightClub|XPD_SalStickyFingers_Stool|1
-XPDAC02Aquarium||16003
+XPDAC02Aquarium||16089
 XPDAC02Aquarium|Aquarium_EnemyCombatants_EnableMarker|1
 XPDAC02Aquarium|Aquarium_FriendlyNPCs_EnableMarker|1
 XPDAC02Aquarium|XPDAC02Aqua_SizeComparisonVolume|1
@@ -14315,15 +14460,42 @@ XPDAC02Aquarium|XPD_AC02_SteamMarker|1
 XPDAC02Aquarium|XPD_AC02_TatoBasket|1
 XPDAC02Aquarium|XPD_AC02_Theater_ProxTrigger|1
 XPDAC02Aquarium|XPD_AC02_VIPBoothDoor|1
-XPDAC02Aquarium|XPD_AC02_Veracio_WallLean_Aquarium|1
+XPDAC02Aquarium|XPD_AC02_VeracioFurn_Aquarium|1
 XPDAC02Aquarium|XPD_AC02_WinnersStageMarker|1
-XPDAC02Boardwalk||10541
+XPDAC02AquariumDungeon||15810
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator00_PackIn016|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator01_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator02_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator03_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule00_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule01_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule02_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule03_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule04_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn00_01_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn00_02_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn00_03_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn01_01_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn01_02_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn01_03_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn02_01_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn02_02_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn02_03_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn03_01_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn03_02_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn03_03_PackIn017|1
+XPDAC02AquariumDungeon|DailyOps_ReturnDoor_PackIn004|1
+XPDAC02Boardwalk||10701
+XPDAC02Boardwalk|AC_MQ02_Stage_TicketClerkMarker|1
 XPDAC02Boardwalk|AC_MQ02_Stage_TicketClerkRef|1
 XPDAC02Boardwalk|AC_SQ03_BackRoomTrigger|1
 XPDAC02Boardwalk|AC_SQ03_BoardwalkToPier_Marker|1
 XPDAC02Boardwalk|AC_SQ03_ClientAlleyMarker|1
 XPDAC02Boardwalk|AC_SQ03_ClientRef|1
+XPDAC02Boardwalk|AC_SQ03_Custodial_AlleyTrigger|1
+XPDAC02Boardwalk|AC_SQ03_Custodial_BackRoomDoor|1
 XPDAC02Boardwalk|AC_SQ03_Custodial_SamAlleyMarker|1
+XPDAC02Boardwalk|AC_SQ03_OutsideBackRoomTrigger|1
 XPDAC02Boardwalk|AC_SQ03_SamBackRoomMarker|1
 XPDAC02Boardwalk|AC_SQ03_SamRef|1
 XPDAC02Boardwalk|AC_SQ03_SamShopMarker|1
@@ -14331,8 +14503,9 @@ XPDAC02Boardwalk|AC_SQ03_VictimFurn|1
 XPDAC02Boardwalk|AC_SQ03_VictimRef|1
 XPDAC02Boardwalk|Boardwalk_EnemyCombatants_EnableMarker|1
 XPDAC02Boardwalk|Boardwalk_FriendlyNPCs_EnableMarker|1
-XPDAC02Boardwalk|Door_BoardwalkToCasinoQuarter|1
 XPDAC02Boardwalk|ObjMod_Assassination_ProxyTrigger003|1
+XPDAC02Boardwalk|XPDAC02_ManholetoCasinoQuarter|1
+XPDAC02Boardwalk|XPDAC02_ManholetoFloodedCity|1
 XPDAC02Boardwalk|XPD_AC01_ObjMod_Race_Checkpoint00|1
 XPDAC02Boardwalk|XPD_AC01_ObjMod_Race_Checkpoint01|1
 XPDAC02Boardwalk|XPD_AC01_ObjMod_Race_Checkpoint02|1
@@ -14342,9 +14515,14 @@ XPDAC02Boardwalk|XPD_AC01_VeracioRef_Boardwalk|1
 XPDAC02Boardwalk|XPD_AC02_BoardwalkEntrance_ProxTrigger|1
 XPDAC02Boardwalk|XPD_AC02_BoardwalkExitMarker|1
 XPDAC02Boardwalk|XPD_AC02_Door_BoardwalkToPier|1
+XPDAC02Boardwalk|XPD_AC02_FireworksTrigger_00|1
+XPDAC02Boardwalk|XPD_AC02_FireworksTrigger_01|1
+XPDAC02Boardwalk|XPD_AC02_FireworksTrigger_02|1
+XPDAC02Boardwalk|XPD_AC02_Fireworks_EnableMarker|1
 XPDAC02Boardwalk|XPD_AC02_JuchiRef_Boardwalk|1
 XPDAC02Boardwalk|XPD_AC02_JullianRef_Boardwalk|1
 XPDAC02Boardwalk|XPD_AC02_LennoxSmokeFurn|1
+XPDAC02Boardwalk|XPD_AC02_Manhole_LoadDoor_Enabler|1
 XPDAC02Boardwalk|XPD_AC02_RefreshmentsChair_00|1
 XPDAC02Boardwalk|XPD_AC02_RefreshmentsChair_01|1
 XPDAC02Boardwalk|XPD_AC02_RefreshmentsChair_02|1
@@ -14353,7 +14531,8 @@ XPDAC02Boardwalk|XPD_AC02_RefreshmentsMarker_00|1
 XPDAC02Boardwalk|XPD_AC02_RefreshmentsMarker_01|1
 XPDAC02Boardwalk|XPD_AC02_RefreshmentsMarker_02|1
 XPDAC02Boardwalk|XPD_AC02_RefreshmentsMarker_03|1
-XPDAC02Boardwalk|XPD_AC02_Veracio_WallLeanFurn|1
+XPDAC02Boardwalk|XPD_AC02_TwinsExitMarker|1
+XPDAC02Boardwalk|XPD_AC02_VeracioFurn|1
 XPDAC02Boardwalk|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker56|1
 XPDAC02Boardwalk|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker58|1
 XPDAC02Boardwalk|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker59|1
@@ -14362,29 +14541,44 @@ XPDAC02Boardwalk|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker61|1
 XPDAC02Boardwalk|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker62|1
 XPDAC02Boardwalk|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker63|1
 XPDAC02Boardwalk|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker64|1
-XPDAC02Pier||7244
+XPDAC02Pier||7401
 XPDAC02Pier|AC_MQ02_BackstageTeleportMarker_00|1
 XPDAC02Pier|AC_MQ02_BackstageTeleportMarker_01|1
 XPDAC02Pier|AC_MQ02_BackstageTeleportMarker_02|1
+XPDAC02Pier|AC_MQ02_KnifeActivator|1
+XPDAC02Pier|AC_MQ02_StageFrontMarker|1
 XPDAC02Pier|AC_MQ02_Stage_BackstageTrigger|1
 XPDAC02Pier|AC_MQ02_Stage_ClownDressingRoom_EnableMarker|1
-XPDAC02Pier|AC_MQ02_Stage_ClownHatMarker|1
-XPDAC02Pier|AC_MQ02_Stage_ClownOutfitMarker|1
-XPDAC02Pier|AC_MQ02_Stage_ClownPatrolMarker|1
+XPDAC02Pier|AC_MQ02_Stage_ClownHatDispenser|1
+XPDAC02Pier|AC_MQ02_Stage_ClownOutfitDispenser|1
+XPDAC02Pier|AC_MQ02_Stage_ClownPatrolMarker001|1
+XPDAC02Pier|AC_MQ02_Stage_ClownPatrolMarker002|1
 XPDAC02Pier|AC_MQ02_Stage_DressingRoomDoor|1
 XPDAC02Pier|AC_MQ02_Stage_DressingRoomExitTrigger|1
 XPDAC02Pier|AC_MQ02_Stage_DressingRoomMarker|1
 XPDAC02Pier|AC_MQ02_Stage_DressingRoomTrigger|1
+XPDAC02Pier|AC_MQ02_Stage_EvelynBackstageFurn|1
 XPDAC02Pier|AC_MQ02_Stage_EvelynBackstageMarker|1
 XPDAC02Pier|AC_MQ02_Stage_FleeVenue_SpawnCenter|1
+XPDAC02Pier|AC_MQ02_Stage_HulaHoopsTrigger|1
+XPDAC02Pier|AC_MQ02_Stage_KnifePromptBlocker|1
 XPDAC02Pier|AC_MQ02_Stage_KnifeTargetMarker|1
+XPDAC02Pier|AC_MQ02_Stage_KnifeThrowingFurn|1
 XPDAC02Pier|AC_MQ02_Stage_PerformanceClowns_EnableMarker|1
+XPDAC02Pier|AC_MQ02_Stage_ShowProps_EnableMarker|1
+XPDAC02Pier|AC_MQ02_Stage_ShowmanSnitchMarker|1
+XPDAC02Pier|AC_MQ02_Stage_StageFrontProps_EnableMarker|1
 XPDAC02Pier|AC_MQ02_Stage_StageMarker|1
 XPDAC02Pier|AC_MQ02_Stage_StageProps_EnableMarker|1
 XPDAC02Pier|AC_MQ02_Stage_StageTrigger|1
+XPDAC02Pier|AC_MQ02_Stage_StarClownMarker|1
+XPDAC02Pier|AC_MQ02_Stage_ThrowKnifeFromMarker|1
+XPDAC02Pier|AC_MQ02_Stage_VanityRoomDoor|1
 XPDAC02Pier|AC_MQ02_Stage_ZaydeRef|1
 XPDAC02Pier|AC_MQ02_Stage_ZaydeWaitMarker|1
 XPDAC02Pier|AC_MQ02_Stage_ZaydesVanity|1
+XPDAC02Pier|AC_SQ03_Custodial_EnableMarker|1
+XPDAC02Pier|AC_SQ03_Custodial_Sam_Sandbox|1
 XPDAC02Pier|AC_SQ03_SamInstructionsMarker|1
 XPDAC02Pier|AC_SQ03_SamPierRef|1
 XPDAC02Pier|PierToBoardwalkDoor|1
@@ -14423,37 +14617,142 @@ XPDAC02Pier|XPD_AC02_SolveLocks_TerminalWall_04|1
 XPDAC02Pier|XPD_AC02_SolveLocks_TerminalWall_05|1
 XPDAC02Pier|XPD_AC02_SolveLocks_TerminalWall_06|1
 XPDAC02Pier|XPD_AC02_Stage_MicrophoneMarker|1
-XPDAC03CityHall||4104
+XPDAC03CityHall||6000
 XPDAC03CityHall|XPDAC03CityHall_DoorLoad002|1
 XPDAC03CityHall|XPD_AC03_PersistentMarker_CityHall_Ref|1
-XPDAC03CommunityCenter||4626
+XPDAC03CommunityCenter||11604
 XPDAC03CommunityCenter|XPDAC03Community_DoorLoad002|1
 XPDAC03CommunityCenter|XPD_AC03_CurtainMoveMarker_Ref|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_DungeonExitMarker|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_PrisonerMarker_00|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_PrisonerMarker_01|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_PrisonerMarker_02|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_PrisonerMarker_03|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_PrisonerMarker_04|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_PrisonerMarker_05|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_PrisonerMarker_07|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_SCM_00|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_SCM_01|1
+XPDAC03CommunityCenter|XPD_AC03_ObjMod_FreePrisoners_SCM_02|1
 XPDAC03CommunityCenter|XPD_AC03_PersistentMarker_CommunityCenter_Ref|1
 XPDAC03CommunityCenter|XPD_AC03_RepelEnemies_SecureAreaAct_Ref|1
-XPDAC03CommunityCenter|XPD_AC03_TheaterCurtain_Ref|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker55|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker57|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker65|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker66|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker67|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker68|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker69|1
-XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker70|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set00_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set00_01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set00_02|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set01_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set01_01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set01_03|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set02_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set02_01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set02_02|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set03_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set03_01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set03_02|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocksTurret_Set03_05|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_EnableMarker_Set00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_EnableMarker_Set01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_EnableMarker_Set02|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_EnableMarker_Set03|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set00_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set00_02|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set00_03|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set01_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set01_01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set01_02|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set01_03|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set02_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set02_01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set02_02|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set02_03|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_00|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_01|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_03|1
+XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_04|1
+XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker06|1
 XPDAC03CommunityCenter|XPD_Pitt02_Organ002|1
-XPDAC03FloodedCityCenter||20048
+XPDAC03FloodedCityCenter||17003
+XPDAC03FloodedCityCenter|AC_MQ03_DEBUGWarehouseMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref001|1
+XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref002|1
+XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref003|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_ChemLabDoor_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_ChemLabEntranceMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_ChemLabEntrance_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_ChemLabExit_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_ChemLabQTMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_ChemLabSpawnCenter_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_DEBUGChemLabMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Gene_Marker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_LostMuni_SpawnCenter_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_MobBeliever_VanishMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_MobDenier_VanishMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_MuniVanishMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_OvergrownAmbush_SpawnCenter_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerCamera_Ambush_Marker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerCamera_ChemLabMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerCamera_WarehouseMob_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerCamera_WarehouseVinSloane_Marker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerScene_Ambush_Marker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerScene_ChemLabMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerScene_WarehouseMob_Marker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_PlayerScene_WarehouseVinSloane_Marker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_SloaneWarehouseMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Sloane_ChemLabMarker_Ref001|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Sloane_ExitForeverMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Sloane_TravelToChemLab_VanishMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Sloane_VanishMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Valve01_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Valve02_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Valve03_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Valve04_Ref_Copy01|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_VinChemLabIntTeleportMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_VinWarehouseMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Vin_AmbushMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Vin_ChemLabMarker_Ref001|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Vin_GenesRoomMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Vin_TravelToChemLab_VanishMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Vin_VanishMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_WarehouseBackDoor_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_WarehouseDoorTrigger_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_WarehouseFrontDoor_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_WarehouseKey_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_WarehouseNote_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_WarehouseQT_XMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_WaterExplosionMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Waterfall_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_HonorBound_Waterfall_Ref001|1
+XPDAC03FloodedCityCenter|AC_MQ03_PlayerTeleportMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_Sloane_AmbushMarker_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ03_VinRusso_Ref|1
+XPDAC03FloodedCityCenter|AC_MQ04_AntonioBossFightMarker|1
+XPDAC03FloodedCityCenter|AC_MQ04_ChurchAmbientCombatEnableMarker|1
+XPDAC03FloodedCityCenter|AC_MQ04_Sins_AbbieChemLabMarker|1
+XPDAC03FloodedCityCenter|AC_MQ04_Sins_AntonioChemLabMarker|1
+XPDAC03FloodedCityCenter|AC_MQ04_Sins_ChemLabPlayerMarker|1
+XPDAC03FloodedCityCenter|JD|1
+XPDAC03FloodedCityCenter|JD_Ambush_Trigger|1
 XPDAC03FloodedCityCenter|XPDAC02_DungeonExit01_01|1
 XPDAC03FloodedCityCenter|XPDAC02_DungeonExit01_02|1
 XPDAC03FloodedCityCenter|XPDAC02_DungeonExit01_03|1
 XPDAC03FloodedCityCenter|XPDAC02_DungeonExit01_04|1
 XPDAC03FloodedCityCenter|XPDAC03CityHall_DoorLoad001|1
 XPDAC03FloodedCityCenter|XPDAC03Community_DoorLoad001|1
+XPDAC03FloodedCityCenter|XPDAC03_Church|1
+XPDAC03FloodedCityCenter|XPDAC03_Door01|1
+XPDAC03FloodedCityCenter|XPDAC03_Door02|1
+XPDAC03FloodedCityCenter|XPDAC03_Door03|1
+XPDAC03FloodedCityCenter|XPDAC03_Door04|1
+XPDAC03FloodedCityCenter|XPDAC03_Door05|1
+XPDAC03FloodedCityCenter|XPDAC03_ManholetoBoardwalk|1
+XPDAC03FloodedCityCenter|XPDAC03_ManholetoCasinoQuarter|1
 XPDAC03FloodedCityCenter|XPD_AC03_DefendNPC_ProxTrigger_Ref|1
 XPDAC03FloodedCityCenter|XPD_AC03_DefendNPC_Ref|1
 XPDAC03FloodedCityCenter|XPD_AC03_IntroAuditorCombatantsSpawnCenter_Ref|1
 XPDAC03FloodedCityCenter|XPD_AC03_IntroOvergrown_SpawnMarkerRef|1
+XPDAC03FloodedCityCenter|XPD_AC03_Manhole_LoadDoor_Enabler|1
 XPDAC03FloodedCityCenter|XPD_AC03_PersistentMarker_FloodedCityCenter_Ref|1
-XPDPitt01Foundry||16869
+XPDPitt01Foundry||16868
 XPDPitt01Foundry|EXM1Pitt1_Shipping_Door_Interior0|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint00|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint01|1
@@ -14518,6 +14817,29 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
+XPDPitt01FoundryDungeon||15335
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator00_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator01_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator02_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator03_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_AmbientEWSTrigger_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_EWSModule00_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_EWSModule01_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_EWSModule02_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_EWSModule03_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_EWSModule04_PackIn014|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn00_01_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn00_02_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn00_03_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn01_01_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn01_02_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn01_03_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn02_01_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn02_02_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn02_03_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn03_01_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn03_02_PackIn015|1
+XPDPitt01FoundryDungeon|DailyOps_Mode01_Respawn03_03_PackIn015|1
 XPDPitt01Industrial||20025
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM|1
 XPDPitt01Industrial|AmbEWS_Node00_ShantyTown_SCM001|1
@@ -14863,7 +15185,7 @@ XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_Collapsed|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_FallingRocks|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_Boarded|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_FallingRocks|1
-XPDPitt02Trench||21080
+XPDPitt02Trench||21079
 XPDPitt02Trench|AmbEWS_DummyRef|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_SCM|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_Sandbox|1
@@ -15066,7 +15388,7 @@ AlleghenyAsylum01|100|15013
 Appalachia|50|43
 Appalachia|75|142
 Appalachia|85|72
-Appalachia|100|3084352
+Appalachia|100|3084779
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17161
@@ -15074,7 +15396,7 @@ ArktosPharmaLabDungeon|50|1
 ArktosPharmaLabDungeon|75|1
 ArktosPharmaLabDungeon|100|14621
 BelchingBetty01|100|5218
-BigBendTunnel01|100|7551
+BigBendTunnel01|100|7550
 BlackwaterMine01|100|6166
 BlueRidgeOffice01|50|1
 BlueRidgeOffice01|100|765
@@ -15103,9 +15425,9 @@ EmmettMountainDisposalSite01|50|4
 EmmettMountainDisposalSite01|75|6
 EmmettMountainDisposalSite01|100|4847
 EnclaveResearchFacility01|100|18742
-FortAtlas01|100|5184
+FortAtlas01|100|5185
 FortAtlasDungeon01|100|12665
-FoundationInt01|100|5372
+FoundationInt01|100|5376
 FoundationSupplyRoom01|100|529
 FraternityHouse01|100|1216
 FraternityHouse02|100|925
@@ -15114,11 +15436,11 @@ FreeStatesBunker02|100|981
 FreeStatesBunker03|100|1043
 FreeStatesBunker04|100|1254
 FreeStatesBunker06|100|949
-FreeStatesBunker07|100|1049
+FreeStatesBunker07|100|1050
 GarrahanMiningHQ01|100|9200
 GarrahanMiningHQDungeon|100|7694
 GauleyMine01|100|4177
-GlassedCavern01|100|9043
+GlassedCavern01|100|9044
 GraftonPawnShop01|100|1478
 GraftonSteelUnderground01|50|2
 GraftonSteelUnderground01|75|19
@@ -15129,14 +15451,16 @@ HornwrightHQ01|100|5951
 HornwrightSafeRoom01|50|1
 HornwrightSafeRoom01|75|2
 HornwrightSafeRoom01|100|1041
-IngramMansion01|100|936
 KerwoodMine01|100|5667
 LewisandSonsFarmingSupply01|100|461
+LittleRobsHideout01|75|2
+LittleRobsHideout01|100|1457
 LousMine01|75|3
 LousMine01|100|6989
 MTR08LodeBaring01|100|3408
 MTR08LodeBaring02|100|3284
 MamaDolceProcessing01|100|3074
+MiresEye01|100|1681
 MonongahMine01|100|6923
 MonongahMissileSilo01|75|4
 MonongahMissileSilo01|100|15686
@@ -15149,20 +15473,17 @@ MorgantownHighSchoolDungeon|100|5561
 MountBlairWarehouseBasement01|100|319
 NPECultistCave|50|2
 NPECultistCave|75|2
-NPECultistCave|100|4241
+NPECultistCave|100|4239
 NPEVault7601|100|7064
 NVEShelter01|100|360
 NVEVault7601|100|7137
 NukaColaQuantumPlant01|100|5477
 OrwellOrchardsShelter01|100|2209
 OverseersHome01|100|1250
-PoseidonPlant01|100|15660
+PoseidonPlant01|100|15659
 PoseidonPlant02|100|4189
 RadioResearchCenter01|100|3472
-RaiderCave01|75|2
-RaiderCave01|100|1442
 RaiderCave02|100|1874
-RaiderCave03|100|1681
 RaiderRaidTrailerInt|100|106
 RiversideManor01|100|7433
 RobCoResearchCenter01|50|3
@@ -15175,6 +15496,7 @@ SettlerBugOutCave|100|372
 SheltersCave01|100|534
 SheltersCave02|100|608
 SheltersClaimCenter01|100|976
+SheltersFlatlands|100|1534
 SheltersHighStakes|100|2617
 SheltersMissileSilo|100|493
 SheltersPittTrench01|100|1142
@@ -15195,18 +15517,20 @@ SugarGrove01|100|8279
 SugarGrove02|100|271
 SugarGroveMissileSilo01|75|4
 SugarGroveMissileSilo01|100|15686
-TheCraterCore01|100|1289
-TheNukashine01|100|1538
+SurlysShack01|100|121
+TheCraterCore01|100|1292
+TheNukashine01|100|1520
+TheRoseRoom01|100|1539
 TheRustyPick01|100|2442
-TheWayward01|100|1719
+TheWayward01|100|1718
 ThunderMtPowerPlant01|100|9415
 TopOfTheWorld01|100|4652
-TunnelOfLoveMineshaft01|100|4422
+TunnelOfLoveMineshaft01|100|4423
 UCB01|100|4569
 UCB02|100|77
 UncannyCaverns01|100|4228
 UncannyCaverns02|100|3191
-UncannyCavernsDungeon|100|7410
+UncannyCavernsDungeon|100|7411
 VTecAgCenter01|50|9
 VTecAgCenter01|100|3127
 ValleyGalleria01|100|8635
@@ -15214,13 +15538,13 @@ VanLoweTaxidermy01|75|3
 VanLoweTaxidermy01|100|1964
 Vault51Dungeon|100|9604
 Vault63Entrance|100|350
-Vault79Entrance|100|1546
+Vault79Entrance|100|1545
 Vault79GoldVaultOperations|100|4698
 Vault79Main|50|1
 Vault79Main|100|18850
 Vault94Dungeon|50|6
 Vault94Dungeon|75|6
-Vault94Dungeon|100|17471
+Vault94Dungeon|100|17472
 Vault94DungeonGECK|50|1
 Vault94DungeonGECK|75|5
 Vault94DungeonGECK|100|4598
@@ -15247,21 +15571,27 @@ WestTek02|75|1
 WestTek02|100|5126
 WhitespringBunker01|100|16333
 WhitespringMall01|100|6947
-WhitespringRefuge01|100|11685
-XPDAC01Casino|100|13730
-XPDAC01EntertainmentDistrict|100|6788
-XPDAC01NightClub|100|2951
-XPDAC02Aquarium|100|16041
+WhitespringRefuge01|100|11688
+XPDAC01Casino|100|13811
+XPDAC01EntertainmentDistrict|100|6793
+XPDAC01NightClub|100|2996
+XPDAC02Aquarium|100|16127
+XPDAC02AquariumDungeon|100|15832
 XPDAC02Boardwalk|75|1
-XPDAC02Boardwalk|100|10584
+XPDAC02Boardwalk|100|10755
 XPDAC02Pier|75|2
-XPDAC02Pier|100|7302
-XPDAC03CityHall|100|4106
-XPDAC03CommunityCenter|100|4640
-XPDAC03FloodedCityCenter|100|20059
+XPDAC02Pier|100|7474
+XPDAC03CityHall|100|6002
+XPDAC03CommunityCenter|50|1
+XPDAC03CommunityCenter|75|3
+XPDAC03CommunityCenter|100|11649
+XPDAC03FloodedCityCenter|100|17084
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
-XPDPitt01Foundry|100|16913
+XPDPitt01Foundry|100|16912
+XPDPitt01FoundryDungeon|50|9
+XPDPitt01FoundryDungeon|75|11
+XPDPitt01FoundryDungeon|100|15337
 XPDPitt01Industrial|50|4
 XPDPitt01Industrial|75|3
 XPDPitt01Industrial|100|20262
@@ -15270,7 +15600,7 @@ XPDPitt02Sanctum|75|2
 XPDPitt02Sanctum|100|18032
 XPDPitt02Trench|50|4
 XPDPitt02Trench|75|8
-XPDPitt02Trench|100|21225
+XPDPitt02Trench|100|21224
 XPDRttP01SteelTower|100|10075
 XPDRttP01SteelTowerRoof|100|2002
 XPDRttP01SteelTowerUpperFloors|100|6241
@@ -15386,10 +15716,10 @@ Appalachia|Antiseptic|882|418
 Appalachia|Asbestos|1623|1208
 Appalachia|Ballistic Fiber|188|94
 Appalachia|Bone|3432|1310
-Appalachia|Ceramic|3838|3310
+Appalachia|Ceramic|3839|3311
 Appalachia|Circuitry|472|371
 Appalachia|Cloth|5802|5163
-Appalachia|Concrete|2315|423
+Appalachia|Concrete|2318|424
 Appalachia|Copper|1525|1442
 Appalachia|Cork|631|513
 Appalachia|Crystal|328|200
@@ -15397,19 +15727,19 @@ Appalachia|Fertilizer|1084|379
 Appalachia|Fiber Optics|41|40
 Appalachia|Fiberglass|937|700
 Appalachia|Gear|1152|972
-Appalachia|Glass|9062|7493
+Appalachia|Glass|9064|7495
 Appalachia|Gold|80|80
 Appalachia|Gunpowder|1|1
-Appalachia|Lead|5305|3070
+Appalachia|Lead|5306|3071
 Appalachia|Leather|1922|866
 Appalachia|Nuclear Material|139|139
-Appalachia|Oil|3689|2464
-Appalachia|Plastic|5759|4086
+Appalachia|Oil|3692|2467
+Appalachia|Plastic|5762|4088
 Appalachia|Rubber|1998|1209
 Appalachia|Screw|1198|1070
 Appalachia|Silver|270|227
-Appalachia|Spring|1295|1264
-Appalachia|Steel|15630|9327
+Appalachia|Spring|1296|1265
+Appalachia|Steel|15640|9334
 Appalachia|Ultracite|1|1
 Appalachia|Wood|4831|3367
 ArktosPharmaLab01|Acid|48|33
@@ -16473,19 +16803,6 @@ HornwrightSafeRoom01|Rubber|1|1
 HornwrightSafeRoom01|Screw|1|1
 HornwrightSafeRoom01|Steel|7|4
 HornwrightSafeRoom01|Wood|1|1
-IngramMansion01|Acid|1|1
-IngramMansion01|Aluminum|2|1
-IngramMansion01|Antiseptic|2|1
-IngramMansion01|Ceramic|11|11
-IngramMansion01|Circuitry|1|1
-IngramMansion01|Cloth|5|4
-IngramMansion01|Copper|3|3
-IngramMansion01|Glass|17|15
-IngramMansion01|Plastic|2|2
-IngramMansion01|Screw|1|1
-IngramMansion01|Silver|1|1
-IngramMansion01|Steel|5|3
-IngramMansion01|Wood|3|2
 KerwoodMine01|Acid|4|2
 KerwoodMine01|Aluminum|10|5
 KerwoodMine01|Copper|2|1
@@ -16519,6 +16836,17 @@ LewisandSonsFarmingSupply01|Rubber|1|1
 LewisandSonsFarmingSupply01|Screw|1|1
 LewisandSonsFarmingSupply01|Steel|51|38
 LewisandSonsFarmingSupply01|Wood|23|14
+LittleRobsHideout01|Black Titanium|2|2
+LittleRobsHideout01|Circuitry|4|2
+LittleRobsHideout01|Cloth|2|2
+LittleRobsHideout01|Gear|2|2
+LittleRobsHideout01|Glass|4|4
+LittleRobsHideout01|Lead|6|2
+LittleRobsHideout01|Leather|4|2
+LittleRobsHideout01|Oil|7|4
+LittleRobsHideout01|Screw|2|2
+LittleRobsHideout01|Steel|19|12
+LittleRobsHideout01|Wood|5|3
 LousMine01|Acid|3|2
 LousMine01|Adhesive|5|2
 LousMine01|Antiseptic|2|1
@@ -16588,6 +16916,21 @@ MamaDolceProcessing01|Screw|1|1
 MamaDolceProcessing01|Spring|5|5
 MamaDolceProcessing01|Steel|22|14
 MamaDolceProcessing01|Wood|6|6
+MiresEye01|Asbestos|5|4
+MiresEye01|Ceramic|1|1
+MiresEye01|Cloth|8|6
+MiresEye01|Copper|1|1
+MiresEye01|Gear|1|1
+MiresEye01|Glass|27|24
+MiresEye01|Lead|1|1
+MiresEye01|Leather|4|2
+MiresEye01|Oil|17|11
+MiresEye01|Plastic|11|7
+MiresEye01|Rubber|2|1
+MiresEye01|Screw|1|1
+MiresEye01|Spring|3|3
+MiresEye01|Steel|33|17
+MiresEye01|Wood|2|2
 MonongahMine01|Acid|3|2
 MonongahMine01|Adhesive|5|2
 MonongahMine01|Aluminum|3|2
@@ -16993,17 +17336,6 @@ RadioResearchCenter01|Silver|2|1
 RadioResearchCenter01|Spring|16|16
 RadioResearchCenter01|Steel|65|42
 RadioResearchCenter01|Wood|41|29
-RaiderCave01|Black Titanium|2|2
-RaiderCave01|Circuitry|4|2
-RaiderCave01|Cloth|2|2
-RaiderCave01|Gear|2|2
-RaiderCave01|Glass|4|4
-RaiderCave01|Lead|6|2
-RaiderCave01|Leather|4|2
-RaiderCave01|Oil|7|4
-RaiderCave01|Screw|2|2
-RaiderCave01|Steel|19|12
-RaiderCave01|Wood|5|3
 RaiderCave02|Acid|7|4
 RaiderCave02|Aluminum|10|6
 RaiderCave02|Asbestos|3|2
@@ -17024,21 +17356,6 @@ RaiderCave02|Screw|1|1
 RaiderCave02|Spring|2|2
 RaiderCave02|Steel|18|10
 RaiderCave02|Wood|6|4
-RaiderCave03|Asbestos|5|4
-RaiderCave03|Ceramic|1|1
-RaiderCave03|Cloth|8|6
-RaiderCave03|Copper|1|1
-RaiderCave03|Gear|1|1
-RaiderCave03|Glass|27|24
-RaiderCave03|Lead|1|1
-RaiderCave03|Leather|4|2
-RaiderCave03|Oil|17|11
-RaiderCave03|Plastic|11|7
-RaiderCave03|Rubber|2|1
-RaiderCave03|Screw|1|1
-RaiderCave03|Spring|3|3
-RaiderCave03|Steel|33|17
-RaiderCave03|Wood|2|2
 RaiderRaidTrailerInt|Adhesive|1|1
 RaiderRaidTrailerInt|Aluminum|1|1
 RaiderRaidTrailerInt|Asbestos|6|4
@@ -17304,6 +17621,10 @@ SugarGroveMissileSilo01|Silver|8|8
 SugarGroveMissileSilo01|Spring|25|25
 SugarGroveMissileSilo01|Steel|292|194
 SugarGroveMissileSilo01|Wood|107|75
+SurlysShack01|Adhesive|1|1
+SurlysShack01|Cloth|1|1
+SurlysShack01|Glass|4|3
+SurlysShack01|Steel|1|1
 TheCraterCore01|Acid|2|1
 TheCraterCore01|Asbestos|6|4
 TheCraterCore01|Bone|44|19
@@ -17328,7 +17649,7 @@ TheNukashine01|Cork|3|2
 TheNukashine01|Crystal|3|1
 TheNukashine01|Fiberglass|10|8
 TheNukashine01|Gear|1|1
-TheNukashine01|Glass|98|75
+TheNukashine01|Glass|95|73
 TheNukashine01|Lead|26|15
 TheNukashine01|Nuclear Material|1|1
 TheNukashine01|Oil|26|16
@@ -17337,8 +17658,28 @@ TheNukashine01|Rubber|19|13
 TheNukashine01|Screw|10|9
 TheNukashine01|Silver|2|2
 TheNukashine01|Spring|8|8
-TheNukashine01|Steel|96|61
+TheNukashine01|Steel|95|60
 TheNukashine01|Wood|31|20
+TheRoseRoom01|Aluminum|4|3
+TheRoseRoom01|Asbestos|9|6
+TheRoseRoom01|Ceramic|25|20
+TheRoseRoom01|Circuitry|1|1
+TheRoseRoom01|Cloth|30|25
+TheRoseRoom01|Copper|2|2
+TheRoseRoom01|Cork|3|2
+TheRoseRoom01|Crystal|3|1
+TheRoseRoom01|Fiberglass|5|3
+TheRoseRoom01|Gear|2|2
+TheRoseRoom01|Glass|49|40
+TheRoseRoom01|Lead|2|2
+TheRoseRoom01|Oil|1|1
+TheRoseRoom01|Plastic|24|15
+TheRoseRoom01|Rubber|4|3
+TheRoseRoom01|Screw|6|5
+TheRoseRoom01|Silver|3|3
+TheRoseRoom01|Spring|2|2
+TheRoseRoom01|Steel|27|17
+TheRoseRoom01|Wood|14|8
 TheRustyPick01|Acid|4|2
 TheRustyPick01|Adhesive|4|1
 TheRustyPick01|Aluminum|2|1
@@ -18168,7 +18509,7 @@ XPDAC01Casino|Aluminum|25|18
 XPDAC01Casino|Antiseptic|18|9
 XPDAC01Casino|Asbestos|85|60
 XPDAC01Casino|Bone|7|3
-XPDAC01Casino|Ceramic|209|166
+XPDAC01Casino|Ceramic|210|167
 XPDAC01Casino|Circuitry|16|16
 XPDAC01Casino|Cloth|182|137
 XPDAC01Casino|Copper|42|35
@@ -18249,15 +18590,37 @@ XPDAC02Aquarium|Glass|220|189
 XPDAC02Aquarium|Lead|24|15
 XPDAC02Aquarium|Leather|18|9
 XPDAC02Aquarium|Oil|20|14
-XPDAC02Aquarium|Plastic|185|40
+XPDAC02Aquarium|Plastic|59|40
 XPDAC02Aquarium|Rubber|65|39
 XPDAC02Aquarium|Screw|16|15
 XPDAC02Aquarium|Silver|95|95
 XPDAC02Aquarium|Spring|48|48
 XPDAC02Aquarium|Steel|225|173
 XPDAC02Aquarium|Wood|85|67
+XPDAC02AquariumDungeon|Acid|8|7
+XPDAC02AquariumDungeon|Adhesive|3|3
+XPDAC02AquariumDungeon|Aluminum|15|15
+XPDAC02AquariumDungeon|Antiseptic|24|12
+XPDAC02AquariumDungeon|Asbestos|38|36
+XPDAC02AquariumDungeon|Ceramic|47|46
+XPDAC02AquariumDungeon|Circuitry|8|8
+XPDAC02AquariumDungeon|Cloth|57|53
+XPDAC02AquariumDungeon|Copper|15|15
+XPDAC02AquariumDungeon|Fiberglass|14|13
+XPDAC02AquariumDungeon|Gear|10|8
+XPDAC02AquariumDungeon|Glass|220|189
+XPDAC02AquariumDungeon|Lead|24|15
+XPDAC02AquariumDungeon|Leather|18|9
+XPDAC02AquariumDungeon|Oil|20|14
+XPDAC02AquariumDungeon|Plastic|45|33
+XPDAC02AquariumDungeon|Rubber|65|39
+XPDAC02AquariumDungeon|Screw|16|15
+XPDAC02AquariumDungeon|Silver|95|95
+XPDAC02AquariumDungeon|Spring|48|48
+XPDAC02AquariumDungeon|Steel|225|173
+XPDAC02AquariumDungeon|Wood|85|67
 XPDAC02Boardwalk|Acid|14|11
-XPDAC02Boardwalk|Aluminum|2|2
+XPDAC02Boardwalk|Aluminum|4|4
 XPDAC02Boardwalk|Antiseptic|10|5
 XPDAC02Boardwalk|Asbestos|20|15
 XPDAC02Boardwalk|Ballistic Fiber|6|3
@@ -18270,20 +18633,20 @@ XPDAC02Boardwalk|Cork|2|1
 XPDAC02Boardwalk|Fertilizer|12|3
 XPDAC02Boardwalk|Fiberglass|4|3
 XPDAC02Boardwalk|Gear|6|6
-XPDAC02Boardwalk|Glass|56|53
+XPDAC02Boardwalk|Glass|61|58
 XPDAC02Boardwalk|Lead|34|26
 XPDAC02Boardwalk|Leather|46|17
 XPDAC02Boardwalk|Oil|3|3
 XPDAC02Boardwalk|Plastic|43|23
-XPDAC02Boardwalk|Rubber|19|10
+XPDAC02Boardwalk|Rubber|21|12
 XPDAC02Boardwalk|Screw|14|14
 XPDAC02Boardwalk|Spring|17|17
-XPDAC02Boardwalk|Steel|80|56
+XPDAC02Boardwalk|Steel|81|57
 XPDAC02Boardwalk|Wood|34|24
 XPDAC02Pier|Acid|4|2
 XPDAC02Pier|Aluminum|6|4
 XPDAC02Pier|Asbestos|13|9
-XPDAC02Pier|Ceramic|35|32
+XPDAC02Pier|Ceramic|34|31
 XPDAC02Pier|Circuitry|5|4
 XPDAC02Pier|Cloth|103|98
 XPDAC02Pier|Copper|2|2
@@ -18301,32 +18664,80 @@ XPDAC02Pier|Rubber|52|27
 XPDAC02Pier|Screw|8|8
 XPDAC02Pier|Silver|2|2
 XPDAC02Pier|Spring|34|33
-XPDAC02Pier|Steel|83|60
+XPDAC02Pier|Steel|86|63
 XPDAC02Pier|Wood|39|24
-XPDAC03CityHall|Circuitry|4|4
-XPDAC03CityHall|Copper|4|4
-XPDAC03CityHall|Fiberglass|4|4
-XPDAC03CityHall|Gear|2|1
-XPDAC03CityHall|Screw|3|1
-XPDAC03CityHall|Spring|2|1
-XPDAC03CityHall|Steel|5|1
-XPDAC03CommunityCenter|Copper|2|2
-XPDAC03CommunityCenter|Lead|30|4
-XPDAC03CommunityCenter|Steel|5|3
-XPDAC03FloodedCityCenter|Aluminum|4|3
-XPDAC03FloodedCityCenter|Bone|2|1
-XPDAC03FloodedCityCenter|Ceramic|1|1
-XPDAC03FloodedCityCenter|Copper|3|3
-XPDAC03FloodedCityCenter|Crystal|1|1
+XPDAC03CityHall|Acid|24|9
+XPDAC03CityHall|Adhesive|18|7
+XPDAC03CityHall|Aluminum|14|11
+XPDAC03CityHall|Antiseptic|2|1
+XPDAC03CityHall|Asbestos|6|4
+XPDAC03CityHall|Ballistic Fiber|2|1
+XPDAC03CityHall|Ceramic|21|21
+XPDAC03CityHall|Circuitry|9|5
+XPDAC03CityHall|Cloth|30|30
+XPDAC03CityHall|Copper|21|16
+XPDAC03CityHall|Cork|2|1
+XPDAC03CityHall|Crystal|2|2
+XPDAC03CityHall|Fiber Optics|2|2
+XPDAC03CityHall|Fiberglass|5|5
+XPDAC03CityHall|Gear|18|13
+XPDAC03CityHall|Glass|56|39
+XPDAC03CityHall|Lead|6|5
+XPDAC03CityHall|Leather|2|1
+XPDAC03CityHall|Nuclear Material|3|3
+XPDAC03CityHall|Oil|10|8
+XPDAC03CityHall|Plastic|25|19
+XPDAC03CityHall|Rubber|10|8
+XPDAC03CityHall|Screw|12|10
+XPDAC03CityHall|Spring|11|10
+XPDAC03CityHall|Steel|102|66
+XPDAC03CityHall|Wood|30|22
+XPDAC03CommunityCenter|Adhesive|4|4
+XPDAC03CommunityCenter|Aluminum|3|2
+XPDAC03CommunityCenter|Asbestos|6|4
+XPDAC03CommunityCenter|Ballistic Fiber|2|1
+XPDAC03CommunityCenter|Ceramic|24|24
+XPDAC03CommunityCenter|Circuitry|4|4
+XPDAC03CommunityCenter|Cloth|23|18
+XPDAC03CommunityCenter|Copper|6|6
+XPDAC03CommunityCenter|Fiberglass|3|3
+XPDAC03CommunityCenter|Glass|38|33
+XPDAC03CommunityCenter|Lead|18|16
+XPDAC03CommunityCenter|Leather|12|6
+XPDAC03CommunityCenter|Oil|1|1
+XPDAC03CommunityCenter|Plastic|20|12
+XPDAC03CommunityCenter|Rubber|9|6
+XPDAC03CommunityCenter|Screw|5|5
+XPDAC03CommunityCenter|Silver|12|12
+XPDAC03CommunityCenter|Spring|2|2
+XPDAC03CommunityCenter|Steel|48|33
+XPDAC03CommunityCenter|Wood|31|21
+XPDAC03FloodedCityCenter|Acid|3|2
+XPDAC03FloodedCityCenter|Adhesive|15|11
+XPDAC03FloodedCityCenter|Aluminum|25|17
+XPDAC03FloodedCityCenter|Antiseptic|5|2
+XPDAC03FloodedCityCenter|Asbestos|16|10
+XPDAC03FloodedCityCenter|Bone|8|4
+XPDAC03FloodedCityCenter|Ceramic|7|7
+XPDAC03FloodedCityCenter|Circuitry|7|7
+XPDAC03FloodedCityCenter|Cloth|61|59
+XPDAC03FloodedCityCenter|Copper|34|33
+XPDAC03FloodedCityCenter|Cork|17|16
+XPDAC03FloodedCityCenter|Crystal|3|3
 XPDAC03FloodedCityCenter|Fiber Optics|1|1
-XPDAC03FloodedCityCenter|Fiberglass|1|1
-XPDAC03FloodedCityCenter|Gear|1|1
-XPDAC03FloodedCityCenter|Glass|17|16
-XPDAC03FloodedCityCenter|Lead|1|1
-XPDAC03FloodedCityCenter|Oil|3|2
-XPDAC03FloodedCityCenter|Screw|1|1
-XPDAC03FloodedCityCenter|Steel|1|1
-XPDAC03FloodedCityCenter|Wood|3|2
+XPDAC03FloodedCityCenter|Fiberglass|12|10
+XPDAC03FloodedCityCenter|Gear|15|14
+XPDAC03FloodedCityCenter|Glass|105|89
+XPDAC03FloodedCityCenter|Lead|28|27
+XPDAC03FloodedCityCenter|Leather|4|2
+XPDAC03FloodedCityCenter|Oil|16|10
+XPDAC03FloodedCityCenter|Plastic|37|29
+XPDAC03FloodedCityCenter|Rubber|12|9
+XPDAC03FloodedCityCenter|Screw|10|10
+XPDAC03FloodedCityCenter|Silver|3|2
+XPDAC03FloodedCityCenter|Spring|14|14
+XPDAC03FloodedCityCenter|Steel|171|123
+XPDAC03FloodedCityCenter|Wood|29|22
 XPDPitt01Foundry|Acid|79|43
 XPDPitt01Foundry|Adhesive|70|28
 XPDPitt01Foundry|Aluminum|63|45
@@ -18356,6 +18767,31 @@ XPDPitt01Foundry|Silver|2|2
 XPDPitt01Foundry|Spring|30|30
 XPDPitt01Foundry|Steel|566|349
 XPDPitt01Foundry|Wood|147|113
+XPDPitt01FoundryDungeon|Acid|28|14
+XPDPitt01FoundryDungeon|Adhesive|33|13
+XPDPitt01FoundryDungeon|Aluminum|14|11
+XPDPitt01FoundryDungeon|Antiseptic|28|13
+XPDPitt01FoundryDungeon|Asbestos|16|10
+XPDPitt01FoundryDungeon|Bone|3|1
+XPDPitt01FoundryDungeon|Ceramic|15|14
+XPDPitt01FoundryDungeon|Circuitry|9|8
+XPDPitt01FoundryDungeon|Cloth|34|32
+XPDPitt01FoundryDungeon|Copper|17|16
+XPDPitt01FoundryDungeon|Crystal|1|1
+XPDPitt01FoundryDungeon|Fiber Optics|1|1
+XPDPitt01FoundryDungeon|Fiberglass|15|12
+XPDPitt01FoundryDungeon|Gear|18|18
+XPDPitt01FoundryDungeon|Glass|24|21
+XPDPitt01FoundryDungeon|Lead|64|26
+XPDPitt01FoundryDungeon|Nuclear Material|4|4
+XPDPitt01FoundryDungeon|Oil|47|34
+XPDPitt01FoundryDungeon|Plastic|35|24
+XPDPitt01FoundryDungeon|Rubber|9|5
+XPDPitt01FoundryDungeon|Screw|20|20
+XPDPitt01FoundryDungeon|Silver|1|1
+XPDPitt01FoundryDungeon|Spring|11|11
+XPDPitt01FoundryDungeon|Steel|250|150
+XPDPitt01FoundryDungeon|Wood|49|44
 XPDPitt01Industrial|Acid|44|26
 XPDPitt01Industrial|Adhesive|22|12
 XPDPitt01Industrial|Aluminum|13|13
@@ -18518,9 +18954,9 @@ WestTek01|Super Mutant|100.0|41
 005A7C2E|FortAtlasDungeon01|Atlas Substructure|0|4363|-9226|-10127|18854|-19939|1487|700|0|1.2
 005B1E4A|SheltersVaultLivingQuarters01|Vault Quarters Shelter|0|-4288|-2378|-6912|-1664|-5588|832|-900|-700|1.3
 000042F4|SugarGroveMissileSilo01|Missile Silo Alpha|0|-8234|-30161|-15252|-1216|-37728|-22594|0|0|1.0
-005B59C8|RaiderCave03|Mirelurk Den|0|1056|-51|-1553|3665|-3603|3501|0|0|1.0
+005B59C8|MiresEye01|Mire's Eye|0|1056|-51|-1553|3665|-3603|3501|0|0|1.0
 006975E4|SheltersSoundStage|Sound Stage Shelter|0|-1424|994|-2834|-15|-864|2852|0|0|1.0
-0069506E|XPDAC03CityHall|City Hall|0|773|4273|-3516|5062|-1153|9700|500|0|1.4
+0069506E|XPDAC03CityHall|City Hall|0|-14|3447|-2396|2368|-1026|7920|500|0|1.4
 001294F4|WhitespringBunker01|Whitespring Bunker|0|-16858|-6933|-23104|-10613|-12653|-1213|0|0|1.0
 0068CC70|XPDAC02Pier|Showman's Pier|0|1104|3776|-6064|8272|-1920|9472|0|200|1.3
 0001A69E|ValleyGalleria01|Valley Galleria|0|163|1128|-5377|5703|-6768|9024|0|0|1.0
@@ -18540,13 +18976,13 @@ WestTek01|Super Mutant|100.0|41
 0041BC67|MorgantownAirportTerminal02|Morgantown Airport Terminal|0|85|39|-2543|2713|-2357|2435|0|0|1.0
 005A5547|SheltersVaultServerRoom01|Server Room Shelter|0|4870|-1401|-1184|10924|-7408|4606|1700|1000|1.7
 0060D363|SheltersCave01|Abandoned Mine Shelter|0|1004|778|-2488|4496|-2315|3872|0|0|1.0
-0069506F|XPDAC03CommunityCenter|Community Center|0|1626|2508|-9725|12978|-4381|9398|0|0|2.5
+0069506F|XPDAC03CommunityCenter|Community Center|0|5525|1284|-1928|12978|-3576|6144|0|0|2.5
 005A7AD1|BlueRidgeOffice01|Blue Ridge Office|0|-107|-101|-1732|1517|-1726|1524|200|0|2.2
-0068CC71|XPDAC02Boardwalk|The Boardwalk|0|-33441|-10305|-94530|27648|-35712|15102|-5000|200|4.7
+0068CC71|XPDAC02Boardwalk|The Boardwalk|0|5166|-10305|-17316|27648|-35712|15102|-5000|200|4.7
 0000F0FB|BigBendTunnel01|Big Bend Tunnels|0|1888|17175|-5275|9051|86|34264|0|0|1.0
 00574627|RollinsLaborCamp01|Rollins Prison|0|245|473|-1024|1514|-973|1920|200|-1100|1.7
 006378CF|XPDPitt02Sanctum|Sanctum|0|3368|103|-3137|9874|-5889|6096|0|0|1.0
-006A275B|IngramMansion01|Ingram Mansion|0|672|119|-632|1976|-1026|1264|0|1000|1.0
+006A275B|TheRoseRoom01|The Rose Room|0|792|119|-392|1976|-1026|1264|0|1000|1.0
 0002E506|EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|0|1356|1004|-2934|5647|-4560|6568|0|0|1.0
 0061961E|ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|0|-5489|-2981|-15190|4211|-9756|3794|0|0|1.0
 0062406E|XPDPitt01Foundry|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
@@ -18561,7 +18997,7 @@ WestTek01|Super Mutant|100.0|41
 0053E8DF|XPDAC01EntertainmentDistrict|Casino Quarter|0|-3011|2304|-29576|23554|-24260|28869|-200|-600|2.0
 0053F947|LousMine01|Carleton Mine|0|-7512|17618|-17914|2890|9233|26003|0|0|1.0
 00678787|XPDPitt02ACCJ|Purgatory|0|-211|-181|-843|421|-1026|663|-700|2000|2.5
-005AFB11|RaiderCave01|Deserted Mine|0|1349|1898|-1493|4191|-1026|4823|0|0|1.0
+005AFB11|LittleRobsHideout01|Little Rob's Hideout|0|1349|1898|-1493|4191|-1026|4823|0|0|1.0
 00004C43|GlassedCavern01|Glassed Cavern|0|-2827|-324|-13587|7933|-11385|10736|0|0|1.0
 0004FF09|FreeStatesBunker03|Ella Ames' Bunker|0|1134|1822|-241|2510|741|2903|0|0|1.0
 003FEE25|HornwrightSafeRoom01|Hornwright Estate Safe Room|0|75|896|-1560|1710|-128|1920|0|0|1.0
@@ -18593,6 +19029,7 @@ WestTek01|Super Mutant|100.0|41
 005500E0|CharlestonCapitolBuilding02|Charleston Capitol Building|0|-117|-1037|-4650|4416|-4244|2169|0|0|1.0
 00739AF1|SheltersHighStakes|High Stakes Shelter|0|219|681|-4468|4907|-3324|4686|0|0|1.0
 004738DF|TheNukashine01|The Nukashine|0|564|899|-103|1232|-2|1801|0|0|1.0
+0073FD07|XPDAC02AquariumDungeon|Aquarium of the Atlantic|0|-2253|-2492|-10369|5863|-11894|6910|0|0|1.0
 00115C47|CultistCave01|Lucky Hole Mine|0|-794|-2826|-6225|4636|-8727|3075|0|0|1.0
 0011B7B9|RiversideManor01|Riverside Manor|0|2608|492|-712|5928|-2368|3352|0|0|1.0
 00406B95|WatogaUnderground01|Watoga Underground|0|1972|5124|-15626|19570|-5141|15390|350|0|1.6
@@ -18606,12 +19043,14 @@ WestTek01|Super Mutant|100.0|41
 00004E11|WendigoCave01|Wendigo Cave|0|8971|-2210|184|17759|-9858|5437|0|0|1.0
 006AFE91|NVEVault7601|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 005C2E07|LewisandSonsFarmingSupply01|Putnam Residence|0|-284|-157|-825|256|-1026|711|0|0|1.0
+00745347|SurlysShack01|Surly's Shack|0|315|-134|-345|976|-1026|757|1500|600|2.0
 00477C6A|FraternityHouse01|Pi House|0|546|998|-86|1179|493|1504|0|0|1.0
 0058D442|BurdetteManorBasement01|Burdette Manor Basement|0|392|744|-264|1048|-286|1775|0|0|1.0
 00473A0C|VanLoweTaxidermy01|Van Lowe Taxidermy|0|1624|87|640|2608|-736|911|0|0|1.0
 005F119A|WestTek02|FEV Production Facility|0|8320|2592|3840|12800|-1344|6528|0|0|1.0
 005C28B8|OrwellOrchardsShelter01|Orwell Bomb Shelter|0|1740|814|-904|4384|-1344|2972|0|0|1.0
 004429CA|SpruceKnobMissileSilo01|Missile Silo Charlie|0|-8234|-30161|-15252|-1216|-37728|-22594|0|0|1.0
+0074DC96|SheltersFlatlands|Flatlands|0|-10368|25271|-216060|195323|-172548|223090|-1400|-2300|10.0
 006143D4|UncannyCavernsDungeon|Uncanny Caverns|0|3148|4581|-2676|8972|-1214|10376|0|0|1.0
 00478804|FraternityHouse02|Eta Psi House|0|472|1143|-8|952|503|1784|0|0|1.0
 0062781C|WhitespringMall01|Whitespring Mall|0|-7336|8301|-12496|-2176|6428|10175|0|0|1.0
@@ -18651,7 +19090,7 @@ WestTek01|Super Mutant|100.0|41
 001D7232|HornwrightHQ01|Hornwright Industrial HQ|0|742|404|-939|2424|-2455|3264|0|0|1.0
 00401116|Vault79Main|Vault 79|0|-1440|-2646|-13064|10183|-13490|8197|0|0|1.0
 0051EF4E|CharGen04|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
-006A4378|XPDAC01Casino|The Neapolitan Casino|0|-2672|1290|-6400|1056|-4075|6656|0|0|1.0
+006A4378|XPDAC01Casino|The Neapolitan Casino|0|-2261|1290|-6400|1878|-4075|6656|0|0|1.0
 00004586|EasternRegionalPen01|Eastern Regional Penitentiary|0|2936|-92|-320|6192|-5440|5255|0|0|1.0
 006B8756|SheltersToxicWasteland|Toxic Wasteland|0|4258|1394|-41855|50372|-30185|32974|0|0|1.0
 003D3915|MonongahPowerPlant01|Monongah Power Plant|0|-1219|2479|-5920|3482|-705|5664|0|0|1.0
@@ -18674,11 +19113,12 @@ WestTek01|Super Mutant|100.0|41
 0040C1A7|CraterWatchstation01|Crater Watchstation Worksite|0|-1243|-3555|-4122|1636|-8328|1218|-150|-2000|1.8
 0051EF4F|CharGen03|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 0068CC6F|XPDAC02Aquarium|Aquarium of the Atlantic|0|-2001|-2492|-10369|6366|-11894|6910|0|0|1.0
-0069306F|XPDAC03FloodedCityCenter|Flooded City Center|0|3693|-3150|-12777|20163|-15753|9452|600|0|1.2
+0069306F|XPDAC03FloodedCityCenter|Flooded City Center|0|3693|-3488|-12777|20163|-16429|9452|600|0|1.2
 006D8953|SheltersRootCellar|Root Cellar Dungeon|0|3217|-2261|682|5752|-3682|-841|0|0|1.0
 0039E891|FreeStatesBunker07|Ransacked Bunker|0|1125|2081|-320|2570|667|3496|0|0|1.0
 005CC20D|WatogaCivicCenterDungeon|Watoga Raider Arena|0|3469|339|-524|7462|-3351|4030|0|0|1.0
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
+00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4077480|4077480
+4117853|4117853
