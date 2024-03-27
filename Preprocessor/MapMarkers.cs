@@ -89,6 +89,7 @@ namespace Mappalachia
 			{ "Building Summersville Dam", "Summersville Dam" },
 			{ "Burning Mine", "The Burning Mine" },
 			{ "Cranberry Bog Region", "Quarry X3" },
+			{ "Cranberry Glade", "Sacramental Glade" },
 			{ "Crater Outpost", "Crater Watchstation" },
 			{ "Emmett Mt. Disposal Site", "Emmett Mountain Disposal Site" },
 			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },

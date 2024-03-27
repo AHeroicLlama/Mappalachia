@@ -37,17 +37,18 @@ namespace BackgroundRenderer
 			{ "FoundationSupplyRoom01", 200 },
 			{ "FraternityHouse01", 850 },
 			{ "FraternityHouse02", 850 },
-			{ "IngramMansion01", 500 },
+			{ "TheRoseRoom01", 500 },
 			{ "LewisandSonsFarmingSupply01", 500 },
 			{ "OverseersHome01", 675 },
 			{ "PoseidonPlant02", 3000 },
-			{ "RaiderCave01", 300 },
-			{ "RaiderCave03", 300 },
+			{ "LittleRobsHideout01", 300 },
+			{ "MiresEye01", 300 },
 			{ "RaiderRaidTrailerInt", 150 },
 			{ "SheltersRootCellar", 300 },
 			{ "SheltersSoundStage", 1000 },
 			{ "SheltersToxicWasteland", 2000 },
 			{ "SugarGrove02", 1000 },
+			{ "SurlysShack01", 250 },
 			{ "TheCraterCore01", 100 },
 			{ "TheWayward01", 400 },
 			{ "TopOfTheWorld01", -1800 },
@@ -290,10 +291,10 @@ namespace BackgroundRenderer
 				double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
 				double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
 
-				// -rq 1 + 2 + 12 + 32 + 256
+				// -rq 1 + 2 + 12 + 256 (+32 for cells)
 				string renderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} " +
 					$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
-					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq 303 -ssaa {SSAA} " +
+					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {(space.isWorldspace ? "271" : "303")} -ssaa {SSAA} " +
 					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud";
 
 				string resizeCommand = $"\"{magickPath}\" convert {renderFile} -resize {nativeResolution}x{nativeResolution} " +

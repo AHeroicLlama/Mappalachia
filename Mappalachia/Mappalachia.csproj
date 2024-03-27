@@ -53,13 +53,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Data.Sqlite">
-			<Version>7.0.12</Version>
+			<Version>8.0.3</Version>
 		</PackageReference>
 		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Svg" Version="3.4.4" />
+		<PackageReference Include="Svg" Version="3.4.7" />
 	</ItemGroup>
 
 	<ItemGroup>

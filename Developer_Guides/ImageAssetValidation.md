@@ -9,7 +9,7 @@ The tool doesn't produce any output but should be run prior to any Mappalachia r
 
 ## Asset Validation
 In the main `Mappalachia.sln`, build and run the `ImageAssetChecker` project.<br/>
-The tool will connect to the database so it know which cells, worldspaces, and map markers are required.<br/>
+The tool will connect to the database so it knows which cells, worldspaces, and map markers are required.<br/>
 It will then cross reference to the contents of the `img` folder to verify that each space has an applicable background image file, that the image is of the correct dimensions, and that the file size looks correct. Then it will check for all map markers, also verifying that they exist and that they are of a normal file size.<br/>
 Finally the tool will verify there are no extraneous image files present.<br/>
 
