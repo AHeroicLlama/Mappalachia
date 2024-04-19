@@ -117,6 +117,12 @@ namespace Mappalachia
 			{ "The Burrows", "The Burrows South" },
 			{ "The Savage Divide", "Monorail Elevator" },
 			{ "World's Largest Teapot", "The Giant Teapot" },
+			{ "Lightning Pylon A", "Research Site Saxony" },
+			{ "Lightning Pylon B", "Research Site Bavaria" },
+			{ "Lightning Pylon C", "Research Site Rhineland" },
+			{ "Federal Field NG-17", "Big Meadows Gas Well" },
+			{ "Shenandoah Weather Station", "Hawksbill Weather Station" },
+			{ "Shining Creek Caverns", "Shining Creek Cavern" },
 		};
 
 		static readonly List<string> removedLabels = new List<string>()

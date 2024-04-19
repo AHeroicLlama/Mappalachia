@@ -246,6 +246,30 @@ namespace Mappalachia
 						nudgeScale = 5f;
 						break;
 
+					case "StormHallucinogeniccave":
+						nudgeX = 300;
+						nudgeY = -1000;
+						nudgeScale = 1.2f;
+						break;
+
+					case "StormStolzManor":
+						nudgeX = 500;
+						nudgeY = 0;
+						nudgeScale = 1f;
+						break;
+
+					case "SheltersSummerCamp":
+						nudgeX = -3000;
+						nudgeY = 0;
+						nudgeScale = 5f;
+						break;
+
+					case "StormHighKnobFireTower01":
+						nudgeX = -700;
+						nudgeY = 3300;
+						nudgeScale = 2.5f;
+						break;
+
 					default:
 						nudgeX = 0;
 						nudgeY = 0;

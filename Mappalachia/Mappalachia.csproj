@@ -53,7 +53,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Data.Sqlite">
-			<Version>8.0.3</Version>
+			<Version>8.0.4</Version>
 		</PackageReference>
 		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 		  <PrivateAssets>all</PrivateAssets>
