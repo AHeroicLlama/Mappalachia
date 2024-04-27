@@ -88,7 +88,6 @@ namespace Mappalachia
 			showReferenceFormIDsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			checkForUpdatesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			userGuidesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			viaDiscordMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			donateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -609,7 +608,7 @@ namespace Mappalachia
 			// 
 			// helpMenuItem
 			// 
-			helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { aboutMenuItem, checkForUpdatesMenuItem, userGuidesMenuItem, viaDiscordMenuItem });
+			helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { aboutMenuItem, userGuidesMenuItem, viaDiscordMenuItem });
 			helpMenuItem.Name = "helpMenuItem";
 			helpMenuItem.Size = new System.Drawing.Size(44, 20);
 			helpMenuItem.Text = "Help";
@@ -617,23 +616,15 @@ namespace Mappalachia
 			// aboutMenuItem
 			// 
 			aboutMenuItem.Name = "aboutMenuItem";
-			aboutMenuItem.Size = new System.Drawing.Size(171, 22);
+			aboutMenuItem.Size = new System.Drawing.Size(180, 22);
 			aboutMenuItem.Text = "About...";
 			aboutMenuItem.ToolTipText = "Information about Mappalachia.";
 			aboutMenuItem.Click += Help_About;
 			// 
-			// checkForUpdatesMenuItem
-			// 
-			checkForUpdatesMenuItem.Name = "checkForUpdatesMenuItem";
-			checkForUpdatesMenuItem.Size = new System.Drawing.Size(171, 22);
-			checkForUpdatesMenuItem.Text = "Check for Updates";
-			checkForUpdatesMenuItem.ToolTipText = "Automatically check if a new version is available.";
-			checkForUpdatesMenuItem.Click += Help_CheckForUpdates;
-			// 
 			// userGuidesMenuItem
 			// 
 			userGuidesMenuItem.Name = "userGuidesMenuItem";
-			userGuidesMenuItem.Size = new System.Drawing.Size(171, 22);
+			userGuidesMenuItem.Size = new System.Drawing.Size(180, 22);
 			userGuidesMenuItem.Text = "User Guides";
 			userGuidesMenuItem.ToolTipText = "View the user guide documentation online.";
 			userGuidesMenuItem.Click += Help_UserGuides;
@@ -641,7 +632,7 @@ namespace Mappalachia
 			// viaDiscordMenuItem
 			// 
 			viaDiscordMenuItem.Name = "viaDiscordMenuItem";
-			viaDiscordMenuItem.Size = new System.Drawing.Size(171, 22);
+			viaDiscordMenuItem.Size = new System.Drawing.Size(180, 22);
 			viaDiscordMenuItem.Text = "Via Discord";
 			viaDiscordMenuItem.ToolTipText = "Join the Mappalachia Discord server for help.";
 			viaDiscordMenuItem.Click += Help_ViaDiscord;
@@ -657,7 +648,7 @@ namespace Mappalachia
 			// viaKoFiToolStripMenuItem
 			// 
 			viaKoFiToolStripMenuItem.Name = "viaKoFiToolStripMenuItem";
-			viaKoFiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			viaKoFiToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
 			viaKoFiToolStripMenuItem.Text = "Via Ko-Fi";
 			viaKoFiToolStripMenuItem.ToolTipText = "Support the project via Ko-Fi.";
 			viaKoFiToolStripMenuItem.Click += Donate_ViaKoFi;
@@ -665,7 +656,7 @@ namespace Mappalachia
 			// donatePatreonMenuItem
 			// 
 			donatePatreonMenuItem.Name = "donatePatreonMenuItem";
-			donatePatreonMenuItem.Size = new System.Drawing.Size(180, 22);
+			donatePatreonMenuItem.Size = new System.Drawing.Size(134, 22);
 			donatePatreonMenuItem.Text = "Via Patreon";
 			donatePatreonMenuItem.ToolTipText = "Support the project via Patreon.";
 			donatePatreonMenuItem.Click += Donate_ViaPatreon;
@@ -673,7 +664,7 @@ namespace Mappalachia
 			// donatePayPalMenuItem
 			// 
 			donatePayPalMenuItem.Name = "donatePayPalMenuItem";
-			donatePayPalMenuItem.Size = new System.Drawing.Size(180, 22);
+			donatePayPalMenuItem.Size = new System.Drawing.Size(134, 22);
 			donatePayPalMenuItem.Text = "Via PayPal";
 			donatePayPalMenuItem.ToolTipText = "Support the project via PayPal.";
 			donatePayPalMenuItem.Click += Donate_ViaPayPal;
@@ -1317,7 +1308,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-10, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-11, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1529,7 +1520,6 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem resolution1024MenuItem;
 		private System.Windows.Forms.ToolStripMenuItem grayscaleMenuItem;
 		private System.Windows.Forms.ProgressBar progressBarMain;
-		private System.Windows.Forms.ToolStripMenuItem checkForUpdatesMenuItem;
 		private System.Windows.Forms.Button buttonSelectRecommended;
 		private System.Windows.Forms.CheckBox checkBoxAddAsGroup;
 		private System.Windows.Forms.GroupBox groupBoxScrapSearch;

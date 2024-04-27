@@ -99,9 +99,6 @@ namespace Mappalachia
 			UpdateShowFormID();
 			UpdateSearchInAllSpaces(false);
 
-			// Check for updates, only notify if update found
-			UpdateChecker.CheckForUpdate(false);
-
 			// This ultimately causes the first map draw, as the space list changes index and draws the final selected Space
 			PopulateSpaceList();
 
@@ -1447,12 +1444,6 @@ namespace Mappalachia
 		void Help_UserGuides(object sender, EventArgs e)
 		{
 			IOManager.LaunchURL("https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides");
-		}
-
-		// Help > Check for Updates - Notify the user if there is an update available. Reports back if there were errors.
-		void Help_CheckForUpdates(object sender, EventArgs e)
-		{
-			UpdateChecker.CheckForUpdate(true);
 		}
 
 		// Help > Via Discord - Launch the discord invite
