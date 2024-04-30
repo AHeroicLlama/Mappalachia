@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.45.2 2024-03-12 11:06:23 d8cd6d49b46a395b13955387d05e9e1a2a47e54fb99f3c9b59835bbefad6af77 (64-bit)
 ==Checksum== 
-084049d39b4bfbacee762a3a9ac1363b
+67bb4aed75b2ac72e114028385c957bc
 ==File Size== 
-455102464 
+455114752 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.10.12
+1.7.11.12
 ==Mean Average X/Y/Z Coord==
--11438.7424961503|4351.25900924584|11290.7856351356
+-11439.2655052502|4350.59735378683|11290.8904056863
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|380538|-50907|136069
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 74
 ==Average X Bounds Width==
-22.3373151008547
+22.3382983321839
 ==Average Y Bounds Width==
-16.5683214043823
+16.5685339342781
 ==Average Z Bounds Width==
-15.880529489518
+15.8811010791751
 ==Average Z Rotation==
-4.16760068899983
+4.16806137019301
 ==Average display name string length==
-2.73372474917893
+2.73356728303415
 ==Average editorID string length==
-25.1229360687452
+25.1233634768525
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -746,21 +746,21 @@ AMSHQ02||1939
 AMSHQ02|Box|54
 AVRMedicalCenter01||5742
 AVRMedicalCenter01|Box|194
-AlleghenyAsylum01||14278
+AlleghenyAsylum01||14277
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3017080
-Appalachia|Box|63700
+Appalachia||3017178
+Appalachia|Box|63712
 Appalachia|Ellipsoid|3
 Appalachia|Line|1802
 Appalachia|Plane|106
 Appalachia|Sphere|2345
 ArktosPharmaLab01||15650
-ArktosPharmaLab01|Box|1483
+ArktosPharmaLab01|Box|1486
 ArktosPharmaLab01|Line|11
 ArktosPharmaLab01|Plane|13
 ArktosPharmaLab01|Sphere|6
-ArktosPharmaLabDungeon||13370
+ArktosPharmaLabDungeon||13371
 ArktosPharmaLabDungeon|Box|1225
 ArktosPharmaLabDungeon|Line|11
 ArktosPharmaLabDungeon|Plane|13
@@ -768,13 +768,13 @@ ArktosPharmaLabDungeon|Sphere|4
 BelchingBetty01||5088
 BelchingBetty01|Box|124
 BelchingBetty01|Line|6
-BigBendTunnel01||6828
+BigBendTunnel01||6831
 BigBendTunnel01|Box|721
 BigBendTunnel01|Sphere|1
 BlackwaterMine01||5836
 BlackwaterMine01|Box|325
 BlackwaterMine01|Line|5
-BlueRidgeOffice01||750
+BlueRidgeOffice01||749
 BlueRidgeOffice01|Box|16
 BurdetteManorBasement01||490
 BurdetteManorBasement01|Box|9
@@ -785,7 +785,7 @@ Burrows01||19487
 Burrows01|Box|643
 Burrows01|Line|42
 Burrows01|Sphere|1
-CharGen01||6913
+CharGen01||6912
 CharGen01|Box|137
 CharGen01|Line|2
 CharGen02||6792
@@ -904,7 +904,7 @@ KerwoodMine01|Line|7
 LewisandSonsFarmingSupply01||458
 LewisandSonsFarmingSupply01|Box|3
 LittleRobsHideout01||1363
-LittleRobsHideout01|Box|96
+LittleRobsHideout01|Box|98
 LousMine01||6719
 LousMine01|Box|268
 LousMine01|Line|5
@@ -926,7 +926,7 @@ MonongahMissileSilo01|Box|630
 MonongahPowerPlant01||10709
 MonongahPowerPlant01|Box|372
 MonongahPowerPlant01|Sphere|2
-MorgantownAirportTerminal02||5018
+MorgantownAirportTerminal02||5017
 MorgantownAirportTerminal02|Box|234
 MorgantownAirportTerminal02|Sphere|1
 MorgantownApartment01||1282
@@ -1032,7 +1032,7 @@ TheCraterCore01|Box|47
 TheCraterCore01|Plane|9
 TheNukashine01||1465
 TheNukashine01|Box|55
-TheRoseRoom01||1502
+TheRoseRoom01||1505
 TheRoseRoom01|Box|37
 TheRustyPick01||2355
 TheRustyPick01|Box|87
@@ -1149,7 +1149,7 @@ XPDAC01NightClub||2783
 XPDAC01NightClub|Box|213
 XPDAC02Aquarium||15613
 XPDAC02Aquarium|Box|514
-XPDAC02AquariumDungeon||15342
+XPDAC02AquariumDungeon||15323
 XPDAC02AquariumDungeon|Box|489
 XPDAC02AquariumDungeon|Sphere|1
 XPDAC02Boardwalk||9989
@@ -1163,14 +1163,14 @@ XPDAC03CityHall|Box|47
 XPDAC03CityHall|Plane|7
 XPDAC03CommunityCenter||11127
 XPDAC03CommunityCenter|Box|526
-XPDAC03FloodedCityCenter||16129
+XPDAC03FloodedCityCenter||16135
 XPDAC03FloodedCityCenter|Box|950
 XPDAC03FloodedCityCenter|Plane|5
 XPDPitt01Foundry||16367
 XPDPitt01Foundry|Box|558
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
-XPDPitt01FoundryDungeon||14865
+XPDPitt01FoundryDungeon||14866
 XPDPitt01FoundryDungeon|Box|485
 XPDPitt01FoundryDungeon|Plane|6
 XPDPitt01FoundryDungeon|Sphere|1
@@ -1180,7 +1180,7 @@ XPDPitt01Industrial|Sphere|1
 XPDPitt02ACCJ||15
 XPDPitt02Sanctum||17557
 XPDPitt02Sanctum|Box|477
-XPDPitt02Trench||19686
+XPDPitt02Trench||19687
 XPDPitt02Trench|Box|1550
 XPDRttP01SteelTower||10029
 XPDRttP01SteelTower|Box|46
@@ -1204,12 +1204,12 @@ AMSHQ02|Requires Terminal|2
 AVRMedicalCenter01||5930
 AVRMedicalCenter01|Advanced (Level 1)|5
 AVRMedicalCenter01|Expert (Level 2)|1
-AlleghenyAsylum01||14997
+AlleghenyAsylum01||14996
 AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3083969
+Appalachia||3084079
 Appalachia|Advanced (Level 1)|322
 Appalachia|Barred|1
 Appalachia|Chained|1
@@ -1220,12 +1220,12 @@ Appalachia|Novice (Level 0)|337
 Appalachia|Requires Key|90
 Appalachia|Requires Terminal|9
 Appalachia|Unknown|1
-ArktosPharmaLab01||17156
+ArktosPharmaLab01||17159
 ArktosPharmaLab01|Advanced (Level 1)|3
 ArktosPharmaLab01|Expert (Level 2)|2
 ArktosPharmaLab01|Master (Level 3)|1
 ArktosPharmaLab01|Novice (Level 0)|1
-ArktosPharmaLabDungeon||14618
+ArktosPharmaLabDungeon||14619
 ArktosPharmaLabDungeon|Advanced (Level 1)|3
 ArktosPharmaLabDungeon|Expert (Level 2)|1
 ArktosPharmaLabDungeon|Master (Level 3)|1
@@ -1233,7 +1233,7 @@ BelchingBetty01||5213
 BelchingBetty01|Advanced (Level 1)|1
 BelchingBetty01|Requires Key|3
 BelchingBetty01|Requires Terminal|1
-BigBendTunnel01||7537
+BigBendTunnel01||7540
 BigBendTunnel01|Advanced (Level 1)|4
 BigBendTunnel01|Chained|1
 BigBendTunnel01|Expert (Level 2)|1
@@ -1245,7 +1245,7 @@ BlackwaterMine01|Expert (Level 2)|1
 BlackwaterMine01|Master (Level 3)|1
 BlackwaterMine01|Novice (Level 0)|3
 BlackwaterMine01|Requires Key|8
-BlueRidgeOffice01||766
+BlueRidgeOffice01||765
 BurdetteManorBasement01||499
 BurningMine01||6131
 BurningMine01|Advanced (Level 1)|2
@@ -1258,7 +1258,7 @@ Burrows01|Master (Level 3)|3
 Burrows01|Novice (Level 0)|8
 Burrows01|Requires Key|1
 Burrows01|Requires Terminal|1
-CharGen01||7051
+CharGen01||7050
 CharGen01|Novice (Level 0)|1
 CharGen02||6931
 CharGen03||6931
@@ -1390,7 +1390,7 @@ KerwoodMine01|Novice (Level 0)|1
 KerwoodMine01|Requires Key|6
 LewisandSonsFarmingSupply01||460
 LewisandSonsFarmingSupply01|Novice (Level 0)|1
-LittleRobsHideout01||1458
+LittleRobsHideout01||1460
 LittleRobsHideout01|Novice (Level 0)|1
 LousMine01||6985
 LousMine01|Advanced (Level 1)|1
@@ -1416,7 +1416,7 @@ MonongahMissileSilo01|Requires Terminal|1
 MonongahPowerPlant01||11077
 MonongahPowerPlant01|Advanced (Level 1)|2
 MonongahPowerPlant01|Novice (Level 0)|4
-MorgantownAirportTerminal02||5246
+MorgantownAirportTerminal02||5245
 MorgantownAirportTerminal02|Advanced (Level 1)|1
 MorgantownAirportTerminal02|Novice (Level 0)|5
 MorgantownAirportTerminal02|Requires Terminal|1
@@ -1537,7 +1537,7 @@ TheCraterCore01||1290
 TheCraterCore01|Master (Level 3)|1
 TheCraterCore01|Requires Key|1
 TheNukashine01||1520
-TheRoseRoom01||1536
+TheRoseRoom01||1539
 TheRoseRoom01|Advanced (Level 1)|1
 TheRoseRoom01|Requires Key|2
 TheRustyPick01||2442
@@ -1692,7 +1692,7 @@ XPDAC01NightClub|Novice (Level 0)|1
 XPDAC02Aquarium||16125
 XPDAC02Aquarium|Expert (Level 2)|1
 XPDAC02Aquarium|Novice (Level 0)|1
-XPDAC02AquariumDungeon||15830
+XPDAC02AquariumDungeon||15811
 XPDAC02AquariumDungeon|Expert (Level 2)|1
 XPDAC02AquariumDungeon|Novice (Level 0)|1
 XPDAC02Boardwalk||10745
@@ -1709,7 +1709,7 @@ XPDAC03CityHall|Novice (Level 0)|11
 XPDAC03CommunityCenter||11646
 XPDAC03CommunityCenter|Advanced (Level 1)|5
 XPDAC03CommunityCenter|Novice (Level 0)|2
-XPDAC03FloodedCityCenter||17058
+XPDAC03FloodedCityCenter||17064
 XPDAC03FloodedCityCenter|Advanced (Level 1)|6
 XPDAC03FloodedCityCenter|Expert (Level 2)|1
 XPDAC03FloodedCityCenter|Inaccessible|1
@@ -1720,7 +1720,7 @@ XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
-XPDPitt01FoundryDungeon||15334
+XPDPitt01FoundryDungeon||15335
 XPDPitt01FoundryDungeon|Advanced (Level 1)|8
 XPDPitt01FoundryDungeon|Expert (Level 2)|5
 XPDPitt01FoundryDungeon|Master (Level 3)|3
@@ -1737,7 +1737,7 @@ XPDPitt02Sanctum|Advanced (Level 1)|1
 XPDPitt02Sanctum|Inaccessible|4
 XPDPitt02Sanctum|Master (Level 3)|2
 XPDPitt02Sanctum|Novice (Level 0)|4
-XPDPitt02Trench||21216
+XPDPitt02Trench||21217
 XPDPitt02Trench|Advanced (Level 1)|4
 XPDPitt02Trench|Expert (Level 2)|8
 XPDPitt02Trench|Novice (Level 0)|8
@@ -1821,7 +1821,7 @@ AlleghenyAsylum01|NOTE|9
 AlleghenyAsylum01|NPC_|53
 AlleghenyAsylum01|SCOL|317
 AlleghenyAsylum01|SOUN|4
-AlleghenyAsylum01|STAT|11109
+AlleghenyAsylum01|STAT|11108
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
 Appalachia|ACTI|21821
@@ -1832,10 +1832,10 @@ Appalachia|ASPC|2377
 Appalachia|BNDS|10374
 Appalachia|BOOK|494
 Appalachia|CNCY|257
-Appalachia|CONT|12521
-Appalachia|DOOR|2527
-Appalachia|FLOR|45211
-Appalachia|FURN|15123
+Appalachia|CONT|12522
+Appalachia|DOOR|2526
+Appalachia|FLOR|45212
+Appalachia|FURN|15121
 Appalachia|HAZD|995
 Appalachia|IDLM|16931
 Appalachia|KEYM|36
@@ -1846,15 +1846,15 @@ Appalachia|MSTT|23188
 Appalachia|NOTE|178
 Appalachia|NPC_|7417
 Appalachia|PROJ|93
-Appalachia|SCOL|353446
+Appalachia|SCOL|353456
 Appalachia|SECH|253
 Appalachia|SOUN|5923
-Appalachia|STAT|2385758
+Appalachia|STAT|2385859
 Appalachia|TACT|62
 Appalachia|TERM|371
 Appalachia|TXST|62887
 Appalachia|WEAP|176
-ArktosPharmaLab01|ACTI|355
+ArktosPharmaLab01|ACTI|356
 ArktosPharmaLab01|ASPC|14
 ArktosPharmaLab01|BNDS|116
 ArktosPharmaLab01|BOOK|3
@@ -1872,7 +1872,7 @@ ArktosPharmaLab01|NOTE|1
 ArktosPharmaLab01|NPC_|70
 ArktosPharmaLab01|SCOL|1169
 ArktosPharmaLab01|SOUN|96
-ArktosPharmaLab01|STAT|10984
+ArktosPharmaLab01|STAT|10986
 ArktosPharmaLab01|TACT|1
 ArktosPharmaLab01|TERM|10
 ArktosPharmaLab01|TXST|1249
@@ -1891,7 +1891,7 @@ ArktosPharmaLabDungeon|MISC|367
 ArktosPharmaLabDungeon|MSTT|268
 ArktosPharmaLabDungeon|SCOL|954
 ArktosPharmaLabDungeon|SOUN|91
-ArktosPharmaLabDungeon|STAT|9852
+ArktosPharmaLabDungeon|STAT|9853
 ArktosPharmaLabDungeon|TXST|1101
 BelchingBetty01|ACTI|50
 BelchingBetty01|ASPC|6
@@ -1925,7 +1925,7 @@ BigBendTunnel01|MSTT|288
 BigBendTunnel01|NPC_|75
 BigBendTunnel01|SCOL|252
 BigBendTunnel01|SOUN|1
-BigBendTunnel01|STAT|5344
+BigBendTunnel01|STAT|5347
 BigBendTunnel01|TERM|1
 BigBendTunnel01|TXST|537
 BigBendTunnel01|WEAP|4
@@ -1963,7 +1963,7 @@ BlueRidgeOffice01|MSTT|29
 BlueRidgeOffice01|NPC_|9
 BlueRidgeOffice01|SCOL|9
 BlueRidgeOffice01|SOUN|2
-BlueRidgeOffice01|STAT|496
+BlueRidgeOffice01|STAT|495
 BlueRidgeOffice01|TERM|1
 BlueRidgeOffice01|TXST|4
 BlueRidgeOffice01|WEAP|2
@@ -2040,7 +2040,7 @@ CharGen01|NPC_|66
 CharGen01|SCOL|62
 CharGen01|SECH|3
 CharGen01|SOUN|14
-CharGen01|STAT|3900
+CharGen01|STAT|3899
 CharGen01|TERM|9
 CharGen01|TXST|33
 CharGen01|WEAP|18
@@ -2809,7 +2809,7 @@ LittleRobsHideout01|MISC|21
 LittleRobsHideout01|MSTT|35
 LittleRobsHideout01|NPC_|16
 LittleRobsHideout01|SCOL|64
-LittleRobsHideout01|STAT|1131
+LittleRobsHideout01|STAT|1133
 LittleRobsHideout01|TXST|81
 LousMine01|ACTI|282
 LousMine01|ALCH|4
@@ -2971,7 +2971,7 @@ MorgantownAirportTerminal02|DOOR|24
 MorgantownAirportTerminal02|FURN|66
 MorgantownAirportTerminal02|IDLM|58
 MorgantownAirportTerminal02|KEYM|1
-MorgantownAirportTerminal02|LIGH|163
+MorgantownAirportTerminal02|LIGH|162
 MorgantownAirportTerminal02|LVLI|90
 MorgantownAirportTerminal02|MISC|202
 MorgantownAirportTerminal02|MSTT|150
@@ -3637,7 +3637,7 @@ TheRoseRoom01|MISC|131
 TheRoseRoom01|MSTT|29
 TheRoseRoom01|NPC_|10
 TheRoseRoom01|SCOL|33
-TheRoseRoom01|STAT|1099
+TheRoseRoom01|STAT|1102
 TheRoseRoom01|TERM|1
 TheRoseRoom01|TXST|13
 TheRustyPick01|ACTI|14
@@ -4421,7 +4421,7 @@ XPDAC02Aquarium|TXST|279
 XPDAC02AquariumDungeon|ACTI|47
 XPDAC02AquariumDungeon|BNDS|3
 XPDAC02AquariumDungeon|CONT|77
-XPDAC02AquariumDungeon|DOOR|49
+XPDAC02AquariumDungeon|DOOR|42
 XPDAC02AquariumDungeon|FLOR|5
 XPDAC02AquariumDungeon|FURN|83
 XPDAC02AquariumDungeon|IDLM|31
@@ -4431,7 +4431,7 @@ XPDAC02AquariumDungeon|MISC|664
 XPDAC02AquariumDungeon|MSTT|482
 XPDAC02AquariumDungeon|SCOL|959
 XPDAC02AquariumDungeon|SOUN|45
-XPDAC02AquariumDungeon|STAT|12265
+XPDAC02AquariumDungeon|STAT|12253
 XPDAC02AquariumDungeon|TXST|275
 XPDAC02Boardwalk|ACTI|739
 XPDAC02Boardwalk|ARMO|1
@@ -4516,7 +4516,7 @@ XPDAC03FloodedCityCenter|BNDS|91
 XPDAC03FloodedCityCenter|BOOK|7
 XPDAC03FloodedCityCenter|CONT|110
 XPDAC03FloodedCityCenter|DOOR|11
-XPDAC03FloodedCityCenter|FURN|122
+XPDAC03FloodedCityCenter|FURN|120
 XPDAC03FloodedCityCenter|IDLM|117
 XPDAC03FloodedCityCenter|KEYM|1
 XPDAC03FloodedCityCenter|LIGH|227
@@ -4524,8 +4524,8 @@ XPDAC03FloodedCityCenter|LVLI|69
 XPDAC03FloodedCityCenter|MISC|361
 XPDAC03FloodedCityCenter|MSTT|181
 XPDAC03FloodedCityCenter|NPC_|99
-XPDAC03FloodedCityCenter|SCOL|2688
-XPDAC03FloodedCityCenter|STAT|11984
+XPDAC03FloodedCityCenter|SCOL|2690
+XPDAC03FloodedCityCenter|STAT|11990
 XPDAC03FloodedCityCenter|TERM|3
 XPDAC03FloodedCityCenter|TXST|707
 XPDPitt01Foundry|ACTI|238
@@ -4566,7 +4566,7 @@ XPDPitt01FoundryDungeon|MSTT|450
 XPDPitt01FoundryDungeon|NPC_|12
 XPDPitt01FoundryDungeon|SCOL|1912
 XPDPitt01FoundryDungeon|SOUN|39
-XPDPitt01FoundryDungeon|STAT|11144
+XPDPitt01FoundryDungeon|STAT|11145
 XPDPitt01FoundryDungeon|TXST|425
 XPDPitt01FoundryDungeon|WEAP|1
 XPDPitt01Industrial|ACTI|220
@@ -4634,7 +4634,7 @@ XPDPitt02Trench|MISC|349
 XPDPitt02Trench|MSTT|446
 XPDPitt02Trench|NOTE|2
 XPDPitt02Trench|NPC_|147
-XPDPitt02Trench|SCOL|2096
+XPDPitt02Trench|SCOL|2097
 XPDPitt02Trench|SOUN|2
 XPDPitt02Trench|STAT|15023
 XPDPitt02Trench|TERM|6
@@ -4711,7 +4711,7 @@ AVRMedicalCenter01|RS03_Inoculation_PT2|1
 AVRMedicalCenter01|RS03_Inoculation_TerminalRef|1
 AVRMedicalCenter01|RS06_Manual_DiseaseHolotapeLocation|1
 AVRMedicalCenter01|RS06_Manual_PT5|1
-AlleghenyAsylum01||14982
+AlleghenyAsylum01||14981
 AlleghenyAsylum01|BoS01CircuitBreakerREF|1
 AlleghenyAsylum01|BoS01IntroDoorREF|1
 AlleghenyAsylum01|BoS02EndMarker|1
@@ -4743,7 +4743,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3079513
+Appalachia||3079623
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -10267,7 +10267,7 @@ Appalachia|zw_skeltoncrushed|1
 Appalachia|zw_trainstest|1
 Appalachia|zwshipPOI|1
 Appalachia|zwtest_alcoholstill|1
-ArktosPharmaLab01||17150
+ArktosPharmaLab01||17153
 ArktosPharmaLab01|SFS09_Habitat_EngineeringTerminalRef|1
 ArktosPharmaLab01|SFS09_Habitat_MainframeTerminalRef|1
 ArktosPharmaLab01|SFS09_Habitat_Misc_TriggerSublevel|1
@@ -10281,7 +10281,7 @@ ArktosPharmaLab01|TestElevDoorTriggerARef082|1
 ArktosPharmaLab01|UD001_CodeARef|1
 ArktosPharmaLab01|UD001_CodeBRef|1
 ArktosPharmaLab01|UD001_CodeCRef|1
-ArktosPharmaLabDungeon||14598
+ArktosPharmaLabDungeon||14599
 ArktosPharmaLabDungeon|DailyOps_Mode01_Activator00_PackIn011|1
 ArktosPharmaLabDungeon|DailyOps_Mode01_Activator01_PackIn011|1
 ArktosPharmaLabDungeon|DailyOps_Mode01_Activator02_PackIn011|1
@@ -10317,7 +10317,7 @@ BelchingBetty01|TMRightStairs|1
 BelchingBetty01|TM_left1|1
 BelchingBetty01|TM_leftbottomapproach|1
 BelchingBetty01|zw_belchingbettylowerlevel|1
-BigBendTunnel01||7466
+BigBendTunnel01||7469
 BigBendTunnel01|E05_CP1_BackBrahmin|1
 BigBendTunnel01|E05_CP1_BackBrahmin001|1
 BigBendTunnel01|E05_CP1_BackBrahmin002|1
@@ -10415,7 +10415,7 @@ BlackwaterMine01|MTNS06_Uranium_Extractor_Ref_C|1
 BlackwaterMine01|MTR03SpawnCenter|1
 BlackwaterMine01|MTR03_AreaSpawnerMarkerREF001|1
 BlackwaterMine01|MTR03_BossTriggerVolume|1
-BlueRidgeOffice01||750
+BlueRidgeOffice01||749
 BlueRidgeOffice01|AriesGuard|1
 BlueRidgeOffice01|BS02_MQ03_Blue_BRCOffice_Rahmani_Trigger|1
 BlueRidgeOffice01|BS02_MQ03_Blue_BRCOffice_Trigger_Refr|1
@@ -10528,7 +10528,7 @@ Burrows01|DailyOps_ReturnDoor_PackIn005|1
 Burrows01|PumpStationCenterMarker|1
 Burrows01|UD002BurrowsCenterMarker|1
 Burrows01|xTSBurrowsBossRoom|1
-CharGen01||6956
+CharGen01||6955
 CharGen01|76CharGenPerkBoardTriggerRef|1
 CharGen01|76ExitTriggerREF01|1
 CharGen01|76TrailerCoupleEnabler|1
@@ -11726,7 +11726,7 @@ LewisandSonsFarmingSupply01|BS01_MQ03_FieldTesting_Couch|1
 LewisandSonsFarmingSupply01|BS01_MQ03_FieldTesting_MartyChair|1
 LewisandSonsFarmingSupply01|BS01_MQ03_FieldTesting_OtherChair|1
 LewisandSonsFarmingSupply01|BS01_MartyPutnam_EnableMarker|1
-LittleRobsHideout01||1447
+LittleRobsHideout01||1449
 LittleRobsHideout01|AC_SQ01_HellsEagles_EnemySpawnTrigger_Ref|1
 LittleRobsHideout01|AC_SQ01_HellsEagles_HideoutSpawnCenter_Ref|1
 LittleRobsHideout01|AC_SQ01_HellsEagles_InstanceMarker_Ref|1
@@ -12035,7 +12035,7 @@ MonongahPowerPlant01|MonongahPower01ToExtMainL001|1
 MonongahPowerPlant01|MonongahPower01ToExtMainR001|1
 MonongahPowerPlant01|event_root_monongahplantinterior|1
 MonongahPowerPlant01|xSCTerminalMonongah|1
-MorgantownAirportTerminal02||5233
+MorgantownAirportTerminal02||5232
 MorgantownAirportTerminal02|BoS01BreadcrumbMarker001|1
 MorgantownAirportTerminal02|BossFurniture|1
 MorgantownAirportTerminal02|LC096_Vendor_Responders_xMarker001|1
@@ -12751,7 +12751,7 @@ TheNukashine01|P01A_Nukashine_PastSecretDoorTrigger|1
 TheNukashine01|P01A_Nukashine_SpeakeasyTrigger|1
 TheNukashine01|UD004_NukashineLoadDoorInt|1
 TheNukashine01|XMarker_D01A_Wasted_BrewingObj|1
-TheRoseRoom01||1497
+TheRoseRoom01||1500
 TheRoseRoom01|AC_MQ01_DownstairsTrigger|1
 TheRoseRoom01|AC_MQ01_EvelynDownstairsMarker|1
 TheRoseRoom01|AC_MQ01_EvelynStormAwayMarker|1
@@ -14462,16 +14462,16 @@ XPDAC02Aquarium|XPD_AC02_Theater_ProxTrigger|1
 XPDAC02Aquarium|XPD_AC02_VIPBoothDoor|1
 XPDAC02Aquarium|XPD_AC02_VeracioFurn_Aquarium|1
 XPDAC02Aquarium|XPD_AC02_WinnersStageMarker|1
-XPDAC02AquariumDungeon||15810
-XPDAC02AquariumDungeon|DailyOps_Mode01_Activator00_PackIn016|1
-XPDAC02AquariumDungeon|DailyOps_Mode01_Activator01_PackIn015|1
-XPDAC02AquariumDungeon|DailyOps_Mode01_Activator02_PackIn015|1
-XPDAC02AquariumDungeon|DailyOps_Mode01_Activator03_PackIn015|1
+XPDAC02AquariumDungeon||15791
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator00_PackIn016_Copy01|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator01_PackIn015_Copy01|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator02_PackIn015_Copy01|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_Activator03_PackIn015_Copy01|1
 XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule00_PackIn015|1
-XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule01_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule01_PackIn015_Copy01|1
 XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule02_PackIn015|1
-XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule03_PackIn015|1
-XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule04_PackIn015|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule03_PackIn015_Copy01|1
+XPDAC02AquariumDungeon|DailyOps_Mode01_EWSModule04_PackIn015_Copy01|1
 XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn00_01_PackIn017|1
 XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn00_02_PackIn017|1
 XPDAC02AquariumDungeon|DailyOps_Mode01_Respawn00_03_PackIn017|1
@@ -14670,7 +14670,7 @@ XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_03|1
 XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_04|1
 XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker06|1
 XPDAC03CommunityCenter|XPD_Pitt02_Organ002|1
-XPDAC03FloodedCityCenter||17003
+XPDAC03FloodedCityCenter||17009
 XPDAC03FloodedCityCenter|AC_MQ03_DEBUGWarehouseMarker_Ref|1
 XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref|1
 XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref001|1
@@ -14817,7 +14817,7 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
-XPDPitt01FoundryDungeon||15335
+XPDPitt01FoundryDungeon||15336
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator00_PackIn015|1
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator01_PackIn014|1
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator02_PackIn014|1
@@ -15185,7 +15185,7 @@ XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_Collapsed|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_FallingRocks|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_Boarded|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_FallingRocks|1
-XPDPitt02Trench||21079
+XPDPitt02Trench||21080
 XPDPitt02Trench|AmbEWS_DummyRef|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_SCM|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_Sandbox|1
@@ -15384,27 +15384,27 @@ AMSHQ01|75|1
 AMSHQ01|100|5474
 AMSHQ02|100|1993
 AVRMedicalCenter01|100|5936
-AlleghenyAsylum01|100|15013
+AlleghenyAsylum01|100|15012
 Appalachia|50|43
 Appalachia|75|142
 Appalachia|85|72
-Appalachia|100|3084779
+Appalachia|100|3084889
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
-ArktosPharmaLab01|100|17161
+ArktosPharmaLab01|100|17164
 ArktosPharmaLabDungeon|50|1
 ArktosPharmaLabDungeon|75|1
-ArktosPharmaLabDungeon|100|14621
+ArktosPharmaLabDungeon|100|14622
 BelchingBetty01|100|5218
-BigBendTunnel01|100|7550
+BigBendTunnel01|100|7553
 BlackwaterMine01|100|6166
 BlueRidgeOffice01|50|1
-BlueRidgeOffice01|100|765
+BlueRidgeOffice01|100|764
 BurdetteManorBasement01|100|499
 BurningMine01|100|6136
 Burrows01|75|8
 Burrows01|100|20165
-CharGen01|100|7052
+CharGen01|100|7051
 CharGen02|100|6931
 CharGen03|100|6931
 CharGen04|100|6931
@@ -15454,7 +15454,7 @@ HornwrightSafeRoom01|100|1041
 KerwoodMine01|100|5667
 LewisandSonsFarmingSupply01|100|461
 LittleRobsHideout01|75|2
-LittleRobsHideout01|100|1457
+LittleRobsHideout01|100|1459
 LousMine01|75|3
 LousMine01|100|6989
 MTR08LodeBaring01|100|3408
@@ -15466,7 +15466,7 @@ MonongahMissileSilo01|75|4
 MonongahMissileSilo01|100|15686
 MonongahPowerPlant01|100|11083
 MorgantownAirportTerminal02|75|2
-MorgantownAirportTerminal02|100|5251
+MorgantownAirportTerminal02|100|5250
 MorgantownApartment01|100|1362
 MorgantownHighSchool01|100|5953
 MorgantownHighSchoolDungeon|100|5561
@@ -15520,7 +15520,7 @@ SugarGroveMissileSilo01|100|15686
 SurlysShack01|100|121
 TheCraterCore01|100|1292
 TheNukashine01|100|1520
-TheRoseRoom01|100|1539
+TheRoseRoom01|100|1542
 TheRustyPick01|100|2442
 TheWayward01|100|1718
 ThunderMtPowerPlant01|100|9415
@@ -15576,7 +15576,7 @@ XPDAC01Casino|100|13811
 XPDAC01EntertainmentDistrict|100|6793
 XPDAC01NightClub|100|2996
 XPDAC02Aquarium|100|16127
-XPDAC02AquariumDungeon|100|15832
+XPDAC02AquariumDungeon|100|15813
 XPDAC02Boardwalk|75|1
 XPDAC02Boardwalk|100|10755
 XPDAC02Pier|75|2
@@ -15585,13 +15585,13 @@ XPDAC03CityHall|100|6002
 XPDAC03CommunityCenter|50|1
 XPDAC03CommunityCenter|75|3
 XPDAC03CommunityCenter|100|11649
-XPDAC03FloodedCityCenter|100|17084
+XPDAC03FloodedCityCenter|100|17090
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
 XPDPitt01Foundry|100|16912
 XPDPitt01FoundryDungeon|50|9
 XPDPitt01FoundryDungeon|75|11
-XPDPitt01FoundryDungeon|100|15337
+XPDPitt01FoundryDungeon|100|15338
 XPDPitt01Industrial|50|4
 XPDPitt01Industrial|75|3
 XPDPitt01Industrial|100|20262
@@ -15600,7 +15600,7 @@ XPDPitt02Sanctum|75|2
 XPDPitt02Sanctum|100|18032
 XPDPitt02Trench|50|4
 XPDPitt02Trench|75|8
-XPDPitt02Trench|100|21224
+XPDPitt02Trench|100|21225
 XPDRttP01SteelTower|100|10075
 XPDRttP01SteelTowerRoof|100|2002
 XPDRttP01SteelTowerUpperFloors|100|6241
@@ -18982,7 +18982,7 @@ WestTek01|Super Mutant|100.0|41
 0000F0FB|BigBendTunnel01|Big Bend Tunnels|0|1888|17175|-5275|9051|86|34264|0|0|1.0
 00574627|RollinsLaborCamp01|Rollins Prison|0|245|473|-1024|1514|-973|1920|200|-1100|1.7
 006378CF|XPDPitt02Sanctum|Sanctum|0|3368|103|-3137|9874|-5889|6096|0|0|1.0
-006A275B|TheRoseRoom01|The Rose Room|0|792|119|-392|1976|-1026|1264|0|1000|1.0
+006A275B|TheRoseRoom01|The Rose Room|0|780|119|-392|1952|-1026|1264|0|1000|1.0
 0002E506|EmmettMountainDisposalSite01|Emmett Mountain Disposal Site|0|1356|1004|-2934|5647|-4560|6568|0|0|1.0
 0061961E|ArktosPharmaLabDungeon|Arktos Pharma Biome Lab|0|-5489|-2981|-15190|4211|-9756|3794|0|0|1.0
 0062406E|XPDPitt01Foundry|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
@@ -19121,4 +19121,4 @@ WestTek01|Super Mutant|100.0|41
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4117853|4117853
+4117960|4117960
