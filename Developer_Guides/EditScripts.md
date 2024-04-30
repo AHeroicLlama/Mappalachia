@@ -25,7 +25,7 @@ In the FO76Edit folder, you will find `SteamLaunch.bat`. If you have `FO76Edit64
 Once in FO76Edit you will be prompted with which ESM to load. Select SeventySix.esm and hit OK. Wait for the background loader to finish.<br/>
 
 ### Running the Mappalachia export scripts
-Expand SeventySix.esm in the tree on the left. Right click any element and select 'Apply Script...'.<br/>
+Right click on SeventySix.esm in the tree on the left and select 'Apply Script...'.<br/>
 Select `_mappalachia_RUNALL` as your script to run.<br/>
 This script runs all Mappalachia scripts consecutively and should take approximately 26 minutes.<br/>
 Once completed you should see the folder `\FO76Edit\Output\` has been populated with 7 CSV files, including one informational CSV noting the debug cells for which extraction was skipped.<br/>

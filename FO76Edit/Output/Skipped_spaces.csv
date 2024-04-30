@@ -728,6 +728,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00526A7D,PackInCargoConsole02PackinStorageCell,,0
 005A65D9,PackInSheltersEntranceCavesmallStorageCell,,0
 00665A65,76HoldingCellNWOT,Quick Test Cell,0
+00777999,WarehouseGlassShader,Glass Shader Test Cell,0
 0000408B,zCUTTestLockpickHack,Quick Test Cell,0
 000043AB,PackInPACKToxicTreeStumpBranches02StorageCell,,0
 00004B17,zCUTTestCory01,Quick Test Cell,0
@@ -1374,6 +1375,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005262CE,,,0
 00586D4A,PackInDenizenPackInRaiderButcherStorageCell,,0
 005B524E,PackInSheltersEntranceCaveLargeStorageCell,,0
+0076A666,DebugMarkoS01,Quick Test Cell,0
 0000F1A0,zCUTDebugKurt01,Quick Test Cell,0
 00018098,zCUT76WorkshopTest,Quick Test Cell,0
 0001C3C8,PackInPACKFloodlandsLogs01StorageCell,,0
@@ -2100,6 +2102,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005994C5,PackInHumanDensityPassCultistShrinePackInStorageCell,,0
 005D87B5,PackInFoosballTablePackInStorageCell,,0
 00633E99,76CellTemplateCopy01JOE,Quick Test Cell,0
+007841E5,PackInATXCollectronpackinLumberjackStorageCell,,0
 0000238B,PackInPACKToxicBasinSm02StorageCell,,0
 0006B6BF,zCUTTestPurkey02,Quick Test Cell,0
 001228D3,PackInPACKMtnTopPines02StorageCell,,0
