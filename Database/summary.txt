@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.45.2 2024-03-12 11:06:23 d8cd6d49b46a395b13955387d05e9e1a2a47e54fb99f3c9b59835bbefad6af77 (64-bit)
 ==Checksum== 
-bad1c5553a6567d8e074cf1a32650b29
+8275d1314f3f2b88ea2750bda721f73e
 ==File Size== 
-479830016 
+480448512 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-PTS 0.2.1472.0
+PTS 0.2.1479.0
 ==Mean Average X/Y/Z Coord==
--9874.87361208695|-5093.9281927302|11210.131264165
+-9841.35467568665|-5398.33601764403|11212.6311122682
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ PTS 0.2.1472.0
 ==Z outliers==
 77
 ==Average X Bounds Width==
-22.7576668307912
+22.8102421841694
 ==Average Y Bounds Width==
-16.7270481456689
+16.7705599185292
 ==Average Z Bounds Width==
-16.5309819721136
+16.5646096849727
 ==Average Z Rotation==
-4.28470358916483
+4.28553252985867
 ==Average display name string length==
-2.81015499732763
+2.81880272341883
 ==Average editorID string length==
-25.2232816675575
+25.2209780328009
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -213,6 +213,7 @@ Appalachia|CabinMarker|Surly's Shack|-81000|202063
 Appalachia|CamperMarker|Naked Creek|-31759|-236504
 Appalachia|CapitalBuildingMarker|Charleston Capitol Building|-91983|-57828
 Appalachia|CarMarker|Abandoned Convoy|67708|-215580
+Appalachia|CarMarker|Makeout Point|58592|-192792
 Appalachia|CarMarker|South River Bridge|44468|-243002
 Appalachia|CastleMarker|Prickett's Fort|60920|193668
 Appalachia|CaveMarker|Abandoned Waste Dump|185034|26724
@@ -223,7 +224,7 @@ Appalachia|CaveMarker|Hopewell Cave|114047|114129
 Appalachia|CaveMarker|Makeshift Vault|-83329|160208
 Appalachia|CaveMarker|Mire's Eye|194133|186953
 Appalachia|CaveMarker|Mysterious Cave|143425|200808
-Appalachia|CaveMarker|Shining Creek Cavern|74796|-223213
+Appalachia|CaveMarker|Shining Creek Cavern|74766|-223195
 Appalachia|CaveMarker|The Deep|-34473|-38131
 Appalachia|CaveMarker|Uncanny Caverns|-41528|-89947
 Appalachia|CaveMarker|Wendigo Cave|87360|43120
@@ -248,7 +249,6 @@ Appalachia|CultistMarker|Organ Cave West|-134568|97936
 Appalachia|CultistMarker|Sacrament|80253|176372
 Appalachia|DamMarker|Crevasse Dam|182754|80131
 Appalachia|DamMarker|Grafton Dam|7850|118972
-Appalachia|DriveInMarker|Makeout Point|58592|-192792
 Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-01|72331|139118
 Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-02|21025|-54635
 Appalachia|ElectricalSubstationMarker|Monongah Power Substation MZ-03|-44231|-126107
@@ -468,7 +468,7 @@ Appalachia|RadioTowerMarker|Relay Tower HG-B7-09|-132480|-72652
 Appalachia|RadioTowerMarker|Relay Tower HN-B1-12|-6316|34602
 Appalachia|RadioTowerMarker|Relay Tower LW-B1-22|105336|88146
 Appalachia|RadioTowerMarker|Research Site Bavaria|75264|-232416
-Appalachia|RadioTowerMarker|Research Site Rhineland|-695|-218530
+Appalachia|RadioTowerMarker|Research Site Rhineland|-557|-219269
 Appalachia|RadioTowerMarker|Research Site Saxony|-46744|-234346
 Appalachia|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
 Appalachia|RadioactiveAreaMarker|Black Mountain Ordnance Works|-158838|108308
@@ -561,7 +561,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-46775
+46706
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|62
@@ -802,12 +802,12 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14277
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3177006
-Appalachia|Box|69518
+Appalachia||3182748
+Appalachia|Box|69691
 Appalachia|Ellipsoid|3
 Appalachia|Line|1801
-Appalachia|Plane|121
-Appalachia|Sphere|2628
+Appalachia|Plane|124
+Appalachia|Sphere|2667
 ArktosPharmaLab01||15650
 ArktosPharmaLab01|Box|1486
 ArktosPharmaLab01|Line|11
@@ -1080,35 +1080,35 @@ SpruceKnobCampground01||583
 SpruceKnobCampground01|Box|12
 SpruceKnobMissileSilo01||15051
 SpruceKnobMissileSilo01|Box|629
-StormBrownHouse||1446
-StormBrownHouse|Box|99
-StormCultistTunnels||3187
-StormCultistTunnels|Box|147
+StormBrownHouse||1456
+StormBrownHouse|Box|93
+StormCultistTunnels||3189
+StormCultistTunnels|Box|150
 StormCultistTunnels|Plane|8
 StormCultistTunnels|Sphere|1
-StormEngineeringVlt63||4533
+StormEngineeringVlt63||4532
 StormEngineeringVlt63|Box|204
-StormHallucinogeniccave||3746
+StormHallucinogeniccave||3750
 StormHallucinogeniccave|Box|209
 StormHighKnobFireTower01||1038
 StormHighKnobFireTower01|Box|31
 StormPresidentialBunker||2636
-StormRadioBunkerInt||617
-StormRadioBunkerInt|Box|92
-StormStolzManor||1742
-StormStolzManor|Box|446
+StormRadioBunkerInt||591
+StormRadioBunkerInt|Box|86
+StormStolzManor||1747
+StormStolzManor|Box|457
 StormVault63AtriumLower||2213
 StormVault63AtriumLower|Box|135
-StormVault63AtriumUpper||3849
-StormVault63AtriumUpper|Box|127
+StormVault63AtriumUpper||3855
+StormVault63AtriumUpper|Box|128
 StormVault63AtriumUpper|Plane|1
-StormVault63Entrance||1421
+StormVault63Entrance||1451
 StormVault63Entrance|Box|229
 StormVault63Entrance|Plane|22
-StormVisitorCenterInt||2559
-StormVisitorCenterInt|Box|187
-StormWeatherLab01||6529
-StormWeatherLab01|Box|308
+StormVisitorCenterInt||2530
+StormVisitorCenterInt|Box|186
+StormWeatherLab01||6532
+StormWeatherLab01|Box|309
 StormWeatherLab01|Plane|2
 SugarGrove01||8057
 SugarGrove01|Box|222
@@ -1169,7 +1169,7 @@ Vault51Dungeon|Box|301
 Vault51Dungeon|Line|1
 Vault51Dungeon|Plane|4
 Vault51Dungeon|Sphere|2
-Vault63Organics||8740
+Vault63Organics||8739
 Vault63Organics|Box|222
 Vault63Organics|Plane|2
 Vault79Entrance||1465
@@ -1259,11 +1259,11 @@ XPDAC03FloodedCityCenter||16138
 XPDAC03FloodedCityCenter|Box|950
 XPDAC03FloodedCityCenter|Plane|5
 XPDPitt01Foundry||16367
-XPDPitt01Foundry|Box|558
+XPDPitt01Foundry|Box|560
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
 XPDPitt01FoundryDungeon||14868
-XPDPitt01FoundryDungeon|Box|499
+XPDPitt01FoundryDungeon|Box|498
 XPDPitt01FoundryDungeon|Plane|6
 XPDPitt01FoundryDungeon|Sphere|1
 XPDPitt01Industrial||18823
@@ -1301,15 +1301,15 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3249949
+Appalachia||3255906
 Appalachia|Advanced (Level 1)|338
 Appalachia|Barred|1
 Appalachia|Chained|4
 Appalachia|Expert (Level 2)|204
 Appalachia|Inaccessible|36
 Appalachia|Master (Level 3)|88
-Appalachia|Novice (Level 0)|355
-Appalachia|Requires Key|92
+Appalachia|Novice (Level 0)|356
+Appalachia|Requires Key|91
 Appalachia|Requires Terminal|9
 Appalachia|Unknown|1
 ArktosPharmaLab01||17159
@@ -1615,17 +1615,17 @@ SpruceKnobMissileSilo01|Expert (Level 2)|9
 SpruceKnobMissileSilo01|Master (Level 3)|9
 SpruceKnobMissileSilo01|Novice (Level 0)|3
 SpruceKnobMissileSilo01|Requires Terminal|1
-StormBrownHouse||1543
+StormBrownHouse||1547
 StormBrownHouse|Inaccessible|1
 StormBrownHouse|Requires Terminal|1
-StormCultistTunnels||3342
+StormCultistTunnels||3347
 StormCultistTunnels|Requires Key|1
-StormEngineeringVlt63||4716
+StormEngineeringVlt63||4715
 StormEngineeringVlt63|Advanced (Level 1)|1
 StormEngineeringVlt63|Expert (Level 2)|4
 StormEngineeringVlt63|Inaccessible|12
 StormEngineeringVlt63|Requires Terminal|4
-StormHallucinogeniccave||3946
+StormHallucinogeniccave||3950
 StormHallucinogeniccave|Advanced (Level 1)|2
 StormHallucinogeniccave|Expert (Level 2)|1
 StormHallucinogeniccave|Novice (Level 0)|2
@@ -1639,28 +1639,29 @@ StormPresidentialBunker||2629
 StormPresidentialBunker|Expert (Level 2)|1
 StormPresidentialBunker|Inaccessible|5
 StormPresidentialBunker|Master (Level 3)|1
-StormRadioBunkerInt||709
-StormStolzManor||2180
+StormRadioBunkerInt||677
+StormStolzManor||2196
 StormStolzManor|Inaccessible|8
 StormVault63AtriumLower||2338
 StormVault63AtriumLower|Advanced (Level 1)|2
 StormVault63AtriumLower|Inaccessible|6
 StormVault63AtriumLower|Requires Key|1
 StormVault63AtriumLower|Requires Terminal|1
-StormVault63AtriumUpper||3963
+StormVault63AtriumUpper||3968
 StormVault63AtriumUpper|Advanced (Level 1)|1
 StormVault63AtriumUpper|Expert (Level 2)|1
 StormVault63AtriumUpper|Inaccessible|9
 StormVault63AtriumUpper|Master (Level 3)|1
+StormVault63AtriumUpper|Novice (Level 0)|2
 StormVault63AtriumUpper|Requires Key|2
-StormVault63Entrance||1664
+StormVault63Entrance||1694
 StormVault63Entrance|Advanced (Level 1)|1
 StormVault63Entrance|Inaccessible|7
-StormVisitorCenterInt||2742
+StormVisitorCenterInt||2712
 StormVisitorCenterInt|Advanced (Level 1)|1
 StormVisitorCenterInt|Novice (Level 0)|1
 StormVisitorCenterInt|Requires Key|2
-StormWeatherLab01||6835
+StormWeatherLab01||6839
 StormWeatherLab01|Inaccessible|4
 SugarGrove01||8262
 SugarGrove01|Advanced (Level 1)|3
@@ -1725,10 +1726,10 @@ Vault51Dungeon|Expert (Level 2)|1
 Vault51Dungeon|Inaccessible|9
 Vault51Dungeon|Master (Level 3)|1
 Vault51Dungeon|Novice (Level 0)|1
-Vault63Organics||8949
+Vault63Organics||8947
 Vault63Organics|Advanced (Level 1)|1
 Vault63Organics|Expert (Level 2)|1
-Vault63Organics|Inaccessible|2
+Vault63Organics|Inaccessible|3
 Vault63Organics|Novice (Level 0)|3
 Vault63Organics|Requires Key|6
 Vault63Organics|Requires Terminal|2
@@ -1864,12 +1865,12 @@ XPDAC03FloodedCityCenter|Expert (Level 2)|1
 XPDAC03FloodedCityCenter|Inaccessible|1
 XPDAC03FloodedCityCenter|Master (Level 3)|3
 XPDAC03FloodedCityCenter|Novice (Level 0)|15
-XPDPitt01Foundry||16900
+XPDPitt01Foundry||16902
 XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
-XPDPitt01FoundryDungeon||15351
+XPDPitt01FoundryDungeon||15350
 XPDPitt01FoundryDungeon|Advanced (Level 1)|8
 XPDPitt01FoundryDungeon|Expert (Level 2)|5
 XPDPitt01FoundryDungeon|Master (Level 3)|3
@@ -1973,36 +1974,36 @@ AlleghenyAsylum01|SOUN|4
 AlleghenyAsylum01|STAT|11108
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
-Appalachia|ACTI|22996
+Appalachia|ACTI|23142
 Appalachia|ALCH|308
 Appalachia|AMMO|80
 Appalachia|ARMO|123
 Appalachia|ASPC|2378
-Appalachia|BNDS|10447
-Appalachia|BOOK|574
+Appalachia|BNDS|10451
+Appalachia|BOOK|573
 Appalachia|CNCY|260
-Appalachia|CONT|13482
-Appalachia|DOOR|2642
-Appalachia|FLOR|51712
-Appalachia|FURN|15607
-Appalachia|HAZD|1075
-Appalachia|IDLM|17354
+Appalachia|CONT|13505
+Appalachia|DOOR|2643
+Appalachia|FLOR|51726
+Appalachia|FURN|15633
+Appalachia|HAZD|1058
+Appalachia|IDLM|19070
 Appalachia|KEYM|37
-Appalachia|LIGH|9029
-Appalachia|LVLI|73774
-Appalachia|MISC|37384
-Appalachia|MSTT|24354
+Appalachia|LIGH|9004
+Appalachia|LVLI|73805
+Appalachia|MISC|37425
+Appalachia|MSTT|24365
 Appalachia|NOTE|179
-Appalachia|NPC_|8225
+Appalachia|NPC_|8221
 Appalachia|PROJ|93
-Appalachia|SCOL|365214
+Appalachia|SCOL|365211
 Appalachia|SECH|253
-Appalachia|SOUN|5926
-Appalachia|STAT|2517878
+Appalachia|SOUN|5927
+Appalachia|STAT|2521673
 Appalachia|TACT|64
-Appalachia|TERM|384
-Appalachia|TXST|69012
-Appalachia|WEAP|233
+Appalachia|TERM|386
+Appalachia|TXST|69206
+Appalachia|WEAP|235
 ArktosPharmaLab01|ACTI|356
 ArktosPharmaLab01|ASPC|14
 ArktosPharmaLab01|BNDS|116
@@ -3708,19 +3709,19 @@ SpruceKnobMissileSilo01|STAT|10766
 SpruceKnobMissileSilo01|TERM|27
 SpruceKnobMissileSilo01|TXST|298
 SpruceKnobMissileSilo01|WEAP|1
-StormBrownHouse|ACTI|12
+StormBrownHouse|ACTI|6
 StormBrownHouse|ALCH|2
 StormBrownHouse|CONT|43
 StormBrownHouse|DOOR|14
 StormBrownHouse|FURN|29
-StormBrownHouse|IDLM|32
-StormBrownHouse|LIGH|46
+StormBrownHouse|IDLM|4
+StormBrownHouse|LIGH|32
 StormBrownHouse|LVLI|64
 StormBrownHouse|MISC|208
 StormBrownHouse|MSTT|17
-StormBrownHouse|NPC_|6
+StormBrownHouse|NPC_|3
 StormBrownHouse|SCOL|53
-StormBrownHouse|STAT|967
+StormBrownHouse|STAT|1022
 StormBrownHouse|TERM|2
 StormBrownHouse|TXST|50
 StormCultistTunnels|ACTI|54
@@ -3731,8 +3732,7 @@ StormCultistTunnels|CONT|13
 StormCultistTunnels|DOOR|5
 StormCultistTunnels|FURN|52
 StormCultistTunnels|IDLM|1
-StormCultistTunnels|KEYM|1
-StormCultistTunnels|LIGH|207
+StormCultistTunnels|LIGH|206
 StormCultistTunnels|LVLI|28
 StormCultistTunnels|MISC|30
 StormCultistTunnels|MSTT|34
@@ -3740,13 +3740,13 @@ StormCultistTunnels|NPC_|18
 StormCultistTunnels|SCOL|378
 StormCultistTunnels|SECH|2
 StormCultistTunnels|SOUN|3
-StormCultistTunnels|STAT|2394
-StormCultistTunnels|TXST|103
+StormCultistTunnels|STAT|2399
+StormCultistTunnels|TXST|105
 StormCultistTunnels|WEAP|6
 StormEngineeringVlt63|ACTI|20
 StormEngineeringVlt63|ARMO|1
 StormEngineeringVlt63|BNDS|7
-StormEngineeringVlt63|BOOK|4
+StormEngineeringVlt63|BOOK|3
 StormEngineeringVlt63|CONT|80
 StormEngineeringVlt63|DOOR|30
 StormEngineeringVlt63|FURN|38
@@ -3778,7 +3778,7 @@ StormHallucinogeniccave|MSTT|140
 StormHallucinogeniccave|NPC_|20
 StormHallucinogeniccave|SCOL|287
 StormHallucinogeniccave|SOUN|2
-StormHallucinogeniccave|STAT|2878
+StormHallucinogeniccave|STAT|2882
 StormHallucinogeniccave|TERM|1
 StormHallucinogeniccave|TXST|185
 StormHighKnobFireTower01|ACTI|7
@@ -3816,14 +3816,14 @@ StormRadioBunkerInt|ARMO|3
 StormRadioBunkerInt|CONT|9
 StormRadioBunkerInt|DOOR|3
 StormRadioBunkerInt|FURN|4
-StormRadioBunkerInt|LIGH|16
-StormRadioBunkerInt|MISC|35
-StormRadioBunkerInt|MSTT|12
+StormRadioBunkerInt|LIGH|15
+StormRadioBunkerInt|MISC|39
+StormRadioBunkerInt|MSTT|13
 StormRadioBunkerInt|NPC_|2
-StormRadioBunkerInt|SCOL|45
+StormRadioBunkerInt|SCOL|44
 StormRadioBunkerInt|SOUN|8
-StormRadioBunkerInt|STAT|479
-StormRadioBunkerInt|TXST|84
+StormRadioBunkerInt|STAT|450
+StormRadioBunkerInt|TXST|78
 StormRadioBunkerInt|WEAP|1
 StormStolzManor|ACTI|38
 StormStolzManor|BOOK|1
@@ -3831,16 +3831,16 @@ StormStolzManor|CONT|11
 StormStolzManor|DOOR|16
 StormStolzManor|FURN|21
 StormStolzManor|IDLM|7
-StormStolzManor|LIGH|62
+StormStolzManor|LIGH|64
 StormStolzManor|LVLI|8
 StormStolzManor|MISC|97
-StormStolzManor|MSTT|24
+StormStolzManor|MSTT|28
 StormStolzManor|NPC_|10
-StormStolzManor|SCOL|69
+StormStolzManor|SCOL|67
 StormStolzManor|SOUN|1
-StormStolzManor|STAT|1394
+StormStolzManor|STAT|1395
 StormStolzManor|TACT|1
-StormStolzManor|TXST|427
+StormStolzManor|TXST|438
 StormStolzManor|WEAP|1
 StormVault63AtriumLower|ACTI|28
 StormVault63AtriumLower|CONT|41
@@ -3860,69 +3860,69 @@ StormVault63AtriumLower|TXST|104
 StormVault63AtriumUpper|ACTI|39
 StormVault63AtriumUpper|ALCH|1
 StormVault63AtriumUpper|BNDS|15
-StormVault63AtriumUpper|BOOK|13
+StormVault63AtriumUpper|BOOK|14
 StormVault63AtriumUpper|CNCY|3
 StormVault63AtriumUpper|CONT|93
 StormVault63AtriumUpper|DOOR|35
 StormVault63AtriumUpper|FURN|105
 StormVault63AtriumUpper|KEYM|2
-StormVault63AtriumUpper|LIGH|108
+StormVault63AtriumUpper|LIGH|110
 StormVault63AtriumUpper|LVLI|76
-StormVault63AtriumUpper|MISC|386
+StormVault63AtriumUpper|MISC|385
 StormVault63AtriumUpper|MSTT|130
 StormVault63AtriumUpper|NPC_|52
 StormVault63AtriumUpper|SCOL|84
 StormVault63AtriumUpper|SOUN|2
-StormVault63AtriumUpper|STAT|2759
-StormVault63AtriumUpper|TERM|1
+StormVault63AtriumUpper|STAT|2762
+StormVault63AtriumUpper|TERM|3
 StormVault63AtriumUpper|TXST|73
 StormVault63Entrance|ACTI|28
 StormVault63Entrance|ASPC|1
 StormVault63Entrance|BNDS|1
-StormVault63Entrance|CONT|20
+StormVault63Entrance|CONT|21
 StormVault63Entrance|DOOR|8
 StormVault63Entrance|FURN|27
 StormVault63Entrance|HAZD|1
 StormVault63Entrance|IDLM|13
-StormVault63Entrance|LIGH|42
-StormVault63Entrance|LVLI|21
-StormVault63Entrance|MISC|35
-StormVault63Entrance|MSTT|57
+StormVault63Entrance|LIGH|51
+StormVault63Entrance|LVLI|23
+StormVault63Entrance|MISC|40
+StormVault63Entrance|MSTT|52
 StormVault63Entrance|NPC_|1
-StormVault63Entrance|SCOL|149
+StormVault63Entrance|SCOL|151
 StormVault63Entrance|SOUN|1
-StormVault63Entrance|STAT|1073
+StormVault63Entrance|STAT|1089
 StormVault63Entrance|TACT|1
 StormVault63Entrance|TERM|1
 StormVault63Entrance|TXST|192
 StormVisitorCenterInt|ACTI|36
-StormVisitorCenterInt|ALCH|7
+StormVisitorCenterInt|ALCH|6
 StormVisitorCenterInt|ARMO|1
 StormVisitorCenterInt|BOOK|1
 StormVisitorCenterInt|CONT|39
 StormVisitorCenterInt|DOOR|16
-StormVisitorCenterInt|FURN|18
-StormVisitorCenterInt|LIGH|67
-StormVisitorCenterInt|LVLI|6
-StormVisitorCenterInt|MISC|177
-StormVisitorCenterInt|MSTT|36
+StormVisitorCenterInt|FURN|19
+StormVisitorCenterInt|LIGH|101
+StormVisitorCenterInt|LVLI|14
+StormVisitorCenterInt|MISC|165
+StormVisitorCenterInt|MSTT|37
 StormVisitorCenterInt|NPC_|15
-StormVisitorCenterInt|SCOL|342
-StormVisitorCenterInt|STAT|1828
+StormVisitorCenterInt|SCOL|314
+StormVisitorCenterInt|STAT|1804
 StormVisitorCenterInt|TERM|2
-StormVisitorCenterInt|TXST|154
+StormVisitorCenterInt|TXST|145
 StormVisitorCenterInt|WEAP|1
-StormWeatherLab01|ACTI|46
+StormWeatherLab01|ACTI|49
 StormWeatherLab01|ALCH|8
 StormWeatherLab01|BNDS|25
-StormWeatherLab01|BOOK|5
+StormWeatherLab01|BOOK|4
 StormWeatherLab01|CONT|77
 StormWeatherLab01|DOOR|6
 StormWeatherLab01|FURN|8
 StormWeatherLab01|IDLM|5
 StormWeatherLab01|LIGH|227
 StormWeatherLab01|MISC|215
-StormWeatherLab01|MSTT|127
+StormWeatherLab01|MSTT|129
 StormWeatherLab01|NPC_|2
 StormWeatherLab01|SCOL|147
 StormWeatherLab01|SOUN|12
@@ -4304,7 +4304,7 @@ Vault51Dungeon|SOUN|30
 Vault51Dungeon|STAT|6436
 Vault51Dungeon|TERM|16
 Vault51Dungeon|TXST|126
-Vault63Organics|ACTI|79
+Vault63Organics|ACTI|77
 Vault63Organics|ALCH|11
 Vault63Organics|ARMO|1
 Vault63Organics|BNDS|9
@@ -4312,19 +4312,19 @@ Vault63Organics|BOOK|8
 Vault63Organics|CONT|124
 Vault63Organics|DOOR|42
 Vault63Organics|FLOR|5
-Vault63Organics|FURN|80
+Vault63Organics|FURN|78
 Vault63Organics|HAZD|8
 Vault63Organics|IDLM|37
 Vault63Organics|KEYM|1
 Vault63Organics|LIGH|238
 Vault63Organics|LVLI|70
 Vault63Organics|MISC|332
-Vault63Organics|MSTT|184
-Vault63Organics|NPC_|29
+Vault63Organics|MSTT|185
+Vault63Organics|NPC_|28
 Vault63Organics|SCOL|621
-Vault63Organics|STAT|6941
+Vault63Organics|STAT|6943
 Vault63Organics|TACT|3
-Vault63Organics|TERM|4
+Vault63Organics|TERM|5
 Vault63Organics|TXST|133
 Vault63Organics|WEAP|4
 Vault79Entrance|ACTI|5
@@ -4947,7 +4947,7 @@ XPDAC03FloodedCityCenter|SCOL|2690
 XPDAC03FloodedCityCenter|STAT|11993
 XPDAC03FloodedCityCenter|TERM|3
 XPDAC03FloodedCityCenter|TXST|707
-XPDPitt01Foundry|ACTI|238
+XPDPitt01Foundry|ACTI|240
 XPDPitt01Foundry|AMMO|18
 XPDPitt01Foundry|ARMO|9
 XPDPitt01Foundry|BNDS|5
@@ -4969,7 +4969,7 @@ XPDPitt01Foundry|STAT|11220
 XPDPitt01Foundry|TERM|3
 XPDPitt01Foundry|TXST|574
 XPDPitt01Foundry|WEAP|6
-XPDPitt01FoundryDungeon|ACTI|105
+XPDPitt01FoundryDungeon|ACTI|104
 XPDPitt01FoundryDungeon|AMMO|18
 XPDPitt01FoundryDungeon|ARMO|6
 XPDPitt01FoundryDungeon|BNDS|4
@@ -5162,7 +5162,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3244734
+Appalachia||3250689
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -10348,8 +10348,8 @@ Appalachia|Storm_Vtec_MirelurkKingAmbush001|1
 Appalachia|Storm_Vtec_MirelurkKingAmbush002|1
 Appalachia|Storm_Vtec_MirelurkKingAmbush003|1
 Appalachia|Storm_WeatherLab_MapMarkerRef|1
-Appalachia|Storm_WeatherStation_EntranceButtonRef|1
-Appalachia|Storm_WeatherStation_EntranceButtonRef001|1
+Appalachia|Storm_WeatherStation_EntranceButtonInsideRef|1
+Appalachia|Storm_WeatherStation_EntranceButtonOutsideRef|1
 Appalachia|Storm_WeatherStation_EntranceDoorRef|1
 Appalachia|Storm_WeatherStation_LocationCentre|1
 Appalachia|Storm_WoodstockTower_LocationCenter|1
@@ -10673,6 +10673,8 @@ Appalachia|ThunderMtPower-LoadTurbineDockEntrance|1
 Appalachia|ThunderMtPower-LoadTurbineEntrance|1
 Appalachia|ThunderMtPower01toExtRoof001|1
 Appalachia|TopOfTheWorldMarker|1
+Appalachia|TradingPostMapMarker|1
+Appalachia|TradingPost_DirectTavelPoint|1
 Appalachia|TreasureMApActivator34|1
 Appalachia|TreasureMapActivator01|1
 Appalachia|TreasureMapActivator02|1
@@ -13864,13 +13866,9 @@ SpruceKnobMissileSilo01|xSCMSilo_Ops003|1
 SpruceKnobMissileSilo01|xSCMSilo_Reactor003|1
 SpruceKnobMissileSilo01|xSCMSilo_Residential003|1
 SpruceKnobMissileSilo01|xSCMSilo_Storage003|1
-StormBrownHouse||1540
+StormBrownHouse||1548
 StormBrownHouse|REF_COMP_Beckett_Door_Jail002|1
-StormBrownHouse|Storm_MQ10_BunkerMarker|1
-StormBrownHouse|zzzStorm_MQ10_MarcsLabMarker|1
-StormBrownHouse|zzzStorm_MQ10_Marcs_Lost_SpawnCenter|1
-StormBrownHouse|zzzStorm_MQ12_MarcsLabMarker|1
-StormCultistTunnels||3321
+StormCultistTunnels||3326
 StormCultistTunnels|StormCultist_Alex|1
 StormCultistTunnels|StormCultist_ComaCassidy|1
 StormCultistTunnels|StormCultist_GetBand|1
@@ -13893,7 +13891,7 @@ StormCultistTunnels|Storm_MQ06_Praying|1
 StormCultistTunnels|Storm_MQ06_ScarletSitFurniture|1
 StormCultistTunnels|Storm_MQ06_ScarletSpawn|1
 StormCultistTunnels|Storm_MQ06_password|1
-StormEngineeringVlt63||4730
+StormEngineeringVlt63||4729
 StormEngineeringVlt63|IggysQuartersDoorLocked|1
 StormEngineeringVlt63|Storm_MQ12_V63EngReceptionTriggerRef|1
 StormEngineeringVlt63|Storm_MQ12_V63EngineeringControlRoom_LocRef|1
@@ -13901,7 +13899,7 @@ StormEngineeringVlt63|Storm_MQ12_V63EngineeringEntrance_LocRef|1
 StormEngineeringVlt63|Storm_MQ12_V63EngineeringMainLab_LocRef|1
 StormEngineeringVlt63|Storm_MQ12_V63EngineeringTestChamberDoorRef|1
 StormEngineeringVlt63|Storm_MQ12_V63TestChamber_LocRef|1
-StormHallucinogeniccave||3948
+StormHallucinogeniccave||3952
 StormHallucinogeniccave|HallucGasActivator|1
 StormHallucinogeniccave|StormHallucinogenicCaveDoor|1
 StormHallucinogeniccave|Storm_MQ08_CaveShroom_Spawn|1
@@ -13918,13 +13916,13 @@ StormHighKnobFireTower01|Storm_MQ09_Stage350_TriggerRef|1
 StormPresidentialBunker||2634
 StormPresidentialBunker|BMO_Bunker06_FloorSafe002|1
 StormPresidentialBunker|zzzStorm_Marcs_RapidanLabRef001|1
-StormRadioBunkerInt||704
+StormRadioBunkerInt||672
 StormRadioBunkerInt|Storm_MQ05_HugoPT2_BunkerInterior|1
 StormRadioBunkerInt|Storm_MQ05_HugoPT2_BunkerInteriorKevinTeleport_XMarker|1
 StormRadioBunkerInt|Storm_MQ05_TriggerBoxArrivedAtBunker|1
 StormRadioBunkerInt|Storm_MQ05_TriggerBoxBunkerSetKevinToWalk|1
 StormRadioBunkerInt|Storm_MQ05_XMarker_BunkerWeatherMachineLocRef|1
-StormStolzManor||2179
+StormStolzManor||2195
 StormStolzManor|Storm_DarkwoodManor_InteriorTriggerRef|1
 StormStolzManor|Storm_MQ03_CombatEncounterSpawnRadius_DWM_Boss|1
 StormStolzManor|Storm_MQ03_CombatEncounterSpawnRadius_DWM_Central|1
@@ -13941,7 +13939,7 @@ StormVault63AtriumLower|Storm_MQ07_GeneratorObjective_MarkerRef|1
 StormVault63AtriumLower|Storm_MQ07_GeneratorRoomDoor|1
 StormVault63AtriumLower|Storm_MQ07_LowerAtriumTriggerRef|1
 StormVault63AtriumLower|Storm_MQ07_ReloadTrigger|1
-StormVault63AtriumUpper||3924
+StormVault63AtriumUpper||3931
 StormVault63AtriumUpper|StormAtrium_DirectTravelPoint|1
 StormVault63AtriumUpper|Storm_Audrey_AtriumLostRef|1
 StormVault63AtriumUpper|Storm_Audrey_AtriumRef|1
@@ -13995,11 +13993,11 @@ StormVault63AtriumUpper|Storm_V63Atrium_OverseerDeskChairRef|1
 StormVault63AtriumUpper|Storm_V63Atrium_Overseer_SandboxRef|1
 StormVault63AtriumUpper|Storm_V63Atrium_Residential_SandboxRef|1
 StormVault63AtriumUpper|Storm_V63_UpperAtriumTriggerRef|1
-StormVault63Entrance||1669
+StormVault63Entrance||1699
 StormVault63Entrance|Storm_MQ02_V63E_SpawnCenter|1
 StormVault63Entrance|Storm_V63Entrance_InteriorTriggerRef|1
 StormVault63Entrance|Vault63EntranceDoor|1
-StormVisitorCenterInt||2738
+StormVisitorCenterInt||2708
 StormVisitorCenterInt|Storm_MQ05_BunkerDoorPlayerTrigger|1
 StormVisitorCenterInt|Storm_MQ05_KevinArrivedAtBunkerDoor_Xmarker|1
 StormVisitorCenterInt|Storm_MQ05_KevinHidePray|1
@@ -14008,7 +14006,8 @@ StormVisitorCenterInt|Storm_MQ05_KevinSpawnXmarker|1
 StormVisitorCenterInt|Storm_MQ05_KevinTeleportXMarker|1
 StormVisitorCenterInt|Storm_MQ5_HugoPt2_VisitorInterior|1
 StormVisitorCenterInt|Storm_Mq05_MakeKevinRunAwayTrigger|1
-StormWeatherLab01||6813
+StormWeatherLab01||6817
+StormWeatherLab01|Storm_Audrey_WeatherLabRef|1
 StormWeatherLab01|Storm_MQ04_HugoPt1_WeatherLabMarker|1
 StormWeatherLab01|Storm_MQ05_AudreyLookingAtBlueprint|1
 StormWeatherLab01|Storm_MQ05_ElectricSparks|1
@@ -14033,7 +14032,6 @@ StormWeatherLab01|Storm_MQ13_WeatherChamberExitTriggerRef|1
 StormWeatherLab01|Storm_WeatherLab_ControlRoomDoorRef|1
 StormWeatherLab01|Storm_WeatherLab_ControlRoomRef|1
 StormWeatherLab01|Storm_WeatherLab_ControlRoomTriggerRef|1
-StormWeatherLab01|Storm_WeatherLab_DirectTravelMarker|1
 StormWeatherLab01|Storm_WeatherLab_EntranceTriggerRef|1
 SugarGrove01||8261
 SugarGrove01|BMO_Bunker06_FloorSafe|1
@@ -14611,7 +14609,7 @@ VanLoweTaxidermy01|p01b_clueXmarker006|1
 Vault51Dungeon||9602
 Vault51Dungeon|ChristmasEnabler001|1
 Vault51Dungeon|Vault94GearDoor_DefaultOpen001|1
-Vault63Organics||8910
+Vault63Organics||8909
 Vault63Organics|BioWingDoor|1
 Vault63Organics|Storm_GreenhouseItem_Spawn|1
 Vault63Organics|Storm_MQ08_BioWingDoor_Marker|1
@@ -16236,7 +16234,7 @@ XPDAC03FloodedCityCenter|XPD_AC03_IntroAuditorCombatantsSpawnCenter_Ref|1
 XPDAC03FloodedCityCenter|XPD_AC03_IntroOvergrown_SpawnMarkerRef|1
 XPDAC03FloodedCityCenter|XPD_AC03_Manhole_LoadDoor_Enabler|1
 XPDAC03FloodedCityCenter|XPD_AC03_PersistentMarker_FloodedCityCenter_Ref|1
-XPDPitt01Foundry||16868
+XPDPitt01Foundry||16870
 XPDPitt01Foundry|EXM1Pitt1_Shipping_Door_Interior0|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint00|1
 XPDPitt01Foundry|Pitt01_Objmod_SolveLocks_PlacementPoint01|1
@@ -16301,7 +16299,7 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
-XPDPitt01FoundryDungeon||15352
+XPDPitt01FoundryDungeon||15351
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator00_PackIn015|1
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator01_PackIn014|1
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator02_PackIn014|1
@@ -16869,10 +16867,10 @@ AMSHQ01|100|5474
 AMSHQ02|100|1993
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
-Appalachia|50|51
+Appalachia|50|52
 Appalachia|75|161
 Appalachia|85|251
-Appalachia|100|3250614
+Appalachia|100|3256570
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17164
@@ -17000,22 +16998,24 @@ SpruceKnobCampground01|75|1
 SpruceKnobCampground01|100|594
 SpruceKnobMissileSilo01|75|4
 SpruceKnobMissileSilo01|100|15676
-StormBrownHouse|100|1545
-StormCultistTunnels|100|3343
+StormBrownHouse|100|1549
+StormCultistTunnels|100|3348
 StormEngineeringVlt63|75|4
-StormEngineeringVlt63|100|4733
+StormEngineeringVlt63|100|4732
 StormHallucinogeniccave|75|1
-StormHallucinogeniccave|100|3954
+StormHallucinogeniccave|100|3958
 StormHighKnobFireTower01|100|1069
 StormPresidentialBunker|100|2636
-StormRadioBunkerInt|100|709
-StormStolzManor|100|2188
+StormRadioBunkerInt|100|677
+StormStolzManor|100|2204
 StormVault63AtriumLower|100|2348
 StormVault63AtriumUpper|50|1
-StormVault63AtriumUpper|100|3976
-StormVault63Entrance|100|1672
-StormVisitorCenterInt|100|2746
-StormWeatherLab01|100|6839
+StormVault63AtriumUpper|100|3983
+StormVault63Entrance|75|1
+StormVault63Entrance|100|1701
+StormVisitorCenterInt|75|2
+StormVisitorCenterInt|100|2714
+StormWeatherLab01|100|6843
 SugarGrove01|100|8279
 SugarGrove02|100|271
 SugarGroveMissileSilo01|75|4
@@ -17042,7 +17042,7 @@ VanLoweTaxidermy01|100|1964
 Vault51Dungeon|100|9604
 Vault63Organics|50|3
 Vault63Organics|75|2
-Vault63Organics|100|8959
+Vault63Organics|100|8958
 Vault79Entrance|100|1545
 Vault79GoldVaultOperations|100|4699
 Vault79Main|50|1
@@ -17093,10 +17093,10 @@ XPDAC03CommunityCenter|100|11649
 XPDAC03FloodedCityCenter|100|17093
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
-XPDPitt01Foundry|100|16912
+XPDPitt01Foundry|100|16914
 XPDPitt01FoundryDungeon|50|9
 XPDPitt01FoundryDungeon|75|11
-XPDPitt01FoundryDungeon|100|15354
+XPDPitt01FoundryDungeon|100|15353
 XPDPitt01Industrial|50|4
 XPDPitt01Industrial|75|3
 XPDPitt01Industrial|100|20262
@@ -17215,38 +17215,38 @@ AlleghenyAsylum01|Spring|32|30
 AlleghenyAsylum01|Steel|254|168
 AlleghenyAsylum01|Wood|94|71
 Appalachia|Acid|1426|924
-Appalachia|Adhesive|1236|524
-Appalachia|Aluminum|2183|1536
+Appalachia|Adhesive|1243|526
+Appalachia|Aluminum|2184|1537
 Appalachia|Antiseptic|893|424
-Appalachia|Asbestos|1715|1273
+Appalachia|Asbestos|1717|1274
 Appalachia|Ballistic Fiber|214|107
 Appalachia|Bone|3680|1396
-Appalachia|Ceramic|3942|3412
+Appalachia|Ceramic|3947|3417
 Appalachia|Circuitry|501|390
-Appalachia|Cloth|6018|5362
+Appalachia|Cloth|6022|5364
 Appalachia|Concrete|2429|441
-Appalachia|Copper|1577|1489
-Appalachia|Cork|640|519
-Appalachia|Crystal|332|204
+Appalachia|Copper|1581|1492
+Appalachia|Cork|644|522
+Appalachia|Crystal|339|207
 Appalachia|Fertilizer|1167|405
 Appalachia|Fiber Optics|43|42
-Appalachia|Fiberglass|963|722
-Appalachia|Gear|1205|1018
-Appalachia|Glass|9368|7762
-Appalachia|Gold|88|88
+Appalachia|Fiberglass|965|723
+Appalachia|Gear|1206|1019
+Appalachia|Glass|9378|7768
+Appalachia|Gold|89|89
 Appalachia|Gunpowder|1|1
-Appalachia|Lead|5505|3173
+Appalachia|Lead|5515|3183
 Appalachia|Leather|1975|891
 Appalachia|Nuclear Material|143|143
-Appalachia|Oil|3799|2541
-Appalachia|Plastic|5940|4211
+Appalachia|Oil|3802|2543
+Appalachia|Plastic|5947|4215
 Appalachia|Rubber|2057|1244
-Appalachia|Screw|1244|1107
+Appalachia|Screw|1246|1109
 Appalachia|Silver|282|236
-Appalachia|Spring|1370|1338
-Appalachia|Steel|16222|9703
+Appalachia|Spring|1374|1342
+Appalachia|Steel|16252|9721
 Appalachia|Ultracite|1|1
-Appalachia|Wood|5030|3514
+Appalachia|Wood|5036|3518
 ArktosPharmaLab01|Acid|48|33
 ArktosPharmaLab01|Adhesive|10|3
 ArktosPharmaLab01|Aluminum|31|25
@@ -19205,17 +19205,20 @@ StormPresidentialBunker|Screw|11|11
 StormPresidentialBunker|Spring|13|13
 StormPresidentialBunker|Steel|33|19
 StormPresidentialBunker|Wood|36|25
+StormRadioBunkerInt|Aluminum|1|1
 StormRadioBunkerInt|Asbestos|2|1
 StormRadioBunkerInt|Cloth|4|4
 StormRadioBunkerInt|Copper|2|2
+StormRadioBunkerInt|Cork|2|1
+StormRadioBunkerInt|Fiberglass|1|1
 StormRadioBunkerInt|Gear|2|1
-StormRadioBunkerInt|Glass|31|16
+StormRadioBunkerInt|Glass|35|18
 StormRadioBunkerInt|Lead|15|3
 StormRadioBunkerInt|Leather|2|1
-StormRadioBunkerInt|Oil|7|4
-StormRadioBunkerInt|Plastic|2|1
+StormRadioBunkerInt|Oil|8|5
+StormRadioBunkerInt|Plastic|3|2
 StormRadioBunkerInt|Rubber|3|1
-StormRadioBunkerInt|Screw|2|1
+StormRadioBunkerInt|Screw|4|2
 StormRadioBunkerInt|Silver|2|1
 StormRadioBunkerInt|Steel|22|12
 StormRadioBunkerInt|Wood|4|3
@@ -19270,7 +19273,7 @@ StormVault63AtriumLower|Steel|66|40
 StormVault63AtriumLower|Wood|58|36
 StormVault63AtriumUpper|Acid|13|10
 StormVault63AtriumUpper|Adhesive|15|6
-StormVault63AtriumUpper|Aluminum|20|15
+StormVault63AtriumUpper|Aluminum|18|14
 StormVault63AtriumUpper|Antiseptic|18|9
 StormVault63AtriumUpper|Asbestos|12|8
 StormVault63AtriumUpper|Bone|1|1
@@ -19282,7 +19285,7 @@ StormVault63AtriumUpper|Cork|14|8
 StormVault63AtriumUpper|Crystal|11|7
 StormVault63AtriumUpper|Fiber Optics|2|2
 StormVault63AtriumUpper|Fiberglass|21|14
-StormVault63AtriumUpper|Gear|12|11
+StormVault63AtriumUpper|Gear|11|10
 StormVault63AtriumUpper|Glass|83|63
 StormVault63AtriumUpper|Lead|72|42
 StormVault63AtriumUpper|Leather|15|7
@@ -19290,13 +19293,13 @@ StormVault63AtriumUpper|Nuclear Material|2|2
 StormVault63AtriumUpper|Oil|8|6
 StormVault63AtriumUpper|Plastic|70|46
 StormVault63AtriumUpper|Rubber|10|9
-StormVault63AtriumUpper|Screw|22|21
+StormVault63AtriumUpper|Screw|20|20
 StormVault63AtriumUpper|Silver|5|4
-StormVault63AtriumUpper|Spring|20|19
+StormVault63AtriumUpper|Spring|19|18
 StormVault63AtriumUpper|Steel|143|105
 StormVault63AtriumUpper|Wood|108|73
 StormVault63Entrance|Acid|7|4
-StormVault63Entrance|Aluminum|5|4
+StormVault63Entrance|Aluminum|6|5
 StormVault63Entrance|Antiseptic|2|1
 StormVault63Entrance|Asbestos|2|1
 StormVault63Entrance|Ceramic|3|3
@@ -19304,44 +19307,44 @@ StormVault63Entrance|Circuitry|3|3
 StormVault63Entrance|Cloth|9|7
 StormVault63Entrance|Copper|6|5
 StormVault63Entrance|Crystal|1|1
-StormVault63Entrance|Fiberglass|4|4
-StormVault63Entrance|Gear|2|2
+StormVault63Entrance|Fiberglass|5|5
+StormVault63Entrance|Gear|3|3
 StormVault63Entrance|Glass|5|4
 StormVault63Entrance|Lead|1|1
 StormVault63Entrance|Leather|2|1
-StormVault63Entrance|Oil|4|3
+StormVault63Entrance|Oil|5|4
 StormVault63Entrance|Plastic|6|4
-StormVault63Entrance|Rubber|5|3
-StormVault63Entrance|Screw|2|2
+StormVault63Entrance|Rubber|6|4
+StormVault63Entrance|Screw|3|3
 StormVault63Entrance|Spring|3|3
-StormVault63Entrance|Steel|10|5
-StormVault63Entrance|Wood|3|3
-StormVisitorCenterInt|Acid|2|1
-StormVisitorCenterInt|Adhesive|5|4
-StormVisitorCenterInt|Aluminum|5|4
-StormVisitorCenterInt|Antiseptic|1|1
-StormVisitorCenterInt|Asbestos|5|4
+StormVault63Entrance|Steel|14|8
+StormVault63Entrance|Wood|4|4
+StormVisitorCenterInt|Acid|8|4
+StormVisitorCenterInt|Adhesive|12|6
+StormVisitorCenterInt|Aluminum|6|5
+StormVisitorCenterInt|Antiseptic|3|2
+StormVisitorCenterInt|Asbestos|4|3
 StormVisitorCenterInt|Bone|6|3
-StormVisitorCenterInt|Ceramic|27|27
+StormVisitorCenterInt|Ceramic|23|23
 StormVisitorCenterInt|Circuitry|2|2
-StormVisitorCenterInt|Cloth|37|36
+StormVisitorCenterInt|Cloth|36|35
 StormVisitorCenterInt|Concrete|17|3
-StormVisitorCenterInt|Copper|5|4
+StormVisitorCenterInt|Copper|9|7
 StormVisitorCenterInt|Cork|20|10
-StormVisitorCenterInt|Fiberglass|4|4
+StormVisitorCenterInt|Fiberglass|5|5
 StormVisitorCenterInt|Gear|3|3
-StormVisitorCenterInt|Glass|70|57
-StormVisitorCenterInt|Lead|2|2
+StormVisitorCenterInt|Glass|47|37
+StormVisitorCenterInt|Lead|8|7
 StormVisitorCenterInt|Leather|20|10
 StormVisitorCenterInt|Nuclear Material|3|3
-StormVisitorCenterInt|Oil|6|4
-StormVisitorCenterInt|Plastic|22|10
-StormVisitorCenterInt|Rubber|15|4
+StormVisitorCenterInt|Oil|8|6
+StormVisitorCenterInt|Plastic|17|13
+StormVisitorCenterInt|Rubber|10|6
 StormVisitorCenterInt|Screw|5|5
 StormVisitorCenterInt|Silver|4|2
-StormVisitorCenterInt|Spring|5|5
-StormVisitorCenterInt|Steel|21|12
-StormVisitorCenterInt|Wood|18|11
+StormVisitorCenterInt|Spring|4|4
+StormVisitorCenterInt|Steel|39|22
+StormVisitorCenterInt|Wood|28|18
 StormWeatherLab01|Adhesive|7|4
 StormWeatherLab01|Aluminum|10|7
 StormWeatherLab01|Antiseptic|2|1
@@ -20688,35 +20691,35 @@ AMSHQ01|Robot|100.0|2
 AVRMedicalCenter01|Scorched|100.0|21
 AlleghenyAsylum01|Ghoul|100.0|25
 Appalachia|Angler|15.95|88
-Appalachia|Bloatfly|11.35|85
-Appalachia|Bloodbug|41.98|70
+Appalachia|Bloatfly|13.05|105
+Appalachia|Bloodbug|39.73|78
 Appalachia|Cave Cricket|8.19|159
 Appalachia|Deathclaw|23.5|6
 Appalachia|Fog Crawler|12.63|45
 Appalachia|Ghoul|49.63|1013
-Appalachia|Gulper|17.44|108
-Appalachia|Honey Beast|19.18|7
-Appalachia|Insect|19.21|236
+Appalachia|Gulper|17.23|125
+Appalachia|Honey Beast|14.89|15
+Appalachia|Insect|18.73|279
 Appalachia|Liberator|16.69|449
-Appalachia|Lost|80.0|10
-Appalachia|Mega Sloth|26.78|9
-Appalachia|Mirelurk|34.43|190
-Appalachia|Mole Miner|60.64|192
-Appalachia|Mole Rat|15.83|546
-Appalachia|Rad Ant|29.31|29
-Appalachia|Rad Rat|10.71|359
+Appalachia|Lost|25.18|63
+Appalachia|Mega Sloth|28.81|16
+Appalachia|Mirelurk|31.56|190
+Appalachia|Mole Miner|59.51|198
+Appalachia|Mole Rat|15.25|582
+Appalachia|Rad Ant|20.72|56
+Appalachia|Rad Rat|9.85|372
 Appalachia|Rad Scorpion|15.8|100
-Appalachia|Rad Toad|24.39|65
-Appalachia|Radroach|35.29|17
+Appalachia|Rad Toad|17.02|65
+Appalachia|Radroach|17.14|40
 Appalachia|Robot|38.64|414
 Appalachia|Scorched|55.53|1101
 Appalachia|Snallygaster|67.03|26
-Appalachia|Stingwing|45.24|12
-Appalachia|Super Mutant|45.81|790
-Appalachia|Thrasher|100.0|18
-Appalachia|Tick|55.0|10
-Appalachia|Vicious Dog|15.45|490
-Appalachia|Wolf|23.38|224
+Appalachia|Stingwing|20.32|40
+Appalachia|Super Mutant|45.27|806
+Appalachia|Thrasher|21.23|54
+Appalachia|Tick|23.96|35
+Appalachia|Vicious Dog|15.55|543
+Appalachia|Wolf|20.67|255
 Appalachia|Yao Guai|10.55|129
 ArktosPharmaLab01|Ghoul|100.0|3
 BelchingBetty01|Scorched|100.0|22
@@ -20825,7 +20828,7 @@ WestTek01|Super Mutant|100.0|41
 00431DED|PoseidonPlant02|Poseidon Energy Plant Expansion|0|-2341|3011|-6614|1932|-4837|10859|-400|-2700|2.0
 00675A19|MorgantownHighSchoolDungeon|Morgantown High School|0|1396|-2890|-787|3579|-6799|1019|0|0|1.0
 00695071|XPDAC01NightClub|Quentino's Night Club|0|-768|1389|-3456|1920|-600|3378|0|0|1.0
-006EC67D|StormVisitorCenterInt|Shenandoah Visitor Center|0|1822|1773|-1272|4917|-816|4362|0|0|1.0
+006EC67D|StormVisitorCenterInt|Shenandoah Visitor Center|0|1825|2632|-1266|4917|903|4362|0|0|1.0
 0000D343|WatogaCivicCenter01|Watoga Civic Center|0|3397|1264|-668|7462|-2926|5455|0|0|1.0
 0062E263|SheltersCave02|Forbidden Digsite Shelter|0|2088|-656|-2488|6664|-4064|2752|0|0|1.0
 00044FEC|GauleyMine01|Gauley Mine|0|1508|1723|-4792|7808|-3159|6605|0|0|1.0
@@ -20893,7 +20896,7 @@ WestTek01|Super Mutant|100.0|41
 0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|-516|323|-257|234|0|0|1.0
 004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|-702|896|-2112|-576|0|0|1.0
 006AF443|NVEShelter01|VR Shelter|0|2565|-788|-5742|10873|-5152|3576|1000|-200|1.4
-006DE4FF|StormBrownHouse|The Brown House|0|808|616|-1688|3304|-1624|2856|0|0|1.0
+006DE4FF|StormBrownHouse|The Brown House|0|820|616|-1688|3328|-1624|2856|0|0|1.0
 0051EF4D|CharGen05|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 00616199|XPDPitt01Industrial|The Pitt - Industrial|0|-4744|-1415|-20382|10894|-15918|13088|0|0|1.0
 006BEEC5|NPEVault7601|Vault 76|0|1715|1223|-3162|6593|-3152|5598|0|0|1.0
@@ -20951,4 +20954,4 @@ WestTek01|Super Mutant|100.0|41
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4338168|4338168
+4344132|4344132
