@@ -25,7 +25,7 @@ A number of User guides exist for Mappalachia in document form;<br/>
 * [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the intelligent NPC, Scrap and Region search functions, as well as using filters to find exactly what you need.
 * [**Advanced Plotting**](User_Guides/Advanced_plotting.md) details the powerful cluster mode, as well as topographical and heatmap plotting, item grouping and volume mapping.
 * [**Interiors and other Spaces**](User_Guides/Choosing_spaces.md) explains the mapping of other spaces such as interiors.
-* [**Mappalachia map mod**](User_Guides/Game_map_mod.md) explains how to use third-party tools to create a mod which replaces the in-game map with your own Mappalachia map.
+* [**In-Game Map mod**](User_Guides/Game_map_mod.md) explains how to use third-party tools to create a mod which replaces the in-game map with your own Mappalachia map.
 
 ## Discord
 [Join the Mappalachia Discord](https://discord.gg/Z2GMpm6rad) for discussion and help.
