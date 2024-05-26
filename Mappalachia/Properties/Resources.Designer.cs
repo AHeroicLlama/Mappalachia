@@ -94,8 +94,20 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT x, y, z FROM Position_Data
+        ///INNER JOIN Entity_Info ON Position_Data.referenceFormID = Entity_Info.entityFormID
+        ///WHERE fluxColor = $fluxColor and spaceFormID = $spaceFormID
+        ///.
+        /// </summary>
+        internal static string getCoordsFlux {
+            get {
+                return ResourceManager.GetString("getCoordsFlux", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT x, y, z, chance as chance
-        ///FROM NPC_Search WHERE NPC = $npc and chance &gt;= $chance and spaceFormID = $spaceFormID
+        ///FROM NPC_Search WHERE NPC = $npc and chance = $chance and spaceFormID = $spaceFormID
         ///ORDER BY z ASC
         ///.
         /// </summary>
@@ -129,7 +141,7 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ
+        ///   Looks up a localized string similar to SELECT x, y, z, primitiveShape, boundX, boundY, boundZ, rotZ, instanceFormID
         ///FROM Position_Data
         ///WHERE spaceFormID = $spaceFormID AND referenceFormID = $formID AND lockLevel IN ($allowedLockTypes) AND label = $label
         ///ORDER BY z ASC
@@ -220,7 +232,9 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT NPC, MIN(chance) as chance, COUNT(*), spaceEditorId, spaceDisplayName
         ///FROM NPC_Search
         ///INNER JOIN Space_Info ON NPC_Search.spaceFormId = Space_Info.spaceFormID
-        ///WHERE NPC = $npc and chance &gt;= $chance and NPC_Search.spaceFormId = $spaceFormID
+        ///WHERE NPC = $npc and NPC_Search.spaceFormId = $spaceFormID
+        ///GROUP BY chance
+        ///ORDER BY chance DESC
         ///.
         /// </summary>
         internal static string searchNPC {
@@ -233,9 +247,9 @@ namespace Mappalachia.Properties {
         ///   Looks up a localized string similar to SELECT NPC, MIN(chance) as chance, COUNT(*) as amount, spaceEditorId, spaceDisplayName
         ///FROM NPC_Search
         ///INNER JOIN Space_Info ON NPC_Search.spaceFormId = Space_Info.spaceFormID
-        ///WHERE NPC = $npc and chance &gt;= $chance
-        ///GROUP BY spaceEditorId
-        ///ORDER BY NPC_Search.spaceFormID = $spaceFormID DESC, amount DESC
+        ///WHERE NPC = $npc
+        ///GROUP BY spaceEditorId, chance
+        ///ORDER BY NPC_Search.spaceFormID = $spaceFormID DESC, chance DESC, amount DESC
         ///.
         /// </summary>
         internal static string searchNPCEverywhere {
@@ -249,7 +263,9 @@ namespace Mappalachia.Properties {
         ///FROM Region
         ///INNER JOIN Space_Info ON Region.spaceFormID = Space_Info.spaceFormID
         ///WHERE (regionEditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR regionFormID LIKE $searchTerm ESCAPE &apos;\&apos;) AND Region.spaceFormID = $spaceFormID
-        ///GROUP BY regionFormID, spaceEditorID.
+        ///GROUP BY regionFormID, spaceEditorID
+        ///ORDER BY regionEditorId ASC
+        ///.
         /// </summary>
         internal static string searchRegion {
             get {
@@ -263,7 +279,7 @@ namespace Mappalachia.Properties {
         ///INNER JOIN Space_Info ON Region.spaceFormID = Space_Info.spaceFormID
         ///WHERE regionEditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR regionFormID LIKE $searchTerm ESCAPE &apos;\&apos;
         ///GROUP BY regionFormID, spaceEditorID
-        ///ORDER BY Region.spaceFormID = $spaceFormID DESC
+        ///ORDER BY Region.spaceFormID = $spaceFormID DESC, regionEditorId ASC
         ///.
         /// </summary>
         internal static string searchRegionEverywhere {
@@ -301,14 +317,14 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label
+        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label, percChanceNone
         ///FROM Standard_Search
         ///JOIN Space_Info ON Standard_Search.spaceFormId = Space_Info.spaceFormID
         ///JOIN Entity_Info ON Standard_Search.referenceFormID = Entity_Info.entityFormID
         ///WHERE
         ///(category IN ($allowedSignatures) AND
         ///lockLevel IN ($allowedLockTypes) AND
-        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos; OR label  [rest of string was truncated]&quot;;.
+        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCA [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchStandard {
             get {
@@ -317,14 +333,14 @@ namespace Mappalachia.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label
+        ///   Looks up a localized string similar to SELECT referenceFormId, editorID, displayName, category, lockLevel, amount, spaceEditorId, spaceDisplayName, label, percChanceNone
         ///FROM Standard_Search
         ///JOIN Space_Info ON Standard_Search.spaceFormId = Space_Info.spaceFormID
         ///JOIN Entity_Info ON Standard_Search.referenceFormID = Entity_Info.entityFormID
         ///WHERE
         ///(category IN ($allowedSignatures) AND
         ///lockLevel IN ($allowedLockTypes) AND
-        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCAPE &apos;\&apos; OR label  [rest of string was truncated]&quot;;.
+        ///(EditorId LIKE $searchTerm ESCAPE &apos;\&apos; OR displayName LIKE $searchTerm ESCAPE &apos;\&apos; OR referenceFormId LIKE $searchTerm ESCA [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string searchStandardEverywhere {
             get {

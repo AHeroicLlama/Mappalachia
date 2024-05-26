@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.45.2 2024-03-12 11:06:23 d8cd6d49b46a395b13955387d05e9e1a2a47e54fb99f3c9b59835bbefad6af77 (64-bit)
 ==Checksum== 
-bacb8b4c78789a0e1335eff3e6c04017
+fd61d9de0b8c3e60bff86c0c4db3f30f
 ==File Size== 
-455114752 
+455159808 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -19120,5 +19120,76 @@ WestTek01|Super Mutant|100.0|41
 003F880F|FoundationInt01|Foundation Interior|0|3171|-6042|-3576|9919|-15956|3872|1400|1800|1.7
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
+==Fluxes==
+LPI_FloraBloodLeaf01|Cobalt
+LPI_FloraBloodLeaf02|Cobalt
+LPI_FloraFirecracker01|Cobalt
+LPI_FloraFirecracker02|Cobalt
+LPI_FloraSap01|Cobalt
+LPI_FloraSap02|Cobalt
+LPI_FloraSiltBean01|Cobalt
+LPI_FloraSiltBean02|Cobalt
+LPI_FloraStarlightCreeper01|Cobalt
+LPI_FloraStarlightCreeper02|Cobalt
+LPI_FloraWildCornStalk01|Cobalt
+LPI_FloraWildMutFruit|Cobalt
+LPI_FloraAster01|Crimson
+LPI_FloraBlight01|Crimson
+LPI_FloraCranberry01|Crimson
+LPI_FloraCranberry01Diseased|Crimson
+LPI_FloraCranberry02|Crimson
+LPI_FloraCranberry02Diseased|Crimson
+LPI_FloraCranberry03|Crimson
+LPI_FloraCranberry03Diseased|Crimson
+LPI_FloraFeverBlossom01|Crimson
+LPI_FloraFirecap01|Crimson
+LPI_FloraFungusBrain01|Crimson
+LPI_FloraFungusBrain02|Crimson
+LPI_FloraFungusBrain03|Crimson
+LPI_FloraMothmanEggs01|Crimson
+LPI_FloraMothmanEggs02|Crimson
+LPI_FloraMothmanEggs03|Crimson
+LPI_FloraWildGourdVine01|Crimson
+LPI_FloraFungusGlowing01|Fluorescent
+LPI_FloraFungusGlowing02|Fluorescent
+LPI_FloraFungusGlowing03|Fluorescent
+LPI_FloraFungusGlowing04|Fluorescent
+LPI_FloraFungusGlowing05|Fluorescent
+LPI_FloraFungusGlowing06|Fluorescent
+LPI_FloraRhododendron01|Fluorescent
+LPI_TrapFloraThistle|Fluorescent
+LPI_FloraFern01|Violet
+LPI_FloraFern01_Charred01|Violet
+LPI_FloraFern01_Charred02|Violet
+LPI_FloraFern01_Charred03|Violet
+LPI_FloraFern01_Charred04|Violet
+LPI_FloraFern02|Violet
+LPI_FloraFern02_Charred01|Violet
+LPI_FloraFern02_Charred02|Violet
+LPI_FloraFern02_Charred03|Violet
+LPI_FloraFern02_Charred04|Violet
+LPI_FloraGinseng01|Violet
+LPI_FloraPitcherPlant|Violet
+LPI_FloraSnapTail01|Violet
+LPI_FloraSnapTail02|Violet
+LPI_FloraSwampPod01|Violet
+LPI_FloraWildRazorgrain01|Violet
+LPI_FloraWildTarberryFloat01|Violet
+LPI_FloraWildTarberryFloat02|Violet
+LPI_FloraWildTatoPlant01|Violet
+LPI_FloraWildTatoPlant02|Violet
+LPI_FloraAshRose01|Yellowcake
+LPI_FloraAshRose02|Yellowcake
+LPI_FloraBlackberry01|Yellowcake
+LPI_FloraBlackberry02|Yellowcake
+LPI_FloraBleachDogwoodBark01|Yellowcake
+LPI_FloraBleachDogwoodBark02|Yellowcake
+LPI_FloraBleachDogwoodBark03|Yellowcake
+LPI_FloraSootFlower01|Yellowcake
+LPI_FloraSootFlower02|Yellowcake
+LPI_FloraToxicSootFlower01|Yellowcake
+LPI_FloraToxicSootFlower02|Yellowcake
+LPI_FloraWildCarrotFlower|Yellowcake
+LPI_FloraWildMelonVine01|Yellowcake
 ==Instance IDs Count Vs Distinct==
 4117960|4117960

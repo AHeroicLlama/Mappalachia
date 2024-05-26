@@ -188,4 +188,103 @@ unit _mappalachia_lib;
 		end;
 	end;
 
+	// Hardcoded and not datamined
+	function getFluxColor(editorID: String): String;
+	begin
+		if	(editorID = 'LPI_FloraAster01') or
+			(editorID = 'LPI_FloraBlight01') or
+			(editorID = 'LPI_FloraFungusBrain01') or
+			(editorID = 'LPI_FloraFungusBrain02') or
+			(editorID = 'LPI_FloraFungusBrain03') or
+			(editorID = 'LPI_FloraCranberry01') or
+			(editorID = 'LPI_FloraCranberry02') or
+			(editorID = 'LPI_FloraCranberry03') or
+			(editorID = 'LPI_FloraCranberry01Diseased') or
+			(editorID = 'LPI_FloraCranberry02Diseased') or
+			(editorID = 'LPI_FloraCranberry03Diseased') or
+			(editorID = 'LPI_FloraFeverBlossom01') or
+			(editorID = 'LPI_FloraFirecap01') or
+			(editorID = 'LPI_FloraWildGourdVine01') or
+			(editorID = 'LPI_FloraMothmanEggs01') or
+			(editorID = 'LPI_FloraMothmanEggs02') or
+			(editorID = 'LPI_FloraMothmanEggs03')
+		then begin
+			result := 'Crimson';
+		end
+
+		else if
+			(editorID = 'LPI_FloraBloodLeaf01') or
+			(editorID = 'LPI_FloraBloodLeaf02') or
+			(editorID = 'LPI_FloraWildCornStalk01') or
+			(editorID = 'LPI_FloraFirecracker01') or
+			(editorID = 'LPI_FloraFirecracker02') or
+			(editorID = 'LPI_FloraSap01') or
+			(editorID = 'LPI_FloraSap02') or
+			(editorID = 'LPI_FloraWildMutFruit') or
+			(editorID = 'LPI_FloraSiltBean01') or
+			(editorID = 'LPI_FloraSiltBean02') or
+			(editorID = 'LPI_FloraStarlightCreeper01') or
+			(editorID = 'LPI_FloraStarlightCreeper02')
+		then begin
+			result := 'Cobalt';
+		end
+
+		else if
+			(editorID = 'LPI_FloraFungusGlowing01') or
+			(editorID = 'LPI_FloraFungusGlowing02') or
+			(editorID = 'LPI_FloraFungusGlowing03') or
+			(editorID = 'LPI_FloraFungusGlowing04') or
+			(editorID = 'LPI_FloraFungusGlowing05') or
+			(editorID = 'LPI_FloraFungusGlowing06') or
+			(editorID = 'LPI_FloraRhododendron01') or
+			(editorID = 'LPI_TrapFloraThistle')
+		then begin
+			result := 'Fluorescent';
+		end
+
+		else if
+			(editorID = 'LPI_FloraPitcherPlant') or
+			(editorID = 'LPI_FloraGinseng01') or
+			(editorID = 'LPI_FloraFern01') or
+			(editorID = 'LPI_FloraFern02') or
+			(editorID = 'LPI_FloraFern01_Charred01') or
+			(editorID = 'LPI_FloraFern01_Charred02') or
+			(editorID = 'LPI_FloraFern01_Charred03') or
+			(editorID = 'LPI_FloraFern01_Charred04') or
+			(editorID = 'LPI_FloraFern02_Charred01') or
+			(editorID = 'LPI_FloraFern02_Charred02') or
+			(editorID = 'LPI_FloraFern02_Charred03') or
+			(editorID = 'LPI_FloraFern02_Charred04') or
+			(editorID = 'LPI_FloraWildRazorgrain01') or
+			(editorID = 'LPI_FloraSnapTail01') or
+			(editorID = 'LPI_FloraSnapTail02') or
+			(editorID = 'LPI_FloraSwampPod01') or
+			(editorID = 'LPI_FloraWildTarberryFloat01') or
+			(editorID = 'LPI_FloraWildTarberryFloat02') or
+			(editorID = 'LPI_FloraWildTatoPlant01') or
+			(editorID = 'LPI_FloraWildTatoPlant02')
+		then begin
+			result := 'Violet';
+		end
+
+		else if
+			(editorID = 'LPI_FloraAshRose01') or
+			(editorID = 'LPI_FloraAshRose02') or
+			(editorID = 'LPI_FloraBleachDogwoodBark01') or
+			(editorID = 'LPI_FloraBleachDogwoodBark02') or
+			(editorID = 'LPI_FloraBleachDogwoodBark03') or
+			(editorID = 'LPI_FloraWildCarrotFlower') or
+			(editorID = 'LPI_FloraWildMelonVine01') or
+			(editorID = 'LPI_FloraSootFlower01') or
+			(editorID = 'LPI_FloraSootFlower02') or
+			(editorID = 'LPI_FloraToxicSootFlower01') or
+			(editorID = 'LPI_FloraToxicSootFlower02') or
+			(editorID = 'LPI_FloraBlackberry01') or
+			(editorID = 'LPI_FloraBlackberry02')
+		then begin
+			result := 'Yellowcake';
+		end
+
+		else result := '';
+	end;
 end.

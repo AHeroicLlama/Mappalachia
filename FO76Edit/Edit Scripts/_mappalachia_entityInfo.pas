@@ -20,7 +20,7 @@ unit _mappalachia_entityInfo;
 		signature : String;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('entityFormID,displayName,editorID,signature,percChanceNone'); // Write CSV column headers
+		outputStrings.add('entityFormID,displayName,editorID,signature,percChanceNone,fluxColor'); // Write CSV column headers
 
 		// Rip everything down to the end 'leaves' of the hierarchy tree
 		for i := 0 to ElementCount(targetESM) - 1 do begin
@@ -67,7 +67,8 @@ unit _mappalachia_entityInfo;
 				sanitize(bestDisplayName) + ',' +
 				editorId + ',' +
 				signature + ',' +
-				GetEditValue(ElementBySignature(item, 'LVLD'))
+				GetEditValue(ElementBySignature(item, 'LVLD')) + ',' +
+				getFluxColor(editorId)
 			);
 		end;
 	end;

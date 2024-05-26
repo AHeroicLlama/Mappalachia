@@ -29,9 +29,9 @@ namespace Mappalachia
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMaster));
 			menuStripMain = new System.Windows.Forms.MenuStrip();
 			mapMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +44,7 @@ namespace Mappalachia
 			satelliteBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			noneBackgroundMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			highlightWaterMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			optimalNukeZoneMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			brightnessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			grayscaleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			mapMarkersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -189,7 +190,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { updateMapToolStripMenuItem, viewMenuItem, setTitleMenuItem, backgroundImageMenuItem, highlightWaterMenuItem, brightnessMenuItem, grayscaleMenuItem, mapMarkersMenuItem, legendStyleMenuItem, exportToFileMenuItem, quickSaveMenuItem, clearMenuItem, resetMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { updateMapToolStripMenuItem, viewMenuItem, setTitleMenuItem, backgroundImageMenuItem, highlightWaterMenuItem, optimalNukeZoneMenuItem, brightnessMenuItem, grayscaleMenuItem, mapMarkersMenuItem, legendStyleMenuItem, exportToFileMenuItem, quickSaveMenuItem, clearMenuItem, resetMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new System.Drawing.Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -265,6 +266,14 @@ namespace Mappalachia
 			highlightWaterMenuItem.Text = "Highlight Water";
 			highlightWaterMenuItem.ToolTipText = "Overlays a colored mask to highlight bodies of water.";
 			highlightWaterMenuItem.Click += Map_HighlightWater;
+			// 
+			// optimalNukeZoneMenuItem
+			// 
+			optimalNukeZoneMenuItem.Name = "optimalNukeZoneMenuItem";
+			optimalNukeZoneMenuItem.Size = new System.Drawing.Size(216, 22);
+			optimalNukeZoneMenuItem.Text = "Optimal Nuke Zone...";
+			optimalNukeZoneMenuItem.ToolTipText = "Calculate and draw the optimal nuke launch location for your flux priorities.";
+			optimalNukeZoneMenuItem.Click += Map_OptimalNukeZone;
 			// 
 			// brightnessMenuItem
 			// 
@@ -657,7 +666,7 @@ namespace Mappalachia
 			// viaKoFiToolStripMenuItem
 			// 
 			viaKoFiToolStripMenuItem.Name = "viaKoFiToolStripMenuItem";
-			viaKoFiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			viaKoFiToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
 			viaKoFiToolStripMenuItem.Text = "Via Ko-Fi";
 			viaKoFiToolStripMenuItem.ToolTipText = "Support the project via Ko-Fi.";
 			viaKoFiToolStripMenuItem.Click += Donate_ViaKoFi;
@@ -665,7 +674,7 @@ namespace Mappalachia
 			// donatePatreonMenuItem
 			// 
 			donatePatreonMenuItem.Name = "donatePatreonMenuItem";
-			donatePatreonMenuItem.Size = new System.Drawing.Size(180, 22);
+			donatePatreonMenuItem.Size = new System.Drawing.Size(134, 22);
 			donatePatreonMenuItem.Text = "Via Patreon";
 			donatePatreonMenuItem.ToolTipText = "Support the project via Patreon.";
 			donatePatreonMenuItem.Click += Donate_ViaPatreon;
@@ -673,7 +682,7 @@ namespace Mappalachia
 			// donatePayPalMenuItem
 			// 
 			donatePayPalMenuItem.Name = "donatePayPalMenuItem";
-			donatePayPalMenuItem.Size = new System.Drawing.Size(180, 22);
+			donatePayPalMenuItem.Size = new System.Drawing.Size(134, 22);
 			donatePayPalMenuItem.Text = "Via PayPal";
 			donatePayPalMenuItem.ToolTipText = "Support the project via PayPal.";
 			donatePayPalMenuItem.Click += Donate_ViaPayPal;
@@ -692,8 +701,8 @@ namespace Mappalachia
 			gridViewSearchResults.AllowUserToDeleteRows = false;
 			gridViewSearchResults.AllowUserToOrderColumns = true;
 			gridViewSearchResults.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
-			gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
+			gridViewSearchResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
 			gridViewSearchResults.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
 			gridViewSearchResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			gridViewSearchResults.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -715,8 +724,8 @@ namespace Mappalachia
 			// columnSearchFormID
 			// 
 			columnSearchFormID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			columnSearchFormID.DefaultCellStyle = dataGridViewCellStyle5;
 			columnSearchFormID.HeaderText = "FormID";
 			columnSearchFormID.Name = "columnSearchFormID";
 			columnSearchFormID.ReadOnly = true;
@@ -920,8 +929,8 @@ namespace Mappalachia
 			gridViewLegend.AllowUserToDeleteRows = false;
 			gridViewLegend.AllowUserToOrderColumns = true;
 			gridViewLegend.AllowUserToResizeRows = false;
-			dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
-			gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
+			gridViewLegend.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
 			gridViewLegend.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
 			gridViewLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			gridViewLegend.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
@@ -1317,7 +1326,7 @@ namespace Mappalachia
 			// pictureBoxMapPreview
 			// 
 			pictureBoxMapPreview.Anchor = System.Windows.Forms.AnchorStyles.None;
-			pictureBoxMapPreview.Location = new System.Drawing.Point(-10, 0);
+			pictureBoxMapPreview.Location = new System.Drawing.Point(-13, 0);
 			pictureBoxMapPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			pictureBoxMapPreview.Name = "pictureBoxMapPreview";
 			pictureBoxMapPreview.Size = new System.Drawing.Size(820, 820);
@@ -1593,6 +1602,7 @@ namespace Mappalachia
 		private System.Windows.Forms.ToolStripMenuItem setTitleMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showReferenceFormIDsMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem viaKoFiToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem optimalNukeZoneMenuItem;
 	}
 }
 

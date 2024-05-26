@@ -11,7 +11,7 @@ CREATE TABLE temp AS SELECT spaceFormID, referenceFormID, x, y, z, lockLevel, pr
 DROP TABLE Position_Data;
 ALTER TABLE temp RENAME TO Position_Data;
 
--- Dropping the column signature.
-CREATE TABLE temp AS SELECT entityFormID, displayName, editorID, signature FROM Entity_Info;
+-- Dropping the percChanceNone column.
+CREATE TABLE temp AS SELECT entityFormID, displayName, editorID, signature, fluxColor FROM Entity_Info;
 DROP TABLE Entity_Info;
 ALTER TABLE temp RENAME TO Entity_Info;

@@ -44,5 +44,17 @@ namespace Mappalachia
 		{
 			return new RectangleF(rect.X + offset, rect.Y + offset, rect.Width, rect.Height);
 		}
+
+		// Returns a Rectangle located at x/y, centered on x/y
+		public static RectangleF CenterRectangle(float x, float y, float width, float height)
+		{
+			return new RectangleF(x - (width / 2f), y - (height / 2f), width, height);
+		}
+
+		// Returns a Rectangle located at x/y, centered on x/y
+		public static RectangleF CenterRectangle(float x, float y, float diameter)
+		{
+			return CenterRectangle(x, y, diameter, diameter);
+		}
 	}
 }

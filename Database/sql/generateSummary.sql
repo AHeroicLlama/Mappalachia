@@ -101,5 +101,8 @@ ORDER BY spaceEditorID;
 SELECT '==Space Info==';
 SELECT * FROM Space_Info;
 
+SELECT '==Fluxes==';
+SELECT editorID, fluxColor FROM Entity_Info WHERE fluxColor != '' ORDER BY fluxColor, editorID;
+
 SELECT '==Instance IDs Count Vs Distinct==';
 SELECT COUNT(*), COUNT(DISTINCT(instanceFormID)) FROM Position_Data;

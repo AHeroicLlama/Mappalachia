@@ -1165,6 +1165,13 @@ namespace Mappalachia
 			UpdateMapHighlightWater(SettingsSpace.CurrentSpaceIsAppalachia());
 		}
 
+		// Map > Optimal Nuke Zone... - Open the Optimal Nuke Zone settings Form
+		private void Map_OptimalNukeZone(object sender, EventArgs e)
+		{
+			FormOptimalNuke formOptimalNuke = new FormOptimalNuke();
+			formOptimalNuke.ShowDialog();
+		}
+
 		// Map > Brightness... - Open the brightness adjust form
 		void Map_Brightness(object sender, EventArgs e)
 		{

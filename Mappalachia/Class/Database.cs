@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mappalachia.Class;
 using Microsoft.Data.Sqlite;
 
 namespace Mappalachia
@@ -396,6 +397,40 @@ namespace Mappalachia
 				e);
 
 				return new List<MapItem>();
+			}
+		}
+
+		// Return the coords of Flora which can drop the given flux when nuked
+		public static List<MapDataPoint> GetFluxCoords(NukeZone.FluxColor fluxColor, string spaceFormID)
+		{
+			try
+			{
+				List<MapDataPoint> coordinates = new List<MapDataPoint>();
+
+				string queryString = Properties.Resources.getCoordsFlux;
+				SqliteCommand query = connection.CreateCommand();
+
+				query.CommandText = queryString;
+				query.Parameters.Clear();
+				query.Parameters.AddWithValue("$fluxColor", fluxColor.ToString());
+				query.Parameters.AddWithValue("$spaceFormID", spaceFormID);
+
+				SqliteDataReader reader = query.ExecuteReader();
+
+				while (reader.Read())
+				{
+					coordinates.Add(new MapDataPoint(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
+				}
+
+				return coordinates;
+			}
+			catch (Exception e)
+			{
+				Notify.Error("Mappalachia encountered an error while searching the database:\n" +
+				IOManager.genericExceptionHelpText +
+				e);
+
+				return new List<MapDataPoint>();
 			}
 		}
 

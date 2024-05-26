@@ -261,6 +261,14 @@ namespace Mappalachia
 					// Nothing really to validate for here since they're just in-game strings
 					return;
 
+				case "fluxColor":
+					if (!Validation.fluxColor.IsMatch(data))
+					{
+						ReportValidationError();
+					}
+
+					return;
+
 				default:
 					throw new Exception("Column " + columnName + " was not accounted for in validation");
 			}

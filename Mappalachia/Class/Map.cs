@@ -1,3 +1,4 @@
+using Mappalachia.Class;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -49,6 +50,8 @@ namespace Mappalachia
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
 		static readonly Brush brushRed = new SolidBrush(Color.Red);
+		static readonly Brush brushNukeZonefill = new SolidBrush(NukeZone.color);
+		static readonly Pen penNukeZoneEdge = new Pen(Color.Yellow, 1.5f);
 		static readonly PrivateFontCollection fontCollection = IOManager.LoadFont();
 		static readonly Font mapLabelFont = new Font(fontCollection.Families[0], mapLabelFontSize, GraphicsUnit.Pixel);
 		static readonly Font legendFont = new Font(fontCollection.Families[0], legendFontSize, GraphicsUnit.Pixel);
@@ -204,7 +207,7 @@ namespace Mappalachia
 			DrawInfoWatermark(imageGraphic);
 
 			// Nothing else to plot - ensure we update for the background layer but then return
-			if (FormMaster.GetAllLegendItems().Count == 0)
+			if (FormMaster.GetAllLegendItems().Count == 0 && !SettingsMap.drawOptimalNukeZone)
 			{
 				FinishDraw(finalImage);
 				return;
@@ -225,6 +228,7 @@ namespace Mappalachia
 			int zMin = 0;
 			int zMax = 0;
 			double zRange = 0;
+
 			if (SettingsPlot.IsTopographic())
 			{
 				foreach (MapItem mapItem in FormMaster.GetNonRegionLegendItems())
@@ -593,6 +597,8 @@ namespace Mappalachia
 				DrawClusters(clusters, imageGraphic);
 			}
 
+			DrawNukeZone(imageGraphic);
+
 			// Create a new wider bitmap with graphic, then print the legend to that and store it as the final image
 			if (SettingsMap.ExtendedMargin())
 			{
@@ -822,6 +828,52 @@ namespace Mappalachia
 					imageGraphic.DrawString(marker.label, mapLabelFont, brushWhite, textBox, stringFormatCenter);
 				}
 			}
+		}
+
+		static void DrawNukeZone(Graphics imageGraphic)
+		{
+			List<MapDataPoint> fluxPoints = Database.GetFluxCoords(NukeZone.FluxColor.Crimson, string.Empty);
+
+			if (fluxPoints.Count == 0)
+			{
+				// This probably shouldn't happen
+				Notify.Warn("There were no flux-giving flora found for this search, so the Nuke Zone will be skipped.");
+				return;
+			}
+
+			MapDataPoint center = fluxPoints.First();
+			int centerCount = 0;
+
+			FormMaster.UpdateProgressBar(0, "Calculating optimal Nuke location...");
+
+			// Brute force On^2
+			foreach (MapDataPoint candidate in fluxPoints)
+			{
+				int currentCount = 0;
+
+				foreach (MapDataPoint member in fluxPoints)
+				{
+					if (Math.Abs(GeometryHelper.Pythagoras(candidate.Get2DPoint(), member.Get2DPoint())) <= NukeZone.radius)
+					{
+						currentCount++;
+					}
+				}
+
+				// TODO - center can't be within NonNukeableZone
+				if (currentCount > centerCount)
+				{
+					center = candidate;
+					centerCount = currentCount;
+				}
+			}
+
+			Space currentSpace = SettingsSpace.GetSpace();
+
+			float diameter = (NukeZone.radius * 2) * currentSpace.scale * currentSpace.nudgeScale;
+			RectangleF rectangle = GeometryHelper.CenterRectangle(ScaleCoordinateToSpace(center.x, false), ScaleCoordinateToSpace(center.y, true), diameter);
+
+			imageGraphic.FillEllipse(brushNukeZonefill, rectangle);
+			imageGraphic.DrawEllipse(penNukeZoneEdge, rectangle);
 		}
 
 		// Draws all legend text (and optional Icon beside) for every MapItem

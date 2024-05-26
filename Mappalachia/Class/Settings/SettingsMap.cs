@@ -1,4 +1,7 @@
-﻿namespace Mappalachia
+﻿using Mappalachia.Class;
+using System;
+
+namespace Mappalachia
 {
 	// Settings for the map image
 	class SettingsMap
@@ -43,6 +46,41 @@
 		public static LegendMode legendMode = legendModeDefault;
 		public static bool highlightWater = highlightWaterDefault;
 		public static string title = titleDefault;
+
+		// Nuke zone flux weights
+		public static bool drawOptimalNukeZone = false;
+		public static float fluxWeightCrimson = 1.0f;
+		public static float fluxWeightCobalt = 0.0f;
+		public static float fluxWeightFluorescent = 0.0f;
+		public static float fluxWeightViolet = 0.0f;
+		public static float fluxWeightYellowcake = 0.0f;
+
+		// Returns the normalized weighting (0-1f) of the given flux color, given the weights of all fluxes
+		public static float GetNormalizedFluxWeight(NukeZone.FluxColor color)
+		{
+			float total = fluxWeightCrimson + fluxWeightCobalt + fluxWeightFluorescent + fluxWeightViolet + fluxWeightYellowcake;
+
+			switch (color)
+			{
+				case NukeZone.FluxColor.Crimson:
+					return fluxWeightCrimson / total;
+
+				case NukeZone.FluxColor.Cobalt:
+					return fluxWeightCobalt / total;
+
+				case NukeZone.FluxColor.Fluorescent:
+					return fluxWeightFluorescent / total;
+
+				case NukeZone.FluxColor.Yellowcake:
+					return fluxWeightYellowcake / total;
+
+				case NukeZone.FluxColor.Violet:
+					return fluxWeightViolet / total;
+
+				default:
+					throw new ArgumentException("Unknown Flux color " + color.ToString());
+			}
+		}
 
 		public static bool ExtendedMargin()
 		{
