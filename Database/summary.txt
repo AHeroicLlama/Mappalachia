@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.45.2 2024-03-12 11:06:23 d8cd6d49b46a395b13955387d05e9e1a2a47e54fb99f3c9b59835bbefad6af77 (64-bit)
 ==Checksum== 
-6cb170f6fdf5c481dfb96281edfc1a17
+aaf711735d21828a323ee968e5dfa107
 ==File Size== 
-480567296 
+480550912 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-PTS 0.2.1490.0
+PTS 1.7.12.0
 ==Mean Average X/Y/Z Coord==
--9837.35645704688|-5442.77940200054|11213.0586377226
+-9837.76190985808|-5436.96127933923|11212.8094471038
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ PTS 0.2.1490.0
 ==Z outliers==
 77
 ==Average X Bounds Width==
-22.8015836613066
+22.8024735597963
 ==Average Y Bounds Width==
-16.7496866025135
+16.7502279060058
 ==Average Z Bounds Width==
-16.5374163343207
+16.5380176676924
 ==Average Z Rotation==
-4.29319966003248
+4.29345041522506
 ==Average display name string length==
-2.80922306193667
+2.80879487893126
 ==Average editorID string length==
-25.2228906634696
+25.2231903915734
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -802,7 +802,7 @@ AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14277
 AlleghenyAsylum01|Box|730
 AlleghenyAsylum01|Sphere|5
-Appalachia||3183312
+Appalachia||3183182
 Appalachia|Box|69822
 Appalachia|Ellipsoid|3
 Appalachia|Line|1801
@@ -1095,7 +1095,7 @@ StormHighKnobFireTower01|Box|31
 StormPresidentialBunker||2636
 StormRadioBunkerInt||591
 StormRadioBunkerInt|Box|86
-StormStolzManor||1781
+StormStolzManor||1780
 StormStolzManor|Box|465
 StormVault63AtriumLower||2193
 StormVault63AtriumLower|Box|129
@@ -1107,8 +1107,8 @@ StormVault63Entrance|Box|229
 StormVault63Entrance|Plane|22
 StormVisitorCenterInt||2533
 StormVisitorCenterInt|Box|186
-StormWeatherLab01||6534
-StormWeatherLab01|Box|311
+StormWeatherLab01||6535
+StormWeatherLab01|Box|313
 StormWeatherLab01|Plane|2
 SugarGrove01||8057
 SugarGrove01|Box|222
@@ -1301,7 +1301,7 @@ AlleghenyAsylum01|Advanced (Level 1)|6
 AlleghenyAsylum01|Expert (Level 2)|6
 AlleghenyAsylum01|Master (Level 3)|1
 AlleghenyAsylum01|Novice (Level 0)|3
-Appalachia||3256672
+Appalachia||3256542
 Appalachia|Advanced (Level 1)|338
 Appalachia|Barred|1
 Appalachia|Chained|4
@@ -1640,7 +1640,7 @@ StormPresidentialBunker|Expert (Level 2)|1
 StormPresidentialBunker|Inaccessible|5
 StormPresidentialBunker|Master (Level 3)|1
 StormRadioBunkerInt||677
-StormStolzManor||2238
+StormStolzManor||2237
 StormStolzManor|Inaccessible|8
 StormVault63AtriumLower||2312
 StormVault63AtriumLower|Advanced (Level 1)|2
@@ -1661,7 +1661,7 @@ StormVisitorCenterInt||2715
 StormVisitorCenterInt|Advanced (Level 1)|1
 StormVisitorCenterInt|Novice (Level 0)|1
 StormVisitorCenterInt|Requires Key|2
-StormWeatherLab01||6843
+StormWeatherLab01||6846
 StormWeatherLab01|Inaccessible|4
 SugarGrove01||8262
 SugarGrove01|Advanced (Level 1)|3
@@ -1974,7 +1974,7 @@ AlleghenyAsylum01|SOUN|4
 AlleghenyAsylum01|STAT|11108
 AlleghenyAsylum01|TERM|7
 AlleghenyAsylum01|TXST|475
-Appalachia|ACTI|23433
+Appalachia|ACTI|23434
 Appalachia|ALCH|308
 Appalachia|AMMO|80
 Appalachia|ARMO|124
@@ -1984,22 +1984,22 @@ Appalachia|BOOK|573
 Appalachia|CNCY|260
 Appalachia|CONT|13511
 Appalachia|DOOR|2642
-Appalachia|FLOR|51680
+Appalachia|FLOR|51668
 Appalachia|FURN|15650
 Appalachia|HAZD|1056
 Appalachia|IDLM|19056
 Appalachia|KEYM|37
 Appalachia|LIGH|9005
-Appalachia|LVLI|73852
+Appalachia|LVLI|73794
 Appalachia|MISC|37484
 Appalachia|MSTT|24407
 Appalachia|NOTE|179
 Appalachia|NPC_|8204
 Appalachia|PROJ|93
-Appalachia|SCOL|365163
+Appalachia|SCOL|365191
 Appalachia|SECH|253
 Appalachia|SOUN|5927
-Appalachia|STAT|2522040
+Appalachia|STAT|2521951
 Appalachia|TACT|64
 Appalachia|TERM|385
 Appalachia|TXST|69261
@@ -3829,7 +3829,7 @@ StormStolzManor|ACTI|38
 StormStolzManor|BOOK|1
 StormStolzManor|CONT|11
 StormStolzManor|DOOR|16
-StormStolzManor|FURN|23
+StormStolzManor|FURN|22
 StormStolzManor|IDLM|7
 StormStolzManor|LIGH|64
 StormStolzManor|LVLI|12
@@ -3927,7 +3927,7 @@ StormWeatherLab01|MSTT|129
 StormWeatherLab01|NPC_|2
 StormWeatherLab01|SCOL|147
 StormWeatherLab01|SOUN|12
-StormWeatherLab01|STAT|5666
+StormWeatherLab01|STAT|5669
 StormWeatherLab01|TERM|2
 StormWeatherLab01|TXST|262
 StormWeatherLab01|WEAP|1
@@ -5162,7 +5162,7 @@ AlleghenyAsylum01|TestElevDoorTriggerARef077|1
 AlleghenyAsylum01|TestElevDoorTriggerARef078|1
 AlleghenyAsylum01|TestElevDoorTriggerARef079|1
 AlleghenyAsylum01|W05_JonahItoRef|1
-Appalachia||3251451
+Appalachia||3251320
 Appalachia|76ExitEventQuest_CenterMaker|1
 Appalachia|76ExitEventSpawnAreaRef001|1
 Appalachia|76ExitEventSpawnAreaRef002|1
@@ -10286,6 +10286,7 @@ Appalachia|Storm_Maelstrom|1
 Appalachia|Storm_MakeoutPoint_LocationCenter|1
 Appalachia|Storm_MirelurkKingSpawn|1
 Appalachia|Storm_NG17_LocationCenter|1
+Appalachia|Storm_NukeGroundMarker|1
 Appalachia|Storm_NukeMarker|1
 Appalachia|Storm_RadioactiveWasteDump_LocationCenter|1
 Appalachia|Storm_RedRocketMotel_LocationCenter|1
@@ -13928,7 +13929,7 @@ StormRadioBunkerInt|Storm_MQ05_HugoPT2_BunkerInteriorKevinTeleport_XMarker|1
 StormRadioBunkerInt|Storm_MQ05_TriggerBoxArrivedAtBunker|1
 StormRadioBunkerInt|Storm_MQ05_TriggerBoxBunkerSetKevinToWalk|1
 StormRadioBunkerInt|Storm_MQ05_XMarker_BunkerWeatherMachineLocRef|1
-StormStolzManor||2236
+StormStolzManor||2235
 StormStolzManor|Storm_DarkwoodManor_InteriorTriggerRef|1
 StormStolzManor|Storm_MQ03_CombatEncounterSpawnRadius_DWM_Boss|1
 StormStolzManor|Storm_MQ03_CombatEncounterSpawnRadius_DWM_Central|1
@@ -14025,6 +14026,9 @@ StormWeatherLab01|Storm_MQ06_PlayerSceneMarkerRef|1
 StormWeatherLab01|Storm_MQ13_CapHugo_PlayerMoveMarkerRef|1
 StormWeatherLab01|Storm_MQ13_ConsoleFurnitureRef|1
 StormWeatherLab01|Storm_MQ13_HugoCaptureMarkerRef|1
+StormWeatherLab01|Storm_MQ13_InvisibleCollisionEnablerRef|1
+StormWeatherLab01|Storm_MQ13_NPCCollisionBlockerRef|1
+StormWeatherLab01|Storm_MQ13_NPCNavCutRef|1
 StormWeatherLab01|Storm_MQ13_Pt2_AudreyWaitMarkerRef|1
 StormWeatherLab01|Storm_MQ13_Pt2_CassidyFurnRef|1
 StormWeatherLab01|Storm_MQ13_Pt2_HugoSceneEndMarker|1
@@ -16877,7 +16881,7 @@ AlleghenyAsylum01|100|15012
 Appalachia|50|52
 Appalachia|75|161
 Appalachia|85|251
-Appalachia|100|3257335
+Appalachia|100|3257205
 ArktosPharmaLab01|50|1
 ArktosPharmaLab01|75|1
 ArktosPharmaLab01|100|17164
@@ -17014,7 +17018,7 @@ StormHallucinogeniccave|100|3966
 StormHighKnobFireTower01|100|1069
 StormPresidentialBunker|100|2636
 StormRadioBunkerInt|100|677
-StormStolzManor|100|2246
+StormStolzManor|100|2245
 StormVault63AtriumLower|100|2322
 StormVault63AtriumUpper|50|1
 StormVault63AtriumUpper|100|4003
@@ -17022,7 +17026,7 @@ StormVault63Entrance|75|1
 StormVault63Entrance|100|1701
 StormVisitorCenterInt|75|2
 StormVisitorCenterInt|100|2717
-StormWeatherLab01|100|6847
+StormWeatherLab01|100|6850
 SugarGrove01|100|8279
 SugarGrove02|100|271
 SugarGroveMissileSilo01|75|4
@@ -20961,4 +20965,4 @@ WestTek01|Super Mutant|100.0|41
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4345121|4345121
+4344993|4344993
