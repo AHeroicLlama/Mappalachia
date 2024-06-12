@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.45.2 2024-03-12 11:06:23 d8cd6d49b46a395b13955387d05e9e1a2a47e54fb99f3c9b59835bbefad6af77 (64-bit)
+3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 ==Checksum== 
-aaf711735d21828a323ee968e5dfa107
+f0ac60658a78cbb9f85ebf3a72e54654
 ==File Size== 
 480550912 
 ==Tables== 
@@ -14,7 +14,7 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-PTS 1.7.12.0
+1.7.12.10
 ==Mean Average X/Y/Z Coord==
 -9837.76190985808|-5436.96127933923|11212.8094471038
 ==Min/Max X/Y/Z Coord==
@@ -20907,7 +20907,7 @@ WestTek01|Super Mutant|100.0|41
 0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|-516|323|-257|234|0|0|1.0
 004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|-702|896|-2112|-576|0|0|1.0
 006AF443|NVEShelter01|VR Shelter|0|2565|-788|-5742|10873|-5152|3576|1000|-200|1.4
-006DE4FF|StormBrownHouse|The Brown House|0|820|616|-1688|3328|-1624|2856|0|0|1.0
+006DE4FF|StormBrownHouse|The Brown House|0|820|616|-1688|3328|-1624|2856|-2400|-2300|2.0
 0051EF4D|CharGen05|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
 00616199|XPDPitt01Industrial|The Pitt - Industrial|0|-4744|-1415|-20382|10894|-15918|13088|0|0|1.0
 006BEEC5|NPEVault7601|Vault 76|0|1715|1223|-3162|6593|-3152|5598|0|0|1.0
@@ -20929,7 +20929,7 @@ WestTek01|Super Mutant|100.0|41
 001D7232|HornwrightHQ01|Hornwright Industrial HQ|0|742|404|-939|2424|-2455|3264|0|0|1.0
 00401116|Vault79Main|Vault 79|0|-1440|-2646|-13064|10183|-13490|8197|0|0|1.0
 0051EF4E|CharGen04|Vault 76|0|1715|1176|-3162|6593|-3152|5504|0|0|1.0
-006F7FAA|StormStolzManor|Dark Hollow Manor|0|36700|-106115|3237|70163|-212999|768|500|0|1.0
+006F7FAA|StormStolzManor|Dark Hollow Manor|0|36700|-106115|3237|70163|-212999|768|34500|113000|56.0
 006A4378|XPDAC01Casino|The Neapolitan Casino|0|-2261|1290|-6400|1878|-4075|6656|0|0|1.0
 00004586|EasternRegionalPen01|Eastern Regional Penitentiary|0|2936|-92|-320|6192|-5440|5255|0|0|1.0
 006B8756|SheltersToxicWasteland|Toxic Wasteland|0|4258|1394|-41855|50372|-30185|32974|0|0|1.0

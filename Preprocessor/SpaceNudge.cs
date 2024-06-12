@@ -253,9 +253,9 @@ namespace Mappalachia
 						break;
 
 					case "StormStolzManor":
-						nudgeX = 500;
-						nudgeY = 0;
-						nudgeScale = 1f;
+						nudgeX = 34500;
+						nudgeY = 113000;
+						nudgeScale = 56f;
 						break;
 
 					case "SheltersSummerCamp":
@@ -268,6 +268,12 @@ namespace Mappalachia
 						nudgeX = -700;
 						nudgeY = 3300;
 						nudgeScale = 2.5f;
+						break;
+
+					case "StormBrownHouse":
+						nudgeX = -2400;
+						nudgeY = -2300;
+						nudgeScale = 2f;
 						break;
 
 					default:
