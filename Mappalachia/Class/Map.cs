@@ -44,7 +44,7 @@ namespace Mappalachia
 		const int fontDropShadowOffset = 3;
 		const int mapLabelMaxWidth = 150; // Maximum width before a map marker label will enter a new line
 		const int mapLabelBuffer = 10; // Arbitrary number of pixels extra allowed to buffer labels for weird edge cases in 32-bit deployments where label strings are truncated despite MeasureString thinking they'll fit.
-		const int warningTextHeight = 300; // height in px off the bottom of image that red warning text is written.
+		const int warningTextHeight = 90; // height in px off the bottom of image that red warning text is written.
 
 		static readonly Brush dropShadowBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 		static readonly Brush brushWhite = new SolidBrush(Color.White);
