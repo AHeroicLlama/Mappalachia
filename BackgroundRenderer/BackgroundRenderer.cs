@@ -14,6 +14,26 @@ namespace BackgroundRenderer
 		static readonly string cellDirectory = Path.GetFullPath(imageDirectory + "cell\\");
 		static readonly string utilsRenderPath = Path.GetFullPath(mappalachiaRoot + "FO76Utils\\render.exe");
 
+		// Values passed with the -xm argument to the render command
+		static readonly List<string> excludeModels = new List<string>()
+		{
+			"babylon",
+			"cranberrybog",
+			"cranbog",
+			"bog",
+			"grass",
+			"trees",
+			"tree",
+			"plants",
+			"shrub",
+			"vine",
+			"root",
+			"stump",
+			"fog",
+			"cloud",
+			"effects",
+		};
+
 		const double maxScale = 16;
 		const double minScale = 0.002;
 
@@ -60,6 +80,16 @@ namespace BackgroundRenderer
 			{ "XPDAC02Pier", 400 },
 			{ "XPDAC03CommunityCenter", 600 },
 			{ "XPDPitt02Sanctum", 700 },
+			{ "StormHallucinogeniccave", 600 },
+			{ "StormRadioBunkerInt", 800 },
+			{ "StormStolzManor", 700 },
+			{ "MILEBlueRidgeHQ", 500 },
+			{ "StormCultistTunnels", 6500 },
+			{ "StormEngineeringVlt63", 1300 },
+			{ "StormWeatherLab01", 1000 },
+			{ "StormVault63AtriumUpper", -800 },
+			{ "StormVisitorCenterInt", 1250 },
+			{ "StormVault63Entrance", 4600 },
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
@@ -295,7 +325,8 @@ namespace BackgroundRenderer
 				string renderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} " +
 					$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {(space.isWorldspace ? "271" : "303")} -ssaa {SSAA} " +
-					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 -xm babylon -xm fog -xm cloud";
+					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
+					$"-xm " + string.Join(" -xm ", excludeModels);
 
 				string resizeCommand = $"\"{magickPath}\" convert {renderFile} -resize {nativeResolution}x{nativeResolution} " +
 						$"-quality {(space.isWorldspace ? worldspaceQuality : cellQuality)} JPEG:{convertedFile}";
@@ -329,8 +360,8 @@ namespace BackgroundRenderer
 
 					string waterMaskRenderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {waterMaskRenderFile} {resolution} {resolution} " +
 						$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
-						$"-light 1 0 0 -ssaa {SSAA} -ltxtres 64 -wtxt \"\" -wrefl 0 -watercolor 0x7F0000FF " +
-						$"-xm babylon -xm bog -xm swamp -xm forest -xm grass -xm plants -xm trees -xm water -xm babylon -xm fog -xm cloud -xm effects";
+						$"-light 1 0 0 -ssaa {SSAA} -ltxtres 64 -wtxt \"\" -wrefl 0 -watercolor 0x7F0000FF -xm water " +
+						$"-xm " + string.Join(" -xm ", excludeModels);
 
 					Process waterMaskRender = Process.Start("CMD.exe", "/C " + waterMaskRenderCommand);
 					waterMaskRender.WaitForExit();

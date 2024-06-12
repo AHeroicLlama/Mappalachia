@@ -131,6 +131,7 @@ namespace Mappalachia
 			.Replace("Swamp", "Gulper")
 			.Replace("RadFrog", "Frog")
 			.Replace("RadStag", "Radstag")
+			.Replace("RadTurkey", "Thrasher")
 			.ToString();
 
 			return name;

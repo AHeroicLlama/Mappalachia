@@ -69,7 +69,8 @@ unit _mappalachia_lib;
 			(pos('Goodneighbor', spaceEditorID) <> 0) or
 			(pos('DiamondCity', spaceEditorID) <> 0) or
 
-			(pos('Warehouse', spaceEditorID) = 1)
+			(pos('Warehouse', spaceEditorID) = 1) or
+			(pos('zz', spaceEditorID) = 1)
 		then begin
 			result := false
 		end
