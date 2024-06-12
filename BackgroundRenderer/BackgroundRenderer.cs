@@ -80,6 +80,16 @@ namespace BackgroundRenderer
 			{ "XPDAC02Pier", 400 },
 			{ "XPDAC03CommunityCenter", 600 },
 			{ "XPDPitt02Sanctum", 700 },
+			{ "StormHallucinogeniccave", 600 },
+			{ "StormRadioBunkerInt", 800 },
+			{ "StormStolzManor", 700 },
+			{ "MILEBlueRidgeHQ", 500 },
+			{ "StormCultistTunnels", 6500 },
+			{ "StormEngineeringVlt63", 1300 },
+			{ "StormWeatherLab01", 1000 },
+			{ "StormVault63AtriumUpper", -800 },
+			{ "StormVisitorCenterInt", 1250 },
+			{ "StormVault63Entrance", 4600 },
 		};
 
 		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
@@ -350,7 +360,7 @@ namespace BackgroundRenderer
 
 					string waterMaskRenderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {waterMaskRenderFile} {resolution} {resolution} " +
 						$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
-						$"-light 1 0 0 -ssaa {SSAA} -ltxtres 64 -wtxt \"\" -wrefl 0 -watercolor 0x7F0000FF -xm water" +
+						$"-light 1 0 0 -ssaa {SSAA} -ltxtres 64 -wtxt \"\" -wrefl 0 -watercolor 0x7F0000FF -xm water " +
 						$"-xm " + string.Join(" -xm ", excludeModels);
 
 					Process waterMaskRender = Process.Start("CMD.exe", "/C " + waterMaskRenderCommand);
