@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
 		<UseWindowsForms>True</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>Mappalachia</RootNamespace>
@@ -11,6 +11,7 @@
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<Platforms>AnyCPU;x86</Platforms>
 		<AnalysisLevel>latest-all</AnalysisLevel>
+		<StartupObject>Mappalachia.Mappalachia</StartupObject>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -48,12 +49,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\.editorconfig" Link=".editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.Data.Sqlite">
-			<Version>8.0.6</Version>
+			<Version>8.0.7</Version>
 		</PackageReference>
 		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 		  <PrivateAssets>all</PrivateAssets>
