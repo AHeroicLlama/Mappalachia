@@ -276,6 +276,12 @@ namespace Mappalachia
 						nudgeScale = 2f;
 						break;
 
+					case "SheltersHousingDevelopment":
+						nudgeX = -5000;
+						nudgeY = 3500;
+						nudgeScale = 6f;
+						break;
+
 					default:
 						nudgeX = 0;
 						nudgeY = 0;
