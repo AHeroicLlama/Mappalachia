@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 ==Checksum== 
-f0ac60658a78cbb9f85ebf3a72e54654
+c614e37a6863aa7af859fea160f9bec4
 ==File Size== 
-480550912 
+480681984 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.12.10
+1.7.13.12
 ==Mean Average X/Y/Z Coord==
--9837.76190985808|-5436.96127933923|11212.8094471038
+-9834.61201156011|-5436.16071127801|11210.3968989733
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -29,13 +29,13 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 3584|0|256|57
 2547|4482|512|46
 -43|4777|519|42
+0|0|0|42
 1988|4809|518|42
 2085|2161|519|42
 2116|3301|514|42
 3642|-626|273|42
 3816|1208|263|42
 4115|2168|262|42
-0|0|0|41
 39101|14406|35188|40
 624|-1848|-1112|38
 -256|256|0|37
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 77
 ==Average X Bounds Width==
-22.8024735597963
+22.8127359076664
 ==Average Y Bounds Width==
-16.7502279060058
+16.7690516293218
 ==Average Z Bounds Width==
-16.5380176676924
+16.5409330001519
 ==Average Z Rotation==
-4.29345041522506
+4.29309568842931
 ==Average display name string length==
-2.80879487893126
+2.80639021364871
 ==Average editorID string length==
-25.2231903915734
+25.2364892320195
 ==Map Markers==
 Appalachia|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 Appalachia|AirfieldMarker|Crashed Plane|147706|58411
@@ -561,7 +561,7 @@ Appalachia|WoodShackMarker|Southhampton Estate|169981|125109
 Appalachia|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 Appalachia|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-46709
+46759
 ==Regions==
 Space|Region|subRegions|maxVerts
 Appalachia|76Border|1|62
@@ -1052,6 +1052,8 @@ SheltersFlatlands||1016
 SheltersFlatlands|Box|518
 SheltersHighStakes||2536
 SheltersHighStakes|Box|81
+SheltersHousingDevelopment||960
+SheltersHousingDevelopment|Box|25
 SheltersMissileSilo||442
 SheltersMissileSilo|Box|51
 SheltersPittTrench01||1009
@@ -1088,7 +1090,7 @@ StormCultistTunnels|Plane|8
 StormCultistTunnels|Sphere|1
 StormEngineeringVlt63||4532
 StormEngineeringVlt63|Box|204
-StormHallucinogeniccave||3757
+StormHallucinogeniccave||3758
 StormHallucinogeniccave|Box|210
 StormHighKnobFireTower01||1038
 StormHighKnobFireTower01|Box|31
@@ -1173,7 +1175,7 @@ Vault63Organics||8802
 Vault63Organics|Box|230
 Vault63Organics|Plane|2
 Vault79Entrance||1465
-Vault79Entrance|Box|80
+Vault79Entrance|Box|81
 Vault79GoldVaultOperations||4655
 Vault79GoldVaultOperations|Box|44
 Vault79Main||18141
@@ -1595,6 +1597,7 @@ SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersFlatlands||1534
 SheltersHighStakes||2617
+SheltersHousingDevelopment||985
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
@@ -1625,7 +1628,7 @@ StormEngineeringVlt63|Advanced (Level 1)|1
 StormEngineeringVlt63|Expert (Level 2)|4
 StormEngineeringVlt63|Inaccessible|12
 StormEngineeringVlt63|Requires Terminal|4
-StormHallucinogeniccave||3958
+StormHallucinogeniccave||3959
 StormHallucinogeniccave|Advanced (Level 1)|2
 StormHallucinogeniccave|Expert (Level 2)|1
 StormHallucinogeniccave|Novice (Level 0)|2
@@ -1733,7 +1736,7 @@ Vault63Organics|Inaccessible|3
 Vault63Organics|Novice (Level 0)|3
 Vault63Organics|Requires Key|6
 Vault63Organics|Requires Terminal|2
-Vault79Entrance||1544
+Vault79Entrance||1545
 Vault79Entrance|Expert (Level 2)|1
 Vault79GoldVaultOperations||4699
 Vault79Main||18822
@@ -3598,6 +3601,13 @@ SheltersHighStakes|ACTI|78
 SheltersHighStakes|DOOR|3
 SheltersHighStakes|LIGH|91
 SheltersHighStakes|STAT|2445
+SheltersHousingDevelopment|ACTI|6
+SheltersHousingDevelopment|ASPC|1
+SheltersHousingDevelopment|LIGH|1
+SheltersHousingDevelopment|MSTT|1
+SheltersHousingDevelopment|SCOL|20
+SheltersHousingDevelopment|STAT|942
+SheltersHousingDevelopment|TXST|14
 SheltersMissileSilo|ACTI|9
 SheltersMissileSilo|LIGH|15
 SheltersMissileSilo|MSTT|9
@@ -3761,7 +3771,7 @@ StormEngineeringVlt63|SOUN|1
 StormEngineeringVlt63|STAT|3505
 StormEngineeringVlt63|TERM|2
 StormEngineeringVlt63|TXST|218
-StormHallucinogeniccave|ACTI|27
+StormHallucinogeniccave|ACTI|28
 StormHallucinogeniccave|ALCH|3
 StormHallucinogeniccave|ARMO|1
 StormHallucinogeniccave|BNDS|50
@@ -4327,7 +4337,7 @@ Vault63Organics|TACT|3
 Vault63Organics|TERM|5
 Vault63Organics|TXST|133
 Vault63Organics|WEAP|4
-Vault79Entrance|ACTI|5
+Vault79Entrance|ACTI|6
 Vault79Entrance|ALCH|1
 Vault79Entrance|ASPC|1
 Vault79Entrance|CONT|20
@@ -13791,6 +13801,7 @@ SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersFlatlands||1534
 SheltersHighStakes||2617
+SheltersHousingDevelopment||985
 SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
@@ -13906,7 +13917,7 @@ StormEngineeringVlt63|Storm_MQ12_V63EngineeringEntrance_LocRef|1
 StormEngineeringVlt63|Storm_MQ12_V63EngineeringMainLab_LocRef|1
 StormEngineeringVlt63|Storm_MQ12_V63EngineeringTestChamberDoorRef|1
 StormEngineeringVlt63|Storm_MQ12_V63TestChamber_LocRef|1
-StormHallucinogeniccave||3960
+StormHallucinogeniccave||3961
 StormHallucinogeniccave|HallucGasActivator|1
 StormHallucinogeniccave|StormHallucinogenicCaveDoor|1
 StormHallucinogeniccave|Storm_MQ08_CaveShroom_Spawn|1
@@ -14676,6 +14687,7 @@ Vault63Organics|V63Door01|1
 Vault63Organics|V63Door02|1
 Vault63Organics|V63Door03|1
 Vault79Entrance||1544
+Vault79Entrance|W05_MQ00P_QuestCompletionTrigger_REF|1
 Vault79Entrance|W05_V97ExtTerminalREF|1
 Vault79GoldVaultOperations||4679
 Vault79GoldVaultOperations|ColePos1_Marker|1
@@ -16993,6 +17005,7 @@ SheltersCave02|100|608
 SheltersClaimCenter01|100|976
 SheltersFlatlands|100|1534
 SheltersHighStakes|100|2617
+SheltersHousingDevelopment|100|985
 SheltersMissileSilo|100|493
 SheltersPittTrench01|100|1142
 SheltersRootCellar|100|595
@@ -17014,7 +17027,7 @@ StormCultistTunnels|100|3360
 StormEngineeringVlt63|75|4
 StormEngineeringVlt63|100|4732
 StormHallucinogeniccave|75|1
-StormHallucinogeniccave|100|3966
+StormHallucinogeniccave|100|3967
 StormHighKnobFireTower01|100|1069
 StormPresidentialBunker|100|2636
 StormRadioBunkerInt|100|677
@@ -17054,7 +17067,7 @@ Vault51Dungeon|100|9604
 Vault63Organics|50|3
 Vault63Organics|75|2
 Vault63Organics|100|9029
-Vault79Entrance|100|1545
+Vault79Entrance|100|1546
 Vault79GoldVaultOperations|100|4699
 Vault79Main|50|1
 Vault79Main|100|18850
@@ -20890,6 +20903,7 @@ WestTek01|Super Mutant|100.0|41
 0062781C|WhitespringMall01|Whitespring Mall|0|-7336|8301|-12496|-2176|6428|10175|0|0|1.0
 004041F2|TheWayward01|The Wayward|0|1858|-158|-621|4338|-2376|2059|1100|600|2.2
 006F47E0|NPECultistCave|Organ Cave|0|3147|-9654|-3562|9856|-20724|1415|0|1600|1.5
+00798944|SheltersHousingDevelopment|Housing Development|0|-59480|-44655|-208241|89280|-172544|83234|-5000|3500|6.0
 00004017|VaultTecU01|Vault-Tec University|0|-4774|730|-10325|776|-3862|5322|0|0|1.0
 005C60DB|DaggersDen02|Dagger's Throne Room|0|792|-1423|-2100|3685|-2807|-39|0|0|1.0
 005D6247|Vault94DungeonGECK|Vault 94 G.E.C.K. Wing|0|-2031|-7354|-5077|1014|-10721|-3987|0|0|1.0
@@ -20965,4 +20979,4 @@ WestTek01|Super Mutant|100.0|41
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4344993|4344993
+4345980|4345980
