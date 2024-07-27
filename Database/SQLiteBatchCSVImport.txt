@@ -1,9 +1,0 @@
-.mode csv
-.import "../Preprocessor/Output/NPC_Spawn.csv" NPC_Spawn
-.import "../Preprocessor/Output/Quantified_Scrap.csv" Quantified_Scrap
-.import "../Preprocessor/Output/Space_Info.csv" Space_Info
-.import "../Preprocessor/Output/Entity_Info.csv" Entity_Info
-.import "../Preprocessor/Output/Position_Data.csv" Position_Data
-.import "../Preprocessor/Output/Map_Markers.csv" Map_Markers
-.import "../Preprocessor/Output/Region.csv" Region
-.import gameVersion.csv Game_Version

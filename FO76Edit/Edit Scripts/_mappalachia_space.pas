@@ -1,21 +1,16 @@
 // Gets the FormID, EditorID, and DisplayName of every relevant CELL and WRLD
-unit _mappalachia_spaceInfo;
+// Header 'spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace'
+unit _mappalachia_space;
 
 	uses _mappalachia_lib;
 
-	var	outputStrings, skippedspaces : TStringList;
+	var	outputStrings : TStringList;
 
 	procedure Initialize;
 	const
-		outputFile = ProgramPath + 'Output\Space_Info.csv';
-		skippedspacesFile = ProgramPath + 'Output\Skipped_spaces.csv';
+		outputFile = ProgramPath + 'Output\Space.csv';
 	begin
-		skippedSpaces := TStringList.Create;
 		outputStrings := TStringList.Create;
-
-		// Write CSV column headers
-		skippedSpaces.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace');
-		outputStrings.add('spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace');
 
 		ripWorldSpaces();
 		ripCells();
@@ -23,9 +18,6 @@ unit _mappalachia_spaceInfo;
 		createDir('Output');
 		AddMessage('Writing output to file: ' + outputFile);
 		outputStrings.SaveToFile(outputFile);
-
-		AddMessage('Writing skipped spaces to file: ' + skippedSpacesFile);
-		skippedSpaces.SaveToFile(skippedSpacesFile);
 	end;
 
 	procedure ripWorldspaces();
@@ -74,13 +66,8 @@ unit _mappalachia_spaceInfo;
 		spaceEditorID := EditorID(space);
 		spaceDisplayName := sanitize(DisplayName(space));
 
-		entry := IntToHex(FixedFormId(space), 8) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace);
+		entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace);
 
-		if (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin // Put valid in-game spacess in the right file, otherwise storing debug spaces elsewhere for the record
-			outputStrings.Add(entry);
-		end
-		else begin
-			skippedspaces.Add(entry);
-		end;
+		outputStrings.Add(entry);
 	end;
 end.

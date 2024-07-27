@@ -1,5 +1,6 @@
 // Gets a list of all MISC and which items in which quantities(KYWD) they give when scrapped
-unit _mappalachia_junkScrap;
+// Header 'scrapFormID,component,componentQuantity'
+unit _mappalachia_scrap;
 
 	uses _mappalachia_lib;
 
@@ -7,13 +8,13 @@ unit _mappalachia_junkScrap;
 
 	procedure Initialize;
 	begin
-		processRecordGroup('MISC', 'Junk_Scrap', 'component,componentQuantity,junkFormID');
+		processRecordGroup('MISC', 'Scrap');
 	end;
 
 	procedure ripItem(item : IInterface);
 	const
 		MCQPEntry = ElementBySignature(item, 'MCQP');
-		formID = IntToHex(FixedFormId(item), 8);
+		formID = IntToStr(FixedFormId(item));
 	var
 		i : Integer;
 		currentComponent : IInterface;
@@ -21,9 +22,9 @@ unit _mappalachia_junkScrap;
 		for i:= 0 to ElementCount(MCQPEntry) - 1 do begin
 			currentComponent := ElementByName(MCQPEntry, 'Component #' + IntToStr(i));
 			outputStrings.Add(
-				GetEditValue(ElementByName(currentComponent, 'Component')) + ',' +
-				GetEditValue(ElementByName(currentComponent, 'Component Count Keyword')) + ',' +
-				formID
+				formID + ',' +
+				sanitize(GetEditValue(ElementByName(currentComponent, 'Component'))) + ',' +
+				sanitize(GetEditValue(ElementByName(currentComponent, 'Component Count Keyword')))
 			);
 		end;
 	end;

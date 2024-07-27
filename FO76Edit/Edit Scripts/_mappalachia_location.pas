@@ -1,4 +1,5 @@
 // Gets a list of all LCTN and their Actor Value properties (used to identify variable spawns)
+// Header 'locationFormID,property,value'
 unit _mappalachia_location;
 
 	uses _mappalachia_lib;
@@ -7,13 +8,13 @@ unit _mappalachia_location;
 
 	procedure Initialize;
 	begin
-		processRecordGroup('LCTN', 'Location', 'property,value,locationFormID');
+		processRecordGroup('LCTN', 'Location');
 	end;
 
 	procedure ripItem(item : IInterface);
 	const
 		PropertyEntry = ElementBySignature(item, 'PRPS');
-		formID = IntToHex(FixedFormId(item), 8);
+		formID = IntToStr(FixedFormId(item));
 	var
 		i : Integer;
 		currentProperty : IInterface;
@@ -21,9 +22,9 @@ unit _mappalachia_location;
 		for i:= 0 to elementCount(PropertyEntry) - 1 do begin
 			currentProperty := ElementByIndex(PropertyEntry, i);
 			outputStrings.Add(
-				GetEditValue(ElementByName(currentProperty, 'Actor Value')) + ',' +
-				GetEditValue(ElementByName(currentProperty, 'Value')) + ',' +
-				formID
+				formID + ',' +
+				sanitize(GetEditValue(ElementByName(currentProperty, 'Actor Value'))) + ',' +
+				sanitize(GetEditValue(ElementByName(currentProperty, 'Value')))
 			);
 		end;
 	end;

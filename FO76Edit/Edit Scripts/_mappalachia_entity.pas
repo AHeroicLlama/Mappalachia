@@ -1,6 +1,7 @@
 // Rip every single entry in the ESM which is relevant for mapping. Gets each item's FormID, EditorID and displayName.
 // This is later cross referenced between the location data to assign names/EditorID's to FormIDs in the location data
-unit _mappalachia_entityInfo;
+// Header 'entityFormID,displayName,editorID,signature,percChanceNone'
+unit _mappalachia_entity;
 
 	uses _mappalachia_lib;
 
@@ -13,23 +14,19 @@ unit _mappalachia_entityInfo;
 
 	procedure ripFormIDs(); // Primary block for iterating down tree
 	const
-		outputFile = ProgramPath + 'Output\Entity_Info.csv';
+		outputFile = ProgramPath + 'Output\Entity.csv';
 	var
 		i, j : Integer; // Iterators
 		signatureGroup : IInterface;
 		signature : String;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('entityFormID,displayName,editorID,signature,percChanceNone'); // Write CSV column headers
 
-		// Rip everything down to the end 'leaves' of the hierarchy tree
+		// Rip everything down to the end nodes of the hierarchy tree
 		for i := 0 to ElementCount(targetESM) - 1 do begin
 			signatureGroup := elementByIndex(targetESM, i);
 			signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
 			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
-
-			// Only export relevant signatures
-			if (not(shouldProcessSig(signature))) then continue;
 
 			for j := 0 to ElementCount(signatureGroup) -1 do begin
 				ripItem(elementByIndex(signatureGroup, j), signature);
@@ -63,7 +60,7 @@ unit _mappalachia_entityInfo;
 			end;
 
 			outputStrings.Add(
-				IntToHex(FixedFormId(item), 8) + ',' +
+				IntToStr(FixedFormId(item)) + ',' +
 				sanitize(bestDisplayName) + ',' +
 				editorId + ',' +
 				signature + ',' +

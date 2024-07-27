@@ -1,5 +1,6 @@
 // Rip the location data of every placed entity inside valid cells and worldspaces. Gets FormID, coordinates, name(Inc FormID of referenced object), and information on lock levels and primitive boundaries where relevant
-unit _mappalachia_positionData;
+// Header 'spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName'
+unit _mappalachia_position;
 
 	uses _mappalachia_lib;
 
@@ -7,24 +8,23 @@ unit _mappalachia_positionData;
 
 	procedure Initialize;
 	const
-		outputFile = ProgramPath + 'Output\Position_Data.csv';
+		outputFile = ProgramPath + 'Output\Position.csv';
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add('spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName'); // Write CSV column headers
 
-		AddMessage('Beginning Mappalachia exterior position data export...');
+		AddMessage('Beginning Mappalachia exterior position export...');
 		ripWorldspaces();
-		AddMessage('Finished Mappalachia exterior position data export.');
-		AddMessage('Beginning Mappalachia interior position data export...');
+		AddMessage('Finished Mappalachia exterior position export.');
+		AddMessage('Beginning Mappalachia interior position export...');
 		ripInteriors();
-		AddMessage('Finished Mappalachia interior position data export.');
+		AddMessage('Finished Mappalachia interior position export.');
 
-		AddMessage('Writing position data output to file: ' + outputFile);
+		AddMessage('Writing position output to file: ' + outputFile);
 		createDir('Output');
 		outputStrings.SaveToFile(outputFile);
 	end;
 
-	// Rips all interiors, uses shouldProcessSpace() to excluce debug cells
+	// Rips all interiors
 	procedure ripInteriors(); // Primary block for iterating down tree
 	const
 		categoryCount = ElementCount(targetESM);
@@ -46,8 +46,7 @@ unit _mappalachia_positionData;
 					cell := elementByIndex(subBlock, l);
 
 					if(FixedFormId(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
-						cellFormID := IntToHex(FixedFormId(cell), 8);
-						if not(shouldProcessSpace(DisplayName(cell), EditorID(cell))) then continue; // Skip this CELL if it's some QA/Debug cell
+						cellFormID := IntToStr(FixedFormId(cell));
 
 						// Rip persistent items...
 						cellChild := FindChildGroup(ChildGroup(ElementByIndex(subBlock, l)), 8, ElementByIndex(subBlock, l));
@@ -78,7 +77,7 @@ unit _mappalachia_positionData;
 			worldspace := elementByIndex(category, i);
 			spaceEditorID := EditorID(worldspace);
 			spaceDisplayName := sanitize(DisplayName(worldspace));
-			if(FixedFormId(worldspace) <> 0) and (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin
+			if(FixedFormId(worldspace) <> 0) then begin
 				ripWorldspace(spaceEditorID);
 			end;
 		end;
@@ -87,7 +86,7 @@ unit _mappalachia_positionData;
 	procedure ripWorldspace(worldspaceEditorID: String); // Primary block for iterating down worldspace tree
 	const
 		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
-		worldspaceID = IntToHex(FixedFormId(worldspace), 8);
+		worldspaceID = IntToStr(FixedFormId(worldspace));
 		blocks = ChildGroup(worldspace);
 		blockCount = ElementCount(blocks);
 	var

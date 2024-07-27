@@ -1,153 +1,115 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using MappalachiaLibrary;
 
-namespace Mappalachia
+namespace Preprocessor
 {
-	static class Preprocessor
+	internal class Preprocessor
 	{
-		static string inputPath;
-		static string outputPath;
-
-		static async Task Main()
-		{
-			Console.Title = "Mappalachia Preprocessor";
-
-			// Step back out of bin until we find the Mappalachia root
-			string mappalachiaRoot = AppDomain.CurrentDomain.BaseDirectory;
-			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(mappalachiaRoot))) != "Mappalachia")
+		static readonly List<SQLiteTable> tables = new List<SQLiteTable>()
 			{
-				mappalachiaRoot += "..\\";
-			}
+				new SQLiteTable("Entity", new Dictionary<string, string> {
+					{ "entityFormID", "INTEGER" },
+					{ "displayName", "TEXT" },
+					{ "editorID", "TEXT" },
+					{ "signature", "TEXT" },
+					{ "percChanceNone", "INTEGER" },
+				}),
 
-			inputPath = mappalachiaRoot + "//FO76Edit//Output//";
-			outputPath = mappalachiaRoot + "//Preprocessor//Output//";
+				new SQLiteTable("Position", new Dictionary<string, string> {
+					{ "spaceFormID", "INTEGER" },
+					{ "referenceFormID", "TEXT" },
+					{ "x", "REAL" },
+					{ "y", "REAL" },
+					{ "z", "REAL" },
+					{ "locationFormID", "TEXT" },
+					{ "lockLevel", "TEXT" },
+					{ "primitiveShape", "TEXT" },
+					{ "boundX", "REAL" },
+					{ "boundY", "REAL" },
+					{ "boundZ", "REAL" },
+					{ "rotZ", "REAL" },
+					{ "mapMarkerName", "TEXT" },
+					{ "shortName", "TEXT" },
+				}),
 
-			try
-			{
-				// Store all preprocessor tasks in a list
-				// Each task represents one CSV file being output
-				List<Task> parallelTasks = new List<Task>
-				{
-					new Task(() => ProcessSpatialFile("Position_Data.csv")),
-					new Task(() => ProcessBasicFile("Entity_Info.csv")),
-					new Task(() => ProcessBasicFile("Region.csv")),
-					new Task(() => ProcessSpaceFile()),
-					new Task(() => GenerateNPCSpawnFile()),
-					new Task(() => GenerateQuantifiedJunkScrapFile()),
-				};
+				new SQLiteTable("Space", new Dictionary<string, string> {
+					{ "spaceFormID", "INTEGER" },
+					{ "spaceEditorID", "TEXT" },
+					{ "spaceDisplayName", "TEXT" },
+					{ "isWorldspace", "INTEGER" },
+				}),
 
-				// Start all tasks
-				foreach (Task task in parallelTasks)
-				{
-					task.Start();
-				}
+				new SQLiteTable("Location", new Dictionary<string, string> {
+					{ "locationFormID", "INTEGER" },
+					{ "propertu", "TEXT" },
+					{ "value", "REAL" },
+				}),
 
-				// Wait for all Tasks to finish
-				await Task.WhenAll(parallelTasks.ToArray());
+				new SQLiteTable("Region", new Dictionary<string, string> {
+					{ "spaceFormID", "INTEGER" },
+					{ "regionFormID", "INTEGER" },
+					{ "regionEditorID", "TEXT" },
+					{ "regionIndex", "INTEGER" },
+					{ "coordIndex", "INTEGER" },
+					{ "x", "REAL" },
+					{ "y", "REAL" },
+				}),
 
-				Console.WriteLine("Done with all! Press any key");
-				Console.ReadKey();
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine("An error was reported preprocessing the data and the program cannot continue until this is resolved.\n" + e);
-				Console.ReadKey();
-			}
+				new SQLiteTable("Scrap", new Dictionary<string, string> {
+					{ "scrapFormID", "INTEGER" },
+					{ "component", "TEXT" },
+					{ "componentQuantity", "TEXT" },
+				}),
+
+				new SQLiteTable("Component", new Dictionary<string, string> {
+					{ "component", "TEXT" },
+					{ "singular", "TEXT" },
+					{ "rare", "TEXT" },
+					{ "medium", "TEXT" },
+					{ "low", "TEXT" },
+					{ "high", "TEXT" },
+					{ "bulk", "TEXT" },
+				}),
+			};
+
+		static void Main()
+		{
+            Console.WriteLine("Cleaning up");
+            Cleanup();
+
+			tables.ForEach(table => ImportTableFromCSV(table));
+
+			Console.WriteLine("Done. Press any key");
+			Console.ReadKey();
+        }
+
+		// Passes a command to the database via SQLite tools exe
+		static void ExecuteSqlite(List<string> commands)
+		{
+			commands.Insert(0, BuildPaths.GetDatabasePath());
+
+			Process process = Process.Start(BuildPaths.GetSqlitePath(), commands);
+			process.WaitForExit();
 		}
 
-		// Apply the standard processing to a given coordinate file (Worldspace or interior)
-		static void ProcessSpatialFile(string fileName)
+		// Passes a command to the database via SQLite tools exe
+		static void ExecuteSqlite(string command)
 		{
-			CSVFile file = GenericOpen(fileName);
-			file = NPCSpawnHelper.AddMonsterClassColumn(file);
-			file = GenericCSVHelper.DuplicateColumn(file, "shortName", "instanceID");
-
-			// Strip the map markers data out the position file before they are reduced away
-			CSVFile mapMarkersFile = MapMarkers.ProcessMapMarkers(file);
-			GenericProcess(mapMarkersFile);
-			GenericClose(mapMarkersFile);
-
-			GenericProcess(file);
-			GenericClose(file);
+			ExecuteSqlite(new List<string>() { command });
 		}
 
-		// Apply complete cycle of basic processing (open-close)
-		static void ProcessBasicFile(string fileName)
+		static void ImportTableFromCSV(SQLiteTable table)
 		{
-			CSVFile file = GenericOpen(fileName);
-			GenericProcess(file);
-			GenericClose(file);
+			Console.WriteLine($"Importing raw table {table.Name}");
+			ExecuteSqlite($"CREATE TABLE {table.Name}({string.Join(", ", table.Fields.Select(f => f.Key + " " + f.Value))});");
+			ExecuteSqlite(new List<string>() { ".mode csv", $".import {BuildPaths.GetFo76EditOutputPath()}{table.Name}.csv {table.Name}" });
 		}
 
-		// Adds the custom nudge values to the space_info file
-		static void ProcessSpaceFile()
+		// Removes old DB files prior to building new
+		static void Cleanup()
 		{
-			CSVFile file = GenericOpen("Space_Info.csv");
-
-			file = SpaceNudge.AddNudgeToSpaces(file);
-
-			GenericProcess(file);
-			GenericClose(file);
-		}
-
-		// Process the location CSVFile and then use it to generate a new file for NPCSpawns
-		static void GenerateNPCSpawnFile()
-		{
-			CSVFile locationFile = GenericOpen("Location.csv");
-			GenericProcess(locationFile);
-
-			CSVFile npcSpawns = NPCSpawnHelper.ProcessNPCSpawns(locationFile, NPCSpawnHelper.SumLocationSpawnChances(locationFile));
-			locationFile.rows = null;
-
-			GenericProcess(npcSpawns);
-			GenericClose(npcSpawns);
-		}
-
-		// Process the Junk Scrap and Component Quantity CSVFiles and then use them to generate a new file for Quantified Junk Scrap
-		static void GenerateQuantifiedJunkScrapFile()
-		{
-			CSVFile componentQuantityFile = GenericOpen("Component_Quantity.csv");
-			GenericProcess(componentQuantityFile);
-
-			CSVFile junkScrapFile = GenericOpen("Junk_Scrap.csv");
-			GenericProcess(junkScrapFile);
-
-			CSVFile quantifiedJunkScrap = JunkScrap.ProcessJunkScrap(junkScrapFile, componentQuantityFile);
-			junkScrapFile.rows = null;
-			componentQuantityFile.rows = null;
-
-			GenericProcess(quantifiedJunkScrap);
-			GenericClose(quantifiedJunkScrap);
-		}
-
-		// Shorthand to instantiate a new CSVFile from file name
-		static CSVFile GenericOpen(string fileName)
-		{
-			return new CSVFile(inputPath + fileName);
-		}
-
-		// Apply the standard processing to the CSVFile
-		static void GenericProcess(CSVFile file)
-		{
-			file.Sanitize();
-			file.CorrectAnomalies();
-			file.ReduceReferences();
-			file.ReduceDecimals();
-		}
-
-		// Validate the file, write it to disk and free the memory.
-		static void GenericClose(CSVFile file)
-		{
-			file.Validate();
-			Directory.CreateDirectory(outputPath);
-			file.WriteToFile(outputPath + "//");
-
-			file.rows = null;
-			GC.Collect();
-
-			Console.WriteLine(file.fileName + " done.");
+			File.Delete(BuildPaths.GetDatabasePath());
+			File.Delete(BuildPaths.GetDatabasePath() + "-journal");
 		}
 	}
 }

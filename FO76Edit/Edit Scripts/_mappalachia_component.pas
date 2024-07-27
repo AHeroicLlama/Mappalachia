@@ -1,5 +1,6 @@
 // Gets a list of all CMPO and which component count is attributed to which quantity keyword
-unit _mappalachia_componentQuantity;
+// Header 'component,Scrap Singular,Rare,Medium,Low,High,Bulk'
+unit _mappalachia_component;
 
 	uses _mappalachia_lib;
 
@@ -7,13 +8,12 @@ unit _mappalachia_componentQuantity;
 
 	procedure Initialize;
 	begin
-		// Headers are important for this script - the headers are looked up dynamically by the Preprocessor so must match the quantities by name in the ESM
-		processRecordGroup('CMPO', 'Component_Quantity', 'component,Scrap Singular,Rare,Medium,Low,High,Bulk,Customer Service Bulk,Scrap Ball Level 2,Scrap Ball Level 3,Scrap Ball Level 1');
+		processRecordGroup('CMPO', 'Component');
 	end;
 
 	procedure ripItem(item : IInterface);
 	const
-		numberOfScrapElements = 9;
+		numberOfScrapElements = 5;
 	var
 		i : Integer;
 		output : String;

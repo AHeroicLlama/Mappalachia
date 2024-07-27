@@ -6,13 +6,14 @@ unit _mappalachia_lib;
 	// Remove commas and replace them with something safe for CSV
 	function sanitize(input: String): String;
 	begin
-		Result := StringReplace(input, ',', ':COMMA:', [rfReplaceAll])
+		input := StringReplace(input, ',', ':COMMA:', [rfReplaceAll]);
+		Result := StringReplace(input, '"', ':QUOT:', [rfReplaceAll]);
 	end;
 
 	// Handle the pulling of every recrod from a given signature group and write it to the output file.
 	// Calling script must provide its own ripItem method for handling each actual entry.
 	// See: goToRipItem()
-	function processRecordGroup(signature, fileName, header: String): Integer;
+	function processRecordGroup(signature, fileName: String): Integer;
 	const
 		outputFile = ProgramPath + 'Output\' + fileName + '.csv';
 		category = GroupBySignature(targetESM, signature);
@@ -20,7 +21,6 @@ unit _mappalachia_lib;
 		i : Integer;
 	begin
 		outputStrings := TStringList.Create;
-		outputStrings.add(header); // Write CSV column headers
 
 		for i := 0 to ElementCount(category) -1 do begin // Iterate over every item within the category
 			goToRipItem(elementByIndex(category, i), signature);
@@ -35,46 +35,10 @@ unit _mappalachia_lib;
 	// We need to correctly target the right version of the method.
 	procedure goToRipItem(item: IInterface; signature: String);
 	begin
-			if(signature = 'MISC') then _mappalachia_junkScrap.ripItem(item)
+			if(signature = 'MISC') then _mappalachia_scrap.ripItem(item)
 		else if(signature = 'LCTN') then _mappalachia_location.ripItem(item)
-		else if(signature = 'CMPO') then _mappalachia_componentQuantity.ripItem(item)
+		else if(signature = 'CMPO') then _mappalachia_component.ripItem(item)
 		else if(signature = 'REGN') then _mappalachia_region.ripItem(item)
-	end;
-
-	// Do we need to process this interior space, given its in-game name or editorID?
-	// Something like 1/3 space data are just leftover test/debug spaces or otherwise inaccessible, so skipping them helps performance and data size
-	function shouldProcessSpace(spaceName, spaceEditorID: String): Boolean;
-	begin
-		if 	(spaceName = '') or
-			(spaceEditorID = '') or
-			(spaceName = 'Quick Test Cell') or
-
-			(pos('PackIn', spaceEditorID) <> 0) or
-			(pos('COPY', spaceEditorID) <> 0) or
-			(pos('zCUT', spaceEditorID) <> 0) or
-			((pos('Cell', spaceEditorID) <> 0) and (pos('Cellar', spaceEditorID) = 0)) or // 'Cell' but not 'Cellar'
-			(pos('Test', spaceEditorID) <> 0) or
-			(pos('Holding', spaceEditorID) <> 0) or
-			(pos('Debug', spaceEditorID) <> 0) or
-			(pos('OLD', spaceEditorID) <> 0) or
-			(pos('Proto', spaceEditorID) <> 0) or
-			(pos('Unused', spaceEditorID) <> 0) or
-			(pos('QA', spaceEditorID) <> 0) or
-			(pos('Smoke', spaceEditorID) <> 0) or
-
-			(pos('Test', spaceName) <> 0) or
-			((pos('Cell', spaceName) <> 0) and (pos('Cellar', spaceName) = 0)) or // 'Cell' but not 'Cellar'
-			(pos('Debug', spaceName) <> 0) or
-
-			(pos('Goodneighbor', spaceEditorID) <> 0) or
-			(pos('DiamondCity', spaceEditorID) <> 0) or
-
-			(pos('Warehouse', spaceEditorID) = 1) or
-			(pos('zz', spaceEditorID) = 1)
-		then begin
-			result := false
-		end
-		else result := true;
 	end;
 
 	// Find the display name of a referenced entity by parsing the reference
@@ -99,45 +63,6 @@ unit _mappalachia_lib;
 		secondPos = 8; //FormID length
 	begin
 		result := copy(reference, firstPos, secondPos);
-	end;
-
-	// Is this signature one we expect to see in the world, and therefore worth processing?
-	function shouldProcessSig(sig: String): Boolean;
-	begin
-		if (sig = 'ACTI') or
-			(sig = 'ALCH') or
-			(sig = 'AMMO') or
-			(sig = 'ARMO') or
-			(sig = 'ASPC') or
-			(sig = 'BNDS') or
-			(sig = 'BOOK') or
-			(sig = 'CNCY') or
-			(sig = 'CONT') or
-			(sig = 'DOOR') or
-			(sig = 'FLOR') or
-			(sig = 'FURN') or
-			(sig = 'HAZD') or
-			(sig = 'IDLM') or
-			(sig = 'KEYM') or
-			(sig = 'LIGH') or
-			(sig = 'LVLI') or
-			(sig = 'MISC') or
-			(sig = 'MSTT') or
-			(sig = 'NOTE') or
-			(sig = 'NPC_') or
-			(sig = 'PROJ') or
-			(sig = 'SCOL') or
-			(sig = 'SECH') or
-			(sig = 'SOUN') or
-			(sig = 'STAT') or
-			(sig = 'TACT') or
-			(sig = 'TERM') or
-			(sig = 'TXST') or
-			(sig = 'WEAP')
-		then begin
-			result := true
-		end
-		else result := false;
 	end;
 
 	// Finds a representative name for LVLIs without a displayName, by referring to their leveled lists
