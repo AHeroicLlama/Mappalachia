@@ -213,6 +213,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0066144E,DebugJeffU03,Quick Test Cell,0
 006DC37E,,,0
 00729836,76D11TestCell,Quick Test Cell,0
+007A8D52,,,0
 000028F0,,,0
 00004060,,,0
 00006F40,zCUTHuntersvilleSewers,Huntersville Sewers,0
@@ -243,6 +244,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006218D0,PackInSCORES5COMPPackinCampObjectInspectorPKINStorageCell,,0
 0063220C,PackInHumanFemaleTubeStorageCell,,0
 006DC388,PackInPACKStormCrptHedgerow02StorageCell,,0
+007915F8,76HoldingCellMile,Quick Test Cell,0
 00002D46,,,0
 000333E2,,,0
 0003D982,PackInLvlBloodbugAmbushGroundPackInStorageCell,,0
@@ -326,6 +328,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005B703F,PackInSheltersEntranceBasicCavePropStorageCell,,0
 0066923F,,,0
 006822A3,PackInATXPackInEventFurnitureAppleBarrelStorageCellDUPLICATE000,,0
+0079A1EF,DebugJamieR,Quick Test Cell,0
 00005029,PackInPACKMtnTopCreosoteShrubSmall01StorageCell,,0
 00093B5D,,,0
 00192DC9,PackInBld02Angle45BrickACom01PackInStorageCell,,0
@@ -450,6 +453,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00684B7F,PackInMoonCommunalCampfirePackInStorageCell,,0
 006DC31B,PackInPACKStormCorruptedToxicFernsStorageCell,,0
 006DC37F,PackInPACKStormCrptCranberry01StorageCell,,0
+007A8D53,,,0
 00004061,,,0
 0003104D,PackInWorkshopPortaPottyPackinStorageCell,,0
 0005F105,zCUT76AITestCellTick,Quick Test Cell,0
@@ -589,6 +593,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006E5A20,DebugJeffU06,Quick Test Cell,0
 006F6F78,PackInPACKStormSwampTreeMixStorageCell,,0
 0072F440,DebugRyanJohnson2,,0
+007999D0,,,0
 0001A92A,WarehouseTestEncounterTypes,Encounter Types Test Area,0
 00162A62,COPY0081,,0
 0016BAEA,COPY0085,,0
@@ -664,6 +669,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006DC31C,PackInPACKStormCorruptedDeadShrubMixStorageCell,,0
 006DC380,PackInPACKStormCrptElmTreeForest02StorageCell,,0
 006EC67C,zzzzzStormVisitorCenter,Robinson Visitor Center,0
+007A8D54,,,0
 00004062,,,0
 0003BDBE,PackInPACKToxicClutterSm01StorageCell,,0
 000500CA,COPY0042,,0
@@ -809,6 +815,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00586D3D,PackInDenizenPackInSettlerSurveyorStorageCell,,0
 00669705,PackInNWOTNukaCrateStallTemplateLowLootStorageCell,,0
 006D9C49,PackInPACKStormStarlightCreeperStorageCell,,0
+007999D1,,,0
 0003AEBF,zCUTTestAudioSchreibaby,Quick Test Cell,0
 00052A0B,PackInShackWallDoorSet02StorageCell,,0
 00098547,COPY0282,,0
@@ -886,6 +893,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 004F7809,,,0
 0051AD45,PackInMSiloOperationsConsoleLeft04StorageCell,,0
 006DC381,,,0
+007A8D55,,,0
 00006F43,DebugSteveC,Quick Test Cell,0
 0000E0EF,PackInFEVDecalTrap04StorageCell,,0
 001466FB,PackInTrapGunWallVertShotgunPackinStorageCell,,0
@@ -1008,6 +1016,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00669706,PackInNWOTNukaCrateStallTemplateMedLootStorageCell,,0
 0067498A,,,0
 006D9C4A,PackInPACKStormRhododendronStorageCell,,0
+0077D002,zzzSheltersHousingDevelopment,Housing Development,0
 00004AC8,76HoldingCell,Quick Test Cell,0
 0014935C,PackInPortADinerPackinDirtyStorageCell,,0
 0017EA70,,,0
@@ -1432,6 +1441,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00586D40,PackInDenizenPackInScavengerFarmerStorageCell,,0
 005D2B50,PackInATXBoSDoorPCKNStorageCell,,0
 006D9C4C,PackInPACKStormSiltbeanStorageCell,,0
+00793F34,zCutPGEM02,Quick Test Cell,0
 0000ED4A,76HoldingCellMD,Quick Test Cell,0
 0001358E,PackInPACKForestTreeX04bStorageCell,,0
 000937F2,,,0
@@ -1856,7 +1866,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 001E48E2,,,0
 001F6B1E,,,0
 00275BEE,,,0
-0036DABA,zCUTSpruceKnobMissileSilo01OLD,Missile Silo Charlie,0
+0036DABA,zCutPGCamp01,Quick Test Cell,0
 003A1B26,,,0
 003BA356,,,0
 003DCD3E,,,0
@@ -1928,6 +1938,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0059ABBC,PackInATXWSTPKINCAMPDeployableRaiderStorageCell,,0
 006DC37C,PackInPACKStormCrptMushroom01StorageCell,,0
 006F618C,76HoldingCellStorm,Quick Test Cell,0
+007A8D50,,,0
 0000405E,,,0
 0001A692,PackInPortaPottyPackinStorageCell,,0
 000A139A,PackInLvlFeralGhoulAmbushCrawlPackInStorageCell,,0
@@ -2077,7 +2088,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0054E80D,zCUTSecretResearchLaboratory01,Vulcan Research Laboratory,0
 005B1E49,,,0
 006039B5,,,0
-006B4189,StormCultistTunnelTest,,0
+006B4189,zCutStormCultistTunnelTest,,0
 006D9C45,PackInPACKStormMapleTreeMix02StorageCell,,0
 0000EC7B,zCUTDebugJasonBobblehead,Test Combat,0
 0001B47B,PackInPACKSwampStump01StorageCell,,0
@@ -2161,6 +2172,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0072FFB9,PackInStormMetalDetector01StorageCell,,0
 00749DC9,WarehouseCrowds,The Neapolitan Casino,0
 0076B109,DebugTomR,Quick Test Cell,0
+007A8D51,,,0
 000028EF,,,0
 0000405F,,,0
 0001804B,,,0
