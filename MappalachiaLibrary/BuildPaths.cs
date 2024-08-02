@@ -19,7 +19,7 @@
 		static string? solutionPath = null;
 
 		// Returns the root of the repository, where the sln file lives
-		// Value is cached in rootPath and is only calculated once per launch
+		// Value is cached in rootPath so is only calculated once per launch
 		static string GetSolutionPath()
 		{
 			if (solutionPath != null)

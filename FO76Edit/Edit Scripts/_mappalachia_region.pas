@@ -16,7 +16,7 @@ unit _mappalachia_region;
 		REGNEntry = ElementByName(item, 'Region Areas');
 		formID = IntToStr(FixedFormId(item));
 		editorID =  EditorID(item);
-		spaceFormID = wrldFormIdFromRef(GetEditValue(ElementBySignature(item, 'WNAM')));
+		spaceFormID = sanitize(GetEditValue(ElementBySignature(item, 'WNAM')));
 	var
 		i, p : Integer;
 		currentRegionArea, regionAreaPoints, currentPoint : IInterface;

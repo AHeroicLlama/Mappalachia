@@ -28,6 +28,11 @@ unit _mappalachia_entity;
 			signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
 			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
 
+			// Don't export data for Cells or Worldspaces, as they won't contain themselves
+			if (signature = 'CELL') or (signature = 'WRLD') then continue;
+
+			AddMessage('Entity: ' + signature);
+
 			for j := 0 to ElementCount(signatureGroup) -1 do begin
 				ripItem(elementByIndex(signatureGroup, j), signature);
 			end;

@@ -48,6 +48,9 @@ unit _mappalachia_position;
 					if(FixedFormId(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
 						cellFormID := IntToStr(FixedFormId(cell));
 
+						// Skip spaces which are clearly not accessible/in production
+						if not (shouldProcessSpace(DisplayName(cell), EditorID(cell))) then continue;
+
 						// Rip persistent items...
 						cellChild := FindChildGroup(ChildGroup(ElementByIndex(subBlock, l)), 8, ElementByIndex(subBlock, l));
 						for m := 0 to ElementCount(cellChild) - 1 do begin // Iterate over every item within the cell
@@ -77,7 +80,7 @@ unit _mappalachia_position;
 			worldspace := elementByIndex(category, i);
 			spaceEditorID := EditorID(worldspace);
 			spaceDisplayName := sanitize(DisplayName(worldspace));
-			if(FixedFormId(worldspace) <> 0) then begin
+			if(FixedFormId(worldspace) <> 0) and (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin
 				ripWorldspace(spaceEditorID);
 			end;
 		end;

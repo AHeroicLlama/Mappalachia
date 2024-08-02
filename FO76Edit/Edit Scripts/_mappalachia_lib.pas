@@ -7,7 +7,8 @@ unit _mappalachia_lib;
 	function sanitize(input: String): String;
 	begin
 		input := StringReplace(input, ',', ':COMMA:', [rfReplaceAll]);
-		Result := StringReplace(input, '"', ':QUOT:', [rfReplaceAll]);
+		input := StringReplace(input, '"', ':QUOT:', [rfReplaceAll]);
+		Result := StringReplace(input, '''', '''''', [rfReplaceAll]);
 	end;
 
 	// Handle the pulling of every recrod from a given signature group and write it to the output file.
@@ -41,28 +42,22 @@ unit _mappalachia_lib;
 		else if(signature = 'REGN') then _mappalachia_region.ripItem(item)
 	end;
 
-	// Find the display name of a referenced entity by parsing the reference
-	// EG "PrewarMoney "Pre-War Money" [MISC:00059B02]" becomes "Pre-War Money"
-	function nameFromRef(reference: String): String;
-	const
-		len = Length(reference);
-		firstPos = pos('"', reference) + 1;
-		firstSubStr = copy(reference, firstPos, len - firstPos);
-		secondPos = pos('"', firstSubStr) - 1;
+	// Does this space look like a debug or non-prod space, based on apparent naming standards?
+	function shouldProcessSpace(spaceName, spaceEditorID: String): Boolean;
 	begin
-		result := copy(reference, firstPos, secondPos);
-	end;
+		if 	(spaceName = '') or
+			(spaceEditorID = '') or
+			(spaceName = 'Quick Test Cell') or
 
-	// Find the FormID of a referenced WRLD by parsing the edit value
-	// EG "Appalachia "Appalachia" [WRLD:0025DA15]" becomes "0025DA15"
-	function wrldFormIdFromRef(reference: String): String;
-	const
-		len = Length(reference);
-		firstPos = pos('[WRLD:', reference) + 6;
-		firstSubStr = copy(reference, firstPos, len - firstPos);
-		secondPos = 8; //FormID length
-	begin
-		result := copy(reference, firstPos, secondPos);
+			(pos('zCUT', spaceEditorID) = 1) or
+			(pos('Debug', spaceEditorID) = 1) or
+			(pos('Test', spaceEditorID) = 1) or
+			(pos('Warehouse', spaceEditorID) = 1) or
+			(pos('76Holding', spaceEditorID) = 1)
+		then begin
+			result := false
+		end
+		else result := true;
 	end;
 
 	// Finds a representative name for LVLIs without a displayName, by referring to their leveled lists
@@ -82,11 +77,11 @@ unit _mappalachia_lib;
 		// This item has just one entry in the leveled item list - we can only look here for a name.
 		if(DisplayName(item) = '') and (ElementCount(leveledListEntries) = 1) then begin
 			// Find the first and only entry and look under LVLO/Reference
-			result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByIndex(leveledListEntries, 0), 'LVLO - LVLO'), 'Reference')));
+			result := GetEditValue(ElementByName(ElementByName(ElementByIndex(leveledListEntries, 0), 'LVLO - LVLO'), 'Reference'));
 
 			// If no item was found, try looking under LVLO/Base Data/Reference
 			if(result = '') then begin
-				result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByName(ElementByIndex(leveledListEntries, 0), 'LVLO - LVLO'), 'Base Data'), 'Reference')));
+				result := GetEditValue(ElementByName(ElementByName(ElementByName(ElementByIndex(leveledListEntries, 0), 'LVLO - LVLO'), 'Base Data'), 'Reference'));
 			end;
 
 			// We've looked everywhere - return
@@ -99,11 +94,11 @@ unit _mappalachia_lib;
 		if(DisplayName(item) = '') and ((pos('LPI_Flora', EditorID(item)) <> 0) or (pos('LPI_Vein', EditorID(item)) <> 0)) then begin
 			for i := ElementCount(leveledListEntries) - 1 downto 0 do begin
 				// Find the end of the leveled item list, directly under LVLO/Reference
-				result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByIndex(leveledListEntries, i), 'LVLO - LVLO'), 'Reference')));
+				result := GetEditValue(ElementByName(ElementByName(ElementByIndex(leveledListEntries, i), 'LVLO - LVLO'), 'Reference'));
 
 				// If no item was found, try looking under LVLO/Base Data/Reference
 				if(result = '') then begin
-					result := nameFromRef(GetEditValue(ElementByName(ElementByName(ElementByName(ElementByIndex(leveledListEntries, i), 'LVLO - LVLO'), 'Base Data'), 'Reference')));
+					result := GetEditValue(ElementByName(ElementByName(ElementByName(ElementByIndex(leveledListEntries, i), 'LVLO - LVLO'), 'Base Data'), 'Reference'));
 				end;
 
 				// If we found an item then return, otherwise continue looping
