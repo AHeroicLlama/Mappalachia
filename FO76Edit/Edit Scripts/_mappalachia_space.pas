@@ -66,8 +66,10 @@ unit _mappalachia_space;
 		spaceEditorID := EditorID(space);
 		spaceDisplayName := sanitize(DisplayName(space));
 
-		entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace);
-
-		outputStrings.Add(entry);
+		// Skip spaces which are clearly not accessible/in production
+		if (shouldProcessSpace(spaceDisplayName, spaceEditorID)) then begin
+			entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace);
+			outputStrings.Add(entry);
+		end;
 	end;
 end.

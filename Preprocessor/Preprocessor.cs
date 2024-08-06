@@ -81,12 +81,16 @@ namespace Preprocessor
 			}),
 		};
 
-        static void Main()
+		static void Main()
 		{
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.Start();
+
 			Cleanup();
 
 			Connection.Open();
 
+			// TODO do coords need to be REAL or can we get away with INTEGER?
 			Tables.ForEach(table => ImportTableFromCSV(table));
 
 			Console.WriteLine("Unescaping characters");
@@ -96,23 +100,32 @@ namespace Preprocessor
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN mapMarkerName;");
 
+			// TODO rigourous map marker correction
+
 			Console.WriteLine("Reducing data");
 			TransformColumn("Position", "referenceFormID", ConvertToFormID);
-			ChangeColumnType("Position", "ReferenceFormID", "INTEGER");
+			ChangeColumnType("Position", "referenceFormID", "INTEGER");
 
 			TransformColumn("Region", "spaceFormID", ConvertToFormID);
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 
 			// TODO replace Position.ShortName with both label and instanceFormID
 
-			SimpleQuery("DELETE FROM Space WHERE spaceEditorID = '' OR spaceDisplayName = '';"); // Remove spaces without names
+			// TODO rigorous filtering of spaces
+			//SimpleQuery("DELETE FROM Space WHERE spaceEditorID = '' OR spaceDisplayName = '';");
+
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);"); // Remove entities which are not placed
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID = '';"); // Remove regions which are not placed
 
+			// TODO NPCs
+			// TODO Scrap
+
+			// TODO Add Meta table, version, date etc
+			
 			Console.WriteLine("Vacuuming");
 			SimpleQuery("VACUUM;");
 
-			Console.WriteLine("Done. Press any key");
+			Console.WriteLine($"Done. {stopwatch.Elapsed}. Press any key");
 			Console.ReadKey();
 		}
 
@@ -128,10 +141,12 @@ namespace Preprocessor
 		// Changes the type of the given column on the given table
 		static void ChangeColumnType(string table, string column, string type)
 		{
-			SimpleQuery($"ALTER TABLE {table} ADD COLUMN 'temp' {type};"); // Create a temp column with the new type
-			SimpleQuery($"UPDATE {table} SET 'temp' = (SELECT {column} FROM {table});"); // Copy the source column into the temp
+			string tempColumn = "temp";
+
+			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {type};"); // Create a temp column with the new type
+			SimpleQuery($"UPDATE {table} SET {tempColumn} = {column};"); // Copy the source column into the temp
 			SimpleQuery($"ALTER TABLE {table} DROP COLUMN {column};"); // Drop the original
-			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN 'temp' TO {column};"); // Rename temp column to original
+			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};"); // Rename temp column to original
 		}
 
 		// Creates the table and imports data from CSV
@@ -168,10 +183,12 @@ namespace Preprocessor
 		// Loops a column and transforms the data according to the passed method
 		static void TransformColumn(string tableName, string columnName, Func<string, string> method)
 		{
-			SimpleQuery($"CREATE INDEX 'temp' ON {tableName} ({columnName});");
+			string tempIndex = "tempIndex";
+
+			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({columnName});");
 
 			string readQuery = $"SELECT {columnName} FROM {tableName}";
-			string updateQuery = $"UPDATE {tableName} SET {columnName} = @new WHERE {columnName} = @original"; //TODO bug, this updates all rows despite the WHERE clause
+			string updateQuery = $"UPDATE {tableName} SET {columnName} = @new WHERE {columnName} = @original";
 
 			SqliteCommand readCommand = new SqliteCommand(readQuery, Connection);
 			SqliteDataReader reader = readCommand.ExecuteReader();
@@ -195,13 +212,13 @@ namespace Preprocessor
 					updateCommand.Parameters["@new"].Value = newValue;
 					updateCommand.Parameters["@original"].Value = originalValue;
 
-                    updateCommand.ExecuteNonQuery();
+					updateCommand.ExecuteNonQuery();
 				}
 
 				transaction.Commit();
 			}
 
-			SimpleQuery($"DROP INDEX temp");
+			SimpleQuery($"DROP INDEX '{tempIndex}'");
 		}
 
 		// Return the given string with custom escape sequences replaced
@@ -215,7 +232,7 @@ namespace Preprocessor
 		{
 			string formid = FormIDRegex.Match(input).Groups[1].Value;
 
-            if (string.IsNullOrEmpty(formid))
+			if (string.IsNullOrEmpty(formid))
 			{
 				return string.Empty;
 			}

@@ -25,7 +25,7 @@
 
 		bool IsAppalachia()
 		{
-			return EditorID == "Appalachia";
+			return EditorID.ToLower() == "appalachia";
 		}
 	}
 }
