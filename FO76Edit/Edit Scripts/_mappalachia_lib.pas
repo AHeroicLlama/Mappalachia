@@ -42,24 +42,6 @@ unit _mappalachia_lib;
 		else if(signature = 'REGN') then _mappalachia_region.ripItem(item)
 	end;
 
-	// Does this space look like a debug or non-prod space, based on apparent naming standards?
-	function shouldProcessSpace(spaceName, spaceEditorID: String): Boolean;
-	begin
-		if 	(spaceName = '') or
-			(spaceEditorID = '') or
-			(spaceName = 'Quick Test Cell') or
-
-			(pos('zCUT', spaceEditorID) = 1) or
-			(pos('Debug', spaceEditorID) = 1) or
-			(pos('Test', spaceEditorID) = 1) or
-			(pos('Warehouse', spaceEditorID) = 1) or
-			(pos('76Holding', spaceEditorID) = 1)
-		then begin
-			result := false
-		end
-		else result := true;
-	end;
-
 	// Finds a representative name for LVLIs without a displayName, by referring to their leveled lists
 	function getNameforLvli(item: IInterface): String;
 	const

@@ -1,33 +1,31 @@
-#FO76Edit/XEdit
+# FO76Edit/XEdit
 FO76Edit/
-#Exception for Mappalachia Edit Scripts
+
+# Exception for Mappalachia Edit Scripts
 !FO76Edit/Edit Scripts/_mappalachia_*.pas
 
-#Utilities. 3rd party exe's generally
+# Outputs from scripts and logs, except those intentionally kept
+*.csv
+*.txt
+!/BuildOutputs/*
+
+# Utilities. 3rd party exe's generally
 Utilities/
 
-#World render DDS files
+# World render DDS files
 */img/*.dds
 */img/cell/*.jpg
 */img/*_render.jpg
 */img/*_waterMask.png
 
-#Mappalachia Database
+# Mappalachia Database
 *.db
 *.db-journal
 
-#Various logging/debugging outputs
-*.txt
-!errors.txt
-!summary.txt
-
-#MapIconProcessor raw SWF extracts
+# MapIconProcessor raw SWF extracts
 MapIconProcessor/extract
 
-#CSV Output from Edit Scripts
-*/Output/*.csv
-
-#Packaged Mappalachia GUI Release
+# Packaged Mappalachia GUI Release
 Mappalachia.zip
 
 ## Ignore Visual Studio temporary files, build results, and

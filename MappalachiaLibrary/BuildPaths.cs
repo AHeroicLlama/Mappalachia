@@ -6,9 +6,13 @@
 	{
 		const string SolutionFile = "Mappalachia.sln";
 		const string UtilitiesPath = @"Utilities/";
+		const string outputsPath = @"BuildOutputs/";
 		const string SigcheckPath = UtilitiesPath + "sigcheck.exe";
 		const string SqlitePath = UtilitiesPath + "sqlite3.exe";
 		const string Fo76UtilsRenderPath = UtilitiesPath + @"/fo76utils/render.exe";
+		const string DiscardedCellsPath = outputsPath + @"Discarded_Cells.csv";
+		const string DatabaseSummaryPath = outputsPath + @"Database_Summary.txt";
+		const string ErrorsPath = outputsPath + @"Errors.txt";
 		const string Fo76EditOutputPath = @"FO76Edit/Output/";
 		const string DatabasePath = @"/mappalachia.db";
 
@@ -63,6 +67,21 @@
 		public static string GetDatabasePath()
 		{
 			return GetSolutionPath() + DatabasePath;
+		}
+
+		public static string GetDiscardedCellsPath()
+		{
+			return GetSolutionPath() + DiscardedCellsPath;
+		}
+
+		public static string GetErrorsPath()
+		{
+			return GetSolutionPath() + ErrorsPath;
+		}
+
+		public static string GetDBSummaryPath()
+		{
+			return GetSolutionPath() + DatabaseSummaryPath;
 		}
 	}
 }

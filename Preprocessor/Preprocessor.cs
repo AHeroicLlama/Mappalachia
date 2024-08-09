@@ -9,10 +9,32 @@ namespace Preprocessor
 {
 	internal class Preprocessor
 	{
-		static SqliteConnection Connection = new SqliteConnection("Data Source=" + BuildPaths.GetDatabasePath());
+		static readonly SqliteConnection Connection = new SqliteConnection("Data Source=" + BuildPaths.GetDatabasePath());
 
 		static readonly Regex FormIDRegex = new Regex(@".*\[[A-Z_]{4}:([0-9A-F]{8})\].*");
 		static readonly Regex RemoveReferenceRegex = new Regex(@"(.*) ?\[[A-Z_]{4}:[0-9A-F]{8}\]");
+
+		static readonly SQLiteType CoordinateType = SQLiteType.REAL;
+
+		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they appear to be inaccessible.
+		static readonly string DiscardCellsQuery =
+			"spaceDisplayName = '' OR " +
+			"spaceDisplayName LIKE '%Test%World%' OR " + 
+			"spaceDisplayName LIKE '%Test%Cell%' OR " +
+			"spaceEditorID LIKE 'zCUT%' OR " +
+			"spaceEditorID LIKE '%OLD' OR " +
+			"spaceEditorID LIKE 'Warehouse%' OR " +
+			"spaceEditorID LIKE 'Test%' OR " +
+			"spaceEditorID LIKE '%Debug%' OR " +
+			"spaceEditorID LIKE 'zz%' OR " +
+			"spaceEditorID LIKE '76%' OR " +
+			"spaceEditorID LIKE '%Worldspace' OR " +
+			"spaceEditorID LIKE '%Nav%Test%' OR " +
+			"spaceEditorID LIKE 'PackIn%' OR " +
+			"spaceEditorID LIKE 'COPY%' OR " +
+			"spaceDisplayName = 'Purgatory' OR " +
+			"spaceDisplayName = 'Diamond City' OR " +
+			"spaceDisplayName = 'Goodneighbor'";
 
 		static readonly List<SQLiteTable> Tables = new List<SQLiteTable>()
 		{
@@ -27,15 +49,15 @@ namespace Preprocessor
 			new SQLiteTable("Position", new List<SQLiteColumn> {
 				new SQLiteColumn( "spaceFormID", SQLiteType.INTEGER ),
 				new SQLiteColumn( "referenceFormID", SQLiteType.TEXT ),
-				new SQLiteColumn( "x", SQLiteType.REAL ),
-				new SQLiteColumn( "y", SQLiteType.REAL ),
-				new SQLiteColumn( "z", SQLiteType.REAL ),
+				new SQLiteColumn( "x", CoordinateType ),
+				new SQLiteColumn( "y", CoordinateType ),
+				new SQLiteColumn( "z", CoordinateType ),
 				new SQLiteColumn( "locationFormID", SQLiteType.TEXT ),
 				new SQLiteColumn( "lockLevel", SQLiteType.TEXT ),
 				new SQLiteColumn( "primitiveShape", SQLiteType.TEXT ),
-				new SQLiteColumn( "boundX", SQLiteType.REAL ),
-				new SQLiteColumn( "boundY", SQLiteType.REAL ),
-				new SQLiteColumn( "boundZ", SQLiteType.REAL ),
+				new SQLiteColumn( "boundX", CoordinateType ),
+				new SQLiteColumn( "boundY", CoordinateType ),
+				new SQLiteColumn( "boundZ", CoordinateType ),
 				new SQLiteColumn( "rotZ", SQLiteType.REAL ),
 				new SQLiteColumn( "mapMarkerName", SQLiteType.TEXT ),
 				new SQLiteColumn( "shortName", SQLiteType.TEXT ),
@@ -60,8 +82,8 @@ namespace Preprocessor
 				new SQLiteColumn( "regionEditorID", SQLiteType.TEXT ),
 				new SQLiteColumn( "regionIndex", SQLiteType.INTEGER ),
 				new SQLiteColumn( "coordIndex", SQLiteType.INTEGER ),
-				new SQLiteColumn( "x", SQLiteType.REAL ),
-				new SQLiteColumn( "y", SQLiteType.REAL ),
+				new SQLiteColumn( "x", CoordinateType ),
+				new SQLiteColumn( "y", CoordinateType ),
 			}),
 
 			new SQLiteTable("Scrap", new List<SQLiteColumn> {
@@ -96,8 +118,8 @@ namespace Preprocessor
 			Console.WriteLine("Unescaping characters");
 			Tables.ForEach(table => UnescapeCharacters(table));
 
-			// Pull the MapMarker data into a new table, separate from Position
-			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
+            // Pull the MapMarker data into a new table, separate from Position
+            SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN mapMarkerName;");
 
 			// TODO rigourous map marker correction
@@ -109,13 +131,30 @@ namespace Preprocessor
 			TransformColumn("Region", "spaceFormID", ConvertToFormID);
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 
+			if (CoordinateType == SQLiteType.INTEGER)
+			{
+				TransformColumn("Position", "x", RealToInt);
+				TransformColumn("Position", "y", RealToInt);
+				TransformColumn("Position", "z", RealToInt);
+				TransformColumn("Position", "boundX", RealToInt);
+				TransformColumn("Position", "boundY", RealToInt);
+				TransformColumn("Position", "boundZ", RealToInt);
+				TransformColumn("Region", "x", RealToInt);
+				TransformColumn("Region", "y", RealToInt);
+			}
+
 			// TODO replace Position.ShortName with both label and instanceFormID
 
-			// TODO rigorous filtering of spaces
-			//SimpleQuery("DELETE FROM Space WHERE spaceEditorID = '' OR spaceDisplayName = '';");
+			// TODO Correct displayName of LVLI in Entity
 
+			// Discard spaces which are not accessible, and output a list of those
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
+			deletedRows.Sort();
+			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
+
+			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove coordinates located in discarded spaces
+			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove regions located in discarded spaces
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);"); // Remove entities which are not placed
-			SimpleQuery("DELETE FROM Region WHERE spaceFormID = '';"); // Remove regions which are not placed
 
 			// TODO NPCs
 			// TODO Scrap
@@ -129,16 +168,25 @@ namespace Preprocessor
 			Console.ReadKey();
 		}
 
-		// Executes a query against the open database
-		static void SimpleQuery(string query)
+		// Executes any query against the open database.
+		// Returns output rows as comma-separated strings in a list.
+		static List<string> SimpleQuery(string query)
 		{
-			using (SqliteCommand command = new SqliteCommand(query, Connection))
+			SqliteDataReader reader = new SqliteCommand(query, Connection).ExecuteReader();
+
+			List<string> data = new List<string>();
+
+			while (reader.Read())
 			{
-				command.ExecuteNonQuery();
+				object[] row = new object[reader.FieldCount];
+				reader.GetValues(row);
+				data.Add(string.Join(",", row));
 			}
+
+			return data;
 		}
 
-		// Changes the type of the given column on the given table
+		// Changes the type of the given column
 		static void ChangeColumnType(string table, string column, string type)
 		{
 			string tempColumn = "temp";
@@ -224,10 +272,10 @@ namespace Preprocessor
 		// Return the given string with custom escape sequences replaced
 		static string UnescapeCharacters(string input)
 		{
-			return input.Replace(":COMMA:", ",").Replace(":QUOT:", "\"").Replace("''''", "\'\'");
+			return input.Replace(":COMMA:", ",").Replace(":QUOT:", "\"").Replace("''", "'");
 		}
 
-		// Converts the input string to the string value of the integer value of the valid 8-char hex FormID which it contains
+		// Converts a valid 8-char hex FormID to the string value of the integer value of itself
 		static string ConvertToFormID(string input)
 		{
 			string formid = FormIDRegex.Match(input).Groups[1].Value;
@@ -243,6 +291,17 @@ namespace Preprocessor
 		static string RemoveReference(string input)
 		{
 			return RemoveReferenceRegex.Match(input).Groups[1].Value;
+		}
+
+		// Converts a database REAL as a string, to a string suitable to be a database INTEGER
+		static string RealToInt(string input)
+		{
+			if (string.IsNullOrEmpty(input))
+			{
+				return string.Empty;
+			}
+
+			return ((int)Math.Round(double.Parse(input))).ToString();
 		}
 
 		// Removes old DB files prior to building new
