@@ -131,7 +131,7 @@ unit _mappalachia_position;
 		primitiveEntry, boundsEntry, location : IInterface;
 		primitiveShape, rotZ : String;
 	begin
-		if(Assigned(displayName) and Assigned(position) and (pos('<', displayName) <> 1)) then begin // Skip records missing key data
+		if(Assigned(displayName) and Assigned(position)) then begin // Skip records missing key data
 			primitiveEntry := ElementBySignature(item, 'XPRM');
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
 			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));

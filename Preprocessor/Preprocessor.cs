@@ -16,26 +16,6 @@ namespace Preprocessor
 
 		static readonly SQLiteType CoordinateType = SQLiteType.REAL;
 
-		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they appear to be inaccessible.
-		static readonly string DiscardCellsQuery =
-			"spaceDisplayName = '' OR " +
-			"spaceDisplayName LIKE '%Test%World%' OR " + 
-			"spaceDisplayName LIKE '%Test%Cell%' OR " +
-			"spaceEditorID LIKE 'zCUT%' OR " +
-			"spaceEditorID LIKE '%OLD' OR " +
-			"spaceEditorID LIKE 'Warehouse%' OR " +
-			"spaceEditorID LIKE 'Test%' OR " +
-			"spaceEditorID LIKE '%Debug%' OR " +
-			"spaceEditorID LIKE 'zz%' OR " +
-			"spaceEditorID LIKE '76%' OR " +
-			"spaceEditorID LIKE '%Worldspace' OR " +
-			"spaceEditorID LIKE '%Nav%Test%' OR " +
-			"spaceEditorID LIKE 'PackIn%' OR " +
-			"spaceEditorID LIKE 'COPY%' OR " +
-			"spaceDisplayName = 'Purgatory' OR " +
-			"spaceDisplayName = 'Diamond City' OR " +
-			"spaceDisplayName = 'Goodneighbor'";
-
 		static readonly List<SQLiteTable> Tables = new List<SQLiteTable>()
 		{
 			new SQLiteTable("Entity", new List<SQLiteColumn> {
@@ -118,11 +98,14 @@ namespace Preprocessor
 			Console.WriteLine("Unescaping characters");
 			Tables.ForEach(table => UnescapeCharacters(table));
 
-            // Pull the MapMarker data into a new table, separate from Position
-            SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
+            // Pull the MapMarker data into a new table, then make some hardcoded amendments
+            SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
+			SimpleQuery(Hardcodings.AddMissingMarkersQuery);
 			SimpleQuery("ALTER TABLE Position DROP COLUMN mapMarkerName;");
 
-			// TODO rigourous map marker correction
+			// TODO rigourous map marker correction, remove where cells not present
+
+			// TODO remove map markers and other invalid data from Position.referenceFormID
 
 			Console.WriteLine("Reducing data");
 			TransformColumn("Position", "referenceFormID", ConvertToFormID);
@@ -148,12 +131,14 @@ namespace Preprocessor
 			// TODO Correct displayName of LVLI in Entity
 
 			// Discard spaces which are not accessible, and output a list of those
-			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {Hardcodings.DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
 			deletedRows.Sort();
+			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
 			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
 
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove coordinates located in discarded spaces
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove regions located in discarded spaces
+			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove map markers located in discarded spaces
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);"); // Remove entities which are not placed
 
 			// TODO NPCs
@@ -282,7 +267,7 @@ namespace Preprocessor
 
 			if (string.IsNullOrEmpty(formid))
 			{
-				return string.Empty;
+				return input;
 			}
 
 			return Convert.ToInt32(formid, 16).ToString();
