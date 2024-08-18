@@ -100,30 +100,33 @@ namespace Preprocessor
 
             // Pull the MapMarker data into a new table, then make some hardcoded amendments
             SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
+			SimpleQuery(Hardcodings.RemoveMarkersQuery);
 			SimpleQuery(Hardcodings.AddMissingMarkersQuery);
+			SimpleQuery(Hardcodings.CorrectDuplicateMarkersQuery);
+			TransformColumn(Hardcodings.CorrectFissureMarkerNames, "MapMarker", "label");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN mapMarkerName;");
 
-			// TODO rigourous map marker correction, remove where cells not present
+			// TODO rigourous map marker correction
 
 			// TODO remove map markers and other invalid data from Position.referenceFormID
 
 			Console.WriteLine("Reducing data");
-			TransformColumn("Position", "referenceFormID", ConvertToFormID);
+			TransformColumn(ConvertToFormID, "Position", "referenceFormID");
 			ChangeColumnType("Position", "referenceFormID", "INTEGER");
 
-			TransformColumn("Region", "spaceFormID", ConvertToFormID);
+			TransformColumn(ConvertToFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 
 			if (CoordinateType == SQLiteType.INTEGER)
 			{
-				TransformColumn("Position", "x", RealToInt);
-				TransformColumn("Position", "y", RealToInt);
-				TransformColumn("Position", "z", RealToInt);
-				TransformColumn("Position", "boundX", RealToInt);
-				TransformColumn("Position", "boundY", RealToInt);
-				TransformColumn("Position", "boundZ", RealToInt);
-				TransformColumn("Region", "x", RealToInt);
-				TransformColumn("Region", "y", RealToInt);
+				TransformColumn(RealToInt, "Position", "x");
+				TransformColumn(RealToInt, "Position", "y");
+				TransformColumn(RealToInt, "Position", "z");
+				TransformColumn(RealToInt, "Position", "boundX");
+				TransformColumn(RealToInt, "Position", "boundY");
+				TransformColumn(RealToInt, "Position", "boundZ");
+				TransformColumn(RealToInt, "Region", "x");
+				TransformColumn(RealToInt, "Region", "y");
 			}
 
 			// TODO replace Position.ShortName with both label and instanceFormID
@@ -209,19 +212,23 @@ namespace Preprocessor
 					continue;
 				}
 
-				TransformColumn(table.Name, field.Name, UnescapeCharacters);
+				TransformColumn(UnescapeCharacters, table.Name, field.Name);
 			}
 		}
 
-		// Loops a column and transforms the data according to the passed method
-		static void TransformColumn(string tableName, string columnName, Func<string, string> method)
+		// Loops a table and amends a column according to the value of the other (or same) column, when passed to the method
+		static void TransformColumn(Func<string, string> method, string tableName, string sourceColumn, string? targetColumn = null)
 		{
+			// It is quite common that we transform a column based on itself.
+			// So the targetColumn arg is optional, and when not passed, the sourceColumn is also the target.
+			targetColumn ??= sourceColumn;
+
 			string tempIndex = "tempIndex";
 
-			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({columnName});");
+			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumn});");
 
-			string readQuery = $"SELECT {columnName} FROM {tableName}";
-			string updateQuery = $"UPDATE {tableName} SET {columnName} = @new WHERE {columnName} = @original";
+			string readQuery = $"SELECT {sourceColumn} FROM {tableName}";
+			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE {sourceColumn} = @original";
 
 			SqliteCommand readCommand = new SqliteCommand(readQuery, Connection);
 			SqliteDataReader reader = readCommand.ExecuteReader();
