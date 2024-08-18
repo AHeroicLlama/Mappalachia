@@ -13,7 +13,46 @@ namespace MappalachiaLibrary
 		static string WorkshopMarker { get; } = "PublicWorkshopMarker";
 		static string FissureSiteLabel { get; } = "Fissure Site";
 
-		static Dictionary<string, string> MapMarkerLabelCorrection { get; } = new Dictionary<string, string>()
+		static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
+		{
+			{ "Animal Cave", "Hopewell Cave" },
+			{ "Bleeding Kate's Grinder", "Bleeding Kate's Grindhouse" },
+			{ "Building Summersville Dam", "Summersville Dam" },
+			{ "Burning Mine", "The Burning Mine" },
+			{ "Cranberry Bog Region", "Quarry X3" },
+			{ "Cranberry Glade", "Sacramental Glade" },
+			{ "Crater Outpost", "Crater Watchstation" },
+			{ "Emmett Mt. Disposal Site", "Emmett Mountain Disposal Site" },
+			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },
+			{ "Hawke's Refuge", "Dagger's Den" },
+			{ "Lumber Camp", "Sylvie & Sons Logging Camp" },
+			{ "Maybell Pond", "Beckwith Farm" },
+			{ "Middle Mountain Cabins", "Middle Mountain Pitstop" },
+			{ "Mine Shaft No. 9", "AMS Testing Site" },
+			{ "Mire", "Harpers Ferry Tunnel" },
+			{ "Morgantown Regional Airfield", "Morgantown Airport" },
+			{ "Mountain Region", "Colonel Kelly Monument" },
+			{ "Nuked Crater", "Foundation Outpost" },
+			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
+			{ "Relay Tower 3", "Relay Tower DP-B5-21" },
+			{ "Relay Tower 4", "Relay Tower LW-B1-22" },
+			{ "Relay Tower 5", "Relay Tower HG-B7-09" },
+			{ "Relay Tower 6", "Relay Tower EM-B1-27" },
+			{ "Schram Homestead", "Silva Homestead" },
+			{ "Sundew Grove 02", "Veiled Sundew Grove" },
+			{ "Sundew Grove 03", "Creekside Sundew Grove" },
+			{ "The Burrows", "The Burrows South" },
+			{ "The Savage Divide", "Monorail Elevator" },
+			{ "World's Largest Teapot", "The Giant Teapot" },
+			{ "Lightning Pylon A", "Research Site Saxony" },
+			{ "Lightning Pylon B", "Research Site Bavaria" },
+			{ "Lightning Pylon C", "Research Site Rhineland" },
+			{ "Federal Field NG-17", "Big Meadows Gas Well" },
+			{ "Shenandoah Weather Station", "Hawksbill Weather Station" },
+			{ "Shining Creek Caverns", "Shining Creek Cavern" },
+		};
+
+		static Dictionary<string, string> MarkerIconCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Abandoned Bog Town", WorkshopMarker },
 			{ "Ammo Dump", BloodEagleMarker },
@@ -95,8 +134,19 @@ namespace MappalachiaLibrary
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
 		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker'";
 
+		// Returns the corrected label for the given map marker label
+		public static string? CorrectLabelsByDict(string label)
+		{
+			if (MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
+			{
+				return correctedLabel;
+			}
+
+			return label;
+		}
+
 		// Fix fissure site naming - Rename Zeta to Prime, drop latin names from all others
-		public static string CorrectFissureMarkerNames(string label)
+		public static string CorrectFissureLabels(string label)
 		{
 			if (label.StartsWith(FissureSiteLabel))
 			{
@@ -104,6 +154,24 @@ namespace MappalachiaLibrary
 			}
 
 			return label;
+		}
+
+		// Correct map marker labels by correcting common extraneous/incorrect text in the label
+		public static string CorrectCommonBadLabels(string label)
+		{
+			return label.Replace("Fast Travel Point: ", string.Empty).Replace("Hornwright Air Cleanser Site", "Hornwright Air Purifier Site");
+		}
+
+		// Returns the correct icon for the given map marker label
+		public static string? CorrectMarkerIcons(string label)
+		{
+			if (MarkerIconCorrection.TryGetValue(label, out string? correctedIcon))
+			{
+				return correctedIcon;
+			}
+
+			// Icon does not need correcting
+			return null;
 		}
 
 		static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()

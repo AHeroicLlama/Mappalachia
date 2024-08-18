@@ -103,7 +103,10 @@ namespace Preprocessor
 			SimpleQuery(Hardcodings.RemoveMarkersQuery);
 			SimpleQuery(Hardcodings.AddMissingMarkersQuery);
 			SimpleQuery(Hardcodings.CorrectDuplicateMarkersQuery);
-			TransformColumn(Hardcodings.CorrectFissureMarkerNames, "MapMarker", "label");
+			TransformColumn(Hardcodings.CorrectLabelsByDict, "MapMarker", "label");
+			TransformColumn(Hardcodings.CorrectFissureLabels, "MapMarker", "label");
+			TransformColumn(Hardcodings.CorrectCommonBadLabels, "MapMarker", "label");
+			TransformColumn(Hardcodings.CorrectMarkerIcons, "MapMarker", "label", "icon");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN mapMarkerName;");
 
 			// TODO rigourous map marker correction
@@ -217,7 +220,7 @@ namespace Preprocessor
 		}
 
 		// Loops a table and amends a column according to the value of the other (or same) column, when passed to the method
-		static void TransformColumn(Func<string, string> method, string tableName, string sourceColumn, string? targetColumn = null)
+		static void TransformColumn(Func<string, string?> method, string tableName, string sourceColumn, string? targetColumn = null)
 		{
 			// It is quite common that we transform a column based on itself.
 			// So the targetColumn arg is optional, and when not passed, the sourceColumn is also the target.
@@ -242,9 +245,11 @@ namespace Preprocessor
 				while (reader.Read())
 				{
 					string originalValue = reader.GetString(0);
-					string newValue = method(originalValue);
+					string? newValue = method(originalValue);
 
-					if (newValue == originalValue)
+					// If the new value is null (method indicates value should not be changed)
+					// Or if the operation would result in changing a column to the value it already is, skip.
+					if (newValue == null || (sourceColumn == targetColumn && newValue == originalValue))
 					{
 						continue;
 					}
