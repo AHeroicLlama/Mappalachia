@@ -10,9 +10,10 @@ namespace Preprocessor
 	internal class Preprocessor
 	{
 		static readonly SqliteConnection Connection = new SqliteConnection("Data Source=" + BuildPaths.GetDatabasePath());
-
-		static readonly Regex FormIDRegex = new Regex(@".*\[[A-Z_]{4}:([0-9A-F]{8})\].*");
-		static readonly Regex RemoveReferenceRegex = new Regex(@"(.*) ?\[[A-Z_]{4}:[0-9A-F]{8}\]");
+		static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
+		static Regex GetFormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
+		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
+		static Regex GetDisplayNameRegex { get; } = new Regex(".* \"(.*)\" " + SignatureFormIDRegex);
 
 		static readonly SQLiteType CoordinateType = SQLiteType.REAL;
 
@@ -88,6 +89,8 @@ namespace Preprocessor
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
 
+			Console.WriteLine($"Building Mappalachia database at {BuildPaths.GetDatabasePath()}\n");
+
 			Cleanup();
 
 			Connection.Open();
@@ -95,11 +98,10 @@ namespace Preprocessor
 			// TODO do coords need to be REAL or can we get away with INTEGER?
 			Tables.ForEach(table => ImportTableFromCSV(table));
 
-			Console.WriteLine("Unescaping characters");
 			Tables.ForEach(table => UnescapeCharacters(table));
 
-            // Pull the MapMarker data into a new table, then make some hardcoded amendments
-            SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
+			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
+			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			SimpleQuery(Hardcodings.RemoveMarkersQuery);
 			SimpleQuery(Hardcodings.AddMissingMarkersQuery);
 			SimpleQuery(Hardcodings.CorrectDuplicateMarkersQuery);
@@ -107,19 +109,23 @@ namespace Preprocessor
 			TransformColumn(Hardcodings.CorrectFissureLabels, "MapMarker", "label");
 			TransformColumn(Hardcodings.CorrectCommonBadLabels, "MapMarker", "label");
 			TransformColumn(Hardcodings.CorrectMarkerIcons, "MapMarker", "label", "icon");
+
+			// Remove map marker remnants from Position table
+			SimpleQuery("DELETE FROM Position WHERE mapMarkerName != '';");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN mapMarkerName;");
 
-			// TODO rigourous map marker correction
+			// Remove some junk data from Position
+			SimpleQuery("DELETE FROM Position WHERE shortName LIKE '%CELL:%';");
 
-			// TODO remove map markers and other invalid data from Position.referenceFormID
-
-			Console.WriteLine("Reducing data");
-			TransformColumn(ConvertToFormID, "Position", "referenceFormID");
+			// Capture and convert to int the referenceFormID
+			TransformColumn(CaptureFormID, "Position", "referenceFormID");
 			ChangeColumnType("Position", "referenceFormID", "INTEGER");
 
-			TransformColumn(ConvertToFormID, "Region", "spaceFormID");
+			// Capture and convert to int the spaceFormID
+			TransformColumn(CaptureFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 
+			// Transform the coordinate data to int
 			if (CoordinateType == SQLiteType.INTEGER)
 			{
 				TransformColumn(RealToInt, "Position", "x");
@@ -132,9 +138,15 @@ namespace Preprocessor
 				TransformColumn(RealToInt, "Region", "y");
 			}
 
-			// TODO replace Position.ShortName with both label and instanceFormID
+			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original
+			SimpleQuery("ALTER TABLE Position ADD COLUMN 'label' TEXT;");
+			SimpleQuery("ALTER TABLE Position ADD COLUMN 'instanceFormID' INTEGER;");
+			TransformColumn(CaptureFormID, "Position", "shortName", "instanceFormID");
+			TransformColumn(RemoveTrailingReference, "Position", "shortName", "label");
+			SimpleQuery("ALTER TABLE Position DROP COLUMN 'shortName';");
 
-			// TODO Correct displayName of LVLI in Entity
+			// Ensure all Entities have the proper display name only, and nothing extraneous
+			TransformColumn(CaptureQuotedDisplayName, "Entity", "displayName");
 
 			// Discard spaces which are not accessible, and output a list of those
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {Hardcodings.DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
@@ -151,18 +163,22 @@ namespace Preprocessor
 			// TODO Scrap
 
 			// TODO Add Meta table, version, date etc
-			
-			Console.WriteLine("Vacuuming");
+
 			SimpleQuery("VACUUM;");
 
-			Console.WriteLine($"Done. {stopwatch.Elapsed}. Press any key");
+			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString("m\\m\\ s\\s")}. Press any key");
 			Console.ReadKey();
 		}
 
 		// Executes any query against the open database.
 		// Returns output rows as comma-separated strings in a list.
-		static List<string> SimpleQuery(string query)
+		static List<string> SimpleQuery(string query, bool silent = false)
 		{
+			if (!silent)
+			{
+				Console.WriteLine(query);
+			}
+
 			SqliteDataReader reader = new SqliteCommand(query, Connection).ExecuteReader();
 
 			List<string> data = new List<string>();
@@ -182,20 +198,25 @@ namespace Preprocessor
 		{
 			string tempColumn = "temp";
 
-			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {type};"); // Create a temp column with the new type
-			SimpleQuery($"UPDATE {table} SET {tempColumn} = {column};"); // Copy the source column into the temp
-			SimpleQuery($"ALTER TABLE {table} DROP COLUMN {column};"); // Drop the original
-			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};"); // Rename temp column to original
+            Console.WriteLine($"Change type: {table}.{column} -> {type}");
+
+			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {type};", true); // Create a temp column with the new type
+			SimpleQuery($"UPDATE {table} SET {tempColumn} = {column};", true); // Copy the source column into the temp
+			SimpleQuery($"ALTER TABLE {table} DROP COLUMN {column};", true); // Drop the original
+			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
 		}
 
 		// Creates the table and imports data from CSV
 		static void ImportTableFromCSV(SQLiteTable table)
 		{
-			Console.WriteLine($"Importing raw table '{table.Name}'");
-
 			CreateTable(table);
 
-			Process process = Process.Start(BuildPaths.GetSqlitePath(), new List<string>() { BuildPaths.GetDatabasePath(), ".mode csv", $".import {BuildPaths.GetFo76EditOutputPath()}{table.Name}.csv {table.Name}" });
+			Console.WriteLine($"Import {table.Name} from CSV");
+
+			string path = BuildPaths.GetSqlitePath();
+			List<string> args = new List<string>() { BuildPaths.GetDatabasePath(), ".mode csv", $".import {BuildPaths.GetFo76EditOutputPath()}{table.Name}.csv {table.Name}" };
+
+			Process process = Process.Start(path, args);
 			process.WaitForExit();
 		}
 
@@ -228,13 +249,15 @@ namespace Preprocessor
 
 			string tempIndex = "tempIndex";
 
-			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumn});");
+			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumn});", true);
 
 			string readQuery = $"SELECT {sourceColumn} FROM {tableName}";
 			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE {sourceColumn} = @original";
 
 			SqliteCommand readCommand = new SqliteCommand(readQuery, Connection);
 			SqliteDataReader reader = readCommand.ExecuteReader();
+
+			Console.WriteLine($"Transform {tableName}.{sourceColumn} -> {targetColumn}: {method.Method.Name}");
 
 			using (SqliteTransaction transaction = Connection.BeginTransaction())
 			using (SqliteCommand updateCommand = new SqliteCommand(updateQuery, Connection, transaction))
@@ -263,7 +286,7 @@ namespace Preprocessor
 				transaction.Commit();
 			}
 
-			SimpleQuery($"DROP INDEX '{tempIndex}'");
+			SimpleQuery($"DROP INDEX '{tempIndex}'", true);
 		}
 
 		// Return the given string with custom escape sequences replaced
@@ -273,9 +296,9 @@ namespace Preprocessor
 		}
 
 		// Converts a valid 8-char hex FormID to the string value of the integer value of itself
-		static string ConvertToFormID(string input)
+		static string CaptureFormID(string input)
 		{
-			string formid = FormIDRegex.Match(input).Groups[1].Value;
+			string formid = GetFormIDRegex.Match(input).Groups[1].Value;
 
 			if (string.IsNullOrEmpty(formid))
 			{
@@ -285,9 +308,27 @@ namespace Preprocessor
 			return Convert.ToInt32(formid, 16).ToString();
 		}
 
-		static string RemoveReference(string input)
+		// Removes the signture and formID from the end of a string
+		static string RemoveTrailingReference(string input)
 		{
-			return RemoveReferenceRegex.Match(input).Groups[1].Value;
+			if (string.IsNullOrEmpty(input))
+			{
+				return input;
+			}
+
+			return RemoveTrailingReferenceRegex.Match(input).Groups[1].Value;
+		}
+
+		// Returns the true display name, from a string which is expected to contain the editorid, displayname, and sig/referenceFormID
+		static string CaptureQuotedDisplayName(string displayName)
+		{
+			// Doesn't look like we need to do anything
+			if (!GetFormIDRegex.IsMatch(displayName))
+			{
+				return displayName;
+			}
+
+			return GetDisplayNameRegex.Match(displayName).Groups[1].Value;
 		}
 
 		// Converts a database REAL as a string, to a string suitable to be a database INTEGER
@@ -304,8 +345,6 @@ namespace Preprocessor
 		// Removes old DB files prior to building new
 		static void Cleanup()
 		{
-			Console.WriteLine("Cleaning up");
-
 			File.Delete(BuildPaths.GetDatabasePath());
 			File.Delete(BuildPaths.GetDatabasePath() + "-journal");
 		}

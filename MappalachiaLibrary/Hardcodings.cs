@@ -126,13 +126,13 @@ namespace MappalachiaLibrary
 		};
 
 		// Remove these markers which are not present in-game
-		public static string RemoveMarkersQuery { get; } = $"DELETE FROM MapMarker WHERE label IN ({string.Join(",", MapMarkersToRemove.Select(m => "\'" + m + "\'"))})";
+		public static string RemoveMarkersQuery { get; } = $"DELETE FROM MapMarker WHERE label IN ({string.Join(",", MapMarkersToRemove.Select(m => "\'" + m + "\'"))});";
 
 		// Monongah Workshop (0x003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it
-		public static string AddMissingMarkersQuery { get; } = $"INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', '{WorkshopMarker}')";
+		public static string AddMissingMarkersQuery { get; } = $"INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', '{WorkshopMarker}');";
 
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
-		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker'";
+		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
 
 		// Returns the corrected label for the given map marker label
 		public static string? CorrectLabelsByDict(string label)
@@ -235,6 +235,7 @@ namespace MappalachiaLibrary
 			"spaceEditorID LIKE 'PackIn%' OR " +
 			"spaceEditorID LIKE 'COPY%' OR " +
 			"spaceDisplayName = 'Purgatory' OR " +
+			"spaceDisplayName = 'Vault 63 Engineering Sector' OR " +
 			"spaceDisplayName = 'Diamond City' OR " +
 			"spaceDisplayName = 'Goodneighbor'";
 	}
