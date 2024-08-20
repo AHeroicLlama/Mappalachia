@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using MappalachiaLibrary;
@@ -75,12 +75,12 @@ namespace Preprocessor
 
 			new SQLiteTable("Component", new List<SQLiteColumn> {
 				new SQLiteColumn( "component", SQLiteType.TEXT ),
-				new SQLiteColumn( "singular", SQLiteType.TEXT ),
-				new SQLiteColumn( "rare", SQLiteType.TEXT ),
-				new SQLiteColumn( "medium", SQLiteType.TEXT ),
-				new SQLiteColumn( "low", SQLiteType.TEXT ),
-				new SQLiteColumn( "high", SQLiteType.TEXT ),
-				new SQLiteColumn( "bulk", SQLiteType.TEXT ),
+				new SQLiteColumn( "singular", SQLiteType.INTEGER ),
+				new SQLiteColumn( "rare", SQLiteType.INTEGER ),
+				new SQLiteColumn( "medium", SQLiteType.INTEGER ),
+				new SQLiteColumn( "low", SQLiteType.INTEGER ),
+				new SQLiteColumn( "high", SQLiteType.INTEGER ),
+				new SQLiteColumn( "bulk", SQLiteType.INTEGER ),
 			}),
 		};
 
@@ -146,7 +146,7 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Position DROP COLUMN 'shortName';");
 
 			// Ensure all Entities have the proper display name only, and nothing extraneous
-			TransformColumn(CaptureQuotedDisplayName, "Entity", "displayName");
+			TransformColumn(CaptureQuotedTerm, "Entity", "displayName");
 
 			// Discard spaces which are not accessible, and output a list of those
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {Hardcodings.DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
@@ -158,11 +158,22 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove regions located in discarded spaces
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove map markers located in discarded spaces
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);"); // Remove entities which are not placed
+			SimpleQuery("DELETE FROM Scrap WHERE scrapFormID NOT IN (SELECT entityFormID FROM Entity);"); // Remove scrap information for 'junk' items which are not placed
+			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);"); // Remove location information for locations which are not referenced
+
+			// Clean up junk component names
+			TransformColumn(CaptureQuotedTerm, "Scrap", "componentQuantity");
+			TransformColumn(CaptureQuotedTerm, "Scrap", "component");
+			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
+			TransformColumn(ToLower, "Scrap", "componentQuantity"); // TODO Necessary?
+
+			// TODO remaining Scrap - get component quantity from keyword under component table, then drop component table
 
 			// TODO NPCs
-			// TODO Scrap
 
 			// TODO Add Meta table, version, date etc
+
+			// TODO Data validation - positive and negative checks for invalid or bad data
 
 			SimpleQuery("VACUUM;");
 
@@ -320,7 +331,7 @@ namespace Preprocessor
 		}
 
 		// Returns the true display name, from a string which is expected to contain the editorid, displayname, and sig/referenceFormID
-		static string CaptureQuotedDisplayName(string displayName)
+		static string CaptureQuotedTerm(string displayName)
 		{
 			// Doesn't look like we need to do anything
 			if (!GetFormIDRegex.IsMatch(displayName))
@@ -342,7 +353,19 @@ namespace Preprocessor
 			return ((int)Math.Round(double.Parse(input))).ToString();
 		}
 
-		// Removes old DB files prior to building new
+		static string ToLower(string input)
+		{
+			return input.ToLower();
+		}
+
+		// TODO Necessary?
+		// Returns the numeric quantity of the component for the given quantity name
+		static string GetComponentQuantity(string component, string quantity)
+		{
+			return SimpleQuery($"SELECT {quantity} FROM Component where component = '{component}'").First();
+		}
+
+		// Removes old DB files
 		static void Cleanup()
 		{
 			File.Delete(BuildPaths.GetDatabasePath());
