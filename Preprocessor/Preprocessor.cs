@@ -93,6 +93,9 @@ namespace Preprocessor
 
 			Cleanup();
 
+			SimpleQuery("CREATE TABLE Meta (key TEXT, value TEXT);");
+			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{GetValidatedGameVersion()}');");
+
 			// TODO do coords need to be REAL or can we get away with INTEGER?
 			Tables.ForEach(table => ImportTableFromCSV(table));
 
@@ -152,23 +155,24 @@ namespace Preprocessor
 			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
 			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
 
-			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove coordinates located in discarded spaces
-			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove regions located in discarded spaces
-			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);"); // Remove map markers located in discarded spaces
-			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);"); // Remove entities which are not placed
-			SimpleQuery("DELETE FROM Scrap WHERE scrapFormID NOT IN (SELECT entityFormID FROM Entity);"); // Remove scrap information for 'junk' items which are not placed
-			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);"); // Remove location information for locations which are not referenced
+			// Remove entries which are not referenced by other relevant tables
+			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
+			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
+			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
+			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);");
+			SimpleQuery("DELETE FROM Scrap WHERE scrapFormID NOT IN (SELECT entityFormID FROM Entity);");
+			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);");
 
-			// Clean up scrap component names, transpose the component keywords to numeric values, then drop the component table
+			// Clean up scrap component names
 			TransformColumn(CaptureQuotedTerm, "Scrap", "componentQuantity");
 			TransformColumn(CaptureQuotedTerm, "Scrap", "component");
 			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
+
+			// Transpose the component quantity keywords to numeric values against Scrap table, then drop the Component table
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
 			SimpleQuery($"DROP TABLE Component");
 
 			// TODO NPCs
-
-			// TODO Add Meta table, version, date etc
 
 			// TODO Data validation - positive and negative checks for invalid or bad data
 
@@ -411,6 +415,50 @@ namespace Preprocessor
 		static string GetComponentQuantity(string component, string quantity)
 		{
 			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, GetConnection()).First();
+		}
+
+		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input
+		static string GetValidatedGameVersion()
+		{
+			string? gameVersion = GetGameVersionFromExe();
+
+			if (gameVersion == null)
+			{
+				Console.Write($"Unable to determine game version from exe at {BuildPaths.GameExePath}.");
+				return GetGameVersionFromUser();
+			}
+
+			Console.WriteLine($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)");
+
+			while (true)
+			{
+				char key = char.ToLower(Console.ReadKey().KeyChar);
+
+				if (key == 'y')
+				{
+                    Console.WriteLine();
+					return gameVersion;
+				}
+				else if (key == 'n')
+				{
+					return GetGameVersionFromUser();
+				}
+
+				Console.Write("\r \r");
+			}
+		}
+
+		// Return the game version string on the FO76 exe, assuming it is present else null
+		static string? GetGameVersionFromExe()
+		{
+			return File.Exists(BuildPaths.GameExePath) ? FileVersionInfo.GetVersionInfo(BuildPaths.GameExePath).FileVersion : null;
+		}
+
+		// Asks the user to enter game version, and returns the entered line
+		static string GetGameVersionFromUser()
+		{
+			Console.Write("\nPlease enter the correct version string:");
+			return Console.ReadLine() ?? string.Empty;
 		}
 
 		// Removes old DB files

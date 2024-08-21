@@ -16,9 +16,9 @@
 		const string Fo76EditOutputPath = @"FO76Edit/Output/";
 		const string DatabasePath = @"/mappalachia.db";
 
-		public const string GameDataPath = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\";
-		public const string GameExePath = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe";
-		public const string ImageMagickPath = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
+		public static string GameDataPath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\";
+		public static string GameExePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe";
+		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
 
 		static string? solutionPath = null;
 
