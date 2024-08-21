@@ -11,9 +11,10 @@ namespace Preprocessor
 	{
 		static readonly SqliteConnection Connection = GetConnection();
 		static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
-		static Regex GetFormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
+		static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
+		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
 		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
-		static Regex GetDisplayNameRegex { get; } = new Regex(".* \"(.*)\" " + SignatureFormIDRegex);
+		static Regex QuotedTermRegex { get; } = new Regex(".* \"(.*)\" " + SignatureFormIDRegex);
 
 		static readonly SQLiteType CoordinateType = SQLiteType.REAL;
 
@@ -52,7 +53,7 @@ namespace Preprocessor
 			}),
 
 			new SQLiteTable("Location", new List<SQLiteColumn> {
-				new SQLiteColumn( "locationFormID", SQLiteType.INTEGER ),
+				new SQLiteColumn( "locationFormID", SQLiteType.TEXT ),
 				new SQLiteColumn( "property", SQLiteType.TEXT ),
 				new SQLiteColumn( "value", SQLiteType.REAL ),
 			}),
@@ -68,7 +69,7 @@ namespace Preprocessor
 			}),
 
 			new SQLiteTable("Scrap", new List<SQLiteColumn> {
-				new SQLiteColumn( "scrapFormID", SQLiteType.INTEGER ),
+				new SQLiteColumn( "junkFormID", SQLiteType.INTEGER ),
 				new SQLiteColumn( "component", SQLiteType.TEXT ),
 				new SQLiteColumn( "componentQuantity", SQLiteType.TEXT ),
 			}),
@@ -122,6 +123,10 @@ namespace Preprocessor
 			TransformColumn(CaptureFormID, "Position", "referenceFormID");
 			ChangeColumnType("Position", "referenceFormID", "INTEGER");
 
+			// Capture and convert to int the locationFormID
+			TransformColumn(CaptureFormID, "Position", "locationFormID");
+			ChangeColumnType("Position", "locationFormID", "INTEGER");
+
 			// Capture and convert to int the spaceFormID
 			TransformColumn(CaptureFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
@@ -160,7 +165,7 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);");
-			SimpleQuery("DELETE FROM Scrap WHERE scrapFormID NOT IN (SELECT entityFormID FROM Entity);");
+			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
 			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);");
 
 			// Clean up scrap component names
@@ -367,7 +372,7 @@ namespace Preprocessor
 		// Converts a valid 8-char hex FormID to the string value of the integer value of itself
 		static string CaptureFormID(string input)
 		{
-			string formid = GetFormIDRegex.Match(input).Groups[1].Value;
+			string formid = OptionalSignatureFormIDRegex.Match(input).Groups[2].Value;
 
 			if (string.IsNullOrEmpty(formid))
 			{
@@ -392,12 +397,12 @@ namespace Preprocessor
 		static string CaptureQuotedTerm(string displayName)
 		{
 			// Doesn't look like we need to do anything
-			if (!GetFormIDRegex.IsMatch(displayName))
+			if (!FormIDRegex.IsMatch(displayName))
 			{
 				return displayName;
 			}
 
-			return GetDisplayNameRegex.Match(displayName).Groups[1].Value;
+			return QuotedTermRegex.Match(displayName).Groups[1].Value;
 		}
 
 		// Converts a database REAL as a string, to a string suitable to be a database INTEGER
