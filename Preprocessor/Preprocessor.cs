@@ -9,7 +9,7 @@ namespace Preprocessor
 {
 	internal class Preprocessor
 	{
-		static readonly SqliteConnection Connection = new SqliteConnection("Data Source=" + BuildPaths.GetDatabasePath());
+		static readonly SqliteConnection Connection = GetConnection();
 		static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
 		static Regex GetFormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
 		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
@@ -93,8 +93,6 @@ namespace Preprocessor
 
 			Cleanup();
 
-			Connection.Open();
-
 			// TODO do coords need to be REAL or can we get away with INTEGER?
 			Tables.ForEach(table => ImportTableFromCSV(table));
 
@@ -161,13 +159,12 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Scrap WHERE scrapFormID NOT IN (SELECT entityFormID FROM Entity);"); // Remove scrap information for 'junk' items which are not placed
 			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);"); // Remove location information for locations which are not referenced
 
-			// Clean up junk component names
+			// Clean up scrap component names, transpose the component keywords to numeric values, then drop the component table
 			TransformColumn(CaptureQuotedTerm, "Scrap", "componentQuantity");
 			TransformColumn(CaptureQuotedTerm, "Scrap", "component");
 			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
-			TransformColumn(ToLower, "Scrap", "componentQuantity"); // TODO Necessary?
-
-			// TODO remaining Scrap - get component quantity from keyword under component table, then drop component table
+			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
+			SimpleQuery($"DROP TABLE Component");
 
 			// TODO NPCs
 
@@ -181,16 +178,26 @@ namespace Preprocessor
 			Console.ReadKey();
 		}
 
+		static SqliteConnection GetConnection()
+		{
+			SqliteConnection connection = new SqliteConnection("Data Source=" + BuildPaths.GetDatabasePath());
+			connection.Open();
+			return connection;
+		}
+
 		// Executes any query against the open database.
 		// Returns output rows as comma-separated strings in a list.
-		static List<string> SimpleQuery(string query, bool silent = false)
+		static List<string> SimpleQuery(string query, bool silent = false, SqliteConnection? connection = null)
 		{
 			if (!silent)
 			{
 				Console.WriteLine(query);
 			}
 
-			SqliteDataReader reader = new SqliteCommand(query, Connection).ExecuteReader();
+			// Calling code can supply their own connection for parallel access, otherwise use the global connection
+			connection ??= Connection;
+
+			SqliteDataReader reader = new SqliteCommand(query, connection).ExecuteReader();
 
 			List<string> data = new List<string>();
 
@@ -300,6 +307,53 @@ namespace Preprocessor
 			SimpleQuery($"DROP INDEX '{tempIndex}'", true);
 		}
 
+		// Loops a table and amends a column according to the value of 2 columns, when passed to the method
+		static void TransformColumn(Func<string, string, string?> method, string tableName, string sourceColumnA, string sourceColumnB, string targetColumn)
+		{
+			string tempIndex = "tempIndex";
+
+			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumnA}, {sourceColumnB});", true);
+
+			string readQuery = $"SELECT {sourceColumnA}, {sourceColumnB} FROM {tableName}";
+			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE {sourceColumnA} = @originalA AND {sourceColumnB} = @originalB";
+
+			SqliteCommand readCommand = new SqliteCommand(readQuery, Connection);
+			SqliteDataReader reader = readCommand.ExecuteReader();
+
+			Console.WriteLine($"Transform {tableName}.{sourceColumnA},{sourceColumnB} -> {targetColumn}: {method.Method.Name}");
+
+			using (SqliteTransaction transaction = Connection.BeginTransaction())
+			using (SqliteCommand updateCommand = new SqliteCommand(updateQuery, Connection, transaction))
+			{
+				updateCommand.Parameters.AddWithValue("@new", string.Empty);
+				updateCommand.Parameters.AddWithValue("@originalA", string.Empty);
+				updateCommand.Parameters.AddWithValue("@originalB", string.Empty);
+
+				while (reader.Read())
+				{
+					string originalValueA = reader.GetString(0);
+					string originalValueB = reader.GetString(1);
+					string? newValue = method(originalValueA, originalValueB);
+
+					// If the new value is null (method indicates value should not be changed), skip.
+					if (newValue == null)
+					{
+						continue;
+					}
+
+					updateCommand.Parameters["@new"].Value = newValue;
+					updateCommand.Parameters["@originalA"].Value = originalValueA;
+					updateCommand.Parameters["@originalB"].Value = originalValueB;
+
+					updateCommand.ExecuteNonQuery();
+				}
+
+				transaction.Commit();
+			}
+
+			SimpleQuery($"DROP INDEX '{tempIndex}'", true);
+		}
+
 		// Return the given string with custom escape sequences replaced
 		static string UnescapeCharacters(string input)
 		{
@@ -353,16 +407,10 @@ namespace Preprocessor
 			return ((int)Math.Round(double.Parse(input))).ToString();
 		}
 
-		static string ToLower(string input)
-		{
-			return input.ToLower();
-		}
-
-		// TODO Necessary?
 		// Returns the numeric quantity of the component for the given quantity name
 		static string GetComponentQuantity(string component, string quantity)
 		{
-			return SimpleQuery($"SELECT {quantity} FROM Component where component = '{component}'").First();
+			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, GetConnection()).First();
 		}
 
 		// Removes old DB files
