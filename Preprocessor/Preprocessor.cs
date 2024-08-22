@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using MappalachiaLibrary;
 using Microsoft.Data.Sqlite;
-using static Preprocessor.SQLiteColumn;
 
 namespace Preprocessor
 {
@@ -14,76 +13,10 @@ namespace Preprocessor
 		static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
 		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
 		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
-		static Regex QuotedTermRegex { get; } = new Regex(".* \"(.*)\" " + SignatureFormIDRegex);
+		static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
 
-		static readonly SQLiteType CoordinateType = SQLiteType.REAL;
-
-		static readonly List<SQLiteTable> Tables = new List<SQLiteTable>()
-		{
-			new SQLiteTable("Entity", new List<SQLiteColumn> {
-				new SQLiteColumn( "entityFormID", SQLiteType.INTEGER ),
-				new SQLiteColumn( "displayName", SQLiteType.TEXT ),
-				new SQLiteColumn( "editorID", SQLiteType.TEXT ),
-				new SQLiteColumn( "signature", SQLiteType.TEXT ),
-				new SQLiteColumn( "percChanceNone", SQLiteType.INTEGER ),
-			}),
-
-			new SQLiteTable("Position", new List<SQLiteColumn> {
-				new SQLiteColumn( "spaceFormID", SQLiteType.INTEGER ),
-				new SQLiteColumn( "referenceFormID", SQLiteType.TEXT ),
-				new SQLiteColumn( "x", CoordinateType ),
-				new SQLiteColumn( "y", CoordinateType ),
-				new SQLiteColumn( "z", CoordinateType ),
-				new SQLiteColumn( "locationFormID", SQLiteType.TEXT ),
-				new SQLiteColumn( "lockLevel", SQLiteType.TEXT ),
-				new SQLiteColumn( "primitiveShape", SQLiteType.TEXT ),
-				new SQLiteColumn( "boundX", CoordinateType ),
-				new SQLiteColumn( "boundY", CoordinateType ),
-				new SQLiteColumn( "boundZ", CoordinateType ),
-				new SQLiteColumn( "rotZ", SQLiteType.REAL ),
-				new SQLiteColumn( "mapMarkerName", SQLiteType.TEXT ),
-				new SQLiteColumn( "shortName", SQLiteType.TEXT ),
-			}),
-
-			new SQLiteTable("Space", new List<SQLiteColumn> {
-				new SQLiteColumn( "spaceFormID", SQLiteType.INTEGER ),
-				new SQLiteColumn( "spaceEditorID", SQLiteType.TEXT ),
-				new SQLiteColumn( "spaceDisplayName", SQLiteType.TEXT ),
-				new SQLiteColumn( "isWorldspace", SQLiteType.INTEGER ),
-			}),
-
-			new SQLiteTable("Location", new List<SQLiteColumn> {
-				new SQLiteColumn( "locationFormID", SQLiteType.TEXT ),
-				new SQLiteColumn( "property", SQLiteType.TEXT ),
-				new SQLiteColumn( "value", SQLiteType.REAL ),
-			}),
-
-			new SQLiteTable("Region", new List<SQLiteColumn> {
-				new SQLiteColumn( "spaceFormID", SQLiteType.TEXT ),
-				new SQLiteColumn( "regionFormID", SQLiteType.INTEGER ),
-				new SQLiteColumn( "regionEditorID", SQLiteType.TEXT ),
-				new SQLiteColumn( "regionIndex", SQLiteType.INTEGER ),
-				new SQLiteColumn( "coordIndex", SQLiteType.INTEGER ),
-				new SQLiteColumn( "x", CoordinateType ),
-				new SQLiteColumn( "y", CoordinateType ),
-			}),
-
-			new SQLiteTable("Scrap", new List<SQLiteColumn> {
-				new SQLiteColumn( "junkFormID", SQLiteType.INTEGER ),
-				new SQLiteColumn( "component", SQLiteType.TEXT ),
-				new SQLiteColumn( "componentQuantity", SQLiteType.TEXT ),
-			}),
-
-			new SQLiteTable("Component", new List<SQLiteColumn> {
-				new SQLiteColumn( "component", SQLiteType.TEXT ),
-				new SQLiteColumn( "singular", SQLiteType.INTEGER ),
-				new SQLiteColumn( "rare", SQLiteType.INTEGER ),
-				new SQLiteColumn( "medium", SQLiteType.INTEGER ),
-				new SQLiteColumn( "low", SQLiteType.INTEGER ),
-				new SQLiteColumn( "high", SQLiteType.INTEGER ),
-				new SQLiteColumn( "bulk", SQLiteType.INTEGER ),
-			}),
-		};
+		// TODO do coords need to be REAL or can we get away with INTEGER?
+		static string CoordinateType { get; } = "REAL";
 
 		static void Main()
 		{
@@ -94,16 +27,32 @@ namespace Preprocessor
 
 			Cleanup();
 
-			SimpleQuery("CREATE TABLE Meta (key TEXT, value TEXT);");
+			SimpleQuery("PRAGMA foreign_keys = 0");
+
+			SimpleQuery("CREATE TABLE Meta (key TEXT PRIMARY KEY, value TEXT);");
 			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{GetValidatedGameVersion()}');");
 
-			// TODO do coords need to be REAL or can we get away with INTEGER?
-			Tables.ForEach(table => ImportTableFromCSV(table));
+			// Create new tables
+			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);");
+			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x {CoordinateType}, y {CoordinateType}, z {CoordinateType}, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX {CoordinateType}, boundY {CoordinateType}, boundZ {CoordinateType}, rotZ REAL, mapMarkerName TEXT, shortName TEXT);");
+			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
+			SimpleQuery($"CREATE TABLE Location(locationFormID TEXT, property TEXT, value INTEGER);");
+			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x {CoordinateType}, y {CoordinateType});");
+			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
+			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 
-			Tables.ForEach(table => UnescapeCharacters(table));
+			ImportTableFromCSV("Entity");
+			ImportTableFromCSV("Position");
+			ImportTableFromCSV("Space");
+			ImportTableFromCSV("Location");
+			ImportTableFromCSV("Region");
+			ImportTableFromCSV("Scrap");
+			ImportTableFromCSV("Component");
 
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
-			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
+			SimpleQuery($"CREATE TABLE MapMarker (spaceFormID INTEGER REFERENCES Space(spaceFormID), x {CoordinateType}, y {CoordinateType}, label TEXT, icon TEXT);");
+			SimpleQuery("INSERT INTO MapMarker (spaceFormID, x, y, label, icon) SELECT spaceFormID, x, y, referenceFormID, mapMarkerName FROM Position WHERE mapMarkerName != '';");
+			TransformColumn(UnescapeCharacters, "MapMarker", "label");
 			SimpleQuery(Hardcodings.RemoveMarkersQuery);
 			SimpleQuery(Hardcodings.AddMissingMarkersQuery);
 			SimpleQuery(Hardcodings.CorrectDuplicateMarkersQuery);
@@ -130,9 +79,10 @@ namespace Preprocessor
 			// Capture and convert to int the spaceFormID
 			TransformColumn(CaptureFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
+			//TODO doing this loses the foreign key
 
 			// Transform the coordinate data to int
-			if (CoordinateType == SQLiteType.INTEGER)
+			if (CoordinateType == "INTEGER")
 			{
 				TransformColumn(RealToInt, "Position", "x");
 				TransformColumn(RealToInt, "Position", "y");
@@ -155,6 +105,7 @@ namespace Preprocessor
 			TransformColumn(CaptureQuotedTerm, "Entity", "displayName");
 
 			// Discard spaces which are not accessible, and output a list of those
+			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {Hardcodings.DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
@@ -179,9 +130,14 @@ namespace Preprocessor
 
 			// TODO NPCs
 
+			// Finally unescape chars from columns which we've not touched
+			TransformColumn(UnescapeCharacters, "Entity", "displayName");
+
 			// TODO Data validation - positive and negative checks for invalid or bad data
 
 			SimpleQuery("VACUUM;");
+
+			SimpleQuery("PRAGMA foreign_keys = 1");
 
 			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString("m\\m\\ s\\s")}. Press any key");
 			Console.ReadKey();
@@ -233,38 +189,15 @@ namespace Preprocessor
 			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
 		}
 
-		// Creates the table and imports data from CSV
-		static void ImportTableFromCSV(SQLiteTable table)
+		static void ImportTableFromCSV(string tableName)
 		{
-			CreateTable(table);
-
-			Console.WriteLine($"Import {table.Name} from CSV");
+			Console.WriteLine($"Import {tableName} from CSV");
 
 			string path = BuildPaths.GetSqlitePath();
-			List<string> args = new List<string>() { BuildPaths.GetDatabasePath(), ".mode csv", $".import {BuildPaths.GetFo76EditOutputPath()}{table.Name}.csv {table.Name}" };
+			List<string> args = new List<string>() { BuildPaths.GetDatabasePath(), ".mode csv", $".import {BuildPaths.GetFo76EditOutputPath()}{tableName}.csv {tableName}" };
 
 			Process process = Process.Start(path, args);
 			process.WaitForExit();
-		}
-
-		static void CreateTable(SQLiteTable table)
-		{
-			SimpleQuery($"CREATE TABLE {table.Name}({string.Join(", ", table.Fields.Select(f => f.Name + " " + f.Type))});");
-		}
-
-		static void UnescapeCharacters(SQLiteTable table)
-		{
-			// Loop over the fields and replace escaped characters
-			foreach (SQLiteColumn field in table.Fields)
-			{
-				// We should only find escaped chars in text fields
-				if (field.Type != SQLiteType.TEXT)
-				{
-					continue;
-				}
-
-				TransformColumn(UnescapeCharacters, table.Name, field.Name);
-			}
 		}
 
 		// Loops a table and amends a column according to the value of the other (or same) column, when passed to the method
