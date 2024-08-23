@@ -1,19 +1,27 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace MappalachiaLibrary
+namespace Preprocessor
 {
 	// For multiple reasons, a small subset of data is hardcoded.
 	// Naturally hardcoding things comes with risks and may require review after each patch. For that reason all hardcoded items are kept together here.
 	// Hardcoding may be done for the following reasons: Datamining is not realistic, or a route is not known. Or the data is apparently server-side.
 	// Notably Map Markers are the main offender of this
-	public static class Hardcodings
+	internal partial class Preprocessor
 	{
 		static string BloodEagleMarker { get; } = "BloodEagleMarker";
 		static string CultistMarker { get; } = "CultistMarker";
 		static string WorkshopMarker { get; } = "PublicWorkshopMarker";
 		static string FissureSiteLabel { get; } = "Fissure Site";
 
-		static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
+		public static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
+		public static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
+		public static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
+		public static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
+		public static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
+		public static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
+		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
+
+		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Animal Cave", "Hopewell Cave" },
 			{ "Bleeding Kate's Grinder", "Bleeding Kate's Grindhouse" },
@@ -52,7 +60,7 @@ namespace MappalachiaLibrary
 			{ "Shining Creek Caverns", "Shining Creek Cavern" },
 		};
 
-		static Dictionary<string, string> MarkerIconCorrection { get; } = new Dictionary<string, string>()
+		public static Dictionary<string, string> MarkerIconCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Abandoned Bog Town", WorkshopMarker },
 			{ "Ammo Dump", BloodEagleMarker },
@@ -117,7 +125,7 @@ namespace MappalachiaLibrary
 			{ "Widow's Perch", BloodEagleMarker },
 		};
 
-		static List<string> MapMarkersToRemove { get; } = new List<string>()
+		public static List<string> MapMarkersToRemove { get; } = new List<string>()
 		{
 			"Fissure Site Delta",
 			"Fissure Site Theta",
@@ -125,25 +133,11 @@ namespace MappalachiaLibrary
 			"Fissure Site Tau",
 		};
 
-		// Remove these markers which are not present in-game
-		public static string RemoveMarkersQuery { get; } = $"DELETE FROM MapMarker WHERE label IN ({string.Join(",", MapMarkersToRemove.Select(m => "\'" + m + "\'"))});";
-
 		// Monongah Workshop (0x003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it
 		public static string AddMissingMarkersQuery { get; } = $"INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', '{WorkshopMarker}');";
 
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
 		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
-
-		// Returns the corrected label for the given map marker label
-		public static string? CorrectLabelsByDict(string label)
-		{
-			if (MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
-			{
-				return correctedLabel;
-			}
-
-			return label;
-		}
 
 		// Fix fissure site naming - Rename Zeta to Prime, drop latin names from all others
 		public static string CorrectFissureLabels(string label)
@@ -162,61 +156,19 @@ namespace MappalachiaLibrary
 			return label.Replace("Fast Travel Point: ", string.Empty).Replace("Hornwright Air Cleanser Site", "Hornwright Air Purifier Site");
 		}
 
-		// Returns the correct icon for the given map marker label
-		public static string? CorrectMarkerIcons(string label)
+		public static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
 		{
-			if (MarkerIconCorrection.TryGetValue(label, out string? correctedIcon))
-			{
-				return correctedIcon;
-			}
-
-			// Icon does not need correcting
-			return null;
-		}
-
-		static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
-		{
-			//{ "CaveCricket", "Cave Cricket" },
-			//{ "FogCrawler", "Fog Crawler" },
-			//{ "GraftonMonster", "Grafton Monster" },
-			//{ "HoneyBeast", "Honey Beast" },
 			{ "Megasloth", "Mega Sloth" },
-			//{ "MoleMiner", "Mole Miner" },
 			{ "Molerat", "Mole Rat" },
-			{ "Mutations", "Snallygaster" },
-			//{ "RadAnt", "Rad Ant" },
-			{ "RadFrog", "Frog" },
-			{ "RadStag", "Radstag" },
-			{ "RadTurkey", "Thrasher" },
+			{ "Mutation", "Snallygaster" },
+			{ "Rad Frog", "Frog" },
+			{ "Rad Stag", "Radstag" },
+			{ "Rad Turkey", "Thrasher" },
 			{ "Rat", "Rad Rat" },
-			{ "Scorpions", "Rad Scorpion" },
-			//{ "SuperMutant", "Super Mutant" },
+			{ "Scorpion", "Rad Scorpion" },
 			{ "Swamp", "Gulper" },
 			{ "Toad", "Rad Toad" },
-			//{ "ViciousDog", "Vicious Dog" },
-			//{ "YaoGuai", "Yao Guai" },
 		};
-
-		static Regex NPCNameFilterRegex { get; } = new Regex("(ESSChance(Sub|Main|Critter(A|B)))?(.*)s?(LARGE|GIANTONLY)?");
-		static Regex NPCNameSpaceRegex { get; } = new Regex("([a-z])([A-Z])");
-
-		// Attempts to extract the "proper" NPC name from the ESSChance property of a LCTN
-		static string CaptureNPCName(string data)
-		{
-			// Filter out the excess wording
-			data = NPCNameFilterRegex.Match(data).Groups[2].Value;
-
-			// Refer to the replacement dictionary
-			if (NPCNameCorrection.TryGetValue(data, out string? correction))
-			{
-				data = correction;
-			}
-
-			// Add spaces between capital chars which directly follow lower-case
-			data = NPCNameSpaceRegex.Replace(data, "$0 $1");
-
-			return data;
-		}
 
 		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they appear to be inaccessible.
 		public static string DiscardCellsQuery { get; } =

@@ -5,14 +5,9 @@ using Microsoft.Data.Sqlite;
 
 namespace Preprocessor
 {
-	internal class Preprocessor
+	internal partial class Preprocessor
 	{
 		static readonly SqliteConnection Connection = GetConnection();
-		static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
-		static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
-		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
-		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
-		static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
 
 		// TODO do coords need to be REAL or can we get away with INTEGER?
 		static string CoordinateType { get; } = "REAL";
@@ -51,13 +46,13 @@ namespace Preprocessor
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
-			SimpleQuery(Hardcodings.RemoveMarkersQuery);
-			SimpleQuery(Hardcodings.AddMissingMarkersQuery);
-			SimpleQuery(Hardcodings.CorrectDuplicateMarkersQuery);
-			TransformColumn(Hardcodings.CorrectLabelsByDict, "MapMarker", "label");
-			TransformColumn(Hardcodings.CorrectFissureLabels, "MapMarker", "label");
-			TransformColumn(Hardcodings.CorrectCommonBadLabels, "MapMarker", "label");
-			TransformColumn(Hardcodings.CorrectMarkerIcons, "MapMarker", "label", "icon");
+			SimpleQuery($"DELETE FROM MapMarker WHERE label IN ({string.Join(",", MapMarkersToRemove.Select(m => "\'" + m + "\'"))});");
+			SimpleQuery(AddMissingMarkersQuery);
+			SimpleQuery(CorrectDuplicateMarkersQuery);
+			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
+			TransformColumn(CorrectFissureLabels, "MapMarker", "label");
+			TransformColumn(CorrectCommonBadLabels, "MapMarker", "label");
+			TransformColumn(CorrectMarkerIcons, "MapMarker", "label", "icon");
 			AddForeignKey("MapMarker", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Remove map marker remnants from Position table
@@ -106,12 +101,12 @@ namespace Preprocessor
 
 			// Discard spaces which are not accessible, and output a list of those
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
-			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {Hardcodings.DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
 			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
 
-			// Remove entries which are not referenced by other relevant tables
+			// Remove entries which are not referenced by other relevant tables (Orphaned records)
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
@@ -129,6 +124,13 @@ namespace Preprocessor
 			SimpleQuery($"DROP TABLE Component");
 
 			// TODO NPCs
+			SimpleQuery($"CREATE TABLE NPC(name TEXT, spaceFormID INTEGER REFERENCES Space(spaceFormID), x {CoordinateType}, y {CoordinateType}, spawnChance REAL);");
+			SimpleQuery("ALTER TABLE Location ADD COLUMN npcName TEXT;");
+			SimpleQuery("ALTER TABLE Location ADD COLUMN npcClass TEXT;");
+			TransformColumn(GetNPCName, "Location", "property", "npcName");
+			TransformColumn(GetNPCClass, "Location", "property", "npcClass");
+			SimpleQuery("ALTER TABLE Location DROP COLUMN property;");
+			SimpleQuery("DELETE FROM Location WHERE npcName = '' OR npcClass = '';");
 
 			// Finally unescape chars from columns which we've not touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
@@ -366,6 +368,67 @@ namespace Preprocessor
 		static string GetComponentQuantity(string component, string quantity)
 		{
 			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, GetConnection()).First();
+		}
+
+		static string GetNPCName(string value)
+		{
+			// Doesn't look like we need to do anything
+			if (!NPCRegex.IsMatch(value))
+			{
+				return string.Empty;
+			}
+
+			// Extract only the part containing the NPC name
+			string name = NPCRegex.Match(value).Groups[2].Value;
+
+			// Add a space if it looks like it needs it
+			if (TitleCaseAddSpaceRegex.IsMatch(name))
+			{
+				GroupCollection matchesForSpace = TitleCaseAddSpaceRegex.Match(name).Groups;
+				name = matchesForSpace[1].Value + " " + matchesForSpace[2].Value;
+			}
+
+			// Refer to the hardcodings replacement dictionary
+			if (NPCNameCorrection.TryGetValue(name, out string? correction))
+			{
+				name = correction;
+			}
+
+			return name;
+		}
+
+		static string GetNPCClass(string value)
+		{
+			// Doesn't look like we need to do anything
+			if (!NPCRegex.IsMatch(value))
+			{
+				return string.Empty;
+			}
+
+			return NPCRegex.Match(value).Groups[1].Value;
+		}
+
+		// Returns the correct icon for the given map marker label
+		public static string? CorrectMarkerIcons(string label)
+		{
+			if (MarkerIconCorrection.TryGetValue(label, out string? correctedIcon))
+			{
+				return correctedIcon;
+			}
+
+			// Icon does not need correcting
+			return null;
+		}
+
+		// Returns the corrected label for the given map marker label
+		public static string? CorrectLabelsByDict(string label)
+		{
+			if (MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
+			{
+				return correctedLabel;
+			}
+
+			return label;
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input
