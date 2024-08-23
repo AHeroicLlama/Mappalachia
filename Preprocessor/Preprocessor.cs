@@ -1,4 +1,3 @@
-using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using MappalachiaLibrary;
@@ -50,8 +49,7 @@ namespace Preprocessor
 			ImportTableFromCSV("Component");
 
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
-			SimpleQuery($"CREATE TABLE MapMarker (spaceFormID INTEGER REFERENCES Space(spaceFormID), x {CoordinateType}, y {CoordinateType}, label TEXT, icon TEXT);");
-			SimpleQuery("INSERT INTO MapMarker (spaceFormID, x, y, label, icon) SELECT spaceFormID, x, y, referenceFormID, mapMarkerName FROM Position WHERE mapMarkerName != '';");
+			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
 			SimpleQuery(Hardcodings.RemoveMarkersQuery);
 			SimpleQuery(Hardcodings.AddMissingMarkersQuery);
@@ -60,6 +58,7 @@ namespace Preprocessor
 			TransformColumn(Hardcodings.CorrectFissureLabels, "MapMarker", "label");
 			TransformColumn(Hardcodings.CorrectCommonBadLabels, "MapMarker", "label");
 			TransformColumn(Hardcodings.CorrectMarkerIcons, "MapMarker", "label", "icon");
+			AddForeignKey("MapMarker", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Remove map marker remnants from Position table
 			SimpleQuery("DELETE FROM Position WHERE mapMarkerName != '';");
@@ -71,6 +70,7 @@ namespace Preprocessor
 			// Capture and convert to int the referenceFormID
 			TransformColumn(CaptureFormID, "Position", "referenceFormID");
 			ChangeColumnType("Position", "referenceFormID", "INTEGER");
+			AddForeignKey("Position", "referenceFormID", "INTEGER", "Entity", "entityFormID");
 
 			// Capture and convert to int the locationFormID
 			TransformColumn(CaptureFormID, "Position", "locationFormID");
@@ -79,7 +79,7 @@ namespace Preprocessor
 			// Capture and convert to int the spaceFormID
 			TransformColumn(CaptureFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
-			//TODO doing this loses the foreign key
+			AddForeignKey("Region", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Transform the coordinate data to int
 			if (CoordinateType == "INTEGER")
@@ -184,6 +184,19 @@ namespace Preprocessor
             Console.WriteLine($"Change type: {table}.{column} -> {type}");
 
 			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {type};", true); // Create a temp column with the new type
+			SimpleQuery($"UPDATE {table} SET {tempColumn} = {column};", true); // Copy the source column into the temp
+			SimpleQuery($"ALTER TABLE {table} DROP COLUMN {column};", true); // Drop the original
+			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
+		}
+
+		// Adds a foreign key to a column which already exists
+		static void AddForeignKey(string table, string column, string columnType, string foreignTable, string foreignColumn)
+		{
+			string tempColumn = "temp";
+
+			Console.WriteLine($"Re-add foreign key: {table}.{column}:{foreignTable}.{foreignColumn}");
+
+			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {columnType} REFERENCES {foreignTable}({foreignColumn});", true); // Create a temp column with the new type
 			SimpleQuery($"UPDATE {table} SET {tempColumn} = {column};", true); // Copy the source column into the temp
 			SimpleQuery($"ALTER TABLE {table} DROP COLUMN {column};", true); // Drop the original
 			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
