@@ -123,7 +123,6 @@ namespace Preprocessor
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
 			SimpleQuery($"DROP TABLE Component");
 
-			// TODO NPCs
 			SimpleQuery($"CREATE TABLE NPC(name TEXT, spaceFormID INTEGER REFERENCES Space(spaceFormID), x {CoordinateType}, y {CoordinateType}, spawnChance REAL);");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcName TEXT;");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcClass TEXT;");
@@ -131,6 +130,15 @@ namespace Preprocessor
 			TransformColumn(GetNPCClass, "Location", "property", "npcClass");
 			SimpleQuery("ALTER TABLE Location DROP COLUMN property;");
 			SimpleQuery("DELETE FROM Location WHERE npcName = '' OR npcClass = '';");
+			SimpleQuery("ALTER TABLE Location ADD COLUMN sumWeight INTEGER;");
+			TransformColumn(GetSumNPCSpawnWeight, "Location", "locationFormID", "npcClass", "sumWeight");
+			SimpleQuery("ALTER TABLE Location ADD COLUMN spawnWeight REAL;");
+			TransformColumn(delegate (string value, string sum) { return (int.Parse(value) / (double)int.Parse(sum)).ToString(); }, "Location", "value", "sumWeight", "spawnWeight"); // Set the value of 'spawnWeight' with value/sum.
+			SimpleQuery("ALTER TABLE Location DROP COLUMN sumWeight;");
+			SimpleQuery("ALTER TABLE Location DROP COLUMN value;");
+
+			//TODO NPCS
+			//TODO delete where weight/chance 0
 
 			// Finally unescape chars from columns which we've not touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
@@ -198,7 +206,7 @@ namespace Preprocessor
 
 			Console.WriteLine($"Re-add foreign key: {table}.{column}:{foreignTable}.{foreignColumn}");
 
-			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {columnType} REFERENCES {foreignTable}({foreignColumn});", true); // Create a temp column with the new type
+			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {columnType} REFERENCES {foreignTable}({foreignColumn});", true); // Create a temp column with the foreign key
 			SimpleQuery($"UPDATE {table} SET {tempColumn} = {column};", true); // Copy the source column into the temp
 			SimpleQuery($"ALTER TABLE {table} DROP COLUMN {column};", true); // Drop the original
 			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
@@ -368,6 +376,12 @@ namespace Preprocessor
 		static string GetComponentQuantity(string component, string quantity)
 		{
 			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, GetConnection()).First();
+		}
+
+		// Returns the total spawn weight of spawn pool for the class at the location
+		static string GetSumNPCSpawnWeight(string locationFormID, string npcClass)
+		{
+			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, GetConnection()).First();
 		}
 
 		static string GetNPCName(string value)
