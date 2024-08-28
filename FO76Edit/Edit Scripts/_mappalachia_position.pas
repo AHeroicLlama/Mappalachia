@@ -130,6 +130,7 @@ unit _mappalachia_position;
 	var
 		primitiveEntry, boundsEntry, location : IInterface;
 		primitiveShape, rotZ : String;
+		i : Integer;
 	begin
 		if(Assigned(displayName) and Assigned(position)) then begin // Skip records missing key data
 			primitiveEntry := ElementBySignature(item, 'XPRM');
@@ -138,8 +139,12 @@ unit _mappalachia_position;
 			location := ElementBySignature(item, 'XLCN');
 
 			// If this XLCN is not assigned then we instead grab the first reference
-			if (not assigned(location) and ReferencedByCount(item) > 0) then begin
-				location := ReferencedByIndex(item, 0);
+			if (not assigned(location)) then begin
+				for i := 0 to ReferencedByCount(item) - 1 do begin
+					if(pos('LCTN', Name(ReferencedByIndex(item, i))) <> 0) then begin
+						location := ReferencedByIndex(item, i);
+					end;
+				end;
 			end;
 
 			// We only need the Z Rotation for primitive shapes
