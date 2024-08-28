@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 ==Checksum== 
-440de0ca9a95bc4b1979cdde3e6447e2
+ce157d4c4b2aae63e000b1618578aa53
 ==File Size== 
 480878592 
 ==Tables== 
@@ -20719,38 +20719,38 @@ AlleghenyAsylum01|Ghoul|100.0|25
 AlleghenyAsylum01|Rad Ant|25.0|12
 AlleghenyAsylum01|Rad Rat|25.0|12
 Appalachia|Angler|13.86|165
-Appalachia|Bloatfly|19.75|174
+Appalachia|Bloatfly|19.75|175
 Appalachia|Bloodbug|28.58|150
-Appalachia|Cave Cricket|11.54|268
-Appalachia|Deathclaw|10.88|156
+Appalachia|Cave Cricket|11.58|269
+Appalachia|Deathclaw|10.86|157
 Appalachia|Fog Crawler|10.2|83
-Appalachia|Ghoul|43.35|1486
+Appalachia|Ghoul|43.24|1495
 Appalachia|Grafton Monster|12.5|5
 Appalachia|Gulper|13.95|229
 Appalachia|Honey Beast|15.51|21
-Appalachia|Insect|18.51|468
-Appalachia|Liberator|14.51|726
+Appalachia|Insect|18.49|469
+Appalachia|Liberator|14.51|734
 Appalachia|Lost|23.36|93
 Appalachia|Mega Sloth|11.6|87
 Appalachia|Mirelurk|25.59|313
 Appalachia|Mole Miner|52.6|250
-Appalachia|Mole Rat|16.37|990
+Appalachia|Mole Rat|16.36|999
 Appalachia|Rad Ant|23.88|115
-Appalachia|Rad Rat|11.9|637
-Appalachia|Rad Scorpion|12.25|169
+Appalachia|Rad Rat|11.91|639
+Appalachia|Rad Scorpion|12.22|170
 Appalachia|Rad Toad|25.71|121
 Appalachia|Radroach|18.51|41
-Appalachia|Robot|32.43|582
-Appalachia|Scorched|45.72|1489
+Appalachia|Robot|32.24|589
+Appalachia|Scorched|45.55|1497
 Appalachia|Snallygaster|67.03|26
 Appalachia|Stingwing|14.11|85
-Appalachia|Super Mutant|37.01|1150
+Appalachia|Super Mutant|36.95|1153
 Appalachia|Thrasher|19.88|60
 Appalachia|Tick|23.19|65
-Appalachia|Vicious Dog|14.72|867
-Appalachia|Wolf|19.53|437
-Appalachia|Yao Guai|9.62|227
-ArktosPharmaLab01|Ghoul|100.0|25
+Appalachia|Vicious Dog|14.72|875
+Appalachia|Wolf|19.51|439
+Appalachia|Yao Guai|9.61|228
+ArktosPharmaLab01|Ghoul|100.0|26
 BelchingBetty01|Scorched|100.0|22
 BlackwaterMine01|Mole Miner|100.0|18
 BlackwaterMine01|Mole Rat|33.33|3
@@ -20760,7 +20760,7 @@ BurningMine01|Mole Miner|100.0|13
 BurningMine01|Mole Rat|33.33|11
 BurningMine01|Rad Rat|33.33|11
 BurningMine01|Vicious Dog|33.33|11
-Burrows01|Ghoul|100.0|79
+Burrows01|Ghoul|100.0|81
 Burrows01|Robot|100.0|5
 CharlestonCapitolBuilding02|Ghoul|100.0|38
 CultistCave01|Cave Cricket|25.0|6
@@ -20798,7 +20798,7 @@ PoseidonPlant01|Ghoul|100.0|6
 PoseidonPlant01|Scorched|100.0|55
 RadioResearchCenter01|Scorched|100.0|15
 RiversideManor01|Scorched|100.0|14
-RobCoResearchCenter01|Robot|100.0|7
+RobCoResearchCenter01|Robot|100.0|9
 RobcoExperimentalCache01|Scorched|100.0|2
 SpruceKnobMissileSilo01|Robot|100.0|276
 SugarGrove01|Mole Rat|33.33|5
@@ -20824,6 +20824,7 @@ WatogaHighSchool01|Rad Ant|25.0|6
 WatogaHighSchool01|Rad Rat|25.0|6
 WatogaHighSchool01|Robot|100.0|20
 WatogaMunicipalCenter01|Scorched|100.0|9
+WatogaUnderground01|Robot|100.0|2
 WendigoCave01|Ghoul|100.0|10
 WendigoCave01|Mirelurk|100.0|14
 WestTek01|Super Mutant|100.0|41
