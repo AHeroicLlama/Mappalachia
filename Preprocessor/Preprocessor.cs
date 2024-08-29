@@ -30,7 +30,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);");
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x {CoordinateType}, y {CoordinateType}, z {CoordinateType}, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX {CoordinateType}, boundY {CoordinateType}, boundZ {CoordinateType}, rotZ REAL, mapMarkerName TEXT, shortName TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
-			SimpleQuery($"CREATE TABLE Location(locationFormID TEXT, property TEXT, value INTEGER);");
+			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, property TEXT, value INTEGER);");
 			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x {CoordinateType}, y {CoordinateType});");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
@@ -70,6 +70,7 @@ namespace Preprocessor
 			// Capture and convert to int the locationFormID
 			TransformColumn(CaptureFormID, "Position", "locationFormID");
 			ChangeColumnType("Position", "locationFormID", "INTEGER");
+			AddForeignKey("Position", "locationFormID", "INTEGER", "Location", "locationFormID");
 
 			// Capture and convert to int the spaceFormID
 			TransformColumn(CaptureFormID, "Region", "spaceFormID");
@@ -123,7 +124,6 @@ namespace Preprocessor
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
 			SimpleQuery($"DROP TABLE Component");
 
-			SimpleQuery($"CREATE TABLE NPC(name TEXT, spaceFormID INTEGER REFERENCES Space(spaceFormID), x {CoordinateType}, y {CoordinateType}, spawnChance REAL);");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcName TEXT;");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcClass TEXT;");
 			TransformColumn(GetNPCName, "Location", "property", "npcName");
@@ -136,12 +136,16 @@ namespace Preprocessor
 			TransformColumn(delegate (string value, string sum) { return (int.Parse(value) / (double)int.Parse(sum)).ToString(); }, "Location", "value", "sumWeight", "spawnWeight"); // Set the value of 'spawnWeight' with value/sum.
 			SimpleQuery("ALTER TABLE Location DROP COLUMN sumWeight;");
 			SimpleQuery("ALTER TABLE Location DROP COLUMN value;");
-
-			//TODO NPCS
-			//TODO delete where weight/chance 0
+			SimpleQuery("DELETE FROM Location WHERE spawnWeight = 0;");
 
 			// Finally unescape chars from columns which we've not touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
+
+			SimpleQuery("CREATE INDEX indexSignature ON Entity(signature);");
+			SimpleQuery("CREATE INDEX indexNpcClass ON Location(npcClass);");
+			SimpleQuery("CREATE INDEX indexReferenceFormID ON Position(referenceFormID);");
+			SimpleQuery("CREATE INDEX indexLocation ON Position(locationFormID);");
+			SimpleQuery("CREATE INDEX indexComponent ON Scrap(component);");
 
 			// TODO Data validation - positive and negative checks for invalid or bad data
 
