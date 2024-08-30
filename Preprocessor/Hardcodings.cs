@@ -8,9 +8,6 @@ namespace Preprocessor
 	// Notably Map Markers are the main offender of this
 	internal partial class Preprocessor
 	{
-		static string BloodEagleMarker { get; } = "BloodEagleMarker";
-		static string CultistMarker { get; } = "CultistMarker";
-		static string WorkshopMarker { get; } = "PublicWorkshopMarker";
 		static string FissureSiteLabel { get; } = "Fissure Site";
 
 		public static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
@@ -20,6 +17,11 @@ namespace Preprocessor
 		public static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
 		public static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
 		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
+
+		public static Dictionary<string, string> ComponentQuantityReplacement { get; } = new Dictionary<string, string>()
+		{
+			{ "%Singular%", "Singular" },
+		};
 
 		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
@@ -60,71 +62,6 @@ namespace Preprocessor
 			{ "Shining Creek Caverns", "Shining Creek Cavern" },
 		};
 
-		public static Dictionary<string, string> MarkerIconCorrection { get; } = new Dictionary<string, string>()
-		{
-			{ "Abandoned Bog Town", WorkshopMarker },
-			{ "Ammo Dump", BloodEagleMarker },
-			{ "Beckley Mine Exhibit", WorkshopMarker },
-			{ "Berkeley Springs West", WorkshopMarker },
-			{ "Billings Homestead", WorkshopMarker },
-			{ "Blakes Offering", CultistMarker },
-			{ "Bloody Frank's", BloodEagleMarker },
-			{ "Charleston Landfill", WorkshopMarker },
-			{ "Clancy Manor", CultistMarker },
-			{ "Cliffwatch", BloodEagleMarker },
-			{ "Converted Munitions Factory", WorkshopMarker },
-			{ "Crimson Prospect", BloodEagleMarker },
-			{ "Dabney Homestead", WorkshopMarker },
-			{ "Dagger's Den", BloodEagleMarker },
-			{ "Dolly Sods Campground", WorkshopMarker },
-			{ "Federal Disposal Field HZ-21", WorkshopMarker },
-			{ "Forward Station Alpha", "BoSMarker" },
-			{ "Forward Station Delta", "BoSMarker" },
-			{ "Forward Station Tango", "BoSMarker" },
-			{ "Foundation", "HammerWingMarker" },
-			{ "Gorge Junkyard", WorkshopMarker },
-			{ "Grafton Steel Yard", WorkshopMarker },
-			{ "Hemlock Holes Maintenance", WorkshopMarker },
-			{ "Hunter's Ridge", BloodEagleMarker },
-			{ "Ingram Mansion", CultistMarker },
-			{ "Johnson's Acre", CultistMarker },
-			{ "Kanawha County Cemetery", CultistMarker },
-			{ "Lakeside Cabins", WorkshopMarker },
-			{ "Lucky Hole Mine", CultistMarker },
-			{ "Monongah Power Plant Yard", WorkshopMarker },
-			{ "Moth-Home", CultistMarker },
-			{ "Mount Blair", WorkshopMarker },
-			{ "Ohio River Adventures", "SkullRingMarker" },
-			{ "Organ Cave North", CultistMarker },
-			{ "Organ Cave South", CultistMarker },
-			{ "Organ Cave West", CultistMarker },
-			{ "Poseidon Energy Plant Yard", WorkshopMarker },
-			{ "Red Rocket Mega Stop", WorkshopMarker },
-			{ "Ripper Alley", BloodEagleMarker },
-			{ "Rollins Labor Camp", BloodEagleMarker },
-			{ "Sacrament", CultistMarker },
-			{ "Seneca Gang Camp", BloodEagleMarker },
-			{ "Skullbone Vantage", BloodEagleMarker },
-			{ "South Cutthroat Camp", BloodEagleMarker },
-			{ "Sunshine Meadows Industrial Farm", WorkshopMarker },
-			{ "The Bounty", BloodEagleMarker },
-			{ "The Coop", "SkullRingMarker" },
-			{ "The Crater", "SkullRingMarker" },
-			{ "The Crosshair", BloodEagleMarker },
-			{ "The Kill Box", BloodEagleMarker },
-			{ "The Pigsty", BloodEagleMarker },
-			{ "The Rusty Pick", "LegendaryPurveyorMarker" },
-			{ "The Sludge Works", BloodEagleMarker },
-			{ "The Vantage", BloodEagleMarker },
-			{ "Thunder Mt. Power Plant Yard", WorkshopMarker },
-			{ "Twin Pine Cabins", BloodEagleMarker },
-			{ "Tyler County Dirt Track", WorkshopMarker },
-			{ "Vault 51", "Vault51Marker" },
-			{ "Vault 79", "Vault79Marker" },
-			{ "Wade Airport", WorkshopMarker },
-			{ "Widow's Perch", BloodEagleMarker },
-		};
-
 		public static List<string> MapMarkersToRemove { get; } = new List<string>()
 		{
 			"Fissure Site Delta",
@@ -134,12 +71,100 @@ namespace Preprocessor
 		};
 
 		// Monongah Workshop (0x003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it
-		public static string AddMissingMarkersQuery { get; } = $"INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', '{WorkshopMarker}');";
+		public static string AddMissingMarkersQuery { get; } = "INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', 'PublicWorkshopMarker');";
 
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
 		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
 
-		// Fix fissure site naming - Rename Zeta to Prime, drop latin names from all others
+		public static string? GetCorrectedMarkerIcon(string markerName)
+		{
+			switch (markerName)
+			{
+				case "Ammo Dump":
+				case "Bloody Frank's":
+				case "Cliffwatch":
+				case "Crimson Prospect":
+				case "Dagger's Den":
+				case "Hunter's Ridge":
+				case "Ripper Alley":
+				case "Rollins Labor Camp":
+				case "Seneca Gang Camp":
+				case "Skullbone Vantage":
+				case "South Cutthroat Camp":
+				case "The Bounty":
+				case "The Crosshair":
+				case "The Kill Box":
+				case "The Pigsty":
+				case "The Sludge Works":
+				case "The Vantage":
+				case "Twin Pine Cabins":
+				case "Widow's Perch":
+					return "BloodEagleMarker";
+
+				case "Forward Station Alpha":
+				case "Forward Station Delta":
+				case "Forward Station Tango":
+					return "BoSMarker";
+
+				case "Blakes Offering":
+				case "Clancy Manor":
+				case "Ingram Mansion":
+				case "Johnson's Acre":
+				case "Kanawha County Cemetery":
+				case "Lucky Hole Mine":
+				case "Moth-Home":
+				case "Organ Cave North":
+				case "Organ Cave South":
+				case "Organ Cave West":
+				case "Sacrament":
+					return "CultistMarker";
+
+				case "Foundation":
+					return "HammerWingMarker";
+
+				case "The Rusty Pick":
+					return "LegendaryPurveyorMarker";
+
+				case "Ohio River Adventures":
+				case "The Coop":
+				case "The Crater":
+					return "SkullRingMarker";
+
+				case "Vault 51":
+					return "Vault51Marker";
+
+				case "Vault 79":
+					return "Vault79Marker";
+
+				case "Abandoned Bog Town":
+				case "Beckley Mine Exhibit":
+				case "Berkeley Springs West":
+				case "Billings Homestead":
+				case "Charleston Landfill":
+				case "Converted Munitions Factory":
+				case "Dabney Homestead":
+				case "Dolly Sods Campground":
+				case "Federal Disposal Field HZ-21":
+				case "Gorge Junkyard":
+				case "Grafton Steel Yard":
+				case "Hemlock Holes Maintenance":
+				case "Lakeside Cabins":
+				case "Monongah Power Plant Yard":
+				case "Mount Blair":
+				case "Poseidon Energy Plant Yard":
+				case "Red Rocket Mega Stop":
+				case "Sunshine Meadows Industrial Farm":
+				case "Thunder Mt. Power Plant Yard":
+				case "Tyler County Dirt Track":
+				case "Wade Airport":
+					return "PublicWorkshopMarker";
+
+				default:
+					return null;
+			}
+		}
+
+		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others
 		public static string CorrectFissureLabels(string label)
 		{
 			if (label.StartsWith(FissureSiteLabel))
@@ -170,7 +195,7 @@ namespace Preprocessor
 			{ "Toad", "Rad Toad" },
 		};
 
-		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they appear to be inaccessible.
+		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they are understood to be cut or otherwise inaccessible.
 		public static string DiscardCellsQuery { get; } =
 			"spaceDisplayName = '' OR " +
 			"spaceDisplayName LIKE '%Test%World%' OR " +

@@ -20,9 +20,9 @@ namespace Preprocessor
 			Console.WriteLine($"Building Mappalachia database at {BuildPaths.GetDatabasePath()}\n");
 
 			Cleanup();
-
 			SimpleQuery("PRAGMA foreign_keys = 0");
 
+			// Create the Meta table, add the game version to it
 			SimpleQuery("CREATE TABLE Meta (key TEXT PRIMARY KEY, value TEXT);");
 			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{GetValidatedGameVersion()}');");
 
@@ -35,6 +35,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 
+			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
 			ImportTableFromCSV("Position");
 			ImportTableFromCSV("Space");
@@ -52,7 +53,7 @@ namespace Preprocessor
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
 			TransformColumn(CorrectFissureLabels, "MapMarker", "label");
 			TransformColumn(CorrectCommonBadLabels, "MapMarker", "label");
-			TransformColumn(CorrectMarkerIcons, "MapMarker", "label", "icon");
+			TransformColumn(GetCorrectedMarkerIcon, "MapMarker", "label", "icon");
 			AddForeignKey("MapMarker", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Remove map marker remnants from Position table
@@ -62,17 +63,17 @@ namespace Preprocessor
 			// Remove some junk data from Position
 			SimpleQuery("DELETE FROM Position WHERE shortName LIKE '%CELL:%';");
 
-			// Capture and convert to int the referenceFormID
+			// Capture and convert to int the referenceFormID on Position
 			TransformColumn(CaptureFormID, "Position", "referenceFormID");
 			ChangeColumnType("Position", "referenceFormID", "INTEGER");
 			AddForeignKey("Position", "referenceFormID", "INTEGER", "Entity", "entityFormID");
 
-			// Capture and convert to int the locationFormID
+			// Capture and convert to int the locationFormID on Position
 			TransformColumn(CaptureFormID, "Position", "locationFormID");
 			ChangeColumnType("Position", "locationFormID", "INTEGER");
 			AddForeignKey("Position", "locationFormID", "INTEGER", "Location", "locationFormID");
 
-			// Capture and convert to int the spaceFormID
+			// Capture and convert to int the spaceFormID on Region
 			TransformColumn(CaptureFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 			AddForeignKey("Region", "spaceFormID", "INTEGER", "Space", "spaceFormID");
@@ -107,7 +108,7 @@ namespace Preprocessor
 			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
 			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
 
-			// Remove entries which are not referenced by other relevant tables (Orphaned records)
+			// Remove entries which are not referenced by other relevant tables (orphaned records)
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
@@ -118,18 +119,25 @@ namespace Preprocessor
 			// Clean up scrap component names
 			TransformColumn(CaptureQuotedTerm, "Scrap", "componentQuantity");
 			TransformColumn(CaptureQuotedTerm, "Scrap", "component");
-			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
 
-			// Transpose the component quantity keywords to numeric values against Scrap table, then drop the Component table
+			foreach (KeyValuePair<string, string> replacement in ComponentQuantityReplacement)
+			{
+				SimpleQuery($"UPDATE Scrap SET componentQuantity = '{replacement.Value}' WHERE componentQuantity LIKE '{replacement.Key}'");
+			}
+
+			// Transform the component quantity keywords to numeric values from Scrap table, then drop the Component table
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
 			SimpleQuery($"DROP TABLE Component");
 
+			// Extract the NPC types and classes on Location from the raw 'property'
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcName TEXT;");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcClass TEXT;");
 			TransformColumn(GetNPCName, "Location", "property", "npcName");
 			TransformColumn(GetNPCClass, "Location", "property", "npcClass");
 			SimpleQuery("ALTER TABLE Location DROP COLUMN property;");
 			SimpleQuery("DELETE FROM Location WHERE npcName = '' OR npcClass = '';");
+
+			// Extract the independent NPC spawn chances, by summing the spawn pool and weights from each location
 			SimpleQuery("ALTER TABLE Location ADD COLUMN sumWeight INTEGER;");
 			TransformColumn(GetSumNPCSpawnWeight, "Location", "locationFormID", "npcClass", "sumWeight");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN spawnWeight REAL;");
@@ -138,9 +146,10 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Location DROP COLUMN value;");
 			SimpleQuery("DELETE FROM Location WHERE spawnWeight = 0;");
 
-			// Finally unescape chars from columns which we've not touched
+			// Unescape chars from columns which we've not otherwise touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
 
+			// Create indexes
 			SimpleQuery("CREATE INDEX indexSignature ON Entity(signature);");
 			SimpleQuery("CREATE INDEX indexNpcClass ON Location(npcClass);");
 			SimpleQuery("CREATE INDEX indexReferenceFormID ON Position(referenceFormID);");
@@ -150,7 +159,6 @@ namespace Preprocessor
 			// TODO Data validation - positive and negative checks for invalid or bad data
 
 			SimpleQuery("VACUUM;");
-
 			SimpleQuery("PRAGMA foreign_keys = 1");
 
 			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString("m\\m\\ s\\s")}. Press any key");
@@ -426,18 +434,6 @@ namespace Preprocessor
 			return NPCRegex.Match(value).Groups[1].Value;
 		}
 
-		// Returns the correct icon for the given map marker label
-		public static string? CorrectMarkerIcons(string label)
-		{
-			if (MarkerIconCorrection.TryGetValue(label, out string? correctedIcon))
-			{
-				return correctedIcon;
-			}
-
-			// Icon does not need correcting
-			return null;
-		}
-
 		// Returns the corrected label for the given map marker label
 		public static string? CorrectLabelsByDict(string label)
 		{
@@ -460,7 +456,7 @@ namespace Preprocessor
 				return GetGameVersionFromUser();
 			}
 
-			Console.WriteLine($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)");
+			Console.WriteLine($"\nIs \"{gameVersion}\" the correct game version?\n(Enter y/n)");
 
 			while (true)
 			{
