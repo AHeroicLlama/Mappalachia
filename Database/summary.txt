@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 ==Checksum== 
-58cd1bc6a3062c08427a9fb3065770fd
+ddbdef14779610763e5969c34021700f
 ==File Size== 
-483434496 
+483328000 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-PTS 0.2.1550.0
+1.7.14.15
 ==Mean Average X/Y/Z Coord==
--9786.05982967826|-5532.51859356338|11164.6508285279
+-9790.60433471356|-5537.19816275221|11169.8272201318
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ PTS 0.2.1550.0
 ==Z outliers==
 78
 ==Average X Bounds Width==
-22.8298165624977
+22.8394882279837
 ==Average Y Bounds Width==
-16.7728974021264
+16.7787710828193
 ==Average Z Bounds Width==
-16.5694537815896
+16.5752892462588
 ==Average Z Rotation==
-4.32938059160151
+4.33157489018321
 ==Average display name string length==
-2.81207153502235
+2.81153772439788
 ==Average editorID string length==
-25.2495635512029
+25.2493451734492
 ==Map Markers==
 APPALACHIA|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 APPALACHIA|AirfieldMarker|Crashed Plane|147706|58411
@@ -562,7 +562,7 @@ APPALACHIA|WoodShackMarker|Southhampton Estate|169981|125109
 APPALACHIA|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 APPALACHIA|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-46970
+46959
 ==Regions==
 Space|Region|subRegions|maxVerts
 APPALACHIA|76Border|1|62
@@ -799,8 +799,8 @@ AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-APPALACHIA||3185442
-APPALACHIA|Box|70263
+APPALACHIA||3185418
+APPALACHIA|Box|70302
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1801
 APPALACHIA|Plane|204
@@ -967,8 +967,8 @@ LittleRobsHideout01|Box|100
 LousMine01||6718
 LousMine01|Box|268
 LousMine01|Line|5
-MILEBlueRidgeHQ||8799
-MILEBlueRidgeHQ|Box|775
+MILEBlueRidgeHQ||6801
+MILEBlueRidgeHQ|Box|715
 MTR08LodeBaring01||3229
 MTR08LodeBaring01|Box|177
 MTR08LodeBaring01|Sphere|2
@@ -1129,7 +1129,7 @@ TheNukashine01||1465
 TheNukashine01|Box|55
 TheRoseRoom01||1505
 TheRoseRoom01|Box|37
-TheRustyPick01||2355
+TheRustyPick01||2357
 TheRustyPick01|Box|87
 TheWayward01||1659
 TheWayward01|Box|59
@@ -1141,8 +1141,8 @@ TopOfTheWorld01||4236
 TopOfTheWorld01|Box|413
 TopOfTheWorld01|Line|2
 TopOfTheWorld01|Sphere|1
-TunnelOfLoveMineshaft01||4391
-TunnelOfLoveMineshaft01|Box|117
+TunnelOfLoveMineshaft01||4392
+TunnelOfLoveMineshaft01|Box|118
 TunnelOfLoveMineshaft01|Plane|1
 UCB01||4434
 UCB01|Box|130
@@ -1300,7 +1300,7 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3259245
+APPALACHIA||3259260
 APPALACHIA|Advanced (Level 1)|338
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
@@ -1496,7 +1496,7 @@ LousMine01||6984
 LousMine01|Advanced (Level 1)|1
 LousMine01|Novice (Level 0)|3
 LousMine01|Requires Terminal|3
-MILEBlueRidgeHQ||9573
+MILEBlueRidgeHQ||7515
 MILEBlueRidgeHQ|Inaccessible|1
 MTR08LodeBaring01||3407
 MTR08LodeBaring01|Novice (Level 0)|1
@@ -1692,7 +1692,7 @@ TheNukashine01||1520
 TheRoseRoom01||1539
 TheRoseRoom01|Advanced (Level 1)|1
 TheRoseRoom01|Requires Key|2
-TheRustyPick01||2442
+TheRustyPick01||2444
 TheWayward01||1716
 TheWayward01|Expert (Level 2)|1
 TheWayward01|Requires Key|1
@@ -1704,7 +1704,7 @@ TopOfTheWorld01||4645
 TopOfTheWorld01|Advanced (Level 1)|2
 TopOfTheWorld01|Expert (Level 2)|1
 TopOfTheWorld01|Master (Level 3)|4
-TunnelOfLoveMineshaft01||4509
+TunnelOfLoveMineshaft01||4511
 UCB01||4565
 UCB01|Advanced (Level 1)|2
 UCB01|Novice (Level 0)|1
@@ -1734,11 +1734,11 @@ Vault51Dungeon|Expert (Level 2)|1
 Vault51Dungeon|Inaccessible|9
 Vault51Dungeon|Master (Level 3)|1
 Vault51Dungeon|Novice (Level 0)|1
-Vault63Organics||9029
+Vault63Organics||9028
 Vault63Organics|Advanced (Level 1)|1
 Vault63Organics|Inaccessible|2
 Vault63Organics|Novice (Level 0)|3
-Vault63Organics|Requires Key|6
+Vault63Organics|Requires Key|7
 Vault63Organics|Requires Terminal|2
 Vault79Entrance||1545
 Vault79Entrance|Expert (Level 2)|1
@@ -1939,7 +1939,7 @@ AMSHQ02|SCOL|186
 AMSHQ02|STAT|1421
 AMSHQ02|TERM|1
 AMSHQ02|TXST|46
-APPALACHIA|ACTI|23527
+APPALACHIA|ACTI|23525
 APPALACHIA|ALCH|308
 APPALACHIA|AMMO|80
 APPALACHIA|ARMO|126
@@ -1947,27 +1947,27 @@ APPALACHIA|ASPC|2378
 APPALACHIA|BNDS|10463
 APPALACHIA|BOOK|575
 APPALACHIA|CNCY|260
-APPALACHIA|CONT|13522
+APPALACHIA|CONT|13521
 APPALACHIA|DOOR|2643
-APPALACHIA|FLOR|51660
+APPALACHIA|FLOR|51659
 APPALACHIA|FURN|15678
 APPALACHIA|HAZD|1056
-APPALACHIA|IDLM|19057
+APPALACHIA|IDLM|19047
 APPALACHIA|KEYM|37
-APPALACHIA|LIGH|9117
+APPALACHIA|LIGH|9119
 APPALACHIA|LVLI|73798
 APPALACHIA|MISC|37487
 APPALACHIA|MSTT|24424
 APPALACHIA|NOTE|179
 APPALACHIA|NPC_|8207
 APPALACHIA|PROJ|93
-APPALACHIA|SCOL|365391
+APPALACHIA|SCOL|365390
 APPALACHIA|SECH|253
-APPALACHIA|SOUN|5928
-APPALACHIA|STAT|2523741
+APPALACHIA|SOUN|5931
+APPALACHIA|STAT|2523745
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
-APPALACHIA|TXST|69698
+APPALACHIA|TXST|69719
 APPALACHIA|WEAP|235
 AVRMedicalCenter01|ACTI|56
 AVRMedicalCenter01|ASPC|24
@@ -3010,25 +3010,25 @@ LousMine01|TACT|1
 LousMine01|TERM|7
 LousMine01|TXST|130
 LousMine01|WEAP|2
-MILEBlueRidgeHQ|ACTI|37
-MILEBlueRidgeHQ|ALCH|39
-MILEBlueRidgeHQ|ARMO|5
+MILEBlueRidgeHQ|ACTI|33
+MILEBlueRidgeHQ|ALCH|32
+MILEBlueRidgeHQ|ARMO|4
 MILEBlueRidgeHQ|BNDS|3
-MILEBlueRidgeHQ|BOOK|6
-MILEBlueRidgeHQ|CONT|81
-MILEBlueRidgeHQ|DOOR|8
-MILEBlueRidgeHQ|FURN|62
+MILEBlueRidgeHQ|BOOK|5
+MILEBlueRidgeHQ|CONT|75
+MILEBlueRidgeHQ|DOOR|6
+MILEBlueRidgeHQ|FURN|57
 MILEBlueRidgeHQ|IDLM|4
-MILEBlueRidgeHQ|LIGH|422
-MILEBlueRidgeHQ|LVLI|11
-MILEBlueRidgeHQ|MISC|679
-MILEBlueRidgeHQ|MSTT|258
+MILEBlueRidgeHQ|LIGH|382
+MILEBlueRidgeHQ|LVLI|7
+MILEBlueRidgeHQ|MISC|196
+MILEBlueRidgeHQ|MSTT|198
 MILEBlueRidgeHQ|NPC_|9
-MILEBlueRidgeHQ|SCOL|603
-MILEBlueRidgeHQ|SOUN|1
-MILEBlueRidgeHQ|STAT|6590
-MILEBlueRidgeHQ|TXST|737
-MILEBlueRidgeHQ|WEAP|19
+MILEBlueRidgeHQ|SCOL|484
+MILEBlueRidgeHQ|SOUN|6
+MILEBlueRidgeHQ|STAT|5325
+MILEBlueRidgeHQ|TXST|675
+MILEBlueRidgeHQ|WEAP|15
 MTR08LodeBaring01|ACTI|75
 MTR08LodeBaring01|ASPC|8
 MTR08LodeBaring01|BNDS|4
@@ -4075,12 +4075,12 @@ TheRustyPick01|ACTI|14
 TheRustyPick01|ARMO|25
 TheRustyPick01|ASPC|2
 TheRustyPick01|BNDS|22
-TheRustyPick01|CONT|20
+TheRustyPick01|CONT|21
 TheRustyPick01|DOOR|6
 TheRustyPick01|FLOR|3
 TheRustyPick01|FURN|9
 TheRustyPick01|IDLM|10
-TheRustyPick01|LIGH|70
+TheRustyPick01|LIGH|71
 TheRustyPick01|LVLI|51
 TheRustyPick01|MISC|60
 TheRustyPick01|MSTT|16
@@ -4162,7 +4162,7 @@ TunnelOfLoveMineshaft01|MISC|63
 TunnelOfLoveMineshaft01|MSTT|32
 TunnelOfLoveMineshaft01|NPC_|1
 TunnelOfLoveMineshaft01|SCOL|346
-TunnelOfLoveMineshaft01|STAT|3568
+TunnelOfLoveMineshaft01|STAT|3570
 TunnelOfLoveMineshaft01|TACT|1
 TunnelOfLoveMineshaft01|TERM|1
 TunnelOfLoveMineshaft01|TXST|62
@@ -5157,7 +5157,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3253964
+APPALACHIA||3253979
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -13139,7 +13139,7 @@ LousMine01|W05_MQR_201P_WeaselWall02SafetyMarker|1
 LousMine01|floorChunksEnableMarker|1
 LousMine01|wallPushVolumes01EnableMarker|1
 LousMine01|wallPushVolumes02EnableMarker|1
-MILEBlueRidgeHQ||9550
+MILEBlueRidgeHQ||7492
 MILEBlueRidgeHQ|MILE_CaravanIntro_JoannaExitMarker|1
 MILEBlueRidgeHQ|MILE_CaravanIntro_JoannaSpawnMarker|1
 MILEBlueRidgeHQ|MILE_HQ_CryptidHunterTheme_Antique|1
@@ -14024,8 +14024,9 @@ StormEngineeringVlt63|Storm_MQ12_V63EngineeringEntrance_LocRef|1
 StormEngineeringVlt63|Storm_MQ12_V63EngineeringMainLab_LocRef|1
 StormEngineeringVlt63|Storm_MQ12_V63EngineeringTestChamberDoorRef|1
 StormEngineeringVlt63|Storm_MQ12_V63TestChamber_LocRef|1
-StormHallucinogeniccave||3961
+StormHallucinogeniccave||3960
 StormHallucinogeniccave|HallucGasActivator|1
+StormHallucinogeniccave|OrganicsPipeDoor|1
 StormHallucinogeniccave|StormHallucinogenicCaveDoor|1
 StormHallucinogeniccave|Storm_MQ08_CaveShroom_Spawn|1
 StormHallucinogeniccave|Storm_MQ08_CaveShroom_Spawn01|1
@@ -14358,7 +14359,7 @@ TheRoseRoom01|AC_MQ_VinRef|1
 TheRoseRoom01|AC_MQ_VinToAbbieMarker|1
 TheRoseRoom01|TheRoseRoom01_Interior_DirectTravelPoint|1
 TheRoseRoom01|TheRoseRoom_Interior_DirectTravelPoint|1
-TheRustyPick01||2428
+TheRustyPick01||2430
 TheRustyPick01|LC149_MoleMiner_Idle_01|1
 TheRustyPick01|LC149_MoleMiner_Idle_02|1
 TheRustyPick01|LC149_MoleMiner_Idle_04|1
@@ -14506,7 +14507,7 @@ TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_07|1
 TopOfTheWorld01|W05_MQ_101P_A_supermutant_trigger_backcorridor_08|1
 TopOfTheWorld01|W05_MQ_101P_MegRef|1
 TopOfTheWorld01|W05_MQ_101P_RaiderBRef|1
-TunnelOfLoveMineshaft01||4470
+TunnelOfLoveMineshaft01||4472
 TunnelOfLoveMineshaft01|E09C_ArenaSpawn01|1
 TunnelOfLoveMineshaft01|E09C_ArenaSpawn02|1
 TunnelOfLoveMineshaft01|E09C_BrokenTracks_ObjectiveMarker_Radius3250|1
@@ -14738,8 +14739,9 @@ VanLoweTaxidermy01|p01b_clueXmarker006|1
 Vault51Dungeon||9602
 Vault51Dungeon|ChristmasEnabler001|1
 Vault51Dungeon|Vault94GearDoor_DefaultOpen001|1
-Vault63Organics||8989
+Vault63Organics||8988
 Vault63Organics|BioWingDoor|1
+Vault63Organics|HCavePipeDoor|1
 Vault63Organics|Storm_GreenhouseItem_Spawn|1
 Vault63Organics|Storm_MQ08_BioWingDoor_Marker|1
 Vault63Organics|Storm_MQ08_BioWingDoor_Trigger|1
@@ -17025,7 +17027,7 @@ AMSHQ02|100|1993
 APPALACHIA|50|52
 APPALACHIA|75|161
 APPALACHIA|85|251
-APPALACHIA|100|3259906
+APPALACHIA|100|3259921
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -17097,7 +17099,7 @@ LittleRobsHideout01|75|2
 LittleRobsHideout01|100|1461
 LousMine01|75|3
 LousMine01|100|6988
-MILEBlueRidgeHQ|100|9574
+MILEBlueRidgeHQ|100|7516
 MTR08LodeBaring01|100|3408
 MTR08LodeBaring02|100|3284
 MamaDolceProcessing01|100|3074
@@ -17182,11 +17184,11 @@ SurlysShack01|100|121
 TheCraterCore01|100|1292
 TheNukashine01|100|1520
 TheRoseRoom01|100|1542
-TheRustyPick01|100|2442
+TheRustyPick01|100|2444
 TheWayward01|100|1718
 ThunderMtPowerPlant01|100|9415
 TopOfTheWorld01|100|4652
-TunnelOfLoveMineshaft01|100|4509
+TunnelOfLoveMineshaft01|100|4511
 UCB01|100|4569
 UCB02|100|77
 UncannyCaverns01|100|4228
@@ -18551,35 +18553,32 @@ LousMine01|Plastic|10|7
 LousMine01|Screw|1|1
 LousMine01|Steel|13|10
 LousMine01|Wood|2|2
-MILEBlueRidgeHQ|Acid|6|5
-MILEBlueRidgeHQ|Adhesive|86|23
-MILEBlueRidgeHQ|Aluminum|37|28
-MILEBlueRidgeHQ|Antiseptic|21|11
-MILEBlueRidgeHQ|Asbestos|53|49
-MILEBlueRidgeHQ|Ballistic Fiber|28|14
-MILEBlueRidgeHQ|Bone|3|3
-MILEBlueRidgeHQ|Ceramic|64|61
-MILEBlueRidgeHQ|Circuitry|3|3
-MILEBlueRidgeHQ|Cloth|81|74
+MILEBlueRidgeHQ|Acid|3|3
+MILEBlueRidgeHQ|Adhesive|38|9
+MILEBlueRidgeHQ|Aluminum|13|9
+MILEBlueRidgeHQ|Antiseptic|13|6
+MILEBlueRidgeHQ|Asbestos|4|2
+MILEBlueRidgeHQ|Ballistic Fiber|8|4
+MILEBlueRidgeHQ|Ceramic|41|38
+MILEBlueRidgeHQ|Circuitry|2|2
+MILEBlueRidgeHQ|Cloth|33|26
 MILEBlueRidgeHQ|Concrete|14|2
-MILEBlueRidgeHQ|Copper|80|79
-MILEBlueRidgeHQ|Cork|8|4
+MILEBlueRidgeHQ|Copper|14|13
+MILEBlueRidgeHQ|Cork|4|2
 MILEBlueRidgeHQ|Fertilizer|8|2
-MILEBlueRidgeHQ|Fiberglass|5|4
-MILEBlueRidgeHQ|Gear|28|26
-MILEBlueRidgeHQ|Glass|145|137
-MILEBlueRidgeHQ|Gold|4|4
-MILEBlueRidgeHQ|Lead|50|35
-MILEBlueRidgeHQ|Leather|29|15
-MILEBlueRidgeHQ|Nuclear Material|4|4
-MILEBlueRidgeHQ|Oil|29|18
-MILEBlueRidgeHQ|Plastic|74|64
-MILEBlueRidgeHQ|Rubber|18|10
-MILEBlueRidgeHQ|Screw|32|28
-MILEBlueRidgeHQ|Silver|1|1
-MILEBlueRidgeHQ|Spring|8|8
-MILEBlueRidgeHQ|Steel|367|298
-MILEBlueRidgeHQ|Wood|56|35
+MILEBlueRidgeHQ|Fiberglass|2|2
+MILEBlueRidgeHQ|Gear|18|16
+MILEBlueRidgeHQ|Glass|36|31
+MILEBlueRidgeHQ|Gold|2|2
+MILEBlueRidgeHQ|Lead|29|15
+MILEBlueRidgeHQ|Leather|18|9
+MILEBlueRidgeHQ|Oil|23|13
+MILEBlueRidgeHQ|Plastic|17|12
+MILEBlueRidgeHQ|Rubber|1|1
+MILEBlueRidgeHQ|Screw|16|16
+MILEBlueRidgeHQ|Spring|7|7
+MILEBlueRidgeHQ|Steel|101|56
+MILEBlueRidgeHQ|Wood|25|20
 MTR08LodeBaring01|Acid|3|2
 MTR08LodeBaring01|Aluminum|7|5
 MTR08LodeBaring01|Antiseptic|2|1
@@ -20897,83 +20896,124 @@ XPDRttP01SteelTower|Screw|1|1
 XPDRttP01SteelTower|Wood|2|1
 ==Average (variable only) Spawn chance and Count per NPC per Space==
 AMSHQ01|Robot|100.0|2
-APPALACHIA|Angler|15.95|88
-APPALACHIA|Bloatfly|12.92|101
-APPALACHIA|Bloodbug|39.73|78
-APPALACHIA|Cave Cricket|8.19|159
-APPALACHIA|Deathclaw|23.5|6
-APPALACHIA|Fog Crawler|12.63|45
-APPALACHIA|Ghoul|49.53|1011
-APPALACHIA|Gulper|17.24|124
-APPALACHIA|Honey Beast|16.26|11
-APPALACHIA|Insect|18.79|274
-APPALACHIA|Liberator|16.69|449
-APPALACHIA|Lost|27.07|53
-APPALACHIA|Mega Sloth|28.81|16
-APPALACHIA|Mirelurk|31.67|189
-APPALACHIA|Mole Miner|59.51|198
-APPALACHIA|Mole Rat|15.27|571
-APPALACHIA|Rad Ant|21.81|49
-APPALACHIA|Rad Rat|9.68|362
-APPALACHIA|Rad Scorpion|15.8|100
-APPALACHIA|Rad Toad|17.04|64
-APPALACHIA|Radroach|17.69|36
-APPALACHIA|Robot|38.64|414
-APPALACHIA|Scorched|55.53|1101
+APPALACHIA|Angler|13.86|165
+APPALACHIA|Bloatfly|19.75|175
+APPALACHIA|Bloodbug|28.58|150
+APPALACHIA|Cave Cricket|11.58|269
+APPALACHIA|Deathclaw|10.86|157
+APPALACHIA|Fog Crawler|10.2|83
+APPALACHIA|Ghoul|43.16|1493
+APPALACHIA|Grafton Monster|12.5|5
+APPALACHIA|Gulper|13.95|229
+APPALACHIA|Honey Beast|15.51|21
+APPALACHIA|Insect|18.49|469
+APPALACHIA|Liberator|14.51|734
+APPALACHIA|Lost|23.36|93
+APPALACHIA|Mega Sloth|11.6|87
+APPALACHIA|Mirelurk|25.59|313
+APPALACHIA|Mole Miner|52.6|250
+APPALACHIA|Mole Rat|16.36|999
+APPALACHIA|Rad Ant|23.88|115
+APPALACHIA|Rad Rat|11.91|639
+APPALACHIA|Rad Scorpion|12.22|170
+APPALACHIA|Rad Toad|25.71|121
+APPALACHIA|Radroach|18.51|41
+APPALACHIA|Robot|32.24|589
+APPALACHIA|Scorched|45.55|1497
 APPALACHIA|Snallygaster|67.03|26
-APPALACHIA|Stingwing|22.69|31
-APPALACHIA|Super Mutant|45.39|803
-APPALACHIA|Thrasher|22.19|42
-APPALACHIA|Tick|25.05|31
-APPALACHIA|Vicious Dog|15.58|533
-APPALACHIA|Wolf|20.89|248
-APPALACHIA|Yao Guai|10.55|129
+APPALACHIA|Stingwing|14.11|85
+APPALACHIA|Super Mutant|36.95|1153
+APPALACHIA|Thrasher|19.88|60
+APPALACHIA|Tick|23.19|65
+APPALACHIA|Vicious Dog|14.72|875
+APPALACHIA|Wolf|19.51|439
+APPALACHIA|Yao Guai|9.61|228
 AVRMedicalCenter01|Scorched|100.0|21
+AlleghenyAsylum01|Bloatfly|25.0|12
+AlleghenyAsylum01|Bloodbug|25.0|12
 AlleghenyAsylum01|Ghoul|100.0|25
-ArktosPharmaLab01|Ghoul|100.0|3
+AlleghenyAsylum01|Rad Ant|25.0|12
+AlleghenyAsylum01|Rad Rat|25.0|12
+ArktosPharmaLab01|Ghoul|100.0|26
 BelchingBetty01|Scorched|100.0|22
 BlackwaterMine01|Mole Miner|100.0|18
+BlackwaterMine01|Mole Rat|33.33|3
+BlackwaterMine01|Rad Rat|33.33|3
+BlackwaterMine01|Wolf|33.33|3
 BurningMine01|Mole Miner|100.0|13
-Burrows01|Ghoul|100.0|1
+BurningMine01|Mole Rat|33.33|11
+BurningMine01|Rad Rat|33.33|11
+BurningMine01|Vicious Dog|33.33|11
+Burrows01|Ghoul|100.0|81
 Burrows01|Robot|100.0|5
 CharlestonCapitolBuilding02|Ghoul|100.0|38
+CultistCave01|Cave Cricket|25.0|6
+CultistCave01|Mole Rat|25.0|6
+CultistCave01|Rad Ant|25.0|6
+CultistCave01|Rad Rat|25.0|6
 DyerChemical01|Ghoul|100.0|8
 DyerChemical01|Robot|100.0|1
 EasternRegionalPen01|Ghoul|100.0|45
+EmmettMountainDisposalSite01|Ghoul|100.0|3
 FraternityHouse01|Ghoul|100.0|2
-GarrahanMiningHQ01|Robot|100.0|17
+GarrahanMiningHQ01|Ghoul|100.0|13
+GarrahanMiningHQ01|Robot|100.0|19
 GauleyMine01|Scorched|100.0|2
+GlassedCavern01|Mirelurk|100.0|4
 GlassedCavern01|Scorched|100.0|31
+HornwrightHQ01|Ghoul|100.0|1
 HornwrightHQ01|Scorched|100.0|14
 KerwoodMine01|Mole Miner|100.0|18
+KerwoodMine01|Mole Rat|25.0|4
+KerwoodMine01|Rad Ant|25.0|4
+KerwoodMine01|Rad Rat|25.0|4
+KerwoodMine01|Vicious Dog|25.0|4
 MTR08LodeBaring01|Mole Miner|100.0|8
 MTR08LodeBaring02|Mole Miner|100.0|10
-MamaDolceProcessing01|Liberator|100.0|17
-MamaDolceProcessing01|Robot|100.0|3
+MamaDolceProcessing01|Liberator|100.0|19
+MamaDolceProcessing01|Robot|100.0|5
+MonongahMissileSilo01|Robot|100.0|276
 MonongahPowerPlant01|Ghoul|100.0|18
-MonongahPowerPlant01|Mole Miner|100.0|1
+MonongahPowerPlant01|Mole Miner|100.0|8
 MorgantownApartment01|Ghoul|100.0|6
 MorgantownHighSchool01|Scorched|100.0|18
 NukaColaQuantumPlant01|Ghoul|100.0|18
-PoseidonPlant01|Scorched|100.0|46
+PoseidonPlant01|Ghoul|100.0|6
+PoseidonPlant01|Scorched|100.0|55
 RadioResearchCenter01|Scorched|100.0|15
 RiversideManor01|Scorched|100.0|14
-SugarGrove01|Robot|100.0|8
-ThunderMtPowerPlant01|Scorched|100.0|36
-UncannyCaverns01|Bloatfly|20.0|1
-UncannyCaverns01|Cave Cricket|20.0|1
+RobCoResearchCenter01|Robot|100.0|9
+RobcoExperimentalCache01|Scorched|100.0|2
+SpruceKnobMissileSilo01|Robot|100.0|276
+SugarGrove01|Mole Rat|33.33|5
+SugarGrove01|Rad Rat|33.33|5
+SugarGrove01|Robot|100.0|12
+SugarGrove01|Wolf|33.33|5
+SugarGroveMissileSilo01|Robot|100.0|276
+ThunderMtPowerPlant01|Scorched|100.0|39
+UncannyCaverns01|Bloatfly|20.0|5
+UncannyCaverns01|Cave Cricket|20.0|5
 UncannyCaverns01|Mirelurk|100.0|10
-UncannyCaverns01|Mole Rat|20.0|1
-UncannyCaverns01|Rad Rat|20.0|1
-UncannyCaverns01|Wolf|20.0|1
+UncannyCaverns01|Mole Rat|20.0|5
+UncannyCaverns01|Rad Rat|20.0|5
+UncannyCaverns01|Wolf|20.0|5
 VTecAgCenter01|Ghoul|100.0|6
 ValleyGalleria01|Scorched|100.0|20
 WatogaCivicCenter01|Scorched|100.0|17
 WatogaEmergencyServices01|Ghoul|100.0|5
+WatogaEmergencyServices01|Liberator|100.0|4
+WatogaHighSchool01|Bloatfly|25.0|6
+WatogaHighSchool01|Bloodbug|25.0|6
+WatogaHighSchool01|Rad Ant|25.0|6
+WatogaHighSchool01|Rad Rat|25.0|6
 WatogaHighSchool01|Robot|100.0|20
 WatogaMunicipalCenter01|Scorched|100.0|9
+WatogaUnderground01|Robot|100.0|2
+WendigoCave01|Ghoul|100.0|10
 WendigoCave01|Mirelurk|100.0|14
 WestTek01|Super Mutant|100.0|41
+WhitespringMall01|Robot|100.0|1
+WhitespringRefuge01|Robot|100.0|1
 ==Space Info==
 |APPALACHIA|Appalachia|1|2818|71174|-402000|407637|-407387|549735|0|0|1.0
 003E3FFA|ThunderMtPowerPlant01|Thunder Mountain Power|0|-806|-612|-5202|3590|-4722|3497|0|0|1.0
@@ -21003,7 +21043,7 @@ WestTek01|Super Mutant|100.0|41
 0041BC67|MorgantownAirportTerminal02|Morgantown Airport Terminal|0|85|39|-2543|2713|-2357|2435|0|0|1.0
 005A5547|SheltersVaultServerRoom01|Server Room Shelter|0|4870|-1401|-1184|10924|-7408|4606|1700|1000|1.7
 0060D363|SheltersCave01|Abandoned Mine Shelter|0|1004|778|-2488|4496|-2315|3872|0|0|1.0
-0069506F|XPDAC03CommunityCenter|Community Center|0|5525|1284|-1928|12978|-3576|6144|0|0|2.5
+0069506F|XPDAC03CommunityCenter|Community Center|0|5525|1284|-1928|12978|-3576|6144|2500|700|2.0
 005A7AD1|BlueRidgeOffice01|Blue Ridge Office|0|-107|-101|-1732|1517|-1726|1524|200|0|2.2
 0068CC71|XPDAC02Boardwalk|The Boardwalk|0|5166|-10305|-17316|27648|-35712|15102|-5000|200|4.7
 0000F0FB|BigBendTunnel01|Big Bend Tunnels|0|1888|17175|-5275|9051|86|34264|0|0|1.0
@@ -21021,7 +21061,7 @@ WestTek01|Super Mutant|100.0|41
 0066FCB2|GarrahanMiningHQDungeon|Garrahan Mining HQ|0|538|311|-4042|5119|-12335|12958|0|-250|2.0
 00687BF0|XPDRttP01SteelTowerUpperFloors|Steel Tower Upper Floors|0|27055|7296|-3520|57631|-9631|24223|9400|-2500|5.0
 000402E2|SamBlackwellsDeathclawCave|Cavern|0|-5632|2061|-15744|4480|-2014|6137|-2200|200|1.9
-00779F04|XPDAC03CommunityCenterDungeon|Community Center|0|5525|2340|-1928|12978|-1464|6144|0|0|1.0
+00779F04|XPDAC03CommunityCenterDungeon|Community Center|0|5525|2340|-1928|12978|-1464|6144|2500|100|2.0
 0053E8DF|XPDAC01EntertainmentDistrict|Casino Quarter|0|-3011|2304|-29576|23554|-24260|28869|-200|-600|2.0
 0053F947|LousMine01|Carleton Mine|0|-7512|17618|-17914|2890|9233|26003|0|0|1.0
 00678787|XPDPitt02ACCJ|Purgatory|0|-211|-181|-843|421|-1026|663|-700|2000|2.5
@@ -21101,7 +21141,7 @@ WestTek01|Super Mutant|100.0|41
 00672089|CharlestonCapitolDungeon|Charleston Capitol Building|0|-27|-1037|-4650|4595|-4244|2169|0|0|1.0
 006A0A3D|StormEngineeringVlt63|Vault 63 Engineering Sector|0|3105|1324|-4480|10690|-2856|5504|0|0|1.0
 006C2935|StormCultistTunnels|Old Crimora Mines|0|4399|10183|-1290|10088|4626|15740|0|0|1.0
-00769F55|MILEBlueRidgeHQ|Milepost Zero|0|659|2476|-2010|3328|-1248|6200|0|0|1.0
+00769F55|MILEBlueRidgeHQ|Milepost Zero|0|659|2476|-2010|3328|-1248|6200|600|300|1.0
 0077154D|SheltersSummerCamp|Summer Camp Shelter|0|-21401|2406|-105560|62757|-84518|89331|-3000|0|5.0
 0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0|3733|1296|-1264|8730|-6484|9076|0|0|1.0
 0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|-516|323|-257|234|0|0|1.0
@@ -21165,4 +21205,4 @@ WestTek01|Super Mutant|100.0|41
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4367264|4367264
+4365225|4365225
