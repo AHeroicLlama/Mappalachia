@@ -24,10 +24,9 @@ By changing the tab at the top to 'NPC/Scrap/Region Search' you may use a separa
 You will notice that there is no search field here but instead you must select the NPC by name. This list is generated dynamically from the data exported from the game.<br/>
 Search results will be broken down by all possible spawn chances of the selected NPC, so you can for example choose to map only 100% chance spawns, or maybe 100% and 50% spawn odds.
 
-This intelligent NPC Search will also aggregate the search results with a 'Standard Search' for the same name of the NPC category.<br/>
-For example, by selecting 'Snallygaster' and searching, you should see the top results on the results list will be the variable spawns where Snallygasters *may* spawn (alongside an indicated spawn chance). Then the following the results will be other matches for Snallygaster - these being non-variable, guaranteed spawns.<br/>
-
-*Note: The NPC Search is not perfect. You may notice some oddities in this list, for example that there is no Wendigo option, or that most robots are grouped into a generic 'Robot' category. This is again due to the way in which Bethesda built the game - Mappalachia uses this data to produce an almost complete list, but there are numerous complex and niche possible variables which trigger spawning, which might cause the NPC data might be missing a few spawns. However, there should be no false entries, only missing entries, and if an NPC is not present on this list, you may still be able to find them from a 'Standard Search'.*
+Remember that this search feature only tells part of the story. Some NPC spawns may instead appear under the 'Standard Search' categorized as an NPC. This is a by-product of the way the game is built.<br/>
+To combat this, the NPC Search will also aggregate the search results with a 'Standard Search' for the name of the chosen NPC.<br/>
+For example, by selecting 'Snallygaster' and searching, you should see the top results on the results list will be the variable spawns where Snallygasters *may* spawn (alongside an indicated spawn chance). Then the following results will be other matches for Snallygaster - these being non-variable, guaranteed spawns.<br/>
 
 ## Scrap Search
 Again, by selecting the 'NPC/Scrap/Region Search' tab you can also search for junk items which contain a given scrap material.<br/>

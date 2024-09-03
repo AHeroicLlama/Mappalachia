@@ -212,9 +212,15 @@ namespace Mappalachia
 						break;
 
 					case "XPDAC03CommunityCenter":
-						nudgeX = 0;
-						nudgeY = 0;
-						nudgeScale = 2.5f;
+						nudgeX = 2500;
+						nudgeY = 700;
+						nudgeScale = 2f;
+						break;
+
+					case "XPDAC03CommunityCenterDungeon":
+						nudgeX = 2500;
+						nudgeY = 100;
+						nudgeScale = 2f;
 						break;
 
 					case "XPDAC03FloodedCityCenter":
@@ -280,6 +286,12 @@ namespace Mappalachia
 						nudgeX = -5000;
 						nudgeY = 3500;
 						nudgeScale = 6f;
+						break;
+
+					case "MILEBlueRidgeHQ":
+						nudgeX = 600;
+						nudgeY = 300;
+						nudgeScale = 1f;
 						break;
 
 					default:
