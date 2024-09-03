@@ -119,7 +119,7 @@ namespace Mappalachia
 
 		public bool IsAppalachia()
 		{
-			return editorID == "Appalachia";
+			return editorID.Equals("Appalachia", StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }
