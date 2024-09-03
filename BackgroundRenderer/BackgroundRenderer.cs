@@ -79,6 +79,7 @@ namespace BackgroundRenderer
 			{ "WVLumberCo01", 1000 },
 			{ "XPDAC02Pier", 400 },
 			{ "XPDAC03CommunityCenter", 600 },
+			{ "XPDAC03CommunityCenterDungeon", 600 },
 			{ "XPDPitt02Sanctum", 700 },
 			{ "StormHallucinogeniccave", 600 },
 			{ "StormRadioBunkerInt", 800 },

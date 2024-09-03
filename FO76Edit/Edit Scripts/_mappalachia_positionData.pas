@@ -129,13 +129,24 @@ unit _mappalachia_positionData;
 		shortName = ShortName(item);
 		position = GetPosition(item);
 	var
-		primitiveEntry, boundsEntry : IInterface;
+		primitiveEntry, boundsEntry, location : IInterface;
 		primitiveShape, rotZ : String;
+		i : Integer;
 	begin
 		if(Assigned(displayName) and Assigned(position) and (pos('<', displayName) <> 1)) then begin // Skip records missing key data
 			primitiveEntry := ElementBySignature(item, 'XPRM');
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
 			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));
+			location := ElementBySignature(item, 'XLCN');
+
+			// If this XLCN is not assigned then we instead grab the first reference
+			if (not assigned(location)) then begin
+				for i := 0 to ReferencedByCount(item) - 1 do begin
+					if(pos('LCTN', Name(ReferencedByIndex(item, i))) <> 0) then begin
+						location := ReferencedByIndex(item, i);
+					end;
+				end;
+			end;
 
 			// We only need the Z Rotation for primitive shapes
 			if(primitiveShape <> '') then begin
@@ -148,7 +159,7 @@ unit _mappalachia_positionData;
 				FloatToStr(position.x) + ',' +
 				FloatToStr(position.y) + ',' +
 				FloatToStr(position.z) + ',' +
-				sanitize(GetEditValue(ElementBySignature(item, 'XLCN'))) + ',' +
+				sanitize(GetEditValue(location)) + ',' +
 				GetEditValue(ElementByName(ElementBySignature(item, 'XLOC'), 'Level')) + ',' +
 				primitiveShape + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
