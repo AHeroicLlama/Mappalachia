@@ -223,12 +223,6 @@ namespace Mappalachia
 						nudgeScale = 2f;
 						break;
 
-					case "XPDAC03CommunityCenterDungeon":
-						nudgeX = 0;
-						nudgeY = 0;
-						nudgeScale = 2.5f;
-						break;
-
 					case "XPDAC03FloodedCityCenter":
 						nudgeX = 600;
 						nudgeY = 0;
