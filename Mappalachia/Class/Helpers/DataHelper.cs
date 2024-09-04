@@ -56,7 +56,7 @@ namespace Mappalachia
 			{ "ACTI", "Activator" },
 			{ "LIGH", "Light" },
 			{ "NPC_", "NPC" },
-			{ "MISC", "Junk/Scrap" },
+			{ "MISC", "Junk/Scrap/Misc" },
 			{ "MSTT", "Moveable static" },
 			{ "BOOK", "Note/Plan" },
 			{ "CONT", "Container" },

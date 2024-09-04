@@ -103,7 +103,7 @@ namespace Preprocessor
 
 			// Discard spaces which are not accessible, and output a list of those
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
-			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace;");
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
 			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
@@ -113,8 +113,8 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);");
-			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
 			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);");
+			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
 
 			// Clean up scrap component names
 			TransformColumn(CaptureQuotedTerm, "Scrap", "componentQuantity");
@@ -127,7 +127,7 @@ namespace Preprocessor
 
 			// Transform the component quantity keywords to numeric values from Scrap table, then drop the Component table
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
-			SimpleQuery($"DROP TABLE Component");
+			SimpleQuery($"DROP TABLE Component;");
 
 			// Extract the NPC types and classes on Location from the raw 'property'
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcName TEXT;");
@@ -150,16 +150,16 @@ namespace Preprocessor
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
 
 			// Create indexes
-			SimpleQuery("CREATE INDEX indexSignature ON Entity(signature);");
-			SimpleQuery("CREATE INDEX indexNpcClass ON Location(npcClass);");
-			SimpleQuery("CREATE INDEX indexReferenceFormID ON Position(referenceFormID);");
+			SimpleQuery("CREATE INDEX indexStandard ON Position(referenceFormID, lockLevel, label, spaceFormID);");
 			SimpleQuery("CREATE INDEX indexLocation ON Position(locationFormID);");
-			SimpleQuery("CREATE INDEX indexComponent ON Scrap(component);");
 
-			// TODO Data validation - positive and negative checks for invalid or bad data
-
+			// Final steps - reenable foreign keys, analyze, optimize and vacuum
+			SimpleQuery("PRAGMA foreign_keys = 1;");
+			SimpleQuery("ANALYZE;");
+			SimpleQuery("PRAGMA optimize;");
 			SimpleQuery("VACUUM;");
-			SimpleQuery("PRAGMA foreign_keys = 1");
+
+			// TODO Data validation - positive and negative checks for invalid or bad data. Integrity check?
 
 			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString("m\\m\\ s\\s")}. Press any key");
 			Console.ReadKey();
