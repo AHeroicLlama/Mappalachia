@@ -141,7 +141,7 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Location ADD COLUMN sumWeight INTEGER;");
 			TransformColumn(GetSumNPCSpawnWeight, "Location", "locationFormID", "npcClass", "sumWeight");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN spawnWeight REAL;");
-			TransformColumn(delegate (string value, string sum) { return (int.Parse(value) / (double)int.Parse(sum)).ToString(); }, "Location", "value", "sumWeight", "spawnWeight"); // Set the value of 'spawnWeight' with value/sum.
+			TransformColumn(delegate(string value, string sum) { return (int.Parse(value) / (double)int.Parse(sum)).ToString(); }, "Location", "value", "sumWeight", "spawnWeight"); // Set the value of 'spawnWeight' with value/sum.
 			SimpleQuery("ALTER TABLE Location DROP COLUMN sumWeight;");
 			SimpleQuery("ALTER TABLE Location DROP COLUMN value;");
 			SimpleQuery("DELETE FROM Location WHERE spawnWeight = 0;");
@@ -203,7 +203,7 @@ namespace Preprocessor
 		{
 			string tempColumn = "temp";
 
-            Console.WriteLine($"Change type: {table}.{column} -> {type}");
+			Console.WriteLine($"Change type: {table}.{column} -> {type}");
 
 			SimpleQuery($"ALTER TABLE {table} ADD COLUMN {tempColumn} {type};", true); // Create a temp column with the new type
 			SimpleQuery($"UPDATE {table} SET {tempColumn} = {column};", true); // Copy the source column into the temp
@@ -464,7 +464,7 @@ namespace Preprocessor
 
 				if (key == 'y')
 				{
-                    Console.WriteLine();
+					Console.WriteLine();
 					return gameVersion;
 				}
 				else if (key == 'n')

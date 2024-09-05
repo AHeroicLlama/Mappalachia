@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F216CE46-70A2-4CBD-88C7-BC074875C1C4}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Mappalachia\stylecop.json = Mappalachia\stylecop.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MappalachiaTests", "MappalachiaTests\MappalachiaTests.csproj", "{941B1C02-CFF1-4B68-B3F0-24FCAAA037FB}"
@@ -20,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageAssetChecker", "ImageA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MappalachiaLibrary", "MappalachiaLibrary\MappalachiaLibrary.csproj", "{B1D48AC5-E2D9-456C-9AA5-D98CC8013B7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preprocessor", "Preprocessor\Preprocessor.csproj", "{009A30ED-9ED9-469B-ABEB-958553AB716D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Preprocessor", "Preprocessor\Preprocessor.csproj", "{009A30ED-9ED9-469B-ABEB-958553AB716D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

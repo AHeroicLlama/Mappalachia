@@ -42,6 +42,11 @@
 	<ItemGroup>
 	  <None Remove="Mappalachia.zip" />
 	  <None Remove="package_release.bat" />
+	  <None Remove="stylecop.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="stylecop.json" />
 	</ItemGroup>
 
 	<ItemGroup>

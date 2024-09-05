@@ -11,11 +11,17 @@ namespace Preprocessor
 		static string FissureSiteLabel { get; } = "Fissure Site";
 
 		public static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
+
 		public static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
+
 		public static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
+
 		public static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
+
 		public static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
+
 		public static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
+
 		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
 
 		public static Dictionary<string, string> ComponentQuantityReplacement { get; } = new Dictionary<string, string>()
@@ -75,6 +81,41 @@ namespace Preprocessor
 
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
 		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
+
+		public static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
+		{
+			{ "Megasloth", "Mega Sloth" },
+			{ "Molerat", "Mole Rat" },
+			{ "Mutation", "Snallygaster" },
+			{ "Rad Frog", "Frog" },
+			{ "Rad Stag", "Radstag" },
+			{ "Rad Turkey", "Thrasher" },
+			{ "Rat", "Rad Rat" },
+			{ "Scorpion", "Rad Scorpion" },
+			{ "Swamp", "Gulper" },
+			{ "Toad", "Rad Toad" },
+		};
+
+		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they are understood to be cut or otherwise inaccessible.
+		public static string DiscardCellsQuery { get; } =
+			"spaceDisplayName = '' OR " +
+			"spaceDisplayName LIKE '%Test%World%' OR " +
+			"spaceDisplayName LIKE '%Test%Cell%' OR " +
+			"spaceEditorID LIKE 'zCUT%' OR " +
+			"spaceEditorID LIKE '%OLD' OR " +
+			"spaceEditorID LIKE 'Warehouse%' OR " +
+			"spaceEditorID LIKE 'Test%' OR " +
+			"spaceEditorID LIKE '%Debug%' OR " +
+			"spaceEditorID LIKE 'zz%' OR " +
+			"spaceEditorID LIKE '76%' OR " +
+			"spaceEditorID LIKE '%Worldspace' OR " +
+			"spaceEditorID LIKE '%Nav%Test%' OR " +
+			"spaceEditorID LIKE 'PackIn%' OR " +
+			"spaceEditorID LIKE 'COPY%' OR " +
+			"spaceDisplayName = 'Purgatory' OR " +
+			"spaceDisplayName = 'Vault 63 Engineering Sector' OR " +
+			"spaceDisplayName = 'Diamond City' OR " +
+			"spaceDisplayName = 'Goodneighbor'";
 
 		public static string? GetCorrectedMarkerIcon(string markerName)
 		{
@@ -180,40 +221,5 @@ namespace Preprocessor
 		{
 			return label.Replace("Fast Travel Point: ", string.Empty).Replace("Hornwright Air Cleanser Site", "Hornwright Air Purifier Site");
 		}
-
-		public static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
-		{
-			{ "Megasloth", "Mega Sloth" },
-			{ "Molerat", "Mole Rat" },
-			{ "Mutation", "Snallygaster" },
-			{ "Rad Frog", "Frog" },
-			{ "Rad Stag", "Radstag" },
-			{ "Rad Turkey", "Thrasher" },
-			{ "Rat", "Rad Rat" },
-			{ "Scorpion", "Rad Scorpion" },
-			{ "Swamp", "Gulper" },
-			{ "Toad", "Rad Toad" },
-		};
-
-		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they are understood to be cut or otherwise inaccessible.
-		public static string DiscardCellsQuery { get; } =
-			"spaceDisplayName = '' OR " +
-			"spaceDisplayName LIKE '%Test%World%' OR " +
-			"spaceDisplayName LIKE '%Test%Cell%' OR " +
-			"spaceEditorID LIKE 'zCUT%' OR " +
-			"spaceEditorID LIKE '%OLD' OR " +
-			"spaceEditorID LIKE 'Warehouse%' OR " +
-			"spaceEditorID LIKE 'Test%' OR " +
-			"spaceEditorID LIKE '%Debug%' OR " +
-			"spaceEditorID LIKE 'zz%' OR " +
-			"spaceEditorID LIKE '76%' OR " +
-			"spaceEditorID LIKE '%Worldspace' OR " +
-			"spaceEditorID LIKE '%Nav%Test%' OR " +
-			"spaceEditorID LIKE 'PackIn%' OR " +
-			"spaceEditorID LIKE 'COPY%' OR " +
-			"spaceDisplayName = 'Purgatory' OR " +
-			"spaceDisplayName = 'Vault 63 Engineering Sector' OR " +
-			"spaceDisplayName = 'Diamond City' OR " +
-			"spaceDisplayName = 'Goodneighbor'";
 	}
 }
