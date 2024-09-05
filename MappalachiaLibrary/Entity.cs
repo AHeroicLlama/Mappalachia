@@ -8,12 +8,12 @@
 		public string DisplayName { get; }
 		public string Signature { get; }
 
-        public Entity(uint formID, string editorID, string displayName, string signature)
-        {
+		public Entity(uint formID, string editorID, string displayName, string signature)
+		{
 			FormID = formID;
 			EditorID = editorID;
 			DisplayName = displayName;
 			Signature = signature;
-        }
-    }
+		}
+	}
 }

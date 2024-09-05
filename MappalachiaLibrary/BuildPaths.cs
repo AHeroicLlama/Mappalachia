@@ -6,21 +6,21 @@
 	{
 		const string SolutionFile = "Mappalachia.sln";
 		const string UtilitiesPath = @"Utilities/";
-		const string outputsPath = @"BuildOutputs/";
+		const string OutputsPath = @"BuildOutputs/";
 		const string SigcheckPath = UtilitiesPath + "sigcheck.exe";
 		const string SqlitePath = UtilitiesPath + "sqlite3.exe";
 		const string Fo76UtilsRenderPath = UtilitiesPath + @"/fo76utils/render.exe";
-		const string DiscardedCellsPath = outputsPath + @"Discarded_Cells.csv";
-		const string DatabaseSummaryPath = outputsPath + @"Database_Summary.txt";
-		const string ErrorsPath = outputsPath + @"Errors.txt";
+		const string DiscardedCellsPath = OutputsPath + @"Discarded_Cells.csv";
+		const string DatabaseSummaryPath = OutputsPath + @"Database_Summary.txt";
+		const string ErrorsPath = OutputsPath + @"Errors.txt";
 		const string Fo76EditOutputPath = @"FO76Edit/Output/";
 		const string DatabasePath = @"/mappalachia.db";
+
+		static string? solutionPath = null;
 
 		public static string GameDataPath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\";
 		public static string GameExePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe";
 		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
-
-		static string? solutionPath = null;
 
 		// Returns the root of the repository, where the sln file lives
 		// Value is cached in rootPath so is only calculated once per launch

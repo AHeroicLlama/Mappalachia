@@ -255,6 +255,12 @@ dotnet_diagnostic.IDE0090.severity = silent
 # SA1400: Access modifier should be declared
 dotnet_diagnostic.SA1400.severity = none
 
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none
+
+# SA1201: Elements should appear in the correct order
+dotnet_diagnostic.SA1201.severity = none
+
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4
