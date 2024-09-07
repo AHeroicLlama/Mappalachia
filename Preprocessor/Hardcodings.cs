@@ -9,20 +9,14 @@ namespace Preprocessor
 	internal partial class Preprocessor
 	{
 		static string FissureSiteLabel { get; } = "Fissure Site";
-
 		public static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
-
 		public static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
-
 		public static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
-
 		public static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
-
 		public static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
-
 		public static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
-
 		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
+		public static Regex SpaceFormIDRegex { get; } = new Regex("\\[(CELL|WRLD):([0-9A-F]{8})\\]\\)");
 
 		public static Dictionary<string, string> ComponentQuantityReplacement { get; } = new Dictionary<string, string>()
 		{

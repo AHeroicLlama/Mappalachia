@@ -1,5 +1,5 @@
 // Rip the location data of every placed entity inside valid cells and worldspaces. Gets FormID, coordinates, name(Inc FormID of referenced object), and information on lock levels and primitive boundaries where relevant
-// Header 'spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName'
+// Header 'spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName,teleportsTo'
 unit _mappalachia_position;
 
 	uses _mappalachia_lib;
@@ -128,7 +128,7 @@ unit _mappalachia_position;
 		shortName = ShortName(item);
 		position = GetPosition(item);
 	var
-		primitiveEntry, boundsEntry, location : IInterface;
+		primitiveEntry, boundsEntry, location, teleportTarget : IInterface;
 		primitiveShape, rotZ : String;
 		i : Integer;
 	begin
@@ -137,6 +137,7 @@ unit _mappalachia_position;
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
 			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));
 			location := ElementBySignature(item, 'XLCN');
+			teleportTarget := ElementByName(ElementBySignature(item, 'XTEL'), 'Door');
 
 			// If this XLCN is not assigned then we instead grab the first reference
 			if (not assigned(location)) then begin
@@ -166,7 +167,9 @@ unit _mappalachia_position;
 				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
 				rotZ + ',' +
 				GetEditValue(ElementByName(ElementByName(ElementByName(item, 'Map Marker'), 'TNAM - TNAM'), 'Type')) + ',' +
-				sanitize(shortName));
+				sanitize(shortName) + ',' +
+				sanitize(GetEditValue(teleportTarget))
+				);
 		end;
 	end;
 end.

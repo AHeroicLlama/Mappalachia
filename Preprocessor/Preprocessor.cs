@@ -14,6 +14,8 @@ namespace Preprocessor
 
 		static void Main()
 		{
+			string gameVersion = GetValidatedGameVersion();
+
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
 
@@ -24,11 +26,11 @@ namespace Preprocessor
 
 			// Create the Meta table, add the game version to it
 			SimpleQuery("CREATE TABLE Meta (key TEXT PRIMARY KEY, value TEXT);");
-			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{GetValidatedGameVersion()}');");
+			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{gameVersion}');");
 
 			// Create new tables
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);");
-			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x {CoordinateType}, y {CoordinateType}, z {CoordinateType}, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX {CoordinateType}, boundY {CoordinateType}, boundZ {CoordinateType}, rotZ REAL, mapMarkerName TEXT, shortName TEXT);");
+			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x {CoordinateType}, y {CoordinateType}, z {CoordinateType}, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX {CoordinateType}, boundY {CoordinateType}, boundZ {CoordinateType}, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, property TEXT, value INTEGER);");
 			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x {CoordinateType}, y {CoordinateType});");
@@ -72,6 +74,11 @@ namespace Preprocessor
 			TransformColumn(CaptureFormID, "Position", "locationFormID");
 			ChangeColumnType("Position", "locationFormID", "INTEGER");
 			AddForeignKey("Position", "locationFormID", "INTEGER", "Location", "locationFormID");
+
+			// Capture and convert to int the Space FormID of the teleportsToFormID on Position
+			TransformColumn(CaptureSpaceFormID, "Position", "teleportsToFormID");
+			ChangeColumnType("Position", "teleportsToFormID", "INTEGER");
+			AddForeignKey("Position", "teleportsToFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Capture and convert to int the spaceFormID on Region
 			TransformColumn(CaptureFormID, "Region", "spaceFormID");
@@ -141,7 +148,7 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Location ADD COLUMN sumWeight INTEGER;");
 			TransformColumn(GetSumNPCSpawnWeight, "Location", "locationFormID", "npcClass", "sumWeight");
 			SimpleQuery("ALTER TABLE Location ADD COLUMN spawnWeight REAL;");
-			TransformColumn(delegate(string value, string sum) { return (int.Parse(value) / (double)int.Parse(sum)).ToString(); }, "Location", "value", "sumWeight", "spawnWeight"); // Set the value of 'spawnWeight' with value/sum.
+			TransformColumn(DivideString, "Location", "value", "sumWeight", "spawnWeight"); // Set the value of 'spawnWeight' with value/sum.
 			SimpleQuery("ALTER TABLE Location DROP COLUMN sumWeight;");
 			SimpleQuery("ALTER TABLE Location DROP COLUMN value;");
 			SimpleQuery("DELETE FROM Location WHERE spawnWeight = 0;");
@@ -350,6 +357,19 @@ namespace Preprocessor
 			return Convert.ToInt32(formid, 16).ToString();
 		}
 
+		// Captures the FormID specifically from the present [CELL/WRLD:x] phrase, to the string value of the integer value of itself
+		static string CaptureSpaceFormID(string input)
+		{
+			string formid = SpaceFormIDRegex.Match(input).Groups[2].Value;
+
+			if (string.IsNullOrEmpty(formid))
+			{
+				return input;
+			}
+
+			return Convert.ToInt32(formid, 16).ToString();
+		}
+
 		// Removes the signture and formID from the end of a string
 		static string RemoveTrailingReference(string input)
 		{
@@ -445,6 +465,12 @@ namespace Preprocessor
 			return label;
 		}
 
+		// Returns num/denom
+		static string DivideString(string num, string denom)
+		{
+			return (double.Parse(num) / double.Parse(denom)).ToString();
+		}
+
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input
 		static string GetValidatedGameVersion()
 		{
@@ -456,7 +482,7 @@ namespace Preprocessor
 				return GetGameVersionFromUser();
 			}
 
-			Console.WriteLine($"\nIs \"{gameVersion}\" the correct game version?\n(Enter y/n)");
+			Console.WriteLine($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)");
 
 			while (true)
 			{
