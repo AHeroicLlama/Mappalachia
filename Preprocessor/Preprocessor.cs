@@ -73,7 +73,6 @@ namespace Preprocessor
 			// Capture and convert to int the locationFormID on Position
 			TransformColumn(CaptureFormID, "Position", "locationFormID");
 			ChangeColumnType("Position", "locationFormID", "INTEGER");
-			AddForeignKey("Position", "locationFormID", "INTEGER", "Location", "locationFormID");
 
 			// Capture and convert to int the Space FormID of the teleportsToFormID on Position
 			TransformColumn(CaptureSpaceFormID, "Position", "teleportsToFormID");
@@ -114,6 +113,12 @@ namespace Preprocessor
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
 			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
+
+			// Create a replacement copy of Space, adding the min/max/mid of x/y
+			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, minX {CoordinateType}, maxX {CoordinateType}, midX {CoordinateType}, minY {CoordinateType}, maxY {CoordinateType}, midY {CoordinateType});");
+			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, minX, maxX, midX, minY, maxY, midY) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, min(x), max(x), ((min(x) + max(x)) / 2), min(y), max(y), ((min(y) + max(y)) / 2) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
+			SimpleQuery("DROP TABLE Space;");
+			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
 
 			// Remove entries which are not referenced by other relevant tables (orphaned records)
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
@@ -156,15 +161,37 @@ namespace Preprocessor
 			// Unescape chars from columns which we've not otherwise touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
 
+			// Create a reduced semi-redundant copy of the Position table, which already has all the possible search results grouped and counted
+			// We can use this later to conduct the searches much faster, but the Position table remains to get non-grouped coordinates
+			SimpleQuery("CREATE TABLE Position_PreGrouped (spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID INTEGER REFERENCES Entity(EntityFormID), lockLevel TEXT, label TEXT, count INTEGER);");
+			SimpleQuery("INSERT INTO Position_PreGrouped (spaceFormID, referenceFormID, lockLevel, label, count) SELECT spaceFormID, referenceFormId, lockLevel, label, COUNT(*) as count FROM Position GROUP BY referenceFormID, label, spaceFormID, lockLevel;");
+
 			// Create indexes
 			SimpleQuery("CREATE INDEX indexStandard ON Position(referenceFormID, lockLevel, label, spaceFormID);");
+			SimpleQuery("CREATE INDEX indexInstance ON Position(instanceFormID);");
 			SimpleQuery("CREATE INDEX indexLocation ON Position(locationFormID);");
+			SimpleQuery("CREATE INDEX indexSpace ON Position_PreGrouped(spaceFormID);");
 
-			// Final steps - reenable foreign keys, analyze, optimize and vacuum
+			// Final steps, wrap-up, optimizations, etc
 			SimpleQuery("PRAGMA foreign_keys = 1;");
 			SimpleQuery("ANALYZE;");
 			SimpleQuery("PRAGMA optimize;");
 			SimpleQuery("VACUUM;");
+			SimpleQuery("PRAGMA query_only;");
+
+			try
+			{
+				SimpleQuery("PRAGMA foreign_key_check;");
+			}
+			catch (SqliteException)
+			{
+				// TODO Fail validation here
+			}
+
+			if (SimpleQuery("PRAGMA integrity_check;").First() != "ok")
+			{
+				// TODO Fail validation here
+			}
 
 			// TODO Data validation - positive and negative checks for invalid or bad data. Integrity check?
 
