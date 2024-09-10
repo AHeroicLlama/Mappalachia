@@ -179,21 +179,7 @@ namespace Preprocessor
 			SimpleQuery("VACUUM;");
 			SimpleQuery("PRAGMA query_only;");
 
-			try
-			{
-				SimpleQuery("PRAGMA foreign_key_check;");
-			}
-			catch (SqliteException)
-			{
-				// TODO Fail validation here
-			}
-
-			if (SimpleQuery("PRAGMA integrity_check;").First() != "ok")
-			{
-				// TODO Fail validation here
-			}
-
-			// TODO Data validation - positive and negative checks for invalid or bad data. Integrity check?
+			Validate();
 
 			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString("m\\m\\ s\\s")}. Press any key");
 			Console.ReadKey();
