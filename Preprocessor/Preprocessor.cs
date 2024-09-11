@@ -128,14 +128,14 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);");
 			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
 
-			// Clean up scrap component names
+			// Clean up scrap and component names
 			TransformColumn(CaptureQuotedTerm, "Scrap", "componentQuantity");
 			TransformColumn(CaptureQuotedTerm, "Scrap", "component");
+			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
 
-			foreach (KeyValuePair<string, string> replacement in ComponentQuantityReplacement)
-			{
-				SimpleQuery($"UPDATE Scrap SET componentQuantity = '{replacement.Value}' WHERE componentQuantity LIKE '{replacement.Key}'");
-			}
+			// Fix erroneous data which is exported from xEdit with values somehow misaligned from in-game
+			SimpleQuery(CorrectLockLevelQuery);
+			SimpleQuery(CorrectPrimitiveShapeQuery);
 
 			// Transform the component quantity keywords to numeric values from Scrap table, then drop the Component table
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
@@ -181,7 +181,7 @@ namespace Preprocessor
 
 			Validate();
 
-			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString("m\\m\\ s\\s")}. Press any key");
+			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key");
 			Console.ReadKey();
 		}
 
@@ -468,7 +468,7 @@ namespace Preprocessor
 		}
 
 		// Returns the corrected label for the given map marker label
-		public static string? CorrectLabelsByDict(string label)
+		static string? CorrectLabelsByDict(string label)
 		{
 			if (MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
 			{

@@ -9,21 +9,22 @@ namespace Preprocessor
 	internal partial class Preprocessor
 	{
 		static string FissureSiteLabel { get; } = "Fissure Site";
-		public static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
-		public static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
-		public static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
-		public static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
-		public static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
-		public static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
-		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
+		static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
+		static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
+		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
+		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
+		static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
+		static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
+		static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
 		public static Regex SpaceFormIDRegex { get; } = new Regex("\\[(CELL|WRLD):([0-9A-F]{8})\\]\\)");
+		static Regex ValidateLockLevel { get; } = new Regex(@"^(Advanced \(Level 1\)|Chained|Expert \(Level 2\)|Inaccessible|Master \(Level 3\)|Novice \(Level 0\)|Requires Key|Requires Terminal|Unknown|Barred)$");
+		static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
+		static Regex ValidateSignature { get; } = new Regex("^[A-Z_]{4}$");
+		static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
+		static Regex ValidateNpcClass { get; } = new Regex("^(Main|Sub|Critter[AB])$");
+		static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood)$");
 
-		public static Dictionary<string, string> ComponentQuantityReplacement { get; } = new Dictionary<string, string>()
-		{
-			{ "%Singular%", "Singular" },
-		};
-
-		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
+		static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Animal Cave", "Hopewell Cave" },
 			{ "Bleeding Kate's Grinder", "Bleeding Kate's Grindhouse" },
@@ -62,7 +63,7 @@ namespace Preprocessor
 			{ "Shining Creek Caverns", "Shining Creek Cavern" },
 		};
 
-		public static List<string> MapMarkersToRemove { get; } = new List<string>()
+		static List<string> MapMarkersToRemove { get; } = new List<string>()
 		{
 			"Fissure Site Delta",
 			"Fissure Site Theta",
@@ -71,12 +72,18 @@ namespace Preprocessor
 		};
 
 		// Monongah Workshop (0x003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it
-		public static string AddMissingMarkersQuery { get; } = "INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', 'PublicWorkshopMarker');";
+		static string AddMissingMarkersQuery { get; } = "INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', 'PublicWorkshopMarker');";
 
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
-		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
+		static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
 
-		public static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
+		// For an unknown reason, some enitities in xEdit have this invalid lock level
+		static string CorrectLockLevelQuery { get; } = "UPDATE Position SET lockLevel = 'Novice (Level 0)' WHERE lockLevel = 'Opens Door';";
+
+		// For an unknown reason, some enitities in xEdit have this invalid primitive shape
+		static string CorrectPrimitiveShapeQuery { get; } = "UPDATE Position SET primitiveShape = 'Box' WHERE primitiveShape = '7';";
+
+		static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Megasloth", "Mega Sloth" },
 			{ "Molerat", "Mole Rat" },
@@ -91,7 +98,7 @@ namespace Preprocessor
 		};
 
 		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they are understood to be cut or otherwise inaccessible.
-		public static string DiscardCellsQuery { get; } =
+		static string DiscardCellsQuery { get; } =
 			"spaceDisplayName = '' OR " +
 			"spaceDisplayName LIKE '%Test%World%' OR " +
 			"spaceDisplayName LIKE '%Test%Cell%' OR " +
@@ -111,7 +118,7 @@ namespace Preprocessor
 			"spaceDisplayName = 'Diamond City' OR " +
 			"spaceDisplayName = 'Goodneighbor'";
 
-		public static string? GetCorrectedMarkerIcon(string markerName)
+		static string? GetCorrectedMarkerIcon(string markerName)
 		{
 			switch (markerName)
 			{
@@ -200,7 +207,7 @@ namespace Preprocessor
 		}
 
 		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others
-		public static string CorrectFissureLabels(string label)
+		static string CorrectFissureLabels(string label)
 		{
 			if (label.StartsWith(FissureSiteLabel))
 			{
@@ -211,7 +218,7 @@ namespace Preprocessor
 		}
 
 		// Correct map marker labels by correcting common extraneous/incorrect text in the label
-		public static string CorrectCommonBadLabels(string label)
+		static string CorrectCommonBadLabels(string label)
 		{
 			return label.Replace("Fast Travel Point: ", string.Empty).Replace("Hornwright Air Cleanser Site", "Hornwright Air Purifier Site");
 		}
