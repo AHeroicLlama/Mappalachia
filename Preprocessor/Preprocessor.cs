@@ -7,10 +7,18 @@ namespace Preprocessor
 {
 	internal partial class Preprocessor
 	{
+		enum ColumnType
+		{
+			TEXT,
+			REAL,
+			INTEGER,
+			BOOL,
+		}
+
 		static readonly SqliteConnection Connection = GetConnection();
 
 		// TODO do coords need to be REAL or can we get away with INTEGER?
-		static string CoordinateType { get; } = "REAL";
+		static ColumnType CoordinateType { get; } = ColumnType.INTEGER;
 
 		static void Main()
 		{
@@ -85,7 +93,7 @@ namespace Preprocessor
 			AddForeignKey("Region", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Transform the coordinate data to int
-			if (CoordinateType == "INTEGER")
+			if (CoordinateType == ColumnType.INTEGER)
 			{
 				TransformColumn(RealToInt, "Position", "x");
 				TransformColumn(RealToInt, "Position", "y");
@@ -95,6 +103,8 @@ namespace Preprocessor
 				TransformColumn(RealToInt, "Position", "boundZ");
 				TransformColumn(RealToInt, "Region", "x");
 				TransformColumn(RealToInt, "Region", "y");
+				TransformColumn(RealToInt, "MapMarker", "x");
+				TransformColumn(RealToInt, "MapMarker", "y");
 			}
 
 			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original
@@ -119,6 +129,12 @@ namespace Preprocessor
 			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, minX, maxX, midX, minY, maxY, midY) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, min(x), max(x), ((min(x) + max(x)) / 2), min(y), max(y), ((min(y) + max(y)) / 2) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
 			SimpleQuery("DROP TABLE Space;");
 			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
+
+			if (CoordinateType == ColumnType.INTEGER)
+			{
+				TransformColumn(RealToInt, "Space", "midX");
+				TransformColumn(RealToInt, "Space", "midY");
+			}
 
 			// Remove entries which are not referenced by other relevant tables (orphaned records)
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
@@ -179,7 +195,9 @@ namespace Preprocessor
 			SimpleQuery("VACUUM;");
 			SimpleQuery("PRAGMA query_only;");
 
-			Validate();
+			ValidateDatabase();
+
+			//TODO image asset check
 
 			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key");
 			Console.ReadKey();
