@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapIconProcessor", "MapIcon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundRenderer", "BackgroundRenderer\BackgroundRenderer.csproj", "{01E327DE-732E-44DA-93E8-E0383A2EDB6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageAssetChecker", "ImageAssetChecker\ImageAssetChecker.csproj", "{DEC507FD-0581-47DF-89F0-165CB3C4A671}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MappalachiaLibrary", "MappalachiaLibrary\MappalachiaLibrary.csproj", "{B1D48AC5-E2D9-456C-9AA5-D98CC8013B7E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Preprocessor", "Preprocessor\Preprocessor.csproj", "{009A30ED-9ED9-469B-ABEB-958553AB716D}"
@@ -81,18 +79,6 @@ Global
 		{01E327DE-732E-44DA-93E8-E0383A2EDB6F}.Release|x64.Build.0 = Release|Any CPU
 		{01E327DE-732E-44DA-93E8-E0383A2EDB6F}.Release|x86.ActiveCfg = Release|Any CPU
 		{01E327DE-732E-44DA-93E8-E0383A2EDB6F}.Release|x86.Build.0 = Release|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Debug|x64.Build.0 = Debug|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Debug|x86.Build.0 = Debug|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Release|x64.ActiveCfg = Release|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Release|x64.Build.0 = Release|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Release|x86.ActiveCfg = Release|Any CPU
-		{DEC507FD-0581-47DF-89F0-165CB3C4A671}.Release|x86.Build.0 = Release|Any CPU
 		{B1D48AC5-E2D9-456C-9AA5-D98CC8013B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1D48AC5-E2D9-456C-9AA5-D98CC8013B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1D48AC5-E2D9-456C-9AA5-D98CC8013B7E}.Debug|x64.ActiveCfg = Debug|Any CPU

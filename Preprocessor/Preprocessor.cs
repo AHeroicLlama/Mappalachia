@@ -18,14 +18,61 @@ namespace Preprocessor
 		static readonly SqliteConnection Connection = GetConnection();
 
 		// TODO do coords need to be REAL or can we get away with INTEGER?
-		static ColumnType CoordinateType { get; } = ColumnType.INTEGER;
+		static ColumnType CoordinateType { get; } = ColumnType.REAL;
 
 		static void Main()
 		{
-			string gameVersion = GetValidatedGameVersion();
+			Console.Title = "Mappalachia Preprocessor";
 
 			Stopwatch stopwatch = new Stopwatch();
-			stopwatch.Start();
+
+			// If the database already exists, we may only want to run validations, so we give some options
+			if (File.Exists(BuildPaths.GetDatabasePath()))
+			{
+				Console.WriteLine("Enter:" +
+					"\n1:Build and preprocess database, then run full validation suite" +
+					"\n2:Run both validations without building" +
+					"\n3:Run data validation only" +
+					"\n4:Run image asset validation only");
+
+				char input = Console.ReadKey().KeyChar;
+				Console.WriteLine();
+
+				stopwatch.Start();
+
+				switch (input)
+				{
+					case '1':
+						Preprocess();
+						break;
+					case '2':
+						ValidateDatabase();
+						ValidateImageAssets();
+						break;
+					case '3':
+						ValidateDatabase();
+						break;
+					case '4':
+						ValidateImageAssets();
+						break;
+
+					default:
+						throw new Exception(input + " was not a valid selection");
+				}
+			}
+			else // If the database doesn't exist yet, we do the full build and validate
+			{
+				stopwatch.Start();
+				Preprocess();
+			}
+
+			Console.WriteLine($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key");
+			Console.ReadKey();
+		}
+
+		static void Preprocess()
+		{
+			string gameVersion = GetValidatedGameVersion();
 
 			Console.WriteLine($"Building Mappalachia database at {BuildPaths.GetDatabasePath()}\n");
 
@@ -195,12 +242,11 @@ namespace Preprocessor
 			SimpleQuery("VACUUM;");
 			SimpleQuery("PRAGMA query_only;");
 
+			Console.WriteLine($"Build and Preprocess Done.");
+
 			ValidateDatabase();
 
-			//TODO image asset check
-
-			Console.WriteLine($"Done. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key");
-			Console.ReadKey();
+			ValidateImageAssets();
 		}
 
 		static SqliteConnection GetConnection()

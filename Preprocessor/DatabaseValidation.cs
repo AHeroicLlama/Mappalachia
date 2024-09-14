@@ -10,6 +10,8 @@ namespace Preprocessor
 		{
 			Console.WriteLine("Validating database");
 
+			ValidationFailures.Clear();
+
 			try
 			{
 				SimpleQuery("PRAGMA foreign_key_check;");
@@ -103,7 +105,7 @@ namespace Preprocessor
 			else
 			{
 				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine("Validation passed!");
+				Console.WriteLine("Data validation passed!");
 			}
 
 			Console.ForegroundColor = originalColor;
