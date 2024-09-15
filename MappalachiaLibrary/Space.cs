@@ -12,7 +12,7 @@
 		// The effective zoom so the cell suitably fills the image.
 		public float Scale { get; }
 
-		public Space(bool isWorldspace, uint formID, string editorID, string displayName, float xOffset, float yOffset, float scale)
+		public Space(uint formID, string editorID, string displayName, bool isWorldspace, float xOffset = 0, float yOffset = 0, float scale = 1)
 			: base(formID, editorID, displayName, isWorldspace ? "WLRD" : "CELL")
 		{
 			IsWorldspace = isWorldspace;
@@ -21,7 +21,7 @@
 			Scale = scale;
 		}
 
-		public Space(bool isWorldspace, string editorID, uint formID = 0x00000000, string displayName = "")
+		public Space(string editorID, bool isWorldspace, uint formID = 0x00000000, string displayName = "")
 			: base(formID, editorID, displayName, isWorldspace ? "WLRD" : "CELL")
 		{
 			IsWorldspace = isWorldspace;
