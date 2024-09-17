@@ -12,11 +12,11 @@ FO76Edit/
 # Utilities. 3rd party exe's generally
 Utilities/
 
-# World render DDS files
-*/img/*.dds
-*/img/cell/*.jpg
-*/img/*_render.jpg
-*/img/*_waterMask.png
+# Space background images
+img/cell/*
+img/wrld/*
+!img/wrld/Appalachia.jpg
+!img/wrld/Appalachia_military.jpg
 
 # Mappalachia Database
 *.db

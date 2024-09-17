@@ -57,7 +57,7 @@ namespace Preprocessor
 						break;
 
 					default:
-						throw new Exception(input + " was not a valid selection");
+						throw new Exception($"Not a valid selection: {input}");
 				}
 			}
 			else // If the database doesn't exist yet, we do the full build and validate
@@ -242,7 +242,7 @@ namespace Preprocessor
 			SimpleQuery("VACUUM;");
 			SimpleQuery("PRAGMA query_only;");
 
-			Console.WriteLine($"Build and Preprocess Done.");
+			Console.WriteLine($"Build and Preprocess Done.\n");
 
 			ValidateDatabase();
 

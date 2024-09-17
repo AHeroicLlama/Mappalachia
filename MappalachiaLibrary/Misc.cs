@@ -1,7 +1,7 @@
 ﻿namespace MappalachiaLibrary
 {
-	internal class Misc
+	public class Misc
 	{
-		public static uint MinimumMapImageResolution { get; } = (uint)Math.Pow(2, 12);
+		public static uint MapImageResolution { get; } = (uint)Math.Pow(2, 12);
 	}
 }

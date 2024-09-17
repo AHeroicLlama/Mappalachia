@@ -17,7 +17,7 @@
 		const string Fo76EditOutputPath = @"FO76Edit/Output/";
 		const string DatabasePath = @"/data/mappalachia.db";
 		const string CellPath = @"cell/";
-		const string Worldpath = @"wrld/";
+		const string WorldPath = @"wrld/";
 		const string MapMarkerPath = @"mapmarker/";
 
 		static string? solutionPath = null;
@@ -100,7 +100,7 @@
 
 		public static string GetImageWorldPath()
 		{
-			return GetImageRootPath() + CellPath;
+			return GetImageRootPath() + WorldPath;
 		}
 
 		public static string GetImageMapMarkerPath()

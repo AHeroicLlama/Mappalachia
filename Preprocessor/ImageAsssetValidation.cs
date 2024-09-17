@@ -9,6 +9,8 @@ namespace Preprocessor
 		const string BackgroundImageFileType = ".jpg";
 		const string MaskImageFileType = ".png";
 		const string MapMarkerImageFileType = ".svg";
+		const uint MinMapImageSizeKB = 500;
+		const uint MaxMapImageSizeKB = 6000;
 
 		static void ValidateImageAssets()
 		{
@@ -29,6 +31,7 @@ namespace Preprocessor
 
 			// Collect all map markers
 			List<MapMarker> mapMarkers = new List<MapMarker>();
+			query = Connection.CreateCommand();
 			query.CommandText = "SELECT DISTINCT icon FROM MapMarker";
 			reader = query.ExecuteReader();
 			while (reader.Read())
@@ -48,9 +51,30 @@ namespace Preprocessor
 		{
 			string filePath = (space.IsWorldspace ? BuildPaths.GetImageWorldPath() : BuildPaths.GetImageCellPath()) + space.EditorID + BackgroundImageFileType;
 
-			using (Image image = Image.FromFile(filePath))
+			if (!File.Exists(filePath))
 			{
+				FailValidation($"Image for space {space.EditorID} was not found at {filePath}");
+				return;
+			}
 
+			using (Image? image = Image.FromFile(filePath))
+			{
+				if (image.Width != Misc.MapImageResolution || image.Height != Misc.MapImageResolution)
+				{
+					FailValidation($"Image {filePath} is not the expected dimension of {Misc.MapImageResolution}x{Misc.MapImageResolution}");
+					return;
+				}
+			}
+
+			int fileSizeKB = (int)(new FileInfo(filePath).Length / Math.Pow(2, 10));
+
+			if (!space.IsWorldspace)
+			{
+				if (fileSizeKB < MinMapImageSizeKB || fileSizeKB > MaxMapImageSizeKB)
+				{
+					FailValidation($"Image {filePath} appears to be an improper file size ({fileSizeKB}KB)");
+					return;
+				}
 			}
 		}
 

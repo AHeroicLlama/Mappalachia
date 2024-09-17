@@ -24,7 +24,7 @@ namespace Preprocessor
 
 			Console.ForegroundColor = originalColor;
 
-			File.AppendAllText(BuildPaths.GetErrorsPath(), reason);
+			File.AppendAllLines(BuildPaths.GetErrorsPath(), new List<string>() { reason });
 		}
 	}
 }
