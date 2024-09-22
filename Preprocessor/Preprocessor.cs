@@ -168,7 +168,7 @@ namespace Preprocessor
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
 			deletedRows.Sort();
-			deletedRows.Insert(0, "spaceEditorID,spaceDisplayName,spaceFormID,isWorldspace");
+			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
 			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
 
 			// Create a replacement copy of Space, adding the min/max/mid of x/y
