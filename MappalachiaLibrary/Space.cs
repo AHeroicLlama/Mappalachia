@@ -27,7 +27,7 @@
 			IsWorldspace = isWorldspace;
 		}
 
-		bool IsAppalachia()
+		public bool IsAppalachia()
 		{
 			return EditorID.Equals("Appalachia", StringComparison.OrdinalIgnoreCase);
 		}

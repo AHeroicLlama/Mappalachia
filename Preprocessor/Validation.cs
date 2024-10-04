@@ -26,5 +26,38 @@ namespace Preprocessor
 
 			File.AppendAllLines(BuildPaths.GetErrorsPath(), new List<string>() { reason });
 		}
+
+		static void ConcludeValidation()
+		{
+			Console.WriteLine();
+			ConsoleColor originalColor = Console.ForegroundColor;
+
+			if (ValidationFailures.Count > 0)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+
+				Console.WriteLine("Validation failed. The following errors were reported:");
+
+				foreach (string failure in ValidationFailures)
+				{
+					Console.WriteLine($"* {failure}");
+				}
+
+				Console.WriteLine($"\nError details stored to {BuildPaths.GetErrorsPath()}");
+
+				Console.WriteLine($"Press any key to acknowledge and continue.");
+				Console.ForegroundColor = originalColor;
+
+				Console.ReadKey();
+			}
+			else
+			{
+				Console.ForegroundColor = ConsoleColor.Green;
+				Console.WriteLine("Validation passed!");
+			}
+
+			Console.ForegroundColor = originalColor;
+			Console.WriteLine();
+		}
 	}
 }

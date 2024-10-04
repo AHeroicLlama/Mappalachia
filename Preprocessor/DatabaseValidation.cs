@@ -89,26 +89,7 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Meta", "key", false, ColumnType.TEXT);
 			ValidateColumnMatchesFormat("Meta", "value", false, ColumnType.TEXT);
 
-			ConsoleColor originalColor = Console.ForegroundColor;
-			if (ValidationFailures.Count > 0)
-			{
-				Console.ForegroundColor = ConsoleColor.Red;
-
-				Console.WriteLine("Data validation failed. The following errors were reported:");
-				ValidationFailures.ForEach(Console.WriteLine);
-
-				Console.WriteLine($"Error details stored to {BuildPaths.GetErrorsPath()}");
-
-				Console.WriteLine($"Press any key to acknowledge and continue.");
-				Console.ReadKey();
-			}
-			else
-			{
-				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine("Data validation passed!");
-			}
-
-			Console.ForegroundColor = originalColor;
+			ConcludeValidation();
 		}
 
 		// Validate all rows of the table column match the type and optional regex pattern, including optional blanks

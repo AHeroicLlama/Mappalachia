@@ -2,7 +2,7 @@
 {
 	public class Misc
 	{
-		public static uint MapImageResolution { get; } = (uint)Math.Pow(2, 12);
-		public static uint Kilobyte { get; } = (uint)Math.Pow(2, 10);
+		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12);
+		public static int Kilobyte { get; } = (int)Math.Pow(2, 10);
 	}
 }

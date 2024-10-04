@@ -43,33 +43,57 @@ namespace Preprocessor
 			}
 
 			// Validate the image files for the database objects exist, and have expected parameters
-			spaces.ForEach(ValidateSpaceImage);
+			spaces.ForEach(ValidateSpace);
 			mapMarkers.ForEach(ValidateMapMarkerImage);
 
 			// Inverse of above, check there are no extraneous files
-			// TODO - check there are no extraneous image for cells we don't carry
-		}
-
-		static void ValidateSpaceImage(Space space)
-		{
-			string filePath = (space.IsWorldspace ? BuildPaths.GetImageWorldPath() : BuildPaths.GetImageCellPath()) + space.EditorID + BackgroundImageFileType;
-
-			// Verify the file exists
-			if (!File.Exists(filePath))
+			// First check each cell file against a cell in the database
+			foreach (string file in Directory.GetFiles(BuildPaths.GetImageCellPath()))
 			{
-				FailValidation($"Image for space {space.EditorID} was not found at {filePath}");
-				return;
+				string expectedEditorId = Path.GetFileNameWithoutExtension(file);
+
+				if (spaces.Where(space => space.EditorID == expectedEditorId && !space.IsWorldspace).Count() == 0)
+				{
+					FailValidation($"File {file} has no corresponding Cell and should be deleted.");
+				}
 			}
 
-			// Verify the file dimensions are within the pre-set ranges
-			using (Image? image = Image.FromFile(filePath))
+			// Check the count of images in the cell image folder matches the count of cells in the DB
+			int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
+			int actualCellImageFiles = Directory.GetFiles(BuildPaths.GetImageCellPath()).Count();
+			if (actualCellImageFiles != expectedCellImageFiles)
 			{
-				if (image.Width != Misc.MapImageResolution || image.Height != Misc.MapImageResolution)
-				{
-					FailValidation($"Image {filePath} is not the expected dimension of {Misc.MapImageResolution}x{Misc.MapImageResolution}");
-					return;
-				}
+				FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
+			}
 
+			// Worldspaces are more complex, so we only do the count of the files.
+			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map
+			int expectedWorldspaceImageFiles = (spaces.Where(space => space.IsWorldspace).Count() * 3) + spaces.Where(space => space.IsAppalachia()).Count();
+			int actualWorldspaceImageFiles = Directory.GetFiles(BuildPaths.GetImageWorldPath()).Count();
+
+			if (actualWorldspaceImageFiles != expectedWorldspaceImageFiles)
+			{
+				FailValidation($"Too {(actualWorldspaceImageFiles < expectedWorldspaceImageFiles ? "few" : "many")} files in the worldspace image folder. Expected {expectedWorldspaceImageFiles}, found {actualWorldspaceImageFiles}");
+			}
+
+			ConcludeValidation();
+		}
+
+		static bool ValidateImageExists(Space space, string path)
+		{
+			if (!File.Exists(path))
+			{
+				FailValidation($"Image for space {space.EditorID} was not found at {path}");
+				return false;
+			}
+
+			return true;
+		}
+
+		static void ValidateImageBlackPx(Space space, string path)
+		{
+			using (Image? image = Image.FromFile(path))
+			{
 				// Validate that there is not too many black pixels, which would indicate that the zoom or offset is incorrect
 				using (Bitmap bitmap = (Bitmap)image)
 				{
@@ -97,7 +121,7 @@ namespace Preprocessor
 
 					bitmap.UnlockBits(bitmapData);
 
-					float blackPxPercent = blackPxCount / (Misc.MapImageResolution * (float)Misc.MapImageResolution) * 100;
+					float blackPxPercent = blackPxCount / (bitmap.Width * (float)bitmap.Height) * 100;
 
 					if (blackPxPercent > MaxBlackPixelsPerc)
 					{
@@ -105,19 +129,75 @@ namespace Preprocessor
 					}
 				}
 			}
+		}
 
-			int fileSizeKB = (int)(new FileInfo(filePath).Length / Misc.Kilobyte);
+		static void ValidateImageDimensions(Space space, string path)
+		{
+			// Verify the file dimensions are within the pre-set ranges
+			using (Image? image = Image.FromFile(path))
+			{
+				if (image.Width != Misc.MapImageResolution || image.Height != Misc.MapImageResolution)
+				{
+					FailValidation($"Image {path} is not the expected dimension of {Misc.MapImageResolution}x{Misc.MapImageResolution}");
+				}
+			}
+		}
+
+		static void ValidateImageFileSize(Space space, string path)
+		{
+			int fileSizeKB = (int)(new FileInfo(path).Length / Misc.Kilobyte);
 
 			if (!space.IsWorldspace)
 			{
 				if (fileSizeKB < MinRenderedCellImageSizeKB || fileSizeKB > MaxRenderedCellImageSizeKB)
 				{
-					FailValidation($"Image {filePath} appears to be an improper file size ({fileSizeKB}KB)");
-					return;
+					FailValidation($"Image {path} appears to be an improper file size ({fileSizeKB}KB)");
 				}
 			}
+		}
 
-			// TODO worldspace-specific checks
+		// Validates the background images for the given Space
+		static void ValidateSpace(Space space)
+		{
+			Console.WriteLine(space.EditorID);
+			string filePath = (space.IsWorldspace ? BuildPaths.GetImageWorldPath() : BuildPaths.GetImageCellPath()) + space.EditorID + BackgroundImageFileType;
+
+			if (!ValidateImageExists(space, filePath))
+			{
+				return;
+			}
+
+			ValidateImageDimensions(space, filePath);
+			ValidateImageFileSize(space, filePath);
+			ValidateImageBlackPx(space, filePath);
+
+			// There are several additional files for Worldspaces
+			if (space.IsWorldspace)
+			{
+				string watermaskFilePath = BuildPaths.GetImageWorldPath() + space.EditorID + "_waterMask" + MaskImageFileType;
+				string renderMapPath = BuildPaths.GetImageWorldPath() + space.EditorID + "_render" + BackgroundImageFileType;
+
+				if (!ValidateImageExists(space, watermaskFilePath) | !ValidateImageExists(space, renderMapPath))
+				{
+					return;
+				}
+
+				ValidateImageDimensions(space, watermaskFilePath);
+				ValidateImageDimensions(space, renderMapPath);
+
+				// Appalachia specifically also has the 'military' map
+				if (space.IsAppalachia())
+				{
+					string militaryMapPath = BuildPaths.GetImageWorldPath() + space.EditorID + "_military" + BackgroundImageFileType;
+
+					if (!ValidateImageExists(space, militaryMapPath))
+					{
+						return;
+					}
+
+					ValidateImageDimensions(space, militaryMapPath);
+				}
+			}
 		}
 
 		static void ValidateMapMarkerImage(MapMarker mapMarker)
