@@ -80,6 +80,7 @@ namespace Mappalachia
 			{ "The Rusty Pick", "LegendaryPurveyorMarker" },
 			{ "Vault 51", "Vault51Marker" },
 			{ "Vault 79", "Vault79Marker" },
+			{ "Gleaming Depths", "FissureMarker" },
 		};
 
 		static readonly Dictionary<string, string> wrongLabelNames = new Dictionary<string, string>()

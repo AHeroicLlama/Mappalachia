@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 ==Checksum== 
-393686735ec8d2025653eaba16a171f5
+38b4f839fdcd99ae4c10f1089d1a763b
 ==File Size== 
-483332096 
+486170624 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-PTS 0.2.1578.0
+PTS 0.2.1609.0
 ==Mean Average X/Y/Z Coord==
--9790.80553280637|-5538.61983810723|11169.8767353877
+-9753.50131260339|-5514.77375353965|11135.0731827959
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -27,6 +27,7 @@ PTS 0.2.1578.0
 2433|59|-3072|60
 -128|4608|512|57
 3584|0|256|57
+-6400|1152|7552|55
 2547|4482|512|46
 -43|4777|519|42
 0|0|0|42
@@ -119,21 +120,20 @@ PTS 0.2.1578.0
 1920|-2176|384|22
 2304|0|0|22
 2560|-2944|0|22
-33916|77986|21778|22
 ==Z outliers==
 78
 ==Average X Bounds Width==
-22.8399870797334
+22.9773970540334
 ==Average Y Bounds Width==
-16.7791372056716
+16.8618099999476
 ==Average Z Bounds Width==
-16.5756876777539
+16.7386634809508
 ==Average Z Rotation==
-4.33194409922948
+4.35749266653947
 ==Average display name string length==
-2.81124078885718
+2.81756370337421
 ==Average editorID string length==
-25.2500745410402
+25.2536061511089
 ==Map Markers==
 APPALACHIA|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 APPALACHIA|AirfieldMarker|Crashed Plane|147706|58411
@@ -298,11 +298,11 @@ APPALACHIA|FissureMarker|Fissure Site|173252|-159284
 APPALACHIA|FissureMarker|Fissure Site|152676|-66537
 APPALACHIA|FissureMarker|Fissure Site|58897|-150970
 APPALACHIA|FissureMarker|Fissure Site|-38686|-70772
-APPALACHIA|FissureMarker|Fissure Site|-120767|-162346
 APPALACHIA|FissureMarker|Fissure Site|129596|75406
 APPALACHIA|FissureMarker|Fissure Site|112458|124837
 APPALACHIA|FissureMarker|Fissure Site|153700|182385
 APPALACHIA|FissureMarker|Fissure Site Prime|196808|-165776
+APPALACHIA|FissureMarker|Gleaming Depths|-120767|-162346
 APPALACHIA|ForestedMarker|Creekside Sundew Grove|161083|-75948
 APPALACHIA|ForestedMarker|Deathclaw Island|-173625|131148
 APPALACHIA|ForestedMarker|Dolly Sods Wilderness|155697|86001
@@ -562,7 +562,7 @@ APPALACHIA|WoodShackMarker|Southhampton Estate|169981|125109
 APPALACHIA|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 APPALACHIA|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-46954
+47211
 ==Regions==
 Space|Region|subRegions|maxVerts
 APPALACHIA|76Border|1|62
@@ -799,8 +799,8 @@ AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-APPALACHIA||3185436
-APPALACHIA|Box|70310
+APPALACHIA||3185538
+APPALACHIA|Box|70353
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1801
 APPALACHIA|Plane|204
@@ -823,7 +823,7 @@ ArktosPharmaLabDungeon|Sphere|4
 BelchingBetty01||5088
 BelchingBetty01|Box|124
 BelchingBetty01|Line|6
-BigBendTunnel01||6831
+BigBendTunnel01||6832
 BigBendTunnel01|Box|721
 BigBendTunnel01|Sphere|1
 BlackwaterMine01||5836
@@ -967,8 +967,8 @@ LittleRobsHideout01|Box|100
 LousMine01||6718
 LousMine01|Box|268
 LousMine01|Line|5
-MILEBlueRidgeHQ||6783
-MILEBlueRidgeHQ|Box|716
+MILEBlueRidgeHQ||6782
+MILEBlueRidgeHQ|Box|717
 MTR08LodeBaring01||3227
 MTR08LodeBaring01|Box|177
 MTR08LodeBaring01|Sphere|2
@@ -1023,6 +1023,9 @@ PoseidonPlant01|Line|4
 PoseidonPlant02||3827
 PoseidonPlant02|Box|360
 PoseidonPlant02|Line|2
+RD01GleamingDepths||18316
+RD01GleamingDepths|Box|1297
+RD01GleamingDepths|Plane|47
 RadioResearchCenter01||3328
 RadioResearchCenter01|Box|144
 RaiderCave02||1733
@@ -1052,6 +1055,8 @@ SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
 SheltersFlatlands||1016
 SheltersFlatlands|Box|518
+SheltersGleamingDepths||1969
+SheltersGleamingDepths|Box|72
 SheltersHighStakes||2536
 SheltersHighStakes|Box|81
 SheltersHousingDevelopment||971
@@ -1086,7 +1091,7 @@ SpruceKnobMissileSilo01||15051
 SpruceKnobMissileSilo01|Box|629
 StormBrownHouse||1475
 StormBrownHouse|Box|95
-StormCultistTunnels||3193
+StormCultistTunnels||3192
 StormCultistTunnels|Box|164
 StormCultistTunnels|Plane|7
 StormCultistTunnels|Sphere|1
@@ -1269,7 +1274,7 @@ XPDPitt01Foundry||16367
 XPDPitt01Foundry|Box|560
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
-XPDPitt01FoundryDungeon||14868
+XPDPitt01FoundryDungeon||14870
 XPDPitt01FoundryDungeon|Box|498
 XPDPitt01FoundryDungeon|Plane|6
 XPDPitt01FoundryDungeon|Sphere|1
@@ -1300,7 +1305,7 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3259286
+APPALACHIA||3259431
 APPALACHIA|Advanced (Level 1)|338
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
@@ -1332,7 +1337,7 @@ BelchingBetty01||5213
 BelchingBetty01|Advanced (Level 1)|1
 BelchingBetty01|Requires Key|3
 BelchingBetty01|Requires Terminal|1
-BigBendTunnel01||7540
+BigBendTunnel01||7541
 BigBendTunnel01|Advanced (Level 1)|4
 BigBendTunnel01|Chained|1
 BigBendTunnel01|Expert (Level 2)|1
@@ -1564,6 +1569,8 @@ PoseidonPlant02|Advanced (Level 1)|3
 PoseidonPlant02|Expert (Level 2)|1
 PoseidonPlant02|Requires Key|2
 PoseidonPlant02|Requires Terminal|1
+RD01GleamingDepths||19646
+RD01GleamingDepths|Inaccessible|14
 RadioResearchCenter01||3464
 RadioResearchCenter01|Advanced (Level 1)|3
 RadioResearchCenter01|Expert (Level 2)|2
@@ -1601,6 +1608,7 @@ SheltersCave02||608
 SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersFlatlands||1534
+SheltersGleamingDepths||2041
 SheltersHighStakes||2617
 SheltersHousingDevelopment||1001
 SheltersMissileSilo||493
@@ -1626,7 +1634,7 @@ SpruceKnobMissileSilo01|Requires Terminal|1
 StormBrownHouse||1568
 StormBrownHouse|Inaccessible|1
 StormBrownHouse|Requires Terminal|1
-StormCultistTunnels||3364
+StormCultistTunnels||3363
 StormCultistTunnels|Requires Key|1
 StormEngineeringVlt63||4693
 StormEngineeringVlt63|Advanced (Level 1)|1
@@ -1878,7 +1886,7 @@ XPDPitt01Foundry|Advanced (Level 1)|16
 XPDPitt01Foundry|Expert (Level 2)|5
 XPDPitt01Foundry|Master (Level 3)|3
 XPDPitt01Foundry|Novice (Level 0)|8
-XPDPitt01FoundryDungeon||15350
+XPDPitt01FoundryDungeon||15352
 XPDPitt01FoundryDungeon|Advanced (Level 1)|8
 XPDPitt01FoundryDungeon|Expert (Level 2)|5
 XPDPitt01FoundryDungeon|Master (Level 3)|3
@@ -1939,35 +1947,35 @@ AMSHQ02|SCOL|186
 AMSHQ02|STAT|1421
 AMSHQ02|TERM|1
 AMSHQ02|TXST|46
-APPALACHIA|ACTI|23526
+APPALACHIA|ACTI|23542
 APPALACHIA|ALCH|308
 APPALACHIA|AMMO|80
 APPALACHIA|ARMO|126
 APPALACHIA|ASPC|2378
-APPALACHIA|BNDS|10463
+APPALACHIA|BNDS|10466
 APPALACHIA|BOOK|575
 APPALACHIA|CNCY|260
-APPALACHIA|CONT|13522
-APPALACHIA|DOOR|2643
-APPALACHIA|FLOR|51659
-APPALACHIA|FURN|15678
-APPALACHIA|HAZD|1056
-APPALACHIA|IDLM|19057
+APPALACHIA|CONT|13524
+APPALACHIA|DOOR|2644
+APPALACHIA|FLOR|51657
+APPALACHIA|FURN|15685
+APPALACHIA|HAZD|1055
+APPALACHIA|IDLM|19063
 APPALACHIA|KEYM|37
-APPALACHIA|LIGH|9118
-APPALACHIA|LVLI|73798
+APPALACHIA|LIGH|9128
+APPALACHIA|LVLI|73805
 APPALACHIA|MISC|37487
-APPALACHIA|MSTT|24424
+APPALACHIA|MSTT|24422
 APPALACHIA|NOTE|179
-APPALACHIA|NPC_|8207
+APPALACHIA|NPC_|8214
 APPALACHIA|PROJ|93
-APPALACHIA|SCOL|365365
+APPALACHIA|SCOL|365366
 APPALACHIA|SECH|253
 APPALACHIA|SOUN|5931
-APPALACHIA|STAT|2523781
+APPALACHIA|STAT|2523856
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
-APPALACHIA|TXST|69723
+APPALACHIA|TXST|69738
 APPALACHIA|WEAP|235
 AVRMedicalCenter01|ACTI|56
 AVRMedicalCenter01|ASPC|24
@@ -2083,7 +2091,7 @@ BigBendTunnel01|MSTT|288
 BigBendTunnel01|NPC_|75
 BigBendTunnel01|SCOL|252
 BigBendTunnel01|SOUN|1
-BigBendTunnel01|STAT|5347
+BigBendTunnel01|STAT|5348
 BigBendTunnel01|TERM|1
 BigBendTunnel01|TXST|537
 BigBendTunnel01|WEAP|4
@@ -3010,23 +3018,24 @@ LousMine01|TACT|1
 LousMine01|TERM|7
 LousMine01|TXST|130
 LousMine01|WEAP|2
-MILEBlueRidgeHQ|ACTI|33
+MILEBlueRidgeHQ|ACTI|32
 MILEBlueRidgeHQ|ALCH|32
 MILEBlueRidgeHQ|ARMO|4
 MILEBlueRidgeHQ|BNDS|3
 MILEBlueRidgeHQ|BOOK|5
 MILEBlueRidgeHQ|CONT|75
 MILEBlueRidgeHQ|DOOR|6
-MILEBlueRidgeHQ|FURN|57
+MILEBlueRidgeHQ|FURN|56
 MILEBlueRidgeHQ|IDLM|4
 MILEBlueRidgeHQ|LIGH|382
 MILEBlueRidgeHQ|LVLI|5
-MILEBlueRidgeHQ|MISC|196
+MILEBlueRidgeHQ|MISC|195
 MILEBlueRidgeHQ|MSTT|198
-MILEBlueRidgeHQ|NPC_|9
-MILEBlueRidgeHQ|SCOL|484
+MILEBlueRidgeHQ|NPC_|10
+MILEBlueRidgeHQ|SCOL|483
 MILEBlueRidgeHQ|SOUN|6
-MILEBlueRidgeHQ|STAT|5310
+MILEBlueRidgeHQ|STAT|5312
+MILEBlueRidgeHQ|TERM|1
 MILEBlueRidgeHQ|TXST|675
 MILEBlueRidgeHQ|WEAP|15
 MTR08LodeBaring01|ACTI|75
@@ -3411,6 +3420,26 @@ PoseidonPlant02|STAT|3280
 PoseidonPlant02|TERM|1
 PoseidonPlant02|TXST|252
 PoseidonPlant02|WEAP|2
+RD01GleamingDepths|ACTI|127
+RD01GleamingDepths|ARMO|4
+RD01GleamingDepths|BNDS|128
+RD01GleamingDepths|BOOK|6
+RD01GleamingDepths|CONT|60
+RD01GleamingDepths|DOOR|23
+RD01GleamingDepths|FURN|55
+RD01GleamingDepths|HAZD|49
+RD01GleamingDepths|IDLM|19
+RD01GleamingDepths|LIGH|947
+RD01GleamingDepths|LVLI|15
+RD01GleamingDepths|MISC|96
+RD01GleamingDepths|MSTT|336
+RD01GleamingDepths|NOTE|8
+RD01GleamingDepths|NPC_|23
+RD01GleamingDepths|SCOL|1268
+RD01GleamingDepths|STAT|15661
+RD01GleamingDepths|TERM|3
+RD01GleamingDepths|TXST|822
+RD01GleamingDepths|WEAP|10
 RadioResearchCenter01|ACTI|26
 RadioResearchCenter01|ASPC|28
 RadioResearchCenter01|BOOK|5
@@ -3610,6 +3639,12 @@ SheltersFlatlands|LIGH|1
 SheltersFlatlands|SCOL|26
 SheltersFlatlands|STAT|993
 SheltersFlatlands|TXST|507
+SheltersGleamingDepths|ACTI|10
+SheltersGleamingDepths|LIGH|107
+SheltersGleamingDepths|MSTT|19
+SheltersGleamingDepths|SCOL|234
+SheltersGleamingDepths|STAT|1613
+SheltersGleamingDepths|TXST|58
 SheltersHighStakes|ACTI|78
 SheltersHighStakes|DOOR|3
 SheltersHighStakes|LIGH|91
@@ -3760,7 +3795,7 @@ StormCultistTunnels|LVLI|28
 StormCultistTunnels|MISC|30
 StormCultistTunnels|MSTT|34
 StormCultistTunnels|NPC_|18
-StormCultistTunnels|SCOL|362
+StormCultistTunnels|SCOL|361
 StormCultistTunnels|SECH|2
 StormCultistTunnels|SOUN|3
 StormCultistTunnels|STAT|2450
@@ -5021,7 +5056,7 @@ XPDPitt01FoundryDungeon|MSTT|450
 XPDPitt01FoundryDungeon|NPC_|12
 XPDPitt01FoundryDungeon|SCOL|1911
 XPDPitt01FoundryDungeon|SOUN|39
-XPDPitt01FoundryDungeon|STAT|11156
+XPDPitt01FoundryDungeon|STAT|11158
 XPDPitt01FoundryDungeon|TXST|425
 XPDPitt01FoundryDungeon|WEAP|1
 XPDPitt01Industrial|ACTI|220
@@ -5157,7 +5192,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3254005
+APPALACHIA||3254149
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -8670,6 +8705,7 @@ APPALACHIA|QP_Marker_WelchExt|1
 APPALACHIA|QP_TestMarker|1
 APPALACHIA|QuestItem_Truck_1|1
 APPALACHIA|Quickplay_Marker_HuntersvilleExt|1
+APPALACHIA|RD01_ExteriorMarker|1
 APPALACHIA|RDRRoseREF|1
 APPALACHIA|RDR_Contact_RoseRef|1
 APPALACHIA|REF_COMP_Astronaut_Console_FlightRecorder|1
@@ -11655,7 +11691,7 @@ BelchingBetty01|TMRightStairs|1
 BelchingBetty01|TM_left1|1
 BelchingBetty01|TM_leftbottomapproach|1
 BelchingBetty01|zw_belchingbettylowerlevel|1
-BigBendTunnel01||7469
+BigBendTunnel01||7470
 BigBendTunnel01|E05_CP1_BackBrahmin|1
 BigBendTunnel01|E05_CP1_BackBrahmin001|1
 BigBendTunnel01|E05_CP1_BackBrahmin002|1
@@ -13765,6 +13801,184 @@ PoseidonPlant02|W05_MQR_204P_LevHideoutInstanceMarker|1
 PoseidonPlant02|WL020_LockedDoor_EnableMarker|1
 PoseidonPlant02|WL020_Post204P_UnlockedDoor01|1
 PoseidonPlant02|WL020_Post204P_UnlockedDoor02|1
+RD01GleamingDepths||19483
+RD01GleamingDepths|EncounterDoor_Marker01|1
+RD01GleamingDepths|EncounterDoor_Marker02|1
+RD01GleamingDepths|EncounterDoor_Marker03|1
+RD01GleamingDepths|EncounterDoor_Marker04|1
+RD01GleamingDepths|EncounterDoor_Trigger|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTelegraphTrigger01_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTelegraphTrigger02_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTelegraphTrigger03_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTelegraphTrigger04_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger01_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger01_VFX|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger02_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger02_VFX|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger03_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger03_VFX|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger04_Ref|1
+RD01GleamingDepths|RD01_Enc01_DamagingFloorTrigger04_VFX|1
+RD01GleamingDepths|RD01_Enc01_DoorA_KlaxonManager|1
+RD01GleamingDepths|RD01_Enc01_DoorB_KlaxonManager|1
+RD01GleamingDepths|RD01_Enc01_DoorC_KlaxonManager|1
+RD01GleamingDepths|RD01_Enc01_EncounterDoor_Door01|1
+RD01GleamingDepths|RD01_Enc01_EncounterDoor_Door02|1
+RD01GleamingDepths|RD01_Enc01_EncounterDoor_Marker01|1
+RD01GleamingDepths|RD01_Enc01_EncounterDoor_Marker02|1
+RD01GleamingDepths|RD01_Enc01_EncounterDoor_Marker03|1
+RD01GleamingDepths|RD01_Enc01_EncounterDoor_Marker04|1
+RD01GleamingDepths|RD01_Enc01_EncounterDoor_Trigger|1
+RD01GleamingDepths|RD01_Enc01_NodeTrigger_A_Ref|1
+RD01GleamingDepths|RD01_Enc01_NodeTrigger_B_Ref|1
+RD01GleamingDepths|RD01_Enc01_NodeTrigger_C_Ref|1
+RD01GleamingDepths|RD01_Enc01_OuterLight_EnableMarker|1
+RD01GleamingDepths|RD01_Enc01_PlayerRespawn01|1
+RD01GleamingDepths|RD01_Enc01_PlayerRespawn02|1
+RD01GleamingDepths|RD01_Enc01_PlayerRespawn03|1
+RD01GleamingDepths|RD01_Enc01_PlayerRespawn04|1
+RD01GleamingDepths|RD01_Enc01_StateCharge_DoorA_EnableMarker|1
+RD01GleamingDepths|RD01_Enc01_StateCharge_DoorB_EnableMarker|1
+RD01GleamingDepths|RD01_Enc01_StateCharge_DoorC_EnableMarker|1
+RD01GleamingDepths|RD01_Enc01_StateCharging_EnableMarker|1
+RD01GleamingDepths|RD01_Enc01_StateShielded_EnableMarker|1
+RD01GleamingDepths|RD01_Enc01_StateUnshielded_EnableMarker|1
+RD01GleamingDepths|RD01_Enc02_DoorToCave01|1
+RD01GleamingDepths|RD01_Enc02_DoorToCave02|1
+RD01GleamingDepths|RD01_Enc02_DoorToCave03|1
+RD01GleamingDepths|RD01_Enc02_DoorToCave04|1
+RD01GleamingDepths|RD01_Enc02_DoorToCave06|1
+RD01GleamingDepths|RD01_Enc02_Drill_SpawnMarker|1
+RD01GleamingDepths|RD01_Enc02_EncounterDoor_Marker01|1
+RD01GleamingDepths|RD01_Enc02_EncounterDoor_Marker02|1
+RD01GleamingDepths|RD01_Enc02_EncounterDoor_Marker03|1
+RD01GleamingDepths|RD01_Enc02_EncounterDoor_Marker04|1
+RD01GleamingDepths|RD01_Enc02_EncounterDoor_Trigger|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref001|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref002|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref003|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref004|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref005|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref006|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref007|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref008|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref009|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref010|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref011|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref012|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref013|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref014|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref015|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref016|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref017|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref018|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref019|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref020|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref021|1
+RD01GleamingDepths|RD01_Enc02_FuelSpawnMarker_Ref022|1
+RD01GleamingDepths|RD01_Enc02_Outro_ExplosionMarker|1
+RD01GleamingDepths|RD01_Enc02_PlayerRespawn01|1
+RD01GleamingDepths|RD01_Enc02_PlayerRespawn02|1
+RD01GleamingDepths|RD01_Enc02_PlayerRespawn03|1
+RD01GleamingDepths|RD01_Enc02_PlayerRespawn04|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm01_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm01_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm02_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm02_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm03_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm03_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm04_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm04_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm05_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm05_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm06_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wBotSm06_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wTopSm01_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wTopSm01_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wTopSm02_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wTopSm02_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wTopSm03_Miner_00|1
+RD01GleamingDepths|RD01_Enc02_SpawnMarker_wTopSm03_Rat_00|1
+RD01GleamingDepths|RD01_Enc02_StalkerMarker_A|1
+RD01GleamingDepths|RD01_Enc02_StalkerMarker_A001|1
+RD01GleamingDepths|RD01_Enc02_StalkerMarker_A002|1
+RD01GleamingDepths|RD01_Enc02_StalkerMarker_B|1
+RD01GleamingDepths|RD01_Enc02_StalkerTrigger17|1
+RD01GleamingDepths|RD01_Enc02_StalkerTrigger18|1
+RD01GleamingDepths|RD01_Enc02_StalkerTrigger19|1
+RD01GleamingDepths|RD01_Enc02_StalkerTrigger22|1
+RD01GleamingDepths|RD01_Enc02_StalkerTrigger23|1
+RD01GleamingDepths|RD01_Enc04_EncounterDoor_Door01|1
+RD01GleamingDepths|RD01_Enc04_EncounterDoor_Door02|1
+RD01GleamingDepths|RD01_Enc04_EncounterDoor_Marker01|1
+RD01GleamingDepths|RD01_Enc04_EncounterDoor_Marker02|1
+RD01GleamingDepths|RD01_Enc04_EncounterDoor_Marker03|1
+RD01GleamingDepths|RD01_Enc04_EncounterDoor_Marker04|1
+RD01GleamingDepths|RD01_Enc04_EncounterDoor_Trigger|1
+RD01GleamingDepths|RD01_Enc04_PlayerRespawn01|1
+RD01GleamingDepths|RD01_Enc04_PlayerRespawn02|1
+RD01GleamingDepths|RD01_Enc04_PlayerRespawn03|1
+RD01GleamingDepths|RD01_Enc04_PlayerRespawn04|1
+RD01GleamingDepths|RD01_Enc05_Charger01VFX_1_Ref|1
+RD01GleamingDepths|RD01_Enc05_Charger02VFX_1_Ref|1
+RD01GleamingDepths|RD01_Enc05_Charger03VFX_1_Ref|1
+RD01GleamingDepths|RD01_Enc05_Charger04VFX_1_Ref|1
+RD01GleamingDepths|RD01_Enc05_EncounterDoor_Door01|1
+RD01GleamingDepths|RD01_Enc05_EncounterDoor_Door02|1
+RD01GleamingDepths|RD01_Enc05_EncounterDoor_Marker01|1
+RD01GleamingDepths|RD01_Enc05_EncounterDoor_Marker02|1
+RD01GleamingDepths|RD01_Enc05_EncounterDoor_Marker03|1
+RD01GleamingDepths|RD01_Enc05_EncounterDoor_Marker04|1
+RD01GleamingDepths|RD01_Enc05_EncounterDoor_Trigger|1
+RD01GleamingDepths|RD01_Enc05_PlayerRespawn01|1
+RD01GleamingDepths|RD01_Enc05_PlayerRespawn02|1
+RD01GleamingDepths|RD01_Enc05_PlayerRespawn03|1
+RD01GleamingDepths|RD01_Enc05_PlayerRespawn04|1
+RD01GleamingDepths|RD01_Enc06_BridgeEnableMarker|1
+RD01GleamingDepths|RD01_Enc06_EnableMarker_EncounterStart|1
+RD01GleamingDepths|RD01_Enc06_EnableMarker_StageSlice01|1
+RD01GleamingDepths|RD01_Enc06_EnableMarker_StageSlice02|1
+RD01GleamingDepths|RD01_Enc06_EnableMarker_StageSlice03|1
+RD01GleamingDepths|RD01_Enc06_EnableMarker_StageSlice04|1
+RD01GleamingDepths|RD01_Enc06_EncounterDoor_Door|1
+RD01GleamingDepths|RD01_Enc06_EncounterDoor_Door001|1
+RD01GleamingDepths|RD01_Enc06_EncounterDoor_Marker|1
+RD01GleamingDepths|RD01_Enc06_EncounterDoor_Marker001|1
+RD01GleamingDepths|RD01_Enc06_EncounterDoor_Marker002|1
+RD01GleamingDepths|RD01_Enc06_EncounterDoor_Marker003|1
+RD01GleamingDepths|RD01_Enc06_EncounterDoor_Trigger|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker001|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker002|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker003|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker004|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker005|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker006|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker007|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker008|1
+RD01GleamingDepths|RD01_Enc06_LavaPillar_Marker025|1
+RD01GleamingDepths|RD01_Enc06_PlayerRespawn01|1
+RD01GleamingDepths|RD01_Enc06_PlayerRespawn02|1
+RD01GleamingDepths|RD01_Enc06_PlayerRespawn03|1
+RD01GleamingDepths|RD01_Enc06_PlayerRespawn04|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueHead_Marker|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueHead_Marker002|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueHead_Marker003|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueHead_Marker004|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueTail_Marker002|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueTail_Marker003|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueTail_Marker004|1
+RD01GleamingDepths|RD01_Enc06_ScorchtongueTail_Marker005|1
+RD01GleamingDepths|RD01_GuardianBot_BlastWaveFire_DoorA|1
+RD01GleamingDepths|RD01_GuardianBot_BlastWaveFire_DoorB|1
+RD01GleamingDepths|RD01_GuardianBot_BlastWaveFire_DoorC|1
+RD01GleamingDepths|RD01_PASystem_Hallway_Trigger01|1
+RD01GleamingDepths|RD_InInstance_Trigger|1
+RD01GleamingDepths|WarehouseRaids_RD01_ENC01_MoveToMarker|1
+RD01GleamingDepths|WarehouseRaids_RD01_ENC02_MoveToMarker|1
+RD01GleamingDepths|WarehouseRaids_RD01_ENC04_MoveToMarker|1
+RD01GleamingDepths|WarehouseRaids_RD01_ENC05_MoveToMarker|1
+RD01GleamingDepths|WarehouseRaids_RD01_ENC06_MoveToMarker|1
 RadioResearchCenter01||3470
 RadioResearchCenter01|EN03_RadioResearchDebugMarker|1
 RadioResearchCenter01|MTNM02RadioResearchMarker|1
@@ -13907,6 +14121,7 @@ SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersFlatlands||1534
+SheltersGleamingDepths||2041
 SheltersHighStakes||2617
 SheltersHousingDevelopment||1001
 SheltersMissileSilo||493
@@ -13993,7 +14208,7 @@ SpruceKnobMissileSilo01|xSCMSilo_Residential003|1
 SpruceKnobMissileSilo01|xSCMSilo_Storage003|1
 StormBrownHouse||1569
 StormBrownHouse|REF_COMP_Beckett_Door_Jail002|1
-StormCultistTunnels||3343
+StormCultistTunnels||3342
 StormCultistTunnels|StormCultist_Alex|1
 StormCultistTunnels|StormCultist_ComaCassidy|1
 StormCultistTunnels|StormCultist_GetBand|1
@@ -16458,7 +16673,7 @@ XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger01_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger02_Ref|1
 XPDPitt01Foundry|XPD_Pitt01_TrogFXTrigger03_Ref|1
 XPDPitt01Foundry|XPD_Pitt02_Door|1
-XPDPitt01FoundryDungeon||15351
+XPDPitt01FoundryDungeon||15353
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator00_PackIn015|1
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator01_PackIn014|1
 XPDPitt01FoundryDungeon|DailyOps_Mode01_Activator02_PackIn014|1
@@ -17027,7 +17242,7 @@ AMSHQ02|100|1993
 APPALACHIA|50|52
 APPALACHIA|75|161
 APPALACHIA|85|251
-APPALACHIA|100|3259947
+APPALACHIA|100|3260092
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -17037,7 +17252,7 @@ ArktosPharmaLabDungeon|50|1
 ArktosPharmaLabDungeon|75|1
 ArktosPharmaLabDungeon|100|14622
 BelchingBetty01|100|5218
-BigBendTunnel01|100|7553
+BigBendTunnel01|100|7554
 BlackwaterMine01|100|6166
 BlueRidgeOffice01|50|1
 BlueRidgeOffice01|100|764
@@ -17125,6 +17340,7 @@ OrwellOrchardsShelter01|100|2209
 OverseersHome01|100|1250
 PoseidonPlant01|100|15659
 PoseidonPlant02|100|4189
+RD01GleamingDepths|100|19660
 RadioResearchCenter01|100|3472
 RaiderCave02|100|1874
 RaiderRaidTrailerInt|100|106
@@ -17140,6 +17356,7 @@ SheltersCave01|100|534
 SheltersCave02|100|608
 SheltersClaimCenter01|100|976
 SheltersFlatlands|100|1534
+SheltersGleamingDepths|100|2041
 SheltersHighStakes|100|2617
 SheltersHousingDevelopment|100|1001
 SheltersMissileSilo|100|493
@@ -17159,7 +17376,7 @@ SpruceKnobCampground01|100|594
 SpruceKnobMissileSilo01|75|4
 SpruceKnobMissileSilo01|100|15676
 StormBrownHouse|100|1570
-StormCultistTunnels|100|3365
+StormCultistTunnels|100|3364
 StormEngineeringVlt63|75|4
 StormEngineeringVlt63|100|4710
 StormHallucinogeniccave|75|1
@@ -17258,7 +17475,7 @@ XPDPitt01Foundry|75|11
 XPDPitt01Foundry|100|16914
 XPDPitt01FoundryDungeon|50|9
 XPDPitt01FoundryDungeon|75|11
-XPDPitt01FoundryDungeon|100|15353
+XPDPitt01FoundryDungeon|100|15355
 XPDPitt01Industrial|50|4
 XPDPitt01Industrial|75|3
 XPDPitt01Industrial|100|20262
@@ -18567,7 +18784,7 @@ MILEBlueRidgeHQ|Copper|14|13
 MILEBlueRidgeHQ|Cork|4|2
 MILEBlueRidgeHQ|Fertilizer|8|2
 MILEBlueRidgeHQ|Fiberglass|2|2
-MILEBlueRidgeHQ|Gear|18|16
+MILEBlueRidgeHQ|Gear|17|15
 MILEBlueRidgeHQ|Glass|36|31
 MILEBlueRidgeHQ|Gold|2|2
 MILEBlueRidgeHQ|Lead|29|15
@@ -18575,9 +18792,9 @@ MILEBlueRidgeHQ|Leather|18|9
 MILEBlueRidgeHQ|Oil|23|13
 MILEBlueRidgeHQ|Plastic|17|12
 MILEBlueRidgeHQ|Rubber|1|1
-MILEBlueRidgeHQ|Screw|16|16
+MILEBlueRidgeHQ|Screw|15|15
 MILEBlueRidgeHQ|Spring|7|7
-MILEBlueRidgeHQ|Steel|101|56
+MILEBlueRidgeHQ|Steel|99|55
 MILEBlueRidgeHQ|Wood|25|20
 MTR08LodeBaring01|Acid|3|2
 MTR08LodeBaring01|Aluminum|7|5
@@ -19024,6 +19241,31 @@ PoseidonPlant02|Screw|2|2
 PoseidonPlant02|Spring|2|2
 PoseidonPlant02|Steel|38|23
 PoseidonPlant02|Wood|8|7
+RD01GleamingDepths|Acid|2|1
+RD01GleamingDepths|Adhesive|5|1
+RD01GleamingDepths|Aluminum|6|5
+RD01GleamingDepths|Antiseptic|4|2
+RD01GleamingDepths|Asbestos|8|5
+RD01GleamingDepths|Bone|1|1
+RD01GleamingDepths|Ceramic|10|10
+RD01GleamingDepths|Circuitry|1|1
+RD01GleamingDepths|Cloth|16|14
+RD01GleamingDepths|Copper|6|5
+RD01GleamingDepths|Crystal|4|4
+RD01GleamingDepths|Fiber Optics|3|3
+RD01GleamingDepths|Fiberglass|4|2
+RD01GleamingDepths|Gear|11|11
+RD01GleamingDepths|Glass|10|9
+RD01GleamingDepths|Lead|13|5
+RD01GleamingDepths|Leather|18|9
+RD01GleamingDepths|Oil|11|7
+RD01GleamingDepths|Plastic|13|8
+RD01GleamingDepths|Rubber|7|6
+RD01GleamingDepths|Screw|6|6
+RD01GleamingDepths|Silver|1|1
+RD01GleamingDepths|Spring|10|10
+RD01GleamingDepths|Steel|55|33
+RD01GleamingDepths|Wood|24|20
 RadioResearchCenter01|Acid|7|5
 RadioResearchCenter01|Adhesive|32|11
 RadioResearchCenter01|Aluminum|8|4
@@ -21036,6 +21278,7 @@ WhitespringRefuge01|Robot|100.0|1
 0053F689|OverseersHome01|Overseer's Home|0|2005|822|1112|2899|-185|1830|0|0|1.0
 005B7D87|Vault94Dungeon|Vault 94|0|-12586|-527|-17811|-7362|-5911|4857|0|0|1.0
 00620445|SheltersMissileSilo|Abandoned Mine Shelter|0|1368|287|-1352|4088|-2985|3560|0|0|1.0
+007AD56F|SheltersGleamingDepths|Gleaming Depths Shelter|0|1486|208|-932|3904|-4320|4736|0|0|1.0
 00664055|SheltersPittTrench01|Neighborhood Square Shelter|0|1958|1279|-3195|7112|-5571|8129|0|0|1.0
 00004183|WatogaHighSchool01|Watoga High School|0|-1571|2284|-5728|2585|-1296|5864|0|0|1.0
 000072BB|AVRMedicalCenter01|AVR Medical Center|0|2840|-659|-588|6268|-3712|2394|0|0|1.0
@@ -21059,6 +21302,7 @@ WhitespringRefuge01|Robot|100.0|1
 0054B502|CharlestonCapitolCourthouse01|Charleston Capitol Courthouse|0|2307|-2239|0|4614|-4479|0|-1300|-850|1.3
 005C38D6|SheltersClaimCenter01|Shelters Claim Center|0|-4898|144|-6280|-3516|-375|663|0|0|1.0
 0066FCB2|GarrahanMiningHQDungeon|Garrahan Mining HQ|0|538|311|-4042|5119|-12335|12958|0|-250|2.0
+00770116|RD01GleamingDepths|Gleaming Depths|0|-3954|-2940|-18661|10752|-21976|16096|0|0|1.0
 00687BF0|XPDRttP01SteelTowerUpperFloors|Steel Tower Upper Floors|0|27055|7296|-3520|57631|-9631|24223|9400|-2500|5.0
 000402E2|SamBlackwellsDeathclawCave|Cavern|0|-5632|2061|-15744|4480|-2014|6137|-2200|200|1.9
 00779F04|XPDAC03CommunityCenterDungeon|Community Center|0|5525|2340|-1928|12978|-1464|6144|2500|100|2.0
@@ -21140,7 +21384,7 @@ WhitespringRefuge01|Robot|100.0|1
 005DD731|Vault96Dungeon|Vault 96|0|9438|-1326|1496|17380|-8467|5815|0|0|1.0
 00672089|CharlestonCapitolDungeon|Charleston Capitol Building|0|-27|-1037|-4650|4595|-4244|2169|0|0|1.0
 006A0A3D|StormEngineeringVlt63|Vault 63 Engineering Sector|0|3105|1324|-4480|10690|-2856|5504|0|0|1.0
-006C2935|StormCultistTunnels|Old Crimora Mines|0|4399|10183|-1290|10088|4626|15740|0|0|1.0
+006C2935|StormCultistTunnels|Old Crimora Mines|0|4337|10183|-1290|9964|4626|15740|0|0|1.0
 00769F55|MILEBlueRidgeHQ|Milepost Zero|0|659|2476|-2010|3328|-1248|6200|600|300|1.0
 0077154D|SheltersSummerCamp|Summer Camp Shelter|0|-21401|2406|-105560|62757|-84518|89331|-3000|0|5.0
 0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0|3253|1296|-1264|7771|-6484|9076|0|0|1.0
@@ -21205,4 +21449,4 @@ WhitespringRefuge01|Robot|100.0|1
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4365235|4365235
+4387083|4387083

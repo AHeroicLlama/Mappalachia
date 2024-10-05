@@ -16,7 +16,7 @@ namespace Mappalachia
 
 			// Step back out of bin until we find the Mappalachia root
 			string mappalachiaRoot = AppDomain.CurrentDomain.BaseDirectory;
-			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(mappalachiaRoot))) != "Mappalachia")
+			while (Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(mappalachiaRoot))) != "Mappalachia_PTS")
 			{
 				mappalachiaRoot += "..\\";
 			}
