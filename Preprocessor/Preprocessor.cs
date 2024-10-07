@@ -59,8 +59,12 @@ namespace Preprocessor
 					default:
 						throw new Exception($"Not a valid selection: {input}");
 				}
+
+				ConcludeValidation();
 			}
-			else // If the database doesn't exist yet, we do the full build and validate
+
+			// If the database doesn't exist yet, we do the full build and validate
+			else
 			{
 				stopwatch.Start();
 				Preprocess();
@@ -200,6 +204,8 @@ namespace Preprocessor
 			SimpleQuery(CorrectLockLevelQuery);
 			SimpleQuery(CorrectPrimitiveShapeQuery);
 
+			TransformColumn(ReduceLockLevel, "Position", "lockLevel");
+
 			// Transform the component quantity keywords to numeric values from Scrap table, then drop the Component table
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
 			SimpleQuery($"DROP TABLE Component;");
@@ -245,7 +251,6 @@ namespace Preprocessor
 			Console.WriteLine($"Build and Preprocess Done.\n");
 
 			ValidateDatabase();
-
 			ValidateImageAssets();
 		}
 
@@ -546,6 +551,17 @@ namespace Preprocessor
 		static string DivideString(string num, string denom)
 		{
 			return (double.Parse(num) / double.Parse(denom)).ToString();
+		}
+
+		static string ReduceLockLevel(string lockLevel)
+		{
+			// If the lock level does not need changing
+			if (!CorrectLockLevelRegex.IsMatch(lockLevel))
+			{
+				return lockLevel;
+			}
+
+			return CorrectLockLevelRegex.Match(lockLevel).Groups[2].Value;
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input

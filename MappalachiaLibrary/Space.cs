@@ -7,6 +7,7 @@
 
 		// The X/Y offsets between cell 0,0 and plotted image center.
 		public float XOffset { get; }
+
 		public float YOffset { get; }
 
 		// The effective zoom so the cell suitably fills the image.

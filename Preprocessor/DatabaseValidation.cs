@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using MappalachiaLibrary;
 using Microsoft.Data.Sqlite;
 
 namespace Preprocessor
@@ -88,8 +87,6 @@ namespace Preprocessor
 
 			ValidateColumnMatchesFormat("Meta", "key", false, ColumnType.TEXT);
 			ValidateColumnMatchesFormat("Meta", "value", false, ColumnType.TEXT);
-
-			ConcludeValidation();
 		}
 
 		// Validate all rows of the table column match the type and optional regex pattern, including optional blanks
@@ -151,7 +148,7 @@ namespace Preprocessor
 
 						break;
 
-					// Everything will map to string so nothing to check
+					// Everything will map to string/text, so nothing to check
 					case ColumnType.TEXT:
 					default:
 						break;

@@ -23,7 +23,9 @@
 		static string? solutionPath = null;
 
 		public static string GameDataPath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\";
+
 		public static string GameExePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe";
+
 		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
 
 		// Returns the root of the repository, where the sln file lives

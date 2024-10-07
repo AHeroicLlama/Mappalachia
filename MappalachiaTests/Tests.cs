@@ -1,5 +1,3 @@
-using Mappalachia;
-
 namespace MappalachiaTests
 {
 	[TestClass]

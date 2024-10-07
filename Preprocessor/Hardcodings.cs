@@ -2,21 +2,43 @@
 
 namespace Preprocessor
 {
-	// For multiple reasons, a small subset of data is hardcoded.
+	// For multiple reasons, a small subset of data (or expected data) is hardcoded.
 	// Naturally hardcoding things comes with risks and may require review after each patch. For that reason all hardcoded items are kept together here.
 	// Hardcoding may be done for the following reasons: Datamining is not realistic, or a route is not known. Or the data is apparently server-side.
 	// Notably Map Markers are the main offender of this
 	internal partial class Preprocessor
 	{
 		static string FissureSiteLabel { get; } = "Fissure Site";
+
+		static Regex SpaceFormIDRegex { get; } = new Regex("\\[(CELL|WRLD):([0-9A-F]{8})\\]\\)");
+
 		static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
+
 		static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
+
 		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
+
 		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
+
 		static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
+
 		static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
+
 		static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
-		public static Regex SpaceFormIDRegex { get; } = new Regex("\\[(CELL|WRLD):([0-9A-F]{8})\\]\\)");
+
+		static Regex CorrectLockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
+
+		static Regex ValidateLockLevel { get; } = new Regex(@"^(Level 0|Level 1|Level 2|Level 3|Chained|Inaccessible|Requires Key|Requires Terminal|Unknown|Barred)$");
+
+		static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
+
+		static Regex ValidateSignature { get; } = new Regex("^[A-Z_]{4}$");
+
+		static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
+
+		static Regex ValidateNpcClass { get; } = new Regex("^(Main|Sub|Critter[AB])$");
+
+		static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood)$");
 
 		static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
@@ -77,6 +99,7 @@ namespace Preprocessor
 		// For an unknown reason, some enitities in xEdit have this invalid primitive shape
 		static string CorrectPrimitiveShapeQuery { get; } = "UPDATE Position SET primitiveShape = 'Box' WHERE primitiveShape = '7';";
 
+		// Assumes PascalCased names will already have had spaces added
 		static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Megasloth", "Mega Sloth" },

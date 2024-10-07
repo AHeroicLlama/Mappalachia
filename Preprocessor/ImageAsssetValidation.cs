@@ -1,8 +1,9 @@
-﻿using MappalachiaLibrary;
-using Microsoft.Data.Sqlite;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Xml;
+using MappalachiaLibrary;
+using Microsoft.Data.Sqlite;
 
 namespace Preprocessor
 {
@@ -13,6 +14,8 @@ namespace Preprocessor
 		const string MapMarkerImageFileType = ".svg";
 		const uint MinRenderedCellImageSizeKB = 500;
 		const uint MaxRenderedCellImageSizeKB = 6000;
+		const uint MinMapMarkerImageSizeKB = 1;
+		const uint MaxMapMarkerImageSizeKB = 15;
 		const float MaxBlackPixelsPerc = 90f;
 
 		static void ValidateImageAssets()
@@ -25,7 +28,7 @@ namespace Preprocessor
 
 			// Collect all spaces
 			List<Space> spaces = new List<Space>();
-			query.CommandText = "SELECT spaceEditorID, isWorldspace FROM Space";
+			query.CommandText = "SELECT spaceEditorID, isWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC";
 			reader = query.ExecuteReader();
 			while (reader.Read())
 			{
@@ -35,16 +38,15 @@ namespace Preprocessor
 			// Collect all map markers
 			List<MapMarker> mapMarkers = new List<MapMarker>();
 			query = Connection.CreateCommand();
-			query.CommandText = "SELECT DISTINCT icon FROM MapMarker";
+			query.CommandText = "SELECT DISTINCT icon FROM MapMarker ORDER BY icon ASC";
 			reader = query.ExecuteReader();
 			while (reader.Read())
 			{
 				mapMarkers.Add(new MapMarker(reader.GetString(0), string.Empty));
 			}
 
-			// Validate the image files for the database objects exist, and have expected parameters
+			// Perform file checks for all spaces
 			spaces.ForEach(ValidateSpace);
-			mapMarkers.ForEach(ValidateMapMarkerImage);
 
 			// Inverse of above, check there are no extraneous files
 			// First check each cell file against a cell in the database
@@ -66,24 +68,42 @@ namespace Preprocessor
 				FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
 			}
 
-			// Worldspaces are more complex, so we only do the count of the files.
 			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map
 			int expectedWorldspaceImageFiles = (spaces.Where(space => space.IsWorldspace).Count() * 3) + spaces.Where(space => space.IsAppalachia()).Count();
 			int actualWorldspaceImageFiles = Directory.GetFiles(BuildPaths.GetImageWorldPath()).Count();
-
 			if (actualWorldspaceImageFiles != expectedWorldspaceImageFiles)
 			{
 				FailValidation($"Too {(actualWorldspaceImageFiles < expectedWorldspaceImageFiles ? "few" : "many")} files in the worldspace image folder. Expected {expectedWorldspaceImageFiles}, found {actualWorldspaceImageFiles}");
 			}
 
-			ConcludeValidation();
+			// Main check for Map Markers
+			mapMarkers.ForEach(ValidateMapMarker);
+
+			// Similarly as above, do the same file count check for map markers
+			int expectedMapMarkerImageFiles = mapMarkers.Count();
+			int actualMapMarkerImageFiles = Directory.GetFiles(BuildPaths.GetImageMapMarkerPath()).Count();
+			if (actualMapMarkerImageFiles != expectedMapMarkerImageFiles)
+			{
+				FailValidation($"Too {(actualMapMarkerImageFiles < expectedMapMarkerImageFiles ? "few" : "many")} mapmarkers in the mapmarker image folder. Expected {expectedMapMarkerImageFiles}, found {actualMapMarkerImageFiles}");
+			}
 		}
 
-		static bool ValidateImageExists(Space space, string path)
+		static bool ValidateSpaceImageExists(Space space, string path)
 		{
 			if (!File.Exists(path))
 			{
 				FailValidation($"Image for space {space.EditorID} was not found at {path}");
+				return false;
+			}
+
+			return true;
+		}
+
+		static bool ValidateMapMarkerImageExists(MapMarker marker, string path)
+		{
+			if (!File.Exists(path))
+			{
+				FailValidation($"Image for marker icon {marker.Icon} was not found at {path}");
 				return false;
 			}
 
@@ -145,24 +165,49 @@ namespace Preprocessor
 
 		static void ValidateImageFileSize(Space space, string path)
 		{
+			if (space.IsWorldspace)
+			{
+				return;
+			}
+
 			int fileSizeKB = (int)(new FileInfo(path).Length / Misc.Kilobyte);
 
-			if (!space.IsWorldspace)
+			if (fileSizeKB < MinRenderedCellImageSizeKB || fileSizeKB > MaxRenderedCellImageSizeKB)
 			{
-				if (fileSizeKB < MinRenderedCellImageSizeKB || fileSizeKB > MaxRenderedCellImageSizeKB)
-				{
-					FailValidation($"Image {path} appears to be an improper file size ({fileSizeKB}KB)");
-				}
+				FailValidation($"Image for {space.DisplayName} ({path}) appears to be an improper file size ({fileSizeKB}KB)");
+			}
+		}
+
+		static void ValidateMapMarkerFileSize(MapMarker marker, string path)
+		{
+			int fileSizeKB = (int)(new FileInfo(path).Length / Misc.Kilobyte);
+
+			if (fileSizeKB < MinMapMarkerImageSizeKB || fileSizeKB > MaxMapMarkerImageSizeKB)
+			{
+				FailValidation($"Mapmarker {marker.Icon} ({path}) appears to be an improper file size ({fileSizeKB}KB)");
+			}
+		}
+
+		static void ValidateSVG(MapMarker marker, string path)
+		{
+			try
+			{
+				XmlDocument xml = new XmlDocument();
+				xml.Load(path);
+			}
+			catch (XmlException e)
+			{
+				FailValidation($"{path} is not valid XML: {e.Message}");
 			}
 		}
 
 		// Validates the background images for the given Space
 		static void ValidateSpace(Space space)
 		{
-			Console.WriteLine(space.EditorID);
+			Console.WriteLine($"Background image(s): {space.EditorID}");
 			string filePath = (space.IsWorldspace ? BuildPaths.GetImageWorldPath() : BuildPaths.GetImageCellPath()) + space.EditorID + BackgroundImageFileType;
 
-			if (!ValidateImageExists(space, filePath))
+			if (!ValidateSpaceImageExists(space, filePath))
 			{
 				return;
 			}
@@ -177,7 +222,7 @@ namespace Preprocessor
 				string watermaskFilePath = BuildPaths.GetImageWorldPath() + space.EditorID + "_waterMask" + MaskImageFileType;
 				string renderMapPath = BuildPaths.GetImageWorldPath() + space.EditorID + "_render" + BackgroundImageFileType;
 
-				if (!ValidateImageExists(space, watermaskFilePath) | !ValidateImageExists(space, renderMapPath))
+				if (!ValidateSpaceImageExists(space, watermaskFilePath) | !ValidateSpaceImageExists(space, renderMapPath))
 				{
 					return;
 				}
@@ -190,7 +235,7 @@ namespace Preprocessor
 				{
 					string militaryMapPath = BuildPaths.GetImageWorldPath() + space.EditorID + "_military" + BackgroundImageFileType;
 
-					if (!ValidateImageExists(space, militaryMapPath))
+					if (!ValidateSpaceImageExists(space, militaryMapPath))
 					{
 						return;
 					}
@@ -200,11 +245,18 @@ namespace Preprocessor
 			}
 		}
 
-		static void ValidateMapMarkerImage(MapMarker mapMarker)
+		static void ValidateMapMarker(MapMarker mapMarker)
 		{
+			Console.WriteLine($"Map Icon: {mapMarker.Icon}");
 			string filePath = BuildPaths.GetImageMapMarkerPath() + mapMarker.Icon + MapMarkerImageFileType;
-			
-			// TODO
+
+			if (!ValidateMapMarkerImageExists(mapMarker, filePath))
+			{
+				return;
+			}
+
+			ValidateMapMarkerFileSize(mapMarker, filePath);
+			ValidateSVG(mapMarker, filePath);
 		}
 	}
 }
