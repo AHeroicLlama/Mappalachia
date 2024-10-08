@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
 		<UseWindowsForms>True</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<RootNamespace>Mappalachia</RootNamespace>
@@ -11,6 +11,9 @@
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
 		<Platforms>AnyCPU;x86</Platforms>
 		<AnalysisLevel>latest-all</AnalysisLevel>
+		<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+		<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
