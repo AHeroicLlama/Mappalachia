@@ -5,9 +5,10 @@
 	public static class BuildPaths
 	{
 		const string SolutionFile = "Mappalachia.sln";
+		const string AssetsPath = @"Assets/";
 		const string UtilitiesPath = @"Utilities\";
 		const string OutputsPath = @"BuildOutputs\";
-		const string ImageAssetPath = @"img\";
+		const string ImageAssetPath = AssetsPath + @"img\";
 
 		public static string SqlitePath { get; } = GetSolutionPath() + UtilitiesPath + "sqlite3.exe";
 
@@ -21,7 +22,7 @@
 
 		public static string Fo76EditOutputPath { get; } = GetSolutionPath() + @"FO76Edit\Output\";
 
-		public static string DatabasePath { get; } = GetSolutionPath() + @"data\mappalachia.db";
+		public static string DatabasePath { get; } = GetSolutionPath() + AssetsPath + @"data\mappalachia.db";
 
 		public static string ImageRootPath { get; } = GetSolutionPath() + ImageAssetPath;
 

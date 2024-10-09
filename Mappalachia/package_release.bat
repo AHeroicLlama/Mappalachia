@@ -8,7 +8,7 @@ set prefsFile=mappalachia_prefs.ini
 set quickSaveFolder=QuickSaves
 
 echo Checking for published build...
-for %%f in ("Mappalachia.exe" "data\mappalachia.db") do if not exist "%publishFolder%\%%~f" (
+for %%f in ("Mappalachia.exe" "data\mappalachia.db" "img\wrld\Appalachia_render.jpg") do if not exist "%publishFolder%\%%~f" (
 	echo Mappalachia build not found in the %publishFolder% directory. Please rebuild from within VS under release configuration.
 	PAUSE
 	EXIT

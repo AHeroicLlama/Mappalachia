@@ -13,10 +13,10 @@ FO76Edit/
 Utilities/
 
 # Space background images
-img/cell/*
-img/wrld/*
-!img/wrld/Appalachia.jpg
-!img/wrld/Appalachia_military.jpg
+Assets/img/cell/*
+Assets/img/wrld/*
+!Assets/img/wrld/Appalachia.jpg
+!Assets/img/wrld/Appalachia_military.jpg
 
 # Mappalachia Database
 *.db
