@@ -5,22 +5,31 @@
 	public static class BuildPaths
 	{
 		const string SolutionFile = "Mappalachia.sln";
-		const string UtilitiesPath = @"Utilities/";
-		const string OutputsPath = @"BuildOutputs/";
-		const string ImageAssetPath = @"img/";
-		const string SigcheckPath = UtilitiesPath + "sigcheck.exe";
-		const string SqlitePath = UtilitiesPath + "sqlite3.exe";
-		const string Fo76UtilsRenderPath = UtilitiesPath + @"/fo76utils/render.exe";
-		const string DiscardedCellsPath = OutputsPath + @"Discarded_Cells.csv";
-		const string DatabaseSummaryPath = OutputsPath + @"Database_Summary.txt";
-		const string ErrorsPath = OutputsPath + @"Errors.txt";
-		const string Fo76EditOutputPath = @"FO76Edit/Output/";
-		const string DatabasePath = @"/data/mappalachia.db";
-		const string CellPath = @"cell/";
-		const string WorldPath = @"wrld/";
-		const string MapMarkerPath = @"mapmarker/";
+		const string UtilitiesPath = @"Utilities\";
+		const string OutputsPath = @"BuildOutputs\";
+		const string ImageAssetPath = @"img\";
 
-		static string? solutionPath = null;
+		public static string SqlitePath { get; } = GetSolutionPath() + UtilitiesPath + "sqlite3.exe";
+
+		public static string Fo76UtilsRenderPath { get; } = GetSolutionPath() + UtilitiesPath + @"fo76utils\render.exe";
+
+		public static string DiscardedCellsPath { get; } = GetSolutionPath() + OutputsPath + @"Discarded_Cells.csv";
+
+		public static string DatabaseSummaryPath { get; } = GetSolutionPath() + OutputsPath + @"Database_Summary.txt";
+
+		public static string ErrorsPath { get; } = GetSolutionPath() + OutputsPath + @"Errors.txt";
+
+		public static string Fo76EditOutputPath { get; } = GetSolutionPath() + @"FO76Edit\Output\";
+
+		public static string DatabasePath { get; } = GetSolutionPath() + @"data\mappalachia.db";
+
+		public static string ImageRootPath { get; } = GetSolutionPath() + ImageAssetPath;
+
+		public static string CellPath { get; } = ImageRootPath + @"cell\";
+
+		public static string WorldPath { get; } = ImageRootPath + @"wrld\";
+
+		public static string MapMarkerPath { get; } = ImageRootPath + @"mapmarker\";
 
 		public static string GameDataPath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\";
 
@@ -28,8 +37,10 @@
 
 		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
 
+		static string? solutionPath = null;
+
 		// Returns the root of the repository, where the sln file lives
-		// Value is cached in rootPath so is only calculated once per launch
+		// Value is cached in solutionPath so is only calculated once per launch
 		static string GetSolutionPath()
 		{
 			if (solutionPath != null)
@@ -46,68 +57,8 @@
 				path = parent.ToString();
 			}
 
-			solutionPath = path + "/";
+			solutionPath = path + @"\";
 			return solutionPath;
-		}
-
-		public static string GetSigcheckPath()
-		{
-			return GetSolutionPath() + SigcheckPath;
-		}
-
-		public static string GetSqlitePath()
-		{
-			return GetSolutionPath() + SqlitePath;
-		}
-
-		public static string GetRenderPath()
-		{
-			return GetSolutionPath() + Fo76UtilsRenderPath;
-		}
-
-		public static string GetFo76EditOutputPath()
-		{
-			return GetSolutionPath() + Fo76EditOutputPath;
-		}
-
-		public static string GetDatabasePath()
-		{
-			return GetSolutionPath() + DatabasePath;
-		}
-
-		public static string GetDiscardedCellsPath()
-		{
-			return GetSolutionPath() + DiscardedCellsPath;
-		}
-
-		public static string GetErrorsPath()
-		{
-			return GetSolutionPath() + ErrorsPath;
-		}
-
-		public static string GetDBSummaryPath()
-		{
-			return GetSolutionPath() + DatabaseSummaryPath;
-		}
-
-		static string GetImageRootPath()
-		{
-			return GetSolutionPath() + ImageAssetPath;
-		}
-
-		public static string GetImageCellPath()
-		{
-			return GetImageRootPath() + CellPath;
-		}
-
-		public static string GetImageWorldPath()
-		{
-			return GetImageRootPath() + WorldPath;
-		}
-
-		public static string GetImageMapMarkerPath()
-		{
-			return GetImageRootPath() + MapMarkerPath;
 		}
 	}
 }

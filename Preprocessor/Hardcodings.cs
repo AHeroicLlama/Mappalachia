@@ -10,15 +10,15 @@ namespace Preprocessor
 	{
 		static string FissureSiteLabel { get; } = "Fissure Site";
 
-		static Regex SpaceFormIDRegex { get; } = new Regex("\\[(CELL|WRLD):([0-9A-F]{8})\\]\\)");
+		static Regex SpaceFormIDRegex { get; } = new Regex(@"\[(CELL|WRLD):([0-9A-F]{8})\]\)");
 
-		static Regex SignatureFormIDRegex { get; } = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
+		static Regex SignatureFormIDRegex { get; } = new Regex(@"\[[A-Z_]{4}:([0-9A-F]{8})\]");
 
-		static Regex OptionalSignatureFormIDRegex { get; } = new Regex("(\\[[A-Z_]{4}:)?([0-9A-F]{8})(\\])?");
+		static Regex OptionalSignatureFormIDRegex { get; } = new Regex(@"(\[[A-Z_]{4}:)?([0-9A-F]{8})(\])?");
 
 		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
 
-		static Regex RemoveTrailingReferenceRegex { get; } = new Regex(@"(.*) " + SignatureFormIDRegex);
+		static Regex RemoveTrailingReferenceRegex { get; } = new Regex("(.*) " + SignatureFormIDRegex);
 
 		static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
 
@@ -28,7 +28,7 @@ namespace Preprocessor
 
 		static Regex CorrectLockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
 
-		static Regex ValidateLockLevel { get; } = new Regex(@"^(Level 0|Level 1|Level 2|Level 3|Chained|Inaccessible|Requires Key|Requires Terminal|Unknown|Barred)$");
+		static Regex ValidateLockLevel { get; } = new Regex("^(Level [0-3]|Chained|Inaccessible|Requires Key|Requires Terminal|Unknown|Barred)$");
 
 		static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
 

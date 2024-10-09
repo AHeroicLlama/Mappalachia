@@ -27,7 +27,7 @@ namespace Preprocessor
 			Stopwatch stopwatch = new Stopwatch();
 
 			// If the database already exists, we may only want to run validations, so we give some options
-			if (File.Exists(BuildPaths.GetDatabasePath()))
+			if (File.Exists(BuildPaths.DatabasePath))
 			{
 				Console.WriteLine("Enter:" +
 					"\n1:Build and preprocess database, then run full validation suite" +
@@ -78,7 +78,7 @@ namespace Preprocessor
 		{
 			string gameVersion = GetValidatedGameVersion();
 
-			Console.WriteLine($"Building Mappalachia database at {BuildPaths.GetDatabasePath()}\n");
+			Console.WriteLine($"Building Mappalachia database at {BuildPaths.DatabasePath}\n");
 
 			Cleanup();
 			SimpleQuery("PRAGMA foreign_keys = 0");
@@ -173,7 +173,7 @@ namespace Preprocessor
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
-			File.WriteAllLines(BuildPaths.GetDiscardedCellsPath(), deletedRows);
+			File.WriteAllLines(BuildPaths.DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding the min/max/mid of x/y
 			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, minX {CoordinateType}, maxX {CoordinateType}, midX {CoordinateType}, minY {CoordinateType}, maxY {CoordinateType}, midY {CoordinateType});");
@@ -256,7 +256,7 @@ namespace Preprocessor
 
 		static SqliteConnection GetConnection()
 		{
-			SqliteConnection connection = new SqliteConnection("Data Source=" + BuildPaths.GetDatabasePath());
+			SqliteConnection connection = new SqliteConnection("Data Source=" + BuildPaths.DatabasePath);
 			connection.Open();
 			return connection;
 		}
@@ -317,8 +317,8 @@ namespace Preprocessor
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			string path = BuildPaths.GetSqlitePath();
-			List<string> args = new List<string>() { BuildPaths.GetDatabasePath(), ".mode csv", $".import {BuildPaths.GetFo76EditOutputPath()}{tableName}.csv {tableName}" };
+			string path = BuildPaths.SqlitePath;
+			List<string> args = new List<string>() { BuildPaths.DatabasePath, ".mode csv", $".import {BuildPaths.Fo76EditOutputPath}{tableName}.csv {tableName}" };
 
 			Process process = Process.Start(path, args);
 			process.WaitForExit();
@@ -611,8 +611,8 @@ namespace Preprocessor
 		// Removes old DB files
 		static void Cleanup()
 		{
-			File.Delete(BuildPaths.GetDatabasePath());
-			File.Delete(BuildPaths.GetDatabasePath() + "-journal");
+			File.Delete(BuildPaths.DatabasePath);
+			File.Delete(BuildPaths.DatabasePath + "-journal");
 		}
 	}
 }

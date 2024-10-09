@@ -50,11 +50,11 @@ namespace Preprocessor
 
 			// Inverse of above, check there are no extraneous files
 			// First check each cell file against a cell in the database
-			foreach (string file in Directory.GetFiles(BuildPaths.GetImageCellPath()))
+			foreach (string file in Directory.GetFiles(BuildPaths.CellPath))
 			{
 				string expectedEditorId = Path.GetFileNameWithoutExtension(file);
 
-				if (spaces.Where(space => space.EditorID == expectedEditorId && !space.IsWorldspace).Count() == 0)
+				if (!spaces.Where(space => space.EditorID == expectedEditorId && !space.IsWorldspace).Any())
 				{
 					FailValidation($"File {file} has no corresponding Cell and should be deleted.");
 				}
@@ -62,7 +62,7 @@ namespace Preprocessor
 
 			// Check the count of images in the cell image folder matches the count of cells in the DB
 			int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
-			int actualCellImageFiles = Directory.GetFiles(BuildPaths.GetImageCellPath()).Count();
+			int actualCellImageFiles = Directory.GetFiles(BuildPaths.CellPath).Length;
 			if (actualCellImageFiles != expectedCellImageFiles)
 			{
 				FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
@@ -70,7 +70,7 @@ namespace Preprocessor
 
 			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map
 			int expectedWorldspaceImageFiles = (spaces.Where(space => space.IsWorldspace).Count() * 3) + spaces.Where(space => space.IsAppalachia()).Count();
-			int actualWorldspaceImageFiles = Directory.GetFiles(BuildPaths.GetImageWorldPath()).Count();
+			int actualWorldspaceImageFiles = Directory.GetFiles(BuildPaths.WorldPath).Length;
 			if (actualWorldspaceImageFiles != expectedWorldspaceImageFiles)
 			{
 				FailValidation($"Too {(actualWorldspaceImageFiles < expectedWorldspaceImageFiles ? "few" : "many")} files in the worldspace image folder. Expected {expectedWorldspaceImageFiles}, found {actualWorldspaceImageFiles}");
@@ -80,8 +80,8 @@ namespace Preprocessor
 			mapMarkers.ForEach(ValidateMapMarker);
 
 			// Similarly as above, do the same file count check for map markers
-			int expectedMapMarkerImageFiles = mapMarkers.Count();
-			int actualMapMarkerImageFiles = Directory.GetFiles(BuildPaths.GetImageMapMarkerPath()).Count();
+			int expectedMapMarkerImageFiles = mapMarkers.Count;
+			int actualMapMarkerImageFiles = Directory.GetFiles(BuildPaths.MapMarkerPath).Length;
 			if (actualMapMarkerImageFiles != expectedMapMarkerImageFiles)
 			{
 				FailValidation($"Too {(actualMapMarkerImageFiles < expectedMapMarkerImageFiles ? "few" : "many")} mapmarkers in the mapmarker image folder. Expected {expectedMapMarkerImageFiles}, found {actualMapMarkerImageFiles}");
@@ -112,54 +112,49 @@ namespace Preprocessor
 
 		static void ValidateImageBlackPx(Space space, string path)
 		{
-			using (Image? image = Image.FromFile(path))
+			using Bitmap bitmap = (Bitmap)Image.FromFile(path);
+
+			// Validate that there is not too many black pixels, which would indicate that the zoom or offset is incorrect
+			// We copy the bitmap data out into a byte array, because accessing the pixels from the bitmap object is very slow
+			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+			int size = bitmapData.Stride * bitmap.Height;
+			byte[] rgbValues = new byte[size];
+			Marshal.Copy(bitmapData.Scan0, rgbValues, 0, size);
+			int stride = bitmapData.Stride;
+
+			int blackPxCount = 0;
+			for (int x = 0; x < bitmapData.Height; x++)
 			{
-				// Validate that there is not too many black pixels, which would indicate that the zoom or offset is incorrect
-				using (Bitmap bitmap = (Bitmap)image)
+				for (int y = 0; y < bitmapData.Width; y++)
 				{
-					// We copy the bitmap data out into a byte array, because accessing the pixels from the bitmap object is very slow
-					BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-					int size = bitmapData.Stride * bitmap.Height;
-					byte[] rgbValues = new byte[size];
-					Marshal.Copy(bitmapData.Scan0, rgbValues, 0, size);
-					int stride = bitmapData.Stride;
-
-					int blackPxCount = 0;
-					for (int x = 0; x < bitmapData.Height; x++)
+					// If the R, G, and B component are 0 - if the pixel is black
+					if (rgbValues[(x * stride) + (y * 3) + 2] == 0 &&
+						rgbValues[(x * stride) + (y * 3) + 1] == 0 &&
+						rgbValues[(x * stride) + (y * 3)] == 0)
 					{
-						for (int y = 0; y < bitmapData.Width; y++)
-						{
-							// If the R, G, and B component are 0 - if the pixel is black
-							if (rgbValues[(x * stride) + (y * 3) + 2] == 0 &&
-								rgbValues[(x * stride) + (y * 3) + 1] == 0 &&
-								rgbValues[(x * stride) + (y * 3)] == 0)
-							{
-								blackPxCount++;
-							}
-						}
-					}
-
-					bitmap.UnlockBits(bitmapData);
-
-					float blackPxPercent = blackPxCount / (bitmap.Width * (float)bitmap.Height) * 100;
-
-					if (blackPxPercent > MaxBlackPixelsPerc)
-					{
-						FailValidation($"{space.EditorID} has too many black pixels ({blackPxPercent})%");
+						blackPxCount++;
 					}
 				}
+			}
+
+			bitmap.UnlockBits(bitmapData);
+
+			float blackPxPercent = blackPxCount / (bitmap.Width * (float)bitmap.Height) * 100;
+
+			if (blackPxPercent > MaxBlackPixelsPerc)
+			{
+				FailValidation($"{space.EditorID} has too many black pixels ({blackPxPercent})%");
 			}
 		}
 
 		static void ValidateImageDimensions(Space space, string path)
 		{
+			using Image? image = Image.FromFile(path);
+
 			// Verify the file dimensions are within the pre-set ranges
-			using (Image? image = Image.FromFile(path))
+			if (image.Width != Misc.MapImageResolution || image.Height != Misc.MapImageResolution)
 			{
-				if (image.Width != Misc.MapImageResolution || image.Height != Misc.MapImageResolution)
-				{
-					FailValidation($"Image {path} is not the expected dimension of {Misc.MapImageResolution}x{Misc.MapImageResolution}");
-				}
+				FailValidation($"Image {path} is not the expected dimension of {Misc.MapImageResolution}x{Misc.MapImageResolution}");
 			}
 		}
 
@@ -205,7 +200,7 @@ namespace Preprocessor
 		static void ValidateSpace(Space space)
 		{
 			Console.WriteLine($"Background image(s): {space.EditorID}");
-			string filePath = (space.IsWorldspace ? BuildPaths.GetImageWorldPath() : BuildPaths.GetImageCellPath()) + space.EditorID + BackgroundImageFileType;
+			string filePath = (space.IsWorldspace ? BuildPaths.WorldPath : BuildPaths.CellPath) + space.EditorID + BackgroundImageFileType;
 
 			if (!ValidateSpaceImageExists(space, filePath))
 			{
@@ -219,8 +214,8 @@ namespace Preprocessor
 			// There are several additional files for Worldspaces
 			if (space.IsWorldspace)
 			{
-				string watermaskFilePath = BuildPaths.GetImageWorldPath() + space.EditorID + "_waterMask" + MaskImageFileType;
-				string renderMapPath = BuildPaths.GetImageWorldPath() + space.EditorID + "_render" + BackgroundImageFileType;
+				string watermaskFilePath = BuildPaths.WorldPath + space.EditorID + "_waterMask" + MaskImageFileType;
+				string renderMapPath = BuildPaths.WorldPath + space.EditorID + "_render" + BackgroundImageFileType;
 
 				if (!ValidateSpaceImageExists(space, watermaskFilePath) | !ValidateSpaceImageExists(space, renderMapPath))
 				{
@@ -233,7 +228,7 @@ namespace Preprocessor
 				// Appalachia specifically also has the 'military' map
 				if (space.IsAppalachia())
 				{
-					string militaryMapPath = BuildPaths.GetImageWorldPath() + space.EditorID + "_military" + BackgroundImageFileType;
+					string militaryMapPath = BuildPaths.WorldPath + space.EditorID + "_military" + BackgroundImageFileType;
 
 					if (!ValidateSpaceImageExists(space, militaryMapPath))
 					{
@@ -248,7 +243,7 @@ namespace Preprocessor
 		static void ValidateMapMarker(MapMarker mapMarker)
 		{
 			Console.WriteLine($"Map Icon: {mapMarker.Icon}");
-			string filePath = BuildPaths.GetImageMapMarkerPath() + mapMarker.Icon + MapMarkerImageFileType;
+			string filePath = BuildPaths.MapMarkerPath + mapMarker.Icon + MapMarkerImageFileType;
 
 			if (!ValidateMapMarkerImageExists(mapMarker, filePath))
 			{
