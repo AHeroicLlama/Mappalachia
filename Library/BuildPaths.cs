@@ -1,4 +1,4 @@
-﻿namespace MappalachiaLibrary
+﻿namespace Library
 {
 	// Provides references to files around the repo structure.
 	// For use by pre-production preprocessor & build projects

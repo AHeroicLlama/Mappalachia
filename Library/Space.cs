@@ -1,4 +1,4 @@
-﻿namespace MappalachiaLibrary
+﻿namespace Library
 {
 	// Represents a Worldspace (WRLD) or Cell (CELL)
 	public class Space : Entity

@@ -1,4 +1,4 @@
-﻿namespace MappalachiaLibrary
+﻿namespace Library
 {
 	public class MapMarker
 	{

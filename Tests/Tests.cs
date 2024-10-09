@@ -1,4 +1,4 @@
-namespace MappalachiaTests
+namespace Tests
 {
 	[TestClass]
 	public class Tests

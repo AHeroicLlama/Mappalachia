@@ -1,4 +1,4 @@
-﻿namespace MappalachiaLibrary
+﻿namespace Library
 {
 	// Represents any entity in the ESM
 	public class Entity

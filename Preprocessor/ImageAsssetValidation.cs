@@ -2,7 +2,7 @@
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Xml;
-using MappalachiaLibrary;
+using Library;
 using Microsoft.Data.Sqlite;
 
 namespace Preprocessor
