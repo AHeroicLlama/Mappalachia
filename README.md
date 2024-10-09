@@ -13,19 +13,19 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 ## Download and Installation
 
 [__Download Mappalachia.zip here__](https://github.com/AHeroicLlama/Mappalachia/releases/latest) to get started generating maps. Simply unzip it to a folder and then launch Mappalachia.exe.<br/>
-For help installing please refer to the [installation and first launch guide](User_Guides/Installation_and_first_run.md).<br/>
+For help installing please refer to the [installation and first launch guide](Docs/User/Installation_and_first_run.md).<br/>
 
 ## Getting started - User Guides
 
 A number of User guides exist for Mappalachia in document form;<br/>
 
-* [**Installation and First run**](User_Guides/Installation_and_first_run.md) covers initial installation and getting Mappalachia running.
-* [**First map**](User_Guides/First_map.md) explains the basic steps to creating your first Mappalachia map and other core features.
-* [**Customization Options**](User_Guides/Customization.md) covers all the various customization and visual options for your map.
-* [**Advanced Searching**](User_Guides/Advanced_searching.md) explains the intelligent NPC, Scrap and Region search functions, as well as using filters to find exactly what you need.
-* [**Advanced Plotting**](User_Guides/Advanced_plotting.md) details the powerful cluster mode, as well as topographical and heatmap plotting, item grouping and volume mapping.
-* [**Interiors and other Spaces**](User_Guides/Choosing_spaces.md) explains the mapping of other spaces such as interiors.
-* [**In-Game Map mod**](User_Guides/Game_map_mod.md) explains how to use third-party tools to create a mod which replaces the in-game map with your own Mappalachia map.
+* [**Installation and First run**](Docs/User/Installation_and_first_run.md) covers initial installation and getting Mappalachia running.
+* [**First map**](Docs/User/First_map.md) explains the basic steps to creating your first Mappalachia map and other core features.
+* [**Customization Options**](Docs/User/Customization.md) covers all the various customization and visual options for your map.
+* [**Advanced Searching**](Docs/User/Advanced_searching.md) explains the intelligent NPC, Scrap and Region search functions, as well as using filters to find exactly what you need.
+* [**Advanced Plotting**](Docs/User/Advanced_plotting.md) details the powerful cluster mode, as well as topographical and heatmap plotting, item grouping and volume mapping.
+* [**Interiors and other Spaces**](Docs/User/Choosing_spaces.md) explains the mapping of other spaces such as interiors.
+* [**In-Game Map mod**](Docs/User/Game_map_mod.md) explains how to use third-party tools to create a mod which replaces the in-game map with your own Mappalachia map.
 
 ## Discord
 [Join the Mappalachia Discord](https://discord.gg/Z2GMpm6rad) for discussion and help.
@@ -43,13 +43,13 @@ The required information is compiled in 5 key steps.
 
 If you fancy doing some data mining or development with Mappalachia then you may be interested in the following documentation;
 
-* [**FO76Edit scripts**](Developer_Guides/EditScripts.md) explains using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
-* [**Preprocessor**](Developer_Guides/Preprocessor.md) covers using the CLI tool to process and refine the rough data into suitable CSVs.
-* [**Database Ingest**](Developer_Guides/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
-* [**Map Icon extraction**](Developer_Guides/IconExtraction.md) explains the process of exporting map marker icons from the game to Mappalachia.
-* [**Background Image Rendering**](Developer_Guides/BackgroundRendering.md) explains using the powerful fo76utils to render top-down views of locations, used for map backgrounds.
-* [**Image Asset Validation**](Developer_Guides/ImageAssetValidation.md) walks through how all image assets can be validated ready for a release.
-* [**GUI**](Developer_Guides/GUI.md) covers developing the Mappalachia GUI itself, including how to update Mappalachia following a new game update.
+* [**FO76Edit scripts**](Docs/Developer/EditScripts.md) explains using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
+* [**Preprocessor**](Docs/Developer/Preprocessor.md) covers using the CLI tool to process and refine the rough data into suitable CSVs.
+* [**Database Ingest**](Docs/Developer/Ingest.md) covers using SQLite to ingest the CSVs into a database which Mappalachia can read.
+* [**Map Icon extraction**](Docs/Developer/IconExtraction.md) explains the process of exporting map marker icons from the game to Mappalachia.
+* [**Background Image Rendering**](Docs/Developer/BackgroundRendering.md) explains using the powerful fo76utils to render top-down views of locations, used for map backgrounds.
+* [**Image Asset Validation**](Docs/Developer/ImageAssetValidation.md) walks through how all image assets can be validated ready for a release.
+* [**GUI**](Docs/Developer/GUI.md) covers developing the Mappalachia GUI itself, including how to update Mappalachia following a new game update.
 
 
 ## Thanks
