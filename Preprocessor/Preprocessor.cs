@@ -15,10 +15,12 @@ namespace Preprocessor
 			BOOL,
 		}
 
-		static readonly SqliteConnection Connection = GetConnection();
+		static readonly SqliteConnection Connection = BuildIO.GetNewConnection();
 
 		// TODO do coords need to be REAL or can we get away with INTEGER?
 		static ColumnType CoordinateType { get; } = ColumnType.REAL;
+
+		static List<string> SummaryReport { get; } = new List<string>();
 
 		static void Main()
 		{
@@ -27,7 +29,7 @@ namespace Preprocessor
 			Stopwatch stopwatch = new Stopwatch();
 
 			// If the database already exists, we may only want to run validations, so we give some options
-			if (File.Exists(BuildPaths.DatabasePath))
+			if (File.Exists(BuildIO.DatabasePath))
 			{
 				Console.WriteLine("Enter:" +
 					"\n1:Build and preprocess database, then run full validation suite" +
@@ -78,7 +80,7 @@ namespace Preprocessor
 		{
 			string gameVersion = GetValidatedGameVersion();
 
-			Console.WriteLine($"Building Mappalachia database at {BuildPaths.DatabasePath}\n");
+			Console.WriteLine($"Building Mappalachia database at {BuildIO.DatabasePath}\n");
 
 			Cleanup();
 			SimpleQuery("PRAGMA foreign_keys = 0");
@@ -173,7 +175,7 @@ namespace Preprocessor
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
-			File.WriteAllLines(BuildPaths.DiscardedCellsPath, deletedRows);
+			File.WriteAllLines(BuildIO.DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding the min/max/mid of x/y
 			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, minX {CoordinateType}, maxX {CoordinateType}, midX {CoordinateType}, minY {CoordinateType}, maxY {CoordinateType}, midY {CoordinateType});");
@@ -248,17 +250,14 @@ namespace Preprocessor
 			SimpleQuery("VACUUM;");
 			SimpleQuery("PRAGMA query_only;");
 
+			Console.WriteLine($"Generating Summary Report at {BuildIO.DatabaseSummaryPath}");
+			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
+			File.WriteAllLines(BuildIO.DatabaseSummaryPath, SummaryReport);
+
 			Console.WriteLine($"Build and Preprocess Done.\n");
 
 			ValidateDatabase();
 			ValidateImageAssets();
-		}
-
-		static SqliteConnection GetConnection()
-		{
-			SqliteConnection connection = new SqliteConnection("Data Source=" + BuildPaths.DatabasePath);
-			connection.Open();
-			return connection;
 		}
 
 		// Executes any query against the open database.
@@ -317,8 +316,8 @@ namespace Preprocessor
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			string path = BuildPaths.SqlitePath;
-			List<string> args = new List<string>() { BuildPaths.DatabasePath, ".mode csv", $".import {BuildPaths.Fo76EditOutputPath}{tableName}.csv {tableName}" };
+			string path = BuildIO.SqlitePath;
+			List<string> args = new List<string>() { BuildIO.DatabasePath, ".mode csv", $".import {BuildIO.Fo76EditOutputPath}{tableName}.csv {tableName}" };
 
 			Process process = Process.Start(path, args);
 			process.WaitForExit();
@@ -489,13 +488,13 @@ namespace Preprocessor
 		// Returns the numeric quantity of the component for the given quantity name
 		static string GetComponentQuantity(string component, string quantity)
 		{
-			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, GetConnection()).First();
+			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, BuildIO.GetNewConnection()).First();
 		}
 
 		// Returns the total spawn weight of spawn pool for the class at the location
 		static string GetSumNPCSpawnWeight(string locationFormID, string npcClass)
 		{
-			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, GetConnection()).First();
+			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, BuildIO.GetNewConnection()).First();
 		}
 
 		static string GetNPCName(string value)
@@ -571,7 +570,7 @@ namespace Preprocessor
 
 			if (gameVersion == null)
 			{
-				Console.Write($"Unable to determine game version from exe at {BuildPaths.GameExePath}.");
+				Console.Write($"Unable to determine game version from exe at {BuildIO.GameExePath}.");
 				return GetGameVersionFromUser();
 			}
 
@@ -598,7 +597,7 @@ namespace Preprocessor
 		// Return the game version string on the FO76 exe, assuming it is present else null
 		static string? GetGameVersionFromExe()
 		{
-			return File.Exists(BuildPaths.GameExePath) ? FileVersionInfo.GetVersionInfo(BuildPaths.GameExePath).FileVersion : null;
+			return File.Exists(BuildIO.GameExePath) ? FileVersionInfo.GetVersionInfo(BuildIO.GameExePath).FileVersion : null;
 		}
 
 		// Asks the user to enter game version, and returns the entered line
@@ -608,11 +607,23 @@ namespace Preprocessor
 			return Console.ReadLine() ?? string.Empty;
 		}
 
+		static void AddToSummaryReport(string desc, string row)
+		{
+			AddToSummaryReport(desc, new List<string> { row });
+		}
+
+		static void AddToSummaryReport(string desc, List<string> rows)
+		{
+			SummaryReport.Add(desc);
+			SummaryReport.AddRange(rows);
+			SummaryReport.Add(string.Empty);
+		}
+
 		// Removes old DB files
 		static void Cleanup()
 		{
-			File.Delete(BuildPaths.DatabasePath);
-			File.Delete(BuildPaths.DatabasePath + "-journal");
+			File.Delete(BuildIO.DatabasePath);
+			File.Delete(BuildIO.DatabasePath + "-journal");
 		}
 	}
 }

@@ -1,11 +1,13 @@
-﻿namespace Library
+﻿using Microsoft.Data.Sqlite;
+
+namespace Library
 {
 	// Provides references to files around the repo structure.
 	// For use by pre-production preprocessor & build projects
-	public static class BuildPaths
+	public static class BuildIO
 	{
 		const string SolutionFile = "Mappalachia.sln";
-		const string AssetsPath = @"Assets/";
+		const string AssetsPath = @"Assets\";
 		const string UtilitiesPath = @"Utilities\";
 		const string OutputsPath = @"BuildOutputs\";
 		const string ImageAssetPath = AssetsPath + @"img\";
@@ -39,6 +41,13 @@
 		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
 
 		static string? solutionPath = null;
+
+		public static SqliteConnection GetNewConnection()
+		{
+			SqliteConnection connection = new SqliteConnection("Data Source=" + DatabasePath);
+			connection.Open();
+			return connection;
+		}
 
 		// Returns the root of the repository, where the sln file lives
 		// Value is cached in solutionPath so is only calculated once per launch

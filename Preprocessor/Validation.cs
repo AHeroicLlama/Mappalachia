@@ -16,7 +16,7 @@ namespace Preprocessor
 
 			Console.ForegroundColor = originalColor;
 
-			File.AppendAllLines(BuildPaths.ErrorsPath, new List<string>() { reason });
+			File.AppendAllLines(BuildIO.ErrorsPath, new List<string>() { reason });
 		}
 
 		static void ConcludeValidation()
@@ -35,7 +35,7 @@ namespace Preprocessor
 					Console.WriteLine($"* {failure}");
 				}
 
-				Console.WriteLine($"\nError details stored to {BuildPaths.ErrorsPath}");
+				Console.WriteLine($"\nError details stored to {BuildIO.ErrorsPath}");
 			}
 			else
 			{

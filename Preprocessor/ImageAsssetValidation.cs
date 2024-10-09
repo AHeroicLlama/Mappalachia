@@ -3,7 +3,6 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Xml;
 using Library;
-using Microsoft.Data.Sqlite;
 
 namespace Preprocessor
 {
@@ -21,36 +20,18 @@ namespace Preprocessor
 		static void ValidateImageAssets()
 		{
 			Console.WriteLine("Validating image assets");
-
 			ValidationFailures.Clear();
-			SqliteCommand query = Connection.CreateCommand();
-			SqliteDataReader reader;
 
-			// Collect all spaces
-			List<Space> spaces = new List<Space>();
-			query.CommandText = "SELECT spaceEditorID, isWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC";
-			reader = query.ExecuteReader();
-			while (reader.Read())
-			{
-				spaces.Add(new Space(reader.GetString(0), reader.GetInt32(1) == 1));
-			}
-
-			// Collect all map markers
-			List<MapMarker> mapMarkers = new List<MapMarker>();
-			query = Connection.CreateCommand();
-			query.CommandText = "SELECT DISTINCT icon FROM MapMarker ORDER BY icon ASC";
-			reader = query.ExecuteReader();
-			while (reader.Read())
-			{
-				mapMarkers.Add(new MapMarker(reader.GetString(0), string.Empty));
-			}
+			// Collect all Spaces and MapMarkers. Group the map markers by icon
+			List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(Connection, "SELECT DISTINCT icon, * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
+			List<Space> spaces = CommonDatabase.GetSpaces(Connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;");
 
 			// Perform file checks for all spaces
 			spaces.ForEach(ValidateSpace);
 
 			// Inverse of above, check there are no extraneous files
 			// First check each cell file against a cell in the database
-			foreach (string file in Directory.GetFiles(BuildPaths.CellPath))
+			foreach (string file in Directory.GetFiles(BuildIO.CellPath))
 			{
 				string expectedEditorId = Path.GetFileNameWithoutExtension(file);
 
@@ -62,7 +43,7 @@ namespace Preprocessor
 
 			// Check the count of images in the cell image folder matches the count of cells in the DB
 			int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
-			int actualCellImageFiles = Directory.GetFiles(BuildPaths.CellPath).Length;
+			int actualCellImageFiles = Directory.GetFiles(BuildIO.CellPath).Length;
 			if (actualCellImageFiles != expectedCellImageFiles)
 			{
 				FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
@@ -70,7 +51,7 @@ namespace Preprocessor
 
 			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map
 			int expectedWorldspaceImageFiles = (spaces.Where(space => space.IsWorldspace).Count() * 3) + spaces.Where(space => space.IsAppalachia()).Count();
-			int actualWorldspaceImageFiles = Directory.GetFiles(BuildPaths.WorldPath).Length;
+			int actualWorldspaceImageFiles = Directory.GetFiles(BuildIO.WorldPath).Length;
 			if (actualWorldspaceImageFiles != expectedWorldspaceImageFiles)
 			{
 				FailValidation($"Too {(actualWorldspaceImageFiles < expectedWorldspaceImageFiles ? "few" : "many")} files in the worldspace image folder. Expected {expectedWorldspaceImageFiles}, found {actualWorldspaceImageFiles}");
@@ -81,7 +62,7 @@ namespace Preprocessor
 
 			// Similarly as above, do the same file count check for map markers
 			int expectedMapMarkerImageFiles = mapMarkers.Count;
-			int actualMapMarkerImageFiles = Directory.GetFiles(BuildPaths.MapMarkerPath).Length;
+			int actualMapMarkerImageFiles = Directory.GetFiles(BuildIO.MapMarkerPath).Length;
 			if (actualMapMarkerImageFiles != expectedMapMarkerImageFiles)
 			{
 				FailValidation($"Too {(actualMapMarkerImageFiles < expectedMapMarkerImageFiles ? "few" : "many")} mapmarkers in the mapmarker image folder. Expected {expectedMapMarkerImageFiles}, found {actualMapMarkerImageFiles}");
@@ -200,7 +181,7 @@ namespace Preprocessor
 		static void ValidateSpace(Space space)
 		{
 			Console.WriteLine($"Background image(s): {space.EditorID}");
-			string filePath = (space.IsWorldspace ? BuildPaths.WorldPath : BuildPaths.CellPath) + space.EditorID + BackgroundImageFileType;
+			string filePath = (space.IsWorldspace ? BuildIO.WorldPath : BuildIO.CellPath) + space.EditorID + BackgroundImageFileType;
 
 			if (!ValidateSpaceImageExists(space, filePath))
 			{
@@ -214,8 +195,8 @@ namespace Preprocessor
 			// There are several additional files for Worldspaces
 			if (space.IsWorldspace)
 			{
-				string watermaskFilePath = BuildPaths.WorldPath + space.EditorID + "_waterMask" + MaskImageFileType;
-				string renderMapPath = BuildPaths.WorldPath + space.EditorID + "_render" + BackgroundImageFileType;
+				string watermaskFilePath = BuildIO.WorldPath + space.EditorID + "_waterMask" + MaskImageFileType;
+				string renderMapPath = BuildIO.WorldPath + space.EditorID + "_render" + BackgroundImageFileType;
 
 				if (!ValidateSpaceImageExists(space, watermaskFilePath) | !ValidateSpaceImageExists(space, renderMapPath))
 				{
@@ -228,7 +209,7 @@ namespace Preprocessor
 				// Appalachia specifically also has the 'military' map
 				if (space.IsAppalachia())
 				{
-					string militaryMapPath = BuildPaths.WorldPath + space.EditorID + "_military" + BackgroundImageFileType;
+					string militaryMapPath = BuildIO.WorldPath + space.EditorID + "_military" + BackgroundImageFileType;
 
 					if (!ValidateSpaceImageExists(space, militaryMapPath))
 					{
@@ -243,7 +224,7 @@ namespace Preprocessor
 		static void ValidateMapMarker(MapMarker mapMarker)
 		{
 			Console.WriteLine($"Map Icon: {mapMarker.Icon}");
-			string filePath = BuildPaths.MapMarkerPath + mapMarker.Icon + MapMarkerImageFileType;
+			string filePath = BuildIO.MapMarkerPath + mapMarker.Icon + MapMarkerImageFileType;
 
 			if (!ValidateMapMarkerImageExists(mapMarker, filePath))
 			{

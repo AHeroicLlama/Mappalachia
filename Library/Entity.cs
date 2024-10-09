@@ -1,22 +1,14 @@
 ﻿namespace Library
 {
 	// Represents any entity in the ESM
-	public class Entity
+	public class Entity(uint formID, string editorID, string signature, string displayName)
 	{
-		public uint FormID { get; }
+		public uint FormID { get; } = formID;
 
-		public string EditorID { get; }
+		public string EditorID { get; } = editorID;
 
-		public string Signature { get; }
+		public string Signature { get; } = signature;
 
-		public string DisplayName { get; }
-
-		public Entity(uint formID, string editorID, string signature, string displayName)
-		{
-			FormID = formID;
-			EditorID = editorID;
-			Signature = signature;
-			DisplayName = displayName;
-		}
+		public string DisplayName { get; } = displayName;
 	}
 }
