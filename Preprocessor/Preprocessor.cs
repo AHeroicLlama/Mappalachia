@@ -46,6 +46,8 @@ namespace Preprocessor
 				{
 					case '1':
 						Preprocess();
+						ValidateDatabase();
+						ValidateImageAssets();
 						break;
 					case '2':
 						ValidateDatabase();
@@ -250,14 +252,26 @@ namespace Preprocessor
 			SimpleQuery("VACUUM;");
 			SimpleQuery("PRAGMA query_only;");
 
-			Console.WriteLine($"Generating Summary Report at {BuildIO.DatabaseSummaryPath}");
-			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
+			GenerateSummary();
+
 			File.WriteAllLines(BuildIO.DatabaseSummaryPath, SummaryReport);
 
 			Console.WriteLine($"Build and Preprocess Done.\n");
+		}
 
-			ValidateDatabase();
-			ValidateImageAssets();
+		static void GenerateSummary()
+		{
+			//TODO come back to this once cell scaling is reworked
+			Console.WriteLine($"Generating Summary Report at {BuildIO.DatabaseSummaryPath}");
+			AddToSummaryReport("Checksum", BuildIO.GetMD5Hash(BuildIO.DatabasePath));
+			AddToSummaryReport("Size", (new FileInfo(BuildIO.DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
+			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
+			AddToSummaryReport("CSV Imported with SQLite Version", BuildIO.GetSqliteToolsVersion());
+			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
+			AddToSummaryReport("Mean Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
+			AddToSummaryReport("Mean Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
+			AddToSummaryReport("Mean Avg Rotation", SimpleQuery("SELECT AVG(rotZ) FROM Position;"));
 		}
 
 		// Executes any query against the open database.

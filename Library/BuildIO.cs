@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
+using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace Library
 {
@@ -69,6 +71,28 @@ namespace Library
 
 			solutionPath = path + @"\";
 			return solutionPath;
+		}
+
+		// Returns the MD5 Hash of the given file
+		public static string GetMD5Hash(string filePath)
+		{
+			using FileStream fileStream = File.OpenRead(filePath);
+
+			byte[] hash = MD5.Create().ComputeHash(fileStream);
+			return BitConverter.ToString(hash).Replace("-", string.Empty);
+		}
+
+		// Calls --version on the sqlitetools (sqlite3.exe) and returns the output
+		public static string GetSqliteToolsVersion()
+		{
+			Process process = Process.Start(new ProcessStartInfo
+			{
+				FileName = SqlitePath,
+				Arguments = "--version",
+				RedirectStandardOutput = true,
+			}) ?? throw new Exception("Failed to start Sqlite3 process");
+
+			return process.StandardOutput.ReadToEnd();
 		}
 	}
 }

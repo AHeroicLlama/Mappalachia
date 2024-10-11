@@ -1,3 +1,215 @@
+Checksum
+4A43F5A300C737D180E8C9DAE9B31F86
+
+Size
+417932 KB
+
+Built At UTC
+11/10/2024 21:08:17
+
+CSV Imported with SQLite Version
+3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
+
+
 Game Version
 1.7.14.19
+
+Spaces
+APPALACHIA,Appalachia,2480661,1
+AMSHQ01,AMS Headquarters,107865,0
+AMSHQ02,AMS Headquarters Basement Lab,6230427,0
+AVRMedicalCenter01,AVR Medical Center,29371,0
+AlleghenyAsylum01,Fort Defiance,36074,0
+ArktosPharmaLab01,Arktos Pharma Biome Lab,4672969,0
+ArktosPharmaLabDungeon,Arktos Pharma Biome Lab,6395422,0
+BelchingBetty01,Belching Betty,3796963,0
+BigBendTunnel01,Big Bend Tunnels,61691,0
+BlackwaterMine01,Blackwater Mine,1234114,0
+BlueRidgeOffice01,Blue Ridge Office,5929681,0
+BurdetteManorBasement01,Burdette Manor Basement,5821506,0
+BurningMine01,The Burning Mine,16408,0
+Burrows01,The Burrows,4668643,0
+CharGen01,Vault 76,101374,0
+CharGen02,Vault 76,5369687,0
+CharGen03,Vault 76,5369679,0
+CharGen04,Vault 76,5369678,0
+CharGen05,Vault 76,5369677,0
+CharlestonCapitolBuilding02,Charleston Capitol Building,5570784,0
+CharlestonCapitolCourthouse01,Charleston Capitol Courthouse,5551362,0
+CharlestonCapitolDungeon,Charleston Capitol Building,6758537,0
+CraterWarRoom01,The Crater War Room,5950852,0
+CraterWatchstation01,Crater Watchstation Worksite,4243879,0
+CultistCave01,Lucky Hole Mine,1137735,0
+DaggersDen01,Dagger's Den,591964,0
+DaggersDen02,Dagger's Throne Room,6054107,0
+DuncanDuncanRobotics01,Duncan & Duncan Robotics,4267109,0
+DyerChemical01,Dyer Chemical Sewer,598427,0
+EasternRegionalPen01,Eastern Regional Penitentiary,17798,0
+EmmettMountainDisposalSite01,Emmett Mountain Disposal Site,189702,0
+EnclaveResearchFacility01,Enclave Research Facility,6098848,0
+FortAtlas01,Fort Atlas,15019,0
+FortAtlasDungeon01,Atlas Substructure,5930030,0
+FoundationInt01,Foundation Interior,4163599,0
+FoundationSupplyRoom01,Foundation Supply Room,5925990,0
+FraternityHouse01,Pi House,4684906,0
+FraternityHouse02,Eta Psi House,4687876,0
+FreeStatesBunker01,Abbie's Bunker,339039,0
+FreeStatesBunker02,Carson Family Bunker,340478,0
+FreeStatesBunker03,Ella Ames' Bunker,327433,0
+FreeStatesBunker04,Raleigh Clay's Bunker,1890039,0
+FreeStatesBunker06,Abandoned Bunker,3795090,0
+FreeStatesBunker07,Ransacked Bunker,3795089,0
+GarrahanMiningHQ01,Garrahan Mining HQ,410843,0
+GarrahanMiningHQDungeon,Garrahan Mining HQ,6749362,0
+GauleyMine01,Gauley Mine,282604,0
+GlassedCavern01,Glassed Cavern,19523,0
+GlassedCavernDungeon,Glassed Cavern,7747429,0
+GraftonPawnShop01,Grafton Pawn Shop,5661109,0
+GraftonSteelUnderground01,Grafton Steel Underground,4272165,0
+HarpersFerryDungeon01,Harpers Ferry Tunnel,6235848,0
+HornwrightHQ01,Hornwright Industrial HQ,1929778,0
+HornwrightSafeRoom01,Hornwright Estate Safe Room,4189733,0
+KerwoodMine01,Kerwood Mine,1488055,0
+LewisandSonsFarmingSupply01,Putnam Residence,6041095,0
+LittleRobsHideout01,Little Rob's Hideout,5962513,0
+LousMine01,Carleton Mine,5503303,0
+MILEBlueRidgeHQ,Milepost Zero,7774037,0
+MTR08LodeBaring01,Abandoned Mine Shaft Elaine,3719347,0
+MTR08LodeBaring02,Abandoned Mine Shaft Kittery,2790574,0
+MamaDolceProcessing01,Mama Dolce's Food Processing,1919669,0
+MiresEye01,Mire's Eye,5986760,0
+MonongahMine01,Monongah Mine,5807774,0
+MonongahMissileSilo01,Missile Silo Bravo,4467145,0
+MonongahPowerPlant01,Monongah Power Plant,4012309,0
+MorgantownAirportTerminal02,Morgantown Airport Terminal,4308071,0
+MorgantownApartment01,Shadowbreeze Apartments,4443790,0
+MorgantownHighSchool01,Morgantown High School,1096348,0
+MorgantownHighSchoolDungeon,Morgantown High School,6773273,0
+MountBlairWarehouseBasement01,Warehouse Basement,5116147,0
+NPECultistCave,Organ Cave,7292896,0
+NPEVault7601,Vault 76,7073477,0
+NVEShelter01,VR Shelter,7009347,0
+NVEVault7601,Vault 76,7011985,0
+NukaColaQuantumPlant01,Kanawha Nuka-Cola Plant,29678,0
+OrwellOrchardsShelter01,Orwell Bomb Shelter,6039736,0
+OverseersHome01,Overseer's Home,5502601,0
+PoseidonPlant01,Poseidon Energy Plant WV-06,47864,0
+PoseidonPlant02,Poseidon Energy Plant Expansion,4398573,0
+RadioResearchCenter01,Radio Astronomy Research Center,1090149,0
+RaiderCave02,Makeshift Vault,5975028,0
+RaiderRaidTrailerInt,Trailer Interior,4217147,0
+RiversideManor01,Riverside Manor,1161145,0
+RobCoResearchCenter01,RobCo Research Center,9084,0
+RobcoExperimentalCache01,RobCo Auto-Cache #001,4268432,0
+RollinsLaborCamp01,Rollins Prison,5719591,0
+SamBlackwellBunker02,Sam Blackwell's Bunker,1530824,0
+SamBlackwellsDeathclawCave,Cavern,262882,0
+SettlerBugOutCave,Secluded Cave,4208409,0
+SheltersCave01,Abandoned Mine Shelter,6345571,0
+SheltersCave02,Forbidden Digsite Shelter,6480483,0
+SheltersClaimCenter01,Shelters Claim Center,6043862,0
+SheltersFlatlands,Flatlands,7658646,0
+SheltersHighStakes,High Stakes Shelter,7576305,0
+SheltersHousingDevelopment,Housing Development,7964996,0
+SheltersMissileSilo,Abandoned Mine Shelter,6423621,0
+SheltersNuclearTestBunker,Nuclear Test Bunker,6906035,0
+SheltersPittTrench01,Neighborhood Square Shelter,6701141,0
+SheltersRootCellar,Root Cellar Dungeon,7178579,0
+SheltersSoundStage,Sound Stage Shelter,6911460,0
+SheltersSummerCamp,Summer Camp Shelter,7804237,0
+SheltersToxicWasteland,Toxic Wasteland,7046998,0
+SheltersVaultAtrium01,Vault Atrium Shelter,5971528,0
+SheltersVaultLivingQuarters01,Vault Quarters Shelter,5971530,0
+SheltersVaultReception01,Vault Lobby Shelter,5984849,0
+SheltersVaultServerRoom01,Server Room Shelter,5920071,0
+SheltersVaultStorageFacility,Vault Storage Facility Shelter,6817853,0
+SheltersVaultStorageRoom01,Vault Utility Room Shelter,5920069,0
+SpruceKnobCampground01,Spruce Knob Boat Rental,5508629,0
+SpruceKnobMissileSilo01,Missile Silo Charlie,4467146,0
+StormBrownHouse,The Brown House,7202047,0
+StormCultistTunnels,Old Crimora Mines,7088437,0
+StormHallucinogeniccave,Shining Creek Cavern,7091349,0
+StormHighKnobFireTower01,High Knob Fire Tower,7223506,0
+StormPresidentialBunker,Presidential Bunker,7917384,0
+StormRadioBunkerInt,Ranger Monitoring Bunker,7502429,0
+StormStolzManor,Dark Hollow Manor,7307178,0
+StormVault63AtriumLower,Atrium Lower Level,7316238,0
+StormVault63AtriumUpper,Atrium Upper Level,7195955,0
+StormVault63Entrance,Vault 63 Entrance,7307180,0
+StormVisitorCenterInt,Shenandoah Visitor Center,7259773,0
+StormWeatherLab01,Vault 63 Meteorology Sector,7159495,0
+SugarGrove01,Sugar Grove,299465,0
+SugarGrove02,Sugar Grove Data Center,5685042,0
+SugarGroveMissileSilo01,Missile Silo Alpha,17140,0
+SurlysShack01,Surly's Shack,7623495,0
+TheCraterCore01,The Crater Core,4235969,0
+TheNukashine01,The Nukashine,4667615,0
+TheRoseRoom01,The Rose Room,6956891,0
+TheRustyPick01,The Rusty Pick,1113704,0
+TheWayward01,The Wayward,4211186,0
+ThunderMtPowerPlant01,Thunder Mountain Power,4079610,0
+TopOfTheWorld01,Mezzanine Level,4392624,0
+TunnelOfLoveMineshaft01,Tunnel of Love,6659249,0
+UCB01,The Deep,4361308,0
+UCB02,Auxiliary Control Room,5728237,0
+UncannyCaverns01,Uncanny Caverns,245179,0
+UncannyCaverns02,Hidden Crevice,6230690,0
+UncannyCavernsDungeon,Uncanny Caverns,6374356,0
+VTecAgCenter01,Vault-Tec Ag Research Center,75171,0
+ValleyGalleria01,Valley Galleria,108190,0
+VanLoweTaxidermy01,Van Lowe Taxidermy,4667916,0
+Vault51Dungeon,Vault 51,6334144,0
+Vault63Organics,Vault 63 Organics Sector,6958419,0
+Vault79Entrance,Vault 79,5661108,0
+Vault79GoldVaultOperations,Gold Vault Operations,4219055,0
+Vault79Main,Vault 79,4198678,0
+Vault94Dungeon,Vault 94,5995911,0
+Vault94DungeonGECK,Vault 94 G.E.C.K. Wing,6120007,0
+Vault94Entrance,Vault 94 Entrance,1178087,0
+Vault96Dungeon,Vault 96,6149937,0
+VaultTecU01,Vault-Tec University,16407,0
+WVLumberCo01,WV Lumber Co. Office,4258459,0
+WatogaCivicCenter01,Watoga Civic Center,54083,0
+WatogaCivicCenterDungeon,Watoga Raider Arena,6078989,0
+WatogaEmergencyServices01,Watoga Emergency Services,109463,0
+WatogaHighSchool01,Watoga High School,16771,0
+WatogaHighSchoolDungeon,Watoga High School,6353787,0
+WatogaMunicipalCenter01,Watoga Municipal Center,531101,0
+WatogaMunicipalCenter02,Watoga Municipal Center,491697,0
+WatogaTowers01,Watoga Towers,5835443,0
+WatogaUnderground01,Watoga Underground,4221845,0
+WendigoCave01,Wendigo Cave,19985,0
+WestTek01,West Tek Research Center,29837,0
+WestTek02,FEV Production Facility,6230426,0
+WhitespringBunker01,Whitespring Bunker,1217780,0
+WhitespringMall01,Whitespring Mall,6453276,0
+WhitespringRefuge01,Whitespring Refuge,6439099,0
+XPDAC01Casino,The Neapolitan Casino,6964088,0
+XPDAC01EntertainmentDistrict,Casino Quarter,5499103,0
+XPDAC01NightClub,Quentino's Night Club,6901873,0
+XPDAC02Aquarium,Aquarium of the Atlantic,6868079,0
+XPDAC02AquariumDungeon,Aquarium of the Atlantic,7601415,0
+XPDAC02Boardwalk,The Boardwalk,6868081,0
+XPDAC02Pier,Showman's Pier,6868080,0
+XPDAC03CityHall,City Hall,6901870,0
+XPDAC03CommunityCenter,Community Center,6901871,0
+XPDAC03CommunityCenterDungeon,Community Center,7839492,0
+XPDAC03FloodedCityCenter,Flooded City Center,6893679,0
+XPDPitt01Foundry,The Foundry,6439022,0
+XPDPitt01FoundryDungeon,The Foundry,7559299,0
+XPDPitt01Industrial,The Pitt - Industrial,6381977,0
+XPDPitt02Sanctum,Sanctum,6518991,0
+XPDPitt02Trench,The Pitt - Trench,6518990,0
+XPDRttP01SteelTower,Steel Tower,6784904,0
+XPDRttP01SteelTowerRoof,Steel Tower Rooftop,6800055,0
+XPDRttP01SteelTowerUpperFloors,Steel Tower Upper Floors,6847472,0
+
+Mean Avg X/Y/Z
+-9803.60437159392,-5543.249616595788,11179.726734414127
+
+Mean Avg Bounds X/Y/Z
+22.845825269553895,16.78064281612966,16.583138987985233
+
+Mean Avg Rotation
+4.330655744705146
 
