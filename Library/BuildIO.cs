@@ -46,7 +46,7 @@ namespace Library
 
 		public static SqliteConnection GetNewConnection()
 		{
-			SqliteConnection connection = new SqliteConnection("Data Source=" + DatabasePath);
+			SqliteConnection connection = new SqliteConnection($"Data Source={DatabasePath}; Pooling=false");
 			connection.Open();
 			return connection;
 		}
@@ -82,17 +82,20 @@ namespace Library
 			return BitConverter.ToString(hash).Replace("-", string.Empty);
 		}
 
-		// Calls --version on the sqlitetools (sqlite3.exe) and returns the output
-		public static string GetSqliteToolsVersion()
+		// Calls sqlitetools (sqlite3.exe) with arguments and returns the output
+		public static string SqliteTools(string args)
 		{
 			Process process = Process.Start(new ProcessStartInfo
 			{
 				FileName = SqlitePath,
-				Arguments = "--version",
+				Arguments = args,
 				RedirectStandardOutput = true,
 			}) ?? throw new Exception("Failed to start Sqlite3 process");
 
-			return process.StandardOutput.ReadToEnd();
+			string output = process.StandardOutput.ReadToEnd().Trim();
+
+			process.WaitForExit();
+			return output;
 		}
 	}
 }

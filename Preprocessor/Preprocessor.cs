@@ -254,8 +254,6 @@ namespace Preprocessor
 
 			GenerateSummary();
 
-			File.WriteAllLines(BuildIO.DatabaseSummaryPath, SummaryReport);
-
 			Console.WriteLine($"Build and Preprocess Done.\n");
 		}
 
@@ -263,15 +261,22 @@ namespace Preprocessor
 		{
 			//TODO come back to this once cell scaling is reworked
 			Console.WriteLine($"Generating Summary Report at {BuildIO.DatabaseSummaryPath}");
+			Connection.Close();
 			AddToSummaryReport("Checksum", BuildIO.GetMD5Hash(BuildIO.DatabasePath));
+			Connection.Open();
 			AddToSummaryReport("Size", (new FileInfo(BuildIO.DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
 			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
-			AddToSummaryReport("CSV Imported with SQLite Version", BuildIO.GetSqliteToolsVersion());
+			AddToSummaryReport("CSV Imported with SQLite Version", BuildIO.SqliteTools("--version"));
+			AddToSummaryReport("Tables", BuildIO.SqliteTools(BuildIO.DatabasePath + " .tables"));
+			AddToSummaryReport("Indices", BuildIO.SqliteTools(BuildIO.DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
 			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
-			AddToSummaryReport("Mean Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
-			AddToSummaryReport("Mean Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
-			AddToSummaryReport("Mean Avg Rotation", SimpleQuery("SELECT AVG(rotZ) FROM Position;"));
+			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
+			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
+			AddToSummaryReport("Avg Rotation", SimpleQuery("SELECT AVG(rotZ) FROM Position;"));
+			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, count(lockLevel) FROM Position GROUP BY lockLevel;"));
+
+			File.WriteAllLines(BuildIO.DatabaseSummaryPath, SummaryReport);
 		}
 
 		// Executes any query against the open database.

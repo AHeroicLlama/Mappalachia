@@ -5,11 +5,19 @@ Size
 417932 KB
 
 Built At UTC
-11/10/2024 21:08:17
+12/10/2024 16:31:42
 
 CSV Imported with SQLite Version
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 
+Tables
+Entity               Meta                 Region             
+Location             Position             Scrap              
+MapMarker            Position_PreGrouped  Space
+
+Indices
+indexInstance            indexSpace               sqlite_autoindex_Meta_1
+indexLocation            indexStandard
 
 Game Version
 1.7.14.19
@@ -204,12 +212,25 @@ XPDRttP01SteelTower,Steel Tower,6784904,0
 XPDRttP01SteelTowerRoof,Steel Tower Rooftop,6800055,0
 XPDRttP01SteelTowerUpperFloors,Steel Tower Upper Floors,6847472,0
 
-Mean Avg X/Y/Z
+Avg X/Y/Z
 -9803.60437159392,-5543.249616595788,11179.726734414127
 
-Mean Avg Bounds X/Y/Z
+Avg Bounds X/Y/Z
 22.845825269553895,16.78064281612966,16.583138987985233
 
-Mean Avg Rotation
+Avg Rotation
 4.330655744705146
+
+Lock Levels
+,4358177
+Barred,1
+Chained,6
+Inaccessible,146
+Level 0,664
+Level 1,647
+Level 2,407
+Level 3,191
+Requires Key,186
+Requires Terminal,43
+Unknown,1
 
