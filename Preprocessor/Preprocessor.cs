@@ -262,7 +262,7 @@ namespace Preprocessor
 			//TODO come back to this once cell scaling is reworked
 			Console.WriteLine($"Generating Summary Report at {BuildIO.DatabaseSummaryPath}");
 			Connection.Close();
-			AddToSummaryReport("Checksum", BuildIO.GetMD5Hash(BuildIO.DatabasePath));
+			AddToSummaryReport("MD5 Checksum", BuildIO.GetMD5Hash(BuildIO.DatabasePath));
 			Connection.Open();
 			AddToSummaryReport("Size", (new FileInfo(BuildIO.DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
 			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
@@ -275,6 +275,28 @@ namespace Preprocessor
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg Rotation", SimpleQuery("SELECT AVG(rotZ) FROM Position;"));
 			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, count(lockLevel) FROM Position GROUP BY lockLevel;"));
+			AddToSummaryReport("Primitive Shapes", SimpleQuery("SELECT primitiveShape, count(primitiveShape) FROM Position GROUP BY primitiveShape;"));
+			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, count(signature) FROM Entity GROUP BY signature;"));
+			AddToSummaryReport("Avg Length Entity DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(displayName) AS length FROM Entity);"));
+			AddToSummaryReport("Avg Length Entity EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(editorID) AS length FROM Entity);"));
+			AddToSummaryReport("Avg Length Space DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceDisplayName) AS length FROM Space);"));
+			AddToSummaryReport("Avg Length Space EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceEditorID) AS length FROM Space);"));
+			AddToSummaryReport("Avg Length Region EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(regionEditorID) AS length FROM Region);"));
+			AddToSummaryReport("Avg Length Label", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(label) AS length FROM Position);"));
+			AddToSummaryReport("Avg Count Regions, Coords from Region", SimpleQuery("SELECT AVG(regionMax), AVG(coordMax) FROM (SELECT MAX(regionIndex) as regionMax, MAX(coordIndex) as coordMax FROM Region GROUP BY regionEditorID);"));
+			AddToSummaryReport("Scrap with Avg component qty", SimpleQuery("SELECT component, AVG(componentQuantity) FROM Scrap GROUP BY component;"));
+			AddToSummaryReport("Map Markers", SimpleQuery("SELECT spaceEditorID, icon, label FROM MapMarker INNER JOIN Space ON MapMarker.spaceFormID = Space.spaceFormID ORDER BY spaceEditorID ASC, icon ASC, label ASC;"));
+			AddToSummaryReport("NPCs by Space, Class, and Weight", SimpleQuery(
+				"SELECT Space.spaceDisplayName, npcClass, npcName, AVG(spawnWeight) FROM Position " +
+				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+				"JOIN Location ON Position.locationFormID = Location.LocationFormID " +
+				"JOIN Space ON Space.spaceFormID = Position.spaceFormID " +
+				"WHERE ((Entity.editorID LIKE 'LvlSub%' AND Location.npcClass = 'Sub') OR " +
+				"(Entity.editorID LIKE 'LvlMain%' AND Location.npcClass = 'Main') OR " +
+				"(Entity.editorID LIKE 'LvlCritterA%' AND Location.npcClass = 'CritterA') OR " +
+				"(Entity.editorID LIKE 'LvlCritterB%' AND Location.npcClass = 'CritterB')) AND Entity.editorID NOT LIKE '%Turret%' " +
+				"GROUP BY npcName, npcClass, spaceDisplayName " +
+				"ORDER BY isWorldspace DESC, spaceDisplayName, npcClass, npcName;"));
 
 			File.WriteAllLines(BuildIO.DatabaseSummaryPath, SummaryReport);
 		}
