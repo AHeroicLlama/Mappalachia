@@ -14,7 +14,7 @@ namespace Preprocessor
 
 		static Regex SignatureFormIDRegex { get; } = new Regex(@"\[[A-Z_]{4}:([0-9A-F]{8})\]");
 
-		static Regex OptionalSignatureFormIDRegex { get; } = new Regex(@"(\[[A-Z_]{4}:)?([0-9A-F]{8})(\])?");
+		static Regex OptionalSignatureFormIDRegex { get; } = new Regex(@"\[[A-Z_]{4}:([0-9A-F]{8})\]|([0-9A-F]{8})");
 
 		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
 

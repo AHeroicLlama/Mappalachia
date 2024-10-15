@@ -277,6 +277,8 @@ namespace Preprocessor
 			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, count(lockLevel) FROM Position GROUP BY lockLevel;"));
 			AddToSummaryReport("Primitive Shapes", SimpleQuery("SELECT primitiveShape, count(primitiveShape) FROM Position GROUP BY primitiveShape;"));
 			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, count(signature) FROM Entity GROUP BY signature;"));
+			AddToSummaryReport("Position PreGrouped Count", SimpleQuery("SELECT count(*) FROM Position_PreGrouped;"));
+			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position;").First()} = {SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position_PreGrouped;").First()} = {SimpleQuery("SELECT count(DISTINCT entityFormID) FROM Entity;").First()}");
 			AddToSummaryReport("Avg Length Entity DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(displayName) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Entity EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(editorID) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Space DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceDisplayName) AS length FROM Space);"));
@@ -469,12 +471,16 @@ namespace Preprocessor
 		// Converts a valid 8-char hex FormID to the string value of the integer value of itself
 		static string CaptureFormID(string input)
 		{
-			string formid = OptionalSignatureFormIDRegex.Match(input).Groups[2].Value;
+			MatchCollection matchCollection = OptionalSignatureFormIDRegex.Matches(input);
 
-			if (string.IsNullOrEmpty(formid))
+			if (matchCollection.Count == 0)
 			{
 				return input;
 			}
+
+			//TODO this doesn't look bulletproof. Why is Last always right?
+			Match match = matchCollection.Last();
+			string formid = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
 			return Convert.ToInt32(formid, 16).ToString();
 		}
