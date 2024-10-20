@@ -6,7 +6,7 @@ namespace Library
 {
 	// Provides references to files around the repo structure.
 	// For use by pre-production preprocessor & build projects
-	public static class BuildIO
+	public static class BuildTools
 	{
 		const string SolutionFile = "Mappalachia.sln";
 		const string AssetsPath = @"Assets\";
@@ -96,6 +96,13 @@ namespace Library
 
 			process.WaitForExit();
 			return output;
+		}
+
+		public static void StdOutWithColor(string text, ConsoleColor color)
+		{
+			Console.ForegroundColor = color;
+			Console.WriteLine(text);
+			Console.ResetColor();
 		}
 	}
 }

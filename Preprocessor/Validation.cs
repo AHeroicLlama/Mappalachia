@@ -8,21 +8,15 @@ namespace Preprocessor
 
 		static void FailValidation(string reason)
 		{
-			ConsoleColor originalColor = Console.ForegroundColor;
-			Console.ForegroundColor = ConsoleColor.Red;
-
-			Console.WriteLine($"Validation failure: {reason}");
+			BuildTools.StdOutWithColor($"Validation failure: {reason}", ConsoleColor.Red);
 			ValidationFailures.Add(reason);
 
-			Console.ForegroundColor = originalColor;
-
-			File.AppendAllLines(BuildIO.ErrorsPath, new List<string>() { reason });
+			File.AppendAllLines(BuildTools.ErrorsPath, new List<string>() { reason });
 		}
 
 		static void ConcludeValidation()
 		{
 			Console.WriteLine();
-			ConsoleColor originalColor = Console.ForegroundColor;
 
 			if (ValidationFailures.Count > 0)
 			{
@@ -35,16 +29,14 @@ namespace Preprocessor
 					Console.WriteLine($"* {failure}");
 				}
 
-				Console.WriteLine($"\nError details stored to {BuildIO.ErrorsPath}");
+				Console.WriteLine($"\nError details stored to {BuildTools.ErrorsPath}");
+
+				Console.ResetColor();
 			}
 			else
 			{
-				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine("Validation passed!");
+				BuildTools.StdOutWithColor("Validation passed!", ConsoleColor.Green);
 			}
-
-			Console.ForegroundColor = originalColor;
-			Console.WriteLine();
 		}
 	}
 }

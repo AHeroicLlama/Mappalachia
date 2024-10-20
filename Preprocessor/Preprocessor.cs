@@ -15,12 +15,16 @@ namespace Preprocessor
 			BOOL,
 		}
 
-		static readonly SqliteConnection Connection = BuildIO.GetNewConnection();
+		static SqliteConnection Connection { get; } = BuildTools.GetNewConnection();
 
 		// TODO do coords need to be REAL or can we get away with INTEGER?
 		static ColumnType CoordinateType { get; } = ColumnType.REAL;
 
 		static List<string> SummaryReport { get; } = new List<string>();
+
+		static ConsoleColor InfoColor { get; } = ConsoleColor.DarkYellow;
+
+		static ConsoleColor QuestionColor { get; } = ConsoleColor.Blue;
 
 		static void Main()
 		{
@@ -29,13 +33,14 @@ namespace Preprocessor
 			Stopwatch stopwatch = new Stopwatch();
 
 			// If the database already exists, we may only want to run validations, so we give some options
-			if (File.Exists(BuildIO.DatabasePath))
+			if (File.Exists(BuildTools.DatabasePath))
 			{
-				Console.WriteLine("Enter:" +
+				BuildTools.StdOutWithColor(
+					"Enter:" +
 					"\n1:Build and preprocess database, then run full validation suite" +
 					"\n2:Run both validations without building" +
 					"\n3:Run data validation only" +
-					"\n4:Run image asset validation only");
+					"\n4:Run image asset validation only", QuestionColor);
 
 				char input = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -74,7 +79,7 @@ namespace Preprocessor
 				Preprocess();
 			}
 
-			Console.WriteLine($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key");
+			BuildTools.StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", InfoColor);
 			Console.ReadKey();
 		}
 
@@ -82,9 +87,12 @@ namespace Preprocessor
 		{
 			string gameVersion = GetValidatedGameVersion();
 
-			Console.WriteLine($"Building Mappalachia database at {BuildIO.DatabasePath}\n");
+			BuildTools.StdOutWithColor($"Building Mappalachia database at {BuildTools.DatabasePath}\n", InfoColor);
 
+			Connection.Close();
 			Cleanup();
+			Connection.Open();
+
 			SimpleQuery("PRAGMA foreign_keys = 0");
 
 			// Create the Meta table, add the game version to it
@@ -177,7 +185,7 @@ namespace Preprocessor
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
-			File.WriteAllLines(BuildIO.DiscardedCellsPath, deletedRows);
+			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding the min/max/mid of x/y
 			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, minX {CoordinateType}, maxX {CoordinateType}, midX {CoordinateType}, minY {CoordinateType}, maxY {CoordinateType}, midY {CoordinateType});");
@@ -254,21 +262,21 @@ namespace Preprocessor
 
 			GenerateSummary();
 
-			Console.WriteLine($"Build and Preprocess Done.\n");
+			BuildTools.StdOutWithColor($"Build and Preprocess Done.\n", InfoColor);
 		}
 
 		static void GenerateSummary()
 		{
 			//TODO come back to this once cell scaling is reworked
-			Console.WriteLine($"Generating Summary Report at {BuildIO.DatabaseSummaryPath}");
+			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", InfoColor);
 			Connection.Close();
-			AddToSummaryReport("MD5 Checksum", BuildIO.GetMD5Hash(BuildIO.DatabasePath));
+			AddToSummaryReport("MD5 Checksum", BuildTools.GetMD5Hash(BuildTools.DatabasePath));
 			Connection.Open();
-			AddToSummaryReport("Size", (new FileInfo(BuildIO.DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
+			AddToSummaryReport("Size", (new FileInfo(BuildTools.DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
 			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
-			AddToSummaryReport("CSV Imported with SQLite Version", BuildIO.SqliteTools("--version"));
-			AddToSummaryReport("Tables", BuildIO.SqliteTools(BuildIO.DatabasePath + " .tables"));
-			AddToSummaryReport("Indices", BuildIO.SqliteTools(BuildIO.DatabasePath + " .indices"));
+			AddToSummaryReport("CSV Imported with SQLite Version", BuildTools.SqliteTools("--version"));
+			AddToSummaryReport("Tables", BuildTools.SqliteTools(BuildTools.DatabasePath + " .tables"));
+			AddToSummaryReport("Indices", BuildTools.SqliteTools(BuildTools.DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
 			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
@@ -300,7 +308,7 @@ namespace Preprocessor
 				"GROUP BY npcName, npcClass, spaceDisplayName " +
 				"ORDER BY isWorldspace DESC, spaceDisplayName, npcClass, npcName;"));
 
-			File.WriteAllLines(BuildIO.DatabaseSummaryPath, SummaryReport);
+			File.WriteAllLines(BuildTools.DatabaseSummaryPath, SummaryReport);
 		}
 
 		// Executes any query against the open database.
@@ -359,8 +367,8 @@ namespace Preprocessor
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			string path = BuildIO.SqlitePath;
-			List<string> args = new List<string>() { BuildIO.DatabasePath, ".mode csv", $".import {BuildIO.Fo76EditOutputPath}{tableName}.csv {tableName}" };
+			string path = BuildTools.SqlitePath;
+			List<string> args = new List<string>() { BuildTools.DatabasePath, ".mode csv", $".import {BuildTools.Fo76EditOutputPath}{tableName}.csv {tableName}" };
 
 			Process process = Process.Start(path, args);
 			process.WaitForExit();
@@ -563,13 +571,13 @@ namespace Preprocessor
 		// Returns the numeric quantity of the component for the given quantity name
 		static string GetComponentQuantity(string component, string quantity)
 		{
-			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, BuildIO.GetNewConnection()).First();
+			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, BuildTools.GetNewConnection()).First();
 		}
 
 		// Returns the total spawn weight of spawn pool for the class at the location
 		static string GetSumNPCSpawnWeight(string locationFormID, string npcClass)
 		{
-			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, BuildIO.GetNewConnection()).First();
+			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, BuildTools.GetNewConnection()).First();
 		}
 
 		static string GetNPCName(string value)
@@ -645,11 +653,11 @@ namespace Preprocessor
 
 			if (gameVersion == null)
 			{
-				Console.Write($"Unable to determine game version from exe at {BuildIO.GameExePath}.");
+				BuildTools.StdOutWithColor($"Unable to determine game version from exe at {BuildTools.GameExePath}.", InfoColor);
 				return GetGameVersionFromUser();
 			}
 
-			Console.WriteLine($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)");
+			BuildTools.StdOutWithColor($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)", QuestionColor);
 
 			while (true)
 			{
@@ -672,13 +680,13 @@ namespace Preprocessor
 		// Return the game version string on the FO76 exe, assuming it is present else null
 		static string? GetGameVersionFromExe()
 		{
-			return File.Exists(BuildIO.GameExePath) ? FileVersionInfo.GetVersionInfo(BuildIO.GameExePath).FileVersion : null;
+			return File.Exists(BuildTools.GameExePath) ? FileVersionInfo.GetVersionInfo(BuildTools.GameExePath).FileVersion : null;
 		}
 
 		// Asks the user to enter game version, and returns the entered line
 		static string GetGameVersionFromUser()
 		{
-			Console.Write("\nPlease enter the correct version string:");
+			BuildTools.StdOutWithColor("\nPlease enter the correct version string:", QuestionColor);
 			return Console.ReadLine() ?? string.Empty;
 		}
 
@@ -697,8 +705,8 @@ namespace Preprocessor
 		// Removes old DB files
 		static void Cleanup()
 		{
-			File.Delete(BuildIO.DatabasePath);
-			File.Delete(BuildIO.DatabasePath + "-journal");
+			File.Delete(BuildTools.DatabasePath);
+			File.Delete(BuildTools.DatabasePath + "-journal");
 		}
 	}
 }

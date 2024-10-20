@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Library;
 using Microsoft.Data.Sqlite;
 
 namespace Preprocessor
@@ -7,7 +8,7 @@ namespace Preprocessor
 	{
 		static void ValidateDatabase()
 		{
-			Console.WriteLine("Validating database");
+			BuildTools.StdOutWithColor("Validating database", InfoColor);
 
 			ValidationFailures.Clear();
 
