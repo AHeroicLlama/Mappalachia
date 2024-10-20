@@ -40,7 +40,8 @@ namespace Preprocessor
 					"\n1:Build and preprocess database, then run full validation suite" +
 					"\n2:Run both validations without building" +
 					"\n3:Run data validation only" +
-					"\n4:Run image asset validation only", QuestionColor);
+					"\n4:Run image asset validation only",
+					QuestionColor);
 
 				char input = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -282,11 +283,13 @@ namespace Preprocessor
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg Rotation", SimpleQuery("SELECT AVG(rotZ) FROM Position;"));
-			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, count(lockLevel) FROM Position GROUP BY lockLevel;"));
-			AddToSummaryReport("Primitive Shapes", SimpleQuery("SELECT primitiveShape, count(primitiveShape) FROM Position GROUP BY primitiveShape;"));
-			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, count(signature) FROM Entity GROUP BY signature;"));
-			AddToSummaryReport("Position PreGrouped Count", SimpleQuery("SELECT count(*) FROM Position_PreGrouped;"));
-			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position;").First()} = {SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position_PreGrouped;").First()} = {SimpleQuery("SELECT count(DISTINCT entityFormID) FROM Entity;").First()}");
+			AddToSummaryReport("Avg PercChanceNone", SimpleQuery("SELECT AVG(percChanceNone) FROM Entity;"));
+			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, COUNT(lockLevel) FROM Position GROUP BY lockLevel;"));
+			AddToSummaryReport("Primitive Shapes", SimpleQuery("SELECT primitiveShape, COUNT(primitiveShape) FROM Position GROUP BY primitiveShape;"));
+			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, COUNT(signature) FROM Entity GROUP BY signature;"));
+			AddToSummaryReport("Position PreGrouped Count", SimpleQuery("SELECT COUNT(*) FROM Position_PreGrouped;"));
+			AddToSummaryReport("Avg Num Instances per Reference", SimpleQuery("SELECT AVG(count) FROM Position_PreGrouped;"));
+			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT COUNT(DISTINCT referenceFormID) FROM Position;").First()} = {SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position_PreGrouped;").First()} = {SimpleQuery("SELECT count(DISTINCT entityFormID) FROM Entity;").First()}");
 			AddToSummaryReport("Avg Length Entity DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(displayName) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Entity EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(editorID) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Space DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceDisplayName) AS length FROM Space);"));
@@ -295,7 +298,9 @@ namespace Preprocessor
 			AddToSummaryReport("Avg Length Label", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(label) AS length FROM Position);"));
 			AddToSummaryReport("Avg Count Regions, Coords from Region", SimpleQuery("SELECT AVG(regionMax), AVG(coordMax) FROM (SELECT MAX(regionIndex) as regionMax, MAX(coordIndex) as coordMax FROM Region GROUP BY regionEditorID);"));
 			AddToSummaryReport("Scrap with Avg component qty", SimpleQuery("SELECT component, AVG(componentQuantity) FROM Scrap GROUP BY component;"));
+			AddToSummaryReport("Avg Map Marker X/Y", SimpleQuery("SELECT AVG(x), AVG(y) FROM MapMarker;"));
 			AddToSummaryReport("Map Markers", SimpleQuery("SELECT spaceEditorID, icon, label FROM MapMarker INNER JOIN Space ON MapMarker.spaceFormID = Space.spaceFormID ORDER BY spaceEditorID ASC, icon ASC, label ASC;"));
+			AddToSummaryReport("Unique LCTN", SimpleQuery("SELECT COUNT(DISTINCT locationFormID) FROM Location;"));
 			AddToSummaryReport("NPCs by Space, Class, and Weight", SimpleQuery(
 				"SELECT Space.spaceDisplayName, npcClass, npcName, AVG(spawnWeight) FROM Position " +
 				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
@@ -307,6 +312,19 @@ namespace Preprocessor
 				"(Entity.editorID LIKE 'LvlCritterB%' AND Location.npcClass = 'CritterB')) AND Entity.editorID NOT LIKE '%Turret%' " +
 				"GROUP BY npcName, npcClass, spaceDisplayName " +
 				"ORDER BY isWorldspace DESC, spaceDisplayName, npcClass, npcName;"));
+			AddToSummaryReport("Worldspaces", SimpleQuery("SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space WHERE isWorldspace = 1;"));
+			AddToSummaryReport("AVG spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Space;"));
+			AddToSummaryReport("AVG entityFormID as Dec", SimpleQuery("SELECT AVG(entityFormID) FROM Entity;"));
+			AddToSummaryReport("AVG locationFormID as Dec", SimpleQuery("SELECT AVG(locationFormID) FROM Location;"));
+			AddToSummaryReport("AVG MapMarker spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM MapMarker;"));
+			AddToSummaryReport("AVG Psn spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Position;"));
+			AddToSummaryReport("AVG Psn referenceFormID as Dec", SimpleQuery("SELECT AVG(referenceFormID) FROM Position;"));
+			AddToSummaryReport("AVG Psn instanceFormID as Dec", SimpleQuery("SELECT AVG(instanceFormID) FROM Position;"));
+			AddToSummaryReport("AVG Psn teleportsToFormID as Dec", SimpleQuery("SELECT AVG(teleportsToFormID) FROM Position;"));
+			AddToSummaryReport("AVG Psn locationFormID as Dec", SimpleQuery("SELECT AVG(locationFormID) FROM Position;"));
+			AddToSummaryReport("AVG regionFormID as Dec", SimpleQuery("SELECT AVG(regionFormID) FROM Region;"));
+			AddToSummaryReport("AVG region spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Region;"));
+			AddToSummaryReport("AVG junkFormID as Dec", SimpleQuery("SELECT AVG(junkFormID) FROM Scrap;"));
 
 			File.WriteAllLines(BuildTools.DatabaseSummaryPath, SummaryReport);
 		}
@@ -702,11 +720,13 @@ namespace Preprocessor
 			SummaryReport.Add(string.Empty);
 		}
 
-		// Removes old DB files
+		// Removes old DB files and outputs
 		static void Cleanup()
 		{
 			File.Delete(BuildTools.DatabasePath);
 			File.Delete(BuildTools.DatabasePath + "-journal");
+			File.Delete(BuildTools.DiscardedCellsPath);
+			File.Delete(BuildTools.DatabaseSummaryPath);
 		}
 	}
 }

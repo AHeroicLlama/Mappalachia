@@ -5,7 +5,7 @@ Size
 417932 KB
 
 Built At UTC
-20/10/2024 16:38:31
+20/10/2024 22:30:20
 
 CSV Imported with SQLite Version
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
@@ -221,6 +221,9 @@ Avg Bounds X/Y/Z
 Avg Rotation
 4.330655744705146
 
+Avg PercChanceNone
+0.009398897765625667
+
 Lock Levels
 ,4358177
 Barred,1
@@ -276,6 +279,9 @@ WEAP,88
 
 Position PreGrouped Count
 196128
+
+Avg Num Instances per Reference
+22.23277145537608
 
 X-Table Entity Sum
 46814 = 46814 = 46814
@@ -336,6 +342,9 @@ Spring,1.4
 Steel,1.6647727272727273
 Ultracite,1
 Wood,1.6904761904761905
+
+Avg Map Marker X/Y
+15421.305586692819,-14470.629367091218
 
 Map Markers
 APPALACHIA,AgriculturalCenterMarker,Vault-Tec Agricultural Research Center
@@ -765,6 +774,9 @@ APPALACHIA,WoodShackMarker,Southhampton Estate
 APPALACHIA,WoodShackMarker,Toxic Larry's Meat 'n Go
 APPALACHIA,WoodShackMarker,Treetops
 
+Unique LCTN
+428
+
 NPCs by Space, Class, and Weight
 Appalachia,CritterA,Beaver,0.12499999999999999
 Appalachia,CritterA,Cat,0.08333333333333333
@@ -916,4 +928,43 @@ Watoga Municipal Center,Main,Scorched,1
 Wendigo Cave,Main,Mirelurk,1
 Wendigo Cave,Sub,Ghoul,1
 West Tek Research Center,Main,Super Mutant,1
+
+Worldspaces
+2480661,APPALACHIA,Appalachia
+
+AVG spaceFormID as Dec
+4582897.79787234
+
+AVG entityFormID as Dec
+3086487.661127013
+
+AVG locationFormID as Dec
+3187408.967350746
+
+AVG MapMarker spaceFormID as Dec
+2480661
+
+AVG Psn spaceFormID as Dec
+2983560.9679706474
+
+AVG Psn referenceFormID as Dec
+1057837.1013237338
+
+AVG Psn instanceFormID as Dec
+3449714.1491309763
+
+AVG Psn teleportsToFormID as Dec
+472.6535794658786
+
+AVG Psn locationFormID as Dec
+33090.04162258693
+
+AVG regionFormID as Dec
+3397561.122544434
+
+AVG region spaceFormID as Dec
+2480661
+
+AVG junkFormID as Dec
+1667650.9048760992
 
