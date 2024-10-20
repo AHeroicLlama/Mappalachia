@@ -8,7 +8,7 @@ namespace Preprocessor
 	{
 		static void ValidateDatabase()
 		{
-			BuildTools.StdOutWithColor("Validating database", InfoColor);
+			BuildTools.StdOutWithColor("Validating database", BuildTools.InfoColor);
 
 			ValidationFailures.Clear();
 

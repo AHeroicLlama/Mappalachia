@@ -42,6 +42,10 @@ namespace Library
 
 		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
 
+		public static ConsoleColor InfoColor { get; } = ConsoleColor.DarkYellow;
+
+		public static ConsoleColor QuestionColor { get; } = ConsoleColor.Blue;
+
 		static string? solutionPath = null;
 
 		public static SqliteConnection GetNewConnection()

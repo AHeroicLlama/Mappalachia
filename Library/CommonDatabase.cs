@@ -2,7 +2,7 @@
 
 namespace Library
 {
-	public class CommonDatabase
+	public static class CommonDatabase
 	{
 		public static SqliteConnection GetNewConnection()
 		{
@@ -52,6 +52,13 @@ namespace Library
 			}
 
 			return mapMarkers;
+		}
+
+		// Converts a collection of strings to an SQLite collection suitable for an IN clause
+		// EG ["a", "b"] -> "('a','b')"
+		public static string ToSqliteCollection(this IEnumerable<string> elements)
+		{
+			return $"({string.Join(",", elements.Select(e => "\'" + e + "\'"))})";
 		}
 	}
 }

@@ -22,10 +22,6 @@ namespace Preprocessor
 
 		static List<string> SummaryReport { get; } = new List<string>();
 
-		static ConsoleColor InfoColor { get; } = ConsoleColor.DarkYellow;
-
-		static ConsoleColor QuestionColor { get; } = ConsoleColor.Blue;
-
 		static void Main()
 		{
 			Console.Title = "Mappalachia Preprocessor";
@@ -41,7 +37,7 @@ namespace Preprocessor
 					"\n2:Run both validations without building" +
 					"\n3:Run data validation only" +
 					"\n4:Run image asset validation only",
-					QuestionColor);
+					BuildTools.QuestionColor);
 
 				char input = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -80,7 +76,7 @@ namespace Preprocessor
 				Preprocess();
 			}
 
-			BuildTools.StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", InfoColor);
+			BuildTools.StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", BuildTools.InfoColor);
 			Console.ReadKey();
 		}
 
@@ -88,7 +84,7 @@ namespace Preprocessor
 		{
 			string gameVersion = GetValidatedGameVersion();
 
-			BuildTools.StdOutWithColor($"Building Mappalachia database at {BuildTools.DatabasePath}\n", InfoColor);
+			BuildTools.StdOutWithColor($"Building Mappalachia database at {BuildTools.DatabasePath}\n", BuildTools.InfoColor);
 
 			Connection.Close();
 			Cleanup();
@@ -121,7 +117,7 @@ namespace Preprocessor
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
-			SimpleQuery($"DELETE FROM MapMarker WHERE label IN ({string.Join(",", MapMarkersToRemove.Select(m => "\'" + m + "\'"))});");
+			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {MapMarkersToRemove.ToSqliteCollection()};");
 			SimpleQuery(AddMissingMarkersQuery);
 			SimpleQuery(CorrectDuplicateMarkersQuery);
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
@@ -263,13 +259,13 @@ namespace Preprocessor
 
 			GenerateSummary();
 
-			BuildTools.StdOutWithColor($"Build and Preprocess Done.\n", InfoColor);
+			BuildTools.StdOutWithColor($"Build and Preprocess Done.\n", BuildTools.InfoColor);
 		}
 
 		static void GenerateSummary()
 		{
 			//TODO come back to this once cell scaling is reworked
-			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", InfoColor);
+			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", BuildTools.InfoColor);
 			Connection.Close();
 			AddToSummaryReport("MD5 Checksum", BuildTools.GetMD5Hash(BuildTools.DatabasePath));
 			Connection.Open();
@@ -671,11 +667,11 @@ namespace Preprocessor
 
 			if (gameVersion == null)
 			{
-				BuildTools.StdOutWithColor($"Unable to determine game version from exe at {BuildTools.GameExePath}.", InfoColor);
+				BuildTools.StdOutWithColor($"Unable to determine game version from exe at {BuildTools.GameExePath}.", BuildTools.InfoColor);
 				return GetGameVersionFromUser();
 			}
 
-			BuildTools.StdOutWithColor($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)", QuestionColor);
+			BuildTools.StdOutWithColor($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)", BuildTools.QuestionColor);
 
 			while (true)
 			{
@@ -704,7 +700,7 @@ namespace Preprocessor
 		// Asks the user to enter game version, and returns the entered line
 		static string GetGameVersionFromUser()
 		{
-			BuildTools.StdOutWithColor("\nPlease enter the correct version string:", QuestionColor);
+			BuildTools.StdOutWithColor("\nPlease enter the correct version string:", BuildTools.QuestionColor);
 			return Console.ReadLine() ?? string.Empty;
 		}
 
