@@ -143,7 +143,7 @@ namespace Preprocessor
 			AddForeignKey("Position", "teleportsToFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Capture and convert to int the spaceFormID on Region
-			TransformColumn(CaptureFormID, "Region", "spaceFormID");
+			TransformColumn(CaptureSpaceFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 			AddForeignKey("Region", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
@@ -471,31 +471,59 @@ namespace Preprocessor
 		// Converts a valid 8-char hex FormID to the string value of the integer value of itself
 		static string CaptureFormID(string input)
 		{
-			MatchCollection matchCollection = OptionalSignatureFormIDRegex.Matches(input);
-
-			if (matchCollection.Count == 0)
+			if (string.IsNullOrWhiteSpace(input))
 			{
 				return input;
 			}
 
-			//TODO this doesn't look bulletproof. Why is Last always right?
-			Match match = matchCollection.Last();
-			string formid = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
+			string formid;
+
+			// Try and extract the formid from its normal/proper presentation
+			if (SignatureFormIDRegex.IsMatch(input))
+			{
+				formid = SignatureFormIDRegex.Match(input).Groups[1].Value;
+			}
+
+			// Less ideally, we find an 8-char hex value without the signature
+			else if (FormIDRegex.IsMatch(input))
+			{
+				formid = FormIDRegex.Match(input).Groups[0].Value;
+			}
+
+			// We found no matches. We can only hope it was already converted
+			else
+			{
+				return input;
+			}
 
 			return Convert.ToInt32(formid, 16).ToString();
 		}
 
-		// Captures the FormID specifically from the present [CELL/WRLD:x] phrase, to the string value of the integer value of itself
+		// Captures the FormID specifically from the present [CELL/WRLD:x] phrase, and returns the string value of the integer value of itself
+		// Prefers WRLD over CELL
 		static string CaptureSpaceFormID(string input)
 		{
-			string formid = SpaceFormIDRegex.Match(input).Groups[2].Value;
+			MatchCollection matches = SpaceFormIDRegex.Matches(input);
 
-			if (string.IsNullOrEmpty(formid))
+			if (matches.Count == 0)
 			{
 				return input;
 			}
 
-			return Convert.ToInt32(formid, 16).ToString();
+			Match bestMatch = matches.Last();
+
+			// Prefer the match for "WRLD" in the potential event that we find a match for both WRLD and CELL (and WRLD wasn't the last match anyway)
+			// Finds the last match of WRLD if there are multiple
+			foreach (Match match in matches.Reverse())
+			{
+				if (match.Groups[1].Value == "WRLD")
+				{
+					bestMatch = match;
+					break;
+				}
+			}
+
+			return Convert.ToInt32(bestMatch.Groups[2].Value, 16).ToString();
 		}
 
 		// Removes the signture and formID from the end of a string
@@ -513,7 +541,7 @@ namespace Preprocessor
 		static string CaptureQuotedTerm(string displayName)
 		{
 			// Doesn't look like we need to do anything
-			if (!FormIDRegex.IsMatch(displayName))
+			if (!SignatureFormIDRegex.IsMatch(displayName))
 			{
 				return displayName;
 			}

@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace Preprocessor
 {
@@ -10,13 +10,11 @@ namespace Preprocessor
 	{
 		static string FissureSiteLabel { get; } = "Fissure Site";
 
-		static Regex SpaceFormIDRegex { get; } = new Regex(@"\[(CELL|WRLD):([0-9A-F]{8})\]\)");
+		static Regex SpaceFormIDRegex { get; } = new Regex(@"\[(WRLD|CELL):([0-9A-F]{8})\]");
 
 		static Regex SignatureFormIDRegex { get; } = new Regex(@"\[[A-Z_]{4}:([0-9A-F]{8})\]");
 
-		static Regex OptionalSignatureFormIDRegex { get; } = new Regex(@"\[[A-Z_]{4}:([0-9A-F]{8})\]|([0-9A-F]{8})");
-
-		static Regex FormIDRegex { get; } = new Regex(".*" + SignatureFormIDRegex + ".*");
+		static Regex FormIDRegex { get; } = new Regex(@"[0-9A-F]{8}");
 
 		static Regex RemoveTrailingReferenceRegex { get; } = new Regex("(.*) " + SignatureFormIDRegex);
 
