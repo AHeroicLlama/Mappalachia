@@ -22,7 +22,7 @@ namespace Preprocessor
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 
-				Console.WriteLine("Validation failed. The following errors were reported:");
+				Console.WriteLine($"Validation failed. The following {ValidationFailures.Count} error(s) were reported:");
 
 				foreach (string failure in ValidationFailures)
 				{

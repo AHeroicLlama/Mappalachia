@@ -152,6 +152,19 @@ namespace Preprocessor
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 			AddForeignKey("Region", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
+			// Discard spaces which are not accessible, and output a list of those
+			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
+			deletedRows.Sort();
+			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
+			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
+
+			// Create a replacement copy of Space, adding the center x/y and max 2d range
+			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX {CoordinateType}, centerY {CoordinateType}, maxRange {CoordinateType});");
+			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, (MIN(x) + MAX(x)) / 2, (MIN(y) + MAX(y)) / 2, MAX(ABS(MIN(x) - MAX(x)), ABS(MIN(y) - MAX(y))) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
+			SimpleQuery("DROP TABLE Space;");
+			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
+
 			// Transform the coordinate data to int
 			if (CoordinateType == ColumnType.INTEGER)
 			{
@@ -165,6 +178,9 @@ namespace Preprocessor
 				TransformColumn(RealToInt, "Region", "y");
 				TransformColumn(RealToInt, "MapMarker", "x");
 				TransformColumn(RealToInt, "MapMarker", "y");
+				TransformColumn(RealToInt, "Space", "centerX");
+				TransformColumn(RealToInt, "Space", "centerY");
+				TransformColumn(RealToInt, "Space", "maxRange");
 			}
 
 			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original
@@ -177,12 +193,7 @@ namespace Preprocessor
 			// Ensure all Entities have the proper display name only, and nothing extraneous
 			TransformColumn(CaptureQuotedTerm, "Entity", "displayName");
 
-			// Discard spaces which are not accessible, and output a list of those
-			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
-			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
-			deletedRows.Sort();
-			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
-			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
+
 
 			if (CoordinateType == ColumnType.INTEGER)
 			{
@@ -258,7 +269,6 @@ namespace Preprocessor
 
 		static void GenerateSummary()
 		{
-			//TODO come back to this once cell scaling is reworked
 			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", BuildTools.InfoColor);
 			Connection.Close();
 			AddToSummaryReport("MD5 Checksum", BuildTools.GetMD5Hash(BuildTools.DatabasePath));
@@ -269,9 +279,10 @@ namespace Preprocessor
 			AddToSummaryReport("Tables", BuildTools.SqliteTools(BuildTools.DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", BuildTools.SqliteTools(BuildTools.DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
+			AddToSummaryReport("Avg CenterX, CenterY", SimpleQuery("SELECT AVG(centerX), AVG(centerY) FROM Space;"));
 			AddToSummaryReport("Avg Rotation", SimpleQuery("SELECT AVG(rotZ) FROM Position;"));
 			AddToSummaryReport("Avg PercChanceNone", SimpleQuery("SELECT AVG(percChanceNone) FROM Entity;"));
 			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, COUNT(lockLevel) FROM Position GROUP BY lockLevel;"));

@@ -8,8 +8,6 @@ namespace Library
 
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12);
 
-		public static int MaxRenderCameraZ { get; } = (int)Math.Pow(2, 16);
-
 		public static string ToHex(this uint formID)
 		{
 			return formID.ToString("X8");
@@ -19,6 +17,11 @@ namespace Library
 		public static void OpenURI(string uri)
 		{
 			Process.Start(new ProcessStartInfo { FileName = uri, UseShellExecute = true });
+		}
+
+		public static string Pluralize<T>(IEnumerable<T> collection)
+		{
+			return collection.Count() == 1 ? string.Empty : "s";
 		}
 	}
 }

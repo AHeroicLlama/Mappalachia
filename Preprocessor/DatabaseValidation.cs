@@ -56,6 +56,10 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Space", "spaceEditorID", false, ColumnType.TEXT);
 			ValidateColumnMatchesFormat("Space", "spaceDisplayName", false, ColumnType.TEXT);
 
+			ValidateColumnMatchesFormat("Space", "centerX", false, CoordinateType);
+			ValidateColumnMatchesFormat("Space", "centerY", false, CoordinateType);
+			ValidateColumnMatchesFormat("Space", "maxRange", false, CoordinateType);
+
 			ValidateColumnMatchesFormat("MapMarker", "x", false, CoordinateType);
 			ValidateColumnMatchesFormat("MapMarker", "y", false, CoordinateType);
 			ValidateColumnMatchesFormat("MapMarker", "label", false, ColumnType.TEXT);
