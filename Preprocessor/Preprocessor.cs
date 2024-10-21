@@ -17,9 +17,6 @@ namespace Preprocessor
 
 		static SqliteConnection Connection { get; } = BuildTools.GetNewConnection();
 
-		// TODO do coords need to be REAL or can we get away with INTEGER?
-		static ColumnType CoordinateType { get; } = ColumnType.REAL;
-
 		static List<string> SummaryReport { get; } = new List<string>();
 
 		static void Main()
@@ -98,10 +95,10 @@ namespace Preprocessor
 
 			// Create new tables
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);");
-			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x {CoordinateType}, y {CoordinateType}, z {CoordinateType}, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX {CoordinateType}, boundY {CoordinateType}, boundZ {CoordinateType}, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
+			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x INTEGER, y INTEGER, z INTEGER, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX INTEGER, boundY INTEGER, boundZ INTEGER, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, property TEXT, value INTEGER);");
-			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x {CoordinateType}, y {CoordinateType});");
+			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x INTEGER, y INTEGER);");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 
@@ -160,28 +157,25 @@ namespace Preprocessor
 			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding the center x/y and max 2d range
-			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX {CoordinateType}, centerY {CoordinateType}, maxRange {CoordinateType});");
+			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX INTEGER, centerY INTEGER, maxRange INTEGER);");
 			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, (MIN(x) + MAX(x)) / 2, (MIN(y) + MAX(y)) / 2, MAX(ABS(MIN(x) - MAX(x)), ABS(MIN(y) - MAX(y))) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
 			SimpleQuery("DROP TABLE Space;");
 			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
 
-			// Transform the coordinate data to int
-			if (CoordinateType == ColumnType.INTEGER)
-			{
-				TransformColumn(RealToInt, "Position", "x");
-				TransformColumn(RealToInt, "Position", "y");
-				TransformColumn(RealToInt, "Position", "z");
-				TransformColumn(RealToInt, "Position", "boundX");
-				TransformColumn(RealToInt, "Position", "boundY");
-				TransformColumn(RealToInt, "Position", "boundZ");
-				TransformColumn(RealToInt, "Region", "x");
-				TransformColumn(RealToInt, "Region", "y");
-				TransformColumn(RealToInt, "MapMarker", "x");
-				TransformColumn(RealToInt, "MapMarker", "y");
-				TransformColumn(RealToInt, "Space", "centerX");
-				TransformColumn(RealToInt, "Space", "centerY");
-				TransformColumn(RealToInt, "Space", "maxRange");
-			}
+			// Reduce decimal values to INT, as the precision is unnecessary
+			TransformColumn(RealToInt, "Position", "x");
+			TransformColumn(RealToInt, "Position", "y");
+			TransformColumn(RealToInt, "Position", "z");
+			TransformColumn(RealToInt, "Position", "boundX");
+			TransformColumn(RealToInt, "Position", "boundY");
+			TransformColumn(RealToInt, "Position", "boundZ");
+			TransformColumn(RealToInt, "Region", "x");
+			TransformColumn(RealToInt, "Region", "y");
+			TransformColumn(RealToInt, "MapMarker", "x");
+			TransformColumn(RealToInt, "MapMarker", "y");
+			TransformColumn(RealToInt, "Space", "centerX");
+			TransformColumn(RealToInt, "Space", "centerY");
+			TransformColumn(RealToInt, "Space", "maxRange");
 
 			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original
 			SimpleQuery("ALTER TABLE Position ADD COLUMN 'label' TEXT;");
@@ -192,14 +186,6 @@ namespace Preprocessor
 
 			// Ensure all Entities have the proper display name only, and nothing extraneous
 			TransformColumn(CaptureQuotedTerm, "Entity", "displayName");
-
-
-
-			if (CoordinateType == ColumnType.INTEGER)
-			{
-				TransformColumn(RealToInt, "Space", "midX");
-				TransformColumn(RealToInt, "Space", "midY");
-			}
 
 			// Remove entries which are not referenced by other relevant tables (orphaned records)
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
@@ -404,8 +390,8 @@ namespace Preprocessor
 
 			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumn});", true);
 
-			string readQuery = $"SELECT {sourceColumn} FROM {tableName}";
-			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE {sourceColumn} = @original";
+			string readQuery = $"SELECT {sourceColumn}, ROWID FROM {tableName}";
+			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE ROWID = @rowID";
 
 			SqliteCommand readCommand = new SqliteCommand(readQuery, Connection);
 			SqliteDataReader reader = readCommand.ExecuteReader();
@@ -416,22 +402,22 @@ namespace Preprocessor
 			using (SqliteCommand updateCommand = new SqliteCommand(updateQuery, Connection, transaction))
 			{
 				updateCommand.Parameters.AddWithValue("@new", string.Empty);
-				updateCommand.Parameters.AddWithValue("@original", string.Empty);
+				updateCommand.Parameters.AddWithValue("@rowID", string.Empty);
 
 				while (reader.Read())
 				{
 					string originalValue = reader.GetString(0);
+					int rowID = reader.GetInt32(1);
 					string? newValue = method(originalValue);
 
-					// If the new value is null (method indicates value should not be changed)
-					// Or if the operation would result in changing a column to the value it already is, skip.
-					if (newValue == null || (sourceColumn == targetColumn && newValue == originalValue))
+					// If the new value is null (method indicates value should not be changed), skip
+					if (newValue == null)
 					{
 						continue;
 					}
 
 					updateCommand.Parameters["@new"].Value = newValue;
-					updateCommand.Parameters["@original"].Value = originalValue;
+					updateCommand.Parameters["@rowID"].Value = rowID;
 
 					updateCommand.ExecuteNonQuery();
 				}
@@ -449,8 +435,8 @@ namespace Preprocessor
 
 			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumnA}, {sourceColumnB});", true);
 
-			string readQuery = $"SELECT {sourceColumnA}, {sourceColumnB} FROM {tableName}";
-			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE {sourceColumnA} = @originalA AND {sourceColumnB} = @originalB";
+			string readQuery = $"SELECT {sourceColumnA}, {sourceColumnB}, ROWID FROM {tableName}";
+			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE ROWID = @rowID";
 
 			SqliteCommand readCommand = new SqliteCommand(readQuery, Connection);
 			SqliteDataReader reader = readCommand.ExecuteReader();
@@ -461,13 +447,13 @@ namespace Preprocessor
 			using (SqliteCommand updateCommand = new SqliteCommand(updateQuery, Connection, transaction))
 			{
 				updateCommand.Parameters.AddWithValue("@new", string.Empty);
-				updateCommand.Parameters.AddWithValue("@originalA", string.Empty);
-				updateCommand.Parameters.AddWithValue("@originalB", string.Empty);
+				updateCommand.Parameters.AddWithValue("@rowID", string.Empty);
 
 				while (reader.Read())
 				{
 					string originalValueA = reader.GetString(0);
 					string originalValueB = reader.GetString(1);
+					int rowID = reader.GetInt32(2);
 					string? newValue = method(originalValueA, originalValueB);
 
 					// If the new value is null (method indicates value should not be changed), skip.
@@ -477,8 +463,7 @@ namespace Preprocessor
 					}
 
 					updateCommand.Parameters["@new"].Value = newValue;
-					updateCommand.Parameters["@originalA"].Value = originalValueA;
-					updateCommand.Parameters["@originalB"].Value = originalValueB;
+					updateCommand.Parameters["@rowID"].Value = rowID;
 
 					updateCommand.ExecuteNonQuery();
 				}

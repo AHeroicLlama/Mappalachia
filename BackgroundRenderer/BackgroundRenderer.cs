@@ -43,7 +43,7 @@ namespace BackgroundRenderer
 			double scale = MinZoomScale;
 			double cameraX = 0;
 			double cameraY = 0;
-			double cameraZ =  (int)Math.Pow(2, 16);
+			double cameraZ = (int)Math.Pow(2, 16);
 			string outputFileName = "temp_out.dds";
 
 			string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {outputFileName} {Misc.MapImageResolution} {Misc.MapImageResolution} " +

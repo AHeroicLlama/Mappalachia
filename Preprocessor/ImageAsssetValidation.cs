@@ -20,7 +20,6 @@ namespace Preprocessor
 		static void ValidateImageAssets()
 		{
 			Console.WriteLine("Validating image assets");
-			ValidationFailures.Clear();
 
 			// Collect all Spaces and MapMarkers. Group the map markers by icon
 			List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(Connection, "SELECT DISTINCT icon, * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
