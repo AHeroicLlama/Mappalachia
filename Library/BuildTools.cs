@@ -36,9 +36,15 @@ namespace Library
 
 		public static string MapMarkerPath { get; } = ImageRootPath + @"mapmarker\";
 
-		public static string GameDataPath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\";
+		static string GamePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\";
 
-		public static string GameExePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Fallout76.exe";
+		public static string GameDataPath { get; } = @$"{GamePath}Data\";
+
+		public static string GameESMPath { get; } = @$"{GameDataPath}SeventySix.esm";
+
+		public static string GameTerrainPath { get; } = @$"{GameDataPath}Terrain\Appalachia.btd";
+
+		public static string GameExePath { get; } = $"{GamePath}Fallout76.exe";
 
 		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
 
@@ -107,6 +113,11 @@ namespace Library
 			Console.ForegroundColor = color;
 			Console.WriteLine(text);
 			Console.ResetColor();
+		}
+
+		public static string WithoutTrailingSlash(this string path)
+		{
+			return path.TrimEnd('\\', '/');
 		}
 	}
 }

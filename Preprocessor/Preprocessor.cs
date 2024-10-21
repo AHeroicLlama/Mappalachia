@@ -184,12 +184,6 @@ namespace Preprocessor
 			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
 			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
 
-			// Create a replacement copy of Space, adding the min/max/mid of x/y
-			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, minX {CoordinateType}, maxX {CoordinateType}, midX {CoordinateType}, minY {CoordinateType}, maxY {CoordinateType}, midY {CoordinateType});");
-			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, minX, maxX, midX, minY, maxY, midY) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, min(x), max(x), ((min(x) + max(x)) / 2), min(y), max(y), ((min(y) + max(y)) / 2) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
-			SimpleQuery("DROP TABLE Space;");
-			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
-
 			if (CoordinateType == ColumnType.INTEGER)
 			{
 				TransformColumn(RealToInt, "Space", "midX");
