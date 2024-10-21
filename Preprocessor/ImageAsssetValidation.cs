@@ -91,11 +91,11 @@ namespace Preprocessor
 			return true;
 		}
 
+		// Validate that there is not too many black pixels, which would indicate that the zoom or offset is incorrect
 		static void ValidateImageBlackPx(Space space, string path)
 		{
 			using Bitmap bitmap = (Bitmap)Image.FromFile(path);
 
-			// Validate that there is not too many black pixels, which would indicate that the zoom or offset is incorrect
 			// We copy the bitmap data out into a byte array, because accessing the pixels from the bitmap object is very slow
 			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
 			int size = bitmapData.Stride * bitmap.Height;

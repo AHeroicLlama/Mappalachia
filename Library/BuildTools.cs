@@ -1,11 +1,11 @@
-﻿using Microsoft.Data.Sqlite;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Security.Cryptography;
+using Microsoft.Data.Sqlite;
 
 namespace Library
 {
-	// Provides references to files around the repo structure.
-	// For use by pre-production preprocessor & build projects
+	// Provides references to files around the repo structure and other build-only helpers.
+	// Intended for use only by pre-production preprocessor & build projects.
 	public static class BuildTools
 	{
 		const string SolutionFile = "Mappalachia.sln";

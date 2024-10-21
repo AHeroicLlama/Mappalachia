@@ -54,7 +54,7 @@ namespace Library
 			return mapMarkers;
 		}
 
-		// Converts a collection of strings to an SQLite collection suitable for an IN clause
+		// Converts a collection of strings to an SQLite list string suitable for an IN clause
 		// EG ["a", "b"] -> "('a','b')"
 		public static string ToSqliteCollection(this IEnumerable<string> elements)
 		{

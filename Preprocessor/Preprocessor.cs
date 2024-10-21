@@ -594,6 +594,7 @@ namespace Preprocessor
 			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, BuildTools.GetNewConnection()).First();
 		}
 
+		// Returns and corrects the NPC Name present in the raw input string
 		static string GetNPCName(string value)
 		{
 			// Doesn't look like we need to do anything
@@ -621,6 +622,7 @@ namespace Preprocessor
 			return name;
 		}
 
+		// Returns and corrects the NPC 'class' present in the raw input string
 		static string GetNPCClass(string value)
 		{
 			// Doesn't look like we need to do anything
@@ -649,6 +651,7 @@ namespace Preprocessor
 			return (double.Parse(num) / double.Parse(denom)).ToString();
 		}
 
+		// Simplifies/corrects the given lock level string
 		static string ReduceLockLevel(string lockLevel)
 		{
 			// If the lock level does not need changing
@@ -700,7 +703,7 @@ namespace Preprocessor
 		// Asks the user to enter game version, and returns the entered line
 		static string GetGameVersionFromUser()
 		{
-			BuildTools.StdOutWithColor("\nPlease enter the correct version string:", BuildTools.QuestionColor);
+			BuildTools.StdOutWithColor("\nPlease enter the correct game version string:", BuildTools.QuestionColor);
 			return Console.ReadLine() ?? string.Empty;
 		}
 

@@ -149,7 +149,7 @@ namespace Preprocessor
 
 						break;
 
-					// Everything will map to string/text, so nothing to check
+					// Anything is valid string/text, so nothing to check
 					case ColumnType.TEXT:
 					default:
 						break;
