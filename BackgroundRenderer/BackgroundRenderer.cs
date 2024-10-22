@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Library;
 using Microsoft.Data.Sqlite;
 
@@ -35,18 +35,33 @@ namespace BackgroundRenderer
 			spaces.ForEach(RenderSpace);
 
 			BuildTools.StdOutWithColor($"Rendering Finished. {stopwatch.Elapsed}", BuildTools.InfoColor);
-			Console.ReadKey();
+			//Console.ReadKey();
 		}
 
 		static void RenderSpace(Space space)
 		{
-			double scale = MinZoomScale;
-			double cameraX = 0;
-			double cameraY = 0;
-			double cameraZ = (int)Math.Pow(2, 16);
+			double resolution = Misc.MapImageResolution;
+
+			double scale = space.MaxRange / resolution;
+			double cameraX = space.CenterX;
+			double cameraY = space.CenterY;
+			double cameraZ = BuildTools.CroppedHeights.TryGetValue(space.EditorID, out int cropppedHeight) ? cropppedHeight : (int)Math.Pow(2, 16);
 			string outputFileName = "temp_out.dds";
 
-			string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {outputFileName} {Misc.MapImageResolution} {Misc.MapImageResolution} " +
+			if (false)
+			{
+				int topLeftX = 534;
+				int topLeftY = 830;
+				int width = 1728;
+				int height = 1941;
+
+				scale *= resolution / Math.Max(width, height);
+				cameraX = space.CenterX - (resolution / 2d) + (width / 2d) + topLeftX;
+				cameraY = space.CenterY + (resolution / 2d) - (height / 2d) - topLeftY;
+			}
+
+
+			string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {outputFileName} {resolution} {resolution} " +
 				$"\"{BuildTools.GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{BuildTools.GameTerrainPath}\"" : string.Empty)} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 				$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 

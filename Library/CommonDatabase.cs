@@ -4,12 +4,6 @@ namespace Library
 {
 	public static class CommonDatabase
 	{
-		public static SqliteConnection GetNewConnection()
-		{
-			//TODO
-			throw new NotImplementedException();
-		}
-
 		static SqliteDataReader GetReader(SqliteConnection connection, string queryText)
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -32,8 +26,14 @@ namespace Library
 
 			while (reader.Read())
 			{
-				//TODO use the full ctor - once we've worked out how to do scaling
-				spaces.Add(new Space(Convert.ToUInt32(reader["spaceFormID"]), (string)reader["spaceEditorID"], (string)reader["spaceDisplayName"], Convert.ToInt16(reader["isWorldspace"]) == 1));
+				spaces.Add(new Space(
+					Convert.ToUInt32(reader["spaceFormID"]),
+					(string)reader["spaceEditorID"],
+					(string)reader["spaceDisplayName"],
+					Convert.ToBoolean(reader["isWorldspace"]),
+					Convert.ToInt32(reader["centerX"]),
+					Convert.ToInt32(reader["centerY"]),
+					Convert.ToInt32(reader["maxRange"])));
 			}
 
 			return spaces;
@@ -47,8 +47,12 @@ namespace Library
 
 			while (reader.Read())
 			{
-				//TODO use the full ctor
-				mapMarkers.Add(new MapMarker((string)reader["icon"], (string)reader["label"], Convert.ToUInt32(reader["spaceFormID"])));
+				mapMarkers.Add(new MapMarker(
+					(string)reader["icon"],
+					(string)reader["label"],
+					Convert.ToUInt32(reader["spaceFormID"]),
+					Convert.ToInt32(reader["x"]),
+					Convert.ToInt32(reader["y"])));
 			}
 
 			return mapMarkers;

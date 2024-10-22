@@ -29,8 +29,8 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Position", "x", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position", "y", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position", "z", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position", "lockLevel", true, ColumnType.TEXT, ValidateLockLevel);
-			ValidateColumnMatchesFormat("Position", "primitiveShape", true, ColumnType.TEXT, ValidatePrimitiveShape);
+			ValidateColumnMatchesFormat("Position", "lockLevel", true, ColumnType.TEXT, BuildTools.ValidateLockLevel);
+			ValidateColumnMatchesFormat("Position", "primitiveShape", true, ColumnType.TEXT, BuildTools.ValidatePrimitiveShape);
 			ValidateColumnMatchesFormat("Position", "boundX", true, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position", "boundY", true, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position", "boundZ", true, ColumnType.INTEGER);
@@ -42,12 +42,12 @@ namespace Preprocessor
 
 			ValidateColumnMatchesFormat("Position_PreGrouped", "spaceFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position_PreGrouped", "referenceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", true, ColumnType.TEXT, ValidateLockLevel);
+			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", true, ColumnType.TEXT, BuildTools.ValidateLockLevel);
 			ValidateColumnMatchesFormat("Position_PreGrouped", "count", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Entity", "entityFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Entity", "editorID", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("Entity", "signature", false, ColumnType.TEXT, ValidateSignature);
+			ValidateColumnMatchesFormat("Entity", "signature", false, ColumnType.TEXT, BuildTools.ValidateSignature);
 			ValidateColumnMatchesFormat("Entity", "percChanceNone", true, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Space", "spaceFormID", false, ColumnType.INTEGER);
@@ -61,12 +61,12 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("MapMarker", "x", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("MapMarker", "y", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("MapMarker", "label", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("MapMarker", "icon", false, ColumnType.TEXT, ValidateMapMarkerIcon);
+			ValidateColumnMatchesFormat("MapMarker", "icon", false, ColumnType.TEXT, BuildTools.ValidateMapMarkerIcon);
 			ValidateColumnMatchesFormat("MapMarker", "spaceFormID", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Location", "locationFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Location", "npcName", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("Location", "npcClass", false, ColumnType.TEXT, ValidateNpcClass);
+			ValidateColumnMatchesFormat("Location", "npcClass", false, ColumnType.TEXT, BuildTools.ValidateNpcClass);
 			ValidateColumnMatchesFormat("Location", "spawnWeight", false, ColumnType.REAL);
 
 			ValidateColumnMatchesFormat("Region", "regionFormID", false, ColumnType.INTEGER);
@@ -78,7 +78,7 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Region", "spaceFormID", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Scrap", "junkFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Scrap", "component", false, ColumnType.TEXT, ValidateComponent);
+			ValidateColumnMatchesFormat("Scrap", "component", false, ColumnType.TEXT, BuildTools.ValidateComponent);
 			ValidateColumnMatchesFormat("Scrap", "componentQuantity", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Meta", "key", false, ColumnType.TEXT);

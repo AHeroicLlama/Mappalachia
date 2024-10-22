@@ -1,44 +1,44 @@
 using System.Text.RegularExpressions;
 
-namespace Preprocessor
+namespace Library
 {
 	// For multiple reasons, a small subset of data (or expected data) is hardcoded.
 	// Naturally hardcoding things comes with risks and may require review after each patch. For that reason all hardcoded items are kept together here.
 	// Hardcoding may be done for the following reasons: Datamining is not realistic, or a route is not known. Or the data is apparently server-side.
 	// Notably Map Markers are the main offender of this
-	internal partial class Preprocessor
+	public static partial class BuildTools
 	{
-		static string FissureSiteLabel { get; } = "Fissure Site";
+		public static string FissureSiteLabel { get; } = "Fissure Site";
 
-		static Regex SpaceFormIDRegex { get; } = new Regex(@"\[(WRLD|CELL):([0-9A-F]{8})\]");
+		public static Regex SpaceFormIDRegex { get; } = new Regex(@"\[(WRLD|CELL):([0-9A-F]{8})\]");
 
-		static Regex SignatureFormIDRegex { get; } = new Regex(@"\[[A-Z_]{4}:([0-9A-F]{8})\]");
+		public static Regex SignatureFormIDRegex { get; } = new Regex(@"\[[A-Z_]{4}:([0-9A-F]{8})\]");
 
-		static Regex FormIDRegex { get; } = new Regex(@"[0-9A-F]{8}");
+		public static Regex FormIDRegex { get; } = new Regex(@"[0-9A-F]{8}");
 
-		static Regex RemoveTrailingReferenceRegex { get; } = new Regex("(.*) " + SignatureFormIDRegex);
+		public static Regex RemoveTrailingReferenceRegex { get; } = new Regex("(.*) " + SignatureFormIDRegex);
 
-		static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
+		public static Regex QuotedTermRegex { get; } = new Regex(".* :QUOT:(.*):QUOT: " + SignatureFormIDRegex);
 
-		static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
+		public static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
 
-		static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
+		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
 
-		static Regex CorrectLockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
+		public static Regex CorrectLockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
 
-		static Regex ValidateLockLevel { get; } = new Regex("^(Level [0-3]|Chained|Inaccessible|Requires Key|Requires Terminal|Unknown|Barred)$");
+		public static Regex ValidateLockLevel { get; } = new Regex("^(Level [0-3]|Chained|Inaccessible|Requires Key|Requires Terminal|Unknown|Barred)$");
 
-		static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
+		public static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
 
-		static Regex ValidateSignature { get; } = new Regex("^[A-Z_]{4}$");
+		public static Regex ValidateSignature { get; } = new Regex("^[A-Z_]{4}$");
 
-		static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
+		public static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
 
-		static Regex ValidateNpcClass { get; } = new Regex("^(Main|Sub|Critter[AB])$");
+		public static Regex ValidateNpcClass { get; } = new Regex("^(Main|Sub|Critter[AB])$");
 
-		static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood)$");
+		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood)$");
 
-		static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
+		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Animal Cave", "Hopewell Cave" },
 			{ "Bleeding Kate's Grinder", "Bleeding Kate's Grindhouse" },
@@ -77,7 +77,7 @@ namespace Preprocessor
 			{ "Shining Creek Caverns", "Shining Creek Cavern" },
 		};
 
-		static List<string> MapMarkersToRemove { get; } = new List<string>()
+		public static List<string> MapMarkersToRemove { get; } = new List<string>()
 		{
 			"Fissure Site Delta",
 			"Fissure Site Theta",
@@ -86,19 +86,19 @@ namespace Preprocessor
 		};
 
 		// Monongah Workshop (0x003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it
-		static string AddMissingMarkersQuery { get; } = "INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', 'PublicWorkshopMarker');";
+		public static string AddMissingMarkersQuery { get; } = "INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', 'PublicWorkshopMarker');";
 
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
-		static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
+		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
 
 		// For an unknown reason, some enitities in xEdit have this invalid lock level
-		static string CorrectLockLevelQuery { get; } = "UPDATE Position SET lockLevel = 'Novice (Level 0)' WHERE lockLevel = 'Opens Door';";
+		public static string CorrectLockLevelQuery { get; } = "UPDATE Position SET lockLevel = 'Novice (Level 0)' WHERE lockLevel = 'Opens Door';";
 
 		// For an unknown reason, some enitities in xEdit have this invalid primitive shape
-		static string CorrectPrimitiveShapeQuery { get; } = "UPDATE Position SET primitiveShape = 'Box' WHERE primitiveShape = '7';";
+		public static string CorrectPrimitiveShapeQuery { get; } = "UPDATE Position SET primitiveShape = 'Box' WHERE primitiveShape = '7';";
 
 		// Assumes PascalCased names will already have had spaces added
-		static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
+		public static Dictionary<string, string> NPCNameCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Megasloth", "Mega Sloth" },
 			{ "Molerat", "Mole Rat" },
@@ -112,8 +112,56 @@ namespace Preprocessor
 			{ "Toad", "Rad Toad" },
 		};
 
+		// Manually-adjusted camera heights for renders of cells which would otherwise be predominantly obscured by a roof or ceiling
+		public static Dictionary<string, int> CroppedHeights { get; } = new Dictionary<string, int>()
+		{
+			{ "AMSHQ01", 3000 },
+			{ "BlueRidgeOffice01", 350 },
+			{ "CraterWarRoom01", 50 },
+			{ "CraterWatchstation01", -700 },
+			{ "DuncanDuncanRobotics01", 500 },
+			{ "FortAtlas01", -1300 },
+			{ "FoundationSupplyRoom01", 200 },
+			{ "FraternityHouse01", 850 },
+			{ "FraternityHouse02", 850 },
+			{ "LewisandSonsFarmingSupply01", 500 },
+			{ "LittleRobsHideout01", 300 },
+			{ "MILEBlueRidgeHQ", 500 },
+			{ "MiresEye01", 300 },
+			{ "OverseersHome01", 675 },
+			{ "PoseidonPlant02", 3000 },
+			{ "RaiderRaidTrailerInt", 150 },
+			{ "SheltersRootCellar", 300 },
+			{ "SheltersSoundStage", 1000 },
+			{ "SheltersToxicWasteland", 2000 },
+			{ "StormCultistTunnels", 6500 },
+			{ "StormEngineeringVlt63", 1300 },
+			{ "StormHallucinogeniccave", 600 },
+			{ "StormRadioBunkerInt", 800 },
+			{ "StormStolzManor", 700 },
+			{ "StormVault63AtriumUpper", -800 },
+			{ "StormVault63Entrance", 4600 },
+			{ "StormVisitorCenterInt", 1250 },
+			{ "StormWeatherLab01", 1000 },
+			{ "SugarGrove02", 1000 },
+			{ "SurlysShack01", 250 },
+			{ "TheCraterCore01", 100 },
+			{ "TheRoseRoom01", 500 },
+			{ "TheWayward01", 400 },
+			{ "TopOfTheWorld01", -1800 },
+			{ "VTecAgCenter01", 400 },
+			{ "ValleyGalleria01", 700 },
+			{ "Vault63Entrance", 4750 },
+			{ "Vault79Entrance", -200 },
+			{ "WVLumberCo01", 1000 },
+			{ "XPDAC02Pier", 400 },
+			{ "XPDAC03CommunityCenter", 600 },
+			{ "XPDAC03CommunityCenterDungeon", 600 },
+			{ "XPDPitt02Sanctum", 700 },
+		};
+
 		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they are understood to be cut or otherwise inaccessible.
-		static string DiscardCellsQuery { get; } =
+		public static string DiscardCellsQuery { get; } =
 			"spaceDisplayName = '' OR " +
 			"spaceDisplayName LIKE '%Test%World%' OR " +
 			"spaceDisplayName LIKE '%Test%Cell%' OR " +
@@ -133,7 +181,7 @@ namespace Preprocessor
 			"spaceDisplayName = 'Diamond City' OR " +
 			"spaceDisplayName = 'Goodneighbor'";
 
-		static string? GetCorrectedMarkerIcon(string markerName)
+		public static string? GetCorrectedMarkerIcon(string markerName)
 		{
 			switch (markerName)
 			{
@@ -222,7 +270,7 @@ namespace Preprocessor
 		}
 
 		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others
-		static string CorrectFissureLabels(string label)
+		public static string CorrectFissureLabels(string label)
 		{
 			if (label.StartsWith(FissureSiteLabel))
 			{
@@ -233,7 +281,7 @@ namespace Preprocessor
 		}
 
 		// Correct map marker labels by correcting common extraneous/incorrect text in the label
-		static string CorrectCommonBadLabels(string label)
+		public static string CorrectCommonBadLabels(string label)
 		{
 			return label.Replace("Fast Travel Point: ", string.Empty).Replace("Hornwright Air Cleanser Site", "Hornwright Air Purifier Site");
 		}

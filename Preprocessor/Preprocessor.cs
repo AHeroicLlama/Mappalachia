@@ -114,13 +114,13 @@ namespace Preprocessor
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
-			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {MapMarkersToRemove.ToSqliteCollection()};");
-			SimpleQuery(AddMissingMarkersQuery);
-			SimpleQuery(CorrectDuplicateMarkersQuery);
+			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {BuildTools.MapMarkersToRemove.ToSqliteCollection()};");
+			SimpleQuery(BuildTools.AddMissingMarkersQuery);
+			SimpleQuery(BuildTools.CorrectDuplicateMarkersQuery);
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
-			TransformColumn(CorrectFissureLabels, "MapMarker", "label");
-			TransformColumn(CorrectCommonBadLabels, "MapMarker", "label");
-			TransformColumn(GetCorrectedMarkerIcon, "MapMarker", "label", "icon");
+			TransformColumn(BuildTools.CorrectFissureLabels, "MapMarker", "label");
+			TransformColumn(BuildTools.CorrectCommonBadLabels, "MapMarker", "label");
+			TransformColumn(BuildTools.GetCorrectedMarkerIcon, "MapMarker", "label", "icon");
 			AddForeignKey("MapMarker", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Remove map marker remnants from Position table
@@ -151,7 +151,7 @@ namespace Preprocessor
 
 			// Discard spaces which are not accessible, and output a list of those
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
-			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {BuildTools.DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
 			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
@@ -201,8 +201,8 @@ namespace Preprocessor
 			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
 
 			// Fix erroneous data which is exported from xEdit with values somehow misaligned from in-game
-			SimpleQuery(CorrectLockLevelQuery);
-			SimpleQuery(CorrectPrimitiveShapeQuery);
+			SimpleQuery(BuildTools.CorrectLockLevelQuery);
+			SimpleQuery(BuildTools.CorrectPrimitiveShapeQuery);
 
 			TransformColumn(ReduceLockLevel, "Position", "lockLevel");
 
@@ -491,15 +491,15 @@ namespace Preprocessor
 			string formid;
 
 			// Try and extract the formid from its normal/proper presentation
-			if (SignatureFormIDRegex.IsMatch(input))
+			if (BuildTools.SignatureFormIDRegex.IsMatch(input))
 			{
-				formid = SignatureFormIDRegex.Match(input).Groups[1].Value;
+				formid = BuildTools.SignatureFormIDRegex.Match(input).Groups[1].Value;
 			}
 
 			// Less ideally, we find an 8-char hex value without the signature
-			else if (FormIDRegex.IsMatch(input))
+			else if (BuildTools.FormIDRegex.IsMatch(input))
 			{
-				formid = FormIDRegex.Match(input).Groups[0].Value;
+				formid = BuildTools.FormIDRegex.Match(input).Groups[0].Value;
 			}
 
 			// We found no matches. We can only hope it was already converted
@@ -515,7 +515,7 @@ namespace Preprocessor
 		// Prefers WRLD over CELL
 		static string CaptureSpaceFormID(string input)
 		{
-			MatchCollection matches = SpaceFormIDRegex.Matches(input);
+			MatchCollection matches = BuildTools.SpaceFormIDRegex.Matches(input);
 
 			if (matches.Count == 0)
 			{
@@ -546,19 +546,19 @@ namespace Preprocessor
 				return input;
 			}
 
-			return RemoveTrailingReferenceRegex.Match(input).Groups[1].Value;
+			return BuildTools.RemoveTrailingReferenceRegex.Match(input).Groups[1].Value;
 		}
 
 		// Returns the true display name, from a string which is expected to contain the editorid, displayname, and sig/referenceFormID
 		static string CaptureQuotedTerm(string displayName)
 		{
 			// Doesn't look like we need to do anything
-			if (!SignatureFormIDRegex.IsMatch(displayName))
+			if (!BuildTools.SignatureFormIDRegex.IsMatch(displayName))
 			{
 				return displayName;
 			}
 
-			return QuotedTermRegex.Match(displayName).Groups[1].Value;
+			return BuildTools.QuotedTermRegex.Match(displayName).Groups[1].Value;
 		}
 
 		// Converts a database REAL as a string, to a string suitable to be a database INTEGER
@@ -588,23 +588,23 @@ namespace Preprocessor
 		static string GetNPCName(string value)
 		{
 			// Doesn't look like we need to do anything
-			if (!NPCRegex.IsMatch(value))
+			if (!BuildTools.NPCRegex.IsMatch(value))
 			{
 				return string.Empty;
 			}
 
 			// Extract only the part containing the NPC name
-			string name = NPCRegex.Match(value).Groups[2].Value;
+			string name = BuildTools.NPCRegex.Match(value).Groups[2].Value;
 
 			// Add a space if it looks like it needs it
-			if (TitleCaseAddSpaceRegex.IsMatch(name))
+			if (BuildTools.TitleCaseAddSpaceRegex.IsMatch(name))
 			{
-				GroupCollection matchesForSpace = TitleCaseAddSpaceRegex.Match(name).Groups;
+				GroupCollection matchesForSpace = BuildTools.TitleCaseAddSpaceRegex.Match(name).Groups;
 				name = matchesForSpace[1].Value + " " + matchesForSpace[2].Value;
 			}
 
 			// Refer to the hardcodings replacement dictionary
-			if (NPCNameCorrection.TryGetValue(name, out string? correction))
+			if (BuildTools.NPCNameCorrection.TryGetValue(name, out string? correction))
 			{
 				name = correction;
 			}
@@ -616,18 +616,18 @@ namespace Preprocessor
 		static string GetNPCClass(string value)
 		{
 			// Doesn't look like we need to do anything
-			if (!NPCRegex.IsMatch(value))
+			if (!BuildTools.NPCRegex.IsMatch(value))
 			{
 				return string.Empty;
 			}
 
-			return NPCRegex.Match(value).Groups[1].Value;
+			return BuildTools.NPCRegex.Match(value).Groups[1].Value;
 		}
 
 		// Returns the corrected label for the given map marker label
 		static string? CorrectLabelsByDict(string label)
 		{
-			if (MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
+			if (BuildTools.MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
 			{
 				return correctedLabel;
 			}
@@ -645,12 +645,12 @@ namespace Preprocessor
 		static string ReduceLockLevel(string lockLevel)
 		{
 			// If the lock level does not need changing
-			if (!CorrectLockLevelRegex.IsMatch(lockLevel))
+			if (!BuildTools.CorrectLockLevelRegex.IsMatch(lockLevel))
 			{
 				return lockLevel;
 			}
 
-			return CorrectLockLevelRegex.Match(lockLevel).Groups[2].Value;
+			return BuildTools.CorrectLockLevelRegex.Match(lockLevel).Groups[2].Value;
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input

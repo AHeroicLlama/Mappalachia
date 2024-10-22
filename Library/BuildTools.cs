@@ -6,7 +6,7 @@ namespace Library
 {
 	// Provides references to files around the repo structure and other build-only helpers.
 	// Intended for use only by pre-production preprocessor & build projects.
-	public static class BuildTools
+	public static partial class BuildTools
 	{
 		const string SolutionFile = "Mappalachia.sln";
 		const string AssetsPath = @"Assets\";
@@ -14,9 +14,9 @@ namespace Library
 		const string OutputsPath = @"BuildOutputs\";
 		const string ImageAssetPath = AssetsPath + @"img\";
 
-		public static string SqlitePath { get; } = GetSolutionPath() + UtilitiesPath + "sqlite3.exe";
+		public static string SqlitePath { get; } = GetSolutionPath() + UtilitiesPath + "sqlite3.exe"; // https://www.sqlite.org/download.html
 
-		public static string Fo76UtilsRenderPath { get; } = GetSolutionPath() + UtilitiesPath + @"fo76utils\render.exe";
+		public static string Fo76UtilsRenderPath { get; } = GetSolutionPath() + UtilitiesPath + @"fo76utils\render.exe"; // https://github.com/fo76utils/fo76utils
 
 		public static string DiscardedCellsPath { get; } = GetSolutionPath() + OutputsPath + @"Discarded_Cells.csv";
 
