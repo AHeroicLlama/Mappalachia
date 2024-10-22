@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 ==Checksum== 
-a242cf75beafc504c145be1f35963329
+0ca78f411b12bc84e77ec056eff6a8df
 ==File Size== 
-483328000 
+483332096 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.14.19
+1.7.15.12
 ==Mean Average X/Y/Z Coord==
--9790.60433471356|-5537.19816275221|11169.8272201318
+-9790.86055478902|-5538.22704821536|11169.8623230819
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 78
 ==Average X Bounds Width==
-22.8394882279837
+22.8400513879347
 ==Average Y Bounds Width==
-16.7787710828193
+16.7791933844448
 ==Average Z Bounds Width==
-16.5752892462588
+16.5757661629052
 ==Average Z Rotation==
-4.33157489018321
+4.3319941895347
 ==Average display name string length==
-2.81153772439788
+2.81130066236449
 ==Average editorID string length==
-25.2493451734492
+25.2500798671011
 ==Map Markers==
 APPALACHIA|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 APPALACHIA|AirfieldMarker|Crashed Plane|147706|58411
@@ -562,7 +562,7 @@ APPALACHIA|WoodShackMarker|Southhampton Estate|169981|125109
 APPALACHIA|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 APPALACHIA|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-46959
+46953
 ==Regions==
 Space|Region|subRegions|maxVerts
 APPALACHIA|76Border|1|62
@@ -799,8 +799,8 @@ AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-APPALACHIA||3185418
-APPALACHIA|Box|70302
+APPALACHIA||3185427
+APPALACHIA|Box|70310
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1801
 APPALACHIA|Plane|204
@@ -936,8 +936,8 @@ GlassedCavern01||8292
 GlassedCavern01|Box|742
 GlassedCavern01|Line|4
 GlassedCavern01|Sphere|6
-GlassedCavernDungeon||8293
-GlassedCavernDungeon|Box|721
+GlassedCavernDungeon||8290
+GlassedCavernDungeon|Box|723
 GlassedCavernDungeon|Line|4
 GlassedCavernDungeon|Sphere|1
 GraftonPawnShop01||1457
@@ -967,12 +967,12 @@ LittleRobsHideout01|Box|100
 LousMine01||6718
 LousMine01|Box|268
 LousMine01|Line|5
-MILEBlueRidgeHQ||6801
-MILEBlueRidgeHQ|Box|715
-MTR08LodeBaring01||3229
+MILEBlueRidgeHQ||6783
+MILEBlueRidgeHQ|Box|717
+MTR08LodeBaring01||3227
 MTR08LodeBaring01|Box|177
 MTR08LodeBaring01|Sphere|2
-MTR08LodeBaring02||3109
+MTR08LodeBaring02||3108
 MTR08LodeBaring02|Box|174
 MTR08LodeBaring02|Line|1
 MamaDolceProcessing01||2940
@@ -1259,8 +1259,8 @@ XPDAC03CityHall|Box|47
 XPDAC03CityHall|Plane|7
 XPDAC03CommunityCenter||11127
 XPDAC03CommunityCenter|Box|526
-XPDAC03CommunityCenterDungeon||10417
-XPDAC03CommunityCenterDungeon|Box|523
+XPDAC03CommunityCenterDungeon||10421
+XPDAC03CommunityCenterDungeon|Box|524
 XPDAC03CommunityCenterDungeon|Sphere|1
 XPDAC03FloodedCityCenter||16138
 XPDAC03FloodedCityCenter|Box|950
@@ -1300,7 +1300,7 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3259260
+APPALACHIA||3259277
 APPALACHIA|Advanced (Level 1)|338
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
@@ -1461,7 +1461,7 @@ GlassedCavern01|Advanced (Level 1)|3
 GlassedCavern01|Expert (Level 2)|2
 GlassedCavern01|Master (Level 3)|1
 GlassedCavern01|Novice (Level 0)|3
-GlassedCavernDungeon||9019
+GlassedCavernDungeon||9018
 GraftonPawnShop01||1477
 GraftonPawnShop01|Advanced (Level 1)|1
 GraftonSteelUnderground01||23628
@@ -1496,11 +1496,11 @@ LousMine01||6984
 LousMine01|Advanced (Level 1)|1
 LousMine01|Novice (Level 0)|3
 LousMine01|Requires Terminal|3
-MILEBlueRidgeHQ||7515
+MILEBlueRidgeHQ||7499
 MILEBlueRidgeHQ|Inaccessible|1
-MTR08LodeBaring01||3407
+MTR08LodeBaring01||3405
 MTR08LodeBaring01|Novice (Level 0)|1
-MTR08LodeBaring02||3283
+MTR08LodeBaring02||3282
 MTR08LodeBaring02|Novice (Level 0)|1
 MamaDolceProcessing01||3067
 MamaDolceProcessing01|Advanced (Level 1)|5
@@ -1866,7 +1866,7 @@ XPDAC03CityHall|Novice (Level 0)|11
 XPDAC03CommunityCenter||11646
 XPDAC03CommunityCenter|Advanced (Level 1)|5
 XPDAC03CommunityCenter|Novice (Level 0)|2
-XPDAC03CommunityCenterDungeon||10941
+XPDAC03CommunityCenterDungeon||10946
 XPDAC03FloodedCityCenter||17067
 XPDAC03FloodedCityCenter|Advanced (Level 1)|6
 XPDAC03FloodedCityCenter|Expert (Level 2)|1
@@ -1939,7 +1939,7 @@ AMSHQ02|SCOL|186
 AMSHQ02|STAT|1421
 AMSHQ02|TERM|1
 AMSHQ02|TXST|46
-APPALACHIA|ACTI|23525
+APPALACHIA|ACTI|23526
 APPALACHIA|ALCH|308
 APPALACHIA|AMMO|80
 APPALACHIA|ARMO|126
@@ -1947,27 +1947,27 @@ APPALACHIA|ASPC|2378
 APPALACHIA|BNDS|10463
 APPALACHIA|BOOK|575
 APPALACHIA|CNCY|260
-APPALACHIA|CONT|13521
+APPALACHIA|CONT|13522
 APPALACHIA|DOOR|2643
 APPALACHIA|FLOR|51659
 APPALACHIA|FURN|15678
 APPALACHIA|HAZD|1056
-APPALACHIA|IDLM|19047
+APPALACHIA|IDLM|19057
 APPALACHIA|KEYM|37
-APPALACHIA|LIGH|9119
+APPALACHIA|LIGH|9118
 APPALACHIA|LVLI|73798
 APPALACHIA|MISC|37487
 APPALACHIA|MSTT|24424
 APPALACHIA|NOTE|179
 APPALACHIA|NPC_|8207
 APPALACHIA|PROJ|93
-APPALACHIA|SCOL|365390
+APPALACHIA|SCOL|365364
 APPALACHIA|SECH|253
 APPALACHIA|SOUN|5931
-APPALACHIA|STAT|2523745
+APPALACHIA|STAT|2523773
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
-APPALACHIA|TXST|69719
+APPALACHIA|TXST|69723
 APPALACHIA|WEAP|235
 AVRMedicalCenter01|ACTI|56
 AVRMedicalCenter01|ASPC|24
@@ -2842,7 +2842,7 @@ GlassedCavernDungeon|MSTT|167
 GlassedCavernDungeon|NPC_|24
 GlassedCavernDungeon|SCOL|442
 GlassedCavernDungeon|SOUN|41
-GlassedCavernDungeon|STAT|6621
+GlassedCavernDungeon|STAT|6620
 GlassedCavernDungeon|TXST|674
 GlassedCavernDungeon|WEAP|1
 GraftonPawnShop01|ACTI|14
@@ -3017,16 +3017,16 @@ MILEBlueRidgeHQ|BNDS|3
 MILEBlueRidgeHQ|BOOK|5
 MILEBlueRidgeHQ|CONT|75
 MILEBlueRidgeHQ|DOOR|6
-MILEBlueRidgeHQ|FURN|57
+MILEBlueRidgeHQ|FURN|58
 MILEBlueRidgeHQ|IDLM|4
 MILEBlueRidgeHQ|LIGH|382
-MILEBlueRidgeHQ|LVLI|7
+MILEBlueRidgeHQ|LVLI|5
 MILEBlueRidgeHQ|MISC|196
 MILEBlueRidgeHQ|MSTT|198
 MILEBlueRidgeHQ|NPC_|9
 MILEBlueRidgeHQ|SCOL|484
 MILEBlueRidgeHQ|SOUN|6
-MILEBlueRidgeHQ|STAT|5325
+MILEBlueRidgeHQ|STAT|5310
 MILEBlueRidgeHQ|TXST|675
 MILEBlueRidgeHQ|WEAP|15
 MTR08LodeBaring01|ACTI|75
@@ -3041,11 +3041,11 @@ MTR08LodeBaring01|IDLM|59
 MTR08LodeBaring01|LIGH|74
 MTR08LodeBaring01|LVLI|271
 MTR08LodeBaring01|MISC|52
-MTR08LodeBaring01|MSTT|93
+MTR08LodeBaring01|MSTT|92
 MTR08LodeBaring01|NPC_|11
 MTR08LodeBaring01|SCOL|60
 MTR08LodeBaring01|SOUN|4
-MTR08LodeBaring01|STAT|2481
+MTR08LodeBaring01|STAT|2480
 MTR08LodeBaring01|TXST|116
 MTR08LodeBaring02|ACTI|91
 MTR08LodeBaring02|ASPC|5
@@ -3059,7 +3059,7 @@ MTR08LodeBaring02|IDLM|41
 MTR08LodeBaring02|LIGH|124
 MTR08LodeBaring02|LVLI|253
 MTR08LodeBaring02|MISC|46
-MTR08LodeBaring02|MSTT|84
+MTR08LodeBaring02|MSTT|83
 MTR08LodeBaring02|NPC_|13
 MTR08LodeBaring02|SCOL|68
 MTR08LodeBaring02|SOUN|1
@@ -4962,7 +4962,7 @@ XPDAC03CommunityCenterDungeon|LVLI|87
 XPDAC03CommunityCenterDungeon|MISC|143
 XPDAC03CommunityCenterDungeon|MSTT|119
 XPDAC03CommunityCenterDungeon|SCOL|495
-XPDAC03CommunityCenterDungeon|STAT|9108
+XPDAC03CommunityCenterDungeon|STAT|9113
 XPDAC03CommunityCenterDungeon|TXST|374
 XPDAC03FloodedCityCenter|ACTI|302
 XPDAC03FloodedCityCenter|ARMO|3
@@ -5157,7 +5157,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3253979
+APPALACHIA||3253996
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -12799,7 +12799,7 @@ GlassedCavern01|BoS03TransponderRadioREF|1
 GlassedCavern01|BoS03_CaveRubble01REF|1
 GlassedCavern01|BoSLizzyTaggerdyREF|1
 GlassedCavern01|CB15_Holotapes_Enola06|1
-GlassedCavernDungeon||8995
+GlassedCavernDungeon||8994
 GlassedCavernDungeon|BoS03CaveMarker001|1
 GlassedCavernDungeon|BoS03_CaveRubble01REF001|1
 GlassedCavernDungeon|DailyOps_Mode01_Activator00_PackIn016|1
@@ -13139,7 +13139,7 @@ LousMine01|W05_MQR_201P_WeaselWall02SafetyMarker|1
 LousMine01|floorChunksEnableMarker|1
 LousMine01|wallPushVolumes01EnableMarker|1
 LousMine01|wallPushVolumes02EnableMarker|1
-MILEBlueRidgeHQ||7492
+MILEBlueRidgeHQ||7476
 MILEBlueRidgeHQ|MILE_CaravanIntro_JoannaExitMarker|1
 MILEBlueRidgeHQ|MILE_CaravanIntro_JoannaSpawnMarker|1
 MILEBlueRidgeHQ|MILE_HQ_CryptidHunterTheme_Antique|1
@@ -13164,7 +13164,7 @@ MILEBlueRidgeHQ|MILE_HQ_ThemeParent_BlueRidge|1
 MILEBlueRidgeHQ|MILE_HQ_ThemeParent_Cultist|1
 MILEBlueRidgeHQ|MILE_HQ_ThemeParent_Military|1
 MILEBlueRidgeHQ|MilepostZero_Interior_DirectTravelPoint|1
-MTR08LodeBaring01||3336
+MTR08LodeBaring01||3334
 MTR08LodeBaring01|AluminumEnableMarker|1
 MTR08LodeBaring01|AluminumEnableMarker02|1
 MTR08LodeBaring01|AluminumEnableMarker03|1
@@ -13237,7 +13237,7 @@ MTR08LodeBaring01|UraniumEnableMarker002|1
 MTR08LodeBaring01|UraniumEnableMarker02|1
 MTR08LodeBaring01|UraniumEnableMarker03|1
 MTR08LodeBaring01|zw_lodebaring01ent|1
-MTR08LodeBaring02||3208
+MTR08LodeBaring02||3207
 MTR08LodeBaring02|AluminumEnableMarker001|1
 MTR08LodeBaring02|AluminumEnableMarker06|1
 MTR08LodeBaring02|AluminumEnableMarker07|1
@@ -16286,7 +16286,7 @@ XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_03|1
 XPDAC03CommunityCenter|XPD_AC03_SolveLocks_PlacementMarker_Set03_04|1
 XPDAC03CommunityCenter|XPD_Pitt01_ObjMod_FreePrisoners_PrisonerMarker06|1
 XPDAC03CommunityCenter|XPD_Pitt02_Organ002|1
-XPDAC03CommunityCenterDungeon||10917
+XPDAC03CommunityCenterDungeon||10922
 XPDAC03CommunityCenterDungeon|DailyOps_Mode01_Activator00_PackIn018|1
 XPDAC03CommunityCenterDungeon|DailyOps_Mode01_Activator01_PackIn017|1
 XPDAC03CommunityCenterDungeon|DailyOps_Mode01_Activator02_PackIn017|1
@@ -17027,7 +17027,7 @@ AMSHQ02|100|1993
 APPALACHIA|50|52
 APPALACHIA|75|161
 APPALACHIA|85|251
-APPALACHIA|100|3259921
+APPALACHIA|100|3259938
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -17082,7 +17082,7 @@ GarrahanMiningHQ01|100|9200
 GarrahanMiningHQDungeon|100|7694
 GauleyMine01|100|4177
 GlassedCavern01|100|9044
-GlassedCavernDungeon|100|9019
+GlassedCavernDungeon|100|9018
 GraftonPawnShop01|100|1478
 GraftonSteelUnderground01|50|2
 GraftonSteelUnderground01|75|19
@@ -17099,9 +17099,9 @@ LittleRobsHideout01|75|2
 LittleRobsHideout01|100|1461
 LousMine01|75|3
 LousMine01|100|6988
-MILEBlueRidgeHQ|100|7516
-MTR08LodeBaring01|100|3408
-MTR08LodeBaring02|100|3284
+MILEBlueRidgeHQ|100|7500
+MTR08LodeBaring01|100|3406
+MTR08LodeBaring02|100|3283
 MamaDolceProcessing01|100|3074
 MiresEye01|100|1681
 MonongahMine01|100|6923
@@ -17251,7 +17251,7 @@ XPDAC03CommunityCenter|50|1
 XPDAC03CommunityCenter|75|3
 XPDAC03CommunityCenter|100|11649
 XPDAC03CommunityCenterDungeon|75|2
-XPDAC03CommunityCenterDungeon|100|10939
+XPDAC03CommunityCenterDungeon|100|10944
 XPDAC03FloodedCityCenter|100|17093
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
@@ -21143,7 +21143,7 @@ WhitespringRefuge01|Robot|100.0|1
 006C2935|StormCultistTunnels|Old Crimora Mines|0|4399|10183|-1290|10088|4626|15740|0|0|1.0
 00769F55|MILEBlueRidgeHQ|Milepost Zero|0|659|2476|-2010|3328|-1248|6200|600|300|1.0
 0077154D|SheltersSummerCamp|Summer Camp Shelter|0|-21401|2406|-105560|62757|-84518|89331|-3000|0|5.0
-0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0|3733|1296|-1264|8730|-6484|9076|0|0|1.0
+0038C0B3|MTR08LodeBaring01|Abandoned Mine Shaft Elaine|0|3253|1296|-1264|7771|-6484|9076|0|0|1.0
 0040593B|RaiderRaidTrailerInt|Trailer Interior|0|-96|-11|-516|323|-257|234|0|0|1.0
 004E10F3|MountBlairWarehouseBasement01|Warehouse Basement|0|97|-1344|-702|896|-2112|-576|0|0|1.0
 006AF443|NVEShelter01|VR Shelter|0|2565|-788|-5742|10873|-5152|3576|1000|-200|1.4
@@ -21205,4 +21205,4 @@ WhitespringRefuge01|Robot|100.0|1
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4365225|4365225
+4365227|4365227
