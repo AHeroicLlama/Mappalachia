@@ -163,7 +163,7 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
 
 			// Read in scale/offset corrections for Spaces
-			foreach (string file in Directory.GetFiles(BuildTools.CellCorrectionPath))
+			foreach (string file in Directory.GetFiles(BuildTools.CellXYScaleCorrectionPath))
 			{
 				string[] values = File.ReadAllLines(file);
 

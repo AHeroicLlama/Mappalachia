@@ -10,31 +10,35 @@ namespace Library
 	{
 		static string SolutionFile { get; } = "Mappalachia.sln";
 
-		static string AssetsPath { get; } = @"Assets\";
+		static string AssetsPath { get; } = GetSolutionPath() + @"Assets\";
 
-		static string UtilitiesPath { get; } = @"Utilities\";
+		static string UtilitiesPath { get; } = GetSolutionPath() + @"Utilities\";
 
-		static string OutputsPath { get; } = @"BuildOutputs\";
+		static string OutputsPath { get; } = GetSolutionPath() + @"BuildOutputs\";
 
-		public static string SqlitePath { get; } = GetSolutionPath() + UtilitiesPath + "sqlite3.exe"; // https://www.sqlite.org/download.html
+		static string BGRendererCorrectionsPath { get; } = GetSolutionPath() + @"BackgroundRenderer\Corrections\";
 
-		public static string Fo76UtilsRenderPath { get; } = GetSolutionPath() + UtilitiesPath + @"fo76utils\render.exe"; // https://github.com/fo76utils/fo76utils
+		public static string SqlitePath { get; } = UtilitiesPath + "sqlite3.exe"; // https://www.sqlite.org/download.html
 
-		public static string DiscardedCellsPath { get; } = GetSolutionPath() + OutputsPath + @"Discarded_Cells.csv";
+		public static string Fo76UtilsRenderPath { get; } = UtilitiesPath + @"fo76utils\render.exe"; // https://github.com/fo76utils/fo76utils
 
-		public static string DatabaseSummaryPath { get; } = GetSolutionPath() + OutputsPath + @"Database_Summary.txt";
+		public static string DiscardedCellsPath { get; } = OutputsPath + @"Discarded_Cells.csv";
 
-		public static string ErrorsPath { get; } = GetSolutionPath() + OutputsPath + @"Errors.txt";
+		public static string DatabaseSummaryPath { get; } = OutputsPath + @"Database_Summary.txt";
 
-		public static string TempPath { get; } = GetSolutionPath() + OutputsPath + @"Temp\";
+		public static string ErrorsPath { get; } = OutputsPath + @"Errors.txt";
+
+		public static string TempPath { get; } = OutputsPath + @"Temp\";
 
 		public static string Fo76EditOutputPath { get; } = GetSolutionPath() + @"FO76Edit\Output\";
 
-		public static string DatabasePath { get; } = GetSolutionPath() + AssetsPath + @"data\mappalachia.db";
+		public static string DatabasePath { get; } = AssetsPath + @"data\mappalachia.db";
 
-		public static string ImageRootPath { get; } = GetSolutionPath() + AssetsPath + @"img\";
+		public static string ImageRootPath { get; } = AssetsPath + @"img\";
 
-		public static string CellCorrectionPath { get; } = GetSolutionPath() + @"BackgroundRenderer\Corrections\";
+		public static string CellXYScaleCorrectionPath { get; } = BGRendererCorrectionsPath + @"XY_Scale\";
+
+		public static string CellZCorrectionPath { get; } = BGRendererCorrectionsPath + @"Z\";
 
 		public static string CellPath { get; } = ImageRootPath + @"cell\";
 
@@ -68,11 +72,6 @@ namespace Library
 			}
 
 			Directory.CreateDirectory(TempPath);
-		}
-
-		public static double GetSpaceCameraHeight(Space space)
-		{
-			return CroppedHeights.TryGetValue(space.EditorID, out int cropppedHeight) ? cropppedHeight : (int)Math.Pow(2, 16);
 		}
 
 		public static SqliteConnection GetNewConnection()

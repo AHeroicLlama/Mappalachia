@@ -112,54 +112,6 @@ namespace Library
 			{ "Toad", "Rad Toad" },
 		};
 
-		// Manually-adjusted camera heights for renders of cells which would otherwise be predominantly obscured by a roof or ceiling
-		public static Dictionary<string, int> CroppedHeights { get; } = new Dictionary<string, int>()
-		{
-			{ "AMSHQ01", 3000 },
-			{ "BlueRidgeOffice01", 350 },
-			{ "CraterWarRoom01", 50 },
-			{ "CraterWatchstation01", -700 },
-			{ "DuncanDuncanRobotics01", 500 },
-			{ "FortAtlas01", -1300 },
-			{ "FoundationSupplyRoom01", 200 },
-			{ "FraternityHouse01", 850 },
-			{ "FraternityHouse02", 850 },
-			{ "LewisandSonsFarmingSupply01", 500 },
-			{ "LittleRobsHideout01", 300 },
-			{ "MILEBlueRidgeHQ", 500 },
-			{ "MiresEye01", 300 },
-			{ "OverseersHome01", 675 },
-			{ "PoseidonPlant02", 3000 },
-			{ "RaiderRaidTrailerInt", 150 },
-			{ "SheltersRootCellar", 300 },
-			{ "SheltersSoundStage", 1000 },
-			{ "SheltersToxicWasteland", 2000 },
-			{ "StormCultistTunnels", 6500 },
-			{ "StormEngineeringVlt63", 1300 },
-			{ "StormHallucinogeniccave", 600 },
-			{ "StormRadioBunkerInt", 800 },
-			{ "StormStolzManor", 700 },
-			{ "StormVault63AtriumUpper", -800 },
-			{ "StormVault63Entrance", 4600 },
-			{ "StormVisitorCenterInt", 1250 },
-			{ "StormWeatherLab01", 1000 },
-			{ "SugarGrove02", 1000 },
-			{ "SurlysShack01", 250 },
-			{ "TheCraterCore01", 100 },
-			{ "TheRoseRoom01", 500 },
-			{ "TheWayward01", 400 },
-			{ "TopOfTheWorld01", -1800 },
-			{ "VTecAgCenter01", 400 },
-			{ "ValleyGalleria01", 700 },
-			{ "Vault63Entrance", 4750 },
-			{ "Vault79Entrance", -200 },
-			{ "WVLumberCo01", 1000 },
-			{ "XPDAC02Pier", 400 },
-			{ "XPDAC03CommunityCenter", 600 },
-			{ "XPDAC03CommunityCenterDungeon", 600 },
-			{ "XPDPitt02Sanctum", 700 },
-		};
-
 		// Provides the WHERE clause for a query which defines the rules of which cells we should discard, as they are understood to be cut or otherwise inaccessible.
 		public static string DiscardCellsQuery { get; } =
 			"spaceDisplayName = '' OR " +
@@ -268,6 +220,26 @@ namespace Library
 					return null;
 			}
 		}
+
+		// Values passed with the -xm argument to the render command
+		public static List<string> RenderExcludeModels { get; } = new List<string>()
+		{
+			"babylon",
+			"cranberrybog",
+			"cranbog",
+			"bog",
+			"grass",
+			"trees",
+			"tree",
+			"plants",
+			"shrub",
+			"vine",
+			"root",
+			"stump",
+			"fog",
+			"cloud",
+			"effects",
+		};
 
 		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others
 		public static string CorrectFissureLabels(string label)
