@@ -8,11 +8,13 @@ namespace Library
 	// Intended for use only by pre-production preprocessor & build projects.
 	public static partial class BuildTools
 	{
-		const string SolutionFile = "Mappalachia.sln";
-		const string AssetsPath = @"Assets\";
-		const string UtilitiesPath = @"Utilities\";
-		const string OutputsPath = @"BuildOutputs\";
-		const string ImageAssetPath = AssetsPath + @"img\";
+		static string SolutionFile { get; } = "Mappalachia.sln";
+
+		static string AssetsPath { get; } = @"Assets\";
+
+		static string UtilitiesPath { get; } = @"Utilities\";
+
+		static string OutputsPath { get; } = @"BuildOutputs\";
 
 		public static string SqlitePath { get; } = GetSolutionPath() + UtilitiesPath + "sqlite3.exe"; // https://www.sqlite.org/download.html
 
@@ -24,11 +26,15 @@ namespace Library
 
 		public static string ErrorsPath { get; } = GetSolutionPath() + OutputsPath + @"Errors.txt";
 
+		public static string TempPath { get; } = GetSolutionPath() + OutputsPath + @"Temp\";
+
 		public static string Fo76EditOutputPath { get; } = GetSolutionPath() + @"FO76Edit\Output\";
 
 		public static string DatabasePath { get; } = GetSolutionPath() + AssetsPath + @"data\mappalachia.db";
 
-		public static string ImageRootPath { get; } = GetSolutionPath() + ImageAssetPath;
+		public static string ImageRootPath { get; } = GetSolutionPath() + AssetsPath + @"img\";
+
+		public static string CellCorrectionPath { get; } = GetSolutionPath() + @"BackgroundRenderer\Corrections\";
 
 		public static string CellPath { get; } = ImageRootPath + @"cell\";
 
@@ -48,11 +54,26 @@ namespace Library
 
 		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
 
-		public static ConsoleColor InfoColor { get; } = ConsoleColor.DarkYellow;
+		public static ConsoleColor ColorInfo { get; } = ConsoleColor.DarkYellow;
 
-		public static ConsoleColor QuestionColor { get; } = ConsoleColor.Blue;
+		public static ConsoleColor ColorQuestion { get; } = ConsoleColor.Blue;
 
 		static string? solutionPath = null;
+
+		static BuildTools()
+		{
+			if (Directory.Exists(TempPath))
+			{
+				Directory.Delete(TempPath, true);
+			}
+
+			Directory.CreateDirectory(TempPath);
+		}
+
+		public static double GetSpaceCameraHeight(Space space)
+		{
+			return CroppedHeights.TryGetValue(space.EditorID, out int cropppedHeight) ? cropppedHeight : (int)Math.Pow(2, 16);
+		}
 
 		public static SqliteConnection GetNewConnection()
 		{

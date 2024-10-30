@@ -34,7 +34,7 @@ namespace Preprocessor
 					"\n2:Run both validations without building" +
 					"\n3:Run data validation only" +
 					"\n4:Run image asset validation only",
-					BuildTools.QuestionColor);
+					BuildTools.ColorQuestion);
 
 				char input = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -73,7 +73,7 @@ namespace Preprocessor
 				Preprocess();
 			}
 
-			BuildTools.StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", BuildTools.InfoColor);
+			BuildTools.StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", BuildTools.ColorInfo);
 			Console.ReadKey();
 		}
 
@@ -81,7 +81,7 @@ namespace Preprocessor
 		{
 			string gameVersion = GetValidatedGameVersion();
 
-			BuildTools.StdOutWithColor($"Building Mappalachia database at {BuildTools.DatabasePath}\n", BuildTools.InfoColor);
+			BuildTools.StdOutWithColor($"Building Mappalachia database at {BuildTools.DatabasePath}\n", BuildTools.ColorInfo);
 
 			Connection.Close();
 			Cleanup();
@@ -161,6 +161,18 @@ namespace Preprocessor
 			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, (MIN(x) + MAX(x)) / 2, (MIN(y) + MAX(y)) / 2, MAX(ABS(MIN(x) - MAX(x)), ABS(MIN(y) - MAX(y))) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
 			SimpleQuery("DROP TABLE Space;");
 			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
+
+			// Read in scale/offset corrections for Spaces
+			foreach (string file in Directory.GetFiles(BuildTools.CellCorrectionPath))
+			{
+				string[] values = File.ReadAllLines(file);
+
+				double centerX = double.Parse(values[0]);
+				double centerY = double.Parse(values[1]);
+				double maxRange = double.Parse(values[2]);
+
+				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE spaceEditorID = '{Path.GetFileNameWithoutExtension(file)}'");
+			}
 
 			// Reduce decimal values to INT, as the precision is unnecessary
 			TransformColumn(RealToInt, "Position", "x");
@@ -250,12 +262,12 @@ namespace Preprocessor
 
 			GenerateSummary();
 
-			BuildTools.StdOutWithColor($"Build and Preprocess Done.\n", BuildTools.InfoColor);
+			BuildTools.StdOutWithColor($"Build and Preprocess Done.\n", BuildTools.ColorInfo);
 		}
 
 		static void GenerateSummary()
 		{
-			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", BuildTools.InfoColor);
+			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", BuildTools.ColorInfo);
 			Connection.Close();
 			AddToSummaryReport("MD5 Checksum", BuildTools.GetMD5Hash(BuildTools.DatabasePath));
 			Connection.Open();
@@ -660,11 +672,11 @@ namespace Preprocessor
 
 			if (gameVersion == null)
 			{
-				BuildTools.StdOutWithColor($"Unable to determine game version from exe at {BuildTools.GameExePath}.", BuildTools.InfoColor);
+				BuildTools.StdOutWithColor($"Unable to determine game version from exe at {BuildTools.GameExePath}.", BuildTools.ColorInfo);
 				return GetGameVersionFromUser();
 			}
 
-			BuildTools.StdOutWithColor($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)", BuildTools.QuestionColor);
+			BuildTools.StdOutWithColor($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)", BuildTools.ColorQuestion);
 
 			while (true)
 			{
@@ -693,7 +705,7 @@ namespace Preprocessor
 		// Asks the user to enter game version, and returns the entered line
 		static string GetGameVersionFromUser()
 		{
-			BuildTools.StdOutWithColor("\nPlease enter the correct game version string:", BuildTools.QuestionColor);
+			BuildTools.StdOutWithColor("\nPlease enter the correct game version string:", BuildTools.ColorQuestion);
 			return Console.ReadLine() ?? string.Empty;
 		}
 

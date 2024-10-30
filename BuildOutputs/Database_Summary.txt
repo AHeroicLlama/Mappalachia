@@ -1,11 +1,11 @@
 MD5 Checksum
-F5BA8A94C467A0292E5B297E50D1E006
+F769E1D12173C7E7D6BD501444C17607
 
 Size
 343320 KB
 
 Built At UTC
-25/10/2024 23:03:20
+30/10/2024 00:10:14
 
 CSV Imported with SQLite Version
 3.47.0 2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e (64-bit)
@@ -111,7 +111,7 @@ RobCoResearchCenter01,RobCo Research Center,9084,0,8240
 RobcoExperimentalCache01,RobCo Auto-Cache #001,4268432,0,8091
 RollinsLaborCamp01,Rollins Prison,5719591,0,2893
 SamBlackwellBunker02,Sam Blackwell's Bunker,1530824,0,4031
-SamBlackwellsDeathclawCave,Cavern,262882,0,20224
+SamBlackwellsDeathclawCave,Cavern,262882,0,9475
 SettlerBugOutCave,Secluded Cave,4208409,0,2143
 SheltersCave01,Abandoned Mine Shelter,6345571,0,6984
 SheltersCave02,Forbidden Digsite Shelter,6480483,0,9152
@@ -219,7 +219,7 @@ Avg Bounds X/Y/Z
 22.84645603651532,16.781421777601548,16.58360186319322
 
 Avg CenterX, CenterY
-335.1329787234043,-81.16489361702128
+366.09574468085106,-80.07446808510639
 
 Avg Rotation
 4.3310753346817625
