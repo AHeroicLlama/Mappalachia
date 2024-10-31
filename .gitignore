@@ -15,8 +15,8 @@ Utilities/
 # Space background images
 Assets/img/cell/*
 Assets/img/wrld/*
-!Assets/img/wrld/Appalachia.jpg
-!Assets/img/wrld/Appalachia_military.jpg
+!Assets/img/wrld/APPALACHIA_menu.jpg
+!Assets/img/wrld/APPALACHIA_military.jpg
 
 # Mappalachia Database
 *.db

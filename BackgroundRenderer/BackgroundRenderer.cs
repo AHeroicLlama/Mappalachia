@@ -5,13 +5,11 @@ namespace BackgroundRenderer
 {
 	class BackgroundRenderer
 	{
-		static double MaxZoomScale { get; } = 16;
-
-		static double MinZoomScale { get; } = 0.002;
-
 		static int JpegQualityCell { get; } = 85;
 
 		static int JpegQualityWorldspace { get; } = 100;
+
+		static int WorldspaceResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
 		static void Main()
 		{
@@ -189,7 +187,7 @@ namespace BackgroundRenderer
 		// Worldspaces also see the watermask generated.
 		static void RenderSpace(Space space)
 		{
-			int renderResolution = Misc.MapImageResolution;
+			int renderResolution = space.IsWorldspace ? WorldspaceResolution : Misc.MapImageResolution;
 			string ddsFile = BuildTools.TempPath + $"{space.EditorID}_render.dds";
 			string finalFile = (space.IsWorldspace ? BuildTools.WorldPath : BuildTools.CellPath) + space.EditorID + ".jpg";
 			string terrainString = space.IsWorldspace ? $"-btd \"{BuildTools.GameTerrainPath}\" " : string.Empty;
@@ -213,7 +211,28 @@ namespace BackgroundRenderer
 			Process magickResizeConvert = Process.Start("CMD.exe", "/C " + resizeCommand);
 			magickResizeConvert.WaitForExit();
 
-			//TODO watermask, worldspace output names contain "render"?
+			// Do the watermask
+			if (space.IsWorldspace)
+			{
+				BuildTools.StdOutWithColor("Rendering Watermask...", BuildTools.ColorInfo);
+
+				string watermaskDDS = BuildTools.TempPath + space.EditorID + "_waterMask.dds";
+				string watermaskFinalFile = BuildTools.WorldPath + space.EditorID + "_waterMask.png";
+
+				string waterMaskRenderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {watermaskDDS} {renderResolution} {renderResolution} " +
+					$"\"{BuildTools.GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
+					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
+					$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
+
+				string watermaskResizeCommand = $"\"{BuildTools.ImageMagickPath}\" {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} PNG:{watermaskFinalFile}";
+
+				Process watermaskRender = Process.Start("CMD.exe", "/C " + waterMaskRenderCommand);
+				watermaskRender.WaitForExit();
+
+				BuildTools.StdOutWithColor($"Converting and downsampling with ImageMagick...", BuildTools.ColorInfo);
+				Process magickWatermaskResizeConvert = Process.Start("CMD.exe", "/C " + watermaskResizeCommand);
+				magickWatermaskResizeConvert.WaitForExit();
+			}
 		}
 
 		// Returns a list of Spaces gathered from the user, for rendering
@@ -225,7 +244,7 @@ namespace BackgroundRenderer
 			List<string> requestedIDs = input.Trim().Split(" ").Where(space => !string.IsNullOrWhiteSpace(space)).ToList();
 
 			// Select spaces unconditionally if none provided, otherwise select only the list of provided spaces
-			string query = $"SELECT * FROM Space{(requestedIDs.Count == 0 ? string.Empty : $" WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()}")};";
+			string query = $"SELECT * FROM Space{(requestedIDs.Count == 0 ? string.Empty : $" WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()}")} ORDER BY isWorldspace DESC, spaceEditorID ASC;";
 			List<Space> spaces = CommonDatabase.GetSpaces(BuildTools.GetNewConnection(), query);
 
 			// If we specified cells, ensure we found them all in the DB before proceeding

@@ -195,15 +195,15 @@ namespace Preprocessor
 			if (space.IsWorldspace)
 			{
 				string watermaskFilePath = BuildTools.WorldPath + space.EditorID + "_waterMask" + MaskImageFileType;
-				string renderMapPath = BuildTools.WorldPath + space.EditorID + "_render" + BackgroundImageFileType;
+				string menuMapPath = BuildTools.WorldPath + space.EditorID + "_menu" + BackgroundImageFileType;
 
-				if (!ValidateSpaceImageExists(space, watermaskFilePath) | !ValidateSpaceImageExists(space, renderMapPath))
+				if (!ValidateSpaceImageExists(space, watermaskFilePath) | !ValidateSpaceImageExists(space, menuMapPath))
 				{
 					return;
 				}
 
 				ValidateImageDimensions(space, watermaskFilePath);
-				ValidateImageDimensions(space, renderMapPath);
+				ValidateImageDimensions(space, menuMapPath);
 
 				// Appalachia specifically also has the 'military' map
 				if (space.IsAppalachia())
