@@ -50,7 +50,7 @@ namespace BackgroundRenderer
 		{
 			List<Space> spaces = GetSpaceInput();
 
-			BuildTools.StdOutWithColor($"Rendering {spaces.Count} spaces...", BuildTools.ColorInfo);
+			BuildTools.StdOutWithColor($"Rendering {spaces.Count} space{Misc.Pluralize(spaces)}...", BuildTools.ColorInfo);
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			int i = 0;
@@ -152,7 +152,7 @@ namespace BackgroundRenderer
 			{
 				string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {outputFile} {Misc.MapImageResolution} {Misc.MapImageResolution} " +
 					$"\"{BuildTools.GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{BuildTools.GameTerrainPath}\"" : string.Empty)} " +
-					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {Misc.MapImageResolution / (double)space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {Misc.MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
@@ -191,7 +191,7 @@ namespace BackgroundRenderer
 			string ddsFile = BuildTools.TempPath + $"{space.EditorID}_render.dds";
 			string finalFile = (space.IsWorldspace ? BuildTools.WorldPath : BuildTools.CellPath) + space.EditorID + ".jpg";
 			string terrainString = space.IsWorldspace ? $"-btd \"{BuildTools.GameTerrainPath}\" " : string.Empty;
-			double scale = renderResolution / (double)space.MaxRange;
+			double scale = renderResolution / space.MaxRange;
 
 			// -rq 1 + 2 + 12 + 256 (+32 for cells)
 			string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {ddsFile} {renderResolution} {renderResolution} " +

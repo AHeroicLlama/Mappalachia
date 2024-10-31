@@ -5,13 +5,13 @@
 	{
 		public bool IsWorldspace { get; }
 
-		public int CenterX { get; }
+		public double CenterX { get; }
 
-		public int CenterY { get; }
+		public double CenterY { get; }
 
-		public int MaxRange { get; }
+		public double MaxRange { get; }
 
-		public Space(uint formID, string editorID, string displayName, bool isWorldspace, int centerX = 0, int centerY = 0, int maxRange = 4096)
+		public Space(uint formID, string editorID, string displayName, bool isWorldspace, double centerX = 0, double centerY = 0, double maxRange = 4096)
 			: base(formID, editorID, displayName, isWorldspace ? "WLRD" : "CELL")
 		{
 			IsWorldspace = isWorldspace;

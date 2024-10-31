@@ -31,9 +31,9 @@ namespace Library
 					(string)reader["spaceEditorID"],
 					(string)reader["spaceDisplayName"],
 					Convert.ToBoolean(reader["isWorldspace"]),
-					Convert.ToInt32(reader["centerX"]),
-					Convert.ToInt32(reader["centerY"]),
-					Convert.ToInt32(reader["maxRange"])));
+					Convert.ToDouble(reader["centerX"]),
+					Convert.ToDouble(reader["centerY"]),
+					Convert.ToDouble(reader["maxRange"])));
 			}
 
 			return spaces;
@@ -51,8 +51,8 @@ namespace Library
 					(string)reader["icon"],
 					(string)reader["label"],
 					Convert.ToUInt32(reader["spaceFormID"]),
-					Convert.ToInt32(reader["x"]),
-					Convert.ToInt32(reader["y"])));
+					Convert.ToDouble(reader["x"]),
+					Convert.ToDouble(reader["y"])));
 			}
 
 			return mapMarkers;

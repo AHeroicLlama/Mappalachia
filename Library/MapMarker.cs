@@ -1,6 +1,6 @@
 ﻿namespace Library
 {
-	public class MapMarker(string icon, string label, uint spaceFormID = 0x00000000, int x = 0, int y = 0)
+	public class MapMarker(string icon, string label, uint spaceFormID = 0x00000000, double x = 0, double y = 0)
 	{
 		public string Icon { get; } = icon;
 
@@ -8,8 +8,8 @@
 
 		public uint SpaceFormID { get; } = spaceFormID;
 
-		public int X { get; } = x;
+		public double X { get; } = x;
 
-		public int Y { get; } = y;
+		public double Y { get; } = y;
 	}
 }

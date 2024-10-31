@@ -95,10 +95,10 @@ namespace Preprocessor
 
 			// Create new tables
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);");
-			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x INTEGER, y INTEGER, z INTEGER, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX INTEGER, boundY INTEGER, boundZ INTEGER, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
+			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, property TEXT, value INTEGER);");
-			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x INTEGER, y INTEGER);");
+			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL);");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 
@@ -157,7 +157,7 @@ namespace Preprocessor
 			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding the center x/y and max 2d range
-			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX INTEGER, centerY INTEGER, maxRange INTEGER);");
+			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX REAL, centerY REAL, maxRange REAL);");
 			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, (MIN(x) + MAX(x)) / 2, (MIN(y) + MAX(y)) / 2, MAX(ABS(MIN(x) - MAX(x)), ABS(MIN(y) - MAX(y))) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
 			SimpleQuery("DROP TABLE Space;");
 			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
@@ -173,21 +173,6 @@ namespace Preprocessor
 
 				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE spaceEditorID = '{Path.GetFileNameWithoutExtension(file)}'");
 			}
-
-			// Reduce decimal values to INT, as the precision is unnecessary
-			TransformColumn(RealToInt, "Position", "x");
-			TransformColumn(RealToInt, "Position", "y");
-			TransformColumn(RealToInt, "Position", "z");
-			TransformColumn(RealToInt, "Position", "boundX");
-			TransformColumn(RealToInt, "Position", "boundY");
-			TransformColumn(RealToInt, "Position", "boundZ");
-			TransformColumn(RealToInt, "Region", "x");
-			TransformColumn(RealToInt, "Region", "y");
-			TransformColumn(RealToInt, "MapMarker", "x");
-			TransformColumn(RealToInt, "MapMarker", "y");
-			TransformColumn(RealToInt, "Space", "centerX");
-			TransformColumn(RealToInt, "Space", "centerY");
-			TransformColumn(RealToInt, "Space", "maxRange");
 
 			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original
 			SimpleQuery("ALTER TABLE Position ADD COLUMN 'label' TEXT;");
@@ -277,7 +262,7 @@ namespace Preprocessor
 			AddToSummaryReport("Tables", BuildTools.SqliteTools(BuildTools.DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", BuildTools.SqliteTools(BuildTools.DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, maxRange, centerX, centerY FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg CenterX, CenterY", SimpleQuery("SELECT AVG(centerX), AVG(centerY) FROM Space;"));
@@ -571,17 +556,6 @@ namespace Preprocessor
 			}
 
 			return BuildTools.QuotedTermRegex.Match(displayName).Groups[1].Value;
-		}
-
-		// Converts a database REAL as a string, to a string suitable to be a database INTEGER
-		static string RealToInt(string input)
-		{
-			if (string.IsNullOrEmpty(input))
-			{
-				return string.Empty;
-			}
-
-			return ((int)Math.Round(double.Parse(input))).ToString();
 		}
 
 		// Returns the numeric quantity of the component for the given quantity name
