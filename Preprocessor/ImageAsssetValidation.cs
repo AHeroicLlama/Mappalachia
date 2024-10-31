@@ -22,7 +22,7 @@ namespace Preprocessor
 			Console.WriteLine("Validating image assets");
 
 			// Collect all Spaces and MapMarkers. Group the map markers by icon
-			List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(Connection, "SELECT DISTINCT icon, * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
+			List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(Connection, "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
 			List<Space> spaces = CommonDatabase.GetSpaces(Connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;");
 
 			// Perform file checks for all spaces

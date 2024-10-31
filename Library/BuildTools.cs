@@ -18,6 +18,8 @@ namespace Library
 
 		static string BGRendererCorrectionsPath { get; } = GetSolutionPath() + @"BackgroundRenderer\Corrections\";
 
+		public static string MapIconExtractPath { get; } = GetSolutionPath() + @"MapIconProcessor\Extract\";
+
 		public static string SqlitePath { get; } = UtilitiesPath + "sqlite3.exe"; // https://www.sqlite.org/download.html
 
 		public static string Fo76UtilsRenderPath { get; } = UtilitiesPath + @"fo76utils\render.exe"; // https://github.com/fo76utils/fo76utils
