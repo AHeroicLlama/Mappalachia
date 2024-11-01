@@ -1,34 +1,94 @@
-﻿using Library;
+﻿using System.Text.RegularExpressions;
+using System.Xml;
+using Library;
 
 namespace MapIconProcessor;
 
 class MapIconProcessor
 {
+	static string[] Directories { get; } = Directory.GetDirectories(BuildTools.MapIconExtractPath + "sprites");
+
+	static List<string> Errors { get; } = new List<string>();
+
 	static void Main()
 	{
 		Console.Title = "Mappalachia Map Icon Extractor";
 
 		List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(BuildTools.GetNewConnection(), "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
 
-		foreach (string directory in Directory.GetDirectories(BuildTools.MapIconExtractPath + "sprites"))
+		foreach (MapMarker mapMarker in mapMarkers)
 		{
-			string expectedIconName = BuildTools.ValidIconFolder.Match(directory).Groups[1].Value;
-
-			Console.WriteLine($"Matched {directory} as {expectedIconName}");
-
-			// If the icon name implied by the folder, matches an icon in the database
-			if (mapMarkers.Where(mapMarker => mapMarker.Icon == expectedIconName).Any())
+			if (ExtractIcon(mapMarker))
 			{
-				string markerPath = directory + @"\1.svg";
-				string targetPath = BuildTools.MapMarkerPath + expectedIconName + ".svg";
-
-				File.Copy(markerPath, targetPath, true);
-
-				Console.WriteLine($"Copied {markerPath} to {targetPath}");
+				continue;
 			}
+
+			// We exhausted all the folders without finding the right icon, log error but continue
+			string error = $"Failed to find suitable icon SVG for marker icon {mapMarker.Icon}";
+			Errors.Add(error);
+		}
+
+		foreach (string error in Errors)
+		{
+			BuildTools.StdOutWithColor(error, BuildTools.ColorError);
+			BuildTools.AppendToErrorLog(error);
 		}
 
 		BuildTools.StdOutWithColor("Done. Press any key.", BuildTools.ColorInfo);
 		Console.ReadKey();
+	}
+
+	// Searches for and copies out the map marker icon SVG for the given MapMarker
+	// Returns if search was successful
+	static bool ExtractIcon(MapMarker mapMarker)
+	{
+		foreach (string directory in Directories)
+		{
+			Match match = BuildTools.ValidIconFolder.Match(directory);
+
+			// This appears to be the directory containing this map marker icon - read it in, clean it, and write it back out
+			if (match.Success && match.Groups[1].Value == mapMarker.Icon)
+			{
+				string markerPath = directory + @"\1.svg";
+				string targetPath = BuildTools.MapMarkerPath + mapMarker.Icon + ".svg";
+
+				XmlDocument document = new XmlDocument();
+				document.Load(markerPath);
+
+				foreach (XmlNode node in document)
+				{
+					CleanXMLNode(node);
+				}
+
+				document.Save(targetPath);
+
+				Console.WriteLine($"{mapMarker.Icon}: Found");
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// Recursively removes unncessary attributes which reference FFDec, under the given node
+	static void CleanXMLNode(XmlNode node)
+	{
+		if (node.Attributes != null)
+		{
+			IEnumerable<XmlAttribute> attributes = node.Attributes.Cast<XmlAttribute>().Reverse();
+
+			foreach (XmlAttribute attribute in attributes)
+			{
+				if (attribute.Name.Contains("ffdec", StringComparison.OrdinalIgnoreCase))
+				{
+					node.Attributes.RemoveNamedItem(attribute.Name);
+				}
+			}
+		}
+
+		foreach (XmlNode childNode in node.ChildNodes)
+		{
+			CleanXMLNode(childNode);
+		}
 	}
 }

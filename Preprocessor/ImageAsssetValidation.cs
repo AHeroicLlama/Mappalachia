@@ -8,14 +8,21 @@ namespace Preprocessor
 {
 	internal partial class Preprocessor
 	{
-		const string BackgroundImageFileType = ".jpg";
-		const string MaskImageFileType = ".png";
-		const string MapMarkerImageFileType = ".svg";
-		const uint MinRenderedCellImageSizeKB = 500;
-		const uint MaxRenderedCellImageSizeKB = 6000;
-		const uint MinMapMarkerImageSizeKB = 1;
-		const uint MaxMapMarkerImageSizeKB = 15;
-		const float MaxBlackPixelsPerc = 90f;
+		static string BackgroundImageFileType { get; } = ".jpg";
+
+		static string MaskImageFileType { get; } = ".png";
+
+		static string MapMarkerImageFileType { get; } = ".svg";
+
+		static uint MinRenderedCellImageSizeKB { get; } = 500;
+
+		static uint MaxRenderedCellImageSizeKB { get; } = 6000;
+
+		static uint MinMapMarkerImageSizeBytes { get; } = 500;
+
+		static uint MaxMapMarkerImageSizeBytes { get; } = 12000;
+
+		static float MaxBlackPixelsPerc { get; } = 90f;
 
 		static void ValidateImageAssets()
 		{
@@ -155,11 +162,11 @@ namespace Preprocessor
 
 		static void ValidateMapMarkerFileSize(MapMarker marker, string path)
 		{
-			int fileSizeKB = (int)(new FileInfo(path).Length / Misc.Kilobyte);
+			int fileSize = (int)new FileInfo(path).Length;
 
-			if (fileSizeKB < MinMapMarkerImageSizeKB || fileSizeKB > MaxMapMarkerImageSizeKB)
+			if (fileSize < MinMapMarkerImageSizeBytes || fileSize > MaxMapMarkerImageSizeBytes)
 			{
-				FailValidation($"Mapmarker {marker.Icon} ({path}) appears to be an improper file size ({fileSizeKB}KB)");
+				FailValidation($"Mapmarker {marker.Icon} ({path}) appears to be an improper file size ({fileSize} Bytes)");
 			}
 		}
 

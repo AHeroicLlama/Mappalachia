@@ -8,10 +8,10 @@ namespace Preprocessor
 
 		static void FailValidation(string reason)
 		{
-			BuildTools.StdOutWithColor($"Validation failure: {reason}", ConsoleColor.Red);
+			BuildTools.StdOutWithColor($"Validation failure: {reason}", BuildTools.ColorError);
 			ValidationFailures.Add(reason);
 
-			File.AppendAllLines(BuildTools.ErrorsPath, new List<string>() { reason });
+			BuildTools.AppendToErrorLog(reason);
 		}
 
 		static void ConcludeValidation()

@@ -64,6 +64,8 @@ namespace Library
 
 		public static ConsoleColor ColorQuestion { get; } = ConsoleColor.Blue;
 
+		public static ConsoleColor ColorError { get; } = ConsoleColor.Red;
+
 		static string? solutionPath = null;
 
 		static BuildTools()
@@ -128,6 +130,12 @@ namespace Library
 
 			process.WaitForExit();
 			return output;
+		}
+
+		// Appends the text to the error log file
+		public static void AppendToErrorLog(string error)
+		{
+			File.AppendAllLines(ErrorsPath, new List<string>() { error });
 		}
 
 		public static void StdOutWithColor(string text, ConsoleColor color)
