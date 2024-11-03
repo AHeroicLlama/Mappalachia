@@ -46,9 +46,11 @@ namespace BackgroundRenderer
 			}
 		}
 
-		static void NormalRender()
+		// Performs the typical end-product render for the given spaces, or if null, asks the user for which
+		// Provides informative logging output, est time remaining etc
+		static void NormalRender(List<Space>? spaces = null)
 		{
-			List<Space> spaces = GetSpaceInput();
+			spaces = spaces ?? GetSpaceInput();
 
 			BuildTools.StdOutWithColor($"Rendering {spaces.Count} space{Misc.Pluralize(spaces)}...", BuildTools.ColorInfo);
 
@@ -77,79 +79,106 @@ namespace BackgroundRenderer
 		// Runs through the process of rendering a cell, opening it, asking the user for corrective input, then storing that as a file
 		static void SpaceZoomOffsetCorrection()
 		{
-			Space space = GetSingleSpaceInput();
+			while (true)
+			{
+				Space space = GetSingleSpaceInput();
 
-			double resolution = Misc.MapImageResolution;
-			double scale = resolution / space.MaxRange;
-			double cameraX = space.CenterX;
-			double cameraY = space.CenterY;
-			double cameraZ = GetSpaceCameraHeight(space);
-			string outputFile = BuildTools.TempPath + $"debug_{space.EditorID}.dds";
+				double resolution = Misc.MapImageResolution;
+				double scale = resolution / space.MaxRange;
+				double cameraX = space.CenterX;
+				double cameraY = space.CenterY;
+				double cameraZ = GetSpaceCameraHeight(space);
+				string outputFile = BuildTools.TempPath + $"debug_{space.EditorID}.dds";
 
-			string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {outputFile} {resolution} {resolution} " +
-				$"\"{BuildTools.GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{BuildTools.GameTerrainPath}\"" : string.Empty)} " +
-				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
-				$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
+				string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {outputFile} {resolution} {resolution} " +
+					$"\"{BuildTools.GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{BuildTools.GameTerrainPath}\"" : string.Empty)} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
+					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
-			Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
-			Process renderJob = Process.Start("CMD.exe", $"/C {renderCommand}");
-			renderJob.WaitForExit();
-			Misc.OpenURI(outputFile);
+				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
+				Process renderJob = Process.Start("CMD.exe", $"/C {renderCommand}");
+				renderJob.WaitForExit();
+				Misc.OpenURI(outputFile);
 
-			BuildTools.StdOutWithColor("Using Paint.NET or similar, draw a bounding box around the correct cell contents and take a note of the Top-Left X and Y pixel coordinate, plus the width and height of the selected area.\nSee Developer help documentation for more info.", BuildTools.ColorInfo);
+				BuildTools.StdOutWithColor("Using Paint.NET or similar, draw a bounding box around the correct cell contents and take a note of the Top-Left X and Y pixel coordinate, plus the width and height of the selected area.\nSee Developer help documentation for more info.", BuildTools.ColorInfo);
 
-			BuildTools.StdOutWithColor("Enter Top-Left X:", BuildTools.ColorQuestion);
-			int topLeftX = int.Parse(Console.ReadLine() ?? string.Empty);
+				BuildTools.StdOutWithColor("Enter Top-Left X:", BuildTools.ColorQuestion);
+				int topLeftX = int.Parse(Console.ReadLine() ?? string.Empty);
 
-			BuildTools.StdOutWithColor("Enter Top-Left Y:", BuildTools.ColorQuestion);
-			int topLeftY = int.Parse(Console.ReadLine() ?? string.Empty);
+				BuildTools.StdOutWithColor("Enter Top-Left Y:", BuildTools.ColorQuestion);
+				int topLeftY = int.Parse(Console.ReadLine() ?? string.Empty);
 
-			BuildTools.StdOutWithColor("Enter Width:", BuildTools.ColorQuestion);
-			int width = int.Parse(Console.ReadLine() ?? string.Empty);
+				BuildTools.StdOutWithColor("Enter Width:", BuildTools.ColorQuestion);
+				int width = int.Parse(Console.ReadLine() ?? string.Empty);
 
-			BuildTools.StdOutWithColor("Enter height:", BuildTools.ColorQuestion);
-			int height = int.Parse(Console.ReadLine() ?? string.Empty);
+				BuildTools.StdOutWithColor("Enter height:", BuildTools.ColorQuestion);
+				int height = int.Parse(Console.ReadLine() ?? string.Empty);
 
-			// Get the corrected range as a proportion of the selected space against the ratio used initially
-			double correctedRange = Math.Max(width, height) / scale;
+				// Get the corrected range as a proportion of the selected space against the ratio used initially
+				double correctedRange = Math.Max(width, height) / scale;
 
-			// Find the px coord of the center of the user-drawn bounding box
-			double boundingBoxCenterX = topLeftX + (width / 2d);
-			double boundingBoxCenterY = topLeftY + (height / 2d);
+				// Find the px coord of the center of the user-drawn bounding box
+				double boundingBoxCenterX = topLeftX + (width / 2d);
+				double boundingBoxCenterY = topLeftY + (height / 2d);
 
-			// Find the necessary correction in pixels
-			double correctionXPx = (resolution / 2d) - boundingBoxCenterX;
-			double correctionYPx = (resolution / 2d) - boundingBoxCenterY;
+				// Find the necessary correction in pixels
+				double correctionXPx = (resolution / 2d) - boundingBoxCenterX;
+				double correctionYPx = (resolution / 2d) - boundingBoxCenterY;
 
-			// Translate the pixel correction to game coordinates
-			double actualCorrectionX = correctionXPx / scale;
-			double actualCorrectionY = correctionYPx / scale;
+				// Translate the pixel correction to game coordinates
+				double actualCorrectionX = correctionXPx / scale;
+				double actualCorrectionY = correctionYPx / scale;
 
-			// Get the new space centers once correction is applied
-			double correctedXCenter = cameraX - actualCorrectionX;
-			double correctedYCenter = cameraY + actualCorrectionY;
+				// Get the new space centers once correction is applied
+				double correctedXCenter = cameraX - actualCorrectionX;
+				double correctedYCenter = cameraY + actualCorrectionY;
 
-			string correctionPath = BuildTools.CellXYScaleCorrectionPath + space.EditorID;
+				string correctionPath = BuildTools.CellXYScaleCorrectionPath + space.EditorID;
 
-			BuildTools.StdOutWithColor($"Corrections:\nxCenter: {space.CenterX}->{correctedXCenter}\nyCenter:{space.CenterY}->{correctedYCenter}\nmaxRange: {space.MaxRange}->{correctedRange}", BuildTools.ColorInfo);
-			File.WriteAllText(correctionPath, $"{cameraX}\n{cameraY}\n{correctedRange}");
+				BuildTools.StdOutWithColor($"Corrections:\nxCenter: {space.CenterX}->{correctedXCenter}\nyCenter:{space.CenterY}->{correctedYCenter}\nmaxRange: {space.MaxRange}->{correctedRange}", BuildTools.ColorInfo);
+				File.WriteAllText(correctionPath, $"{cameraX}\n{cameraY}\n{correctedRange}");
 
-			BuildTools.StdOutWithColor($"Correction file written to {correctionPath}.\nYou must now rebuild the database and re-render the affected cell(s).\n\nPress any key.", BuildTools.ColorInfo);
-			Console.ReadKey();
+				BuildTools.StdOutWithColor($"Correction file written to {correctionPath}.\nYou must rebuild the database and re-render the affected cell(s).\n\nPress any key to do another space.\n", BuildTools.ColorInfo);
+				Console.ReadKey();
+			}
 		}
 
 		// Handles the process of manually finding the correct height crop for a space render
+		// Overarching function which simply tracks the corrected spaces, calls the heavy-lifting function, and finally renders the corrected spaces.
 		static void SpaceHeightCorrection()
 		{
-			Space space = GetSingleSpaceInput();
-			string outputFile = BuildTools.TempPath + $"debug_{space.EditorID}.dds";
+			List<Space> correctedSpaces = new List<Space>();
 
-			BuildTools.StdOutWithColor("Enter an estimate of the correct height for the cell, eg 1000:", BuildTools.ColorQuestion);
+			while (true)
+			{
+				correctedSpaces.Add(DoSpaceHeightCorrection());
+
+				BuildTools.StdOutWithColor($"Press \"y\" to finish height correction and render the corrected cells.\nPress any other key to correct another cell.", BuildTools.ColorInfo);
+
+				char key = Console.ReadKey().KeyChar;
+				if (key.ToString().Equals("y", StringComparison.OrdinalIgnoreCase))
+				{
+					Console.WriteLine("\n");
+					break;
+				}
+			}
+
+			NormalRender(correctedSpaces);
+		}
+
+		// Does the space height correction
+		static Space DoSpaceHeightCorrection()
+		{
+			Space space = GetSingleSpaceInput();
+
+			BuildTools.StdOutWithColor("Enter an estimate of the correct height for the cell, eg 1000:\n", BuildTools.ColorQuestion);
 			int height = int.Parse(Console.ReadLine() ?? "1000");
 
 			// Loop of user estimates new height, render, ask again.
 			while (true)
 			{
+				string outputFile = BuildTools.TempPath + $"debug_{space.EditorID}_Z{height}.dds";
+
 				string renderCommand = $"{BuildTools.Fo76UtilsRenderPath} \"{BuildTools.GameESMPath}\" {outputFile} {Misc.MapImageResolution} {Misc.MapImageResolution} " +
 					$"\"{BuildTools.GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{BuildTools.GameTerrainPath}\"" : string.Empty)} " +
 					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {Misc.MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
@@ -160,7 +189,7 @@ namespace BackgroundRenderer
 				renderJob.WaitForExit();
 				Misc.OpenURI(outputFile);
 
-				BuildTools.StdOutWithColor("Was the height correct? Enter \"y\" to save, otherwise enter a new height to try again:", BuildTools.ColorQuestion);
+				BuildTools.StdOutWithColor("Was the height correct? Enter \"y\" to save, otherwise enter a new height to try again:\n", BuildTools.ColorQuestion);
 				string input = Console.ReadLine() ?? "1000";
 
 				// The correct crop has been found - save it to a file, do the proper render, and finish.
@@ -169,14 +198,8 @@ namespace BackgroundRenderer
 					string correctionPath = BuildTools.CellZCorrectionPath + space.EditorID;
 
 					File.WriteAllText(correctionPath, height.ToString());
-					BuildTools.StdOutWithColor($"Correction file written to {correctionPath}.\nPress any key to re-render the corrected cell properly.", BuildTools.ColorInfo);
-					Console.ReadKey();
-
-					RenderSpace(space);
-					BuildTools.StdOutWithColor($"Done. Press Any Key.", BuildTools.ColorInfo);
-					Console.ReadKey();
-
-					return;
+					BuildTools.StdOutWithColor($"Correction file written to {correctionPath}.\n", BuildTools.ColorInfo);
+					return space;
 				}
 
 				height = int.Parse(input);
@@ -259,11 +282,23 @@ namespace BackgroundRenderer
 		// Asks for a single editorID and returns the corresponding space
 		static Space GetSingleSpaceInput()
 		{
-			BuildTools.StdOutWithColor("\nEnter the EditorID of the space:", BuildTools.ColorQuestion);
-			string input = Console.ReadLine() ?? string.Empty;
+			while (true)
+			{
+				BuildTools.StdOutWithColor("\nEnter the EditorID of the space:", BuildTools.ColorQuestion);
+				string input = Console.ReadLine() ?? string.Empty;
 
-			string query = $"SELECT * FROM Space WHERE spaceEditorID = '{input}';";
-			return CommonDatabase.GetSpaces(BuildTools.GetNewConnection(), query).First();
+				string query = $"SELECT * FROM Space WHERE spaceEditorID = '{input}';";
+				Space? space = CommonDatabase.GetSpaces(BuildTools.GetNewConnection(), query).FirstOrDefault();
+
+				if (space == null)
+				{
+					BuildTools.StdOutWithColor($"Space with editorID \"{input}\" was not found in the database.", BuildTools.ColorError);
+				}
+				else
+				{
+					return space;
+				}
+			}
 		}
 
 		// Returns the predetermined cropped height for a cell, otherwise max height
