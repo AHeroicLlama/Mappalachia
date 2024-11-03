@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using Library;
 
@@ -60,9 +61,21 @@ class MapIconProcessor
 					CleanXMLNode(node);
 				}
 
-				document.Save(targetPath);
+				XmlWriterSettings settings = new XmlWriterSettings()
+				{
+					Indent = true,
+					IndentChars = "\t",
+					OmitXmlDeclaration = true,
+					NamespaceHandling = NamespaceHandling.OmitDuplicates,
+				};
 
-				Console.WriteLine($"{mapMarker.Icon}: Found");
+				StringWriter stringWriter = new StringWriter(new StringBuilder());
+				XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings);
+				document.Save(xmlWriter);
+
+				File.WriteAllText(targetPath, stringWriter.ToString());
+
+				Console.WriteLine($"{mapMarker.Icon}: Success");
 				return true;
 			}
 		}

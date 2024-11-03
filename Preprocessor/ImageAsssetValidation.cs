@@ -130,7 +130,7 @@ namespace Preprocessor
 
 			if (blackPxPercent > MaxBlackPixelsPerc)
 			{
-				FailValidation($"{space.EditorID} has too many black pixels ({blackPxPercent})%");
+				FailValidation($"{space.EditorID} has too many black pixels ({blackPxPercent}%)");
 			}
 		}
 
