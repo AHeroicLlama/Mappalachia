@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
 ==Checksum== 
-0ca78f411b12bc84e77ec056eff6a8df
+2e31a66209a5421f586303bd8c53c44d
 ==File Size== 
 483332096 
 ==Tables== 
@@ -21045,7 +21045,7 @@ WhitespringRefuge01|Robot|100.0|1
 0060D363|SheltersCave01|Abandoned Mine Shelter|0|1004|778|-2488|4496|-2315|3872|0|0|1.0
 0069506F|XPDAC03CommunityCenter|Community Center|0|5525|1284|-1928|12978|-3576|6144|2500|700|2.0
 005A7AD1|BlueRidgeOffice01|Blue Ridge Office|0|-107|-101|-1732|1517|-1726|1524|200|0|2.2
-0068CC71|XPDAC02Boardwalk|The Boardwalk|0|5166|-10305|-17316|27648|-35712|15102|-5000|200|4.7
+0068CC71|XPDAC02Boardwalk|The Boardwalk|0|5166|-10305|-17316|27648|-35712|15102|1000|200|2.0
 0000F0FB|BigBendTunnel01|Big Bend Tunnels|0|1888|17175|-5275|9051|86|34264|0|0|1.0
 00574627|RollinsLaborCamp01|Rollins Prison|0|245|473|-1024|1514|-973|1920|200|-1100|1.7
 006378CF|XPDPitt02Sanctum|Sanctum|0|3368|103|-3137|9874|-5889|6096|0|0|1.0
