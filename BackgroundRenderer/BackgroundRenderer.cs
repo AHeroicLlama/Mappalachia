@@ -50,7 +50,7 @@ namespace BackgroundRenderer
 		// Provides informative logging output, est time remaining etc
 		static void NormalRender(List<Space>? spaces = null)
 		{
-			spaces = spaces ?? GetSpaceInput();
+			spaces ??= GetSpaceInput();
 
 			BuildTools.StdOutWithColor($"Rendering {spaces.Count} space{Misc.Pluralize(spaces)}...", BuildTools.ColorInfo);
 
@@ -136,7 +136,7 @@ namespace BackgroundRenderer
 				string correctionPath = BuildTools.CellXYScaleCorrectionPath + space.EditorID;
 
 				BuildTools.StdOutWithColor($"Corrections:\nxCenter: {space.CenterX}->{correctedXCenter}\nyCenter:{space.CenterY}->{correctedYCenter}\nmaxRange: {space.MaxRange}->{correctedRange}", BuildTools.ColorInfo);
-				File.WriteAllText(correctionPath, $"{cameraX}\n{cameraY}\n{correctedRange}");
+				File.WriteAllText(correctionPath, $"{correctedXCenter}\n{correctedYCenter}\n{correctedRange}");
 
 				BuildTools.StdOutWithColor($"Correction file written to {correctionPath}.\nYou must rebuild the database and re-render the affected cell(s).\n\nPress any key to do another space.\n", BuildTools.ColorInfo);
 				Console.ReadKey();

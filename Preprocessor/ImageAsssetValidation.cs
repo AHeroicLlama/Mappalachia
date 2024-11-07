@@ -16,7 +16,7 @@ namespace Preprocessor
 
 		static uint MinRenderedCellImageSizeKB { get; } = 500;
 
-		static uint MaxRenderedCellImageSizeKB { get; } = 6000;
+		static uint MaxRenderedCellImageSizeKB { get; } = 6500;
 
 		static uint MinMapMarkerImageSizeBytes { get; } = 500;
 
