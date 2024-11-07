@@ -194,9 +194,9 @@ namespace Mappalachia
 						break;
 
 					case "XPDAC02Boardwalk":
-						nudgeX = -5000;
+						nudgeX = 1000;
 						nudgeY = 200;
-						nudgeScale = 4.7f;
+						nudgeScale = 2f;
 						break;
 
 					case "XPDAC02Pier":
