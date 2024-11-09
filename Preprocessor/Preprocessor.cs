@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Drawing;
 using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
@@ -18,6 +19,8 @@ namespace Preprocessor
 		static SqliteConnection Connection { get; } = BuildTools.GetNewConnection();
 
 		static List<string> SummaryReport { get; } = new List<string>();
+
+		static int CellPadding { get; } = 300; // Number of game units which we expand the Cell's maxRange value, above the initial crop
 
 		static void Main()
 		{
@@ -156,7 +159,7 @@ namespace Preprocessor
 			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
 			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
 
-			// Create a replacement copy of Space, adding the center x/y and max 2d range
+			// Create a replacement copy of Space, adding a temporary maximum estimate for the center x/y and max 2d range
 			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX REAL, centerY REAL, maxRange REAL);");
 			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, (MIN(x) + MAX(x)) / 2, (MIN(y) + MAX(y)) / 2, MAX(ABS(MIN(x) - MAX(x)), ABS(MIN(y) - MAX(y))) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
 			SimpleQuery("DROP TABLE Space;");
@@ -173,6 +176,9 @@ namespace Preprocessor
 
 				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE spaceEditorID = '{Path.GetFileNameWithoutExtension(file)}'");
 			}
+
+			// Add the cell padding
+			SimpleQuery($"UPDATE Space SET maxRange = maxRange + {CellPadding} WHERE isWorldspace = 0");
 
 			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original
 			SimpleQuery("ALTER TABLE Position ADD COLUMN 'label' TEXT;");
@@ -253,16 +259,18 @@ namespace Preprocessor
 		static void GenerateSummary()
 		{
 			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", BuildTools.ColorInfo);
+
 			Connection.Close();
 			AddToSummaryReport("MD5 Checksum", BuildTools.GetMD5Hash(BuildTools.DatabasePath));
 			Connection.Open();
+
 			AddToSummaryReport("Size", (new FileInfo(BuildTools.DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
 			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
 			AddToSummaryReport("CSV Imported with SQLite Version", BuildTools.SqliteTools("--version"));
 			AddToSummaryReport("Tables", BuildTools.SqliteTools(BuildTools.DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", BuildTools.SqliteTools(BuildTools.DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, maxRange, centerX, centerY FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg CenterX, CenterY", SimpleQuery("SELECT AVG(centerX), AVG(centerY) FROM Space;"));
@@ -309,6 +317,26 @@ namespace Preprocessor
 			AddToSummaryReport("AVG regionFormID as Dec", SimpleQuery("SELECT AVG(regionFormID) FROM Region;"));
 			AddToSummaryReport("AVG region spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Region;"));
 			AddToSummaryReport("AVG junkFormID as Dec", SimpleQuery("SELECT AVG(junkFormID) FROM Scrap;"));
+			AddToSummaryReport("AVG X, Y per Space", SimpleQuery("SELECT spaceEditorID, AVG(x), AVG(y) FROM Space JOIN Position ON Position.spaceFormID = Space.spaceFormID GROUP BY Space.spaceFormID ORDER BY isWorldspace DESC, space.spaceEditorID ASC;"));
+
+			List<string> spaceExterns = new List<string>();
+			List<string> spaceChecksums = new List<string>();
+			foreach (Space space in CommonDatabase.GetSpaces(Connection))
+			{
+				List<PointF> coordinates = CommonDatabase.GetSpaceCoordinates(Connection, space);
+				double maxRadius = space.MaxRange / 2d;
+
+				// Find the count of coordinates in the space which are further from the center than the max range
+				int outlierSum = coordinates.Where(c =>
+					Math.Abs(space.CenterX - c.X) > maxRadius ||
+					Math.Abs(space.CenterY - c.Y) > maxRadius).Count();
+
+				spaceExterns.Add($"{space.EditorID}:{outlierSum}");
+				spaceChecksums.Add($"{space.EditorID}:{coordinates.GetHashCode()}");
+			}
+
+			AddToSummaryReport("Entities outside of space range", string.Join("\n", spaceExterns));
+			AddToSummaryReport("Space Coordinate Checksums", string.Join("\n", spaceChecksums));
 
 			File.WriteAllLines(BuildTools.DatabaseSummaryPath, SummaryReport);
 		}

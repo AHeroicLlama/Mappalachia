@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using System.Drawing;
 
 namespace Library
 {
@@ -19,8 +20,11 @@ namespace Library
 		}
 
 		// Returns the results of the given query as a collection of Space
-		public static List<Space> GetSpaces(SqliteConnection connection, string queryText)
+		// All spaces if queryText is null
+		public static List<Space> GetSpaces(SqliteConnection connection, string? queryText = null)
 		{
+			queryText ??= "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC";
+
 			SqliteDataReader reader = GetReader(connection, queryText);
 			List<Space> spaces = new List<Space>();
 
@@ -37,6 +41,23 @@ namespace Library
 			}
 
 			return spaces;
+		}
+
+		// Returns a collection of all X/Y coordinates of the given Space
+		// TODO: Should we convert this to return MapDataPoint, or similar?
+		public static List<PointF> GetSpaceCoordinates(SqliteConnection connection, Space space)
+		{
+			SqliteDataReader reader = GetReader(connection, $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}");
+			List<PointF> coordinates = new List<PointF>();
+
+			while (reader.Read())
+			{
+				coordinates.Add(new PointF(
+					Convert.ToSingle(reader["x"]),
+					Convert.ToSingle(reader["y"])));
+			}
+
+			return coordinates;
 		}
 
 		// Returns the results of the given query as a collection of MapMarker
