@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Library;
+using static Library.Misc;
 
 namespace BackgroundRenderer
 {
@@ -10,6 +11,8 @@ namespace BackgroundRenderer
 		static int JpegQualityWorldspace { get; } = 100;
 
 		static int WorldspaceResolution { get; } = (int)Math.Pow(2, 14); // 16k
+
+		static int CellRenderParallelization { get; } = 8; // Max cells to render in parallel
 
 		static void Main()
 		{
@@ -52,28 +55,52 @@ namespace BackgroundRenderer
 		{
 			spaces ??= GetSpaceInput();
 
-			BuildTools.StdOutWithColor($"Rendering {spaces.Count} space{Misc.Pluralize(spaces)}...", BuildTools.ColorInfo);
+			Stopwatch generalStopwatch = Stopwatch.StartNew();
 
-			Stopwatch stopwatch = Stopwatch.StartNew();
-			int i = 0;
+			// Break the spaces into cells and worldspaces
+			List<Space> cells = spaces.Where(space => !space.IsWorldspace).ToList();
+			List<Space> worldspaces = spaces.Where(space => space.IsWorldspace).ToList();
 
-			foreach (Space space in spaces)
+			BuildTools.StdOutWithColor($"Rendering {worldspaces.Count} worldspace{Misc.Pluralize(worldspaces)} and {cells.Count} cell{Misc.Pluralize(cells)}...", BuildTools.ColorInfo);
+
+			int spacesRendered = 0;
+
+			// Do the serial render of worldspaces first
+			foreach (Space worldspace in worldspaces)
 			{
-				i++;
-				BuildTools.StdOutWithColor($"\nRendering {space.EditorID} (0x{space.FormID.ToHex()}). {i} of {spaces.Count}", BuildTools.ColorInfo);
-
-				RenderSpace(space);
-
-				if (i != spaces.Count)
-				{
-					TimeSpan avgTimePerSpace = stopwatch.Elapsed / i;
-					TimeSpan estTimeRemaining = avgTimePerSpace * (spaces.Count - i);
-					Console.WriteLine($"Est. time remaining: {estTimeRemaining} ({((100d * i) / spaces.Count).ToString("0.00")}% complete)");
-				}
+				BuildTools.StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID})", BuildTools.ColorInfo);
+				RenderSpace(worldspace);
+				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
 			}
 
-			BuildTools.StdOutWithColor($"\nRendering Finished. Press Any Key.", BuildTools.ColorInfo);
+			Stopwatch cellStopwatch = Stopwatch.StartNew();
+
+			// Render cells in parallel
+			// We track the time and provide estimates of time remaining
+			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = CellRenderParallelization }, cell =>
+			{
+				RenderSpace(cell, true);
+				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
+			});
+
+			BuildTools.StdOutWithColor($"\nRendering Finished. {generalStopwatch.Elapsed.ToString(@"hh\:mm\:ss")}. Press Any Key.", BuildTools.ColorInfo);
 			Console.ReadKey();
+		}
+
+		static void AnnounceRenderProgress(List<Space> spaces, Space space, ref int cellsRendered, Stopwatch? stopwatch = null)
+		{
+			int count = Interlocked.Increment(ref cellsRendered);
+
+			double percentRemaining = (100d * count) / spaces.Count;
+			BuildTools.StdOutWithColor($"{space.EditorID} (0x{space.FormID.ToHex()}) Done. ({count}/{spaces.Count} ({percentRemaining.ToString("0.00")}%))", BuildTools.ColorInfo);
+
+			// If this isn't the last item, and we have a timer going
+			if (count != spaces.Count && stopwatch != null)
+			{
+				TimeSpan avgTimePerSpace = stopwatch.Elapsed / count;
+				TimeSpan estTimeRemaining = avgTimePerSpace * (spaces.Count - count);
+				BuildTools.StdOutWithColor($"{estTimeRemaining.ToString(@"hh\:mm\:ss")} remaining", BuildTools.ColorInfo);
+			}
 		}
 
 		// Runs through the process of rendering a cell, opening it, asking the user for corrective input, then storing that as a file
@@ -96,7 +123,7 @@ namespace BackgroundRenderer
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
-				Process renderJob = Process.Start("CMD.exe", $"/C {renderCommand}");
+				Process renderJob = StartProcess(renderCommand);
 				renderJob.WaitForExit();
 				Misc.OpenURI(outputFile);
 
@@ -185,7 +212,7 @@ namespace BackgroundRenderer
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
-				Process renderJob = Process.Start("CMD.exe", $"/C {renderCommand}");
+				Process renderJob = StartProcess(renderCommand);
 				renderJob.WaitForExit();
 				Misc.OpenURI(outputFile);
 
@@ -208,7 +235,7 @@ namespace BackgroundRenderer
 
 		// Renders a space in the normal way, and converts and moves it appropriately.
 		// Worldspaces also see the watermask generated.
-		static void RenderSpace(Space space)
+		static void RenderSpace(Space space, bool silent = false)
 		{
 			int renderResolution = space.IsWorldspace ? WorldspaceResolution : Misc.MapImageResolution;
 			string ddsFile = BuildTools.TempPath + $"{space.EditorID}_render.dds";
@@ -227,18 +254,15 @@ namespace BackgroundRenderer
 			string resizeCommand = $"\"{BuildTools.ImageMagickPath}\" {ddsFile} -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} " +
 						$"-quality {(space.IsWorldspace ? JpegQualityWorldspace : JpegQualityCell)} JPEG:{finalFile}";
 
-			Process render = Process.Start("CMD.exe", "/C " + renderCommand);
+			Process render = StartProcess(renderCommand, silent);
 			render.WaitForExit();
 
-			BuildTools.StdOutWithColor($"Converting and downsampling with ImageMagick...", BuildTools.ColorInfo);
-			Process magickResizeConvert = Process.Start("CMD.exe", "/C " + resizeCommand);
+			Process magickResizeConvert = StartProcess(resizeCommand, silent);
 			magickResizeConvert.WaitForExit();
 
 			// Do the watermask
 			if (space.IsWorldspace)
 			{
-				BuildTools.StdOutWithColor("Rendering Watermask...", BuildTools.ColorInfo);
-
 				string watermaskDDS = BuildTools.TempPath + space.EditorID + "_waterMask.dds";
 				string watermaskFinalFile = BuildTools.WorldPath + space.EditorID + "_waterMask.png";
 
@@ -249,11 +273,10 @@ namespace BackgroundRenderer
 
 				string watermaskResizeCommand = $"\"{BuildTools.ImageMagickPath}\" {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} PNG:{watermaskFinalFile}";
 
-				Process watermaskRender = Process.Start("CMD.exe", "/C " + waterMaskRenderCommand);
+				Process watermaskRender = StartProcess(waterMaskRenderCommand, silent);
 				watermaskRender.WaitForExit();
 
-				BuildTools.StdOutWithColor($"Converting and downsampling with ImageMagick...", BuildTools.ColorInfo);
-				Process magickWatermaskResizeConvert = Process.Start("CMD.exe", "/C " + watermaskResizeCommand);
+				Process magickWatermaskResizeConvert = StartProcess(watermaskResizeCommand, silent);
 				magickWatermaskResizeConvert.WaitForExit();
 			}
 		}

@@ -68,6 +68,8 @@ namespace Library
 
 		static string? solutionPath = null;
 
+		static ReaderWriterLock ErrorLogLock { get; } = new ReaderWriterLock();
+
 		static BuildTools()
 		{
 			if (Directory.Exists(TempPath))
@@ -135,7 +137,15 @@ namespace Library
 		// Appends the text to the error log file
 		public static void AppendToErrorLog(string error)
 		{
-			File.AppendAllLines(ErrorsPath, new List<string>() { error });
+			try
+			{
+				ErrorLogLock.AcquireWriterLock(5000);
+				File.AppendAllLines(ErrorsPath, new List<string>() { error });
+			}
+			finally
+			{
+				ErrorLogLock.ReleaseWriterLock();
+			}
 		}
 
 		public static void StdOutWithColor(string text, ConsoleColor color)

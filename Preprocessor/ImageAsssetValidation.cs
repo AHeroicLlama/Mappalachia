@@ -33,11 +33,11 @@ namespace Preprocessor
 			List<Space> spaces = CommonDatabase.GetSpaces(Connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;");
 
 			// Perform file checks for all spaces
-			spaces.ForEach(ValidateSpace);
+			Parallel.ForEach(spaces, ValidateSpace);
 
 			// Inverse of above, check there are no extraneous files
 			// First check each cell file against a cell in the database
-			foreach (string file in Directory.GetFiles(BuildTools.CellPath))
+			Parallel.ForEach(Directory.GetFiles(BuildTools.CellPath), file =>
 			{
 				string expectedEditorId = Path.GetFileNameWithoutExtension(file);
 
@@ -45,7 +45,7 @@ namespace Preprocessor
 				{
 					FailValidation($"File {file} has no corresponding Cell and should be deleted.");
 				}
-			}
+			});
 
 			// Check the count of images in the cell image folder matches the count of cells in the DB
 			int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
@@ -64,7 +64,7 @@ namespace Preprocessor
 			}
 
 			// Main check for Map Markers
-			mapMarkers.ForEach(ValidateMapMarker);
+			Parallel.ForEach(mapMarkers, ValidateMapMarker);
 
 			// Similarly as above, do the same file count check for map markers
 			int expectedMapMarkerImageFiles = mapMarkers.Count;
