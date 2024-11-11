@@ -1,24 +1,16 @@
 ﻿namespace Library
 {
 	// Represents a Worldspace (WRLD) or Cell (CELL)
-	public class Space : Entity
+	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, double centerX = 0, double centerY = 0, double maxRange = 4096)
+		: Entity(formID, editorID, displayName, isWorldspace ? "WLRD" : "CELL")
 	{
-		public bool IsWorldspace { get; }
+		public bool IsWorldspace { get; } = isWorldspace;
 
-		public double CenterX { get; }
+		public double CenterX { get; } = centerX;
 
-		public double CenterY { get; }
+		public double CenterY { get; } = centerY;
 
-		public double MaxRange { get; }
-
-		public Space(uint formID, string editorID, string displayName, bool isWorldspace, double centerX = 0, double centerY = 0, double maxRange = 4096)
-			: base(formID, editorID, displayName, isWorldspace ? "WLRD" : "CELL")
-		{
-			IsWorldspace = isWorldspace;
-			CenterX = centerX;
-			CenterY = centerY;
-			MaxRange = maxRange;
-		}
+		public double MaxRange { get; } = maxRange;
 
 		public bool IsAppalachia()
 		{

@@ -115,7 +115,7 @@ namespace BackgroundRenderer
 				double scale = resolution / space.MaxRange;
 				double cameraX = space.CenterX;
 				double cameraY = space.CenterY;
-				double cameraZ = GetSpaceCameraHeight(space);
+				int cameraZ = GetSpaceCameraHeight(space);
 				string outputFile = TempPath + $"debug_{space.EditorID}.dds";
 
 				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {resolution} {resolution} " +
@@ -179,7 +179,18 @@ namespace BackgroundRenderer
 
 			while (true)
 			{
-				correctedSpaces.Add(DoSpaceHeightCorrection());
+				Space? correctedSpace = DoSpaceHeightCorrection();
+
+				// If the user aborted this space, don't add it to the list.
+				// Additionally, if we haven't corrected any spaces yet, don't offer to render - just do another space
+				if (correctedSpace != null)
+				{
+					correctedSpaces.Add(correctedSpace);
+				}
+				else if (correctedSpaces.Count == 0)
+				{
+					continue;
+				}
 
 				StdOutWithColor($"Press \"y\" to finish height correction and render the corrected cells.\nPress any other key to correct another cell.", ColorInfo);
 
@@ -195,12 +206,10 @@ namespace BackgroundRenderer
 		}
 
 		// Does the space height correction
-		static Space DoSpaceHeightCorrection()
+		static Space? DoSpaceHeightCorrection()
 		{
 			Space space = GetSingleSpaceInput();
-
-			StdOutWithColor("Enter an estimate of the correct height for the cell, eg 1000:\n", ColorQuestion);
-			int height = int.Parse(Console.ReadLine() ?? "1000");
+			int height = GetSpaceCameraHeight(space);
 
 			// Loop of user estimates new height, render, ask again.
 			while (true)
@@ -217,7 +226,7 @@ namespace BackgroundRenderer
 				renderJob.WaitForExit();
 				Misc.OpenURI(outputFile);
 
-				StdOutWithColor("Was the height correct? Enter \"y\" to save, otherwise enter a new height to try again:\n", ColorQuestion);
+				StdOutWithColor($"Was {height} the correct height? Enter \"y\" to save, \"exit\" to exit, or otherwise enter a new height to try again:\n", ColorQuestion);
 				string input = Console.ReadLine() ?? "1000";
 
 				// The correct crop has been found - save it to a file, do the proper render, and finish.
@@ -228,6 +237,10 @@ namespace BackgroundRenderer
 					File.WriteAllText(correctionPath, height.ToString());
 					StdOutWithColor($"Correction file written to {correctionPath}.\n", ColorInfo);
 					return space;
+				}
+				else if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
+				{
+					return null;
 				}
 
 				height = int.Parse(input);
@@ -326,7 +339,7 @@ namespace BackgroundRenderer
 		}
 
 		// Returns the predetermined cropped height for a cell, otherwise max height
-		public static double GetSpaceCameraHeight(Space space)
+		public static int GetSpaceCameraHeight(Space space)
 		{
 			string cropFile = CellZCorrectionPath + space.EditorID;
 
