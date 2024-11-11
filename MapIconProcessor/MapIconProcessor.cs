@@ -2,12 +2,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Library;
+using static Library.BuildTools;
 
 namespace MapIconProcessor;
 
 class MapIconProcessor
 {
-	static string[] Directories { get; } = Directory.GetDirectories(BuildTools.MapIconExtractPath + "sprites");
+	static string[] Directories { get; } = Directory.GetDirectories(MapIconExtractPath + "sprites");
 
 	static List<string> Errors { get; } = new List<string>();
 
@@ -15,7 +16,7 @@ class MapIconProcessor
 	{
 		Console.Title = "Mappalachia Map Icon Extractor";
 
-		List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(BuildTools.GetNewConnection(), "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
+		List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(GetNewConnection(), "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
 
 		foreach (MapMarker mapMarker in mapMarkers)
 		{
@@ -31,11 +32,11 @@ class MapIconProcessor
 
 		foreach (string error in Errors)
 		{
-			BuildTools.StdOutWithColor(error, BuildTools.ColorError);
-			BuildTools.AppendToErrorLog(error);
+			StdOutWithColor(error, ColorError);
+			AppendToErrorLog(error);
 		}
 
-		BuildTools.StdOutWithColor("Done. Press any key.", BuildTools.ColorInfo);
+		StdOutWithColor("Done. Press any key.", ColorInfo);
 		Console.ReadKey();
 	}
 
@@ -45,13 +46,13 @@ class MapIconProcessor
 	{
 		foreach (string directory in Directories)
 		{
-			Match match = BuildTools.ValidIconFolder.Match(directory);
+			Match match = ValidIconFolder.Match(directory);
 
 			// This appears to be the directory containing this map marker icon - read it in, clean it, and write it back out
 			if (match.Success && match.Groups[1].Value == mapMarker.Icon)
 			{
 				string markerPath = directory + @"\1.svg";
-				string targetPath = BuildTools.MapMarkerPath + mapMarker.Icon + ".svg";
+				string targetPath = MapMarkerPath + mapMarker.Icon + ".svg";
 
 				XmlDocument document = new XmlDocument();
 				document.Load(markerPath);

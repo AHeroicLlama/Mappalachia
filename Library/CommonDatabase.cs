@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.Sqlite;
-using System.Drawing;
 
 namespace Library
 {
@@ -45,14 +44,14 @@ namespace Library
 
 		// Returns a collection of all X/Y coordinates of the given Space
 		// TODO: Should we convert this to return MapDataPoint, or similar?
-		public static List<PointF> GetSpaceCoordinates(SqliteConnection connection, Space space)
+		public static List<Instance> GetSpaceInstances(SqliteConnection connection, Space space)
 		{
 			SqliteDataReader reader = GetReader(connection, $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}");
-			List<PointF> coordinates = new List<PointF>();
+			List<Instance> coordinates = new List<Instance>();
 
 			while (reader.Read())
 			{
-				coordinates.Add(new PointF(
+				coordinates.Add(new Instance(
 					Convert.ToSingle(reader["x"]),
 					Convert.ToSingle(reader["y"])));
 			}

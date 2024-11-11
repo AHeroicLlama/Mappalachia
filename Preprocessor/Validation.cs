@@ -1,4 +1,4 @@
-﻿using Library;
+﻿using static Library.BuildTools;
 
 namespace Preprocessor
 {
@@ -8,10 +8,10 @@ namespace Preprocessor
 
 		static void FailValidation(string reason)
 		{
-			BuildTools.StdOutWithColor($"Validation failure: {reason}", BuildTools.ColorError);
+			StdOutWithColor($"Validation failure: {reason}", ColorError);
 			ValidationFailures.Add(reason);
 
-			BuildTools.AppendToErrorLog(reason);
+			AppendToErrorLog(reason);
 		}
 
 		static void ConcludeValidation()
@@ -29,13 +29,13 @@ namespace Preprocessor
 					Console.WriteLine($"* {failure}");
 				}
 
-				Console.WriteLine($"\nError details stored to {BuildTools.ErrorsPath}");
+				Console.WriteLine($"\nError details stored to {ErrorsPath}");
 
 				Console.ResetColor();
 			}
 			else
 			{
-				BuildTools.StdOutWithColor("Validation passed!", ConsoleColor.Green);
+				StdOutWithColor("Validation passed!", ConsoleColor.Green);
 			}
 		}
 	}

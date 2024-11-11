@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Xml;
 using Library;
+using static Library.BuildTools;
 
 namespace Preprocessor
 {
@@ -37,7 +38,7 @@ namespace Preprocessor
 
 			// Inverse of above, check there are no extraneous files
 			// First check each cell file against a cell in the database
-			Parallel.ForEach(Directory.GetFiles(BuildTools.CellPath), file =>
+			Parallel.ForEach(Directory.GetFiles(CellPath), file =>
 			{
 				string expectedEditorId = Path.GetFileNameWithoutExtension(file);
 
@@ -49,7 +50,7 @@ namespace Preprocessor
 
 			// Check the count of images in the cell image folder matches the count of cells in the DB
 			int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
-			int actualCellImageFiles = Directory.GetFiles(BuildTools.CellPath).Length;
+			int actualCellImageFiles = Directory.GetFiles(CellPath).Length;
 			if (actualCellImageFiles != expectedCellImageFiles)
 			{
 				FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
@@ -57,7 +58,7 @@ namespace Preprocessor
 
 			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map
 			int expectedWorldspaceImageFiles = (spaces.Where(space => space.IsWorldspace).Count() * 3) + spaces.Where(space => space.IsAppalachia()).Count();
-			int actualWorldspaceImageFiles = Directory.GetFiles(BuildTools.WorldPath).Length;
+			int actualWorldspaceImageFiles = Directory.GetFiles(WorldPath).Length;
 			if (actualWorldspaceImageFiles != expectedWorldspaceImageFiles)
 			{
 				FailValidation($"Too {(actualWorldspaceImageFiles < expectedWorldspaceImageFiles ? "few" : "many")} files in the worldspace image folder. Expected {expectedWorldspaceImageFiles}, found {actualWorldspaceImageFiles}");
@@ -68,7 +69,7 @@ namespace Preprocessor
 
 			// Similarly as above, do the same file count check for map markers
 			int expectedMapMarkerImageFiles = mapMarkers.Count;
-			int actualMapMarkerImageFiles = Directory.GetFiles(BuildTools.MapMarkerPath).Length;
+			int actualMapMarkerImageFiles = Directory.GetFiles(MapMarkerPath).Length;
 			if (actualMapMarkerImageFiles != expectedMapMarkerImageFiles)
 			{
 				FailValidation($"Too {(actualMapMarkerImageFiles < expectedMapMarkerImageFiles ? "few" : "many")} mapmarkers in the mapmarker image folder. Expected {expectedMapMarkerImageFiles}, found {actualMapMarkerImageFiles}");
@@ -187,7 +188,7 @@ namespace Preprocessor
 		static void ValidateSpace(Space space)
 		{
 			Console.WriteLine($"Background image(s): {space.EditorID}");
-			string filePath = (space.IsWorldspace ? BuildTools.WorldPath : BuildTools.CellPath) + space.EditorID + BackgroundImageFileType;
+			string filePath = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + BackgroundImageFileType;
 
 			if (!ValidateSpaceImageExists(space, filePath))
 			{
@@ -201,8 +202,8 @@ namespace Preprocessor
 			// There are several additional files for Worldspaces
 			if (space.IsWorldspace)
 			{
-				string watermaskFilePath = BuildTools.WorldPath + space.EditorID + "_waterMask" + MaskImageFileType;
-				string menuMapPath = BuildTools.WorldPath + space.EditorID + "_menu" + BackgroundImageFileType;
+				string watermaskFilePath = WorldPath + space.EditorID + "_waterMask" + MaskImageFileType;
+				string menuMapPath = WorldPath + space.EditorID + "_menu" + BackgroundImageFileType;
 
 				if (!ValidateSpaceImageExists(space, watermaskFilePath) | !ValidateSpaceImageExists(space, menuMapPath))
 				{
@@ -215,7 +216,7 @@ namespace Preprocessor
 				// Appalachia specifically also has the 'military' map
 				if (space.IsAppalachia())
 				{
-					string militaryMapPath = BuildTools.WorldPath + space.EditorID + "_military" + BackgroundImageFileType;
+					string militaryMapPath = WorldPath + space.EditorID + "_military" + BackgroundImageFileType;
 
 					if (!ValidateSpaceImageExists(space, militaryMapPath))
 					{
@@ -230,7 +231,7 @@ namespace Preprocessor
 		static void ValidateMapMarker(MapMarker mapMarker)
 		{
 			Console.WriteLine($"Map Icon: {mapMarker.Icon}");
-			string filePath = BuildTools.MapMarkerPath + mapMarker.Icon + MapMarkerImageFileType;
+			string filePath = MapMarkerPath + mapMarker.Icon + MapMarkerImageFileType;
 
 			if (!ValidateMapMarkerImageExists(mapMarker, filePath))
 			{

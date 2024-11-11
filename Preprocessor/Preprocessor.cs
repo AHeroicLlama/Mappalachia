@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using System.Drawing;
 using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
+using static Library.BuildTools;
 
 namespace Preprocessor
 {
@@ -16,7 +16,7 @@ namespace Preprocessor
 			BOOL,
 		}
 
-		static SqliteConnection Connection { get; } = BuildTools.GetNewConnection();
+		static SqliteConnection Connection { get; } = GetNewConnection();
 
 		static List<string> SummaryReport { get; } = new List<string>();
 
@@ -29,15 +29,15 @@ namespace Preprocessor
 			Stopwatch stopwatch = new Stopwatch();
 
 			// If the database already exists, we may only want to run validations, so we give some options
-			if (File.Exists(BuildTools.DatabasePath))
+			if (File.Exists(DatabasePath))
 			{
-				BuildTools.StdOutWithColor(
+				StdOutWithColor(
 					"Enter:" +
 					"\n1:Build and preprocess database, then run full validation suite" +
 					"\n2:Run both validations without building" +
 					"\n3:Run data validation only" +
 					"\n4:Run image asset validation only",
-					BuildTools.ColorQuestion);
+					ColorQuestion);
 
 				char input = Console.ReadKey().KeyChar;
 				Console.WriteLine();
@@ -76,7 +76,7 @@ namespace Preprocessor
 				Preprocess();
 			}
 
-			BuildTools.StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", BuildTools.ColorInfo);
+			StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", ColorInfo);
 			Console.ReadKey();
 		}
 
@@ -84,7 +84,7 @@ namespace Preprocessor
 		{
 			string gameVersion = GetValidatedGameVersion();
 
-			BuildTools.StdOutWithColor($"Building Mappalachia database at {BuildTools.DatabasePath}\n", BuildTools.ColorInfo);
+			StdOutWithColor($"Building Mappalachia database at {DatabasePath}\n", ColorInfo);
 
 			Connection.Close();
 			Cleanup();
@@ -117,13 +117,13 @@ namespace Preprocessor
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
-			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {BuildTools.MapMarkersToRemove.ToSqliteCollection()};");
-			SimpleQuery(BuildTools.AddMissingMarkersQuery);
-			SimpleQuery(BuildTools.CorrectDuplicateMarkersQuery);
+			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {MapMarkersToRemove.ToSqliteCollection()};");
+			SimpleQuery(AddMissingMarkersQuery);
+			SimpleQuery(CorrectDuplicateMarkersQuery);
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
-			TransformColumn(BuildTools.CorrectFissureLabels, "MapMarker", "label");
-			TransformColumn(BuildTools.CorrectCommonBadLabels, "MapMarker", "label");
-			TransformColumn(BuildTools.GetCorrectedMarkerIcon, "MapMarker", "label", "icon");
+			TransformColumn(CorrectFissureLabels, "MapMarker", "label");
+			TransformColumn(CorrectCommonBadLabels, "MapMarker", "label");
+			TransformColumn(GetCorrectedMarkerIcon, "MapMarker", "label", "icon");
 			AddForeignKey("MapMarker", "spaceFormID", "INTEGER", "Space", "spaceFormID");
 
 			// Remove map marker remnants from Position table
@@ -154,10 +154,10 @@ namespace Preprocessor
 
 			// Discard spaces which are not accessible, and output a list of those
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
-			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {BuildTools.DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
 			deletedRows.Sort();
 			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
-			File.WriteAllLines(BuildTools.DiscardedCellsPath, deletedRows);
+			File.WriteAllLines(DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding a temporary maximum estimate for the center x/y and max 2d range
 			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX REAL, centerY REAL, maxRange REAL);");
@@ -166,7 +166,7 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
 
 			// Read in scale/offset corrections for Spaces
-			foreach (string file in Directory.GetFiles(BuildTools.CellXYScaleCorrectionPath))
+			foreach (string file in Directory.GetFiles(CellXYScaleCorrectionPath))
 			{
 				string[] values = File.ReadAllLines(file);
 
@@ -204,8 +204,8 @@ namespace Preprocessor
 			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
 
 			// Fix erroneous data which is exported from xEdit with values somehow misaligned from in-game
-			SimpleQuery(BuildTools.CorrectLockLevelQuery);
-			SimpleQuery(BuildTools.CorrectPrimitiveShapeQuery);
+			SimpleQuery(CorrectLockLevelQuery);
+			SimpleQuery(CorrectPrimitiveShapeQuery);
 
 			TransformColumn(ReduceLockLevel, "Position", "lockLevel");
 
@@ -253,22 +253,22 @@ namespace Preprocessor
 
 			GenerateSummary();
 
-			BuildTools.StdOutWithColor($"Build and Preprocess Done.\n", BuildTools.ColorInfo);
+			StdOutWithColor($"Build and Preprocess Done.\n", ColorInfo);
 		}
 
 		static void GenerateSummary()
 		{
-			BuildTools.StdOutWithColor($"\nGenerating Summary Report at {BuildTools.DatabaseSummaryPath}\n", BuildTools.ColorInfo);
+			StdOutWithColor($"\nGenerating Summary Report at {DatabaseSummaryPath}\n", ColorInfo);
 
 			Connection.Close();
-			AddToSummaryReport("MD5 Checksum", BuildTools.GetMD5Hash(BuildTools.DatabasePath));
+			AddToSummaryReport("MD5 Checksum", GetMD5Hash(DatabasePath));
 			Connection.Open();
 
-			AddToSummaryReport("Size", (new FileInfo(BuildTools.DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
+			AddToSummaryReport("Size", (new FileInfo(DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
 			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
-			AddToSummaryReport("CSV Imported with SQLite Version", BuildTools.SqliteTools("--version"));
-			AddToSummaryReport("Tables", BuildTools.SqliteTools(BuildTools.DatabasePath + " .tables"));
-			AddToSummaryReport("Indices", BuildTools.SqliteTools(BuildTools.DatabasePath + " .indices"));
+			AddToSummaryReport("CSV Imported with SQLite Version", SqliteTools("--version"));
+			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
+			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
 			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
@@ -323,7 +323,7 @@ namespace Preprocessor
 			List<string> spaceChecksums = new List<string>();
 			foreach (Space space in CommonDatabase.GetSpaces(Connection))
 			{
-				List<PointF> coordinates = CommonDatabase.GetSpaceCoordinates(Connection, space);
+				List<Instance> coordinates = CommonDatabase.GetSpaceInstances(Connection, space);
 				double maxRadius = space.MaxRange / 2d;
 
 				// Find the count of coordinates in the space which are further from the center than the max range
@@ -338,7 +338,7 @@ namespace Preprocessor
 			AddToSummaryReport("Entities outside of space range", string.Join("\n", spaceExterns));
 			AddToSummaryReport("Space Coordinate Checksums", string.Join("\n", spaceChecksums));
 
-			File.WriteAllLines(BuildTools.DatabaseSummaryPath, SummaryReport);
+			File.WriteAllLines(DatabaseSummaryPath, SummaryReport);
 		}
 
 		// Executes any query against the open database.
@@ -397,8 +397,8 @@ namespace Preprocessor
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			string path = BuildTools.SqlitePath;
-			List<string> args = new List<string>() { BuildTools.DatabasePath, ".mode csv", $".import {BuildTools.Fo76EditOutputPath}{tableName}.csv {tableName}" };
+			string path = SqlitePath;
+			List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {Fo76EditOutputPath}{tableName}.csv {tableName}" };
 
 			Process process = Process.Start(path, args);
 			process.WaitForExit();
@@ -516,15 +516,15 @@ namespace Preprocessor
 			string formid;
 
 			// Try and extract the formid from its normal/proper presentation
-			if (BuildTools.SignatureFormIDRegex.IsMatch(input))
+			if (SignatureFormIDRegex.IsMatch(input))
 			{
-				formid = BuildTools.SignatureFormIDRegex.Match(input).Groups[1].Value;
+				formid = SignatureFormIDRegex.Match(input).Groups[1].Value;
 			}
 
 			// Less ideally, we find an 8-char hex value without the signature
-			else if (BuildTools.FormIDRegex.IsMatch(input))
+			else if (FormIDRegex.IsMatch(input))
 			{
-				formid = BuildTools.FormIDRegex.Match(input).Groups[0].Value;
+				formid = FormIDRegex.Match(input).Groups[0].Value;
 			}
 
 			// We found no matches. We can only hope it was already converted
@@ -540,7 +540,7 @@ namespace Preprocessor
 		// Prefers WRLD over CELL
 		static string CaptureSpaceFormID(string input)
 		{
-			MatchCollection matches = BuildTools.SpaceFormIDRegex.Matches(input);
+			MatchCollection matches = SpaceFormIDRegex.Matches(input);
 
 			if (matches.Count == 0)
 			{
@@ -571,54 +571,54 @@ namespace Preprocessor
 				return input;
 			}
 
-			return BuildTools.RemoveTrailingReferenceRegex.Match(input).Groups[1].Value;
+			return RemoveTrailingReferenceRegex.Match(input).Groups[1].Value;
 		}
 
 		// Returns the true display name, from a string which is expected to contain the editorid, displayname, and sig/referenceFormID
 		static string CaptureQuotedTerm(string displayName)
 		{
 			// Doesn't look like we need to do anything
-			if (!BuildTools.SignatureFormIDRegex.IsMatch(displayName))
+			if (!SignatureFormIDRegex.IsMatch(displayName))
 			{
 				return displayName;
 			}
 
-			return BuildTools.QuotedTermRegex.Match(displayName).Groups[1].Value;
+			return QuotedTermRegex.Match(displayName).Groups[1].Value;
 		}
 
 		// Returns the numeric quantity of the component for the given quantity name
 		static string GetComponentQuantity(string component, string quantity)
 		{
-			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, BuildTools.GetNewConnection()).First();
+			return SimpleQuery($"SELECT \"{quantity}\" FROM Component where component = '{component}'", true, GetNewConnection()).First();
 		}
 
 		// Returns the total spawn weight of spawn pool for the class at the location
 		static string GetSumNPCSpawnWeight(string locationFormID, string npcClass)
 		{
-			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, BuildTools.GetNewConnection()).First();
+			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, GetNewConnection()).First();
 		}
 
 		// Returns and corrects the NPC Name present in the raw input string
 		static string GetNPCName(string value)
 		{
 			// Doesn't look like we need to do anything
-			if (!BuildTools.NPCRegex.IsMatch(value))
+			if (!NPCRegex.IsMatch(value))
 			{
 				return string.Empty;
 			}
 
 			// Extract only the part containing the NPC name
-			string name = BuildTools.NPCRegex.Match(value).Groups[2].Value;
+			string name = NPCRegex.Match(value).Groups[2].Value;
 
 			// Add a space if it looks like it needs it
-			if (BuildTools.TitleCaseAddSpaceRegex.IsMatch(name))
+			if (TitleCaseAddSpaceRegex.IsMatch(name))
 			{
-				GroupCollection matchesForSpace = BuildTools.TitleCaseAddSpaceRegex.Match(name).Groups;
+				GroupCollection matchesForSpace = TitleCaseAddSpaceRegex.Match(name).Groups;
 				name = matchesForSpace[1].Value + " " + matchesForSpace[2].Value;
 			}
 
 			// Refer to the hardcodings replacement dictionary
-			if (BuildTools.NPCNameCorrection.TryGetValue(name, out string? correction))
+			if (NPCNameCorrection.TryGetValue(name, out string? correction))
 			{
 				name = correction;
 			}
@@ -630,18 +630,18 @@ namespace Preprocessor
 		static string GetNPCClass(string value)
 		{
 			// Doesn't look like we need to do anything
-			if (!BuildTools.NPCRegex.IsMatch(value))
+			if (!NPCRegex.IsMatch(value))
 			{
 				return string.Empty;
 			}
 
-			return BuildTools.NPCRegex.Match(value).Groups[1].Value;
+			return NPCRegex.Match(value).Groups[1].Value;
 		}
 
 		// Returns the corrected label for the given map marker label
 		static string? CorrectLabelsByDict(string label)
 		{
-			if (BuildTools.MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
+			if (MarkerLabelCorrection.TryGetValue(label, out string? correctedLabel))
 			{
 				return correctedLabel;
 			}
@@ -659,12 +659,12 @@ namespace Preprocessor
 		static string ReduceLockLevel(string lockLevel)
 		{
 			// If the lock level does not need changing
-			if (!BuildTools.CorrectLockLevelRegex.IsMatch(lockLevel))
+			if (!CorrectLockLevelRegex.IsMatch(lockLevel))
 			{
 				return lockLevel;
 			}
 
-			return BuildTools.CorrectLockLevelRegex.Match(lockLevel).Groups[2].Value;
+			return CorrectLockLevelRegex.Match(lockLevel).Groups[2].Value;
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input
@@ -674,11 +674,11 @@ namespace Preprocessor
 
 			if (gameVersion == null)
 			{
-				BuildTools.StdOutWithColor($"Unable to determine game version from exe at {BuildTools.GameExePath}.", BuildTools.ColorInfo);
+				StdOutWithColor($"Unable to determine game version from exe at {GameExePath}.", ColorInfo);
 				return GetGameVersionFromUser();
 			}
 
-			BuildTools.StdOutWithColor($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)", BuildTools.ColorQuestion);
+			StdOutWithColor($"Is \"{gameVersion}\" the correct game version?\n(Enter y/n)", ColorQuestion);
 
 			while (true)
 			{
@@ -701,13 +701,13 @@ namespace Preprocessor
 		// Return the game version string on the FO76 exe, assuming it is present else null
 		static string? GetGameVersionFromExe()
 		{
-			return File.Exists(BuildTools.GameExePath) ? FileVersionInfo.GetVersionInfo(BuildTools.GameExePath).FileVersion : null;
+			return File.Exists(GameExePath) ? FileVersionInfo.GetVersionInfo(GameExePath).FileVersion : null;
 		}
 
 		// Asks the user to enter game version, and returns the entered line
 		static string GetGameVersionFromUser()
 		{
-			BuildTools.StdOutWithColor("\nPlease enter the correct game version string:", BuildTools.ColorQuestion);
+			StdOutWithColor("\nPlease enter the correct game version string:", ColorQuestion);
 			return Console.ReadLine() ?? string.Empty;
 		}
 
@@ -726,10 +726,10 @@ namespace Preprocessor
 		// Removes old DB files and outputs
 		static void Cleanup()
 		{
-			File.Delete(BuildTools.DatabasePath);
-			File.Delete(BuildTools.DatabasePath + "-journal");
-			File.Delete(BuildTools.DiscardedCellsPath);
-			File.Delete(BuildTools.DatabaseSummaryPath);
+			File.Delete(DatabasePath);
+			File.Delete(DatabasePath + "-journal");
+			File.Delete(DiscardedCellsPath);
+			File.Delete(DatabaseSummaryPath);
 		}
 	}
 }
