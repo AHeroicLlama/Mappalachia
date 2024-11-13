@@ -1,11 +1,11 @@
 MD5 Checksum
-7994FABD76B6D1A6C53D8A702296BE12
+5C1B5C3B0743195EC4236028605F424B
 
 Size
 410580 KB
 
 Built At UTC
-11/11/2024 00:01:35
+12/11/2024 23:43:24
 
 CSV Imported with SQLite Version
 3.47.0 2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e (64-bit)
@@ -29,7 +29,7 @@ AMSHQ02,AMS Headquarters Basement Lab,6230427,0,-615.997924804685,-2510.40039062
 AVRMedicalCenter01,AVR Medical Center,29371,0,2840.3534545898438,-659.23010253906,7155.9249267578125
 AlleghenyAsylum01,Fort Defiance,36074,0,-137.154541015625,1546.5288391113304,15686.69287109375
 ArktosPharmaLab01,Arktos Pharma Biome Lab,4672969,0,-4944.806078314781,-1102.6002574563026,16223.70148062706
-ArktosPharmaLabDungeon,Arktos Pharma Biome Lab,6395422,0,-4949.542455911636,-1090.7593134641647,16261.5925014019
+ArktosPharmaLabDungeon,Arktos Pharma Biome Lab,6395422,0,-4944.806078314781,-1102.6002574563026,16223.70148062706
 BelchingBetty01,Belching Betty,3796963,0,-1294.651611328125,12787.121856689453,26527.174255371094
 BigBendTunnel01,Big Bend Tunnels,61691,0,-1257.5374829620123,17387.680460490286,34052.63907901943
 BlackwaterMine01,Blackwater Mine,1234114,0,2054.9086459875107,-1377.962768554685,17144.442811250687
@@ -87,7 +87,7 @@ MTR08LodeBaring02,Abandoned Mine Shaft Kittery,2790574,0,4449.165995262097,8557.
 MamaDolceProcessing01,Mama Dolce's Food Processing,1919669,0,839.750610351565,1280,5932
 MiresEye01,Mire's Eye,5986760,0,1055.722412109375,-51.117309570315,7403.3986816406305
 MonongahMine01,Monongah Mine,5807774,0,-8662.9647494331,8920.527848355472,16414.693450033665
-MonongahMissileSilo01,Missile Silo Bravo,4467145,0,-8244.854783281684,-29405.96375133097,14541.45707347989
+MonongahMissileSilo01,Missile Silo Bravo,4467145,0,-8230.255656719208,-29429.517979621887,14524.91352558136
 MonongahPowerPlant01,Monongah Power Plant,4012309,0,-1218.86706542969,2479.4588317871094,9702.21508789062
 MorgantownAirportTerminal02,Morgantown Airport Terminal,4308071,0,84.848510742185,39.05078125,5555.5783691406305
 MorgantownApartment01,Shadowbreeze Apartments,4443790,0,-387.68798828125,-309.89111328125,2427.8671875
@@ -148,7 +148,7 @@ StormVisitorCenterInt,Shenandoah Visitor Center,7259773,0,1825.521484375,2632.71
 StormWeatherLab01,Vault 63 Meteorology Sector,7159495,0,5779.374877929685,5042.607177734375,7323.7834472656305
 SugarGrove01,Sugar Grove,299465,0,1284.001098632815,4656.063720703125,6668.12744140625
 SugarGrove02,Sugar Grove Data Center,5685042,0,512.6552389487628,-294.3861841112388,1631.2275097072106
-SugarGroveMissileSilo01,Missile Silo Alpha,17140,0,-8221.018699884415,-29425.82319688797,14521.218742847444
+SugarGroveMissileSilo01,Missile Silo Alpha,17140,0,-8230.255656719208,-29429.517979621887,14524.91352558136
 SurlysShack01,Surly's Shack,7623495,0,21.309873044490644,-12.858872078359257,1135.313034042716
 TheCraterCore01,The Crater Core,4235969,0,-4084.940008878708,-313.9677684307086,5442.428575992584
 TheNukashine01,The Nukashine,4667615,0,564.242935180664,899.784569382665,2102.88838076591
@@ -200,7 +200,7 @@ XPDAC02AquariumDungeon,Aquarium of the Atlantic,7601415,0,-2056.750732421875,-29
 XPDAC02Boardwalk,The Boardwalk,6868081,0,-56.90353465080261,-9554.447897076609,25868.278342008587
 XPDAC02Pier,Showman's Pier,6868080,0,647.2490234375,4351.75146484375,10894.5
 XPDAC03CityHall,City Hall,6901870,0,-21.442487239837646,4347.021221160889,7445.957557678223
-XPDAC03CommunityCenter,Community Center,6901871,0,1203.2006765007973,2663.3272985219955,7731.620974779129
+XPDAC03CommunityCenter,Community Center,6901871,0,1166.806842148304,2578.324195086956,7793.490493178368
 XPDAC03CommunityCenterDungeon,Community Center,7839492,0,1166.806842148304,2578.324195086956,7793.490493178368
 XPDAC03FloodedCityCenter,Flooded City Center,6893679,0,-577.5972230434418,-3999.431583762169,25495.63099122047
 XPDPitt01Foundry,The Foundry,6439022,0,1735.249755859375,4360.00244140625,13886.59423828125
@@ -219,7 +219,7 @@ Avg Bounds X/Y/Z
 22.84638930599617,16.781065702651407,16.583616685720642
 
 Avg CenterX, CenterY
-339.5040254088472,548.2236668352851
+339.36415686082614,547.563597375434
 
 Avg Rotation
 4.3310753346817625
@@ -1352,192 +1352,192 @@ XPDRttP01SteelTowerRoof:20
 XPDRttP01SteelTowerUpperFloors:3
 
 Space Coordinate Checksums
-APPALACHIA:59941933
-AMSHQ01:2606490
-AMSHQ02:23458411
-AVRMedicalCenter01:9799115
-AlleghenyAsylum01:21083178
-ArktosPharmaLab01:55530882
-ArktosPharmaLabDungeon:30015890
-BelchingBetty01:1707556
-BigBendTunnel01:15368010
-BlackwaterMine01:4094363
-BlueRidgeOffice01:36849274
-BurdetteManorBasement01:63208015
-BurningMine01:32001227
-Burrows01:19575591
-CharGen01:41962596
-CharGen02:42119052
-CharGen03:43527150
-CharGen04:56200037
-CharGen05:36038289
-CharlestonCapitolBuilding02:55909147
-CharlestonCapitolCourthouse01:33420276
-CharlestonCapitolDungeon:32347029
-CraterWarRoom01:22687807
-CraterWatchstation01:2863675
-CultistCave01:25773083
-DaggersDen01:30631159
-DaggersDen02:7244975
-DuncanDuncanRobotics01:65204782
-DyerChemical01:49972132
-EasternRegionalPen01:47096010
-EmmettMountainDisposalSite01:21210914
-EnclaveResearchFacility01:56680499
-FortAtlas01:40362448
-FortAtlasDungeon01:27717712
-FoundationInt01:48132822
-FoundationSupplyRoom01:30542218
-FraternityHouse01:6444509
-FraternityHouse02:58000584
-FreeStatesBunker01:52243212
-FreeStatesBunker02:426867
-FreeStatesBunker03:3841804
-FreeStatesBunker04:34576242
-FreeStatesBunker06:42750725
-FreeStatesBunker07:49212206
-GarrahanMiningHQ01:40256670
-GarrahanMiningHQDungeon:26765710
-GauleyMine01:39564799
-GlassedCavern01:20538874
-GlassedCavernDungeon:50632145
-GraftonPawnShop01:53036123
-GraftonSteelUnderground01:7563067
-HarpersFerryDungeon01:958745
-HornwrightHQ01:8628710
-HornwrightSafeRoom01:10549531
-KerwoodMine01:27836922
-LewisandSonsFarmingSupply01:49205706
-LittleRobsHideout01:40198173
-LousMine01:26239245
-MILEBlueRidgeHQ:34826618
-MTR08LodeBaring01:45004109
-MTR08LodeBaring02:2383799
-MamaDolceProcessing01:21454193
-MiresEye01:58870012
-MonongahMine01:60068066
-MonongahMissileSilo01:3741682
-MonongahPowerPlant01:33675143
-MorgantownAirportTerminal02:34640832
-MorgantownApartment01:43332040
-MorgantownHighSchool01:54444047
-MorgantownHighSchoolDungeon:20234383
-MountBlairWarehouseBasement01:47891719
-NPECultistCave:28372289
-NPEVault7601:54024015
-NVEShelter01:16454088
-NVEVault7601:13869071
-NukaColaQuantumPlant01:57712780
-OrwellOrchardsShelter01:49652976
-OverseersHome01:44223604
-PoseidonPlant01:62468121
-PoseidonPlant02:25342185
-RadioResearchCenter01:26753075
-RaiderCave02:39451090
-RaiderRaidTrailerInt:19515494
-RiversideManor01:41421720
-RobCoResearchCenter01:37251161
-RobcoExperimentalCache01:66824994
-RollinsLaborCamp01:64554036
-SamBlackwellBunker02:44115416
-SamBlackwellsDeathclawCave:61494432
-SettlerBugOutCave:16578980
-SheltersCave01:14993092
-SheltersCave02:720107
-SheltersClaimCenter01:6480969
-SheltersFlatlands:58328727
-SheltersHighStakes:55196503
-SheltersHousingDevelopment:27006480
-SheltersMissileSilo:41731733
-SheltersNuclearTestBunker:40041277
-SheltersPittTrench01:24827179
-SheltersRootCellar:22118023
-SheltersSoundStage:64844482
-SheltersSummerCamp:46729429
-SheltersToxicWasteland:17911681
-SheltersVaultAtrium01:26987408
-SheltersVaultLivingQuarters01:41560081
-SheltersVaultReception01:38496415
-SheltersVaultServerRoom01:10923418
-SheltersVaultStorageFacility:31201899
-SheltersVaultStorageRoom01:12381635
-SpruceKnobCampground01:44325851
-SpruceKnobMissileSilo01:63388340
-StormBrownHouse:33624151
-StormCultistTunnels:34181910
-StormHallucinogeniccave:39201736
-StormHighKnobFireTower01:17271312
-StormPresidentialBunker:21224086
-StormRadioBunkerInt:56799051
-StormStolzManor:41429416
-StormVault63AtriumLower:37320431
-StormVault63AtriumUpper:339559
-StormVault63Entrance:3056034
-StormVisitorCenterInt:27504314
-StormWeatherLab01:46212239
-SugarGrove01:13256970
-SugarGrove02:52203868
-SugarGroveMissileSilo01:72766
-SurlysShack01:654897
-TheCraterCore01:5894079
-TheNukashine01:53046711
-TheRoseRoom01:7658356
-TheRustyPick01:1816341
-TheWayward01:16347077
-ThunderMtPowerPlant01:12905972
-TopOfTheWorld01:49044892
-TunnelOfLoveMineshaft01:38750844
-UCB01:13213278
-UCB02:51810644
-UncannyCaverns01:63642613
-UncannyCaverns02:35912612
-UncannyCavernsDungeon:54778057
-VTecAgCenter01:23240469
-ValleyGalleria01:7837633
-VanLoweTaxidermy01:3429838
-Vault51Dungeon:30868550
-Vault63Organics:9381496
-Vault79Entrance:17324607
-Vault79GoldVaultOperations:21703739
-Vault79Main:61115925
-Vault94Dungeon:13172414
-Vault94DungeonGECK:51442863
-Vault94Entrance:60332585
-Vault96Dungeon:6122357
-VaultTecU01:55101221
-WVLumberCo01:26148945
-WatogaCivicCenter01:34013913
-WatogaCivicCenterDungeon:37689768
-WatogaEmergencyServices01:3663598
-WatogaHighSchool01:32972388
-WatogaHighSchoolDungeon:28316044
-WatogaMunicipalCenter01:53517805
-WatogaMunicipalCenter02:11898202
-WatogaTowers01:39974954
-WatogaUnderground01:24230272
-WendigoCave01:16745860
-WestTek01:16495015
-WestTek02:14237410
-WhitespringBunker01:61027830
-WhitespringMall01:12379565
-WhitespringRefuge01:44307222
-XPDAC01Casino:63220684
-XPDAC01EntertainmentDistrict:32115247
-XPDAC01NightClub:20601768
-XPDAC02Aquarium:51198184
-XPDAC02AquariumDungeon:58130472
-XPDAC02Boardwalk:53412201
-XPDAC02Pier:10947764
-XPDAC03CityHall:31421019
-XPDAC03CommunityCenter:14353717
-XPDAC03CommunityCenterDungeon:62074597
-XPDAC03FloodedCityCenter:21800467
-XPDPitt01Foundry:61986480
-XPDPitt01FoundryDungeon:21007413
-XPDPitt01Industrial:54848996
-XPDPitt02Sanctum:23878916
-XPDPitt02Trench:13583655
-XPDRttP01SteelTower:55144039
-XPDRttP01SteelTowerRoof:26534308
-XPDRttP01SteelTowerUpperFloors:37482183
+APPALACHIA:2606490
+AMSHQ01:23458411
+AMSHQ02:9799115
+AVRMedicalCenter01:21083178
+AlleghenyAsylum01:55530882
+ArktosPharmaLab01:30015890
+ArktosPharmaLabDungeon:1707556
+BelchingBetty01:15368010
+BigBendTunnel01:4094363
+BlackwaterMine01:36849274
+BlueRidgeOffice01:63208015
+BurdetteManorBasement01:32001227
+BurningMine01:19575591
+Burrows01:41962596
+CharGen01:42119052
+CharGen02:43527150
+CharGen03:56200037
+CharGen04:36038289
+CharGen05:55909147
+CharlestonCapitolBuilding02:33420276
+CharlestonCapitolCourthouse01:32347029
+CharlestonCapitolDungeon:22687807
+CraterWarRoom01:2863675
+CraterWatchstation01:25773083
+CultistCave01:30631159
+DaggersDen01:7244975
+DaggersDen02:65204782
+DuncanDuncanRobotics01:49972132
+DyerChemical01:47096010
+EasternRegionalPen01:21210914
+EmmettMountainDisposalSite01:56680499
+EnclaveResearchFacility01:40362448
+FortAtlas01:27717712
+FortAtlasDungeon01:48132822
+FoundationInt01:30542218
+FoundationSupplyRoom01:6444509
+FraternityHouse01:58000584
+FraternityHouse02:52243212
+FreeStatesBunker01:426867
+FreeStatesBunker02:3841804
+FreeStatesBunker03:34576242
+FreeStatesBunker04:42750725
+FreeStatesBunker06:49212206
+FreeStatesBunker07:40256670
+GarrahanMiningHQ01:26765710
+GarrahanMiningHQDungeon:39564799
+GauleyMine01:20538874
+GlassedCavern01:50632145
+GlassedCavernDungeon:53036123
+GraftonPawnShop01:7563067
+GraftonSteelUnderground01:958745
+HarpersFerryDungeon01:8628710
+HornwrightHQ01:10549531
+HornwrightSafeRoom01:27836922
+KerwoodMine01:49205706
+LewisandSonsFarmingSupply01:40198173
+LittleRobsHideout01:26239245
+LousMine01:34826618
+MILEBlueRidgeHQ:45004109
+MTR08LodeBaring01:2383799
+MTR08LodeBaring02:21454193
+MamaDolceProcessing01:58870012
+MiresEye01:60068066
+MonongahMine01:3741682
+MonongahMissileSilo01:33675143
+MonongahPowerPlant01:34640832
+MorgantownAirportTerminal02:43332040
+MorgantownApartment01:54444047
+MorgantownHighSchool01:20234383
+MorgantownHighSchoolDungeon:47891719
+MountBlairWarehouseBasement01:28372289
+NPECultistCave:54024015
+NPEVault7601:16454088
+NVEShelter01:13869071
+NVEVault7601:57712780
+NukaColaQuantumPlant01:49652976
+OrwellOrchardsShelter01:44223604
+OverseersHome01:62468121
+PoseidonPlant01:25342185
+PoseidonPlant02:26753075
+RadioResearchCenter01:39451090
+RaiderCave02:19515494
+RaiderRaidTrailerInt:41421720
+RiversideManor01:37251161
+RobCoResearchCenter01:66824994
+RobcoExperimentalCache01:64554036
+RollinsLaborCamp01:44115416
+SamBlackwellBunker02:61494432
+SamBlackwellsDeathclawCave:16578980
+SettlerBugOutCave:14993092
+SheltersCave01:720107
+SheltersCave02:6480969
+SheltersClaimCenter01:58328727
+SheltersFlatlands:55196503
+SheltersHighStakes:27006480
+SheltersHousingDevelopment:41731733
+SheltersMissileSilo:40041277
+SheltersNuclearTestBunker:24827179
+SheltersPittTrench01:22118023
+SheltersRootCellar:64844482
+SheltersSoundStage:46729429
+SheltersSummerCamp:17911681
+SheltersToxicWasteland:26987408
+SheltersVaultAtrium01:41560081
+SheltersVaultLivingQuarters01:38496415
+SheltersVaultReception01:10923418
+SheltersVaultServerRoom01:31201899
+SheltersVaultStorageFacility:12381635
+SheltersVaultStorageRoom01:44325851
+SpruceKnobCampground01:63388340
+SpruceKnobMissileSilo01:33624151
+StormBrownHouse:34181910
+StormCultistTunnels:39201736
+StormHallucinogeniccave:17271312
+StormHighKnobFireTower01:21224086
+StormPresidentialBunker:56799051
+StormRadioBunkerInt:41429416
+StormStolzManor:37320431
+StormVault63AtriumLower:339559
+StormVault63AtriumUpper:3056034
+StormVault63Entrance:27504314
+StormVisitorCenterInt:46212239
+StormWeatherLab01:13256970
+SugarGrove01:52203868
+SugarGrove02:72766
+SugarGroveMissileSilo01:654897
+SurlysShack01:5894079
+TheCraterCore01:53046711
+TheNukashine01:7658356
+TheRoseRoom01:1816341
+TheRustyPick01:16347077
+TheWayward01:12905972
+ThunderMtPowerPlant01:49044892
+TopOfTheWorld01:38750844
+TunnelOfLoveMineshaft01:13213278
+UCB01:51810644
+UCB02:63642613
+UncannyCaverns01:35912612
+UncannyCaverns02:54778057
+UncannyCavernsDungeon:23240469
+VTecAgCenter01:7837633
+ValleyGalleria01:3429838
+VanLoweTaxidermy01:30868550
+Vault51Dungeon:9381496
+Vault63Organics:17324607
+Vault79Entrance:21703739
+Vault79GoldVaultOperations:61115925
+Vault79Main:13172414
+Vault94Dungeon:51442863
+Vault94DungeonGECK:60332585
+Vault94Entrance:6122357
+Vault96Dungeon:55101221
+VaultTecU01:26148945
+WVLumberCo01:34013913
+WatogaCivicCenter01:37689768
+WatogaCivicCenterDungeon:3663598
+WatogaEmergencyServices01:32972388
+WatogaHighSchool01:28316044
+WatogaHighSchoolDungeon:53517805
+WatogaMunicipalCenter01:11898202
+WatogaMunicipalCenter02:39974954
+WatogaTowers01:24230272
+WatogaUnderground01:16745860
+WendigoCave01:16495015
+WestTek01:14237410
+WestTek02:61027830
+WhitespringBunker01:12379565
+WhitespringMall01:44307222
+WhitespringRefuge01:63220684
+XPDAC01Casino:32115247
+XPDAC01EntertainmentDistrict:20601768
+XPDAC01NightClub:51198184
+XPDAC02Aquarium:58130472
+XPDAC02AquariumDungeon:53412201
+XPDAC02Boardwalk:10947764
+XPDAC02Pier:31421019
+XPDAC03CityHall:14353717
+XPDAC03CommunityCenter:62074597
+XPDAC03CommunityCenterDungeon:21800467
+XPDAC03FloodedCityCenter:61986480
+XPDPitt01Foundry:21007413
+XPDPitt01FoundryDungeon:54848996
+XPDPitt01Industrial:23878916
+XPDPitt02Sanctum:13583655
+XPDPitt02Trench:55144039
+XPDRttP01SteelTower:26534308
+XPDRttP01SteelTowerRoof:37482183
+XPDRttP01SteelTowerUpperFloors:1795329
 
