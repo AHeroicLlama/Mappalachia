@@ -87,6 +87,20 @@ namespace Library
 			"Fissure Site Tau",
 		};
 
+		// Spaces which appear to be copy/pastes or alternates of the same thing, and therefore can and should share scaling/adjustments
+		public static List<List<string>> SisterSpaces { get; } = new List<List<string>>()
+		{
+			new List<string>() { "ArktosPharmaLab01", "ArktosPharmaLabDungeon" },
+			new List<string>() { "CharGen01", "CharGen02", "CharGen03", "CharGen04", "CharGen05", "NPEVault7601", "NVEVault7601" },
+			new List<string>() { "GlassedCavern01", "GlassedCavernDungeon" },
+			new List<string>() { "SugarGroveMissileSilo01", "MonongahMissileSilo01", "SpruceKnobMissileSilo01" },
+			new List<string>() { "WatogaCivicCenter01", "WatogaCivicCenterDungeon" },
+			new List<string>() { "WatogaHighSchool01", "WatogaHighSchoolDungeon" },
+			new List<string>() { "XPDAC02Aquarium", "XPDAC02AquariumDungeon" },
+			new List<string>() { "XPDAC03CommunityCenter", "XPDAC03CommunityCenterDungeon" },
+			new List<string>() { "XPDPitt01Foundry", "XPDPitt01FoundryDungeon" },
+		};
+
 		// Monongah Workshop (0x003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it
 		public static string AddMissingMarkersQuery { get; } = "INSERT INTO MapMarker (spaceFormID, x, y, label, icon) VALUES(2480661, 44675.304687, 73761.358125, 'Monongah Power Plant Yard', 'PublicWorkshopMarker');";
 

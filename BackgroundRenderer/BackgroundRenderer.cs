@@ -324,8 +324,7 @@ namespace BackgroundRenderer
 				StdOutWithColor("\nEnter the EditorID of the space:", ColorQuestion);
 				string input = Console.ReadLine() ?? string.Empty;
 
-				string query = $"SELECT * FROM Space WHERE spaceEditorID = '{input}';";
-				Space? space = CommonDatabase.GetSpaces(GetNewConnection(), query).FirstOrDefault();
+				Space? space = CommonDatabase.GetSpaceByEditorID(GetNewConnection(), input);
 
 				if (space == null)
 				{

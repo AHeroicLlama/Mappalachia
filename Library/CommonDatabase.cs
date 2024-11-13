@@ -42,9 +42,32 @@ namespace Library
 			return spaces;
 		}
 
+		// Returns the Space instance with the editorID from the database
+		public static Space? GetSpaceByEditorID(SqliteConnection connection, string editorID)
+		{
+			string queryText = $"SELECT * FROM Space WHERE spaceEditorID = '{editorID}'";
+
+			SqliteDataReader reader = GetReader(connection, queryText);
+			reader.Read();
+
+			if (!reader.HasRows)
+			{
+				return null;
+			}
+
+			return new Space(
+				Convert.ToUInt32(reader["spaceFormID"]),
+				(string)reader["spaceEditorID"],
+				(string)reader["spaceDisplayName"],
+				Convert.ToBoolean(reader["isWorldspace"]),
+				Convert.ToDouble(reader["centerX"]),
+				Convert.ToDouble(reader["centerY"]),
+				Convert.ToDouble(reader["maxRange"]));
+		}
+
 		// Returns a collection of all X/Y coordinates of the given Space
 		// TODO: Should we convert this to return MapDataPoint, or similar?
-		public static List<Instance> GetSpaceInstances(SqliteConnection connection, Space space)
+		public static List<Instance> GetInstancesFromSpace(SqliteConnection connection, Space space)
 		{
 			SqliteDataReader reader = GetReader(connection, $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}");
 			List<Instance> coordinates = new List<Instance>();
@@ -60,8 +83,10 @@ namespace Library
 		}
 
 		// Returns the results of the given query as a collection of MapMarker
-		public static List<MapMarker> GetMapMarkers(SqliteConnection connection, string queryText)
+		public static List<MapMarker> GetMapMarkers(SqliteConnection connection, string? queryText = null)
 		{
+			queryText ??= "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;";
+
 			SqliteDataReader reader = GetReader(connection, queryText);
 			List<MapMarker> mapMarkers = new List<MapMarker>();
 

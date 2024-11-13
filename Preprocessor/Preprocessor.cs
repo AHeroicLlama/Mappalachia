@@ -177,6 +177,18 @@ namespace Preprocessor
 				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE spaceEditorID = '{Path.GetFileNameWithoutExtension(file)}'");
 			}
 
+			// For spaces which are sister spaces, we copy the scaling of the first onto the others
+			foreach (List<string> spaceCollection in SisterSpaces)
+			{
+				string parentEditorID = spaceCollection.First();
+				Space? parent = CommonDatabase.GetSpaceByEditorID(Connection, parentEditorID) ?? throw new Exception($"Unable to find Space {parentEditorID}");
+
+				foreach (string childEditorID in spaceCollection.Skip(1))
+				{
+					SimpleQuery($"UPDATE Space SET centerX = {parent.CenterX}, centerY = {parent.CenterY}, maxRange = {parent.MaxRange} WHERE spaceEditorID = '{childEditorID}'");
+				}
+			}
+
 			// Add the cell padding
 			SimpleQuery($"UPDATE Space SET maxRange = maxRange + {CellPadding} WHERE isWorldspace = 0");
 
@@ -323,7 +335,7 @@ namespace Preprocessor
 			List<string> spaceChecksums = new List<string>();
 			foreach (Space space in CommonDatabase.GetSpaces(Connection))
 			{
-				List<Instance> coordinates = CommonDatabase.GetSpaceInstances(Connection, space);
+				List<Instance> coordinates = CommonDatabase.GetInstancesFromSpace(Connection, space);
 				double maxRadius = space.MaxRange / 2d;
 
 				// Find the count of coordinates in the space which are further from the center than the max range

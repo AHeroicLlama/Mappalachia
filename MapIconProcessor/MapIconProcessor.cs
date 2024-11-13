@@ -16,7 +16,7 @@ class MapIconProcessor
 	{
 		Console.Title = "Mappalachia Map Icon Extractor";
 
-		List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(GetNewConnection(), "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
+		List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(GetNewConnection());
 
 		foreach (MapMarker mapMarker in mapMarkers)
 		{
