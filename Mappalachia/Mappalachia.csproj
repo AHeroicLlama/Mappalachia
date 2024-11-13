@@ -83,7 +83,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="xcopy $(SolutionDir)\Assets\data\* $(TargetDir)\data\ /y /s&#xD;&#xA;xcopy $(SolutionDir)\Assets\font\* $(TargetDir)\font\ /y /s&#xD;&#xA;xcopy $(SolutionDir)\Assets\img\* $(TargetDir)\img\ /y /s&#xD;&#xA;&#xD;&#xA;xcopy $(SolutionDir)\Assets\data\* $(ProjectDir)\publish\data\ /y /s&#xD;&#xA;xcopy $(SolutionDir)\Assets\font\* $(ProjectDir)\publish\font\ /y /s&#xD;&#xA;xcopy $(SolutionDir)\Assets\img\* $(ProjectDir)\publish\img\ /y /s" />
+	  <Exec Command="xcopy $(SolutionDir)\Assets\* $(TargetDir)\ /y /s&#xD;&#xA;xcopy $(SolutionDir)\Assets\* $(ProjectDir)\publish\ /y /s" />
 	</Target>
 
 </Project>

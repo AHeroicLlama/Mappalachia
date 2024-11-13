@@ -265,7 +265,7 @@ namespace BackgroundRenderer
 				$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
 				$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
-			string resizeCommand = $"\"{ImageMagickPath}\" {ddsFile} -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} " +
+			string resizeCommand = $"magick {ddsFile} -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} " +
 						$"-quality {(space.IsWorldspace ? JpegQualityWorldspace : JpegQualityCell)} JPEG:{finalFile}";
 
 			Process render = StartProcess(renderCommand, silent);
@@ -285,7 +285,7 @@ namespace BackgroundRenderer
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
 					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
-				string watermaskResizeCommand = $"\"{ImageMagickPath}\" {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} PNG:{watermaskFinalFile}";
+				string watermaskResizeCommand = $"magick {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} PNG:{watermaskFinalFile}";
 
 				Process watermaskRender = StartProcess(waterMaskRenderCommand, silent);
 				watermaskRender.WaitForExit();

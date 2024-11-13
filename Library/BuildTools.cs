@@ -58,8 +58,6 @@ namespace Library
 
 		public static string GameExePath { get; } = $"{GamePath}Fallout76.exe";
 
-		public static string ImageMagickPath { get; } = @"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe";
-
 		public static ConsoleColor ColorInfo { get; } = ConsoleColor.DarkYellow;
 
 		public static ConsoleColor ColorQuestion { get; } = ConsoleColor.Blue;
