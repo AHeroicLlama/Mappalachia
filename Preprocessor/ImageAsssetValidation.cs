@@ -135,7 +135,7 @@ namespace Preprocessor
 			}
 		}
 
-		static void ValidateImageDimensions(Space space, string path)
+		static void ValidateImageDimensions(string path)
 		{
 			using Image? image = Image.FromFile(path);
 
@@ -171,7 +171,7 @@ namespace Preprocessor
 			}
 		}
 
-		static void ValidateSVG(MapMarker marker, string path)
+		static void ValidateSVG(string path)
 		{
 			try
 			{
@@ -195,7 +195,7 @@ namespace Preprocessor
 				return;
 			}
 
-			ValidateImageDimensions(space, filePath);
+			ValidateImageDimensions(filePath);
 			ValidateImageFileSize(space, filePath);
 			ValidateImageBlackPx(space, filePath);
 
@@ -210,8 +210,8 @@ namespace Preprocessor
 					return;
 				}
 
-				ValidateImageDimensions(space, watermaskFilePath);
-				ValidateImageDimensions(space, menuMapPath);
+				ValidateImageDimensions(watermaskFilePath);
+				ValidateImageDimensions(menuMapPath);
 
 				// Appalachia specifically also has the 'military' map
 				if (space.IsAppalachia())
@@ -223,7 +223,7 @@ namespace Preprocessor
 						return;
 					}
 
-					ValidateImageDimensions(space, militaryMapPath);
+					ValidateImageDimensions(militaryMapPath);
 				}
 			}
 		}
@@ -239,7 +239,7 @@ namespace Preprocessor
 			}
 
 			ValidateMapMarkerFileSize(mapMarker, filePath);
-			ValidateSVG(mapMarker, filePath);
+			ValidateSVG(filePath);
 		}
 	}
 }
