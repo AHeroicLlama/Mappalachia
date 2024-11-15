@@ -1,38 +1,43 @@
 # Rendering map backgrounds
 
 ### Prerequisites and assumptions
-* You have already [built the database](Ingest.md)
+* You have already [built the database](Preprocessor.md)
 * A copy of Fallout 76 installed on your machine
 * An installation of Visual Studio
 * An installation of [ImageMagick](https://imagemagick.org/script/download.php)
 * An installation of [Paint.NET](https://www.getpaint.net/download.html)
-* A release of [fo76utils](https://github.com/fo76utils/fo76utils), specifically the render utility
+* A release of [fo76utils](https://github.com/fo76utils/fo76utils)
 
 ### Note
-Background image rendering is optional. If you need the images present for debugging, take them from a release. You should only need to run this step if you believe the cells or worldspaces have changed significantly since a game release. It is not recommended to re-render all spaces unless completely necessary. The database summary will indicate if a space has changed significantly, and the [Image Asset Validator](ImageAssetValidation.md) will identify that all required files are at least present.
+Background image rendering is optional. If you need the images present for debugging, take them from a release. You should only need to run this step if the cells or worldspaces have changed since a game release.
 
 ## Setup
-At the root of the repository (beside the `readme.md`), create the folder `FO76Utils\`. Extract [a release of fo76utils](https://github.com/fo76utils/fo76utils/releases) inside here. We only need `render.exe` and the 3 .DLLs prefixed 'lib' which it requires. You can delete any other files if you wish. The code described here makes calls to this render tool, which does all the heavy lifting for the rendering.<br/>
-ImageMagick is used to convert DDS renders to JPG, and for downscaling where required. In the Background Render project, the path to the current installation of ImageMagick is hardcoded. You may need to adjust these paths to target your installation version.<br/>
+At the root of the repository, create the folder `Utilities\fo76utils`. Extract [a release of fo76utils](https://github.com/fo76utils/fo76utils/releases) inside here. The code described here makes calls to the render tool, which does all the heavy lifting for the rendering.<br/>
+ImageMagick is used to convert DDS renders to JPG, and for downscaling where required. It is assumed that you followed the normal installation which added image magick to the 'Path' system environment variable.<br/>
+Paint.NET is recommended to be installed but is only needed for X/Y coordinate correction, not normal rendering.
 
-## Rendering all Cells and Worldspaces
-In the main `Mappalachia.sln`, build and run the `BackgroundRenderer` project. It will prompt you to press enter to render all spaces, otherwise you may paste a space-separated list of EditorIDs of specific spaces you wish to render.<br/>
-View the `summary.txt` from the database build process in git to easily find new EditorIDs.<br/>
+## Rendering Cells and Worldspaces
+In the main `Mappalachia.sln`, build and run the `BackgroundRenderer` project and select option 1. It will prompt you to press enter to render all spaces, otherwise you may paste a space-separated list of EditorIDs of specific spaces you wish to render.<br/>
 The background renderer will connect to the database to identify which spaces should be rendered, therefore the database must be up to date and compiled.<br/>
-The background renderer will also need to access Fallout 76 game assets directly from your installation in order to render them. If your Fallout 76 is installed in a non-standard path, edit the `fo76DataPath` string accordingly before building.<br/>
-The renderer will use fo76utils to render the images, then ImageMagick to convert them. The outputted files will be placed directly in the necessary `img/` and `img/cell/` folders.<br/>
+The background renderer will also need to access Fallout 76 game assets directly from your installation in order to render them. If your Fallout 76 is installed in a non-standard path, edit the `Library.BuildTools.GamePath` string accordingly before building.<br/>
+The renderer will use fo76utils to render the images, then ImageMagick to convert them. The outputted files will be placed in the `Assets\img\` folder.<br/>
 
-Note: The Appalachia worldspace render takes *a lot* of computing power. (16k at 2x SSAA downscaled to 4k). If necessary, edit the value of `worldspaceRenderResolution` to render straight to 4k.<br/>
-Note: If there are errors in the batch process, a file `errors.txt` will be written describing what happened.<br/>
+## Correcting the X/Y offset, zoom, or Z height of renders
 
-## Water Mask
-Running the Background Renderer will also generate a second Appalachia DDS with custom lighting and water coloring and hidden foliage meshes titled `Appalachia_waterMask.dds` - the purpose of this is to be used to form the water mask overlay png.<br/>
-While the DDS will be automatically generated by the program and placed in the `img/` folder, to complete the remaining steps you should open it in Paint.NET.<br/>
-In Paint.NET, select the Paint bucket tool, change the flood mode to global, and the tolerance to 50%. Change the color to 0x0000FF (pure blue), then fill the water by selecting the center of a large water body. Now change to the Magic wand tool, again with a global flood mode and tolerance of 50%, select the same body of water, which should select all water bodies. Press Ctrl+I to invert your selection, then delete the selection, leaving only the water in near-pure blue.<br/>
-Now resize the 16k image down to 4k: Ctrl+R > By percentage > 25% > OK.<br/>
-Finally save the image as a PNG at maximum quality, as `img/Appalachia_waterMask.png`.<br/>
-All DDS files should be removed before deploying to end users.<br/>
+### X/Y Offset & Zoom
+To ensure quality maps, we must ensure that the view of plotted cells is correctly centered and zoomed onto the view of the cell contents. This cannot always be automatically done, as Bethesda sometimes leave assets far outside the playable area.<br/>
+
+Selecting option 2 in the background renderer will guide you through a CLI wizard which helps correct this. It is recommended to assign Paint.NET as the default program for .jpg files - the tool will generate a quick render of the cell, then ask you to draw a box around the true cell contents, and enter the position and dimensions of that area. Once inputted, the tool will write a file to `BackgroundRenderer\Corrections\XY_Scale\`. This file is read by the Preprocessor, to correct for the positioning of the cell (both its render and its plots.)<br/>
+
+If you have amended a cell this way, you must rebuild the database to incorporate the new correction, and then re-render the cell background.
+
+### Z Crop
+Many cells have a roof or ceiling with occludes the view of the cell contents when viewed from above. In order to get the best possible view of the cell, we crop in just below the obstruction, revealing the view of the cell (or at least the top floor, where applicable). This data is not stored in the database, as it is only necessary for the background renderer.<br/>
+
+Select option 3 when running the Background Renderer to enter a wizard to help find and store the correct offset. This process simply consists of estimating the height, rendering an example, and repeating until a good height is found. The correct height once confirmed is stored at `BackgroundRenderer\Corrections\Z\`.<br/>
+
+The wizard will prompt you to re-render the cell properly once the correct Z crop is found.
 
 ### Next steps
-You may now wish to validate the exported images with the [Image Asset Validator](ImageAssetValidation.md), or also optionally [extract the map marker icons](IconExtraction.md) if not already.<br/>
+You may now wish to validate the exported images with the validation functionality of the [Preprocessor](Preprocessor.md), or also optionally [extract the map marker icons](IconExtraction.md) if not already.<br/>
 Otherwise, you can now move on to development of the actual [end-user GUI program, Mappalachia](GUI.md).
