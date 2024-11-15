@@ -113,7 +113,7 @@ namespace Library
 			using FileStream fileStream = File.OpenRead(filePath);
 
 			byte[] hash = MD5.Create().ComputeHash(fileStream);
-			return BitConverter.ToString(hash).Replace("-", string.Empty);
+			return Convert.ToHexString(hash).Replace("-", string.Empty);
 		}
 
 		// Calls sqlitetools (sqlite3.exe) with arguments and returns the output

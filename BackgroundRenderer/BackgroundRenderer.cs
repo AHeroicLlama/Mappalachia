@@ -11,7 +11,7 @@ namespace BackgroundRenderer
 
 		static int JpegQualityWorldspace { get; } = 100;
 
-		static int WorldspaceResolution { get; } = (int)Math.Pow(2, 14); // 16k
+		static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
 		static int CellRenderParallelization { get; } = 8; // Max cells to render in parallel
 
@@ -251,7 +251,7 @@ namespace BackgroundRenderer
 		// Worldspaces also see the watermask generated.
 		static void RenderSpace(Space space, bool silent = false)
 		{
-			int renderResolution = space.IsWorldspace ? WorldspaceResolution : Misc.MapImageResolution;
+			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Misc.MapImageResolution;
 			string ddsFile = TempPath + $"{space.EditorID}_render.dds";
 			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + ".jpg";
 			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;

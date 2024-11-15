@@ -40,6 +40,8 @@ namespace Library
 
 		public static Regex ValidIconFolder { get; } = new Regex("DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
+		public static string MapMarkerIconInitialFileName { get; } = "1.svg";
+
 		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Animal Cave", "Hopewell Cave" },
@@ -107,10 +109,10 @@ namespace Library
 		// Hemlock Holes Maintenance is just "Hemlock Holes" in the data, but we can't just correct it like the other misnamed map markers, because there is also a legitimate "Hemlock Holes"
 		public static string CorrectDuplicateMarkersQuery { get; } = "UPDATE MapMarker set label = 'Hemlock Holes Maintenance' WHERE label = 'Hemlock Holes' AND icon = 'FactoryMarker';";
 
-		// For an unknown reason, some enitities in xEdit have this invalid lock level
+		// For an unknown reason, some entities in xEdit have this invalid lock level
 		public static string CorrectLockLevelQuery { get; } = "UPDATE Position SET lockLevel = 'Novice (Level 0)' WHERE lockLevel = 'Opens Door';";
 
-		// For an unknown reason, some enitities in xEdit have this invalid primitive shape
+		// For an unknown reason, some entities in xEdit have this invalid primitive shape
 		public static string CorrectPrimitiveShapeQuery { get; } = "UPDATE Position SET primitiveShape = 'Box' WHERE primitiveShape = '7';";
 
 		// Assumes PascalCased names will already have had spaces added

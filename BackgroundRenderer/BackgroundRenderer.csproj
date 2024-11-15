@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Corrections\XY_Scale\**" />
+    <EmbeddedResource Remove="Corrections\XY_Scale\**" />
+    <None Remove="Corrections\XY_Scale\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="stylecop.json" />
   </ItemGroup>
 

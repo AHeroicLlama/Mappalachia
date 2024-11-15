@@ -13,10 +13,8 @@ FO76Edit is not distributed in this repository and you will need to grab it onli
 The official version of FO76Edit is [available on NexusMods](https://www.nexusmods.com/fallout76/mods/30).<br/>
 
 ### Launching FO76Edit
-In the FO76Edit folder, you will find `SteamLaunch.bat`. Assuming you now have `FO76Edit64.exe` placed here and have Fallout 76 installed in the default Steam install location, you will be able to execute this batch file to fire up FO76Edit correctly.<br/>
-If your FO76Edit is under a different name, or your install location is different, please edit the script appropriately first.<br/>
-<br/>
 Once in FO76Edit you will be prompted with which ESM to load. Select SeventySix.esm and hit OK. Wait for the message "Background Loader: finished".<br/>
+If your copy of Fallout 76 is not installed with Steam in the default location, launch FO76Edit64.exe with the argument `-D:"your\path\to\Fallout76\Data"`.
 
 ### Running the export scripts
 Right click on SeventySix.esm in the tree on the left and select 'Apply Script...'.<br/>

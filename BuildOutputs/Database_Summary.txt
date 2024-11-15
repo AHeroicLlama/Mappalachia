@@ -1,11 +1,11 @@
 MD5 Checksum
-300BFBE12864C94E28CB9C7F6F5B4DA3
+AA7E8B997E714C6262884DC09ADFE319
 
 Size
 410576 KB
 
 Built At UTC
-14/11/2024 20:37:46
+15/11/2024 18:53:00
 
 CSV Imported with SQLite Version
 3.47.0 2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e (64-bit)
@@ -20,7 +20,7 @@ indexInstance            indexSpace               sqlite_autoindex_Meta_1
 indexLocation            indexStandard
 
 Game Version
-1.7.15.10
+1.7.15.12
 
 Spaces
 APPALACHIA,Appalachia,2480661,1,715.7447814941406,137.44873046875,577170.9634399414
