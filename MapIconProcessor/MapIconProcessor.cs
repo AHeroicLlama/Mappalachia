@@ -46,12 +46,12 @@ class MapIconProcessor
 	{
 		foreach (string directory in Directories)
 		{
-			Match match = ValidIconFolder.Match(directory);
+			Match match = Hardcodings.ValidIconFolder.Match(directory);
 
 			// This appears to be the directory containing this map marker icon - read it in, clean it, and write it back out
 			if (match.Success && match.Groups[1].Value == mapMarker.Icon)
 			{
-				string markerPath = directory + $"\\{MapMarkerIconInitialFileName}";
+				string markerPath = directory + $"\\{Hardcodings.MapMarkerIconInitialFileName}";
 				string targetPath = MapMarkerPath + mapMarker.Icon + ".svg";
 
 				XmlDocument document = new XmlDocument();

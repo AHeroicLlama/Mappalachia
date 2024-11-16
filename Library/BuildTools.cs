@@ -66,6 +66,8 @@ namespace Library
 
 		static string? solutionPath = null;
 
+		public static int Kilobyte { get; } = (int)Math.Pow(2, 10);
+
 		static ReaderWriterLock ErrorLogLock { get; } = new ReaderWriterLock();
 
 		static BuildTools()

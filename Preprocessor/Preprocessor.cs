@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
+using static Library.Hardcodings;
 
 namespace Preprocessor
 {
@@ -276,7 +277,7 @@ namespace Preprocessor
 			AddToSummaryReport("MD5 Checksum", GetMD5Hash(DatabasePath));
 			Connection.Open();
 
-			AddToSummaryReport("Size", (new FileInfo(DatabasePath).Length / Misc.Kilobyte).ToString() + " KB");
+			AddToSummaryReport("Size", (new FileInfo(DatabasePath).Length / BuildTools.Kilobyte).ToString() + " KB");
 			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
 			AddToSummaryReport("CSV Imported with SQLite Version", SqliteTools("--version"));
 			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));

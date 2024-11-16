@@ -140,9 +140,9 @@ namespace Preprocessor
 			using Image? image = Image.FromFile(path);
 
 			// Verify the file dimensions are within the pre-set ranges
-			if (image.Width != Misc.MapImageResolution || image.Height != Misc.MapImageResolution)
+			if (image.Width != Common.MapImageResolution || image.Height != Common.MapImageResolution)
 			{
-				FailValidation($"Image {path} is not the expected dimension of {Misc.MapImageResolution}x{Misc.MapImageResolution}");
+				FailValidation($"Image {path} is not the expected dimension of {Common.MapImageResolution}x{Common.MapImageResolution}");
 			}
 		}
 
@@ -153,7 +153,7 @@ namespace Preprocessor
 				return;
 			}
 
-			int fileSizeKB = (int)(new FileInfo(path).Length / Misc.Kilobyte);
+			int fileSizeKB = (int)(new FileInfo(path).Length / 1024);
 
 			if (fileSizeKB < MinRenderedCellImageSizeKB || fileSizeKB > MaxRenderedCellImageSizeKB)
 			{

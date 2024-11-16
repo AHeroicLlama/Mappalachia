@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Library;
 using static Library.BuildTools;
-using static Library.Misc;
 
 namespace BackgroundRenderer
 {
@@ -62,7 +61,7 @@ namespace BackgroundRenderer
 			List<Space> cells = spaces.Where(space => !space.IsWorldspace).ToList();
 			List<Space> worldspaces = spaces.Where(space => space.IsWorldspace).ToList();
 
-			StdOutWithColor($"Rendering {worldspaces.Count} worldspace{Misc.Pluralize(worldspaces)} and {cells.Count} cell{Misc.Pluralize(cells)}...", ColorInfo);
+			StdOutWithColor($"Rendering {worldspaces.Count} worldspace{Common.Pluralize(worldspaces)} and {cells.Count} cell{Common.Pluralize(cells)}...", ColorInfo);
 
 			int spacesRendered = 0;
 
@@ -111,7 +110,7 @@ namespace BackgroundRenderer
 			{
 				Space space = GetSingleSpaceInput();
 
-				double resolution = Misc.MapImageResolution;
+				double resolution = Common.MapImageResolution;
 				double scale = resolution / space.MaxRange;
 				double cameraX = space.CenterX;
 				double cameraY = space.CenterY;
@@ -126,7 +125,7 @@ namespace BackgroundRenderer
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
 				renderJob.WaitForExit();
-				Misc.OpenURI(outputFile);
+				Common.OpenURI(outputFile);
 
 				StdOutWithColor("Using Paint.NET or similar, draw a bounding box around the correct cell contents and take a note of the Top-Left X and Y pixel coordinate, plus the width and height of the selected area.\nSee Developer help documentation for more info.", ColorInfo);
 
@@ -216,15 +215,15 @@ namespace BackgroundRenderer
 			{
 				string outputFile = TempPath + $"debug_{space.EditorID}_Z{height}.dds";
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Misc.MapImageResolution} {Misc.MapImageResolution} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.MapImageResolution} {Common.MapImageResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {Misc.MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {Common.MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
 				renderJob.WaitForExit();
-				Misc.OpenURI(outputFile);
+				Common.OpenURI(outputFile);
 
 				StdOutWithColor($"Was {height} the correct height? Enter \"y\" to save, \"exit\" to exit, or otherwise enter a new height to try again:\n", ColorQuestion);
 				string input = Console.ReadLine() ?? "1000";
@@ -251,7 +250,7 @@ namespace BackgroundRenderer
 		// Worldspaces also see the watermask generated.
 		static void RenderSpace(Space space, bool silent = false)
 		{
-			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Misc.MapImageResolution;
+			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
 			string ddsFile = TempPath + $"{space.EditorID}_render.dds";
 			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + ".jpg";
 			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;
@@ -263,9 +262,9 @@ namespace BackgroundRenderer
 				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {(space.IsWorldspace ? "271" : "303")} -ssaa 2 " +
 				$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
-				$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+				$"-xm " + string.Join(" -xm ", Hardcodings.RenderExcludeModels);
 
-			string resizeCommand = $"magick {ddsFile} -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} " +
+			string resizeCommand = $"magick {ddsFile} -resize {Common.MapImageResolution}x{Common.MapImageResolution} " +
 						$"-quality {(space.IsWorldspace ? JpegQualityWorldspace : JpegQualityCell)} JPEG:{finalFile}";
 
 			Process render = StartProcess(renderCommand, silent);
@@ -283,9 +282,9 @@ namespace BackgroundRenderer
 				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {watermaskDDS} {renderResolution} {renderResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
-					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+					$"-xm " + string.Join(" -xm ", Hardcodings.RenderExcludeModels);
 
-				string watermaskResizeCommand = $"magick {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Misc.MapImageResolution}x{Misc.MapImageResolution} PNG:{watermaskFinalFile}";
+				string watermaskResizeCommand = $"magick {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Common.MapImageResolution}x{Common.MapImageResolution} PNG:{watermaskFinalFile}";
 
 				Process watermaskRender = StartProcess(waterMaskRenderCommand, silent);
 				watermaskRender.WaitForExit();
@@ -350,6 +349,22 @@ namespace BackgroundRenderer
 			{
 				return (int)Math.Pow(2, 16);
 			}
+		}
+
+		// Starts the given process from CMD. Returns the Process reference. Discards the std out if silent is true.
+		public static Process StartProcess(string command, bool silent = false)
+		{
+			ProcessStartInfo processStartInfo = new ProcessStartInfo()
+			{
+				FileName = "CMD.exe",
+				Arguments = "/C " + command,
+				RedirectStandardOutput = silent,
+				RedirectStandardError = silent,
+			};
+
+			Process? process = Process.Start(processStartInfo);
+
+			return process ?? throw new Exception("Failed to start process with command " + command);
 		}
 	}
 }

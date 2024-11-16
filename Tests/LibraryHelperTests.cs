@@ -66,9 +66,9 @@ namespace Tests
 			List<object> one = new List<object>() { new object() };
 			List<object> many = new List<object>() { new object(), new object(), new object(), new object() };
 
-			string emptyPlural = Misc.Pluralize(empty);
-			string onePlural = Misc.Pluralize(one);
-			string manyPlural = Misc.Pluralize(many);
+			string emptyPlural = Common.Pluralize(empty);
+			string onePlural = Common.Pluralize(one);
+			string manyPlural = Common.Pluralize(many);
 
 			Assert.AreEqual(emptyPlural, "s");
 			Assert.AreEqual(onePlural, string.Empty);
@@ -89,12 +89,6 @@ namespace Tests
 			Assert.AreEqual(zeroHex, "00000000");
 			Assert.AreEqual(maxHex, "FFFFFFFF");
 			Assert.AreEqual(appalchiaHex, "0025DA15");
-		}
-
-		[TestMethod]
-		public void MiscTest()
-		{
-			Assert.AreEqual(Misc.Kilobyte, 1024);
 		}
 	}
 }
