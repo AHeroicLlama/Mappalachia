@@ -4,6 +4,7 @@ namespace Library
 {
 	public static class CommonDatabase
 	{
+		// Shortcut to return a reader with the given query already executed
 		static SqliteDataReader GetReader(SqliteConnection connection, string queryText)
 		{
 			SqliteCommand query = connection.CreateCommand();
@@ -66,7 +67,7 @@ namespace Library
 		}
 
 		// Returns a collection of all X/Y coordinates of the given Space
-		// TODO: Should we convert this to return MapDataPoint, or similar?
+		// TODO: Use the full ctor of Instance once available
 		public static List<Instance> GetInstancesFromSpace(SqliteConnection connection, Space space)
 		{
 			SqliteDataReader reader = GetReader(connection, $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}");

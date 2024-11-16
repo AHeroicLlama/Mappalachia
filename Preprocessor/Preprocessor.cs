@@ -190,7 +190,7 @@ namespace Preprocessor
 				}
 			}
 
-			// Add the cell padding
+			// Add the cell padding - excludes Worldspaces
 			SimpleQuery($"UPDATE Space SET maxRange = maxRange + {CellPadding} WHERE isWorldspace = 0");
 
 			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original

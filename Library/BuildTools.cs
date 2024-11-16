@@ -10,15 +10,15 @@ namespace Library
 	{
 		static string SolutionFile { get; } = "Mappalachia.sln";
 
-		static string AssetsPath { get; } = GetSolutionPath() + @"Assets\";
+		static string AssetsPath { get; } = GetRepoRoot() + @"Assets\";
 
-		static string UtilitiesPath { get; } = GetSolutionPath() + @"Utilities\";
+		static string UtilitiesPath { get; } = GetRepoRoot() + @"Utilities\";
 
-		static string OutputsPath { get; } = GetSolutionPath() + @"BuildOutputs\";
+		static string OutputsPath { get; } = GetRepoRoot() + @"BuildOutputs\";
 
-		static string BGRendererCorrectionsPath { get; } = GetSolutionPath() + @"BackgroundRenderer\Corrections\";
+		static string BGRendererCorrectionsPath { get; } = GetRepoRoot() + @"BackgroundRenderer\Corrections\";
 
-		public static string MapIconExtractPath { get; } = GetSolutionPath() + @"MapIconProcessor\Extract\";
+		public static string MapIconExtractPath { get; } = GetRepoRoot() + @"MapIconProcessor\Extract\";
 
 		public static string SqlitePath { get; } = UtilitiesPath + "sqlite3.exe"; // https://www.sqlite.org/download.html
 
@@ -32,7 +32,7 @@ namespace Library
 
 		public static string TempPath { get; } = OutputsPath + @"Temp\";
 
-		public static string Fo76EditOutputPath { get; } = GetSolutionPath() + @"FO76Edit\Output\";
+		public static string Fo76EditOutputPath { get; } = GetRepoRoot() + @"FO76Edit\Output\";
 
 		public static string DatabasePath { get; } = AssetsPath + @"data\mappalachia.db";
 
@@ -89,7 +89,7 @@ namespace Library
 
 		// Returns the root of the repository, where the sln file lives
 		// Value is cached in solutionPath so is only calculated once per launch
-		static string GetSolutionPath()
+		static string GetRepoRoot()
 		{
 			if (solutionPath != null)
 			{

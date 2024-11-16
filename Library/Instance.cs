@@ -69,7 +69,7 @@
 			Z = z;
 			Rotation = rotation;
 			InstanceFormID = instanceFormID;
-			Space = space; // TODO - we can hold a reference of spaces, and do the lookup from formid to Space here, accepting a space form ID instead
+			Space = space;
 			Label = label;
 			TeleportsTo = teleportsTo;
 			LockLevel = lockLevel;
