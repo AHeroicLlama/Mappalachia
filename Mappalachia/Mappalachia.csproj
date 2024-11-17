@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<OutputType>WinExe</OutputType>
+	<TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
+	<UseWindowsForms>true</UseWindowsForms>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+	<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+	<ApplicationIcon>favicon_small.ico</ApplicationIcon>
+	<StartupObject>Mappalachia.Mappalachia</StartupObject>
+	<Version>2.0.0.0</Version>
+	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+	<Authors>AHeroicLlama</Authors>
+	<Copyright>$(Authors)</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Compile Remove="publish\**" />
+	<EmbeddedResource Remove="publish\**" />
+	<None Remove="publish\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Content Include="favicon_small.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+	<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Svg" Version="3.4.7" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Exec Command="xcopy $(SolutionDir)\Assets\* $(TargetDir)\ /y /s&#xD;&#xA;xcopy $(SolutionDir)\Assets\* $(ProjectDir)\publish\ /y /s" />
+  </Target>
+
+</Project>
