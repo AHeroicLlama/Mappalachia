@@ -5,6 +5,7 @@ namespace Mappalachia
 		public FormMain()
 		{
 			InitializeComponent();
+			pictureBoxMapDisplay.Image = Map.Draw();
 		}
 	}
 }

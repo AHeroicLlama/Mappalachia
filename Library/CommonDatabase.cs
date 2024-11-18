@@ -4,6 +4,20 @@ namespace Library
 {
 	public static class CommonDatabase
 	{
+		public static SqliteConnection GetNewConnection(string path, bool accessReadonly = true)
+		{
+			string connectionString = $"Data Source={path};Pooling=false";
+
+			if (accessReadonly)
+			{
+				connectionString += ";Mode=readonly";
+			}
+
+			SqliteConnection connection = new SqliteConnection(connectionString);
+			connection.Open();
+			return connection;
+		}
+
 		// Shortcut to return a reader with the given query already executed
 		static SqliteDataReader GetReader(SqliteConnection connection, string queryText)
 		{

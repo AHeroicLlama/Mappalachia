@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<OutputType>WinExe</OutputType>
@@ -14,6 +14,7 @@
 	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	<Authors>AHeroicLlama</Authors>
 	<Copyright>$(Authors)</Copyright>
+	<RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,11 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-	<AdditionalFiles Include="stylecop.json" />
+    <None Remove="favicon_small.ico" />
   </ItemGroup>
 
   <ItemGroup>
-	<Content Include="favicon_small.ico" />
+	<AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,10 @@
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
 	<PackageReference Include="Svg" Version="3.4.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

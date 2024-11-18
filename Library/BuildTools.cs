@@ -82,9 +82,7 @@ namespace Library
 
 		public static SqliteConnection GetNewConnection()
 		{
-			SqliteConnection connection = new SqliteConnection($"Data Source={DatabasePath}; Pooling=false");
-			connection.Open();
-			return connection;
+			return CommonDatabase.GetNewConnection(DatabasePath, false);
 		}
 
 		// Returns the root of the repository, where the sln file lives
