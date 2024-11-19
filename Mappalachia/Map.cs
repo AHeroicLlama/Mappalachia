@@ -1,6 +1,4 @@
-﻿using static Library.Common;
-
-namespace Mappalachia
+﻿namespace Mappalachia
 {
 	enum BackgroundImageType
 	{

@@ -1,33 +1,32 @@
 ﻿namespace Library
 {
-	// TODO - Flesh this out as needed - substitutes MapDataPoint
+	public enum Shape
+	{
+		None,
+		Box,
+		Sphere,
+		Line,
+		Plane,
+		Ellipsoid,
+	}
+
+	public enum LockLevel
+	{
+		None,
+		Level0,
+		Level1,
+		Level2,
+		Level3,
+		RequiresKey,
+		Inaccessible,
+		RequiresTerminal,
+		Chained,
+		Unknown,
+		Barred,
+	}
+
 	public class Instance
 	{
-		public enum Shape
-		{
-			None,
-			Box,
-			Sphere,
-			Line,
-			Plane,
-			Ellipsoid,
-		}
-
-		public enum Lock
-		{
-			None,
-			Level0,
-			Level1,
-			Level2,
-			Level3,
-			RequiresKey,
-			Inaccessible,
-			RequiresTerminal,
-			Chained,
-			Unknown,
-			Barred,
-		}
-
 		// The Entity which this is an instance of
 		public Entity? Entity { get; } = null;
 
@@ -56,12 +55,12 @@
 		public Space? TeleportsTo { get; }
 
 		// The Level of the lock on this instance
-		public Lock LockLevel { get; }
+		public LockLevel LockLevel { get; }
 
 		// The Shape of the primitive
 		public Shape PrimitiveShape { get; }
 
-		public Instance(Entity entity, float x, float y, float z, float rotation, uint instanceFormID, Space space, string label, Space teleportsTo, Lock lockLevel, Shape primitiveShape)
+		public Instance(Entity entity, float x, float y, float z, float rotation, uint instanceFormID, Space space, string label, Space teleportsTo, LockLevel lockLevel, Shape primitiveShape)
 		{
 			Entity = entity;
 			X = x;

@@ -19,7 +19,7 @@ namespace Library
 		}
 
 		// Shortcut to return a reader with the given query already executed
-		static SqliteDataReader GetReader(SqliteConnection connection, string queryText)
+		public static SqliteDataReader GetReader(SqliteConnection connection, string queryText)
 		{
 			SqliteCommand query = connection.CreateCommand();
 			query.CommandText = queryText;

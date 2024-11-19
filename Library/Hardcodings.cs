@@ -30,7 +30,7 @@ namespace Library
 
 		public static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
 
-		public static Regex ValidateSignature { get; } = new Regex("^[A-Z_]{4}$");
+		public static Regex ValidateSignature { get; } = new Regex("^(ACTI|ALCH|AMMO|ARMO|ASPC|BNDS|BOOK|CNCY|CONT|DOOR|FLOR|FURN|HAZD|IDLM|KEYM|LIGH|LVLI|MISC|MSTT|NOTE|NPC_|PROJ|SCOL|SECH|SOUN|STAT|TACT|TERM|TXST|WEAP)$");
 
 		public static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
 

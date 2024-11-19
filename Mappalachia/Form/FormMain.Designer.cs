@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+namespace Mappalachia
 {
 	partial class FormMain
 	{
@@ -57,6 +57,7 @@
 			// 
 			// splitContainerMain
 			// 
+			splitContainerMain.BackColor = SystemColors.ControlDarkDark;
 			splitContainerMain.Dock = DockStyle.Fill;
 			splitContainerMain.Location = new Point(0, 24);
 			splitContainerMain.Name = "splitContainerMain";
@@ -74,6 +75,7 @@
 			pictureBoxMapDisplay.Location = new Point(0, 0);
 			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
 			pictureBoxMapDisplay.Size = new Size(628, 657);
+			pictureBoxMapDisplay.SizeMode = PictureBoxSizeMode.Zoom;
 			pictureBoxMapDisplay.TabIndex = 0;
 			pictureBoxMapDisplay.TabStop = false;
 			// 

@@ -15,6 +15,7 @@
 	<Authors>AHeroicLlama</Authors>
 	<Copyright>$(Authors)</Copyright>
 	<RunPostBuildEvent>Always</RunPostBuildEvent>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="favicon_small.ico" />
+	<None Remove="favicon_small.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Library\Library.csproj" />
+	<ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
