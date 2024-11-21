@@ -11,6 +11,11 @@ namespace Library
 			return formID.ToString("X8");
 		}
 
+		public static string WithoutWhitespace(this string input)
+		{
+			return new string(input.Where(character => !char.IsWhiteSpace(character)).ToArray());
+		}
+
 		// Opens the web page or file path with the default application
 		public static void OpenURI(string uri)
 		{

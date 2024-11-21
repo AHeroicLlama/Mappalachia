@@ -81,15 +81,14 @@ namespace Library
 		}
 
 		// Returns a collection of all X/Y coordinates of the given Space
-		// TODO: Use the full ctor of Instance once available
-		public static List<Instance> GetInstancesFromSpace(SqliteConnection connection, Space space)
+		public static List<Coord> GetCoordsFromSpace(SqliteConnection connection, Space space)
 		{
 			SqliteDataReader reader = GetReader(connection, $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}");
-			List<Instance> coordinates = new List<Instance>();
+			List<Coord> coordinates = new List<Coord>();
 
 			while (reader.Read())
 			{
-				coordinates.Add(new Instance(
+				coordinates.Add(new Coord(
 					Convert.ToSingle(reader["x"]),
 					Convert.ToSingle(reader["y"])));
 			}

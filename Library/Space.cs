@@ -1,8 +1,8 @@
 ﻿namespace Library
 {
 	// Represents a Worldspace (WRLD) or Cell (CELL)
-	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, double centerX = 0, double centerY = 0, double maxRange = 4096)
-		: Entity(formID, editorID, displayName, isWorldspace ? "WLRD" : "CELL")
+	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, double centerX, double centerY, double maxRange)
+		: Entity(formID, editorID, displayName, isWorldspace ? Signature.WRLD : Signature.CELL)
 	{
 		public bool IsWorldspace { get; } = isWorldspace;
 

@@ -4,6 +4,6 @@ namespace Mappalachia
 {
 	static class Settings
 	{
-		public static Space CurrentSpace { get; set; } = CommonDatabase.GetSpaces(Database.Connection).First();
+		public static Space CurrentSpace { get; set; } = Database.Spaces.First();
 	}
 }
