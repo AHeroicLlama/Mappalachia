@@ -119,9 +119,14 @@ namespace Library
 
 		// Converts a collection of strings to an SQLite list string suitable for an IN clause
 		// EG ["a", "b"] -> "('a','b')"
-		public static string ToSqliteCollection(this IEnumerable<string> elements)
+		public static string ToSqliteCollection<T>(this IEnumerable<T> elements)
 		{
-			return $"({string.Join(",", elements.Select(e => "\'" + e + "\'"))})";
+			if (!typeof(T).IsEnum && typeof(T) != typeof(string))
+			{
+				throw new ArgumentException("Only string or enum collections are valid.");
+			}
+
+			return $"({string.Join(",", elements.Select(e => "\'" + e.ToString() + "\'"))})";
 		}
 	}
 }

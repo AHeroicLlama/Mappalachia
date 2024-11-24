@@ -3,7 +3,7 @@
 namespace Mappalachia
 {
 	// Abstract of the shared properties of Instance or GroupedInstance
-	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel)
+	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel, float spawnWeight)
 	{
 		// The Entity which this is an instance of
 		public Entity Entity { get; } = entity;
@@ -16,5 +16,9 @@ namespace Mappalachia
 
 		// The text 'label' of this instance
 		public string Label { get; } = label;
+
+		// The expected quantity of the spawn
+		// EG 0.5 for a 50% chance NPC, 2 for junk containing 2 scrap, 1 (Except rarely when Entity.percChanceNone has a value) for a statically placed object
+		public float SpawnWeight { get; } = spawnWeight;
 	}
 }

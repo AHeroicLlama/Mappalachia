@@ -38,7 +38,7 @@
 	}
 
 	// Represents any entity in the ESM
-	public class Entity(uint formID, string editorID, string displayName, Signature signature, uint percChanceNone = 0)
+	public class Entity(uint formID, string editorID, string displayName, Signature signature)
 	{
 		public uint FormID { get; } = formID;
 
@@ -48,16 +48,10 @@
 
 		public Signature Signature { get; } = signature;
 
-		public uint PercChanceNone { get; } = percChanceNone;
-
-		public Entity(uint formID, string editorID, string displayName, string signature, uint percChanceNone = 0)
-			: this(formID, editorID, displayName, Enum.Parse<Signature>(signature), percChanceNone)
+		// Overload for passing Signature as string
+		public Entity(uint formID, string editorID, string displayName, string signature)
+			: this(formID, editorID, displayName, Enum.Parse<Signature>(signature))
 		{
-		}
-
-		public virtual float GetSpawnWeight()
-		{
-			return 1 - (PercChanceNone / 100f);
 		}
 	}
 }

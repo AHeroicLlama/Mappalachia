@@ -2,12 +2,8 @@
 
 namespace Mappalachia
 {
-	public class DerivedNPC(string displayName, float spawnWeight)
+	public class DerivedNPC(string displayName)
 		: Entity(0, $"Derived{displayName.WithoutWhitespace()}", displayName, Signature.NPC_)
 	{
-		public override float GetSpawnWeight()
-		{
-			return spawnWeight;
-		}
 	}
 }

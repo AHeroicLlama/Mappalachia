@@ -17,8 +17,8 @@ namespace Mappalachia
 		Barred,
 	}
 
-	public class Instance(Entity entity, Space space, Coord point, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape)
-		: BaseInstance(entity, space, label, lockLevel)
+	public class Instance(Entity entity, Space space, Coord point, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape, float spawnWeight = 1)
+		: BaseInstance(entity, space, label, lockLevel, spawnWeight)
 	{
 		// The coordinates of this instance
 		public Coord Point { get; } = point;
@@ -29,7 +29,7 @@ namespace Mappalachia
 		// (Where applicable, eg a loading trigger door) The Space which this entity teleports to
 		public Space? TeleportsTo { get; } = teleportsTo;
 
-		// The Primitive Shape
+		// The Primitive Shape, if exists
 		public Shape? PrimitiveShape { get; } = primitiveShape;
 	}
 }
