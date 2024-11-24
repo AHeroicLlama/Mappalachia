@@ -141,7 +141,6 @@ namespace Preprocessor
 
 			// Capture and convert to int the locationFormID on Position
 			TransformColumn(CaptureFormID, "Position", "locationFormID");
-			ChangeColumnType("Position", "locationFormID", "INTEGER");
 
 			// Capture and convert to int the Space FormID of the teleportsToFormID on Position
 			TransformColumn(CaptureSpaceFormID, "Position", "teleportsToFormID");
@@ -208,7 +207,6 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);");
-			SimpleQuery("DELETE FROM Location WHERE locationFormID NOT IN (SELECT locationFormID FROM Position);");
 			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
 
 			// Clean up scrap and component names
@@ -231,7 +229,6 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Location ADD COLUMN npcClass TEXT;");
 			TransformColumn(GetNPCName, "Location", "property", "npcName");
 			TransformColumn(GetNPCClass, "Location", "property", "npcClass");
-			SimpleQuery("ALTER TABLE Location DROP COLUMN property;");
 			SimpleQuery("DELETE FROM Location WHERE npcName = '' OR npcClass = '';");
 
 			// Extract the independent NPC spawn chances, by summing the spawn pool and weights from each location
@@ -241,7 +238,27 @@ namespace Preprocessor
 			TransformColumn(DivideString, "Location", "value", "sumWeight", "spawnWeight"); // Set the value of 'spawnWeight' with value/sum.
 			SimpleQuery("ALTER TABLE Location DROP COLUMN sumWeight;");
 			SimpleQuery("ALTER TABLE Location DROP COLUMN value;");
-			SimpleQuery("DELETE FROM Location WHERE spawnWeight = 0;");
+
+			// Create the NPC table
+			SimpleQuery(
+				"CREATE TABLE NPC AS " +
+				"SELECT Space.spaceFormID, instanceFormID, npcName, spawnWeight " +
+				"FROM Position " +
+				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+				"JOIN Location ON Position.locationFormID = Location.locationFormID " +
+				"JOIN Space ON Space.spaceFormID = Position.spaceFormID " +
+				"WHERE " +
+				"Entity.editorID NOT LIKE '%Turret%' AND " +
+				"((Entity.editorID LIKE 'LvlSub%' AND Location.npcClass = 'Sub') OR " +
+				"(Entity.editorID LIKE 'LvlMain%' AND Location.npcClass = 'Main') OR " +
+				"(Entity.editorID LIKE 'LvlCritterA%' AND Location.npcClass = 'CritterA') OR " +
+				"(Entity.editorID LIKE 'LvlCritterB%' AND Location.npcClass = 'CritterB')) ");
+			ChangeColumnType("NPC", "spaceFormID", "INTEGER");
+			ChangeColumnType("NPC", "instanceFormID", "INTEGER");
+			SimpleQuery("DELETE FROM NPC WHERE spawnWeight = 0;");
+			AddForeignKey("NPC", "instanceFormID", "INTEGER", "Position", "instanceFormID");
+			SimpleQuery("DROP TABLE Location;");
+			SimpleQuery("ALTER TABLE Position DROP COLUMN locationFormID;");
 
 			// Unescape chars from columns which we've not otherwise touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
@@ -251,10 +268,14 @@ namespace Preprocessor
 			SimpleQuery("CREATE TABLE Position_PreGrouped (spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID INTEGER REFERENCES Entity(EntityFormID), lockLevel TEXT, label TEXT, count INTEGER);");
 			SimpleQuery("INSERT INTO Position_PreGrouped (spaceFormID, referenceFormID, lockLevel, label, count) SELECT spaceFormID, referenceFormId, lockLevel, label, COUNT(*) as count FROM Position GROUP BY referenceFormID, label, spaceFormID, lockLevel;");
 
+			// Modify Position to assign instanceFormID as Primary Key
+			SimpleQuery("CREATE TABLE temp (spaceFormID INTEGER REFERENCES Space(spaceFormID), x REAL, y REAL, z REAL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, referenceFormID INTEGER REFERENCES Entity(entityFormID), teleportsToFormID INTEGER REFERENCES Space(spaceFormID), label TEXT, instanceFormID INTEGER PRIMARY KEY);");
+			SimpleQuery("INSERT INTO temp SELECT * FROM Position");
+			SimpleQuery("DROP TABLE Position");
+			SimpleQuery("ALTER TABLE temp RENAME TO Position");
+
 			// Create indexes
 			SimpleQuery("CREATE INDEX indexStandard ON Position(referenceFormID, lockLevel, label, spaceFormID);");
-			SimpleQuery("CREATE INDEX indexInstance ON Position(instanceFormID);");
-			SimpleQuery("CREATE INDEX indexLocation ON Position(locationFormID);");
 			SimpleQuery("CREATE INDEX indexSpace ON Position_PreGrouped(spaceFormID);");
 
 			// Final steps, wrap-up, optimizations, etc
@@ -305,28 +326,20 @@ namespace Preprocessor
 			AddToSummaryReport("Scrap with Avg component qty", SimpleQuery("SELECT component, AVG(componentQuantity) FROM Scrap GROUP BY component;"));
 			AddToSummaryReport("Avg Map Marker X/Y", SimpleQuery("SELECT AVG(x), AVG(y) FROM MapMarker;"));
 			AddToSummaryReport("Map Markers", SimpleQuery("SELECT spaceEditorID, icon, label FROM MapMarker INNER JOIN Space ON MapMarker.spaceFormID = Space.spaceFormID ORDER BY spaceEditorID ASC, icon ASC, label ASC;"));
-			AddToSummaryReport("Unique LCTN", SimpleQuery("SELECT COUNT(DISTINCT locationFormID) FROM Location;"));
-			AddToSummaryReport("NPCs by Space, Class, and Weight", SimpleQuery(
-				"SELECT Space.spaceDisplayName, npcClass, npcName, AVG(spawnWeight) FROM Position " +
-				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
-				"JOIN Location ON Position.locationFormID = Location.LocationFormID " +
-				"JOIN Space ON Space.spaceFormID = Position.spaceFormID " +
-				"WHERE ((Entity.editorID LIKE 'LvlSub%' AND Location.npcClass = 'Sub') OR " +
-				"(Entity.editorID LIKE 'LvlMain%' AND Location.npcClass = 'Main') OR " +
-				"(Entity.editorID LIKE 'LvlCritterA%' AND Location.npcClass = 'CritterA') OR " +
-				"(Entity.editorID LIKE 'LvlCritterB%' AND Location.npcClass = 'CritterB')) AND Entity.editorID NOT LIKE '%Turret%' " +
-				"GROUP BY npcName, npcClass, spaceDisplayName " +
-				"ORDER BY isWorldspace DESC, spaceDisplayName, npcClass, npcName;"));
+			AddToSummaryReport("NPCs by Space and Weight", SimpleQuery(
+				"SELECT Space.spaceDisplayName, npcName, AVG(spawnWeight) " +
+				"FROM NPC " +
+				"JOIN Space on NPC.spaceFormID = Space.spaceFormID " +
+				"GROUP BY npcName, spaceDisplayName " +
+				"ORDER BY isWorldspace DESC, spaceDisplayName, npcName"));
 			AddToSummaryReport("Worldspaces", SimpleQuery("SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space WHERE isWorldspace = 1;"));
 			AddToSummaryReport("AVG spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Space;"));
 			AddToSummaryReport("AVG entityFormID as Dec", SimpleQuery("SELECT AVG(entityFormID) FROM Entity;"));
-			AddToSummaryReport("AVG locationFormID as Dec", SimpleQuery("SELECT AVG(locationFormID) FROM Location;"));
 			AddToSummaryReport("AVG MapMarker spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM MapMarker;"));
 			AddToSummaryReport("AVG Psn spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Position;"));
 			AddToSummaryReport("AVG Psn referenceFormID as Dec", SimpleQuery("SELECT AVG(referenceFormID) FROM Position;"));
 			AddToSummaryReport("AVG Psn instanceFormID as Dec", SimpleQuery("SELECT AVG(instanceFormID) FROM Position;"));
 			AddToSummaryReport("AVG Psn teleportsToFormID as Dec", SimpleQuery("SELECT AVG(teleportsToFormID) FROM Position;"));
-			AddToSummaryReport("AVG Psn locationFormID as Dec", SimpleQuery("SELECT AVG(locationFormID) FROM Position;"));
 			AddToSummaryReport("AVG regionFormID as Dec", SimpleQuery("SELECT AVG(regionFormID) FROM Region;"));
 			AddToSummaryReport("AVG region spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Region;"));
 			AddToSummaryReport("AVG junkFormID as Dec", SimpleQuery("SELECT AVG(junkFormID) FROM Scrap;"));

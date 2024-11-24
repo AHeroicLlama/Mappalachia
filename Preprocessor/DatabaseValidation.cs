@@ -37,7 +37,6 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Position", "boundZ", true, ColumnType.REAL);
 			ValidateColumnMatchesFormat("Position", "rotZ", true, ColumnType.REAL);
 			ValidateColumnMatchesFormat("Position", "referenceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position", "locationFormID", true, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position", "teleportsToFormID", true, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position", "instanceFormID", false, ColumnType.INTEGER);
 
@@ -65,10 +64,10 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("MapMarker", "icon", false, ColumnType.TEXT, ValidateMapMarkerIcon);
 			ValidateColumnMatchesFormat("MapMarker", "spaceFormID", false, ColumnType.INTEGER);
 
-			ValidateColumnMatchesFormat("Location", "locationFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Location", "npcName", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("Location", "npcClass", false, ColumnType.TEXT, ValidateNpcClass);
-			ValidateColumnMatchesFormat("Location", "spawnWeight", false, ColumnType.REAL);
+			ValidateColumnMatchesFormat("NPC", "npcName", false, ColumnType.TEXT);
+			ValidateColumnMatchesFormat("NPC", "spawnWeight", false, ColumnType.REAL);
+			ValidateColumnMatchesFormat("NPC", "spaceFormID", false, ColumnType.INTEGER);
+			ValidateColumnMatchesFormat("NPC", "instanceFormID", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Region", "regionFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Region", "regionEditorID", false, ColumnType.TEXT);

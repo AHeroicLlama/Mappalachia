@@ -1,26 +1,25 @@
 MD5 Checksum
-AA7E8B997E714C6262884DC09ADFE319
+8BAEDA831FDFF61050E8D86B9614B7AE
 
 Size
-410576 KB
+303928 KB
 
 Built At UTC
-15/11/2024 18:53:00
+24/11/2024 15:44:46
 
 CSV Imported with SQLite Version
 3.47.0 2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e (64-bit)
 
 Tables
-Entity               Meta                 Region             
-Location             Position             Scrap              
-MapMarker            Position_PreGrouped  Space
+Entity               NPC                  Region             
+MapMarker            Position             Scrap              
+Meta                 Position_PreGrouped  Space
 
 Indices
-indexInstance            indexSpace               sqlite_autoindex_Meta_1
-indexLocation            indexStandard
+indexSpace               indexStandard            sqlite_autoindex_Meta_1
 
 Game Version
-1.7.15.12
+1.7.15.10
 
 Spaces
 APPALACHIA,Appalachia,2480661,1,715.7447814941406,137.44873046875,577170.9634399414
@@ -777,160 +776,127 @@ APPALACHIA,WoodShackMarker,Southhampton Estate
 APPALACHIA,WoodShackMarker,Toxic Larry's Meat 'n Go
 APPALACHIA,WoodShackMarker,Treetops
 
-Unique LCTN
-428
-
-NPCs by Space, Class, and Weight
-Appalachia,CritterA,Beaver,0.125
-Appalachia,CritterA,Cat,0.08333333333333333
-Appalachia,CritterA,Chicken,0.08333333333333333
-Appalachia,CritterA,Firefly,0.27380952380952384
-Appalachia,CritterA,Fox,0.08333333333333333
-Appalachia,CritterA,Frog,0.10416666666666666
-Appalachia,CritterA,Opposum,0.2619047619047619
-Appalachia,CritterA,Rabbit,0.08333333333333333
-Appalachia,CritterA,Radstag,0.20833333333333334
-Appalachia,CritterA,Squirrel,0.08333333333333333
-Appalachia,Main,Angler,0.15964358638777243
-Appalachia,Main,Bloatfly,0.11348634863486348
-Appalachia,Main,Bloodbug,0.355743879472693
-Appalachia,Main,Cave Cricket,0.08207083403161836
-Appalachia,Main,Deathclaw,1
-Appalachia,Main,Fog Crawler,0.12632478632478633
-Appalachia,Main,Ghoul,0.5004824098291435
-Appalachia,Main,Gulper,0.17661462778519632
-Appalachia,Main,Honey Beast,0.16258197248296258
-Appalachia,Main,Insect,0.1774547834897447
-Appalachia,Main,Liberator,0.167109552154195
-Appalachia,Main,Lost,0.27741266308957585
-Appalachia,Main,Mega Sloth,0.38181818181818183
-Appalachia,Main,Mirelurk,0.3249073854425025
-Appalachia,Main,Mole Miner,0.5713474295903858
-Appalachia,Main,Mole Rat,0.15020682387111367
-Appalachia,Main,Rad Ant,0.1824247039264725
-Appalachia,Main,Rad Rat,0.0870638738081953
-Appalachia,Main,Rad Scorpion,0.15894004984914076
-Appalachia,Main,Rad Toad,0.17041062801932366
-Appalachia,Main,Radroach,0.1952503209242619
-Appalachia,Main,Robot,0.39148886315801784
-Appalachia,Main,Scorched,0.5587371406676073
-Appalachia,Main,Snallygaster,0.6703296703296703
-Appalachia,Main,Stingwing,0.19619634972509198
-Appalachia,Main,Super Mutant,0.4276027109800197
-Appalachia,Main,Thrasher,0.17469289356394407
-Appalachia,Main,Tick,0.12801932367149757
-Appalachia,Main,Vicious Dog,0.14773365603286637
-Appalachia,Main,Wolf,0.20460877266692912
-Appalachia,Main,Yao Guai,0.10908548524390455
-Appalachia,Sub,Angler,0.1166576280861995
-Appalachia,Sub,Bloatfly,0.28123010380622837
-Appalachia,Sub,Bloodbug,0.23837305017080296
-Appalachia,Sub,Cave Cricket,0.16166006551068468
-Appalachia,Sub,Deathclaw,0.0852845411668941
-Appalachia,Sub,Fog Crawler,0.07310744810744811
-Appalachia,Sub,Ghoul,0.2810806210157059
-Appalachia,Sub,Grafton Monster,0.125
-Appalachia,Sub,Gulper,0.10114052614052614
-Appalachia,Sub,Honey Beast,0.1467857142857143
-Appalachia,Sub,Insect,0.19072379030760994
-Appalachia,Sub,Liberator,0.11093639004936032
-Appalachia,Sub,Lost,0.18683071199052934
-Appalachia,Sub,Mega Sloth,0.07756169269327164
-Appalachia,Sub,Mirelurk,0.1613712127665616
-Appalachia,Sub,Mole Miner,0.3030706998246453
-Appalachia,Sub,Mole Rat,0.18187817472570472
-Appalachia,Sub,Rad Ant,0.2768849206349206
-Appalachia,Sub,Rad Rat,0.15683263842777648
-Appalachia,Sub,Rad Scorpion,0.0710549219687875
-Appalachia,Sub,Rad Toad,0.3544438018122229
-Appalachia,Sub,Radroach,0.17635256676352565
-Appalachia,Sub,Robot,0.13476331237623254
-Appalachia,Sub,Scorched,0.12140410898087044
-Appalachia,Sub,Stingwing,0.08725274725274726
-Appalachia,Sub,Super Mutant,0.23412534181902903
-Appalachia,Sub,Thrasher,0.2711111111111111
-Appalachia,Sub,Tick,0.2747584541062802
-Appalachia,Sub,Vicious Dog,0.14708449249163
-Appalachia,Sub,Wolf,0.18283913071584304
-Appalachia,Sub,Yao Guai,0.07814827435991119
-AMS Headquarters,Main,Robot,1
-AVR Medical Center,Main,Scorched,1
-Abandoned Mine Shaft Elaine,Main,Mole Miner,1
-Abandoned Mine Shaft Kittery,Main,Mole Miner,1
-Arktos Pharma Biome Lab,Sub,Ghoul,1
-Belching Betty,Main,Scorched,1
-Blackwater Mine,Main,Mole Miner,1
-Blackwater Mine,Sub,Mole Rat,0.3333333333333333
-Blackwater Mine,Sub,Rad Rat,0.3333333333333333
-Blackwater Mine,Sub,Wolf,0.3333333333333333
-Charleston Capitol Building,Main,Ghoul,1
-Dyer Chemical Sewer,Main,Robot,1
-Dyer Chemical Sewer,Sub,Ghoul,1
-Eastern Regional Penitentiary,Main,Ghoul,1
-Fort Defiance,Main,Ghoul,1
-Fort Defiance,Sub,Bloatfly,0.25
-Fort Defiance,Sub,Bloodbug,0.25
-Fort Defiance,Sub,Rad Ant,0.25
-Fort Defiance,Sub,Rad Rat,0.25
-Garrahan Mining HQ,Main,Robot,1
-Garrahan Mining HQ,Sub,Ghoul,1
-Gauley Mine,Main,Scorched,1
-Glassed Cavern,Main,Scorched,1
-Glassed Cavern,Sub,Mirelurk,1
-Hornwright Industrial HQ,Main,Scorched,1
-Hornwright Industrial HQ,Sub,Ghoul,1
-Kanawha Nuka-Cola Plant,Main,Ghoul,1
-Kerwood Mine,Main,Mole Miner,1
-Kerwood Mine,Sub,Mole Rat,0.25
-Kerwood Mine,Sub,Rad Ant,0.25
-Kerwood Mine,Sub,Rad Rat,0.25
-Kerwood Mine,Sub,Vicious Dog,0.25
-Lucky Hole Mine,Sub,Cave Cricket,0.25
-Lucky Hole Mine,Sub,Mole Rat,0.25
-Lucky Hole Mine,Sub,Rad Ant,0.25
-Lucky Hole Mine,Sub,Rad Rat,0.25
-Mama Dolce's Food Processing,Main,Robot,1
-Mama Dolce's Food Processing,Sub,Liberator,1
-Monongah Power Plant,Main,Ghoul,1
-Monongah Power Plant,Sub,Mole Miner,1
-Morgantown High School,Main,Scorched,1
-Pi House,Main,Ghoul,1
-Poseidon Energy Plant WV-06,Main,Scorched,1
-Poseidon Energy Plant WV-06,Sub,Ghoul,1
-Radio Astronomy Research Center,Main,Scorched,1
-Riverside Manor,Main,Scorched,1
-Shadowbreeze Apartments,Main,Ghoul,1
-Sugar Grove,Main,Robot,1
-Sugar Grove,Sub,Mole Rat,0.3333333333333333
-Sugar Grove,Sub,Rad Rat,0.3333333333333333
-Sugar Grove,Sub,Wolf,0.3333333333333333
-The Burning Mine,Main,Mole Miner,1
-The Burning Mine,Sub,Mole Rat,0.3333333333333333
-The Burning Mine,Sub,Rad Rat,0.3333333333333333
-The Burning Mine,Sub,Vicious Dog,0.3333333333333333
-The Burrows,Main,Robot,1
-The Burrows,Sub,Ghoul,1
-Thunder Mountain Power,Main,Scorched,1
-Uncanny Caverns,Main,Mirelurk,1
-Uncanny Caverns,Sub,Bloatfly,0.2
-Uncanny Caverns,Sub,Cave Cricket,0.2
-Uncanny Caverns,Sub,Mole Rat,0.2
-Uncanny Caverns,Sub,Rad Rat,0.2
-Uncanny Caverns,Sub,Wolf,0.2
-Valley Galleria,Main,Scorched,1
-Vault-Tec Ag Research Center,Main,Ghoul,1
-Watoga Civic Center,Main,Scorched,1
-Watoga Emergency Services,Main,Ghoul,1
-Watoga Emergency Services,Sub,Liberator,1
-Watoga High School,Main,Robot,1
-Watoga High School,Sub,Bloatfly,0.25
-Watoga High School,Sub,Bloodbug,0.25
-Watoga High School,Sub,Rad Ant,0.25
-Watoga High School,Sub,Rad Rat,0.25
-Watoga Municipal Center,Main,Scorched,1
-Wendigo Cave,Main,Mirelurk,1
-Wendigo Cave,Sub,Ghoul,1
-West Tek Research Center,Main,Super Mutant,1
+NPCs by Space and Weight
+Appalachia,Angler,0.1393373361471521
+Appalachia,Beaver,0.125
+Appalachia,Bloatfly,0.19590380059767284
+Appalachia,Bloodbug,0.2851627726627727
+Appalachia,Cat,0.08333333333333333
+Appalachia,Cave Cricket,0.11605275309009612
+Appalachia,Chicken,0.08333333333333333
+Appalachia,Deathclaw,0.10858939362124076
+Appalachia,Firefly,0.27380952380952384
+Appalachia,Fog Crawler,0.10267263600596935
+Appalachia,Fox,0.08333333333333333
+Appalachia,Frog,0.10416666666666666
+Appalachia,Ghoul,0.4292848164463715
+Appalachia,Grafton Monster,0.125
+Appalachia,Gulper,0.1400412745653121
+Appalachia,Honey Beast,0.1550599447699872
+Appalachia,Insect,0.18381819966261342
+Appalachia,Liberator,0.14536262345971043
+Appalachia,Lost,0.23358268675132754
+Appalachia,Mega Sloth,0.11603090396193845
+Appalachia,Mirelurk,0.25707405336791606
+Appalachia,Mole Miner,0.5271733495887979
+Appalachia,Mole Rat,0.16398529675045237
+Appalachia,Opposum,0.2619047619047619
+Appalachia,Rabbit,0.08333333333333333
+Appalachia,Rad Ant,0.23008030875235624
+Appalachia,Rad Rat,0.11941721260654999
+Appalachia,Rad Scorpion,0.12253792587502996
+Appalachia,Rad Toad,0.2571039412936646
+Appalachia,Radroach,0.18511006259411075
+Appalachia,Radstag,0.20833333333333334
+Appalachia,Robot,0.317382518602451
+Appalachia,Scorched,0.44947892273076984
+Appalachia,Snallygaster,0.6703296703296703
+Appalachia,Squirrel,0.08333333333333333
+Appalachia,Stingwing,0.14108370376849405
+Appalachia,Super Mutant,0.3642547524880893
+Appalachia,Thrasher,0.19879744795073584
+Appalachia,Tick,0.23186547751765144
+Appalachia,Vicious Dog,0.14746547454690104
+Appalachia,Wolf,0.19537165394915176
+Appalachia,Yao Guai,0.09643560346022725
+AMS Headquarters,Robot,1
+AVR Medical Center,Scorched,1
+Abandoned Mine Shaft Elaine,Mole Miner,1
+Abandoned Mine Shaft Kittery,Mole Miner,1
+Arktos Pharma Biome Lab,Ghoul,1
+Belching Betty,Scorched,1
+Blackwater Mine,Mole Miner,1
+Blackwater Mine,Mole Rat,0.3333333333333333
+Blackwater Mine,Rad Rat,0.3333333333333333
+Blackwater Mine,Wolf,0.3333333333333333
+Charleston Capitol Building,Ghoul,1
+Dyer Chemical Sewer,Ghoul,1
+Dyer Chemical Sewer,Robot,1
+Eastern Regional Penitentiary,Ghoul,1
+Fort Defiance,Bloatfly,0.25
+Fort Defiance,Bloodbug,0.25
+Fort Defiance,Ghoul,1
+Fort Defiance,Rad Ant,0.25
+Fort Defiance,Rad Rat,0.25
+Garrahan Mining HQ,Ghoul,1
+Garrahan Mining HQ,Robot,1
+Gauley Mine,Scorched,1
+Glassed Cavern,Mirelurk,1
+Glassed Cavern,Scorched,1
+Hornwright Industrial HQ,Ghoul,1
+Hornwright Industrial HQ,Scorched,1
+Kanawha Nuka-Cola Plant,Ghoul,1
+Kerwood Mine,Mole Miner,1
+Kerwood Mine,Mole Rat,0.25
+Kerwood Mine,Rad Ant,0.25
+Kerwood Mine,Rad Rat,0.25
+Kerwood Mine,Vicious Dog,0.25
+Lucky Hole Mine,Cave Cricket,0.25
+Lucky Hole Mine,Mole Rat,0.25
+Lucky Hole Mine,Rad Ant,0.25
+Lucky Hole Mine,Rad Rat,0.25
+Mama Dolce's Food Processing,Liberator,1
+Mama Dolce's Food Processing,Robot,1
+Monongah Power Plant,Ghoul,1
+Monongah Power Plant,Mole Miner,1
+Morgantown High School,Scorched,1
+Pi House,Ghoul,1
+Poseidon Energy Plant WV-06,Ghoul,1
+Poseidon Energy Plant WV-06,Scorched,1
+Radio Astronomy Research Center,Scorched,1
+Riverside Manor,Scorched,1
+Shadowbreeze Apartments,Ghoul,1
+Sugar Grove,Mole Rat,0.3333333333333333
+Sugar Grove,Rad Rat,0.3333333333333333
+Sugar Grove,Robot,1
+Sugar Grove,Wolf,0.3333333333333333
+The Burning Mine,Mole Miner,1
+The Burning Mine,Mole Rat,0.3333333333333333
+The Burning Mine,Rad Rat,0.3333333333333333
+The Burning Mine,Vicious Dog,0.3333333333333333
+The Burrows,Ghoul,1
+The Burrows,Robot,1
+Thunder Mountain Power,Scorched,1
+Uncanny Caverns,Bloatfly,0.2
+Uncanny Caverns,Cave Cricket,0.2
+Uncanny Caverns,Mirelurk,1
+Uncanny Caverns,Mole Rat,0.2
+Uncanny Caverns,Rad Rat,0.2
+Uncanny Caverns,Wolf,0.2
+Valley Galleria,Scorched,1
+Vault-Tec Ag Research Center,Ghoul,1
+Watoga Civic Center,Scorched,1
+Watoga Emergency Services,Ghoul,1
+Watoga Emergency Services,Liberator,1
+Watoga High School,Bloatfly,0.25
+Watoga High School,Bloodbug,0.25
+Watoga High School,Rad Ant,0.25
+Watoga High School,Rad Rat,0.25
+Watoga High School,Robot,1
+Watoga Municipal Center,Scorched,1
+Wendigo Cave,Ghoul,1
+Wendigo Cave,Mirelurk,1
+West Tek Research Center,Super Mutant,1
 
 Worldspaces
 2480661,APPALACHIA,Appalachia
@@ -940,9 +906,6 @@ AVG spaceFormID as Dec
 
 AVG entityFormID as Dec
 3086414.8894847035
-
-AVG locationFormID as Dec
-3187408.967350746
 
 AVG MapMarker spaceFormID as Dec
 2480661
@@ -958,9 +921,6 @@ AVG Psn instanceFormID as Dec
 
 AVG Psn teleportsToFormID as Dec
 472.6533626757293
-
-AVG Psn locationFormID as Dec
-33126.71279203554
 
 AVG regionFormID as Dec
 3397561.122544434
