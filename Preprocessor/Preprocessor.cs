@@ -276,7 +276,8 @@ namespace Preprocessor
 
 			// Create indexes
 			SimpleQuery("CREATE INDEX indexStandard ON Position(referenceFormID, lockLevel, label, spaceFormID);");
-			SimpleQuery("CREATE INDEX indexSpace ON Position_PreGrouped(spaceFormID);");
+			SimpleQuery("CREATE INDEX indexSpaceCount ON Position_PreGrouped(spaceFormID, count);");
+			SimpleQuery("CREATE INDEX indexComponent ON Scrap(component);");
 
 			// Final steps, wrap-up, optimizations, etc
 			SimpleQuery("PRAGMA foreign_keys = 1;");
