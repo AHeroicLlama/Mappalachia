@@ -222,6 +222,7 @@ namespace Preprocessor
 
 			// Transform the component quantity keywords to numeric values from Scrap table, then drop the Component table
 			TransformColumn(GetComponentQuantity, "Scrap", "component", "componentQuantity", "componentQuantity");
+			ChangeColumnType("Scrap", "componentQuantity", "INTEGER");
 			SimpleQuery($"DROP TABLE Component;");
 
 			// Extract the NPC types and classes on Location from the raw 'property'
@@ -242,7 +243,7 @@ namespace Preprocessor
 			// Create the NPC table
 			SimpleQuery(
 				"CREATE TABLE NPC AS " +
-				"SELECT Space.spaceFormID, instanceFormID, npcName, spawnWeight " +
+				"SELECT Space.spaceFormID, instanceFormID, npcName, spawnWeight " + // TODO do we need spaceFormID?
 				"FROM Position " +
 				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				"JOIN Location ON Position.locationFormID = Location.locationFormID " +
@@ -275,9 +276,14 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE temp RENAME TO Position");
 
 			// Create indexes
-			SimpleQuery("CREATE INDEX indexStandard ON Position(referenceFormID, lockLevel, label, spaceFormID);");
-			SimpleQuery("CREATE INDEX indexSpaceCount ON Position_PreGrouped(spaceFormID, count);");
+			SimpleQuery("CREATE INDEX indexGeneral ON Position(referenceFormID, lockLevel, label, spaceFormID);");
+			SimpleQuery("CREATE INDEX indexTeleportsTo ON Position(teleportsToFormID);");
+			SimpleQuery("CREATE INDEX indexCount ON Position_PreGrouped(count);");
+			SimpleQuery("CREATE INDEX indexReference ON Position_PreGrouped(referenceFormID);");
+			SimpleQuery("CREATE INDEX indexSpaceReference ON Position_PreGrouped(spaceFormID, referenceFormID);"); // TODO do we need this?
 			SimpleQuery("CREATE INDEX indexComponent ON Scrap(component);");
+			SimpleQuery("CREATE INDEX indexSpaceDisplayName ON Space(displayName);");
+			SimpleQuery("CREATE INDEX indexNPC ON NPC(spawnWeight, npcName, spaceFormID, instanceFormID);");
 
 			// Final steps, wrap-up, optimizations, etc
 			SimpleQuery("PRAGMA foreign_keys = 1;");

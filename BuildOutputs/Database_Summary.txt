@@ -1,11 +1,11 @@
 MD5 Checksum
-C3D91B5C03A7DD9F99C5861336D399C4
+E9FA98895FA7A436966B988B67F6DBA4
 
 Size
-304256 KB
+342348 KB
 
 Built At UTC
-24/11/2024 18:43:40
+25/11/2024 18:56:01
 
 CSV Imported with SQLite Version
 3.47.0 2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e (64-bit)
@@ -16,8 +16,8 @@ MapMarker            Position             Scrap
 Meta                 Position_PreGrouped  Space
 
 Indices
-indexComponent           indexStandard          
-indexSpaceCount          sqlite_autoindex_Meta_1
+indexComponent           indexGeneral             indexTeleportsTo       
+indexCount               indexNPC                 sqlite_autoindex_Meta_1
 
 Game Version
 1.7.15.10

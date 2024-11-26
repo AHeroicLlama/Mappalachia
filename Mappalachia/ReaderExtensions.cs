@@ -28,6 +28,11 @@ namespace Mappalachia
 			return reader.GetFloat(ordinal);
 		}
 
+		public static int GetInt(this SqliteDataReader reader, string columnName)
+		{
+			return reader.GetInt32(reader.GetOrdinal(columnName));
+		}
+
 		public static uint GetUInt(this SqliteDataReader reader, string columnName)
 		{
 			return (uint)reader.GetInt32(reader.GetOrdinal(columnName));
@@ -73,6 +78,13 @@ namespace Mappalachia
 			}
 
 			return new Shape(Enum.Parse<ShapeType>(reader.GetString(shapeOrdinal)), reader.GetFloat("boundX"), reader.GetFloat("boundY"), reader.GetFloat("boundZ"), reader.GetFloat("rotZ"));
+		}
+
+		public static Signature GetSignature(this SqliteDataReader reader)
+		{
+			string signature = reader.GetString("signature");
+
+			return Enum.Parse<Signature>(signature);
 		}
 	}
 }
