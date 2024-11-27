@@ -32,11 +32,14 @@ namespace Mappalachia
 			menuStripMain = new MenuStrip();
 			mapToolStripMenuItem = new ToolStripMenuItem();
 			splitContainerMain = new SplitContainer();
+			dataGridViewSearchResults = new DataGridView();
 			pictureBoxMapDisplay = new PictureBox();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)splitContainerMain).BeginInit();
+			splitContainerMain.Panel1.SuspendLayout();
 			splitContainerMain.Panel2.SuspendLayout();
 			splitContainerMain.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).BeginInit();
 			SuspendLayout();
 			// 
@@ -62,12 +65,29 @@ namespace Mappalachia
 			splitContainerMain.Location = new Point(0, 24);
 			splitContainerMain.Name = "splitContainerMain";
 			// 
+			// splitContainerMain.Panel1
+			// 
+			splitContainerMain.Panel1.Controls.Add(dataGridViewSearchResults);
+			// 
 			// splitContainerMain.Panel2
 			// 
 			splitContainerMain.Panel2.Controls.Add(pictureBoxMapDisplay);
 			splitContainerMain.Size = new Size(1264, 657);
 			splitContainerMain.SplitterDistance = 632;
 			splitContainerMain.TabIndex = 1;
+			// 
+			// dataGridViewSearchResults
+			// 
+			dataGridViewSearchResults.AllowUserToAddRows = false;
+			dataGridViewSearchResults.AllowUserToDeleteRows = false;
+			dataGridViewSearchResults.AllowUserToOrderColumns = true;
+			dataGridViewSearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			dataGridViewSearchResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewSearchResults.Location = new Point(12, 151);
+			dataGridViewSearchResults.Name = "dataGridViewSearchResults";
+			dataGridViewSearchResults.ReadOnly = true;
+			dataGridViewSearchResults.Size = new Size(607, 290);
+			dataGridViewSearchResults.TabIndex = 0;
 			// 
 			// pictureBoxMapDisplay
 			// 
@@ -92,9 +112,11 @@ namespace Mappalachia
 			Text = "Mappalachia";
 			menuStripMain.ResumeLayout(false);
 			menuStripMain.PerformLayout();
+			splitContainerMain.Panel1.ResumeLayout(false);
 			splitContainerMain.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)splitContainerMain).EndInit();
 			splitContainerMain.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).EndInit();
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
@@ -106,5 +128,6 @@ namespace Mappalachia
 		private SplitContainer splitContainerMain;
 		private PictureBox pictureBoxMapDisplay;
 		private ToolStripMenuItem mapToolStripMenuItem;
+		private DataGridView dataGridViewSearchResults;
 	}
 }

@@ -53,7 +53,7 @@ namespace Mappalachia
 				return null;
 			}
 
-			return Database.Spaces.Where(space => space.FormID == reader.GetUInt(columnName)).FirstOrDefault();
+			return Database.CachedSpaces.Where(space => space.FormID == reader.GetUInt(columnName)).FirstOrDefault();
 		}
 
 		public static LockLevel GetLockLevel(this SqliteDataReader reader)

@@ -11,12 +11,26 @@ namespace Mappalachia
 
 		static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
 
-		public static List<Space> Spaces { get; } = GetSpaces(Connection);
+		public static List<Space> CachedSpaces { get; } = GetSpaces(Connection);
 
-		public static List<MapMarker> MapMarkers { get; } = GetMapMarkers(Connection);
+		public static List<MapMarker> CachedMapMarkers { get; } = GetMapMarkers(Connection);
 
-		public static List<GroupedInstance> Search(string searchTerm, Space selectedSpace, List<Signature> selectedSignatures, List<LockLevel> selectedLockLevels)
+		// Special case to map LockLevel enums to the strings used in the database
+		public static string ToLockLevelString(this LockLevel lockLevel)
 		{
+			if (lockLevel == LockLevel.None)
+			{
+				return string.Empty;
+			}
+
+			return lockLevel.ToString();
+		}
+
+		public static List<GroupedInstance> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
+		{
+			selectedSignatures ??= Enum.GetValues<Signature>().ToList();
+			selectedLockLevels ??= Enum.GetValues<LockLevel>().ToList();
+
 			searchTerm = ProcessSearchString(searchTerm);
 			List<GroupedInstance> results = new List<GroupedInstance>();
 
@@ -25,15 +39,14 @@ namespace Mappalachia
 
 			// 'Standard'
 			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{searchTerm}' OR " : string.Empty;
-			string optionalSpaceTerm = selectedSpace != null ? $"AND Space.spaceFormID = {selectedSpace.FormID} " : string.Empty;
+			string optionalSpaceTerm = selectedSpace != null ? $"AND spaceFormID = {selectedSpace.FormID} " : string.Empty;
 
-			string query =
-				"SELECT * FROM Position_PreGrouped " + // TODO which columns
+			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, percChanceNone FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
-				"JOIN Space on Space.spaceFormID = Position_PreGrouped.spaceFormID " +
 				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' OR editorID LIKE '%{searchTerm}%' or displayName LIKE '%{searchTerm}%') " +
-				$"{optionalSpaceTerm} AND signature IN {selectedSignatures.ToSqliteCollection()} AND lockLevel IN {selectedLockLevels.ToSqliteCollection()} " +
-				"ORDER BY Space.spaceDisplayName, count DESC"; // TODO, do we bother sorting? If we're aggregating anyway
+				optionalSpaceTerm +
+				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.Select(l => l.ToLockLevelString()).ToSqliteCollection()} " +
+				$"AND Entity.signature IN {selectedSignatures.ToSqliteCollection()};";
 
 			SqliteDataReader reader = GetReader(Connection, query);
 
@@ -55,12 +68,10 @@ namespace Mappalachia
 
 			// NPC
 			query =
-				"SELECT *, count(*) as count FROM NPC " + // TODO which columns
-				"JOIN Space ON Space.spaceFormID = NPC.spaceFormID " +
+				"SELECT npcName, spaceFormID, spawnWeight, count(*) as count FROM NPC " + // TODO which columns
 				$"WHERE npcName LIKE '%{searchTerm}%' " +
 				optionalSpaceTerm +
-				"GROUP BY NPC.spaceFormID, npcName, spawnWeight " +
-				"ORDER BY spaceDisplayName, npcName, spawnWeight DESC, count DESC"; // TODO, do we bother sorting? If we're aggregating anyway
+				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 
 			reader = GetReader(Connection, query);
 
@@ -77,13 +88,11 @@ namespace Mappalachia
 			}
 
 			// Scrap
-			query =
-				"SELECT *, componentQuantity * sum(count) as weight FROM Scrap " + // TODO which columns
+			query = "SELECT component, spaceFormID, componentQuantity, sum(count) as properCount FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
 				$"WHERE component LIKE '%{searchTerm}%' " +
 				optionalSpaceTerm +
-				"GROUP BY component, spaceFormID, componentQuantity" +
-				"ORDER BY component, weight DESC, componentQuantity DESC"; // TODO, do we bother sorting? If we're aggregating anyway
+				"GROUP BY component, spaceFormID, componentQuantity;";
 
 			reader = GetReader(Connection, query);
 
@@ -92,41 +101,64 @@ namespace Mappalachia
 				results.Add(new GroupedInstance(
 					new DerivedScrap(reader.GetString("component")),
 					selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-					reader.GetInt("weight"), // TODO, scrap or junk count - interacts with spawnWeight-componentQuantity
+					reader.GetInt("properCount"),
 					0,
 					string.Empty,
 					LockLevel.None,
 					reader.GetFloat("componentQuantity")));
 			}
 
+			// Region
+			query =
+				"SELECT regionFormID, regionEditorID, spaceFormID FROM Region " +
+				$"WHERE (regionEditorID LIKE '%{searchTerm}%' OR regionFormID = '{searchTerm}') " +
+				optionalSpaceTerm +
+				"GROUP BY regionFormID;";
+
+			reader = GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				results.Add(new GroupedInstance(
+					new Region(
+						reader.GetUInt("regionFormID"),
+						reader.GetString("regionEditorID")),
+					selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					1,
+					0,
+					string.Empty,
+					LockLevel.None));
+			}
+
 			// FormID-specific
 			if (searchIsFormID)
 			{
 				query =
-					"SELECT * FROM Position " + // TODO which columns
+					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, percChanceNone, count(*) as count FROM Position " +
 					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
-					"JOIN Space ON Space.spaceFormID = Position.spaceFormID " +
-					$"WHERE instanceFormID = '{searchTerm}' OR teleportsToFormID = '{searchTerm}'" +
-					optionalSpaceTerm;
+					"WHERE " +
+					optionalSpaceTerm +
+					$"(instanceFormID = '{searchTerm}' OR teleportsToFormID = '{searchTerm}') " +
+					"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
 
 				reader = GetReader(Connection, query);
 
-				//TODO
-				//while (reader.Read())
-				//{
-				//	results.Add(new GroupedInstance(
-				//		new Entity(
-				//			),
-				//		selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-				//		reader.GetInt("count"),
-				//		0,
-				//		string.Empty,
-				//		LockLevel.None,
-				//		reader.GetFloat("componentQuantity")));
-				//}
+				while (reader.Read())
+				{
+					results.Add(new GroupedInstance(
+						new Entity(
+							reader.GetUInt("referenceFormID"),
+							reader.GetString("editorID"),
+							reader.GetString("displayName"),
+							reader.GetSignature()),
+						selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+						reader.GetInt("count"),
+						0,
+						reader.GetString("label"),
+						reader.GetLockLevel(),
+						(100 - reader.GetInt("percChanceNone")) / 100f));
+				}
 			}
-
-			//TODO instanceFormID
 
 			return results;
 		}
@@ -143,31 +175,7 @@ namespace Mappalachia
 
 		static Space GetSpaceByFormID(uint formID)
 		{
-			return Spaces.Where(space => space.FormID == formID).FirstOrDefault() ?? throw new Exception($"No Space with formID {formID} was found");
+			return CachedSpaces.Where(space => space.FormID == formID).FirstOrDefault() ?? throw new Exception($"No Space with formID {formID} was found");
 		}
-
-		// WIP
-		//public static List<Instance> GetInstances(Entity entity, Space space)
-		//{
-		//	string query = $"SELECT * FROM Position WHERE spaceFormID = {space.FormID} AND referenceFormID = {entity.FormID};";
-
-		//	SqliteDataReader reader = GetReader(Connection, query);
-		//	List<Instance> instances = new List<Instance>();
-
-		//	while (reader.Read())
-		//	{
-		//		instances.Add(new Instance(
-		//			entity,
-		//			space,
-		//			reader.GetCoord(),
-		//			reader.GetUInt("instanceFormID"),
-		//			reader.GetString("label"),
-		//			reader.GetSpace("teleportsToFormID"),
-		//			reader.GetLockLevel(),
-		//			reader.GetShape()));
-		//	}
-
-		//	return instances;
-		//}
 	}
 }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<OutputType>WinExe</OutputType>
+	<OutputType>Exe</OutputType>
 	<TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
 	<UseWindowsForms>true</UseWindowsForms>
 	<ImplicitUsings>enable</ImplicitUsings>
