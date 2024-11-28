@@ -25,13 +25,13 @@ namespace Preprocessor
 
 		static float MaxBlackPixelsPerc { get; } = 90f;
 
-		static void ValidateImageAssets()
+		static async void ValidateImageAssets()
 		{
 			Console.WriteLine("Validating image assets");
 
 			// Collect all Spaces and MapMarkers. Group the map markers by icon
-			List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(Connection);
-			List<Space> spaces = CommonDatabase.GetSpaces(Connection);
+			List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(Connection);
+			List<Space> spaces = await CommonDatabase.GetSpaces(Connection);
 
 			// Perform file checks for all spaces
 			Parallel.ForEach(spaces, ValidateSpace);

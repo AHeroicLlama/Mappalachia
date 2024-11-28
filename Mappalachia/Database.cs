@@ -11,22 +11,11 @@ namespace Mappalachia
 
 		static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
 
-		public static List<Space> CachedSpaces { get; } = GetSpaces(Connection);
+		public static List<Space> CachedSpaces { get; } = GetSpaces(Connection).Result;
 
-		public static List<MapMarker> CachedMapMarkers { get; } = GetMapMarkers(Connection);
+		public static List<MapMarker> CachedMapMarkers { get; } = GetMapMarkers(Connection).Result;
 
-		// Special case to map LockLevel enums to the strings used in the database
-		public static string ToLockLevelString(this LockLevel lockLevel)
-		{
-			if (lockLevel == LockLevel.None)
-			{
-				return string.Empty;
-			}
-
-			return lockLevel.ToString();
-		}
-
-		public static List<GroupedInstance> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
+		public static async Task<List<GroupedInstance>> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
 		{
 			selectedSignatures ??= Enum.GetValues<Signature>().ToList();
 			selectedLockLevels ??= Enum.GetValues<LockLevel>().ToList();
@@ -45,10 +34,10 @@ namespace Mappalachia
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' OR editorID LIKE '%{searchTerm}%' or displayName LIKE '%{searchTerm}%') " +
 				optionalSpaceTerm +
-				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.Select(l => l.ToLockLevelString()).ToSqliteCollection()} " +
+				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.ToSqliteCollection()} " +
 				$"AND Entity.signature IN {selectedSignatures.ToSqliteCollection()};";
 
-			SqliteDataReader reader = GetReader(Connection, query);
+			SqliteDataReader reader = await GetReader(Connection, query);
 
 			while (reader.Read())
 			{
@@ -73,7 +62,7 @@ namespace Mappalachia
 				optionalSpaceTerm +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 
-			reader = GetReader(Connection, query);
+			reader = await GetReader(Connection, query);
 
 			while (reader.Read())
 			{
@@ -94,7 +83,7 @@ namespace Mappalachia
 				optionalSpaceTerm +
 				"GROUP BY component, spaceFormID, componentQuantity;";
 
-			reader = GetReader(Connection, query);
+			reader = await GetReader(Connection, query);
 
 			while (reader.Read())
 			{
@@ -115,7 +104,7 @@ namespace Mappalachia
 				optionalSpaceTerm +
 				"GROUP BY regionFormID;";
 
-			reader = GetReader(Connection, query);
+			reader = await GetReader(Connection, query);
 
 			while (reader.Read())
 			{
@@ -141,7 +130,7 @@ namespace Mappalachia
 					$"(instanceFormID = '{searchTerm}' OR teleportsToFormID = '{searchTerm}') " +
 					"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
 
-				reader = GetReader(Connection, query);
+				reader = await GetReader(Connection, query);
 
 				while (reader.Read())
 				{

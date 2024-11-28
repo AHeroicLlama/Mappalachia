@@ -81,7 +81,7 @@ namespace Preprocessor
 			Console.ReadKey();
 		}
 
-		static void Preprocess()
+		static async void Preprocess()
 		{
 			string gameVersion = GetValidatedGameVersion();
 
@@ -181,7 +181,7 @@ namespace Preprocessor
 			foreach (List<string> spaceCollection in SisterSpaces)
 			{
 				string parentEditorID = spaceCollection.First();
-				Space? parent = CommonDatabase.GetSpaceByEditorID(Connection, parentEditorID) ?? throw new Exception($"Unable to find Space {parentEditorID}");
+				Space? parent = await CommonDatabase.GetSpaceByEditorID(Connection, parentEditorID) ?? throw new Exception($"Unable to find Space {parentEditorID}");
 
 				foreach (string childEditorID in spaceCollection.Skip(1))
 				{
@@ -295,7 +295,7 @@ namespace Preprocessor
 			StdOutWithColor($"Build and Preprocess Done.\n", ColorInfo);
 		}
 
-		static void GenerateSummary()
+		static async void GenerateSummary()
 		{
 			StdOutWithColor($"\nGenerating Summary Report at {DatabaseSummaryPath}\n", ColorInfo);
 
@@ -308,7 +308,7 @@ namespace Preprocessor
 			AddToSummaryReport("CSV Imported with SQLite Version", SqliteTools("--version"));
 			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
-			AddToSummaryReport("Game Version", CommonDatabase.GetGameVersion(Connection));
+			AddToSummaryReport("Game Version", await CommonDatabase.GetGameVersion(Connection));
 			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
@@ -352,9 +352,9 @@ namespace Preprocessor
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
-			foreach (Space space in CommonDatabase.GetSpaces(Connection))
+			foreach (Space space in await CommonDatabase.GetSpaces(Connection))
 			{
-				List<Coord> coordinates = CommonDatabase.GetCoordsFromSpace(Connection, space);
+				List<Coord> coordinates = await CommonDatabase.GetCoordsFromSpace(Connection, space);
 				double maxRadius = space.MaxRange / 2d;
 
 				// Find the count of coordinates in the space which are further from the center than the max range
@@ -689,13 +689,20 @@ namespace Preprocessor
 		// Simplifies/corrects the given lock level string
 		static string ReduceLockLevel(string lockLevel)
 		{
-			// If the lock level does not need changing
-			if (!CorrectLockLevelRegex.IsMatch(lockLevel))
+			if (string.IsNullOrEmpty(lockLevel))
 			{
-				return lockLevel;
+				return "None";
 			}
 
-			return CorrectLockLevelRegex.Match(lockLevel).Groups[2].Value;
+			Match match = LockLevelRegex.Match(lockLevel);
+
+			// Remove the novice/advanced etc from the levelled locks
+			if (match.Success)
+			{
+				lockLevel = match.Groups[2].Value;
+			}
+
+			return lockLevel.WithoutWhitespace();
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input

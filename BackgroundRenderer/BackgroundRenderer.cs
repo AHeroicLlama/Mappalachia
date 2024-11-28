@@ -51,9 +51,9 @@ namespace BackgroundRenderer
 
 		// Performs the typical end-product render for the given spaces, or if null, asks the user for which
 		// Provides informative logging output, est time remaining etc
-		static void NormalRender(List<Space>? spaces = null)
+		static async void NormalRender(List<Space>? spaces = null)
 		{
-			spaces ??= GetSpaceInput();
+			spaces ??= await GetSpaceInput();
 
 			Stopwatch generalStopwatch = Stopwatch.StartNew();
 
@@ -104,11 +104,11 @@ namespace BackgroundRenderer
 		}
 
 		// Runs through the process of rendering a cell, opening it, asking the user for corrective input, then storing that as a file
-		static void SpaceZoomOffsetCorrection()
+		static async void SpaceZoomOffsetCorrection()
 		{
 			while (true)
 			{
-				Space space = GetSingleSpaceInput();
+				Space space = await GetSingleSpaceInput();
 
 				double resolution = Common.MapImageResolution;
 				double scale = resolution / space.MaxRange;
@@ -172,13 +172,13 @@ namespace BackgroundRenderer
 
 		// Handles the process of manually finding the correct height crop for a space render
 		// Overarching function which simply tracks the corrected spaces, calls the heavy-lifting function, and finally renders the corrected spaces.
-		static void SpaceHeightCorrection()
+		static async void SpaceHeightCorrection()
 		{
 			List<Space> correctedSpaces = new List<Space>();
 
 			while (true)
 			{
-				Space? correctedSpace = DoSpaceHeightCorrection();
+				Space? correctedSpace = await DoSpaceHeightCorrection();
 
 				// If the user aborted this space, don't add it to the list.
 				// Additionally, if we haven't corrected any spaces yet, don't offer to render - just do another space
@@ -205,9 +205,9 @@ namespace BackgroundRenderer
 		}
 
 		// Does the space height correction
-		static Space? DoSpaceHeightCorrection()
+		static async Task<Space?> DoSpaceHeightCorrection()
 		{
-			Space space = GetSingleSpaceInput();
+			Space space = await GetSingleSpaceInput();
 			int height = GetSpaceCameraHeight(space);
 
 			// Loop of user estimates new height, render, ask again.
@@ -295,7 +295,7 @@ namespace BackgroundRenderer
 		}
 
 		// Returns a list of Spaces gathered from the user, for rendering
-		static List<Space> GetSpaceInput()
+		static async Task<List<Space>> GetSpaceInput()
 		{
 			StdOutWithColor("\nEnter a space-separated list of space EditorIDs to render. Or enter nothing to render all", ColorQuestion);
 			string input = Console.ReadLine() ?? string.Empty;
@@ -304,7 +304,7 @@ namespace BackgroundRenderer
 
 			// Select spaces unconditionally if none provided, otherwise select only the list of provided spaces
 			string query = $"SELECT * FROM Space{(requestedIDs.Count == 0 ? string.Empty : $" WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()}")} ORDER BY isWorldspace DESC, spaceEditorID ASC;";
-			List<Space> spaces = CommonDatabase.GetSpaces(GetNewConnection(), query);
+			List<Space> spaces = await CommonDatabase.GetSpaces(GetNewConnection(), query);
 
 			// If we specified cells, ensure we found them all in the DB before proceeding
 			if (requestedIDs.Count != 0 && spaces.Count != requestedIDs.Count)
@@ -316,14 +316,14 @@ namespace BackgroundRenderer
 		}
 
 		// Asks for a single editorID and returns the corresponding space
-		static Space GetSingleSpaceInput()
+		static async Task<Space> GetSingleSpaceInput()
 		{
 			while (true)
 			{
 				StdOutWithColor("\nEnter the EditorID of the space:", ColorQuestion);
 				string input = Console.ReadLine() ?? string.Empty;
 
-				Space? space = CommonDatabase.GetSpaceByEditorID(GetNewConnection(), input);
+				Space? space = await CommonDatabase.GetSpaceByEditorID(GetNewConnection(), input);
 
 				if (space == null)
 				{

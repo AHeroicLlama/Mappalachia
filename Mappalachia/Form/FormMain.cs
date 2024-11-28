@@ -1,50 +1,40 @@
 using System.Data;
-using System.Diagnostics;
 using Library;
 
 namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
+		DataTable SearchResultsDataTable { get; } = new DataTable();
+
 		public FormMain()
 		{
 			InitializeComponent();
 			pictureBoxMapDisplay.Image = Map.Draw();
+			InitializeSearchResultsGrid();
+		}
 
-			Stopwatch stopwatch = Stopwatch.StartNew();
+		private async void ButtonSearch_Click(object sender, EventArgs e)
+		{
+			dataGridViewSearchResults.DataSource = null;
+			SearchResultsDataTable.Rows.Clear();
 
-			List<GroupedInstance> searchResults = Database.Search("");
+			List<GroupedInstance> searchResults = await Database.Search(textBoxSearch.Text);
 
-			Console.WriteLine($"Query completed {stopwatch.Elapsed}");
-			stopwatch.Restart();
-
-			// TODO reuse this
-			DataTable tableModel = new DataTable();
-			tableModel.Columns.AddRange(
-			[
-				new DataColumn("Form ID"),
-				new DataColumn("Editor ID"),
-				new DataColumn("Display Name"),
-				new DataColumn("Signature"),
-				new DataColumn("Space Editor ID"),
-				new DataColumn("Space Display Name"),
-				new DataColumn("Label"),
-				new DataColumn("Lock Level"),
-				new DataColumn("Weight", typeof(float)),
-				new DataColumn("Count", typeof(int)),
-			]);
-
-			Console.WriteLine($"Table model built {stopwatch.Elapsed}");
-			stopwatch.Restart();
+			searchResults = searchResults
+				.OrderByDescending(g => g.Space == Settings.CurrentSpace)
+				.ThenByDescending(g => g.Count)
+				.ThenByDescending(g => g.SpawnWeight)
+				.ThenBy(g => g.Entity.EditorID)
+				.ToList();
 
 			foreach (GroupedInstance groupedInstance in searchResults)
 			{
-				tableModel.Rows.Add(
+				SearchResultsDataTable.Rows.Add(
 					groupedInstance.Entity.FormID.ToHex(),
 					groupedInstance.Entity.EditorID,
 					groupedInstance.Entity.DisplayName,
 					groupedInstance.Entity.Signature.ToString(),
-					groupedInstance.Space.EditorID,
 					groupedInstance.Space.DisplayName,
 					groupedInstance.Label,
 					groupedInstance.LockLevel.ToString(),
@@ -52,13 +42,27 @@ namespace Mappalachia
 					groupedInstance.Count);
 			}
 
-			Console.WriteLine($"Rows added to table model {stopwatch.Elapsed}");
-			stopwatch.Restart();
+			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
+		}
 
-			dataGridViewSearchResults.DataSource = tableModel;
+		void InitializeSearchResultsGrid()
+		{
+			SearchResultsDataTable.Columns.AddRange(
+			[
+				new DataColumn("Form ID"),
+				new DataColumn("Editor ID"),
+				new DataColumn("Display Name"),
+				new DataColumn("Signature"),
+				new DataColumn("Space Display Name"),
+				new DataColumn("Label"),
+				new DataColumn("Lock Level"),
+				new DataColumn("Weight", typeof(float)),
+				new DataColumn("Count", typeof(int)),
+			]);
 
-			Console.WriteLine($"Data source bound {stopwatch.Elapsed}");
-			stopwatch.Restart();
+			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
+
+			dataGridViewSearchResults.Columns["Form ID"].DefaultCellStyle.Font = new Font("Consolas", 8);
 		}
 	}
 }

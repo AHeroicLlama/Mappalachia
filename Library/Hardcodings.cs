@@ -24,9 +24,9 @@ namespace Library
 
 		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
 
-		public static Regex CorrectLockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
+		public static Regex LockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
 
-		public static Regex ValidateLockLevel { get; } = new Regex("^(Level [0-3]|Chained|Inaccessible|Requires Key|Requires Terminal|Unknown|Barred)$");
+		public static Regex ValidateLockLevel { get; } = new Regex("^(None|Level[0-3]|Chained|Inaccessible|RequiresKey|RequiresTerminal|Unknown|Barred)$");
 
 		public static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
 

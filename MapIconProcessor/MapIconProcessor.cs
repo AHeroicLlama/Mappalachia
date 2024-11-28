@@ -12,11 +12,11 @@ class MapIconProcessor
 
 	static List<string> Errors { get; } = new List<string>();
 
-	static void Main()
+	static async Task Main()
 	{
 		Console.Title = "Mappalachia Map Icon Extractor";
 
-		List<MapMarker> mapMarkers = CommonDatabase.GetMapMarkers(GetNewConnection());
+		List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(GetNewConnection());
 
 		foreach (MapMarker mapMarker in mapMarkers)
 		{

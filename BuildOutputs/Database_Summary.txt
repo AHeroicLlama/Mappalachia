@@ -1,11 +1,11 @@
 MD5 Checksum
-A965BC399CE19A3BC2273B752EDEC4D5
+52FC65F98746AEC2B6022D47F32F4D72
 
 Size
-344620 KB
+379904 KB
 
 Built At UTC
-26/11/2024 19:54:34
+27/11/2024 23:53:12
 
 CSV Imported with SQLite Version
 3.47.0 2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e (64-bit)
@@ -229,16 +229,16 @@ Avg PercChanceNone
 0.009400102546573235
 
 Lock Levels
-,4358179
 Barred,1
 Chained,6
 Inaccessible,146
-Level 0,664
-Level 1,647
-Level 2,407
-Level 3,191
-Requires Key,186
-Requires Terminal,43
+Level0,664
+Level1,647
+Level2,407
+Level3,191
+None,4358179
+RequiresKey,186
+RequiresTerminal,43
 Unknown,1
 
 Primitive Shapes
