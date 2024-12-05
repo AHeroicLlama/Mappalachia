@@ -29,7 +29,7 @@ unit _mappalachia_entity;
 			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
 
 			// Don't export data for Cells or Worldspaces, as they won't contain themselves
-			if (signature = 'CELL') or (signature = 'WRLD') then continue;
+			if (signature = 'CELL') or (signature = 'WRLD') or (signature = 'PLYT') then continue; // Skip PLYT to workaround xedit bug
 
 			AddMessage('Entity: ' + signature);
 

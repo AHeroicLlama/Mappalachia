@@ -2124,7 +2124,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 7220505,PackInPACKStormFirecracker02StorageCell,,0
 72284,TestRobertWorld,,1
 7232031,DebugJeffUWorldspace01,DebugJeffU_Worldspace01,1
-7232032,DebugJeffU06,Quick Test Cell,0
+7232032,zCUTDebugJeffuempty,Quick Test Cell,0
 7245963,DebugBadenGInstanced,Quick Test Cell,0
 7252899,PackInF1EnclaveMobileRelayTentPKINStorageCell,,0
 7253327,PackInStormREPackInSceneStorageCell,,0
@@ -2188,20 +2188,28 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 7881189,PackInATXCollectronpackinLumberjackStorageCell,,0
 7892492,PackInF1SurvivalTentVaultTecPKINStorageCell,,0
 79032,PackInTESTPackInStorageCell,,0
+7912861,DebugBSTownBuildings,,0
+7916511,WarehouseRaids,Quick Test Cell,0
 79246,PackInPACKForestTreeX04bStorageCell,,0
 79247,PackInPACKForestTreeX04StorageCell,,0
 7935480,76HoldingCellMile,Quick Test Cell,0
 7946036,zCutPGEM02,Quick Test Cell,0
+7958785,,,0
+7959176,DebugMike,Quick Test Cell,0
 7969232,,,0
 7969233,,,0
+7971258,PackInATXCollectronpackinBivBevStorageCell,,0
 7971311,DebugJamieR,Quick Test Cell,0
 79723,PackInForestPackTree03aStorageCell,,0
+7983446,DebugJeffU06GD,Gleaming Depths,0
+8008300,DebugJeffU07GD,Gleaming Depths,0
 8031568,,,0
 8031569,,,0
 8031570,,,0
 8031571,,,0
 8031572,,,0
 8031573,,,0
+8054307,TestMikeInt,Quick Test Cell,0
 806575,PackInLvlMirelurkHunterAggro1670GroundPackInStorageCell,,0
 806576,PackInLvlMirelurkHunterAggro1200GroundPackInStorageCell,,0
 806577,PackInLvlMirelurkHunterAggro800GroundPackInStorageCell,,0

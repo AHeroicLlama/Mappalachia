@@ -194,22 +194,14 @@ namespace Library
 				case "Sacrament":
 					return "CultistMarker";
 
+				case "Gleaming Depths":
+					return "GleamingDepthsMarker";
+
 				case "Foundation":
 					return "HammerWingMarker";
 
 				case "The Rusty Pick":
 					return "LegendaryPurveyorMarker";
-
-				case "Ohio River Adventures":
-				case "The Coop":
-				case "The Crater":
-					return "SkullRingMarker";
-
-				case "Vault 51":
-					return "Vault51Marker";
-
-				case "Vault 79":
-					return "Vault79Marker";
 
 				case "Abandoned Bog Town":
 				case "Beckley Mine Exhibit":
@@ -233,6 +225,17 @@ namespace Library
 				case "Tyler County Dirt Track":
 				case "Wade Airport":
 					return "PublicWorkshopMarker";
+
+				case "Ohio River Adventures":
+				case "The Coop":
+				case "The Crater":
+					return "SkullRingMarker";
+
+				case "Vault 51":
+					return "Vault51Marker";
+
+				case "Vault 79":
+					return "Vault79Marker";
 
 				default:
 					return null;
