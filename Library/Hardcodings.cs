@@ -26,7 +26,7 @@ namespace Library
 
 		public static Regex LockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
 
-		public static Regex ValidateLockLevel { get; } = new Regex("^(None|Level[0-3]|Chained|Inaccessible|RequiresKey|RequiresTerminal|Unknown|Barred)$");
+		public static Regex ValidateLockLevel { get; } = new Regex("^(Level[0-3]|Chained|Inaccessible|RequiresKey|RequiresTerminal|Unknown|Barred)$");
 
 		public static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
 
@@ -246,16 +246,16 @@ namespace Library
 		public static List<string> RenderExcludeModels { get; } = new List<string>()
 		{
 			"babylon",
-			"cranberrybog",
-			"cranbog",
+			"trench",
 			"bog",
 			"grass",
 			"trees",
 			"tree",
+			"forest",
 			"plants",
 			"shrub",
 			"vine",
-			"root",
+			"swamp",
 			"stump",
 			"fog",
 			"cloud",

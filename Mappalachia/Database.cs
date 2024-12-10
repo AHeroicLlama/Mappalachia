@@ -15,6 +15,16 @@ namespace Mappalachia
 
 		public static List<MapMarker> CachedMapMarkers { get; } = GetMapMarkers(Connection).Result;
 
+		static string ToStringForQuery(this LockLevel lockLevel)
+		{
+			if (lockLevel == LockLevel.None)
+			{
+				return string.Empty;
+			}
+
+			return lockLevel.ToString();
+		}
+
 		public static async Task<List<GroupedInstance>> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
 		{
 			selectedSignatures ??= Enum.GetValues<Signature>().ToList();
@@ -24,7 +34,7 @@ namespace Mappalachia
 			List<GroupedInstance> results = new List<GroupedInstance>();
 
 			// If the search term is a FormID, we perform further specific searches against this
-			bool searchIsFormID = ExactFormID.IsMatch(searchTerm);
+			bool searchIsFormID = ExactFormID.IsMatch(searchTerm.ToUpper());
 
 			// 'Standard'
 			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{searchTerm}' OR " : string.Empty;
@@ -34,7 +44,7 @@ namespace Mappalachia
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' OR editorID LIKE '%{searchTerm}%' or displayName LIKE '%{searchTerm}%') " +
 				optionalSpaceTerm +
-				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.ToSqliteCollection()} " +
+				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {selectedSignatures.ToSqliteCollection()};";
 
 			SqliteDataReader reader = await GetReader(Connection, query);

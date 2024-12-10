@@ -691,7 +691,7 @@ namespace Preprocessor
 		{
 			if (string.IsNullOrEmpty(lockLevel))
 			{
-				return "None";
+				return string.Empty;
 			}
 
 			Match match = LockLevelRegex.Match(lockLevel);

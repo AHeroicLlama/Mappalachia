@@ -30,7 +30,7 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Position", "x", false, ColumnType.REAL);
 			ValidateColumnMatchesFormat("Position", "y", false, ColumnType.REAL);
 			ValidateColumnMatchesFormat("Position", "z", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "lockLevel", false, ColumnType.TEXT, ValidateLockLevel);
+			ValidateColumnMatchesFormat("Position", "lockLevel", true, ColumnType.TEXT, ValidateLockLevel);
 			ValidateColumnMatchesFormat("Position", "primitiveShape", true, ColumnType.TEXT, ValidatePrimitiveShape);
 			ValidateColumnMatchesFormat("Position", "boundX", true, ColumnType.REAL);
 			ValidateColumnMatchesFormat("Position", "boundY", true, ColumnType.REAL);
@@ -42,7 +42,7 @@ namespace Preprocessor
 
 			ValidateColumnMatchesFormat("Position_PreGrouped", "spaceFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Position_PreGrouped", "referenceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", false, ColumnType.TEXT, ValidateLockLevel);
+			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", true, ColumnType.TEXT, ValidateLockLevel);
 			ValidateColumnMatchesFormat("Position_PreGrouped", "count", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Entity", "entityFormID", false, ColumnType.INTEGER);

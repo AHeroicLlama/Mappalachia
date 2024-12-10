@@ -68,7 +68,7 @@ namespace BackgroundRenderer
 			// Do the serial render of worldspaces first
 			foreach (Space worldspace in worldspaces)
 			{
-				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID})", ColorInfo);
+				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID.ToHex()})", ColorInfo);
 				RenderSpace(worldspace);
 				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
 			}
@@ -76,7 +76,6 @@ namespace BackgroundRenderer
 			Stopwatch cellStopwatch = Stopwatch.StartNew();
 
 			// Render cells in parallel
-			// We track the time and provide estimates of time remaining
 			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = CellRenderParallelization }, cell =>
 			{
 				RenderSpace(cell, true);
@@ -256,11 +255,10 @@ namespace BackgroundRenderer
 			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;
 			double scale = renderResolution / space.MaxRange;
 
-			// -rq 1 + 2 + 12 + 256 (+32 for cells)
 			string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {ddsFile} {renderResolution} {renderResolution} " +
 				$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString}" +
 				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
-				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {(space.IsWorldspace ? "271" : "303")} -ssaa 2 " +
+				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + (space.IsWorldspace ? 0 : 32)} -ssaa 2 " +
 				$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
 				$"-xm " + string.Join(" -xm ", Hardcodings.RenderExcludeModels);
 
