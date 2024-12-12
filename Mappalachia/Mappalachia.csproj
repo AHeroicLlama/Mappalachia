@@ -19,8 +19,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<Compile Remove="img\**" />
 	<Compile Remove="publish\**" />
+	<EmbeddedResource Remove="img\**" />
 	<EmbeddedResource Remove="publish\**" />
+	<None Remove="img\**" />
 	<None Remove="publish\**" />
   </ItemGroup>
 

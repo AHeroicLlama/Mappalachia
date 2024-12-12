@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
-using static Library.Hardcodings;
 
 namespace Preprocessor
 {

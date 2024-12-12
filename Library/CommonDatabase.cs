@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
+using Microsoft.Data.Sqlite;
 
 namespace Library
 {
@@ -126,7 +126,7 @@ namespace Library
 				throw new ArgumentException("Only string or enum collections are valid.");
 			}
 
-			return $"({string.Join(",", elements.Select(e => "\'" + e.ToString() + "\'"))})";
+			return $"({string.Join(",", elements.Select(e => "\'" + e?.ToString() + "\'"))})";
 		}
 	}
 }

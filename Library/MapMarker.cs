@@ -1,4 +1,4 @@
-﻿namespace Library
+namespace Library
 {
 	public class MapMarker(string icon, string label, uint spaceFormID = 0x00000000, double x = 0, double y = 0)
 	{

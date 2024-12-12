@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
-using static Library.Hardcodings;
 
 namespace Preprocessor
 {

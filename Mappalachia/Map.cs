@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+namespace Mappalachia
 {
 	enum BackgroundImageType
 	{
@@ -11,7 +11,7 @@
 	{
 		public static Image Draw()
 		{
-			return new Bitmap(FileIO.GetImageForSpace(Settings.CurrentSpace));
+			return new Bitmap(Settings.CurrentSpace.GetBackgroundImage());
 		}
 	}
 }

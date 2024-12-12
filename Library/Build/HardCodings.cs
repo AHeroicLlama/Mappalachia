@@ -6,7 +6,7 @@ namespace Library
 	// Naturally hardcoding things comes with risks and may require review after each patch. For that reason all hardcoded items are kept together here.
 	// Hardcoding may be done for the following reasons: Datamining is not realistic, or a route is not known. Or the data is apparently server-side.
 	// Notably Map Markers are the main offender of this
-	public static partial class Hardcodings
+	public static partial class BuildTools
 	{
 		public static string FissureSiteLabel { get; } = "Fissure Site";
 
@@ -245,21 +245,7 @@ namespace Library
 		// Values passed with the -xm argument to the render command
 		public static List<string> RenderExcludeModels { get; } = new List<string>()
 		{
-			"babylon",
-			"trench",
-			"bog",
-			"grass",
-			"trees",
-			"tree",
-			"forest",
-			"plants",
-			"shrub",
-			"vine",
-			"swamp",
-			"stump",
-			"fog",
-			"cloud",
-			"effects",
+			"swamptree",
 		};
 
 		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others

@@ -6,16 +6,16 @@ namespace Mappalachia
 	{
 		static string BackgroundImageFileType { get; } = ".jpg";
 
-		public static Image GetImageForSpace(Space space, BackgroundImageType preferrredBackgroundImageType = BackgroundImageType.Menu)
+		public static Image GetBackgroundImage(this Space space, BackgroundImageType preferredBackgroundImageType = BackgroundImageType.Menu)
 		{
 			if (space.IsWorldspace)
 			{
-				if (space.IsAppalachia() && preferrredBackgroundImageType == BackgroundImageType.Military)
+				if (space.IsAppalachia() && preferredBackgroundImageType == BackgroundImageType.Military)
 				{
 					return new Bitmap(Paths.WorldspaceImgPath + space.EditorID + "_military" + BackgroundImageFileType);
 				}
 
-				if (preferrredBackgroundImageType == BackgroundImageType.Render)
+				if (preferredBackgroundImageType == BackgroundImageType.Render)
 				{
 					return new Bitmap(Paths.WorldspaceImgPath + space.EditorID + BackgroundImageFileType);
 				}
