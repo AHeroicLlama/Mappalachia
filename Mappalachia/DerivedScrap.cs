@@ -3,7 +3,7 @@
 namespace Mappalachia
 {
 	public class DerivedScrap(string displayName)
-		: Entity(0, $"Derived{displayName.WithoutWhitespace()}", displayName, Signature.MISC)
+		: Entity(0, $"Derived{displayName.WithoutWhitespace()}Scrap", displayName, Signature.MISC)
 	{
 	}
 }

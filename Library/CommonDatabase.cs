@@ -110,8 +110,8 @@ namespace Library
 					(string)reader["icon"],
 					(string)reader["label"],
 					Convert.ToUInt32(reader["spaceFormID"]),
-					Convert.ToDouble(reader["x"]),
-					Convert.ToDouble(reader["y"])));
+					(float)Convert.ToDouble(reader["x"]),
+					(float)Convert.ToDouble(reader["y"])));
 			}
 
 			return mapMarkers;
