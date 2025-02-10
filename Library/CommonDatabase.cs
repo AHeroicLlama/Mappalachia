@@ -81,9 +81,16 @@ namespace Library
 		}
 
 		// Returns a collection of all X/Y coordinates of the given Space
-		public static async Task<List<Coord>> GetCoordsFromSpace(SqliteConnection connection, Space space)
+		public static async Task<List<Coord>> GetCoords(SqliteConnection connection, Space space)
 		{
-			SqliteDataReader reader = await GetReader(connection, $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}");
+			string queryText = $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}";
+			return await GetCoords(connection, queryText);
+		}
+
+		// Returns the results of the given query as a collection of Coord
+		public static async Task<List<Coord>> GetCoords(SqliteConnection connection, string queryText)
+		{
+			SqliteDataReader reader = await GetReader(connection, queryText);
 			List<Coord> coordinates = new List<Coord>();
 
 			while (reader.Read())

@@ -6,6 +6,10 @@ namespace Library
 	{
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
 
+		public static int SuperResTileSize { get; } = (int)Math.Pow(2, 12); // 4096
+
+		public static int SuperResScale { get; } = 2; // The ratio of game coordinates to pixels, given in 1:x^2 (or the width in cells for each tile (x*x arrangement)) used for super resolution
+
 		public static string ToHex(this uint formID)
 		{
 			return formID.ToString("X8");

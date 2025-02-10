@@ -16,5 +16,30 @@
 		{
 			return EditorID.Equals("Appalachia", StringComparison.OrdinalIgnoreCase);
 		}
+
+		public double GetRadius()
+		{
+			return MaxRange / 2d;
+		}
+
+		public double GetMinX()
+		{
+			return CenterX - GetRadius();
+		}
+
+		public double GetMaxX()
+		{
+			return CenterX + GetRadius();
+		}
+
+		public double GetMinY()
+		{
+			return CenterY - GetRadius();
+		}
+
+		public double GetMaxY()
+		{
+			return CenterY + GetRadius();
+		}
 	}
 }

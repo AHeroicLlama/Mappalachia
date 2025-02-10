@@ -1,31 +1,31 @@
 using System.Diagnostics;
 using Library;
+using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
 
 namespace BackgroundRenderer
 {
 	class BackgroundRenderer
 	{
-		static int JpegQualityCell { get; } = 85;
+		static int JpegQualityStandard { get; } = 85;
 
-		static int JpegQualityWorldspace { get; } = 100;
+		static int JpegQualityHigh { get; } = 100;
 
 		static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
 		static int CellRenderParallelization { get; } = 8; // Max cells to render in parallel
 
-		static void Main()
+		static async Task Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
-			if (!Directory.Exists(CellPath))
+			// Ensure the output directories exist
+			foreach (string directory in new string[] { CellPath, WorldPath, SuperResPath })
 			{
-				Directory.CreateDirectory(CellPath);
-			}
-
-			if (!Directory.Exists(WorldPath))
-			{
-				Directory.CreateDirectory(WorldPath);
+				if (!Directory.Exists(directory))
+				{
+					Directory.CreateDirectory(directory);
+				}
 			}
 
 			StdOutWithColor("Enter:\n1: Normal Render Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode", ColorQuestion);
@@ -263,7 +263,7 @@ namespace BackgroundRenderer
 				$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
 
 			string resizeCommand = $"magick {ddsFile} -resize {Common.MapImageResolution}x{Common.MapImageResolution} " +
-						$"-quality {(space.IsWorldspace ? JpegQualityWorldspace : JpegQualityCell)} JPEG:{finalFile}";
+						$"-quality {(space.IsWorldspace ? JpegQualityHigh : JpegQualityStandard)} JPEG:{finalFile}";
 
 			Process render = StartProcess(renderCommand, silent);
 			render.WaitForExit();
@@ -289,6 +289,71 @@ namespace BackgroundRenderer
 
 				Process magickWatermaskResizeConvert = StartProcess(watermaskResizeCommand, silent);
 				magickWatermaskResizeConvert.WaitForExit();
+			}
+
+			HighResRender(space);
+		}
+
+		static async void HighResRender(Space space)
+		{
+			// The size in game coordinates of each tile
+			int imageCoordWidth = Common.SuperResTileSize * Common.SuperResScale;
+			int imageCoordRadius = imageCoordWidth / 2;
+
+			// The maximum possible coordinate which could be captured in a tile
+			double minX = space.GetMinX() - imageCoordWidth;
+			double maxX = space.GetMaxX() + imageCoordWidth;
+			double minY = space.GetMinY() - imageCoordWidth;
+			double maxY = space.GetMaxY() + imageCoordWidth;
+
+			// The center coord of the edge tiles: the coordinate edge, rounded down, minus the tile radius
+			int minXCenter = (int)(minX - (minX % imageCoordWidth)) - imageCoordRadius;
+			int maxXCenter = (int)(maxX - (maxX % imageCoordWidth)) - imageCoordRadius;
+			int minYCenter = (int)(minY - (minY % imageCoordWidth)) - imageCoordRadius;
+			int maxYCenter = (int)(maxY - (maxY % imageCoordWidth)) - imageCoordRadius;
+
+			for (int x = minXCenter; x <= maxXCenter; x += imageCoordWidth)
+			{
+				for (int y = minYCenter; y <= maxYCenter; y += imageCoordWidth)
+				{
+					// Count the entities which would exist in this tile - skip if 0
+					string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {space.FormID} AND x >= {x - imageCoordRadius} AND x <= {x + imageCoordRadius} AND y >= {y - imageCoordRadius} AND y <= {y + imageCoordRadius}";
+					SqliteDataReader reader = await CommonDatabase.GetReader(GetNewConnection(), countQuery);
+					reader.Read();
+
+					if (Convert.ToInt32(reader["count"]) == 0)
+					{
+						continue;
+					}
+
+					int tileX = (int)Math.Round(x / (double)imageCoordWidth, MidpointRounding.AwayFromZero);
+					int tileY = (int)Math.Round(y / (double)imageCoordWidth, MidpointRounding.AwayFromZero);
+
+					string outputFile = TempPath + $"debug_super_{space.EditorID}_{tileX}.{tileY}.dds";
+					string finalFile = SuperResPath + $"debug_super_{space.EditorID}_{tileX}.{tileY}.jpg";
+
+					string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
+						$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
+						$"-w 0x{space.FormID.ToHex()} -l 0 -cam {1d / Common.SuperResScale} 180 0 0 {x} {y} {GetSpaceCameraHeight(space)} " +
+						$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 0 " +
+						$"-ltxtres 4096 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
+						$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+
+					string resizeCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
+
+					Process render = StartProcess(renderCommand, true);
+					render.WaitForExit();
+
+					Process magickResizeConvert = StartProcess(resizeCommand);
+					magickResizeConvert.WaitForExit();
+
+					// If the file appears to be the minimum size given its resolution, with 10% variance allowed
+					long size = new FileInfo(finalFile).Length;
+					if (size <= (Math.Pow(Common.SuperResTileSize, 2) / (8 * 8 * 4)) * 1.1)
+					{
+						File.Delete(finalFile);
+					}
+				}
 			}
 		}
 

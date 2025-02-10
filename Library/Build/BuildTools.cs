@@ -46,6 +46,8 @@ namespace Library
 
 		public static string WorldPath { get; } = ImageRootPath + @"wrld\";
 
+		public static string SuperResPath { get; } = ImageRootPath + @"super\";
+
 		public static string MapMarkerPath { get; } = ImageRootPath + @"mapmarker\";
 
 		static string GamePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\";
