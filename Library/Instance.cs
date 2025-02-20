@@ -1,6 +1,4 @@
-﻿using Library;
-
-namespace Mappalachia
+﻿namespace Library
 {
 	public enum LockLevel
 	{

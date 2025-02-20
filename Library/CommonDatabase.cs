@@ -124,6 +124,43 @@ namespace Library
 			return mapMarkers;
 		}
 
+		// Returns the Regions in the given Space, optionally with the specific editorID
+		public static async Task<List<Region>> GetRegions(SqliteConnection connection, Space space, string? regionEditorID = null)
+		{
+			string queryText = $"SELECT * FROM Region WHERE SpaceFormID = {space.FormID}{(regionEditorID == null ? string.Empty : $" AND regionEditorID = '{regionEditorID}'")};";
+
+			SqliteDataReader reader = await GetReader(connection, queryText);
+			List<Region> regions = new List<Region>();
+
+			while (reader.Read())
+			{
+				uint formID = Convert.ToUInt32(reader["regionFormID"]);
+				Region? region = regions.Where(r => r.FormID == formID).FirstOrDefault();
+
+				if (region == null)
+				{
+					region = new Region(
+						formID,
+						(string)reader["regionEditorID"]);
+
+					regions.Add(region);
+				}
+				else
+				{
+					region.AddPoint(new RegionPoint(
+						region,
+						space,
+						new Coord(
+							(float)Convert.ToDouble(reader["x"]),
+							(float)Convert.ToDouble(reader["y"])),
+						Convert.ToUInt32(reader["regionIndex"]),
+						Convert.ToUInt32(reader["coordIndex"])));
+				}
+			}
+
+			return regions;
+		}
+
 		// Converts a collection of strings to an SQLite list string suitable for an IN clause
 		// EG ["a", "b"] -> "('a','b')"
 		public static string ToSqliteCollection<T>(this IEnumerable<T> elements)

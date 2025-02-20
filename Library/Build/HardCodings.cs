@@ -245,7 +245,7 @@ namespace Library
 		// Values passed with the -xm argument to the render command
 		public static List<string> RenderExcludeModels { get; } = new List<string>()
 		{
-			"swamptree",
+			"swamptree", "babylon",
 		};
 
 		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others
@@ -263,6 +263,18 @@ namespace Library
 		public static string CorrectCommonBadLabels(string label)
 		{
 			return label.Replace("Fast Travel Point: ", string.Empty).Replace("Hornwright Air Cleanser Site", "Hornwright Air Purifier Site");
+		}
+
+		// Returns the editorID of the world border for the space
+		// Null if it is not known or doesn't exist
+		public static string? GetWorldBorderName(Space space)
+		{
+			if (space.IsAppalachia())
+			{
+				return "76Border";
+			}
+
+			return null;
 		}
 	}
 }

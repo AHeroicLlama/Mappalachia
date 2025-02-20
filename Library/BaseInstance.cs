@@ -1,6 +1,4 @@
-﻿using Library;
-
-namespace Mappalachia
+﻿namespace Library
 {
 	// Abstract of the shared properties of Instance or GroupedInstance
 	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel, float spawnWeight)

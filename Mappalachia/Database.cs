@@ -121,7 +121,7 @@ namespace Mappalachia
 			while (reader.Read())
 			{
 				results.Add(new GroupedInstance(
-					new Region(
+					new Library.Region(
 						reader.GetUInt("regionFormID"),
 						reader.GetString("regionEditorID")),
 					selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),

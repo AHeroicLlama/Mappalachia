@@ -5,7 +5,7 @@ using static Library.BuildTools;
 
 namespace BackgroundRenderer
 {
-	class BackgroundRenderer
+	static class BackgroundRenderer
 	{
 		static int JpegQualityStandard { get; } = 85;
 
@@ -13,7 +13,9 @@ namespace BackgroundRenderer
 
 		static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
-		static int CellRenderParallelization { get; } = 8; // Max cells to render in parallel
+		static int RenderParallelism { get; } = 8; // Max cells to render in parallel
+
+		static double SuperResImprovementThresholdPerc { get; } = 25; // Percent improvement in resolution necessary to render a super res
 
 		static async Task Main()
 		{
@@ -28,7 +30,7 @@ namespace BackgroundRenderer
 				}
 			}
 
-			StdOutWithColor("Enter:\n1: Normal Render Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode", ColorQuestion);
+			StdOutWithColor("Enter:\n1: Normal Render Mode\n2: Super Res Render\n3: Space Zoom/Offset (X/Y) correction/debug mode\n4: Space height (Z) crop correction/debug mode", ColorQuestion);
 
 			switch (Console.ReadKey().KeyChar)
 			{
@@ -37,10 +39,14 @@ namespace BackgroundRenderer
 					break;
 
 				case '2':
-					SpaceZoomOffsetCorrection();
+					SuperResRender();
 					break;
 
 				case '3':
+					SpaceZoomOffsetCorrection();
+					break;
+
+				case '4':
 					SpaceHeightCorrection();
 					break;
 
@@ -76,7 +82,7 @@ namespace BackgroundRenderer
 			Stopwatch cellStopwatch = Stopwatch.StartNew();
 
 			// Render cells in parallel
-			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = CellRenderParallelization }, cell =>
+			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, cell =>
 			{
 				RenderSpace(cell, true);
 				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
@@ -86,20 +92,21 @@ namespace BackgroundRenderer
 			Console.ReadKey();
 		}
 
-		static void AnnounceRenderProgress(List<Space> spaces, Space space, ref int cellsRendered, Stopwatch? stopwatch = null)
+		// Manages high res rendering of spaces, including console IO
+		static async void SuperResRender()
 		{
-			int count = Interlocked.Increment(ref cellsRendered);
+			List<Space> spaces = await GetSpaceInput();
+			Stopwatch stopwatch = Stopwatch.StartNew();
+			StdOutWithColor($"Super Res Rendering {spaces.Count} space{Common.Pluralize(spaces)}...", ColorInfo);
 
-			double percentRemaining = (100d * count) / spaces.Count;
-			StdOutWithColor($"{space.EditorID} (0x{space.FormID.ToHex()}) Done. ({count}/{spaces.Count} ({percentRemaining.ToString("0.00")}%))", ColorInfo);
-
-			// If this isn't the last item, and we have a timer going
-			if (count != spaces.Count && stopwatch != null)
+			foreach (Space space in spaces)
 			{
-				TimeSpan avgTimePerSpace = stopwatch.Elapsed / count;
-				TimeSpan estTimeRemaining = avgTimePerSpace * (spaces.Count - count);
-				StdOutWithColor($"{estTimeRemaining.ToString(@"hh\:mm\:ss")} remaining", ColorInfo);
+				StdOutWithColor($"Super Res Rendering {space.EditorID} (0x{space.FormID.ToHex()})", ColorInfo);
+				SuperResRenderSpace(space);
 			}
+
+			StdOutWithColor($"Super Res Rendering Finished. {stopwatch.Elapsed.ToString(@"hh\:mm\:ss")}. Press Any Key.", ColorInfo);
+			Console.ReadKey();
 		}
 
 		// Runs through the process of rendering a cell, opening it, asking the user for corrective input, then storing that as a file
@@ -290,71 +297,114 @@ namespace BackgroundRenderer
 				Process magickWatermaskResizeConvert = StartProcess(watermaskResizeCommand, silent);
 				magickWatermaskResizeConvert.WaitForExit();
 			}
-
-			HighResRender(space);
 		}
 
-		static async void HighResRender(Space space)
+		static async void SuperResRenderSpace(Space space)
 		{
-			// The size in game coordinates of each tile
-			int imageCoordWidth = Common.SuperResTileSize * Common.SuperResScale;
-			int imageCoordRadius = imageCoordWidth / 2;
+			// Get the scale of the cell's traditional render, compare it to the super res scale
+			double scale = 1d / Common.SuperResScale;
+			int singleRenderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
+			double singleScale = singleRenderResolution / space.MaxRange;
+			double relativeImprovementPerc = ((scale - singleScale) / singleScale) * 100;
 
-			// The maximum possible coordinate which could be captured in a tile
-			double minX = space.GetMinX() - imageCoordWidth;
-			double maxX = space.GetMaxX() + imageCoordWidth;
-			double minY = space.GetMinY() - imageCoordWidth;
-			double maxY = space.GetMaxY() + imageCoordWidth;
+			string outputPath = TempPath + $"{space.EditorID}\\";
+			string finalPath = SuperResPath + $"{space.EditorID}\\";
 
-			// The center coord of the edge tiles: the coordinate edge, rounded down, minus the tile radius
-			int minXCenter = (int)(minX - (minX % imageCoordWidth)) - imageCoordRadius;
-			int maxXCenter = (int)(maxX - (maxX % imageCoordWidth)) - imageCoordRadius;
-			int minYCenter = (int)(minY - (minY % imageCoordWidth)) - imageCoordRadius;
-			int maxYCenter = (int)(maxY - (maxY % imageCoordWidth)) - imageCoordRadius;
-
-			for (int x = minXCenter; x <= maxXCenter; x += imageCoordWidth)
+			// If there is little to no improvement from super res, skip
+			if (relativeImprovementPerc < SuperResImprovementThresholdPerc)
 			{
-				for (int y = minYCenter; y <= maxYCenter; y += imageCoordWidth)
+				// If we're not rendering this, we should also delete old renders
+				if (Directory.Exists(finalPath))
 				{
-					// Count the entities which would exist in this tile - skip if 0
-					string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {space.FormID} AND x >= {x - imageCoordRadius} AND x <= {x + imageCoordRadius} AND y >= {y - imageCoordRadius} AND y <= {y + imageCoordRadius}";
-					SqliteDataReader reader = await CommonDatabase.GetReader(GetNewConnection(), countQuery);
-					reader.Read();
+					Directory.Delete(finalPath, true);
+				}
 
-					if (Convert.ToInt32(reader["count"]) == 0)
-					{
-						continue;
-					}
+				return;
+			}
 
-					int tileX = (int)Math.Round(x / (double)imageCoordWidth, MidpointRounding.AwayFromZero);
-					int tileY = (int)Math.Round(y / (double)imageCoordWidth, MidpointRounding.AwayFromZero);
+			Directory.CreateDirectory(outputPath);
+			Directory.CreateDirectory(finalPath);
 
-					string outputFile = TempPath + $"debug_super_{space.EditorID}_{tileX}.{tileY}.dds";
-					string finalFile = SuperResPath + $"debug_super_{space.EditorID}_{tileX}.{tileY}.jpg";
+			List<SuperResTile> tiles = space.GetTiles();
+			Stopwatch stopwatch = Stopwatch.StartNew();
+			int i = 0;
 
-					string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
-						$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-						$"-w 0x{space.FormID.ToHex()} -l 0 -cam {1d / Common.SuperResScale} 180 0 0 {x} {y} {GetSpaceCameraHeight(space)} " +
-						$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 0 " +
-						$"-ltxtres 4096 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
-						$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+			string? worldBorderName = GetWorldBorderName(space);
 
-					string resizeCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
+			if (worldBorderName != null)
+			{
+				Region worldBorder = (await CommonDatabase.GetRegions(GetNewConnection(), space, worldBorderName)).First();
 
-					Process render = StartProcess(renderCommand, true);
-					render.WaitForExit();
+				foreach (SuperResTile tile in tiles)
+				{
+					// TODO - Identify tiles outside the border and can them
+				}
+			}
 
-					Process magickResizeConvert = StartProcess(resizeCommand);
-					magickResizeConvert.WaitForExit();
+			// Loop over every tile for the space
+			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async tile =>
+			{
+				Interlocked.Increment(ref i);
 
-					// If the file appears to be the minimum size given its resolution, with 10% variance allowed
+				// If this is a cell, don't bother with the render if there is nothing there
+				if (!space.IsWorldspace && !(await HasEntities(tile)))
+				{
+					return;
+				}
+
+				string outputFile = $"{outputPath}{tile.GetXID()}.{tile.GetYID()}.dds";
+				string finalFile = $"{finalPath}{tile.GetXID()}.{tile.GetYID()}.jpg";
+
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
+					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
+					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 1 " +
+					$"-ltxtres 4096 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
+					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+
+				string resizeCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
+
+				Process render = StartProcess(renderCommand, true);
+				render.WaitForExit();
+
+				Process magickResizeConvert = StartProcess(resizeCommand);
+				magickResizeConvert.WaitForExit();
+
+				File.Delete(outputFile);
+
+				// If the file appears to be the minimum size given its resolution, (plus 512 bytes)
+				// This suggests there are no visible entities here, so delete it.
+				// Not necessary for Worldspaces
+				if (!space.IsWorldspace)
+				{
 					long size = new FileInfo(finalFile).Length;
-					if (size <= (Math.Pow(Common.SuperResTileSize, 2) / (8 * 8 * 4)) * 1.1)
+					if (size <= (Math.Pow(Common.SuperResTileSize, 2) / (8 * 8 * 4)) + 512)
 					{
 						File.Delete(finalFile);
 					}
 				}
-			}
+
+				if (space.IsWorldspace)
+				{
+					TimeSpan timePerTile = stopwatch.Elapsed / i;
+					TimeSpan timeRemaining = timePerTile * (tiles.Count - i);
+					StdOutWithColor(
+						$"{space.EditorID} Super Res: {tile.GetXID()},{tile.GetYID()} (X:{tile.XCenter}, Y:{tile.YCenter}) (Tile {i} of {tiles.Count} ({Math.Round(((double)i / tiles.Count) * 100, 2)}%)) " +
+						$"Est {timeRemaining.Days}D {timeRemaining.Hours:D2}H {timeRemaining.Minutes:D2}M {timeRemaining.Seconds:D2}S remaining", ColorInfo);
+				}
+			});
+		}
+
+		// Return if this tile contains any entities
+		public static async Task<bool> HasEntities(this SuperResTile tile)
+		{
+			string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {tile.Space.FormID} AND " +
+				$"x >= {tile.XCenter - Common.TileRadius} AND x <= {tile.XCenter + Common.TileRadius} AND y >= {tile.YCenter - Common.TileRadius} AND y <= {tile.YCenter + Common.TileRadius}";
+
+			SqliteDataReader reader = await CommonDatabase.GetReader(GetNewConnection(), countQuery);
+			reader.Read();
+
+			return Convert.ToInt32(reader["count"]) > 0;
 		}
 
 		// Returns a list of Spaces gathered from the user, for rendering
@@ -396,6 +446,22 @@ namespace BackgroundRenderer
 				{
 					return space;
 				}
+			}
+		}
+
+		static void AnnounceRenderProgress(List<Space> spaces, Space space, ref int cellsRendered, Stopwatch? stopwatch = null)
+		{
+			int count = Interlocked.Increment(ref cellsRendered);
+
+			double percentRemaining = (100d * count) / spaces.Count;
+			StdOutWithColor($"{space.EditorID} (0x{space.FormID.ToHex()}) Done. ({count}/{spaces.Count} ({percentRemaining.ToString("0.00")}%))", ColorInfo);
+
+			// If this isn't the last item, and we have a timer going
+			if (count != spaces.Count && stopwatch != null)
+			{
+				TimeSpan avgTimePerSpace = stopwatch.Elapsed / count;
+				TimeSpan estTimeRemaining = avgTimePerSpace * (spaces.Count - count);
+				StdOutWithColor($"{estTimeRemaining.ToString(@"hh\:mm\:ss")} remaining", ColorInfo);
 			}
 		}
 

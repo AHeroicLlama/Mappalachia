@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+﻿namespace Library
 {
 	public enum ShapeType
 	{
