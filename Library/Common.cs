@@ -8,7 +8,7 @@ namespace Library
 
 		public static int SuperResTileSize { get; } = (int)Math.Pow(2, 12); // 4096
 
-		public static int SuperResScale { get; } = 1; // The ratios of game coordinates to pixels, given in 1:x^2 (or the width in cells for each tile (x*x arrangement)) used for super resolution
+		public static int SuperResScale { get; } = 2; // The ratios of game coordinates to pixels, given in 1:x^2 (or the width in cells for each tile (x*x arrangement)) used for super resolution
 
 		// The size in game coordinates of super res tiles
 		public static int TileWidth { get; } = SuperResTileSize * SuperResScale;
@@ -34,6 +34,16 @@ namespace Library
 		public static string Pluralize<T>(IEnumerable<T> collection)
 		{
 			return collection.Count() == 1 ? string.Empty : "s";
+		}
+
+		public static bool EqualsIgnoreCase(this string value, string comparison)
+		{
+			return value.Equals(comparison, StringComparison.OrdinalIgnoreCase);
+		}
+
+		public static bool IsNullOrWhiteSpace(this string value)
+		{
+			return string.IsNullOrWhiteSpace(value);
 		}
 	}
 }

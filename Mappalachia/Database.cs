@@ -27,10 +27,8 @@ namespace Mappalachia
 
 		public static async Task<List<GroupedInstance>> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
 		{
-#pragma warning disable IDE0305 // Simplify collection initialization
 			selectedSignatures ??= Enum.GetValues<Signature>().ToList();
 			selectedLockLevels ??= Enum.GetValues<LockLevel>().ToList();
-#pragma warning restore IDE0305 // Simplify collection initialization
 
 			searchTerm = ProcessSearchString(searchTerm);
 			List<GroupedInstance> results = new List<GroupedInstance>();

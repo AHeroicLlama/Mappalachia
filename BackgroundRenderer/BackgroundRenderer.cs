@@ -17,7 +17,7 @@ namespace BackgroundRenderer
 
 		static double SuperResImprovementThresholdPerc { get; } = 25; // Percent improvement in resolution necessary to render a super res
 
-		static async Task Main()
+		static void Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
@@ -326,20 +326,20 @@ namespace BackgroundRenderer
 			Directory.CreateDirectory(finalPath);
 
 			List<SuperResTile> tiles = space.GetTiles();
+
+			Region? worldBorder = await space.GetWorldBorder();
+			if (worldBorder != null)
+			{
+				tiles = tiles.Where(t => t.IsInsideRegion(worldBorder)).ToList();
+			}
+
+			if (!space.IsWorldspace)
+			{
+				tiles = tiles.Where(t => t.HasEntities().Result).ToList();
+			}
+
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			int i = 0;
-
-			string? worldBorderName = GetWorldBorderName(space);
-
-			if (worldBorderName != null)
-			{
-				Region worldBorder = (await CommonDatabase.GetRegions(GetNewConnection(), space, worldBorderName)).First();
-
-				foreach (SuperResTile tile in tiles)
-				{
-					// TODO - Identify tiles outside the border and can them
-				}
-			}
 
 			// Loop over every tile for the space
 			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async tile =>
@@ -395,6 +395,19 @@ namespace BackgroundRenderer
 			});
 		}
 
+		// Return the world border Region of the given space, null if none known
+		public static async Task<Region?> GetWorldBorder(this Space space)
+		{
+			string? worldBorderName = GetWorldBorderName(space);
+
+			if (worldBorderName == null)
+			{
+				return null;
+			}
+
+			return (await CommonDatabase.GetRegions(GetNewConnection(), space, worldBorderName)).FirstOrDefault();
+		}
+
 		// Return if this tile contains any entities
 		public static async Task<bool> HasEntities(this SuperResTile tile)
 		{
@@ -407,20 +420,50 @@ namespace BackgroundRenderer
 			return Convert.ToInt32(reader["count"]) > 0;
 		}
 
+		// Returns if any part of the tile is contained within/overlaps with the Region
+		public static bool IsInsideRegion(this SuperResTile tile, Region region)
+		{
+			if (region.Points.Count == 0)
+			{
+				throw new ArgumentException($"Region {region.EditorID} has no points");
+			}
+
+			Coord[] corners =
+			{
+				new Coord(tile.XCenter - Common.TileRadius, tile.YCenter - Common.TileRadius),
+				new Coord(tile.XCenter + Common.TileRadius, tile.YCenter - Common.TileRadius),
+				new Coord(tile.XCenter - Common.TileRadius, tile.YCenter + Common.TileRadius),
+				new Coord(tile.XCenter + Common.TileRadius, tile.YCenter + Common.TileRadius),
+			};
+
+			return corners.Any(region.ContainsPoint);
+		}
+
 		// Returns a list of Spaces gathered from the user, for rendering
 		static async Task<List<Space>> GetSpaceInput()
 		{
-			StdOutWithColor("\nEnter a space-separated list of space EditorIDs to render. Or enter nothing to render all", ColorQuestion);
+			StdOutWithColor("\nEnter a space-separated list of space EditorIDs to render.\nEnter nothing to render all, 'cell' for all Cells, or 'world' for all WorldSpaces", ColorQuestion);
 			string input = Console.ReadLine() ?? string.Empty;
 
-			List<string> requestedIDs = input.Trim().Split(" ").Where(space => !string.IsNullOrWhiteSpace(space)).ToList();
+			if (input.EqualsIgnoreCase("cell") || input.EqualsIgnoreCase("world"))
+			{
+				int worldspaceFlag = input.EqualsIgnoreCase("world") ? 1 : 0;
+				return await CommonDatabase.GetSpaces(GetNewConnection(), $"SELECT * FROM Space WHERE isWorldSpace == {worldspaceFlag} ORDER BY spaceEditorID ASC;");
+			}
+
+			if (input.IsNullOrWhiteSpace())
+			{
+				return await CommonDatabase.GetSpaces(GetNewConnection(), $"SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;");
+			}
+
+			List<string> requestedIDs = input.Trim().Split(" ").Where(space => !space.IsNullOrWhiteSpace()).ToList();
 
 			// Select spaces unconditionally if none provided, otherwise select only the list of provided spaces
-			string query = $"SELECT * FROM Space{(requestedIDs.Count == 0 ? string.Empty : $" WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()}")} ORDER BY isWorldspace DESC, spaceEditorID ASC;";
+			string query = $"SELECT * FROM Space WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()} ORDER BY isWorldspace DESC, spaceEditorID ASC;";
 			List<Space> spaces = await CommonDatabase.GetSpaces(GetNewConnection(), query);
 
 			// If we specified cells, ensure we found them all in the DB before proceeding
-			if (requestedIDs.Count != 0 && spaces.Count != requestedIDs.Count)
+			if (spaces.Count != requestedIDs.Count)
 			{
 				throw new Exception("Inputted cells were not all found. Check for typos in EditorIDs");
 			}
