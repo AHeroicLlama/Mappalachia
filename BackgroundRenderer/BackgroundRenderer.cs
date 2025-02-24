@@ -344,8 +344,6 @@ namespace BackgroundRenderer
 			// Loop over every tile for the space
 			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async tile =>
 			{
-				Interlocked.Increment(ref i);
-
 				// If this is a cell, don't bother with the render if there is nothing there
 				if (!space.IsWorldspace && !(await HasEntities(tile)))
 				{
@@ -386,6 +384,7 @@ namespace BackgroundRenderer
 
 				if (space.IsWorldspace)
 				{
+					Interlocked.Increment(ref i);
 					TimeSpan timePerTile = stopwatch.Elapsed / i;
 					TimeSpan timeRemaining = timePerTile * (tiles.Count - i);
 					StdOutWithColor(

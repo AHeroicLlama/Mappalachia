@@ -10,12 +10,12 @@
 
 		public int GetXID()
 		{
-			return (XCenter - Common.TileWidth) / Common.SuperResTileSize;
+			return (XCenter - Common.TileRadius) / Common.TileWidth;
 		}
 
 		public int GetYID()
 		{
-			return (YCenter - Common.TileWidth) / Common.SuperResTileSize;
+			return (YCenter - Common.TileRadius) / Common.TileWidth;
 		}
 	}
 }
