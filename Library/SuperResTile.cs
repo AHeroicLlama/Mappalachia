@@ -17,5 +17,14 @@
 		{
 			return (YCenter - Common.TileRadius) / Common.TileWidth;
 		}
+
+		// Returns if the coordinate exists within the tile
+		public bool ContainsPoint(Coord coord)
+		{
+			return coord.X > XCenter - Common.TileRadius &&
+				coord.X < XCenter + Common.TileRadius &&
+				coord.Y > YCenter - Common.TileRadius &&
+				coord.Y < YCenter + Common.TileRadius;
+		}
 	}
 }

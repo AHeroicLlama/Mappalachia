@@ -330,7 +330,7 @@ namespace BackgroundRenderer
 			Region? worldBorder = await space.GetWorldBorder();
 			if (worldBorder != null)
 			{
-				tiles = tiles.Where(t => t.IsInsideRegion(worldBorder)).ToList();
+				tiles = tiles.Where(t => t.IntersectsRegion(worldBorder)).ToList();
 			}
 
 			if (!space.IsWorldspace)
@@ -342,14 +342,8 @@ namespace BackgroundRenderer
 			int i = 0;
 
 			// Loop over every tile for the space
-			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async tile =>
+			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, tile =>
 			{
-				// If this is a cell, don't bother with the render if there is nothing there
-				if (!space.IsWorldspace && !(await HasEntities(tile)))
-				{
-					return;
-				}
-
 				string outputFile = $"{outputPath}{tile.GetXID()}.{tile.GetYID()}.dds";
 				string finalFile = $"{finalPath}{tile.GetXID()}.{tile.GetYID()}.jpg";
 
@@ -419,23 +413,50 @@ namespace BackgroundRenderer
 			return Convert.ToInt32(reader["count"]) > 0;
 		}
 
-		// Returns if any part of the tile is contained within/overlaps with the Region
-		public static bool IsInsideRegion(this SuperResTile tile, Region region)
+		// Returns if any point of the tile or region intersect
+		public static bool IntersectsRegion(this SuperResTile tile, Region region)
 		{
 			if (region.Points.Count == 0)
 			{
 				throw new ArgumentException($"Region {region.EditorID} has no points");
 			}
 
-			Coord[] corners =
+			// First case - The tile is at least partly within the region because the center of it is
+			// It may not be wholly contained
+			if (region.ContainsPoint(new Coord(tile.XCenter, tile.YCenter)))
 			{
-				new Coord(tile.XCenter - Common.TileRadius, tile.YCenter - Common.TileRadius),
-				new Coord(tile.XCenter + Common.TileRadius, tile.YCenter - Common.TileRadius),
-				new Coord(tile.XCenter - Common.TileRadius, tile.YCenter + Common.TileRadius),
-				new Coord(tile.XCenter + Common.TileRadius, tile.YCenter + Common.TileRadius),
-			};
+				return true;
+			}
 
-			return corners.Any(region.ContainsPoint);
+			// Edge cases
+			// Test if any of the 4 edges of the tile intersect any of the region's edges
+			for (int i = 0; i < region.Points.Count; i++)
+			{
+				int j = i + 1;
+
+				if (i == region.Points.Count - 1)
+				{
+					j = 0;
+				}
+
+				Coord regionPointA = region.Points[i].Point;
+				Coord regionPointB = region.Points[j].Point;
+
+				Coord topLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter + Common.TileRadius);
+				Coord topRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter + Common.TileWidth);
+				Coord bottomLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter - Common.TileRadius);
+				Coord bottomRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter - Common.TileRadius);
+
+				if (GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, topRight) ||
+					GeometryHelper.LinesIntersect(regionPointA, regionPointB, bottomLeft, bottomRight) ||
+					GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, bottomLeft) ||
+					GeometryHelper.LinesIntersect(regionPointA, regionPointB, topRight, bottomRight))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		// Returns a list of Spaces gathered from the user, for rendering

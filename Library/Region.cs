@@ -17,6 +17,11 @@
 
 		public List<RegionPoint> GetSubRegion(uint regionIndex)
 		{
+			if (regionIndex > GetSubRegionCount())
+			{
+				throw new IndexOutOfRangeException("No SubRegion with index " + regionIndex);
+			}
+
 			return Points.Where(p => p.RegionIndex == regionIndex).ToList();
 		}
 
