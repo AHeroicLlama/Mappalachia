@@ -6,7 +6,7 @@ using static Library.BuildTools;
 
 namespace Preprocessor
 {
-	internal partial class Preprocessor
+	internal static partial class Preprocessor
 	{
 		enum ColumnType
 		{
@@ -362,7 +362,7 @@ namespace Preprocessor
 					Math.Abs(space.CenterY - c.Y) > maxRadius).Count();
 
 				spaceExterns.Add($"{space.EditorID}:{outlierSum}");
-				spaceChecksums.Add($"{space.EditorID}:{coordinates.GetHashCode()}");
+				spaceChecksums.Add($"{space.EditorID}:{coordinates.ApproximateChecksum()}");
 			}
 
 			AddToSummaryReport("Entities outside of space range", string.Join("\n", spaceExterns));
@@ -758,6 +758,20 @@ namespace Preprocessor
 			SummaryReport.Add(desc);
 			SummaryReport.AddRange(rows);
 			SummaryReport.Add(string.Empty);
+		}
+
+		// Returns a very basic approx checksum of a collection of Coord
+		static long ApproximateChecksum(this List<Coord> coords)
+		{
+			long sum = Common.HashPrime;
+			long precision = 10000000000;
+
+			foreach (Coord coord in coords)
+			{
+				sum += (((long)coord.X * precision) + Common.HashPrime) * (((long)coord.Y * precision) + Common.HashPrime) * (((long)coord.Z * precision) + Common.HashPrime);
+			}
+
+			return sum;
 		}
 
 		// Removes old DB files and outputs
