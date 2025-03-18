@@ -293,7 +293,7 @@ namespace BackgroundRenderer
 				double scale = ((double)resolution / range) * space.nudgeScale;
 
 				// Override Appalachia scale to match in-game map
-				if (space.editorID == "Appalachia")
+				if (space.editorID == "APPALACHIA")
 				{
 					scale = 0.028 / (16384d / worldspaceRenderResolution);
 					space.xCenter = 0;
