@@ -365,6 +365,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006D9C47,PackInPACKStormFloraFern01StorageCell,,0
 006F6F77,PackInPACKStormSwampTreeStorageCell,,0
 0076A71F,PackInStormHWSkylineDriveSign01StorageCell,,0
+007C281B,PackInGHLPackinLGTFaceLightingRig01StorageCell,,0
 00006F19,PackInPACKMtnTopCreosoteShrubLarge01StorageCell,,0
 000083CD,,,0
 00008CC9,,,0
@@ -1445,7 +1446,6 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00586D40,PackInDenizenPackInScavengerFarmerStorageCell,,0
 005D2B50,PackInATXBoSDoorPCKNStorageCell,,0
 006D9C4C,PackInPACKStormSiltbeanStorageCell,,0
-00793F34,zCutPGEM02,Quick Test Cell,0
 0000ED4A,76HoldingCellMD,Quick Test Cell,0
 0001358E,PackInPACKForestTreeX04bStorageCell,,0
 000937F2,,,0
@@ -1626,6 +1626,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005DB4BD,PackInATXDisplayPowerArmorRedStorageCell,,0
 00623BB9,PackInSCORES5COMPPackinCampObjectInspectorPKINCOPY0000StorageCell,,0
 007444E9,PackInStormREPackInObjectStorageCell,,0
+0079B89D,DebugGRoyer,Quick Test Cell,0
 00007933,DebugNateE,Quick Test Cell,0
 0000C307,PackInSLABSmallStore01StorageCell,,0
 000187E7,PackInPACKToxicCreeperSm01StorageCell,,0
@@ -1826,6 +1827,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0051B9E8,zCUTDebugTrevorS,Quick Test Cell,0
 005B7168,PackInSheltersEntranceBoSBunkerLargeStorageCell,,0
 0066923C,PackInWorkshopNukaCrateStallQuantumPackinStorageCell,,0
+0079AA84,PackInSSELandminePackinStorageCell,,0
 00014062,zCUTTestLiz,Quick Test Cell,0
 0001819E,,,0
 00116EF6,WarehouseQDTraining,QD Training Warehouse,0
@@ -1873,7 +1875,6 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 001E48E2,,,0
 001F6B1E,,,0
 00275BEE,,,0
-0036DABA,zCutPGCamp01,Quick Test Cell,0
 003A1B26,,,0
 003BA356,,,0
 003DCD3E,,,0

@@ -1,11 +1,11 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.48.0 2025-01-14 11:05:00 d2fe6b05f38d9d7cd78c5d252e99ac59f1aea071d669830c1ffe4e8966e84010 (64-bit)
+3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 ==Checksum== 
-11bc8f7be7869254753f4e8d282f3152
+fbe768d030685add2123f109572046c5
 ==File Size== 
-486223872 
+488304640 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.17.9
+1.7.18.22
 ==Mean Average X/Y/Z Coord==
--9753.57267341673|-5515.08003747333|11135.15744999
+-9338.84890698|-5094.15234616251|11159.1155129914
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -29,8 +29,8 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -128|4608|512|57
 3584|0|256|57
 2547|4482|512|46
+0|0|0|44
 -43|4777|519|42
-0|0|0|42
 1988|4809|518|42
 2085|2161|519|42
 2116|3301|514|42
@@ -52,6 +52,8 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 -128|1664|-608|34
 -512|768|0|33
 -512|1024|0|33
+-6016|-32034|3328|32
+-6016|-32034|4096|32
 -1216|2352|128|32
 960|2352|128|32
 -256|768|0|31
@@ -86,8 +88,6 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 1536|768|0|25
 1648|-1848|-1112|25
 4898|1543|-251|25
--6016|-32034|3328|24
--6016|-32034|4096|24
 -2688|-5504|512|24
 256|0|0|24
 256|1024|0|24
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 78
 ==Average X Bounds Width==
-22.9815291124929
+23.0263875164391
 ==Average Y Bounds Width==
-16.8711658217692
+16.908549660682
 ==Average Z Bounds Width==
-16.7494572749321
+16.8017932267182
 ==Average Z Rotation==
-4.36018686518718
+4.38388530033641
 ==Average display name string length==
-2.81752334964102
+2.83190546528804
 ==Average editorID string length==
-25.2550564415359
+25.2534922979532
 ==Map Markers==
 APPALACHIA|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 APPALACHIA|AirfieldMarker|Crashed Plane|147706|58411
@@ -220,6 +220,7 @@ APPALACHIA|CaveMarker|Abandoned Waste Dump|185034|26724
 APPALACHIA|CaveMarker|Carleton Mine|21935|158383
 APPALACHIA|CaveMarker|Gauley Mine|-58605|62688
 APPALACHIA|CaveMarker|Gauley Mine Exit|-47691|71024
+APPALACHIA|CaveMarker|Hillside Cavern|178224|214104
 APPALACHIA|CaveMarker|Hopewell Cave|114047|114129
 APPALACHIA|CaveMarker|Makeshift Vault|-83329|160208
 APPALACHIA|CaveMarker|Mire's Eye|194133|186953
@@ -315,6 +316,7 @@ APPALACHIA|GoodneighborMarker|Eastern Regional Penitentiary|-29106|127399
 APPALACHIA|GoodneighborMarker|Fort Defiance|107048|-131600
 APPALACHIA|GraveyardMarker|Philippi Battlefield Cemetery|38982|171176
 APPALACHIA|GraveyardMarker|Pleasant Hills Cemetery|-55554|-102053
+APPALACHIA|GraveyardMarker|Point Repose|163584|244096
 APPALACHIA|HammerWingMarker|Foundation|37449|-102946
 APPALACHIA|HighTechBuildingMarker|AMS Corporate Headquarters|148632|-139096
 APPALACHIA|HighTechBuildingMarker|Charleston Herald|-104367|-46210
@@ -380,6 +382,7 @@ APPALACHIA|MilitaryBaseMarker|Camp McClintock|-69224|-12781
 APPALACHIA|MilitaryBaseMarker|Firebase Hancock|109835|-172982
 APPALACHIA|MilitaryBaseMarker|Firebase LT|166062|-55521
 APPALACHIA|MilitaryBaseMarker|Firebase Major|141990|-60116
+APPALACHIA|MilitaryBaseMarker|Radiant Hills|176938|234769
 APPALACHIA|MilitaryBaseMarker|Site Alpha|80945|-14506
 APPALACHIA|MilitaryBaseMarker|Site Bravo|43039|137056
 APPALACHIA|MilitaryBaseMarker|Site Charlie|1654|-118165
@@ -412,6 +415,7 @@ APPALACHIA|PondLakeMarker|Sacramental Glade|192808|-120632
 APPALACHIA|PondLakeMarker|Solomon's Pond|38767|-64481
 APPALACHIA|PondLakeMarker|Spruce Knob Channels|26548|-129199
 APPALACHIA|PondLakeMarker|Spruce Knob Lake|35190|-121222
+APPALACHIA|PondLakeMarker|The Bullengrube|189984|221152
 APPALACHIA|PondLakeMarker|Three Ponds|-59241|-201006
 APPALACHIA|PondLakeMarker|Toxic Dried Lakebed|-15394|176773
 APPALACHIA|PondLakeMarker|Twin Lakes|47135|-79247
@@ -558,17 +562,20 @@ APPALACHIA|WoodShackMarker|Lewis & Sons Farming Supply|-174756|-42305
 APPALACHIA|WoodShackMarker|Lost Home|122773|-164478
 APPALACHIA|WoodShackMarker|Moonshiner's Shack|-109155|84144
 APPALACHIA|WoodShackMarker|Mountainside Bed & Breakfast|7455|-100350
+APPALACHIA|WoodShackMarker|Old Danielson Cabin|163840|215296
 APPALACHIA|WoodShackMarker|Southhampton Estate|169981|125109
+APPALACHIA|WoodShackMarker|Susan's Cabin|97676|-204801
 APPALACHIA|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 APPALACHIA|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-47217
+47390
 ==Regions==
 Space|Region|subRegions|maxVerts
-APPALACHIA|76Border|1|62
+APPALACHIA|76Border|1|66
 APPALACHIA|76BorderAddendum|1|8
 APPALACHIA|AudioRegionAtlasObservatory|2|7
 APPALACHIA|AudioRegionForestMtnTop|12|7
+APPALACHIA|BigBloomWeatherRegion|1|4
 APPALACHIA|CranberryDistantObjectRegion|1|11
 APPALACHIA|CranberryObjectRegion|1|11
 APPALACHIA|CranberrySubRegion01|1|5
@@ -621,7 +628,7 @@ APPALACHIA|LakeBedRegion|1|40
 APPALACHIA|MN2_WeatherRegion|1|7
 APPALACHIA|MountBlairCoalFireRegion|1|5
 APPALACHIA|MountainDistantObjectRegion|6|13
-APPALACHIA|MountainObjectRegion|1|40
+APPALACHIA|MountainObjectRegion|2|40
 APPALACHIA|MountainObjectRegionFoundation|1|6
 APPALACHIA|MountainRemovalSubRegion01|1|4
 APPALACHIA|MountainRemovalSubRegion02|1|4
@@ -799,12 +806,12 @@ AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-APPALACHIA||3185543
-APPALACHIA|Box|70355
+APPALACHIA||3194817
+APPALACHIA|Box|71216
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1801
 APPALACHIA|Plane|204
-APPALACHIA|Sphere|2657
+APPALACHIA|Sphere|2661
 AVRMedicalCenter01||5742
 AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14277
@@ -827,13 +834,13 @@ BigBendTunnel01||6832
 BigBendTunnel01|Box|721
 BigBendTunnel01|Sphere|1
 BlackwaterMine01||5836
-BlackwaterMine01|Box|325
+BlackwaterMine01|Box|326
 BlackwaterMine01|Line|5
 BlueRidgeOffice01||749
 BlueRidgeOffice01|Box|16
 BurdetteManorBasement01||490
 BurdetteManorBasement01|Box|9
-BurningMine01||5744
+BurningMine01||5746
 BurningMine01|Box|391
 BurningMine01|Sphere|1
 Burrows01||19487
@@ -887,7 +894,7 @@ DyerChemical01|Box|123
 DyerChemical01|Line|11
 DyerChemical01|Sphere|1
 EasternRegionalPen01||10946
-EasternRegionalPen01|Box|495
+EasternRegionalPen01|Box|497
 EmmettMountainDisposalSite01||4670
 EmmettMountainDisposalSite01|Box|185
 EmmettMountainDisposalSite01|Line|1
@@ -922,8 +929,14 @@ FreeStatesBunker06|Box|38
 FreeStatesBunker06|Line|1
 FreeStatesBunker07||1003
 FreeStatesBunker07|Box|47
+GHLCamp01||3388
+GHLCamp01|Box|98
+GHLCamp02||1297
+GHLCamp02|Box|141
+GHLEmmettMnt02||1402
+GHLEmmettMnt02|Box|93
 GarrahanMiningHQ01||8860
-GarrahanMiningHQ01|Box|330
+GarrahanMiningHQ01|Box|331
 GarrahanMiningHQ01|Line|3
 GarrahanMiningHQ01|Sphere|7
 GarrahanMiningHQDungeon||7400
@@ -967,7 +980,7 @@ LittleRobsHideout01|Box|100
 LousMine01||6718
 LousMine01|Box|268
 LousMine01|Line|5
-MILEBlueRidgeHQ||6782
+MILEBlueRidgeHQ||6781
 MILEBlueRidgeHQ|Box|717
 MTR08LodeBaring01||3227
 MTR08LodeBaring01|Box|177
@@ -1070,8 +1083,10 @@ SheltersRootCellar||463
 SheltersRootCellar|Box|132
 SheltersSoundStage||790
 SheltersSoundStage|Box|115
-SheltersSummerCamp||537
+SheltersSummerCamp||538
 SheltersSummerCamp|Box|158
+SheltersTheRadiantRemedy||347
+SheltersTheRadiantRemedy|Box|96
 SheltersToxicWasteland||515
 SheltersToxicWasteland|Box|12
 SheltersVaultAtrium01||2199
@@ -1167,7 +1182,7 @@ UncannyCavernsDungeon|Box|658
 UncannyCavernsDungeon|Line|1
 UncannyCavernsDungeon|Sphere|3
 VTecAgCenter01||3044
-VTecAgCenter01|Box|92
+VTecAgCenter01|Box|93
 ValleyGalleria01||8118
 ValleyGalleria01|Box|515
 ValleyGalleria01|Line|1
@@ -1241,7 +1256,7 @@ WhitespringBunker01|Box|500
 WhitespringMall01||6810
 WhitespringMall01|Box|137
 WhitespringRefuge01||11464
-WhitespringRefuge01|Box|226
+WhitespringRefuge01|Box|227
 XPDAC01Casino||13336
 XPDAC01Casino|Box|474
 XPDAC01Casino|Plane|1
@@ -1268,7 +1283,7 @@ XPDAC03CommunityCenter|Box|526
 XPDAC03CommunityCenterDungeon||10421
 XPDAC03CommunityCenterDungeon|Box|524
 XPDAC03CommunityCenterDungeon|Sphere|1
-XPDAC03FloodedCityCenter||16138
+XPDAC03FloodedCityCenter||16136
 XPDAC03FloodedCityCenter|Box|950
 XPDAC03FloodedCityCenter|Plane|5
 XPDPitt01Foundry||16367
@@ -1286,7 +1301,7 @@ XPDPitt02ACCJ||15
 XPDPitt02Sanctum||17557
 XPDPitt02Sanctum|Box|477
 XPDPitt02Trench||19687
-XPDPitt02Trench|Box|1550
+XPDPitt02Trench|Box|1551
 XPDRttP01SteelTower||10029
 XPDRttP01SteelTower|Box|46
 XPDRttP01SteelTowerRoof||1997
@@ -1306,15 +1321,15 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3259438
-APPALACHIA|Advanced (Level 1)|338
+APPALACHIA||3269564
+APPALACHIA|Advanced (Level 1)|340
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
-APPALACHIA|Expert (Level 2)|204
+APPALACHIA|Expert (Level 2)|207
 APPALACHIA|Inaccessible|33
 APPALACHIA|Master (Level 3)|88
-APPALACHIA|Novice (Level 0)|356
-APPALACHIA|Requires Key|91
+APPALACHIA|Novice (Level 0)|362
+APPALACHIA|Requires Key|93
 APPALACHIA|Requires Terminal|9
 APPALACHIA|Unknown|1
 AVRMedicalCenter01||5930
@@ -1344,7 +1359,7 @@ BigBendTunnel01|Chained|1
 BigBendTunnel01|Expert (Level 2)|1
 BigBendTunnel01|Novice (Level 0)|6
 BigBendTunnel01|Requires Key|1
-BlackwaterMine01||6150
+BlackwaterMine01||6151
 BlackwaterMine01|Advanced (Level 1)|3
 BlackwaterMine01|Expert (Level 2)|1
 BlackwaterMine01|Master (Level 3)|1
@@ -1352,7 +1367,7 @@ BlackwaterMine01|Novice (Level 0)|3
 BlackwaterMine01|Requires Key|8
 BlueRidgeOffice01||765
 BurdetteManorBasement01||499
-BurningMine01||6131
+BurningMine01||6133
 BurningMine01|Advanced (Level 1)|2
 BurningMine01|Expert (Level 2)|1
 BurningMine01|Requires Key|2
@@ -1406,7 +1421,7 @@ DuncanDuncanRobotics01|Novice (Level 0)|3
 DyerChemical01||3208
 DyerChemical01|Advanced (Level 1)|3
 DyerChemical01|Novice (Level 0)|1
-EasternRegionalPen01||11414
+EasternRegionalPen01||11416
 EasternRegionalPen01|Advanced (Level 1)|9
 EasternRegionalPen01|Expert (Level 2)|7
 EasternRegionalPen01|Master (Level 3)|2
@@ -1449,7 +1464,12 @@ FreeStatesBunker06||948
 FreeStatesBunker06|Expert (Level 2)|1
 FreeStatesBunker07||1049
 FreeStatesBunker07|Expert (Level 2)|1
-GarrahanMiningHQ01||9187
+GHLCamp01||3486
+GHLCamp02||1438
+GHLEmmettMnt02||1493
+GHLEmmettMnt02|Novice (Level 0)|1
+GHLEmmettMnt02|Requires Key|1
+GarrahanMiningHQ01||9188
 GarrahanMiningHQ01|Advanced (Level 1)|1
 GarrahanMiningHQ01|Expert (Level 2)|3
 GarrahanMiningHQ01|Master (Level 3)|1
@@ -1502,7 +1522,7 @@ LousMine01||6984
 LousMine01|Advanced (Level 1)|1
 LousMine01|Novice (Level 0)|3
 LousMine01|Requires Terminal|3
-MILEBlueRidgeHQ||7498
+MILEBlueRidgeHQ||7497
 MILEBlueRidgeHQ|Inaccessible|1
 MTR08LodeBaring01||3405
 MTR08LodeBaring01|Novice (Level 0)|1
@@ -1616,7 +1636,8 @@ SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
 SheltersSoundStage||905
-SheltersSummerCamp||695
+SheltersSummerCamp||696
+SheltersTheRadiantRemedy||443
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
@@ -1727,7 +1748,7 @@ UncannyCavernsDungeon||7405
 UncannyCavernsDungeon|Advanced (Level 1)|1
 UncannyCavernsDungeon|Inaccessible|3
 UncannyCavernsDungeon|Novice (Level 0)|2
-VTecAgCenter01||3132
+VTecAgCenter01||3133
 VTecAgCenter01|Novice (Level 0)|3
 VTecAgCenter01|Requires Terminal|1
 ValleyGalleria01||8629
@@ -1837,7 +1858,7 @@ WhitespringMall01|Advanced (Level 1)|1
 WhitespringMall01|Expert (Level 2)|1
 WhitespringMall01|Master (Level 3)|3
 WhitespringMall01|Novice (Level 0)|8
-WhitespringRefuge01||11661
+WhitespringRefuge01||11662
 WhitespringRefuge01|Advanced (Level 1)|2
 WhitespringRefuge01|Inaccessible|21
 WhitespringRefuge01|Novice (Level 0)|6
@@ -1876,7 +1897,7 @@ XPDAC03CommunityCenter||11646
 XPDAC03CommunityCenter|Advanced (Level 1)|5
 XPDAC03CommunityCenter|Novice (Level 0)|2
 XPDAC03CommunityCenterDungeon||10946
-XPDAC03FloodedCityCenter||17067
+XPDAC03FloodedCityCenter||17065
 XPDAC03FloodedCityCenter|Advanced (Level 1)|6
 XPDAC03FloodedCityCenter|Expert (Level 2)|1
 XPDAC03FloodedCityCenter|Inaccessible|1
@@ -1904,7 +1925,7 @@ XPDPitt02Sanctum|Advanced (Level 1)|1
 XPDPitt02Sanctum|Inaccessible|4
 XPDPitt02Sanctum|Master (Level 3)|2
 XPDPitt02Sanctum|Novice (Level 0)|4
-XPDPitt02Trench||21217
+XPDPitt02Trench||21218
 XPDPitt02Trench|Advanced (Level 1)|4
 XPDPitt02Trench|Expert (Level 2)|8
 XPDPitt02Trench|Novice (Level 0)|8
@@ -1948,36 +1969,36 @@ AMSHQ02|SCOL|186
 AMSHQ02|STAT|1421
 AMSHQ02|TERM|1
 AMSHQ02|TXST|46
-APPALACHIA|ACTI|23544
-APPALACHIA|ALCH|308
+APPALACHIA|ACTI|23957
+APPALACHIA|ALCH|309
 APPALACHIA|AMMO|80
-APPALACHIA|ARMO|126
+APPALACHIA|ARMO|130
 APPALACHIA|ASPC|2378
-APPALACHIA|BNDS|10466
-APPALACHIA|BOOK|575
-APPALACHIA|CNCY|260
-APPALACHIA|CONT|13524
-APPALACHIA|DOOR|2644
-APPALACHIA|FLOR|51657
-APPALACHIA|FURN|15685
-APPALACHIA|HAZD|1055
-APPALACHIA|IDLM|19063
-APPALACHIA|KEYM|37
-APPALACHIA|LIGH|9128
-APPALACHIA|LVLI|73806
-APPALACHIA|MISC|37487
-APPALACHIA|MSTT|24422
-APPALACHIA|NOTE|179
-APPALACHIA|NPC_|8214
+APPALACHIA|BNDS|10477
+APPALACHIA|BOOK|591
+APPALACHIA|CNCY|265
+APPALACHIA|CONT|13637
+APPALACHIA|DOOR|2661
+APPALACHIA|FLOR|51687
+APPALACHIA|FURN|15847
+APPALACHIA|HAZD|1085
+APPALACHIA|IDLM|19070
+APPALACHIA|KEYM|38
+APPALACHIA|LIGH|9252
+APPALACHIA|LVLI|73854
+APPALACHIA|MISC|37935
+APPALACHIA|MSTT|24632
+APPALACHIA|NOTE|182
+APPALACHIA|NPC_|8275
 APPALACHIA|PROJ|93
-APPALACHIA|SCOL|365366
+APPALACHIA|SCOL|366532
 APPALACHIA|SECH|253
-APPALACHIA|SOUN|5931
-APPALACHIA|STAT|2523860
+APPALACHIA|SOUN|5938
+APPALACHIA|STAT|2530518
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
-APPALACHIA|TXST|69738
-APPALACHIA|WEAP|235
+APPALACHIA|TXST|70326
+APPALACHIA|WEAP|251
 AVRMedicalCenter01|ACTI|56
 AVRMedicalCenter01|ASPC|24
 AVRMedicalCenter01|BNDS|4
@@ -2113,7 +2134,7 @@ BlackwaterMine01|NOTE|3
 BlackwaterMine01|NPC_|21
 BlackwaterMine01|SCOL|371
 BlackwaterMine01|SOUN|18
-BlackwaterMine01|STAT|4285
+BlackwaterMine01|STAT|4286
 BlackwaterMine01|TERM|5
 BlackwaterMine01|TXST|350
 BlueRidgeOffice01|ACTI|8
@@ -2161,7 +2182,7 @@ BurningMine01|MSTT|248
 BurningMine01|NPC_|24
 BurningMine01|SCOL|151
 BurningMine01|SOUN|3
-BurningMine01|STAT|4878
+BurningMine01|STAT|4880
 BurningMine01|TXST|270
 Burrows01|ACTI|264
 Burrows01|ALCH|6
@@ -2493,7 +2514,7 @@ EasternRegionalPen01|MSTT|249
 EasternRegionalPen01|NOTE|1
 EasternRegionalPen01|NPC_|64
 EasternRegionalPen01|SCOL|137
-EasternRegionalPen01|STAT|9110
+EasternRegionalPen01|STAT|9112
 EasternRegionalPen01|TACT|1
 EasternRegionalPen01|TERM|14
 EasternRegionalPen01|TXST|171
@@ -2752,6 +2773,58 @@ FreeStatesBunker07|SCOL|38
 FreeStatesBunker07|SOUN|1
 FreeStatesBunker07|STAT|631
 FreeStatesBunker07|TXST|43
+GHLCamp01|ACTI|24
+GHLCamp01|ALCH|1
+GHLCamp01|ARMO|1
+GHLCamp01|ASPC|12
+GHLCamp01|BNDS|30
+GHLCamp01|BOOK|4
+GHLCamp01|CONT|50
+GHLCamp01|DOOR|7
+GHLCamp01|FURN|94
+GHLCamp01|HAZD|1
+GHLCamp01|IDLM|9
+GHLCamp01|LIGH|98
+GHLCamp01|LVLI|35
+GHLCamp01|MISC|206
+GHLCamp01|MSTT|141
+GHLCamp01|NPC_|19
+GHLCamp01|SCOL|174
+GHLCamp01|SOUN|8
+GHLCamp01|STAT|2507
+GHLCamp01|TXST|64
+GHLCamp01|WEAP|1
+GHLCamp02|ACTI|7
+GHLCamp02|ASPC|12
+GHLCamp02|BNDS|6
+GHLCamp02|CONT|10
+GHLCamp02|DOOR|3
+GHLCamp02|FURN|9
+GHLCamp02|HAZD|1
+GHLCamp02|LIGH|72
+GHLCamp02|LVLI|20
+GHLCamp02|MISC|35
+GHLCamp02|MSTT|46
+GHLCamp02|NPC_|3
+GHLCamp02|SCOL|20
+GHLCamp02|SOUN|6
+GHLCamp02|STAT|1089
+GHLCamp02|TXST|99
+GHLEmmettMnt02|ACTI|12
+GHLEmmettMnt02|BNDS|10
+GHLEmmettMnt02|CONT|18
+GHLEmmettMnt02|DOOR|4
+GHLEmmettMnt02|FURN|7
+GHLEmmettMnt02|HAZD|6
+GHLEmmettMnt02|IDLM|1
+GHLEmmettMnt02|LIGH|37
+GHLEmmettMnt02|LVLI|15
+GHLEmmettMnt02|MISC|17
+GHLEmmettMnt02|MSTT|30
+GHLEmmettMnt02|NPC_|9
+GHLEmmettMnt02|SCOL|113
+GHLEmmettMnt02|STAT|1139
+GHLEmmettMnt02|TXST|77
 GarrahanMiningHQ01|ACTI|85
 GarrahanMiningHQ01|ARMO|1
 GarrahanMiningHQ01|ASPC|16
@@ -2772,7 +2845,7 @@ GarrahanMiningHQ01|NOTE|1
 GarrahanMiningHQ01|NPC_|34
 GarrahanMiningHQ01|SCOL|466
 GarrahanMiningHQ01|SOUN|15
-GarrahanMiningHQ01|STAT|7035
+GarrahanMiningHQ01|STAT|7036
 GarrahanMiningHQ01|TERM|7
 GarrahanMiningHQ01|TXST|286
 GarrahanMiningHQDungeon|ACTI|46
@@ -3035,7 +3108,7 @@ MILEBlueRidgeHQ|MSTT|198
 MILEBlueRidgeHQ|NPC_|10
 MILEBlueRidgeHQ|SCOL|483
 MILEBlueRidgeHQ|SOUN|6
-MILEBlueRidgeHQ|STAT|5312
+MILEBlueRidgeHQ|STAT|5311
 MILEBlueRidgeHQ|TERM|1
 MILEBlueRidgeHQ|TXST|675
 MILEBlueRidgeHQ|WEAP|15
@@ -3686,8 +3759,13 @@ SheltersSummerCamp|ASPC|1
 SheltersSummerCamp|FLOR|5
 SheltersSummerCamp|LIGH|1
 SheltersSummerCamp|SCOL|50
-SheltersSummerCamp|STAT|497
+SheltersSummerCamp|STAT|498
 SheltersSummerCamp|TXST|107
+SheltersTheRadiantRemedy|ACTI|7
+SheltersTheRadiantRemedy|LIGH|35
+SheltersTheRadiantRemedy|MSTT|34
+SheltersTheRadiantRemedy|STAT|292
+SheltersTheRadiantRemedy|TXST|75
 SheltersToxicWasteland|ACTI|6
 SheltersToxicWasteland|ASPC|1
 SheltersToxicWasteland|FLOR|13
@@ -4298,7 +4376,7 @@ VTecAgCenter01|NOTE|1
 VTecAgCenter01|NPC_|14
 VTecAgCenter01|SCOL|41
 VTecAgCenter01|SOUN|2
-VTecAgCenter01|STAT|2457
+VTecAgCenter01|STAT|2458
 VTecAgCenter01|TERM|7
 VTecAgCenter01|TXST|49
 ValleyGalleria01|ACTI|87
@@ -4804,14 +4882,14 @@ WhitespringMall01|STAT|4679
 WhitespringMall01|TERM|13
 WhitespringMall01|TXST|16
 WhitespringMall01|WEAP|1
-WhitespringRefuge01|ACTI|103
+WhitespringRefuge01|ACTI|104
 WhitespringRefuge01|ARMO|3
 WhitespringRefuge01|ASPC|1
 WhitespringRefuge01|BOOK|2
 WhitespringRefuge01|CONT|158
 WhitespringRefuge01|DOOR|102
 WhitespringRefuge01|FLOR|1
-WhitespringRefuge01|FURN|341
+WhitespringRefuge01|FURN|340
 WhitespringRefuge01|IDLM|100
 WhitespringRefuge01|LIGH|462
 WhitespringRefuge01|LVLI|96
@@ -4820,7 +4898,7 @@ WhitespringRefuge01|MSTT|133
 WhitespringRefuge01|NOTE|5
 WhitespringRefuge01|NPC_|48
 WhitespringRefuge01|SCOL|172
-WhitespringRefuge01|STAT|9528
+WhitespringRefuge01|STAT|9529
 WhitespringRefuge01|TERM|5
 WhitespringRefuge01|TXST|41
 WhitespringRefuge01|WEAP|4
@@ -5008,7 +5086,7 @@ XPDAC03FloodedCityCenter|BNDS|91
 XPDAC03FloodedCityCenter|BOOK|7
 XPDAC03FloodedCityCenter|CONT|110
 XPDAC03FloodedCityCenter|DOOR|11
-XPDAC03FloodedCityCenter|FURN|120
+XPDAC03FloodedCityCenter|FURN|119
 XPDAC03FloodedCityCenter|IDLM|117
 XPDAC03FloodedCityCenter|KEYM|1
 XPDAC03FloodedCityCenter|LIGH|227
@@ -5017,7 +5095,7 @@ XPDAC03FloodedCityCenter|MISC|361
 XPDAC03FloodedCityCenter|MSTT|181
 XPDAC03FloodedCityCenter|NPC_|99
 XPDAC03FloodedCityCenter|SCOL|2690
-XPDAC03FloodedCityCenter|STAT|11993
+XPDAC03FloodedCityCenter|STAT|11992
 XPDAC03FloodedCityCenter|TERM|3
 XPDAC03FloodedCityCenter|TXST|707
 XPDPitt01Foundry|ACTI|240
@@ -5128,7 +5206,7 @@ XPDPitt02Trench|NOTE|2
 XPDPitt02Trench|NPC_|147
 XPDPitt02Trench|SCOL|2097
 XPDPitt02Trench|SOUN|2
-XPDPitt02Trench|STAT|15023
+XPDPitt02Trench|STAT|15024
 XPDPitt02Trench|TERM|6
 XPDPitt02Trench|TXST|1300
 XPDPitt02Trench|WEAP|2
@@ -5194,7 +5272,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3254154
+APPALACHIA||3264263
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -7595,7 +7673,26 @@ APPALACHIA|FoundationOutpost_Watchtower_LOD_Marker|1
 APPALACHIA|Foundation_ExtLoadDoor_Quartermaster|1
 APPALACHIA|FrontSatDoor|1
 APPALACHIA|Fundementalstage|1
+APPALACHIA|GHL00_AsherRefExt|1
+APPALACHIA|GHL00_DisguseMiscQuest_LocMarker_REF|1
+APPALACHIA|GHL00_ErnieRef|1
 APPALACHIA|GHL00_Quest_RadioTransmitMarker|1
+APPALACHIA|GHLEmmettMntMetalHatch|1
+APPALACHIA|GHLPOI01Marker|1
+APPALACHIA|GHLPOI02Marker|1
+APPALACHIA|GHLPOI03Marker|1
+APPALACHIA|GHLPOI04Marker|1
+APPALACHIA|GHLPOI05Marker|1
+APPALACHIA|GHLPOI06Marker|1
+APPALACHIA|GHLPOI07Marker|1
+APPALACHIA|GHLPOI08Marker|1
+APPALACHIA|GHLPOI09Marker|1
+APPALACHIA|GHLPOI10Marker|1
+APPALACHIA|GHLPOI11Marker|1
+APPALACHIA|GHLPOI12Marker|1
+APPALACHIA|GHLPOI13Marker|1
+APPALACHIA|GHLPOI14Marker|1
+APPALACHIA|GHL_HillsideCavernsLocationMarker_REF|1
 APPALACHIA|GarrahanEstateCardReader|1
 APPALACHIA|GarrahanEstateElevatorLowToMid|1
 APPALACHIA|GarrahanEstateElevatorLowToUp|1
@@ -7611,6 +7708,7 @@ APPALACHIA|GarrahanExtToHQBack|1
 APPALACHIA|GarrahanHQ_GarageExtTo01|1
 APPALACHIA|GarrahanMiningHQMapMarkerRef|1
 APPALACHIA|GateSandbox|1
+APPALACHIA|GhoulCampMapMarkerID|1
 APPALACHIA|GorgeJunkyardCenterMarker|1
 APPALACHIA|GorgeJunkyardWorkshopRef|1
 APPALACHIA|GorgeJunkyard_LocationEdge|1
@@ -10052,6 +10150,14 @@ APPALACHIA|SRMSmallMountainPOI01Marker|1
 APPALACHIA|SRMSmallMountainPOI02Marker|1
 APPALACHIA|SRMSmallMountainPOI03Marker|1
 APPALACHIA|SRMSmallSwampForestPOI01Marker|1
+APPALACHIA|SSEPOI01Marker|1
+APPALACHIA|SSE_BESusan_REF|1
+APPALACHIA|SSE_BeeExplosionSource_REF|1
+APPALACHIA|SSE_Beezlebub_REF|1
+APPALACHIA|SSE_GramophoneAct_REF|1
+APPALACHIA|SSE_Magellan_REF|1
+APPALACHIA|SSE_SoundXMarker_REF|1
+APPALACHIA|SSE_XmarkerTeleport01_REF|1
 APPALACHIA|STWBlueLightParent|1
 APPALACHIA|STWRedLightParent|1
 APPALACHIA|STWYellowLightParent|1
@@ -10697,6 +10803,7 @@ APPALACHIA|TestElevDoorARef045|1
 APPALACHIA|TestElevDoorARef046|1
 APPALACHIA|TestElevDoorARef047|1
 APPALACHIA|TestElevDoorARef048|1
+APPALACHIA|TestElevDoorARef051|1
 APPALACHIA|TestElevDoorARef053|1
 APPALACHIA|TestElevDoorARef054|1
 APPALACHIA|TestElevDoorARef055|1
@@ -10850,6 +10957,7 @@ APPALACHIA|TylerCountyTrackCenterMarker|1
 APPALACHIA|TylerCountyTrackWorkshopRef|1
 APPALACHIA|TylerCountyTrack_LocationEdge|1
 APPALACHIA|UD001_Arktos_Elevator_Button|1
+APPALACHIA|UD001_Arktos_Elevator_Button001|1
 APPALACHIA|UD003_VanLoweTaxidermyDoorExt|1
 APPALACHIA|UD004_NukashineLoadDoorExt|1
 APPALACHIA|UD005_FratLoadDoorExt|1
@@ -11780,7 +11888,7 @@ BigBendTunnel01|E05_Start_FrontBrahmin|1
 BigBendTunnel01|E05_Start_Guard|1
 BigBendTunnel01|E05_Start_Merchant|1
 BigBendTunnel01|MTR03_AreaSpawnerMarkerREF|1
-BlackwaterMine01||6154
+BlackwaterMine01||6155
 BlackwaterMine01|MTNL01BlackwaterGhoulMarker|1
 BlackwaterMine01|MTNL01BlackwaterTerminalMarker|1
 BlackwaterMine01|MTNL01_SpawnCenter|1
@@ -11811,7 +11919,7 @@ BlueRidgeOffice01|xmarker_Aries_OfficeSpot|1
 BlueRidgeOffice01|xmarker_Rahmani_OfficeSpot|1
 BlueRidgeOffice01|xmarker_Rahmani_OfficeSpot001|1
 BurdetteManorBasement01||499
-BurningMine01||6112
+BurningMine01||6114
 BurningMine01|DailyOps_Mode01_Activator00_PackIn003|1
 BurningMine01|DailyOps_Mode01_Activator01_PackIn003|1
 BurningMine01|DailyOps_Mode01_Activator02_PackIn003|1
@@ -12219,7 +12327,7 @@ DyerChemical01|SFL02_Track_DyerDoor02Ref_InteriorLoad|1
 DyerChemical01|SFL02_Track_DyerDoor03Ref_InteriorLoad|1
 DyerChemical01|SFL02_Track_EnterTriggerRef|1
 DyerChemical01|SFL02_Track_LucyCorpseRef|1
-EasternRegionalPen01||11394
+EasternRegionalPen01||11396
 EasternRegionalPen01|LC043GuardPod|1
 EasternRegionalPen01|LC043_DoorCellsA|1
 EasternRegionalPen01|LC043_DoorCellsB|1
@@ -12754,7 +12862,61 @@ FreeStatesBunker07|W05_MQS_203P_RadcliffFurn1|1
 FreeStatesBunker07|W05_MQS_203P_RadcliffFurn2|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn1|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn2|1
-GarrahanMiningHQ01||9175
+GHLCamp01||3472
+GHLCamp01|GHL00_ExitToLabMarker|1
+GHLCamp01|GHL00_JayeRef|1
+GHLCamp01|GHL00_JayeSandboxVolume|1
+GHLCamp01|GHL00_LeamonGhoulRef|1
+GHLCamp01|GHL00_PartheniaClinicMarker|1
+GHLCamp01|GHL00_Quest_InteriorElevatorMarker|1
+GHLCamp01|GHL00_Quest_PartheniaRef_Camp|1
+GHLCamp01|GHL00_Quest_TransformPlayer_ClinicBench|1
+GHLCamp01|GHL00_Quest_TransformPlayer_MaddoxMarker|1
+GHLCamp01|GHL00_Quest_TransformPlayer_PartheniaClipboardFurn|1
+GHLCamp01|GHL00_Quest_TransformPlayer_WakeUpMarker|1
+GHLCamp01|GHLCamp01_DirectTravelPoint|1
+GHLCamp01|TestElevDoorARef073DUPLICATE002|1
+GHLCamp01|TestElevDoorTriggerARef069DUPLICATE002|1
+GHLCamp02||1417
+GHLCamp02|GHL00_AsherRef001|1
+GHLCamp02|GHL00_LeamonRef_GhoulCamp001|1
+GHLCamp02|GHL00_PartheniaRef001|1
+GHLCamp02|GHL00_Quest_AsherLabMarker001|1
+GHLCamp02|GHL00_Quest_BrewGhoulJuiceTrigger001|1
+GHLCamp02|GHL00_Quest_IntroAsherMarker001|1
+GHLCamp02|GHL00_Quest_IntroPartheniaMarker001|1
+GHLCamp02|GHL00_Quest_IntroPlayerMarker001|1
+GHLCamp02|GHL00_Quest_IntroSceneTrigger001|1
+GHLCamp02|GHL00_Quest_LeamonHostageFurn001|1
+GHLCamp02|GHL00_Quest_LeamonLabMarker001|1
+GHLCamp02|GHL00_Quest_LeamonWaitingLabFurn001|1
+GHLCamp02|GHL00_Quest_PartheniaChemBench001|1
+GHLCamp02|GHL00_Quest_PartheniaHiddenMarker001|1
+GHLCamp02|GHL00_Quest_PartheniaLabMarker001|1
+GHLCamp02|GHL00_Quest_PartheniaWaitingLabFurn001|1
+GHLCamp02|GHL00_Quest_TransformPlayer_RadChamberDoor|1
+GHLCamp02|GHL00_Quest_TransformPlayer_RadChamberDoor_Collider|1
+GHLCamp02|GHL00_Quest_TransformPlayer_RadChamberTrigger001|1
+GHLCamp02|GHL00_Quest_TunnelExitMarker001|1
+GHLCamp02|GHLCaveDoor001|1
+GHLEmmettMnt02||1479
+GHLEmmettMnt02|GHL00_AsherRef_Emmett|1
+GHLEmmettMnt02|GHL00_MadelineRef|1
+GHLEmmettMnt02|GHL00_Quest_AsherConfrontationMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherGateMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherOreTunnelFurnitureMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherOreTunnelMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherTeleportMarker|1
+GHLEmmettMnt02|GHL00_Quest_EmmettMainRoomTrigger|1
+GHLEmmettMnt02|GHL00_Quest_EmmettMntSearchMarker|1
+GHLEmmettMnt02|GHL00_Quest_FeralGhoul01|1
+GHLEmmettMnt02|GHL00_Quest_FeralGhoul02|1
+GHLEmmettMnt02|GHL00_Quest_FeralGhoul03|1
+GHLEmmettMnt02|GHL00_Quest_FeralSpawnCenter|1
+GHLEmmettMnt02|GHL00_Quest_LockedGate|1
+GHLEmmettMnt02|GHL00_Quest_MadelineMarker|1
+GHLEmmettMnt02|GHL00_Quest_MadelineStartMarker|1
+GarrahanMiningHQ01||9176
 GarrahanMiningHQ01|GarrahanHQToExtBack|1
 GarrahanMiningHQ01|GarrahanHQ_Garage01ToExt|1
 GarrahanMiningHQ01|GarrahanMiningHQ_LeftExit|1
@@ -13179,7 +13341,7 @@ LousMine01|W05_MQR_201P_WeaselWall02SafetyMarker|1
 LousMine01|floorChunksEnableMarker|1
 LousMine01|wallPushVolumes01EnableMarker|1
 LousMine01|wallPushVolumes02EnableMarker|1
-MILEBlueRidgeHQ||7475
+MILEBlueRidgeHQ||7474
 MILEBlueRidgeHQ|MILE_CaravanIntro_JoannaExitMarker|1
 MILEBlueRidgeHQ|MILE_CaravanIntro_JoannaSpawnMarker|1
 MILEBlueRidgeHQ|MILE_HQ_CryptidHunterTheme_Antique|1
@@ -14137,7 +14299,8 @@ SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
 SheltersSoundStage||905
-SheltersSummerCamp||695
+SheltersSummerCamp||696
+SheltersTheRadiantRemedy||443
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
@@ -14869,7 +15032,7 @@ UncannyCavernsDungeon|WaterVolume41|1
 UncannyCavernsDungeon|WaterVolume42|1
 UncannyCavernsDungeon|WaterVolume60|1
 UncannyCavernsDungeon|WaterVolume80|1
-VTecAgCenter01||3132
+VTecAgCenter01||3133
 VTecAgCenter01|AgCenterMainframeRef|1
 VTecAgCenter01|AgCenterMainframeTerminalREF|1
 VTecAgCenter01|AgCenterTerminalREF|1
@@ -16011,8 +16174,9 @@ WhitespringRefuge01|EX001_WhitespringRefuge_SmallCircleToExterior_LoadDoor02|1
 WhitespringRefuge01|EX001_WhitespringRefuge_SodaToExterior_LoadDoor01|1
 WhitespringRefuge01|EX001_WhitespringRefuge_SodaToExterior_LoadDoor02|1
 WhitespringRefuge01|EX001_WhitespringRefuge_ToBunker_LoadDoor01|1
+WhitespringRefuge01|GHL00_Quest_LeamonClinicMarker|1
 WhitespringRefuge01|GHL00_Quest_LeamonRef_Whitespring|1
-WhitespringRefuge01|GHL00_Quest_LeamonWoundedFurn|1
+WhitespringRefuge01|GHL00_Quest_MedicSceneTrigger|1
 WhitespringRefuge01|Refuge_Turf_Ballroom|1
 WhitespringRefuge01|Refuge_Turf_Bar|1
 WhitespringRefuge01|Refuge_Turf_Construction|1
@@ -16535,7 +16699,7 @@ XPDAC03CommunityCenterDungeon|DailyOps_Mode01_Respawn03_02_PackIn018|1
 XPDAC03CommunityCenterDungeon|DailyOps_Mode01_Respawn03_03_PackIn018|1
 XPDAC03CommunityCenterDungeon|XPD_AC03_PersistentMarker_CommunityCenter_Ref001|1
 XPDAC03CommunityCenterDungeon|XPD_Pitt02_Organ003|1
-XPDAC03FloodedCityCenter||17012
+XPDAC03FloodedCityCenter||17010
 XPDAC03FloodedCityCenter|AC_MQ03_DEBUGWarehouseMarker_Ref|1
 XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref|1
 XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref001|1
@@ -17050,7 +17214,7 @@ XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_Collapsed|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_FallingRocks|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_Boarded|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_FallingRocks|1
-XPDPitt02Trench||21080
+XPDPitt02Trench||21081
 XPDPitt02Trench|AmbEWS_DummyRef|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_SCM|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_Sandbox|1
@@ -17251,7 +17415,7 @@ AMSHQ02|100|1993
 APPALACHIA|50|52
 APPALACHIA|75|161
 APPALACHIA|85|251
-APPALACHIA|100|3260099
+APPALACHIA|100|3270238
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -17262,11 +17426,11 @@ ArktosPharmaLabDungeon|75|1
 ArktosPharmaLabDungeon|100|14622
 BelchingBetty01|100|5218
 BigBendTunnel01|100|7554
-BlackwaterMine01|100|6166
+BlackwaterMine01|100|6167
 BlueRidgeOffice01|50|1
 BlueRidgeOffice01|100|764
 BurdetteManorBasement01|100|499
-BurningMine01|100|6136
+BurningMine01|100|6138
 Burrows01|75|8
 Burrows01|100|20165
 CharGen01|100|7051
@@ -17285,7 +17449,7 @@ DaggersDen01|100|1659
 DaggersDen02|100|489
 DuncanDuncanRobotics01|100|1365
 DyerChemical01|100|3212
-EasternRegionalPen01|100|11441
+EasternRegionalPen01|100|11443
 EmmettMountainDisposalSite01|50|4
 EmmettMountainDisposalSite01|75|6
 EmmettMountainDisposalSite01|100|4847
@@ -17302,7 +17466,10 @@ FreeStatesBunker03|100|1043
 FreeStatesBunker04|100|1254
 FreeStatesBunker06|100|949
 FreeStatesBunker07|100|1050
-GarrahanMiningHQ01|100|9200
+GHLCamp01|100|3486
+GHLCamp02|100|1438
+GHLEmmettMnt02|100|1495
+GarrahanMiningHQ01|100|9201
 GarrahanMiningHQDungeon|100|7694
 GauleyMine01|100|4177
 GlassedCavern01|100|9044
@@ -17323,7 +17490,7 @@ LittleRobsHideout01|75|2
 LittleRobsHideout01|100|1461
 LousMine01|75|3
 LousMine01|100|6988
-MILEBlueRidgeHQ|100|7499
+MILEBlueRidgeHQ|100|7498
 MTR08LodeBaring01|100|3406
 MTR08LodeBaring02|100|3283
 MamaDolceProcessing01|100|3074
@@ -17372,7 +17539,8 @@ SheltersMissileSilo|100|493
 SheltersPittTrench01|100|1142
 SheltersRootCellar|100|595
 SheltersSoundStage|100|905
-SheltersSummerCamp|100|695
+SheltersSummerCamp|100|696
+SheltersTheRadiantRemedy|100|443
 SheltersToxicWasteland|100|527
 SheltersVaultAtrium01|100|2268
 SheltersVaultLivingQuarters01|100|2644
@@ -17421,7 +17589,7 @@ UncannyCaverns01|100|4228
 UncannyCaverns02|100|3191
 UncannyCavernsDungeon|100|7411
 VTecAgCenter01|50|9
-VTecAgCenter01|100|3127
+VTecAgCenter01|100|3128
 ValleyGalleria01|100|8635
 VanLoweTaxidermy01|75|3
 VanLoweTaxidermy01|100|1964
@@ -17462,7 +17630,7 @@ WestTek02|75|1
 WestTek02|100|5126
 WhitespringBunker01|100|16333
 WhitespringMall01|100|6947
-WhitespringRefuge01|100|11690
+WhitespringRefuge01|100|11691
 XPDAC01Casino|100|13811
 XPDAC01EntertainmentDistrict|100|6793
 XPDAC01NightClub|100|2996
@@ -17478,7 +17646,7 @@ XPDAC03CommunityCenter|75|3
 XPDAC03CommunityCenter|100|11649
 XPDAC03CommunityCenterDungeon|75|2
 XPDAC03CommunityCenterDungeon|100|10944
-XPDAC03FloodedCityCenter|100|17093
+XPDAC03FloodedCityCenter|100|17091
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
 XPDPitt01Foundry|100|16914
@@ -17493,7 +17661,7 @@ XPDPitt02Sanctum|75|2
 XPDPitt02Sanctum|100|18032
 XPDPitt02Trench|50|4
 XPDPitt02Trench|75|8
-XPDPitt02Trench|100|21225
+XPDPitt02Trench|100|21226
 XPDRttP01SteelTower|100|10075
 XPDRttP01SteelTowerRoof|100|2002
 XPDRttP01SteelTowerUpperFloors|100|6241
@@ -17545,39 +17713,39 @@ AMSHQ02|Screw|4|4
 AMSHQ02|Spring|8|8
 AMSHQ02|Steel|42|23
 AMSHQ02|Wood|15|13
-APPALACHIA|Acid|1428|925
-APPALACHIA|Adhesive|1248|528
-APPALACHIA|Aluminum|2385|1538
-APPALACHIA|Antiseptic|897|426
-APPALACHIA|Asbestos|1721|1276
-APPALACHIA|Ballistic Fiber|278|107
-APPALACHIA|Bone|4168|1396
-APPALACHIA|Ceramic|3954|3423
-APPALACHIA|Circuitry|503|392
-APPALACHIA|Cloth|6196|5474
-APPALACHIA|Concrete|2429|441
-APPALACHIA|Copper|1607|1496
-APPALACHIA|Cork|644|522
-APPALACHIA|Crystal|370|207
-APPALACHIA|Fertilizer|1167|405
+APPALACHIA|Acid|1444|935
+APPALACHIA|Adhesive|1264|539
+APPALACHIA|Aluminum|2410|1550
+APPALACHIA|Antiseptic|908|433
+APPALACHIA|Asbestos|1738|1290
+APPALACHIA|Ballistic Fiber|284|109
+APPALACHIA|Bone|4294|1437
+APPALACHIA|Ceramic|4031|3482
+APPALACHIA|Circuitry|506|395
+APPALACHIA|Cloth|6239|5512
+APPALACHIA|Concrete|2447|447
+APPALACHIA|Copper|1629|1517
+APPALACHIA|Cork|647|524
+APPALACHIA|Crystal|373|208
+APPALACHIA|Fertilizer|1195|412
 APPALACHIA|Fiber Optics|44|43
-APPALACHIA|Fiberglass|1093|851
-APPALACHIA|Gear|1231|1022
-APPALACHIA|Glass|9428|7786
-APPALACHIA|Gold|89|89
+APPALACHIA|Fiberglass|1104|861
+APPALACHIA|Gear|1249|1036
+APPALACHIA|Glass|9533|7872
+APPALACHIA|Gold|95|95
 APPALACHIA|Gunpowder|1|1
-APPALACHIA|Lead|5521|3187
-APPALACHIA|Leather|1975|891
-APPALACHIA|Nuclear Material|143|143
-APPALACHIA|Oil|3807|2548
-APPALACHIA|Plastic|6134|4220
-APPALACHIA|Rubber|2197|1245
-APPALACHIA|Screw|1247|1110
-APPALACHIA|Silver|282|236
-APPALACHIA|Spring|1380|1348
-APPALACHIA|Steel|19495|9958
+APPALACHIA|Lead|5567|3206
+APPALACHIA|Leather|1979|893
+APPALACHIA|Nuclear Material|148|148
+APPALACHIA|Oil|3844|2576
+APPALACHIA|Plastic|6174|4252
+APPALACHIA|Rubber|2212|1256
+APPALACHIA|Screw|1260|1122
+APPALACHIA|Silver|291|243
+APPALACHIA|Spring|1394|1362
+APPALACHIA|Steel|19769|10103
 APPALACHIA|Ultracite|1|1
-APPALACHIA|Wood|5969|3527
+APPALACHIA|Wood|6054|3573
 AVRMedicalCenter01|Acid|6|5
 AVRMedicalCenter01|Adhesive|4|1
 AVRMedicalCenter01|Aluminum|33|18
@@ -18488,6 +18656,63 @@ FreeStatesBunker07|Screw|7|7
 FreeStatesBunker07|Spring|4|4
 FreeStatesBunker07|Steel|108|53
 FreeStatesBunker07|Wood|28|16
+GHLCamp01|Acid|9|8
+GHLCamp01|Adhesive|12|5
+GHLCamp01|Aluminum|23|12
+GHLCamp01|Antiseptic|9|5
+GHLCamp01|Asbestos|15|10
+GHLCamp01|Ballistic Fiber|4|2
+GHLCamp01|Bone|1|1
+GHLCamp01|Ceramic|29|24
+GHLCamp01|Circuitry|4|3
+GHLCamp01|Cloth|22|22
+GHLCamp01|Copper|7|7
+GHLCamp01|Cork|3|2
+GHLCamp01|Crystal|3|1
+GHLCamp01|Fertilizer|14|5
+GHLCamp01|Fiber Optics|1|1
+GHLCamp01|Fiberglass|3|3
+GHLCamp01|Gear|9|8
+GHLCamp01|Glass|42|37
+GHLCamp01|Gold|1|1
+GHLCamp01|Lead|18|12
+GHLCamp01|Leather|1|1
+GHLCamp01|Nuclear Material|4|4
+GHLCamp01|Oil|14|8
+GHLCamp01|Plastic|44|30
+GHLCamp01|Rubber|13|10
+GHLCamp01|Screw|12|10
+GHLCamp01|Silver|1|1
+GHLCamp01|Spring|10|10
+GHLCamp01|Steel|110|58
+GHLCamp01|Wood|44|25
+GHLCamp02|Aluminum|5|3
+GHLCamp02|Asbestos|2|1
+GHLCamp02|Ceramic|1|1
+GHLCamp02|Circuitry|2|2
+GHLCamp02|Copper|7|5
+GHLCamp02|Crystal|2|1
+GHLCamp02|Fiber Optics|1|1
+GHLCamp02|Fiberglass|1|1
+GHLCamp02|Gear|4|3
+GHLCamp02|Glass|18|16
+GHLCamp02|Lead|1|1
+GHLCamp02|Oil|5|3
+GHLCamp02|Plastic|5|2
+GHLCamp02|Rubber|3|2
+GHLCamp02|Screw|3|3
+GHLCamp02|Steel|18|8
+GHLCamp02|Wood|12|4
+GHLEmmettMnt02|Adhesive|5|1
+GHLEmmettMnt02|Asbestos|1|1
+GHLEmmettMnt02|Ceramic|1|1
+GHLEmmettMnt02|Gear|1|1
+GHLEmmettMnt02|Lead|10|5
+GHLEmmettMnt02|Oil|4|3
+GHLEmmettMnt02|Plastic|1|1
+GHLEmmettMnt02|Rubber|2|1
+GHLEmmettMnt02|Steel|30|14
+GHLEmmettMnt02|Wood|8|4
 GarrahanMiningHQ01|Acid|1|1
 GarrahanMiningHQ01|Adhesive|1|1
 GarrahanMiningHQ01|Aluminum|3|2
@@ -21321,6 +21546,7 @@ WhitespringRefuge01|Robot|100.0|1
 00678787|XPDPitt02ACCJ|Purgatory|0|-211|-181|-843|421|-1026|663|-700|2000|2.5
 005AFB11|LittleRobsHideout01|Little Rob's Hideout|0|1349|1898|-1493|4191|-1026|4823|0|0|1.0
 00004C43|GlassedCavern01|Glassed Cavern|0|-2827|-324|-13587|7933|-11385|10736|0|0|1.0
+007D63B3|SheltersTheRadiantRemedy|The Radiant Remedy Shelter|0|2472|-1057|953|3991|-2456|341|0|0|1.0
 0004FF09|FreeStatesBunker03|Ella Ames' Bunker|0|1134|1822|-241|2510|741|2903|0|0|1.0
 003FEE25|HornwrightSafeRoom01|Hornwright Estate Safe Room|0|75|896|-1560|1710|-128|1920|0|0|1.0
 000644DB|GarrahanMiningHQ01|Garrahan Mining HQ|0|538|648|-4042|5119|-12335|13632|0|650|1.3
@@ -21376,6 +21602,8 @@ WhitespringRefuge01|Robot|100.0|1
 00473A0C|VanLoweTaxidermy01|Van Lowe Taxidermy|0|1624|87|640|2608|-736|911|0|0|1.0
 005F119A|WestTek02|FEV Production Facility|0|8320|2592|3840|12800|-1344|6528|0|0|1.0
 005C28B8|OrwellOrchardsShelter01|Orwell Bomb Shelter|0|1740|814|-904|4384|-1344|2972|0|0|1.0
+00793F34|GHLEmmettMnt02|Emmett Mountain Disposal Site|0|2005|-1996|-86|4097|-4596|604|0|0|1.0
+007AB0BC|GHLCamp02|Hillside Cavern|0|-4568|-31510|-10088|952|-35850|-27170|-700|0|1.3
 004429CA|SpruceKnobMissileSilo01|Missile Silo Charlie|0|-8234|-30161|-15252|-1216|-37728|-22594|0|0|1.0
 0074DC96|SheltersFlatlands|Flatlands|0|-10368|25271|-216060|195323|-172548|223090|-1400|-2300|10.0
 006143D4|UncannyCavernsDungeon|Uncanny Caverns|0|3148|4581|-2676|8972|-1214|10376|0|0|1.0
@@ -21414,6 +21642,7 @@ WhitespringRefuge01|Robot|100.0|1
 005661B4|Vault79Entrance|Vault 79|0|2048|2048|-248|4344|-352|4448|0|0|1.0
 005B1E48|SheltersVaultAtrium01|Vault Atrium Shelter|0|-5836|488|-6936|-4736|-1666|2642|0|0|1.0
 005B2BF4|RaiderCave02|Makeshift Vault|0|1387|2132|-1110|3885|-1026|5291|0|0|1.0
+0036DABA|GHLCamp01|Radiant Hills|0|-6644|-32465|-10088|-3200|-37760|-27170|0|-1200|1.5
 006FA30E|StormVault63AtriumLower|Atrium Lower Level|0|4195|353|3|8388|-1609|2315|0|0|1.0
 0010BA9C|MorgantownHighSchool01|Morgantown High School|0|1396|-2890|-787|3579|-6799|1019|0|0|1.0
 005D0FA0|EnclaveResearchFacility01|Enclave Research Facility|0|958|3608|-6652|8568|-2240|9456|0|0|1.0
@@ -21459,4 +21688,4 @@ WhitespringRefuge01|Robot|100.0|1
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4387120|4387120
+4404128|4404128

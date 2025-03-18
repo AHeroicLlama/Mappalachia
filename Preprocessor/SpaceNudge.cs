@@ -294,6 +294,18 @@ namespace Mappalachia
 						nudgeScale = 1f;
 						break;
 
+					case "GHLCamp01":
+						nudgeX = 0;
+						nudgeY = -1200;
+						nudgeScale = 1.5f;
+						break;
+
+					case "GHLCamp02":
+						nudgeX = -700;
+						nudgeY = 0;
+						nudgeScale = 1.3f;
+						break;
+
 					default:
 						nudgeX = 0;
 						nudgeY = 0;
