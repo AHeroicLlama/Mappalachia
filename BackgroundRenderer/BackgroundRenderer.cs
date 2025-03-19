@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
@@ -13,9 +14,11 @@ namespace BackgroundRenderer
 
 		static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
-		static int RenderParallelism { get; } = 8; // Max cells to render in parallel
+		static int RenderParallelism { get; } = 8; // Max cells or super res tiles to render in parallel
 
 		static double SuperResImprovementThresholdPerc { get; } = 25; // Percent improvement in resolution necessary to render a super res
+
+		static Regex TileFileNameValidation { get; } = new Regex(@"(-?[0-9]{1,2}\.){2}jpg");
 
 		static void Main()
 		{
@@ -30,7 +33,9 @@ namespace BackgroundRenderer
 				}
 			}
 
-			StdOutWithColor("Enter:\n1: Normal Render Mode\n2: Super Res Render\n3: Space Zoom/Offset (X/Y) correction/debug mode\n4: Space height (Z) crop correction/debug mode", ColorQuestion);
+			CleanUpSuperRes();
+
+			StdOutWithColor("Enter:\n1: Render (Inc. super res) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode", ColorQuestion);
 
 			switch (Console.ReadKey().KeyChar)
 			{
@@ -39,19 +44,76 @@ namespace BackgroundRenderer
 					break;
 
 				case '2':
-					SuperResRender();
-					break;
-
-				case '3':
 					SpaceZoomOffsetCorrection();
 					break;
 
-				case '4':
+				case '3':
 					SpaceHeightCorrection();
 					break;
 
 				default:
 					throw new Exception("Invalid Choice");
+			}
+		}
+
+		// Filters through the super res folder and attempts to locate and remove redundant old tiles/folders or rogue files/folders
+		static async void CleanUpSuperRes()
+		{
+			StdOutWithColor("Checking for unnecessary tile files...", ColorInfo);
+			List<Space> spaces = await CommonDatabase.GetSpaces(GetNewConnection());
+
+			// The super res directory should have no file at root
+			foreach (string file in Directory.GetFiles(SuperResPath))
+			{
+				StdOutWithColor($"Deleting rogue file {file}", ColorInfo);
+				File.Delete(file);
+			}
+
+			foreach (string directory in Directory.GetDirectories(SuperResPath))
+			{
+				// The folder for each space should contain no folders
+				foreach (string innerDirectory in Directory.GetDirectories(directory))
+				{
+					StdOutWithColor($"Deleting rogue directory {innerDirectory}", ColorInfo);
+					Directory.Delete(innerDirectory, true);
+				}
+
+				// Find the space this folder represents
+				Space? space = spaces.Where(space => space.EditorID == Path.GetFileName(directory)).FirstOrDefault();
+
+				// If the space no longer exists, or, if the space no longer benefits from super res, delete its folder
+				if (space == null || !space.WouldBenefitFromSuperRes())
+				{
+					Directory.Delete(directory, true);
+					StdOutWithColor($"Deleting super res folder {directory}", ColorInfo);
+					continue;
+				}
+
+				List<SuperResTile> tiles = space.GetTiles();
+
+				// Loop every candidate tile file in the space folder
+				foreach (string tilePath in Directory.GetFiles(directory))
+				{
+					string tileFileName = Path.GetFileName(tilePath);
+
+					// Delete files not matching the expected name
+					if (!TileFileNameValidation.IsMatch(tileFileName))
+					{
+						StdOutWithColor($"Deleting rogue tile file {tilePath}", ColorInfo);
+						File.Delete(tilePath);
+						continue;
+					}
+
+					int tileX = int.Parse(tileFileName.Split(".")[0]);
+					int tileY = int.Parse(tileFileName.Split(".")[1]);
+
+					// Find the X and Y of the tile this file represents. If it is no longer needed by the space, delete it.
+					if (!tiles.Where(tile => tile.GetXID() == tileX && tile.GetYID() == tileY).Any())
+					{
+						StdOutWithColor($"Deleting super res tile {tilePath}", ColorInfo);
+						File.Delete(tilePath);
+					}
+				}
 			}
 		}
 
@@ -75,6 +137,7 @@ namespace BackgroundRenderer
 			foreach (Space worldspace in worldspaces)
 			{
 				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID.ToHex()})", ColorInfo);
+				SuperResRenderSpace(worldspace, true);
 				RenderSpace(worldspace);
 				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
 			}
@@ -84,28 +147,12 @@ namespace BackgroundRenderer
 			// Render cells in parallel
 			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, cell =>
 			{
+				SuperResRenderSpace(cell, false);
 				RenderSpace(cell, true);
 				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
 			});
 
 			StdOutWithColor($"\nRendering Finished. {generalStopwatch.Elapsed.ToString(@"hh\:mm\:ss")}. Press Any Key.", ColorInfo);
-			Console.ReadKey();
-		}
-
-		// Manages high res rendering of spaces, including console IO
-		static async void SuperResRender()
-		{
-			List<Space> spaces = await GetSpaceInput();
-			Stopwatch stopwatch = Stopwatch.StartNew();
-			StdOutWithColor($"Super Res Rendering {spaces.Count} space{Common.Pluralize(spaces)}...", ColorInfo);
-
-			foreach (Space space in spaces)
-			{
-				StdOutWithColor($"Super Res Rendering {space.EditorID} (0x{space.FormID.ToHex()})", ColorInfo);
-				SuperResRenderSpace(space);
-			}
-
-			StdOutWithColor($"Super Res Rendering Finished. {stopwatch.Elapsed.ToString(@"hh\:mm\:ss")}. Press Any Key.", ColorInfo);
 			Console.ReadKey();
 		}
 
@@ -299,26 +346,16 @@ namespace BackgroundRenderer
 			}
 		}
 
-		static async void SuperResRenderSpace(Space space)
+		static async void SuperResRenderSpace(Space space, bool parallel)
 		{
-			// Get the scale of the cell's traditional render, compare it to the super res scale
 			double scale = 1d / Common.SuperResScale;
-			int singleRenderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
-			double singleScale = singleRenderResolution / space.MaxRange;
-			double relativeImprovementPerc = ((scale - singleScale) / singleScale) * 100;
 
 			string outputPath = TempPath + $"{space.EditorID}\\";
 			string finalPath = SuperResPath + $"{space.EditorID}\\";
 
 			// If there is little to no improvement from super res, skip
-			if (relativeImprovementPerc < SuperResImprovementThresholdPerc)
+			if (!space.WouldBenefitFromSuperRes())
 			{
-				// If we're not rendering this, we should also delete old renders
-				if (Directory.Exists(finalPath))
-				{
-					Directory.Delete(finalPath, true);
-				}
-
 				return;
 			}
 
@@ -338,14 +375,54 @@ namespace BackgroundRenderer
 				tiles = tiles.Where(t => t.HasEntities().Result).ToList();
 			}
 
+			if (space.IsWorldspace)
+			{
+				StdOutWithColor($"Super Res rendering a worldspace ({space.EditorID}) typically takes multiple hours. Would you like to:\n1:Render the whole space\n2:Render only missing tiles\n3:Define a target area to render", ColorQuestion);
+
+				switch (Console.ReadKey().KeyChar)
+				{
+					case '1':
+						break;
+
+					case '2':
+						tiles = tiles.Where(t => !File.Exists(t.GetFinalFilePath(finalPath))).ToList();
+						break;
+
+					case '3':
+						StdOutWithColor("\nEnter 3 values: X and Y coordinate of the center cell, and the radius of tiles around it.", ColorQuestion);
+
+						StdOutWithColor("Center X:", ColorQuestion);
+						int xCenter = int.Parse(Console.ReadLine() ?? "0");
+
+						StdOutWithColor("Center Y:", ColorQuestion);
+						int yCenter = int.Parse(Console.ReadLine() ?? "0");
+
+						StdOutWithColor("Radius (tiles):", ColorQuestion);
+						int radius = int.Parse(Console.ReadLine() ?? "0");
+
+						tiles = tiles.Where(t =>
+							Math.Abs(t.GetXID() - xCenter) <= radius &&
+							Math.Abs(t.GetYID() - yCenter) <= radius)
+							.ToList();
+
+						break;
+
+					default:
+						StdOutWithColor("Unrecognized input. Skipping this operation. Please try again.", ColorError);
+						return;
+				}
+			}
+
+			StdOutWithColor($"\nSuper Res Rendering {tiles.Count} tile{Common.Pluralize(tiles)} of {space.EditorID}", ColorInfo);
+
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			int i = 0;
 
 			// Loop over every tile for the space
-			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, tile =>
+			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = parallel ? RenderParallelism : 1 }, tile =>
 			{
 				string outputFile = $"{outputPath}{tile.GetXID()}.{tile.GetYID()}.dds";
-				string finalFile = $"{finalPath}{tile.GetXID()}.{tile.GetYID()}.jpg";
+				string finalFile = tile.GetFinalFilePath(finalPath);
 
 				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
@@ -386,6 +463,23 @@ namespace BackgroundRenderer
 						$"Est {timeRemaining.Days}D {timeRemaining.Hours:D2}H {timeRemaining.Minutes:D2}M {timeRemaining.Seconds:D2}S remaining", ColorInfo);
 				}
 			});
+		}
+
+		// Return if the improvement in quality which super res would provide meets the threshold
+		public static bool WouldBenefitFromSuperRes(this Space space)
+		{
+			double scale = 1d / Common.SuperResScale;
+			int singleRenderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
+			double singleScale = singleRenderResolution / space.MaxRange;
+			double relativeImprovementPerc = ((scale - singleScale) / singleScale) * 100;
+
+			return relativeImprovementPerc >= SuperResImprovementThresholdPerc;
+		}
+
+		// Return the final file path of the Super Res tile
+		public static string GetFinalFilePath(this SuperResTile tile, string path)
+		{
+			return $"{path}{tile.GetXID()}.{tile.GetYID()}.jpg";
 		}
 
 		// Return the world border Region of the given space, null if none known
@@ -524,7 +618,7 @@ namespace BackgroundRenderer
 			{
 				TimeSpan avgTimePerSpace = stopwatch.Elapsed / count;
 				TimeSpan estTimeRemaining = avgTimePerSpace * (spaces.Count - count);
-				StdOutWithColor($"{estTimeRemaining.ToString(@"hh\:mm\:ss")} remaining", ColorInfo);
+				StdOutWithColor($"Est {estTimeRemaining.ToString(@"hh\:mm\:ss")} remaining", ColorInfo);
 			}
 		}
 
