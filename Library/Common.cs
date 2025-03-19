@@ -4,8 +4,6 @@ namespace Library
 {
 	public static class Common
 	{
-		public static int HashPrime { get; } = 31;
-
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
 
 		public static int SuperResTileSize { get; } = (int)Math.Pow(2, 12); // 4096

@@ -1019,7 +1019,6 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 3566800,,,0
 3574593,PackInworkshopPACKTestGeneratorLightStorageCell,,0
 3586741,,,0
-3594938,zCutPGCamp01,Quick Test Cell,0
 35996,TestRobertPOIwarehouse,,1
 36010,,,0
 36041,,,0
@@ -2193,7 +2192,6 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 79246,PackInPACKForestTreeX04bStorageCell,,0
 79247,PackInPACKForestTreeX04StorageCell,,0
 7935480,76HoldingCellMile,Quick Test Cell,0
-7946036,zCutPGEM02,Quick Test Cell,0
 7958785,,,0
 7959176,DebugMike,Quick Test Cell,0
 7969232,,,0
@@ -2201,6 +2199,8 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 7971258,PackInATXCollectronpackinBivBevStorageCell,,0
 7971311,DebugJamieR,Quick Test Cell,0
 79723,PackInForestPackTree03aStorageCell,,0
+7973508,PackInSSELandminePackinStorageCell,,0
+7977117,DebugGRoyer,Quick Test Cell,0
 7983446,DebugJeffU06GD,Gleaming Depths,0
 8008300,DebugJeffU07GD,Gleaming Depths,0
 8031568,,,0
@@ -2221,6 +2221,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 81338,PackInForestPackBoulders01StorageCellDUPLICATE001,,0
 81340,PackInForestPackTree02aStorageCell,,0
 81341,PackInForestPackTree04aStorageCellDUPLICATE001,,0
+8136731,PackInGHLPackinLGTFaceLightingRig01StorageCell,,0
 82018,zCUTTestLiz,Quick Test Cell,0
 82429,,,0
 82430,,,0

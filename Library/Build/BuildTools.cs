@@ -70,6 +70,8 @@ namespace Library
 
 		public static int Kilobyte { get; } = (int)Math.Pow(2, 10);
 
+		public static int HashPrime { get; } = 31;
+
 		static ReaderWriterLock ErrorLogLock { get; } = new ReaderWriterLock();
 
 		static BuildTools()

@@ -763,12 +763,12 @@ namespace Preprocessor
 		// Returns a very basic approx checksum of a collection of Coord
 		static long ApproximateChecksum(this List<Coord> coords)
 		{
-			long sum = Common.HashPrime;
+			long sum = HashPrime;
 			long precision = 10000000000;
 
 			foreach (Coord coord in coords)
 			{
-				sum += (((long)coord.X * precision) + Common.HashPrime) * (((long)coord.Y * precision) + Common.HashPrime) * (((long)coord.Z * precision) + Common.HashPrime);
+				sum += (((long)coord.X * precision) + HashPrime) * (((long)coord.Y * precision) + HashPrime) * (((long)coord.Z * precision) + HashPrime);
 			}
 
 			return sum;
