@@ -19,6 +19,8 @@ namespace Library
 
 		static string BGRendererCorrectionsPath { get; } = GetRepoRoot() + @"BackgroundRenderer\Corrections\";
 
+		static string? solutionPath = null;
+
 		public static string MapIconExtractPath { get; } = GetRepoRoot() + @"MapIconProcessor\Extract\";
 
 		public static string SqlitePath { get; } = UtilitiesPath + "sqlite3.exe"; // https://www.sqlite.org/download.html
@@ -66,8 +68,6 @@ namespace Library
 		public static ConsoleColor ColorQuestion { get; } = ConsoleColor.Blue;
 
 		public static ConsoleColor ColorError { get; } = ConsoleColor.Red;
-
-		static string? solutionPath = null;
 
 		public static int Kilobyte { get; } = (int)Math.Pow(2, 10);
 

@@ -343,9 +343,11 @@ namespace BackgroundRenderer
 						StdOutWithColor("Unrecognized input. Skipping this operation. Please try again.", ColorError);
 						return;
 				}
+
+				Console.WriteLine();
 			}
 
-			StdOutWithColor($"\nSuper Res Rendering {tiles.Count} tile{Common.Pluralize(tiles)} of {space.EditorID}", ColorInfo);
+			StdOutWithColor($"Super Res Rendering {tiles.Count} tile{Common.Pluralize(tiles)} of {space.EditorID}", ColorInfo);
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			int i = 0;
