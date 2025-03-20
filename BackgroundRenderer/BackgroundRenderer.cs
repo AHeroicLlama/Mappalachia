@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
@@ -12,13 +11,7 @@ namespace BackgroundRenderer
 
 		static int JpegQualityHigh { get; } = 100;
 
-		static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
-
 		static int RenderParallelism { get; } = 8; // Max cells or super res tiles to render in parallel
-
-		static double SuperResImprovementThresholdPerc { get; } = 25; // Percent improvement in resolution necessary to render a super res
-
-		static Regex TileFileNameValidation { get; } = new Regex(@"(-?[0-9]{1,2}\.){2}jpg");
 
 		static void Main()
 		{
@@ -53,67 +46,6 @@ namespace BackgroundRenderer
 
 				default:
 					throw new Exception("Invalid Choice");
-			}
-		}
-
-		// Filters through the super res folder and attempts to locate and remove redundant old tiles/folders or rogue files/folders
-		static async void CleanUpSuperRes()
-		{
-			StdOutWithColor("Checking for unnecessary tile files...", ColorInfo);
-			List<Space> spaces = await CommonDatabase.GetSpaces(GetNewConnection());
-
-			// The super res directory should have no file at root
-			foreach (string file in Directory.GetFiles(SuperResPath))
-			{
-				StdOutWithColor($"Deleting rogue file {file}", ColorInfo);
-				File.Delete(file);
-			}
-
-			foreach (string directory in Directory.GetDirectories(SuperResPath))
-			{
-				// The folder for each space should contain no folders
-				foreach (string innerDirectory in Directory.GetDirectories(directory))
-				{
-					StdOutWithColor($"Deleting rogue directory {innerDirectory}", ColorInfo);
-					Directory.Delete(innerDirectory, true);
-				}
-
-				// Find the space this folder represents
-				Space? space = spaces.Where(space => space.EditorID == Path.GetFileName(directory)).FirstOrDefault();
-
-				// If the space no longer exists, or, if the space no longer benefits from super res, delete its folder
-				if (space == null || !space.WouldBenefitFromSuperRes())
-				{
-					Directory.Delete(directory, true);
-					StdOutWithColor($"Deleting super res folder {directory}", ColorInfo);
-					continue;
-				}
-
-				List<SuperResTile> tiles = space.GetTiles();
-
-				// Loop every candidate tile file in the space folder
-				foreach (string tilePath in Directory.GetFiles(directory))
-				{
-					string tileFileName = Path.GetFileName(tilePath);
-
-					// Delete files not matching the expected name
-					if (!TileFileNameValidation.IsMatch(tileFileName))
-					{
-						StdOutWithColor($"Deleting rogue tile file {tilePath}", ColorInfo);
-						File.Delete(tilePath);
-						continue;
-					}
-
-					int tileX = int.Parse(tileFileName.Split(".")[0]);
-					int tileY = int.Parse(tileFileName.Split(".")[1]);
-
-					// Find the X and Y of the tile this file represents. If it is no longer needed by the space, delete it.
-					if (!tiles.Where(tile => tile.GetXID() == tileX && tile.GetYID() == tileY).Any())
-					{
-						StdOutWithColor($"Deleting super res tile {tilePath}", ColorInfo);
-						File.Delete(tilePath);
-					}
-				}
 			}
 		}
 
@@ -385,7 +317,7 @@ namespace BackgroundRenderer
 						break;
 
 					case '2':
-						tiles = tiles.Where(t => !File.Exists(t.GetFinalFilePath(finalPath))).ToList();
+						tiles = tiles.Where(t => !File.Exists(t.GetFilePath())).ToList();
 						break;
 
 					case '3':
@@ -422,7 +354,7 @@ namespace BackgroundRenderer
 			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = parallel ? RenderParallelism : 1 }, tile =>
 			{
 				string outputFile = $"{outputPath}{tile.GetXID()}.{tile.GetYID()}.dds";
-				string finalFile = tile.GetFinalFilePath(finalPath);
+				string finalFile = tile.GetFilePath();
 
 				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
@@ -463,23 +395,6 @@ namespace BackgroundRenderer
 						$"Est {timeRemaining.Days}D {timeRemaining.Hours:D2}H {timeRemaining.Minutes:D2}M {timeRemaining.Seconds:D2}S remaining", ColorInfo);
 				}
 			});
-		}
-
-		// Return if the improvement in quality which super res would provide meets the threshold
-		public static bool WouldBenefitFromSuperRes(this Space space)
-		{
-			double scale = 1d / Common.SuperResScale;
-			int singleRenderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
-			double singleScale = singleRenderResolution / space.MaxRange;
-			double relativeImprovementPerc = ((scale - singleScale) / singleScale) * 100;
-
-			return relativeImprovementPerc >= SuperResImprovementThresholdPerc;
-		}
-
-		// Return the final file path of the Super Res tile
-		public static string GetFinalFilePath(this SuperResTile tile, string path)
-		{
-			return $"{path}{tile.GetXID()}.{tile.GetYID()}.jpg";
 		}
 
 		// Return the world border Region of the given space, null if none known

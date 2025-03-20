@@ -34,9 +34,12 @@ namespace Preprocessor
 			List<Space> spaces = await CommonDatabase.GetSpaces(Connection);
 
 			// Perform file checks for all spaces
-			Parallel.ForEach(spaces, ValidateSpace);
+			Parallel.ForEach(spaces, space =>
+			{
+				ValidateSpace(space);
+			});
 
-			// Inverse of above, check there are no extraneous files
+			// Inverse of above (excluding super res), check there are no extraneous files
 			// First check each cell file against a cell in the database
 			Parallel.ForEach(Directory.GetFiles(CellPath), file =>
 			{
@@ -74,6 +77,9 @@ namespace Preprocessor
 			{
 				FailValidation($"Too {(actualMapMarkerImageFiles < expectedMapMarkerImageFiles ? "few" : "many")} mapmarkers in the mapmarker image folder. Expected {expectedMapMarkerImageFiles}, found {actualMapMarkerImageFiles}");
 			}
+
+			// Similarly, now check the super res structure for extraneous files
+			CleanUpSuperRes();
 		}
 
 		static bool ValidateSpaceImageExists(Space space, string path)
@@ -190,14 +196,25 @@ namespace Preprocessor
 			Console.WriteLine($"Background image(s): {space.EditorID}");
 			string filePath = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + BackgroundImageFileType;
 
-			if (!ValidateSpaceImageExists(space, filePath))
+			if (ValidateSpaceImageExists(space, filePath))
 			{
-				return;
+				ValidateImageDimensions(filePath);
+				ValidateImageFileSize(space, filePath);
+				ValidateImageBlackPx(space, filePath);
 			}
 
-			ValidateImageDimensions(filePath);
-			ValidateImageFileSize(space, filePath);
-			ValidateImageBlackPx(space, filePath);
+			// Validate Super Res tiles
+			foreach (SuperResTile tile in space.GetTiles())
+			{
+				string file = tile.GetFilePath();
+
+				if (ValidateSpaceImageExists(space, file))
+				{
+					ValidateImageDimensions(file);
+					ValidateImageFileSize(space, file);
+					ValidateImageBlackPx(space, file);
+				}
+			}
 
 			// There are several additional files for Worldspaces
 			if (space.IsWorldspace)
