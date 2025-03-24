@@ -13,7 +13,7 @@ namespace BackgroundRenderer
 
 		static int RenderParallelism { get; } = 8; // Max cells or super res tiles to render in parallel
 
-		static void Main()
+		static async Task Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
@@ -33,15 +33,15 @@ namespace BackgroundRenderer
 			switch (Console.ReadKey().KeyChar)
 			{
 				case '1':
-					NormalRender();
+					await NormalRender();
 					break;
 
 				case '2':
-					SpaceZoomOffsetCorrection();
+					await SpaceZoomOffsetCorrection();
 					break;
 
 				case '3':
-					SpaceHeightCorrection();
+					await SpaceHeightCorrection();
 					break;
 
 				default:
@@ -51,7 +51,7 @@ namespace BackgroundRenderer
 
 		// Performs the typical end-product render for the given spaces, or if null, asks the user for which
 		// Provides informative logging output, est time remaining etc
-		static async void NormalRender(List<Space>? spaces = null)
+		static async Task NormalRender(List<Space>? spaces = null)
 		{
 			spaces ??= await GetSpaceInput();
 
@@ -69,7 +69,7 @@ namespace BackgroundRenderer
 			foreach (Space worldspace in worldspaces)
 			{
 				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID.ToHex()})", ColorInfo);
-				SuperResRenderSpace(worldspace, true);
+				await SuperResRenderSpace(worldspace, true);
 				RenderSpace(worldspace);
 				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
 			}
@@ -77,9 +77,9 @@ namespace BackgroundRenderer
 			Stopwatch cellStopwatch = Stopwatch.StartNew();
 
 			// Render cells in parallel
-			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, cell =>
+			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async cell =>
 			{
-				SuperResRenderSpace(cell, false);
+				await SuperResRenderSpace(cell, false);
 				RenderSpace(cell, true);
 				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
 			});
@@ -89,7 +89,7 @@ namespace BackgroundRenderer
 		}
 
 		// Runs through the process of rendering a cell, opening it, asking the user for corrective input, then storing that as a file
-		static async void SpaceZoomOffsetCorrection()
+		static async Task SpaceZoomOffsetCorrection()
 		{
 			while (true)
 			{
@@ -109,7 +109,7 @@ namespace BackgroundRenderer
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
-				renderJob.WaitForExit();
+				await renderJob.WaitForExitAsync();
 				Common.OpenURI(outputFile);
 
 				StdOutWithColor("Using Paint.NET or similar, draw a bounding box around the correct cell contents and take a note of the Top-Left X and Y pixel coordinate, plus the width and height of the selected area.\nSee Developer help documentation for more info.", ColorInfo);
@@ -157,7 +157,7 @@ namespace BackgroundRenderer
 
 		// Handles the process of manually finding the correct height crop for a space render
 		// Overarching function which simply tracks the corrected spaces, calls the heavy-lifting function, and finally renders the corrected spaces.
-		static async void SpaceHeightCorrection()
+		static async Task SpaceHeightCorrection()
 		{
 			List<Space> correctedSpaces = new List<Space>();
 
@@ -186,7 +186,7 @@ namespace BackgroundRenderer
 				}
 			}
 
-			NormalRender(correctedSpaces);
+			await NormalRender(correctedSpaces);
 		}
 
 		// Does the space height correction
@@ -207,7 +207,7 @@ namespace BackgroundRenderer
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
-				renderJob.WaitForExit();
+				await renderJob.WaitForExitAsync();
 				Common.OpenURI(outputFile);
 
 				StdOutWithColor($"Was {height} the correct height? Enter \"y\" to save, \"exit\" to exit, or otherwise enter a new height to try again:\n", ColorQuestion);
@@ -252,10 +252,10 @@ namespace BackgroundRenderer
 						$"-quality {(space.IsWorldspace ? JpegQualityHigh : JpegQualityStandard)} JPEG:{finalFile}";
 
 			Process render = StartProcess(renderCommand, silent);
-			render.WaitForExit();
+			render.WaitForExitAsync();
 
 			Process magickResizeConvert = StartProcess(resizeCommand, silent);
-			magickResizeConvert.WaitForExit();
+			magickResizeConvert.WaitForExitAsync();
 
 			// Do the watermask
 			if (space.IsWorldspace)
@@ -271,14 +271,14 @@ namespace BackgroundRenderer
 				string watermaskResizeCommand = $"magick {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Common.MapImageResolution}x{Common.MapImageResolution} PNG:{watermaskFinalFile}";
 
 				Process watermaskRender = StartProcess(waterMaskRenderCommand, silent);
-				watermaskRender.WaitForExit();
+				watermaskRender.WaitForExitAsync();
 
 				Process magickWatermaskResizeConvert = StartProcess(watermaskResizeCommand, silent);
-				magickWatermaskResizeConvert.WaitForExit();
+				magickWatermaskResizeConvert.WaitForExitAsync();
 			}
 		}
 
-		static async void SuperResRenderSpace(Space space, bool parallel)
+		static async Task SuperResRenderSpace(Space space, bool parallel)
 		{
 			double scale = 1d / Common.SuperResScale;
 
@@ -321,7 +321,7 @@ namespace BackgroundRenderer
 						break;
 
 					case '3':
-						StdOutWithColor("\nEnter 3 values: X and Y coordinate of the center cell, and the radius of tiles around it.", ColorQuestion);
+						StdOutWithColor("\nEnter 3 values: X and Y coordinate of the center tile, and the radius of tiles around it.", ColorQuestion);
 
 						StdOutWithColor("Center X:", ColorQuestion);
 						int xCenter = int.Parse(Console.ReadLine() ?? "0");
@@ -368,10 +368,10 @@ namespace BackgroundRenderer
 				string resizeCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
 
 				Process render = StartProcess(renderCommand, true);
-				render.WaitForExit();
+				render.WaitForExitAsync();
 
 				Process magickResizeConvert = StartProcess(resizeCommand);
-				magickResizeConvert.WaitForExit();
+				magickResizeConvert.WaitForExitAsync();
 
 				File.Delete(outputFile);
 

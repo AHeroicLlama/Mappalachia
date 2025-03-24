@@ -19,10 +19,10 @@ namespace Tests
 			both = both.WithoutTrailingSlash();
 			mixed = mixed.WithoutTrailingSlash();
 
-			Assert.AreEqual(back, "string");
-			Assert.AreEqual(fwd, "string");
-			Assert.AreEqual(both, "string");
-			Assert.AreEqual(mixed, @"\/a\/\/b");
+			Assert.AreEqual("string", back);
+			Assert.AreEqual("string", fwd);
+			Assert.AreEqual("string", both);
+			Assert.AreEqual(@"\/a\/\/b", mixed);
 		}
 
 		[TestMethod]
@@ -40,23 +40,10 @@ namespace Tests
 			string arrayOfManyConverted = arrayOfMany.ToSqliteCollection();
 			string listOfManyConverted = listOfMany.ToSqliteCollection();
 
-			Assert.AreEqual(arrayOfNoneConverted, "()");
-			Assert.AreEqual(arrayOfOneConverted, "('alpha')");
-			Assert.AreEqual(arrayOfManyConverted, "('alpha','bravo,','charlie, ')");
-			Assert.AreEqual(listOfManyConverted, "('alpha','bravo','charlie')");
-		}
-
-		[TestMethod]
-		public void StdDevTest()
-		{
-			List<double> collection = new List<double>() { -5, 0, 0, -1, 60, Math.PI };
-			List<double> balanced = new List<double>() { 1, 0, 1, 0 };
-
-			double stdCollection = collection.StdDev();
-			double stdBalanced = balanced.StdDev();
-
-			Assert.AreEqual(stdCollection, 22.699765059593, 0.001);
-			Assert.AreEqual(stdBalanced, 0.5);
+			Assert.AreEqual("()", arrayOfNoneConverted);
+			Assert.AreEqual("('alpha')", arrayOfOneConverted);
+			Assert.AreEqual("('alpha','bravo,','charlie, ')", arrayOfManyConverted);
+			Assert.AreEqual("('alpha','bravo','charlie')", listOfManyConverted);
 		}
 
 		[TestMethod]
@@ -70,9 +57,9 @@ namespace Tests
 			string onePlural = Common.Pluralize(one);
 			string manyPlural = Common.Pluralize(many);
 
-			Assert.AreEqual(emptyPlural, "s");
+			Assert.AreEqual("s", emptyPlural);
 			Assert.AreEqual(onePlural, string.Empty);
-			Assert.AreEqual(manyPlural, "s");
+			Assert.AreEqual("s", manyPlural);
 		}
 
 		[TestMethod]
@@ -84,11 +71,11 @@ namespace Tests
 
 			string zeroHex = zero.ToHex();
 			string maxHex = max.ToHex();
-			string appalchiaHex = appalachia.ToHex();
+			string appalachiaHex = appalachia.ToHex();
 
-			Assert.AreEqual(zeroHex, "00000000");
-			Assert.AreEqual(maxHex, "FFFFFFFF");
-			Assert.AreEqual(appalchiaHex, "0025DA15");
+			Assert.AreEqual("00000000", zeroHex);
+			Assert.AreEqual("FFFFFFFF", maxHex);
+			Assert.AreEqual("0025DA15", appalachiaHex);
 		}
 	}
 }

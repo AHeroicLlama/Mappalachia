@@ -37,7 +37,7 @@ namespace Library
 		// All spaces if queryText is null
 		public static async Task<List<Space>> GetSpaces(SqliteConnection connection, string? queryText = null)
 		{
-			queryText ??= "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC";
+			queryText ??= "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;";
 
 			SqliteDataReader reader = await GetReader(connection, queryText);
 			List<Space> spaces = new List<Space>();
@@ -83,7 +83,7 @@ namespace Library
 		// Returns a collection of all X/Y coordinates of the given Space
 		public static async Task<List<Coord>> GetCoords(SqliteConnection connection, Space space)
 		{
-			string queryText = $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID}";
+			string queryText = $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID};";
 			return await GetCoords(connection, queryText);
 		}
 

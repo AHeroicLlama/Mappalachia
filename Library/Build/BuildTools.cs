@@ -9,6 +9,8 @@ namespace Library
 	// Intended for use only by pre-production preprocessor & build projects.
 	public static partial class BuildTools
 	{
+		static string? solutionPath = null;
+
 		static string SolutionFile { get; } = "Mappalachia.sln";
 
 		static string AssetsPath { get; } = GetRepoRoot() + @"Assets\";
@@ -18,8 +20,6 @@ namespace Library
 		static string OutputsPath { get; } = GetRepoRoot() + @"BuildOutputs\";
 
 		static string BGRendererCorrectionsPath { get; } = GetRepoRoot() + @"BackgroundRenderer\Corrections\";
-
-		static string? solutionPath = null;
 
 		public static string MapIconExtractPath { get; } = GetRepoRoot() + @"MapIconProcessor\Extract\";
 
@@ -128,7 +128,7 @@ namespace Library
 		}
 
 		// Calls sqlitetools (sqlite3.exe) with arguments and returns the output
-		public static string SqliteTools(string args)
+		public static async Task<string> SqliteTools(string args)
 		{
 			Process process = Process.Start(new ProcessStartInfo
 			{
@@ -139,7 +139,7 @@ namespace Library
 
 			string output = process.StandardOutput.ReadToEnd().Trim();
 
-			process.WaitForExit();
+			await process.WaitForExitAsync();
 			return output;
 		}
 
