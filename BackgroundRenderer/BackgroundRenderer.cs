@@ -109,7 +109,7 @@ namespace BackgroundRenderer
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
-				await renderJob.WaitForExitAsync();
+				renderJob.WaitForExit();
 				Common.OpenURI(outputFile);
 
 				StdOutWithColor("Using Paint.NET or similar, draw a bounding box around the correct cell contents and take a note of the Top-Left X and Y pixel coordinate, plus the width and height of the selected area.\nSee Developer help documentation for more info.", ColorInfo);
@@ -207,7 +207,7 @@ namespace BackgroundRenderer
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
-				await renderJob.WaitForExitAsync();
+				renderJob.WaitForExit();
 				Common.OpenURI(outputFile);
 
 				StdOutWithColor($"Was {height} the correct height? Enter \"y\" to save, \"exit\" to exit, or otherwise enter a new height to try again:\n", ColorQuestion);
@@ -252,10 +252,10 @@ namespace BackgroundRenderer
 						$"-quality {(space.IsWorldspace ? JpegQualityHigh : JpegQualityStandard)} JPEG:{finalFile}";
 
 			Process render = StartProcess(renderCommand, silent);
-			render.WaitForExitAsync();
+			render.WaitForExit();
 
 			Process magickResizeConvert = StartProcess(resizeCommand, silent);
-			magickResizeConvert.WaitForExitAsync();
+			magickResizeConvert.WaitForExit();
 
 			// Do the watermask
 			if (space.IsWorldspace)
@@ -271,10 +271,10 @@ namespace BackgroundRenderer
 				string watermaskResizeCommand = $"magick {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Common.MapImageResolution}x{Common.MapImageResolution} PNG:{watermaskFinalFile}";
 
 				Process watermaskRender = StartProcess(waterMaskRenderCommand, silent);
-				watermaskRender.WaitForExitAsync();
+				watermaskRender.WaitForExit();
 
 				Process magickWatermaskResizeConvert = StartProcess(watermaskResizeCommand, silent);
-				magickWatermaskResizeConvert.WaitForExitAsync();
+				magickWatermaskResizeConvert.WaitForExit();
 			}
 		}
 
@@ -368,10 +368,10 @@ namespace BackgroundRenderer
 				string resizeCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
 
 				Process render = StartProcess(renderCommand, true);
-				render.WaitForExitAsync();
+				render.WaitForExit();
 
 				Process magickResizeConvert = StartProcess(resizeCommand);
-				magickResizeConvert.WaitForExitAsync();
+				magickResizeConvert.WaitForExit();
 
 				File.Delete(outputFile);
 

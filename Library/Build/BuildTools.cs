@@ -128,7 +128,7 @@ namespace Library
 		}
 
 		// Calls sqlitetools (sqlite3.exe) with arguments and returns the output
-		public static async Task<string> SqliteTools(string args)
+		public static string SqliteTools(string args)
 		{
 			Process process = Process.Start(new ProcessStartInfo
 			{
@@ -139,7 +139,7 @@ namespace Library
 
 			string output = process.StandardOutput.ReadToEnd().Trim();
 
-			await process.WaitForExitAsync();
+			process.WaitForExit();
 			return output;
 		}
 

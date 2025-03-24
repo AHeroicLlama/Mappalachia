@@ -106,13 +106,13 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 
 			// Import to tables from xedit exports
-			await ImportTableFromCSV("Entity");
-			await ImportTableFromCSV("Position");
-			await ImportTableFromCSV("Space");
-			await ImportTableFromCSV("Location");
-			await ImportTableFromCSV("Region");
-			await ImportTableFromCSV("Scrap");
-			await ImportTableFromCSV("Component");
+			ImportTableFromCSV("Entity");
+			ImportTableFromCSV("Position");
+			ImportTableFromCSV("Space");
+			ImportTableFromCSV("Location");
+			ImportTableFromCSV("Region");
+			ImportTableFromCSV("Scrap");
+			ImportTableFromCSV("Component");
 
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
@@ -304,9 +304,9 @@ namespace Preprocessor
 
 			AddToSummaryReport("Size", (new FileInfo(DatabasePath).Length / BuildTools.Kilobyte).ToString() + " KB");
 			AddToSummaryReport("Built At UTC", DateTime.UtcNow.ToString());
-			AddToSummaryReport("CSV Imported with SQLite Version", await SqliteTools("--version"));
-			AddToSummaryReport("Tables", await SqliteTools(DatabasePath + " .tables"));
-			AddToSummaryReport("Indices", await SqliteTools(DatabasePath + " .indices"));
+			AddToSummaryReport("CSV Imported with SQLite Version", SqliteTools("--version"));
+			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
+			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", await CommonDatabase.GetGameVersion(Connection));
 			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
@@ -424,7 +424,7 @@ namespace Preprocessor
 			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
 		}
 
-		static async Task ImportTableFromCSV(string tableName)
+		static void ImportTableFromCSV(string tableName)
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
@@ -432,7 +432,7 @@ namespace Preprocessor
 			List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {Fo76EditOutputPath}{tableName}.csv {tableName}" };
 
 			Process process = Process.Start(path, args);
-			await process.WaitForExitAsync();
+			process.WaitForExit();
 		}
 
 		// Loops a table and amends a column according to the value of the other (or same) column, when passed to the method
