@@ -39,14 +39,7 @@ namespace Library
 
 		public static string GetString(this SqliteDataReader reader, string columnName)
 		{
-			int ordinal = reader.GetOrdinal(columnName);
-
-			if (reader.IsDBNull(ordinal) || string.IsNullOrEmpty(reader.GetString(ordinal)))
-			{
-				return string.Empty;
-			}
-
-			return reader.GetString(ordinal);
+			return reader.GetString(reader.GetOrdinal(columnName));
 		}
 
 		public static LockLevel GetLockLevel(this SqliteDataReader reader)

@@ -22,6 +22,16 @@ unit _mappalachia_location;
 		i : Integer;
 		currentProperty : IInterface;
 	begin
+
+		// Add one row with blank properties, so the min and max level are present for LCTN with no properties
+		outputStrings.Add(
+			formID + ',' +
+			parentLocation + ',' +
+			minLevel + ',' +
+			maxLevel + ','
+			+ ','
+		);
+
 		for i:= 0 to elementCount(PropertyEntry) - 1 do begin
 			currentProperty := ElementByIndex(PropertyEntry, i);
 			outputStrings.Add(

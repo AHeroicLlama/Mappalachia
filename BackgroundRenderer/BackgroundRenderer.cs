@@ -409,7 +409,7 @@ namespace BackgroundRenderer
 				return null;
 			}
 
-			return (await CommonDatabase.GetRegions(GetNewConnection(), space, worldBorderName)).FirstOrDefault();
+			return (await CommonDatabase.GetRegionsFromSpace(GetNewConnection(), space, worldBorderName)).FirstOrDefault();
 		}
 
 		// Return if this tile contains any entities

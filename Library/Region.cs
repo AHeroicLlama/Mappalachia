@@ -1,9 +1,13 @@
 ﻿namespace Library
 {
-	public class Region(uint formID, string editorID)
+	public class Region(uint formID, string editorID, uint minLevel = 0, uint maxLevel = 0)
 		: Entity(formID, editorID, string.Empty, Signature.REGN)
 	{
 		public List<RegionPoint> Points { get; } = new List<RegionPoint>();
+
+		public uint MinLevel { get; } = minLevel;
+
+		public uint MaxLevel { get; } = maxLevel;
 
 		public void AddPoint(RegionPoint point)
 		{

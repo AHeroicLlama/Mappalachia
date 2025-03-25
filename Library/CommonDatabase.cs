@@ -125,7 +125,7 @@ namespace Library
 		}
 
 		// Returns the Regions in the given Space, optionally with the specific editorID
-		public static async Task<List<Region>> GetRegions(SqliteConnection connection, Space space, string? regionEditorID = null)
+		public static async Task<List<Region>> GetRegionsFromSpace(SqliteConnection connection, Space space, string? regionEditorID = null)
 		{
 			string queryText = $"SELECT * FROM Region WHERE SpaceFormID = {space.FormID}{(regionEditorID == null ? string.Empty : $" AND regionEditorID = '{regionEditorID}'")};";
 
@@ -141,7 +141,9 @@ namespace Library
 				{
 					region = new Region(
 						formID,
-						(string)reader["regionEditorID"]);
+						(string)reader["regionEditorID"],
+						reader.GetUInt("minLevel"),
+						reader.GetUInt("maxLevel"));
 
 					regions.Add(region);
 				}
