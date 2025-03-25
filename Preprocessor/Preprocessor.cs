@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
+using static Library.ReaderExtensions;
 
 namespace Preprocessor
 {
@@ -100,8 +101,8 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);");
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
-			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, property TEXT, value INTEGER);");
-			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, regionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL);");
+			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, parentLocationFormID TEXT, minLevel INTEGER, maxLevel INTEGER, property TEXT, value INTEGER);");
+			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, locationFormID TEXT, regionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL);");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 
@@ -150,6 +151,24 @@ namespace Preprocessor
 			TransformColumn(CaptureSpaceFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
 			AddForeignKey("Region", "spaceFormID", "INTEGER", "Space", "spaceFormID");
+
+			// Capture and convert to int the locationFormID on Region
+			TransformColumn(CaptureFormID, "Region", "locationFormID");
+			ChangeColumnType("Region", "locationFormID", "INTEGER");
+			AddForeignKey("Region", "locationFormID", "INTEGER", "Location", "locationFormID");
+
+			// Capture and convert to int the parent location Form ID on Location
+			TransformColumn(CaptureFormID, "Location", "parentLocationFormID");
+			ChangeColumnType("Location", "parentLocationFormID", "INTEGER");
+			AddForeignKey("Location", "parentLocationFormID", "INTEGER", "Location", "locationFormID");
+
+			// For the region table, use the location column to reference the Location table, to find the min and max levels of the region
+			// Then, drop the location column. (Location table is dropped later)
+			SimpleQuery("ALTER TABLE Region ADD COLUMN 'minLevel' INTEGER;");
+			SimpleQuery("ALTER TABLE Region ADD COLUMN 'maxLevel' INTEGER;");
+			TransformColumn(GetMinLocationLevel, "Region", "locationFormID", "minLevel");
+			TransformColumn(GetMaxLocationLevel, "Region", "locationFormID", "maxLevel");
+			SimpleQuery("ALTER TABLE Region DROP COLUMN locationFormID;");
 
 			// Discard spaces which are not accessible, and output a list of those
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
@@ -242,7 +261,7 @@ namespace Preprocessor
 			// Create the NPC table
 			SimpleQuery(
 				"CREATE TABLE NPC AS " +
-				"SELECT Space.spaceFormID, instanceFormID, npcName, spawnWeight " + // TODO do we need spaceFormID?
+				"SELECT Space.spaceFormID, instanceFormID, npcName, spawnWeight " +
 				"FROM Position " +
 				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				"JOIN Location ON Position.locationFormID = Location.locationFormID " +
@@ -346,6 +365,8 @@ namespace Preprocessor
 			AddToSummaryReport("AVG Psn teleportsToFormID as Dec", SimpleQuery("SELECT AVG(teleportsToFormID) FROM Position;"));
 			AddToSummaryReport("AVG regionFormID as Dec", SimpleQuery("SELECT AVG(regionFormID) FROM Region;"));
 			AddToSummaryReport("AVG region spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Region;"));
+			AddToSummaryReport("AVG region minLevel", SimpleQuery("SELECT AVG(minLevel) FROM Region;"));
+			AddToSummaryReport("AVG region maxLevel", SimpleQuery("SELECT AVG(maxLevel) FROM Region;"));
 			AddToSummaryReport("AVG junkFormID as Dec", SimpleQuery("SELECT AVG(junkFormID) FROM Scrap;"));
 			AddToSummaryReport("AVG X, Y per Space", SimpleQuery("SELECT spaceEditorID, AVG(x), AVG(y) FROM Space JOIN Position ON Position.spaceFormID = Space.spaceFormID GROUP BY Space.spaceFormID ORDER BY isWorldspace DESC, space.spaceEditorID ASC;"));
 
@@ -623,6 +644,56 @@ namespace Preprocessor
 		static string GetSumNPCSpawnWeight(string locationFormID, string npcClass)
 		{
 			return SimpleQuery($"SELECT sum(value) FROM Location WHERE locationFormID = {locationFormID} and npcClass = '{npcClass}'", true, GetNewConnection()).First();
+		}
+
+		static string GetMinLocationLevel(string locationFormID)
+		{
+			if (locationFormID.IsNullOrWhiteSpace())
+			{
+				return "0";
+			}
+
+			using SqliteCommand command = new SqliteCommand($"SELECT minLevel, parentLocationFormID FROM Location WHERE locationFormID = {locationFormID}", GetNewConnection());
+			using SqliteDataReader reader = command.ExecuteReader();
+
+			if (!reader.Read())
+			{
+				return "0";
+			}
+
+			string min = reader.GetString("minLevel");
+
+			if (min.IsNullOrWhiteSpace() || min == "0")
+			{
+				return GetMinLocationLevel(reader.GetString("parentLocationFormID"));
+			}
+
+			return min;
+		}
+
+		static string GetMaxLocationLevel(string locationFormID)
+		{
+			if (locationFormID.IsNullOrWhiteSpace())
+			{
+				return "0";
+			}
+
+			using SqliteCommand command = new SqliteCommand($"SELECT maxLevel, parentLocationFormID FROM Location WHERE locationFormID = {locationFormID}", GetNewConnection());
+			using SqliteDataReader reader = command.ExecuteReader();
+
+			if (!reader.Read())
+			{
+				return "0";
+			}
+
+			string max = reader.GetString("maxLevel");
+
+			if (max.IsNullOrWhiteSpace() || max == "0")
+			{
+				return GetMaxLocationLevel(reader.GetString("parentLocationFormID"));
+			}
+
+			return max;
 		}
 
 		// Returns and corrects the NPC Name present in the raw input string

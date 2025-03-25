@@ -1,7 +1,6 @@
-﻿using Library;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 
-namespace Mappalachia
+namespace Library
 {
 	// Extension methods for SqliteDataReader
 	public static class ReaderExtensions
@@ -40,20 +39,14 @@ namespace Mappalachia
 
 		public static string GetString(this SqliteDataReader reader, string columnName)
 		{
-			return reader.GetString(reader.GetOrdinal(columnName));
-		}
-
-		// Returns the Space with the FormID present in the reader with the given column
-		public static Space? GetSpace(this SqliteDataReader reader, string columnName)
-		{
 			int ordinal = reader.GetOrdinal(columnName);
 
-			if (string.IsNullOrEmpty(reader.GetString(ordinal)))
+			if (reader.IsDBNull(ordinal) || string.IsNullOrEmpty(reader.GetString(ordinal)))
 			{
-				return null;
+				return string.Empty;
 			}
 
-			return Database.CachedSpaces.Where(space => space.FormID == reader.GetUInt(columnName)).FirstOrDefault();
+			return reader.GetString(ordinal);
 		}
 
 		public static LockLevel GetLockLevel(this SqliteDataReader reader)

@@ -1,5 +1,5 @@
 // Gets a list of all LCTN and their Actor Value properties (used to identify variable spawns)
-// Header 'locationFormID,property,value'
+// Header 'locationFormID,parent,minLevel,maxLevel,property,value'
 unit _mappalachia_location;
 
 	uses _mappalachia_lib;
@@ -15,6 +15,9 @@ unit _mappalachia_location;
 	const
 		PropertyEntry = ElementBySignature(item, 'PRPS');
 		formID = IntToStr(FixedFormId(item));
+		parentLocation = sanitize(GetEditValue(ElementBySignature(item, 'PNAM')));
+		minLevel =	GetEditValue(ElementByName(ElementBySignature(item, 'DATA'), 'Min Location Level'));
+		maxLevel = GetEditValue(ElementByName(ElementBySignature(item, 'DATA'), 'Max Location Level'));
 	var
 		i : Integer;
 		currentProperty : IInterface;
@@ -23,6 +26,9 @@ unit _mappalachia_location;
 			currentProperty := ElementByIndex(PropertyEntry, i);
 			outputStrings.Add(
 				formID + ',' +
+				parentLocation + ',' +
+				minLevel + ',' +
+				maxLevel + ',' +
 				sanitize(GetEditValue(ElementByName(currentProperty, 'Actor Value'))) + ',' +
 				sanitize(GetEditValue(ElementByName(currentProperty, 'Value')))
 			);

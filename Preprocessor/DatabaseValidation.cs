@@ -70,6 +70,8 @@ namespace Preprocessor
 
 			ValidateColumnMatchesFormat("Region", "regionFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Region", "regionEditorID", false, ColumnType.TEXT);
+			ValidateColumnMatchesFormat("Region", "minLevel", false, ColumnType.INTEGER);
+			ValidateColumnMatchesFormat("Region", "maxLevel", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Region", "regionIndex", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Region", "coordIndex", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Region", "x", false, ColumnType.REAL);
