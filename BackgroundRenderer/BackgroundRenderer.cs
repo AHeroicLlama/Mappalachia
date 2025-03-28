@@ -297,6 +297,7 @@ namespace BackgroundRenderer
 			List<SuperResTile> tiles = space.GetTiles();
 
 			Region? worldBorder = await space.GetWorldBorder();
+
 			if (worldBorder != null)
 			{
 				tiles = tiles.Where(t => t.IntersectsRegion(worldBorder)).ToList();

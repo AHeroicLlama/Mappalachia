@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.CommonDatabase;
@@ -159,6 +159,7 @@ namespace Mappalachia
 				}
 			}
 
+			reader.Dispose();
 			return results;
 		}
 

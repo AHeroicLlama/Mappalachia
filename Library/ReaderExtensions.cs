@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
+using Microsoft.Data.Sqlite;
 
 namespace Library
 {
@@ -13,18 +13,14 @@ namespace Library
 				reader.GetFloat(reader.GetOrdinal("z")));
 		}
 
-		// Returns an optional float from the column name of the reader.
-		// Given a null or empty, returns 0
+		public static double GetDouble(this SqliteDataReader reader, string columnName)
+		{
+			return reader.GetDouble(reader.GetOrdinal(columnName));
+		}
+
 		public static float GetFloat(this SqliteDataReader reader, string columnName)
 		{
-			int ordinal = reader.GetOrdinal(columnName);
-
-			if (reader.IsDBNull(ordinal) || string.IsNullOrEmpty(reader.GetString(ordinal)))
-			{
-				return 0f;
-			}
-
-			return reader.GetFloat(ordinal);
+			return reader.GetFloat(reader.GetOrdinal(columnName));
 		}
 
 		public static int GetInt(this SqliteDataReader reader, string columnName)
@@ -40,6 +36,11 @@ namespace Library
 		public static string GetString(this SqliteDataReader reader, string columnName)
 		{
 			return reader.GetString(reader.GetOrdinal(columnName));
+		}
+
+		public static bool GetBool(this SqliteDataReader reader, string columnName)
+		{
+			return reader.GetBoolean(reader.GetOrdinal(columnName));
 		}
 
 		public static LockLevel GetLockLevel(this SqliteDataReader reader)
@@ -63,7 +64,12 @@ namespace Library
 				return null;
 			}
 
-			return new Shape(Enum.Parse<ShapeType>(reader.GetString(shapeOrdinal)), reader.GetFloat("boundX"), reader.GetFloat("boundY"), reader.GetFloat("boundZ"), reader.GetFloat("rotZ"));
+			return new Shape(
+				Enum.Parse<ShapeType>(reader.GetString(shapeOrdinal)),
+				reader.GetFloat("boundX"),
+				reader.GetFloat("boundY"),
+				reader.GetFloat("boundZ"),
+				reader.GetFloat("rotZ"));
 		}
 
 		public static Signature GetSignature(this SqliteDataReader reader)

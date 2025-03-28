@@ -28,7 +28,7 @@ namespace Library
 
 		public static async Task<string> GetGameVersion(SqliteConnection connection)
 		{
-			SqliteDataReader reader = await GetReader(connection, "SELECT value FROM Meta WHERE Key = 'GameVersion';");
+			using SqliteDataReader reader = await GetReader(connection, "SELECT value FROM Meta WHERE Key = 'GameVersion';");
 			reader.Read();
 			return reader.GetString(0);
 		}
@@ -39,19 +39,19 @@ namespace Library
 		{
 			queryText ??= "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;";
 
-			SqliteDataReader reader = await GetReader(connection, queryText);
+			using SqliteDataReader reader = await GetReader(connection, queryText);
 			List<Space> spaces = new List<Space>();
 
 			while (reader.Read())
 			{
 				spaces.Add(new Space(
-					Convert.ToUInt32(reader["spaceFormID"]),
-					(string)reader["spaceEditorID"],
-					(string)reader["spaceDisplayName"],
-					Convert.ToBoolean(reader["isWorldspace"]),
-					Convert.ToDouble(reader["centerX"]),
-					Convert.ToDouble(reader["centerY"]),
-					Convert.ToDouble(reader["maxRange"])));
+					reader.GetUInt("spaceFormID"),
+					reader.GetString("spaceEditorID"),
+					reader.GetString("spaceDisplayName"),
+					reader.GetBool("isWorldspace"),
+					reader.GetDouble("centerX"),
+					reader.GetDouble("centerY"),
+					reader.GetDouble("maxRange")));
 			}
 
 			return spaces;
@@ -62,7 +62,7 @@ namespace Library
 		{
 			string queryText = $"SELECT * FROM Space WHERE spaceEditorID = '{editorID}'";
 
-			SqliteDataReader reader = await GetReader(connection, queryText);
+			using SqliteDataReader reader = await GetReader(connection, queryText);
 			reader.Read();
 
 			if (!reader.HasRows)
@@ -71,13 +71,13 @@ namespace Library
 			}
 
 			return new Space(
-				Convert.ToUInt32(reader["spaceFormID"]),
-				(string)reader["spaceEditorID"],
-				(string)reader["spaceDisplayName"],
-				Convert.ToBoolean(reader["isWorldspace"]),
-				Convert.ToDouble(reader["centerX"]),
-				Convert.ToDouble(reader["centerY"]),
-				Convert.ToDouble(reader["maxRange"]));
+				reader.GetUInt("spaceFormID"),
+				reader.GetString("spaceEditorID"),
+				reader.GetString("spaceDisplayName"),
+				reader.GetBool("isWorldspace"),
+				reader.GetDouble("centerX"),
+				reader.GetDouble("centerY"),
+				reader.GetDouble("maxRange"));
 		}
 
 		// Returns a collection of all X/Y coordinates of the given Space
@@ -90,14 +90,14 @@ namespace Library
 		// Returns the results of the given query as a collection of Coord
 		public static async Task<List<Coord>> GetCoords(SqliteConnection connection, string queryText)
 		{
-			SqliteDataReader reader = await GetReader(connection, queryText);
+			using SqliteDataReader reader = await GetReader(connection, queryText);
 			List<Coord> coordinates = new List<Coord>();
 
 			while (reader.Read())
 			{
 				coordinates.Add(new Coord(
-					Convert.ToSingle(reader["x"]),
-					Convert.ToSingle(reader["y"])));
+					reader.GetFloat("x"),
+					reader.GetFloat("y")));
 			}
 
 			return coordinates;
@@ -108,17 +108,18 @@ namespace Library
 		{
 			queryText ??= "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;";
 
-			SqliteDataReader reader = await GetReader(connection, queryText);
+			using SqliteDataReader reader = await GetReader(connection, queryText);
 			List<MapMarker> mapMarkers = new List<MapMarker>();
 
 			while (reader.Read())
 			{
 				mapMarkers.Add(new MapMarker(
-					(string)reader["icon"],
-					(string)reader["label"],
-					Convert.ToUInt32(reader["spaceFormID"]),
-					(float)Convert.ToDouble(reader["x"]),
-					(float)Convert.ToDouble(reader["y"])));
+					reader.GetString("icon"),
+					reader.GetString("label"),
+					reader.GetUInt("spaceFormID"),
+					new Coord(
+						reader.GetFloat("x"),
+						reader.GetFloat("y"))));
 			}
 
 			return mapMarkers;
