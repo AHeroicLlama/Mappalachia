@@ -127,36 +127,38 @@ namespace Library
 		// Returns the Regions in the given Space, optionally with the specific editorID
 		public static async Task<List<Region>> GetRegionsFromSpace(SqliteConnection connection, Space space, string? regionEditorID = null)
 		{
-			string queryText = $"SELECT * FROM Region WHERE SpaceFormID = {space.FormID}{(regionEditorID == null ? string.Empty : $" AND regionEditorID = '{regionEditorID}'")};";
+			string regionQuery = $"SELECT * FROM Region WHERE SpaceFormID = {space.FormID}{(regionEditorID == null ? string.Empty : $" AND regionEditorID = '{regionEditorID}'")};";
 
-			SqliteDataReader reader = await GetReader(connection, queryText);
+			using SqliteDataReader regionReader = await GetReader(connection, regionQuery);
 			List<Region> regions = new List<Region>();
 
-			while (reader.Read())
+			while (regionReader.Read())
 			{
-				uint formID = Convert.ToUInt32(reader["regionFormID"]);
-				Region? region = regions.Where(r => r.FormID == formID).FirstOrDefault();
+				Region region = new Region(
+					regionReader.GetUInt("regionFormID"),
+					regionReader.GetString("regionEditorID"),
+					regionReader.GetUInt("minLevel"),
+					regionReader.GetUInt("maxLevel"));
 
-				if (region == null)
-				{
-					region = new Region(
-						formID,
-						(string)reader["regionEditorID"],
-						reader.GetUInt("minLevel"),
-						reader.GetUInt("maxLevel"));
+				regions.Add(region);
+			}
 
-					regions.Add(region);
-				}
-				else
+			// Populate the region points
+			foreach (Region region in regions)
+			{
+				string pointQuery = $"SELECT x, y, regionIndex, coordIndex FROM RegionPoints WHERE regionFormID = {region.FormID};";
+				using SqliteDataReader pointReader = await GetReader(connection, pointQuery);
+
+				while (pointReader.Read())
 				{
 					region.AddPoint(new RegionPoint(
-						region,
-						space,
-						new Coord(
-							(float)Convert.ToDouble(reader["x"]),
-							(float)Convert.ToDouble(reader["y"])),
-						Convert.ToUInt32(reader["regionIndex"]),
-						Convert.ToUInt32(reader["coordIndex"])));
+					region,
+					space,
+					new Coord(
+						pointReader.GetFloat("x"),
+						pointReader.GetFloat("y")),
+					pointReader.GetUInt("regionIndex"),
+					pointReader.GetUInt("coordIndex")));
 				}
 			}
 

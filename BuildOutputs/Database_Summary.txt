@@ -1,19 +1,20 @@
 MD5 Checksum
-A6F2B5905C43D38360289B1F9DE553D0
+2F1AB524C452A6A2C0485F5B21CA25A4
 
 Size
-347760 KB
+347712 KB
 
 Built At UTC
-25/03/2025 21:08:18
+28/03/2025 12:31:40
 
 CSV Imported with SQLite Version
 3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 
 Tables
-Entity               NPC                  Region             
-MapMarker            Position             Scrap              
-Meta                 Position_PreGrouped  Space
+Entity               Position             Scrap              
+MapMarker            Position_PreGrouped  Space              
+Meta                 Region             
+NPC                  RegionPoints
 
 Indices
 indexComponent           indexNPC                 sqlite_autoindex_Meta_1
@@ -309,12 +310,12 @@ Avg Length Space EditorID
 17.86082474226804
 
 Avg Length Region EditorID
-20.314126394052046
+18.777292576419214
 
 Avg Length Label
 0.07701973420715622
 
-Avg Count Regions, Coords from Region
+Avg Count Regions, Coords from RegionPoints
 0.11353711790393013,7.781659388646288
 
 Scrap with Avg component qty
@@ -937,16 +938,16 @@ AVG Psn teleportsToFormID as Dec
 479.59869012944137
 
 AVG regionFormID as Dec
-3394187.3986988845
+3483612.0305676856
 
 AVG region spaceFormID as Dec
 2480661
 
 AVG region minLevel
-7.494888475836431
+9.240174672489083
 
 AVG region maxLevel
-30.21840148698885
+36.43231441048035
 
 AVG junkFormID as Dec
 1665412.5075456712

@@ -72,11 +72,13 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Region", "regionEditorID", false, ColumnType.TEXT);
 			ValidateColumnMatchesFormat("Region", "minLevel", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Region", "maxLevel", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Region", "regionIndex", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Region", "coordIndex", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Region", "x", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Region", "y", false, ColumnType.REAL);
 			ValidateColumnMatchesFormat("Region", "spaceFormID", false, ColumnType.INTEGER);
+
+			ValidateColumnMatchesFormat("RegionPoints", "regionFormID", false, ColumnType.INTEGER);
+			ValidateColumnMatchesFormat("RegionPoints", "regionIndex", false, ColumnType.INTEGER);
+			ValidateColumnMatchesFormat("RegionPoints", "coordIndex", false, ColumnType.INTEGER);
+			ValidateColumnMatchesFormat("RegionPoints", "x", false, ColumnType.REAL);
+			ValidateColumnMatchesFormat("RegionPoints", "y", false, ColumnType.REAL);
 
 			ValidateColumnMatchesFormat("Scrap", "junkFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Scrap", "component", false, ColumnType.TEXT, ValidateComponent);

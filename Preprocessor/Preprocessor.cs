@@ -147,6 +147,11 @@ namespace Preprocessor
 			ChangeColumnType("Position", "teleportsToFormID", "INTEGER");
 			AddForeignKey("Position", "teleportsToFormID", "INTEGER", "Space", "spaceFormID");
 
+			// Capture and convert to int the parent location Form ID on Location
+			TransformColumn(CaptureFormID, "Location", "parentLocationFormID");
+			ChangeColumnType("Location", "parentLocationFormID", "INTEGER");
+			AddForeignKey("Location", "parentLocationFormID", "INTEGER", "Location", "locationFormID");
+
 			// Capture and convert to int the spaceFormID on Region
 			TransformColumn(CaptureSpaceFormID, "Region", "spaceFormID");
 			ChangeColumnType("Region", "spaceFormID", "INTEGER");
@@ -157,11 +162,6 @@ namespace Preprocessor
 			ChangeColumnType("Region", "locationFormID", "INTEGER");
 			AddForeignKey("Region", "locationFormID", "INTEGER", "Location", "locationFormID");
 
-			// Capture and convert to int the parent location Form ID on Location
-			TransformColumn(CaptureFormID, "Location", "parentLocationFormID");
-			ChangeColumnType("Location", "parentLocationFormID", "INTEGER");
-			AddForeignKey("Location", "parentLocationFormID", "INTEGER", "Location", "locationFormID");
-
 			// For the region table, use the location column to reference the Location table, to find the min and max levels of the region
 			// Then, drop the location column. (Location table is dropped later)
 			SimpleQuery("ALTER TABLE Region ADD COLUMN 'minLevel' INTEGER;");
@@ -169,6 +169,19 @@ namespace Preprocessor
 			TransformColumn(GetMinLocationLevel, "Region", "locationFormID", "minLevel");
 			TransformColumn(GetMaxLocationLevel, "Region", "locationFormID", "maxLevel");
 			SimpleQuery("ALTER TABLE Region DROP COLUMN locationFormID;");
+
+			// Split the region table points out into another table
+			SimpleQuery("CREATE TABLE RegionPoints AS SELECT regionFormID, regionIndex, coordIndex, x, y FROM Region;");
+			SimpleQuery("ALTER TABLE Region DROP COLUMN regionIndex;");
+			SimpleQuery("ALTER TABLE Region DROP COLUMN coordIndex;");
+			SimpleQuery("ALTER TABLE Region DROP COLUMN x;");
+			SimpleQuery("ALTER TABLE Region DROP COLUMN y;");
+			AddForeignKey("RegionPoints", "regionFormID", "INTEGER", "Region", "regionFormID");
+
+			SimpleQuery($"CREATE TABLE TempRegion(regionFormID INTEGER PRIMARY KEY, regionEditorID TEXT, spaceFormID TEXT REFERENCES Space(spaceFormID), minLevel INTEGER, maxLevel INTEGER);");
+			SimpleQuery("INSERT INTO TempRegion SELECT DISTINCT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel FROM Region");
+			SimpleQuery("DROP TABLE Region");
+			SimpleQuery("ALTER TABLE TempRegion RENAME TO Region;");
 
 			// Discard spaces which are not accessible, and output a list of those
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
@@ -223,6 +236,7 @@ namespace Preprocessor
 			// Remove entries which are not referenced by other relevant tables (orphaned records)
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
+			SimpleQuery("DELETE FROM RegionPoints WHERE regionFormID NOT IN (SELECT regionFormID FROM Region);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position);");
 			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
@@ -345,7 +359,7 @@ namespace Preprocessor
 			AddToSummaryReport("Avg Length Space EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceEditorID) AS length FROM Space);"));
 			AddToSummaryReport("Avg Length Region EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(regionEditorID) AS length FROM Region);"));
 			AddToSummaryReport("Avg Length Label", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(label) AS length FROM Position);"));
-			AddToSummaryReport("Avg Count Regions, Coords from Region", SimpleQuery("SELECT AVG(regionMax), AVG(coordMax) FROM (SELECT MAX(regionIndex) as regionMax, MAX(coordIndex) as coordMax FROM Region GROUP BY regionEditorID);"));
+			AddToSummaryReport("Avg Count Regions, Coords from RegionPoints", SimpleQuery("SELECT AVG(regionMax), AVG(coordMax) FROM (SELECT MAX(regionIndex) as regionMax, MAX(coordIndex) as coordMax FROM RegionPoints GROUP BY regionFormID);"));
 			AddToSummaryReport("Scrap with Avg component qty", SimpleQuery("SELECT component, AVG(componentQuantity) FROM Scrap GROUP BY component;"));
 			AddToSummaryReport("Avg Map Marker X/Y", SimpleQuery("SELECT AVG(x), AVG(y) FROM MapMarker;"));
 			AddToSummaryReport("Map Markers", SimpleQuery("SELECT spaceEditorID, icon, label FROM MapMarker INNER JOIN Space ON MapMarker.spaceFormID = Space.spaceFormID ORDER BY spaceEditorID ASC, icon ASC, label ASC;"));
