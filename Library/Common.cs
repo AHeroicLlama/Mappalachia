@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Library
 {
@@ -15,9 +16,21 @@ namespace Library
 
 		public static int TileRadius { get; } = TileWidth / 2;
 
+		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
+
+		public static bool IsHexFormID(this string formID)
+		{
+			return FormID.IsMatch(formID);
+		}
+
 		public static string ToHex(this uint formID)
 		{
 			return formID.ToString("X8");
+		}
+
+		public static uint HexToInt(string hex)
+		{
+			return Convert.ToUInt32(FormID.Matches(hex)[0].Value, 16);
 		}
 
 		public static string WithoutWhitespace(this string input)

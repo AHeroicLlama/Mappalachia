@@ -1,14 +1,12 @@
-using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
+using static Library.Common;
 using static Library.CommonDatabase;
 
 namespace Mappalachia
 {
 	static class Database
 	{
-		static Regex ExactFormID { get; } = new Regex("^[0-9A-F]{8}$");
-
 		static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
 
 		public static List<Space> CachedSpaces { get; } = GetSpaces(Connection).Result;
@@ -34,10 +32,10 @@ namespace Mappalachia
 			List<GroupedInstance> results = new List<GroupedInstance>();
 
 			// If the search term is a FormID, we perform further specific searches against this
-			bool searchIsFormID = ExactFormID.IsMatch(searchTerm.ToUpper());
+			bool searchIsFormID = searchTerm.IsHexFormID();
 
 			// 'Standard'
-			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{searchTerm}' OR " : string.Empty;
+			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty;
 			string optionalSpaceTerm = selectedSpace != null ? $"AND spaceFormID = {selectedSpace.FormID} " : string.Empty;
 
 			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, percChanceNone FROM Position_PreGrouped " +
@@ -137,7 +135,7 @@ namespace Mappalachia
 					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 					"WHERE " +
 					optionalSpaceTerm +
-					$"(instanceFormID = '{searchTerm}' OR teleportsToFormID = '{searchTerm}') " +
+					$"(instanceFormID = '{HexToInt(searchTerm)}' OR teleportsToFormID = '{HexToInt(searchTerm)}') " +
 					"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
 
 				reader = await GetReader(Connection, query);
