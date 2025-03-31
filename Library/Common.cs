@@ -5,6 +5,8 @@ namespace Library
 {
 	public static class Common
 	{
+		public static string DistributableFileName { get; } = "Mappalachia.zip";
+
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
 
 		public static int SuperResTileSize { get; } = (int)Math.Pow(2, 12); // 4096
@@ -42,6 +44,11 @@ namespace Library
 		public static void OpenURI(string uri)
 		{
 			Process.Start(new ProcessStartInfo { FileName = uri, UseShellExecute = true });
+		}
+
+		public static void OpenURI(Uri uri)
+		{
+			OpenURI(uri.ToString());
 		}
 
 		public static string Pluralize<T>(IEnumerable<T> collection)

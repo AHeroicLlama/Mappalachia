@@ -62,7 +62,8 @@ namespace Mappalachia
 
 			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
 
-			dataGridViewSearchResults.Columns["Form ID"].DefaultCellStyle.Font = new Font("Consolas", 8);
+			DataGridViewColumn formIDColumn = dataGridViewSearchResults.Columns["Form ID"] ?? throw new Exception("Search Results Form ID Column not found");
+			formIDColumn.DefaultCellStyle.Font = new Font("Consolas", 8);
 		}
 	}
 }

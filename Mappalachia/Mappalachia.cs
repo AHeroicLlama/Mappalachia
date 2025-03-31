@@ -9,6 +9,7 @@ namespace Mappalachia
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
 			Console.WriteLine("Dedicated to Molly.");
+			UpdateChecker.CheckForUpdates();
 			Application.Run(new FormMain());
 		}
 	}
