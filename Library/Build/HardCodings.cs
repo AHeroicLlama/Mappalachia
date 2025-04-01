@@ -34,8 +34,6 @@ namespace Library
 
 		public static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
 
-		public static Regex ValidateNpcClass { get; } = new Regex("^(Main|Sub|Critter[AB])$");
-
 		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood)$");
 
 		public static Regex ValidIconFolder { get; } = new Regex("DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");

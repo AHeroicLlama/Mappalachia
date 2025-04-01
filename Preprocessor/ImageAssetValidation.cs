@@ -34,7 +34,7 @@ namespace Preprocessor
 			Console.WriteLine("Validating image assets");
 
 			// Collect all Spaces and MapMarkers. Group the map markers by icon
-			List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(Connection);
+			List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(Connection, "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
 			List<Space> spaces = await CommonDatabase.GetSpaces(Connection);
 
 			// Perform file checks for all spaces
@@ -180,7 +180,7 @@ namespace Preprocessor
 				return;
 			}
 
-			int fileSizeKB = (int)(new FileInfo(path).Length / 1024);
+			int fileSizeKB = (int)(new FileInfo(path).Length / Kilobyte);
 
 			if (fileSizeKB < MinRenderedCellImageSizeKB || fileSizeKB > MaxRenderedCellImageSizeKB)
 			{
@@ -190,7 +190,7 @@ namespace Preprocessor
 
 		static void ValidateTileImageFileSize(SuperResTile tile, string path)
 		{
-			int fileSizeKB = (int)(new FileInfo(path).Length / 1024);
+			int fileSizeKB = (int)(new FileInfo(path).Length / Kilobyte);
 
 			if (fileSizeKB < MinTileImageSizeKB || fileSizeKB > MaxTileImageSizeKB)
 			{

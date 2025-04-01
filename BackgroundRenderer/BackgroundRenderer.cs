@@ -260,21 +260,21 @@ namespace BackgroundRenderer
 			// Do the watermask
 			if (space.IsWorldspace)
 			{
-				string watermaskDDS = TempPath + space.EditorID + "_waterMask.dds";
-				string watermaskFinalFile = WorldPath + space.EditorID + "_waterMask.png";
+				string waterMaskDDS = TempPath + space.EditorID + "_waterMask.dds";
+				string waterMaskFinalFile = WorldPath + space.EditorID + "_waterMask.png";
 
-				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {watermaskDDS} {renderResolution} {renderResolution} " +
+				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
 					$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
 
-				string watermaskResizeCommand = $"magick {watermaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Common.MapImageResolution}x{Common.MapImageResolution} PNG:{watermaskFinalFile}";
+				string waterMaskResizeCommand = $"magick {waterMaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Common.MapImageResolution}x{Common.MapImageResolution} PNG:{waterMaskFinalFile}";
 
-				Process watermaskRender = StartProcess(waterMaskRenderCommand, silent);
-				watermaskRender.WaitForExit();
+				Process waterMaskRender = StartProcess(waterMaskRenderCommand, silent);
+				waterMaskRender.WaitForExit();
 
-				Process magickWatermaskResizeConvert = StartProcess(watermaskResizeCommand, silent);
-				magickWatermaskResizeConvert.WaitForExit();
+				Process magickWaterMaskResizeConvert = StartProcess(waterMaskResizeCommand, silent);
+				magickWaterMaskResizeConvert.WaitForExit();
 			}
 		}
 

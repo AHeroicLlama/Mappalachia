@@ -6,6 +6,14 @@ namespace Preprocessor
 {
 	internal partial class Preprocessor
 	{
+		enum ColumnType
+		{
+			TEXT,
+			REAL,
+			INTEGER,
+			BOOL,
+		}
+
 		static void ValidateDatabase()
 		{
 			StdOutWithColor("Validating database", ColorInfo);

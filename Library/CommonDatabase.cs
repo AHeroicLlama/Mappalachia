@@ -106,7 +106,7 @@ namespace Library
 		// Returns the results of the given query as a collection of MapMarker
 		public static async Task<List<MapMarker>> GetMapMarkers(SqliteConnection connection, string? queryText = null)
 		{
-			queryText ??= "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;";
+			queryText ??= "SELECT * FROM MapMarker ORDER BY icon ASC;";
 
 			using SqliteDataReader reader = await GetReader(connection, queryText);
 			List<MapMarker> mapMarkers = new List<MapMarker>();

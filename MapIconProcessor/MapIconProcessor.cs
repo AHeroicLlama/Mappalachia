@@ -16,7 +16,7 @@ class MapIconProcessor
 	{
 		Console.Title = "Mappalachia Map Icon Extractor";
 
-		List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(GetNewConnection());
+		List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(GetNewConnection(), "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
 
 		foreach (MapMarker mapMarker in mapMarkers)
 		{
@@ -84,7 +84,7 @@ class MapIconProcessor
 		return false;
 	}
 
-	// Recursively removes unncessary attributes which reference FFDec, under the given node
+	// Recursively removes unnecessary attributes which reference FFDec, under the given node
 	static void CleanXMLNode(XmlNode node)
 	{
 		if (node.Attributes != null)

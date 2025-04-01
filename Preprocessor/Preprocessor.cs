@@ -9,14 +9,6 @@ namespace Preprocessor
 {
 	internal static partial class Preprocessor
 	{
-		enum ColumnType
-		{
-			TEXT,
-			REAL,
-			INTEGER,
-			BOOL,
-		}
-
 		static SqliteConnection Connection { get; } = GetNewConnection();
 
 		static List<string> SummaryReport { get; } = new List<string>();
@@ -178,6 +170,7 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Region DROP COLUMN y;");
 			AddForeignKey("RegionPoints", "regionFormID", "INTEGER", "Region", "regionFormID");
 
+			// Reduce region rows to distinct rows (now that the points which made them unique are removed)
 			SimpleQuery($"CREATE TABLE TempRegion(regionFormID INTEGER PRIMARY KEY, regionEditorID TEXT, spaceFormID TEXT REFERENCES Space(spaceFormID), minLevel INTEGER, maxLevel INTEGER);");
 			SimpleQuery("INSERT INTO TempRegion SELECT DISTINCT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel FROM Region");
 			SimpleQuery("DROP TABLE Region");
@@ -293,7 +286,7 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Location;");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN locationFormID;");
 
-			// Unescape chars from columns which we've not otherwise touched
+			// Un-escape chars from columns which we've not otherwise touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
 
 			// Create a reduced semi-redundant copy of the Position table, which already has all the possible search results grouped and counted
@@ -625,7 +618,7 @@ namespace Preprocessor
 			return Convert.ToInt32(bestMatch.Groups[2].Value, 16).ToString();
 		}
 
-		// Removes the signture and formID from the end of a string
+		// Removes the signature and formID from the end of a string
 		static string RemoveTrailingReference(string input)
 		{
 			if (string.IsNullOrEmpty(input))
