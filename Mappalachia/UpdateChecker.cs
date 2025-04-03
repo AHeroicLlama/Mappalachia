@@ -12,6 +12,14 @@ namespace Mappalachia
 
 		static Uri ReleasesURL { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia/releases");
 
+		static TaskDialogButton ButtonViewReleases { get; }
+
+		static UpdateChecker()
+		{
+			ButtonViewReleases = new TaskDialogButton("View releases on GitHub");
+			ButtonViewReleases.Click += (sender, e) => { Common.OpenURI(ReleasesURL); };
+		}
+
 		public static async void CheckForUpdates(bool userRequested = false)
 		{
 			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version ?? throw new Exception("Assembly Version is null");
@@ -50,17 +58,38 @@ namespace Mappalachia
 			{
 				if (userRequested)
 				{
-					ShowUpdateDialog(currentVersion, errorReason: $"{e.GetType().Name}: {e.Message}");
+					ShowErrorDialog(currentVersion, $"{e.GetType().Name}: {e.Message}");
 				}
 
 				return;
 			}
 		}
 
-		// Displays the dialog which informs of the update check result
-		static void ShowUpdateDialog(Version currentVersion, Version? latestVersion = null, string? downloadURL = null, string? releaseURL = null, string? patchNotes = null, string? errorReason = null)
+		// Displays the dialog which informs about the error while checking for updates
+		static void ShowErrorDialog(Version currentVersion, string errorReason)
 		{
-			// Set up the dialog with default common settings
+			TaskDialogPage page = new TaskDialogPage
+			{
+				Caption = "Update Checker",
+				Heading = $"An error prevented the update checker from identifying the latest version",
+				Text = $"{errorReason}\n\nYour current version is {currentVersion}",
+				Icon = TaskDialogIcon.Error,
+				AllowCancel = true,
+				DefaultButton = TaskDialogButton.OK,
+				Buttons = new TaskDialogButtonCollection()
+				{
+					ButtonViewReleases,
+					TaskDialogButton.OK,
+				},
+			};
+
+			TaskDialog.ShowDialog(page);
+		}
+
+		// Displays the dialog which informs of the successful update check result
+		static void ShowUpdateDialog(Version currentVersion, Version latestVersion, string downloadURL, string releaseURL, string patchNotes)
+		{
+			// Create a default page
 			TaskDialogPage page = new TaskDialogPage()
 			{
 				Caption = "Update Checker",
@@ -73,42 +102,26 @@ namespace Mappalachia
 				},
 			};
 
-			TaskDialogButton viewReleases = new TaskDialogButton("View releases on GitHub");
-			viewReleases.Click += (sender, e) => { Common.OpenURI(ReleasesURL); };
-
-			// Error
-			if (errorReason != null)
-			{
-				page.Heading = $"An error prevented the update checker from identifying the latest version";
-				page.Text = $"{errorReason}\n\nYour current version is {currentVersion}";
-				page.Icon = TaskDialogIcon.Error;
-				page.Buttons = new TaskDialogButtonCollection()
-				{
-					viewReleases,
-					TaskDialogButton.OK,
-				};
-			}
-
 			// Update available
-			else if (currentVersion < latestVersion)
+			if (currentVersion < latestVersion)
 			{
-				TaskDialogButton downloadNow = new TaskDialogButton("Download now");
-				TaskDialogButton viewMore = new TaskDialogButton("View on GitHub");
-				TaskDialogButton notNow = new TaskDialogButton("Remind me later");
+				TaskDialogButton buttonDownloadNow = new TaskDialogButton("Download now");
+				TaskDialogButton buttonViewMore = new TaskDialogButton("View on GitHub");
+				TaskDialogButton buttonRemindLater = new TaskDialogButton("Remind me later");
 
-				downloadNow.Click += (sender, e) => { Common.OpenURI(downloadURL ?? throw new Exception("Download URL is null")); };
-				viewMore.Click += (sender, e) => { Common.OpenURI(releaseURL ?? throw new Exception("Release URL is null")); };
-				notNow.Click += (sender, e) => { /* TODO - Store choice in settings */ };
+				buttonDownloadNow.Click += (sender, e) => { Common.OpenURI(downloadURL ?? throw new Exception("Download URL is null")); };
+				buttonViewMore.Click += (sender, e) => { Common.OpenURI(releaseURL ?? throw new Exception("Release URL is null")); };
+				buttonRemindLater.Click += (sender, e) => { /* TODO - Store choice in settings */ };
 
 				page.Heading = $"An new Mappalachia version, {latestVersion} is available.";
 				page.Text = patchNotes;
-				page.DefaultButton = downloadNow;
+				page.DefaultButton = buttonDownloadNow;
 				page.Buttons =
 				new TaskDialogButtonCollection
 				{
-					downloadNow,
-					viewMore,
-					notNow,
+					buttonDownloadNow,
+					buttonViewMore,
+					buttonRemindLater,
 				};
 			}
 
@@ -126,7 +139,7 @@ namespace Mappalachia
 				page.Text = $"This build ({currentVersion}) is ahead of the latest release ({latestVersion}).";
 				page.Buttons = new TaskDialogButtonCollection
 				{
-					viewReleases,
+					ButtonViewReleases,
 					TaskDialogButton.OK,
 				};
 			}
