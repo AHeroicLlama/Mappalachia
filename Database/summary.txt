@@ -1,7 +1,7 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.46.0 2024-05-23 13:25:27 96c92aba00c8375bc32fafcdf12429c58bd8aabfcadab6683e35bbb9cdebf19e (64-bit)
+3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 ==Checksum== 
 38b4f839fdcd99ae4c10f1089d1a763b
 ==File Size== 
@@ -25,12 +25,13 @@ PTS 0.2.1609.0
 -18090|-191382|25701|62
 2432|64|-2560|61
 2433|59|-3072|60
+-6400|1152|7552|59
 -128|4608|512|57
 3584|0|256|57
 -6400|1152|7552|55
 2547|4482|512|46
+0|0|0|44
 -43|4777|519|42
-0|0|0|42
 1988|4809|518|42
 2085|2161|519|42
 2116|3301|514|42
@@ -52,6 +53,8 @@ PTS 0.2.1609.0
 -128|1664|-608|34
 -512|768|0|33
 -512|1024|0|33
+-6016|-32034|3328|32
+-6016|-32034|4096|32
 -1216|2352|128|32
 960|2352|128|32
 -256|768|0|31
@@ -86,8 +89,6 @@ PTS 0.2.1609.0
 1536|768|0|25
 1648|-1848|-1112|25
 4898|1543|-251|25
--6016|-32034|3328|24
--6016|-32034|4096|24
 -2688|-5504|512|24
 256|0|0|24
 256|1024|0|24
@@ -220,6 +221,7 @@ APPALACHIA|CaveMarker|Abandoned Waste Dump|185034|26724
 APPALACHIA|CaveMarker|Carleton Mine|21935|158383
 APPALACHIA|CaveMarker|Gauley Mine|-58605|62688
 APPALACHIA|CaveMarker|Gauley Mine Exit|-47691|71024
+APPALACHIA|CaveMarker|Hillside Cavern|178224|214104
 APPALACHIA|CaveMarker|Hopewell Cave|114047|114129
 APPALACHIA|CaveMarker|Makeshift Vault|-83329|160208
 APPALACHIA|CaveMarker|Mire's Eye|194133|186953
@@ -311,10 +313,12 @@ APPALACHIA|ForestedMarker|Overgrown Sundew Grove|184257|-172164
 APPALACHIA|ForestedMarker|Sparse Sundew Grove|123314|-172568
 APPALACHIA|ForestedMarker|Spruce Knob Campground|41424|-113384
 APPALACHIA|ForestedMarker|Veiled Sundew Grove|172190|-119552
+APPALACHIA|GleamingDepthsMarker|Gleaming Depths|-121624|-163022
 APPALACHIA|GoodneighborMarker|Eastern Regional Penitentiary|-29106|127399
 APPALACHIA|GoodneighborMarker|Fort Defiance|107048|-131600
 APPALACHIA|GraveyardMarker|Philippi Battlefield Cemetery|38982|171176
 APPALACHIA|GraveyardMarker|Pleasant Hills Cemetery|-55554|-102053
+APPALACHIA|GraveyardMarker|Point Repose|163584|244096
 APPALACHIA|HammerWingMarker|Foundation|37449|-102946
 APPALACHIA|HighTechBuildingMarker|AMS Corporate Headquarters|148632|-139096
 APPALACHIA|HighTechBuildingMarker|Charleston Herald|-104367|-46210
@@ -380,6 +384,7 @@ APPALACHIA|MilitaryBaseMarker|Camp McClintock|-69224|-12781
 APPALACHIA|MilitaryBaseMarker|Firebase Hancock|109835|-172982
 APPALACHIA|MilitaryBaseMarker|Firebase LT|166062|-55521
 APPALACHIA|MilitaryBaseMarker|Firebase Major|141990|-60116
+APPALACHIA|MilitaryBaseMarker|Radiant Hills|176938|234769
 APPALACHIA|MilitaryBaseMarker|Site Alpha|80945|-14506
 APPALACHIA|MilitaryBaseMarker|Site Bravo|43039|137056
 APPALACHIA|MilitaryBaseMarker|Site Charlie|1654|-118165
@@ -412,6 +417,7 @@ APPALACHIA|PondLakeMarker|Sacramental Glade|192808|-120632
 APPALACHIA|PondLakeMarker|Solomon's Pond|38767|-64481
 APPALACHIA|PondLakeMarker|Spruce Knob Channels|26548|-129199
 APPALACHIA|PondLakeMarker|Spruce Knob Lake|35190|-121222
+APPALACHIA|PondLakeMarker|The Bullengrube|189984|221152
 APPALACHIA|PondLakeMarker|Three Ponds|-59241|-201006
 APPALACHIA|PondLakeMarker|Toxic Dried Lakebed|-15394|176773
 APPALACHIA|PondLakeMarker|Twin Lakes|47135|-79247
@@ -558,17 +564,20 @@ APPALACHIA|WoodShackMarker|Lewis & Sons Farming Supply|-174756|-42305
 APPALACHIA|WoodShackMarker|Lost Home|122773|-164478
 APPALACHIA|WoodShackMarker|Moonshiner's Shack|-109155|84144
 APPALACHIA|WoodShackMarker|Mountainside Bed & Breakfast|7455|-100350
+APPALACHIA|WoodShackMarker|Old Danielson Cabin|163840|215296
 APPALACHIA|WoodShackMarker|Southhampton Estate|169981|125109
+APPALACHIA|WoodShackMarker|Susan's Cabin|97676|-204801
 APPALACHIA|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 APPALACHIA|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
 47211
 ==Regions==
 Space|Region|subRegions|maxVerts
-APPALACHIA|76Border|1|62
+APPALACHIA|76Border|1|66
 APPALACHIA|76BorderAddendum|1|8
 APPALACHIA|AudioRegionAtlasObservatory|2|7
 APPALACHIA|AudioRegionForestMtnTop|12|7
+APPALACHIA|BigBloomWeatherRegion|1|4
 APPALACHIA|CranberryDistantObjectRegion|1|11
 APPALACHIA|CranberryObjectRegion|1|11
 APPALACHIA|CranberrySubRegion01|1|5
@@ -621,7 +630,7 @@ APPALACHIA|LakeBedRegion|1|40
 APPALACHIA|MN2_WeatherRegion|1|7
 APPALACHIA|MountBlairCoalFireRegion|1|5
 APPALACHIA|MountainDistantObjectRegion|6|13
-APPALACHIA|MountainObjectRegion|1|40
+APPALACHIA|MountainObjectRegion|2|40
 APPALACHIA|MountainObjectRegionFoundation|1|6
 APPALACHIA|MountainRemovalSubRegion01|1|4
 APPALACHIA|MountainRemovalSubRegion02|1|4
@@ -804,7 +813,7 @@ APPALACHIA|Box|70353
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1801
 APPALACHIA|Plane|204
-APPALACHIA|Sphere|2657
+APPALACHIA|Sphere|2661
 AVRMedicalCenter01||5742
 AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14277
@@ -827,13 +836,13 @@ BigBendTunnel01||6832
 BigBendTunnel01|Box|721
 BigBendTunnel01|Sphere|1
 BlackwaterMine01||5836
-BlackwaterMine01|Box|325
+BlackwaterMine01|Box|326
 BlackwaterMine01|Line|5
 BlueRidgeOffice01||749
 BlueRidgeOffice01|Box|16
 BurdetteManorBasement01||490
 BurdetteManorBasement01|Box|9
-BurningMine01||5744
+BurningMine01||5746
 BurningMine01|Box|391
 BurningMine01|Sphere|1
 Burrows01||19487
@@ -887,7 +896,7 @@ DyerChemical01|Box|123
 DyerChemical01|Line|11
 DyerChemical01|Sphere|1
 EasternRegionalPen01||10946
-EasternRegionalPen01|Box|495
+EasternRegionalPen01|Box|497
 EmmettMountainDisposalSite01||4670
 EmmettMountainDisposalSite01|Box|185
 EmmettMountainDisposalSite01|Line|1
@@ -922,8 +931,14 @@ FreeStatesBunker06|Box|38
 FreeStatesBunker06|Line|1
 FreeStatesBunker07||1003
 FreeStatesBunker07|Box|47
+GHLCamp01||3388
+GHLCamp01|Box|98
+GHLCamp02||1297
+GHLCamp02|Box|141
+GHLEmmettMnt02||1402
+GHLEmmettMnt02|Box|93
 GarrahanMiningHQ01||8860
-GarrahanMiningHQ01|Box|330
+GarrahanMiningHQ01|Box|331
 GarrahanMiningHQ01|Line|3
 GarrahanMiningHQ01|Sphere|7
 GarrahanMiningHQDungeon||7400
@@ -1069,8 +1084,10 @@ SheltersRootCellar||463
 SheltersRootCellar|Box|132
 SheltersSoundStage||790
 SheltersSoundStage|Box|115
-SheltersSummerCamp||537
+SheltersSummerCamp||538
 SheltersSummerCamp|Box|158
+SheltersTheRadiantRemedy||347
+SheltersTheRadiantRemedy|Box|96
 SheltersToxicWasteland||515
 SheltersToxicWasteland|Box|12
 SheltersVaultAtrium01||2199
@@ -1166,7 +1183,7 @@ UncannyCavernsDungeon|Box|658
 UncannyCavernsDungeon|Line|1
 UncannyCavernsDungeon|Sphere|3
 VTecAgCenter01||3044
-VTecAgCenter01|Box|92
+VTecAgCenter01|Box|93
 ValleyGalleria01||8118
 ValleyGalleria01|Box|515
 ValleyGalleria01|Line|1
@@ -1240,7 +1257,7 @@ WhitespringBunker01|Box|500
 WhitespringMall01||6810
 WhitespringMall01|Box|137
 WhitespringRefuge01||11464
-WhitespringRefuge01|Box|226
+WhitespringRefuge01|Box|227
 XPDAC01Casino||13336
 XPDAC01Casino|Box|474
 XPDAC01Casino|Plane|1
@@ -1267,7 +1284,7 @@ XPDAC03CommunityCenter|Box|526
 XPDAC03CommunityCenterDungeon||10421
 XPDAC03CommunityCenterDungeon|Box|524
 XPDAC03CommunityCenterDungeon|Sphere|1
-XPDAC03FloodedCityCenter||16138
+XPDAC03FloodedCityCenter||16136
 XPDAC03FloodedCityCenter|Box|950
 XPDAC03FloodedCityCenter|Plane|5
 XPDPitt01Foundry||16367
@@ -1285,7 +1302,7 @@ XPDPitt02ACCJ||15
 XPDPitt02Sanctum||17557
 XPDPitt02Sanctum|Box|477
 XPDPitt02Trench||19687
-XPDPitt02Trench|Box|1550
+XPDPitt02Trench|Box|1551
 XPDRttP01SteelTower||10029
 XPDRttP01SteelTower|Box|46
 XPDRttP01SteelTowerRoof||1997
@@ -1309,11 +1326,11 @@ APPALACHIA||3259431
 APPALACHIA|Advanced (Level 1)|338
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
-APPALACHIA|Expert (Level 2)|204
+APPALACHIA|Expert (Level 2)|207
 APPALACHIA|Inaccessible|33
 APPALACHIA|Master (Level 3)|88
-APPALACHIA|Novice (Level 0)|356
-APPALACHIA|Requires Key|91
+APPALACHIA|Novice (Level 0)|362
+APPALACHIA|Requires Key|93
 APPALACHIA|Requires Terminal|9
 APPALACHIA|Unknown|1
 AVRMedicalCenter01||5930
@@ -1343,7 +1360,7 @@ BigBendTunnel01|Chained|1
 BigBendTunnel01|Expert (Level 2)|1
 BigBendTunnel01|Novice (Level 0)|6
 BigBendTunnel01|Requires Key|1
-BlackwaterMine01||6150
+BlackwaterMine01||6151
 BlackwaterMine01|Advanced (Level 1)|3
 BlackwaterMine01|Expert (Level 2)|1
 BlackwaterMine01|Master (Level 3)|1
@@ -1351,7 +1368,7 @@ BlackwaterMine01|Novice (Level 0)|3
 BlackwaterMine01|Requires Key|8
 BlueRidgeOffice01||765
 BurdetteManorBasement01||499
-BurningMine01||6131
+BurningMine01||6133
 BurningMine01|Advanced (Level 1)|2
 BurningMine01|Expert (Level 2)|1
 BurningMine01|Requires Key|2
@@ -1405,7 +1422,7 @@ DuncanDuncanRobotics01|Novice (Level 0)|3
 DyerChemical01||3208
 DyerChemical01|Advanced (Level 1)|3
 DyerChemical01|Novice (Level 0)|1
-EasternRegionalPen01||11414
+EasternRegionalPen01||11416
 EasternRegionalPen01|Advanced (Level 1)|9
 EasternRegionalPen01|Expert (Level 2)|7
 EasternRegionalPen01|Master (Level 3)|2
@@ -1448,7 +1465,12 @@ FreeStatesBunker06||948
 FreeStatesBunker06|Expert (Level 2)|1
 FreeStatesBunker07||1049
 FreeStatesBunker07|Expert (Level 2)|1
-GarrahanMiningHQ01||9187
+GHLCamp01||3486
+GHLCamp02||1438
+GHLEmmettMnt02||1493
+GHLEmmettMnt02|Novice (Level 0)|1
+GHLEmmettMnt02|Requires Key|1
+GarrahanMiningHQ01||9188
 GarrahanMiningHQ01|Advanced (Level 1)|1
 GarrahanMiningHQ01|Expert (Level 2)|3
 GarrahanMiningHQ01|Master (Level 3)|1
@@ -1615,7 +1637,8 @@ SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
 SheltersSoundStage||905
-SheltersSummerCamp||695
+SheltersSummerCamp||696
+SheltersTheRadiantRemedy||443
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
@@ -1726,7 +1749,7 @@ UncannyCavernsDungeon||7405
 UncannyCavernsDungeon|Advanced (Level 1)|1
 UncannyCavernsDungeon|Inaccessible|3
 UncannyCavernsDungeon|Novice (Level 0)|2
-VTecAgCenter01||3132
+VTecAgCenter01||3133
 VTecAgCenter01|Novice (Level 0)|3
 VTecAgCenter01|Requires Terminal|1
 ValleyGalleria01||8629
@@ -1836,7 +1859,7 @@ WhitespringMall01|Advanced (Level 1)|1
 WhitespringMall01|Expert (Level 2)|1
 WhitespringMall01|Master (Level 3)|3
 WhitespringMall01|Novice (Level 0)|8
-WhitespringRefuge01||11661
+WhitespringRefuge01||11662
 WhitespringRefuge01|Advanced (Level 1)|2
 WhitespringRefuge01|Inaccessible|21
 WhitespringRefuge01|Novice (Level 0)|6
@@ -1875,7 +1898,7 @@ XPDAC03CommunityCenter||11646
 XPDAC03CommunityCenter|Advanced (Level 1)|5
 XPDAC03CommunityCenter|Novice (Level 0)|2
 XPDAC03CommunityCenterDungeon||10946
-XPDAC03FloodedCityCenter||17067
+XPDAC03FloodedCityCenter||17065
 XPDAC03FloodedCityCenter|Advanced (Level 1)|6
 XPDAC03FloodedCityCenter|Expert (Level 2)|1
 XPDAC03FloodedCityCenter|Inaccessible|1
@@ -1903,7 +1926,7 @@ XPDPitt02Sanctum|Advanced (Level 1)|1
 XPDPitt02Sanctum|Inaccessible|4
 XPDPitt02Sanctum|Master (Level 3)|2
 XPDPitt02Sanctum|Novice (Level 0)|4
-XPDPitt02Trench||21217
+XPDPitt02Trench||21218
 XPDPitt02Trench|Advanced (Level 1)|4
 XPDPitt02Trench|Expert (Level 2)|8
 XPDPitt02Trench|Novice (Level 0)|8
@@ -1950,7 +1973,7 @@ AMSHQ02|TXST|46
 APPALACHIA|ACTI|23542
 APPALACHIA|ALCH|308
 APPALACHIA|AMMO|80
-APPALACHIA|ARMO|126
+APPALACHIA|ARMO|130
 APPALACHIA|ASPC|2378
 APPALACHIA|BNDS|10466
 APPALACHIA|BOOK|575
@@ -2024,7 +2047,7 @@ ArktosPharmaLab01|ACTI|356
 ArktosPharmaLab01|ASPC|14
 ArktosPharmaLab01|BNDS|116
 ArktosPharmaLab01|BOOK|3
-ArktosPharmaLab01|CONT|133
+ArktosPharmaLab01|CONT|134
 ArktosPharmaLab01|DOOR|63
 ArktosPharmaLab01|FLOR|33
 ArktosPharmaLab01|FURN|146
@@ -2038,7 +2061,7 @@ ArktosPharmaLab01|NOTE|1
 ArktosPharmaLab01|NPC_|70
 ArktosPharmaLab01|SCOL|1169
 ArktosPharmaLab01|SOUN|96
-ArktosPharmaLab01|STAT|10986
+ArktosPharmaLab01|STAT|10985
 ArktosPharmaLab01|TACT|1
 ArktosPharmaLab01|TERM|10
 ArktosPharmaLab01|TXST|1249
@@ -2112,7 +2135,7 @@ BlackwaterMine01|NOTE|3
 BlackwaterMine01|NPC_|21
 BlackwaterMine01|SCOL|371
 BlackwaterMine01|SOUN|18
-BlackwaterMine01|STAT|4285
+BlackwaterMine01|STAT|4286
 BlackwaterMine01|TERM|5
 BlackwaterMine01|TXST|350
 BlueRidgeOffice01|ACTI|8
@@ -2160,7 +2183,7 @@ BurningMine01|MSTT|248
 BurningMine01|NPC_|24
 BurningMine01|SCOL|151
 BurningMine01|SOUN|3
-BurningMine01|STAT|4878
+BurningMine01|STAT|4880
 BurningMine01|TXST|270
 Burrows01|ACTI|264
 Burrows01|ALCH|6
@@ -2492,7 +2515,7 @@ EasternRegionalPen01|MSTT|249
 EasternRegionalPen01|NOTE|1
 EasternRegionalPen01|NPC_|64
 EasternRegionalPen01|SCOL|137
-EasternRegionalPen01|STAT|9110
+EasternRegionalPen01|STAT|9112
 EasternRegionalPen01|TACT|1
 EasternRegionalPen01|TERM|14
 EasternRegionalPen01|TXST|171
@@ -2751,6 +2774,58 @@ FreeStatesBunker07|SCOL|38
 FreeStatesBunker07|SOUN|1
 FreeStatesBunker07|STAT|631
 FreeStatesBunker07|TXST|43
+GHLCamp01|ACTI|24
+GHLCamp01|ALCH|1
+GHLCamp01|ARMO|1
+GHLCamp01|ASPC|12
+GHLCamp01|BNDS|30
+GHLCamp01|BOOK|4
+GHLCamp01|CONT|50
+GHLCamp01|DOOR|7
+GHLCamp01|FURN|94
+GHLCamp01|HAZD|1
+GHLCamp01|IDLM|9
+GHLCamp01|LIGH|98
+GHLCamp01|LVLI|35
+GHLCamp01|MISC|206
+GHLCamp01|MSTT|141
+GHLCamp01|NPC_|19
+GHLCamp01|SCOL|174
+GHLCamp01|SOUN|8
+GHLCamp01|STAT|2507
+GHLCamp01|TXST|64
+GHLCamp01|WEAP|1
+GHLCamp02|ACTI|7
+GHLCamp02|ASPC|12
+GHLCamp02|BNDS|6
+GHLCamp02|CONT|10
+GHLCamp02|DOOR|3
+GHLCamp02|FURN|9
+GHLCamp02|HAZD|1
+GHLCamp02|LIGH|72
+GHLCamp02|LVLI|20
+GHLCamp02|MISC|35
+GHLCamp02|MSTT|46
+GHLCamp02|NPC_|3
+GHLCamp02|SCOL|20
+GHLCamp02|SOUN|6
+GHLCamp02|STAT|1089
+GHLCamp02|TXST|99
+GHLEmmettMnt02|ACTI|12
+GHLEmmettMnt02|BNDS|10
+GHLEmmettMnt02|CONT|18
+GHLEmmettMnt02|DOOR|4
+GHLEmmettMnt02|FURN|7
+GHLEmmettMnt02|HAZD|6
+GHLEmmettMnt02|IDLM|1
+GHLEmmettMnt02|LIGH|37
+GHLEmmettMnt02|LVLI|15
+GHLEmmettMnt02|MISC|17
+GHLEmmettMnt02|MSTT|30
+GHLEmmettMnt02|NPC_|9
+GHLEmmettMnt02|SCOL|113
+GHLEmmettMnt02|STAT|1139
+GHLEmmettMnt02|TXST|77
 GarrahanMiningHQ01|ACTI|85
 GarrahanMiningHQ01|ARMO|1
 GarrahanMiningHQ01|ASPC|16
@@ -2771,7 +2846,7 @@ GarrahanMiningHQ01|NOTE|1
 GarrahanMiningHQ01|NPC_|34
 GarrahanMiningHQ01|SCOL|466
 GarrahanMiningHQ01|SOUN|15
-GarrahanMiningHQ01|STAT|7035
+GarrahanMiningHQ01|STAT|7036
 GarrahanMiningHQ01|TERM|7
 GarrahanMiningHQ01|TXST|286
 GarrahanMiningHQDungeon|ACTI|46
@@ -3684,8 +3759,13 @@ SheltersSummerCamp|ASPC|1
 SheltersSummerCamp|FLOR|5
 SheltersSummerCamp|LIGH|1
 SheltersSummerCamp|SCOL|50
-SheltersSummerCamp|STAT|497
+SheltersSummerCamp|STAT|498
 SheltersSummerCamp|TXST|107
+SheltersTheRadiantRemedy|ACTI|7
+SheltersTheRadiantRemedy|LIGH|35
+SheltersTheRadiantRemedy|MSTT|34
+SheltersTheRadiantRemedy|STAT|292
+SheltersTheRadiantRemedy|TXST|75
 SheltersToxicWasteland|ACTI|6
 SheltersToxicWasteland|ASPC|1
 SheltersToxicWasteland|FLOR|13
@@ -4296,7 +4376,7 @@ VTecAgCenter01|NOTE|1
 VTecAgCenter01|NPC_|14
 VTecAgCenter01|SCOL|41
 VTecAgCenter01|SOUN|2
-VTecAgCenter01|STAT|2457
+VTecAgCenter01|STAT|2458
 VTecAgCenter01|TERM|7
 VTecAgCenter01|TXST|49
 ValleyGalleria01|ACTI|87
@@ -4802,14 +4882,14 @@ WhitespringMall01|STAT|4679
 WhitespringMall01|TERM|13
 WhitespringMall01|TXST|16
 WhitespringMall01|WEAP|1
-WhitespringRefuge01|ACTI|103
+WhitespringRefuge01|ACTI|104
 WhitespringRefuge01|ARMO|3
 WhitespringRefuge01|ASPC|1
 WhitespringRefuge01|BOOK|2
 WhitespringRefuge01|CONT|158
 WhitespringRefuge01|DOOR|102
 WhitespringRefuge01|FLOR|1
-WhitespringRefuge01|FURN|341
+WhitespringRefuge01|FURN|340
 WhitespringRefuge01|IDLM|100
 WhitespringRefuge01|LIGH|462
 WhitespringRefuge01|LVLI|96
@@ -4818,7 +4898,7 @@ WhitespringRefuge01|MSTT|133
 WhitespringRefuge01|NOTE|5
 WhitespringRefuge01|NPC_|48
 WhitespringRefuge01|SCOL|172
-WhitespringRefuge01|STAT|9528
+WhitespringRefuge01|STAT|9529
 WhitespringRefuge01|TERM|5
 WhitespringRefuge01|TXST|41
 WhitespringRefuge01|WEAP|4
@@ -5006,7 +5086,7 @@ XPDAC03FloodedCityCenter|BNDS|91
 XPDAC03FloodedCityCenter|BOOK|7
 XPDAC03FloodedCityCenter|CONT|110
 XPDAC03FloodedCityCenter|DOOR|11
-XPDAC03FloodedCityCenter|FURN|120
+XPDAC03FloodedCityCenter|FURN|119
 XPDAC03FloodedCityCenter|IDLM|117
 XPDAC03FloodedCityCenter|KEYM|1
 XPDAC03FloodedCityCenter|LIGH|227
@@ -5015,7 +5095,7 @@ XPDAC03FloodedCityCenter|MISC|361
 XPDAC03FloodedCityCenter|MSTT|181
 XPDAC03FloodedCityCenter|NPC_|99
 XPDAC03FloodedCityCenter|SCOL|2690
-XPDAC03FloodedCityCenter|STAT|11993
+XPDAC03FloodedCityCenter|STAT|11992
 XPDAC03FloodedCityCenter|TERM|3
 XPDAC03FloodedCityCenter|TXST|707
 XPDPitt01Foundry|ACTI|240
@@ -5126,7 +5206,7 @@ XPDPitt02Trench|NOTE|2
 XPDPitt02Trench|NPC_|147
 XPDPitt02Trench|SCOL|2097
 XPDPitt02Trench|SOUN|2
-XPDPitt02Trench|STAT|15023
+XPDPitt02Trench|STAT|15024
 XPDPitt02Trench|TERM|6
 XPDPitt02Trench|TXST|1300
 XPDPitt02Trench|WEAP|2
@@ -7593,7 +7673,26 @@ APPALACHIA|FoundationOutpost_Watchtower_LOD_Marker|1
 APPALACHIA|Foundation_ExtLoadDoor_Quartermaster|1
 APPALACHIA|FrontSatDoor|1
 APPALACHIA|Fundementalstage|1
+APPALACHIA|GHL00_AsherRefExt|1
+APPALACHIA|GHL00_DisguseMiscQuest_LocMarker_REF|1
+APPALACHIA|GHL00_ErnieRef|1
 APPALACHIA|GHL00_Quest_RadioTransmitMarker|1
+APPALACHIA|GHLEmmettMntMetalHatch|1
+APPALACHIA|GHLPOI01Marker|1
+APPALACHIA|GHLPOI02Marker|1
+APPALACHIA|GHLPOI03Marker|1
+APPALACHIA|GHLPOI04Marker|1
+APPALACHIA|GHLPOI05Marker|1
+APPALACHIA|GHLPOI06Marker|1
+APPALACHIA|GHLPOI07Marker|1
+APPALACHIA|GHLPOI08Marker|1
+APPALACHIA|GHLPOI09Marker|1
+APPALACHIA|GHLPOI10Marker|1
+APPALACHIA|GHLPOI11Marker|1
+APPALACHIA|GHLPOI12Marker|1
+APPALACHIA|GHLPOI13Marker|1
+APPALACHIA|GHLPOI14Marker|1
+APPALACHIA|GHL_HillsideCavernsLocationMarker_REF|1
 APPALACHIA|GarrahanEstateCardReader|1
 APPALACHIA|GarrahanEstateElevatorLowToMid|1
 APPALACHIA|GarrahanEstateElevatorLowToUp|1
@@ -7609,6 +7708,7 @@ APPALACHIA|GarrahanExtToHQBack|1
 APPALACHIA|GarrahanHQ_GarageExtTo01|1
 APPALACHIA|GarrahanMiningHQMapMarkerRef|1
 APPALACHIA|GateSandbox|1
+APPALACHIA|GhoulCampMapMarkerID|1
 APPALACHIA|GorgeJunkyardCenterMarker|1
 APPALACHIA|GorgeJunkyardWorkshopRef|1
 APPALACHIA|GorgeJunkyard_LocationEdge|1
@@ -7868,6 +7968,7 @@ APPALACHIA|M01C_xMarker_Buoy04|1
 APPALACHIA|M01C_xMarker_Buoy05|1
 APPALACHIA|MC_Nest_Roof01_MRefLOD|1
 APPALACHIA|MILE_CaravanIntro_CageDoor|1
+APPALACHIA|MILE_CaravanIntro_InitialObjectiveMarker|1
 APPALACHIA|MILE_CaravanIntro_QuestStartMarker|1
 APPALACHIA|MN2_Bonfire01|1
 APPALACHIA|MN2_Bonfire02|1
@@ -7885,8 +7986,9 @@ APPALACHIA|MN2_InitiallyEnabled_Marker|1
 APPALACHIA|MN2_MarkerPyre_CliffsOffset|1
 APPALACHIA|MN2_MarkerPyre_ForestOffset|1
 APPALACHIA|MN2_Marker_PyreCliffs|1
-APPALACHIA|MN2_Marker_PyreForest|1
-APPALACHIA|MN2_Marker_PyreRooms|1
+APPALACHIA|MN2_Marker_PyreForest_Copy01|1
+APPALACHIA|MN2_Marker_PyreForest_Copy02|1
+APPALACHIA|MN2_Marker_PyreForest_Copy03|1
 APPALACHIA|MN2_Marker_PyreRoomsOffset|1
 APPALACHIA|MN2_Mischief_PlayerSpawnCenter|1
 APPALACHIA|MN2_PlayerSpawnMarker|1
@@ -10048,6 +10150,14 @@ APPALACHIA|SRMSmallMountainPOI01Marker|1
 APPALACHIA|SRMSmallMountainPOI02Marker|1
 APPALACHIA|SRMSmallMountainPOI03Marker|1
 APPALACHIA|SRMSmallSwampForestPOI01Marker|1
+APPALACHIA|SSEPOI01Marker|1
+APPALACHIA|SSE_BESusan_REF|1
+APPALACHIA|SSE_BeeExplosionSource_REF|1
+APPALACHIA|SSE_Beezlebub_REF|1
+APPALACHIA|SSE_GramophoneAct_REF|1
+APPALACHIA|SSE_Magellan_REF|1
+APPALACHIA|SSE_SoundXMarker_REF|1
+APPALACHIA|SSE_XmarkerTeleport01_REF|1
 APPALACHIA|STWBlueLightParent|1
 APPALACHIA|STWRedLightParent|1
 APPALACHIA|STWYellowLightParent|1
@@ -10693,6 +10803,7 @@ APPALACHIA|TestElevDoorARef045|1
 APPALACHIA|TestElevDoorARef046|1
 APPALACHIA|TestElevDoorARef047|1
 APPALACHIA|TestElevDoorARef048|1
+APPALACHIA|TestElevDoorARef051|1
 APPALACHIA|TestElevDoorARef053|1
 APPALACHIA|TestElevDoorARef054|1
 APPALACHIA|TestElevDoorARef055|1
@@ -10846,6 +10957,7 @@ APPALACHIA|TylerCountyTrackCenterMarker|1
 APPALACHIA|TylerCountyTrackWorkshopRef|1
 APPALACHIA|TylerCountyTrack_LocationEdge|1
 APPALACHIA|UD001_Arktos_Elevator_Button|1
+APPALACHIA|UD001_Arktos_Elevator_Button001|1
 APPALACHIA|UD003_VanLoweTaxidermyDoorExt|1
 APPALACHIA|UD004_NukashineLoadDoorExt|1
 APPALACHIA|UD005_FratLoadDoorExt|1
@@ -11776,7 +11888,7 @@ BigBendTunnel01|E05_Start_FrontBrahmin|1
 BigBendTunnel01|E05_Start_Guard|1
 BigBendTunnel01|E05_Start_Merchant|1
 BigBendTunnel01|MTR03_AreaSpawnerMarkerREF|1
-BlackwaterMine01||6154
+BlackwaterMine01||6155
 BlackwaterMine01|MTNL01BlackwaterGhoulMarker|1
 BlackwaterMine01|MTNL01BlackwaterTerminalMarker|1
 BlackwaterMine01|MTNL01_SpawnCenter|1
@@ -11807,7 +11919,7 @@ BlueRidgeOffice01|xmarker_Aries_OfficeSpot|1
 BlueRidgeOffice01|xmarker_Rahmani_OfficeSpot|1
 BlueRidgeOffice01|xmarker_Rahmani_OfficeSpot001|1
 BurdetteManorBasement01||499
-BurningMine01||6112
+BurningMine01||6114
 BurningMine01|DailyOps_Mode01_Activator00_PackIn003|1
 BurningMine01|DailyOps_Mode01_Activator01_PackIn003|1
 BurningMine01|DailyOps_Mode01_Activator02_PackIn003|1
@@ -12215,7 +12327,7 @@ DyerChemical01|SFL02_Track_DyerDoor02Ref_InteriorLoad|1
 DyerChemical01|SFL02_Track_DyerDoor03Ref_InteriorLoad|1
 DyerChemical01|SFL02_Track_EnterTriggerRef|1
 DyerChemical01|SFL02_Track_LucyCorpseRef|1
-EasternRegionalPen01||11394
+EasternRegionalPen01||11396
 EasternRegionalPen01|LC043GuardPod|1
 EasternRegionalPen01|LC043_DoorCellsA|1
 EasternRegionalPen01|LC043_DoorCellsB|1
@@ -12750,7 +12862,61 @@ FreeStatesBunker07|W05_MQS_203P_RadcliffFurn1|1
 FreeStatesBunker07|W05_MQS_203P_RadcliffFurn2|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn1|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn2|1
-GarrahanMiningHQ01||9175
+GHLCamp01||3472
+GHLCamp01|GHL00_ExitToLabMarker|1
+GHLCamp01|GHL00_JayeRef|1
+GHLCamp01|GHL00_JayeSandboxVolume|1
+GHLCamp01|GHL00_LeamonGhoulRef|1
+GHLCamp01|GHL00_PartheniaClinicMarker|1
+GHLCamp01|GHL00_Quest_InteriorElevatorMarker|1
+GHLCamp01|GHL00_Quest_PartheniaRef_Camp|1
+GHLCamp01|GHL00_Quest_TransformPlayer_ClinicBench|1
+GHLCamp01|GHL00_Quest_TransformPlayer_MaddoxMarker|1
+GHLCamp01|GHL00_Quest_TransformPlayer_PartheniaClipboardFurn|1
+GHLCamp01|GHL00_Quest_TransformPlayer_WakeUpMarker|1
+GHLCamp01|GHLCamp01_DirectTravelPoint|1
+GHLCamp01|TestElevDoorARef073DUPLICATE002|1
+GHLCamp01|TestElevDoorTriggerARef069DUPLICATE002|1
+GHLCamp02||1417
+GHLCamp02|GHL00_AsherRef001|1
+GHLCamp02|GHL00_LeamonRef_GhoulCamp001|1
+GHLCamp02|GHL00_PartheniaRef001|1
+GHLCamp02|GHL00_Quest_AsherLabMarker001|1
+GHLCamp02|GHL00_Quest_BrewGhoulJuiceTrigger001|1
+GHLCamp02|GHL00_Quest_IntroAsherMarker001|1
+GHLCamp02|GHL00_Quest_IntroPartheniaMarker001|1
+GHLCamp02|GHL00_Quest_IntroPlayerMarker001|1
+GHLCamp02|GHL00_Quest_IntroSceneTrigger001|1
+GHLCamp02|GHL00_Quest_LeamonHostageFurn001|1
+GHLCamp02|GHL00_Quest_LeamonLabMarker001|1
+GHLCamp02|GHL00_Quest_LeamonWaitingLabFurn001|1
+GHLCamp02|GHL00_Quest_PartheniaChemBench001|1
+GHLCamp02|GHL00_Quest_PartheniaHiddenMarker001|1
+GHLCamp02|GHL00_Quest_PartheniaLabMarker001|1
+GHLCamp02|GHL00_Quest_PartheniaWaitingLabFurn001|1
+GHLCamp02|GHL00_Quest_TransformPlayer_RadChamberDoor|1
+GHLCamp02|GHL00_Quest_TransformPlayer_RadChamberDoor_Collider|1
+GHLCamp02|GHL00_Quest_TransformPlayer_RadChamberTrigger001|1
+GHLCamp02|GHL00_Quest_TunnelExitMarker001|1
+GHLCamp02|GHLCaveDoor001|1
+GHLEmmettMnt02||1479
+GHLEmmettMnt02|GHL00_AsherRef_Emmett|1
+GHLEmmettMnt02|GHL00_MadelineRef|1
+GHLEmmettMnt02|GHL00_Quest_AsherConfrontationMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherGateMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherOreTunnelFurnitureMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherOreTunnelMarker|1
+GHLEmmettMnt02|GHL00_Quest_AsherTeleportMarker|1
+GHLEmmettMnt02|GHL00_Quest_EmmettMainRoomTrigger|1
+GHLEmmettMnt02|GHL00_Quest_EmmettMntSearchMarker|1
+GHLEmmettMnt02|GHL00_Quest_FeralGhoul01|1
+GHLEmmettMnt02|GHL00_Quest_FeralGhoul02|1
+GHLEmmettMnt02|GHL00_Quest_FeralGhoul03|1
+GHLEmmettMnt02|GHL00_Quest_FeralSpawnCenter|1
+GHLEmmettMnt02|GHL00_Quest_LockedGate|1
+GHLEmmettMnt02|GHL00_Quest_MadelineMarker|1
+GHLEmmettMnt02|GHL00_Quest_MadelineStartMarker|1
+GarrahanMiningHQ01||9176
 GarrahanMiningHQ01|GarrahanHQToExtBack|1
 GarrahanMiningHQ01|GarrahanHQ_Garage01ToExt|1
 GarrahanMiningHQ01|GarrahanMiningHQ_LeftExit|1
@@ -14128,7 +14294,8 @@ SheltersMissileSilo||493
 SheltersPittTrench01||1142
 SheltersRootCellar||595
 SheltersSoundStage||905
-SheltersSummerCamp||695
+SheltersSummerCamp||696
+SheltersTheRadiantRemedy||443
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
@@ -14860,7 +15027,7 @@ UncannyCavernsDungeon|WaterVolume41|1
 UncannyCavernsDungeon|WaterVolume42|1
 UncannyCavernsDungeon|WaterVolume60|1
 UncannyCavernsDungeon|WaterVolume80|1
-VTecAgCenter01||3132
+VTecAgCenter01||3133
 VTecAgCenter01|AgCenterMainframeRef|1
 VTecAgCenter01|AgCenterMainframeTerminalREF|1
 VTecAgCenter01|AgCenterTerminalREF|1
@@ -16002,8 +16169,9 @@ WhitespringRefuge01|EX001_WhitespringRefuge_SmallCircleToExterior_LoadDoor02|1
 WhitespringRefuge01|EX001_WhitespringRefuge_SodaToExterior_LoadDoor01|1
 WhitespringRefuge01|EX001_WhitespringRefuge_SodaToExterior_LoadDoor02|1
 WhitespringRefuge01|EX001_WhitespringRefuge_ToBunker_LoadDoor01|1
+WhitespringRefuge01|GHL00_Quest_LeamonClinicMarker|1
 WhitespringRefuge01|GHL00_Quest_LeamonRef_Whitespring|1
-WhitespringRefuge01|GHL00_Quest_LeamonWoundedFurn|1
+WhitespringRefuge01|GHL00_Quest_MedicSceneTrigger|1
 WhitespringRefuge01|Refuge_Turf_Ballroom|1
 WhitespringRefuge01|Refuge_Turf_Bar|1
 WhitespringRefuge01|Refuge_Turf_Construction|1
@@ -16526,7 +16694,7 @@ XPDAC03CommunityCenterDungeon|DailyOps_Mode01_Respawn03_02_PackIn018|1
 XPDAC03CommunityCenterDungeon|DailyOps_Mode01_Respawn03_03_PackIn018|1
 XPDAC03CommunityCenterDungeon|XPD_AC03_PersistentMarker_CommunityCenter_Ref001|1
 XPDAC03CommunityCenterDungeon|XPD_Pitt02_Organ003|1
-XPDAC03FloodedCityCenter||17012
+XPDAC03FloodedCityCenter||17010
 XPDAC03FloodedCityCenter|AC_MQ03_DEBUGWarehouseMarker_Ref|1
 XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref|1
 XPDAC03FloodedCityCenter|AC_MQ03_DownedMuni_Ref001|1
@@ -17041,7 +17209,7 @@ XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_Collapsed|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_01_FallingRocks|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_Boarded|1
 XPDPitt02Sanctum|XPD_Pitt02_TrogNest_02_FallingRocks|1
-XPDPitt02Trench||21080
+XPDPitt02Trench||21081
 XPDPitt02Trench|AmbEWS_DummyRef|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_SCM|1
 XPDPitt02Trench|AmbEWS_Node00_JaxonsNooseTrog00_Sandbox|1
@@ -17257,7 +17425,7 @@ BlackwaterMine01|100|6166
 BlueRidgeOffice01|50|1
 BlueRidgeOffice01|100|764
 BurdetteManorBasement01|100|499
-BurningMine01|100|6136
+BurningMine01|100|6138
 Burrows01|75|8
 Burrows01|100|20165
 CharGen01|100|7051
@@ -17276,7 +17444,7 @@ DaggersDen01|100|1659
 DaggersDen02|100|489
 DuncanDuncanRobotics01|100|1365
 DyerChemical01|100|3212
-EasternRegionalPen01|100|11441
+EasternRegionalPen01|100|11443
 EmmettMountainDisposalSite01|50|4
 EmmettMountainDisposalSite01|75|6
 EmmettMountainDisposalSite01|100|4847
@@ -17293,7 +17461,10 @@ FreeStatesBunker03|100|1043
 FreeStatesBunker04|100|1254
 FreeStatesBunker06|100|949
 FreeStatesBunker07|100|1050
-GarrahanMiningHQ01|100|9200
+GHLCamp01|100|3486
+GHLCamp02|100|1438
+GHLEmmettMnt02|100|1495
+GarrahanMiningHQ01|100|9201
 GarrahanMiningHQDungeon|100|7694
 GauleyMine01|100|4177
 GlassedCavern01|100|9044
@@ -17363,7 +17534,8 @@ SheltersMissileSilo|100|493
 SheltersPittTrench01|100|1142
 SheltersRootCellar|100|595
 SheltersSoundStage|100|905
-SheltersSummerCamp|100|695
+SheltersSummerCamp|100|696
+SheltersTheRadiantRemedy|100|443
 SheltersToxicWasteland|100|527
 SheltersVaultAtrium01|100|2268
 SheltersVaultLivingQuarters01|100|2644
@@ -17412,7 +17584,7 @@ UncannyCaverns01|100|4228
 UncannyCaverns02|100|3191
 UncannyCavernsDungeon|100|7411
 VTecAgCenter01|50|9
-VTecAgCenter01|100|3127
+VTecAgCenter01|100|3128
 ValleyGalleria01|100|8635
 VanLoweTaxidermy01|75|3
 VanLoweTaxidermy01|100|1964
@@ -17453,7 +17625,7 @@ WestTek02|75|1
 WestTek02|100|5126
 WhitespringBunker01|100|16333
 WhitespringMall01|100|6947
-WhitespringRefuge01|100|11690
+WhitespringRefuge01|100|11691
 XPDAC01Casino|100|13811
 XPDAC01EntertainmentDistrict|100|6793
 XPDAC01NightClub|100|2996
@@ -17469,7 +17641,7 @@ XPDAC03CommunityCenter|75|3
 XPDAC03CommunityCenter|100|11649
 XPDAC03CommunityCenterDungeon|75|2
 XPDAC03CommunityCenterDungeon|100|10944
-XPDAC03FloodedCityCenter|100|17093
+XPDAC03FloodedCityCenter|100|17091
 XPDPitt01Foundry|50|9
 XPDPitt01Foundry|75|11
 XPDPitt01Foundry|100|16914
@@ -17484,7 +17656,7 @@ XPDPitt02Sanctum|75|2
 XPDPitt02Sanctum|100|18032
 XPDPitt02Trench|50|4
 XPDPitt02Trench|75|8
-XPDPitt02Trench|100|21225
+XPDPitt02Trench|100|21226
 XPDRttP01SteelTower|100|10075
 XPDRttP01SteelTowerRoof|100|2002
 XPDRttP01SteelTowerUpperFloors|100|6241
@@ -17493,31 +17665,31 @@ AMSHQ01|Acid|1|1
 AMSHQ01|Aluminum|7|4
 AMSHQ01|Antiseptic|2|1
 AMSHQ01|Asbestos|13|11
-AMSHQ01|Bone|3|1
+AMSHQ01|Bone|5|1
 AMSHQ01|Ceramic|84|84
 AMSHQ01|Cloth|96|93
 AMSHQ01|Copper|6|4
-AMSHQ01|Crystal|2|2
+AMSHQ01|Crystal|4|2
 AMSHQ01|Fiber Optics|2|2
 AMSHQ01|Fiberglass|2|2
 AMSHQ01|Gear|11|9
-AMSHQ01|Glass|10|8
+AMSHQ01|Glass|12|8
 AMSHQ01|Gold|2|2
 AMSHQ01|Lead|4|3
 AMSHQ01|Oil|16|15
 AMSHQ01|Plastic|16|14
-AMSHQ01|Rubber|7|7
+AMSHQ01|Rubber|13|7
 AMSHQ01|Screw|6|6
 AMSHQ01|Spring|11|11
-AMSHQ01|Steel|26|18
+AMSHQ01|Steel|36|20
 AMSHQ01|Ultracite|7|7
-AMSHQ01|Wood|21|17
+AMSHQ01|Wood|29|17
 AMSHQ02|Acid|2|2
 AMSHQ02|Adhesive|8|3
 AMSHQ02|Aluminum|13|8
 AMSHQ02|Antiseptic|4|2
 AMSHQ02|Asbestos|4|4
-AMSHQ02|Bone|5|3
+AMSHQ02|Bone|7|3
 AMSHQ02|Ceramic|10|10
 AMSHQ02|Circuitry|10|7
 AMSHQ02|Cloth|14|14
@@ -17534,44 +17706,44 @@ AMSHQ02|Plastic|17|12
 AMSHQ02|Rubber|10|8
 AMSHQ02|Screw|4|4
 AMSHQ02|Spring|8|8
-AMSHQ02|Steel|41|23
+AMSHQ02|Steel|42|23
 AMSHQ02|Wood|15|13
-APPALACHIA|Acid|1428|925
-APPALACHIA|Adhesive|1248|528
-APPALACHIA|Aluminum|2185|1538
-APPALACHIA|Antiseptic|897|426
-APPALACHIA|Asbestos|1721|1276
-APPALACHIA|Ballistic Fiber|214|107
-APPALACHIA|Bone|3680|1396
-APPALACHIA|Ceramic|3954|3423
-APPALACHIA|Circuitry|503|392
-APPALACHIA|Cloth|6031|5373
-APPALACHIA|Concrete|2429|441
-APPALACHIA|Copper|1585|1496
-APPALACHIA|Cork|644|522
-APPALACHIA|Crystal|339|207
-APPALACHIA|Fertilizer|1167|405
+APPALACHIA|Acid|1444|935
+APPALACHIA|Adhesive|1264|539
+APPALACHIA|Aluminum|2410|1550
+APPALACHIA|Antiseptic|908|433
+APPALACHIA|Asbestos|1738|1290
+APPALACHIA|Ballistic Fiber|284|109
+APPALACHIA|Bone|4294|1437
+APPALACHIA|Ceramic|4031|3482
+APPALACHIA|Circuitry|506|395
+APPALACHIA|Cloth|6239|5512
+APPALACHIA|Concrete|2447|447
+APPALACHIA|Copper|1629|1517
+APPALACHIA|Cork|647|524
+APPALACHIA|Crystal|373|208
+APPALACHIA|Fertilizer|1195|412
 APPALACHIA|Fiber Optics|44|43
-APPALACHIA|Fiberglass|969|727
-APPALACHIA|Gear|1209|1022
-APPALACHIA|Glass|9392|7781
-APPALACHIA|Gold|89|89
+APPALACHIA|Fiberglass|1104|861
+APPALACHIA|Gear|1249|1036
+APPALACHIA|Glass|9533|7872
+APPALACHIA|Gold|95|95
 APPALACHIA|Gunpowder|1|1
-APPALACHIA|Lead|5521|3187
-APPALACHIA|Leather|1975|891
-APPALACHIA|Nuclear Material|143|143
-APPALACHIA|Oil|3807|2548
-APPALACHIA|Plastic|5956|4220
-APPALACHIA|Rubber|2059|1245
-APPALACHIA|Screw|1247|1110
-APPALACHIA|Silver|282|236
-APPALACHIA|Spring|1380|1348
-APPALACHIA|Steel|16281|9739
+APPALACHIA|Lead|5567|3206
+APPALACHIA|Leather|1979|893
+APPALACHIA|Nuclear Material|148|148
+APPALACHIA|Oil|3844|2576
+APPALACHIA|Plastic|6174|4252
+APPALACHIA|Rubber|2212|1256
+APPALACHIA|Screw|1260|1122
+APPALACHIA|Silver|291|243
+APPALACHIA|Spring|1394|1362
+APPALACHIA|Steel|19769|10103
 APPALACHIA|Ultracite|1|1
-APPALACHIA|Wood|5048|3527
+APPALACHIA|Wood|6054|3573
 AVRMedicalCenter01|Acid|6|5
 AVRMedicalCenter01|Adhesive|4|1
-AVRMedicalCenter01|Aluminum|22|18
+AVRMedicalCenter01|Aluminum|33|18
 AVRMedicalCenter01|Antiseptic|14|7
 AVRMedicalCenter01|Asbestos|9|7
 AVRMedicalCenter01|Bone|3|1
@@ -17579,113 +17751,113 @@ AVRMedicalCenter01|Ceramic|21|16
 AVRMedicalCenter01|Circuitry|8|8
 AVRMedicalCenter01|Cloth|44|40
 AVRMedicalCenter01|Concrete|7|1
-AVRMedicalCenter01|Copper|19|19
-AVRMedicalCenter01|Crystal|7|7
+AVRMedicalCenter01|Copper|20|19
+AVRMedicalCenter01|Crystal|14|7
 AVRMedicalCenter01|Fiber Optics|7|7
 AVRMedicalCenter01|Fiberglass|9|8
-AVRMedicalCenter01|Gear|15|15
-AVRMedicalCenter01|Glass|55|48
+AVRMedicalCenter01|Gear|16|15
+AVRMedicalCenter01|Glass|62|48
 AVRMedicalCenter01|Gold|4|4
 AVRMedicalCenter01|Lead|22|18
 AVRMedicalCenter01|Leather|8|4
 AVRMedicalCenter01|Nuclear Material|1|1
 AVRMedicalCenter01|Oil|9|7
-AVRMedicalCenter01|Plastic|70|44
-AVRMedicalCenter01|Rubber|18|17
+AVRMedicalCenter01|Plastic|91|44
+AVRMedicalCenter01|Rubber|19|17
 AVRMedicalCenter01|Screw|10|10
 AVRMedicalCenter01|Silver|3|2
 AVRMedicalCenter01|Spring|14|14
-AVRMedicalCenter01|Steel|85|48
-AVRMedicalCenter01|Wood|39|27
+AVRMedicalCenter01|Steel|119|55
+AVRMedicalCenter01|Wood|51|27
 AlleghenyAsylum01|Acid|35|21
 AlleghenyAsylum01|Adhesive|41|13
-AlleghenyAsylum01|Aluminum|152|129
+AlleghenyAsylum01|Aluminum|246|129
 AlleghenyAsylum01|Antiseptic|39|16
 AlleghenyAsylum01|Asbestos|18|15
-AlleghenyAsylum01|Ballistic Fiber|20|10
-AlleghenyAsylum01|Bone|26|11
+AlleghenyAsylum01|Ballistic Fiber|30|10
+AlleghenyAsylum01|Bone|31|11
 AlleghenyAsylum01|Ceramic|47|41
 AlleghenyAsylum01|Circuitry|5|5
-AlleghenyAsylum01|Cloth|117|110
+AlleghenyAsylum01|Cloth|137|120
 AlleghenyAsylum01|Concrete|6|2
 AlleghenyAsylum01|Copper|44|42
-AlleghenyAsylum01|Crystal|7|7
+AlleghenyAsylum01|Crystal|12|7
 AlleghenyAsylum01|Fertilizer|7|4
 AlleghenyAsylum01|Fiber Optics|5|5
 AlleghenyAsylum01|Fiberglass|26|18
 AlleghenyAsylum01|Gear|23|22
-AlleghenyAsylum01|Glass|179|123
+AlleghenyAsylum01|Glass|184|123
 AlleghenyAsylum01|Gold|6|6
 AlleghenyAsylum01|Lead|51|38
 AlleghenyAsylum01|Leather|17|8
 AlleghenyAsylum01|Nuclear Material|4|4
 AlleghenyAsylum01|Oil|46|31
-AlleghenyAsylum01|Plastic|168|144
-AlleghenyAsylum01|Rubber|143|135
+AlleghenyAsylum01|Plastic|170|144
+AlleghenyAsylum01|Rubber|153|135
 AlleghenyAsylum01|Screw|30|25
 AlleghenyAsylum01|Spring|32|30
-AlleghenyAsylum01|Steel|254|168
-AlleghenyAsylum01|Wood|94|71
+AlleghenyAsylum01|Steel|413|183
+AlleghenyAsylum01|Wood|118|71
 ArktosPharmaLab01|Acid|48|33
 ArktosPharmaLab01|Adhesive|10|3
-ArktosPharmaLab01|Aluminum|31|25
+ArktosPharmaLab01|Aluminum|43|25
 ArktosPharmaLab01|Antiseptic|40|16
 ArktosPharmaLab01|Asbestos|15|11
 ArktosPharmaLab01|Bone|4|2
 ArktosPharmaLab01|Ceramic|43|43
 ArktosPharmaLab01|Circuitry|11|7
 ArktosPharmaLab01|Cloth|29|29
-ArktosPharmaLab01|Copper|40|31
-ArktosPharmaLab01|Crystal|7|7
+ArktosPharmaLab01|Copper|44|31
+ArktosPharmaLab01|Crystal|13|7
 ArktosPharmaLab01|Fertilizer|77|16
 ArktosPharmaLab01|Fiber Optics|6|6
 ArktosPharmaLab01|Fiberglass|14|12
-ArktosPharmaLab01|Gear|29|27
-ArktosPharmaLab01|Glass|67|51
+ArktosPharmaLab01|Gear|33|27
+ArktosPharmaLab01|Glass|73|51
 ArktosPharmaLab01|Gold|1|1
 ArktosPharmaLab01|Lead|60|35
 ArktosPharmaLab01|Nuclear Material|6|6
 ArktosPharmaLab01|Oil|67|42
-ArktosPharmaLab01|Plastic|69|42
+ArktosPharmaLab01|Plastic|83|42
 ArktosPharmaLab01|Rubber|33|24
 ArktosPharmaLab01|Screw|19|19
 ArktosPharmaLab01|Silver|1|1
 ArktosPharmaLab01|Spring|25|24
-ArktosPharmaLab01|Steel|230|132
-ArktosPharmaLab01|Wood|60|49
+ArktosPharmaLab01|Steel|283|138
+ArktosPharmaLab01|Wood|63|49
 ArktosPharmaLabDungeon|Acid|41|28
 ArktosPharmaLabDungeon|Adhesive|9|2
-ArktosPharmaLabDungeon|Aluminum|27|23
+ArktosPharmaLabDungeon|Aluminum|38|23
 ArktosPharmaLabDungeon|Antiseptic|40|16
 ArktosPharmaLabDungeon|Asbestos|12|8
 ArktosPharmaLabDungeon|Bone|4|2
 ArktosPharmaLabDungeon|Ceramic|43|43
 ArktosPharmaLabDungeon|Circuitry|7|4
 ArktosPharmaLabDungeon|Cloth|35|33
-ArktosPharmaLabDungeon|Copper|36|28
-ArktosPharmaLabDungeon|Crystal|6|6
+ArktosPharmaLabDungeon|Copper|40|28
+ArktosPharmaLabDungeon|Crystal|11|6
 ArktosPharmaLabDungeon|Fertilizer|44|11
 ArktosPharmaLabDungeon|Fiber Optics|5|5
 ArktosPharmaLabDungeon|Fiberglass|14|11
-ArktosPharmaLabDungeon|Gear|21|21
-ArktosPharmaLabDungeon|Glass|59|44
+ArktosPharmaLabDungeon|Gear|25|21
+ArktosPharmaLabDungeon|Glass|64|44
 ArktosPharmaLabDungeon|Gold|1|1
 ArktosPharmaLabDungeon|Lead|52|30
 ArktosPharmaLabDungeon|Nuclear Material|6|6
 ArktosPharmaLabDungeon|Oil|62|39
-ArktosPharmaLabDungeon|Plastic|68|41
+ArktosPharmaLabDungeon|Plastic|82|41
 ArktosPharmaLabDungeon|Rubber|29|22
 ArktosPharmaLabDungeon|Screw|15|15
 ArktosPharmaLabDungeon|Silver|1|1
 ArktosPharmaLabDungeon|Spring|19|18
-ArktosPharmaLabDungeon|Steel|205|115
-ArktosPharmaLabDungeon|Wood|50|42
+ArktosPharmaLabDungeon|Steel|249|120
+ArktosPharmaLabDungeon|Wood|53|42
 BelchingBetty01|Acid|1|1
 BelchingBetty01|Adhesive|5|1
 BelchingBetty01|Aluminum|1|1
 BelchingBetty01|Antiseptic|2|1
 BelchingBetty01|Asbestos|2|1
-BelchingBetty01|Bone|15|5
+BelchingBetty01|Bone|25|5
 BelchingBetty01|Ceramic|5|5
 BelchingBetty01|Circuitry|1|1
 BelchingBetty01|Cloth|10|6
@@ -17698,59 +17870,59 @@ BelchingBetty01|Oil|6|5
 BelchingBetty01|Plastic|4|3
 BelchingBetty01|Screw|4|4
 BelchingBetty01|Spring|6|6
-BelchingBetty01|Steel|21|13
-BelchingBetty01|Wood|14|11
+BelchingBetty01|Steel|28|13
+BelchingBetty01|Wood|15|11
 BigBendTunnel01|Acid|7|4
 BigBendTunnel01|Aluminum|2|2
 BigBendTunnel01|Antiseptic|9|5
 BigBendTunnel01|Asbestos|5|4
-BigBendTunnel01|Bone|24|10
+BigBendTunnel01|Bone|29|10
 BigBendTunnel01|Ceramic|13|13
 BigBendTunnel01|Circuitry|1|1
 BigBendTunnel01|Cloth|13|12
 BigBendTunnel01|Concrete|42|6
 BigBendTunnel01|Copper|7|6
 BigBendTunnel01|Gear|4|3
-BigBendTunnel01|Glass|33|27
+BigBendTunnel01|Glass|34|28
 BigBendTunnel01|Lead|16|14
 BigBendTunnel01|Leather|2|1
 BigBendTunnel01|Oil|14|10
 BigBendTunnel01|Plastic|24|20
-BigBendTunnel01|Rubber|4|3
+BigBendTunnel01|Rubber|5|3
 BigBendTunnel01|Screw|3|3
 BigBendTunnel01|Silver|1|1
 BigBendTunnel01|Spring|7|7
-BigBendTunnel01|Steel|74|43
-BigBendTunnel01|Wood|16|14
+BigBendTunnel01|Steel|89|43
+BigBendTunnel01|Wood|24|14
 BlackwaterMine01|Acid|18|10
 BlackwaterMine01|Adhesive|11|11
-BlackwaterMine01|Aluminum|15|13
+BlackwaterMine01|Aluminum|16|13
 BlackwaterMine01|Antiseptic|22|9
 BlackwaterMine01|Asbestos|42|30
 BlackwaterMine01|Bone|5|2
 BlackwaterMine01|Ceramic|17|17
 BlackwaterMine01|Cloth|45|41
 BlackwaterMine01|Concrete|28|4
-BlackwaterMine01|Copper|33|28
-BlackwaterMine01|Crystal|1|1
+BlackwaterMine01|Copper|35|28
+BlackwaterMine01|Crystal|2|1
 BlackwaterMine01|Fertilizer|8|2
 BlackwaterMine01|Fiber Optics|1|1
 BlackwaterMine01|Fiberglass|19|16
-BlackwaterMine01|Gear|18|15
-BlackwaterMine01|Glass|71|55
+BlackwaterMine01|Gear|20|15
+BlackwaterMine01|Glass|72|55
 BlackwaterMine01|Gold|8|8
 BlackwaterMine01|Lead|51|17
 BlackwaterMine01|Nuclear Material|3|3
 BlackwaterMine01|Oil|112|73
-BlackwaterMine01|Plastic|40|25
+BlackwaterMine01|Plastic|43|25
 BlackwaterMine01|Rubber|24|14
 BlackwaterMine01|Screw|7|6
 BlackwaterMine01|Spring|9|9
-BlackwaterMine01|Steel|274|156
-BlackwaterMine01|Wood|30|22
+BlackwaterMine01|Steel|297|157
+BlackwaterMine01|Wood|31|22
 BlueRidgeOffice01|Acid|5|3
 BlueRidgeOffice01|Adhesive|2|2
-BlueRidgeOffice01|Aluminum|10|6
+BlueRidgeOffice01|Aluminum|11|6
 BlueRidgeOffice01|Antiseptic|6|3
 BlueRidgeOffice01|Asbestos|6|4
 BlueRidgeOffice01|Bone|1|1
@@ -17764,16 +17936,16 @@ BlueRidgeOffice01|Glass|27|23
 BlueRidgeOffice01|Lead|10|6
 BlueRidgeOffice01|Leather|2|1
 BlueRidgeOffice01|Oil|8|6
-BlueRidgeOffice01|Plastic|34|22
+BlueRidgeOffice01|Plastic|37|22
 BlueRidgeOffice01|Rubber|3|3
 BlueRidgeOffice01|Screw|1|1
 BlueRidgeOffice01|Silver|1|1
 BlueRidgeOffice01|Spring|2|2
-BlueRidgeOffice01|Steel|49|30
-BlueRidgeOffice01|Wood|14|8
+BlueRidgeOffice01|Steel|56|30
+BlueRidgeOffice01|Wood|17|8
 BurdetteManorBasement01|Acid|5|3
 BurdetteManorBasement01|Adhesive|1|1
-BurdetteManorBasement01|Aluminum|8|6
+BurdetteManorBasement01|Aluminum|10|6
 BurdetteManorBasement01|Antiseptic|2|1
 BurdetteManorBasement01|Asbestos|4|3
 BurdetteManorBasement01|Ceramic|2|2
@@ -17789,22 +17961,22 @@ BurdetteManorBasement01|Plastic|9|5
 BurdetteManorBasement01|Rubber|6|4
 BurdetteManorBasement01|Screw|3|3
 BurdetteManorBasement01|Spring|1|1
-BurdetteManorBasement01|Steel|32|24
-BurdetteManorBasement01|Wood|3|2
+BurdetteManorBasement01|Steel|35|24
+BurdetteManorBasement01|Wood|4|2
 BurningMine01|Acid|1|1
 BurningMine01|Adhesive|3|3
 BurningMine01|Aluminum|20|18
 BurningMine01|Antiseptic|4|2
 BurningMine01|Asbestos|3|3
-BurningMine01|Bone|19|8
+BurningMine01|Bone|21|8
 BurningMine01|Ceramic|9|8
 BurningMine01|Cloth|9|9
 BurningMine01|Copper|16|10
-BurningMine01|Crystal|1|1
+BurningMine01|Crystal|2|1
 BurningMine01|Fiber Optics|1|1
 BurningMine01|Fiberglass|5|5
 BurningMine01|Gear|4|3
-BurningMine01|Glass|25|18
+BurningMine01|Glass|26|18
 BurningMine01|Lead|22|17
 BurningMine01|Leather|2|1
 BurningMine01|Oil|17|12
@@ -17813,38 +17985,38 @@ BurningMine01|Rubber|2|1
 BurningMine01|Screw|3|3
 BurningMine01|Silver|1|1
 BurningMine01|Spring|4|4
-BurningMine01|Steel|59|40
-BurningMine01|Wood|18|12
+BurningMine01|Steel|71|41
+BurningMine01|Wood|20|12
 Burrows01|Acid|13|8
 Burrows01|Adhesive|24|14
-Burrows01|Aluminum|36|24
+Burrows01|Aluminum|39|24
 Burrows01|Antiseptic|8|4
 Burrows01|Asbestos|45|35
-Burrows01|Ballistic Fiber|4|2
+Burrows01|Ballistic Fiber|6|2
 Burrows01|Bone|16|8
 Burrows01|Ceramic|38|37
 Burrows01|Circuitry|16|8
-Burrows01|Cloth|130|126
+Burrows01|Cloth|136|130
 Burrows01|Concrete|49|7
-Burrows01|Copper|31|27
+Burrows01|Copper|32|27
 Burrows01|Cork|7|4
 Burrows01|Crystal|8|6
 Burrows01|Fiber Optics|1|1
-Burrows01|Fiberglass|12|12
-Burrows01|Gear|46|40
+Burrows01|Fiberglass|27|27
+Burrows01|Gear|47|40
 Burrows01|Glass|172|144
 Burrows01|Gold|2|2
 Burrows01|Lead|207|109
 Burrows01|Leather|44|19
 Burrows01|Nuclear Material|3|3
 Burrows01|Oil|95|66
-Burrows01|Plastic|138|99
-Burrows01|Rubber|65|37
+Burrows01|Plastic|149|99
+Burrows01|Rubber|67|37
 Burrows01|Screw|18|18
 Burrows01|Silver|2|2
 Burrows01|Spring|61|61
-Burrows01|Steel|492|308
-Burrows01|Wood|116|96
+Burrows01|Steel|632|325
+Burrows01|Wood|175|96
 CharGen01|Acid|34|26
 CharGen01|Adhesive|78|24
 CharGen01|Aluminum|66|42
@@ -17970,7 +18142,7 @@ CharGen05|Silver|54|36
 CharGen05|Spring|72|30
 CharGen05|Steel|205|109
 CharGen05|Wood|152|88
-CharlestonCapitolBuilding02|Aluminum|7|4
+CharlestonCapitolBuilding02|Aluminum|8|4
 CharlestonCapitolBuilding02|Antiseptic|1|1
 CharlestonCapitolBuilding02|Asbestos|12|7
 CharlestonCapitolBuilding02|Bone|9|3
@@ -17985,63 +18157,63 @@ CharlestonCapitolBuilding02|Gear|21|12
 CharlestonCapitolBuilding02|Glass|31|24
 CharlestonCapitolBuilding02|Lead|9|4
 CharlestonCapitolBuilding02|Oil|6|4
-CharlestonCapitolBuilding02|Plastic|31|21
+CharlestonCapitolBuilding02|Plastic|34|21
 CharlestonCapitolBuilding02|Rubber|1|1
 CharlestonCapitolBuilding02|Screw|16|14
 CharlestonCapitolBuilding02|Silver|3|3
 CharlestonCapitolBuilding02|Spring|15|15
-CharlestonCapitolBuilding02|Steel|38|26
-CharlestonCapitolBuilding02|Wood|24|17
+CharlestonCapitolBuilding02|Steel|46|26
+CharlestonCapitolBuilding02|Wood|27|17
 CharlestonCapitolCourthouse01|Acid|1|1
 CharlestonCapitolCourthouse01|Adhesive|2|2
-CharlestonCapitolCourthouse01|Aluminum|9|6
+CharlestonCapitolCourthouse01|Aluminum|11|6
 CharlestonCapitolCourthouse01|Antiseptic|2|1
 CharlestonCapitolCourthouse01|Asbestos|5|3
-CharlestonCapitolCourthouse01|Bone|26|10
+CharlestonCapitolCourthouse01|Bone|40|10
 CharlestonCapitolCourthouse01|Ceramic|8|8
 CharlestonCapitolCourthouse01|Circuitry|1|1
 CharlestonCapitolCourthouse01|Cloth|41|39
-CharlestonCapitolCourthouse01|Copper|4|4
+CharlestonCapitolCourthouse01|Copper|6|4
 CharlestonCapitolCourthouse01|Cork|2|1
 CharlestonCapitolCourthouse01|Crystal|1|1
 CharlestonCapitolCourthouse01|Fiberglass|3|2
-CharlestonCapitolCourthouse01|Gear|14|10
+CharlestonCapitolCourthouse01|Gear|16|10
 CharlestonCapitolCourthouse01|Glass|6|5
 CharlestonCapitolCourthouse01|Lead|2|2
 CharlestonCapitolCourthouse01|Leather|2|1
 CharlestonCapitolCourthouse01|Oil|1|1
-CharlestonCapitolCourthouse01|Plastic|23|16
-CharlestonCapitolCourthouse01|Rubber|5|4
+CharlestonCapitolCourthouse01|Plastic|25|16
+CharlestonCapitolCourthouse01|Rubber|6|4
 CharlestonCapitolCourthouse01|Screw|9|8
 CharlestonCapitolCourthouse01|Silver|1|1
 CharlestonCapitolCourthouse01|Spring|12|12
-CharlestonCapitolCourthouse01|Steel|19|12
-CharlestonCapitolCourthouse01|Wood|10|9
+CharlestonCapitolCourthouse01|Steel|20|12
+CharlestonCapitolCourthouse01|Wood|11|9
 CharlestonCapitolDungeon|Acid|1|1
 CharlestonCapitolDungeon|Adhesive|2|2
-CharlestonCapitolDungeon|Aluminum|13|8
+CharlestonCapitolDungeon|Aluminum|15|8
 CharlestonCapitolDungeon|Antiseptic|3|2
 CharlestonCapitolDungeon|Asbestos|11|7
-CharlestonCapitolDungeon|Bone|35|13
+CharlestonCapitolDungeon|Bone|49|13
 CharlestonCapitolDungeon|Ceramic|29|27
 CharlestonCapitolDungeon|Circuitry|5|5
 CharlestonCapitolDungeon|Cloth|90|84
-CharlestonCapitolDungeon|Copper|10|10
+CharlestonCapitolDungeon|Copper|12|10
 CharlestonCapitolDungeon|Cork|10|7
 CharlestonCapitolDungeon|Crystal|13|5
 CharlestonCapitolDungeon|Fiberglass|8|6
-CharlestonCapitolDungeon|Gear|33|21
+CharlestonCapitolDungeon|Gear|35|21
 CharlestonCapitolDungeon|Glass|32|24
 CharlestonCapitolDungeon|Lead|8|4
 CharlestonCapitolDungeon|Leather|2|1
 CharlestonCapitolDungeon|Oil|7|5
-CharlestonCapitolDungeon|Plastic|37|28
-CharlestonCapitolDungeon|Rubber|6|5
+CharlestonCapitolDungeon|Plastic|39|28
+CharlestonCapitolDungeon|Rubber|7|5
 CharlestonCapitolDungeon|Screw|24|21
 CharlestonCapitolDungeon|Silver|4|4
 CharlestonCapitolDungeon|Spring|24|24
-CharlestonCapitolDungeon|Steel|47|31
-CharlestonCapitolDungeon|Wood|32|24
+CharlestonCapitolDungeon|Steel|53|31
+CharlestonCapitolDungeon|Wood|36|24
 CraterWarRoom01|Asbestos|13|8
 CraterWarRoom01|Ceramic|3|3
 CraterWarRoom01|Cloth|17|13
@@ -18053,11 +18225,11 @@ CraterWarRoom01|Spring|1|1
 CraterWarRoom01|Steel|2|1
 CraterWarRoom01|Wood|4|2
 CraterWatchstation01|Oil|1|1
-CraterWatchstation01|Steel|4|3
+CraterWatchstation01|Steel|6|3
 CraterWatchstation01|Wood|1|1
 CultistCave01|Adhesive|1|1
 CultistCave01|Aluminum|1|1
-CultistCave01|Bone|101|45
+CultistCave01|Bone|108|45
 CultistCave01|Ceramic|3|3
 CultistCave01|Cloth|7|7
 CultistCave01|Copper|4|3
@@ -18067,11 +18239,11 @@ CultistCave01|Glass|60|44
 CultistCave01|Lead|5|4
 CultistCave01|Oil|22|16
 CultistCave01|Plastic|3|3
-CultistCave01|Rubber|1|1
+CultistCave01|Rubber|2|1
 CultistCave01|Screw|3|3
 CultistCave01|Spring|5|5
-CultistCave01|Steel|72|45
-CultistCave01|Wood|6|5
+CultistCave01|Steel|89|45
+CultistCave01|Wood|7|5
 DaggersDen01|Acid|2|1
 DaggersDen01|Adhesive|6|2
 DaggersDen01|Aluminum|7|5
@@ -18081,17 +18253,17 @@ DaggersDen01|Circuitry|1|1
 DaggersDen01|Cloth|2|2
 DaggersDen01|Concrete|21|3
 DaggersDen01|Copper|2|2
-DaggersDen01|Fiberglass|2|2
+DaggersDen01|Fiberglass|3|3
 DaggersDen01|Gear|1|1
 DaggersDen01|Glass|23|22
 DaggersDen01|Lead|42|25
 DaggersDen01|Oil|2|2
-DaggersDen01|Plastic|4|3
+DaggersDen01|Plastic|5|3
 DaggersDen01|Rubber|2|2
 DaggersDen01|Screw|1|1
 DaggersDen01|Spring|3|3
-DaggersDen01|Steel|52|29
-DaggersDen01|Wood|7|5
+DaggersDen01|Steel|57|30
+DaggersDen01|Wood|9|5
 DaggersDen02|Circuitry|1|1
 DaggersDen02|Copper|1|1
 DaggersDen02|Fertilizer|1|1
@@ -18101,32 +18273,32 @@ DuncanDuncanRobotics01|Acid|8|4
 DuncanDuncanRobotics01|Aluminum|11|7
 DuncanDuncanRobotics01|Antiseptic|6|2
 DuncanDuncanRobotics01|Asbestos|2|2
-DuncanDuncanRobotics01|Ballistic Fiber|2|1
+DuncanDuncanRobotics01|Ballistic Fiber|3|1
 DuncanDuncanRobotics01|Bone|2|1
 DuncanDuncanRobotics01|Ceramic|12|10
 DuncanDuncanRobotics01|Circuitry|14|8
-DuncanDuncanRobotics01|Cloth|11|6
-DuncanDuncanRobotics01|Copper|22|17
+DuncanDuncanRobotics01|Cloth|13|7
+DuncanDuncanRobotics01|Copper|23|17
 DuncanDuncanRobotics01|Cork|2|1
 DuncanDuncanRobotics01|Crystal|1|1
 DuncanDuncanRobotics01|Fiberglass|12|9
-DuncanDuncanRobotics01|Gear|5|3
+DuncanDuncanRobotics01|Gear|6|3
 DuncanDuncanRobotics01|Glass|19|10
 DuncanDuncanRobotics01|Lead|21|13
 DuncanDuncanRobotics01|Leather|5|1
 DuncanDuncanRobotics01|Nuclear Material|1|1
 DuncanDuncanRobotics01|Oil|7|5
-DuncanDuncanRobotics01|Plastic|7|5
+DuncanDuncanRobotics01|Plastic|8|5
 DuncanDuncanRobotics01|Rubber|6|3
 DuncanDuncanRobotics01|Screw|6|5
 DuncanDuncanRobotics01|Silver|2|1
 DuncanDuncanRobotics01|Spring|6|6
-DuncanDuncanRobotics01|Steel|38|24
+DuncanDuncanRobotics01|Steel|43|25
 DuncanDuncanRobotics01|Wood|28|19
 DyerChemical01|Acid|2|1
 DyerChemical01|Antiseptic|3|1
 DyerChemical01|Asbestos|1|1
-DyerChemical01|Bone|3|1
+DyerChemical01|Bone|5|1
 DyerChemical01|Ceramic|1|1
 DyerChemical01|Circuitry|1|1
 DyerChemical01|Cloth|17|16
@@ -18141,35 +18313,35 @@ DyerChemical01|Plastic|4|3
 DyerChemical01|Rubber|2|1
 DyerChemical01|Screw|2|2
 DyerChemical01|Spring|4|4
-DyerChemical01|Steel|21|13
+DyerChemical01|Steel|25|13
 DyerChemical01|Wood|2|2
 EasternRegionalPen01|Acid|13|9
 EasternRegionalPen01|Adhesive|9|4
-EasternRegionalPen01|Aluminum|48|32
+EasternRegionalPen01|Aluminum|60|32
 EasternRegionalPen01|Antiseptic|10|5
 EasternRegionalPen01|Asbestos|20|13
-EasternRegionalPen01|Bone|27|11
+EasternRegionalPen01|Bone|31|11
 EasternRegionalPen01|Ceramic|34|33
 EasternRegionalPen01|Circuitry|9|9
 EasternRegionalPen01|Cloth|47|45
 EasternRegionalPen01|Concrete|24|4
-EasternRegionalPen01|Copper|26|25
-EasternRegionalPen01|Crystal|2|2
+EasternRegionalPen01|Copper|27|25
+EasternRegionalPen01|Crystal|3|2
 EasternRegionalPen01|Fertilizer|8|2
 EasternRegionalPen01|Fiber Optics|1|1
 EasternRegionalPen01|Fiberglass|14|13
-EasternRegionalPen01|Gear|16|14
-EasternRegionalPen01|Glass|128|109
+EasternRegionalPen01|Gear|17|14
+EasternRegionalPen01|Glass|129|109
 EasternRegionalPen01|Lead|57|38
 EasternRegionalPen01|Leather|6|3
 EasternRegionalPen01|Nuclear Material|1|1
 EasternRegionalPen01|Oil|23|15
-EasternRegionalPen01|Plastic|79|53
-EasternRegionalPen01|Rubber|40|30
+EasternRegionalPen01|Plastic|92|53
+EasternRegionalPen01|Rubber|43|30
 EasternRegionalPen01|Screw|17|17
 EasternRegionalPen01|Spring|20|20
-EasternRegionalPen01|Steel|186|115
-EasternRegionalPen01|Wood|91|62
+EasternRegionalPen01|Steel|208|116
+EasternRegionalPen01|Wood|99|62
 EmmettMountainDisposalSite01|Acid|1|1
 EmmettMountainDisposalSite01|Adhesive|7|2
 EmmettMountainDisposalSite01|Aluminum|2|1
@@ -18183,43 +18355,43 @@ EmmettMountainDisposalSite01|Glass|2|1
 EmmettMountainDisposalSite01|Lead|4|3
 EmmettMountainDisposalSite01|Oil|5|4
 EmmettMountainDisposalSite01|Plastic|1|1
-EmmettMountainDisposalSite01|Rubber|5|3
+EmmettMountainDisposalSite01|Rubber|6|3
 EmmettMountainDisposalSite01|Screw|3|3
 EmmettMountainDisposalSite01|Spring|2|2
-EmmettMountainDisposalSite01|Steel|22|14
-EmmettMountainDisposalSite01|Wood|6|6
+EmmettMountainDisposalSite01|Steel|30|14
+EmmettMountainDisposalSite01|Wood|8|6
 EnclaveResearchFacility01|Acid|22|12
 EnclaveResearchFacility01|Adhesive|20|9
-EnclaveResearchFacility01|Aluminum|82|66
+EnclaveResearchFacility01|Aluminum|130|66
 EnclaveResearchFacility01|Antiseptic|19|12
 EnclaveResearchFacility01|Asbestos|75|55
-EnclaveResearchFacility01|Ballistic Fiber|4|2
+EnclaveResearchFacility01|Ballistic Fiber|6|2
 EnclaveResearchFacility01|Bone|4|4
 EnclaveResearchFacility01|Ceramic|154|143
 EnclaveResearchFacility01|Circuitry|31|25
-EnclaveResearchFacility01|Cloth|96|82
+EnclaveResearchFacility01|Cloth|100|84
 EnclaveResearchFacility01|Concrete|3|1
-EnclaveResearchFacility01|Copper|46|42
+EnclaveResearchFacility01|Copper|51|42
 EnclaveResearchFacility01|Cork|6|3
-EnclaveResearchFacility01|Crystal|10|10
+EnclaveResearchFacility01|Crystal|20|10
 EnclaveResearchFacility01|Fiber Optics|11|11
-EnclaveResearchFacility01|Fiberglass|23|19
-EnclaveResearchFacility01|Gear|34|29
-EnclaveResearchFacility01|Glass|265|214
+EnclaveResearchFacility01|Fiberglass|24|20
+EnclaveResearchFacility01|Gear|39|29
+EnclaveResearchFacility01|Glass|276|215
 EnclaveResearchFacility01|Gold|3|3
 EnclaveResearchFacility01|Lead|84|52
 EnclaveResearchFacility01|Leather|16|8
 EnclaveResearchFacility01|Nuclear Material|10|8
 EnclaveResearchFacility01|Oil|23|19
-EnclaveResearchFacility01|Plastic|297|183
-EnclaveResearchFacility01|Rubber|93|73
+EnclaveResearchFacility01|Plastic|382|183
+EnclaveResearchFacility01|Rubber|94|73
 EnclaveResearchFacility01|Screw|32|29
 EnclaveResearchFacility01|Spring|45|44
-EnclaveResearchFacility01|Steel|222|142
-EnclaveResearchFacility01|Wood|168|123
+EnclaveResearchFacility01|Steel|278|155
+EnclaveResearchFacility01|Wood|221|123
 FortAtlas01|Acid|2|1
 FortAtlas01|Adhesive|4|4
-FortAtlas01|Aluminum|16|10
+FortAtlas01|Aluminum|18|10
 FortAtlas01|Asbestos|16|11
 FortAtlas01|Bone|5|3
 FortAtlas01|Ceramic|68|58
@@ -18232,15 +18404,15 @@ FortAtlas01|Glass|146|124
 FortAtlas01|Lead|60|24
 FortAtlas01|Leather|5|2
 FortAtlas01|Oil|13|8
-FortAtlas01|Plastic|62|36
+FortAtlas01|Plastic|72|36
 FortAtlas01|Rubber|9|7
 FortAtlas01|Silver|5|5
 FortAtlas01|Spring|5|5
-FortAtlas01|Steel|161|105
-FortAtlas01|Wood|40|26
+FortAtlas01|Steel|193|105
+FortAtlas01|Wood|44|26
 FortAtlasDungeon01|Acid|12|6
 FortAtlasDungeon01|Adhesive|7|7
-FortAtlasDungeon01|Aluminum|28|20
+FortAtlasDungeon01|Aluminum|30|20
 FortAtlasDungeon01|Antiseptic|7|3
 FortAtlasDungeon01|Asbestos|24|16
 FortAtlasDungeon01|Bone|8|4
@@ -18248,40 +18420,40 @@ FortAtlasDungeon01|Ceramic|20|19
 FortAtlasDungeon01|Cloth|37|29
 FortAtlasDungeon01|Concrete|63|9
 FortAtlasDungeon01|Copper|14|11
-FortAtlasDungeon01|Crystal|1|1
+FortAtlasDungeon01|Crystal|2|1
 FortAtlasDungeon01|Fiber Optics|1|1
 FortAtlasDungeon01|Fiberglass|20|16
 FortAtlasDungeon01|Gear|16|11
-FortAtlasDungeon01|Glass|81|62
+FortAtlasDungeon01|Glass|82|62
 FortAtlasDungeon01|Gold|3|3
 FortAtlasDungeon01|Lead|38|9
 FortAtlasDungeon01|Nuclear Material|1|1
 FortAtlasDungeon01|Oil|96|63
-FortAtlasDungeon01|Plastic|30|20
+FortAtlasDungeon01|Plastic|31|20
 FortAtlasDungeon01|Rubber|17|10
 FortAtlasDungeon01|Screw|2|2
 FortAtlasDungeon01|Silver|1|1
 FortAtlasDungeon01|Spring|4|4
-FortAtlasDungeon01|Steel|240|134
-FortAtlasDungeon01|Wood|21|16
+FortAtlasDungeon01|Steel|266|135
+FortAtlasDungeon01|Wood|22|16
 FoundationInt01|Acid|7|5
-FoundationInt01|Aluminum|23|14
+FoundationInt01|Aluminum|25|14
 FoundationInt01|Asbestos|9|6
 FoundationInt01|Ceramic|39|36
 FoundationInt01|Cloth|13|11
 FoundationInt01|Copper|12|11
 FoundationInt01|Fertilizer|12|3
-FoundationInt01|Fiberglass|4|3
+FoundationInt01|Fiberglass|5|4
 FoundationInt01|Gear|1|1
 FoundationInt01|Glass|89|80
 FoundationInt01|Lead|11|10
 FoundationInt01|Oil|27|17
-FoundationInt01|Plastic|29|21
+FoundationInt01|Plastic|30|21
 FoundationInt01|Rubber|11|9
 FoundationInt01|Screw|1|1
 FoundationInt01|Spring|3|3
-FoundationInt01|Steel|61|44
-FoundationInt01|Wood|39|27
+FoundationInt01|Steel|80|45
+FoundationInt01|Wood|52|27
 FoundationSupplyRoom01|Aluminum|10|6
 FoundationSupplyRoom01|Antiseptic|2|1
 FoundationSupplyRoom01|Asbestos|2|1
@@ -18299,12 +18471,12 @@ FoundationSupplyRoom01|Plastic|7|4
 FoundationSupplyRoom01|Screw|3|2
 FoundationSupplyRoom01|Spring|3|3
 FoundationSupplyRoom01|Steel|6|4
-FoundationSupplyRoom01|Wood|10|7
+FoundationSupplyRoom01|Wood|12|7
 FraternityHouse01|Acid|1|1
-FraternityHouse01|Aluminum|2|1
+FraternityHouse01|Aluminum|3|1
 FraternityHouse01|Antiseptic|2|1
 FraternityHouse01|Asbestos|5|4
-FraternityHouse01|Bone|1|1
+FraternityHouse01|Bone|2|1
 FraternityHouse01|Ceramic|12|10
 FraternityHouse01|Circuitry|1|1
 FraternityHouse01|Cloth|32|28
@@ -18318,12 +18490,12 @@ FraternityHouse01|Lead|10|2
 FraternityHouse01|Leather|2|1
 FraternityHouse01|Oil|2|2
 FraternityHouse01|Plastic|29|19
-FraternityHouse01|Rubber|11|7
+FraternityHouse01|Rubber|12|7
 FraternityHouse01|Screw|3|3
 FraternityHouse01|Spring|5|5
-FraternityHouse01|Steel|32|20
-FraternityHouse01|Wood|14|9
-FraternityHouse02|Aluminum|4|3
+FraternityHouse01|Steel|39|20
+FraternityHouse01|Wood|17|9
+FraternityHouse02|Aluminum|5|3
 FraternityHouse02|Antiseptic|4|3
 FraternityHouse02|Asbestos|7|7
 FraternityHouse02|Bone|1|1
@@ -18331,32 +18503,32 @@ FraternityHouse02|Ceramic|21|14
 FraternityHouse02|Circuitry|1|1
 FraternityHouse02|Cloth|17|14
 FraternityHouse02|Copper|14|13
-FraternityHouse02|Crystal|1|1
+FraternityHouse02|Crystal|2|1
 FraternityHouse02|Fiber Optics|1|1
 FraternityHouse02|Fiberglass|1|1
 FraternityHouse02|Gear|4|4
-FraternityHouse02|Glass|49|30
+FraternityHouse02|Glass|50|30
 FraternityHouse02|Gold|1|1
 FraternityHouse02|Lead|12|10
 FraternityHouse02|Leather|3|2
 FraternityHouse02|Nuclear Material|2|2
 FraternityHouse02|Oil|5|5
 FraternityHouse02|Plastic|25|18
-FraternityHouse02|Rubber|6|4
+FraternityHouse02|Rubber|7|4
 FraternityHouse02|Screw|5|4
 FraternityHouse02|Silver|2|2
 FraternityHouse02|Spring|2|2
-FraternityHouse02|Steel|97|76
-FraternityHouse02|Wood|36|19
+FraternityHouse02|Steel|112|77
+FraternityHouse02|Wood|39|19
 FreeStatesBunker01|Acid|5|3
 FreeStatesBunker01|Adhesive|1|1
-FreeStatesBunker01|Aluminum|14|9
+FreeStatesBunker01|Aluminum|16|9
 FreeStatesBunker01|Antiseptic|11|5
 FreeStatesBunker01|Asbestos|8|6
-FreeStatesBunker01|Ballistic Fiber|2|1
+FreeStatesBunker01|Ballistic Fiber|3|1
 FreeStatesBunker01|Ceramic|22|20
 FreeStatesBunker01|Circuitry|13|4
-FreeStatesBunker01|Cloth|45|31
+FreeStatesBunker01|Cloth|47|32
 FreeStatesBunker01|Concrete|7|1
 FreeStatesBunker01|Copper|17|14
 FreeStatesBunker01|Cork|4|2
@@ -18368,13 +18540,13 @@ FreeStatesBunker01|Leather|2|1
 FreeStatesBunker01|Nuclear Material|1|1
 FreeStatesBunker01|Oil|19|11
 FreeStatesBunker01|Plastic|27|19
-FreeStatesBunker01|Rubber|8|7
+FreeStatesBunker01|Rubber|9|7
 FreeStatesBunker01|Screw|8|8
 FreeStatesBunker01|Spring|7|7
-FreeStatesBunker01|Steel|100|58
-FreeStatesBunker01|Wood|52|34
-FreeStatesBunker02|Aluminum|3|2
-FreeStatesBunker02|Bone|20|7
+FreeStatesBunker01|Steel|107|59
+FreeStatesBunker01|Wood|55|34
+FreeStatesBunker02|Aluminum|4|2
+FreeStatesBunker02|Bone|24|7
 FreeStatesBunker02|Ceramic|10|10
 FreeStatesBunker02|Cloth|6|3
 FreeStatesBunker02|Copper|1|1
@@ -18390,7 +18562,7 @@ FreeStatesBunker02|Steel|23|9
 FreeStatesBunker02|Wood|11|6
 FreeStatesBunker03|Acid|5|3
 FreeStatesBunker03|Adhesive|2|1
-FreeStatesBunker03|Aluminum|21|18
+FreeStatesBunker03|Aluminum|29|18
 FreeStatesBunker03|Antiseptic|5|2
 FreeStatesBunker03|Asbestos|10|7
 FreeStatesBunker03|Ceramic|20|19
@@ -18398,20 +18570,20 @@ FreeStatesBunker03|Circuitry|7|3
 FreeStatesBunker03|Cloth|26|16
 FreeStatesBunker03|Copper|7|5
 FreeStatesBunker03|Cork|2|1
-FreeStatesBunker03|Crystal|6|6
+FreeStatesBunker03|Crystal|12|6
 FreeStatesBunker03|Fiber Optics|6|6
 FreeStatesBunker03|Fiberglass|7|4
 FreeStatesBunker03|Gear|10|10
-FreeStatesBunker03|Glass|44|44
+FreeStatesBunker03|Glass|50|44
 FreeStatesBunker03|Lead|48|38
 FreeStatesBunker03|Leather|2|1
 FreeStatesBunker03|Oil|9|8
-FreeStatesBunker03|Plastic|23|15
-FreeStatesBunker03|Rubber|11|9
+FreeStatesBunker03|Plastic|24|15
+FreeStatesBunker03|Rubber|12|9
 FreeStatesBunker03|Screw|9|9
 FreeStatesBunker03|Spring|6|6
-FreeStatesBunker03|Steel|83|48
-FreeStatesBunker03|Wood|57|33
+FreeStatesBunker03|Steel|110|54
+FreeStatesBunker03|Wood|63|33
 FreeStatesBunker04|Acid|5|3
 FreeStatesBunker04|Adhesive|4|3
 FreeStatesBunker04|Aluminum|12|12
@@ -18429,15 +18601,15 @@ FreeStatesBunker04|Glass|59|54
 FreeStatesBunker04|Lead|33|29
 FreeStatesBunker04|Oil|13|8
 FreeStatesBunker04|Plastic|14|9
-FreeStatesBunker04|Rubber|5|4
+FreeStatesBunker04|Rubber|6|4
 FreeStatesBunker04|Screw|5|5
 FreeStatesBunker04|Spring|2|2
-FreeStatesBunker04|Steel|77|40
-FreeStatesBunker04|Wood|43|24
+FreeStatesBunker04|Steel|80|40
+FreeStatesBunker04|Wood|46|24
 FreeStatesBunker06|Acid|2|2
 FreeStatesBunker06|Antiseptic|4|2
 FreeStatesBunker06|Asbestos|3|2
-FreeStatesBunker06|Bone|11|4
+FreeStatesBunker06|Bone|14|4
 FreeStatesBunker06|Ceramic|13|9
 FreeStatesBunker06|Circuitry|4|2
 FreeStatesBunker06|Cloth|12|12
@@ -18450,35 +18622,92 @@ FreeStatesBunker06|Leather|2|1
 FreeStatesBunker06|Oil|3|2
 FreeStatesBunker06|Plastic|10|6
 FreeStatesBunker06|Screw|3|3
-FreeStatesBunker06|Steel|38|25
-FreeStatesBunker06|Wood|8|6
+FreeStatesBunker06|Steel|42|25
+FreeStatesBunker06|Wood|10|6
 FreeStatesBunker07|Acid|4|3
 FreeStatesBunker07|Adhesive|8|4
-FreeStatesBunker07|Aluminum|3|3
+FreeStatesBunker07|Aluminum|4|3
 FreeStatesBunker07|Antiseptic|7|4
 FreeStatesBunker07|Asbestos|20|14
 FreeStatesBunker07|Ceramic|11|10
 FreeStatesBunker07|Circuitry|1|1
 FreeStatesBunker07|Cloth|20|16
 FreeStatesBunker07|Concrete|21|3
-FreeStatesBunker07|Copper|7|7
-FreeStatesBunker07|Crystal|2|2
+FreeStatesBunker07|Copper|8|7
+FreeStatesBunker07|Crystal|3|2
 FreeStatesBunker07|Fertilizer|4|1
 FreeStatesBunker07|Fiber Optics|1|1
 FreeStatesBunker07|Fiberglass|5|3
-FreeStatesBunker07|Gear|8|8
-FreeStatesBunker07|Glass|33|27
+FreeStatesBunker07|Gear|9|8
+FreeStatesBunker07|Glass|34|27
 FreeStatesBunker07|Gold|1|1
 FreeStatesBunker07|Lead|12|7
 FreeStatesBunker07|Leather|1|1
 FreeStatesBunker07|Nuclear Material|1|1
 FreeStatesBunker07|Oil|20|14
-FreeStatesBunker07|Plastic|30|19
-FreeStatesBunker07|Rubber|9|6
+FreeStatesBunker07|Plastic|31|19
+FreeStatesBunker07|Rubber|10|6
 FreeStatesBunker07|Screw|7|7
 FreeStatesBunker07|Spring|4|4
-FreeStatesBunker07|Steel|83|52
-FreeStatesBunker07|Wood|24|16
+FreeStatesBunker07|Steel|108|53
+FreeStatesBunker07|Wood|28|16
+GHLCamp01|Acid|9|8
+GHLCamp01|Adhesive|12|5
+GHLCamp01|Aluminum|23|12
+GHLCamp01|Antiseptic|9|5
+GHLCamp01|Asbestos|15|10
+GHLCamp01|Ballistic Fiber|4|2
+GHLCamp01|Bone|1|1
+GHLCamp01|Ceramic|29|24
+GHLCamp01|Circuitry|4|3
+GHLCamp01|Cloth|22|22
+GHLCamp01|Copper|7|7
+GHLCamp01|Cork|3|2
+GHLCamp01|Crystal|3|1
+GHLCamp01|Fertilizer|14|5
+GHLCamp01|Fiber Optics|1|1
+GHLCamp01|Fiberglass|3|3
+GHLCamp01|Gear|9|8
+GHLCamp01|Glass|42|37
+GHLCamp01|Gold|1|1
+GHLCamp01|Lead|18|12
+GHLCamp01|Leather|1|1
+GHLCamp01|Nuclear Material|4|4
+GHLCamp01|Oil|14|8
+GHLCamp01|Plastic|44|30
+GHLCamp01|Rubber|13|10
+GHLCamp01|Screw|12|10
+GHLCamp01|Silver|1|1
+GHLCamp01|Spring|10|10
+GHLCamp01|Steel|110|58
+GHLCamp01|Wood|44|25
+GHLCamp02|Aluminum|5|3
+GHLCamp02|Asbestos|2|1
+GHLCamp02|Ceramic|1|1
+GHLCamp02|Circuitry|2|2
+GHLCamp02|Copper|7|5
+GHLCamp02|Crystal|2|1
+GHLCamp02|Fiber Optics|1|1
+GHLCamp02|Fiberglass|1|1
+GHLCamp02|Gear|4|3
+GHLCamp02|Glass|18|16
+GHLCamp02|Lead|1|1
+GHLCamp02|Oil|5|3
+GHLCamp02|Plastic|5|2
+GHLCamp02|Rubber|3|2
+GHLCamp02|Screw|3|3
+GHLCamp02|Steel|18|8
+GHLCamp02|Wood|12|4
+GHLEmmettMnt02|Adhesive|5|1
+GHLEmmettMnt02|Asbestos|1|1
+GHLEmmettMnt02|Ceramic|1|1
+GHLEmmettMnt02|Gear|1|1
+GHLEmmettMnt02|Lead|10|5
+GHLEmmettMnt02|Oil|4|3
+GHLEmmettMnt02|Plastic|1|1
+GHLEmmettMnt02|Rubber|2|1
+GHLEmmettMnt02|Steel|30|14
+GHLEmmettMnt02|Wood|8|4
 GarrahanMiningHQ01|Acid|1|1
 GarrahanMiningHQ01|Adhesive|1|1
 GarrahanMiningHQ01|Aluminum|3|2
@@ -18490,22 +18719,22 @@ GarrahanMiningHQ01|Cloth|12|11
 GarrahanMiningHQ01|Concrete|35|5
 GarrahanMiningHQ01|Copper|15|11
 GarrahanMiningHQ01|Cork|2|2
-GarrahanMiningHQ01|Crystal|7|3
+GarrahanMiningHQ01|Crystal|8|3
 GarrahanMiningHQ01|Fiber Optics|1|1
 GarrahanMiningHQ01|Fiberglass|1|1
 GarrahanMiningHQ01|Gear|4|4
-GarrahanMiningHQ01|Glass|48|40
+GarrahanMiningHQ01|Glass|49|40
 GarrahanMiningHQ01|Gold|2|2
 GarrahanMiningHQ01|Lead|22|18
 GarrahanMiningHQ01|Leather|15|4
 GarrahanMiningHQ01|Oil|15|12
-GarrahanMiningHQ01|Plastic|32|19
+GarrahanMiningHQ01|Plastic|38|19
 GarrahanMiningHQ01|Rubber|3|2
 GarrahanMiningHQ01|Screw|7|6
 GarrahanMiningHQ01|Silver|1|1
 GarrahanMiningHQ01|Spring|14|14
-GarrahanMiningHQ01|Steel|83|43
-GarrahanMiningHQ01|Wood|18|16
+GarrahanMiningHQ01|Steel|87|44
+GarrahanMiningHQ01|Wood|22|16
 GarrahanMiningHQDungeon|Acid|1|1
 GarrahanMiningHQDungeon|Adhesive|1|1
 GarrahanMiningHQDungeon|Aluminum|3|2
@@ -18516,22 +18745,22 @@ GarrahanMiningHQDungeon|Circuitry|1|1
 GarrahanMiningHQDungeon|Cloth|8|7
 GarrahanMiningHQDungeon|Copper|12|9
 GarrahanMiningHQDungeon|Cork|2|2
-GarrahanMiningHQDungeon|Crystal|7|3
+GarrahanMiningHQDungeon|Crystal|8|3
 GarrahanMiningHQDungeon|Fiber Optics|1|1
 GarrahanMiningHQDungeon|Fiberglass|1|1
 GarrahanMiningHQDungeon|Gear|4|4
-GarrahanMiningHQDungeon|Glass|40|33
+GarrahanMiningHQDungeon|Glass|41|33
 GarrahanMiningHQDungeon|Gold|2|2
 GarrahanMiningHQDungeon|Lead|16|12
 GarrahanMiningHQDungeon|Leather|11|3
 GarrahanMiningHQDungeon|Oil|13|11
-GarrahanMiningHQDungeon|Plastic|25|15
+GarrahanMiningHQDungeon|Plastic|28|15
 GarrahanMiningHQDungeon|Rubber|2|1
 GarrahanMiningHQDungeon|Screw|7|6
 GarrahanMiningHQDungeon|Silver|1|1
 GarrahanMiningHQDungeon|Spring|13|13
-GarrahanMiningHQDungeon|Steel|65|33
-GarrahanMiningHQDungeon|Wood|17|15
+GarrahanMiningHQDungeon|Steel|69|34
+GarrahanMiningHQDungeon|Wood|21|15
 GauleyMine01|Acid|14|8
 GauleyMine01|Adhesive|15|6
 GauleyMine01|Aluminum|5|4
@@ -18549,61 +18778,61 @@ GauleyMine01|Glass|27|19
 GauleyMine01|Lead|37|18
 GauleyMine01|Leather|2|1
 GauleyMine01|Oil|31|22
-GauleyMine01|Plastic|12|10
-GauleyMine01|Rubber|8|6
-GauleyMine01|Steel|119|70
-GauleyMine01|Wood|16|13
+GauleyMine01|Plastic|13|10
+GauleyMine01|Rubber|12|6
+GauleyMine01|Steel|138|70
+GauleyMine01|Wood|24|13
 GlassedCavern01|Acid|6|3
 GlassedCavern01|Adhesive|5|1
-GlassedCavern01|Aluminum|15|13
+GlassedCavern01|Aluminum|17|13
 GlassedCavern01|Antiseptic|4|2
 GlassedCavern01|Asbestos|11|11
-GlassedCavern01|Bone|21|7
+GlassedCavern01|Bone|26|7
 GlassedCavern01|Ceramic|4|4
 GlassedCavern01|Circuitry|3|2
 GlassedCavern01|Cloth|20|20
 GlassedCavern01|Concrete|45|7
-GlassedCavern01|Copper|28|19
+GlassedCavern01|Copper|29|19
 GlassedCavern01|Fiberglass|9|8
-GlassedCavern01|Gear|2|2
+GlassedCavern01|Gear|3|2
 GlassedCavern01|Glass|71|51
 GlassedCavern01|Lead|23|13
 GlassedCavern01|Leather|8|4
 GlassedCavern01|Nuclear Material|1|1
 GlassedCavern01|Oil|51|31
-GlassedCavern01|Plastic|14|11
-GlassedCavern01|Rubber|17|10
+GlassedCavern01|Plastic|15|11
+GlassedCavern01|Rubber|18|10
 GlassedCavern01|Screw|5|5
 GlassedCavern01|Spring|9|9
-GlassedCavern01|Steel|112|63
-GlassedCavern01|Wood|18|15
+GlassedCavern01|Steel|122|63
+GlassedCavern01|Wood|20|15
 GlassedCavernDungeon|Acid|6|3
 GlassedCavernDungeon|Adhesive|5|1
-GlassedCavernDungeon|Aluminum|15|13
+GlassedCavernDungeon|Aluminum|17|13
 GlassedCavernDungeon|Antiseptic|4|2
 GlassedCavernDungeon|Asbestos|11|11
-GlassedCavernDungeon|Bone|17|5
+GlassedCavernDungeon|Bone|21|5
 GlassedCavernDungeon|Ceramic|4|4
 GlassedCavernDungeon|Circuitry|1|1
 GlassedCavernDungeon|Cloth|19|19
 GlassedCavernDungeon|Concrete|45|7
-GlassedCavernDungeon|Copper|50|29
+GlassedCavernDungeon|Copper|51|29
 GlassedCavernDungeon|Fiberglass|9|8
-GlassedCavernDungeon|Gear|2|2
+GlassedCavernDungeon|Gear|3|2
 GlassedCavernDungeon|Glass|95|63
 GlassedCavernDungeon|Lead|21|11
 GlassedCavernDungeon|Leather|6|3
 GlassedCavernDungeon|Nuclear Material|1|1
 GlassedCavernDungeon|Oil|50|30
-GlassedCavernDungeon|Plastic|14|11
+GlassedCavernDungeon|Plastic|15|11
 GlassedCavernDungeon|Rubber|16|9
 GlassedCavernDungeon|Screw|5|5
 GlassedCavernDungeon|Spring|9|9
-GlassedCavernDungeon|Steel|102|57
-GlassedCavernDungeon|Wood|17|14
+GlassedCavernDungeon|Steel|112|57
+GlassedCavernDungeon|Wood|18|14
 GraftonPawnShop01|Acid|12|7
 GraftonPawnShop01|Adhesive|5|5
-GraftonPawnShop01|Aluminum|4|4
+GraftonPawnShop01|Aluminum|5|4
 GraftonPawnShop01|Antiseptic|10|5
 GraftonPawnShop01|Asbestos|14|11
 GraftonPawnShop01|Bone|10|4
@@ -18612,24 +18841,24 @@ GraftonPawnShop01|Circuitry|1|1
 GraftonPawnShop01|Cloth|43|43
 GraftonPawnShop01|Concrete|7|1
 GraftonPawnShop01|Copper|3|3
-GraftonPawnShop01|Crystal|1|1
+GraftonPawnShop01|Crystal|2|1
 GraftonPawnShop01|Fiber Optics|1|1
-GraftonPawnShop01|Fiberglass|6|5
+GraftonPawnShop01|Fiberglass|7|6
 GraftonPawnShop01|Gear|7|6
-GraftonPawnShop01|Glass|27|24
+GraftonPawnShop01|Glass|28|24
 GraftonPawnShop01|Lead|57|26
 GraftonPawnShop01|Nuclear Material|1|1
 GraftonPawnShop01|Oil|14|10
-GraftonPawnShop01|Plastic|28|19
-GraftonPawnShop01|Rubber|11|8
+GraftonPawnShop01|Plastic|29|19
+GraftonPawnShop01|Rubber|12|8
 GraftonPawnShop01|Screw|3|3
 GraftonPawnShop01|Silver|2|2
 GraftonPawnShop01|Spring|8|8
-GraftonPawnShop01|Steel|96|52
-GraftonPawnShop01|Wood|28|23
+GraftonPawnShop01|Steel|110|54
+GraftonPawnShop01|Wood|37|23
 GraftonSteelUnderground01|Acid|24|17
 GraftonSteelUnderground01|Adhesive|18|6
-GraftonSteelUnderground01|Aluminum|34|18
+GraftonSteelUnderground01|Aluminum|40|18
 GraftonSteelUnderground01|Antiseptic|20|10
 GraftonSteelUnderground01|Asbestos|31|23
 GraftonSteelUnderground01|Ceramic|32|29
@@ -18637,22 +18866,22 @@ GraftonSteelUnderground01|Circuitry|23|17
 GraftonSteelUnderground01|Cloth|40|39
 GraftonSteelUnderground01|Concrete|63|9
 GraftonSteelUnderground01|Copper|31|30
-GraftonSteelUnderground01|Crystal|2|2
+GraftonSteelUnderground01|Crystal|4|2
 GraftonSteelUnderground01|Fiber Optics|2|2
 GraftonSteelUnderground01|Fiberglass|10|10
 GraftonSteelUnderground01|Gear|15|15
-GraftonSteelUnderground01|Glass|57|47
+GraftonSteelUnderground01|Glass|59|47
 GraftonSteelUnderground01|Lead|65|28
 GraftonSteelUnderground01|Oil|42|27
 GraftonSteelUnderground01|Plastic|35|25
 GraftonSteelUnderground01|Rubber|49|32
 GraftonSteelUnderground01|Screw|10|10
 GraftonSteelUnderground01|Spring|19|19
-GraftonSteelUnderground01|Steel|176|112
-GraftonSteelUnderground01|Wood|41|35
+GraftonSteelUnderground01|Steel|224|114
+GraftonSteelUnderground01|Wood|49|35
 HarpersFerryDungeon01|Acid|41|24
 HarpersFerryDungeon01|Adhesive|17|8
-HarpersFerryDungeon01|Aluminum|41|23
+HarpersFerryDungeon01|Aluminum|44|23
 HarpersFerryDungeon01|Antiseptic|18|7
 HarpersFerryDungeon01|Asbestos|30|21
 HarpersFerryDungeon01|Ceramic|37|37
@@ -18671,16 +18900,16 @@ HarpersFerryDungeon01|Lead|68|34
 HarpersFerryDungeon01|Leather|8|4
 HarpersFerryDungeon01|Oil|73|54
 HarpersFerryDungeon01|Plastic|52|36
-HarpersFerryDungeon01|Rubber|47|32
+HarpersFerryDungeon01|Rubber|51|32
 HarpersFerryDungeon01|Screw|13|13
 HarpersFerryDungeon01|Spring|14|14
-HarpersFerryDungeon01|Steel|268|174
-HarpersFerryDungeon01|Wood|62|51
+HarpersFerryDungeon01|Steel|352|174
+HarpersFerryDungeon01|Wood|87|51
 HornwrightHQ01|Acid|3|2
 HornwrightHQ01|Adhesive|7|2
 HornwrightHQ01|Antiseptic|2|1
 HornwrightHQ01|Asbestos|4|3
-HornwrightHQ01|Bone|47|13
+HornwrightHQ01|Bone|51|13
 HornwrightHQ01|Ceramic|9|9
 HornwrightHQ01|Circuitry|6|5
 HornwrightHQ01|Cloth|3|3
@@ -18694,8 +18923,8 @@ HornwrightHQ01|Plastic|4|3
 HornwrightHQ01|Rubber|2|1
 HornwrightHQ01|Screw|8|8
 HornwrightHQ01|Spring|4|4
-HornwrightHQ01|Steel|33|20
-HornwrightHQ01|Wood|18|12
+HornwrightHQ01|Steel|36|20
+HornwrightHQ01|Wood|20|12
 HornwrightSafeRoom01|Aluminum|2|1
 HornwrightSafeRoom01|Asbestos|2|1
 HornwrightSafeRoom01|Ceramic|3|3
@@ -18709,10 +18938,10 @@ HornwrightSafeRoom01|Lead|2|1
 HornwrightSafeRoom01|Plastic|3|2
 HornwrightSafeRoom01|Rubber|1|1
 HornwrightSafeRoom01|Screw|1|1
-HornwrightSafeRoom01|Steel|7|4
-HornwrightSafeRoom01|Wood|1|1
+HornwrightSafeRoom01|Steel|9|4
+HornwrightSafeRoom01|Wood|2|1
 KerwoodMine01|Acid|4|2
-KerwoodMine01|Aluminum|10|5
+KerwoodMine01|Aluminum|11|5
 KerwoodMine01|Copper|2|1
 KerwoodMine01|Glass|18|10
 KerwoodMine01|Lead|2|1
@@ -18720,10 +18949,10 @@ KerwoodMine01|Oil|21|12
 KerwoodMine01|Plastic|4|3
 KerwoodMine01|Screw|1|1
 KerwoodMine01|Spring|2|2
-KerwoodMine01|Steel|32|13
-KerwoodMine01|Wood|4|3
+KerwoodMine01|Steel|34|13
+KerwoodMine01|Wood|6|3
 LewisandSonsFarmingSupply01|Acid|4|3
-LewisandSonsFarmingSupply01|Aluminum|9|4
+LewisandSonsFarmingSupply01|Aluminum|11|4
 LewisandSonsFarmingSupply01|Antiseptic|3|2
 LewisandSonsFarmingSupply01|Asbestos|4|3
 LewisandSonsFarmingSupply01|Bone|1|1
@@ -18742,8 +18971,8 @@ LewisandSonsFarmingSupply01|Oil|3|3
 LewisandSonsFarmingSupply01|Plastic|13|10
 LewisandSonsFarmingSupply01|Rubber|1|1
 LewisandSonsFarmingSupply01|Screw|1|1
-LewisandSonsFarmingSupply01|Steel|51|38
-LewisandSonsFarmingSupply01|Wood|23|14
+LewisandSonsFarmingSupply01|Steel|74|38
+LewisandSonsFarmingSupply01|Wood|26|14
 LittleRobsHideout01|Black Titanium|2|2
 LittleRobsHideout01|Circuitry|4|2
 LittleRobsHideout01|Cloth|2|2
@@ -18753,7 +18982,7 @@ LittleRobsHideout01|Lead|6|2
 LittleRobsHideout01|Leather|4|2
 LittleRobsHideout01|Oil|7|4
 LittleRobsHideout01|Screw|2|2
-LittleRobsHideout01|Steel|19|12
+LittleRobsHideout01|Steel|25|12
 LittleRobsHideout01|Wood|5|3
 LousMine01|Acid|3|2
 LousMine01|Adhesive|5|2
@@ -18766,19 +18995,19 @@ LousMine01|Gear|1|1
 LousMine01|Glass|5|4
 LousMine01|Lead|6|2
 LousMine01|Oil|7|4
-LousMine01|Plastic|10|7
+LousMine01|Plastic|11|7
 LousMine01|Screw|1|1
-LousMine01|Steel|13|10
+LousMine01|Steel|17|10
 LousMine01|Wood|2|2
 MILEBlueRidgeHQ|Acid|3|3
 MILEBlueRidgeHQ|Adhesive|38|9
 MILEBlueRidgeHQ|Aluminum|13|9
 MILEBlueRidgeHQ|Antiseptic|13|6
 MILEBlueRidgeHQ|Asbestos|4|2
-MILEBlueRidgeHQ|Ballistic Fiber|8|4
+MILEBlueRidgeHQ|Ballistic Fiber|10|4
 MILEBlueRidgeHQ|Ceramic|41|38
 MILEBlueRidgeHQ|Circuitry|2|2
-MILEBlueRidgeHQ|Cloth|33|26
+MILEBlueRidgeHQ|Cloth|37|28
 MILEBlueRidgeHQ|Concrete|14|2
 MILEBlueRidgeHQ|Copper|14|13
 MILEBlueRidgeHQ|Cork|4|2
@@ -18797,10 +19026,10 @@ MILEBlueRidgeHQ|Spring|7|7
 MILEBlueRidgeHQ|Steel|99|55
 MILEBlueRidgeHQ|Wood|25|20
 MTR08LodeBaring01|Acid|3|2
-MTR08LodeBaring01|Aluminum|7|5
+MTR08LodeBaring01|Aluminum|8|5
 MTR08LodeBaring01|Antiseptic|2|1
 MTR08LodeBaring01|Asbestos|3|2
-MTR08LodeBaring01|Bone|8|4
+MTR08LodeBaring01|Bone|10|4
 MTR08LodeBaring01|Ceramic|3|3
 MTR08LodeBaring01|Cloth|2|2
 MTR08LodeBaring01|Concrete|7|1
@@ -18827,7 +19056,7 @@ MTR08LodeBaring02|Plastic|5|4
 MTR08LodeBaring02|Rubber|2|1
 MTR08LodeBaring02|Screw|2|1
 MTR08LodeBaring02|Spring|1|1
-MTR08LodeBaring02|Steel|34|33
+MTR08LodeBaring02|Steel|38|33
 MTR08LodeBaring02|Wood|1|1
 MamaDolceProcessing01|Acid|3|2
 MamaDolceProcessing01|Aluminum|3|3
@@ -18837,23 +19066,24 @@ MamaDolceProcessing01|Ceramic|3|3
 MamaDolceProcessing01|Circuitry|1|1
 MamaDolceProcessing01|Cloth|19|17
 MamaDolceProcessing01|Copper|8|5
-MamaDolceProcessing01|Crystal|2|2
+MamaDolceProcessing01|Crystal|4|2
 MamaDolceProcessing01|Fiber Optics|2|2
 MamaDolceProcessing01|Fiberglass|4|4
 MamaDolceProcessing01|Gear|3|3
-MamaDolceProcessing01|Glass|15|14
+MamaDolceProcessing01|Glass|17|14
 MamaDolceProcessing01|Lead|2|2
 MamaDolceProcessing01|Oil|5|5
 MamaDolceProcessing01|Plastic|6|5
-MamaDolceProcessing01|Rubber|5|3
+MamaDolceProcessing01|Rubber|6|3
 MamaDolceProcessing01|Screw|1|1
 MamaDolceProcessing01|Spring|5|5
-MamaDolceProcessing01|Steel|22|14
-MamaDolceProcessing01|Wood|6|6
+MamaDolceProcessing01|Steel|30|16
+MamaDolceProcessing01|Wood|7|6
 MiresEye01|Asbestos|5|4
 MiresEye01|Ceramic|1|1
 MiresEye01|Cloth|8|6
 MiresEye01|Copper|1|1
+MiresEye01|Fiberglass|1|1
 MiresEye01|Gear|1|1
 MiresEye01|Glass|27|24
 MiresEye01|Lead|1|1
@@ -18863,18 +19093,18 @@ MiresEye01|Plastic|11|7
 MiresEye01|Rubber|2|1
 MiresEye01|Screw|1|1
 MiresEye01|Spring|3|3
-MiresEye01|Steel|33|17
-MiresEye01|Wood|2|2
+MiresEye01|Steel|35|18
+MiresEye01|Wood|4|2
 MonongahMine01|Acid|3|2
 MonongahMine01|Adhesive|5|2
-MonongahMine01|Aluminum|3|2
+MonongahMine01|Aluminum|4|2
 MonongahMine01|Antiseptic|3|2
 MonongahMine01|Asbestos|3|3
-MonongahMine01|Ballistic Fiber|6|3
-MonongahMine01|Bone|73|27
+MonongahMine01|Ballistic Fiber|9|3
+MonongahMine01|Bone|93|27
 MonongahMine01|Ceramic|5|5
 MonongahMine01|Circuitry|1|1
-MonongahMine01|Cloth|16|16
+MonongahMine01|Cloth|22|19
 MonongahMine01|Concrete|3|1
 MonongahMine01|Copper|3|3
 MonongahMine01|Fiberglass|1|1
@@ -18884,20 +19114,20 @@ MonongahMine01|Lead|23|10
 MonongahMine01|Leather|18|9
 MonongahMine01|Oil|21|13
 MonongahMine01|Plastic|8|8
-MonongahMine01|Rubber|7|5
+MonongahMine01|Rubber|9|5
 MonongahMine01|Screw|2|2
 MonongahMine01|Spring|9|9
-MonongahMine01|Steel|74|41
-MonongahMine01|Wood|15|14
+MonongahMine01|Steel|90|44
+MonongahMine01|Wood|20|14
 MonongahMissileSilo01|Acid|32|18
 MonongahMissileSilo01|Adhesive|86|28
-MonongahMissileSilo01|Aluminum|21|16
+MonongahMissileSilo01|Aluminum|26|16
 MonongahMissileSilo01|Antiseptic|30|12
 MonongahMissileSilo01|Asbestos|26|19
-MonongahMissileSilo01|Ballistic Fiber|18|9
+MonongahMissileSilo01|Ballistic Fiber|21|9
 MonongahMissileSilo01|Ceramic|34|34
 MonongahMissileSilo01|Circuitry|41|27
-MonongahMissileSilo01|Cloth|88|71
+MonongahMissileSilo01|Cloth|94|74
 MonongahMissileSilo01|Concrete|7|1
 MonongahMissileSilo01|Copper|50|48
 MonongahMissileSilo01|Cork|7|4
@@ -18911,22 +19141,22 @@ MonongahMissileSilo01|Lead|170|64
 MonongahMissileSilo01|Leather|15|8
 MonongahMissileSilo01|Nuclear Material|2|2
 MonongahMissileSilo01|Oil|52|40
-MonongahMissileSilo01|Plastic|80|58
-MonongahMissileSilo01|Rubber|22|16
+MonongahMissileSilo01|Plastic|83|58
+MonongahMissileSilo01|Rubber|26|16
 MonongahMissileSilo01|Screw|31|31
 MonongahMissileSilo01|Silver|8|8
 MonongahMissileSilo01|Spring|25|25
-MonongahMissileSilo01|Steel|292|194
-MonongahMissileSilo01|Wood|107|75
+MonongahMissileSilo01|Steel|384|197
+MonongahMissileSilo01|Wood|124|75
 MonongahPowerPlant01|Acid|12|6
 MonongahPowerPlant01|Adhesive|16|8
-MonongahPowerPlant01|Aluminum|11|6
+MonongahPowerPlant01|Aluminum|13|6
 MonongahPowerPlant01|Antiseptic|5|2
 MonongahPowerPlant01|Asbestos|19|15
-MonongahPowerPlant01|Bone|11|5
+MonongahPowerPlant01|Bone|16|5
 MonongahPowerPlant01|Ceramic|22|22
 MonongahPowerPlant01|Circuitry|5|5
-MonongahPowerPlant01|Cloth|16|16
+MonongahPowerPlant01|Cloth|17|17
 MonongahPowerPlant01|Concrete|7|1
 MonongahPowerPlant01|Copper|12|12
 MonongahPowerPlant01|Cork|7|4
@@ -18939,17 +19169,17 @@ MonongahPowerPlant01|Leather|5|2
 MonongahPowerPlant01|Nuclear Material|1|1
 MonongahPowerPlant01|Oil|13|11
 MonongahPowerPlant01|Plastic|43|23
-MonongahPowerPlant01|Rubber|17|10
+MonongahPowerPlant01|Rubber|18|10
 MonongahPowerPlant01|Screw|12|12
 MonongahPowerPlant01|Spring|13|13
-MonongahPowerPlant01|Steel|92|56
-MonongahPowerPlant01|Wood|53|33
+MonongahPowerPlant01|Steel|110|56
+MonongahPowerPlant01|Wood|57|33
 MorgantownAirportTerminal02|Acid|3|2
 MorgantownAirportTerminal02|Adhesive|4|3
-MorgantownAirportTerminal02|Aluminum|4|4
+MorgantownAirportTerminal02|Aluminum|5|4
 MorgantownAirportTerminal02|Antiseptic|6|3
 MorgantownAirportTerminal02|Asbestos|32|23
-MorgantownAirportTerminal02|Bone|15|5
+MorgantownAirportTerminal02|Bone|17|5
 MorgantownAirportTerminal02|Ceramic|21|20
 MorgantownAirportTerminal02|Circuitry|4|4
 MorgantownAirportTerminal02|Cloth|38|36
@@ -18962,16 +19192,16 @@ MorgantownAirportTerminal02|Lead|33|24
 MorgantownAirportTerminal02|Nuclear Material|1|1
 MorgantownAirportTerminal02|Oil|19|11
 MorgantownAirportTerminal02|Plastic|30|19
-MorgantownAirportTerminal02|Rubber|14|10
+MorgantownAirportTerminal02|Rubber|15|10
 MorgantownAirportTerminal02|Screw|11|11
 MorgantownAirportTerminal02|Spring|4|4
-MorgantownAirportTerminal02|Steel|123|81
-MorgantownAirportTerminal02|Wood|25|19
+MorgantownAirportTerminal02|Steel|147|81
+MorgantownAirportTerminal02|Wood|33|19
 MorgantownApartment01|Acid|3|2
-MorgantownApartment01|Aluminum|5|4
+MorgantownApartment01|Aluminum|8|4
 MorgantownApartment01|Antiseptic|5|2
 MorgantownApartment01|Asbestos|8|6
-MorgantownApartment01|Bone|1|1
+MorgantownApartment01|Bone|2|1
 MorgantownApartment01|Ceramic|25|21
 MorgantownApartment01|Circuitry|2|2
 MorgantownApartment01|Cloth|7|6
@@ -18984,69 +19214,69 @@ MorgantownApartment01|Glass|24|17
 MorgantownApartment01|Lead|9|5
 MorgantownApartment01|Oil|2|2
 MorgantownApartment01|Plastic|15|9
-MorgantownApartment01|Rubber|7|5
+MorgantownApartment01|Rubber|8|5
 MorgantownApartment01|Screw|3|3
 MorgantownApartment01|Silver|1|1
 MorgantownApartment01|Spring|3|3
 MorgantownApartment01|Steel|24|15
-MorgantownApartment01|Wood|15|9
+MorgantownApartment01|Wood|16|9
 MorgantownHighSchool01|Acid|4|4
 MorgantownHighSchool01|Adhesive|4|3
-MorgantownHighSchool01|Aluminum|59|34
+MorgantownHighSchool01|Aluminum|65|34
 MorgantownHighSchool01|Antiseptic|11|6
 MorgantownHighSchool01|Asbestos|22|18
-MorgantownHighSchool01|Bone|22|7
+MorgantownHighSchool01|Bone|24|7
 MorgantownHighSchool01|Ceramic|22|21
 MorgantownHighSchool01|Circuitry|6|6
-MorgantownHighSchool01|Cloth|115|113
+MorgantownHighSchool01|Cloth|119|117
 MorgantownHighSchool01|Copper|14|13
 MorgantownHighSchool01|Cork|37|27
-MorgantownHighSchool01|Crystal|7|5
+MorgantownHighSchool01|Crystal|11|5
 MorgantownHighSchool01|Fiber Optics|4|4
-MorgantownHighSchool01|Fiberglass|5|5
+MorgantownHighSchool01|Fiberglass|6|6
 MorgantownHighSchool01|Gear|9|9
-MorgantownHighSchool01|Glass|68|55
+MorgantownHighSchool01|Glass|72|55
 MorgantownHighSchool01|Lead|47|31
 MorgantownHighSchool01|Leather|36|16
 MorgantownHighSchool01|Nuclear Material|3|3
 MorgantownHighSchool01|Oil|22|15
-MorgantownHighSchool01|Plastic|185|122
+MorgantownHighSchool01|Plastic|189|122
 MorgantownHighSchool01|Rubber|53|38
 MorgantownHighSchool01|Screw|20|17
 MorgantownHighSchool01|Silver|3|3
 MorgantownHighSchool01|Spring|13|13
-MorgantownHighSchool01|Steel|107|63
-MorgantownHighSchool01|Wood|69|38
+MorgantownHighSchool01|Steel|143|68
+MorgantownHighSchool01|Wood|76|38
 MorgantownHighSchoolDungeon|Acid|3|3
 MorgantownHighSchoolDungeon|Adhesive|4|3
-MorgantownHighSchoolDungeon|Aluminum|47|28
+MorgantownHighSchoolDungeon|Aluminum|53|28
 MorgantownHighSchoolDungeon|Antiseptic|9|5
 MorgantownHighSchoolDungeon|Asbestos|22|18
-MorgantownHighSchoolDungeon|Bone|22|7
+MorgantownHighSchoolDungeon|Bone|24|7
 MorgantownHighSchoolDungeon|Ceramic|19|18
 MorgantownHighSchoolDungeon|Circuitry|5|5
-MorgantownHighSchoolDungeon|Cloth|101|99
+MorgantownHighSchoolDungeon|Cloth|105|103
 MorgantownHighSchoolDungeon|Copper|13|12
 MorgantownHighSchoolDungeon|Cork|29|20
-MorgantownHighSchoolDungeon|Crystal|7|5
+MorgantownHighSchoolDungeon|Crystal|11|5
 MorgantownHighSchoolDungeon|Fiber Optics|4|4
-MorgantownHighSchoolDungeon|Fiberglass|5|5
+MorgantownHighSchoolDungeon|Fiberglass|6|6
 MorgantownHighSchoolDungeon|Gear|8|8
-MorgantownHighSchoolDungeon|Glass|51|41
+MorgantownHighSchoolDungeon|Glass|55|41
 MorgantownHighSchoolDungeon|Lead|46|30
 MorgantownHighSchoolDungeon|Leather|34|15
 MorgantownHighSchoolDungeon|Nuclear Material|2|2
 MorgantownHighSchoolDungeon|Oil|18|13
-MorgantownHighSchoolDungeon|Plastic|135|84
+MorgantownHighSchoolDungeon|Plastic|139|84
 MorgantownHighSchoolDungeon|Rubber|37|28
 MorgantownHighSchoolDungeon|Screw|16|13
 MorgantownHighSchoolDungeon|Silver|3|3
 MorgantownHighSchoolDungeon|Spring|13|13
-MorgantownHighSchoolDungeon|Steel|98|59
-MorgantownHighSchoolDungeon|Wood|61|34
+MorgantownHighSchoolDungeon|Steel|134|64
+MorgantownHighSchoolDungeon|Wood|68|34
 MountBlairWarehouseBasement01|Acid|2|1
 MountBlairWarehouseBasement01|Adhesive|9|2
-MountBlairWarehouseBasement01|Aluminum|2|1
+MountBlairWarehouseBasement01|Aluminum|3|1
 MountBlairWarehouseBasement01|Cloth|1|1
 MountBlairWarehouseBasement01|Concrete|7|1
 MountBlairWarehouseBasement01|Copper|4|4
@@ -19057,8 +19287,8 @@ MountBlairWarehouseBasement01|Oil|4|4
 MountBlairWarehouseBasement01|Plastic|2|1
 MountBlairWarehouseBasement01|Screw|1|1
 MountBlairWarehouseBasement01|Spring|1|1
-MountBlairWarehouseBasement01|Steel|13|9
-MountBlairWarehouseBasement01|Wood|2|2
+MountBlairWarehouseBasement01|Steel|19|9
+MountBlairWarehouseBasement01|Wood|3|2
 NPECultistCave|Acid|2|1
 NPECultistCave|Adhesive|1|1
 NPECultistCave|Aluminum|2|1
@@ -19071,8 +19301,8 @@ NPECultistCave|Plastic|2|2
 NPECultistCave|Rubber|1|1
 NPECultistCave|Screw|6|6
 NPECultistCave|Spring|4|4
-NPECultistCave|Steel|33|17
-NPECultistCave|Wood|6|5
+NPECultistCave|Steel|34|17
+NPECultistCave|Wood|7|5
 NPEVault7601|Acid|34|26
 NPEVault7601|Adhesive|78|24
 NPEVault7601|Aluminum|66|42
@@ -19124,31 +19354,31 @@ NVEVault7601|Spring|72|30
 NVEVault7601|Steel|205|109
 NVEVault7601|Wood|154|89
 NukaColaQuantumPlant01|Adhesive|13|5
-NukaColaQuantumPlant01|Aluminum|20|17
+NukaColaQuantumPlant01|Aluminum|25|17
 NukaColaQuantumPlant01|Asbestos|5|3
 NukaColaQuantumPlant01|Ceramic|14|14
 NukaColaQuantumPlant01|Circuitry|1|1
 NukaColaQuantumPlant01|Cloth|22|22
 NukaColaQuantumPlant01|Concrete|7|1
-NukaColaQuantumPlant01|Copper|12|10
+NukaColaQuantumPlant01|Copper|14|10
 NukaColaQuantumPlant01|Cork|2|1
-NukaColaQuantumPlant01|Crystal|1|1
+NukaColaQuantumPlant01|Crystal|2|1
 NukaColaQuantumPlant01|Fiber Optics|1|1
 NukaColaQuantumPlant01|Fiberglass|3|3
-NukaColaQuantumPlant01|Gear|7|7
-NukaColaQuantumPlant01|Glass|51|36
+NukaColaQuantumPlant01|Gear|9|7
+NukaColaQuantumPlant01|Glass|52|36
 NukaColaQuantumPlant01|Lead|29|23
 NukaColaQuantumPlant01|Nuclear Material|9|9
 NukaColaQuantumPlant01|Oil|28|21
-NukaColaQuantumPlant01|Plastic|20|15
+NukaColaQuantumPlant01|Plastic|22|15
 NukaColaQuantumPlant01|Rubber|10|9
 NukaColaQuantumPlant01|Screw|6|6
 NukaColaQuantumPlant01|Spring|7|7
-NukaColaQuantumPlant01|Steel|109|64
-NukaColaQuantumPlant01|Wood|30|25
+NukaColaQuantumPlant01|Steel|133|65
+NukaColaQuantumPlant01|Wood|42|25
 OrwellOrchardsShelter01|Acid|7|6
 OrwellOrchardsShelter01|Adhesive|1|1
-OrwellOrchardsShelter01|Aluminum|10|5
+OrwellOrchardsShelter01|Aluminum|12|5
 OrwellOrchardsShelter01|Antiseptic|14|7
 OrwellOrchardsShelter01|Asbestos|8|6
 OrwellOrchardsShelter01|Ceramic|12|11
@@ -19160,25 +19390,25 @@ OrwellOrchardsShelter01|Cork|13|12
 OrwellOrchardsShelter01|Crystal|3|1
 OrwellOrchardsShelter01|Fiberglass|6|4
 OrwellOrchardsShelter01|Gear|5|4
-OrwellOrchardsShelter01|Glass|52|45
+OrwellOrchardsShelter01|Glass|53|46
 OrwellOrchardsShelter01|Lead|49|18
 OrwellOrchardsShelter01|Leather|2|1
 OrwellOrchardsShelter01|Oil|13|10
 OrwellOrchardsShelter01|Plastic|34|28
-OrwellOrchardsShelter01|Rubber|9|7
+OrwellOrchardsShelter01|Rubber|11|7
 OrwellOrchardsShelter01|Screw|8|7
 OrwellOrchardsShelter01|Spring|8|8
-OrwellOrchardsShelter01|Steel|77|54
-OrwellOrchardsShelter01|Wood|33|24
+OrwellOrchardsShelter01|Steel|108|54
+OrwellOrchardsShelter01|Wood|38|24
 OverseersHome01|Acid|10|6
 OverseersHome01|Adhesive|4|2
-OverseersHome01|Aluminum|14|8
+OverseersHome01|Aluminum|17|8
 OverseersHome01|Antiseptic|8|4
 OverseersHome01|Asbestos|4|4
-OverseersHome01|Ballistic Fiber|2|1
+OverseersHome01|Ballistic Fiber|3|1
 OverseersHome01|Bone|2|1
 OverseersHome01|Ceramic|28|22
-OverseersHome01|Cloth|25|16
+OverseersHome01|Cloth|28|18
 OverseersHome01|Copper|4|2
 OverseersHome01|Cork|2|1
 OverseersHome01|Fiberglass|2|1
@@ -19189,17 +19419,17 @@ OverseersHome01|Leather|9|4
 OverseersHome01|Nuclear Material|1|1
 OverseersHome01|Oil|6|3
 OverseersHome01|Plastic|18|12
-OverseersHome01|Rubber|9|5
+OverseersHome01|Rubber|10|5
 OverseersHome01|Screw|6|6
 OverseersHome01|Spring|4|4
-OverseersHome01|Steel|40|25
-OverseersHome01|Wood|33|20
+OverseersHome01|Steel|52|26
+OverseersHome01|Wood|37|20
 PoseidonPlant01|Acid|15|9
 PoseidonPlant01|Adhesive|15|6
 PoseidonPlant01|Aluminum|7|4
 PoseidonPlant01|Antiseptic|15|8
 PoseidonPlant01|Asbestos|18|12
-PoseidonPlant01|Bone|6|3
+PoseidonPlant01|Bone|7|3
 PoseidonPlant01|Ceramic|20|19
 PoseidonPlant01|Circuitry|3|3
 PoseidonPlant01|Cloth|63|61
@@ -19212,18 +19442,18 @@ PoseidonPlant01|Glass|34|27
 PoseidonPlant01|Lead|18|7
 PoseidonPlant01|Leather|4|2
 PoseidonPlant01|Oil|18|15
-PoseidonPlant01|Plastic|37|28
-PoseidonPlant01|Rubber|10|7
+PoseidonPlant01|Plastic|38|28
+PoseidonPlant01|Rubber|11|7
 PoseidonPlant01|Screw|4|4
 PoseidonPlant01|Silver|1|1
 PoseidonPlant01|Spring|12|12
-PoseidonPlant01|Steel|91|59
-PoseidonPlant01|Wood|27|22
+PoseidonPlant01|Steel|111|59
+PoseidonPlant01|Wood|34|22
 PoseidonPlant02|Acid|2|1
 PoseidonPlant02|Adhesive|5|1
-PoseidonPlant02|Aluminum|9|6
+PoseidonPlant02|Aluminum|10|6
 PoseidonPlant02|Asbestos|4|3
-PoseidonPlant02|Bone|44|13
+PoseidonPlant02|Bone|52|13
 PoseidonPlant02|Ceramic|6|6
 PoseidonPlant02|Circuitry|1|1
 PoseidonPlant02|Cloth|1|1
@@ -19268,7 +19498,7 @@ RD01GleamingDepths|Steel|55|33
 RD01GleamingDepths|Wood|24|20
 RadioResearchCenter01|Acid|7|5
 RadioResearchCenter01|Adhesive|32|11
-RadioResearchCenter01|Aluminum|8|4
+RadioResearchCenter01|Aluminum|12|4
 RadioResearchCenter01|Antiseptic|10|5
 RadioResearchCenter01|Asbestos|16|11
 RadioResearchCenter01|Ballistic Fiber|6|3
@@ -19288,15 +19518,15 @@ RadioResearchCenter01|Lead|24|7
 RadioResearchCenter01|Leather|4|2
 RadioResearchCenter01|Nuclear Material|1|1
 RadioResearchCenter01|Oil|21|15
-RadioResearchCenter01|Plastic|41|27
-RadioResearchCenter01|Rubber|12|11
+RadioResearchCenter01|Plastic|42|27
+RadioResearchCenter01|Rubber|16|11
 RadioResearchCenter01|Screw|20|20
 RadioResearchCenter01|Silver|2|1
 RadioResearchCenter01|Spring|16|16
-RadioResearchCenter01|Steel|65|42
-RadioResearchCenter01|Wood|41|29
+RadioResearchCenter01|Steel|80|42
+RadioResearchCenter01|Wood|52|29
 RaiderCave02|Acid|7|4
-RaiderCave02|Aluminum|10|6
+RaiderCave02|Aluminum|11|6
 RaiderCave02|Asbestos|3|2
 RaiderCave02|Ceramic|9|8
 RaiderCave02|Circuitry|1|1
@@ -19313,8 +19543,8 @@ RaiderCave02|Plastic|11|6
 RaiderCave02|Rubber|3|2
 RaiderCave02|Screw|1|1
 RaiderCave02|Spring|2|2
-RaiderCave02|Steel|18|10
-RaiderCave02|Wood|6|4
+RaiderCave02|Steel|20|10
+RaiderCave02|Wood|8|4
 RaiderRaidTrailerInt|Adhesive|1|1
 RaiderRaidTrailerInt|Aluminum|1|1
 RaiderRaidTrailerInt|Asbestos|6|4
@@ -19326,61 +19556,61 @@ RaiderRaidTrailerInt|Lead|7|3
 RaiderRaidTrailerInt|Leather|4|1
 RaiderRaidTrailerInt|Oil|1|1
 RaiderRaidTrailerInt|Plastic|6|4
-RaiderRaidTrailerInt|Steel|11|7
+RaiderRaidTrailerInt|Steel|13|7
 RaiderRaidTrailerInt|Wood|3|2
 RiversideManor01|Acid|3|3
-RiversideManor01|Aluminum|15|11
+RiversideManor01|Aluminum|19|11
 RiversideManor01|Antiseptic|9|5
 RiversideManor01|Asbestos|8|8
 RiversideManor01|Ceramic|51|44
 RiversideManor01|Circuitry|1|1
-RiversideManor01|Cloth|122|116
-RiversideManor01|Copper|15|15
+RiversideManor01|Cloth|123|117
+RiversideManor01|Copper|16|15
 RiversideManor01|Cork|6|5
-RiversideManor01|Crystal|13|5
+RiversideManor01|Crystal|14|5
 RiversideManor01|Fiber Optics|1|1
 RiversideManor01|Fiberglass|4|3
-RiversideManor01|Gear|6|5
-RiversideManor01|Glass|48|35
+RiversideManor01|Gear|7|5
+RiversideManor01|Glass|50|36
 RiversideManor01|Gold|3|3
 RiversideManor01|Lead|10|10
 RiversideManor01|Leather|8|4
 RiversideManor01|Oil|10|7
-RiversideManor01|Plastic|31|21
-RiversideManor01|Rubber|24|15
+RiversideManor01|Plastic|32|21
+RiversideManor01|Rubber|26|15
 RiversideManor01|Screw|2|2
 RiversideManor01|Silver|1|1
 RiversideManor01|Spring|15|15
-RiversideManor01|Steel|59|45
-RiversideManor01|Wood|56|37
+RiversideManor01|Steel|69|46
+RiversideManor01|Wood|59|37
 RobCoResearchCenter01|Acid|17|10
 RobCoResearchCenter01|Adhesive|27|7
-RobCoResearchCenter01|Aluminum|32|20
+RobCoResearchCenter01|Aluminum|37|20
 RobCoResearchCenter01|Antiseptic|11|5
 RobCoResearchCenter01|Asbestos|31|24
-RobCoResearchCenter01|Ballistic Fiber|2|1
+RobCoResearchCenter01|Ballistic Fiber|3|1
 RobCoResearchCenter01|Ceramic|30|27
 RobCoResearchCenter01|Circuitry|27|19
-RobCoResearchCenter01|Cloth|37|35
-RobCoResearchCenter01|Copper|33|27
+RobCoResearchCenter01|Cloth|39|36
+RobCoResearchCenter01|Copper|34|27
 RobCoResearchCenter01|Cork|3|2
-RobCoResearchCenter01|Crystal|10|8
+RobCoResearchCenter01|Crystal|16|8
 RobCoResearchCenter01|Fiber Optics|6|6
 RobCoResearchCenter01|Fiberglass|15|13
-RobCoResearchCenter01|Gear|18|16
-RobCoResearchCenter01|Glass|79|70
+RobCoResearchCenter01|Gear|19|16
+RobCoResearchCenter01|Glass|85|70
 RobCoResearchCenter01|Lead|31|16
 RobCoResearchCenter01|Nuclear Material|5|5
 RobCoResearchCenter01|Oil|12|8
-RobCoResearchCenter01|Plastic|43|30
-RobCoResearchCenter01|Rubber|29|18
+RobCoResearchCenter01|Plastic|47|30
+RobCoResearchCenter01|Rubber|31|18
 RobCoResearchCenter01|Screw|12|10
 RobCoResearchCenter01|Spring|26|26
-RobCoResearchCenter01|Steel|105|69
-RobCoResearchCenter01|Wood|59|47
+RobCoResearchCenter01|Steel|154|76
+RobCoResearchCenter01|Wood|74|47
 RobcoExperimentalCache01|Acid|8|5
 RobcoExperimentalCache01|Adhesive|21|5
-RobcoExperimentalCache01|Aluminum|9|8
+RobcoExperimentalCache01|Aluminum|11|8
 RobcoExperimentalCache01|Antiseptic|5|3
 RobcoExperimentalCache01|Asbestos|16|12
 RobcoExperimentalCache01|Bone|3|3
@@ -19400,9 +19630,9 @@ RobcoExperimentalCache01|Plastic|23|18
 RobcoExperimentalCache01|Rubber|10|6
 RobcoExperimentalCache01|Screw|5|5
 RobcoExperimentalCache01|Spring|14|14
-RobcoExperimentalCache01|Steel|81|46
-RobcoExperimentalCache01|Wood|25|21
-RollinsLaborCamp01|Aluminum|15|8
+RobcoExperimentalCache01|Steel|89|46
+RobcoExperimentalCache01|Wood|31|21
+RollinsLaborCamp01|Aluminum|17|8
 RollinsLaborCamp01|Asbestos|1|1
 RollinsLaborCamp01|Ceramic|5|4
 RollinsLaborCamp01|Cloth|4|3
@@ -19410,15 +19640,15 @@ RollinsLaborCamp01|Copper|1|1
 RollinsLaborCamp01|Gear|1|1
 RollinsLaborCamp01|Glass|1|1
 RollinsLaborCamp01|Oil|2|2
-RollinsLaborCamp01|Plastic|4|3
+RollinsLaborCamp01|Plastic|5|3
 RollinsLaborCamp01|Rubber|7|7
 RollinsLaborCamp01|Screw|1|1
 RollinsLaborCamp01|Spring|1|1
 RollinsLaborCamp01|Steel|10|6
-RollinsLaborCamp01|Wood|1|1
+RollinsLaborCamp01|Wood|3|1
 SamBlackwellBunker02|Acid|5|4
 SamBlackwellBunker02|Adhesive|6|2
-SamBlackwellBunker02|Aluminum|38|30
+SamBlackwellBunker02|Aluminum|41|30
 SamBlackwellBunker02|Antiseptic|12|6
 SamBlackwellBunker02|Asbestos|10|8
 SamBlackwellBunker02|Ceramic|21|19
@@ -19426,39 +19656,39 @@ SamBlackwellBunker02|Circuitry|3|3
 SamBlackwellBunker02|Cloth|10|9
 SamBlackwellBunker02|Copper|20|18
 SamBlackwellBunker02|Cork|5|3
-SamBlackwellBunker02|Crystal|4|2
+SamBlackwellBunker02|Crystal|5|2
 SamBlackwellBunker02|Fiber Optics|1|1
 SamBlackwellBunker02|Fiberglass|6|5
 SamBlackwellBunker02|Gear|5|5
-SamBlackwellBunker02|Glass|71|60
+SamBlackwellBunker02|Glass|72|60
 SamBlackwellBunker02|Lead|78|70
 SamBlackwellBunker02|Oil|12|10
 SamBlackwellBunker02|Plastic|18|13
-SamBlackwellBunker02|Rubber|14|11
+SamBlackwellBunker02|Rubber|17|11
 SamBlackwellBunker02|Screw|9|9
 SamBlackwellBunker02|Spring|10|10
-SamBlackwellBunker02|Steel|151|85
-SamBlackwellBunker02|Wood|45|31
+SamBlackwellBunker02|Steel|164|86
+SamBlackwellBunker02|Wood|54|31
 SamBlackwellsDeathclawCave|Acid|6|6
 SamBlackwellsDeathclawCave|Aluminum|3|3
-SamBlackwellsDeathclawCave|Bone|61|23
+SamBlackwellsDeathclawCave|Bone|66|23
 SamBlackwellsDeathclawCave|Fertilizer|8|2
 SamBlackwellsDeathclawCave|Fiberglass|1|1
 SamBlackwellsDeathclawCave|Lead|3|3
 SamBlackwellsDeathclawCave|Oil|3|3
 SamBlackwellsDeathclawCave|Plastic|2|2
-SamBlackwellsDeathclawCave|Steel|12|8
-SamBlackwellsDeathclawCave|Wood|3|3
+SamBlackwellsDeathclawCave|Steel|15|8
+SamBlackwellsDeathclawCave|Wood|8|3
 SettlerBugOutCave|Acid|3|3
 SettlerBugOutCave|Copper|1|1
 SettlerBugOutCave|Fertilizer|12|3
 SettlerBugOutCave|Glass|3|3
 SettlerBugOutCave|Lead|14|6
 SettlerBugOutCave|Oil|7|4
-SettlerBugOutCave|Plastic|3|3
+SettlerBugOutCave|Plastic|5|3
 SettlerBugOutCave|Spring|1|1
-SettlerBugOutCave|Steel|24|15
-SettlerBugOutCave|Wood|3|3
+SettlerBugOutCave|Steel|27|15
+SettlerBugOutCave|Wood|4|3
 SheltersClaimCenter01|Antiseptic|2|1
 SheltersClaimCenter01|Ceramic|1|1
 SheltersClaimCenter01|Cloth|4|4
@@ -19468,11 +19698,11 @@ SheltersClaimCenter01|Lead|3|2
 SheltersClaimCenter01|Plastic|3|3
 SheltersClaimCenter01|Screw|2|2
 SheltersClaimCenter01|Spring|1|1
-SheltersClaimCenter01|Steel|15|11
-SheltersClaimCenter01|Wood|2|2
+SheltersClaimCenter01|Steel|20|11
+SheltersClaimCenter01|Wood|3|2
 SpruceKnobCampground01|Acid|4|3
 SpruceKnobCampground01|Adhesive|5|2
-SpruceKnobCampground01|Aluminum|6|4
+SpruceKnobCampground01|Aluminum|7|4
 SpruceKnobCampground01|Antiseptic|6|3
 SpruceKnobCampground01|Asbestos|7|6
 SpruceKnobCampground01|Ceramic|9|7
@@ -19481,7 +19711,7 @@ SpruceKnobCampground01|Cloth|11|11
 SpruceKnobCampground01|Concrete|7|1
 SpruceKnobCampground01|Copper|3|3
 SpruceKnobCampground01|Crystal|1|1
-SpruceKnobCampground01|Fiberglass|3|3
+SpruceKnobCampground01|Fiberglass|6|6
 SpruceKnobCampground01|Gear|7|6
 SpruceKnobCampground01|Glass|16|11
 SpruceKnobCampground01|Gold|1|1
@@ -19489,20 +19719,20 @@ SpruceKnobCampground01|Lead|27|11
 SpruceKnobCampground01|Leather|1|1
 SpruceKnobCampground01|Oil|7|5
 SpruceKnobCampground01|Plastic|19|13
-SpruceKnobCampground01|Rubber|14|9
+SpruceKnobCampground01|Rubber|15|9
 SpruceKnobCampground01|Screw|4|4
 SpruceKnobCampground01|Spring|9|9
-SpruceKnobCampground01|Steel|63|36
-SpruceKnobCampground01|Wood|14|11
+SpruceKnobCampground01|Steel|84|39
+SpruceKnobCampground01|Wood|24|11
 SpruceKnobMissileSilo01|Acid|32|18
 SpruceKnobMissileSilo01|Adhesive|86|28
-SpruceKnobMissileSilo01|Aluminum|21|16
+SpruceKnobMissileSilo01|Aluminum|26|16
 SpruceKnobMissileSilo01|Antiseptic|30|12
 SpruceKnobMissileSilo01|Asbestos|26|19
-SpruceKnobMissileSilo01|Ballistic Fiber|18|9
+SpruceKnobMissileSilo01|Ballistic Fiber|21|9
 SpruceKnobMissileSilo01|Ceramic|34|34
 SpruceKnobMissileSilo01|Circuitry|41|27
-SpruceKnobMissileSilo01|Cloth|88|71
+SpruceKnobMissileSilo01|Cloth|94|74
 SpruceKnobMissileSilo01|Concrete|7|1
 SpruceKnobMissileSilo01|Copper|50|48
 SpruceKnobMissileSilo01|Cork|7|4
@@ -19516,15 +19746,15 @@ SpruceKnobMissileSilo01|Lead|170|64
 SpruceKnobMissileSilo01|Leather|15|8
 SpruceKnobMissileSilo01|Nuclear Material|2|2
 SpruceKnobMissileSilo01|Oil|52|40
-SpruceKnobMissileSilo01|Plastic|80|58
-SpruceKnobMissileSilo01|Rubber|22|16
+SpruceKnobMissileSilo01|Plastic|83|58
+SpruceKnobMissileSilo01|Rubber|26|16
 SpruceKnobMissileSilo01|Screw|31|31
 SpruceKnobMissileSilo01|Silver|8|8
 SpruceKnobMissileSilo01|Spring|25|25
-SpruceKnobMissileSilo01|Steel|292|194
-SpruceKnobMissileSilo01|Wood|107|75
+SpruceKnobMissileSilo01|Steel|384|197
+SpruceKnobMissileSilo01|Wood|124|75
 StormBrownHouse|Adhesive|1|1
-StormBrownHouse|Aluminum|5|3
+StormBrownHouse|Aluminum|8|3
 StormBrownHouse|Asbestos|17|11
 StormBrownHouse|Ceramic|47|41
 StormBrownHouse|Circuitry|3|3
@@ -19540,16 +19770,16 @@ StormBrownHouse|Lead|7|3
 StormBrownHouse|Leather|10|4
 StormBrownHouse|Oil|4|2
 StormBrownHouse|Plastic|21|11
-StormBrownHouse|Rubber|5|4
+StormBrownHouse|Rubber|6|4
 StormBrownHouse|Screw|4|3
 StormBrownHouse|Silver|2|2
 StormBrownHouse|Spring|5|5
-StormBrownHouse|Steel|61|53
-StormBrownHouse|Wood|24|14
+StormBrownHouse|Steel|63|53
+StormBrownHouse|Wood|25|14
 StormCultistTunnels|Adhesive|6|3
 StormCultistTunnels|Aluminum|4|3
 StormCultistTunnels|Asbestos|4|3
-StormCultistTunnels|Bone|21|7
+StormCultistTunnels|Bone|27|7
 StormCultistTunnels|Ceramic|3|3
 StormCultistTunnels|Cloth|5|3
 StormCultistTunnels|Fiberglass|2|2
@@ -19557,13 +19787,13 @@ StormCultistTunnels|Glass|6|5
 StormCultistTunnels|Leather|2|1
 StormCultistTunnels|Oil|10|6
 StormCultistTunnels|Plastic|3|2
-StormCultistTunnels|Rubber|1|1
+StormCultistTunnels|Rubber|2|1
 StormCultistTunnels|Screw|1|1
 StormCultistTunnels|Spring|1|1
 StormCultistTunnels|Steel|10|5
-StormCultistTunnels|Wood|1|1
+StormCultistTunnels|Wood|2|1
 StormEngineeringVlt63|Acid|2|1
-StormEngineeringVlt63|Aluminum|5|3
+StormEngineeringVlt63|Aluminum|6|3
 StormEngineeringVlt63|Asbestos|2|2
 StormEngineeringVlt63|Ceramic|7|7
 StormEngineeringVlt63|Cloth|14|14
@@ -19573,7 +19803,7 @@ StormEngineeringVlt63|Glass|5|5
 StormEngineeringVlt63|Lead|5|1
 StormEngineeringVlt63|Leather|6|3
 StormEngineeringVlt63|Oil|9|6
-StormEngineeringVlt63|Plastic|6|5
+StormEngineeringVlt63|Plastic|7|5
 StormEngineeringVlt63|Rubber|2|1
 StormEngineeringVlt63|Screw|5|5
 StormEngineeringVlt63|Spring|2|2
@@ -19593,11 +19823,11 @@ StormHallucinogeniccave|Lead|5|4
 StormHallucinogeniccave|Oil|3|2
 StormHallucinogeniccave|Plastic|3|2
 StormHallucinogeniccave|Screw|2|2
-StormHallucinogeniccave|Steel|28|18
-StormHallucinogeniccave|Wood|5|4
+StormHallucinogeniccave|Steel|36|18
+StormHallucinogeniccave|Wood|6|4
 StormHighKnobFireTower01|Acid|2|2
 StormHighKnobFireTower01|Adhesive|2|2
-StormHighKnobFireTower01|Aluminum|2|1
+StormHighKnobFireTower01|Aluminum|3|1
 StormHighKnobFireTower01|Antiseptic|2|1
 StormHighKnobFireTower01|Asbestos|4|4
 StormHighKnobFireTower01|Ceramic|2|2
@@ -19612,29 +19842,29 @@ StormHighKnobFireTower01|Oil|12|7
 StormHighKnobFireTower01|Plastic|3|2
 StormHighKnobFireTower01|Rubber|2|1
 StormHighKnobFireTower01|Spring|1|1
-StormHighKnobFireTower01|Steel|27|15
-StormHighKnobFireTower01|Wood|11|8
-StormPresidentialBunker|Aluminum|10|8
+StormHighKnobFireTower01|Steel|30|15
+StormHighKnobFireTower01|Wood|13|8
+StormPresidentialBunker|Aluminum|17|8
 StormPresidentialBunker|Asbestos|13|8
 StormPresidentialBunker|Ceramic|30|29
 StormPresidentialBunker|Circuitry|14|10
 StormPresidentialBunker|Cloth|24|23
 StormPresidentialBunker|Copper|11|10
-StormPresidentialBunker|Crystal|3|3
+StormPresidentialBunker|Crystal|6|3
 StormPresidentialBunker|Fiber Optics|3|3
 StormPresidentialBunker|Fiberglass|7|7
 StormPresidentialBunker|Gear|10|9
-StormPresidentialBunker|Glass|12|9
+StormPresidentialBunker|Glass|15|9
 StormPresidentialBunker|Lead|8|8
 StormPresidentialBunker|Leather|2|1
 StormPresidentialBunker|Nuclear Material|1|1
 StormPresidentialBunker|Oil|1|1
-StormPresidentialBunker|Plastic|34|23
+StormPresidentialBunker|Plastic|35|23
 StormPresidentialBunker|Rubber|11|8
 StormPresidentialBunker|Screw|11|11
 StormPresidentialBunker|Spring|13|13
-StormPresidentialBunker|Steel|33|19
-StormPresidentialBunker|Wood|36|25
+StormPresidentialBunker|Steel|43|22
+StormPresidentialBunker|Wood|38|25
 StormRadioBunkerInt|Aluminum|1|1
 StormRadioBunkerInt|Asbestos|2|1
 StormRadioBunkerInt|Cloth|4|4
@@ -19650,10 +19880,10 @@ StormRadioBunkerInt|Plastic|3|2
 StormRadioBunkerInt|Rubber|3|1
 StormRadioBunkerInt|Screw|4|2
 StormRadioBunkerInt|Silver|2|1
-StormRadioBunkerInt|Steel|22|12
+StormRadioBunkerInt|Steel|24|12
 StormRadioBunkerInt|Wood|4|3
 StormStolzManor|Adhesive|1|1
-StormStolzManor|Aluminum|3|2
+StormStolzManor|Aluminum|4|2
 StormStolzManor|Asbestos|6|4
 StormStolzManor|Bone|2|1
 StormStolzManor|Ceramic|11|10
@@ -19673,16 +19903,16 @@ StormStolzManor|Screw|3|3
 StormStolzManor|Silver|1|1
 StormStolzManor|Spring|3|3
 StormStolzManor|Steel|22|14
-StormStolzManor|Wood|20|11
+StormStolzManor|Wood|22|11
 StormVault63AtriumLower|Acid|11|7
 StormVault63AtriumLower|Adhesive|9|2
-StormVault63AtriumLower|Aluminum|13|8
+StormVault63AtriumLower|Aluminum|17|8
 StormVault63AtriumLower|Antiseptic|7|4
 StormVault63AtriumLower|Asbestos|7|7
 StormVault63AtriumLower|Bone|1|1
 StormVault63AtriumLower|Ceramic|25|21
 StormVault63AtriumLower|Circuitry|5|3
-StormVault63AtriumLower|Cloth|21|16
+StormVault63AtriumLower|Cloth|23|18
 StormVault63AtriumLower|Copper|12|10
 StormVault63AtriumLower|Cork|10|6
 StormVault63AtriumLower|Crystal|10|6
@@ -19695,41 +19925,41 @@ StormVault63AtriumLower|Leather|13|7
 StormVault63AtriumLower|Nuclear Material|4|4
 StormVault63AtriumLower|Oil|19|15
 StormVault63AtriumLower|Plastic|13|10
-StormVault63AtriumLower|Rubber|11|7
+StormVault63AtriumLower|Rubber|13|7
 StormVault63AtriumLower|Screw|12|11
 StormVault63AtriumLower|Silver|3|2
 StormVault63AtriumLower|Spring|12|12
-StormVault63AtriumLower|Steel|66|40
-StormVault63AtriumLower|Wood|58|36
+StormVault63AtriumLower|Steel|74|40
+StormVault63AtriumLower|Wood|62|36
 StormVault63AtriumUpper|Acid|13|10
 StormVault63AtriumUpper|Adhesive|15|6
-StormVault63AtriumUpper|Aluminum|18|14
+StormVault63AtriumUpper|Aluminum|24|14
 StormVault63AtriumUpper|Antiseptic|18|9
 StormVault63AtriumUpper|Asbestos|12|8
 StormVault63AtriumUpper|Bone|1|1
 StormVault63AtriumUpper|Ceramic|36|35
 StormVault63AtriumUpper|Circuitry|5|4
-StormVault63AtriumUpper|Cloth|69|49
-StormVault63AtriumUpper|Copper|13|13
+StormVault63AtriumUpper|Cloth|70|50
+StormVault63AtriumUpper|Copper|15|13
 StormVault63AtriumUpper|Cork|14|8
-StormVault63AtriumUpper|Crystal|11|7
+StormVault63AtriumUpper|Crystal|12|7
 StormVault63AtriumUpper|Fiber Optics|2|2
 StormVault63AtriumUpper|Fiberglass|21|14
-StormVault63AtriumUpper|Gear|11|10
-StormVault63AtriumUpper|Glass|83|63
+StormVault63AtriumUpper|Gear|13|10
+StormVault63AtriumUpper|Glass|84|63
 StormVault63AtriumUpper|Lead|72|42
 StormVault63AtriumUpper|Leather|15|7
 StormVault63AtriumUpper|Nuclear Material|2|2
 StormVault63AtriumUpper|Oil|8|6
-StormVault63AtriumUpper|Plastic|70|46
-StormVault63AtriumUpper|Rubber|10|9
+StormVault63AtriumUpper|Plastic|76|46
+StormVault63AtriumUpper|Rubber|11|9
 StormVault63AtriumUpper|Screw|20|20
 StormVault63AtriumUpper|Silver|5|4
 StormVault63AtriumUpper|Spring|19|18
-StormVault63AtriumUpper|Steel|143|105
-StormVault63AtriumUpper|Wood|108|73
+StormVault63AtriumUpper|Steel|174|106
+StormVault63AtriumUpper|Wood|121|73
 StormVault63Entrance|Acid|7|4
-StormVault63Entrance|Aluminum|6|5
+StormVault63Entrance|Aluminum|7|5
 StormVault63Entrance|Antiseptic|2|1
 StormVault63Entrance|Asbestos|2|1
 StormVault63Entrance|Ceramic|3|3
@@ -19744,17 +19974,17 @@ StormVault63Entrance|Lead|1|1
 StormVault63Entrance|Leather|2|1
 StormVault63Entrance|Oil|5|4
 StormVault63Entrance|Plastic|6|4
-StormVault63Entrance|Rubber|6|4
+StormVault63Entrance|Rubber|7|4
 StormVault63Entrance|Screw|3|3
 StormVault63Entrance|Spring|3|3
 StormVault63Entrance|Steel|14|8
-StormVault63Entrance|Wood|4|4
+StormVault63Entrance|Wood|5|4
 StormVisitorCenterInt|Acid|8|4
 StormVisitorCenterInt|Adhesive|12|6
-StormVisitorCenterInt|Aluminum|8|6
+StormVisitorCenterInt|Aluminum|10|6
 StormVisitorCenterInt|Antiseptic|3|2
 StormVisitorCenterInt|Asbestos|4|3
-StormVisitorCenterInt|Bone|6|3
+StormVisitorCenterInt|Bone|7|3
 StormVisitorCenterInt|Ceramic|25|25
 StormVisitorCenterInt|Circuitry|2|2
 StormVisitorCenterInt|Cloth|36|35
@@ -19768,54 +19998,54 @@ StormVisitorCenterInt|Lead|8|7
 StormVisitorCenterInt|Leather|20|10
 StormVisitorCenterInt|Nuclear Material|3|3
 StormVisitorCenterInt|Oil|8|6
-StormVisitorCenterInt|Plastic|17|13
+StormVisitorCenterInt|Plastic|18|13
 StormVisitorCenterInt|Rubber|10|6
 StormVisitorCenterInt|Screw|5|5
 StormVisitorCenterInt|Silver|4|2
 StormVisitorCenterInt|Spring|4|4
-StormVisitorCenterInt|Steel|39|22
+StormVisitorCenterInt|Steel|44|22
 StormVisitorCenterInt|Wood|28|18
 StormWeatherLab01|Adhesive|7|4
-StormWeatherLab01|Aluminum|10|7
+StormWeatherLab01|Aluminum|13|7
 StormWeatherLab01|Antiseptic|2|1
 StormWeatherLab01|Asbestos|11|10
-StormWeatherLab01|Ballistic Fiber|4|2
+StormWeatherLab01|Ballistic Fiber|5|2
 StormWeatherLab01|Ceramic|17|17
 StormWeatherLab01|Circuitry|2|1
-StormWeatherLab01|Cloth|3|3
+StormWeatherLab01|Cloth|5|4
 StormWeatherLab01|Copper|3|2
 StormWeatherLab01|Cork|2|1
-StormWeatherLab01|Crystal|5|5
+StormWeatherLab01|Crystal|10|5
 StormWeatherLab01|Fiber Optics|5|5
 StormWeatherLab01|Gear|7|7
-StormWeatherLab01|Glass|84|84
+StormWeatherLab01|Glass|89|84
 StormWeatherLab01|Lead|41|9
 StormWeatherLab01|Oil|26|14
-StormWeatherLab01|Plastic|41|25
+StormWeatherLab01|Plastic|54|25
 StormWeatherLab01|Rubber|21|12
 StormWeatherLab01|Screw|2|1
-StormWeatherLab01|Steel|117|73
-StormWeatherLab01|Wood|20|13
-SugarGrove01|Aluminum|3|3
+StormWeatherLab01|Steel|147|79
+StormWeatherLab01|Wood|31|13
+SugarGrove01|Aluminum|5|3
 SugarGrove01|Asbestos|39|26
 SugarGrove01|Ceramic|81|81
 SugarGrove01|Circuitry|14|14
 SugarGrove01|Cloth|35|35
 SugarGrove01|Copper|26|25
 SugarGrove01|Cork|6|3
-SugarGrove01|Crystal|1|1
+SugarGrove01|Crystal|2|1
 SugarGrove01|Fiber Optics|1|1
 SugarGrove01|Fiberglass|14|14
 SugarGrove01|Gear|11|11
-SugarGrove01|Glass|52|42
+SugarGrove01|Glass|53|42
 SugarGrove01|Lead|30|30
 SugarGrove01|Oil|14|11
-SugarGrove01|Plastic|59|43
+SugarGrove01|Plastic|60|43
 SugarGrove01|Rubber|7|5
 SugarGrove01|Screw|15|15
 SugarGrove01|Spring|52|52
-SugarGrove01|Steel|87|45
-SugarGrove01|Wood|109|97
+SugarGrove01|Steel|98|46
+SugarGrove01|Wood|112|97
 SugarGrove02|Acid|2|1
 SugarGrove02|Ceramic|2|2
 SugarGrove02|Gear|2|2
@@ -19826,13 +20056,13 @@ SugarGrove02|Steel|6|3
 SugarGrove02|Wood|4|3
 SugarGroveMissileSilo01|Acid|32|18
 SugarGroveMissileSilo01|Adhesive|86|28
-SugarGroveMissileSilo01|Aluminum|21|16
+SugarGroveMissileSilo01|Aluminum|26|16
 SugarGroveMissileSilo01|Antiseptic|30|12
 SugarGroveMissileSilo01|Asbestos|26|19
-SugarGroveMissileSilo01|Ballistic Fiber|18|9
+SugarGroveMissileSilo01|Ballistic Fiber|21|9
 SugarGroveMissileSilo01|Ceramic|34|34
 SugarGroveMissileSilo01|Circuitry|41|27
-SugarGroveMissileSilo01|Cloth|88|71
+SugarGroveMissileSilo01|Cloth|94|74
 SugarGroveMissileSilo01|Concrete|7|1
 SugarGroveMissileSilo01|Copper|50|48
 SugarGroveMissileSilo01|Cork|7|4
@@ -19846,13 +20076,13 @@ SugarGroveMissileSilo01|Lead|170|64
 SugarGroveMissileSilo01|Leather|15|8
 SugarGroveMissileSilo01|Nuclear Material|2|2
 SugarGroveMissileSilo01|Oil|52|40
-SugarGroveMissileSilo01|Plastic|80|58
-SugarGroveMissileSilo01|Rubber|22|16
+SugarGroveMissileSilo01|Plastic|83|58
+SugarGroveMissileSilo01|Rubber|26|16
 SugarGroveMissileSilo01|Screw|31|31
 SugarGroveMissileSilo01|Silver|8|8
 SugarGroveMissileSilo01|Spring|25|25
-SugarGroveMissileSilo01|Steel|292|194
-SugarGroveMissileSilo01|Wood|107|75
+SugarGroveMissileSilo01|Steel|384|197
+SugarGroveMissileSilo01|Wood|124|75
 SurlysShack01|Adhesive|1|1
 SurlysShack01|Cloth|1|1
 SurlysShack01|Glass|4|3
@@ -19865,11 +20095,11 @@ TheCraterCore01|Cloth|8|8
 TheCraterCore01|Gear|1|1
 TheCraterCore01|Glass|22|17
 TheCraterCore01|Plastic|9|5
-TheCraterCore01|Steel|6|3
-TheCraterCore01|Wood|2|2
+TheCraterCore01|Steel|8|3
+TheCraterCore01|Wood|5|2
 TheNukashine01|Acid|14|9
 TheNukashine01|Adhesive|3|2
-TheNukashine01|Aluminum|20|14
+TheNukashine01|Aluminum|23|14
 TheNukashine01|Antiseptic|11|6
 TheNukashine01|Asbestos|23|18
 TheNukashine01|Bone|1|1
@@ -19885,13 +20115,13 @@ TheNukashine01|Glass|95|73
 TheNukashine01|Lead|26|15
 TheNukashine01|Nuclear Material|1|1
 TheNukashine01|Oil|26|16
-TheNukashine01|Plastic|39|28
-TheNukashine01|Rubber|19|13
+TheNukashine01|Plastic|44|28
+TheNukashine01|Rubber|21|13
 TheNukashine01|Screw|10|9
 TheNukashine01|Silver|2|2
 TheNukashine01|Spring|8|8
-TheNukashine01|Steel|95|60
-TheNukashine01|Wood|31|20
+TheNukashine01|Steel|100|60
+TheNukashine01|Wood|36|20
 TheRoseRoom01|Aluminum|4|3
 TheRoseRoom01|Asbestos|9|6
 TheRoseRoom01|Ceramic|25|20
@@ -19905,13 +20135,13 @@ TheRoseRoom01|Gear|2|2
 TheRoseRoom01|Glass|49|40
 TheRoseRoom01|Lead|2|2
 TheRoseRoom01|Oil|1|1
-TheRoseRoom01|Plastic|24|15
+TheRoseRoom01|Plastic|28|15
 TheRoseRoom01|Rubber|4|3
 TheRoseRoom01|Screw|6|5
 TheRoseRoom01|Silver|3|3
 TheRoseRoom01|Spring|2|2
-TheRoseRoom01|Steel|27|17
-TheRoseRoom01|Wood|14|8
+TheRoseRoom01|Steel|37|17
+TheRoseRoom01|Wood|15|8
 TheRustyPick01|Acid|4|2
 TheRustyPick01|Adhesive|4|1
 TheRustyPick01|Aluminum|2|1
@@ -19927,14 +20157,14 @@ TheRustyPick01|Lead|10|2
 TheRustyPick01|Leather|6|3
 TheRustyPick01|Oil|9|7
 TheRustyPick01|Plastic|33|20
-TheRustyPick01|Rubber|3|2
+TheRustyPick01|Rubber|4|2
 TheRustyPick01|Screw|3|2
 TheRustyPick01|Spring|3|3
-TheRustyPick01|Steel|38|21
-TheRustyPick01|Wood|8|5
+TheRustyPick01|Steel|42|21
+TheRustyPick01|Wood|9|5
 TheWayward01|Acid|6|5
 TheWayward01|Adhesive|1|1
-TheWayward01|Aluminum|19|14
+TheWayward01|Aluminum|20|14
 TheWayward01|Antiseptic|11|5
 TheWayward01|Asbestos|23|16
 TheWayward01|Ceramic|42|34
@@ -19947,16 +20177,16 @@ TheWayward01|Gear|2|2
 TheWayward01|Glass|287|166
 TheWayward01|Lead|48|28
 TheWayward01|Oil|20|11
-TheWayward01|Plastic|37|23
-TheWayward01|Rubber|7|6
+TheWayward01|Plastic|40|23
+TheWayward01|Rubber|9|6
 TheWayward01|Screw|11|9
 TheWayward01|Silver|4|4
 TheWayward01|Spring|12|10
-TheWayward01|Steel|108|66
-TheWayward01|Wood|24|19
+TheWayward01|Steel|124|66
+TheWayward01|Wood|30|19
 ThunderMtPowerPlant01|Acid|18|10
 ThunderMtPowerPlant01|Adhesive|31|20
-ThunderMtPowerPlant01|Aluminum|25|17
+ThunderMtPowerPlant01|Aluminum|29|17
 ThunderMtPowerPlant01|Antiseptic|14|6
 ThunderMtPowerPlant01|Asbestos|14|9
 ThunderMtPowerPlant01|Ballistic Fiber|2|1
@@ -19964,28 +20194,28 @@ ThunderMtPowerPlant01|Ceramic|11|11
 ThunderMtPowerPlant01|Circuitry|5|5
 ThunderMtPowerPlant01|Cloth|40|35
 ThunderMtPowerPlant01|Concrete|7|1
-ThunderMtPowerPlant01|Copper|11|11
+ThunderMtPowerPlant01|Copper|12|11
 ThunderMtPowerPlant01|Cork|2|1
 ThunderMtPowerPlant01|Crystal|1|1
 ThunderMtPowerPlant01|Fiberglass|10|7
-ThunderMtPowerPlant01|Gear|14|12
+ThunderMtPowerPlant01|Gear|15|12
 ThunderMtPowerPlant01|Glass|24|20
 ThunderMtPowerPlant01|Gold|1|1
 ThunderMtPowerPlant01|Lead|16|10
 ThunderMtPowerPlant01|Leather|3|1
 ThunderMtPowerPlant01|Oil|29|20
-ThunderMtPowerPlant01|Plastic|73|45
+ThunderMtPowerPlant01|Plastic|87|45
 ThunderMtPowerPlant01|Rubber|20|13
 ThunderMtPowerPlant01|Screw|9|9
 ThunderMtPowerPlant01|Silver|1|1
 ThunderMtPowerPlant01|Spring|12|12
-ThunderMtPowerPlant01|Steel|106|68
-ThunderMtPowerPlant01|Wood|27|21
+ThunderMtPowerPlant01|Steel|148|68
+ThunderMtPowerPlant01|Wood|32|21
 TopOfTheWorld01|Acid|5|2
 TopOfTheWorld01|Adhesive|4|3
 TopOfTheWorld01|Aluminum|36|18
 TopOfTheWorld01|Asbestos|3|3
-TopOfTheWorld01|Bone|20|6
+TopOfTheWorld01|Bone|26|6
 TopOfTheWorld01|Ceramic|30|28
 TopOfTheWorld01|Circuitry|5|5
 TopOfTheWorld01|Cloth|18|18
@@ -19998,22 +20228,22 @@ TopOfTheWorld01|Gold|1|1
 TopOfTheWorld01|Lead|25|12
 TopOfTheWorld01|Leather|3|1
 TopOfTheWorld01|Oil|21|14
-TopOfTheWorld01|Plastic|59|36
-TopOfTheWorld01|Rubber|12|6
+TopOfTheWorld01|Plastic|73|36
+TopOfTheWorld01|Rubber|13|6
 TopOfTheWorld01|Screw|4|4
 TopOfTheWorld01|Silver|1|1
 TopOfTheWorld01|Spring|13|13
-TopOfTheWorld01|Steel|131|93
-TopOfTheWorld01|Wood|76|50
+TopOfTheWorld01|Steel|157|93
+TopOfTheWorld01|Wood|79|50
 TunnelOfLoveMineshaft01|Acid|1|1
 TunnelOfLoveMineshaft01|Adhesive|12|5
-TunnelOfLoveMineshaft01|Aluminum|5|5
+TunnelOfLoveMineshaft01|Aluminum|7|5
 TunnelOfLoveMineshaft01|Antiseptic|2|1
 TunnelOfLoveMineshaft01|Asbestos|1|1
-TunnelOfLoveMineshaft01|Ballistic Fiber|4|2
+TunnelOfLoveMineshaft01|Ballistic Fiber|5|2
 TunnelOfLoveMineshaft01|Bone|1|1
 TunnelOfLoveMineshaft01|Ceramic|2|2
-TunnelOfLoveMineshaft01|Cloth|10|10
+TunnelOfLoveMineshaft01|Cloth|13|12
 TunnelOfLoveMineshaft01|Concrete|17|3
 TunnelOfLoveMineshaft01|Copper|4|4
 TunnelOfLoveMineshaft01|Cork|8|4
@@ -20022,12 +20252,12 @@ TunnelOfLoveMineshaft01|Lead|37|17
 TunnelOfLoveMineshaft01|Leather|13|6
 TunnelOfLoveMineshaft01|Oil|13|9
 TunnelOfLoveMineshaft01|Plastic|3|3
-TunnelOfLoveMineshaft01|Rubber|5|5
+TunnelOfLoveMineshaft01|Rubber|6|5
 TunnelOfLoveMineshaft01|Screw|1|1
 TunnelOfLoveMineshaft01|Spring|3|3
-TunnelOfLoveMineshaft01|Steel|48|31
-TunnelOfLoveMineshaft01|Wood|13|11
-UCB01|Aluminum|7|3
+TunnelOfLoveMineshaft01|Steel|60|32
+TunnelOfLoveMineshaft01|Wood|15|11
+UCB01|Aluminum|9|3
 UCB01|Asbestos|2|2
 UCB01|Ceramic|6|6
 UCB01|Circuitry|1|1
@@ -20038,17 +20268,17 @@ UCB01|Gear|2|2
 UCB01|Glass|1|1
 UCB01|Lead|5|1
 UCB01|Oil|2|1
-UCB01|Plastic|11|9
-UCB01|Rubber|1|1
+UCB01|Plastic|12|9
+UCB01|Rubber|2|1
 UCB01|Screw|3|2
 UCB01|Spring|10|10
 UCB01|Steel|9|4
-UCB01|Wood|12|11
+UCB01|Wood|15|11
 UncannyCaverns01|Acid|2|1
 UncannyCaverns01|Adhesive|3|3
 UncannyCaverns01|Aluminum|8|7
 UncannyCaverns01|Antiseptic|2|1
-UncannyCaverns01|Bone|10|4
+UncannyCaverns01|Bone|11|4
 UncannyCaverns01|Cloth|3|3
 UncannyCaverns01|Copper|4|4
 UncannyCaverns01|Crystal|1|1
@@ -20061,9 +20291,9 @@ UncannyCaverns01|Oil|13|9
 UncannyCaverns01|Plastic|4|3
 UncannyCaverns01|Screw|1|1
 UncannyCaverns01|Spring|1|1
-UncannyCaverns01|Steel|49|29
+UncannyCaverns01|Steel|54|29
 UncannyCaverns01|Wood|3|2
-UncannyCaverns02|Bone|66|23
+UncannyCaverns02|Bone|73|23
 UncannyCaverns02|Cloth|3|3
 UncannyCaverns02|Glass|2|2
 UncannyCaverns02|Leather|4|2
@@ -20072,7 +20302,7 @@ UncannyCavernsDungeon|Acid|2|1
 UncannyCavernsDungeon|Adhesive|3|3
 UncannyCavernsDungeon|Aluminum|8|7
 UncannyCavernsDungeon|Antiseptic|2|1
-UncannyCavernsDungeon|Bone|76|27
+UncannyCavernsDungeon|Bone|84|27
 UncannyCavernsDungeon|Ceramic|2|2
 UncannyCavernsDungeon|Cloth|8|8
 UncannyCavernsDungeon|Copper|4|4
@@ -20086,12 +20316,12 @@ UncannyCavernsDungeon|Oil|13|9
 UncannyCavernsDungeon|Plastic|4|3
 UncannyCavernsDungeon|Screw|2|2
 UncannyCavernsDungeon|Spring|2|2
-UncannyCavernsDungeon|Steel|52|31
+UncannyCavernsDungeon|Steel|57|31
 UncannyCavernsDungeon|Wood|3|2
 VTecAgCenter01|Adhesive|2|2
 VTecAgCenter01|Aluminum|5|5
 VTecAgCenter01|Asbestos|10|7
-VTecAgCenter01|Bone|23|9
+VTecAgCenter01|Bone|26|9
 VTecAgCenter01|Ceramic|51|51
 VTecAgCenter01|Circuitry|3|3
 VTecAgCenter01|Cloth|23|23
@@ -20106,39 +20336,39 @@ VTecAgCenter01|Lead|35|26
 VTecAgCenter01|Leather|2|1
 VTecAgCenter01|Oil|3|2
 VTecAgCenter01|Plastic|11|6
-VTecAgCenter01|Rubber|4|3
+VTecAgCenter01|Rubber|6|3
 VTecAgCenter01|Screw|8|8
 VTecAgCenter01|Spring|10|10
-VTecAgCenter01|Steel|36|20
-VTecAgCenter01|Wood|46|38
+VTecAgCenter01|Steel|38|20
+VTecAgCenter01|Wood|51|38
 ValleyGalleria01|Acid|5|4
 ValleyGalleria01|Adhesive|1|1
-ValleyGalleria01|Aluminum|19|10
+ValleyGalleria01|Aluminum|23|10
 ValleyGalleria01|Antiseptic|11|5
 ValleyGalleria01|Asbestos|9|7
 ValleyGalleria01|Ceramic|21|21
 ValleyGalleria01|Circuitry|11|11
-ValleyGalleria01|Cloth|63|60
-ValleyGalleria01|Copper|32|28
+ValleyGalleria01|Cloth|66|63
+ValleyGalleria01|Copper|33|28
 ValleyGalleria01|Cork|12|6
 ValleyGalleria01|Crystal|2|2
 ValleyGalleria01|Fiberglass|15|13
-ValleyGalleria01|Gear|16|12
-ValleyGalleria01|Glass|76|59
+ValleyGalleria01|Gear|17|12
+ValleyGalleria01|Glass|80|63
 ValleyGalleria01|Gold|1|1
 ValleyGalleria01|Lead|43|27
 ValleyGalleria01|Leather|33|15
 ValleyGalleria01|Oil|17|11
-ValleyGalleria01|Plastic|90|61
-ValleyGalleria01|Rubber|38|23
+ValleyGalleria01|Plastic|101|61
+ValleyGalleria01|Rubber|41|23
 ValleyGalleria01|Screw|15|15
 ValleyGalleria01|Silver|6|4
 ValleyGalleria01|Spring|16|16
-ValleyGalleria01|Steel|173|94
-ValleyGalleria01|Wood|40|27
+ValleyGalleria01|Steel|213|94
+ValleyGalleria01|Wood|48|27
 VanLoweTaxidermy01|Acid|5|3
 VanLoweTaxidermy01|Adhesive|5|4
-VanLoweTaxidermy01|Aluminum|8|6
+VanLoweTaxidermy01|Aluminum|10|6
 VanLoweTaxidermy01|Antiseptic|3|2
 VanLoweTaxidermy01|Asbestos|10|9
 VanLoweTaxidermy01|Bone|53|18
@@ -20149,22 +20379,22 @@ VanLoweTaxidermy01|Concrete|21|3
 VanLoweTaxidermy01|Copper|13|13
 VanLoweTaxidermy01|Cork|5|4
 VanLoweTaxidermy01|Crystal|2|2
-VanLoweTaxidermy01|Fiberglass|5|4
+VanLoweTaxidermy01|Fiberglass|6|5
 VanLoweTaxidermy01|Gear|5|4
-VanLoweTaxidermy01|Glass|41|34
+VanLoweTaxidermy01|Glass|42|35
 VanLoweTaxidermy01|Lead|27|15
 VanLoweTaxidermy01|Leather|13|5
 VanLoweTaxidermy01|Oil|10|9
 VanLoweTaxidermy01|Plastic|34|28
-VanLoweTaxidermy01|Rubber|26|18
+VanLoweTaxidermy01|Rubber|28|18
 VanLoweTaxidermy01|Screw|4|4
 VanLoweTaxidermy01|Silver|6|5
 VanLoweTaxidermy01|Spring|8|8
-VanLoweTaxidermy01|Steel|101|59
-VanLoweTaxidermy01|Wood|30|21
+VanLoweTaxidermy01|Steel|118|60
+VanLoweTaxidermy01|Wood|43|21
 Vault51Dungeon|Acid|8|8
 Vault51Dungeon|Adhesive|9|6
-Vault51Dungeon|Aluminum|52|31
+Vault51Dungeon|Aluminum|62|31
 Vault51Dungeon|Antiseptic|18|9
 Vault51Dungeon|Asbestos|9|9
 Vault51Dungeon|Ceramic|103|93
@@ -20173,50 +20403,50 @@ Vault51Dungeon|Cloth|147|95
 Vault51Dungeon|Concrete|15|5
 Vault51Dungeon|Copper|16|10
 Vault51Dungeon|Cork|9|6
-Vault51Dungeon|Crystal|14|8
+Vault51Dungeon|Crystal|15|8
 Vault51Dungeon|Fiber Optics|1|1
 Vault51Dungeon|Fiberglass|14|10
 Vault51Dungeon|Gear|24|18
-Vault51Dungeon|Glass|174|160
+Vault51Dungeon|Glass|175|160
 Vault51Dungeon|Lead|97|50
 Vault51Dungeon|Leather|10|5
 Vault51Dungeon|Nuclear Material|2|2
 Vault51Dungeon|Oil|5|2
-Vault51Dungeon|Plastic|99|67
-Vault51Dungeon|Rubber|13|13
+Vault51Dungeon|Plastic|106|67
+Vault51Dungeon|Rubber|16|13
 Vault51Dungeon|Screw|49|39
 Vault51Dungeon|Silver|6|5
 Vault51Dungeon|Spring|24|22
-Vault51Dungeon|Steel|111|78
-Vault51Dungeon|Wood|90|57
+Vault51Dungeon|Steel|129|79
+Vault51Dungeon|Wood|93|57
 Vault63Organics|Acid|31|13
 Vault63Organics|Adhesive|24|17
-Vault63Organics|Aluminum|16|13
+Vault63Organics|Aluminum|23|13
 Vault63Organics|Antiseptic|19|10
 Vault63Organics|Asbestos|16|11
 Vault63Organics|Ballistic Fiber|2|1
-Vault63Organics|Bone|4|2
+Vault63Organics|Bone|6|2
 Vault63Organics|Ceramic|32|32
 Vault63Organics|Circuitry|3|3
 Vault63Organics|Cloth|43|40
-Vault63Organics|Copper|19|16
+Vault63Organics|Copper|21|16
 Vault63Organics|Cork|4|2
-Vault63Organics|Crystal|9|9
+Vault63Organics|Crystal|17|9
 Vault63Organics|Fertilizer|8|2
 Vault63Organics|Fiber Optics|8|8
 Vault63Organics|Fiberglass|17|7
-Vault63Organics|Gear|27|26
-Vault63Organics|Glass|108|74
+Vault63Organics|Gear|29|26
+Vault63Organics|Glass|116|74
 Vault63Organics|Gunpowder|2|2
 Vault63Organics|Lead|34|18
 Vault63Organics|Nuclear Material|20|2
 Vault63Organics|Oil|13|13
-Vault63Organics|Plastic|45|34
+Vault63Organics|Plastic|48|34
 Vault63Organics|Rubber|17|13
 Vault63Organics|Screw|17|16
 Vault63Organics|Spring|15|15
-Vault63Organics|Steel|133|83
-Vault63Organics|Wood|77|53
+Vault63Organics|Steel|187|91
+Vault63Organics|Wood|103|53
 Vault79Entrance|Aluminum|2|2
 Vault79Entrance|Asbestos|2|1
 Vault79Entrance|Ceramic|1|1
@@ -20227,8 +20457,8 @@ Vault79Entrance|Lead|14|6
 Vault79Entrance|Oil|7|5
 Vault79Entrance|Plastic|3|2
 Vault79Entrance|Screw|2|2
-Vault79Entrance|Steel|39|25
-Vault79Entrance|Wood|4|4
+Vault79Entrance|Steel|46|25
+Vault79Entrance|Wood|7|4
 Vault79GoldVaultOperations|Asbestos|3|2
 Vault79GoldVaultOperations|Ceramic|10|10
 Vault79GoldVaultOperations|Circuitry|2|2
@@ -20244,65 +20474,65 @@ Vault79GoldVaultOperations|Steel|6|3
 Vault79GoldVaultOperations|Wood|1|1
 Vault79Main|Acid|34|20
 Vault79Main|Adhesive|25|13
-Vault79Main|Aluminum|59|41
+Vault79Main|Aluminum|78|41
 Vault79Main|Antiseptic|24|11
 Vault79Main|Asbestos|55|38
-Vault79Main|Ballistic Fiber|10|5
+Vault79Main|Ballistic Fiber|14|5
 Vault79Main|Bone|5|1
 Vault79Main|Ceramic|61|58
 Vault79Main|Circuitry|25|21
-Vault79Main|Cloth|85|70
+Vault79Main|Cloth|94|75
 Vault79Main|Copper|49|44
 Vault79Main|Cork|4|2
-Vault79Main|Crystal|7|7
+Vault79Main|Crystal|11|7
 Vault79Main|Fiber Optics|4|4
 Vault79Main|Fiberglass|22|18
 Vault79Main|Gear|40|39
-Vault79Main|Glass|120|99
+Vault79Main|Glass|124|99
 Vault79Main|Gold|2|2
 Vault79Main|Lead|81|40
 Vault79Main|Leather|11|6
 Vault79Main|Nuclear Material|5|5
 Vault79Main|Oil|56|36
-Vault79Main|Plastic|160|102
-Vault79Main|Rubber|57|38
+Vault79Main|Plastic|174|102
+Vault79Main|Rubber|60|38
 Vault79Main|Screw|47|42
 Vault79Main|Silver|3|2
 Vault79Main|Spring|27|27
-Vault79Main|Steel|312|184
-Vault79Main|Wood|123|77
+Vault79Main|Steel|378|192
+Vault79Main|Wood|134|77
 Vault94Dungeon|Acid|26|20
 Vault94Dungeon|Adhesive|33|14
-Vault94Dungeon|Aluminum|37|27
+Vault94Dungeon|Aluminum|49|27
 Vault94Dungeon|Antiseptic|12|5
 Vault94Dungeon|Asbestos|13|9
-Vault94Dungeon|Bone|10|4
+Vault94Dungeon|Bone|13|4
 Vault94Dungeon|Ceramic|73|73
 Vault94Dungeon|Circuitry|7|7
 Vault94Dungeon|Cloth|53|50
 Vault94Dungeon|Concrete|14|2
 Vault94Dungeon|Copper|22|21
 Vault94Dungeon|Cork|4|2
-Vault94Dungeon|Crystal|8|8
+Vault94Dungeon|Crystal|12|8
 Vault94Dungeon|Fertilizer|44|11
 Vault94Dungeon|Fiber Optics|4|4
 Vault94Dungeon|Fiberglass|12|11
 Vault94Dungeon|Gear|25|24
-Vault94Dungeon|Glass|77|66
+Vault94Dungeon|Glass|81|66
 Vault94Dungeon|Lead|50|19
 Vault94Dungeon|Leather|4|2
 Vault94Dungeon|Nuclear Material|1|1
 Vault94Dungeon|Oil|30|19
-Vault94Dungeon|Plastic|37|28
-Vault94Dungeon|Rubber|25|18
+Vault94Dungeon|Plastic|38|28
+Vault94Dungeon|Rubber|26|18
 Vault94Dungeon|Screw|22|21
 Vault94Dungeon|Silver|2|1
 Vault94Dungeon|Spring|27|27
-Vault94Dungeon|Steel|149|91
-Vault94Dungeon|Wood|69|50
+Vault94Dungeon|Steel|196|95
+Vault94Dungeon|Wood|83|50
 Vault94DungeonGECK|Acid|7|4
 Vault94DungeonGECK|Adhesive|9|2
-Vault94DungeonGECK|Aluminum|9|6
+Vault94DungeonGECK|Aluminum|10|6
 Vault94DungeonGECK|Antiseptic|2|1
 Vault94DungeonGECK|Asbestos|1|1
 Vault94DungeonGECK|Ceramic|6|6
@@ -20318,12 +20548,12 @@ Vault94DungeonGECK|Lead|2|1
 Vault94DungeonGECK|Leather|2|1
 Vault94DungeonGECK|Nuclear Material|2|2
 Vault94DungeonGECK|Oil|8|7
-Vault94DungeonGECK|Plastic|9|7
+Vault94DungeonGECK|Plastic|10|7
 Vault94DungeonGECK|Rubber|3|2
 Vault94DungeonGECK|Screw|3|3
 Vault94DungeonGECK|Spring|7|7
-Vault94DungeonGECK|Steel|42|26
-Vault94DungeonGECK|Wood|13|12
+Vault94DungeonGECK|Steel|54|26
+Vault94DungeonGECK|Wood|18|12
 Vault94Entrance|Asbestos|2|1
 Vault94Entrance|Ceramic|1|1
 Vault94Entrance|Circuitry|1|1
@@ -20333,79 +20563,79 @@ Vault94Entrance|Screw|1|1
 Vault94Entrance|Steel|2|1
 Vault96Dungeon|Acid|20|13
 Vault96Dungeon|Adhesive|56|25
-Vault96Dungeon|Aluminum|52|40
+Vault96Dungeon|Aluminum|71|40
 Vault96Dungeon|Antiseptic|28|12
 Vault96Dungeon|Asbestos|20|13
-Vault96Dungeon|Ballistic Fiber|6|3
-Vault96Dungeon|Bone|24|11
+Vault96Dungeon|Ballistic Fiber|8|3
+Vault96Dungeon|Bone|29|11
 Vault96Dungeon|Ceramic|39|39
 Vault96Dungeon|Circuitry|13|8
-Vault96Dungeon|Cloth|58|56
-Vault96Dungeon|Copper|27|24
+Vault96Dungeon|Cloth|63|59
+Vault96Dungeon|Copper|31|24
 Vault96Dungeon|Cork|4|2
-Vault96Dungeon|Crystal|13|13
+Vault96Dungeon|Crystal|24|13
 Vault96Dungeon|Fertilizer|12|3
 Vault96Dungeon|Fiber Optics|12|12
 Vault96Dungeon|Fiberglass|13|11
-Vault96Dungeon|Gear|34|32
-Vault96Dungeon|Glass|144|132
+Vault96Dungeon|Gear|38|32
+Vault96Dungeon|Glass|155|132
 Vault96Dungeon|Lead|33|19
 Vault96Dungeon|Leather|9|4
 Vault96Dungeon|Nuclear Material|3|3
 Vault96Dungeon|Oil|48|35
-Vault96Dungeon|Plastic|77|52
-Vault96Dungeon|Rubber|39|33
+Vault96Dungeon|Plastic|91|52
+Vault96Dungeon|Rubber|41|33
 Vault96Dungeon|Screw|18|16
 Vault96Dungeon|Spring|28|28
-Vault96Dungeon|Steel|251|153
-Vault96Dungeon|Wood|93|64
+Vault96Dungeon|Steel|346|166
+Vault96Dungeon|Wood|111|64
 VaultTecU01|Acid|3|2
 VaultTecU01|Adhesive|10|6
-VaultTecU01|Aluminum|14|13
+VaultTecU01|Aluminum|17|13
 VaultTecU01|Antiseptic|7|4
 VaultTecU01|Asbestos|14|10
-VaultTecU01|Bone|51|22
+VaultTecU01|Bone|64|22
 VaultTecU01|Ceramic|49|37
 VaultTecU01|Circuitry|4|3
 VaultTecU01|Cloth|76|73
 VaultTecU01|Copper|17|15
 VaultTecU01|Cork|3|2
-VaultTecU01|Crystal|10|8
+VaultTecU01|Crystal|14|8
 VaultTecU01|Fiber Optics|4|4
 VaultTecU01|Fiberglass|12|11
 VaultTecU01|Gear|15|14
-VaultTecU01|Glass|75|56
+VaultTecU01|Glass|79|56
 VaultTecU01|Lead|107|55
 VaultTecU01|Oil|28|23
-VaultTecU01|Plastic|41|28
-VaultTecU01|Rubber|16|9
+VaultTecU01|Plastic|46|28
+VaultTecU01|Rubber|17|9
 VaultTecU01|Screw|12|9
 VaultTecU01|Silver|1|1
 VaultTecU01|Spring|33|29
-VaultTecU01|Steel|132|80
-VaultTecU01|Wood|76|66
+VaultTecU01|Steel|166|84
+VaultTecU01|Wood|87|66
 WVLumberCo01|Acid|7|5
 WVLumberCo01|Adhesive|7|4
-WVLumberCo01|Aluminum|10|9
+WVLumberCo01|Aluminum|11|9
 WVLumberCo01|Antiseptic|7|3
 WVLumberCo01|Asbestos|19|12
 WVLumberCo01|Ceramic|17|16
 WVLumberCo01|Circuitry|1|1
 WVLumberCo01|Cloth|26|22
-WVLumberCo01|Copper|4|4
+WVLumberCo01|Copper|5|4
 WVLumberCo01|Fiberglass|8|5
-WVLumberCo01|Gear|8|7
+WVLumberCo01|Gear|9|7
 WVLumberCo01|Glass|31|24
 WVLumberCo01|Lead|11|9
 WVLumberCo01|Nuclear Material|1|1
 WVLumberCo01|Oil|18|14
-WVLumberCo01|Plastic|54|34
+WVLumberCo01|Plastic|55|34
 WVLumberCo01|Rubber|8|5
 WVLumberCo01|Screw|6|6
 WVLumberCo01|Silver|2|2
 WVLumberCo01|Spring|3|3
-WVLumberCo01|Steel|98|64
-WVLumberCo01|Wood|16|12
+WVLumberCo01|Steel|125|64
+WVLumberCo01|Wood|18|12
 WatogaCivicCenter01|Acid|7|5
 WatogaCivicCenter01|Adhesive|13|5
 WatogaCivicCenter01|Aluminum|25|15
@@ -20423,13 +20653,13 @@ WatogaCivicCenter01|Glass|169|156
 WatogaCivicCenter01|Lead|55|35
 WatogaCivicCenter01|Leather|18|9
 WatogaCivicCenter01|Oil|20|17
-WatogaCivicCenter01|Plastic|69|51
-WatogaCivicCenter01|Rubber|28|24
+WatogaCivicCenter01|Plastic|72|51
+WatogaCivicCenter01|Rubber|31|24
 WatogaCivicCenter01|Screw|21|14
 WatogaCivicCenter01|Silver|5|4
 WatogaCivicCenter01|Spring|12|11
-WatogaCivicCenter01|Steel|127|73
-WatogaCivicCenter01|Wood|37|25
+WatogaCivicCenter01|Steel|148|73
+WatogaCivicCenter01|Wood|44|25
 WatogaCivicCenterDungeon|Acid|2|2
 WatogaCivicCenterDungeon|Adhesive|2|1
 WatogaCivicCenterDungeon|Aluminum|13|8
@@ -20445,33 +20675,33 @@ WatogaCivicCenterDungeon|Glass|128|118
 WatogaCivicCenterDungeon|Lead|35|27
 WatogaCivicCenterDungeon|Leather|12|6
 WatogaCivicCenterDungeon|Oil|13|12
-WatogaCivicCenterDungeon|Plastic|45|33
-WatogaCivicCenterDungeon|Rubber|14|13
+WatogaCivicCenterDungeon|Plastic|47|33
+WatogaCivicCenterDungeon|Rubber|16|13
 WatogaCivicCenterDungeon|Screw|16|12
 WatogaCivicCenterDungeon|Silver|3|2
 WatogaCivicCenterDungeon|Spring|4|4
-WatogaCivicCenterDungeon|Steel|81|45
-WatogaCivicCenterDungeon|Wood|27|18
+WatogaCivicCenterDungeon|Steel|90|45
+WatogaCivicCenterDungeon|Wood|31|18
 WatogaEmergencyServices01|Acid|2|2
 WatogaEmergencyServices01|Adhesive|2|2
-WatogaEmergencyServices01|Aluminum|7|7
+WatogaEmergencyServices01|Aluminum|13|7
 WatogaEmergencyServices01|Antiseptic|6|3
 WatogaEmergencyServices01|Asbestos|2|2
 WatogaEmergencyServices01|Ceramic|6|6
 WatogaEmergencyServices01|Cloth|16|15
-WatogaEmergencyServices01|Copper|3|2
-WatogaEmergencyServices01|Crystal|1|1
+WatogaEmergencyServices01|Copper|4|2
+WatogaEmergencyServices01|Crystal|2|1
 WatogaEmergencyServices01|Fiber Optics|1|1
-WatogaEmergencyServices01|Gear|3|3
-WatogaEmergencyServices01|Glass|13|12
+WatogaEmergencyServices01|Gear|4|3
+WatogaEmergencyServices01|Glass|14|12
 WatogaEmergencyServices01|Lead|3|3
 WatogaEmergencyServices01|Oil|4|4
-WatogaEmergencyServices01|Plastic|15|14
-WatogaEmergencyServices01|Rubber|13|12
+WatogaEmergencyServices01|Plastic|18|14
+WatogaEmergencyServices01|Rubber|14|12
 WatogaEmergencyServices01|Screw|1|1
 WatogaEmergencyServices01|Spring|4|4
-WatogaEmergencyServices01|Steel|26|18
-WatogaEmergencyServices01|Wood|20|13
+WatogaEmergencyServices01|Steel|40|19
+WatogaEmergencyServices01|Wood|22|13
 WatogaHighSchool01|Adhesive|5|1
 WatogaHighSchool01|Aluminum|47|24
 WatogaHighSchool01|Asbestos|6|6
@@ -20480,22 +20710,22 @@ WatogaHighSchool01|Circuitry|4|3
 WatogaHighSchool01|Cloth|190|188
 WatogaHighSchool01|Copper|13|12
 WatogaHighSchool01|Cork|10|5
-WatogaHighSchool01|Crystal|3|3
+WatogaHighSchool01|Crystal|4|3
 WatogaHighSchool01|Fiber Optics|1|1
 WatogaHighSchool01|Fiberglass|2|2
 WatogaHighSchool01|Gear|9|8
-WatogaHighSchool01|Glass|96|85
+WatogaHighSchool01|Glass|97|85
 WatogaHighSchool01|Lead|42|13
 WatogaHighSchool01|Leather|6|3
 WatogaHighSchool01|Nuclear Material|1|1
 WatogaHighSchool01|Oil|14|7
 WatogaHighSchool01|Plastic|167|137
-WatogaHighSchool01|Rubber|31|28
+WatogaHighSchool01|Rubber|33|28
 WatogaHighSchool01|Screw|14|10
 WatogaHighSchool01|Silver|1|1
 WatogaHighSchool01|Spring|9|9
-WatogaHighSchool01|Steel|50|34
-WatogaHighSchool01|Wood|34|28
+WatogaHighSchool01|Steel|58|35
+WatogaHighSchool01|Wood|39|28
 WatogaHighSchoolDungeon|Adhesive|5|1
 WatogaHighSchoolDungeon|Aluminum|47|24
 WatogaHighSchoolDungeon|Asbestos|6|6
@@ -20504,28 +20734,28 @@ WatogaHighSchoolDungeon|Circuitry|4|3
 WatogaHighSchoolDungeon|Cloth|190|188
 WatogaHighSchoolDungeon|Copper|13|12
 WatogaHighSchoolDungeon|Cork|10|5
-WatogaHighSchoolDungeon|Crystal|3|3
+WatogaHighSchoolDungeon|Crystal|4|3
 WatogaHighSchoolDungeon|Fiber Optics|1|1
 WatogaHighSchoolDungeon|Fiberglass|2|2
 WatogaHighSchoolDungeon|Gear|11|9
-WatogaHighSchoolDungeon|Glass|95|84
+WatogaHighSchoolDungeon|Glass|96|84
 WatogaHighSchoolDungeon|Lead|42|13
 WatogaHighSchoolDungeon|Leather|6|3
 WatogaHighSchoolDungeon|Nuclear Material|1|1
 WatogaHighSchoolDungeon|Oil|14|7
 WatogaHighSchoolDungeon|Plastic|160|131
-WatogaHighSchoolDungeon|Rubber|31|28
+WatogaHighSchoolDungeon|Rubber|33|28
 WatogaHighSchoolDungeon|Screw|15|11
 WatogaHighSchoolDungeon|Silver|1|1
 WatogaHighSchoolDungeon|Spring|10|10
-WatogaHighSchoolDungeon|Steel|47|31
-WatogaHighSchoolDungeon|Wood|33|27
+WatogaHighSchoolDungeon|Steel|53|32
+WatogaHighSchoolDungeon|Wood|36|27
 WatogaMunicipalCenter01|Acid|3|2
 WatogaMunicipalCenter01|Adhesive|2|2
 WatogaMunicipalCenter01|Aluminum|1|1
 WatogaMunicipalCenter01|Antiseptic|5|2
 WatogaMunicipalCenter01|Asbestos|6|4
-WatogaMunicipalCenter01|Bone|14|5
+WatogaMunicipalCenter01|Bone|17|5
 WatogaMunicipalCenter01|Ceramic|20|20
 WatogaMunicipalCenter01|Circuitry|5|5
 WatogaMunicipalCenter01|Cloth|34|31
@@ -20540,12 +20770,12 @@ WatogaMunicipalCenter01|Lead|7|7
 WatogaMunicipalCenter01|Leather|21|10
 WatogaMunicipalCenter01|Oil|1|1
 WatogaMunicipalCenter01|Plastic|31|19
-WatogaMunicipalCenter01|Rubber|8|7
+WatogaMunicipalCenter01|Rubber|9|7
 WatogaMunicipalCenter01|Screw|9|9
 WatogaMunicipalCenter01|Silver|1|1
 WatogaMunicipalCenter01|Spring|10|10
-WatogaMunicipalCenter01|Steel|15|12
-WatogaMunicipalCenter01|Wood|20|14
+WatogaMunicipalCenter01|Steel|17|12
+WatogaMunicipalCenter01|Wood|25|14
 WatogaMunicipalCenter02|Aluminum|1|1
 WatogaMunicipalCenter02|Asbestos|2|1
 WatogaMunicipalCenter02|Ceramic|7|7
@@ -20562,64 +20792,64 @@ WatogaMunicipalCenter02|Lead|7|7
 WatogaMunicipalCenter02|Leather|2|1
 WatogaMunicipalCenter02|Oil|1|1
 WatogaMunicipalCenter02|Plastic|9|3
-WatogaMunicipalCenter02|Rubber|1|1
+WatogaMunicipalCenter02|Rubber|2|1
 WatogaMunicipalCenter02|Screw|3|3
 WatogaMunicipalCenter02|Spring|2|2
 WatogaMunicipalCenter02|Steel|15|8
-WatogaMunicipalCenter02|Wood|2|2
+WatogaMunicipalCenter02|Wood|3|2
 WatogaTowers01|Adhesive|2|2
-WatogaTowers01|Aluminum|3|3
+WatogaTowers01|Aluminum|5|3
 WatogaTowers01|Asbestos|2|1
 WatogaTowers01|Ceramic|14|12
 WatogaTowers01|Circuitry|6|5
 WatogaTowers01|Cloth|17|14
-WatogaTowers01|Copper|9|9
-WatogaTowers01|Gear|3|3
+WatogaTowers01|Copper|11|9
+WatogaTowers01|Gear|5|3
 WatogaTowers01|Glass|37|30
 WatogaTowers01|Lead|4|4
 WatogaTowers01|Leather|7|3
 WatogaTowers01|Oil|4|3
-WatogaTowers01|Plastic|9|6
+WatogaTowers01|Plastic|11|6
 WatogaTowers01|Rubber|3|3
 WatogaTowers01|Spring|1|1
-WatogaTowers01|Steel|36|25
+WatogaTowers01|Steel|54|25
 WatogaTowers01|Wood|9|6
 WatogaUnderground01|Acid|37|20
 WatogaUnderground01|Adhesive|40|11
-WatogaUnderground01|Aluminum|39|23
+WatogaUnderground01|Aluminum|45|23
 WatogaUnderground01|Antiseptic|24|10
 WatogaUnderground01|Asbestos|23|18
-WatogaUnderground01|Ballistic Fiber|8|4
+WatogaUnderground01|Ballistic Fiber|11|4
 WatogaUnderground01|Bone|2|1
 WatogaUnderground01|Ceramic|75|61
 WatogaUnderground01|Circuitry|24|14
-WatogaUnderground01|Cloth|100|65
+WatogaUnderground01|Cloth|106|68
 WatogaUnderground01|Concrete|3|1
 WatogaUnderground01|Copper|33|27
 WatogaUnderground01|Cork|7|5
-WatogaUnderground01|Crystal|10|4
+WatogaUnderground01|Crystal|11|4
 WatogaUnderground01|Fertilizer|8|2
 WatogaUnderground01|Fiber Optics|1|1
 WatogaUnderground01|Fiberglass|26|18
 WatogaUnderground01|Gear|13|12
-WatogaUnderground01|Glass|142|115
+WatogaUnderground01|Glass|143|115
 WatogaUnderground01|Lead|95|46
 WatogaUnderground01|Leather|38|18
 WatogaUnderground01|Nuclear Material|7|7
 WatogaUnderground01|Oil|50|28
-WatogaUnderground01|Plastic|95|67
-WatogaUnderground01|Rubber|37|27
+WatogaUnderground01|Plastic|100|67
+WatogaUnderground01|Rubber|38|27
 WatogaUnderground01|Screw|21|18
 WatogaUnderground01|Silver|6|6
 WatogaUnderground01|Spring|19|19
-WatogaUnderground01|Steel|217|119
-WatogaUnderground01|Wood|86|58
+WatogaUnderground01|Steel|250|123
+WatogaUnderground01|Wood|99|58
 WendigoCave01|Acid|2|1
 WendigoCave01|Adhesive|1|1
-WendigoCave01|Aluminum|2|2
+WendigoCave01|Aluminum|3|2
 WendigoCave01|Antiseptic|2|1
 WendigoCave01|Asbestos|1|1
-WendigoCave01|Bone|90|36
+WendigoCave01|Bone|111|36
 WendigoCave01|Cloth|2|2
 WendigoCave01|Copper|2|2
 WendigoCave01|Fiberglass|1|1
@@ -20627,54 +20857,54 @@ WendigoCave01|Glass|25|17
 WendigoCave01|Lead|5|1
 WendigoCave01|Leather|2|1
 WendigoCave01|Oil|18|10
-WendigoCave01|Plastic|9|7
+WendigoCave01|Plastic|12|7
 WendigoCave01|Rubber|3|2
 WendigoCave01|Screw|3|2
 WendigoCave01|Spring|1|1
-WendigoCave01|Steel|50|27
+WendigoCave01|Steel|55|27
 WestTek01|Acid|2|2
-WestTek01|Aluminum|22|18
+WestTek01|Aluminum|32|18
 WestTek01|Antiseptic|4|2
 WestTek01|Asbestos|5|5
 WestTek01|Ceramic|6|6
 WestTek01|Circuitry|2|2
 WestTek01|Cloth|2|2
 WestTek01|Concrete|14|2
-WestTek01|Copper|11|10
-WestTek01|Crystal|5|5
+WestTek01|Copper|14|10
+WestTek01|Crystal|10|5
 WestTek01|Fiber Optics|5|5
 WestTek01|Fiberglass|6|6
-WestTek01|Gear|12|11
-WestTek01|Glass|38|28
+WestTek01|Gear|15|11
+WestTek01|Glass|43|28
 WestTek01|Lead|1|1
 WestTek01|Oil|10|7
-WestTek01|Plastic|9|6
-WestTek01|Rubber|21|17
+WestTek01|Plastic|12|6
+WestTek01|Rubber|23|17
 WestTek01|Screw|8|7
 WestTek01|Spring|10|10
-WestTek01|Steel|39|27
-WestTek01|Wood|15|12
-WestTek02|Aluminum|11|10
+WestTek01|Steel|62|32
+WestTek01|Wood|18|12
+WestTek02|Aluminum|20|10
 WestTek02|Asbestos|17|11
 WestTek02|Ceramic|19|19
 WestTek02|Cloth|7|3
 WestTek02|Copper|1|1
 WestTek02|Cork|1|1
-WestTek02|Crystal|8|6
+WestTek02|Crystal|13|6
 WestTek02|Fiber Optics|5|5
 WestTek02|Fiberglass|4|2
 WestTek02|Gear|12|10
-WestTek02|Glass|15|13
+WestTek02|Glass|20|13
 WestTek02|Lead|2|2
-WestTek02|Plastic|20|14
+WestTek02|Plastic|22|14
 WestTek02|Rubber|21|15
 WestTek02|Screw|6|5
 WestTek02|Spring|8|8
-WestTek02|Steel|23|14
-WestTek02|Wood|20|16
+WestTek02|Steel|39|19
+WestTek02|Wood|31|16
 WhitespringBunker01|Acid|2|1
 WhitespringBunker01|Adhesive|5|2
-WhitespringBunker01|Aluminum|9|9
+WhitespringBunker01|Aluminum|14|9
 WhitespringBunker01|Asbestos|11|7
 WhitespringBunker01|Ceramic|96|77
 WhitespringBunker01|Circuitry|17|16
@@ -20688,25 +20918,25 @@ WhitespringBunker01|Glass|61|45
 WhitespringBunker01|Lead|4|4
 WhitespringBunker01|Nuclear Material|1|1
 WhitespringBunker01|Oil|18|10
-WhitespringBunker01|Plastic|32|22
-WhitespringBunker01|Rubber|11|9
+WhitespringBunker01|Plastic|34|22
+WhitespringBunker01|Rubber|12|9
 WhitespringBunker01|Screw|22|20
 WhitespringBunker01|Silver|2|1
 WhitespringBunker01|Spring|13|13
-WhitespringBunker01|Steel|76|47
-WhitespringBunker01|Wood|43|29
+WhitespringBunker01|Steel|88|47
+WhitespringBunker01|Wood|49|29
 WhitespringMall01|Acid|4|2
-WhitespringMall01|Aluminum|35|19
+WhitespringMall01|Aluminum|39|19
 WhitespringMall01|Asbestos|14|8
-WhitespringMall01|Ballistic Fiber|12|6
+WhitespringMall01|Ballistic Fiber|18|6
 WhitespringMall01|Bone|8|4
 WhitespringMall01|Ceramic|136|101
 WhitespringMall01|Circuitry|19|17
-WhitespringMall01|Cloth|81|62
+WhitespringMall01|Cloth|93|68
 WhitespringMall01|Copper|35|31
 WhitespringMall01|Cork|11|9
 WhitespringMall01|Crystal|28|14
-WhitespringMall01|Fiberglass|29|21
+WhitespringMall01|Fiberglass|30|22
 WhitespringMall01|Gear|29|21
 WhitespringMall01|Glass|96|65
 WhitespringMall01|Gold|12|12
@@ -20719,10 +20949,10 @@ WhitespringMall01|Rubber|14|10
 WhitespringMall01|Screw|39|23
 WhitespringMall01|Silver|32|24
 WhitespringMall01|Spring|55|43
-WhitespringMall01|Steel|250|151
-WhitespringMall01|Wood|92|58
+WhitespringMall01|Steel|275|158
+WhitespringMall01|Wood|96|58
 WhitespringRefuge01|Acid|1|1
-WhitespringRefuge01|Aluminum|18|12
+WhitespringRefuge01|Aluminum|24|12
 WhitespringRefuge01|Antiseptic|5|4
 WhitespringRefuge01|Asbestos|10|7
 WhitespringRefuge01|Bone|1|1
@@ -20732,29 +20962,29 @@ WhitespringRefuge01|Cloth|54|37
 WhitespringRefuge01|Concrete|3|1
 WhitespringRefuge01|Copper|8|7
 WhitespringRefuge01|Cork|2|1
-WhitespringRefuge01|Crystal|3|3
+WhitespringRefuge01|Crystal|6|3
 WhitespringRefuge01|Fiber Optics|3|3
 WhitespringRefuge01|Fiberglass|15|10
 WhitespringRefuge01|Gear|6|6
-WhitespringRefuge01|Glass|72|54
+WhitespringRefuge01|Glass|75|54
 WhitespringRefuge01|Gold|2|2
 WhitespringRefuge01|Lead|12|10
 WhitespringRefuge01|Leather|8|5
 WhitespringRefuge01|Nuclear Material|2|2
 WhitespringRefuge01|Oil|3|2
-WhitespringRefuge01|Plastic|73|44
+WhitespringRefuge01|Plastic|74|44
 WhitespringRefuge01|Rubber|22|16
 WhitespringRefuge01|Screw|8|8
 WhitespringRefuge01|Silver|1|1
 WhitespringRefuge01|Spring|12|12
-WhitespringRefuge01|Steel|107|83
-WhitespringRefuge01|Wood|111|67
+WhitespringRefuge01|Steel|134|86
+WhitespringRefuge01|Wood|119|67
 XPDAC01Casino|Acid|17|14
 XPDAC01Casino|Adhesive|24|10
-XPDAC01Casino|Aluminum|25|18
+XPDAC01Casino|Aluminum|30|18
 XPDAC01Casino|Antiseptic|18|9
 XPDAC01Casino|Asbestos|85|60
-XPDAC01Casino|Bone|7|3
+XPDAC01Casino|Bone|9|3
 XPDAC01Casino|Ceramic|210|167
 XPDAC01Casino|Circuitry|16|16
 XPDAC01Casino|Cloth|182|137
@@ -20769,20 +20999,20 @@ XPDAC01Casino|Gold|4|4
 XPDAC01Casino|Lead|89|33
 XPDAC01Casino|Leather|4|2
 XPDAC01Casino|Oil|52|35
-XPDAC01Casino|Plastic|127|83
-XPDAC01Casino|Rubber|29|22
+XPDAC01Casino|Plastic|138|83
+XPDAC01Casino|Rubber|31|22
 XPDAC01Casino|Screw|24|22
 XPDAC01Casino|Silver|60|60
 XPDAC01Casino|Spring|27|27
-XPDAC01Casino|Steel|322|226
-XPDAC01Casino|Wood|121|81
+XPDAC01Casino|Steel|504|226
+XPDAC01Casino|Wood|138|81
 XPDAC01EntertainmentDistrict|Aluminum|3|3
 XPDAC01EntertainmentDistrict|Asbestos|3|3
-XPDAC01EntertainmentDistrict|Ballistic Fiber|2|1
+XPDAC01EntertainmentDistrict|Ballistic Fiber|3|1
 XPDAC01EntertainmentDistrict|Bone|9|3
 XPDAC01EntertainmentDistrict|Ceramic|1|1
 XPDAC01EntertainmentDistrict|Circuitry|2|2
-XPDAC01EntertainmentDistrict|Cloth|27|22
+XPDAC01EntertainmentDistrict|Cloth|29|23
 XPDAC01EntertainmentDistrict|Copper|2|2
 XPDAC01EntertainmentDistrict|Fertilizer|1|1
 XPDAC01EntertainmentDistrict|Fiberglass|2|2
@@ -20795,7 +21025,7 @@ XPDAC01EntertainmentDistrict|Rubber|2|1
 XPDAC01EntertainmentDistrict|Screw|2|2
 XPDAC01EntertainmentDistrict|Silver|3|2
 XPDAC01EntertainmentDistrict|Spring|2|2
-XPDAC01EntertainmentDistrict|Steel|27|11
+XPDAC01EntertainmentDistrict|Steel|28|12
 XPDAC01EntertainmentDistrict|Wood|3|2
 XPDAC01NightClub|Aluminum|4|3
 XPDAC01NightClub|Antiseptic|1|1
@@ -20819,11 +21049,11 @@ XPDAC01NightClub|Rubber|8|5
 XPDAC01NightClub|Screw|6|6
 XPDAC01NightClub|Silver|6|3
 XPDAC01NightClub|Spring|7|5
-XPDAC01NightClub|Steel|100|79
+XPDAC01NightClub|Steel|187|79
 XPDAC01NightClub|Wood|30|15
 XPDAC02Aquarium|Acid|8|7
 XPDAC02Aquarium|Adhesive|3|3
-XPDAC02Aquarium|Aluminum|15|15
+XPDAC02Aquarium|Aluminum|23|15
 XPDAC02Aquarium|Antiseptic|24|12
 XPDAC02Aquarium|Asbestos|38|36
 XPDAC02Aquarium|Ceramic|47|46
@@ -20836,13 +21066,13 @@ XPDAC02Aquarium|Glass|220|189
 XPDAC02Aquarium|Lead|24|15
 XPDAC02Aquarium|Leather|18|9
 XPDAC02Aquarium|Oil|20|14
-XPDAC02Aquarium|Plastic|59|40
+XPDAC02Aquarium|Plastic|63|40
 XPDAC02Aquarium|Rubber|65|39
 XPDAC02Aquarium|Screw|16|15
 XPDAC02Aquarium|Silver|95|95
 XPDAC02Aquarium|Spring|48|48
-XPDAC02Aquarium|Steel|225|173
-XPDAC02Aquarium|Wood|85|67
+XPDAC02Aquarium|Steel|365|173
+XPDAC02Aquarium|Wood|93|67
 XPDAC02AquariumDungeon|Acid|7|6
 XPDAC02AquariumDungeon|Adhesive|3|3
 XPDAC02AquariumDungeon|Aluminum|6|6
@@ -20862,21 +21092,21 @@ XPDAC02AquariumDungeon|Plastic|16|13
 XPDAC02AquariumDungeon|Rubber|51|28
 XPDAC02AquariumDungeon|Screw|8|8
 XPDAC02AquariumDungeon|Spring|41|41
-XPDAC02AquariumDungeon|Steel|83|64
-XPDAC02AquariumDungeon|Wood|59|52
+XPDAC02AquariumDungeon|Steel|92|64
+XPDAC02AquariumDungeon|Wood|67|52
 XPDAC02Boardwalk|Acid|14|11
-XPDAC02Boardwalk|Aluminum|4|4
+XPDAC02Boardwalk|Aluminum|6|4
 XPDAC02Boardwalk|Antiseptic|10|5
 XPDAC02Boardwalk|Asbestos|20|15
-XPDAC02Boardwalk|Ballistic Fiber|6|3
+XPDAC02Boardwalk|Ballistic Fiber|9|3
 XPDAC02Boardwalk|Ceramic|68|63
 XPDAC02Boardwalk|Circuitry|3|3
-XPDAC02Boardwalk|Cloth|91|77
+XPDAC02Boardwalk|Cloth|97|80
 XPDAC02Boardwalk|Concrete|3|1
 XPDAC02Boardwalk|Copper|3|3
 XPDAC02Boardwalk|Cork|2|1
 XPDAC02Boardwalk|Fertilizer|12|3
-XPDAC02Boardwalk|Fiberglass|4|3
+XPDAC02Boardwalk|Fiberglass|10|9
 XPDAC02Boardwalk|Gear|6|6
 XPDAC02Boardwalk|Glass|61|58
 XPDAC02Boardwalk|Lead|34|26
@@ -20886,18 +21116,18 @@ XPDAC02Boardwalk|Plastic|43|23
 XPDAC02Boardwalk|Rubber|21|12
 XPDAC02Boardwalk|Screw|14|14
 XPDAC02Boardwalk|Spring|17|17
-XPDAC02Boardwalk|Steel|81|57
-XPDAC02Boardwalk|Wood|34|24
+XPDAC02Boardwalk|Steel|108|66
+XPDAC02Boardwalk|Wood|48|24
 XPDAC02Pier|Acid|4|2
 XPDAC02Pier|Aluminum|6|4
 XPDAC02Pier|Asbestos|13|9
 XPDAC02Pier|Ceramic|34|31
 XPDAC02Pier|Circuitry|5|4
-XPDAC02Pier|Cloth|103|98
+XPDAC02Pier|Cloth|104|99
 XPDAC02Pier|Copper|2|2
 XPDAC02Pier|Cork|9|5
 XPDAC02Pier|Crystal|3|1
-XPDAC02Pier|Fiberglass|3|2
+XPDAC02Pier|Fiberglass|9|8
 XPDAC02Pier|Gear|10|9
 XPDAC02Pier|Glass|29|23
 XPDAC02Pier|Lead|13|10
@@ -20909,11 +21139,11 @@ XPDAC02Pier|Rubber|52|27
 XPDAC02Pier|Screw|8|8
 XPDAC02Pier|Silver|2|2
 XPDAC02Pier|Spring|34|33
-XPDAC02Pier|Steel|86|63
-XPDAC02Pier|Wood|39|24
+XPDAC02Pier|Steel|127|69
+XPDAC02Pier|Wood|51|24
 XPDAC03CityHall|Acid|24|9
 XPDAC03CityHall|Adhesive|18|7
-XPDAC03CityHall|Aluminum|14|11
+XPDAC03CityHall|Aluminum|15|11
 XPDAC03CityHall|Antiseptic|2|1
 XPDAC03CityHall|Asbestos|6|4
 XPDAC03CityHall|Ballistic Fiber|2|1
@@ -20922,77 +21152,77 @@ XPDAC03CityHall|Circuitry|9|5
 XPDAC03CityHall|Cloth|30|30
 XPDAC03CityHall|Copper|21|16
 XPDAC03CityHall|Cork|2|1
-XPDAC03CityHall|Crystal|2|2
+XPDAC03CityHall|Crystal|4|2
 XPDAC03CityHall|Fiber Optics|2|2
 XPDAC03CityHall|Fiberglass|5|5
 XPDAC03CityHall|Gear|18|13
-XPDAC03CityHall|Glass|56|39
+XPDAC03CityHall|Glass|58|39
 XPDAC03CityHall|Lead|6|5
 XPDAC03CityHall|Leather|2|1
 XPDAC03CityHall|Nuclear Material|3|3
 XPDAC03CityHall|Oil|10|8
-XPDAC03CityHall|Plastic|25|19
-XPDAC03CityHall|Rubber|10|8
+XPDAC03CityHall|Plastic|26|19
+XPDAC03CityHall|Rubber|13|8
 XPDAC03CityHall|Screw|12|10
 XPDAC03CityHall|Spring|11|10
-XPDAC03CityHall|Steel|102|66
-XPDAC03CityHall|Wood|30|22
+XPDAC03CityHall|Steel|124|68
+XPDAC03CityHall|Wood|36|22
 XPDAC03CommunityCenter|Adhesive|4|4
 XPDAC03CommunityCenter|Aluminum|3|2
 XPDAC03CommunityCenter|Asbestos|6|4
-XPDAC03CommunityCenter|Ballistic Fiber|2|1
+XPDAC03CommunityCenter|Ballistic Fiber|3|1
 XPDAC03CommunityCenter|Ceramic|24|24
 XPDAC03CommunityCenter|Circuitry|4|4
-XPDAC03CommunityCenter|Cloth|23|18
+XPDAC03CommunityCenter|Cloth|25|19
 XPDAC03CommunityCenter|Copper|6|6
 XPDAC03CommunityCenter|Fiberglass|3|3
 XPDAC03CommunityCenter|Glass|38|33
 XPDAC03CommunityCenter|Lead|18|16
 XPDAC03CommunityCenter|Leather|12|6
 XPDAC03CommunityCenter|Oil|1|1
-XPDAC03CommunityCenter|Plastic|20|12
+XPDAC03CommunityCenter|Plastic|22|12
 XPDAC03CommunityCenter|Rubber|9|6
 XPDAC03CommunityCenter|Screw|5|5
 XPDAC03CommunityCenter|Silver|12|12
 XPDAC03CommunityCenter|Spring|2|2
-XPDAC03CommunityCenter|Steel|48|33
-XPDAC03CommunityCenter|Wood|31|21
+XPDAC03CommunityCenter|Steel|55|34
+XPDAC03CommunityCenter|Wood|32|21
 XPDAC03CommunityCenterDungeon|Adhesive|4|4
 XPDAC03CommunityCenterDungeon|Aluminum|3|2
 XPDAC03CommunityCenterDungeon|Asbestos|6|4
-XPDAC03CommunityCenterDungeon|Ballistic Fiber|2|1
+XPDAC03CommunityCenterDungeon|Ballistic Fiber|3|1
 XPDAC03CommunityCenterDungeon|Ceramic|24|24
 XPDAC03CommunityCenterDungeon|Circuitry|4|4
-XPDAC03CommunityCenterDungeon|Cloth|22|17
+XPDAC03CommunityCenterDungeon|Cloth|24|18
 XPDAC03CommunityCenterDungeon|Copper|6|6
 XPDAC03CommunityCenterDungeon|Fiberglass|3|3
 XPDAC03CommunityCenterDungeon|Glass|38|33
 XPDAC03CommunityCenterDungeon|Lead|18|16
 XPDAC03CommunityCenterDungeon|Leather|12|6
 XPDAC03CommunityCenterDungeon|Oil|1|1
-XPDAC03CommunityCenterDungeon|Plastic|20|12
+XPDAC03CommunityCenterDungeon|Plastic|22|12
 XPDAC03CommunityCenterDungeon|Rubber|9|6
 XPDAC03CommunityCenterDungeon|Screw|5|5
 XPDAC03CommunityCenterDungeon|Silver|12|12
 XPDAC03CommunityCenterDungeon|Spring|2|2
-XPDAC03CommunityCenterDungeon|Steel|46|32
-XPDAC03CommunityCenterDungeon|Wood|30|20
+XPDAC03CommunityCenterDungeon|Steel|53|33
+XPDAC03CommunityCenterDungeon|Wood|31|20
 XPDAC03FloodedCityCenter|Acid|3|2
 XPDAC03FloodedCityCenter|Adhesive|15|11
-XPDAC03FloodedCityCenter|Aluminum|25|17
+XPDAC03FloodedCityCenter|Aluminum|26|17
 XPDAC03FloodedCityCenter|Antiseptic|5|2
 XPDAC03FloodedCityCenter|Asbestos|16|10
-XPDAC03FloodedCityCenter|Bone|8|4
+XPDAC03FloodedCityCenter|Bone|9|4
 XPDAC03FloodedCityCenter|Ceramic|7|7
 XPDAC03FloodedCityCenter|Circuitry|7|7
 XPDAC03FloodedCityCenter|Cloth|61|59
 XPDAC03FloodedCityCenter|Copper|34|33
 XPDAC03FloodedCityCenter|Cork|17|16
-XPDAC03FloodedCityCenter|Crystal|3|3
+XPDAC03FloodedCityCenter|Crystal|4|3
 XPDAC03FloodedCityCenter|Fiber Optics|1|1
 XPDAC03FloodedCityCenter|Fiberglass|12|10
 XPDAC03FloodedCityCenter|Gear|15|14
-XPDAC03FloodedCityCenter|Glass|105|89
+XPDAC03FloodedCityCenter|Glass|106|89
 XPDAC03FloodedCityCenter|Lead|28|27
 XPDAC03FloodedCityCenter|Leather|4|2
 XPDAC03FloodedCityCenter|Oil|16|10
@@ -21001,11 +21231,11 @@ XPDAC03FloodedCityCenter|Rubber|12|9
 XPDAC03FloodedCityCenter|Screw|10|10
 XPDAC03FloodedCityCenter|Silver|3|2
 XPDAC03FloodedCityCenter|Spring|14|14
-XPDAC03FloodedCityCenter|Steel|171|123
-XPDAC03FloodedCityCenter|Wood|29|22
+XPDAC03FloodedCityCenter|Steel|203|124
+XPDAC03FloodedCityCenter|Wood|39|22
 XPDPitt01Foundry|Acid|79|43
 XPDPitt01Foundry|Adhesive|70|28
-XPDPitt01Foundry|Aluminum|63|45
+XPDPitt01Foundry|Aluminum|69|45
 XPDPitt01Foundry|Antiseptic|57|27
 XPDPitt01Foundry|Asbestos|35|24
 XPDPitt01Foundry|Bone|4|2
@@ -21013,28 +21243,28 @@ XPDPitt01Foundry|Ceramic|47|43
 XPDPitt01Foundry|Circuitry|19|17
 XPDPitt01Foundry|Cloth|107|94
 XPDPitt01Foundry|Concrete|14|2
-XPDPitt01Foundry|Copper|49|45
+XPDPitt01Foundry|Copper|50|45
 XPDPitt01Foundry|Cork|1|1
-XPDPitt01Foundry|Crystal|5|3
+XPDPitt01Foundry|Crystal|6|3
 XPDPitt01Foundry|Fiber Optics|1|1
-XPDPitt01Foundry|Fiberglass|42|34
-XPDPitt01Foundry|Gear|56|50
-XPDPitt01Foundry|Glass|116|103
+XPDPitt01Foundry|Fiberglass|43|35
+XPDPitt01Foundry|Gear|57|50
+XPDPitt01Foundry|Glass|117|103
 XPDPitt01Foundry|Gold|1|1
 XPDPitt01Foundry|Lead|144|67
 XPDPitt01Foundry|Leather|2|1
 XPDPitt01Foundry|Nuclear Material|9|9
 XPDPitt01Foundry|Oil|123|88
-XPDPitt01Foundry|Plastic|129|85
+XPDPitt01Foundry|Plastic|133|85
 XPDPitt01Foundry|Rubber|39|25
 XPDPitt01Foundry|Screw|43|42
 XPDPitt01Foundry|Silver|2|2
 XPDPitt01Foundry|Spring|30|30
-XPDPitt01Foundry|Steel|566|349
-XPDPitt01Foundry|Wood|147|113
+XPDPitt01Foundry|Steel|687|351
+XPDPitt01Foundry|Wood|178|113
 XPDPitt01FoundryDungeon|Acid|28|14
 XPDPitt01FoundryDungeon|Adhesive|33|13
-XPDPitt01FoundryDungeon|Aluminum|14|11
+XPDPitt01FoundryDungeon|Aluminum|15|11
 XPDPitt01FoundryDungeon|Antiseptic|28|13
 XPDPitt01FoundryDungeon|Asbestos|16|10
 XPDPitt01FoundryDungeon|Bone|3|1
@@ -21042,29 +21272,29 @@ XPDPitt01FoundryDungeon|Ceramic|15|14
 XPDPitt01FoundryDungeon|Circuitry|9|8
 XPDPitt01FoundryDungeon|Cloth|34|32
 XPDPitt01FoundryDungeon|Copper|17|16
-XPDPitt01FoundryDungeon|Crystal|1|1
+XPDPitt01FoundryDungeon|Crystal|2|1
 XPDPitt01FoundryDungeon|Fiber Optics|1|1
 XPDPitt01FoundryDungeon|Fiberglass|15|12
 XPDPitt01FoundryDungeon|Gear|18|18
-XPDPitt01FoundryDungeon|Glass|24|21
+XPDPitt01FoundryDungeon|Glass|25|21
 XPDPitt01FoundryDungeon|Lead|64|26
 XPDPitt01FoundryDungeon|Nuclear Material|4|4
 XPDPitt01FoundryDungeon|Oil|47|34
-XPDPitt01FoundryDungeon|Plastic|35|24
+XPDPitt01FoundryDungeon|Plastic|36|24
 XPDPitt01FoundryDungeon|Rubber|9|5
 XPDPitt01FoundryDungeon|Screw|20|20
 XPDPitt01FoundryDungeon|Silver|1|1
 XPDPitt01FoundryDungeon|Spring|11|11
-XPDPitt01FoundryDungeon|Steel|250|150
-XPDPitt01FoundryDungeon|Wood|49|44
+XPDPitt01FoundryDungeon|Steel|295|151
+XPDPitt01FoundryDungeon|Wood|65|44
 XPDPitt01Industrial|Acid|44|26
 XPDPitt01Industrial|Adhesive|22|12
-XPDPitt01Industrial|Aluminum|13|13
+XPDPitt01Industrial|Aluminum|14|13
 XPDPitt01Industrial|Antiseptic|23|10
 XPDPitt01Industrial|Asbestos|31|20
 XPDPitt01Industrial|Ceramic|57|49
 XPDPitt01Industrial|Circuitry|15|15
-XPDPitt01Industrial|Cloth|71|71
+XPDPitt01Industrial|Cloth|72|72
 XPDPitt01Industrial|Copper|21|21
 XPDPitt01Industrial|Crystal|1|1
 XPDPitt01Industrial|Fertilizer|24|6
@@ -21075,41 +21305,41 @@ XPDPitt01Industrial|Lead|67|48
 XPDPitt01Industrial|Leather|3|1
 XPDPitt01Industrial|Nuclear Material|5|5
 XPDPitt01Industrial|Oil|29|19
-XPDPitt01Industrial|Plastic|58|39
+XPDPitt01Industrial|Plastic|63|39
 XPDPitt01Industrial|Rubber|20|13
 XPDPitt01Industrial|Screw|25|24
 XPDPitt01Industrial|Spring|21|19
-XPDPitt01Industrial|Steel|220|131
-XPDPitt01Industrial|Wood|68|49
+XPDPitt01Industrial|Steel|253|131
+XPDPitt01Industrial|Wood|78|49
 XPDPitt02Sanctum|Acid|22|13
 XPDPitt02Sanctum|Adhesive|26|12
-XPDPitt02Sanctum|Aluminum|39|23
+XPDPitt02Sanctum|Aluminum|51|23
 XPDPitt02Sanctum|Antiseptic|11|6
 XPDPitt02Sanctum|Asbestos|33|26
-XPDPitt02Sanctum|Ballistic Fiber|6|3
-XPDPitt02Sanctum|Bone|46|23
+XPDPitt02Sanctum|Ballistic Fiber|8|3
+XPDPitt02Sanctum|Bone|56|23
 XPDPitt02Sanctum|Ceramic|62|57
 XPDPitt02Sanctum|Circuitry|14|14
-XPDPitt02Sanctum|Cloth|81|72
+XPDPitt02Sanctum|Cloth|85|74
 XPDPitt02Sanctum|Concrete|112|16
-XPDPitt02Sanctum|Copper|40|36
+XPDPitt02Sanctum|Copper|41|36
 XPDPitt02Sanctum|Cork|17|17
 XPDPitt02Sanctum|Fertilizer|5|2
-XPDPitt02Sanctum|Fiberglass|18|16
-XPDPitt02Sanctum|Gear|30|24
+XPDPitt02Sanctum|Fiberglass|19|17
+XPDPitt02Sanctum|Gear|31|24
 XPDPitt02Sanctum|Glass|151|125
 XPDPitt02Sanctum|Gold|2|2
 XPDPitt02Sanctum|Lead|105|45
 XPDPitt02Sanctum|Leather|8|4
 XPDPitt02Sanctum|Nuclear Material|1|1
 XPDPitt02Sanctum|Oil|57|44
-XPDPitt02Sanctum|Plastic|89|69
-XPDPitt02Sanctum|Rubber|57|30
+XPDPitt02Sanctum|Plastic|92|69
+XPDPitt02Sanctum|Rubber|58|30
 XPDPitt02Sanctum|Screw|34|33
 XPDPitt02Sanctum|Silver|4|4
 XPDPitt02Sanctum|Spring|41|41
-XPDPitt02Sanctum|Steel|322|210
-XPDPitt02Sanctum|Wood|70|49
+XPDPitt02Sanctum|Steel|410|213
+XPDPitt02Sanctum|Wood|81|49
 XPDPitt02Trench|Acid|21|19
 XPDPitt02Trench|Adhesive|15|15
 XPDPitt02Trench|Aluminum|9|8
@@ -21119,11 +21349,11 @@ XPDPitt02Trench|Ceramic|17|17
 XPDPitt02Trench|Circuitry|5|4
 XPDPitt02Trench|Cloth|78|74
 XPDPitt02Trench|Copper|5|5
-XPDPitt02Trench|Crystal|2|2
+XPDPitt02Trench|Crystal|4|2
 XPDPitt02Trench|Fiber Optics|2|2
 XPDPitt02Trench|Fiberglass|7|4
 XPDPitt02Trench|Gear|25|21
-XPDPitt02Trench|Glass|72|61
+XPDPitt02Trench|Glass|74|61
 XPDPitt02Trench|Lead|90|38
 XPDPitt02Trench|Leather|10|5
 XPDPitt02Trench|Nuclear Material|4|4
@@ -21132,8 +21362,8 @@ XPDPitt02Trench|Plastic|25|20
 XPDPitt02Trench|Rubber|4|2
 XPDPitt02Trench|Screw|12|12
 XPDPitt02Trench|Spring|12|12
-XPDPitt02Trench|Steel|237|142
-XPDPitt02Trench|Wood|55|49
+XPDPitt02Trench|Steel|282|144
+XPDPitt02Trench|Wood|62|49
 XPDRttP01SteelTower|Screw|1|1
 XPDRttP01SteelTower|Wood|2|1
 ==Average (variable only) Spawn chance and Count per NPC per Space==
@@ -21311,6 +21541,7 @@ WhitespringRefuge01|Robot|100.0|1
 00678787|XPDPitt02ACCJ|Purgatory|0|-211|-181|-843|421|-1026|663|-700|2000|2.5
 005AFB11|LittleRobsHideout01|Little Rob's Hideout|0|1349|1898|-1493|4191|-1026|4823|0|0|1.0
 00004C43|GlassedCavern01|Glassed Cavern|0|-2827|-324|-13587|7933|-11385|10736|0|0|1.0
+007D63B3|SheltersTheRadiantRemedy|The Radiant Remedy Shelter|0|2472|-1057|953|3991|-2456|341|0|0|1.0
 0004FF09|FreeStatesBunker03|Ella Ames' Bunker|0|1134|1822|-241|2510|741|2903|0|0|1.0
 003FEE25|HornwrightSafeRoom01|Hornwright Estate Safe Room|0|75|896|-1560|1710|-128|1920|0|0|1.0
 000644DB|GarrahanMiningHQ01|Garrahan Mining HQ|0|538|648|-4042|5119|-12335|13632|0|650|1.3
@@ -21366,6 +21597,8 @@ WhitespringRefuge01|Robot|100.0|1
 00473A0C|VanLoweTaxidermy01|Van Lowe Taxidermy|0|1624|87|640|2608|-736|911|0|0|1.0
 005F119A|WestTek02|FEV Production Facility|0|8320|2592|3840|12800|-1344|6528|0|0|1.0
 005C28B8|OrwellOrchardsShelter01|Orwell Bomb Shelter|0|1740|814|-904|4384|-1344|2972|0|0|1.0
+00793F34|GHLEmmettMnt02|Emmett Mountain Disposal Site|0|2005|-1996|-86|4097|-4596|604|0|0|1.0
+007AB0BC|GHLCamp02|Hillside Cavern|0|-4568|-31510|-10088|952|-35850|-27170|-700|0|1.3
 004429CA|SpruceKnobMissileSilo01|Missile Silo Charlie|0|-8234|-30161|-15252|-1216|-37728|-22594|0|0|1.0
 0074DC96|SheltersFlatlands|Flatlands|0|-10368|25271|-216060|195323|-172548|223090|-1400|-2300|10.0
 006143D4|UncannyCavernsDungeon|Uncanny Caverns|0|3148|4581|-2676|8972|-1214|10376|0|0|1.0
@@ -21404,6 +21637,7 @@ WhitespringRefuge01|Robot|100.0|1
 005661B4|Vault79Entrance|Vault 79|0|2048|2048|-248|4344|-352|4448|0|0|1.0
 005B1E48|SheltersVaultAtrium01|Vault Atrium Shelter|0|-5836|488|-6936|-4736|-1666|2642|0|0|1.0
 005B2BF4|RaiderCave02|Makeshift Vault|0|1387|2132|-1110|3885|-1026|5291|0|0|1.0
+0036DABA|GHLCamp01|Radiant Hills|0|-6644|-32465|-10088|-3200|-37760|-27170|0|-1200|1.5
 006FA30E|StormVault63AtriumLower|Atrium Lower Level|0|4195|353|3|8388|-1609|2315|0|0|1.0
 0010BA9C|MorgantownHighSchool01|Morgantown High School|0|1396|-2890|-787|3579|-6799|1019|0|0|1.0
 005D0FA0|EnclaveResearchFacility01|Enclave Research Facility|0|958|3608|-6652|8568|-2240|9456|0|0|1.0

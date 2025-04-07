@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Mappalachia
@@ -80,7 +80,7 @@ namespace Mappalachia
 			{ "The Rusty Pick", "LegendaryPurveyorMarker" },
 			{ "Vault 51", "Vault51Marker" },
 			{ "Vault 79", "Vault79Marker" },
-			{ "Gleaming Depths", "FissureMarker" },
+			{ "Gleaming Depths", "GleamingDepthsMarker" },
 		};
 
 		static readonly Dictionary<string, string> wrongLabelNames = new Dictionary<string, string>()
