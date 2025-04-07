@@ -13,16 +13,7 @@ namespace Mappalachia
 
 		public static List<MapMarker> CachedMapMarkers { get; } = GetMapMarkers(Connection).Result;
 
-		static string ToStringForQuery(this LockLevel lockLevel)
-		{
-			if (lockLevel == LockLevel.None)
-			{
-				return string.Empty;
-			}
-
-			return lockLevel.ToString();
-		}
-
+		// The core database search function - returns a collection of GroupedInstance from the given search params
 		public static async Task<List<GroupedInstance>> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
 		{
 			selectedSignatures ??= Enum.GetValues<Signature>().ToList();
@@ -55,7 +46,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					0,
 					reader.GetString("label"),
@@ -76,7 +67,7 @@ namespace Mappalachia
 			{
 				results.Add(new GroupedInstance(
 					new DerivedNPC(reader.GetString("npcName")),
-					selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					0,
 					string.Empty,
@@ -97,7 +88,7 @@ namespace Mappalachia
 			{
 				results.Add(new GroupedInstance(
 					new DerivedScrap(reader.GetString("component")),
-					selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("properCount"),
 					0,
 					string.Empty,
@@ -120,7 +111,7 @@ namespace Mappalachia
 					new Library.Region(
 						reader.GetUInt("regionFormID"),
 						reader.GetString("regionEditorID")),
-					selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					1,
 					0,
 					string.Empty,
@@ -148,7 +139,7 @@ namespace Mappalachia
 							reader.GetString("editorID"),
 							reader.GetString("displayName"),
 							reader.GetSignature()),
-						selectedSpace ?? GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 						reader.GetInt("count"),
 						0,
 						reader.GetString("label"),
@@ -169,6 +160,16 @@ namespace Mappalachia
 				.Replace("_", "\\_")
 				.Replace("%", "\\%")
 				.Replace(" ", "%");
+		}
+
+		static string ToStringForQuery(this LockLevel lockLevel)
+		{
+			if (lockLevel == LockLevel.None)
+			{
+				return string.Empty;
+			}
+
+			return lockLevel.ToString();
 		}
 
 		static Space GetSpaceByFormID(uint formID)

@@ -8,6 +8,7 @@ unit _mappalachia_lib;
 	begin
 		input := StringReplace(input, ',', ':COMMA:', [rfReplaceAll]);
 		input := StringReplace(input, '"', ':QUOT:', [rfReplaceAll]);
+		input := StringReplace(input, #13#10, ':CRLF:', [rfReplaceAll]);
 		Result := StringReplace(input, '''', '''''', [rfReplaceAll]);
 	end;
 
