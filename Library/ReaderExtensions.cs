@@ -5,14 +5,6 @@ namespace Library
 	// Extension methods for SqliteDataReader
 	public static class ReaderExtensions
 	{
-		public static Coord GetCoord(this SqliteDataReader reader)
-		{
-			return new Coord(
-				reader.GetFloat(reader.GetOrdinal("x")),
-				reader.GetFloat(reader.GetOrdinal("y")),
-				reader.GetFloat(reader.GetOrdinal("z")));
-		}
-
 		public static double GetDouble(this SqliteDataReader reader, string columnName)
 		{
 			return reader.GetDouble(reader.GetOrdinal(columnName));
@@ -41,6 +33,14 @@ namespace Library
 		public static bool GetBool(this SqliteDataReader reader, string columnName)
 		{
 			return reader.GetBoolean(reader.GetOrdinal(columnName));
+		}
+
+		public static Coord GetCoord(this SqliteDataReader reader)
+		{
+			return new Coord(
+				reader.GetFloat(reader.GetOrdinal("x")),
+				reader.GetFloat(reader.GetOrdinal("y")),
+				reader.GetFloat(reader.GetOrdinal("z")));
 		}
 
 		public static LockLevel GetLockLevel(this SqliteDataReader reader)

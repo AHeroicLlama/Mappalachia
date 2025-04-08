@@ -83,7 +83,7 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Region", "spaceFormID", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("RegionPoints", "regionFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("RegionPoints", "regionIndex", false, ColumnType.INTEGER);
+			ValidateColumnMatchesFormat("RegionPoints", "subRegionIndex", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("RegionPoints", "coordIndex", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("RegionPoints", "x", false, ColumnType.REAL);
 			ValidateColumnMatchesFormat("RegionPoints", "y", false, ColumnType.REAL);

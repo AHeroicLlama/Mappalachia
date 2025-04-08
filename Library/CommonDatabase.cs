@@ -125,12 +125,12 @@ namespace Library
 			return mapMarkers;
 		}
 
-		// Returns the Regions in the given Space, optionally with the specific editorID
-		public static async Task<List<Region>> GetRegionsFromSpace(SqliteConnection connection, Space space, string? regionEditorID = null)
+		// Returns the regions in the given space where the editorIDs match the like term
+		public static async Task<List<Region>> GetRegionsByLikeTerm(SqliteConnection connection, Space space, string likeTerm)
 		{
-			string regionQuery = $"SELECT * FROM Region WHERE SpaceFormID = {space.FormID}{(regionEditorID == null ? string.Empty : $" AND regionEditorID = '{regionEditorID}'")};";
+			string queryText = $"SELECT * FROM Region WHERE regionEditorID LIKE {likeTerm} AND spaceFormID = {space.FormID};";
 
-			using SqliteDataReader regionReader = await GetReader(connection, regionQuery);
+			using SqliteDataReader regionReader = await GetReader(connection, queryText);
 			List<Region> regions = new List<Region>();
 
 			while (regionReader.Read())
@@ -138,6 +138,7 @@ namespace Library
 				Region region = new Region(
 					regionReader.GetUInt("regionFormID"),
 					regionReader.GetString("regionEditorID"),
+					space,
 					regionReader.GetUInt("minLevel"),
 					regionReader.GetUInt("maxLevel"));
 
@@ -147,18 +148,17 @@ namespace Library
 			// Populate the region points
 			foreach (Region region in regions)
 			{
-				string pointQuery = $"SELECT x, y, regionIndex, coordIndex FROM RegionPoints WHERE regionFormID = {region.FormID};";
+				string pointQuery = $"SELECT x, y, subRegionIndex, coordIndex FROM RegionPoints WHERE regionFormID = {region.FormID};";
 				using SqliteDataReader pointReader = await GetReader(connection, pointQuery);
 
 				while (pointReader.Read())
 				{
 					region.AddPoint(new RegionPoint(
 					region,
-					space,
 					new Coord(
 						pointReader.GetFloat("x"),
 						pointReader.GetFloat("y")),
-					pointReader.GetUInt("regionIndex"),
+					pointReader.GetUInt("subRegionIndex"),
 					pointReader.GetUInt("coordIndex")));
 				}
 			}

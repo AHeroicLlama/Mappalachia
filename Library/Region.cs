@@ -1,9 +1,13 @@
 ﻿namespace Library
 {
-	public class Region(uint formID, string editorID, uint minLevel = 0, uint maxLevel = 0)
+	public class Region(uint formID, string editorID, Space space, uint minLevel = 0, uint maxLevel = 0)
 		: Entity(formID, editorID, string.Empty, Signature.REGN)
 	{
+		// The collection of all RegionPoints which form this Region
 		public List<RegionPoint> Points { get; } = new List<RegionPoint>();
+
+		// The space which this region exists within
+		public Space Space { get; } = space;
 
 		public uint MinLevel { get; } = minLevel;
 
@@ -16,19 +20,21 @@
 
 		public int GetSubRegionCount()
 		{
-			return Points.DistinctBy(p => p.RegionIndex).Count();
+			return Points.DistinctBy(p => p.SubRegionIndex).Count();
 		}
 
-		public List<RegionPoint> GetSubRegion(uint regionIndex)
+		// Return the collection of region points which exist in this wider region, with the given subregion index
+		public List<RegionPoint> GetSubRegion(uint subRegionIndex)
 		{
-			if (regionIndex > GetSubRegionCount())
+			if (subRegionIndex > GetSubRegionCount())
 			{
-				throw new IndexOutOfRangeException("No SubRegion with index " + regionIndex);
+				throw new IndexOutOfRangeException("No SubRegion with index " + subRegionIndex);
 			}
 
-			return Points.Where(p => p.RegionIndex == regionIndex).ToList();
+			return Points.Where(p => p.SubRegionIndex == subRegionIndex).ToList();
 		}
 
+		// Return a list of all subregions in this region, which are themselves a list of RegionPoints.
 		public List<List<RegionPoint>> GetAllSubRegions()
 		{
 			List<List<RegionPoint>> subRegions = new List<List<RegionPoint>>();

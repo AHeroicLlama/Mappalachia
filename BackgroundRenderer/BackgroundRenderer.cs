@@ -295,13 +295,8 @@ namespace BackgroundRenderer
 			Directory.CreateDirectory(finalPath);
 
 			List<SuperResTile> tiles = space.GetTiles();
-
-			Region? worldBorder = await space.GetWorldBorder();
-
-			if (worldBorder != null)
-			{
-				tiles = tiles.Where(t => t.IntersectsRegion(worldBorder)).ToList();
-			}
+			List<Region> worldBorderRegions = await space.GetWorldBorders();
+			tiles = tiles.Where(t => t.IntersectsRegions(worldBorderRegions)).ToList();
 
 			if (!space.IsWorldspace)
 			{
@@ -400,19 +395,6 @@ namespace BackgroundRenderer
 			});
 		}
 
-		// Return the world border Region of the given space, null if none known
-		public static async Task<Region?> GetWorldBorder(this Space space)
-		{
-			string? worldBorderName = GetWorldBorderName(space);
-
-			if (worldBorderName == null)
-			{
-				return null;
-			}
-
-			return (await CommonDatabase.GetRegionsFromSpace(GetNewConnection(), space, worldBorderName)).FirstOrDefault();
-		}
-
 		// Return if this tile contains any entities
 		public static async Task<bool> HasEntities(this SuperResTile tile)
 		{
@@ -425,46 +407,49 @@ namespace BackgroundRenderer
 			return Convert.ToInt32(reader["count"]) > 0;
 		}
 
-		// Returns if any point of the tile or region intersect
-		public static bool IntersectsRegion(this SuperResTile tile, Region region)
+		// Returns if the tile intersects any of the regions
+		public static bool IntersectsRegions(this SuperResTile tile, List<Region> regions)
 		{
-			if (region.Points.Count == 0)
+			foreach (Region region in regions)
 			{
-				throw new ArgumentException($"Region {region.EditorID} has no points");
-			}
-
-			// First case - The tile is at least partly within the region because the center of it is
-			// It may not be wholly contained
-			if (region.ContainsPoint(new Coord(tile.XCenter, tile.YCenter)))
-			{
-				return true;
-			}
-
-			// Edge cases
-			// Test if any of the 4 edges of the tile intersect any of the region's edges
-			for (int i = 0; i < region.Points.Count; i++)
-			{
-				int j = i + 1;
-
-				if (i == region.Points.Count - 1)
+				if (region.Points.Count == 0)
 				{
-					j = 0;
+					throw new ArgumentException($"Region {region.EditorID} has no points");
 				}
 
-				Coord regionPointA = region.Points[i].Point;
-				Coord regionPointB = region.Points[j].Point;
-
-				Coord topLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter + Common.TileRadius);
-				Coord topRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter + Common.TileWidth);
-				Coord bottomLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter - Common.TileRadius);
-				Coord bottomRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter - Common.TileRadius);
-
-				if (GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, topRight) ||
-					GeometryHelper.LinesIntersect(regionPointA, regionPointB, bottomLeft, bottomRight) ||
-					GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, bottomLeft) ||
-					GeometryHelper.LinesIntersect(regionPointA, regionPointB, topRight, bottomRight))
+				// First case - The tile is at least partly within the region because the center of it is
+				// It may not be wholly contained
+				if (region.ContainsPoint(new Coord(tile.XCenter, tile.YCenter)))
 				{
 					return true;
+				}
+
+				// Edge cases
+				// Test if any of the 4 edges of the tile intersect any of the region's edges
+				for (int i = 0; i < region.Points.Count; i++)
+				{
+					int j = i + 1;
+
+					if (i == region.Points.Count - 1)
+					{
+						j = 0;
+					}
+
+					Coord regionPointA = region.Points[i].Point;
+					Coord regionPointB = region.Points[j].Point;
+
+					Coord topLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter + Common.TileRadius);
+					Coord topRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter + Common.TileWidth);
+					Coord bottomLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter - Common.TileRadius);
+					Coord bottomRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter - Common.TileRadius);
+
+					if (GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, topRight) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, bottomLeft, bottomRight) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, bottomLeft) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, topRight, bottomRight))
+					{
+						return true;
+					}
 				}
 			}
 

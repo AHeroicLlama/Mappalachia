@@ -56,7 +56,7 @@ namespace Mappalachia
 
 			// NPC
 			query =
-				"SELECT npcName, spaceFormID, spawnWeight, count(*) as count FROM NPC " + // TODO which columns
+				"SELECT npcName, spaceFormID, spawnWeight, count(*) as count FROM NPC " +
 				$"WHERE npcName LIKE '%{searchTerm}%' " +
 				optionalSpaceTerm +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
@@ -107,11 +107,14 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
+				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
+
 				results.Add(new GroupedInstance(
 					new Library.Region(
 						reader.GetUInt("regionFormID"),
-						reader.GetString("regionEditorID")),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+						reader.GetString("regionEditorID"),
+						space),
+					space,
 					1,
 					0,
 					string.Empty,

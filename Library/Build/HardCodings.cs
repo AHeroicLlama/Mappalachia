@@ -263,16 +263,16 @@ namespace Library
 			return label.Replace("Fast Travel Point: ", string.Empty).Replace("Hornwright Air Cleanser Site", "Hornwright Air Purifier Site");
 		}
 
-		// Returns the editorID of the world border for the space
-		// Null if it is not known or doesn't exist
-		public static string? GetWorldBorderName(Space space)
+		// Returns the known world border(s) of the given space
+		// Empty list if not known or doesn't exist
+		public static async Task<List<Region>> GetWorldBorders(this Space space)
 		{
 			if (space.IsAppalachia())
 			{
-				return "76Border";
+				return await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'");
 			}
 
-			return null;
+			return new List<Region>();
 		}
 	}
 }
