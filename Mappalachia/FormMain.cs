@@ -7,10 +7,48 @@ namespace Mappalachia
 	{
 		DataTable SearchResultsDataTable { get; } = new DataTable();
 
+		public static Random Random { get; } = new Random();
+
+		static List<string> SearchTermHints { get; } = new List<string>
+			{
+				"Alcohol",
+				"Alien Blaster",
+				"Caps Stash",
+				"Flora",
+				"Fusion Core",
+				"Ginseng",
+				"Hardpoint",
+				"Instrument",
+				"LPI_Chem",
+				"LPI_Food",
+				"LvlCritter",
+				"NoCampAllowed",
+				"Nuka Cola",
+				"Overseer's Cache",
+				"P01C_Bucket_Loot",
+				"PowerArmorFurniture_",
+				"Pre War Money",
+				"Protest Sign",
+				"Pumpkin",
+				"RETrigger",
+				"Rare",
+				"Recipe",
+				"SFM04_Organic_Pod",
+				"Strange Encounter",
+				"Tales from West Virginia",
+				"Teddy Bear",
+				"Thistle",
+				"Treasure Map Mound",
+				"Trunk Boss",
+				"Vein",
+				"Wind Chimes",
+				"Workbench",
+			};
+
 		public FormMain()
 		{
 			InitializeComponent();
-			pictureBoxMapDisplay.Image = Map.Draw();
+			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
 			InitializeSearchResultsGrid();
 		}
 

@@ -31,18 +31,11 @@ namespace Mappalachia
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			menuStripMain = new MenuStrip();
 			mapToolStripMenuItem = new ToolStripMenuItem();
-			splitContainerMain = new SplitContainer();
 			buttonSearch = new Button();
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
-			pictureBoxMapDisplay = new PictureBox();
 			menuStripMain.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)splitContainerMain).BeginInit();
-			splitContainerMain.Panel1.SuspendLayout();
-			splitContainerMain.Panel2.SuspendLayout();
-			splitContainerMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
-			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).BeginInit();
 			SuspendLayout();
 			// 
 			// menuStripMain
@@ -60,42 +53,24 @@ namespace Mappalachia
 			mapToolStripMenuItem.Size = new Size(43, 20);
 			mapToolStripMenuItem.Text = "Map";
 			// 
-			// splitContainerMain
-			// 
-			splitContainerMain.BackColor = SystemColors.ControlDarkDark;
-			splitContainerMain.Dock = DockStyle.Fill;
-			splitContainerMain.Location = new Point(0, 24);
-			splitContainerMain.Name = "splitContainerMain";
-			// 
-			// splitContainerMain.Panel1
-			// 
-			splitContainerMain.Panel1.Controls.Add(buttonSearch);
-			splitContainerMain.Panel1.Controls.Add(textBoxSearch);
-			splitContainerMain.Panel1.Controls.Add(dataGridViewSearchResults);
-			// 
-			// splitContainerMain.Panel2
-			// 
-			splitContainerMain.Panel2.Controls.Add(pictureBoxMapDisplay);
-			splitContainerMain.Size = new Size(1264, 657);
-			splitContainerMain.SplitterDistance = 632;
-			splitContainerMain.TabIndex = 1;
-			// 
 			// buttonSearch
 			// 
-			buttonSearch.Location = new Point(427, 12);
+			buttonSearch.Anchor = AnchorStyles.Top;
+			buttonSearch.Location = new Point(736, 28);
 			buttonSearch.Name = "buttonSearch";
 			buttonSearch.Size = new Size(75, 23);
-			buttonSearch.TabIndex = 2;
+			buttonSearch.TabIndex = 5;
 			buttonSearch.Text = "Search";
 			buttonSearch.UseVisualStyleBackColor = true;
 			buttonSearch.Click += ButtonSearch_Click;
 			// 
 			// textBoxSearch
 			// 
-			textBoxSearch.Location = new Point(131, 12);
+			textBoxSearch.Anchor = AnchorStyles.Top;
+			textBoxSearch.Location = new Point(440, 29);
 			textBoxSearch.Name = "textBoxSearch";
 			textBoxSearch.Size = new Size(290, 23);
-			textBoxSearch.TabIndex = 1;
+			textBoxSearch.TabIndex = 4;
 			textBoxSearch.Text = "Iron";
 			// 
 			// dataGridViewSearchResults
@@ -108,32 +83,24 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewSearchResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewSearchResults.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewSearchResults.Location = new Point(3, 92);
+			dataGridViewSearchResults.Location = new Point(12, 56);
 			dataGridViewSearchResults.Name = "dataGridViewSearchResults";
 			dataGridViewSearchResults.ReadOnly = true;
 			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewSearchResults.Size = new Size(626, 309);
-			dataGridViewSearchResults.TabIndex = 0;
-			// 
-			// pictureBoxMapDisplay
-			// 
-			pictureBoxMapDisplay.Dock = DockStyle.Fill;
-			pictureBoxMapDisplay.Location = new Point(0, 0);
-			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
-			pictureBoxMapDisplay.Size = new Size(628, 657);
-			pictureBoxMapDisplay.SizeMode = PictureBoxSizeMode.Zoom;
-			pictureBoxMapDisplay.TabIndex = 0;
-			pictureBoxMapDisplay.TabStop = false;
+			dataGridViewSearchResults.Size = new Size(1240, 309);
+			dataGridViewSearchResults.TabIndex = 3;
 			// 
 			// FormMain
 			// 
-			AcceptButton = buttonSearch;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = SystemColors.ControlDarkDark;
 			ClientSize = new Size(1264, 681);
-			Controls.Add(splitContainerMain);
+			Controls.Add(buttonSearch);
+			Controls.Add(textBoxSearch);
+			Controls.Add(dataGridViewSearchResults);
 			Controls.Add(menuStripMain);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MainMenuStrip = menuStripMain;
@@ -141,13 +108,7 @@ namespace Mappalachia
 			Text = "Mappalachia";
 			menuStripMain.ResumeLayout(false);
 			menuStripMain.PerformLayout();
-			splitContainerMain.Panel1.ResumeLayout(false);
-			splitContainerMain.Panel1.PerformLayout();
-			splitContainerMain.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)splitContainerMain).EndInit();
-			splitContainerMain.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).EndInit();
-			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -155,11 +116,9 @@ namespace Mappalachia
 		#endregion
 
 		private MenuStrip menuStripMain;
-		private SplitContainer splitContainerMain;
-		private PictureBox pictureBoxMapDisplay;
 		private ToolStripMenuItem mapToolStripMenuItem;
-		private DataGridView dataGridViewSearchResults;
 		private Button buttonSearch;
 		private TextBox textBoxSearch;
+		private DataGridView dataGridViewSearchResults;
 	}
 }
