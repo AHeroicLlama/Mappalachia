@@ -5,6 +5,8 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
+		FormMapView MapViewForm { get; }
+
 		DataTable SearchResultsDataTable { get; } = new DataTable();
 
 		public static Random Random { get; } = new Random();
@@ -50,6 +52,11 @@ namespace Mappalachia
 			InitializeComponent();
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
 			InitializeSearchResultsGrid();
+
+			// Spawn the map view form, then hook the closing event so both close together.
+			MapViewForm = new FormMapView(this);
+			MapViewForm.Show();
+			MapViewForm.FormClosing += (sender, e) => { Close(); };
 		}
 
 		private async void ButtonSearch_Click(object sender, EventArgs e)

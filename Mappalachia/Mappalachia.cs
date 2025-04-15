@@ -11,10 +11,7 @@ namespace Mappalachia
 			Console.WriteLine("Dedicated to Molly.");
 			UpdateChecker.CheckForUpdates();
 
-			Task mainFormTask = Task.Run(() => Application.Run(new FormMain()));
-			Task mapViewFormTask = Task.Run(() => Application.Run(new FormMapView()));
-
-			Task.WaitAny(mainFormTask, mapViewFormTask);
+			Application.Run(new FormMain());
 		}
 	}
 }

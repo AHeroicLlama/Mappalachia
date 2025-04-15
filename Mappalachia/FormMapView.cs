@@ -6,8 +6,12 @@
 
 		int LastHeight { get; set; }
 
-		public FormMapView()
+		FormMain MainForm { get; }
+
+		public FormMapView(FormMain mainForm)
 		{
+			MainForm = mainForm;
+
 			InitializeComponent();
 			KeepSquare(this, EventArgs.Empty);
 			pictureBoxMapDisplay.Image = Map.Draw();
