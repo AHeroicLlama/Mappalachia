@@ -31,6 +31,7 @@ namespace Mappalachia
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			menuStripMain = new MenuStrip();
 			mapToolStripMenuItem = new ToolStripMenuItem();
+			showPreviewToolStripMenuItem = new ToolStripMenuItem();
 			buttonSearch = new Button();
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
@@ -49,9 +50,17 @@ namespace Mappalachia
 			// 
 			// mapToolStripMenuItem
 			// 
+			mapToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem });
 			mapToolStripMenuItem.Name = "mapToolStripMenuItem";
 			mapToolStripMenuItem.Size = new Size(43, 20);
 			mapToolStripMenuItem.Text = "Map";
+			// 
+			// showPreviewToolStripMenuItem
+			// 
+			showPreviewToolStripMenuItem.Name = "showPreviewToolStripMenuItem";
+			showPreviewToolStripMenuItem.Size = new Size(180, 22);
+			showPreviewToolStripMenuItem.Text = "Show Preview";
+			showPreviewToolStripMenuItem.Click += Map_ShowPreview_Click;
 			// 
 			// buttonSearch
 			// 
@@ -120,5 +129,6 @@ namespace Mappalachia
 		private Button buttonSearch;
 		private TextBox textBoxSearch;
 		private DataGridView dataGridViewSearchResults;
+		private ToolStripMenuItem showPreviewToolStripMenuItem;
 	}
 }

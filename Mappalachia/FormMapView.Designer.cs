@@ -51,9 +51,12 @@
 			ClientSize = new Size(1008, 985);
 			Controls.Add(pictureBoxMapDisplay);
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			MinimizeBox = false;
 			MinimumSize = new Size(256, 256);
 			Name = "FormMapView";
+			ShowInTaskbar = false;
 			Text = "Mappalachia: Preview";
+			FormClosing += FormMapView_FormClosing;
 			ResizeEnd += KeepSquare;
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
 			ResumeLayout(false);

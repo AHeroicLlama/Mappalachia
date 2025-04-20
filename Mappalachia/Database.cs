@@ -31,7 +31,7 @@ namespace Mappalachia
 
 			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, percChanceNone FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
-				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' OR editorID LIKE '%{searchTerm}%' or displayName LIKE '%{searchTerm}%') " +
+				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '\\' OR editorID LIKE '%{searchTerm}%' ESCAPE '\\' or displayName LIKE '%{searchTerm}%' ESCAPE '\\') " +
 				optionalSpaceTerm +
 				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {selectedSignatures.ToSqliteCollection()};";
@@ -57,7 +57,7 @@ namespace Mappalachia
 			// NPC
 			query =
 				"SELECT npcName, spaceFormID, spawnWeight, count(*) as count FROM NPC " +
-				$"WHERE npcName LIKE '%{searchTerm}%' " +
+				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '\\' " +
 				optionalSpaceTerm +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 
@@ -78,7 +78,7 @@ namespace Mappalachia
 			// Scrap
 			query = "SELECT component, spaceFormID, componentQuantity, sum(count) as properCount FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
-				$"WHERE component LIKE '%{searchTerm}%' " +
+				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '\\' " +
 				optionalSpaceTerm +
 				"GROUP BY component, spaceFormID, componentQuantity;";
 
@@ -99,7 +99,7 @@ namespace Mappalachia
 			// Region
 			query =
 				"SELECT regionFormID, regionEditorID, spaceFormID FROM Region " +
-				$"WHERE (regionEditorID LIKE '%{searchTerm}%' OR regionFormID = '{searchTerm}') " +
+				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '\\' OR regionFormID = '{searchTerm}') " +
 				optionalSpaceTerm +
 				"GROUP BY regionFormID;";
 

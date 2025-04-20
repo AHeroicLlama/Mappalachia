@@ -5,47 +5,47 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
-		FormMapView MapViewForm { get; }
+		FormMapView MapViewForm { get; set; }
 
 		DataTable SearchResultsDataTable { get; } = new DataTable();
 
 		public static Random Random { get; } = new Random();
 
 		static List<string> SearchTermHints { get; } = new List<string>
-			{
-				"Alcohol",
-				"Alien Blaster",
-				"Caps Stash",
-				"Flora",
-				"Fusion Core",
-				"Ginseng",
-				"Hardpoint",
-				"Instrument",
-				"LPI_Chem",
-				"LPI_Food",
-				"LvlCritter",
-				"NoCampAllowed",
-				"Nuka Cola",
-				"Overseer's Cache",
-				"P01C_Bucket_Loot",
-				"PowerArmorFurniture_",
-				"Pre War Money",
-				"Protest Sign",
-				"Pumpkin",
-				"RETrigger",
-				"Rare",
-				"Recipe",
-				"SFM04_Organic_Pod",
-				"Strange Encounter",
-				"Tales from West Virginia",
-				"Teddy Bear",
-				"Thistle",
-				"Treasure Map Mound",
-				"Trunk Boss",
-				"Vein",
-				"Wind Chimes",
-				"Workbench",
-			};
+		{
+			"Alcohol",
+			"Alien Blaster",
+			"Caps Stash",
+			"Flora",
+			"Fusion Core",
+			"Ginseng",
+			"Hardpoint",
+			"Instrument",
+			"LPI_Chem",
+			"LPI_Food",
+			"LvlCritter",
+			"NoCampAllowed",
+			"Nuka Cola",
+			"Overseer's Cache",
+			"P01C_Bucket_Loot",
+			"PowerArmorFurniture_",
+			"Pre War Money",
+			"Protest Sign",
+			"Pumpkin",
+			"RETrigger",
+			"Rare",
+			"Recipe",
+			"SFM04_Organic_Pod",
+			"Strange Encounter",
+			"Tales from West Virginia",
+			"Teddy Bear",
+			"Thistle",
+			"Treasure Map Mound",
+			"Trunk Boss",
+			"Vein",
+			"Wind Chimes",
+			"Workbench",
+		};
 
 		public FormMain()
 		{
@@ -53,10 +53,9 @@ namespace Mappalachia
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
 			InitializeSearchResultsGrid();
 
-			// Spawn the map view form, then hook the closing event so both close together.
+			// Spawn the map view form
 			MapViewForm = new FormMapView(this);
 			MapViewForm.Show();
-			MapViewForm.FormClosing += (sender, e) => { Close(); };
 		}
 
 		private async void ButtonSearch_Click(object sender, EventArgs e)
@@ -88,6 +87,7 @@ namespace Mappalachia
 			}
 
 			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
+			SetSearchResultsGridStyle();
 		}
 
 		void InitializeSearchResultsGrid()
@@ -106,9 +106,25 @@ namespace Mappalachia
 			]);
 
 			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
+			SetSearchResultsGridStyle();
+		}
 
+		void SetSearchResultsGridStyle()
+		{
 			DataGridViewColumn formIDColumn = dataGridViewSearchResults.Columns["Form ID"] ?? throw new Exception("Search Results Form ID Column not found");
-			formIDColumn.DefaultCellStyle.Font = new Font("Consolas", 8);
+			formIDColumn.DefaultCellStyle.Font = new Font("Consolas", 9);
+		}
+
+		private void Map_ShowPreview_Click(object sender, EventArgs e)
+		{
+			// Don't expect this to be normally possible
+			if (MapViewForm.IsDisposed)
+			{
+				MapViewForm = new FormMapView(this);
+			}
+
+			MapViewForm.Show();
+			MapViewForm.BringToFront();
 		}
 	}
 }

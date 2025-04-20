@@ -81,5 +81,11 @@
 				Location = new Point(Location.X, Location.Y - yOverstep);
 			}
 		}
+
+		private void FormMapView_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			e.Cancel = true;
+			Hide();
+		}
 	}
 }
