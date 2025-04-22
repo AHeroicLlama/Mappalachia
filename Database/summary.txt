@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 ==Checksum== 
-6de9c872f559a4233742051a0f8a855a
+95063274004541fd36e186e87fe3e2ea
 ==File Size== 
 488304640 
 ==Tables== 
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.18.30
+1.7.19.19
 ==Mean Average X/Y/Z Coord==
--9338.84890698|-5094.15234616251|11159.1155129914
+-9338.90650618703|-5094.25877454599|11159.0913674003
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,13 +123,13 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 78
 ==Average X Bounds Width==
-23.0263875164391
+23.0274614901328
 ==Average Y Bounds Width==
-16.908549660682
+16.908936632448
 ==Average Z Bounds Width==
-16.8017932267182
+16.8020665143703
 ==Average Z Rotation==
-4.38388530033641
+4.38410710308118
 ==Average display name string length==
 2.83190546528804
 ==Average editorID string length==
@@ -806,8 +806,8 @@ AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-APPALACHIA||3194817
-APPALACHIA|Box|71216
+APPALACHIA||3194810
+APPALACHIA|Box|71220
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1801
 APPALACHIA|Plane|204
@@ -931,7 +931,7 @@ FreeStatesBunker07||1003
 FreeStatesBunker07|Box|47
 GHLCamp01||3388
 GHLCamp01|Box|98
-GHLCamp02||1297
+GHLCamp02||1298
 GHLCamp02|Box|141
 GHLEmmettMnt02||1402
 GHLEmmettMnt02|Box|93
@@ -1069,7 +1069,7 @@ SheltersClaimCenter01||921
 SheltersClaimCenter01|Box|55
 SheltersFlatlands||1016
 SheltersFlatlands|Box|518
-SheltersGleamingDepths||1863
+SheltersGleamingDepths||1867
 SheltersGleamingDepths|Box|97
 SheltersHighStakes||2536
 SheltersHighStakes|Box|81
@@ -1086,7 +1086,7 @@ SheltersSoundStage|Box|115
 SheltersSummerCamp||538
 SheltersSummerCamp|Box|158
 SheltersTheRadiantRemedy||347
-SheltersTheRadiantRemedy|Box|96
+SheltersTheRadiantRemedy|Box|97
 SheltersToxicWasteland||515
 SheltersToxicWasteland|Box|12
 SheltersVaultAtrium01||2199
@@ -1321,7 +1321,7 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3269564
+APPALACHIA||3269561
 APPALACHIA|Advanced (Level 1)|340
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
@@ -1465,7 +1465,7 @@ FreeStatesBunker06|Expert (Level 2)|1
 FreeStatesBunker07||1049
 FreeStatesBunker07|Expert (Level 2)|1
 GHLCamp01||3486
-GHLCamp02||1438
+GHLCamp02||1439
 GHLEmmettMnt02||1493
 GHLEmmettMnt02|Novice (Level 0)|1
 GHLEmmettMnt02|Requires Key|1
@@ -1629,7 +1629,7 @@ SheltersCave02||608
 SheltersClaimCenter01||975
 SheltersClaimCenter01|Requires Key|1
 SheltersFlatlands||1534
-SheltersGleamingDepths||1960
+SheltersGleamingDepths||1964
 SheltersHighStakes||2617
 SheltersHousingDevelopment||1001
 SheltersMissileSilo||493
@@ -1637,7 +1637,7 @@ SheltersPittTrench01||1142
 SheltersRootCellar||595
 SheltersSoundStage||905
 SheltersSummerCamp||696
-SheltersTheRadiantRemedy||443
+SheltersTheRadiantRemedy||444
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
@@ -1985,8 +1985,8 @@ APPALACHIA|HAZD|1085
 APPALACHIA|IDLM|19070
 APPALACHIA|KEYM|38
 APPALACHIA|LIGH|9252
-APPALACHIA|LVLI|73854
-APPALACHIA|MISC|37935
+APPALACHIA|LVLI|73857
+APPALACHIA|MISC|37936
 APPALACHIA|MSTT|24632
 APPALACHIA|NOTE|182
 APPALACHIA|NPC_|8275
@@ -1994,7 +1994,7 @@ APPALACHIA|PROJ|93
 APPALACHIA|SCOL|366532
 APPALACHIA|SECH|253
 APPALACHIA|SOUN|5938
-APPALACHIA|STAT|2530518
+APPALACHIA|STAT|2530511
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
 APPALACHIA|TXST|70326
@@ -2808,7 +2808,7 @@ GHLCamp02|MSTT|46
 GHLCamp02|NPC_|3
 GHLCamp02|SCOL|20
 GHLCamp02|SOUN|6
-GHLCamp02|STAT|1089
+GHLCamp02|STAT|1090
 GHLCamp02|TXST|99
 GHLEmmettMnt02|ACTI|12
 GHLEmmettMnt02|BNDS|10
@@ -3717,8 +3717,8 @@ SheltersFlatlands|TXST|507
 SheltersGleamingDepths|ACTI|10
 SheltersGleamingDepths|LIGH|107
 SheltersGleamingDepths|MSTT|23
-SheltersGleamingDepths|SCOL|210
-SheltersGleamingDepths|STAT|1533
+SheltersGleamingDepths|SCOL|212
+SheltersGleamingDepths|STAT|1535
 SheltersGleamingDepths|TXST|77
 SheltersHighStakes|ACTI|78
 SheltersHighStakes|DOOR|3
@@ -3764,7 +3764,7 @@ SheltersSummerCamp|TXST|107
 SheltersTheRadiantRemedy|ACTI|7
 SheltersTheRadiantRemedy|LIGH|35
 SheltersTheRadiantRemedy|MSTT|34
-SheltersTheRadiantRemedy|STAT|292
+SheltersTheRadiantRemedy|STAT|293
 SheltersTheRadiantRemedy|TXST|75
 SheltersToxicWasteland|ACTI|6
 SheltersToxicWasteland|ASPC|1
@@ -5272,7 +5272,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3264263
+APPALACHIA||3264260
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -12877,7 +12877,7 @@ GHLCamp01|GHL00_Quest_TransformPlayer_WakeUpMarker|1
 GHLCamp01|GHLCamp01_DirectTravelPoint|1
 GHLCamp01|TestElevDoorARef073DUPLICATE002|1
 GHLCamp01|TestElevDoorTriggerARef069DUPLICATE002|1
-GHLCamp02||1417
+GHLCamp02||1418
 GHLCamp02|GHL00_AsherRef001|1
 GHLCamp02|GHL00_LeamonRef_GhoulCamp001|1
 GHLCamp02|GHL00_PartheniaRef001|1
@@ -14292,7 +14292,7 @@ SheltersCave01||534
 SheltersCave02||608
 SheltersClaimCenter01||976
 SheltersFlatlands||1534
-SheltersGleamingDepths||1960
+SheltersGleamingDepths||1964
 SheltersHighStakes||2617
 SheltersHousingDevelopment||1001
 SheltersMissileSilo||493
@@ -14300,7 +14300,7 @@ SheltersPittTrench01||1142
 SheltersRootCellar||595
 SheltersSoundStage||905
 SheltersSummerCamp||696
-SheltersTheRadiantRemedy||443
+SheltersTheRadiantRemedy||444
 SheltersToxicWasteland||527
 SheltersVaultAtrium01||2268
 SheltersVaultLivingQuarters01||2644
@@ -17415,7 +17415,7 @@ AMSHQ02|100|1993
 APPALACHIA|50|52
 APPALACHIA|75|161
 APPALACHIA|85|251
-APPALACHIA|100|3270238
+APPALACHIA|100|3270235
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -17467,7 +17467,7 @@ FreeStatesBunker04|100|1254
 FreeStatesBunker06|100|949
 FreeStatesBunker07|100|1050
 GHLCamp01|100|3486
-GHLCamp02|100|1438
+GHLCamp02|100|1439
 GHLEmmettMnt02|100|1495
 GarrahanMiningHQ01|100|9201
 GarrahanMiningHQDungeon|100|7694
@@ -17532,7 +17532,7 @@ SheltersCave01|100|534
 SheltersCave02|100|608
 SheltersClaimCenter01|100|976
 SheltersFlatlands|100|1534
-SheltersGleamingDepths|100|1960
+SheltersGleamingDepths|100|1964
 SheltersHighStakes|100|2617
 SheltersHousingDevelopment|100|1001
 SheltersMissileSilo|100|493
@@ -17540,7 +17540,7 @@ SheltersPittTrench01|100|1142
 SheltersRootCellar|100|595
 SheltersSoundStage|100|905
 SheltersSummerCamp|100|696
-SheltersTheRadiantRemedy|100|443
+SheltersTheRadiantRemedy|100|444
 SheltersToxicWasteland|100|527
 SheltersVaultAtrium01|100|2268
 SheltersVaultLivingQuarters01|100|2644
@@ -17731,7 +17731,7 @@ APPALACHIA|Fertilizer|1195|412
 APPALACHIA|Fiber Optics|44|43
 APPALACHIA|Fiberglass|1104|861
 APPALACHIA|Gear|1249|1036
-APPALACHIA|Glass|9533|7872
+APPALACHIA|Glass|9534|7873
 APPALACHIA|Gold|95|95
 APPALACHIA|Gunpowder|1|1
 APPALACHIA|Lead|5567|3206
@@ -21688,4 +21688,4 @@ WhitespringRefuge01|Robot|100.0|1
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4404128|4404128
+4404131|4404131
