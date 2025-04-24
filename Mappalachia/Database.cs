@@ -13,6 +13,8 @@ namespace Mappalachia
 
 		public static List<MapMarker> CachedMapMarkers { get; } = GetMapMarkers(Connection).Result;
 
+		static char EscapeChar { get; } = '`';
+
 		// The core database search function - returns a collection of GroupedInstance from the given search params
 		public static async Task<List<GroupedInstance>> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
 		{
@@ -31,7 +33,7 @@ namespace Mappalachia
 
 			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, percChanceNone FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
-				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '\\' OR editorID LIKE '%{searchTerm}%' ESCAPE '\\' or displayName LIKE '%{searchTerm}%' ESCAPE '\\') " +
+				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
 				optionalSpaceTerm +
 				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {selectedSignatures.ToSqliteCollection()};";
@@ -57,7 +59,7 @@ namespace Mappalachia
 			// NPC
 			query =
 				"SELECT npcName, spaceFormID, spawnWeight, count(*) as count FROM NPC " +
-				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '\\' " +
+				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				optionalSpaceTerm +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 
@@ -78,7 +80,7 @@ namespace Mappalachia
 			// Scrap
 			query = "SELECT component, spaceFormID, componentQuantity, sum(count) as properCount FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
-				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '\\' " +
+				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				optionalSpaceTerm +
 				"GROUP BY component, spaceFormID, componentQuantity;";
 
@@ -99,7 +101,7 @@ namespace Mappalachia
 			// Region
 			query =
 				"SELECT regionFormID, regionEditorID, spaceFormID FROM Region " +
-				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '\\' OR regionFormID = '{searchTerm}') " +
+				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR regionFormID = '{searchTerm}') " +
 				optionalSpaceTerm +
 				"GROUP BY regionFormID;";
 
@@ -160,8 +162,8 @@ namespace Mappalachia
 		{
 			return input.Trim()
 				.Replace("'", "''")
-				.Replace("_", "\\_")
-				.Replace("%", "\\%")
+				.Replace("_", $"{EscapeChar}_")
+				.Replace("%", $"{EscapeChar}%")
 				.Replace(" ", "%");
 		}
 

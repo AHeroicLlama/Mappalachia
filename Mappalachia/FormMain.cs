@@ -50,12 +50,13 @@ namespace Mappalachia
 		public FormMain()
 		{
 			InitializeComponent();
-			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
-			InitializeSearchResultsGrid();
 
 			// Spawn the map view form
 			MapViewForm = new FormMapView(this);
 			MapViewForm.Show();
+
+			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
+			InitializeSearchResultsGrid();
 		}
 
 		private async void ButtonSearch_Click(object sender, EventArgs e)
@@ -123,8 +124,9 @@ namespace Mappalachia
 				MapViewForm = new FormMapView(this);
 			}
 
-			MapViewForm.Show();
 			MapViewForm.BringToFront();
+			MapViewForm.Show();
+			MapViewForm.Focus();
 		}
 	}
 }
