@@ -16,6 +16,8 @@
 	<Copyright>$(Authors)</Copyright>
 	<RunPostBuildEvent>Always</RunPostBuildEvent>
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<Description>The complete mapping tool for Fallout 76.
+Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 game world.</Description>
   </PropertyGroup>
 
   <ItemGroup>
