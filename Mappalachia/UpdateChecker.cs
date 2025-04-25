@@ -8,16 +8,11 @@ namespace Mappalachia
 	{
 		static string UserAgent { get; } = "AHeroicLlama/Mappalachia";
 
-		static Uri LatestReleaseAPI { get; } = new Uri("https://api.github.com/repos/AHeroicLlama/Mappalachia/releases/latest");
-
-		static Uri ReleasesURL { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia/releases");
-
-		static TaskDialogButton ButtonViewReleases { get; }
-
-		static UpdateChecker()
+		static TaskDialogButton GetViewReleasesButton()
 		{
-			ButtonViewReleases = new TaskDialogButton("View releases on GitHub");
-			ButtonViewReleases.Click += (sender, e) => { Common.OpenURI(ReleasesURL); };
+			TaskDialogButton button = new TaskDialogButton("View releases on GitHub");
+			button.Click += (sender, e) => { Common.OpenURI(URLs.Releases); };
+			return button;
 		}
 
 		public static async void CheckForUpdates(bool userRequested = false)
@@ -29,7 +24,7 @@ namespace Mappalachia
 				// Get the response from the GitHub API
 				using HttpClient httpClient = new HttpClient();
 				httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
-				using HttpResponseMessage response = await httpClient.GetAsync(LatestReleaseAPI);
+				using HttpResponseMessage response = await httpClient.GetAsync(URLs.LatestReleaseAPI);
 
 				if (!response.IsSuccessStatusCode)
 				{
@@ -78,7 +73,7 @@ namespace Mappalachia
 				DefaultButton = TaskDialogButton.OK,
 				Buttons = new TaskDialogButtonCollection()
 				{
-					ButtonViewReleases,
+					GetViewReleasesButton(),
 					TaskDialogButton.OK,
 				},
 			};
@@ -139,7 +134,7 @@ namespace Mappalachia
 				page.Text = $"This build ({currentVersion}) is ahead of the latest release ({latestVersion}).";
 				page.Buttons = new TaskDialogButtonCollection
 				{
-					ButtonViewReleases,
+					GetViewReleasesButton(),
 					TaskDialogButton.OK,
 				};
 			}

@@ -5,12 +5,6 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
-		FormMapView MapViewForm { get; set; }
-
-		DataTable SearchResultsDataTable { get; } = new DataTable();
-
-		public static Random Random { get; } = new Random();
-
 		static List<string> SearchTermHints { get; } = new List<string>
 		{
 			"Alcohol",
@@ -47,6 +41,14 @@ namespace Mappalachia
 			"Workbench",
 		};
 
+		Random Random { get; } = new Random();
+
+		FormMapView MapViewForm { get; set; }
+
+		DataTable SearchResultsDataTable { get; } = new DataTable();
+
+		List<GroupedInstance> SearchResults { get; set; } = new List<GroupedInstance>();
+
 		public FormMain()
 		{
 			InitializeComponent();
@@ -59,21 +61,13 @@ namespace Mappalachia
 			InitializeSearchResultsGrid();
 		}
 
-		private async void ButtonSearch_Click(object sender, EventArgs e)
+		// Re-populates the search results grid with the current search results
+		void UpdateSearchResultsGrid()
 		{
 			dataGridViewSearchResults.DataSource = null;
 			SearchResultsDataTable.Rows.Clear();
 
-			List<GroupedInstance> searchResults = await Database.Search(textBoxSearch.Text);
-
-			searchResults = searchResults
-				.OrderByDescending(g => g.Space == Settings.CurrentSpace)
-				.ThenByDescending(g => g.Count)
-				.ThenByDescending(g => g.SpawnWeight)
-				.ThenBy(g => g.Entity.EditorID)
-				.ToList();
-
-			foreach (GroupedInstance groupedInstance in searchResults)
+			foreach (GroupedInstance groupedInstance in SearchResults)
 			{
 				SearchResultsDataTable.Rows.Add(
 					groupedInstance.Entity.FormID.ToHex(),
@@ -91,6 +85,7 @@ namespace Mappalachia
 			SetSearchResultsGridStyle();
 		}
 
+		// Setup the columns and styling for the search results grid
 		void InitializeSearchResultsGrid()
 		{
 			SearchResultsDataTable.Columns.AddRange(
@@ -112,7 +107,7 @@ namespace Mappalachia
 
 		void SetSearchResultsGridStyle()
 		{
-			DataGridViewColumn formIDColumn = dataGridViewSearchResults.Columns["Form ID"] ?? throw new Exception("Search Results Form ID Column not found");
+			DataGridViewColumn formIDColumn = dataGridViewSearchResults.Columns["Form ID"] ?? throw new NullReferenceException("Search Results Form ID Column not found");
 			formIDColumn.DefaultCellStyle.Font = new Font("Consolas", 9);
 		}
 
@@ -127,6 +122,50 @@ namespace Mappalachia
 			MapViewForm.BringToFront();
 			MapViewForm.Show();
 			MapViewForm.Focus();
+		}
+
+		private void Discord_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.DiscordInvite);
+		}
+
+		private void Help_About_Click(object sender, EventArgs e)
+		{
+			new AboutBox().ShowDialog();
+		}
+
+		private void Help_UserGuides_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.HelpDocs);
+		}
+
+		private void Help_CheckForUpdates_Click(object sender, EventArgs e)
+		{
+			UpdateChecker.CheckForUpdates(true);
+		}
+
+		private void Help_ViewGitHub_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.GitHub);
+		}
+
+		private void Donate_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.DonatePaypal);
+		}
+
+		private async void ButtonSearch_Click(object sender, EventArgs e)
+		{
+			SearchResults = await Database.Search(textBoxSearch.Text);
+
+			SearchResults = SearchResults
+				.OrderByDescending(g => g.Space == Settings.CurrentSpace)
+				.ThenByDescending(g => g.Count)
+				.ThenByDescending(g => g.SpawnWeight)
+				.ThenBy(g => g.Entity.EditorID)
+				.ToList();
+
+			UpdateSearchResultsGrid();
 		}
 	}
 }

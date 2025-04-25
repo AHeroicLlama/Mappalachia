@@ -32,6 +32,13 @@ namespace Mappalachia
 			menuStripMain = new MenuStrip();
 			mapToolStripMenuItem = new ToolStripMenuItem();
 			showPreviewToolStripMenuItem = new ToolStripMenuItem();
+			helpToolStripMenuItem = new ToolStripMenuItem();
+			aboutToolStripMenuItem = new ToolStripMenuItem();
+			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
+			checkForUpdatesToolStripMenuItem = new ToolStripMenuItem();
+			viewGitHubToolStripMenuItem = new ToolStripMenuItem();
+			joinTheDiscordToolStripMenuItem = new ToolStripMenuItem();
+			sayThanksToolStripMenuItem = new ToolStripMenuItem();
 			buttonSearch = new Button();
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
@@ -41,9 +48,10 @@ namespace Mappalachia
 			// 
 			// menuStripMain
 			// 
-			menuStripMain.Items.AddRange(new ToolStripItem[] { mapToolStripMenuItem });
+			menuStripMain.Items.AddRange(new ToolStripItem[] { mapToolStripMenuItem, helpToolStripMenuItem, joinTheDiscordToolStripMenuItem, sayThanksToolStripMenuItem });
 			menuStripMain.Location = new Point(0, 0);
 			menuStripMain.Name = "menuStripMain";
+			menuStripMain.ShowItemToolTips = true;
 			menuStripMain.Size = new Size(1264, 24);
 			menuStripMain.TabIndex = 0;
 			menuStripMain.Text = "menuStrip1";
@@ -58,14 +66,70 @@ namespace Mappalachia
 			// showPreviewToolStripMenuItem
 			// 
 			showPreviewToolStripMenuItem.Name = "showPreviewToolStripMenuItem";
-			showPreviewToolStripMenuItem.Size = new Size(180, 22);
+			showPreviewToolStripMenuItem.Size = new Size(147, 22);
 			showPreviewToolStripMenuItem.Text = "Show Preview";
 			showPreviewToolStripMenuItem.Click += Map_ShowPreview_Click;
+			// 
+			// helpToolStripMenuItem
+			// 
+			helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, openUserGuidesToolStripMenuItem, checkForUpdatesToolStripMenuItem, viewGitHubToolStripMenuItem });
+			helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+			helpToolStripMenuItem.ShortcutKeyDisplayString = "";
+			helpToolStripMenuItem.Size = new Size(44, 20);
+			helpToolStripMenuItem.Text = "Help";
+			// 
+			// aboutToolStripMenuItem
+			// 
+			aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+			aboutToolStripMenuItem.Size = new Size(171, 22);
+			aboutToolStripMenuItem.Text = "About";
+			aboutToolStripMenuItem.ToolTipText = "View additional info about the application,";
+			aboutToolStripMenuItem.Click += Help_About_Click;
+			// 
+			// openUserGuidesToolStripMenuItem
+			// 
+			openUserGuidesToolStripMenuItem.Name = "openUserGuidesToolStripMenuItem";
+			openUserGuidesToolStripMenuItem.Size = new Size(171, 22);
+			openUserGuidesToolStripMenuItem.Text = "Open User Guides";
+			openUserGuidesToolStripMenuItem.ToolTipText = "Read documentation online.";
+			openUserGuidesToolStripMenuItem.Click += Help_UserGuides_Click;
+			// 
+			// checkForUpdatesToolStripMenuItem
+			// 
+			checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+			checkForUpdatesToolStripMenuItem.Size = new Size(171, 22);
+			checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
+			checkForUpdatesToolStripMenuItem.ToolTipText = "Check if there is a new version available.";
+			checkForUpdatesToolStripMenuItem.Click += Help_CheckForUpdates_Click;
+			// 
+			// viewGitHubToolStripMenuItem
+			// 
+			viewGitHubToolStripMenuItem.Name = "viewGitHubToolStripMenuItem";
+			viewGitHubToolStripMenuItem.Size = new Size(171, 22);
+			viewGitHubToolStripMenuItem.Text = "View GitHub";
+			viewGitHubToolStripMenuItem.ToolTipText = "Go to the project home, or see the open source code.";
+			viewGitHubToolStripMenuItem.Click += Help_ViewGitHub_Click;
+			// 
+			// joinTheDiscordToolStripMenuItem
+			// 
+			joinTheDiscordToolStripMenuItem.Name = "joinTheDiscordToolStripMenuItem";
+			joinTheDiscordToolStripMenuItem.Size = new Size(103, 20);
+			joinTheDiscordToolStripMenuItem.Text = "Join the Discord";
+			joinTheDiscordToolStripMenuItem.ToolTipText = "Join the official Discord for help and discussion.";
+			joinTheDiscordToolStripMenuItem.Click += Discord_Click;
+			// 
+			// sayThanksToolStripMenuItem
+			// 
+			sayThanksToolStripMenuItem.Name = "sayThanksToolStripMenuItem";
+			sayThanksToolStripMenuItem.Size = new Size(140, 20);
+			sayThanksToolStripMenuItem.Text = "Support the Developer ";
+			sayThanksToolStripMenuItem.ToolTipText = "Say thanks through PayPal.";
+			sayThanksToolStripMenuItem.Click += Donate_Click;
 			// 
 			// buttonSearch
 			// 
 			buttonSearch.Anchor = AnchorStyles.Top;
-			buttonSearch.Location = new Point(736, 28);
+			buttonSearch.Location = new Point(743, 28);
 			buttonSearch.Name = "buttonSearch";
 			buttonSearch.Size = new Size(75, 23);
 			buttonSearch.TabIndex = 5;
@@ -76,7 +140,7 @@ namespace Mappalachia
 			// textBoxSearch
 			// 
 			textBoxSearch.Anchor = AnchorStyles.Top;
-			textBoxSearch.Location = new Point(440, 29);
+			textBoxSearch.Location = new Point(447, 29);
 			textBoxSearch.Name = "textBoxSearch";
 			textBoxSearch.Size = new Size(290, 23);
 			textBoxSearch.TabIndex = 4;
@@ -131,5 +195,12 @@ namespace Mappalachia
 		private TextBox textBoxSearch;
 		private DataGridView dataGridViewSearchResults;
 		private ToolStripMenuItem showPreviewToolStripMenuItem;
+		private ToolStripMenuItem joinTheDiscordToolStripMenuItem;
+		private ToolStripMenuItem helpToolStripMenuItem;
+		private ToolStripMenuItem aboutToolStripMenuItem;
+		private ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+		private ToolStripMenuItem openUserGuidesToolStripMenuItem;
+		private ToolStripMenuItem viewGitHubToolStripMenuItem;
+		private ToolStripMenuItem sayThanksToolStripMenuItem;
 	}
 }

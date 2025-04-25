@@ -7,7 +7,7 @@ namespace Mappalachia
 {
 	static class Database
 	{
-		static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
+		public static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
 
 		public static List<Space> CachedSpaces { get; } = GetSpaces(Connection).Result;
 
@@ -18,6 +18,7 @@ namespace Mappalachia
 		// The core database search function - returns a collection of GroupedInstance from the given search params
 		public static async Task<List<GroupedInstance>> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
 		{
+			// If specific signatures or lock levels are not passed, we default to all
 			selectedSignatures ??= Enum.GetValues<Signature>().ToList();
 			selectedLockLevels ??= Enum.GetValues<LockLevel>().ToList();
 
