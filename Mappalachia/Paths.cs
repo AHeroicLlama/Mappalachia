@@ -1,5 +1,6 @@
 ﻿namespace Mappalachia
 {
+	// Local paths relative to the executable
 	public static class Paths
 	{
 		public static string DatabasePath { get; } = @"data\mappalachia.db";

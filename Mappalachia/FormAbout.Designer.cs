@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	partial class AboutBox
+	partial class FormAbout
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -27,13 +27,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
 			tableLayoutPanel = new TableLayoutPanel();
+			linkLabelGitHub = new LinkLabel();
 			logoPictureBox = new PictureBox();
 			labelProductName = new Label();
 			labelVersion = new Label();
 			labelCopyright = new Label();
-			labelCompanyName = new Label();
 			textBoxDescription = new TextBox();
 			okButton = new Button();
 			tableLayoutPanel.SuspendLayout();
@@ -43,13 +43,13 @@
 			// tableLayoutPanel
 			// 
 			tableLayoutPanel.ColumnCount = 2;
-			tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-			tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 67F));
+			tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34.5F));
+			tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65.5F));
+			tableLayoutPanel.Controls.Add(linkLabelGitHub, 1, 3);
 			tableLayoutPanel.Controls.Add(logoPictureBox, 0, 0);
 			tableLayoutPanel.Controls.Add(labelProductName, 1, 0);
 			tableLayoutPanel.Controls.Add(labelVersion, 1, 1);
 			tableLayoutPanel.Controls.Add(labelCopyright, 1, 2);
-			tableLayoutPanel.Controls.Add(labelCompanyName, 1, 3);
 			tableLayoutPanel.Controls.Add(textBoxDescription, 1, 4);
 			tableLayoutPanel.Controls.Add(okButton, 1, 5);
 			tableLayoutPanel.Dock = DockStyle.Fill;
@@ -66,6 +66,22 @@
 			tableLayoutPanel.Size = new Size(487, 307);
 			tableLayoutPanel.TabIndex = 0;
 			// 
+			// linkLabelGitHub
+			// 
+			linkLabelGitHub.AutoSize = true;
+			linkLabelGitHub.Dock = DockStyle.Fill;
+			linkLabelGitHub.ImageAlign = ContentAlignment.MiddleLeft;
+			linkLabelGitHub.LinkArea = new LinkArea(0, 127);
+			linkLabelGitHub.Location = new Point(175, 90);
+			linkLabelGitHub.Margin = new Padding(7, 0, 4, 0);
+			linkLabelGitHub.Name = "linkLabelGitHub";
+			linkLabelGitHub.Size = new Size(308, 30);
+			linkLabelGitHub.TabIndex = 1;
+			linkLabelGitHub.TabStop = true;
+			linkLabelGitHub.Text = "Repo";
+			linkLabelGitHub.UseCompatibleTextRendering = true;
+			linkLabelGitHub.LinkClicked += LinkLabelGitHub_LinkClicked;
+			// 
 			// logoPictureBox
 			// 
 			logoPictureBox.Dock = DockStyle.Fill;
@@ -74,7 +90,7 @@
 			logoPictureBox.Margin = new Padding(4, 3, 4, 3);
 			logoPictureBox.Name = "logoPictureBox";
 			tableLayoutPanel.SetRowSpan(logoPictureBox, 6);
-			logoPictureBox.Size = new Size(152, 301);
+			logoPictureBox.Size = new Size(160, 301);
 			logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
 			logoPictureBox.TabIndex = 12;
 			logoPictureBox.TabStop = false;
@@ -82,11 +98,11 @@
 			// labelProductName
 			// 
 			labelProductName.Dock = DockStyle.Fill;
-			labelProductName.Location = new Point(167, 0);
+			labelProductName.Location = new Point(175, 0);
 			labelProductName.Margin = new Padding(7, 0, 4, 0);
 			labelProductName.MaximumSize = new Size(0, 20);
 			labelProductName.Name = "labelProductName";
-			labelProductName.Size = new Size(316, 20);
+			labelProductName.Size = new Size(308, 20);
 			labelProductName.TabIndex = 19;
 			labelProductName.Text = "Product Name";
 			labelProductName.TextAlign = ContentAlignment.MiddleLeft;
@@ -94,11 +110,11 @@
 			// labelVersion
 			// 
 			labelVersion.Dock = DockStyle.Fill;
-			labelVersion.Location = new Point(167, 30);
+			labelVersion.Location = new Point(175, 30);
 			labelVersion.Margin = new Padding(7, 0, 4, 0);
 			labelVersion.MaximumSize = new Size(0, 20);
 			labelVersion.Name = "labelVersion";
-			labelVersion.Size = new Size(316, 20);
+			labelVersion.Size = new Size(308, 20);
 			labelVersion.TabIndex = 0;
 			labelVersion.Text = "Version";
 			labelVersion.TextAlign = ContentAlignment.MiddleLeft;
@@ -106,37 +122,25 @@
 			// labelCopyright
 			// 
 			labelCopyright.Dock = DockStyle.Fill;
-			labelCopyright.Location = new Point(167, 60);
+			labelCopyright.Location = new Point(175, 60);
 			labelCopyright.Margin = new Padding(7, 0, 4, 0);
 			labelCopyright.MaximumSize = new Size(0, 20);
 			labelCopyright.Name = "labelCopyright";
-			labelCopyright.Size = new Size(316, 20);
+			labelCopyright.Size = new Size(308, 20);
 			labelCopyright.TabIndex = 21;
 			labelCopyright.Text = "Copyright";
 			labelCopyright.TextAlign = ContentAlignment.MiddleLeft;
 			// 
-			// labelCompanyName
-			// 
-			labelCompanyName.Dock = DockStyle.Fill;
-			labelCompanyName.Location = new Point(167, 90);
-			labelCompanyName.Margin = new Padding(7, 0, 4, 0);
-			labelCompanyName.MaximumSize = new Size(0, 20);
-			labelCompanyName.Name = "labelCompanyName";
-			labelCompanyName.Size = new Size(316, 20);
-			labelCompanyName.TabIndex = 22;
-			labelCompanyName.Text = "Company Name";
-			labelCompanyName.TextAlign = ContentAlignment.MiddleLeft;
-			// 
 			// textBoxDescription
 			// 
 			textBoxDescription.Dock = DockStyle.Fill;
-			textBoxDescription.Location = new Point(167, 123);
+			textBoxDescription.Location = new Point(175, 123);
 			textBoxDescription.Margin = new Padding(7, 3, 4, 3);
 			textBoxDescription.Multiline = true;
 			textBoxDescription.Name = "textBoxDescription";
 			textBoxDescription.ReadOnly = true;
 			textBoxDescription.ScrollBars = ScrollBars.Both;
-			textBoxDescription.Size = new Size(316, 147);
+			textBoxDescription.Size = new Size(308, 147);
 			textBoxDescription.TabIndex = 23;
 			textBoxDescription.TabStop = false;
 			textBoxDescription.Text = "Description";
@@ -152,7 +156,7 @@
 			okButton.TabIndex = 24;
 			okButton.Text = "&OK";
 			// 
-			// AboutBox
+			// FormAbout
 			// 
 			AcceptButton = okButton;
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -163,7 +167,7 @@
 			Margin = new Padding(4, 3, 4, 3);
 			MaximizeBox = false;
 			MinimizeBox = false;
-			Name = "AboutBox";
+			Name = "FormAbout";
 			Padding = new Padding(10);
 			ShowIcon = false;
 			ShowInTaskbar = false;
@@ -183,8 +187,8 @@
 		private System.Windows.Forms.Label labelProductName;
 		private System.Windows.Forms.Label labelVersion;
 		private System.Windows.Forms.Label labelCopyright;
-		private System.Windows.Forms.Label labelCompanyName;
 		private System.Windows.Forms.TextBox textBoxDescription;
 		private System.Windows.Forms.Button okButton;
+		private LinkLabel linkLabelGitHub;
 	}
 }

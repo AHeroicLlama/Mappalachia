@@ -6,12 +6,8 @@
 
 		int LastHeight { get; set; }
 
-		FormMain MainForm { get; }
-
-		public FormMapView(FormMain mainForm)
+		public FormMapView()
 		{
-			MainForm = mainForm;
-
 			InitializeComponent();
 			KeepSquare(this, EventArgs.Empty);
 			pictureBoxMapDisplay.Image = Map.Draw();
@@ -26,6 +22,7 @@
 			int additionalBorderHeight = Height - ClientSize.Height;
 			int additionalBorderWidth = Width - ClientSize.Width;
 
+			// What were the parameters of this resize event
 			int widthChange = ClientSize.Width - LastWidth;
 			int heightChange = ClientSize.Height - LastHeight;
 
@@ -82,6 +79,7 @@
 			}
 		}
 
+		// Don't close - just hide
 		private void FormMapView_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			e.Cancel = true;

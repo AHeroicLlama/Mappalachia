@@ -60,6 +60,6 @@ Mappalachia uses technologies such as [.NET](https://dotnet.microsoft.com/en-us/
 Use of other third-party assets are covered below.
 
 #### Legal/Disclaimer
-Mappalachia is provided as a non-commercial, free tool solely for the benefit of players of Fallout 76. Mappalachia and its creator are neither affiliated with - nor endorsed by - ZeniMax Media or any of its subsidiaries including Bethesda Softworks LLC. Game assets including but not limited to images, characters, names and other game data used for mapping are extracted from a purchased copy of Fallout 76 and are shared here with the game's community in good faith and with an understanding that this lies within fair use.<br/>
-Any game data shared here is done so with the explicit purpose of making maps for the benefit of the community, and great care has been taken to minimize such data so that it cannot be reconstructed in any meaningful way.<br/>
-If you have any concerns or queries, please direct them to mappalachia.feedback@gmail.com
+Mappalachia is provided as a non-commercial, free tool solely for the benefit of players of Fallout 76. Mappalachia and its creator are neither affiliated with - nor endorsed by - ZeniMax Media or any of its subsidiaries including Bethesda Softworks LLC. Any and all game data and/or assets including but not limited to images, characters, names and other game data which are contained within this application (and thus stored and distributed at this repository) are extracted from a purchased copy of Fallout 76 and are shared with the player community in good faith and for the explicit purpose of making maps for the benefit of said community, with an understanding that this lies within fair use.<br/>
+Great care has been taken to minimize such data so that it cannot be reconstructed in any meaningful way.<br/>
+If you have any concerns or queries, please direct them to mappalachia.feedback@gmail.com.

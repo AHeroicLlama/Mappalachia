@@ -1,10 +1,11 @@
 ﻿namespace Mappalachia
 {
+	// Web addresses the application reaches out to or opens in the browser
 	public static class URLs
 	{
-		public static Uri GitHub { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia");
-
 		public static Uri LatestReleaseAPI { get; } = new Uri("https://api.github.com/repos/AHeroicLlama/Mappalachia/releases/latest");
+
+		public static Uri GitHub { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia");
 
 		public static Uri Releases { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia/releases");
 

@@ -54,7 +54,7 @@ namespace Mappalachia
 			InitializeComponent();
 
 			// Spawn the map view form
-			MapViewForm = new FormMapView(this);
+			MapViewForm = new FormMapView();
 			MapViewForm.Show();
 
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
@@ -116,7 +116,7 @@ namespace Mappalachia
 			// Don't expect this to be normally possible
 			if (MapViewForm.IsDisposed)
 			{
-				MapViewForm = new FormMapView(this);
+				MapViewForm = new FormMapView();
 			}
 
 			MapViewForm.BringToFront();
@@ -131,7 +131,7 @@ namespace Mappalachia
 
 		private void Help_About_Click(object sender, EventArgs e)
 		{
-			new AboutBox().ShowDialog();
+			new FormAbout().ShowDialog();
 		}
 
 		private void Help_UserGuides_Click(object sender, EventArgs e)
