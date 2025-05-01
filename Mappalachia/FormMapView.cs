@@ -10,7 +10,16 @@
 		{
 			InitializeComponent();
 			KeepSquare(this, EventArgs.Empty);
-			pictureBoxMapDisplay.Image = Map.Draw();
+
+			Shown += (s, e) =>
+			{
+				UpdateMap();
+			};
+		}
+
+		public async void UpdateMap()
+		{
+			pictureBoxMapDisplay.Image = await Map.Draw();
 		}
 
 		// Called when resized, this sizes the form so that the map image fits squarely within it

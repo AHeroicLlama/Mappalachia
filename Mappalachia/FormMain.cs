@@ -59,6 +59,71 @@ namespace Mappalachia
 
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
 			InitializeSearchResultsGrid();
+			SettingsChanged();
+
+			mapMenuItem.DropDown.Closing += DontCloseClickedDropDown;
+			mapMapMarkersMenuItem.DropDown.Closing += DontCloseClickedDropDown;
+			mapBackgroundImageMenuItem.DropDown.Closing += DontCloseClickedDropDown;
+			mapLegendStyleMenuItem.DropDown.Closing += DontCloseClickedDropDown;
+		}
+
+		void DontCloseClickedDropDown(object? sender, ToolStripDropDownClosingEventArgs e)
+		{
+			if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
+			{
+				e.Cancel = true;
+			}
+		}
+
+		// Reads in fields from Settings and updates UI elements respectively
+		void SettingsChanged()
+		{
+			grayscaleMenuItem.Checked = Settings.Grayscale;
+			highlightWaterMenuItem.Checked = Settings.HighlightWater;
+			mapMarkerIconsMenuItem.Checked = Settings.MapMarkerIcons;
+			mapMarkerLabelsMenuItem.Checked = Settings.MapMarkerLabels;
+
+			backgroundNormalMenuItem.Checked = false;
+			backgroundMilitaryMenuItem.Checked = false;
+			backgroundSatelliteMenuItem.Checked = false;
+			backgroundNoneMenuItem.Checked = false;
+
+			switch (Settings.BackgroundImage)
+			{
+				case BackgroundImageType.Menu:
+					backgroundNormalMenuItem.Checked = true;
+					break;
+				case BackgroundImageType.Render:
+					backgroundSatelliteMenuItem.Checked = true;
+					break;
+				case BackgroundImageType.Military:
+					backgroundMilitaryMenuItem.Checked = true;
+					break;
+				case BackgroundImageType.None:
+					backgroundNoneMenuItem.Checked = true;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(Settings.BackgroundImage), Settings.BackgroundImage, null);
+			}
+
+			legendNormalMenuItem.Checked = false;
+			legendExtendedMenuItem.Checked = false;
+			legendHiddenMenuItem.Checked = false;
+
+			switch (Settings.LegendStyle)
+			{
+				case LegendStyle.Normal:
+					legendNormalMenuItem.Checked = true;
+					break;
+				case LegendStyle.Extended:
+					legendExtendedMenuItem.Checked = true;
+					break;
+				case LegendStyle.None:
+					legendHiddenMenuItem.Checked = true;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(Settings.LegendStyle), Settings.LegendStyle, null);
+			}
 		}
 
 		// Re-populates the search results grid with the current search results
@@ -120,6 +185,12 @@ namespace Mappalachia
 			}
 
 			MapViewForm.BringToFront();
+
+			if (!MapViewForm.Visible)
+			{
+				MapViewForm.Show();
+			}
+
 			MapViewForm.Show();
 			MapViewForm.Focus();
 		}
@@ -166,6 +237,96 @@ namespace Mappalachia
 				.ToList();
 
 			UpdateSearchResultsGrid();
+		}
+
+		private void Map_Grayscale_Click(object sender, EventArgs e)
+		{
+			Settings.Grayscale = !Settings.Grayscale;
+			SettingsChanged();
+		}
+
+		private void Map_HightlightWater_Click(object sender, EventArgs e)
+		{
+			Settings.HighlightWater = !Settings.HighlightWater;
+			SettingsChanged();
+		}
+
+		private void Map_MapMarkers_Icons_Click(object sender, EventArgs e)
+		{
+			Settings.MapMarkerIcons = !Settings.MapMarkerIcons;
+			SettingsChanged();
+		}
+
+		private void Map_MapMarkers_Labels_Click(object sender, EventArgs e)
+		{
+			Settings.MapMarkerLabels = !Settings.MapMarkerLabels;
+			SettingsChanged();
+		}
+
+		private void Map_Background_Normal_Click(object sender, EventArgs e)
+		{
+			Settings.BackgroundImage = BackgroundImageType.Menu;
+			SettingsChanged();
+		}
+
+		private void Map_Background_Satellite_Click(object sender, EventArgs e)
+		{
+			Settings.BackgroundImage = BackgroundImageType.Render;
+			SettingsChanged();
+		}
+
+		private void Map_Background_Military_Click(object sender, EventArgs e)
+		{
+			Settings.BackgroundImage = BackgroundImageType.Military;
+			SettingsChanged();
+		}
+
+		private void Map_Background_None_Click(object sender, EventArgs e)
+		{
+			Settings.BackgroundImage = BackgroundImageType.None;
+			SettingsChanged();
+		}
+
+		private void Map_Legend_Normal_Click(object sender, EventArgs e)
+		{
+			Settings.LegendStyle = LegendStyle.Normal;
+			SettingsChanged();
+		}
+
+		private void Map_Legend_Extended_Click(object sender, EventArgs e)
+		{
+			Settings.LegendStyle = LegendStyle.Extended;
+			SettingsChanged();
+		}
+
+		private void Map_Legend_Hidden_Click(object sender, EventArgs e)
+		{
+			Settings.LegendStyle = LegendStyle.None;
+			SettingsChanged();
+		}
+
+		private void Map_QuickSave_Click(object sender, EventArgs e)
+		{
+			// TODO
+			mapMenuItem.DropDown.Close();
+		}
+
+		private void Map_ExportToFile_Click(object sender, EventArgs e)
+		{
+			// TODO
+			mapMenuItem.DropDown.Close();
+		}
+
+		private void Map_ClearPlots_Click(object sender, EventArgs e)
+		{
+			// TODO
+			mapMenuItem.DropDown.Close();
+		}
+
+		private void Map_Reset_Click(object sender, EventArgs e)
+		{
+			// TODO
+			mapMenuItem.DropDown.Close();
 		}
 	}
 }

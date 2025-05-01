@@ -30,8 +30,24 @@ namespace Mappalachia
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			menuStripMain = new MenuStrip();
-			mapToolStripMenuItem = new ToolStripMenuItem();
+			mapMenuItem = new ToolStripMenuItem();
 			showPreviewToolStripMenuItem = new ToolStripMenuItem();
+			grayscaleMenuItem = new ToolStripMenuItem();
+			highlightWaterMenuItem = new ToolStripMenuItem();
+			mapMapMarkersMenuItem = new ToolStripMenuItem();
+			mapMarkerIconsMenuItem = new ToolStripMenuItem();
+			mapMarkerLabelsMenuItem = new ToolStripMenuItem();
+			mapBackgroundImageMenuItem = new ToolStripMenuItem();
+			backgroundNormalMenuItem = new ToolStripMenuItem();
+			backgroundSatelliteMenuItem = new ToolStripMenuItem();
+			backgroundMilitaryMenuItem = new ToolStripMenuItem();
+			backgroundNoneMenuItem = new ToolStripMenuItem();
+			mapLegendStyleMenuItem = new ToolStripMenuItem();
+			legendNormalMenuItem = new ToolStripMenuItem();
+			legendExtendedMenuItem = new ToolStripMenuItem();
+			legendHiddenMenuItem = new ToolStripMenuItem();
+			clearPlotsToolStripMenuItem = new ToolStripMenuItem();
+			resetToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
@@ -42,13 +58,15 @@ namespace Mappalachia
 			buttonSearch = new Button();
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
+			quickSaveToolStripMenuItem = new ToolStripMenuItem();
+			exportToFileToolStripMenuItem = new ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			SuspendLayout();
 			// 
 			// menuStripMain
 			// 
-			menuStripMain.Items.AddRange(new ToolStripItem[] { mapToolStripMenuItem, helpToolStripMenuItem, joinTheDiscordToolStripMenuItem, sayThanksToolStripMenuItem });
+			menuStripMain.Items.AddRange(new ToolStripItem[] { mapMenuItem, helpToolStripMenuItem, joinTheDiscordToolStripMenuItem, sayThanksToolStripMenuItem });
 			menuStripMain.Location = new Point(0, 0);
 			menuStripMain.Name = "menuStripMain";
 			menuStripMain.ShowItemToolTips = true;
@@ -56,19 +74,131 @@ namespace Mappalachia
 			menuStripMain.TabIndex = 0;
 			menuStripMain.Text = "menuStrip1";
 			// 
-			// mapToolStripMenuItem
+			// mapMenuItem
 			// 
-			mapToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem });
-			mapToolStripMenuItem.Name = "mapToolStripMenuItem";
-			mapToolStripMenuItem.Size = new Size(43, 20);
-			mapToolStripMenuItem.Text = "Map";
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, grayscaleMenuItem, highlightWaterMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.Name = "mapMenuItem";
+			mapMenuItem.Size = new Size(43, 20);
+			mapMenuItem.Text = "Map";
 			// 
 			// showPreviewToolStripMenuItem
 			// 
 			showPreviewToolStripMenuItem.Name = "showPreviewToolStripMenuItem";
-			showPreviewToolStripMenuItem.Size = new Size(147, 22);
+			showPreviewToolStripMenuItem.Size = new Size(180, 22);
 			showPreviewToolStripMenuItem.Text = "Show Preview";
 			showPreviewToolStripMenuItem.Click += Map_ShowPreview_Click;
+			// 
+			// grayscaleMenuItem
+			// 
+			grayscaleMenuItem.Name = "grayscaleMenuItem";
+			grayscaleMenuItem.Size = new Size(180, 22);
+			grayscaleMenuItem.Text = "Grayscale";
+			grayscaleMenuItem.Click += Map_Grayscale_Click;
+			// 
+			// highlightWaterMenuItem
+			// 
+			highlightWaterMenuItem.Name = "highlightWaterMenuItem";
+			highlightWaterMenuItem.Size = new Size(180, 22);
+			highlightWaterMenuItem.Text = "Highlight Water";
+			highlightWaterMenuItem.Click += Map_HightlightWater_Click;
+			// 
+			// mapMapMarkersMenuItem
+			// 
+			mapMapMarkersMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mapMarkerIconsMenuItem, mapMarkerLabelsMenuItem });
+			mapMapMarkersMenuItem.Name = "mapMapMarkersMenuItem";
+			mapMapMarkersMenuItem.Size = new Size(180, 22);
+			mapMapMarkersMenuItem.Text = "Map Markers";
+			// 
+			// mapMarkerIconsMenuItem
+			// 
+			mapMarkerIconsMenuItem.Name = "mapMarkerIconsMenuItem";
+			mapMarkerIconsMenuItem.Size = new Size(107, 22);
+			mapMarkerIconsMenuItem.Text = "Icons";
+			mapMarkerIconsMenuItem.Click += Map_MapMarkers_Icons_Click;
+			// 
+			// mapMarkerLabelsMenuItem
+			// 
+			mapMarkerLabelsMenuItem.Name = "mapMarkerLabelsMenuItem";
+			mapMarkerLabelsMenuItem.Size = new Size(107, 22);
+			mapMarkerLabelsMenuItem.Text = "Labels";
+			mapMarkerLabelsMenuItem.Click += Map_MapMarkers_Labels_Click;
+			// 
+			// mapBackgroundImageMenuItem
+			// 
+			mapBackgroundImageMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backgroundNormalMenuItem, backgroundSatelliteMenuItem, backgroundMilitaryMenuItem, backgroundNoneMenuItem });
+			mapBackgroundImageMenuItem.Name = "mapBackgroundImageMenuItem";
+			mapBackgroundImageMenuItem.Size = new Size(180, 22);
+			mapBackgroundImageMenuItem.Text = "Background Image";
+			// 
+			// backgroundNormalMenuItem
+			// 
+			backgroundNormalMenuItem.Name = "backgroundNormalMenuItem";
+			backgroundNormalMenuItem.Size = new Size(115, 22);
+			backgroundNormalMenuItem.Text = "Normal";
+			backgroundNormalMenuItem.Click += Map_Background_Normal_Click;
+			// 
+			// backgroundSatelliteMenuItem
+			// 
+			backgroundSatelliteMenuItem.Name = "backgroundSatelliteMenuItem";
+			backgroundSatelliteMenuItem.Size = new Size(115, 22);
+			backgroundSatelliteMenuItem.Text = "Satellite";
+			backgroundSatelliteMenuItem.Click += Map_Background_Satellite_Click;
+			// 
+			// backgroundMilitaryMenuItem
+			// 
+			backgroundMilitaryMenuItem.Name = "backgroundMilitaryMenuItem";
+			backgroundMilitaryMenuItem.Size = new Size(115, 22);
+			backgroundMilitaryMenuItem.Text = "Military";
+			backgroundMilitaryMenuItem.Click += Map_Background_Military_Click;
+			// 
+			// backgroundNoneMenuItem
+			// 
+			backgroundNoneMenuItem.Name = "backgroundNoneMenuItem";
+			backgroundNoneMenuItem.Size = new Size(115, 22);
+			backgroundNoneMenuItem.Text = "None";
+			backgroundNoneMenuItem.Click += Map_Background_None_Click;
+			// 
+			// mapLegendStyleMenuItem
+			// 
+			mapLegendStyleMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalMenuItem, legendExtendedMenuItem, legendHiddenMenuItem });
+			mapLegendStyleMenuItem.Name = "mapLegendStyleMenuItem";
+			mapLegendStyleMenuItem.Size = new Size(180, 22);
+			mapLegendStyleMenuItem.Text = "Legend Style";
+			// 
+			// legendNormalMenuItem
+			// 
+			legendNormalMenuItem.Name = "legendNormalMenuItem";
+			legendNormalMenuItem.Size = new Size(123, 22);
+			legendNormalMenuItem.Text = "Normal";
+			legendNormalMenuItem.Click += Map_Legend_Normal_Click;
+			// 
+			// legendExtendedMenuItem
+			// 
+			legendExtendedMenuItem.Name = "legendExtendedMenuItem";
+			legendExtendedMenuItem.Size = new Size(123, 22);
+			legendExtendedMenuItem.Text = "Extended";
+			legendExtendedMenuItem.Click += Map_Legend_Extended_Click;
+			// 
+			// legendHiddenMenuItem
+			// 
+			legendHiddenMenuItem.Name = "legendHiddenMenuItem";
+			legendHiddenMenuItem.Size = new Size(123, 22);
+			legendHiddenMenuItem.Text = "Hidden";
+			legendHiddenMenuItem.Click += Map_Legend_Hidden_Click;
+			// 
+			// clearPlotsToolStripMenuItem
+			// 
+			clearPlotsToolStripMenuItem.Name = "clearPlotsToolStripMenuItem";
+			clearPlotsToolStripMenuItem.Size = new Size(180, 22);
+			clearPlotsToolStripMenuItem.Text = "Clear Plots";
+			clearPlotsToolStripMenuItem.Click += Map_ClearPlots_Click;
+			// 
+			// resetToolStripMenuItem
+			// 
+			resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+			resetToolStripMenuItem.Size = new Size(180, 22);
+			resetToolStripMenuItem.Text = "Reset";
+			resetToolStripMenuItem.Click += Map_Reset_Click;
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -165,6 +295,20 @@ namespace Mappalachia
 			dataGridViewSearchResults.Size = new Size(1240, 309);
 			dataGridViewSearchResults.TabIndex = 3;
 			// 
+			// quickSaveToolStripMenuItem
+			// 
+			quickSaveToolStripMenuItem.Name = "quickSaveToolStripMenuItem";
+			quickSaveToolStripMenuItem.Size = new Size(180, 22);
+			quickSaveToolStripMenuItem.Text = "Quick Save";
+			quickSaveToolStripMenuItem.Click += Map_QuickSave_Click;
+			// 
+			// exportToFileToolStripMenuItem
+			// 
+			exportToFileToolStripMenuItem.Name = "exportToFileToolStripMenuItem";
+			exportToFileToolStripMenuItem.Size = new Size(180, 22);
+			exportToFileToolStripMenuItem.Text = "Export to File";
+			exportToFileToolStripMenuItem.Click += Map_ExportToFile_Click;
+			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
@@ -190,7 +334,7 @@ namespace Mappalachia
 		#endregion
 
 		private MenuStrip menuStripMain;
-		private ToolStripMenuItem mapToolStripMenuItem;
+		private ToolStripMenuItem mapMenuItem;
 		private Button buttonSearch;
 		private TextBox textBoxSearch;
 		private DataGridView dataGridViewSearchResults;
@@ -202,5 +346,23 @@ namespace Mappalachia
 		private ToolStripMenuItem openUserGuidesToolStripMenuItem;
 		private ToolStripMenuItem viewGitHubToolStripMenuItem;
 		private ToolStripMenuItem sayThanksToolStripMenuItem;
+		private ToolStripMenuItem grayscaleMenuItem;
+		private ToolStripMenuItem highlightWaterMenuItem;
+		private ToolStripMenuItem mapMapMarkersMenuItem;
+		private ToolStripMenuItem mapMarkerIconsMenuItem;
+		private ToolStripMenuItem mapMarkerLabelsMenuItem;
+		private ToolStripMenuItem resetToolStripMenuItem;
+		private ToolStripMenuItem mapBackgroundImageMenuItem;
+		private ToolStripMenuItem backgroundNormalMenuItem;
+		private ToolStripMenuItem backgroundSatelliteMenuItem;
+		private ToolStripMenuItem backgroundMilitaryMenuItem;
+		private ToolStripMenuItem backgroundNoneMenuItem;
+		private ToolStripMenuItem mapLegendStyleMenuItem;
+		private ToolStripMenuItem legendNormalMenuItem;
+		private ToolStripMenuItem legendExtendedMenuItem;
+		private ToolStripMenuItem legendHiddenMenuItem;
+		private ToolStripMenuItem clearPlotsToolStripMenuItem;
+		private ToolStripMenuItem quickSaveToolStripMenuItem;
+		private ToolStripMenuItem exportToFileToolStripMenuItem;
 	}
 }
