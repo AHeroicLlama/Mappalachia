@@ -15,7 +15,7 @@ namespace Mappalachia
 		const string missingMarkersFile = outputPath + @"\\MissingMarkers.error";
 		const string fileExtension = ".svg";
 
-		static readonly Regex validIconFolder = new Regex(extractPath + @"\\DefineSprite_[0-9]{2,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
+		static readonly Regex validIconFolder = new Regex(extractPath + @"\\DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
 		const string workshopMarker = "PublicWorkshopMarker"; // This icon needs special handling
 

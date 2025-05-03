@@ -13,8 +13,8 @@ Mappalachia/img/*_waterMask.png
 #SQLite and database generation
 Database/*.db-journal
 
-#fo76utils dlls
-FO76Utils/*.dll
+#fo76utils
+FO76Utils/*
 
 #FO76Edit/Sigcheck/sqlite3
 *.exe
