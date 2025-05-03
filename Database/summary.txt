@@ -1,11 +1,11 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.47.0 2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e (64-bit)
+3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 ==Checksum== 
-841d6467105e733ac7166bb5be060223
+fa83d8c9f0888cecfc43f947673149a1
 ==File Size== 
-488525824 
+488521728 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-PTS 0.2.1757.1
+PTS 0.2.1785.0
 ==Mean Average X/Y/Z Coord==
--9259.75545433789|-5112.91765373936|11158.3038964387
+-9260.31400429045|-5112.61978105629|11158.4430643767
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ PTS 0.2.1757.1
 ==Z outliers==
 78
 ==Average X Bounds Width==
-23.031936217893
+23.0317585037349
 ==Average Y Bounds Width==
-16.9119605294992
+16.9119270623395
 ==Average Z Bounds Width==
-16.813660344711
+16.8134713885227
 ==Average Z Rotation==
-4.38874376266135
+4.38861736915306
 ==Average display name string length==
-2.83822445067099
+2.83801036531412
 ==Average editorID string length==
-25.2524280026123
+25.252643997809
 ==Map Markers==
 APPALACHIA|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 APPALACHIA|AirfieldMarker|Crashed Plane|147706|58411
@@ -569,7 +569,7 @@ APPALACHIA|WoodShackMarker|Susan's Cabin|97676|-204801
 APPALACHIA|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 APPALACHIA|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-47467
+47466
 ==Regions==
 Space|Region|subRegions|maxVerts
 APPALACHIA|76Border|1|66
@@ -809,12 +809,12 @@ AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-APPALACHIA||3196645
-APPALACHIA|Box|71398
+APPALACHIA||3196644
+APPALACHIA|Box|71393
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1777
 APPALACHIA|Plane|204
-APPALACHIA|Sphere|2661
+APPALACHIA|Sphere|2662
 AVRMedicalCenter01||5742
 AVRMedicalCenter01|Box|194
 AlleghenyAsylum01||14277
@@ -932,7 +932,7 @@ FreeStatesBunker06|Box|38
 FreeStatesBunker06|Line|1
 FreeStatesBunker07||1003
 FreeStatesBunker07|Box|47
-GHLCamp01||3388
+GHLCamp01||3331
 GHLCamp01|Box|98
 GHLCamp02||1298
 GHLCamp02|Box|141
@@ -1324,7 +1324,7 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3271548
+APPALACHIA||3271543
 APPALACHIA|Advanced (Level 1)|341
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
@@ -1467,7 +1467,7 @@ FreeStatesBunker06||948
 FreeStatesBunker06|Expert (Level 2)|1
 FreeStatesBunker07||1049
 FreeStatesBunker07|Expert (Level 2)|1
-GHLCamp01||3486
+GHLCamp01||3429
 GHLCamp02||1439
 GHLEmmettMnt02||1493
 GHLEmmettMnt02|Novice (Level 0)|1
@@ -1989,7 +1989,7 @@ APPALACHIA|IDLM|19120
 APPALACHIA|KEYM|38
 APPALACHIA|LIGH|9284
 APPALACHIA|LVLI|73927
-APPALACHIA|MISC|38016
+APPALACHIA|MISC|38014
 APPALACHIA|MSTT|24693
 APPALACHIA|NOTE|185
 APPALACHIA|NPC_|8293
@@ -1997,10 +1997,10 @@ APPALACHIA|PROJ|93
 APPALACHIA|SCOL|366713
 APPALACHIA|SECH|253
 APPALACHIA|SOUN|5918
-APPALACHIA|STAT|2531695
+APPALACHIA|STAT|2531697
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
-APPALACHIA|TXST|70505
+APPALACHIA|TXST|70500
 APPALACHIA|WEAP|260
 AVRMedicalCenter01|ACTI|56
 AVRMedicalCenter01|ASPC|24
@@ -2776,7 +2776,7 @@ FreeStatesBunker07|SCOL|38
 FreeStatesBunker07|SOUN|1
 FreeStatesBunker07|STAT|631
 FreeStatesBunker07|TXST|43
-GHLCamp01|ACTI|24
+GHLCamp01|ACTI|17
 GHLCamp01|ALCH|1
 GHLCamp01|ARMO|1
 GHLCamp01|ASPC|12
@@ -2784,17 +2784,17 @@ GHLCamp01|BNDS|30
 GHLCamp01|BOOK|4
 GHLCamp01|CONT|50
 GHLCamp01|DOOR|7
-GHLCamp01|FURN|94
+GHLCamp01|FURN|93
 GHLCamp01|HAZD|1
 GHLCamp01|IDLM|9
 GHLCamp01|LIGH|98
 GHLCamp01|LVLI|35
 GHLCamp01|MISC|206
-GHLCamp01|MSTT|141
+GHLCamp01|MSTT|110
 GHLCamp01|NPC_|19
-GHLCamp01|SCOL|174
+GHLCamp01|SCOL|177
 GHLCamp01|SOUN|8
-GHLCamp01|STAT|2507
+GHLCamp01|STAT|2486
 GHLCamp01|TXST|64
 GHLCamp01|WEAP|1
 GHLCamp02|ACTI|7
@@ -5275,7 +5275,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3266240
+APPALACHIA||3266234
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -7599,6 +7599,7 @@ APPALACHIA|FS_NirajArmoryTerminalRef|1
 APPALACHIA|FederalDisposalFieldCenterMarker|1
 APPALACHIA|FederalDisposalFieldWorkshopRef|1
 APPALACHIA|FishermansRestMapMarker|1
+APPALACHIA|Fishing_BigFish_ToxicValley_TargetRef|1
 APPALACHIA|Fishing_ChumTroughRef|1
 APPALACHIA|Fishing_FishermansRestNPC_EnableMarkerRef|1
 APPALACHIA|Fishing_MQ01_Casting_RadioMarker|1
@@ -12875,7 +12876,7 @@ FreeStatesBunker07|W05_MQS_203P_RadcliffFurn1|1
 FreeStatesBunker07|W05_MQS_203P_RadcliffFurn2|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn1|1
 FreeStatesBunker07|W05_MQS_203P_ThompsonFurn2|1
-GHLCamp01||3472
+GHLCamp01||3415
 GHLCamp01|GHL00_ExitToLabMarker|1
 GHLCamp01|GHL00_JayeRef|1
 GHLCamp01|GHL00_JayeSandboxVolume|1
@@ -17428,7 +17429,7 @@ AMSHQ02|100|1993
 APPALACHIA|50|53
 APPALACHIA|75|166
 APPALACHIA|85|251
-APPALACHIA|100|3272218
+APPALACHIA|100|3272213
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -17479,7 +17480,7 @@ FreeStatesBunker03|100|1043
 FreeStatesBunker04|100|1254
 FreeStatesBunker06|100|949
 FreeStatesBunker07|100|1050
-GHLCamp01|100|3486
+GHLCamp01|100|3429
 GHLCamp02|100|1439
 GHLEmmettMnt02|100|1495
 GarrahanMiningHQ01|100|9201
@@ -21701,4 +21702,4 @@ WhitespringRefuge01|Robot|100.0|1
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4406126|4406126
+4406064|4406064
