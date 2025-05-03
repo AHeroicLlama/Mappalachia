@@ -9,7 +9,7 @@ namespace Preprocessor
 {
 	internal static partial class Preprocessor
 	{
-		static SqliteConnection Connection { get; } = GetNewConnection();
+		static SqliteConnection Connection { get; set; } = GetNewConnection();
 
 		static List<string> SummaryReport { get; } = new List<string>();
 
@@ -75,6 +75,8 @@ namespace Preprocessor
 
 		static async void Preprocess()
 		{
+			Directory.CreateDirectory(DataPath);
+
 			string gameVersion = GetValidatedGameVersion();
 
 			StdOutWithColor($"Building Mappalachia database at {DatabasePath}\n", ColorInfo);
@@ -325,7 +327,13 @@ namespace Preprocessor
 			StdOutWithColor($"\nGenerating Summary Report at {DatabaseSummaryPath}\n", ColorInfo);
 
 			Connection.Close();
+			Connection.Dispose();
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
+
 			AddToSummaryReport("MD5 Checksum", GetMD5Hash(DatabasePath));
+
+			Connection = GetNewConnection();
 			Connection.Open();
 
 			AddToSummaryReport("Size", (new FileInfo(DatabasePath).Length / BuildTools.Kilobyte).ToString() + " KB");

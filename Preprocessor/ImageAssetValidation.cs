@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Xml;
@@ -25,7 +25,7 @@ namespace Preprocessor
 
 		static uint MinMapMarkerImageSizeBytes { get; } = 500;
 
-		static uint MaxMapMarkerImageSizeBytes { get; } = 12000;
+		static uint MaxMapMarkerImageSizeBytes { get; } = 16000;
 
 		static float MaxBlackPixelsBackgroundPerc { get; } = 90f;
 

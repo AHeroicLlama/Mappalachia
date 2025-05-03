@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Microsoft.Data.Sqlite;
@@ -37,21 +37,23 @@ namespace Library
 
 		public static string Fo76EditOutputPath { get; } = GetRepoRoot() + @"FO76Edit\Output\";
 
-		public static string DatabasePath { get; } = AssetsPath + @"data\mappalachia.db";
-
-		public static string ImageRootPath { get; } = AssetsPath + @"img\";
-
 		public static string CellXYScaleCorrectionPath { get; } = BGRendererCorrectionsPath + @"XY_Scale\";
 
 		public static string CellZCorrectionPath { get; } = BGRendererCorrectionsPath + @"Z\";
 
-		public static string CellPath { get; } = ImageRootPath + @"cell\";
+		public static string DataPath { get; } = AssetsPath + @"data\";
 
-		public static string WorldPath { get; } = ImageRootPath + @"wrld\";
+		public static string DatabasePath { get; } = DataPath + @"mappalachia.db";
 
-		public static string SuperResPath { get; } = ImageRootPath + @"super\";
+		public static string ImagePath { get; } = AssetsPath + @"img\";
 
-		public static string MapMarkerPath { get; } = ImageRootPath + @"mapmarker\";
+		public static string CellPath { get; } = ImagePath + @"cell\";
+
+		public static string WorldPath { get; } = ImagePath + @"wrld\";
+
+		public static string SuperResPath { get; } = ImagePath + @"super\";
+
+		public static string MapMarkerPath { get; } = ImagePath + @"mapmarker\";
 
 		static string GamePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\";
 
