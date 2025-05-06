@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 ==Checksum== 
-95063274004541fd36e186e87fe3e2ea
+0811bb6bda86e89f3a7642178784767d
 ==File Size== 
 488304640 
 ==Tables== 
@@ -14,7 +14,7 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.19.19
+1.7.19.31
 ==Mean Average X/Y/Z Coord==
 -9338.90650618703|-5094.25877454599|11159.0913674003
 ==Min/Max X/Y/Z Coord==
