@@ -1,6 +1,8 @@
+using Library;
+
 namespace Mappalachia
 {
-	enum BackgroundImageType
+	public enum BackgroundImageType
 	{
 		Render,
 		Menu,
@@ -8,7 +10,7 @@ namespace Mappalachia
 		None,
 	}
 
-	enum LegendStyle
+	public enum LegendStyle
 	{
 		Normal,
 		Extended,
@@ -17,9 +19,20 @@ namespace Mappalachia
 
 	public static class Map
 	{
-		public static async Task<Image> Draw()
+		public static async Task<Image> Draw(Space space, BackgroundImageType preferredBackgroundImageType)
 		{
-			return new Bitmap(Settings.CurrentSpace.GetBackgroundImage());
+			// Filter for preferred bg images which are not applicable to the selected Space
+			if (preferredBackgroundImageType == BackgroundImageType.Military && !space.IsAppalachia())
+			{
+				preferredBackgroundImageType = BackgroundImageType.Menu;
+			}
+
+			if (preferredBackgroundImageType == BackgroundImageType.Menu && !space.IsWorldspace)
+			{
+				preferredBackgroundImageType = BackgroundImageType.Render;
+			}
+
+			return new Bitmap(space.GetBackgroundImage(preferredBackgroundImageType));
 		}
 	}
 }

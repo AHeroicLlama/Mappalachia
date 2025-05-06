@@ -19,7 +19,7 @@
 
 		public async void UpdateMap()
 		{
-			pictureBoxMapDisplay.Image = await Map.Draw();
+			pictureBoxMapDisplay.Image = await Map.Draw(Settings.CurrentSpace, Settings.BackgroundImage);
 		}
 
 		// Called when resized, this sizes the form so that the map image fits squarely within it
@@ -49,7 +49,7 @@
 			// Both or neither changed
 			else
 			{
-				newDimension = Math.Min(ClientSize.Width, ClientSize.Height);
+				newDimension = Math.Max(ClientSize.Width, ClientSize.Height);
 			}
 
 			// Cap to the current monitor's min dimension, minus the borders

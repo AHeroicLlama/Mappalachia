@@ -124,6 +124,9 @@ namespace Mappalachia
 				default:
 					throw new ArgumentOutOfRangeException(nameof(Settings.LegendStyle), Settings.LegendStyle, null);
 			}
+
+			// TODO - Doing this every time is inelegant.
+			MapViewForm.UpdateMap();
 		}
 
 		// Re-populates the search results grid with the current search results

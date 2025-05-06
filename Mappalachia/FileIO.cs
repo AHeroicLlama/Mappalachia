@@ -6,26 +6,38 @@ namespace Mappalachia
 	{
 		static string BackgroundImageFileType { get; } = ".jpg";
 
-		public static Image GetBackgroundImage(this Space space, BackgroundImageType preferredBackgroundImageType = BackgroundImageType.Menu)
+		public static Image GetBackgroundImage(this Space space, BackgroundImageType backgroundImageType)
 		{
-			if (space.IsWorldspace)
+			if (backgroundImageType == BackgroundImageType.None)
 			{
-				if (space.IsAppalachia() && preferredBackgroundImageType == BackgroundImageType.Military)
-				{
-					return new Bitmap(Paths.WorldspaceImgPath + space.EditorID + "_military" + BackgroundImageFileType);
-				}
-
-				if (preferredBackgroundImageType == BackgroundImageType.Render)
-				{
-					return new Bitmap(Paths.WorldspaceImgPath + space.EditorID + BackgroundImageFileType);
-				}
-
-				return new Bitmap(Paths.WorldspaceImgPath + space.EditorID + "_menu" + BackgroundImageFileType);
+				return new Bitmap(Common.MapImageResolution, Common.MapImageResolution);
 			}
-			else
+
+			string path = (space.IsWorldspace ? Paths.WorldspaceImgPath : Paths.CellImgPath) + space.EditorID;
+
+			switch (backgroundImageType)
 			{
-				return new Bitmap(Paths.CellImgPath + space.EditorID + BackgroundImageFileType);
+				case BackgroundImageType.Render:
+					break;
+				case BackgroundImageType.Menu:
+					path += "_menu";
+					break;
+				case BackgroundImageType.Military:
+					path += "_military";
+					break;
+				default:
+					throw new Exception("Unexpected BackgroundImageType: " + backgroundImageType);
 			}
+
+			path += BackgroundImageFileType;
+
+			// TODO - do we error or just return blank image?
+			if (!File.Exists(path))
+			{
+				return new Bitmap(Common.MapImageResolution, Common.MapImageResolution);
+			}
+
+			return new Bitmap(path);
 		}
 	}
 }
