@@ -9,9 +9,9 @@ namespace Mappalachia
 	{
 		public static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
 
-		public static List<Space> CachedSpaces { get; } = GetSpaces(Connection).Result;
+		public static List<Space> AllSpaces { get; } = GetSpaces(Connection).Result;
 
-		public static List<MapMarker> CachedMapMarkers { get; } = GetMapMarkers(Connection).Result;
+		public static List<MapMarker> AllMapMarkers { get; } = GetMapMarkers(Connection).Result;
 
 		static char EscapeChar { get; } = '`';
 
@@ -180,7 +180,7 @@ namespace Mappalachia
 
 		static Space GetSpaceByFormID(uint formID)
 		{
-			return CachedSpaces.Where(space => space.FormID == formID).FirstOrDefault() ?? throw new Exception($"No Space with formID {formID} was found");
+			return AllSpaces.Where(space => space.FormID == formID).FirstOrDefault() ?? throw new Exception($"No Space with formID {formID} was found");
 		}
 	}
 }

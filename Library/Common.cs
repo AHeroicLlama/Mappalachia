@@ -7,6 +7,8 @@ namespace Library
 	{
 		public static string DistributableFileName { get; } = "Mappalachia.zip";
 
+		public static string MapMarkerImageFileType { get; } = ".svg";
+
 		public static string BackgroundImageFileType { get; } = ".jpg";
 
 		public static string MaskImageFileType { get; } = ".png";

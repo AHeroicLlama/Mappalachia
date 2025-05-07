@@ -21,9 +21,9 @@
 			MainForm = mainForm;
 		}
 
-		public async void UpdateMap()
+		public void UpdateMap()
 		{
-			pictureBoxMapDisplay.Image = await Map.Draw(MainForm.Settings);
+			pictureBoxMapDisplay.Image = Map.Draw(MainForm.Settings);
 		}
 
 		// Called when resized, this sizes the form so that the map image fits squarely within it

@@ -1,4 +1,6 @@
-﻿using Library;
+﻿using System.Drawing.Text;
+using Library;
+
 using static Library.Common;
 
 namespace Mappalachia
@@ -6,6 +8,15 @@ namespace Mappalachia
 	static class FileIO
 	{
 		static Dictionary<string, Image> BackgroundImageCache { get; } = new Dictionary<string, Image>();
+
+		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
+
+		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
+
+		static FileIO()
+		{
+			FontCollection.AddFontFile(Paths.FontPath);
+		}
 
 		// Return an image from the file path, or a cached version if loaded before
 		static Image LoadImage(string path)
@@ -18,6 +29,11 @@ namespace Mappalachia
 			Image image = new Bitmap(path);
 			BackgroundImageCache[path] = image;
 			return image;
+		}
+
+		public static FontFamily GetFontFamily()
+		{
+			return FontCollection.Families.First();
 		}
 
 		public static Image GetBackgroundImage(this Space space, BackgroundImageType backgroundImageType)
@@ -70,6 +86,23 @@ namespace Mappalachia
 			}
 
 			return LoadImage(path);
+		}
+
+		// Returns the image for the icon of the mapMarker, uses caching
+		public static Image GetMapMarkerImage(this MapMarker mapMarker)
+		{
+			string path = Paths.MapMarkersPath + mapMarker.Icon + MapMarkerImageFileType;
+
+			if (MapMarkerIconImageCache.ContainsKey(mapMarker.Icon))
+			{
+				return MapMarkerIconImageCache[mapMarker.Icon];
+			}
+
+			Svg.SvgDocument document = Svg.SvgDocument.Open(path);
+			Image marker = document.Draw((int)(document.Width * Map.MapMarkerIconScale), 0);
+
+			MapMarkerIconImageCache[mapMarker.Icon] = marker;
+			return marker;
 		}
 	}
 }

@@ -80,7 +80,7 @@ namespace Mappalachia
 		// Reads in fields from Settings and updates UI elements respectively
 		void SettingsChanged()
 		{
-			grayscaleMenuItem.Checked = Settings.Grayscale;
+			grayscaleMenuItem.Checked = Settings.GrayscaleBackground;
 			highlightWaterMenuItem.Checked = Settings.HighlightWater;
 			mapMarkerIconsMenuItem.Checked = Settings.MapMarkerIcons;
 			mapMarkerLabelsMenuItem.Checked = Settings.MapMarkerLabels;
@@ -240,7 +240,7 @@ namespace Mappalachia
 
 		private void Map_Grayscale_Click(object sender, EventArgs e)
 		{
-			Settings.Grayscale = !Settings.Grayscale;
+			Settings.GrayscaleBackground = !Settings.GrayscaleBackground;
 			SettingsChanged();
 		}
 

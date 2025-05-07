@@ -46,6 +46,8 @@ namespace Mappalachia
 			legendNormalMenuItem = new ToolStripMenuItem();
 			legendExtendedMenuItem = new ToolStripMenuItem();
 			legendHiddenMenuItem = new ToolStripMenuItem();
+			quickSaveToolStripMenuItem = new ToolStripMenuItem();
+			exportToFileToolStripMenuItem = new ToolStripMenuItem();
 			clearPlotsToolStripMenuItem = new ToolStripMenuItem();
 			resetToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
@@ -58,8 +60,6 @@ namespace Mappalachia
 			buttonSearch = new Button();
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
-			quickSaveToolStripMenuItem = new ToolStripMenuItem();
-			exportToFileToolStripMenuItem = new ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			SuspendLayout();
@@ -84,21 +84,21 @@ namespace Mappalachia
 			// showPreviewToolStripMenuItem
 			// 
 			showPreviewToolStripMenuItem.Name = "showPreviewToolStripMenuItem";
-			showPreviewToolStripMenuItem.Size = new Size(180, 22);
+			showPreviewToolStripMenuItem.Size = new Size(191, 22);
 			showPreviewToolStripMenuItem.Text = "Show Preview";
 			showPreviewToolStripMenuItem.Click += Map_ShowPreview_Click;
 			// 
 			// grayscaleMenuItem
 			// 
 			grayscaleMenuItem.Name = "grayscaleMenuItem";
-			grayscaleMenuItem.Size = new Size(180, 22);
-			grayscaleMenuItem.Text = "Grayscale";
+			grayscaleMenuItem.Size = new Size(191, 22);
+			grayscaleMenuItem.Text = "Grayscale Background";
 			grayscaleMenuItem.Click += Map_Grayscale_Click;
 			// 
 			// highlightWaterMenuItem
 			// 
 			highlightWaterMenuItem.Name = "highlightWaterMenuItem";
-			highlightWaterMenuItem.Size = new Size(180, 22);
+			highlightWaterMenuItem.Size = new Size(191, 22);
 			highlightWaterMenuItem.Text = "Highlight Water";
 			highlightWaterMenuItem.Click += Map_HightlightWater_Click;
 			// 
@@ -106,7 +106,7 @@ namespace Mappalachia
 			// 
 			mapMapMarkersMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mapMarkerIconsMenuItem, mapMarkerLabelsMenuItem });
 			mapMapMarkersMenuItem.Name = "mapMapMarkersMenuItem";
-			mapMapMarkersMenuItem.Size = new Size(180, 22);
+			mapMapMarkersMenuItem.Size = new Size(191, 22);
 			mapMapMarkersMenuItem.Text = "Map Markers";
 			// 
 			// mapMarkerIconsMenuItem
@@ -127,7 +127,7 @@ namespace Mappalachia
 			// 
 			mapBackgroundImageMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backgroundNormalMenuItem, backgroundSatelliteMenuItem, backgroundMilitaryMenuItem, backgroundNoneMenuItem });
 			mapBackgroundImageMenuItem.Name = "mapBackgroundImageMenuItem";
-			mapBackgroundImageMenuItem.Size = new Size(180, 22);
+			mapBackgroundImageMenuItem.Size = new Size(191, 22);
 			mapBackgroundImageMenuItem.Text = "Background Image";
 			// 
 			// backgroundNormalMenuItem
@@ -162,41 +162,55 @@ namespace Mappalachia
 			// 
 			mapLegendStyleMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalMenuItem, legendExtendedMenuItem, legendHiddenMenuItem });
 			mapLegendStyleMenuItem.Name = "mapLegendStyleMenuItem";
-			mapLegendStyleMenuItem.Size = new Size(180, 22);
+			mapLegendStyleMenuItem.Size = new Size(191, 22);
 			mapLegendStyleMenuItem.Text = "Legend Style";
 			// 
 			// legendNormalMenuItem
 			// 
 			legendNormalMenuItem.Name = "legendNormalMenuItem";
-			legendNormalMenuItem.Size = new Size(123, 22);
+			legendNormalMenuItem.Size = new Size(122, 22);
 			legendNormalMenuItem.Text = "Normal";
 			legendNormalMenuItem.Click += Map_Legend_Normal_Click;
 			// 
 			// legendExtendedMenuItem
 			// 
 			legendExtendedMenuItem.Name = "legendExtendedMenuItem";
-			legendExtendedMenuItem.Size = new Size(123, 22);
+			legendExtendedMenuItem.Size = new Size(122, 22);
 			legendExtendedMenuItem.Text = "Extended";
 			legendExtendedMenuItem.Click += Map_Legend_Extended_Click;
 			// 
 			// legendHiddenMenuItem
 			// 
 			legendHiddenMenuItem.Name = "legendHiddenMenuItem";
-			legendHiddenMenuItem.Size = new Size(123, 22);
+			legendHiddenMenuItem.Size = new Size(122, 22);
 			legendHiddenMenuItem.Text = "Hidden";
 			legendHiddenMenuItem.Click += Map_Legend_Hidden_Click;
+			// 
+			// quickSaveToolStripMenuItem
+			// 
+			quickSaveToolStripMenuItem.Name = "quickSaveToolStripMenuItem";
+			quickSaveToolStripMenuItem.Size = new Size(191, 22);
+			quickSaveToolStripMenuItem.Text = "Quick Save";
+			quickSaveToolStripMenuItem.Click += Map_QuickSave_Click;
+			// 
+			// exportToFileToolStripMenuItem
+			// 
+			exportToFileToolStripMenuItem.Name = "exportToFileToolStripMenuItem";
+			exportToFileToolStripMenuItem.Size = new Size(191, 22);
+			exportToFileToolStripMenuItem.Text = "Export to File";
+			exportToFileToolStripMenuItem.Click += Map_ExportToFile_Click;
 			// 
 			// clearPlotsToolStripMenuItem
 			// 
 			clearPlotsToolStripMenuItem.Name = "clearPlotsToolStripMenuItem";
-			clearPlotsToolStripMenuItem.Size = new Size(180, 22);
+			clearPlotsToolStripMenuItem.Size = new Size(191, 22);
 			clearPlotsToolStripMenuItem.Text = "Clear Plots";
 			clearPlotsToolStripMenuItem.Click += Map_ClearPlots_Click;
 			// 
 			// resetToolStripMenuItem
 			// 
 			resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-			resetToolStripMenuItem.Size = new Size(180, 22);
+			resetToolStripMenuItem.Size = new Size(191, 22);
 			resetToolStripMenuItem.Text = "Reset";
 			resetToolStripMenuItem.Click += Map_Reset_Click;
 			// 
@@ -294,20 +308,6 @@ namespace Mappalachia
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridViewSearchResults.Size = new Size(1240, 309);
 			dataGridViewSearchResults.TabIndex = 3;
-			// 
-			// quickSaveToolStripMenuItem
-			// 
-			quickSaveToolStripMenuItem.Name = "quickSaveToolStripMenuItem";
-			quickSaveToolStripMenuItem.Size = new Size(180, 22);
-			quickSaveToolStripMenuItem.Text = "Quick Save";
-			quickSaveToolStripMenuItem.Click += Map_QuickSave_Click;
-			// 
-			// exportToFileToolStripMenuItem
-			// 
-			exportToFileToolStripMenuItem.Name = "exportToFileToolStripMenuItem";
-			exportToFileToolStripMenuItem.Size = new Size(180, 22);
-			exportToFileToolStripMenuItem.Text = "Export to File";
-			exportToFileToolStripMenuItem.Click += Map_ExportToFile_Click;
 			// 
 			// FormMain
 			// 

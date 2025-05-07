@@ -10,8 +10,6 @@ namespace Preprocessor
 {
 	internal partial class Preprocessor
 	{
-		static string MapMarkerImageFileType { get; } = ".svg";
-
 		static uint MinRenderedCellImageSizeKB { get; } = 500;
 
 		static uint MaxRenderedCellImageSizeKB { get; } = 6500;

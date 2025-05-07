@@ -4,11 +4,11 @@ namespace Mappalachia
 {
 	public class MapSettings()
 	{
-		public Space Space { get; set; } = Database.CachedSpaces.First(); // TODO placeholder
+		public Space Space { get; set; } = Database.AllSpaces.First(); // TODO placeholder
 
 		public float Brightness { get; set; } = 1.0f;
 
-		public bool Grayscale { get; set; } = false;
+		public bool GrayscaleBackground { get; set; } = false;
 
 		public bool HighlightWater { get; set; } = false;
 
