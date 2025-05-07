@@ -19,20 +19,35 @@ namespace Mappalachia
 
 	public static class Map
 	{
-		public static async Task<Image> Draw(Space space, BackgroundImageType preferredBackgroundImageType)
+		public static async Task<Image> Draw(MapSettings settings)
 		{
 			// Filter for preferred bg images which are not applicable to the selected Space
-			if (preferredBackgroundImageType == BackgroundImageType.Military && !space.IsAppalachia())
+			if (settings.BackgroundImage == BackgroundImageType.Military && !settings.Space.IsAppalachia())
 			{
-				preferredBackgroundImageType = BackgroundImageType.Menu;
+				settings.BackgroundImage = BackgroundImageType.Menu;
 			}
 
-			if (preferredBackgroundImageType == BackgroundImageType.Menu && !space.IsWorldspace)
+			if (settings.BackgroundImage == BackgroundImageType.Menu && !settings.Space.IsWorldspace)
 			{
-				preferredBackgroundImageType = BackgroundImageType.Render;
+				settings.BackgroundImage = BackgroundImageType.Render;
 			}
 
-			return new Bitmap(space.GetBackgroundImage(preferredBackgroundImageType));
+			// Load in the chosen base background image
+			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.BackgroundImage));
+
+			// Apply the brightness and grayscale if selected
+			mapImage.AdjustBrightnessOrGrayscale(settings.Brightness, settings.Grayscale);
+
+			// Overlay the water mask
+			if (settings.HighlightWater && settings.Space.IsWorldspace)
+			{
+				using Graphics graphics = Graphics.FromImage(mapImage);
+				graphics.DrawImage(settings.Space.GetWaterMask(), 0, 0);
+			}
+
+			GC.Collect();
+
+			return mapImage;
 		}
 	}
 }

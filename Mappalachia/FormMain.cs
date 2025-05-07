@@ -5,6 +5,8 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
+		public MapSettings Settings { get; } = new MapSettings();
+
 		static List<string> SearchTermHints { get; } = new List<string>
 		{
 			"Alcohol",
@@ -54,7 +56,7 @@ namespace Mappalachia
 			InitializeComponent();
 
 			// Spawn the map view form
-			MapViewForm = new FormMapView();
+			MapViewForm = new FormMapView(this);
 			MapViewForm.Show();
 
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
@@ -181,12 +183,6 @@ namespace Mappalachia
 
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
 		{
-			// Don't expect this to be normally possible
-			if (MapViewForm.IsDisposed)
-			{
-				MapViewForm = new FormMapView();
-			}
-
 			MapViewForm.BringToFront();
 
 			if (!MapViewForm.Visible)
@@ -233,7 +229,7 @@ namespace Mappalachia
 			SearchResults = await Database.Search(textBoxSearch.Text);
 
 			SearchResults = SearchResults
-				.OrderByDescending(g => g.Space == Settings.CurrentSpace)
+				.OrderByDescending(g => g.Space == Settings.Space)
 				.ThenByDescending(g => g.Count)
 				.ThenByDescending(g => g.SpawnWeight)
 				.ThenBy(g => g.Entity.EditorID)

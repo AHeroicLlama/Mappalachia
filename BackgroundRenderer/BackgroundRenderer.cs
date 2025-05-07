@@ -236,8 +236,8 @@ namespace BackgroundRenderer
 		static void RenderSpace(Space space, bool silent = false)
 		{
 			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
-			string ddsFile = TempPath + $"{space.EditorID}_render.dds";
-			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + ".jpg";
+			string ddsFile = TempPath + $"{space.EditorID}.dds";
+			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + Common.BackgroundImageFileType;
 			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;
 			double scale = renderResolution / space.MaxRange;
 
@@ -260,8 +260,8 @@ namespace BackgroundRenderer
 			// Do the watermask
 			if (space.IsWorldspace)
 			{
-				string waterMaskDDS = TempPath + space.EditorID + "_waterMask.dds";
-				string waterMaskFinalFile = WorldPath + space.EditorID + "_waterMask.png";
+				string waterMaskDDS = TempPath + space.EditorID + Common.WaterMaskAddendum + ".dds";
+				string waterMaskFinalFile = WorldPath + space.EditorID + Common.WaterMaskAddendum + Common.MaskImageFileType;
 
 				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +

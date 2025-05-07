@@ -51,7 +51,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	<Exec Command="robocopy $(SolutionDir)Assets\ $(TargetDir) /s&#xD;&#xA;robocopy $(SolutionDir)Assets\ $(ProjectDir)publish /s&#xD;&#xA;if %25errorlevel%25 leq 1 exit 0 else exit %25errorlevel%25" />
+	<Exec Command="robocopy $(SolutionDir)Assets\ $(TargetDir) /s&#xD;&#xA;robocopy $(SolutionDir)Assets\ $(ProjectDir)publish /s&#xD;&#xA;if %25errorlevel%25 leq 2 exit 0 else exit %25errorlevel%25" />
   </Target>
 
 </Project>

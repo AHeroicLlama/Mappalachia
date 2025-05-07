@@ -4,15 +4,12 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using Library;
 using static Library.BuildTools;
+using static Library.Common;
 
 namespace Preprocessor
 {
 	internal partial class Preprocessor
 	{
-		static string BackgroundImageFileType { get; } = ".jpg";
-
-		static string MaskImageFileType { get; } = ".png";
-
 		static string MapMarkerImageFileType { get; } = ".svg";
 
 		static uint MinRenderedCellImageSizeKB { get; } = 500;
@@ -167,9 +164,9 @@ namespace Preprocessor
 			using Image? image = Image.FromFile(path);
 
 			// Verify the file dimensions are within the pre-set ranges
-			if (image.Width != Common.MapImageResolution || image.Height != Common.MapImageResolution)
+			if (image.Width != MapImageResolution || image.Height != MapImageResolution)
 			{
-				FailValidation($"Image {path} is not the expected dimension of {Common.MapImageResolution}x{Common.MapImageResolution}");
+				FailValidation($"Image {path} is not the expected dimension of {MapImageResolution}x{MapImageResolution}");
 			}
 		}
 
@@ -257,8 +254,8 @@ namespace Preprocessor
 			// There are several additional files for Worldspaces
 			if (space.IsWorldspace)
 			{
-				string watermaskFilePath = WorldPath + space.EditorID + "_waterMask" + MaskImageFileType;
-				string menuMapPath = WorldPath + space.EditorID + "_menu" + BackgroundImageFileType;
+				string watermaskFilePath = WorldPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
+				string menuMapPath = WorldPath + space.EditorID + MenuAddendum + BackgroundImageFileType;
 
 				if (!ValidateSpaceImageExists(space, watermaskFilePath) | !ValidateSpaceImageExists(space, menuMapPath))
 				{
@@ -271,7 +268,7 @@ namespace Preprocessor
 				// Appalachia specifically also has the 'military' map
 				if (space.IsAppalachia())
 				{
-					string militaryMapPath = WorldPath + space.EditorID + "_military" + BackgroundImageFileType;
+					string militaryMapPath = WorldPath + space.EditorID + MilitaryAddendum + BackgroundImageFileType;
 
 					if (!ValidateSpaceImageExists(space, militaryMapPath))
 					{

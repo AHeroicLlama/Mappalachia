@@ -7,6 +7,16 @@ namespace Library
 	{
 		public static string DistributableFileName { get; } = "Mappalachia.zip";
 
+		public static string BackgroundImageFileType { get; } = ".jpg";
+
+		public static string MaskImageFileType { get; } = ".png";
+
+		public static string WaterMaskAddendum { get; } = "_waterMask";
+
+		public static string MenuAddendum { get; } = "_menu";
+
+		public static string MilitaryAddendum { get; } = "_military";
+
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
 
 		public static int SuperResTileSize { get; } = (int)Math.Pow(2, 12); // 4096

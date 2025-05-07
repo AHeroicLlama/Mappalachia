@@ -1,7 +1,9 @@
 namespace Mappalachia
 {
-	internal static class Mappalachia
+	static class Mappalachia
 	{
+		public static MapSettings Settings { get; } = new MapSettings();
+
 		[STAThread]
 		static void Main()
 		{

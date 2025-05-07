@@ -6,7 +6,9 @@
 
 		int LastHeight { get; set; }
 
-		public FormMapView()
+		FormMain MainForm { get; }
+
+		public FormMapView(FormMain mainForm)
 		{
 			InitializeComponent();
 			KeepSquare(this, EventArgs.Empty);
@@ -15,11 +17,13 @@
 			{
 				UpdateMap();
 			};
+
+			MainForm = mainForm;
 		}
 
 		public async void UpdateMap()
 		{
-			pictureBoxMapDisplay.Image = await Map.Draw(Settings.CurrentSpace, Settings.BackgroundImage);
+			pictureBoxMapDisplay.Image = await Map.Draw(MainForm.Settings);
 		}
 
 		// Called when resized, this sizes the form so that the map image fits squarely within it
