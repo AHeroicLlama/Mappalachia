@@ -57,6 +57,9 @@ class MapIconProcessor
 				XmlDocument document = new XmlDocument();
 				document.Load(markerPath);
 
+				// Run the mapmarker svg against hardcodings to apply any bespoke fixes
+				document = FixMapMarkerSVG(document, mapMarker);
+
 				foreach (XmlNode node in document)
 				{
 					CleanXMLNode(node);

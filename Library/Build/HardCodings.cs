@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace Library
 {
@@ -273,6 +274,42 @@ namespace Library
 			}
 
 			return new List<Region>();
+		}
+
+		public static XmlDocument FixMapMarkerSVG(XmlDocument document, MapMarker mapMarker)
+		{
+			// Change the size and position of the workshop svg, so it is centered
+			if (mapMarker.Icon == "PublicWorkshopMarker")
+			{
+				XmlNode? svgNode = document.SelectSingleNode("//*[local-name()='svg']");
+				XmlNode? gNode = svgNode?.SelectSingleNode("//*[local-name()='g']");
+
+				svgNode.SetAttributeValue("width", "32px");
+				svgNode.SetAttributeValue("height", "32px");
+				gNode.SetAttributeValue("transform", "matrix(1.0, 0.0, 0.0, 1.0, 16, 16)");
+			}
+
+			return document;
+		}
+
+		// Neatly handles modifying attributes of xml nodes
+		static void SetAttributeValue(this XmlNode? node, string attributeName, string value)
+		{
+			if (node == null)
+			{
+				throw new NullReferenceException("XML Node is null");
+			}
+
+			Console.WriteLine(node.OuterXml);
+
+			XmlAttribute? attribute = node.Attributes?[attributeName];
+
+			if (attribute == null)
+			{
+				throw new NullReferenceException($"XML Node does not have attribute {attributeName}");
+			}
+
+			attribute.Value = value;
 		}
 	}
 }

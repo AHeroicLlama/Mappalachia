@@ -20,7 +20,9 @@ Launch BAE and hit 'File' > 'Open File', navigate to your Fallout 76 installatio
 Press 'extract' and select any temporary output folder. BAE should extract 100+ SWF files.<br/>
 
 ## Extracting SVG sprites from the SWF
-In your files extracted from BAE, under the `interface` folder, find the file `mapmarkerslibrary.swf`. Open this file with JPEXS. Some questions may appear, select 'Yes to all'.<br/>
+In your files extracted from BAE, under the `interface` folder, find and open the file `mapmarkerslibrary.swf` with JPEXS.<br/>
+Ensure you open `mapmarkerslibrary.swf`, not the similarly named `mapmarkerlibrary.swf`.<br/>
+Some questions may appear, select 'Yes to all'.<br/>
 In JPEXS, on the left hand side displaying the contents of `mapmarkerslibrary.swf`, select the `sprites` folder.<br/>
 Under File > Export, select 'Export selection'. Ensure the file type is set as SVG, and the zoom is at 100%.<br/>
 Press OK and select the output location inside the cloned repository at `MapIconProcessor\extract\`.<br/>
