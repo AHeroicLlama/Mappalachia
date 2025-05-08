@@ -61,6 +61,7 @@ namespace Mappalachia
 
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
 			InitializeSearchResultsGrid();
+			InitializeSpaceDropDown();
 			SettingsChanged();
 
 			mapMenuItem.DropDown.Closing += DontCloseClickedDropDown;
@@ -127,6 +128,12 @@ namespace Mappalachia
 					throw new ArgumentOutOfRangeException(nameof(Settings.LegendStyle), Settings.LegendStyle, null);
 			}
 
+			backgroundNormalMenuItem.Enabled = Settings.Space.IsWorldspace;
+			backgroundMilitaryMenuItem.Enabled = Settings.Space.IsAppalachia();
+
+			highlightWaterMenuItem.Enabled = Settings.Space.IsWorldspace;
+			mapMapMarkersMenuItem.Enabled = Settings.Space.IsWorldspace;
+
 			// TODO - Doing this every time is inelegant.
 			MapViewForm.UpdateMap();
 		}
@@ -173,6 +180,18 @@ namespace Mappalachia
 
 			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
 			SetSearchResultsGridStyle();
+		}
+
+		void InitializeSpaceDropDown()
+		{
+			comboBoxSpace.Items.Clear();
+
+			foreach (Space space in Database.AllSpaces)
+			{
+				comboBoxSpace.Items.Add($"{space.DisplayName} ({space.EditorID})");
+			}
+
+			comboBoxSpace.SelectedIndex = 0;
 		}
 
 		void SetSearchResultsGridStyle()
@@ -326,6 +345,12 @@ namespace Mappalachia
 		{
 			// TODO
 			mapMenuItem.DropDown.Close();
+		}
+
+		private void ComboBoxSpace_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Settings.Space = Database.AllSpaces[comboBoxSpace.SelectedIndex];
+			SettingsChanged();
 		}
 	}
 }

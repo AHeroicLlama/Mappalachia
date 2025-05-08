@@ -30,7 +30,7 @@ namespace Preprocessor
 
 			// Collect all Spaces and MapMarkers. Group the map markers by icon
 			List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(Connection, "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
-			List<Space> spaces = await CommonDatabase.GetSpaces(Connection);
+			List<Space> spaces = await CommonDatabase.GetAllSpaces(GetNewConnection());
 
 			// Perform file checks for all spaces
 			Parallel.ForEach(spaces, space =>

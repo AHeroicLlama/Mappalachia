@@ -22,7 +22,7 @@ namespace Mappalachia
 	{
 		public static double MapMarkerIconScale { get; } = 1.5;
 
-		static double MapMarkerLabelTextOffset { get; } = 32; // Offset in Y Px where the label text is drawn from the mapmarker, if icons are on too
+		static double MapMarkerLabelTextOffset { get; } = 16; // Offset in Y Px where the label text is drawn from the mapmarker, if icons are on too
 
 		static int MapMarkerLabelFontSize { get; } = 21;
 
@@ -34,21 +34,10 @@ namespace Mappalachia
 
 		static int DropShadowOffset { get; } = 5;
 
-		static StringFormat CenterString { get; } = new StringFormat() { Alignment = StringAlignment.Center };
+		static StringFormat CenterString { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near };
 
 		public static Image Draw(MapSettings settings)
 		{
-			// Filter for preferred bg images which are not applicable to the selected Space
-			if (settings.BackgroundImage == BackgroundImageType.Military && !settings.Space.IsAppalachia())
-			{
-				settings.BackgroundImage = BackgroundImageType.Menu;
-			}
-
-			if (settings.BackgroundImage == BackgroundImageType.Menu && !settings.Space.IsWorldspace)
-			{
-				settings.BackgroundImage = BackgroundImageType.Render;
-			}
-
 			// Load in the chosen base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.BackgroundImage));
 			using Graphics graphics = Graphics.FromImage(mapImage);
@@ -65,10 +54,14 @@ namespace Mappalachia
 			// Handle drawing map marker icons and/or labels
 			if (settings.MapMarkerIcons || settings.MapMarkerLabels)
 			{
+				List<MapMarker> mapMarkers = Database.AllMapMarkers
+					.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
+					.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
+
 				float labelOffset = (float)(settings.MapMarkerIcons ? MapMarkerLabelTextOffset : 0);
 				Font font = GetFont(MapMarkerLabelFontSize);
 
-				foreach (MapMarker marker in Database.AllMapMarkers.OrderBy(m => m.Coord.Y))
+				foreach (MapMarker marker in mapMarkers)
 				{
 					PointF coord = marker.Coord.AsScaledPoint(settings.Space);
 
@@ -102,7 +95,7 @@ namespace Mappalachia
 			SizeF stringBounds = wrapWidth == -1 ? graphics.MeasureString(text, font) : graphics.MeasureString(text, font, new SizeF(wrapWidth, MapImageResolution));
 			RectangleF textBounds = new RectangleF(
 				coord.X - (stringBounds.Width / 2),
-				coord.Y - (stringBounds.Height / 2),
+				coord.Y,
 				stringBounds.Width,
 				stringBounds.Height);
 

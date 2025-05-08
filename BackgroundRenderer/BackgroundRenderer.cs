@@ -474,7 +474,7 @@ namespace BackgroundRenderer
 
 			if (input.IsNullOrWhiteSpace())
 			{
-				return await CommonDatabase.GetSpaces(GetNewConnection(), $"SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;");
+				return await CommonDatabase.GetAllSpaces(GetNewConnection());
 			}
 
 			List<string> requestedIDs = input.Trim().Split(" ").Where(space => !space.IsNullOrWhiteSpace()).ToList();

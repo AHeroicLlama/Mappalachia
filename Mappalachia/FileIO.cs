@@ -61,7 +61,6 @@ namespace Mappalachia
 
 			path += BackgroundImageFileType;
 
-			// TODO - do we error or just return blank image?
 			if (!File.Exists(path))
 			{
 				return new Bitmap(MapImageResolution, MapImageResolution);
@@ -79,7 +78,6 @@ namespace Mappalachia
 
 			string path = Paths.WorldspaceImgPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
 
-			// TODO - do we error or just return the blank image?
 			if (!File.Exists(path))
 			{
 				return new Bitmap(MapImageResolution, MapImageResolution);

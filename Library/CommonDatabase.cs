@@ -35,10 +35,8 @@ namespace Library
 
 		// Returns the results of the given query as a collection of Space
 		// All spaces if queryText is null
-		public static async Task<List<Space>> GetSpaces(SqliteConnection connection, string? queryText = null)
+		public static async Task<List<Space>> GetSpaces(SqliteConnection connection, string queryText)
 		{
-			queryText ??= "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;";
-
 			using SqliteDataReader reader = await GetReader(connection, queryText);
 			List<Space> spaces = new List<Space>();
 
@@ -55,6 +53,12 @@ namespace Library
 			}
 
 			return spaces;
+		}
+
+		// Returns a new List of all spaces, ordered by worlspace-ness and editorID
+		public static async Task<List<Space>> GetAllSpaces(SqliteConnection connection)
+		{
+			return await GetSpaces(connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC");
 		}
 
 		// Returns the Space instance with the editorID from the database
@@ -104,10 +108,8 @@ namespace Library
 		}
 
 		// Returns the results of the given query as a collection of MapMarker
-		public static async Task<List<MapMarker>> GetMapMarkers(SqliteConnection connection, string? queryText = null)
+		public static async Task<List<MapMarker>> GetMapMarkers(SqliteConnection connection, string queryText)
 		{
-			queryText ??= "SELECT * FROM MapMarker ORDER BY icon ASC, label ASC;";
-
 			using SqliteDataReader reader = await GetReader(connection, queryText);
 			List<MapMarker> mapMarkers = new List<MapMarker>();
 

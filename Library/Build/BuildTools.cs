@@ -192,7 +192,7 @@ namespace Library
 		public static async void CleanUpSuperRes()
 		{
 			StdOutWithColor("Checking for unnecessary tile files...", ColorInfo);
-			List<Space> spaces = await CommonDatabase.GetSpaces(GetNewConnection());
+			List<Space> spaces = await CommonDatabase.GetAllSpaces(GetNewConnection());
 
 			// The super res directory should have no file at root
 			foreach (string file in Directory.GetFiles(SuperResPath))

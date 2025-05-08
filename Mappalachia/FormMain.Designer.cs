@@ -60,6 +60,7 @@ namespace Mappalachia
 			buttonSearch = new Button();
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
+			comboBoxSpace = new ComboBox();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			SuspendLayout();
@@ -288,7 +289,7 @@ namespace Mappalachia
 			textBoxSearch.Name = "textBoxSearch";
 			textBoxSearch.Size = new Size(290, 23);
 			textBoxSearch.TabIndex = 4;
-			textBoxSearch.Text = "Iron";
+			textBoxSearch.Text = "Search Term";
 			// 
 			// dataGridViewSearchResults
 			// 
@@ -309,6 +310,17 @@ namespace Mappalachia
 			dataGridViewSearchResults.Size = new Size(1240, 309);
 			dataGridViewSearchResults.TabIndex = 3;
 			// 
+			// comboBoxSpace
+			// 
+			comboBoxSpace.Anchor = AnchorStyles.Top;
+			comboBoxSpace.FormattingEnabled = true;
+			comboBoxSpace.Location = new Point(12, 28);
+			comboBoxSpace.Name = "comboBoxSpace";
+			comboBoxSpace.Size = new Size(429, 23);
+			comboBoxSpace.TabIndex = 6;
+			comboBoxSpace.Text = "Selected Space";
+			comboBoxSpace.SelectedIndexChanged += ComboBoxSpace_SelectedIndexChanged;
+			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
@@ -316,6 +328,7 @@ namespace Mappalachia
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.ControlDarkDark;
 			ClientSize = new Size(1264, 681);
+			Controls.Add(comboBoxSpace);
 			Controls.Add(buttonSearch);
 			Controls.Add(textBoxSearch);
 			Controls.Add(dataGridViewSearchResults);
@@ -364,5 +377,6 @@ namespace Mappalachia
 		private ToolStripMenuItem clearPlotsToolStripMenuItem;
 		private ToolStripMenuItem quickSaveToolStripMenuItem;
 		private ToolStripMenuItem exportToFileToolStripMenuItem;
+		private ComboBox comboBoxSpace;
 	}
 }

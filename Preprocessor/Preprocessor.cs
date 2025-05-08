@@ -387,7 +387,7 @@ namespace Preprocessor
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
-			foreach (Space space in await CommonDatabase.GetSpaces(Connection))
+			foreach (Space space in await CommonDatabase.GetAllSpaces(Connection))
 			{
 				List<Coord> coordinates = await CommonDatabase.GetCoords(Connection, space);
 				double maxRadius = space.MaxRange / 2d;

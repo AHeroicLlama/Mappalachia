@@ -14,7 +14,7 @@
 
 		public bool IsAppalachia()
 		{
-			return EditorID.Equals("Appalachia", StringComparison.OrdinalIgnoreCase);
+			return EditorID.Equals("APPALACHIA", StringComparison.OrdinalIgnoreCase);
 		}
 
 		public double GetRadius()

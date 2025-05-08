@@ -9,9 +9,9 @@ namespace Mappalachia
 	{
 		public static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
 
-		public static List<Space> AllSpaces { get; } = GetSpaces(Connection).Result;
+		public static List<Space> AllSpaces { get; } = GetSpaces(Connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceDisplayName ASC").Result;
 
-		public static List<MapMarker> AllMapMarkers { get; } = GetMapMarkers(Connection).Result;
+		public static List<MapMarker> AllMapMarkers { get; } = GetMapMarkers(Connection, "SELECT * FROM MapMarker").Result;
 
 		static char EscapeChar { get; } = '`';
 
