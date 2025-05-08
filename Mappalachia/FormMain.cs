@@ -5,7 +5,7 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
-		public MapSettings Settings { get; } = new MapSettings();
+		public Settings Settings { get; } = new Settings();
 
 		static List<string> SearchTermHints { get; } = new List<string>
 		{
@@ -79,7 +79,7 @@ namespace Mappalachia
 		}
 
 		// Reads in fields from Settings and updates UI elements respectively
-		void SettingsChanged()
+		void SettingsChanged(bool reDraw = true)
 		{
 			grayscaleMenuItem.Checked = Settings.GrayscaleBackground;
 			highlightWaterMenuItem.Checked = Settings.HighlightWater;
@@ -134,8 +134,14 @@ namespace Mappalachia
 			highlightWaterMenuItem.Enabled = Settings.Space.IsWorldspace;
 			mapMapMarkersMenuItem.Enabled = Settings.Space.IsWorldspace;
 
+			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchInAllSpaces;
+			textBoxSearch.Text = Settings.SearchTerm;
+
 			// TODO - Doing this every time is inelegant.
-			MapViewForm.UpdateMap();
+			if (reDraw)
+			{
+				MapViewForm.UpdateMap();
+			}
 		}
 
 		// Re-populates the search results grid with the current search results
@@ -245,7 +251,7 @@ namespace Mappalachia
 
 		private async void ButtonSearch_Click(object sender, EventArgs e)
 		{
-			SearchResults = await Database.Search(textBoxSearch.Text);
+			SearchResults = await Database.Search(Settings);
 
 			SearchResults = SearchResults
 				.OrderByDescending(g => g.Space == Settings.Space)
@@ -351,6 +357,18 @@ namespace Mappalachia
 		{
 			Settings.Space = Database.AllSpaces[comboBoxSpace.SelectedIndex];
 			SettingsChanged();
+		}
+
+		private void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
+		{
+			Settings.SearchInAllSpaces = !Settings.SearchInAllSpaces;
+			SettingsChanged(false);
+		}
+
+		private void SearchTerm_TextChanged(object sender, EventArgs e)
+		{
+			Settings.SearchTerm = textBoxSearch.Text;
+			SettingsChanged(false);
 		}
 	}
 }

@@ -36,7 +36,7 @@ namespace Mappalachia
 
 		static StringFormat CenterString { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near };
 
-		public static Image Draw(MapSettings settings)
+		public static Image Draw(Settings settings)
 		{
 			// Load in the chosen base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.BackgroundImage));

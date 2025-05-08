@@ -50,6 +50,8 @@ namespace Mappalachia
 			exportToFileToolStripMenuItem = new ToolStripMenuItem();
 			clearPlotsToolStripMenuItem = new ToolStripMenuItem();
 			resetToolStripMenuItem = new ToolStripMenuItem();
+			searchSettingsToolStripMenuItem = new ToolStripMenuItem();
+			searchInAllSpacesToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
@@ -67,7 +69,7 @@ namespace Mappalachia
 			// 
 			// menuStripMain
 			// 
-			menuStripMain.Items.AddRange(new ToolStripItem[] { mapMenuItem, helpToolStripMenuItem, joinTheDiscordToolStripMenuItem, sayThanksToolStripMenuItem });
+			menuStripMain.Items.AddRange(new ToolStripItem[] { mapMenuItem, searchSettingsToolStripMenuItem, helpToolStripMenuItem, joinTheDiscordToolStripMenuItem, sayThanksToolStripMenuItem });
 			menuStripMain.Location = new Point(0, 0);
 			menuStripMain.Name = "menuStripMain";
 			menuStripMain.ShowItemToolTips = true;
@@ -215,6 +217,21 @@ namespace Mappalachia
 			resetToolStripMenuItem.Text = "Reset";
 			resetToolStripMenuItem.Click += Map_Reset_Click;
 			// 
+			// searchSettingsToolStripMenuItem
+			// 
+			searchSettingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchInAllSpacesToolStripMenuItem });
+			searchSettingsToolStripMenuItem.Name = "searchSettingsToolStripMenuItem";
+			searchSettingsToolStripMenuItem.Size = new Size(99, 20);
+			searchSettingsToolStripMenuItem.Text = "Search Settings";
+			// 
+			// searchInAllSpacesToolStripMenuItem
+			// 
+			searchInAllSpacesToolStripMenuItem.Name = "searchInAllSpacesToolStripMenuItem";
+			searchInAllSpacesToolStripMenuItem.Size = new Size(180, 22);
+			searchInAllSpacesToolStripMenuItem.Text = "Search in all Spaces";
+			searchInAllSpacesToolStripMenuItem.ToolTipText = "Constrain the search to the selected Space only, or search all Spaces.";
+			searchInAllSpacesToolStripMenuItem.Click += Search_SearchInAllSpaces_Click;
+			// 
 			// helpToolStripMenuItem
 			// 
 			helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, openUserGuidesToolStripMenuItem, checkForUpdatesToolStripMenuItem, viewGitHubToolStripMenuItem });
@@ -290,6 +307,7 @@ namespace Mappalachia
 			textBoxSearch.Size = new Size(290, 23);
 			textBoxSearch.TabIndex = 4;
 			textBoxSearch.Text = "Search Term";
+			textBoxSearch.TextChanged += SearchTerm_TextChanged;
 			// 
 			// dataGridViewSearchResults
 			// 
@@ -378,5 +396,7 @@ namespace Mappalachia
 		private ToolStripMenuItem quickSaveToolStripMenuItem;
 		private ToolStripMenuItem exportToFileToolStripMenuItem;
 		private ComboBox comboBoxSpace;
+		private ToolStripMenuItem searchSettingsToolStripMenuItem;
+		private ToolStripMenuItem searchInAllSpacesToolStripMenuItem;
 	}
 }

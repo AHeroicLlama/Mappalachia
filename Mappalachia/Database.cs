@@ -16,13 +16,9 @@ namespace Mappalachia
 		static char EscapeChar { get; } = '`';
 
 		// The core database search function - returns a collection of GroupedInstance from the given search params
-		public static async Task<List<GroupedInstance>> Search(string searchTerm, Space? selectedSpace = null, List<Signature>? selectedSignatures = null, List<LockLevel>? selectedLockLevels = null)
+		public static async Task<List<GroupedInstance>> Search(Settings settings)
 		{
-			// If specific signatures or lock levels are not passed, we default to all
-			selectedSignatures ??= Enum.GetValues<Signature>().ToList();
-			selectedLockLevels ??= Enum.GetValues<LockLevel>().ToList();
-
-			searchTerm = ProcessSearchString(searchTerm);
+			string searchTerm = ProcessSearchString(settings.SearchTerm);
 			List<GroupedInstance> results = new List<GroupedInstance>();
 
 			// If the search term is a FormID, we perform further specific searches against this
@@ -30,14 +26,14 @@ namespace Mappalachia
 
 			// 'Standard'
 			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty;
-			string optionalSpaceTerm = selectedSpace != null ? $"AND spaceFormID = {selectedSpace.FormID} " : string.Empty;
+			string optionalSpaceTerm = settings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 
 			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, percChanceNone FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
 				optionalSpaceTerm +
-				$"AND Position_PreGrouped.lockLevel IN {selectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
-				$"AND Entity.signature IN {selectedSignatures.ToSqliteCollection()};";
+				$"AND Position_PreGrouped.lockLevel IN {settings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
+				$"AND Entity.signature IN {settings.SelectedSignatures.ToSqliteCollection()};";
 
 			SqliteDataReader reader = await GetReader(Connection, query);
 

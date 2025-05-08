@@ -2,7 +2,7 @@
 
 namespace Mappalachia
 {
-	public class MapSettings()
+	public class Settings()
 	{
 		Space space = Database.AllSpaces.First();
 		BackgroundImageType backgroundImage = BackgroundImageType.Menu;
@@ -50,6 +50,14 @@ namespace Mappalachia
 		public bool MapMarkerLabels { get; set; } = false;
 
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
+
+		public bool SearchInAllSpaces { get; set; } = true;
+
+		public string SearchTerm { get; set; } = string.Empty;
+
+		public List<Signature> SelectedSignatures { get; set; } = Enum.GetValues<Signature>().ToList();
+
+		public List<LockLevel> SelectedLockLevels { get; set; } = Enum.GetValues<LockLevel>().ToList();
 
 		// Check for and amend settings which shouldn't be used together
 		void ResolveConflictingSettings()
