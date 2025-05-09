@@ -10,5 +10,7 @@ namespace Mappalachia
 		public int Count { get; } = count;
 
 		public int LegendGroup { get; } = legendGroup;
+
+		public PlotIcon? PlotIcon { get; set; } = null;
 	}
 }
