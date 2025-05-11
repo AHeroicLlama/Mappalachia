@@ -81,17 +81,17 @@ namespace Mappalachia
 		// Reads in fields from Settings and updates UI elements respectively
 		void SettingsChanged(bool reDraw = true)
 		{
-			grayscaleMenuItem.Checked = Settings.GrayscaleBackground;
-			highlightWaterMenuItem.Checked = Settings.HighlightWater;
-			mapMarkerIconsMenuItem.Checked = Settings.MapMarkerIcons;
-			mapMarkerLabelsMenuItem.Checked = Settings.MapMarkerLabels;
+			grayscaleMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
+			highlightWaterMenuItem.Checked = Settings.MapSettings.HighlightWater;
+			mapMarkerIconsMenuItem.Checked = Settings.MapSettings.MapMarkerIcons;
+			mapMarkerLabelsMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
 
 			backgroundNormalMenuItem.Checked = false;
 			backgroundMilitaryMenuItem.Checked = false;
 			backgroundSatelliteMenuItem.Checked = false;
 			backgroundNoneMenuItem.Checked = false;
 
-			switch (Settings.BackgroundImage)
+			switch (Settings.MapSettings.BackgroundImage)
 			{
 				case BackgroundImageType.Menu:
 					backgroundNormalMenuItem.Checked = true;
@@ -106,14 +106,14 @@ namespace Mappalachia
 					backgroundNoneMenuItem.Checked = true;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(Settings.BackgroundImage), Settings.BackgroundImage, null);
+					throw new ArgumentOutOfRangeException(nameof(Settings.MapSettings.BackgroundImage), Settings.MapSettings.BackgroundImage, null);
 			}
 
 			legendNormalMenuItem.Checked = false;
 			legendExtendedMenuItem.Checked = false;
 			legendHiddenMenuItem.Checked = false;
 
-			switch (Settings.LegendStyle)
+			switch (Settings.MapSettings.LegendStyle)
 			{
 				case LegendStyle.Normal:
 					legendNormalMenuItem.Checked = true;
@@ -125,7 +125,7 @@ namespace Mappalachia
 					legendHiddenMenuItem.Checked = true;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(Settings.LegendStyle), Settings.LegendStyle, null);
+					throw new ArgumentOutOfRangeException(nameof(Settings.MapSettings.LegendStyle), Settings.MapSettings.LegendStyle, null);
 			}
 
 			backgroundNormalMenuItem.Enabled = Settings.Space.IsWorldspace;
@@ -134,8 +134,8 @@ namespace Mappalachia
 			highlightWaterMenuItem.Enabled = Settings.Space.IsWorldspace;
 			mapMapMarkersMenuItem.Enabled = Settings.Space.IsWorldspace;
 
-			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchInAllSpaces;
-			textBoxSearch.Text = Settings.SearchTerm;
+			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchSettings.SearchInAllSpaces;
+			textBoxSearch.Text = Settings.SearchSettings.SearchTerm;
 
 			// TODO - Doing this every time is inelegant.
 			if (reDraw)
@@ -265,67 +265,67 @@ namespace Mappalachia
 
 		private void Map_Grayscale_Click(object sender, EventArgs e)
 		{
-			Settings.GrayscaleBackground = !Settings.GrayscaleBackground;
+			Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground;
 			SettingsChanged();
 		}
 
 		private void Map_HightlightWater_Click(object sender, EventArgs e)
 		{
-			Settings.HighlightWater = !Settings.HighlightWater;
+			Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater;
 			SettingsChanged();
 		}
 
 		private void Map_MapMarkers_Icons_Click(object sender, EventArgs e)
 		{
-			Settings.MapMarkerIcons = !Settings.MapMarkerIcons;
+			Settings.MapSettings.MapMarkerIcons = !Settings.MapSettings.MapMarkerIcons;
 			SettingsChanged();
 		}
 
 		private void Map_MapMarkers_Labels_Click(object sender, EventArgs e)
 		{
-			Settings.MapMarkerLabels = !Settings.MapMarkerLabels;
+			Settings.MapSettings.MapMarkerLabels = !Settings.MapSettings.MapMarkerLabels;
 			SettingsChanged();
 		}
 
 		private void Map_Background_Normal_Click(object sender, EventArgs e)
 		{
-			Settings.BackgroundImage = BackgroundImageType.Menu;
+			Settings.MapSettings.BackgroundImage = BackgroundImageType.Menu;
 			SettingsChanged();
 		}
 
 		private void Map_Background_Satellite_Click(object sender, EventArgs e)
 		{
-			Settings.BackgroundImage = BackgroundImageType.Render;
+			Settings.MapSettings.BackgroundImage = BackgroundImageType.Render;
 			SettingsChanged();
 		}
 
 		private void Map_Background_Military_Click(object sender, EventArgs e)
 		{
-			Settings.BackgroundImage = BackgroundImageType.Military;
+			Settings.MapSettings.BackgroundImage = BackgroundImageType.Military;
 			SettingsChanged();
 		}
 
 		private void Map_Background_None_Click(object sender, EventArgs e)
 		{
-			Settings.BackgroundImage = BackgroundImageType.None;
+			Settings.MapSettings.BackgroundImage = BackgroundImageType.None;
 			SettingsChanged();
 		}
 
 		private void Map_Legend_Normal_Click(object sender, EventArgs e)
 		{
-			Settings.LegendStyle = LegendStyle.Normal;
+			Settings.MapSettings.LegendStyle = LegendStyle.Normal;
 			SettingsChanged();
 		}
 
 		private void Map_Legend_Extended_Click(object sender, EventArgs e)
 		{
-			Settings.LegendStyle = LegendStyle.Extended;
+			Settings.MapSettings.LegendStyle = LegendStyle.Extended;
 			SettingsChanged();
 		}
 
 		private void Map_Legend_Hidden_Click(object sender, EventArgs e)
 		{
-			Settings.LegendStyle = LegendStyle.None;
+			Settings.MapSettings.LegendStyle = LegendStyle.None;
 			SettingsChanged();
 		}
 
@@ -361,13 +361,13 @@ namespace Mappalachia
 
 		private void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
 		{
-			Settings.SearchInAllSpaces = !Settings.SearchInAllSpaces;
+			Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces;
 			SettingsChanged(false);
 		}
 
 		private void SearchTerm_TextChanged(object sender, EventArgs e)
 		{
-			Settings.SearchTerm = textBoxSearch.Text;
+			Settings.SearchSettings.SearchTerm = textBoxSearch.Text;
 			SettingsChanged(false);
 		}
 	}
