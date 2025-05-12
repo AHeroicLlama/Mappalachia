@@ -62,7 +62,7 @@ namespace Mappalachia
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
 			InitializeSearchResultsGrid();
 			InitializeSpaceDropDown();
-			SettingsChanged();
+			UpdateFromSettings();
 
 			mapMenuItem.DropDown.Closing += DontCloseClickedDropDown;
 			mapMapMarkersMenuItem.DropDown.Closing += DontCloseClickedDropDown;
@@ -79,12 +79,12 @@ namespace Mappalachia
 		}
 
 		// Reads in fields from Settings and updates UI elements respectively
-		void SettingsChanged(bool reDraw = true)
+		void UpdateFromSettings(bool reDraw = true)
 		{
 			grayscaleMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
 			highlightWaterMenuItem.Checked = Settings.MapSettings.HighlightWater;
 			mapMarkerIconsMenuItem.Checked = Settings.MapSettings.MapMarkerIcons;
-			mapMarkerLabelsMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
+			mapMarkerLabelsMenuItem.Checked = Settings.MapSettings.MapMarkerLabels;
 
 			backgroundNormalMenuItem.Checked = false;
 			backgroundMilitaryMenuItem.Checked = false;
@@ -266,67 +266,67 @@ namespace Mappalachia
 		private void Map_Grayscale_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_HightlightWater_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_MapMarkers_Icons_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.MapMarkerIcons = !Settings.MapSettings.MapMarkerIcons;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_MapMarkers_Labels_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.MapMarkerLabels = !Settings.MapSettings.MapMarkerLabels;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_Background_Normal_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.BackgroundImage = BackgroundImageType.Menu;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_Background_Satellite_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.BackgroundImage = BackgroundImageType.Render;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_Background_Military_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.BackgroundImage = BackgroundImageType.Military;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_Background_None_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.BackgroundImage = BackgroundImageType.None;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_Legend_Normal_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.LegendStyle = LegendStyle.Normal;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_Legend_Extended_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.LegendStyle = LegendStyle.Extended;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_Legend_Hidden_Click(object sender, EventArgs e)
 		{
 			Settings.MapSettings.LegendStyle = LegendStyle.None;
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Map_QuickSave_Click(object sender, EventArgs e)
@@ -356,19 +356,19 @@ namespace Mappalachia
 		private void ComboBoxSpace_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Settings.Space = Database.AllSpaces[comboBoxSpace.SelectedIndex];
-			SettingsChanged();
+			UpdateFromSettings();
 		}
 
 		private void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
 		{
 			Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces;
-			SettingsChanged(false);
+			UpdateFromSettings(false);
 		}
 
 		private void SearchTerm_TextChanged(object sender, EventArgs e)
 		{
 			Settings.SearchSettings.SearchTerm = textBoxSearch.Text;
-			SettingsChanged(false);
+			UpdateFromSettings(false);
 		}
 	}
 }

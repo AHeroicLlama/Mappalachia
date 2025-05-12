@@ -22,7 +22,7 @@ namespace Mappalachia
 
 		public Space Space
 		{
-			get => Space;
+			get => space;
 
 			set
 			{

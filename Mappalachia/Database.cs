@@ -18,7 +18,7 @@ namespace Mappalachia
 		// The core database search function - returns a collection of GroupedInstance from the given search params
 		public static async Task<List<GroupedInstance>> Search(Settings settings)
 		{
-			string searchTerm = ProcessSearchString(settings.SearchTerm);
+			string searchTerm = ProcessSearchString(settings.SearchSettings.SearchTerm);
 			List<GroupedInstance> results = new List<GroupedInstance>();
 
 			// If the search term is a FormID, we perform further specific searches against this
@@ -26,14 +26,14 @@ namespace Mappalachia
 
 			// 'Standard'
 			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty;
-			string optionalSpaceTerm = settings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
+			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 
 			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, percChanceNone FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
 				optionalSpaceTerm +
-				$"AND Position_PreGrouped.lockLevel IN {settings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
-				$"AND Entity.signature IN {settings.SelectedSignatures.ToSqliteCollection()};";
+				$"AND Position_PreGrouped.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
+				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()};";
 
 			SqliteDataReader reader = await GetReader(Connection, query);
 

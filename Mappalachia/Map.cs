@@ -39,38 +39,38 @@ namespace Mappalachia
 		public static Image Draw(Settings settings)
 		{
 			// Load in the chosen base background image
-			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.BackgroundImage));
+			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
 			using Graphics graphics = Graphics.FromImage(mapImage);
 
 			// Apply the brightness and grayscale if selected
-			mapImage.AdjustBrightnessOrGrayscale(settings.Brightness, settings.GrayscaleBackground);
+			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
 
 			// Overlay the water mask
-			if (settings.HighlightWater && settings.Space.IsWorldspace)
+			if (settings.MapSettings.HighlightWater && settings.Space.IsWorldspace)
 			{
 				graphics.DrawImage(settings.Space.GetWaterMask(), 0, 0);
 			}
 
 			// Handle drawing map marker icons and/or labels
-			if (settings.MapMarkerIcons || settings.MapMarkerLabels)
+			if (settings.MapSettings.MapMarkerIcons || settings.MapSettings.MapMarkerLabels)
 			{
 				List<MapMarker> mapMarkers = Database.AllMapMarkers
 					.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
 					.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
 
-				float labelOffset = (float)(settings.MapMarkerIcons ? MapMarkerLabelTextOffset : 0);
+				float labelOffset = (float)(settings.MapSettings.MapMarkerIcons ? MapMarkerLabelTextOffset : 0);
 				Font font = GetFont(MapMarkerLabelFontSize);
 
 				foreach (MapMarker marker in mapMarkers)
 				{
 					PointF coord = marker.Coord.AsScaledPoint(settings.Space);
 
-					if (settings.MapMarkerIcons)
+					if (settings.MapSettings.MapMarkerIcons)
 					{
 						graphics.DrawImageCentered(marker.GetMapMarkerImage(), coord);
 					}
 
-					if (settings.MapMarkerLabels)
+					if (settings.MapSettings.MapMarkerLabels)
 					{
 						graphics.DrawStringCentered(marker.Label, font, MapMarkerLabelBrush, new PointF(coord.X, coord.Y + labelOffset), true, MapMarkerLabelTextMaxWidth);
 					}
