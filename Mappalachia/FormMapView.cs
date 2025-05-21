@@ -8,6 +8,12 @@
 
 		FormMain MainForm { get; }
 
+		double ZoomRate { get; } = 1.1;
+
+		int MaxDimension { get; } = (int)Math.Pow(2, 14); // 16k
+
+		int MinDimension { get; } = (int)Math.Pow(2, 7); // 128
+
 		public FormMapView(FormMain mainForm)
 		{
 			InitializeComponent();
@@ -19,6 +25,38 @@
 			};
 
 			MainForm = mainForm;
+
+			SizeMapToForm();
+		}
+
+		void CenterMapInForm()
+		{
+			pictureBoxMapDisplay.Location = new Point((ClientSize.Width / 2) - (pictureBoxMapDisplay.Width / 2), (ClientSize.Height / 2) - (pictureBoxMapDisplay.Height / 2));
+		}
+
+		void SizeMapToForm()
+		{
+			pictureBoxMapDisplay.Width = ClientSize.Width;
+			pictureBoxMapDisplay.Height = ClientSize.Height;
+
+			CenterMapInForm();
+		}
+
+		protected override void OnMouseWheel(MouseEventArgs e)
+		{
+			if (e.Delta == 0)
+			{
+				return;
+			}
+
+			double factor = e.Delta > 0 ? ZoomRate : 1 / ZoomRate;
+
+			int newDimension = (int)Math.Round(Math.Min(Math.Max(pictureBoxMapDisplay.Width * factor, MinDimension), MaxDimension));
+
+			pictureBoxMapDisplay.Width = newDimension;
+			pictureBoxMapDisplay.Height = newDimension;
+
+			CenterMapInForm();
 		}
 
 		public void UpdateMap()

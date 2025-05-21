@@ -35,7 +35,7 @@
 			// 
 			// pictureBoxMapDisplay
 			// 
-			pictureBoxMapDisplay.Dock = DockStyle.Fill;
+			pictureBoxMapDisplay.Anchor = AnchorStyles.None;
 			pictureBoxMapDisplay.Location = new Point(0, 0);
 			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
 			pictureBoxMapDisplay.Size = new Size(1008, 985);
