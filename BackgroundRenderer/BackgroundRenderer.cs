@@ -69,7 +69,7 @@ namespace BackgroundRenderer
 			foreach (Space worldspace in worldspaces)
 			{
 				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID.ToHex()})", ColorInfo);
-				await SuperResRenderSpace(worldspace, true);
+				await SuperResRenderSpace(worldspace);
 				RenderSpace(worldspace);
 				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
 			}
@@ -79,7 +79,7 @@ namespace BackgroundRenderer
 			// Render cells in parallel
 			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async cell =>
 			{
-				await SuperResRenderSpace(cell, false);
+				await SuperResRenderSpace(cell);
 				RenderSpace(cell, true);
 				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
 			});
@@ -245,7 +245,7 @@ namespace BackgroundRenderer
 				$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString}" +
 				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + (space.IsWorldspace ? 0 : 32)} -ssaa 2 " +
-				$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
+				$"-ltxtres 512 -tc 4096 -mc 64 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
 				$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
 
 			string resizeCommand = $"magick {ddsFile} -resize {Common.MapImageResolution}x{Common.MapImageResolution} " +
@@ -278,7 +278,7 @@ namespace BackgroundRenderer
 			}
 		}
 
-		static async Task SuperResRenderSpace(Space space, bool parallel)
+		static async Task SuperResRenderSpace(Space space)
 		{
 			double scale = 1d / Common.SuperResScale;
 
@@ -297,7 +297,10 @@ namespace BackgroundRenderer
 			List<SuperResTile> tiles = space.GetTiles();
 			List<Region> worldBorderRegions = await space.GetWorldBorders();
 
-			tiles = tiles.Where(t => t.IntersectsRegions(worldBorderRegions)).ToList();
+			if (worldBorderRegions.Count > 0)
+			{
+				tiles = tiles.Where(t => t.IntersectsRegions(worldBorderRegions)).ToList();
+			}
 
 			if (!space.IsWorldspace)
 			{
@@ -350,24 +353,25 @@ namespace BackgroundRenderer
 			int i = 0;
 
 			// Loop over every tile for the space
-			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = parallel ? RenderParallelism : 1 }, tile =>
+			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, tile =>
 			{
 				string outputFile = $"{outputPath}{tile.GetXID()}.{tile.GetYID()}.dds";
 				string finalFile = tile.GetFilePath();
 
 				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
+					$"-r {tile.GetXID()} {tile.GetYID()} {tile.GetXID() + Common.SuperResScale} {tile.GetYID() + Common.SuperResScale} " +
 					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 1 " +
-					$"-ltxtres 4096 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
+					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
 					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
-				string resizeCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
+				string convertCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
 
 				Process render = StartProcess(renderCommand, true);
 				render.WaitForExit();
 
-				Process magickResizeConvert = StartProcess(resizeCommand);
+				Process magickResizeConvert = StartProcess(convertCommand);
 				magickResizeConvert.WaitForExit();
 
 				File.Delete(outputFile);
