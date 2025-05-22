@@ -224,8 +224,8 @@ namespace Preprocessor
 
 			if (ValidateSpaceImageExists(space, filePath))
 			{
-				ValidateImageDimensions(filePath);
 				ValidateBackgroundImageFileSize(space, filePath);
+				ValidateImageDimensions(filePath);
 				ValidateBackgroundImageBlackPx(space, filePath);
 			}
 
@@ -243,8 +243,8 @@ namespace Preprocessor
 				if (File.Exists(file))
 				{
 					Console.WriteLine($"Super res tile {i} of {tiles.Count}: {space.EditorID}");
-					ValidateImageDimensions(file);
 					ValidateTileImageFileSize(tile, file);
+					ValidateImageDimensions(file);
 					ValidateTileImageBlackPx(tile, file);
 				}
 			});

@@ -21,9 +21,9 @@ namespace Mappalachia
 		// Return an image from the file path, or a cached version if loaded before
 		static Image LoadImage(string path)
 		{
-			if (BackgroundImageCache.ContainsKey(path))
+			if (BackgroundImageCache.TryGetValue(path, out Image? value))
 			{
-				return BackgroundImageCache[path];
+				return value;
 			}
 
 			Image image = new Bitmap(path);
@@ -91,9 +91,9 @@ namespace Mappalachia
 		{
 			string path = Paths.MapMarkersPath + mapMarker.Icon + MapMarkerImageFileType;
 
-			if (MapMarkerIconImageCache.ContainsKey(mapMarker.Icon))
+			if (MapMarkerIconImageCache.TryGetValue(mapMarker.Icon, out Image? value))
 			{
-				return MapMarkerIconImageCache[mapMarker.Icon];
+				return value;
 			}
 
 			Svg.SvgDocument document = Svg.SvgDocument.Open(path);

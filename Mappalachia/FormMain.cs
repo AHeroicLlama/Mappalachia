@@ -106,7 +106,7 @@ namespace Mappalachia
 					backgroundNoneMenuItem.Checked = true;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(Settings.MapSettings.BackgroundImage), Settings.MapSettings.BackgroundImage, null);
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.BackgroundImage)} value {Settings.MapSettings.BackgroundImage}");
 			}
 
 			legendNormalMenuItem.Checked = false;
@@ -125,7 +125,7 @@ namespace Mappalachia
 					legendHiddenMenuItem.Checked = true;
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(Settings.MapSettings.LegendStyle), Settings.MapSettings.LegendStyle, null);
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.LegendStyle)} value {Settings.MapSettings.LegendStyle}");
 			}
 
 			backgroundNormalMenuItem.Enabled = Settings.Space.IsWorldspace;

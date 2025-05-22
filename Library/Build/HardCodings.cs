@@ -302,13 +302,7 @@ namespace Library
 
 			Console.WriteLine(node.OuterXml);
 
-			XmlAttribute? attribute = node.Attributes?[attributeName];
-
-			if (attribute == null)
-			{
-				throw new NullReferenceException($"XML Node does not have attribute {attributeName}");
-			}
-
+			XmlAttribute? attribute = node.Attributes?[attributeName] ?? throw new NullReferenceException($"XML Node does not have attribute {attributeName}");
 			attribute.Value = value;
 		}
 	}

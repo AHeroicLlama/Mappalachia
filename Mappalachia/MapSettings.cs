@@ -1,13 +1,8 @@
 ﻿namespace Mappalachia
 {
-	public class MapSettings
+	public class MapSettings(Settings rootSettings)
 	{
-		Settings RootSettings { get; }
-
-		public MapSettings(Settings rootSettings)
-		{
-			RootSettings = rootSettings;
-		}
+		Settings RootSettings { get; } = rootSettings;
 
 		BackgroundImageType backgroundImage = BackgroundImageType.Menu;
 

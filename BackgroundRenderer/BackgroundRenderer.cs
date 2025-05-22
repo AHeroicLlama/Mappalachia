@@ -297,10 +297,7 @@ namespace BackgroundRenderer
 			List<SuperResTile> tiles = space.GetTiles();
 			List<Region> worldBorderRegions = await space.GetWorldBorders();
 
-			if (worldBorderRegions.Any())
-			{
-				tiles = tiles.Where(t => t.IntersectsRegions(worldBorderRegions)).ToList();
-			}
+			tiles = tiles.Where(t => t.IntersectsRegions(worldBorderRegions)).ToList();
 
 			if (!space.IsWorldspace)
 			{
@@ -464,7 +461,7 @@ namespace BackgroundRenderer
 		static async Task<List<Space>> GetSpaceInput()
 		{
 			StdOutWithColor("\nEnter a space-separated list of space EditorIDs to render.\nEnter nothing to render all, 'cell' for all Cells, or 'world' for all WorldSpaces", ColorQuestion);
-			string input = Console.ReadLine() ?? string.Empty;
+			string input = (Console.ReadLine() ?? string.Empty).Trim();
 
 			if (input.EqualsIgnoreCase("cell") || input.EqualsIgnoreCase("world"))
 			{
@@ -477,7 +474,7 @@ namespace BackgroundRenderer
 				return await CommonDatabase.GetAllSpaces(GetNewConnection());
 			}
 
-			List<string> requestedIDs = input.Trim().Split(" ").Where(space => !space.IsNullOrWhiteSpace()).ToList();
+			List<string> requestedIDs = input.Split(" ").Where(space => !space.IsNullOrWhiteSpace()).ToList();
 
 			// Select spaces unconditionally if none provided, otherwise select only the list of provided spaces
 			string query = $"SELECT * FROM Space WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()} ORDER BY isWorldspace DESC, spaceEditorID ASC;";
