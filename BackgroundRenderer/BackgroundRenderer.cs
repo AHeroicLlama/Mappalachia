@@ -11,7 +11,7 @@ namespace BackgroundRenderer
 
 		static int JpegQualityHigh { get; } = 100;
 
-		static int RenderParallelism { get; } = 8; // Max cells or super res tiles to render in parallel
+		static int RenderParallelism { get; } = 16; // Max cells or super res tiles to render in parallel
 
 		static async Task Main()
 		{
