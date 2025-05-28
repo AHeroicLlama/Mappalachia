@@ -309,7 +309,7 @@ namespace BackgroundRenderer
 
 			if (space.IsWorldspace)
 			{
-				StdOutWithColor($"Super Res rendering a worldspace ({space.EditorID}) typically takes multiple hours. Would you like to:\n1:Render the whole space\n2:Render only missing tiles\n3:Define a target area to render", ColorQuestion);
+				StdOutWithColor($"Depending on your hardware, Super Res rendering an entire worldspace ({space.EditorID}) may take a few hours. Would you like to:\n1:Render the whole space\n2:Render only missing tiles\n3:Define a target area to render", ColorQuestion);
 
 				switch (Console.ReadKey().KeyChar)
 				{

@@ -32,7 +32,7 @@ namespace Mappalachia
 
 		static Brush DropShadowBrush { get; } = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 
-		static int DropShadowOffset { get; } = 5;
+		static int DropShadowOffset { get; } = 2;
 
 		static StringFormat CenterString { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near };
 

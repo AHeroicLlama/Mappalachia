@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+namespace Mappalachia
 {
 	public partial class FormMapView : Form
 	{
@@ -8,16 +8,18 @@
 
 		FormMain MainForm { get; }
 
-		double ZoomRate { get; } = 1.1;
+		double ZoomRate { get; } = 1.2;
 
 		int MaxDimension { get; } = (int)Math.Pow(2, 14); // 16k
 
 		int MinDimension { get; } = (int)Math.Pow(2, 7); // 128
 
+		Point LastMouseDragEnd { get; set; }
+
 		public FormMapView(FormMain mainForm)
 		{
 			InitializeComponent();
-			KeepSquare(this, EventArgs.Empty);
+			SquareForm(this, EventArgs.Empty);
 
 			Shown += (s, e) =>
 			{
@@ -42,6 +44,7 @@
 			CenterMapInForm();
 		}
 
+		// Intercept mouse wheel events to handle zooming
 		protected override void OnMouseWheel(MouseEventArgs e)
 		{
 			if (e.Delta == 0)
@@ -51,12 +54,22 @@
 
 			double factor = e.Delta > 0 ? ZoomRate : 1 / ZoomRate;
 
-			int newDimension = (int)Math.Round(Math.Min(Math.Max(pictureBoxMapDisplay.Width * factor, MinDimension), MaxDimension));
+			// Cap against min/max zoom
+			if ((factor > 1 && pictureBoxMapDisplay.Width >= MaxDimension) ||
+				(factor < 1 && pictureBoxMapDisplay.Width <= MinDimension))
+			{
+				return;
+			}
+
+			int newDimension = (int)Math.Round(pictureBoxMapDisplay.Width * factor);
 
 			pictureBoxMapDisplay.Width = newDimension;
 			pictureBoxMapDisplay.Height = newDimension;
 
-			CenterMapInForm();
+			// Adjust the position of the picture box, once it has been resized, in order to keep its effective center the same
+			pictureBoxMapDisplay.Location = new Point(
+				(int)Math.Round(((pictureBoxMapDisplay.Location.X - (ClientSize.Width / 2d)) * factor) + (ClientSize.Width / 2d)),
+				(int)Math.Round(((pictureBoxMapDisplay.Location.Y - (ClientSize.Height / 2d)) * factor) + (ClientSize.Height / 2d)));
 		}
 
 		public void UpdateMap()
@@ -64,8 +77,8 @@
 			pictureBoxMapDisplay.Image = Map.Draw(MainForm.Settings);
 		}
 
-		// Called when resized, this sizes the form so that the map image fits squarely within it
-		void KeepSquare(object sender, EventArgs e)
+		// Set the form itself so the 'client area'/viewport is square, (matching the map image)
+		void SquareForm(object sender, EventArgs e)
 		{
 			Rectangle workingArea = Screen.FromControl(this).WorkingArea;
 
@@ -103,31 +116,21 @@
 			// Re-capture the dimensions for the next resize
 			LastWidth = ClientSize.Width;
 			LastHeight = ClientSize.Height;
+		}
 
-			// If the form was actually resized, ensure the dimensions we added mean it stays within the display
-			if (heightChange != 0 || widthChange != 0)
+		private void PictureBoxMapDisplay_MouseMove(object sender, MouseEventArgs mouseEvent)
+		{
+			if (mouseEvent.Button == MouseButtons.Left)
 			{
-				KeepWithinDisplay(sender, e);
+				pictureBoxMapDisplay.Location = new Point(
+					pictureBoxMapDisplay.Location.X + mouseEvent.Location.X - LastMouseDragEnd.X,
+					pictureBoxMapDisplay.Location.Y + mouseEvent.Location.Y - LastMouseDragEnd.Y);
 			}
 		}
 
-		// Moves the form in from the bottom or right of the display
-		void KeepWithinDisplay(object sender, EventArgs e)
+		private void PictureBoxMapDisplay_MouseDown(object sender, MouseEventArgs mouseEvent)
 		{
-			Rectangle workingArea = Screen.FromControl(this).WorkingArea;
-
-			int xOverstep = Location.X + Width - workingArea.Right;
-			int yOverstep = Location.Y + Height - workingArea.Bottom;
-
-			if (xOverstep > 0)
-			{
-				Location = new Point(Location.X - xOverstep, Location.Y);
-			}
-
-			if (yOverstep > 0)
-			{
-				Location = new Point(Location.X, Location.Y - yOverstep);
-			}
+			LastMouseDragEnd = mouseEvent.Location;
 		}
 
 		// Don't close - just hide

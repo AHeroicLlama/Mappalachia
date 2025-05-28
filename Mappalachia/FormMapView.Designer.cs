@@ -42,6 +42,8 @@
 			pictureBoxMapDisplay.SizeMode = PictureBoxSizeMode.Zoom;
 			pictureBoxMapDisplay.TabIndex = 1;
 			pictureBoxMapDisplay.TabStop = false;
+			pictureBoxMapDisplay.MouseDown += PictureBoxMapDisplay_MouseDown;
+			pictureBoxMapDisplay.MouseMove += PictureBoxMapDisplay_MouseMove;
 			// 
 			// FormMapView
 			// 
@@ -57,7 +59,6 @@
 			ShowInTaskbar = false;
 			Text = "Mappalachia: Preview";
 			FormClosing += FormMapView_FormClosing;
-			ResizeEnd += KeepSquare;
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
 			ResumeLayout(false);
 		}
