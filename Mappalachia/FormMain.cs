@@ -209,12 +209,6 @@ namespace Mappalachia
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
 		{
 			MapViewForm.BringToFront();
-
-			if (!MapViewForm.Visible)
-			{
-				MapViewForm.Show();
-			}
-
 			MapViewForm.Show();
 			MapViewForm.Focus();
 		}

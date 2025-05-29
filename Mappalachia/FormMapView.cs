@@ -2,10 +2,6 @@ namespace Mappalachia
 {
 	public partial class FormMapView : Form
 	{
-		int LastWidth { get; set; }
-
-		int LastHeight { get; set; }
-
 		FormMain MainForm { get; }
 
 		double ZoomRate { get; } = 1.2;
@@ -53,15 +49,14 @@ namespace Mappalachia
 			}
 
 			double factor = e.Delta > 0 ? ZoomRate : 1 / ZoomRate;
+			int newDimension = (int)Math.Round(pictureBoxMapDisplay.Width * factor);
 
 			// Cap against min/max zoom
-			if ((factor > 1 && pictureBoxMapDisplay.Width >= MaxDimension) ||
-				(factor < 1 && pictureBoxMapDisplay.Width <= MinDimension))
+			if ((newDimension > MaxDimension) ||
+				(newDimension < MinDimension))
 			{
 				return;
 			}
-
-			int newDimension = (int)Math.Round(pictureBoxMapDisplay.Width * factor);
 
 			pictureBoxMapDisplay.Width = newDimension;
 			pictureBoxMapDisplay.Height = newDimension;
@@ -86,36 +81,13 @@ namespace Mappalachia
 			int additionalBorderHeight = Height - ClientSize.Height;
 			int additionalBorderWidth = Width - ClientSize.Width;
 
-			// What were the parameters of this resize event
-			int widthChange = ClientSize.Width - LastWidth;
-			int heightChange = ClientSize.Height - LastHeight;
-
-			int newDimension;
-
-			if (heightChange == 0)
-			{
-				newDimension = ClientSize.Width;
-			}
-			else if (widthChange == 0)
-			{
-				newDimension = ClientSize.Height;
-			}
-
-			// Both or neither changed
-			else
-			{
-				newDimension = Math.Max(ClientSize.Width, ClientSize.Height);
-			}
+			int newDimension = Math.Max(ClientSize.Width, ClientSize.Height);
 
 			// Cap to the current monitor's min dimension, minus the borders
 			newDimension = Math.Min(Math.Min(newDimension, workingArea.Width - additionalBorderWidth), workingArea.Height - additionalBorderHeight);
 
 			// Apply the resize
 			ClientSize = new Size(newDimension, newDimension);
-
-			// Re-capture the dimensions for the next resize
-			LastWidth = ClientSize.Width;
-			LastHeight = ClientSize.Height;
 		}
 
 		private void PictureBoxMapDisplay_MouseMove(object sender, MouseEventArgs mouseEvent)
