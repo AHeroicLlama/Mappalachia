@@ -61,10 +61,11 @@ namespace Mappalachia
 			pictureBoxMapDisplay.Width = newDimension;
 			pictureBoxMapDisplay.Height = newDimension;
 
-			// Adjust the position of the picture box, once it has been resized, in order to keep its effective center the same
+			Point centerAboutPoint = e.Location;
+
 			pictureBoxMapDisplay.Location = new Point(
-				(int)Math.Round(((pictureBoxMapDisplay.Location.X - (ClientSize.Width / 2d)) * factor) + (ClientSize.Width / 2d)),
-				(int)Math.Round(((pictureBoxMapDisplay.Location.Y - (ClientSize.Height / 2d)) * factor) + (ClientSize.Height / 2d)));
+				(int)Math.Round(((pictureBoxMapDisplay.Location.X - centerAboutPoint.X) * factor) + centerAboutPoint.X),
+				(int)Math.Round(((pictureBoxMapDisplay.Location.Y - centerAboutPoint.Y) * factor) + centerAboutPoint.Y));
 		}
 
 		public void UpdateMap()
@@ -90,19 +91,19 @@ namespace Mappalachia
 			ClientSize = new Size(newDimension, newDimension);
 		}
 
-		private void PictureBoxMapDisplay_MouseMove(object sender, MouseEventArgs mouseEvent)
+		private void PictureBoxMapDisplay_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (mouseEvent.Button == MouseButtons.Left)
+			if (e.Button == MouseButtons.Left)
 			{
 				pictureBoxMapDisplay.Location = new Point(
-					pictureBoxMapDisplay.Location.X + mouseEvent.Location.X - LastMouseDragEnd.X,
-					pictureBoxMapDisplay.Location.Y + mouseEvent.Location.Y - LastMouseDragEnd.Y);
+					pictureBoxMapDisplay.Location.X + e.Location.X - LastMouseDragEnd.X,
+					pictureBoxMapDisplay.Location.Y + e.Location.Y - LastMouseDragEnd.Y);
 			}
 		}
 
-		private void PictureBoxMapDisplay_MouseDown(object sender, MouseEventArgs mouseEvent)
+		private void PictureBoxMapDisplay_MouseDown(object sender, MouseEventArgs e)
 		{
-			LastMouseDragEnd = mouseEvent.Location;
+			LastMouseDragEnd = e.Location;
 		}
 
 		// Don't close - just hide
