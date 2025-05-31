@@ -54,5 +54,25 @@
 			: this(formID, editorID, displayName, Enum.Parse<Signature>(signature))
 		{
 		}
+
+		public override bool Equals(object? obj)
+		{
+			if (obj is not Entity other || obj is null)
+			{
+				return false;
+			}
+
+			if (ReferenceEquals(this, obj))
+			{
+				return true;
+			}
+
+			return FormID.Equals(other.FormID);
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(FormID);
+		}
 	}
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Data;
 using Library;
 
@@ -47,9 +48,9 @@ namespace Mappalachia
 
 		FormMapView MapViewForm { get; set; }
 
-		DataTable SearchResultsDataTable { get; } = new DataTable();
+		BindingList<GroupedInstance> SearchResults { get; set; } = new BindingList<GroupedInstance>();
 
-		List<GroupedInstance> SearchResults { get; set; } = new List<GroupedInstance>();
+		BindingList<GroupedInstance> ItemsToPlot { get; set; } = new BindingList<GroupedInstance>();
 
 		public FormMain()
 		{
@@ -61,6 +62,7 @@ namespace Mappalachia
 
 			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
 			InitializeSearchResultsGrid();
+			InitializeItemsToPlotGrid();
 			InitializeSpaceDropDown();
 			UpdateFromSettings();
 
@@ -144,48 +146,18 @@ namespace Mappalachia
 			}
 		}
 
-		// Re-populates the search results grid with the current search results
-		void UpdateSearchResultsGrid()
-		{
-			dataGridViewSearchResults.DataSource = null;
-			SearchResultsDataTable.Rows.Clear();
-
-			foreach (GroupedInstance groupedInstance in SearchResults)
-			{
-				SearchResultsDataTable.Rows.Add(
-					groupedInstance.Entity.FormID.ToHex(),
-					groupedInstance.Entity.EditorID,
-					groupedInstance.Entity.DisplayName,
-					groupedInstance.Entity.Signature.ToString(),
-					groupedInstance.Space.DisplayName,
-					groupedInstance.Label,
-					groupedInstance.LockLevel.ToString(),
-					groupedInstance.SpawnWeight,
-					groupedInstance.Count);
-			}
-
-			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
-			SetSearchResultsGridStyle();
-		}
-
 		// Setup the columns and styling for the search results grid
 		void InitializeSearchResultsGrid()
 		{
-			SearchResultsDataTable.Columns.AddRange(
-			[
-				new DataColumn("Form ID"),
-				new DataColumn("Editor ID"),
-				new DataColumn("Display Name"),
-				new DataColumn("Signature"),
-				new DataColumn("Space Display Name"),
-				new DataColumn("Label"),
-				new DataColumn("Lock Level"),
-				new DataColumn("Weight", typeof(float)),
-				new DataColumn("Count", typeof(int)),
-			]);
+			BindingSource source = new BindingSource(SearchResults, string.Empty);
+			dataGridViewSearchResults.DataSource = source;
+		}
 
-			dataGridViewSearchResults.DataSource = SearchResultsDataTable;
-			SetSearchResultsGridStyle();
+		// Setup the columns and styling for the items to plot grid
+		void InitializeItemsToPlotGrid()
+		{
+			BindingSource source = new BindingSource(ItemsToPlot, string.Empty);
+			dataGridViewItemsToPlot.DataSource = source;
 		}
 
 		void InitializeSpaceDropDown()
@@ -198,12 +170,6 @@ namespace Mappalachia
 			}
 
 			comboBoxSpace.SelectedIndex = 0;
-		}
-
-		void SetSearchResultsGridStyle()
-		{
-			DataGridViewColumn formIDColumn = dataGridViewSearchResults.Columns["Form ID"] ?? throw new NullReferenceException("Search Results Form ID Column not found");
-			formIDColumn.DefaultCellStyle.Font = new Font("Consolas", 9);
 		}
 
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
@@ -245,16 +211,26 @@ namespace Mappalachia
 
 		private async void ButtonSearch_Click(object sender, EventArgs e)
 		{
-			SearchResults = await Database.Search(Settings);
+			List<GroupedInstance> searchResults = await Database.Search(Settings);
 
-			SearchResults = SearchResults
+			searchResults = searchResults
 				.OrderByDescending(g => g.Space == Settings.Space)
 				.ThenByDescending(g => g.Count)
 				.ThenByDescending(g => g.SpawnWeight)
 				.ThenBy(g => g.Entity.EditorID)
 				.ToList();
 
-			UpdateSearchResultsGrid();
+			SearchResults.Clear();
+
+			SearchResults.RaiseListChangedEvents = false;
+
+			foreach (GroupedInstance instance in searchResults)
+			{
+				SearchResults.Add(instance);
+			}
+
+			SearchResults.RaiseListChangedEvents = true;
+			SearchResults.ResetBindings();
 		}
 
 		private void Map_Grayscale_Click(object sender, EventArgs e)
@@ -363,6 +339,40 @@ namespace Mappalachia
 		{
 			Settings.SearchSettings.SearchTerm = textBoxSearch.Text;
 			UpdateFromSettings(false);
+		}
+
+		private void ButtonAddToMap_Click(object sender, EventArgs e)
+		{
+			ItemsToPlot.RaiseListChangedEvents = false;
+
+			// From the selected cells, find the unique rows, find the data bound to those, and add it from the ItemsToPlot
+			foreach (DataGridViewCell cell in dataGridViewSearchResults.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex))
+			{
+				GroupedInstance instance = (GroupedInstance)(cell.OwningRow?.DataBoundItem ?? throw new Exception("Row bound to null"));
+
+				// TODO we need contains to work on values not references
+				if (!ItemsToPlot.Contains(instance))
+				{
+					ItemsToPlot.Add(instance);
+				}
+			}
+
+			ItemsToPlot.RaiseListChangedEvents = true;
+			ItemsToPlot.ResetBindings();
+		}
+
+		private void ButtonRemoveFromMap_Click(object sender, EventArgs e)
+		{
+			ItemsToPlot.RaiseListChangedEvents = false;
+
+			// From the selected cells, find the unique rows, find the data bound to those, and remove it from the ItemsToPlot
+			foreach (DataGridViewCell cell in dataGridViewItemsToPlot.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex))
+			{
+				ItemsToPlot.Remove((GroupedInstance)(cell.OwningRow?.DataBoundItem ?? throw new Exception("Row bound to null")));
+			}
+
+			ItemsToPlot.RaiseListChangedEvents = true;
+			ItemsToPlot.ResetBindings();
 		}
 	}
 }

@@ -63,8 +63,12 @@ namespace Mappalachia
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
 			comboBoxSpace = new ComboBox();
+			buttonAddToMap = new Button();
+			buttonRemoveFromMap = new Button();
+			dataGridViewItemsToPlot = new DataGridView();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
+			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
 			SuspendLayout();
 			// 
 			// menuStripMain
@@ -227,7 +231,7 @@ namespace Mappalachia
 			// searchInAllSpacesToolStripMenuItem
 			// 
 			searchInAllSpacesToolStripMenuItem.Name = "searchInAllSpacesToolStripMenuItem";
-			searchInAllSpacesToolStripMenuItem.Size = new Size(180, 22);
+			searchInAllSpacesToolStripMenuItem.Size = new Size(176, 22);
 			searchInAllSpacesToolStripMenuItem.Text = "Search in all Spaces";
 			searchInAllSpacesToolStripMenuItem.ToolTipText = "Constrain the search to the selected Space only, or search all Spaces.";
 			searchInAllSpacesToolStripMenuItem.Click += Search_SearchInAllSpaces_Click;
@@ -339,6 +343,45 @@ namespace Mappalachia
 			comboBoxSpace.Text = "Selected Space";
 			comboBoxSpace.SelectedIndexChanged += ComboBoxSpace_SelectedIndexChanged;
 			// 
+			// buttonAddToMap
+			// 
+			buttonAddToMap.Location = new Point(503, 371);
+			buttonAddToMap.Name = "buttonAddToMap";
+			buttonAddToMap.Size = new Size(126, 23);
+			buttonAddToMap.TabIndex = 7;
+			buttonAddToMap.Text = "Add to Map";
+			buttonAddToMap.UseVisualStyleBackColor = true;
+			buttonAddToMap.Click += ButtonAddToMap_Click;
+			// 
+			// buttonRemoveFromMap
+			// 
+			buttonRemoveFromMap.Location = new Point(635, 371);
+			buttonRemoveFromMap.Name = "buttonRemoveFromMap";
+			buttonRemoveFromMap.Size = new Size(126, 23);
+			buttonRemoveFromMap.TabIndex = 8;
+			buttonRemoveFromMap.Text = "Remove from Map";
+			buttonRemoveFromMap.UseVisualStyleBackColor = true;
+			buttonRemoveFromMap.Click += ButtonRemoveFromMap_Click;
+			// 
+			// dataGridViewItemsToPlot
+			// 
+			dataGridViewItemsToPlot.AllowUserToAddRows = false;
+			dataGridViewItemsToPlot.AllowUserToDeleteRows = false;
+			dataGridViewItemsToPlot.AllowUserToOrderColumns = true;
+			dataGridViewItemsToPlot.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			dataGridViewItemsToPlot.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+			dataGridViewItemsToPlot.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewItemsToPlot.EditMode = DataGridViewEditMode.EditProgrammatically;
+			dataGridViewItemsToPlot.Location = new Point(12, 400);
+			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
+			dataGridViewItemsToPlot.ReadOnly = true;
+			dataGridViewItemsToPlot.RowHeadersVisible = false;
+			dataGridViewItemsToPlot.ScrollBars = ScrollBars.Vertical;
+			dataGridViewItemsToPlot.SelectionMode = DataGridViewSelectionMode.CellSelect;
+			dataGridViewItemsToPlot.Size = new Size(1240, 269);
+			dataGridViewItemsToPlot.TabIndex = 9;
+			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
@@ -346,6 +389,9 @@ namespace Mappalachia
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.ControlDarkDark;
 			ClientSize = new Size(1264, 681);
+			Controls.Add(dataGridViewItemsToPlot);
+			Controls.Add(buttonRemoveFromMap);
+			Controls.Add(buttonAddToMap);
 			Controls.Add(comboBoxSpace);
 			Controls.Add(buttonSearch);
 			Controls.Add(textBoxSearch);
@@ -358,6 +404,7 @@ namespace Mappalachia
 			menuStripMain.ResumeLayout(false);
 			menuStripMain.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).EndInit();
+			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -398,5 +445,8 @@ namespace Mappalachia
 		private ComboBox comboBoxSpace;
 		private ToolStripMenuItem searchSettingsToolStripMenuItem;
 		private ToolStripMenuItem searchInAllSpacesToolStripMenuItem;
+		private Button buttonAddToMap;
+		private Button buttonRemoveFromMap;
+		private DataGridView dataGridViewItemsToPlot;
 	}
 }
