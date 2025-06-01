@@ -52,6 +52,7 @@ namespace Mappalachia
 			resetToolStripMenuItem = new ToolStripMenuItem();
 			searchSettingsToolStripMenuItem = new ToolStripMenuItem();
 			searchInAllSpacesToolStripMenuItem = new ToolStripMenuItem();
+			advancedModeToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
@@ -223,7 +224,7 @@ namespace Mappalachia
 			// 
 			// searchSettingsToolStripMenuItem
 			// 
-			searchSettingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchInAllSpacesToolStripMenuItem });
+			searchSettingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchInAllSpacesToolStripMenuItem, advancedModeToolStripMenuItem });
 			searchSettingsToolStripMenuItem.Name = "searchSettingsToolStripMenuItem";
 			searchSettingsToolStripMenuItem.Size = new Size(99, 20);
 			searchSettingsToolStripMenuItem.Text = "Search Settings";
@@ -231,10 +232,18 @@ namespace Mappalachia
 			// searchInAllSpacesToolStripMenuItem
 			// 
 			searchInAllSpacesToolStripMenuItem.Name = "searchInAllSpacesToolStripMenuItem";
-			searchInAllSpacesToolStripMenuItem.Size = new Size(176, 22);
+			searchInAllSpacesToolStripMenuItem.Size = new Size(180, 22);
 			searchInAllSpacesToolStripMenuItem.Text = "Search in all Spaces";
 			searchInAllSpacesToolStripMenuItem.ToolTipText = "Constrain the search to the selected Space only, or search all Spaces.";
 			searchInAllSpacesToolStripMenuItem.Click += Search_SearchInAllSpaces_Click;
+			// 
+			// advancedModeToolStripMenuItem
+			// 
+			advancedModeToolStripMenuItem.Name = "advancedModeToolStripMenuItem";
+			advancedModeToolStripMenuItem.Size = new Size(180, 22);
+			advancedModeToolStripMenuItem.Text = "Advanced Mode";
+			advancedModeToolStripMenuItem.ToolTipText = "Toggle displaying search results in advanced dataminer format.";
+			advancedModeToolStripMenuItem.Click += Search_AdvancedMode_Click;
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -318,6 +327,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.AllowUserToAddRows = false;
 			dataGridViewSearchResults.AllowUserToDeleteRows = false;
 			dataGridViewSearchResults.AllowUserToOrderColumns = true;
+			dataGridViewSearchResults.AllowUserToResizeRows = false;
 			dataGridViewSearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridViewSearchResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewSearchResults.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
@@ -368,6 +378,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.AllowUserToAddRows = false;
 			dataGridViewItemsToPlot.AllowUserToDeleteRows = false;
 			dataGridViewItemsToPlot.AllowUserToOrderColumns = true;
+			dataGridViewItemsToPlot.AllowUserToResizeRows = false;
 			dataGridViewItemsToPlot.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridViewItemsToPlot.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
@@ -448,5 +459,6 @@ namespace Mappalachia
 		private Button buttonAddToMap;
 		private Button buttonRemoveFromMap;
 		private DataGridView dataGridViewItemsToPlot;
+		private ToolStripMenuItem advancedModeToolStripMenuItem;
 	}
 }

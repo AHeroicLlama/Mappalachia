@@ -6,6 +6,8 @@ namespace Mappalachia
 	{
 		public bool SearchInAllSpaces { get; set; } = false;
 
+		public bool Advanced { get; set; } = false;
+
 		public string SearchTerm { get; set; } = string.Empty;
 
 		public List<Signature> SelectedSignatures { get; set; } = Enum.GetValues<Signature>().ToList();
