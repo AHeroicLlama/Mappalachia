@@ -6,45 +6,8 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
-		public Settings Settings { get; } = new Settings();
-
-		static List<string> SearchTermHints { get; } = new List<string>
-		{
-			"Alcohol",
-			"Alien Blaster",
-			"Caps Stash",
-			"Flora",
-			"Fusion Core",
-			"Ginseng",
-			"Hardpoint",
-			"Instrument",
-			"LPI_Chem",
-			"LPI_Food",
-			"LvlCritter",
-			"NoCampAllowed",
-			"Nuka Cola",
-			"Overseer's Cache",
-			"P01C_Bucket_Loot",
-			"PowerArmorFurniture_",
-			"Pre War Money",
-			"Protest Sign",
-			"Pumpkin",
-			"RETrigger",
-			"Rare",
-			"Recipe",
-			"SFM04_Organic_Pod",
-			"Strange Encounter",
-			"Tales from West Virginia",
-			"Teddy Bear",
-			"Thistle",
-			"Treasure Map Mound",
-			"Trunk Boss",
-			"Vein",
-			"Wind Chimes",
-			"Workbench",
-		};
-
-		Random Random { get; } = new Random();
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public Settings Settings { get; private set; } = Settings.LoadFromFile(Paths.SettingsPath);
 
 		FormMapView MapViewForm { get; set; }
 
@@ -60,11 +23,11 @@ namespace Mappalachia
 			MapViewForm = new FormMapView(this);
 			MapViewForm.Show();
 
-			textBoxSearch.Text = SearchTermHints[Random.Next(SearchTermHints.Count)];
+			UpdateFromSettings();
+
 			InitializeSearchResultsGrid();
 			InitializeItemsToPlotGrid();
 			InitializeSpaceDropDown();
-			UpdateFromSettings();
 
 			mapMenuItem.DropDown.Closing += DontCloseClickedDropDown;
 			mapMapMarkersMenuItem.DropDown.Closing += DontCloseClickedDropDown;
@@ -195,6 +158,7 @@ namespace Mappalachia
 			highlightWaterMenuItem.Enabled = Settings.Space.IsWorldspace;
 			mapMapMarkersMenuItem.Enabled = Settings.Space.IsWorldspace;
 
+			textBoxSearch.Text = Settings.SearchSettings.SearchTerm;
 			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchSettings.SearchInAllSpaces;
 			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
 
@@ -417,6 +381,15 @@ namespace Mappalachia
 			Common.OpenURI(URLs.GitHub);
 		}
 
+		private void Help_ResetEverything_Click(object sender, EventArgs e)
+		{
+			Settings = new Settings();
+			SearchResults.Clear();
+			ItemsToPlot.Clear();
+			MapViewForm.SizeMapToForm();
+			UpdateFromSettings();
+		}
+
 		private void Donate_Click(object sender, EventArgs e)
 		{
 			Common.OpenURI(URLs.DonatePaypal);
@@ -591,6 +564,11 @@ namespace Mappalachia
 
 			ItemsToPlot.RaiseListChangedEvents = true;
 			ItemsToPlot.ResetBindings();
+		}
+
+		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Settings.SaveToFile(Paths.SettingsPath);
 		}
 	}
 }

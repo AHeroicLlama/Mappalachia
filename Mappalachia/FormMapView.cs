@@ -32,7 +32,7 @@ namespace Mappalachia
 			pictureBoxMapDisplay.Location = new Point((ClientSize.Width / 2) - (pictureBoxMapDisplay.Width / 2), (ClientSize.Height / 2) - (pictureBoxMapDisplay.Height / 2));
 		}
 
-		void SizeMapToForm()
+		public void SizeMapToForm()
 		{
 			pictureBoxMapDisplay.Width = ClientSize.Width;
 			pictureBoxMapDisplay.Height = ClientSize.Height;

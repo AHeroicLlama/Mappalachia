@@ -67,6 +67,7 @@ namespace Mappalachia
 			buttonAddToMap = new Button();
 			buttonRemoveFromMap = new Button();
 			dataGridViewItemsToPlot = new DataGridView();
+			resetEverythingToolStripMenuItem = new ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -232,7 +233,7 @@ namespace Mappalachia
 			// searchInAllSpacesToolStripMenuItem
 			// 
 			searchInAllSpacesToolStripMenuItem.Name = "searchInAllSpacesToolStripMenuItem";
-			searchInAllSpacesToolStripMenuItem.Size = new Size(180, 22);
+			searchInAllSpacesToolStripMenuItem.Size = new Size(176, 22);
 			searchInAllSpacesToolStripMenuItem.Text = "Search in all Spaces";
 			searchInAllSpacesToolStripMenuItem.ToolTipText = "Constrain the search to the selected Space only, or search all Spaces.";
 			searchInAllSpacesToolStripMenuItem.Click += Search_SearchInAllSpaces_Click;
@@ -240,14 +241,14 @@ namespace Mappalachia
 			// advancedModeToolStripMenuItem
 			// 
 			advancedModeToolStripMenuItem.Name = "advancedModeToolStripMenuItem";
-			advancedModeToolStripMenuItem.Size = new Size(180, 22);
+			advancedModeToolStripMenuItem.Size = new Size(176, 22);
 			advancedModeToolStripMenuItem.Text = "Advanced Mode";
 			advancedModeToolStripMenuItem.ToolTipText = "Toggle displaying search results in advanced dataminer format.";
 			advancedModeToolStripMenuItem.Click += Search_AdvancedMode_Click;
 			// 
 			// helpToolStripMenuItem
 			// 
-			helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, openUserGuidesToolStripMenuItem, checkForUpdatesToolStripMenuItem, viewGitHubToolStripMenuItem });
+			helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, openUserGuidesToolStripMenuItem, checkForUpdatesToolStripMenuItem, viewGitHubToolStripMenuItem, resetEverythingToolStripMenuItem });
 			helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			helpToolStripMenuItem.ShortcutKeyDisplayString = "";
 			helpToolStripMenuItem.Size = new Size(44, 20);
@@ -256,7 +257,7 @@ namespace Mappalachia
 			// aboutToolStripMenuItem
 			// 
 			aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			aboutToolStripMenuItem.Size = new Size(171, 22);
+			aboutToolStripMenuItem.Size = new Size(180, 22);
 			aboutToolStripMenuItem.Text = "About";
 			aboutToolStripMenuItem.ToolTipText = "View additional info about the application,";
 			aboutToolStripMenuItem.Click += Help_About_Click;
@@ -264,7 +265,7 @@ namespace Mappalachia
 			// openUserGuidesToolStripMenuItem
 			// 
 			openUserGuidesToolStripMenuItem.Name = "openUserGuidesToolStripMenuItem";
-			openUserGuidesToolStripMenuItem.Size = new Size(171, 22);
+			openUserGuidesToolStripMenuItem.Size = new Size(180, 22);
 			openUserGuidesToolStripMenuItem.Text = "Open User Guides";
 			openUserGuidesToolStripMenuItem.ToolTipText = "Read documentation online.";
 			openUserGuidesToolStripMenuItem.Click += Help_UserGuides_Click;
@@ -272,7 +273,7 @@ namespace Mappalachia
 			// checkForUpdatesToolStripMenuItem
 			// 
 			checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-			checkForUpdatesToolStripMenuItem.Size = new Size(171, 22);
+			checkForUpdatesToolStripMenuItem.Size = new Size(180, 22);
 			checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
 			checkForUpdatesToolStripMenuItem.ToolTipText = "Check if there is a new version available.";
 			checkForUpdatesToolStripMenuItem.Click += Help_CheckForUpdates_Click;
@@ -280,7 +281,7 @@ namespace Mappalachia
 			// viewGitHubToolStripMenuItem
 			// 
 			viewGitHubToolStripMenuItem.Name = "viewGitHubToolStripMenuItem";
-			viewGitHubToolStripMenuItem.Size = new Size(171, 22);
+			viewGitHubToolStripMenuItem.Size = new Size(180, 22);
 			viewGitHubToolStripMenuItem.Text = "View GitHub";
 			viewGitHubToolStripMenuItem.ToolTipText = "Go to the project home, or see the open source code.";
 			viewGitHubToolStripMenuItem.Click += Help_ViewGitHub_Click;
@@ -393,6 +394,14 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.Size = new Size(1240, 269);
 			dataGridViewItemsToPlot.TabIndex = 9;
 			// 
+			// resetEverythingToolStripMenuItem
+			// 
+			resetEverythingToolStripMenuItem.Name = "resetEverythingToolStripMenuItem";
+			resetEverythingToolStripMenuItem.Size = new Size(180, 22);
+			resetEverythingToolStripMenuItem.Text = "Reset Everything";
+			resetEverythingToolStripMenuItem.ToolTipText = "Reset every application setting";
+			resetEverythingToolStripMenuItem.Click += Help_ResetEverything_Click;
+			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
@@ -412,6 +421,7 @@ namespace Mappalachia
 			MainMenuStrip = menuStripMain;
 			Name = "FormMain";
 			Text = "Mappalachia";
+			FormClosing += FormMain_FormClosing;
 			menuStripMain.ResumeLayout(false);
 			menuStripMain.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).EndInit();
@@ -460,5 +470,6 @@ namespace Mappalachia
 		private Button buttonRemoveFromMap;
 		private DataGridView dataGridViewItemsToPlot;
 		private ToolStripMenuItem advancedModeToolStripMenuItem;
+		private ToolStripMenuItem resetEverythingToolStripMenuItem;
 	}
 }

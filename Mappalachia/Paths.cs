@@ -12,5 +12,7 @@
 		public static string MapMarkersPath { get; } = @"img\mapmarker\";
 
 		public static string FontPath { get; } = @"font\futura_condensed_bold.otf";
+
+		public static string SettingsPath { get; } = "settings.json";
 	}
 }

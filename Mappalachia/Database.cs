@@ -127,7 +127,7 @@ namespace Mappalachia
 					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, percChanceNone, count(*) as count FROM Position " +
 					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 					"WHERE " +
-					optionalSpaceTerm +
+					optionalExactFormIDTerm +
 					$"(instanceFormID = '{HexToInt(searchTerm)}' OR teleportsToFormID = '{HexToInt(searchTerm)}') " +
 					"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
 

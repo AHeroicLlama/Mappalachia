@@ -1,9 +1,9 @@
-﻿namespace Mappalachia
-{
-	public class MapSettings(Settings rootSettings)
-	{
-		Settings RootSettings { get; } = rootSettings;
+﻿using System.Text.Json.Serialization;
 
+namespace Mappalachia
+{
+	public class MapSettings
+	{
 		BackgroundImageType backgroundImage = BackgroundImageType.Menu;
 
 		public BackgroundImageType BackgroundImage
@@ -18,9 +18,12 @@
 				}
 
 				backgroundImage = value;
-				RootSettings.ResolveConflictingSettings();
+				RootSettings?.ResolveConflictingSettings();
 			}
 		}
+
+		[JsonIgnore]
+		public Settings? RootSettings { get; set; }
 
 		public float Brightness { get; set; } = 1.0f;
 
@@ -33,5 +36,14 @@
 		public bool MapMarkerLabels { get; set; } = false;
 
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
+
+		public MapSettings()
+		{
+		}
+
+		public MapSettings(Settings rootSettings)
+		{
+			RootSettings = rootSettings;
+		}
 	}
 }
