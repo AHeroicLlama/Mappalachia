@@ -537,15 +537,24 @@ namespace Mappalachia
 		{
 			ItemsToPlot.RaiseListChangedEvents = false;
 
-			// From the selected cells, find the unique rows, find the data bound to those, and add it from the ItemsToPlot
-			foreach (DataGridViewCell cell in dataGridViewSearchResults.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex))
+			List<GroupedInstance> itemsToAdd = new List<GroupedInstance>();
+
+			// From the selected cells, find the unique rows, and find the data bound to those
+			foreach (DataGridViewRow? row in dataGridViewSearchResults.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex).Select(c => c.OwningRow).Reverse())
 			{
-				GroupedInstance instance = (GroupedInstance)(cell.OwningRow?.DataBoundItem ?? throw new Exception("Row bound to null"));
+				GroupedInstance instance = (GroupedInstance)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"));
 
 				if (!ItemsToPlot.Contains(instance))
 				{
-					ItemsToPlot.Add(instance);
+					itemsToAdd.Add(instance);
 				}
+			}
+
+			// Add the valid items to the actual list
+			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
+			foreach (GroupedInstance instance in itemsToAdd)
+			{
+				ItemsToPlot.Add(instance);
 			}
 
 			ItemsToPlot.RaiseListChangedEvents = true;
@@ -556,10 +565,20 @@ namespace Mappalachia
 		{
 			ItemsToPlot.RaiseListChangedEvents = false;
 
-			// From the selected cells, find the unique rows, find the data bound to those, and remove it from the ItemsToPlot
-			foreach (DataGridViewCell cell in dataGridViewItemsToPlot.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex))
+			List<DataGridViewRow?> selectedRows = dataGridViewItemsToPlot.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex).Select(c => c.OwningRow).ToList();
+
+			// Shortcut to remove all
+			if (selectedRows.Count == ItemsToPlot.Count)
 			{
-				ItemsToPlot.Remove((GroupedInstance)(cell.OwningRow?.DataBoundItem ?? throw new Exception("Row bound to null")));
+				ItemsToPlot.Clear();
+			}
+			else
+			{
+				// From the selected rows, find the data bound to those, and remove it from the ItemsToPlot
+				foreach (DataGridViewRow? row in selectedRows)
+				{
+					ItemsToPlot.Remove((GroupedInstance)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null")));
+				}
 			}
 
 			ItemsToPlot.RaiseListChangedEvents = true;
