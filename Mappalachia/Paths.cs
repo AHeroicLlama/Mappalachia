@@ -14,5 +14,7 @@
 		public static string FontPath { get; } = @"font\futura_condensed_bold.otf";
 
 		public static string SettingsPath { get; } = "settings.json";
+
+		public static string SavedMapsPath { get; } = @"Saved_Maps\";
 	}
 }

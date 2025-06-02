@@ -1,4 +1,6 @@
-﻿using System.Drawing.Text;
+﻿using System.Diagnostics;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
 using Library;
 
 using static Library.Common;
@@ -13,9 +15,12 @@ namespace Mappalachia
 
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
+		static ImageCodecInfo JpegCodec { get; set; } = ImageCodecInfo.GetImageDecoders().Where(ic => ic.FormatID == ImageFormat.Jpeg.Guid).SingleOrDefault() ?? throw new Exception($"Failed to get jpeg codec");
+
 		static FileIO()
 		{
 			FontCollection.AddFontFile(Paths.FontPath);
+			CreateSavedMapsFolder();
 		}
 
 		// Return an image from the file path, or a cached version if loaded before
@@ -84,6 +89,53 @@ namespace Mappalachia
 			}
 
 			return LoadImage(path);
+		}
+
+		static string GetFileExtension(this ImageFormat format)
+		{
+			if (format == ImageFormat.Jpeg)
+			{
+				return ".jpg";
+			}
+
+			if (format == ImageFormat.Png)
+			{
+				return ".png";
+			}
+
+			throw new Exception($"Unexpected ImageFormat {format}");
+		}
+
+		public static void CreateSavedMapsFolder()
+		{
+			Directory.CreateDirectory(Paths.SavedMapsPath);
+		}
+
+		public static void QuickSave(Image image, MapSettings mapSettings)
+		{
+			CreateSavedMapsFolder();
+
+			ImageFormat format = mapSettings.BackgroundImage == BackgroundImageType.None ? ImageFormat.Png : ImageFormat.Jpeg;
+			string path = Paths.SavedMapsPath + "Mappalachia_QuickSave_" + DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss_FFF") + format.GetFileExtension();
+
+			Save(image, format, path);
+			Process.Start("explorer.exe", "/select," + path);
+		}
+
+		// Write image to file
+		public static void Save(Image image, ImageFormat format, string path, int jpegQuality = 85)
+		{
+			if (format == ImageFormat.Png)
+			{
+				image.Save(path, ImageFormat.Png);
+			}
+			else if (format == ImageFormat.Jpeg)
+			{
+				EncoderParameters encoderParams = new EncoderParameters();
+				encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, jpegQuality);
+
+				image.Save(path, JpegCodec, encoderParams);
+			}
 		}
 
 		// Returns the image for the icon of the mapMarker, uses caching

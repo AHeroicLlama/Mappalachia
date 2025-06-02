@@ -16,17 +16,27 @@ namespace Mappalachia
 			SquareForm(this, EventArgs.Empty);
 
 			SizeMapToForm();
+			UpdateKeepOnTopText();
+			menuStripPreview.BringToFront();
+		}
+
+		// Returns the currently displayed map as an Image
+		public Image GetCurrentMapImage()
+		{
+			return pictureBoxMapDisplay.Image ?? throw new Exception("Map image is null");
 		}
 
 		void CenterMapInForm()
 		{
-			pictureBoxMapDisplay.Location = new Point((ClientSize.Width / 2) - (pictureBoxMapDisplay.Width / 2), (ClientSize.Height / 2) - (pictureBoxMapDisplay.Height / 2));
+			pictureBoxMapDisplay.Location = new Point((ClientSize.Width / 2) - (pictureBoxMapDisplay.Width / 2), ((ClientSize.Height + menuStripPreview.Height) / 2) - (pictureBoxMapDisplay.Height / 2));
 		}
 
 		public void SizeMapToForm()
 		{
-			pictureBoxMapDisplay.Width = ClientSize.Width;
-			pictureBoxMapDisplay.Height = ClientSize.Height;
+			int dimension = Math.Min(ClientSize.Width, ClientSize.Height - menuStripPreview.Height);
+
+			pictureBoxMapDisplay.Width = dimension;
+			pictureBoxMapDisplay.Height = dimension;
 
 			CenterMapInForm();
 		}
@@ -67,19 +77,8 @@ namespace Mappalachia
 		// Set the form itself so the 'client area'/viewport is square, (matching the map image)
 		void SquareForm(object sender, EventArgs e)
 		{
-			Rectangle workingArea = Screen.FromControl(this).WorkingArea;
-
-			// How does the form window itself differ from its content
-			int additionalBorderHeight = Height - ClientSize.Height;
-			int additionalBorderWidth = Width - ClientSize.Width;
-
-			int newDimension = Math.Max(ClientSize.Width, ClientSize.Height);
-
-			// Cap to the current monitor's min dimension, minus the borders
-			newDimension = Math.Min(Math.Min(newDimension, workingArea.Width - additionalBorderWidth), workingArea.Height - additionalBorderHeight);
-
-			// Apply the resize
-			ClientSize = new Size(newDimension, newDimension);
+			int minDimension = Math.Max(ClientSize.Width, ClientSize.Height);
+			ClientSize = new Size(minDimension - menuStripPreview.Height, minDimension);
 		}
 
 		private void PictureBoxMapDisplay_MouseMove(object sender, MouseEventArgs e)
@@ -102,6 +101,22 @@ namespace Mappalachia
 		{
 			e.Cancel = true;
 			Hide();
+		}
+
+		private void ResetZoom_Click(object sender, EventArgs e)
+		{
+			SizeMapToForm();
+		}
+
+		private void KeepOnTop_Click(object sender, EventArgs e)
+		{
+			TopMost = !TopMost;
+			UpdateKeepOnTopText();
+		}
+
+		void UpdateKeepOnTopText()
+		{
+			keepOnTopMenuItem.Text = "Keep on top: " + (TopMost ? "On" : "Off");
 		}
 	}
 }

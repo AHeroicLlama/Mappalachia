@@ -30,20 +30,46 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMapView));
 			pictureBoxMapDisplay = new PictureBox();
+			menuStripPreview = new MenuStrip();
+			resetZoomMenuItem = new ToolStripMenuItem();
+			keepOnTopMenuItem = new ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).BeginInit();
+			menuStripPreview.SuspendLayout();
 			SuspendLayout();
 			// 
 			// pictureBoxMapDisplay
 			// 
-			pictureBoxMapDisplay.Anchor = AnchorStyles.None;
-			pictureBoxMapDisplay.Location = new Point(0, 0);
+			pictureBoxMapDisplay.Location = new Point(0, 24);
 			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
-			pictureBoxMapDisplay.Size = new Size(1008, 985);
+			pictureBoxMapDisplay.Size = new Size(1008, 961);
 			pictureBoxMapDisplay.SizeMode = PictureBoxSizeMode.Zoom;
 			pictureBoxMapDisplay.TabIndex = 1;
 			pictureBoxMapDisplay.TabStop = false;
 			pictureBoxMapDisplay.MouseDown += PictureBoxMapDisplay_MouseDown;
 			pictureBoxMapDisplay.MouseMove += PictureBoxMapDisplay_MouseMove;
+			// 
+			// menuStripPreview
+			// 
+			menuStripPreview.Items.AddRange(new ToolStripItem[] { resetZoomMenuItem, keepOnTopMenuItem });
+			menuStripPreview.Location = new Point(0, 0);
+			menuStripPreview.Name = "menuStripPreview";
+			menuStripPreview.Size = new Size(1008, 24);
+			menuStripPreview.TabIndex = 2;
+			// 
+			// resetZoomMenuItem
+			// 
+			resetZoomMenuItem.Name = "resetZoomMenuItem";
+			resetZoomMenuItem.Size = new Size(82, 20);
+			resetZoomMenuItem.Text = "Reset Zoom";
+			resetZoomMenuItem.Click += ResetZoom_Click;
+			// 
+			// keepOnTopMenuItem
+			// 
+			keepOnTopMenuItem.CheckOnClick = true;
+			keepOnTopMenuItem.Name = "keepOnTopMenuItem";
+			keepOnTopMenuItem.Size = new Size(83, 20);
+			keepOnTopMenuItem.Text = "Keep on top";
+			keepOnTopMenuItem.Click += KeepOnTop_Click;
 			// 
 			// FormMapView
 			// 
@@ -52,7 +78,9 @@
 			BackColor = Color.Black;
 			ClientSize = new Size(1008, 985);
 			Controls.Add(pictureBoxMapDisplay);
+			Controls.Add(menuStripPreview);
 			Icon = (Icon)resources.GetObject("$this.Icon");
+			MainMenuStrip = menuStripPreview;
 			MinimizeBox = false;
 			MinimumSize = new Size(256, 256);
 			Name = "FormMapView";
@@ -60,11 +88,17 @@
 			Text = "Mappalachia: Preview";
 			FormClosing += FormMapView_FormClosing;
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
+			menuStripPreview.ResumeLayout(false);
+			menuStripPreview.PerformLayout();
 			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
 
 		private PictureBox pictureBoxMapDisplay;
+		private MenuStrip menuStripPreview;
+		private ToolStripMenuItem resetZoomMenuItem;
+		private ToolStripMenuItem keepOnTopMenuItem;
 	}
 }

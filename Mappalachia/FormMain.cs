@@ -482,26 +482,34 @@ namespace Mappalachia
 
 		private void Map_QuickSave_Click(object sender, EventArgs e)
 		{
-			// TODO
+			FileIO.QuickSave(MapViewForm.GetCurrentMapImage(), Settings.MapSettings);
 			mapMenuItem.DropDown.Close();
 		}
 
 		private void Map_ExportToFile_Click(object sender, EventArgs e)
 		{
+			FileIO.CreateSavedMapsFolder();
+
 			// TODO
 			mapMenuItem.DropDown.Close();
 		}
 
 		private void Map_ClearPlots_Click(object sender, EventArgs e)
 		{
-			// TODO
+			ItemsToPlot.Clear();
+
 			mapMenuItem.DropDown.Close();
+			UpdateFromSettings();
 		}
 
 		private void Map_Reset_Click(object sender, EventArgs e)
 		{
-			// TODO
+			Settings.MapSettings = new MapSettings();
+			ItemsToPlot.Clear();
+			MapViewForm.SizeMapToForm();
+
 			mapMenuItem.DropDown.Close();
+			UpdateFromSettings();
 		}
 
 		private void ComboBoxSpace_SelectionChangeCommitted(object sender, EventArgs e)

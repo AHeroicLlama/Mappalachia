@@ -37,6 +37,8 @@ namespace Mappalachia
 
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
 
+		public string Title { get; set; } = string.Empty;
+
 		public MapSettings()
 		{
 		}

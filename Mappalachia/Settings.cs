@@ -13,6 +13,8 @@ namespace Mappalachia
 
 		public SearchSettings SearchSettings { get; set; }
 
+		JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions() { WriteIndented = true };
+
 		public static Settings LoadFromFile()
 		{
 			if (File.Exists(Paths.SettingsPath))
@@ -36,7 +38,7 @@ namespace Mappalachia
 
 		public void SaveToFile()
 		{
-			File.WriteAllText(Paths.SettingsPath, JsonSerializer.Serialize(this));
+			File.WriteAllText(Paths.SettingsPath, JsonSerializer.Serialize(this, JsonSerializerOptions));
 		}
 
 		public Settings()
