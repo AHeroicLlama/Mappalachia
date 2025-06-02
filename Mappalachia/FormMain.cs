@@ -19,14 +19,14 @@ namespace Mappalachia
 			InitializeComponent();
 
 			// Spawn the map view form
-			MapViewForm = new FormMapView(Settings);
+			MapViewForm = new FormMapView();
 			MapViewForm.Show();
-
-			UpdateFromSettings();
 
 			InitializeSearchResultsGrid();
 			InitializeItemsToPlotGrid();
 			InitializeSpaceDropDown();
+
+			UpdateFromSettings();
 
 			mapMenuItem.DropDown.Closing += DontCloseClickedDropDown;
 			mapMapMarkersMenuItem.DropDown.Closing += DontCloseClickedDropDown;
@@ -104,6 +104,8 @@ namespace Mappalachia
 		// Reads in fields from Settings and updates UI elements respectively
 		void UpdateFromSettings(bool reDraw = true)
 		{
+			comboBoxSpace.SelectedItem = Settings.Space;
+
 			grayscaleMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
 			highlightWaterMenuItem.Checked = Settings.MapSettings.HighlightWater;
 			mapMarkerIconsMenuItem.Checked = Settings.MapSettings.MapMarkerIcons;
@@ -168,7 +170,7 @@ namespace Mappalachia
 			// TODO - Doing this every time is inelegant.
 			if (reDraw)
 			{
-				MapViewForm.UpdateMap();
+				MapViewForm.UpdateMap(Settings);
 			}
 		}
 
@@ -332,7 +334,6 @@ namespace Mappalachia
 		{
 			comboBoxSpace.DataSource = Database.AllSpaces;
 			comboBoxSpace.DisplayMember = "FriendlyName";
-			comboBoxSpace.SelectedItem = Settings.Space;
 		}
 
 		void DontCloseClickedDropDown(object? sender, ToolStripDropDownClosingEventArgs e)
