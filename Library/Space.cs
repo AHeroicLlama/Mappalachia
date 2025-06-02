@@ -12,6 +12,8 @@
 
 		public double MaxRange { get; } = maxRange;
 
+		public string FriendlyName => $"{DisplayName} ({EditorID})";
+
 		public bool IsAppalachia()
 		{
 			return EditorID.Equals("APPALACHIA", StringComparison.OrdinalIgnoreCase);

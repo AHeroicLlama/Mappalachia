@@ -2,7 +2,7 @@ namespace Mappalachia
 {
 	public partial class FormMapView : Form
 	{
-		FormMain MainForm { get; }
+		Settings Settings { get; }
 
 		double ZoomRate { get; } = 1.2;
 
@@ -12,17 +12,12 @@ namespace Mappalachia
 
 		Point LastMouseDragEnd { get; set; }
 
-		public FormMapView(FormMain mainForm)
+		public FormMapView(Settings settings)
 		{
 			InitializeComponent();
 			SquareForm(this, EventArgs.Empty);
 
-			Shown += (s, e) =>
-			{
-				UpdateMap();
-			};
-
-			MainForm = mainForm;
+			Settings = settings;
 
 			SizeMapToForm();
 		}
@@ -70,7 +65,7 @@ namespace Mappalachia
 
 		public void UpdateMap()
 		{
-			pictureBoxMapDisplay.Image = Map.Draw(MainForm.Settings);
+			pictureBoxMapDisplay.Image = Map.Draw(Settings);
 		}
 
 		// Set the form itself so the 'client area'/viewport is square, (matching the map image)

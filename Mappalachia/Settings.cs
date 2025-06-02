@@ -13,18 +13,20 @@ namespace Mappalachia
 
 		public SearchSettings SearchSettings { get; set; }
 
-		public static Settings LoadFromFile(string path)
+		public static Settings LoadFromFile()
 		{
-			if (File.Exists(path))
+			if (File.Exists(Paths.SettingsPath))
 			{
 				try
 				{
-					Settings settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(path)) ?? new Settings();
+					Settings settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(Paths.SettingsPath)) ?? throw new Exception("Settings JSON Deserialized to null");
 					settings.MapSettings.RootSettings = settings;
 					return settings;
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
+					File.Delete(Paths.SettingsPath);
+					Notify.GenericError("Exception loading settings from file", "Mappalachia was unable to load your last settings from the settings file.\nThe settings have been reset.", e);
 					return new Settings();
 				}
 			}
@@ -32,9 +34,9 @@ namespace Mappalachia
 			return new Settings();
 		}
 
-		public void SaveToFile(string path)
+		public void SaveToFile()
 		{
-			File.WriteAllText(path, JsonSerializer.Serialize(this));
+			File.WriteAllText(Paths.SettingsPath, JsonSerializer.Serialize(this));
 		}
 
 		public Settings()

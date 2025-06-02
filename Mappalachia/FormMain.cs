@@ -6,8 +6,7 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
-		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public Settings Settings { get; private set; } = Settings.LoadFromFile(Paths.SettingsPath);
+		Settings Settings { get; set; } = Settings.LoadFromFile();
 
 		FormMapView MapViewForm { get; set; }
 
@@ -20,7 +19,7 @@ namespace Mappalachia
 			InitializeComponent();
 
 			// Spawn the map view form
-			MapViewForm = new FormMapView(this);
+			MapViewForm = new FormMapView(Settings);
 			MapViewForm.Show();
 
 			UpdateFromSettings();
@@ -331,14 +330,9 @@ namespace Mappalachia
 
 		void InitializeSpaceDropDown()
 		{
-			comboBoxSpace.Items.Clear();
-
-			foreach (Space space in Database.AllSpaces)
-			{
-				comboBoxSpace.Items.Add($"{space.DisplayName} ({space.EditorID})");
-			}
-
-			comboBoxSpace.SelectedIndex = 0;
+			comboBoxSpace.DataSource = Database.AllSpaces;
+			comboBoxSpace.DisplayMember = "FriendlyName";
+			comboBoxSpace.SelectedItem = Settings.Space;
 		}
 
 		void DontCloseClickedDropDown(object? sender, ToolStripDropDownClosingEventArgs e)
@@ -509,9 +503,9 @@ namespace Mappalachia
 			mapMenuItem.DropDown.Close();
 		}
 
-		private void ComboBoxSpace_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxSpace_SelectionChangeCommitted(object sender, EventArgs e)
 		{
-			Settings.Space = Database.AllSpaces[comboBoxSpace.SelectedIndex];
+			Settings.Space = (Space)(comboBoxSpace.SelectedItem ?? throw new Exception("Space combobox SelectedItem was null"));
 			UpdateFromSettings();
 		}
 
@@ -587,7 +581,7 @@ namespace Mappalachia
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Settings.SaveToFile(Paths.SettingsPath);
+			Settings.SaveToFile();
 		}
 	}
 }

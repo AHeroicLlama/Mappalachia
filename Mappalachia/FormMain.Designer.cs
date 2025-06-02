@@ -58,6 +58,7 @@ namespace Mappalachia
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
 			checkForUpdatesToolStripMenuItem = new ToolStripMenuItem();
 			viewGitHubToolStripMenuItem = new ToolStripMenuItem();
+			resetEverythingToolStripMenuItem = new ToolStripMenuItem();
 			joinTheDiscordToolStripMenuItem = new ToolStripMenuItem();
 			sayThanksToolStripMenuItem = new ToolStripMenuItem();
 			buttonSearch = new Button();
@@ -67,7 +68,6 @@ namespace Mappalachia
 			buttonAddToMap = new Button();
 			buttonRemoveFromMap = new Button();
 			dataGridViewItemsToPlot = new DataGridView();
-			resetEverythingToolStripMenuItem = new ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -286,6 +286,14 @@ namespace Mappalachia
 			viewGitHubToolStripMenuItem.ToolTipText = "Go to the project home, or see the open source code.";
 			viewGitHubToolStripMenuItem.Click += Help_ViewGitHub_Click;
 			// 
+			// resetEverythingToolStripMenuItem
+			// 
+			resetEverythingToolStripMenuItem.Name = "resetEverythingToolStripMenuItem";
+			resetEverythingToolStripMenuItem.Size = new Size(180, 22);
+			resetEverythingToolStripMenuItem.Text = "Reset Everything";
+			resetEverythingToolStripMenuItem.ToolTipText = "Reset every application setting.";
+			resetEverythingToolStripMenuItem.Click += Help_ResetEverything_Click;
+			// 
 			// joinTheDiscordToolStripMenuItem
 			// 
 			joinTheDiscordToolStripMenuItem.Name = "joinTheDiscordToolStripMenuItem";
@@ -352,7 +360,7 @@ namespace Mappalachia
 			comboBoxSpace.Size = new Size(429, 23);
 			comboBoxSpace.TabIndex = 6;
 			comboBoxSpace.Text = "Selected Space";
-			comboBoxSpace.SelectedIndexChanged += ComboBoxSpace_SelectedIndexChanged;
+			comboBoxSpace.SelectionChangeCommitted += ComboBoxSpace_SelectionChangeCommitted;
 			// 
 			// buttonAddToMap
 			// 
@@ -393,14 +401,6 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridViewItemsToPlot.Size = new Size(1240, 269);
 			dataGridViewItemsToPlot.TabIndex = 9;
-			// 
-			// resetEverythingToolStripMenuItem
-			// 
-			resetEverythingToolStripMenuItem.Name = "resetEverythingToolStripMenuItem";
-			resetEverythingToolStripMenuItem.Size = new Size(180, 22);
-			resetEverythingToolStripMenuItem.Text = "Reset Everything";
-			resetEverythingToolStripMenuItem.ToolTipText = "Reset every application setting";
-			resetEverythingToolStripMenuItem.Click += Help_ResetEverything_Click;
 			// 
 			// FormMain
 			// 
