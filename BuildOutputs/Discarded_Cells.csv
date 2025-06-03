@@ -2215,6 +2215,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 806577,PackInLvlMirelurkHunterAggro800GroundPackInStorageCell,,0
 806578,PackInLvlMirelurkHunterAggro512GroundPackInStorageCell,,0
 806579,PackInLvlMirelurkHunterAmbushGroundPackInStorageCell,,0
+8111587,76HoldingCellFishing,Quick Test Cell,0
 81153,WarehouseAnimations,Animation Test Cell,0
 81335,,,0
 81337,,,0
@@ -2232,7 +2233,13 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace
 8305797,DebugGamejam2025,,0
 8330,DebugLiam,Quick Test Cell,0
 835405,COPY0001,,0
+8453140,PackInATXFencePatrioticPicketFenceGate02128PCKNStorageCell,,0
+8453141,PackInATXFencePatrioticPicketFenceGate01128PCKNStorageCell,,0
+8460674,PackInFishingPackinLGTFishCatchLightingRig01StorageCell,,0
+8489724,PackInFishingQuestIntroBarrelPackInStorageCell,,0
 850351,,,0
+8511193,PackInF1S21SurvivalTentBoathousePKINStorageCell,,0
+8511195,PackInF1S21SurvivalTentBoathousePKINNewStorageCell,,0
 851270,COPY0285,,0
 87451,PackInPACKForestTrees030104StorageCell,,0
 87638,zCUTTestRender01,Quick Test Cell,0
