@@ -22,8 +22,6 @@ namespace Mappalachia
 	{
 		public static double MapMarkerIconScale { get; } = 1.5;
 
-		static double MapMarkerLabelTextOffset { get; } = 16; // Offset in Y Px where the label text is drawn from the mapmarker, if icons are on too
-
 		static int MapMarkerLabelFontSize { get; } = 21;
 
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
@@ -34,7 +32,7 @@ namespace Mappalachia
 
 		static int DropShadowOffset { get; } = 2;
 
-		static StringFormat CenterString { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near };
+		static StringFormat CenterString { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
 		public static Image Draw(Settings settings)
 		{
@@ -58,21 +56,24 @@ namespace Mappalachia
 					.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
 					.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
 
-				float labelOffset = (float)(settings.MapSettings.MapMarkerIcons ? MapMarkerLabelTextOffset : 0);
 				Font font = GetFont(MapMarkerLabelFontSize);
 
 				foreach (MapMarker marker in mapMarkers)
 				{
 					PointF coord = marker.Coord.AsScaledPoint(settings.Space);
+					int labelOffset = 0;
 
 					if (settings.MapSettings.MapMarkerIcons)
 					{
-						graphics.DrawImageCentered(marker.GetMapMarkerImage(), coord);
+						Image image = marker.GetMapMarkerImage();
+						graphics.DrawImageCentered(image, coord);
+
+						labelOffset = image.Height / 2;
 					}
 
 					if (settings.MapSettings.MapMarkerLabels)
 					{
-						graphics.DrawStringCentered(marker.Label, font, MapMarkerLabelBrush, new PointF(coord.X, coord.Y + labelOffset), true, MapMarkerLabelTextMaxWidth);
+						graphics.DrawStringCentered(marker.Label, font, MapMarkerLabelBrush, new PointF(coord.X, coord.Y + labelOffset), true, !settings.MapSettings.MapMarkerIcons, MapMarkerLabelTextMaxWidth);
 					}
 				}
 			}
@@ -88,14 +89,15 @@ namespace Mappalachia
 			graphics.DrawImage(image, coord.X - (image.Width / 2), coord.Y - (image.Height / 2));
 		}
 
-		// Draw the string at the given coordinates, centered on the coord. Optional drop shadow and text wrap
-		static void DrawStringCentered(this Graphics graphics, string text, Font font, Brush brush, PointF coord, bool dropShadow = false, int wrapWidth = -1)
+		// Draw the string at the given coordinates, centered on the coord. Optional drop shadow, text wrap, and vertically centered or top-aligned to the coord
+		static void DrawStringCentered(this Graphics graphics, string text, Font font, Brush brush, PointF coord, bool dropShadow = false, bool centerVert = true, int wrapWidth = -1)
 		{
 			// Calculate a rectangle which holds the text, when wrapped.
 			SizeF stringBounds = wrapWidth == -1 ? graphics.MeasureString(text, font) : graphics.MeasureString(text, font, new SizeF(wrapWidth, MapImageResolution));
+
 			RectangleF textBounds = new RectangleF(
 				coord.X - (stringBounds.Width / 2),
-				coord.Y,
+				coord.Y - (centerVert ? (stringBounds.Height / 2) : 0),
 				stringBounds.Width,
 				stringBounds.Height);
 
