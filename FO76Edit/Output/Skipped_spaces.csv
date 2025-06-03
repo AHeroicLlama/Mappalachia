@@ -161,6 +161,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0061DAF0,DebugMattTDUPLICATE000,Quick Test Cell,0
 006D9C50,,,0
 006DF04C,PackInMOONHerdWorkshopItemPaddockGatePKINStorageCell,,0
+0080FC14,PackInATXFencePatrioticPicketFenceGate02128PCKNStorageCell,,0
 00017A52,COPY0255,,0
 0005712A,PackInLvlRadRoachAmbushFloorStorageCell,,0
 0009BD2A,zCUTDebugRange,DebugRange,0
@@ -394,6 +395,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005FF9B1,PackInATXFenceBarbedWireGatePKINStorageCell,,0
 006D9C51,PackInPACKStormFirecap01StorageCell,,0
 00709C49,76DebugTMartins,Quick Test Cell,0
+0080FC15,PackInATXFencePatrioticPicketFenceGate01128PCKNStorageCell,,0
 0000416F,,,0
 00007FEF,,,0
 000083D7,PackInSLABMedShackBootlegger01StorageCell,,0
@@ -947,6 +949,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006551DD,76HoldingCellKennethDean,Quick Test Cell,0
 0068C0C5,StormTrainTunnelsTest,,0
 006D8B55,,,0
+0081DED9,PackInF1S21SurvivalTentBoathousePKINStorageCell,,0
 0006312C,,,0
 0007186C,,,0
 000732FC,COPY0266,,0
@@ -1004,6 +1007,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005FBF6C,PackInScorchedTubePackInStorageCell,,0
 0064D8E4,,,0
 007813F0,PackInF1SurvivalTentFlatbedTruckCopy01StorageCell,,0
+00818AFC,PackInFishingQuestIntroBarrelPackInStorageCell,,0
 000017F6,,,0
 0000E122,PackInPACKToxicTreeClusterMed03StorageCell,,0
 00112726,COPY0051,,0
@@ -1103,6 +1107,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00677892,PackInATXMedievalPortcullisPKINStorageCell,,0
 006DC382,PackInPACKStormCrptMtnTopPineTree01StorageCell,,0
 006EC426,,,0
+00811982,PackInFishingPackinLGTFishCatchLightingRig01StorageCell,,0
 00001698,PackInWorkshopPACKWrhsPrefab01StorageCell,,0
 000028F4,,,0
 0000E0F0,PackInFEVDecalTrap02StorageCell,,0
@@ -1365,6 +1370,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005350E3,DebugCarlM,Quick Test Cell,0
 005544E3,,,0
 007451B7,PackInF1S15SurvivalTentGazeboPKINCStorageCell,,0
+0081DEDB,PackInF1S21SurvivalTentBoathousePKINNewStorageCell,,0
 00011D92,,,0
 001228DA,PackInPACKMtnTopShrubsSmall02StorageCell,,0
 0014056A,PackInTreeMapleForest01CrowMarkerPackinStorageCell,,0
@@ -1780,6 +1786,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0056901B,COPY0006,,0
 0057794F,,,0
 005994C3,,,0
+007BC5E3,76HoldingCellFishing,Quick Test Cell,0
 00002389,PackInPACKToxicBasinGroupMed03StorageCell,,0
 00003261,zCUTWhitespringBunkerOld,Whitespring Bunker OLD,0
 0000F809,zCUTDebugDaryl01,Quick Test Cell,0
