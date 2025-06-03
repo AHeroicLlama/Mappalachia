@@ -9,7 +9,8 @@
 * A release of [fo76utils](https://github.com/fo76utils/fo76utils)
 
 ### Note
-Background image rendering is optional. If you need the images present for debugging, take them from a release. You should only need to run this step if the cells or worldspaces have changed since a game release.
+Background image rendering is optional. If you just need the images for debugging, take them from a release.<br>
+Typically, you should only need to run this step if the cells or worldspaces have changed since a game release.
 
 ## Setup
 At the root of the repository, create the folder `Utilities\fo76utils`. Extract [a release of fo76utils](https://github.com/fo76utils/fo76utils/releases) inside here. The code described here makes calls to the render tool, which does all the heavy lifting for the rendering.<br/>
@@ -28,7 +29,7 @@ The renderer will use fo76utils to render the images, then ImageMagick to conver
 ### X/Y Offset & Zoom
 To ensure quality maps, we must ensure that the view of plotted cells is correctly centered and zoomed onto the view of the cell contents. This cannot always be automatically done, as Bethesda sometimes leave assets far outside the playable area.<br/>
 
-Selecting option 2 in the background renderer will guide you through a CLI wizard which helps correct this. It is recommended to assign Paint.NET as the default program for .jpg files - the tool will generate a quick render of the cell, then ask you to draw a box around the true cell contents, and enter the position and dimensions of that area. Once inputted, the tool will write a file to `BackgroundRenderer\Corrections\XY_Scale\`. This file is read by the Preprocessor, to correct for the positioning of the cell (both its render and its plots.)<br/>
+Selecting option 2 in the background renderer will guide you through a CLI wizard which helps correct this. It is expected you have assigned Paint.NET as the default program for .dds files - the tool will generate a quick render of the cell, then ask you to draw a box around the true cell contents, and enter the position and dimensions of that area (bottom-left of Paint.NET). Once inputted, the tool will write a file to `BackgroundRenderer\Corrections\XY_Scale\`. This file is read by the Preprocessor, to correct for the positioning of the cell (both its render and its plots.)<br/>
 
 If you have amended a cell this way, you must rebuild the database to incorporate the new correction, and then re-render the cell background.
 

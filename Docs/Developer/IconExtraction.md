@@ -8,7 +8,7 @@
 * An installation of Visual Studio
 
 ### Note
-Map marker extraction is optional, as map marker images are already stored in the repository. You should only need to run this step if you believe the map marker icons have changed since a game release. The database summary will indicate if any new markers are used, but not if any marker images have themselves changed. Additionally, the image validation functionality of the Preprocessor will highlight if any necessary icon files are missing.
+Map marker extraction is optional, as map marker images are already stored in the repository. You should only need to run this step if you believe the map marker icons have changed since a game release. The image validation functionality of the Preprocessor will highlight if any necessary icon files are missing, but not if they have changed.
 
 ## Process overview
 Fallout 76 uses SWF (Flash) to power most if its UIs, this includes the map menu and markers inside.<br/>
