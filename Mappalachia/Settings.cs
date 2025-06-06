@@ -7,6 +7,15 @@ namespace Mappalachia
 	{
 		Space space;
 
+		volatile Version? lastDeclinedUpdateVersion;
+
+		// The UpdateChecker runs async and will read/write this
+		public Version? LastDeclinedUpdateVersion
+		{
+			get => lastDeclinedUpdateVersion;
+			set => Interlocked.Exchange(ref lastDeclinedUpdateVersion, value);
+		}
+
 		public MapSettings MapSettings { get; set; }
 
 		public PlotSettings PlotSettings { get; set; }

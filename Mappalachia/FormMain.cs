@@ -18,6 +18,8 @@ namespace Mappalachia
 		{
 			InitializeComponent();
 
+			UpdateChecker.CheckForUpdates(Settings);
+
 			// Spawn the map view form
 			MapViewForm = new FormMapView();
 			MapViewForm.Show();
@@ -368,7 +370,7 @@ namespace Mappalachia
 
 		private void Help_CheckForUpdates_Click(object sender, EventArgs e)
 		{
-			UpdateChecker.CheckForUpdates(true);
+			UpdateChecker.CheckForUpdates(Settings, true);
 		}
 
 		private void Help_ViewGitHub_Click(object sender, EventArgs e)
@@ -376,6 +378,7 @@ namespace Mappalachia
 			Common.OpenURI(URLs.GitHub);
 		}
 
+		// Note that this creates a new instance of Settings, so references passed will become disconnected
 		private void Help_ResetEverything_Click(object sender, EventArgs e)
 		{
 			Settings = new Settings();
@@ -533,7 +536,6 @@ namespace Mappalachia
 		private void SearchTerm_TextChanged(object sender, EventArgs e)
 		{
 			Settings.SearchSettings.SearchTerm = textBoxSearch.Text;
-			UpdateFromSettings(false);
 		}
 
 		private void ButtonAddToMap_Click(object sender, EventArgs e)

@@ -15,7 +15,7 @@ namespace Mappalachia
 			return button;
 		}
 
-		public static async void CheckForUpdates(bool userRequested = false)
+		public static async void CheckForUpdates(Settings settings, bool userRequested = false)
 		{
 			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version ?? throw new Exception("Assembly Version is null");
 
@@ -47,7 +47,13 @@ namespace Mappalachia
 					return;
 				}
 
-				ShowUpdateDialog(currentVersion, latestVersion, downloadURL, releaseURL, patchNotes);
+				// If the user skipped this version, and didn't request the check, silently exit
+				if (!userRequested && settings.LastDeclinedUpdateVersion == latestVersion)
+				{
+					return;
+				}
+
+				ShowUpdateDialog(settings, currentVersion, latestVersion, downloadURL, releaseURL, patchNotes);
 			}
 			catch (Exception e)
 			{
@@ -55,8 +61,6 @@ namespace Mappalachia
 				{
 					ShowErrorDialog(currentVersion, $"{e.GetType().Name}: {e.Message}");
 				}
-
-				return;
 			}
 		}
 
@@ -82,7 +86,7 @@ namespace Mappalachia
 		}
 
 		// Displays the dialog which informs of the successful update check result
-		static void ShowUpdateDialog(Version currentVersion, Version latestVersion, string downloadURL, string releaseURL, string patchNotes)
+		static void ShowUpdateDialog(Settings settings, Version currentVersion, Version latestVersion, string downloadURL, string releaseURL, string patchNotes)
 		{
 			// Create a default page
 			TaskDialogPage page = new TaskDialogPage()
@@ -102,11 +106,11 @@ namespace Mappalachia
 			{
 				TaskDialogButton buttonDownloadNow = new TaskDialogButton("Download now");
 				TaskDialogButton buttonViewMore = new TaskDialogButton("View on GitHub");
-				TaskDialogButton buttonRemindLater = new TaskDialogButton("Remind me later");
+				TaskDialogButton buttonSkipThisVersion = new TaskDialogButton("Ignore this version");
 
 				buttonDownloadNow.Click += (sender, e) => { Common.OpenURI(downloadURL ?? throw new Exception("Download URL is null")); };
 				buttonViewMore.Click += (sender, e) => { Common.OpenURI(releaseURL ?? throw new Exception("Release URL is null")); };
-				buttonRemindLater.Click += (sender, e) => { /* TODO - Store choice in settings */ };
+				buttonSkipThisVersion.Click += (sender, e) => { settings.LastDeclinedUpdateVersion = latestVersion; };
 
 				page.Heading = $"An new Mappalachia version, {latestVersion} is available.";
 				page.Text = patchNotes;
@@ -116,7 +120,7 @@ namespace Mappalachia
 				{
 					buttonDownloadNow,
 					buttonViewMore,
-					buttonRemindLater,
+					buttonSkipThisVersion,
 				};
 			}
 
