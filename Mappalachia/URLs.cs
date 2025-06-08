@@ -9,17 +9,17 @@ namespace Mappalachia
 
 		static string DiscordProtocolName { get; } = "discord";
 
-		// Query the registry to find if the URL protocol for Discord is registered
-		static bool IsDiscordProtocolRegistered()
+		// Query the registry to find if the URL protocol is registered
+		static bool IsProtocolRegistered(string protocol)
 		{
-			return Registry.ClassesRoot.OpenSubKey(DiscordProtocolName)?.GetValue("URL Protocol") != null;
+			return Registry.ClassesRoot.OpenSubKey(protocol)?.GetValue("URL Protocol") != null;
 		}
 
 		public static Uri DiscordInvite
 		{
 			get
 			{
-				return IsDiscordProtocolRegistered() ? new Uri($"{DiscordProtocolName}://-/invite/{DiscordInviteCode}") : new Uri($"https://discord.gg/invite/{DiscordInviteCode}");
+				return IsProtocolRegistered(DiscordProtocolName) ? new Uri($"{DiscordProtocolName}://-/invite/{DiscordInviteCode}") : new Uri($"https://discord.gg/invite/{DiscordInviteCode}");
 			}
 		}
 
