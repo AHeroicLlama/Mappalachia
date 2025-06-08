@@ -35,7 +35,10 @@ namespace Mappalachia
 				{
 					Caption = "Mappalachia",
 					Heading = "Unexpected error",
-					Text = $"An unexpected error has occurred and Mappalachia must close.\nIf this keeps happening, please ensure you have properly unzipped all files from the latest release. If you need support, join our Discord with the button below.\n\nError details:\n{exception.Message}",
+					Text = $"An unexpected error has occurred and Mappalachia must close.\n" +
+					$"If this keeps happening, please ensure you have properly unzipped all files from the latest release.\n" +
+					$"If you need support, join our Discord with the button below.\n\n" +
+					$"Error details:\n{exception.Message}",
 					Icon = TaskDialogIcon.Error,
 					AllowCancel = true,
 					DefaultButton = TaskDialogButton.OK,
