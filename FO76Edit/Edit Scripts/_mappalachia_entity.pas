@@ -39,9 +39,6 @@ unit _mappalachia_entity;
 			// Don't export data for Cells or Worldspaces, as they won't contain themselves
 			if (signature = 'CELL') or (signature = 'WRLD') then continue;
 
-			//todo debug
-			if not((signature = 'CONT') or (signature = 'LVLI')) then continue;
-
 			AddMessage('Entity: ' + signature);
 
 			for j := 0 to ElementCount(signatureGroup) -1 do begin
@@ -99,7 +96,7 @@ unit _mappalachia_entity;
 						outputStringsLeveledItem.Add(
 							IntToStr(FixedFormId(item)) + ',' +
 							GetEditValue(ElementBySignature(item, 'LVCV')) + ',' +
-							GetEditValue(ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Reference')) + ',' +
+							sanitize(GetEditValue(ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Reference'))) + ',' +
 							GetEditValue(ElementBySignature(leveledItem, 'LVIV')) + ',' +
 							GetEditValue(ElementBySignature(leveledItem, 'LVOV')) + ',' +
 							GetEditValue(ElementBySignature(leveledItem, 'LVLV'))
@@ -110,7 +107,7 @@ unit _mappalachia_entity;
 						outputStringsLeveledItem.Add(
 							IntToStr(FixedFormId(item)) + ',' +
 							GetEditValue(ElementBySignature(item, 'LVCV')) + ',' +
-							GetEditValue(ElementByName(lvliBaseData, 'Reference')) + ',' +
+							sanitize(GetEditValue(ElementByName(lvliBaseData, 'Reference'))) + ',' +
 							GetEditValue(ElementByName(lvliBaseData, 'Count')) + ',' +
 							GetEditValue(ElementByName(lvliBaseData, 'Chance None')) + ',' +
 							GetEditValue(ElementByName(lvliBaseData, 'Level'))
