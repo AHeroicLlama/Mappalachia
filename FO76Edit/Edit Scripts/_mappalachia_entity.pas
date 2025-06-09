@@ -1,11 +1,15 @@
 // Rip every single entry in the ESM which is relevant for mapping. Gets each item's FormID, EditorID and displayName.
 // This is later cross referenced between the location data to assign names/EditorID's to FormIDs in the location data
-// Header 'entityFormID,displayName,editorID,signature,percChanceNone'
+// CONT and LVLI are treated differently, as we export the items they contain
+// Headers:
+// Entity: 'entityFormID,displayName,editorID,signature,percChanceNone'
+// Container: 'containerFormID,contentsFormID'
+// Leveled Item:
 unit _mappalachia_entity;
 
 	uses _mappalachia_lib;
 
-	var outputStrings : TStringList;
+	var outputStrings, outputStringsContainer, outputStringsLeveledItem : TStringList;
 
 	procedure Initialize;
 	begin
@@ -15,12 +19,16 @@ unit _mappalachia_entity;
 	procedure ripFormIDs(); // Primary block for iterating down tree
 	const
 		outputFile = ProgramPath + 'Output\Entity.csv';
+		outputFileContainer = ProgramPath + 'Output\Container.csv';
+		outputFileLeveledItem = ProgramPath + 'Output\LeveledItem.csv';
 	var
 		i, j : Integer; // Iterators
 		signatureGroup : IInterface;
 		signature : String;
 	begin
 		outputStrings := TStringList.Create;
+		outputStringsContainer := TStringList.Create;
+		outputStringsLeveledItem := TStringList.Create;
 
 		// Rip everything down to the end nodes of the hierarchy tree
 		for i := 0 to ElementCount(targetESM) - 1 do begin
@@ -29,7 +37,7 @@ unit _mappalachia_entity;
 			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
 
 			// Don't export data for Cells or Worldspaces, as they won't contain themselves
-			if (signature = 'CELL') or (signature = 'WRLD') or (signature = 'PLYT') then continue; // Skip PLYT to workaround xedit bug
+			if (signature = 'CELL') or (signature = 'WRLD') then continue;
 
 			AddMessage('Entity: ' + signature);
 
@@ -38,9 +46,13 @@ unit _mappalachia_entity;
 			end;
 		end;
 
-		AddMessage('Writing output to file: ' + outputFile);
 		createDir('Output');
+		AddMessage('Writing output to file: ' + outputFile);
+		AddMessage('Writing output to file: ' + outputFileContainer);
+		AddMessage('Writing output to file: ' + outputFileLeveledItem);
 		outputStrings.SaveToFile(outputFile);
+		outputStringsContainer.SaveToFile(outputFileContainer);
+		outputStringsLeveledItem.SaveToFile(outputFileLeveledItem);
 	end;
 
 	procedure ripItem(item : IInterface; signature : String);
@@ -48,8 +60,8 @@ unit _mappalachia_entity;
 		editorId = EditorID(item);
 		displayName = DisplayName(item);
 	var
-		i : Integer;
-		bestDisplayName : String;
+		i, j, k : Integer;
+		containerItems, leveledList, containerItem, leveledItem : IInterface;
 	begin
 		if(FixedFormId(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
@@ -57,20 +69,30 @@ unit _mappalachia_entity;
 			end;
 		end
 		else begin // This is an end-node
-			if (signature = 'LVLI') then begin
-				bestDisplayName := getNameforLvli(item);
+			if (signature = 'CONT') then begin
+				containerItems := ElementByName(item, 'Items');
+
+				for j := 0 to ElementCount(containerItems) -1 do begin
+					containerItem := ElementByName(ElementBySignature(ElementByIndex(containerItems, j), 'CNTO'), 'Item');
+
+					outputStringsContainer.Add(
+						IntToStr(FixedFormId(item)) + ',' +
+						GetEditValue(containerItem)
+					);
+				end;
+			end
+			else if (signature = 'LVLI') then begin
+				outputStringsLeveledItem.add(sanitize(displayName) + ':LVLI');
 			end
 			else begin
-				bestDisplayName := displayName;
+				outputStrings.Add(
+					IntToStr(FixedFormId(item)) + ',' +
+					sanitize(displayName) + ',' +
+					editorId + ',' +
+					signature + ',' +
+					GetEditValue(ElementBySignature(item, 'LVLD'))
+				);
 			end;
-
-			outputStrings.Add(
-				IntToStr(FixedFormId(item)) + ',' +
-				sanitize(bestDisplayName) + ',' +
-				editorId + ',' +
-				signature + ',' +
-				GetEditValue(ElementBySignature(item, 'LVLD'))
-			);
 		end;
 	end;
 end.
