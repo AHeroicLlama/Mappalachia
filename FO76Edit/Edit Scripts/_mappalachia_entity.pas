@@ -4,7 +4,7 @@
 // Headers:
 // Entity: 'entityFormID,displayName,editorID,signature'
 // Container: 'containerFormID,contentsFormID,count'
-// Leveled Item: 'parentFormID,parentChanceNone,childFormID,childCount,childChanceNone,childMinlevel,conditionCount'
+// Leveled Item: 'parentFormID,childFormID,count'
 unit _mappalachia_entity;
 
 	uses _mappalachia_lib;
@@ -61,7 +61,7 @@ unit _mappalachia_entity;
 		displayName = DisplayName(item);
 	var
 		i, j, k : Integer;
-		containerItems, leveledList, containerItem, leveledItem, lvliBaseData, parentConditions, conditions : IInterface;
+		containerItems, leveledList, containerItem, leveledItem, lvliBaseData, lvliReference, lvliCount : IInterface;
 	begin
 		if(FixedFormId(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
@@ -84,36 +84,26 @@ unit _mappalachia_entity;
 			end
 			else if (signature = 'LVLI') then begin
 				leveledList := ElementByName(item, 'Leveled List Entries');
-				parentConditions := ElementByName(item, 'Conditions');
 
 				for k := 0 to ElementCount(leveledList) -1 do begin
 					leveledItem := ElementByIndex(leveledList, k);
 					lvliBaseData := ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Base Data');
-					conditions := ElementByName(leveledItem, 'Conditions');
 
-					// Uses the "Base Data' structure
+					// Uses the "Base Data" structure
 					if (not(Assigned(lvliBaseData))) then begin
-						outputStringsLeveledItem.Add(
-							IntToStr(FixedFormId(item)) + ',' +
-							GetEditValue(ElementBySignature(item, 'LVCV')) + ',' +
-							sanitize(GetEditValue(ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Reference'))) + ',' +
-							GetEditValue(ElementBySignature(leveledItem, 'LVIV')) + ',' +
-							GetEditValue(ElementBySignature(leveledItem, 'LVOV')) + ',' +
-							GetEditValue(ElementBySignature(leveledItem, 'LVLV'))
-							+ ',' + IntToStr(ElementCount(parentConditions) + ElementCount(conditions))
-						);
+						lvliReference := ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Reference');
+						lvliCount := ElementBySignature(leveledItem, 'LVIV');
 					end
 					else begin
-						outputStringsLeveledItem.Add(
-							IntToStr(FixedFormId(item)) + ',' +
-							GetEditValue(ElementBySignature(item, 'LVCV')) + ',' +
-							sanitize(GetEditValue(ElementByName(lvliBaseData, 'Reference'))) + ',' +
-							GetEditValue(ElementByName(lvliBaseData, 'Count')) + ',' +
-							GetEditValue(ElementByName(lvliBaseData, 'Chance None')) + ',' +
-							GetEditValue(ElementByName(lvliBaseData, 'Level'))
-							+ ',' + IntToStr(ElementCount(parentConditions) + ElementCount(conditions))
-						);
+						lvliReference := ElementByName(lvliBaseData, 'Reference');
+						lvliCount := ElementByName(lvliBaseData, 'Count');
 					end;
+
+					outputStringsLeveledItem.Add(
+						IntToStr(FixedFormId(item)) + ',' +
+						sanitize(GetEditValue(lvliReference)) + ',' +
+						GetEditValue(lvliCount)
+					);
 				end;
 			end;
 
