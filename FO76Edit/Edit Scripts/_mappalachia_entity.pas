@@ -2,9 +2,9 @@
 // This is later cross referenced between the location data to assign names/EditorID's to FormIDs in the location data
 // CONT and LVLI are treated differently, as we export the items they contain
 // Headers:
-// Entity: 'entityFormID,displayName,editorID,signature,percChanceNone'
-// Container: 'containerFormID,contentsFormID'
-// Leveled Item:
+// Entity: 'entityFormID,displayName,editorID,signature'
+// Container: 'containerFormID,contentsFormID,count'
+// Leveled Item: 'parentFormID,parentChanceNone,childFormID,childCount,childChanceNone,childMinlevel,conditionCount'
 unit _mappalachia_entity;
 
 	uses _mappalachia_lib;
@@ -39,6 +39,9 @@ unit _mappalachia_entity;
 			// Don't export data for Cells or Worldspaces, as they won't contain themselves
 			if (signature = 'CELL') or (signature = 'WRLD') then continue;
 
+			//todo debug
+			if not((signature = 'CONT') or (signature = 'LVLI')) then continue;
+
 			AddMessage('Entity: ' + signature);
 
 			for j := 0 to ElementCount(signatureGroup) -1 do begin
@@ -61,7 +64,7 @@ unit _mappalachia_entity;
 		displayName = DisplayName(item);
 	var
 		i, j, k : Integer;
-		containerItems, leveledList, containerItem, leveledItem : IInterface;
+		containerItems, leveledList, containerItem, leveledItem, lvliBaseData, parentConditions, conditions : IInterface;
 	begin
 		if(FixedFormId(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
@@ -73,26 +76,57 @@ unit _mappalachia_entity;
 				containerItems := ElementByName(item, 'Items');
 
 				for j := 0 to ElementCount(containerItems) -1 do begin
-					containerItem := ElementByName(ElementBySignature(ElementByIndex(containerItems, j), 'CNTO'), 'Item');
+					containerItem := ElementBySignature(ElementByIndex(containerItems, j), 'CNTO');
 
 					outputStringsContainer.Add(
 						IntToStr(FixedFormId(item)) + ',' +
-						GetEditValue(containerItem)
+						GetEditValue(ElementByName(containerItem, 'Item')) + ',' +
+						GetEditValue(ElementByName(containerItem, 'Count'))
 					);
 				end;
 			end
 			else if (signature = 'LVLI') then begin
-				outputStringsLeveledItem.add(sanitize(displayName) + ':LVLI');
-			end
-			else begin
-				outputStrings.Add(
-					IntToStr(FixedFormId(item)) + ',' +
-					sanitize(displayName) + ',' +
-					editorId + ',' +
-					signature + ',' +
-					GetEditValue(ElementBySignature(item, 'LVLD'))
-				);
+				leveledList := ElementByName(item, 'Leveled List Entries');
+				parentConditions := ElementByName(item, 'Conditions');
+
+				for k := 0 to ElementCount(leveledList) -1 do begin
+					leveledItem := ElementByIndex(leveledList, k);
+					lvliBaseData := ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Base Data');
+					conditions := ElementByName(leveledItem, 'Conditions');
+
+					// Uses the "Base Data' structure
+					if (not(Assigned(lvliBaseData))) then begin
+						outputStringsLeveledItem.Add(
+							IntToStr(FixedFormId(item)) + ',' +
+							GetEditValue(ElementBySignature(item, 'LVCV')) + ',' +
+							GetEditValue(ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Reference')) + ',' +
+							GetEditValue(ElementBySignature(leveledItem, 'LVIV')) + ',' +
+							GetEditValue(ElementBySignature(leveledItem, 'LVOV')) + ',' +
+							GetEditValue(ElementBySignature(leveledItem, 'LVLV'))
+							+ ',' + IntToStr(ElementCount(parentConditions) + ElementCount(conditions))
+						);
+					end
+					else begin
+						outputStringsLeveledItem.Add(
+							IntToStr(FixedFormId(item)) + ',' +
+							GetEditValue(ElementBySignature(item, 'LVCV')) + ',' +
+							GetEditValue(ElementByName(lvliBaseData, 'Reference')) + ',' +
+							GetEditValue(ElementByName(lvliBaseData, 'Count')) + ',' +
+							GetEditValue(ElementByName(lvliBaseData, 'Chance None')) + ',' +
+							GetEditValue(ElementByName(lvliBaseData, 'Level'))
+							+ ',' + IntToStr(ElementCount(parentConditions) + ElementCount(conditions))
+						);
+					end;
+				end;
 			end;
+
+			// The main entity export for all entities
+			outputStrings.Add(
+				IntToStr(FixedFormId(item)) + ',' +
+				sanitize(displayName) + ',' +
+				editorId + ',' +
+				signature
+			);
 		end;
 	end;
 end.
