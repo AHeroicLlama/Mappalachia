@@ -16,7 +16,7 @@
 		public virtual string Label { get; } = label;
 
 		// The expected quantity of the spawn
-		// EG 0.5 for a 50% chance NPC, 2 for junk containing 2 scrap, 1 (Except rarely when Entity.percChanceNone has a value) for a statically placed object
+		// EG 0.5 for a 50% chance NPC, 2 for junk containing 2 scrap, 1 for a statically placed object
 		public virtual double SpawnWeight { get; } = spawnWeight;
 
 		public override bool Equals(object? obj)

@@ -92,7 +92,7 @@ namespace Preprocessor
 			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{gameVersion}');");
 
 			// Create new tables
-			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, percChanceNone INTEGER);");
+			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT);");
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, parentLocationFormID TEXT, minLevel INTEGER, maxLevel INTEGER, property TEXT, value INTEGER);");
@@ -347,7 +347,6 @@ namespace Preprocessor
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg CenterX, CenterY", SimpleQuery("SELECT AVG(centerX), AVG(centerY) FROM Space;"));
 			AddToSummaryReport("Avg Rotation", SimpleQuery("SELECT AVG(rotZ) FROM Position;"));
-			AddToSummaryReport("Avg PercChanceNone", SimpleQuery("SELECT AVG(percChanceNone) FROM Entity;"));
 			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, COUNT(lockLevel) FROM Position GROUP BY lockLevel;"));
 			AddToSummaryReport("Primitive Shapes", SimpleQuery("SELECT primitiveShape, COUNT(primitiveShape) FROM Position GROUP BY primitiveShape;"));
 			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, COUNT(signature) FROM Entity GROUP BY signature;"));

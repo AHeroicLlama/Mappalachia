@@ -28,7 +28,7 @@ namespace Mappalachia
 			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty;
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 
-			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, percChanceNone FROM Position_PreGrouped " +
+			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
 				optionalSpaceTerm +
@@ -49,8 +49,7 @@ namespace Mappalachia
 					reader.GetInt("count"),
 					0,
 					reader.GetString("label"),
-					reader.GetLockLevel(),
-					(100 - reader.GetInt("percChanceNone")) / 100f));
+					reader.GetLockLevel()));
 			}
 
 			// NPC
@@ -124,7 +123,7 @@ namespace Mappalachia
 			if (searchIsFormID)
 			{
 				query =
-					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, percChanceNone, count(*) as count FROM Position " +
+					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, count(*) as count FROM Position " +
 					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 					"WHERE " +
 					optionalExactFormIDTerm +
@@ -145,8 +144,7 @@ namespace Mappalachia
 						reader.GetInt("count"),
 						0,
 						reader.GetString("label"),
-						reader.GetLockLevel(),
-						(100 - reader.GetInt("percChanceNone")) / 100f));
+						reader.GetLockLevel()));
 				}
 			}
 

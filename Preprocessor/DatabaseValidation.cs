@@ -55,7 +55,6 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Entity", "entityFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Entity", "editorID", false, ColumnType.TEXT);
 			ValidateColumnMatchesFormat("Entity", "signature", false, ColumnType.TEXT, ValidateSignature);
-			ValidateColumnMatchesFormat("Entity", "percChanceNone", true, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Space", "spaceFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Space", "spaceEditorID", false, ColumnType.TEXT);
