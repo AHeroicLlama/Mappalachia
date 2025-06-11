@@ -1,15 +1,14 @@
 // Rip every single entry in the ESM which is relevant for mapping. Gets each item's FormID, EditorID and displayName.
 // This is later cross referenced between the location data to assign names/EditorID's to FormIDs in the location data
-// CONT and LVLI are treated differently, as we export the items they contain
+// CONT and their contents are additionally exported here to another file
 // Headers:
 // Entity: 'entityFormID,displayName,editorID,signature'
 // Container: 'containerFormID,contentsFormID,count'
-// Leveled Item: 'parentFormID,childFormID,count'
 unit _mappalachia_entity;
 
 	uses _mappalachia_lib;
 
-	var outputStrings, outputStringsContainer, outputStringsLeveledList : TStringList;
+	var outputStrings, outputStringsContainer : TStringList;
 
 	procedure Initialize;
 	begin
@@ -20,7 +19,6 @@ unit _mappalachia_entity;
 	const
 		outputFile = ProgramPath + 'Output\Entity.csv';
 		outputFileContainer = ProgramPath + 'Output\Container.csv';
-		outputFileLeveledList = ProgramPath + 'Output\LeveledList.csv';
 	var
 		i, j : Integer; // Iterators
 		signatureGroup : IInterface;
@@ -28,7 +26,6 @@ unit _mappalachia_entity;
 	begin
 		outputStrings := TStringList.Create;
 		outputStringsContainer := TStringList.Create;
-		outputStringsLeveledList := TStringList.Create;
 
 		// Rip everything down to the end nodes of the hierarchy tree
 		for i := 0 to ElementCount(targetESM) - 1 do begin
@@ -49,10 +46,8 @@ unit _mappalachia_entity;
 		createDir('Output');
 		AddMessage('Writing output to file: ' + outputFile);
 		AddMessage('Writing output to file: ' + outputFileContainer);
-		AddMessage('Writing output to file: ' + outputFileLeveledList);
 		outputStrings.SaveToFile(outputFile);
 		outputStringsContainer.SaveToFile(outputFileContainer);
-		outputStringsLeveledList.SaveToFile(outputFileLeveledList);
 	end;
 
 	procedure ripItem(item : IInterface; signature : String);
@@ -60,8 +55,8 @@ unit _mappalachia_entity;
 		editorId = EditorID(item);
 		displayName = DisplayName(item);
 	var
-		i, j, k : Integer;
-		containerItems, leveledList, containerItem, leveledItem, lvliBaseData, lvliReference, lvliCount : IInterface;
+		i, j : Integer;
+		containerItems, containerItem : IInterface;
 	begin
 		if(FixedFormId(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
@@ -82,30 +77,6 @@ unit _mappalachia_entity;
 					);
 				end;
 			end
-			else if (signature = 'LVLI') then begin
-				leveledList := ElementByName(item, 'Leveled List Entries');
-
-				for k := 0 to ElementCount(leveledList) -1 do begin
-					leveledItem := ElementByIndex(leveledList, k);
-					lvliBaseData := ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Base Data');
-
-					// Uses the "Base Data" structure
-					if (not(Assigned(lvliBaseData))) then begin
-						lvliReference := ElementByName(ElementBySignature(leveledItem, 'LVLO'), 'Reference');
-						lvliCount := ElementBySignature(leveledItem, 'LVIV');
-					end
-					else begin
-						lvliReference := ElementByName(lvliBaseData, 'Reference');
-						lvliCount := ElementByName(lvliBaseData, 'Count');
-					end;
-
-					outputStringsLeveledList.Add(
-						IntToStr(FixedFormId(item)) + ',' +
-						sanitize(GetEditValue(lvliReference)) + ',' +
-						IntToStr(GetEditValue(lvliCount))
-					);
-				end;
-			end;
 
 			// The main entity export for all entities
 			outputStrings.Add(

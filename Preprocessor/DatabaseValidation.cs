@@ -56,10 +56,6 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Entity", "editorID", false, ColumnType.TEXT);
 			ValidateColumnMatchesFormat("Entity", "signature", false, ColumnType.TEXT, ValidateSignature);
 
-			ValidateColumnMatchesFormat("LeveledList", "parentFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("LeveledList", "childFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("LeveledList", "count", false, ColumnType.INTEGER);
-
 			ValidateColumnMatchesFormat("Container", "containerFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Container", "contentFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Container", "count", false, ColumnType.INTEGER);

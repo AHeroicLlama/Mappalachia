@@ -1,20 +1,20 @@
 MD5 Checksum
-5E8411EC4114C45E7E99FB22E730FB13
+88FE14DE1EA1F2295DCAB63A9F91607D
 
 Size
-359164 KB
+347836 KB
 
 Built At UTC
-11/06/2025 00:31:15
+11/06/2025 18:41:45
 
 CSV Imported with SQLite Version
 3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 
 Tables
-Container            Meta                 Region             
-Entity               NPC                  RegionPoints       
-LeveledList          Position             Scrap              
-MapMarker            Position_PreGrouped  Space
+Container            NPC                  RegionPoints       
+Entity               Position             Scrap              
+MapMarker            Position_PreGrouped  Space              
+Meta                 Region
 
 Indices
 indexComponent           indexNPC                 sqlite_autoindex_Meta_1
@@ -270,7 +270,7 @@ HAZD,55
 IDLM,25
 KEYM,80
 LIGH,2184
-LVLI,2679
+LVLI,628
 MISC,947
 MSTT,1104
 NOTE,342
@@ -292,13 +292,13 @@ Avg Num Instances per Reference
 21.924725772867205
 
 X-Table Entity Sum
-47320 = 47320 = 49371
+47320 = 47320 = 47320
 
 Avg Length Entity DisplayName
-2.6736343197423587
+2.789518174133559
 
 Avg Length Entity EditorID
-25.575682080573618
+25.25221893491124
 
 Avg Length Space DisplayName
 18.02061855670103
@@ -918,13 +918,7 @@ Avg spaceFormID as Dec
 4666149.546391753
 
 Avg entityFormID as Dec
-3141879.3144761096
-
-Avg leveledList parentFormID as Dec
-4159608.645594096
-
-Avg leveledList childFormID as Dec
-4113247.392945435
+3126463.153994083
 
 Avg containerFormID as Dec
 3080624.2131147543
@@ -1166,15 +1160,6 @@ Avg Container count per item
 
 Unique Container count
 461
-
-Avg LeveledList items per list
-1109.3822152886116
-
-Avg LeveledList count per item
-1.3161644968317316
-
-Unique LeveledList count
-641
 
 Entities outside of space range
 APPALACHIA:357471

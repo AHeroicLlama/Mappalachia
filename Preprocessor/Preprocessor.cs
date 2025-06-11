@@ -98,7 +98,6 @@ namespace Preprocessor
 
 			// Create new tables
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT);");
-			SimpleQuery($"CREATE TABLE LeveledList(parentFormID INTEGER REFERENCES Entity(entityFormID), childFormID INTEGER REFERENCES Entity(entityFormID), count INTEGER);");
 			SimpleQuery($"CREATE TABLE Container(containerFormID INTEGER REFERENCES Entity(entityFormID), contentFormID INTEGER REFERENCES Entity(entityFormID), count INTEGER);");
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
@@ -109,7 +108,6 @@ namespace Preprocessor
 
 			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
-			ImportTableFromCSV("LeveledList");
 			ImportTableFromCSV("Container");
 			ImportTableFromCSV("Position");
 			ImportTableFromCSV("Space");
@@ -136,11 +134,6 @@ namespace Preprocessor
 
 			// Remove some junk data from Position
 			SimpleQuery("DELETE FROM Position WHERE shortName LIKE '%CELL:%';");
-
-			// Capture and convert to int the childFormID on LeveledList
-			TransformColumn(CaptureFormID, "LeveledList", "childFormID");
-			ChangeColumnType("LeveledList", "childFormID", "INTEGER");
-			AddForeignKey("LeveledList", "childFormID", "INTEGER", "Entity", "entityFormID");
 
 			// Capture and convert to int the contentFormID on Container
 			TransformColumn(CaptureFormID, "Container", "contentFormID");
@@ -247,16 +240,13 @@ namespace Preprocessor
 			// Ensure all Entities have the proper display name only, and nothing extraneous
 			TransformColumn(CaptureQuotedTerm, "Entity", "displayName");
 
-			ExplodeLeveledLists();
-
 			// Remove entries which are not referenced by other relevant tables (orphaned records)
 			SimpleQuery("DELETE FROM Position WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM RegionPoints WHERE regionFormID NOT IN (SELECT regionFormID FROM Region);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Container WHERE containerFormID NOT IN (SELECT referenceFormID FROM Position);");
-			SimpleQuery("DELETE FROM LeveledList WHERE parentFormID NOT IN (SELECT referenceFormID FROM Position) AND parentFormID NOT IN (SELECT contentFormID FROM Container);");
-			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position) AND entityFormID NOT IN (SELECT containerFormID FROM Container) AND entityFormID NOT IN (SELECT parentFormID FROM LeveledList) AND entityFormID NOT IN (SELECT childFormID FROM LeveledList);");
+			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position) AND entityFormID NOT IN (SELECT containerFormID FROM Container);");
 			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
 
 			// Clean up scrap and component names
@@ -345,91 +335,6 @@ namespace Preprocessor
 			StdOutWithColor($"Build and Preprocess Done.\n", ColorInfo);
 		}
 
-		// Explode all LeveledLists, so all hierarchy trees become 1 deep, creating an entry for every generation
-		// This means future DB searches do not need to recurse up the tree of lists-containing-lists, and can take the data at face value
-		static void ExplodeLeveledLists()
-		{
-			List<LeveledList> lists = new List<LeveledList>();
-
-			using SqliteCommand command = new SqliteCommand("SELECT * FROM LeveledList", Connection);
-			using SqliteDataReader reader = command.ExecuteReader();
-
-			while (reader.Read())
-			{
-				lists.Add(new LeveledList(reader.GetUInt("parentFormId"), reader.GetUInt("childFormID"), reader.GetUInt("count")));
-			}
-
-			// Empty the table without dropping it
-			SimpleQuery("DELETE FROM LeveledList");
-
-			ConcurrentBag<LeveledList> explodedLists = new ConcurrentBag<LeveledList>();
-
-			Parallel.ForEach(lists, list =>
-			{
-				Console.WriteLine("Explode: " + list.ParentFormID);
-				explodedLists.AddRange(list.Explode(lists));
-			});
-
-			// Add all the exploded lists back in to the table using a transaction
-			using SqliteTransaction transaction = Connection.BeginTransaction();
-			using SqliteCommand insertCommand = new SqliteCommand("INSERT INTO LeveledList (parentFormID, childFormID, count) VALUES(@parent, @child, @count);", Connection, transaction);
-
-			insertCommand.Parameters.AddWithValue("@child", string.Empty);
-			insertCommand.Parameters.AddWithValue("@parent", string.Empty);
-			insertCommand.Parameters.AddWithValue("@count", string.Empty);
-
-			foreach (LeveledList list in explodedLists)
-			{
-				insertCommand.Parameters["@parent"].Value = list.ParentFormID;
-				insertCommand.Parameters["@child"].Value = list.ChildFormID;
-				insertCommand.Parameters["@count"].Value = list.Count;
-
-				insertCommand.ExecuteNonQuery();
-			}
-
-			transaction.Commit();
-		}
-
-		static void AddRange<T>(this ConcurrentBag<T> bag, IEnumerable<T> list)
-		{
-			foreach (T item in list)
-			{
-				bag.Add(item);
-			}
-		}
-
-		static List<LeveledList> Explode(this LeveledList list, List<LeveledList> allOriginalLists)
-		{
-			List<LeveledList> ancestors = list.GetAllAncestors(allOriginalLists);
-
-			List<LeveledList> explodedLists = new List<LeveledList>();
-
-			// TODO - multiplying counts is correct but not the full picture because it's only taking the immediate parent count. Deep nested LVLIs will have a count too low
-			foreach (LeveledList parent in ancestors)
-			{
-				explodedLists.Add(new LeveledList(parent.ParentFormID, list.ParentFormID, list.Count * parent.Count));
-			}
-
-			return explodedLists;
-		}
-
-		static List<LeveledList> GetAllAncestors(this LeveledList list, List<LeveledList> allOriginalLists)
-		{
-			// Get the immediate parents
-			List<LeveledList> parents = allOriginalLists.Where(candidateParent => candidateParent.ChildFormID == list.ParentFormID).ToList();
-
-			// Start the ancestors list with the parents
-			List<LeveledList> ancestors = new List<LeveledList>(parents);
-
-			// For each parent, get their parents, and so on. Add them all to one list
-			foreach (LeveledList parent in parents)
-			{
-				ancestors.AddRange(parent.GetAllAncestors(allOriginalLists));
-			}
-
-			return ancestors;
-		}
-
 		static async void GenerateSummary()
 		{
 			StdOutWithColor($"\nGenerating Summary Report at {DatabaseSummaryPath}\n", ColorInfo);
@@ -460,7 +365,7 @@ namespace Preprocessor
 			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, COUNT(signature) FROM Entity GROUP BY signature;"));
 			AddToSummaryReport("Position PreGrouped Count", SimpleQuery("SELECT COUNT(*) FROM Position_PreGrouped;"));
 			AddToSummaryReport("Avg Num Instances per Reference", SimpleQuery("SELECT AVG(count) FROM Position_PreGrouped;"));
-			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT COUNT(DISTINCT referenceFormID) FROM Position;").First()} = {SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position_PreGrouped;").First()}");
+			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT COUNT(DISTINCT referenceFormID) FROM Position;").First()} = {SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position_PreGrouped;").First()} = {SimpleQuery("SELECT count(DISTINCT entityFormID) FROM Entity;").First()}");
 			AddToSummaryReport("Avg Length Entity DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(displayName) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Entity EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(editorID) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Space DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceDisplayName) AS length FROM Space);"));
@@ -480,8 +385,6 @@ namespace Preprocessor
 			AddToSummaryReport("Worldspaces", SimpleQuery("SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space WHERE isWorldspace = 1;"));
 			AddToSummaryReport("Avg spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Space;"));
 			AddToSummaryReport("Avg entityFormID as Dec", SimpleQuery("SELECT AVG(entityFormID) FROM Entity;"));
-			AddToSummaryReport("Avg leveledList parentFormID as Dec", SimpleQuery("SELECT AVG(parentFormID) FROM LeveledList;"));
-			AddToSummaryReport("Avg leveledList childFormID as Dec", SimpleQuery("SELECT AVG(childFormID) FROM LeveledList;"));
 			AddToSummaryReport("Avg containerFormID as Dec", SimpleQuery("SELECT AVG(containerFormID) FROM Container;"));
 			AddToSummaryReport("Avg contentFormID as Dec", SimpleQuery("SELECT AVG(contentFormID) FROM Container;"));
 			AddToSummaryReport("Avg MapMarker spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM MapMarker;"));
@@ -498,9 +401,6 @@ namespace Preprocessor
 			AddToSummaryReport("Avg Container items per container", SimpleQuery("SELECT avg(contentsCount) FROM (SELECT count(contentFormID) as contentsCount FROM Container GROUP BY ContainerFormID);"));
 			AddToSummaryReport("Avg Container count per item", SimpleQuery("SELECT avg(count) FROM Container;"));
 			AddToSummaryReport("Unique Container count", SimpleQuery("SELECT count(DISTINCT containerFormID) FROM Container;"));
-			AddToSummaryReport("Avg LeveledList items per list", SimpleQuery("SELECT avg(memberCount) FROM (SELECT count(childFormID) as memberCount FROM LeveledList GROUP BY parentFormID);"));
-			AddToSummaryReport("Avg LeveledList count per item", SimpleQuery("SELECT avg(count) FROM LeveledList;"));
-			AddToSummaryReport("Unique LeveledList count", SimpleQuery("SELECT count(DISTINCT parentFormID) FROM LeveledList;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
