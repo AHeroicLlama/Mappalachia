@@ -9,7 +9,7 @@ unit _mappalachia_entity;
 
 	uses _mappalachia_lib;
 
-	var outputStrings, outputStringsContainer, outputStringsLeveledItem : TStringList;
+	var outputStrings, outputStringsContainer, outputStringsLeveledList : TStringList;
 
 	procedure Initialize;
 	begin
@@ -20,7 +20,7 @@ unit _mappalachia_entity;
 	const
 		outputFile = ProgramPath + 'Output\Entity.csv';
 		outputFileContainer = ProgramPath + 'Output\Container.csv';
-		outputFileLeveledItem = ProgramPath + 'Output\LeveledItem.csv';
+		outputFileLeveledList = ProgramPath + 'Output\LeveledList.csv';
 	var
 		i, j : Integer; // Iterators
 		signatureGroup : IInterface;
@@ -28,7 +28,7 @@ unit _mappalachia_entity;
 	begin
 		outputStrings := TStringList.Create;
 		outputStringsContainer := TStringList.Create;
-		outputStringsLeveledItem := TStringList.Create;
+		outputStringsLeveledList := TStringList.Create;
 
 		// Rip everything down to the end nodes of the hierarchy tree
 		for i := 0 to ElementCount(targetESM) - 1 do begin
@@ -49,10 +49,10 @@ unit _mappalachia_entity;
 		createDir('Output');
 		AddMessage('Writing output to file: ' + outputFile);
 		AddMessage('Writing output to file: ' + outputFileContainer);
-		AddMessage('Writing output to file: ' + outputFileLeveledItem);
+		AddMessage('Writing output to file: ' + outputFileLeveledList);
 		outputStrings.SaveToFile(outputFile);
 		outputStringsContainer.SaveToFile(outputFileContainer);
-		outputStringsLeveledItem.SaveToFile(outputFileLeveledItem);
+		outputStringsLeveledList.SaveToFile(outputFileLeveledList);
 	end;
 
 	procedure ripItem(item : IInterface; signature : String);
@@ -77,7 +77,7 @@ unit _mappalachia_entity;
 
 					outputStringsContainer.Add(
 						IntToStr(FixedFormId(item)) + ',' +
-						GetEditValue(ElementByName(containerItem, 'Item')) + ',' +
+						sanitize(GetEditValue(ElementByName(containerItem, 'Item'))) + ',' +
 						GetEditValue(ElementByName(containerItem, 'Count'))
 					);
 				end;
@@ -99,10 +99,10 @@ unit _mappalachia_entity;
 						lvliCount := ElementByName(lvliBaseData, 'Count');
 					end;
 
-					outputStringsLeveledItem.Add(
+					outputStringsLeveledList.Add(
 						IntToStr(FixedFormId(item)) + ',' +
 						sanitize(GetEditValue(lvliReference)) + ',' +
-						GetEditValue(lvliCount)
+						IntToStr(GetEditValue(lvliCount))
 					);
 				end;
 			end;

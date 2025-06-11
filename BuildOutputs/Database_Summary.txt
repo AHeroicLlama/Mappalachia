@@ -1,20 +1,20 @@
 MD5 Checksum
-3F3217C28F51071A6C474C2CAEACD605
+5E8411EC4114C45E7E99FB22E730FB13
 
 Size
-347820 KB
+359164 KB
 
 Built At UTC
-09/06/2025 22:21:27
+11/06/2025 00:31:15
 
 CSV Imported with SQLite Version
 3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 
 Tables
-Entity               Position             Scrap              
-MapMarker            Position_PreGrouped  Space              
-Meta                 Region             
-NPC                  RegionPoints
+Container            Meta                 Region             
+Entity               NPC                  RegionPoints       
+LeveledList          Position             Scrap              
+MapMarker            Position_PreGrouped  Space
 
 Indices
 indexComponent           indexNPC                 sqlite_autoindex_Meta_1
@@ -270,7 +270,7 @@ HAZD,55
 IDLM,25
 KEYM,80
 LIGH,2184
-LVLI,628
+LVLI,2679
 MISC,947
 MSTT,1104
 NOTE,342
@@ -292,13 +292,13 @@ Avg Num Instances per Reference
 21.924725772867205
 
 X-Table Entity Sum
-47320 = 47320 = 47320
+47320 = 47320 = 49371
 
 Avg Length Entity DisplayName
-2.789518174133559
+2.6736343197423587
 
 Avg Length Entity EditorID
-25.25221893491124
+25.575682080573618
 
 Avg Length Space DisplayName
 18.02061855670103
@@ -914,43 +914,55 @@ West Tek Research Center,Super Mutant,1
 Worldspaces
 2480661,APPALACHIA,Appalachia
 
-AVG spaceFormID as Dec
+Avg spaceFormID as Dec
 4666149.546391753
 
-AVG entityFormID as Dec
-3126463.153994083
+Avg entityFormID as Dec
+3141879.3144761096
 
-AVG MapMarker spaceFormID as Dec
+Avg leveledList parentFormID as Dec
+4159608.645594096
+
+Avg leveledList childFormID as Dec
+4113247.392945435
+
+Avg containerFormID as Dec
+3080624.2131147543
+
+Avg contentFormID as Dec
+2818209.37704918
+
+Avg MapMarker spaceFormID as Dec
 2480661
 
-AVG Psn spaceFormID as Dec
+Avg Psn spaceFormID as Dec
 3010371.4383515236
 
-AVG Psn referenceFormID as Dec
+Avg Psn referenceFormID as Dec
 1068038.4505665484
 
-AVG Psn instanceFormID as Dec
+Avg Psn instanceFormID as Dec
 3492126.3426500484
 
-AVG Psn teleportsToFormID as Dec
+Avg Psn teleportsToFormID as Dec
 479.38783805061274
 
-AVG regionFormID as Dec
+Avg regionFormID as Dec
 3522933.6926406925
 
-AVG region spaceFormID as Dec
+Avg region spaceFormID as Dec
 2480661
 
-AVG region minLevel
+Avg region minLevel
 9.29004329004329
 
-AVG region maxLevel
+Avg region maxLevel
 36.54545454545455
 
-AVG junkFormID as Dec
+Avg junkFormID as Dec
 1665412.5075456712
 
-AVG X, Y per Space
+Avg X, Y per Space
 APPALACHIA,-12233.521371037072,-6639.395100259498
 AMSHQ01,-38.43107245542495,296.0722459583898
 AMSHQ02,-722.9602360281565,-2598.814839831561
@@ -1145,6 +1157,24 @@ XPDPitt02Trench,-8555.705636982708,-7125.709669865219
 XPDRttP01SteelTower,7384.479502867138,14165.915259600844
 XPDRttP01SteelTowerRoof,-2997.4960088968037,492.67610457665245
 XPDRttP01SteelTowerUpperFloors,-894.0875594044079,9.819138315743777
+
+Avg Container items per container
+1.4555314533622559
+
+Avg Container count per item
+2.3800298062593144
+
+Unique Container count
+461
+
+Avg LeveledList items per list
+1109.3822152886116
+
+Avg LeveledList count per item
+1.3161644968317316
+
+Unique LeveledList count
+641
 
 Entities outside of space range
 APPALACHIA:357471
