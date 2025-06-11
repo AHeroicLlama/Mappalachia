@@ -300,8 +300,6 @@ namespace Library
 				throw new NullReferenceException("XML Node is null");
 			}
 
-			Console.WriteLine(node.OuterXml);
-
 			XmlAttribute? attribute = node.Attributes?[attributeName] ?? throw new NullReferenceException($"XML Node does not have attribute {attributeName}");
 			attribute.Value = value;
 		}
