@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Data;
+using System.Drawing.Imaging;
 using Library;
 
 namespace Mappalachia
@@ -483,9 +484,20 @@ namespace Mappalachia
 			UpdateFromSettings();
 		}
 
+		private void Map_SetTitle_Click(object sender, EventArgs e)
+		{
+			FormSetTitle titleForm = new FormSetTitle(Settings);
+
+			if (titleForm.ShowDialog() == DialogResult.OK)
+			{
+				Settings.MapSettings.Title = titleForm.TextBoxValue;
+				UpdateFromSettings();
+			}
+		}
+
 		private void Map_QuickSave_Click(object sender, EventArgs e)
 		{
-			FileIO.QuickSave(MapViewForm.GetCurrentMapImage(), Settings.MapSettings);
+			FileIO.QuickSave(MapViewForm.GetCurrentMapImage(), Settings);
 			mapMenuItem.DropDown.Close();
 		}
 
@@ -493,7 +505,32 @@ namespace Mappalachia
 		{
 			FileIO.CreateSavedMapsFolder();
 
-			// TODO
+			FormExportToFile formExportToFile = new FormExportToFile(Settings);
+
+			if (formExportToFile.ShowDialog() == DialogResult.OK)
+			{
+				SaveFileDialog saveDialog = new SaveFileDialog
+				{
+					Filter = formExportToFile.Filter,
+					FileName = FileIO.GetRecommendedMapFileName(Settings),
+					InitialDirectory = Path.GetFullPath(Paths.SavedMapsPath),
+				};
+
+				if (saveDialog.ShowDialog() == DialogResult.OK)
+				{
+					Image saveTarget = MapViewForm.GetCurrentMapImage();
+					ImageFormat imageFormat = formExportToFile.ImageFormat;
+
+					// If PNG is recommended and selected, set black backgrounds transparent
+					if (Settings.GetImageFileTypeRecommendation() == ImageFormat.Png && imageFormat == ImageFormat.Png)
+					{
+						saveTarget.ReplaceBlackWithTransparency();
+					}
+
+					FileIO.Save(saveTarget, formExportToFile.ImageFormat, saveDialog.FileName, formExportToFile.JpgQuality);
+				}
+			}
+
 			mapMenuItem.DropDown.Close();
 		}
 

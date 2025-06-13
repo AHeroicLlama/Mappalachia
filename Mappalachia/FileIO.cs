@@ -15,7 +15,7 @@ namespace Mappalachia
 
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
-		static ImageCodecInfo JpegCodec { get; set; } = ImageCodecInfo.GetImageDecoders().Where(ic => ic.FormatID == ImageFormat.Jpeg.Guid).SingleOrDefault() ?? throw new Exception($"Failed to get jpeg codec");
+		static ImageCodecInfo JpgCodec { get; set; } = ImageCodecInfo.GetImageDecoders().Where(ic => ic.FormatID == ImageFormat.Jpeg.Guid).SingleOrDefault() ?? throw new Exception($"Failed to get jpeg codec");
 
 		static FileIO()
 		{
@@ -111,19 +111,19 @@ namespace Mappalachia
 			Directory.CreateDirectory(Paths.SavedMapsPath);
 		}
 
-		public static void QuickSave(Image image, MapSettings mapSettings)
+		public static void QuickSave(Image image, Settings settings)
 		{
 			CreateSavedMapsFolder();
 
-			ImageFormat format = mapSettings.BackgroundImage == BackgroundImageType.None ? ImageFormat.Png : ImageFormat.Jpeg;
-			string path = Paths.SavedMapsPath + "Mappalachia_QuickSave_" + DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss_FFF") + format.GetFileExtension();
+			ImageFormat format = settings.MapSettings.BackgroundImage == BackgroundImageType.None ? ImageFormat.Png : ImageFormat.Jpeg;
+			string path = Paths.SavedMapsPath + GetRecommendedMapFileName(settings) + "_" + DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss_FFF") + format.GetFileExtension();
 
 			Save(image, format, path);
 			Process.Start("explorer.exe", "/select," + path);
 		}
 
 		// Write image to file
-		public static void Save(Image image, ImageFormat format, string path, int jpegQuality = 85)
+		public static void Save(Image image, ImageFormat format, string path, int jpgQuality = 85)
 		{
 			if (format == ImageFormat.Png)
 			{
@@ -132,9 +132,9 @@ namespace Mappalachia
 			else if (format == ImageFormat.Jpeg)
 			{
 				EncoderParameters encoderParams = new EncoderParameters();
-				encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, jpegQuality);
+				encoderParams.Param[0] = new EncoderParameter(Encoder.Quality, jpgQuality);
 
-				image.Save(path, JpegCodec, encoderParams);
+				image.Save(path, JpgCodec, encoderParams);
 			}
 		}
 
@@ -153,6 +153,27 @@ namespace Mappalachia
 
 			MapMarkerIconImageCache[mapMarker.Icon] = marker;
 			return marker;
+		}
+
+		// Return a string that would make a good default map file name
+		public static string GetRecommendedMapFileName(Settings settings)
+		{
+			// Try to use the map title for the file name, but filter and trim it first
+			// If it's blank, use the space name instead
+			string fileName = settings.MapSettings.Title.SanitizeForFileName();
+
+			if (fileName.IsNullOrWhiteSpace())
+			{
+				fileName = $"Mappalachia Map of {settings.Space.DisplayName}".SanitizeForFileName();
+			}
+
+			return fileName;
+		}
+
+		// Remove invalid file name/path chars, trim whitespace, and remove trailing periods.
+		static string SanitizeForFileName(this string potentialFileName)
+		{
+			return string.Concat(potentialFileName.Split(Path.GetInvalidFileNameChars())).Trim().TrimEnd('.');
 		}
 	}
 }

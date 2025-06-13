@@ -7,9 +7,9 @@ namespace BackgroundRenderer
 {
 	static class BackgroundRenderer
 	{
-		static int JpegQualityStandard { get; } = 85;
+		static int JpgQualityStandard { get; } = 85;
 
-		static int JpegQualityHigh { get; } = 100;
+		static int JpgQualityHigh { get; } = 100;
 
 		static int RenderParallelism { get; } = 16; // Max cells or super res tiles to render in parallel
 
@@ -249,7 +249,7 @@ namespace BackgroundRenderer
 				$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
 
 			string resizeCommand = $"magick {ddsFile} -resize {Common.MapImageResolution}x{Common.MapImageResolution} " +
-						$"-quality {(space.IsWorldspace ? JpegQualityHigh : JpegQualityStandard)} JPEG:{finalFile}";
+						$"-quality {(space.IsWorldspace ? JpgQualityHigh : JpgQualityStandard)} JPEG:{finalFile}";
 
 			Process render = StartProcess(renderCommand, silent);
 			render.WaitForExit();
@@ -366,7 +366,7 @@ namespace BackgroundRenderer
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
 					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
-				string convertCommand = $"magick {outputFile} -quality {JpegQualityStandard} JPEG:{finalFile}";
+				string convertCommand = $"magick {outputFile} -quality {JpgQualityStandard} JPEG:{finalFile}";
 
 				Process render = StartProcess(renderCommand, true);
 				render.WaitForExit();

@@ -39,6 +39,7 @@
 			// 
 			// pictureBoxMapDisplay
 			// 
+			pictureBoxMapDisplay.BackColor = Color.Black;
 			pictureBoxMapDisplay.Location = new Point(0, 24);
 			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
 			pictureBoxMapDisplay.Size = new Size(1008, 961);

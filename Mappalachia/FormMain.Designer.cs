@@ -46,6 +46,7 @@ namespace Mappalachia
 			legendNormalMenuItem = new ToolStripMenuItem();
 			legendExtendedMenuItem = new ToolStripMenuItem();
 			legendHiddenMenuItem = new ToolStripMenuItem();
+			setTitleToolStripMenuItem = new ToolStripMenuItem();
 			quickSaveToolStripMenuItem = new ToolStripMenuItem();
 			exportToFileToolStripMenuItem = new ToolStripMenuItem();
 			clearPlotsToolStripMenuItem = new ToolStripMenuItem();
@@ -85,7 +86,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, grayscaleMenuItem, highlightWaterMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, grayscaleMenuItem, highlightWaterMenuItem, setTitleToolStripMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -195,6 +196,14 @@ namespace Mappalachia
 			legendHiddenMenuItem.Text = "Hidden";
 			legendHiddenMenuItem.Click += Map_Legend_Hidden_Click;
 			// 
+			// setTitleToolStripMenuItem
+			// 
+			setTitleToolStripMenuItem.Name = "setTitleToolStripMenuItem";
+			setTitleToolStripMenuItem.Size = new Size(191, 22);
+			setTitleToolStripMenuItem.Text = "Set Title";
+			setTitleToolStripMenuItem.ToolTipText = "Set a title for your map.";
+			setTitleToolStripMenuItem.Click += Map_SetTitle_Click;
+			// 
 			// quickSaveToolStripMenuItem
 			// 
 			quickSaveToolStripMenuItem.Name = "quickSaveToolStripMenuItem";
@@ -257,7 +266,7 @@ namespace Mappalachia
 			// aboutToolStripMenuItem
 			// 
 			aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			aboutToolStripMenuItem.Size = new Size(180, 22);
+			aboutToolStripMenuItem.Size = new Size(171, 22);
 			aboutToolStripMenuItem.Text = "About";
 			aboutToolStripMenuItem.ToolTipText = "View additional info about the application.";
 			aboutToolStripMenuItem.Click += Help_About_Click;
@@ -265,7 +274,7 @@ namespace Mappalachia
 			// openUserGuidesToolStripMenuItem
 			// 
 			openUserGuidesToolStripMenuItem.Name = "openUserGuidesToolStripMenuItem";
-			openUserGuidesToolStripMenuItem.Size = new Size(180, 22);
+			openUserGuidesToolStripMenuItem.Size = new Size(171, 22);
 			openUserGuidesToolStripMenuItem.Text = "Open User Guides";
 			openUserGuidesToolStripMenuItem.ToolTipText = "Read documentation online.";
 			openUserGuidesToolStripMenuItem.Click += Help_UserGuides_Click;
@@ -273,7 +282,7 @@ namespace Mappalachia
 			// checkForUpdatesToolStripMenuItem
 			// 
 			checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-			checkForUpdatesToolStripMenuItem.Size = new Size(180, 22);
+			checkForUpdatesToolStripMenuItem.Size = new Size(171, 22);
 			checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
 			checkForUpdatesToolStripMenuItem.ToolTipText = "Check if there is a new version available.";
 			checkForUpdatesToolStripMenuItem.Click += Help_CheckForUpdates_Click;
@@ -281,7 +290,7 @@ namespace Mappalachia
 			// viewGitHubToolStripMenuItem
 			// 
 			viewGitHubToolStripMenuItem.Name = "viewGitHubToolStripMenuItem";
-			viewGitHubToolStripMenuItem.Size = new Size(180, 22);
+			viewGitHubToolStripMenuItem.Size = new Size(171, 22);
 			viewGitHubToolStripMenuItem.Text = "View GitHub";
 			viewGitHubToolStripMenuItem.ToolTipText = "Go to the project home, or see the open source code.";
 			viewGitHubToolStripMenuItem.Click += Help_ViewGitHub_Click;
@@ -289,7 +298,7 @@ namespace Mappalachia
 			// resetEverythingToolStripMenuItem
 			// 
 			resetEverythingToolStripMenuItem.Name = "resetEverythingToolStripMenuItem";
-			resetEverythingToolStripMenuItem.Size = new Size(180, 22);
+			resetEverythingToolStripMenuItem.Size = new Size(171, 22);
 			resetEverythingToolStripMenuItem.Text = "Reset Everything";
 			resetEverythingToolStripMenuItem.ToolTipText = "Reset every application setting.";
 			resetEverythingToolStripMenuItem.Click += Help_ResetEverything_Click;
@@ -471,5 +480,6 @@ namespace Mappalachia
 		private DataGridView dataGridViewItemsToPlot;
 		private ToolStripMenuItem advancedModeToolStripMenuItem;
 		private ToolStripMenuItem resetEverythingToolStripMenuItem;
+		private ToolStripMenuItem setTitleToolStripMenuItem;
 	}
 }
