@@ -22,17 +22,25 @@ namespace Mappalachia
 	{
 		public static double MapMarkerIconScale { get; } = 1.5;
 
-		static int MapMarkerLabelFontSize { get; } = 21;
-
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
-
-		static Brush MapMarkerLabelBrush { get; } = Brushes.White;
-
-		static Brush DropShadowBrush { get; } = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 
 		static int DropShadowOffset { get; } = 2;
 
-		static StringFormat CenterString { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+		static int FontSizeMapMarkerLabel { get; } = 20;
+
+		static int FontSizeWaterMark { get; } = 60;
+
+		static int FontSizeTitle { get; } = 72;
+
+		static Brush BrushGeneric { get; } = Brushes.White;
+
+		static Brush DropShadowBrush { get; } = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
+
+		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+
+		static StringFormat TopRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near };
+
+		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		public static Image Draw(Settings settings)
 		{
@@ -49,38 +57,83 @@ namespace Mappalachia
 				graphics.DrawImage(settings.Space.GetWaterMask(), 0, 0);
 			}
 
-			// Handle drawing map marker icons and/or labels
-			if (settings.MapSettings.MapMarkerIcons || settings.MapSettings.MapMarkerLabels)
-			{
-				List<MapMarker> mapMarkers = Database.AllMapMarkers
-					.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
-					.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
-
-				Font font = GetFont(MapMarkerLabelFontSize);
-
-				foreach (MapMarker marker in mapMarkers)
-				{
-					PointF coord = marker.Coord.AsScaledPoint(settings.Space);
-					int labelOffset = 0;
-
-					if (settings.MapSettings.MapMarkerIcons)
-					{
-						Image image = marker.GetMapMarkerImage();
-						graphics.DrawImageCentered(image, coord);
-
-						labelOffset = image.Height / 2;
-					}
-
-					if (settings.MapSettings.MapMarkerLabels)
-					{
-						graphics.DrawStringCentered(marker.Label, font, MapMarkerLabelBrush, new PointF(coord.X, coord.Y + labelOffset), true, !settings.MapSettings.MapMarkerIcons, MapMarkerLabelTextMaxWidth);
-					}
-				}
-			}
+			DrawWaterMark(settings, graphics);
+			DrawTitle(settings, graphics);
+			DrawMapMarkerIconsAndLabels(settings, graphics);
 
 			GC.Collect();
 
 			return mapImage;
+		}
+
+		static void DrawTitle(Settings settings, Graphics graphics)
+		{
+			string titleText = settings.MapSettings.Title.Trim();
+
+			if (titleText.IsNullOrWhiteSpace())
+			{
+				return;
+			}
+
+			Font font = GetFont(FontSizeTitle);
+			SizeF stringBounds = graphics.MeasureString(titleText, font, new SizeF(MapImageResolution, MapImageResolution));
+
+			RectangleF textBounds = new RectangleF(
+				MapImageResolution - stringBounds.Width,
+				0,
+				stringBounds.Width,
+				stringBounds.Height);
+
+			DrawStringWithDropShadow(graphics, titleText, font, BrushGeneric, textBounds, TopRight);
+		}
+
+		static async void DrawWaterMark(Settings settings, Graphics graphics)
+		{
+			string text = settings.Space.IsAppalachia() ? string.Empty : $"{settings.Space.DisplayName} ({settings.Space.EditorID})\n";
+			text += $"Game Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
+
+			Font font = GetFont(FontSizeWaterMark);
+
+			RectangleF textBounds = new RectangleF(
+				0,
+				0,
+				MapImageResolution,
+				MapImageResolution);
+
+			DrawStringWithDropShadow(graphics, text, font, BrushGeneric, textBounds, BottomRight);
+		}
+
+		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics)
+		{
+			if (!settings.MapSettings.MapMarkerIcons && !settings.MapSettings.MapMarkerLabels)
+			{
+				return;
+			}
+
+			List<MapMarker> mapMarkers = Database.AllMapMarkers
+				.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
+				.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
+
+			Font font = GetFont(FontSizeMapMarkerLabel);
+
+			foreach (MapMarker marker in mapMarkers)
+			{
+				PointF coord = marker.Coord.AsScaledPoint(settings.Space);
+				int labelOffset = 0;
+
+				if (settings.MapSettings.MapMarkerIcons)
+				{
+					Image image = marker.GetMapMarkerImage();
+					graphics.DrawImageCentered(image, coord);
+
+					labelOffset = image.Height / 2;
+				}
+
+				if (settings.MapSettings.MapMarkerLabels)
+				{
+					graphics.DrawStringCentered(marker.Label, font, BrushGeneric, new PointF(coord.X, coord.Y + labelOffset), !settings.MapSettings.MapMarkerIcons, MapMarkerLabelTextMaxWidth);
+				}
+			}
 		}
 
 		// Draw the image at the given coordinates, centered on the coord
@@ -90,7 +143,7 @@ namespace Mappalachia
 		}
 
 		// Draw the string at the given coordinates, centered on the coord. Optional drop shadow, text wrap, and vertically centered or top-aligned to the coord
-		static void DrawStringCentered(this Graphics graphics, string text, Font font, Brush brush, PointF coord, bool dropShadow = false, bool centerVert = true, int wrapWidth = -1)
+		static void DrawStringCentered(this Graphics graphics, string text, Font font, Brush brush, PointF coord, bool centerVert = true, int wrapWidth = -1)
 		{
 			// Calculate a rectangle which holds the text, when wrapped.
 			SizeF stringBounds = wrapWidth == -1 ? graphics.MeasureString(text, font) : graphics.MeasureString(text, font, new SizeF(wrapWidth, MapImageResolution));
@@ -101,19 +154,20 @@ namespace Mappalachia
 				stringBounds.Width,
 				stringBounds.Height);
 
-			// Drop the shadow text first
-			if (dropShadow)
-			{
-				RectangleF textBoundsShadow = new RectangleF(
-					textBounds.X + DropShadowOffset,
-					textBounds.Y + DropShadowOffset,
-					textBounds.Width,
-					textBounds.Height);
+			DrawStringWithDropShadow(graphics, text, font, brush, textBounds, Center);
+		}
 
-				graphics.DrawString(text, font, DropShadowBrush, textBoundsShadow, CenterString);
-			}
+		// Draw the string with drop-shadow
+		static void DrawStringWithDropShadow(this Graphics graphics, string text, Font font, Brush brush, RectangleF textBounds, StringFormat stringFormat)
+		{
+			RectangleF textBoundsShadow = new RectangleF(
+				textBounds.X + DropShadowOffset,
+				textBounds.Y + DropShadowOffset,
+				textBounds.Width,
+				textBounds.Height);
 
-			graphics.DrawString(text, font, brush, textBounds, CenterString);
+			graphics.DrawString(text, font, DropShadowBrush, textBoundsShadow, stringFormat);
+			graphics.DrawString(text, font, brush, textBounds, stringFormat);
 		}
 
 		// Returns the X/Y of a Coord, scaled from world to image coordinates (given the scaling of the space), as a PointF

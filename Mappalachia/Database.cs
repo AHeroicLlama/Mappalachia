@@ -152,6 +152,11 @@ namespace Mappalachia
 			return results;
 		}
 
+		public static async Task<string> GetGameVersion()
+		{
+			return await CommonDatabase.GetGameVersion(Connection);
+		}
+
 		// Escape functional SQL characters and wildcard on space
 		static string ProcessSearchString(string input)
 		{
