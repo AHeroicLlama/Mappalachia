@@ -1,3 +1,4 @@
+using System.Drawing.Text;
 using Library;
 using static Library.Common;
 
@@ -47,6 +48,7 @@ namespace Mappalachia
 			// Load in the chosen base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
 			using Graphics graphics = Graphics.FromImage(mapImage);
+			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
 			// Apply the brightness and grayscale if selected
 			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
@@ -93,12 +95,7 @@ namespace Mappalachia
 			text += $"Game Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 
 			Font font = GetFont(FontSizeWaterMark);
-
-			RectangleF textBounds = new RectangleF(
-				0,
-				0,
-				MapImageResolution,
-				MapImageResolution);
+			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 
 			DrawStringWithDropShadow(graphics, text, font, BrushGeneric, textBounds, BottomRight);
 		}
