@@ -404,9 +404,9 @@ namespace Mappalachia
 				.ThenBy(g => g.Entity.EditorID)
 				.ToList();
 
-			SearchResults.Clear();
-
 			SearchResults.RaiseListChangedEvents = false;
+
+			SearchResults.Clear();
 
 			foreach (GroupedInstance instance in searchResults)
 			{

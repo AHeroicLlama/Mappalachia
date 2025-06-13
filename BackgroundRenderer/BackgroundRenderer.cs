@@ -360,7 +360,7 @@ namespace BackgroundRenderer
 
 				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-r {tile.GetXID()} {tile.GetYID()} {tile.GetXID() + Common.SuperResScale} {tile.GetYID() + Common.SuperResScale} " +
+					$"-r {tile.GetXID() * Common.SuperResScale} {tile.GetYID() * Common.SuperResScale} {(tile.GetXID() + 1) * Common.SuperResScale} {(tile.GetYID() + 1) * Common.SuperResScale} " +
 					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 1 " +
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
