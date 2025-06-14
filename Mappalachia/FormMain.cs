@@ -37,6 +37,26 @@ namespace Mappalachia
 			mapLegendStyleMenuItem.DropDown.Closing += DontCloseClickedDropDown;
 		}
 
+		// Adds the columns to the search results and items to plot
+		static void AddDGVColumns(DataGridView dgv)
+		{
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EditorID" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count" });
+			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location" });
+
+			foreach (DataGridViewColumn column in dgv.Columns)
+			{
+				column.SortMode = DataGridViewColumnSortMode.Automatic;
+			}
+		}
+
 		// Return the header for a DataGridViewColumn with the given name
 		static string GetColumnHeader(string columnName, bool advanced)
 		{
@@ -75,13 +95,16 @@ namespace Mappalachia
 
 				case "SpawnWeight":
 					return "The effective expected value of entities at each individual instance. Most entities are always present (100%).\n" +
-						"However for example an NPC may only spawn 1/5 of the time (20%), but a piece of junk may contain 5 of the specified scrap (500%)";
+						"However for example an NPC may only spawn 1/5 of the time (20%), but a container may contain 2x of the item (200%), and a piece of junk may contain 3 of the specified scrap (300%)";
 
 				case "Count":
 					return "The total number of instances this entity, at this location";
 
 				case "Location":
 					return "The location where this entity may be found";
+
+				case "Label":
+					return "A unique developer tag for a particular instance of this entity";
 
 				default:
 					return string.Empty;
@@ -96,11 +119,68 @@ namespace Mappalachia
 				case "Signature":
 					return advanced ? boundData.Entity.Signature.ToFriendlyName() : boundData.Entity.Signature.GetDescription();
 
+				case "InContainer":
+					return (boundData.InContainer || advanced) ? string.Empty : "This entity is placed directly in the world";
+
 				case "Location":
 					return advanced ? boundData.Space.DisplayName : boundData.Space.EditorID;
 
 				default:
 					return string.Empty;
+			}
+		}
+
+		// Does the data mapping from the row's bound object to the cell
+		void MapDataGridData(DataGridViewCellFormattingEventArgs e, DataGridView dataGridView)
+		{
+			GroupedInstance instance = (GroupedInstance)(dataGridView.Rows[e.RowIndex].DataBoundItem ?? throw new Exception($"Column {e.RowIndex} bound to null"));
+			string columnName = dataGridViewSearchResults.Columns[e.ColumnIndex].Name;
+
+			switch (columnName)
+			{
+				case "FormID":
+					e.Value = instance.Entity.FormID.ToHex();
+					break;
+
+				case "EditorID":
+					e.Value = instance.Entity.EditorID;
+					break;
+
+				case "DisplayName":
+					e.Value = instance.Entity.DisplayName;
+					break;
+
+				case "Signature":
+					e.Value = Settings.SearchSettings.Advanced ? instance.Entity.Signature : instance.Entity.Signature.ToFriendlyName();
+					break;
+
+				case "Label":
+					e.Value = instance.Label;
+					break;
+
+				case "InContainer":
+					e.Value = instance.InContainer ? "Yes" : "No";
+					break;
+
+				case "LockLevel":
+					e.Value = !instance.Entity.Signature.IsLockable() && !instance.InContainer && instance.LockLevel == LockLevel.None ?
+						"N/A" : instance.LockLevel.ToFriendlyName();
+					break;
+
+				case "SpawnWeight":
+					e.Value = Math.Round(instance.SpawnWeight * 100, 2);
+					break;
+
+				case "Count":
+					e.Value = instance.Count;
+					break;
+
+				case "Location":
+					e.Value = Settings.SearchSettings.Advanced ? instance.Space.EditorID : instance.Space.DisplayName;
+					break;
+
+				default:
+					throw new Exception($"Column {columnName} not mapped to any data");
 			}
 		}
 
@@ -195,56 +275,6 @@ namespace Mappalachia
 			}
 		}
 
-		// Does the data mapping from the row's bound object to the cell
-		void MapDataGridData(DataGridViewCellFormattingEventArgs e, DataGridView dataGridView)
-		{
-			GroupedInstance instance = (GroupedInstance)(dataGridView.Rows[e.RowIndex].DataBoundItem ?? throw new Exception($"Column {e.RowIndex} bound to null"));
-			string columnName = dataGridViewSearchResults.Columns[e.ColumnIndex].Name;
-
-			switch (columnName)
-			{
-				case "FormID":
-					e.Value = instance.Entity.FormID.ToHex();
-					break;
-
-				case "EditorID":
-					e.Value = instance.Entity.EditorID;
-					break;
-
-				case "DisplayName":
-					e.Value = instance.Entity.DisplayName;
-					break;
-
-				case "Signature":
-					e.Value = Settings.SearchSettings.Advanced ? instance.Entity.Signature : instance.Entity.Signature.ToFriendlyName();
-					break;
-
-				case "Label":
-					e.Value = instance.Label;
-					break;
-
-				case "LockLevel":
-					e.Value = !instance.Entity.Signature.IsLockable() && instance.LockLevel == LockLevel.None ?
-						"N/A" : instance.LockLevel.ToFriendlyName();
-					break;
-
-				case "SpawnWeight":
-					e.Value = Math.Round(instance.SpawnWeight * 100, 2);
-					break;
-
-				case "Count":
-					e.Value = instance.Count;
-					break;
-
-				case "Location":
-					e.Value = Settings.SearchSettings.Advanced ? instance.Space.EditorID : instance.Space.DisplayName;
-					break;
-
-				default:
-					throw new Exception($"Column {columnName} not mapped to any data");
-			}
-		}
-
 		// Sets the tooltip/mouse-over text for cells and column headers
 		void SetDataGridToolTip(DataGridViewCellToolTipTextNeededEventArgs e)
 		{
@@ -276,16 +306,7 @@ namespace Mappalachia
 			BindingSource source = new BindingSource(SearchResults, string.Empty);
 			dataGridViewSearchResults.DataSource = source;
 
-			// Declare all columns
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EditorID" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count" });
-			dataGridViewSearchResults.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location" });
+			AddDGVColumns(dataGridViewSearchResults);
 
 			SetDataGridAppearences();
 
@@ -309,16 +330,7 @@ namespace Mappalachia
 			BindingSource source = new BindingSource(ItemsToPlot, string.Empty);
 			dataGridViewItemsToPlot.DataSource = source;
 
-			// Declare all columns
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EditorID" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count" });
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location" });
+			AddDGVColumns(dataGridViewItemsToPlot);
 
 			SetDataGridAppearences();
 

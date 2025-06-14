@@ -1,7 +1,7 @@
 ﻿namespace Library
 {
 	// Abstract of the shared properties of Instance or GroupedInstance
-	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel, double spawnWeight)
+	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel, double spawnWeight, bool inContainer = false)
 	{
 		// The Entity which this is an instance of
 		public virtual Entity Entity { get; } = entity;
@@ -19,6 +19,9 @@
 		// EG 0.5 for a 50% chance NPC, 2 for junk containing 2 scrap, 1 for a statically placed object
 		public virtual double SpawnWeight { get; } = spawnWeight;
 
+		// If this instance actually exists within a container
+		public virtual bool InContainer { get; } = inContainer;
+
 		public override bool Equals(object? obj)
 		{
 			if (obj is not BaseInstance other || obj is null)
@@ -34,12 +37,13 @@
 			return Entity.Equals(other.Entity) &&
 				Space.Equals(other.Space) &&
 				Label.Equals(other.Label) &&
-				LockLevel.Equals(other.LockLevel);
+				LockLevel.Equals(other.LockLevel) &&
+				InContainer.Equals(other.InContainer);
 		}
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Entity, Space, Label, LockLevel);
+			return HashCode.Combine(Entity, Space, Label, LockLevel, InContainer);
 		}
 	}
 }

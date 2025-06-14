@@ -28,7 +28,7 @@ namespace Mappalachia
 			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty;
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 
-			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, FROM Position_PreGrouped " +
+			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
 				optionalSpaceTerm +
@@ -117,6 +117,36 @@ namespace Mappalachia
 					0,
 					string.Empty,
 					LockLevel.None));
+			}
+
+			// Container
+			query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count(*) as count, lockLevel, quantity " +
+				"FROM Container " +
+				"JOIN Entity ON Container.contentFormID = Entity.entityFormID " +
+				"JOIN Position ON Position.referenceFormID = Container.containerFormID " +
+				$"WHERE ({(searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty)} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
+				optionalSpaceTerm +
+				$"AND Position.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
+				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}" +
+				$"GROUP BY editorID, contentFormID, lockLevel, quantity, spaceFormID;";
+
+			reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				results.Add(new GroupedInstance(
+					new Entity(
+						reader.GetUInt("referenceFormID"),
+						reader.GetString("editorID"),
+						reader.GetString("displayName"),
+						reader.GetSignature()),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					reader.GetInt("count"),
+					0,
+					string.Empty,
+					reader.GetLockLevel(),
+					reader.GetInt("quantity"),
+					true));
 			}
 
 			// FormID-specific

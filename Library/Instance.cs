@@ -16,8 +16,8 @@ namespace Library
 		Unknown,
 	}
 
-	public class Instance(Entity entity, Space space, Coord point, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape, float spawnWeight = 1)
-		: BaseInstance(entity, space, label, lockLevel, spawnWeight)
+	public class Instance(Entity entity, Space space, Coord point, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape, float spawnWeight = 1, bool inContainer = false)
+		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
 	{
 		// The coordinates of this instance
 		public Coord Point { get; } = point;
