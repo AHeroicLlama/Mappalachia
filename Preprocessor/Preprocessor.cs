@@ -97,7 +97,7 @@ namespace Preprocessor
 
 			// Create new tables
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT);");
-			SimpleQuery($"CREATE TABLE Container(containerFormID INTEGER REFERENCES Entity(entityFormID), contentFormID INTEGER REFERENCES Entity(entityFormID), count INTEGER);");
+			SimpleQuery($"CREATE TABLE Container(containerFormID INTEGER REFERENCES Entity(entityFormID), contentFormID INTEGER REFERENCES Entity(entityFormID), quantity INTEGER);");
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, parentLocationFormID TEXT, minLevel INTEGER, maxLevel INTEGER, property TEXT, value INTEGER);");
@@ -138,6 +138,12 @@ namespace Preprocessor
 			TransformColumn(CaptureFormID, "Container", "contentFormID");
 			ChangeColumnType("Container", "contentFormID", "INTEGER");
 			AddForeignKey("Container", "contentFormID", "INTEGER", "Entity", "entityFormID");
+
+			// Group Container by container and contents, for rare cases where > 1 unstackable item are in the same container, so that we increment quantity instead of having duplicate rows
+			SimpleQuery("CREATE TABLE TempContainer(containerFormID INTEGER REFERENCES Entity(entityFormID), contentFormID INTEGER REFERENCES Entity(entityFormID), quantity INTEGER);");
+			SimpleQuery("INSERT INTO TempContainer SELECT containerFormID, contentFormID, sum(quantity) AS quantity FROM Container GROUP BY containerFormID, contentFormID;");
+			SimpleQuery("DROP TABLE Container;");
+			SimpleQuery("ALTER TABLE TempContainer RENAME TO Container;");
 
 			// Capture and convert to int the referenceFormID on Position
 			TransformColumn(CaptureFormID, "Position", "referenceFormID");
@@ -185,8 +191,8 @@ namespace Preprocessor
 
 			// Reduce region rows to distinct rows (now that the points which made them unique are removed)
 			SimpleQuery($"CREATE TABLE TempRegion(regionFormID INTEGER PRIMARY KEY, regionEditorID TEXT, spaceFormID TEXT REFERENCES Space(spaceFormID), minLevel INTEGER, maxLevel INTEGER);");
-			SimpleQuery("INSERT INTO TempRegion SELECT DISTINCT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel FROM Region");
-			SimpleQuery("DROP TABLE Region");
+			SimpleQuery("INSERT INTO TempRegion SELECT DISTINCT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel FROM Region;");
+			SimpleQuery("DROP TABLE Region;");
 			SimpleQuery("ALTER TABLE TempRegion RENAME TO Region;");
 
 			// Discard spaces which are not accessible, and output a list of those
@@ -211,7 +217,7 @@ namespace Preprocessor
 				double centerY = double.Parse(values[1]);
 				double maxRange = double.Parse(values[2]);
 
-				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE spaceEditorID = '{Path.GetFileNameWithoutExtension(file)}'");
+				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE spaceEditorID = '{Path.GetFileNameWithoutExtension(file)}';");
 			}
 
 			// For spaces which are sister spaces, we copy the scaling of the first onto the others
@@ -222,12 +228,12 @@ namespace Preprocessor
 
 				foreach (string childEditorID in spaceCollection.Skip(1))
 				{
-					SimpleQuery($"UPDATE Space SET centerX = {parent.CenterX}, centerY = {parent.CenterY}, maxRange = {parent.MaxRange} WHERE spaceEditorID = '{childEditorID}'");
+					SimpleQuery($"UPDATE Space SET centerX = {parent.CenterX}, centerY = {parent.CenterY}, maxRange = {parent.MaxRange} WHERE spaceEditorID = '{childEditorID}';");
 				}
 			}
 
 			// Add the cell padding - excludes Worldspaces
-			SimpleQuery($"UPDATE Space SET maxRange = maxRange + {CellPadding} WHERE isWorldspace = 0");
+			SimpleQuery($"UPDATE Space SET maxRange = maxRange + {CellPadding} WHERE isWorldspace = 0;");
 
 			// Capture label and instanceFormID values from shortName column, splitting them into their own columns and dropping the original
 			SimpleQuery("ALTER TABLE Position ADD COLUMN 'label' TEXT;");
@@ -245,13 +251,13 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM RegionPoints WHERE regionFormID NOT IN (SELECT regionFormID FROM Region);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Container WHERE containerFormID NOT IN (SELECT referenceFormID FROM Position);");
-			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position) AND entityFormID NOT IN (SELECT containerFormID FROM Container);");
+			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position) AND entityFormID NOT IN (SELECT contentFormID FROM Container);");
 			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
 
 			// Clean up scrap and component names
 			TransformColumn(CaptureQuotedTerm, "Scrap", "componentQuantity");
 			TransformColumn(CaptureQuotedTerm, "Scrap", "component");
-			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%'");
+			SimpleQuery($"UPDATE Scrap SET componentQuantity = 'Singular' WHERE componentQuantity LIKE '%Singular%';");
 
 			// Fix erroneous data which is exported from xEdit with values somehow misaligned from in-game
 			SimpleQuery(CorrectLockLevelQuery);
@@ -292,7 +298,7 @@ namespace Preprocessor
 				"((Entity.editorID LIKE 'LvlSub%' AND Location.npcClass = 'Sub') OR " +
 				"(Entity.editorID LIKE 'LvlMain%' AND Location.npcClass = 'Main') OR " +
 				"(Entity.editorID LIKE 'LvlCritterA%' AND Location.npcClass = 'CritterA') OR " +
-				"(Entity.editorID LIKE 'LvlCritterB%' AND Location.npcClass = 'CritterB')) ");
+				"(Entity.editorID LIKE 'LvlCritterB%' AND Location.npcClass = 'CritterB'));");
 			ChangeColumnType("NPC", "spaceFormID", "INTEGER");
 			ChangeColumnType("NPC", "instanceFormID", "INTEGER");
 			SimpleQuery("DELETE FROM NPC WHERE spawnWeight = 0;");
@@ -310,9 +316,9 @@ namespace Preprocessor
 
 			// Modify Position to assign instanceFormID as Primary Key
 			SimpleQuery("CREATE TABLE temp (spaceFormID INTEGER REFERENCES Space(spaceFormID), x REAL, y REAL, z REAL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, referenceFormID INTEGER REFERENCES Entity(entityFormID), teleportsToFormID INTEGER REFERENCES Space(spaceFormID), label TEXT, instanceFormID INTEGER PRIMARY KEY);");
-			SimpleQuery("INSERT INTO temp SELECT * FROM Position");
-			SimpleQuery("DROP TABLE Position");
-			SimpleQuery("ALTER TABLE temp RENAME TO Position");
+			SimpleQuery("INSERT INTO temp SELECT * FROM Position;");
+			SimpleQuery("DROP TABLE Position;");
+			SimpleQuery("ALTER TABLE temp RENAME TO Position;");
 
 			// Create indexes
 			SimpleQuery("CREATE INDEX indexGeneral ON Position(referenceFormID, lockLevel, label, spaceFormID);");
@@ -354,7 +360,7 @@ namespace Preprocessor
 			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", await CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg CenterX, CenterY", SimpleQuery("SELECT AVG(centerX), AVG(centerY) FROM Space;"));
@@ -380,7 +386,7 @@ namespace Preprocessor
 				"FROM NPC " +
 				"JOIN Space on NPC.spaceFormID = Space.spaceFormID " +
 				"GROUP BY npcName, spaceDisplayName " +
-				"ORDER BY isWorldspace DESC, spaceDisplayName, npcName"));
+				"ORDER BY isWorldspace DESC, spaceDisplayName, npcName;"));
 			AddToSummaryReport("Worldspaces", SimpleQuery("SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space WHERE isWorldspace = 1;"));
 			AddToSummaryReport("Avg spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Space;"));
 			AddToSummaryReport("Avg entityFormID as Dec", SimpleQuery("SELECT AVG(entityFormID) FROM Entity;"));
@@ -398,7 +404,7 @@ namespace Preprocessor
 			AddToSummaryReport("Avg junkFormID as Dec", SimpleQuery("SELECT AVG(junkFormID) FROM Scrap;"));
 			AddToSummaryReport("Avg X, Y per Space", SimpleQuery("SELECT spaceEditorID, AVG(x), AVG(y) FROM Space JOIN Position ON Position.spaceFormID = Space.spaceFormID GROUP BY Space.spaceFormID ORDER BY isWorldspace DESC, space.spaceEditorID ASC;"));
 			AddToSummaryReport("Avg Container items per container", SimpleQuery("SELECT avg(contentsCount) FROM (SELECT count(contentFormID) as contentsCount FROM Container GROUP BY ContainerFormID);"));
-			AddToSummaryReport("Avg Container count per item", SimpleQuery("SELECT avg(count) FROM Container;"));
+			AddToSummaryReport("Avg Container quantity per item", SimpleQuery("SELECT avg(quantity) FROM Container;"));
 			AddToSummaryReport("Unique Container count", SimpleQuery("SELECT count(DISTINCT containerFormID) FROM Container;"));
 
 			List<string> spaceExterns = new List<string>();

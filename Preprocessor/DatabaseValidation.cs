@@ -58,7 +58,7 @@ namespace Preprocessor
 
 			ValidateColumnMatchesFormat("Container", "containerFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Container", "contentFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Container", "count", false, ColumnType.INTEGER);
+			ValidateColumnMatchesFormat("Container", "quantity", false, ColumnType.INTEGER);
 
 			ValidateColumnMatchesFormat("Space", "spaceFormID", false, ColumnType.INTEGER);
 			ValidateColumnMatchesFormat("Space", "spaceEditorID", false, ColumnType.TEXT);
