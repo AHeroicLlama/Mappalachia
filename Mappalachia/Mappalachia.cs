@@ -4,6 +4,8 @@ namespace Mappalachia
 {
 	static class Mappalachia
 	{
+		static FormMain? FormMain { get; set; } = null;
+
 		[STAThread]
 		static void Main()
 		{
@@ -14,7 +16,8 @@ namespace Mappalachia
 				ApplicationConfiguration.Initialize();
 				Console.WriteLine("Dedicated to Molly.");
 
-				Application.Run(new FormMain());
+				FormMain = new FormMain();
+				Application.Run(FormMain);
 			}
 			catch (Exception exception)
 			{
@@ -54,6 +57,13 @@ namespace Mappalachia
 
 				Application.Exit();
 			}
+		}
+
+		// Hack so the 'advanced' setting can be fetched globally where references to Settings are not available
+		// This is used where the DataGridView DataProperty properties are set via their name, and therefore cannot have arguments passed to them
+		public static bool GetIsAdvanced()
+		{
+			return FormMain?.Settings.SearchSettings.Advanced ?? throw new NullReferenceException("Main Form was null");
 		}
 	}
 }

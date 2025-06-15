@@ -7,7 +7,7 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
-		Settings Settings { get; set; } = Settings.LoadFromFile();
+		public Settings Settings { get; private set; } = Settings.LoadFromFile();
 
 		FormMapView MapViewForm { get; set; }
 
@@ -19,41 +19,23 @@ namespace Mappalachia
 		{
 			InitializeComponent();
 
-			UpdateChecker.CheckForUpdates(Settings);
-
 			// Spawn the map view form
 			MapViewForm = new FormMapView();
 			MapViewForm.Show();
 
-			InitializeSearchResultsGrid();
-			InitializeItemsToPlotGrid();
-			InitializeSpaceDropDown();
-
 			UpdateFromSettings();
 
-			mapMenuItem.DropDown.Closing += DontCloseClickedDropDown;
-			mapMapMarkersMenuItem.DropDown.Closing += DontCloseClickedDropDown;
-			mapBackgroundImageMenuItem.DropDown.Closing += DontCloseClickedDropDown;
-			mapLegendStyleMenuItem.DropDown.Closing += DontCloseClickedDropDown;
-		}
+			UpdateChecker.CheckForUpdates(Settings);
 
-		// Adds the columns to the search results and items to plot
-		static void AddDGVColumns(DataGridView dgv)
-		{
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EditorID" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count" });
-			dgv.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location" });
+			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
+			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
 
-			foreach (DataGridViewColumn column in dgv.Columns)
+			comboBoxSpace.DataSource = Database.AllSpaces;
+			comboBoxSpace.DisplayMember = "FriendlyName";
+
+			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem })
 			{
-				column.SortMode = DataGridViewColumnSortMode.Automatic;
+				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
 		}
 
@@ -130,60 +112,6 @@ namespace Mappalachia
 			}
 		}
 
-		// Does the data mapping from the row's bound object to the cell
-		void MapDataGridData(DataGridViewCellFormattingEventArgs e, DataGridView dataGridView)
-		{
-			GroupedInstance instance = (GroupedInstance)(dataGridView.Rows[e.RowIndex].DataBoundItem ?? throw new Exception($"Column {e.RowIndex} bound to null"));
-			string columnName = dataGridViewSearchResults.Columns[e.ColumnIndex].Name;
-
-			switch (columnName)
-			{
-				case "FormID":
-					e.Value = instance.Entity.FormID.ToHex();
-					break;
-
-				case "EditorID":
-					e.Value = instance.Entity.EditorID;
-					break;
-
-				case "DisplayName":
-					e.Value = instance.Entity.DisplayName;
-					break;
-
-				case "Signature":
-					e.Value = Settings.SearchSettings.Advanced ? instance.Entity.Signature : instance.Entity.Signature.ToFriendlyName();
-					break;
-
-				case "Label":
-					e.Value = instance.Label;
-					break;
-
-				case "InContainer":
-					e.Value = instance.InContainer ? "Yes" : "No";
-					break;
-
-				case "LockLevel":
-					e.Value = !instance.Entity.Signature.IsLockable() && !instance.InContainer && instance.LockLevel == LockLevel.None ?
-						"N/A" : instance.LockLevel.ToFriendlyName();
-					break;
-
-				case "SpawnWeight":
-					e.Value = Math.Round(instance.SpawnWeight * 100, 2);
-					break;
-
-				case "Count":
-					e.Value = instance.Count;
-					break;
-
-				case "Location":
-					e.Value = Settings.SearchSettings.Advanced ? instance.Space.EditorID : instance.Space.DisplayName;
-					break;
-
-				default:
-					throw new Exception($"Column {columnName} not mapped to any data");
-			}
-		}
-
 		// Reads in fields from Settings and updates UI elements respectively
 		void UpdateFromSettings(bool reDraw = true)
 		{
@@ -248,35 +176,17 @@ namespace Mappalachia
 
 			textBoxSearch.Text = Settings.SearchSettings.SearchTerm;
 
-			SetDataGridAppearences();
+			UpdateDataGridAppearences();
 
-			// TODO - Doing this every time is inelegant.
+			// TODO - Is doing this every time inelegant?
 			if (reDraw)
 			{
 				MapViewForm.UpdateMap(Settings);
 			}
 		}
 
-		// Applies the header text and column visibility of all DGV Columns, based on Settings
-		// We don't need to update tooltips as they are fetched dynamically via events
-		void SetDataGridAppearences()
-		{
-			foreach (DataGridView dataGridView in new List<DataGridView>() { dataGridViewSearchResults, dataGridViewItemsToPlot })
-			{
-				foreach (DataGridViewColumn column in dataGridView.Columns)
-				{
-					column.HeaderText = GetColumnHeader(column.Name, Settings.SearchSettings.Advanced);
-
-					if (column.Name.Equals("FormID"))
-					{
-						column.Visible = Settings.SearchSettings.Advanced;
-					}
-				}
-			}
-		}
-
 		// Sets the tooltip/mouse-over text for cells and column headers
-		void SetDataGridToolTip(DataGridViewCellToolTipTextNeededEventArgs e)
+		void SetDataGridCellToolTip(DataGridViewCellToolTipTextNeededEventArgs e)
 		{
 			// Row header - exit
 			if (e.ColumnIndex < 0)
@@ -297,58 +207,44 @@ namespace Mappalachia
 			e.ToolTipText = GetCellToolTip(columnName, instance, Settings.SearchSettings.Advanced);
 		}
 
-		// Setup the columns and styling for the search results grid
-		void InitializeSearchResultsGrid()
+		void InitializeDataGridView(DataGridView dataGridView, BindingList<GroupedInstance> data)
 		{
-			dataGridViewSearchResults.AutoGenerateColumns = false;
-			dataGridViewSearchResults.Columns.Clear();
+			dataGridView.AutoGenerateColumns = false;
+			dataGridView.Columns.Clear();
+			dataGridView.DataSource = new BindingSource(data, string.Empty);
 
-			BindingSource source = new BindingSource(SearchResults, string.Empty);
-			dataGridViewSearchResults.DataSource = source;
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID", DataPropertyName = "DataValueFormID", });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EditorID", DataPropertyName = "DataValueEditorID" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName", DataPropertyName = "DataValueDisplayName" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature", DataPropertyName = "DataValueSignature" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label", DataPropertyName = "DataValueLabel" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel", DataPropertyName = "DataValueLockLevel" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location", DataPropertyName = "DataValueLocation" });
 
-			AddDGVColumns(dataGridViewSearchResults);
+			UpdateDataGridAppearences();
 
-			SetDataGridAppearences();
-
-			dataGridViewSearchResults.CellFormatting += (s, e) =>
-			{
-				MapDataGridData(e, dataGridViewSearchResults);
-			};
-
-			dataGridViewSearchResults.CellToolTipTextNeeded += (s, e) =>
-			{
-				SetDataGridToolTip(e);
-			};
+			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(e);
 		}
 
-		// Setup the columns and styling for the items to plot grid
-		void InitializeItemsToPlotGrid()
+		// Applies the header text and column visibility of all DGV Columns, based on Settings
+		// We don't need to update tooltips as they are fetched dynamically via events
+		void UpdateDataGridAppearences()
 		{
-			dataGridViewItemsToPlot.AutoGenerateColumns = false;
-			dataGridViewItemsToPlot.Columns.Clear();
-
-			BindingSource source = new BindingSource(ItemsToPlot, string.Empty);
-			dataGridViewItemsToPlot.DataSource = source;
-
-			AddDGVColumns(dataGridViewItemsToPlot);
-
-			SetDataGridAppearences();
-
-			dataGridViewItemsToPlot.CellFormatting += (s, e) =>
+			foreach (DataGridView dataGridView in new List<DataGridView>() { dataGridViewSearchResults, dataGridViewItemsToPlot })
 			{
-				MapDataGridData(e, dataGridViewItemsToPlot);
-			};
+				foreach (DataGridViewColumn column in dataGridView.Columns)
+				{
+					column.HeaderText = GetColumnHeader(column.Name, Settings.SearchSettings.Advanced);
 
-			dataGridViewItemsToPlot.CellToolTipTextNeeded += (s, e) =>
-			{
-				SetDataGridToolTip(e);
-			};
-		}
-
-		void InitializeSpaceDropDown()
-		{
-			comboBoxSpace.DataSource = Database.AllSpaces;
-			comboBoxSpace.DisplayMember = "FriendlyName";
+					if (column.Name.Equals("FormID"))
+					{
+						column.Visible = Settings.SearchSettings.Advanced;
+					}
+				}
+			}
 		}
 
 		void DontCloseClickedDropDown(object? sender, ToolStripDropDownClosingEventArgs e)
@@ -357,6 +253,13 @@ namespace Mappalachia
 			{
 				e.Cancel = true;
 			}
+		}
+
+		// Shorthand to apply a new user-selected setting, update the UI, and optionally redraw the map
+		void SetSetting(Action setSetting, bool redraw = true)
+		{
+			setSetting();
+			UpdateFromSettings(redraw);
 		}
 
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
@@ -432,68 +335,57 @@ namespace Mappalachia
 
 		private void Map_Grayscale_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground);
 		}
 
 		private void Map_HightlightWater_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
 		}
 
 		private void Map_MapMarkers_Icons_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.MapMarkerIcons = !Settings.MapSettings.MapMarkerIcons;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.MapMarkerIcons = !Settings.MapSettings.MapMarkerIcons);
 		}
 
 		private void Map_MapMarkers_Labels_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.MapMarkerLabels = !Settings.MapSettings.MapMarkerLabels;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.MapMarkerLabels = !Settings.MapSettings.MapMarkerLabels);
 		}
 
 		private void Map_Background_Normal_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.BackgroundImage = BackgroundImageType.Menu;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Menu);
 		}
 
 		private void Map_Background_Satellite_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.BackgroundImage = BackgroundImageType.Render;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Render);
 		}
 
 		private void Map_Background_Military_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.BackgroundImage = BackgroundImageType.Military;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Military);
 		}
 
 		private void Map_Background_None_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.BackgroundImage = BackgroundImageType.None;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.None);
 		}
 
 		private void Map_Legend_Normal_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.LegendStyle = LegendStyle.Normal;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Normal);
 		}
 
 		private void Map_Legend_Extended_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.LegendStyle = LegendStyle.Extended;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Extended);
 		}
 
 		private void Map_Legend_Hidden_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings.LegendStyle = LegendStyle.None;
-			UpdateFromSettings();
+			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.None);
 		}
 
 		private void Map_SetTitle_Click(object sender, EventArgs e)
@@ -572,14 +464,12 @@ namespace Mappalachia
 
 		private void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
 		{
-			Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces;
-			UpdateFromSettings(false);
+			SetSetting(() => Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces, true);
 		}
 
 		private void Search_AdvancedMode_Click(object sender, EventArgs e)
 		{
-			Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced;
-			UpdateFromSettings(false);
+			SetSetting(() => Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced, true);
 		}
 
 		private void SearchTerm_TextChanged(object sender, EventArgs e)
@@ -628,10 +518,13 @@ namespace Mappalachia
 			}
 			else
 			{
-				// From the selected rows, find the data bound to those, and remove it from the ItemsToPlot
-				foreach (DataGridViewRow? row in selectedRows)
+				// Collect the instances attached to the rows
+				// Then in a separate loop (to avoid removing from the list which we are looping), remove them
+				List<GroupedInstance> itemsToRemove = selectedRows.Select(row => (GroupedInstance)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"))).ToList();
+
+				foreach (GroupedInstance instance in itemsToRemove)
 				{
-					ItemsToPlot.Remove((GroupedInstance)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null")));
+					ItemsToPlot.Remove(instance);
 				}
 			}
 
