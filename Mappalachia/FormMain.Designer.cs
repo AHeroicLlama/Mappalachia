@@ -267,7 +267,7 @@ namespace Mappalachia
 			// searchInAllSpacesToolStripMenuItem
 			// 
 			searchInAllSpacesToolStripMenuItem.Name = "searchInAllSpacesToolStripMenuItem";
-			searchInAllSpacesToolStripMenuItem.Size = new Size(176, 22);
+			searchInAllSpacesToolStripMenuItem.Size = new Size(180, 22);
 			searchInAllSpacesToolStripMenuItem.Text = "Search in all Spaces";
 			searchInAllSpacesToolStripMenuItem.ToolTipText = "Constrain the search to the selected Space only, or search all Spaces.";
 			searchInAllSpacesToolStripMenuItem.Click += Search_SearchInAllSpaces_Click;
@@ -275,9 +275,9 @@ namespace Mappalachia
 			// advancedModeToolStripMenuItem
 			// 
 			advancedModeToolStripMenuItem.Name = "advancedModeToolStripMenuItem";
-			advancedModeToolStripMenuItem.Size = new Size(176, 22);
+			advancedModeToolStripMenuItem.Size = new Size(180, 22);
 			advancedModeToolStripMenuItem.Text = "Advanced Mode";
-			advancedModeToolStripMenuItem.ToolTipText = "Toggle displaying search results in advanced dataminer format.";
+			advancedModeToolStripMenuItem.ToolTipText = "Toggle displaying search results in technical formats, and enable searching by FormID.";
 			advancedModeToolStripMenuItem.Click += Search_AdvancedMode_Click;
 			// 
 			// helpToolStripMenuItem

@@ -275,7 +275,7 @@ namespace Mappalachia
 			List<GroupedInstance> searchResults = await Database.Search(Settings);
 
 			searchResults = searchResults
-				.OrderByDescending(g => g.Space == Settings.Space)
+				.OrderByDescending(g => g.Space.Equals(Settings.Space))
 				.ThenByDescending(g => g.Count)
 				.ThenByDescending(g => g.SpawnWeight)
 				.ThenBy(g => g.Entity.EditorID)

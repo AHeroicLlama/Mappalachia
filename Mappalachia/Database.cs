@@ -21,16 +21,13 @@ namespace Mappalachia
 			string searchTerm = ProcessSearchString(settings.SearchSettings.SearchTerm);
 			List<GroupedInstance> results = new List<GroupedInstance>();
 
-			// If the search term is a FormID, we perform further specific searches against this
-			bool searchIsFormID = searchTerm.IsHexFormID();
-
 			// 'Standard' search for entities on the Position table, joined with Entity
-			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty;
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
+			bool searchForFormID = searchTerm.IsHexFormID() && settings.SearchSettings.Advanced;
 
 			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
-				$"WHERE ({optionalExactFormIDTerm} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
+				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' {(searchForFormID ? $"OR referenceFormID = '{HexToInt(searchTerm)}'" : string.Empty)})" +
 				optionalSpaceTerm +
 				$"AND Position_PreGrouped.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()};";
@@ -99,7 +96,7 @@ namespace Mappalachia
 			// Region search
 			query =
 				"SELECT regionFormID, regionEditorID, spaceFormID FROM Region " +
-				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR regionFormID = '{searchTerm}') " +
+				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR regionFormID = '{searchTerm}' {(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}' " : string.Empty)})" +
 				optionalSpaceTerm +
 				"GROUP BY regionFormID;";
 
@@ -123,11 +120,11 @@ namespace Mappalachia
 			}
 
 			// Container contents search
-			query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count(*) as count, lockLevel, quantity " +
+			query = "SELECT contentFormID, editorID, displayName, signature, spaceFormID, count(*) as count, lockLevel, quantity " +
 				"FROM Container " +
 				"JOIN Entity ON Container.contentFormID = Entity.entityFormID " +
 				"JOIN Position ON Position.referenceFormID = Container.containerFormID " +
-				$"WHERE ({(searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty)} label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}') " +
+				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' {(searchForFormID ? $"OR contentFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
 				optionalSpaceTerm +
 				$"AND Position.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}" +
@@ -140,7 +137,7 @@ namespace Mappalachia
 			{
 				results.Add(new GroupedInstance(
 					new Entity(
-						reader.GetUInt("referenceFormID"),
+						reader.GetUInt("contentFormID"),
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
@@ -155,15 +152,18 @@ namespace Mappalachia
 
 			reader.Dispose();
 
-			// FormID-specific
-			if (searchIsFormID)
+			// Instance or TeleportsTo FormID-specific
+			// Instance FormID ignores all filters as it is entirely unique
+			if (searchForFormID)
 			{
 				query =
 					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, count(*) as count FROM Position " +
 					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
-					"WHERE " +
-					optionalExactFormIDTerm +
-					$"(instanceFormID = '{HexToInt(searchTerm)}' OR teleportsToFormID = '{HexToInt(searchTerm)}') " +
+					$"WHERE ((teleportsToFormID = '{HexToInt(searchTerm)}') " +
+					optionalSpaceTerm +
+					$"AND lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
+					$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}) " +
+					$"OR instanceFormID = '{HexToInt(searchTerm)}' " +
 					"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
 
 				reader = await GetReader(Connection, query);
