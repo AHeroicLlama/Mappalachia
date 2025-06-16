@@ -15,7 +15,7 @@ namespace Mappalachia
 
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
-		public string DataValueFormID => Entity.FormID.ToHex();
+		public string DataValueFormID => Entity.FormID == 0 ? "N/A" : Entity.FormID.ToHex();
 
 		public string DataValueEditorID => Entity.EditorID;
 

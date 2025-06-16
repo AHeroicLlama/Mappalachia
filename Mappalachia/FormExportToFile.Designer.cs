@@ -51,7 +51,7 @@
 			radioPNG.Text = "PNG";
 			toolTipExportToFile.SetToolTip(radioPNG, "Supports transparency, large file size.");
 			radioPNG.UseVisualStyleBackColor = true;
-			radioPNG.CheckedChanged += RadioPNG_CheckedChanged;
+			radioPNG.CheckedChanged += Radio_CheckChanged;
 			// 
 			// radioJPG
 			// 
@@ -64,16 +64,16 @@
 			radioJPG.Text = "JPG";
 			toolTipExportToFile.SetToolTip(radioJPG, "No transparency, variable file size.");
 			radioJPG.UseVisualStyleBackColor = true;
-			radioJPG.CheckedChanged += RadioJPG_CheckedChanged;
+			radioJPG.CheckedChanged += Radio_CheckChanged;
 			// 
 			// numericUpDownJPGQuality
 			// 
 			numericUpDownJPGQuality.Location = new Point(12, 104);
-			numericUpDownJPGQuality.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownJPGQuality.Minimum = new decimal(new int[] { 20, 0, 0, 0 });
 			numericUpDownJPGQuality.Name = "numericUpDownJPGQuality";
 			numericUpDownJPGQuality.Size = new Size(67, 23);
 			numericUpDownJPGQuality.TabIndex = 2;
-			numericUpDownJPGQuality.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownJPGQuality.Value = new decimal(new int[] { 20, 0, 0, 0 });
 			// 
 			// labelFileType
 			// 

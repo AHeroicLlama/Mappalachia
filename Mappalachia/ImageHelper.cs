@@ -54,13 +54,15 @@ namespace Mappalachia
 			{
 				for (int y = 0; y < bitmapData.Width; y++)
 				{
+					int alphaAddress = (x * stride) + (y * 4) + 3;
+
 					// If the R, G, and B components are 0, but the A component is not (if the pixel is black but not already transparent)
-					if (buffer[(x * stride) + (y * 4) + 3] != 0 &&
+					if (buffer[alphaAddress] != 0 &&
 						buffer[(x * stride) + (y * 4) + 2] == 0 &&
 						buffer[(x * stride) + (y * 4) + 1] == 0 &&
 						buffer[(x * stride) + (y * 4)] == 0)
 					{
-						buffer[(x * stride) + (y * 4) + 3] = 0;
+						buffer[alphaAddress] = 0;
 					}
 				}
 			}
@@ -69,11 +71,6 @@ namespace Mappalachia
 			bitmap.UnlockBits(bitmapData);
 
 			return bitmap;
-		}
-
-		public static ImageFormat GetImageFileTypeRecommendation(this Settings settings)
-		{
-			return !settings.Space.IsWorldspace || settings.MapSettings.BackgroundImage == BackgroundImageType.None ? ImageFormat.Png : ImageFormat.Jpeg;
 		}
 	}
 }

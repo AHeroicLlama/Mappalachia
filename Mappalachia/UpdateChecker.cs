@@ -34,7 +34,8 @@ namespace Mappalachia
 				// Parse the details out the response
 				JsonElement responseRoot = JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement;
 				Version latestVersion = new Version(responseRoot.GetProperty("tag_name").ToString());
-				string patchNotes = responseRoot.GetProperty("body").ToString().Replace("### ", string.Empty);
+				string patchNotes = responseRoot.GetProperty("body").ToString().
+					Replace("### ", string.Empty).Replace("## ", string.Empty).Replace("# ", string.Empty);
 				string releaseURL = responseRoot.GetProperty("html_url").ToString();
 				string downloadURL = responseRoot.GetProperty("assets")
 					.EnumerateArray()

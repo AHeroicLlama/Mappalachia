@@ -14,7 +14,7 @@ namespace Mappalachia
 			labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
 			labelCopyright.Text = AssemblyCopyright;
 			linkLabelGitHub.Text = "GitHub";
-			textBoxDescription.Text = AssemblyDescription + "\r\nDatabase game version: " + CommonDatabase.GetGameVersion(Database.Connection).Result + "\r\n\r\n" +
+			textBoxDescription.Text = AssemblyDescription + "\r\nDatabase game version: " + Database.GetGameVersion().Result + "\r\n\r\n" +
 				"Mappalachia is provided as a non-commercial, free tool solely for the benefit of players of Fallout 76. Mappalachia and its creator are neither affiliated with - nor endorsed by - ZeniMax Media or any of its subsidiaries including Bethesda Softworks LLC. Any and all game data and/or assets including but not limited to images, characters, names and other game data which are contained within this application are extracted from a purchased copy of Fallout 76 and are shared with the player community in good faith and for the explicit purpose of making maps for the benefit of said community, with an understanding that this lies within fair use.\r\n" +
 				"Great care has been taken to minimize such data so that it cannot be reconstructed in any meaningful way.\r\n" +
 				"If you have any concerns or queries, please direct them to mappalachia.feedback@gmail.com";

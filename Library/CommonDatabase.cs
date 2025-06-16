@@ -33,8 +33,27 @@ namespace Library
 			return reader.GetString(0);
 		}
 
+		// Returns the results of the given query as a collection of MapMarker
+		public static async Task<List<MapMarker>> GetMapMarkers(SqliteConnection connection, string queryText)
+		{
+			using SqliteDataReader reader = await GetReader(connection, queryText);
+			List<MapMarker> mapMarkers = new List<MapMarker>();
+
+			while (reader.Read())
+			{
+				mapMarkers.Add(new MapMarker(
+					reader.GetString("icon"),
+					reader.GetString("label"),
+					reader.GetUInt("spaceFormID"),
+					new Coord(
+						reader.GetFloat("x"),
+						reader.GetFloat("y"))));
+			}
+
+			return mapMarkers;
+		}
+
 		// Returns the results of the given query as a collection of Space
-		// All spaces if queryText is null
 		public static async Task<List<Space>> GetSpaces(SqliteConnection connection, string queryText)
 		{
 			using SqliteDataReader reader = await GetReader(connection, queryText);
@@ -55,7 +74,7 @@ namespace Library
 			return spaces;
 		}
 
-		// Returns a new List of all spaces, ordered by worlspace-ness and editorID
+		// Returns a new List of all spaces, ordered by worlspace and editorID
 		public static async Task<List<Space>> GetAllSpaces(SqliteConnection connection)
 		{
 			return await GetSpaces(connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC");
@@ -84,47 +103,19 @@ namespace Library
 				reader.GetDouble("maxRange"));
 		}
 
-		// Returns a collection of all X/Y coordinates of the given Space
-		public static async Task<List<Coord>> GetCoords(SqliteConnection connection, Space space)
+		// Returns a collection of all coordinates of the given Space
+		public static async Task<List<Coord>> GetAllCoords(SqliteConnection connection, Space space)
 		{
-			string queryText = $"SELECT x, y FROM Position WHERE spaceFormID = {space.FormID};";
-			return await GetCoords(connection, queryText);
-		}
-
-		// Returns the results of the given query as a collection of Coord
-		public static async Task<List<Coord>> GetCoords(SqliteConnection connection, string queryText)
-		{
+			string queryText = $"SELECT x, y, z FROM Position WHERE spaceFormID = {space.FormID};";
 			using SqliteDataReader reader = await GetReader(connection, queryText);
 			List<Coord> coordinates = new List<Coord>();
 
 			while (reader.Read())
 			{
-				coordinates.Add(new Coord(
-					reader.GetFloat("x"),
-					reader.GetFloat("y")));
+				coordinates.Add(reader.GetCoord());
 			}
 
 			return coordinates;
-		}
-
-		// Returns the results of the given query as a collection of MapMarker
-		public static async Task<List<MapMarker>> GetMapMarkers(SqliteConnection connection, string queryText)
-		{
-			using SqliteDataReader reader = await GetReader(connection, queryText);
-			List<MapMarker> mapMarkers = new List<MapMarker>();
-
-			while (reader.Read())
-			{
-				mapMarkers.Add(new MapMarker(
-					reader.GetString("icon"),
-					reader.GetString("label"),
-					reader.GetUInt("spaceFormID"),
-					new Coord(
-						reader.GetFloat("x"),
-						reader.GetFloat("y"))));
-			}
-
-			return mapMarkers;
 		}
 
 		// Returns the regions in the given space where the editorIDs match the like term

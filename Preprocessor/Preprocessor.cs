@@ -411,7 +411,7 @@ namespace Preprocessor
 			List<string> spaceChecksums = new List<string>();
 			foreach (Space space in await CommonDatabase.GetAllSpaces(Connection))
 			{
-				List<Coord> coordinates = await CommonDatabase.GetCoords(Connection, space);
+				List<Coord> coordinates = await CommonDatabase.GetAllCoords(Connection, space);
 				double maxRadius = space.MaxRange / 2d;
 
 				// Find the count of coordinates in the space which are further from the center than the max range

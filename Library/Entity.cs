@@ -49,12 +49,6 @@
 
 		public Signature Signature { get; } = signature;
 
-		// Overload for passing Signature as string
-		public Entity(uint formID, string editorID, string displayName, string signature)
-			: this(formID, editorID, displayName, Enum.Parse<Signature>(signature))
-		{
-		}
-
 		public override bool Equals(object? obj)
 		{
 			if (obj is not Entity other || obj is null)
@@ -67,7 +61,7 @@
 				return true;
 			}
 
-			return FormID.Equals(other.FormID);
+			return FormID.Equals(other.FormID) && EditorID.Equals(other.EditorID);
 		}
 
 		public override int GetHashCode()

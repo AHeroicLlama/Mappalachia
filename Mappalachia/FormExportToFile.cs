@@ -14,19 +14,14 @@ namespace Mappalachia
 		{
 			InitializeComponent();
 
-			radioPNG.Checked = settings.GetImageFileTypeRecommendation() == ImageFormat.Png;
+			radioPNG.Checked = FileIO.GetImageFileTypeRecommendation(settings) == ImageFormat.Png;
 			radioJPG.Checked = !radioPNG.Checked;
 
 			numericUpDownJPGQuality.Value = 85;
 			numericUpDownJPGQuality.Enabled = radioJPG.Checked;
 		}
 
-		private void RadioPNG_CheckedChanged(object sender, EventArgs e)
-		{
-			numericUpDownJPGQuality.Enabled = radioJPG.Checked;
-		}
-
-		private void RadioJPG_CheckedChanged(object sender, EventArgs e)
+		private void Radio_CheckChanged(object sender, EventArgs e)
 		{
 			numericUpDownJPGQuality.Enabled = radioJPG.Checked;
 		}

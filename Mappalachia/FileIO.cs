@@ -23,8 +23,13 @@ namespace Mappalachia
 			CreateSavedMapsFolder();
 		}
 
-		// Return an image from the file path, or a cached version if loaded before
-		static Image LoadImage(string path)
+		public static FontFamily GetFontFamily()
+		{
+			return FontCollection.Families.First();
+		}
+
+		// Return a background image from the file path, or a cached version if loaded before
+		static Image LoadBackgroundImage(string path)
 		{
 			if (BackgroundImageCache.TryGetValue(path, out Image? value))
 			{
@@ -36,16 +41,11 @@ namespace Mappalachia
 			return image;
 		}
 
-		public static FontFamily GetFontFamily()
-		{
-			return FontCollection.Families.First();
-		}
-
 		public static Image GetBackgroundImage(this Space space, BackgroundImageType backgroundImageType)
 		{
 			if (backgroundImageType == BackgroundImageType.None)
 			{
-				return new Bitmap(MapImageResolution, MapImageResolution);
+				return GetEmptyMapImage();
 			}
 
 			string path = (space.IsWorldspace ? Paths.WorldspaceImgPath : Paths.CellImgPath) + space.EditorID;
@@ -55,10 +55,10 @@ namespace Mappalachia
 				case BackgroundImageType.Render:
 					break;
 				case BackgroundImageType.Menu:
-					path += MenuAddendum;
+					path += BackgroundMenuAddendum;
 					break;
 				case BackgroundImageType.Military:
-					path += MilitaryAddendum;
+					path += BackgroundMilitaryAddendum;
 					break;
 				default:
 					throw new Exception("Unexpected BackgroundImageType: " + backgroundImageType);
@@ -68,27 +68,49 @@ namespace Mappalachia
 
 			if (!File.Exists(path))
 			{
-				return new Bitmap(MapImageResolution, MapImageResolution);
+				return GetEmptyMapImage();
 			}
 
-			return LoadImage(path);
+			return LoadBackgroundImage(path);
 		}
 
 		public static Image GetWaterMask(this Space space)
 		{
 			if (!space.IsWorldspace)
 			{
-				return new Bitmap(MapImageResolution, MapImageResolution);
+				return GetEmptyMapImage();
 			}
 
 			string path = Paths.WorldspaceImgPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
 
 			if (!File.Exists(path))
 			{
-				return new Bitmap(MapImageResolution, MapImageResolution);
+				return GetEmptyMapImage();
 			}
 
-			return LoadImage(path);
+			return LoadBackgroundImage(path);
+		}
+
+		static Image GetEmptyMapImage()
+		{
+			return new Bitmap(MapImageResolution, MapImageResolution);
+		}
+
+		// Returns the image for the icon of the mapMarker, uses caching
+		public static Image GetMapMarkerImage(this MapMarker mapMarker)
+		{
+			string path = Paths.MapMarkersPath + mapMarker.Icon + MapMarkerImageFileType;
+
+			if (MapMarkerIconImageCache.TryGetValue(mapMarker.Icon, out Image? value))
+			{
+				return value;
+			}
+
+			Svg.SvgDocument document = Svg.SvgDocument.Open(path);
+			Image marker = document.Draw((int)(document.Width * Map.MapMarkerIconScale), 0);
+
+			MapMarkerIconImageCache[mapMarker.Icon] = marker;
+			return marker;
 		}
 
 		static string GetFileExtension(this ImageFormat format)
@@ -138,21 +160,9 @@ namespace Mappalachia
 			}
 		}
 
-		// Returns the image for the icon of the mapMarker, uses caching
-		public static Image GetMapMarkerImage(this MapMarker mapMarker)
+		public static ImageFormat GetImageFileTypeRecommendation(Settings settings)
 		{
-			string path = Paths.MapMarkersPath + mapMarker.Icon + MapMarkerImageFileType;
-
-			if (MapMarkerIconImageCache.TryGetValue(mapMarker.Icon, out Image? value))
-			{
-				return value;
-			}
-
-			Svg.SvgDocument document = Svg.SvgDocument.Open(path);
-			Image marker = document.Draw((int)(document.Width * Map.MapMarkerIconScale), 0);
-
-			MapMarkerIconImageCache[mapMarker.Icon] = marker;
-			return marker;
+			return !settings.Space.IsWorldspace || settings.MapSettings.BackgroundImage == BackgroundImageType.None ? ImageFormat.Png : ImageFormat.Jpeg;
 		}
 
 		// Return a string that would make a good default map file name

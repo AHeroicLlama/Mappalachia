@@ -80,7 +80,7 @@ namespace Mappalachia
 						"However for example an NPC may only spawn 1/5 of the time (20%), but a container may contain 2x of the item (200%), and a piece of junk may contain 3 of the specified scrap (300%)";
 
 				case "Count":
-					return "The total number of instances this entity, at this location";
+					return "The total number of identical instances of this entity, at this location";
 
 				case "Location":
 					return "The location where this entity may be found";
@@ -102,7 +102,7 @@ namespace Mappalachia
 					return advanced ? boundData.Entity.Signature.ToFriendlyName() : boundData.Entity.Signature.GetDescription();
 
 				case "InContainer":
-					return (boundData.InContainer || advanced) ? string.Empty : "This entity is placed directly in the world";
+					return (!boundData.InContainer && !advanced) ? "This entity is placed directly in the world" : string.Empty;
 
 				case "Location":
 					return advanced ? boundData.Space.DisplayName : boundData.Space.EditorID;
@@ -112,7 +112,7 @@ namespace Mappalachia
 			}
 		}
 
-		// Reads in fields from Settings and updates UI elements respectively
+		// Read in fields from Settings and update UI elements respectively
 		void UpdateFromSettings(bool reDraw = true)
 		{
 			comboBoxSpace.SelectedItem = Settings.Space;
@@ -186,15 +186,15 @@ namespace Mappalachia
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers
-		void SetDataGridCellToolTip(DataGridViewCellToolTipTextNeededEventArgs e)
+		void SetDataGridCellToolTip(DataGridView dataGridView, DataGridViewCellToolTipTextNeededEventArgs e)
 		{
 			// Row header - exit
-			if (e.ColumnIndex < 0)
+			if (e.ColumnIndex == -1)
 			{
 				return;
 			}
 
-			string columnName = dataGridViewSearchResults.Columns[e.ColumnIndex].Name;
+			string columnName = dataGridView.Columns[e.ColumnIndex].Name;
 
 			// Column header
 			if (e.RowIndex == -1)
@@ -203,10 +203,11 @@ namespace Mappalachia
 				return;
 			}
 
-			GroupedInstance instance = (GroupedInstance)(dataGridViewSearchResults.Rows[e.RowIndex].DataBoundItem ?? throw new Exception($"Column {e.RowIndex} bound to null"));
+			GroupedInstance instance = (GroupedInstance)(dataGridView.Rows[e.RowIndex].DataBoundItem ?? throw new Exception($"Column {e.RowIndex} bound to null"));
 			e.ToolTipText = GetCellToolTip(columnName, instance, Settings.SearchSettings.Advanced);
 		}
 
+		// Programatically configure either DGV
 		void InitializeDataGridView(DataGridView dataGridView, BindingList<GroupedInstance> data)
 		{
 			dataGridView.AutoGenerateColumns = false;
@@ -226,11 +227,11 @@ namespace Mappalachia
 
 			UpdateDataGridAppearences();
 
-			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(e);
+			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(dataGridView, e);
 		}
 
 		// Applies the header text and column visibility of all DGV Columns, based on Settings
-		// We don't need to update tooltips as they are fetched dynamically via events
+		// We don't need to update tooltips as they are fetched dynamically via CellToolTipNeeded events
 		void UpdateDataGridAppearences()
 		{
 			foreach (DataGridView dataGridView in new List<DataGridView>() { dataGridViewSearchResults, dataGridViewItemsToPlot })
@@ -239,6 +240,7 @@ namespace Mappalachia
 				{
 					column.HeaderText = GetColumnHeader(column.Name, Settings.SearchSettings.Advanced);
 
+					// Hide the Form ID column except when in advanced mode
 					if (column.Name.Equals("FormID"))
 					{
 						column.Visible = Settings.SearchSettings.Advanced;
@@ -247,19 +249,19 @@ namespace Mappalachia
 			}
 		}
 
+		// Shorthand to apply a new user-selected setting, update the UI, and optionally redraw the map
+		void SetSetting(Action setSetting, bool redraw = true)
+		{
+			setSetting();
+			UpdateFromSettings(redraw);
+		}
+
 		void DontCloseClickedDropDown(object? sender, ToolStripDropDownClosingEventArgs e)
 		{
 			if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
 			{
 				e.Cancel = true;
 			}
-		}
-
-		// Shorthand to apply a new user-selected setting, update the UI, and optionally redraw the map
-		void SetSetting(Action setSetting, bool redraw = true)
-		{
-			setSetting();
-			UpdateFromSettings(redraw);
 		}
 
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
@@ -426,7 +428,7 @@ namespace Mappalachia
 					ImageFormat imageFormat = formExportToFile.ImageFormat;
 
 					// If PNG is recommended and selected, set black backgrounds transparent
-					if (Settings.GetImageFileTypeRecommendation() == ImageFormat.Png && imageFormat == ImageFormat.Png)
+					if (FileIO.GetImageFileTypeRecommendation(Settings) == ImageFormat.Png && imageFormat == ImageFormat.Png)
 					{
 						saveTarget.ReplaceBlackWithTransparency();
 					}

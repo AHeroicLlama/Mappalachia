@@ -20,7 +20,7 @@
 
 		public float BoundZ { get; } = boundZ;
 
-		// The rotation of the shape in degrees
+		// The rotation of the shape in degrees around the Z axis
 		public float RotZ { get; } = rotZ;
 	}
 }

@@ -48,7 +48,6 @@
 		}
 
 		// Ray casting algorithm over each subregion
-		// TODO tests
 		public bool ContainsPoint(Coord n)
 		{
 			foreach (List<RegionPoint> subRegion in GetAllSubRegions())
@@ -70,7 +69,7 @@
 
 					double intersectionX = a.X + ((b.X - a.X) * ((n.Y - a.Y) / (b.Y - a.Y)));
 
-					// X is left of line, flip polarity of inside flag
+					// X is left of line, flip 'inside'
 					if (n.X < intersectionX)
 					{
 						inside = !inside;
@@ -86,11 +85,6 @@
 
 			// not inside any subregion
 			return false;
-		}
-
-		public bool ContainsPoint(Instance instance)
-		{
-			return ContainsPoint(instance.Point);
 		}
 	}
 }

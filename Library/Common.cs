@@ -15,9 +15,9 @@ namespace Library
 
 		public static string WaterMaskAddendum { get; } = "_waterMask";
 
-		public static string MenuAddendum { get; } = "_menu";
+		public static string BackgroundMenuAddendum { get; } = "_menu";
 
-		public static string MilitaryAddendum { get; } = "_military";
+		public static string BackgroundMilitaryAddendum { get; } = "_military";
 
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
 

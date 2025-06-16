@@ -24,7 +24,7 @@ namespace Mappalachia
 			// If the search term is a FormID, we perform further specific searches against this
 			bool searchIsFormID = searchTerm.IsHexFormID();
 
-			// 'Standard'
+			// 'Standard' search for entities on the Position table, joined with Entity
 			string optionalExactFormIDTerm = searchIsFormID ? $"referenceFormID = '{HexToInt(searchTerm)}' OR " : string.Empty;
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 
@@ -52,13 +52,14 @@ namespace Mappalachia
 					reader.GetLockLevel()));
 			}
 
-			// NPC
+			// NPC search
 			query =
 				"SELECT npcName, spaceFormID, spawnWeight, count(*) as count FROM NPC " +
 				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				optionalSpaceTerm +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 
+			reader.Dispose();
 			reader = await GetReader(Connection, query);
 
 			while (reader.Read())
@@ -73,13 +74,14 @@ namespace Mappalachia
 					reader.GetFloat("spawnWeight")));
 			}
 
-			// Scrap
+			// Scrap search
 			query = "SELECT component, spaceFormID, componentQuantity, sum(count) as properCount FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
 				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				optionalSpaceTerm +
 				"GROUP BY component, spaceFormID, componentQuantity;";
 
+			reader.Dispose();
 			reader = await GetReader(Connection, query);
 
 			while (reader.Read())
@@ -94,13 +96,14 @@ namespace Mappalachia
 					reader.GetFloat("componentQuantity")));
 			}
 
-			// Region
+			// Region search
 			query =
 				"SELECT regionFormID, regionEditorID, spaceFormID FROM Region " +
 				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR regionFormID = '{searchTerm}') " +
 				optionalSpaceTerm +
 				"GROUP BY regionFormID;";
 
+			reader.Dispose();
 			reader = await GetReader(Connection, query);
 
 			while (reader.Read())
@@ -119,7 +122,7 @@ namespace Mappalachia
 					LockLevel.None));
 			}
 
-			// Container
+			// Container contents search
 			query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count(*) as count, lockLevel, quantity " +
 				"FROM Container " +
 				"JOIN Entity ON Container.contentFormID = Entity.entityFormID " +
@@ -130,6 +133,7 @@ namespace Mappalachia
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}" +
 				$"GROUP BY editorID, contentFormID, lockLevel, quantity, spaceFormID;";
 
+			reader.Dispose();
 			reader = await GetReader(Connection, query);
 
 			while (reader.Read())
@@ -148,6 +152,8 @@ namespace Mappalachia
 					reader.GetInt("quantity"),
 					true));
 			}
+
+			reader.Dispose();
 
 			// FormID-specific
 			if (searchIsFormID)
@@ -176,9 +182,10 @@ namespace Mappalachia
 						reader.GetString("label"),
 						reader.GetLockLevel()));
 				}
+
+				reader.Dispose();
 			}
 
-			reader.Dispose();
 			return results;
 		}
 

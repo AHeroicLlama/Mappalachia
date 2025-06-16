@@ -38,6 +38,7 @@
 				Space.Equals(other.Space) &&
 				Label.Equals(other.Label) &&
 				LockLevel.Equals(other.LockLevel) &&
+				SpawnWeight.Equals(other.SpawnWeight) &&
 				InContainer.Equals(other.InContainer);
 		}
 

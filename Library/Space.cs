@@ -12,6 +12,7 @@
 
 		public double MaxRange { get; } = maxRange;
 
+		// Accessed via variable name in the UI - provides the name for the Space select dropdown
 		public string FriendlyName => $"{DisplayName} ({EditorID})";
 
 		public bool IsAppalachia()
