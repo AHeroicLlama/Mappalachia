@@ -53,9 +53,11 @@ namespace Mappalachia
 		public Settings()
 		{
 			space ??= Database.AllSpaces.First();
-			MapSettings ??= new MapSettings(this);
 			PlotSettings ??= new PlotSettings();
 			SearchSettings ??= new SearchSettings();
+			MapSettings ??= new MapSettings(this);
+
+			ResolveConflictingSettings();
 		}
 
 		public Space Space

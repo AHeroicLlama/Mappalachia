@@ -11,7 +11,7 @@ namespace Mappalachia
 
 		Point LastMouseDragEnd { get; set; }
 
-		public FormMapView()
+		public FormMapView(Settings settings)
 		{
 			InitializeComponent();
 
@@ -19,6 +19,8 @@ namespace Mappalachia
 			SizeMapToForm();
 			UpdateKeepOnTopText();
 			menuStripPreview.BringToFront();
+
+			UpdateMap(settings);
 		}
 
 		public void UpdateMap(Settings settings)
@@ -85,6 +87,11 @@ namespace Mappalachia
 		private void PictureBoxMapDisplay_MouseDown(object sender, MouseEventArgs e)
 		{
 			LastMouseDragEnd = e.Location;
+		}
+
+		private void PictureBoxMapDisplay_DoubleClick(object sender, EventArgs e)
+		{
+			FileIO.TempSave(GetCurrentMapImage(), true);
 		}
 
 		// Intercept mouse wheel events to handle zooming

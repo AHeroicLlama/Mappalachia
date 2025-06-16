@@ -2,7 +2,7 @@
 
 namespace Mappalachia
 {
-	public class MapSettings
+	public class MapSettings(Settings rootSettings)
 	{
 		BackgroundImageType backgroundImage = BackgroundImageType.Menu;
 
@@ -23,7 +23,7 @@ namespace Mappalachia
 		}
 
 		[JsonIgnore]
-		public Settings? RootSettings { get; set; }
+		public Settings RootSettings { get; set; } = rootSettings;
 
 		public float Brightness { get; set; } = 1.0f;
 
@@ -38,14 +38,5 @@ namespace Mappalachia
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
 
 		public string Title { get; set; } = string.Empty;
-
-		public MapSettings()
-		{
-		}
-
-		public MapSettings(Settings rootSettings)
-		{
-			RootSettings = rootSettings;
-		}
 	}
 }

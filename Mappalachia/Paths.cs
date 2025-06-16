@@ -18,5 +18,7 @@
 		public static string SettingsPath { get; } = "settings.json";
 
 		public static string SavedMapsPath { get; } = @"Saved_Maps\";
+
+		public static string TempPath { get; } = @"temp\";
 	}
 }

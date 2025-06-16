@@ -9,7 +9,7 @@ namespace Mappalachia
 	{
 		public Settings Settings { get; private set; } = Settings.LoadFromFile();
 
-		FormMapView MapViewForm { get; set; }
+		FormMapView FormMapView { get; set; }
 
 		BindingList<GroupedInstance> SearchResults { get; set; } = new BindingList<GroupedInstance>();
 
@@ -19,11 +19,7 @@ namespace Mappalachia
 		{
 			InitializeComponent();
 
-			// Spawn the map view form
-			MapViewForm = new FormMapView();
-			MapViewForm.Show();
-
-			UpdateFromSettings();
+			UpdateFromSettings(false);
 
 			UpdateChecker.CheckForUpdates(Settings);
 
@@ -32,11 +28,14 @@ namespace Mappalachia
 
 			comboBoxSpace.DataSource = Database.AllSpaces;
 			comboBoxSpace.DisplayMember = "FriendlyName";
+			comboBoxSpace.SelectedItem = Settings.Space;
 
 			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem })
 			{
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
+
+			FormMapView = new FormMapView(Settings);
 		}
 
 		// Return the header for a DataGridViewColumn with the given name
@@ -181,7 +180,7 @@ namespace Mappalachia
 			// TODO - Is doing this every time inelegant?
 			if (reDraw)
 			{
-				MapViewForm.UpdateMap(Settings);
+				FormMapView.UpdateMap(Settings);
 			}
 		}
 
@@ -264,51 +263,11 @@ namespace Mappalachia
 			}
 		}
 
-		private void Map_ShowPreview_Click(object sender, EventArgs e)
+		// Defer showing the map view until after the main form has been shown
+		private void FormMain_Shown(object sender, EventArgs e)
 		{
-			MapViewForm.BringToFront();
-			MapViewForm.Show();
-			MapViewForm.Focus();
-		}
-
-		private void Discord_Click(object sender, EventArgs e)
-		{
-			Common.OpenURI(URLs.DiscordInvite);
-		}
-
-		private void Help_About_Click(object sender, EventArgs e)
-		{
-			new FormAbout().ShowDialog();
-		}
-
-		private void Help_UserGuides_Click(object sender, EventArgs e)
-		{
-			Common.OpenURI(URLs.HelpDocs);
-		}
-
-		private void Help_CheckForUpdates_Click(object sender, EventArgs e)
-		{
-			UpdateChecker.CheckForUpdates(Settings, true);
-		}
-
-		private void Help_ViewGitHub_Click(object sender, EventArgs e)
-		{
-			Common.OpenURI(URLs.GitHub);
-		}
-
-		// Note that this creates a new instance of Settings, so references passed will become disconnected
-		private void Help_ResetEverything_Click(object sender, EventArgs e)
-		{
-			Settings = new Settings();
-			SearchResults.Clear();
-			ItemsToPlot.Clear();
-			MapViewForm.SizeMapToForm();
-			UpdateFromSettings();
-		}
-
-		private void Donate_Click(object sender, EventArgs e)
-		{
-			Common.OpenURI(URLs.DonatePaypal);
+			FormMapView.Show();
+			BringToFront();
 		}
 
 		private async void ButtonSearch_Click(object sender, EventArgs e)
@@ -333,6 +292,24 @@ namespace Mappalachia
 
 			SearchResults.RaiseListChangedEvents = true;
 			SearchResults.ResetBindings();
+		}
+
+		private void Map_ShowPreview_Click(object sender, EventArgs e)
+		{
+			FormMapView.BringToFront();
+			FormMapView.Show();
+			FormMapView.Focus();
+
+			if (FormMapView.WindowState == FormWindowState.Minimized)
+			{
+				FormMapView.WindowState = FormWindowState.Normal;
+				FormMapView.SizeMapToForm();
+			}
+		}
+
+		private void Map_OpenExternally(object sender, EventArgs e)
+		{
+			FileIO.TempSave(FormMapView.GetCurrentMapImage(), true);
 		}
 
 		private void Map_Grayscale_Click(object sender, EventArgs e)
@@ -403,7 +380,7 @@ namespace Mappalachia
 
 		private void Map_QuickSave_Click(object sender, EventArgs e)
 		{
-			FileIO.QuickSave(MapViewForm.GetCurrentMapImage(), Settings);
+			FileIO.QuickSave(FormMapView.GetCurrentMapImage(), Settings);
 			mapMenuItem.DropDown.Close();
 		}
 
@@ -424,7 +401,7 @@ namespace Mappalachia
 
 				if (saveDialog.ShowDialog() == DialogResult.OK)
 				{
-					Image saveTarget = MapViewForm.GetCurrentMapImage();
+					Image saveTarget = FormMapView.GetCurrentMapImage();
 					ImageFormat imageFormat = formExportToFile.ImageFormat;
 
 					// If PNG is recommended and selected, set black backgrounds transparent
@@ -450,9 +427,11 @@ namespace Mappalachia
 
 		private void Map_Reset_Click(object sender, EventArgs e)
 		{
-			Settings.MapSettings = new MapSettings();
+			Settings.MapSettings = new MapSettings(Settings);
+			Settings.ResolveConflictingSettings();
+
 			ItemsToPlot.Clear();
-			MapViewForm.SizeMapToForm();
+			FormMapView.SizeMapToForm();
 
 			mapMenuItem.DropDown.Close();
 			UpdateFromSettings();
@@ -472,6 +451,47 @@ namespace Mappalachia
 		private void Search_AdvancedMode_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced, true);
+		}
+
+		private void Help_About_Click(object sender, EventArgs e)
+		{
+			new FormAbout().ShowDialog();
+		}
+
+		private void Help_UserGuides_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.HelpDocs);
+		}
+
+		private void Help_CheckForUpdates_Click(object sender, EventArgs e)
+		{
+			UpdateChecker.CheckForUpdates(Settings, true);
+		}
+
+		private void Help_ViewGitHub_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.GitHub);
+		}
+
+		// Note that this creates a new instance of Settings, so references passed will become disconnected
+		private void Help_ResetEverything_Click(object sender, EventArgs e)
+		{
+			Settings = new Settings();
+			SearchResults.Clear();
+			ItemsToPlot.Clear();
+			FormMapView.SizeMapToForm();
+			UpdateFromSettings();
+			Settings.ResolveConflictingSettings();
+		}
+
+		private void Discord_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.DiscordInvite);
+		}
+
+		private void Donate_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.DonatePaypal);
 		}
 
 		private void SearchTerm_TextChanged(object sender, EventArgs e)
@@ -537,6 +557,7 @@ namespace Mappalachia
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Settings.SaveToFile();
+			FileIO.Cleanup();
 		}
 	}
 }

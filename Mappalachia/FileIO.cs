@@ -2,7 +2,6 @@
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using Library;
-
 using static Library.Common;
 
 namespace Mappalachia
@@ -91,7 +90,7 @@ namespace Mappalachia
 			return LoadBackgroundImage(path);
 		}
 
-		static Image GetEmptyMapImage()
+		static Bitmap GetEmptyMapImage()
 		{
 			return new Bitmap(MapImageResolution, MapImageResolution);
 		}
@@ -128,9 +127,30 @@ namespace Mappalachia
 			throw new Exception($"Unexpected ImageFormat {format}");
 		}
 
+		static string GetDateTimeString()
+		{
+			return DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss_FFF");
+		}
+
 		public static void CreateSavedMapsFolder()
 		{
 			Directory.CreateDirectory(Paths.SavedMapsPath);
+		}
+
+		// Save an image to the temp folder
+		public static void TempSave(Image image, bool openAferSave = false)
+		{
+			Directory.CreateDirectory(Paths.TempPath);
+
+			ImageFormat format = ImageFormat.Jpeg;
+			string path = Paths.TempPath + "Mappalachia_Temp_" + GetDateTimeString() + format.GetFileExtension();
+
+			Save(image, format, path);
+
+			if (openAferSave)
+			{
+				OpenURI(path);
+			}
 		}
 
 		public static void QuickSave(Image image, Settings settings)
@@ -138,7 +158,7 @@ namespace Mappalachia
 			CreateSavedMapsFolder();
 
 			ImageFormat format = settings.MapSettings.BackgroundImage == BackgroundImageType.None ? ImageFormat.Png : ImageFormat.Jpeg;
-			string path = Paths.SavedMapsPath + GetRecommendedMapFileName(settings) + "_" + DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss_FFF") + format.GetFileExtension();
+			string path = Paths.SavedMapsPath + GetRecommendedMapFileName(settings) + "_" + GetDateTimeString() + format.GetFileExtension();
 
 			Save(image, format, path);
 			Process.Start("explorer.exe", "/select," + path);
@@ -184,6 +204,22 @@ namespace Mappalachia
 		static string SanitizeForFileName(this string potentialFileName)
 		{
 			return string.Concat(potentialFileName.Split(Path.GetInvalidFileNameChars())).Trim().TrimEnd('.');
+		}
+
+		public static void Cleanup()
+		{
+			if (Directory.Exists(Paths.TempPath))
+			{
+				try
+				{
+					Directory.Delete(Paths.TempPath, true);
+				}
+
+				// This may fail if an external image editor or the like has locked the file, but we don't care.
+				catch
+				{
+				}
+			}
 		}
 	}
 }

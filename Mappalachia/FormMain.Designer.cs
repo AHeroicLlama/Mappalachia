@@ -32,8 +32,10 @@ namespace Mappalachia
 			menuStripMain = new MenuStrip();
 			mapMenuItem = new ToolStripMenuItem();
 			showPreviewToolStripMenuItem = new ToolStripMenuItem();
+			openExternallyToolStripMenuItem = new ToolStripMenuItem();
 			grayscaleMenuItem = new ToolStripMenuItem();
 			highlightWaterMenuItem = new ToolStripMenuItem();
+			setTitleToolStripMenuItem = new ToolStripMenuItem();
 			mapMapMarkersMenuItem = new ToolStripMenuItem();
 			mapMarkerIconsMenuItem = new ToolStripMenuItem();
 			mapMarkerLabelsMenuItem = new ToolStripMenuItem();
@@ -46,7 +48,6 @@ namespace Mappalachia
 			legendNormalMenuItem = new ToolStripMenuItem();
 			legendExtendedMenuItem = new ToolStripMenuItem();
 			legendHiddenMenuItem = new ToolStripMenuItem();
-			setTitleToolStripMenuItem = new ToolStripMenuItem();
 			quickSaveToolStripMenuItem = new ToolStripMenuItem();
 			exportToFileToolStripMenuItem = new ToolStripMenuItem();
 			clearPlotsToolStripMenuItem = new ToolStripMenuItem();
@@ -86,7 +87,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, grayscaleMenuItem, highlightWaterMenuItem, setTitleToolStripMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, grayscaleMenuItem, highlightWaterMenuItem, setTitleToolStripMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -96,13 +97,23 @@ namespace Mappalachia
 			showPreviewToolStripMenuItem.Name = "showPreviewToolStripMenuItem";
 			showPreviewToolStripMenuItem.Size = new Size(191, 22);
 			showPreviewToolStripMenuItem.Text = "Show Preview";
+			showPreviewToolStripMenuItem.ToolTipText = "Bring up the preview window.";
 			showPreviewToolStripMenuItem.Click += Map_ShowPreview_Click;
+			// 
+			// openExternallyToolStripMenuItem
+			// 
+			openExternallyToolStripMenuItem.Name = "openExternallyToolStripMenuItem";
+			openExternallyToolStripMenuItem.Size = new Size(191, 22);
+			openExternallyToolStripMenuItem.Text = "Open Externally";
+			openExternallyToolStripMenuItem.ToolTipText = "Open the current map image in your default image viewer.";
+			openExternallyToolStripMenuItem.Click += Map_OpenExternally;
 			// 
 			// grayscaleMenuItem
 			// 
 			grayscaleMenuItem.Name = "grayscaleMenuItem";
 			grayscaleMenuItem.Size = new Size(191, 22);
 			grayscaleMenuItem.Text = "Grayscale Background";
+			grayscaleMenuItem.ToolTipText = "Set the background to black and white, making plots more visible.";
 			grayscaleMenuItem.Click += Map_Grayscale_Click;
 			// 
 			// highlightWaterMenuItem
@@ -110,7 +121,16 @@ namespace Mappalachia
 			highlightWaterMenuItem.Name = "highlightWaterMenuItem";
 			highlightWaterMenuItem.Size = new Size(191, 22);
 			highlightWaterMenuItem.Text = "Highlight Water";
+			highlightWaterMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
 			highlightWaterMenuItem.Click += Map_HightlightWater_Click;
+			// 
+			// setTitleToolStripMenuItem
+			// 
+			setTitleToolStripMenuItem.Name = "setTitleToolStripMenuItem";
+			setTitleToolStripMenuItem.Size = new Size(191, 22);
+			setTitleToolStripMenuItem.Text = "Set Title";
+			setTitleToolStripMenuItem.ToolTipText = "Set a title for your map.";
+			setTitleToolStripMenuItem.Click += Map_SetTitle_Click;
 			// 
 			// mapMapMarkersMenuItem
 			// 
@@ -124,6 +144,7 @@ namespace Mappalachia
 			mapMarkerIconsMenuItem.Name = "mapMarkerIconsMenuItem";
 			mapMarkerIconsMenuItem.Size = new Size(107, 22);
 			mapMarkerIconsMenuItem.Text = "Icons";
+			mapMarkerIconsMenuItem.ToolTipText = "Display the icons of fast travel locations.";
 			mapMarkerIconsMenuItem.Click += Map_MapMarkers_Icons_Click;
 			// 
 			// mapMarkerLabelsMenuItem
@@ -131,6 +152,7 @@ namespace Mappalachia
 			mapMarkerLabelsMenuItem.Name = "mapMarkerLabelsMenuItem";
 			mapMarkerLabelsMenuItem.Size = new Size(107, 22);
 			mapMarkerLabelsMenuItem.Text = "Labels";
+			mapMarkerLabelsMenuItem.ToolTipText = "Display the names of the fast travel locations.";
 			mapMarkerLabelsMenuItem.Click += Map_MapMarkers_Labels_Click;
 			// 
 			// mapBackgroundImageMenuItem
@@ -145,6 +167,7 @@ namespace Mappalachia
 			backgroundNormalMenuItem.Name = "backgroundNormalMenuItem";
 			backgroundNormalMenuItem.Size = new Size(115, 22);
 			backgroundNormalMenuItem.Text = "Normal";
+			backgroundNormalMenuItem.ToolTipText = "Set the background image to the typical pause menu map.";
 			backgroundNormalMenuItem.Click += Map_Background_Normal_Click;
 			// 
 			// backgroundSatelliteMenuItem
@@ -152,6 +175,7 @@ namespace Mappalachia
 			backgroundSatelliteMenuItem.Name = "backgroundSatelliteMenuItem";
 			backgroundSatelliteMenuItem.Size = new Size(115, 22);
 			backgroundSatelliteMenuItem.Text = "Satellite";
+			backgroundSatelliteMenuItem.ToolTipText = "Set the background image to a top-down render of the in-game world.";
 			backgroundSatelliteMenuItem.Click += Map_Background_Satellite_Click;
 			// 
 			// backgroundMilitaryMenuItem
@@ -159,6 +183,7 @@ namespace Mappalachia
 			backgroundMilitaryMenuItem.Name = "backgroundMilitaryMenuItem";
 			backgroundMilitaryMenuItem.Size = new Size(115, 22);
 			backgroundMilitaryMenuItem.Text = "Military";
+			backgroundMilitaryMenuItem.ToolTipText = "Set the background image to the military-style topographic map found in train stations.";
 			backgroundMilitaryMenuItem.Click += Map_Background_Military_Click;
 			// 
 			// backgroundNoneMenuItem
@@ -166,6 +191,7 @@ namespace Mappalachia
 			backgroundNoneMenuItem.Name = "backgroundNoneMenuItem";
 			backgroundNoneMenuItem.Size = new Size(115, 22);
 			backgroundNoneMenuItem.Text = "None";
+			backgroundNoneMenuItem.ToolTipText = "Disable the background map image.";
 			backgroundNoneMenuItem.Click += Map_Background_None_Click;
 			// 
 			// mapLegendStyleMenuItem
@@ -180,6 +206,7 @@ namespace Mappalachia
 			legendNormalMenuItem.Name = "legendNormalMenuItem";
 			legendNormalMenuItem.Size = new Size(122, 22);
 			legendNormalMenuItem.Text = "Normal";
+			legendNormalMenuItem.ToolTipText = "Draw the legend on the left hand side of the map.";
 			legendNormalMenuItem.Click += Map_Legend_Normal_Click;
 			// 
 			// legendExtendedMenuItem
@@ -187,6 +214,7 @@ namespace Mappalachia
 			legendExtendedMenuItem.Name = "legendExtendedMenuItem";
 			legendExtendedMenuItem.Size = new Size(122, 22);
 			legendExtendedMenuItem.Text = "Extended";
+			legendExtendedMenuItem.ToolTipText = "Draw the legend outside the map, extending the final image to fit the legend.";
 			legendExtendedMenuItem.Click += Map_Legend_Extended_Click;
 			// 
 			// legendHiddenMenuItem
@@ -194,21 +222,15 @@ namespace Mappalachia
 			legendHiddenMenuItem.Name = "legendHiddenMenuItem";
 			legendHiddenMenuItem.Size = new Size(122, 22);
 			legendHiddenMenuItem.Text = "Hidden";
+			legendHiddenMenuItem.ToolTipText = "No not draw a legend.";
 			legendHiddenMenuItem.Click += Map_Legend_Hidden_Click;
-			// 
-			// setTitleToolStripMenuItem
-			// 
-			setTitleToolStripMenuItem.Name = "setTitleToolStripMenuItem";
-			setTitleToolStripMenuItem.Size = new Size(191, 22);
-			setTitleToolStripMenuItem.Text = "Set Title";
-			setTitleToolStripMenuItem.ToolTipText = "Set a title for your map.";
-			setTitleToolStripMenuItem.Click += Map_SetTitle_Click;
 			// 
 			// quickSaveToolStripMenuItem
 			// 
 			quickSaveToolStripMenuItem.Name = "quickSaveToolStripMenuItem";
 			quickSaveToolStripMenuItem.Size = new Size(191, 22);
 			quickSaveToolStripMenuItem.Text = "Quick Save";
+			quickSaveToolStripMenuItem.ToolTipText = "Quickly save the current image, using recommended settings.";
 			quickSaveToolStripMenuItem.Click += Map_QuickSave_Click;
 			// 
 			// exportToFileToolStripMenuItem
@@ -216,6 +238,7 @@ namespace Mappalachia
 			exportToFileToolStripMenuItem.Name = "exportToFileToolStripMenuItem";
 			exportToFileToolStripMenuItem.Size = new Size(191, 22);
 			exportToFileToolStripMenuItem.Text = "Export to File";
+			exportToFileToolStripMenuItem.ToolTipText = "Save the current map image, with your choice of settings.";
 			exportToFileToolStripMenuItem.Click += Map_ExportToFile_Click;
 			// 
 			// clearPlotsToolStripMenuItem
@@ -223,6 +246,7 @@ namespace Mappalachia
 			clearPlotsToolStripMenuItem.Name = "clearPlotsToolStripMenuItem";
 			clearPlotsToolStripMenuItem.Size = new Size(191, 22);
 			clearPlotsToolStripMenuItem.Text = "Clear Plots";
+			clearPlotsToolStripMenuItem.ToolTipText = "Clear just the currently plotted items.";
 			clearPlotsToolStripMenuItem.Click += Map_ClearPlots_Click;
 			// 
 			// resetToolStripMenuItem
@@ -230,6 +254,7 @@ namespace Mappalachia
 			resetToolStripMenuItem.Name = "resetToolStripMenuItem";
 			resetToolStripMenuItem.Size = new Size(191, 22);
 			resetToolStripMenuItem.Text = "Reset";
+			resetToolStripMenuItem.ToolTipText = "Reset all map-related settings (those in this menu), and currently selected plots.";
 			resetToolStripMenuItem.Click += Map_Reset_Click;
 			// 
 			// searchSettingsToolStripMenuItem
@@ -431,6 +456,7 @@ namespace Mappalachia
 			Name = "FormMain";
 			Text = "Mappalachia";
 			FormClosing += FormMain_FormClosing;
+			Shown += FormMain_Shown;
 			menuStripMain.ResumeLayout(false);
 			menuStripMain.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).EndInit();
@@ -481,5 +507,6 @@ namespace Mappalachia
 		private ToolStripMenuItem advancedModeToolStripMenuItem;
 		private ToolStripMenuItem resetEverythingToolStripMenuItem;
 		private ToolStripMenuItem setTitleToolStripMenuItem;
+		private ToolStripMenuItem openExternallyToolStripMenuItem;
 	}
 }

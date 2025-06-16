@@ -46,6 +46,7 @@
 			pictureBoxMapDisplay.SizeMode = PictureBoxSizeMode.Zoom;
 			pictureBoxMapDisplay.TabIndex = 1;
 			pictureBoxMapDisplay.TabStop = false;
+			pictureBoxMapDisplay.DoubleClick += PictureBoxMapDisplay_DoubleClick;
 			pictureBoxMapDisplay.MouseDown += PictureBoxMapDisplay_MouseDown;
 			pictureBoxMapDisplay.MouseMove += PictureBoxMapDisplay_MouseMove;
 			// 
@@ -82,10 +83,8 @@
 			Controls.Add(menuStripPreview);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MainMenuStrip = menuStripPreview;
-			MinimizeBox = false;
 			MinimumSize = new Size(256, 256);
 			Name = "FormMapView";
-			ShowInTaskbar = false;
 			Text = "Mappalachia: Preview";
 			FormClosing += FormMapView_FormClosing;
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
