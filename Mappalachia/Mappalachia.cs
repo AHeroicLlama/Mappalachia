@@ -31,8 +31,28 @@ namespace Mappalachia
 					AllowCloseDialog = false,
 				};
 
+				TaskDialogButton resetSettingsButton = new TaskDialogButton("Try again with reset settings");
+
 				discordButton.Click += (sender, e) => { Common.OpenURI(URLs.DiscordInvite); };
 				copyDetailsButton.Click += (sender, e) => { Clipboard.SetText(exception.ToString()); };
+				resetSettingsButton.Click += (sender, e) =>
+				{
+					if (File.Exists(Paths.SettingsPath))
+					{
+						try
+						{
+							File.Delete(Paths.SettingsPath);
+							Application.Restart();
+						}
+
+						// No action
+						catch
+						{
+						}
+					}
+				};
+
+				resetSettingsButton.Enabled = File.Exists(Paths.SettingsPath);
 
 				TaskDialogPage page = new TaskDialogPage
 				{
@@ -48,6 +68,7 @@ namespace Mappalachia
 					Buttons = new TaskDialogButtonCollection()
 					{
 						discordButton,
+						resetSettingsButton,
 						copyDetailsButton,
 						TaskDialogButton.OK,
 					},

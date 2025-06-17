@@ -12,6 +12,8 @@ namespace Mappalachia
 
 		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
 
+		public static Image DoorMarker { get; } = LoadSVGIcon(Paths.DoorMarkerPath);
+
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
 		static ImageCodecInfo JpgCodec { get; set; } = ImageCodecInfo.GetImageDecoders().Where(ic => ic.FormatID == ImageFormat.Jpeg.Guid).SingleOrDefault() ?? throw new Exception($"Failed to get jpeg codec");
@@ -105,11 +107,17 @@ namespace Mappalachia
 				return value;
 			}
 
-			Svg.SvgDocument document = Svg.SvgDocument.Open(path);
-			Image marker = document.Draw((int)(document.Width * Map.MapMarkerIconScale), 0);
+			Image marker = LoadSVGIcon(path);
 
 			MapMarkerIconImageCache[mapMarker.Icon] = marker;
 			return marker;
+		}
+
+		// Return an Image of an SVG icon document from the path
+		static Bitmap LoadSVGIcon(string path)
+		{
+			Svg.SvgDocument document = Svg.SvgDocument.Open(path);
+			return document.Draw((int)(document.Width * Map.IconScale), 0);
 		}
 
 		static string GetFileExtension(this ImageFormat format)

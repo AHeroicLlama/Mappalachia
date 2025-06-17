@@ -21,7 +21,7 @@ namespace Mappalachia
 
 	public static class Map
 	{
-		public static double MapMarkerIconScale { get; } = 1.5;
+		public static double IconScale { get; } = 1.5;
 
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
 

@@ -107,18 +107,21 @@ namespace Mappalachia
 			{
 				TaskDialogButton buttonDownloadNow = new TaskDialogButton("Download now");
 				TaskDialogButton buttonViewMore = new TaskDialogButton("View on GitHub");
-				TaskDialogButton buttonSkipThisVersion = new TaskDialogButton("Ignore this version");
+				TaskDialogButton buttonSkipThisVersion = new TaskDialogButton("Skip this update");
+				TaskDialogButton buttonRemindMeLater = new TaskDialogButton("Remind me later");
 
 				buttonDownloadNow.Click += (sender, e) => { Common.OpenURI(downloadURL ?? throw new Exception("Download URL is null")); };
 				buttonViewMore.Click += (sender, e) => { Common.OpenURI(releaseURL ?? throw new Exception("Release URL is null")); };
 				buttonSkipThisVersion.Click += (sender, e) => { settings.LastDeclinedUpdateVersion = latestVersion; };
+				buttonRemindMeLater.Click += (sender, e) => { settings.LastDeclinedUpdateVersion = null; };
 
-				page.Heading = $"An new Mappalachia version, {latestVersion} is available.";
+				page.Heading = $"A new Mappalachia version, {latestVersion} is available.";
 				page.Text = patchNotes;
-				page.DefaultButton = buttonDownloadNow;
+				page.DefaultButton = buttonRemindMeLater;
 				page.Buttons =
 				new TaskDialogButtonCollection
 				{
+					buttonRemindMeLater,
 					buttonDownloadNow,
 					buttonViewMore,
 					buttonSkipThisVersion,

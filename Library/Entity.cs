@@ -1,4 +1,6 @@
-﻿namespace Library
+﻿using System.Text.Json.Serialization;
+
+namespace Library
 {
 	public enum Signature
 	{
@@ -45,8 +47,10 @@
 
 		public string EditorID { get; } = editorID;
 
+		[JsonIgnore]
 		public string DisplayName { get; } = displayName;
 
+		[JsonIgnore]
 		public Signature Signature { get; } = signature;
 
 		public override bool Equals(object? obj)

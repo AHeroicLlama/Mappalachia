@@ -53,6 +53,7 @@ namespace Preprocessor
 			// Check the count of images in the cell image folder matches the count of cells in the DB
 			int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
 			int actualCellImageFiles = Directory.GetFiles(CellPath).Length;
+
 			if (actualCellImageFiles != expectedCellImageFiles)
 			{
 				FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
@@ -61,6 +62,7 @@ namespace Preprocessor
 			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map
 			int expectedWorldspaceImageFiles = (spaces.Where(space => space.IsWorldspace).Count() * 3) + spaces.Where(space => space.IsAppalachia()).Count();
 			int actualWorldspaceImageFiles = Directory.GetFiles(WorldPath).Length;
+
 			if (actualWorldspaceImageFiles != expectedWorldspaceImageFiles)
 			{
 				FailValidation($"Too {(actualWorldspaceImageFiles < expectedWorldspaceImageFiles ? "few" : "many")} files in the worldspace image folder. Expected {expectedWorldspaceImageFiles}, found {actualWorldspaceImageFiles}");
@@ -69,9 +71,21 @@ namespace Preprocessor
 			// Main check for Map Markers
 			Parallel.ForEach(mapMarkers, ValidateMapMarker);
 
+			// Unique case for door marker (not a MapMarker, not in the DB, but still an icon svg)
+			Console.WriteLine("Icon: DoorMarker");
+			string doorMarkerPath = ImagePath + "DoorMarker" + MapMarkerImageFileType;
+			MapMarker doorMarker = new MapMarker("DoorMarker", string.Empty, 0, new Coord(0, 0));
+
+			if (ValidateMapMarkerImageExists(doorMarker, doorMarkerPath))
+			{
+				ValidateMapMarkerFileSize(doorMarker, doorMarkerPath);
+				ValidateSVG(doorMarkerPath);
+			}
+
 			// Similarly as above, do the same file count check for map markers
 			int expectedMapMarkerImageFiles = mapMarkers.Count;
 			int actualMapMarkerImageFiles = Directory.GetFiles(MapMarkerPath).Length;
+
 			if (actualMapMarkerImageFiles != expectedMapMarkerImageFiles)
 			{
 				FailValidation($"Too {(actualMapMarkerImageFiles < expectedMapMarkerImageFiles ? "few" : "many")} mapmarkers in the mapmarker image folder. Expected {expectedMapMarkerImageFiles}, found {actualMapMarkerImageFiles}");

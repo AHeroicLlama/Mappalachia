@@ -1,4 +1,6 @@
-﻿namespace Mappalachia
+﻿using Library;
+
+namespace Mappalachia
 {
 	// Local paths relative to the executable
 	public static class Paths
@@ -12,6 +14,8 @@
 		public static string WorldspaceImgPath { get; } = @$"{ImgPath}wrld\";
 
 		public static string MapMarkersPath { get; } = @$"{ImgPath}mapmarker\";
+
+		public static string DoorMarkerPath { get; } = @$"{ImgPath}DoorMarker{Common.MapMarkerImageFileType}";
 
 		public static string FontPath { get; } = @"font\futura_condensed_bold.otf";
 

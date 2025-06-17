@@ -12,6 +12,9 @@
 Background image rendering is optional. If you just need the images for debugging, take them from a release.<br>
 Typically, you should only need to run this step if the cells or worldspaces have changed since a game release.
 
+### Menu background
+Note that the in-game menu map background image is source controlled as it does not typically change. If you need to export a new version of it, it has historically been located at `C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\SeventySix - Textures04.ba2\textures\interface\pip-boy\papermap_city_d.dds`. The ba2 can be opened using a tool such as [BAE](https://www.nexusmods.com/fallout4/mods/78/).
+
 ## Setup
 At the root of the repository, create the folder `Utilities\fo76utils`. Extract [a release of fo76utils](https://github.com/fo76utils/fo76utils/releases) inside here. The code described here makes calls to the render tool, which does all the heavy lifting for the rendering.<br/>
 ImageMagick is used to convert DDS renders to JPG, and for downscaling where required. It is assumed that you followed the normal installation which added image magick to the 'Path' system environment variable.<br/>

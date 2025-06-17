@@ -19,16 +19,28 @@ namespace Mappalachia
 		{
 			InitializeComponent();
 
-			UpdateFromSettings(false);
-
 			UpdateChecker.CheckForUpdates(Settings);
-
-			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
-			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
 
 			comboBoxSpace.DataSource = Database.AllSpaces;
 			comboBoxSpace.DisplayMember = "FriendlyName";
-			comboBoxSpace.SelectedItem = Settings.Space;
+
+			// Check the saved Space still exists and associate the selection, otherwise default it
+			if (Database.AllSpaces.Contains(Settings.Space))
+			{
+				comboBoxSpace.SelectedItem = Settings.Space;
+			}
+			else
+			{
+				comboBoxSpace.SelectedIndex = 0;
+			}
+
+			// Re-link the selected space to the instance loaded from the DB, not restored from settings
+			Settings.Space = (Space)(comboBoxSpace.SelectedItem ?? throw new Exception("Selected space is null"));
+
+			UpdateFromSettings(false);
+
+			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
+			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
 
 			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem })
 			{

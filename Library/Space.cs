@@ -1,18 +1,25 @@
-﻿namespace Library
+﻿using System.Text.Json.Serialization;
+
+namespace Library
 {
 	// Represents a Worldspace (WRLD) or Cell (CELL)
 	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, double centerX, double centerY, double maxRange)
 		: Entity(formID, editorID, displayName, isWorldspace ? Signature.WRLD : Signature.CELL)
 	{
+		[JsonIgnore]
 		public bool IsWorldspace { get; } = isWorldspace;
 
+		[JsonIgnore]
 		public double CenterX { get; } = centerX;
 
+		[JsonIgnore]
 		public double CenterY { get; } = centerY;
 
+		[JsonIgnore]
 		public double MaxRange { get; } = maxRange;
 
 		// Accessed via variable name in the UI - provides the name for the Space select dropdown
+		[JsonIgnore]
 		public string FriendlyName => $"{DisplayName} ({EditorID})";
 
 		public bool IsAppalachia()

@@ -10,6 +10,9 @@
 ### Note
 Map marker extraction is optional, as map marker images are already stored in the repository. You should only need to run this step if you believe the map marker icons have changed since a game release. The image validation functionality of the Preprocessor will highlight if any necessary icon files are missing, but not if they have changed.
 
+### Door Marker
+Separately from the map markers, there is another icon used for indicating items in other spaces, the door marker. The Map Icon Processor does not interact with this file, and it is not present in the database, as it is not associated with any coordinates in-game, and is not expected to ever change. If you do need to re-extract it, it can be found at `C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data\SeventySix - Interface.ba2\interface\mapmarkerlibrary.swf\sprites\DefineSprite (442)`. These files can be opened and extracted from by using the process described in this document.
+
 ## Process overview
 Fallout 76 uses SWF (Flash) to power most if its UIs, this includes the map menu and markers inside.<br/>
 This stage ensures Mappalachia has all of the required SVG images to render map marker icons if the user enables that setting.<br/>
