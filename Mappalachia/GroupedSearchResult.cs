@@ -4,12 +4,12 @@ namespace Mappalachia
 {
 	// Represents an amount of BaseInstances which share the same basic properties
 	// This is used to represent a row on the search results
-	public class GroupedSearchResult(Entity entity, Space space, int count, int legendGroup, string label, LockLevel lockLevel, double spawnWeight = 1, bool inContainer = false)
+	public class GroupedSearchResult(Entity entity, Space space, int count = 1, double spawnWeight = 1, string label = "", LockLevel lockLevel = LockLevel.None, bool inContainer = false)
 		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
 	{
-		public int Count { get; } = count;
+		public int LegendGroup { get; set; } = 0;
 
-		public int LegendGroup { get; } = legendGroup;
+		public int Count { get; } = count;
 
 		public PlotIcon? PlotIcon { get; set; } = null;
 

@@ -48,7 +48,7 @@ namespace Mappalachia
 						reader.GetSignature()),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
-					0,
+					1,
 					reader.GetString("label"),
 					reader.GetLockLevel()));
 			}
@@ -70,9 +70,6 @@ namespace Mappalachia
 					new DerivedNPC(reader.GetString("npcName")),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
-					0,
-					string.Empty,
-					LockLevel.None,
 					reader.GetFloat("spawnWeight")));
 			}
 
@@ -93,9 +90,6 @@ namespace Mappalachia
 					new DerivedScrap(reader.GetString("component")),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("properCount"),
-					0,
-					string.Empty,
-					LockLevel.None,
 					reader.GetFloat("componentQuantity")));
 			}
 
@@ -121,11 +115,7 @@ namespace Mappalachia
 						reader.GetUInt("regionFormID"),
 						reader.GetString("regionEditorID"),
 						space),
-					space,
-					1,
-					0,
-					string.Empty,
-					LockLevel.None));
+					space));
 			}
 
 			// Container contents search
@@ -152,10 +142,9 @@ namespace Mappalachia
 						reader.GetSignature()),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
-					0,
+					reader.GetInt("quantity"),
 					string.Empty,
 					reader.GetLockLevel(),
-					reader.GetInt("quantity"),
 					true));
 			}
 
@@ -188,7 +177,7 @@ namespace Mappalachia
 							reader.GetSignature()),
 						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 						reader.GetInt("count"),
-						0,
+						1,
 						reader.GetString("label"),
 						reader.GetLockLevel()));
 				}
