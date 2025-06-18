@@ -25,9 +25,13 @@ namespace Mappalachia
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 			bool searchForFormID = searchTerm.IsHexFormID() && settings.SearchSettings.Advanced;
 
-			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel FROM Position_PreGrouped " +
+			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel " +
+				"FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
-				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' {(searchForFormID ? $"OR referenceFormID = '{HexToInt(searchTerm)}'" : string.Empty)})" +
+				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"{(searchForFormID ? $"OR referenceFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
 				optionalSpaceTerm +
 				$"AND Position_PreGrouped.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()};";
@@ -51,7 +55,8 @@ namespace Mappalachia
 
 			// NPC search
 			query =
-				"SELECT npcName, spaceFormID, spawnWeight, count(*) as count FROM NPC " +
+				"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
+				"FROM NPC " +
 				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				optionalSpaceTerm +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
@@ -72,7 +77,8 @@ namespace Mappalachia
 			}
 
 			// Scrap search
-			query = "SELECT component, spaceFormID, componentQuantity, sum(count) as properCount FROM Scrap " +
+			query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
+				"FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
 				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				optionalSpaceTerm +
@@ -95,8 +101,11 @@ namespace Mappalachia
 
 			// Region search
 			query =
-				"SELECT regionFormID, regionEditorID, spaceFormID FROM Region " +
-				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR regionFormID = '{searchTerm}' {(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}' " : string.Empty)})" +
+				"SELECT regionFormID, regionEditorID, spaceFormID " +
+				"FROM Region " +
+				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR regionFormID = '{searchTerm}' " +
+				$"{(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
 				optionalSpaceTerm +
 				"GROUP BY regionFormID;";
 
@@ -120,14 +129,14 @@ namespace Mappalachia
 			}
 
 			// Container contents search
-			query = "SELECT contentFormID, editorID, displayName, signature, spaceFormID, count(*) as count, lockLevel, quantity " +
+			query = "SELECT contentFormID, editorID, displayName, signature, spaceFormID, SUM(count) as count, lockLevel, quantity " +
 				"FROM Container " +
 				"JOIN Entity ON Container.contentFormID = Entity.entityFormID " +
-				"JOIN Position ON Position.referenceFormID = Container.containerFormID " +
-				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' or displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' {(searchForFormID ? $"OR contentFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
+				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Container.containerFormID " +
+				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' {(searchForFormID ? $"OR contentFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
 				optionalSpaceTerm +
-				$"AND Position.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
-				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}" +
+				$"AND Position_PreGrouped.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
+				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} " +
 				$"GROUP BY editorID, contentFormID, lockLevel, quantity, spaceFormID;";
 
 			reader.Dispose();
@@ -157,7 +166,8 @@ namespace Mappalachia
 			if (searchForFormID)
 			{
 				query =
-					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, count(*) as count FROM Position " +
+					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, count(*) AS count " +
+					"FROM Position " +
 					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 					$"WHERE ((teleportsToFormID = '{HexToInt(searchTerm)}') " +
 					optionalSpaceTerm +
