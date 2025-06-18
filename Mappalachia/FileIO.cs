@@ -153,7 +153,7 @@ namespace Mappalachia
 			ImageFormat format = ImageFormat.Jpeg;
 			string path = Paths.TempPath + "Mappalachia_Temp_" + GetDateTimeString() + format.GetFileExtension();
 
-			Save(image, format, path);
+			Save(image, format, path, 100);
 
 			if (openAferSave)
 			{

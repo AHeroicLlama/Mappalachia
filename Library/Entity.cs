@@ -72,5 +72,11 @@ namespace Library
 		{
 			return HashCode.Combine(FormID);
 		}
+
+		// Return a representation of the FormID suitable for display in the UI
+		public virtual string GetFriendlyFormID()
+		{
+			return FormID.ToHex();
+		}
 	}
 }

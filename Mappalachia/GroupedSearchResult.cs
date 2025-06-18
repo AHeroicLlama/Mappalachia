@@ -4,7 +4,7 @@ namespace Mappalachia
 {
 	// Represents an amount of BaseInstances which share the same basic properties
 	// This is used to represent a row on the search results
-	public class GroupedInstance(Entity entity, Space space, int count, int legendGroup, string label, LockLevel lockLevel, double spawnWeight = 1, bool inContainer = false)
+	public class GroupedSearchResult(Entity entity, Space space, int count, int legendGroup, string label, LockLevel lockLevel, double spawnWeight = 1, bool inContainer = false)
 		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
 	{
 		public int Count { get; } = count;
@@ -15,7 +15,7 @@ namespace Mappalachia
 
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
-		public string DataValueFormID => Entity.FormID == 0 ? "N/A" : Entity.FormID.ToHex();
+		public virtual string DataValueFormID => Entity.GetFriendlyFormID();
 
 		public string DataValueEditorID => Entity.EditorID;
 

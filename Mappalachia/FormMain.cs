@@ -11,9 +11,9 @@ namespace Mappalachia
 
 		FormMapView FormMapView { get; set; }
 
-		BindingList<GroupedInstance> SearchResults { get; set; } = new BindingList<GroupedInstance>();
+		BindingList<GroupedSearchResult> SearchResults { get; set; } = new BindingList<GroupedSearchResult>();
 
-		BindingList<GroupedInstance> ItemsToPlot { get; set; } = new BindingList<GroupedInstance>();
+		BindingList<GroupedSearchResult> ItemsToPlot { get; set; } = new BindingList<GroupedSearchResult>();
 
 		public FormMain()
 		{
@@ -105,7 +105,7 @@ namespace Mappalachia
 		}
 
 		// Return the tooltip for a data cell of a DataGridViewColumn with the given name, and bound data
-		static string GetCellToolTip(string columnName, GroupedInstance boundData, bool advanced)
+		static string GetCellToolTip(string columnName, GroupedSearchResult boundData, bool advanced)
 		{
 			switch (columnName)
 			{
@@ -124,7 +124,7 @@ namespace Mappalachia
 		}
 
 		// Read in fields from Settings and update UI elements respectively
-		void UpdateFromSettings(bool reDraw = true)
+		void UpdateFromSettings(bool reDraw = true, bool reSearch = false)
 		{
 			comboBoxSpace.SelectedItem = Settings.Space;
 
@@ -189,11 +189,39 @@ namespace Mappalachia
 
 			UpdateDataGridAppearences();
 
-			// TODO - Is doing this every time inelegant?
+			if (reSearch)
+			{
+				Search();
+			}
+
 			if (reDraw)
 			{
 				FormMapView.UpdateMap(Settings);
 			}
+		}
+
+		async void Search()
+		{
+			List<GroupedSearchResult> searchResults = await Database.Search(Settings);
+
+			searchResults = searchResults
+				.OrderByDescending(g => g.Space.Equals(Settings.Space))
+				.ThenByDescending(g => g.Count)
+				.ThenByDescending(g => g.SpawnWeight)
+				.ThenBy(g => g.Entity.EditorID)
+				.ToList();
+
+			SearchResults.RaiseListChangedEvents = false;
+
+			SearchResults.Clear();
+
+			foreach (GroupedSearchResult instance in searchResults)
+			{
+				SearchResults.Add(instance);
+			}
+
+			SearchResults.RaiseListChangedEvents = true;
+			SearchResults.ResetBindings();
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers
@@ -214,12 +242,12 @@ namespace Mappalachia
 				return;
 			}
 
-			GroupedInstance instance = (GroupedInstance)(dataGridView.Rows[e.RowIndex].DataBoundItem ?? throw new Exception($"Column {e.RowIndex} bound to null"));
+			GroupedSearchResult instance = (GroupedSearchResult)(dataGridView.Rows[e.RowIndex].DataBoundItem ?? throw new Exception($"Column {e.RowIndex} bound to null"));
 			e.ToolTipText = GetCellToolTip(columnName, instance, Settings.SearchSettings.Advanced);
 		}
 
 		// Programatically configure either DGV
-		void InitializeDataGridView(DataGridView dataGridView, BindingList<GroupedInstance> data)
+		void InitializeDataGridView(DataGridView dataGridView, BindingList<GroupedSearchResult> data)
 		{
 			dataGridView.AutoGenerateColumns = false;
 			dataGridView.Columns.Clear();
@@ -261,10 +289,10 @@ namespace Mappalachia
 		}
 
 		// Shorthand to apply a new user-selected setting, update the UI, and optionally redraw the map
-		void SetSetting(Action setSetting, bool redraw = true)
+		void SetSetting(Action setSetting, bool redraw = true, bool reSearch = false)
 		{
 			setSetting();
-			UpdateFromSettings(redraw);
+			UpdateFromSettings(redraw, reSearch);
 		}
 
 		void DontCloseClickedDropDown(object? sender, ToolStripDropDownClosingEventArgs e)
@@ -282,28 +310,9 @@ namespace Mappalachia
 			BringToFront();
 		}
 
-		private async void ButtonSearch_Click(object sender, EventArgs e)
+		private void ButtonSearch_Click(object sender, EventArgs e)
 		{
-			List<GroupedInstance> searchResults = await Database.Search(Settings);
-
-			searchResults = searchResults
-				.OrderByDescending(g => g.Space.Equals(Settings.Space))
-				.ThenByDescending(g => g.Count)
-				.ThenByDescending(g => g.SpawnWeight)
-				.ThenBy(g => g.Entity.EditorID)
-				.ToList();
-
-			SearchResults.RaiseListChangedEvents = false;
-
-			SearchResults.Clear();
-
-			foreach (GroupedInstance instance in searchResults)
-			{
-				SearchResults.Add(instance);
-			}
-
-			SearchResults.RaiseListChangedEvents = true;
-			SearchResults.ResetBindings();
+			Search();
 		}
 
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
@@ -457,12 +466,12 @@ namespace Mappalachia
 
 		private void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces, true);
+			SetSetting(() => Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces, false, true);
 		}
 
 		private void Search_AdvancedMode_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced, true);
+			SetSetting(() => Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced, false, true);
 		}
 
 		private void Help_About_Click(object sender, EventArgs e)
@@ -515,12 +524,12 @@ namespace Mappalachia
 		{
 			ItemsToPlot.RaiseListChangedEvents = false;
 
-			List<GroupedInstance> itemsToAdd = new List<GroupedInstance>();
+			List<GroupedSearchResult> itemsToAdd = new List<GroupedSearchResult>();
 
 			// From the selected cells, find the unique rows, and find the data bound to those
 			foreach (DataGridViewRow? row in dataGridViewSearchResults.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex).Select(c => c.OwningRow).Reverse())
 			{
-				GroupedInstance instance = (GroupedInstance)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"));
+				GroupedSearchResult instance = (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"));
 
 				if (!ItemsToPlot.Contains(instance))
 				{
@@ -530,7 +539,7 @@ namespace Mappalachia
 
 			// Add the valid items to the actual list
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
-			foreach (GroupedInstance instance in itemsToAdd)
+			foreach (GroupedSearchResult instance in itemsToAdd)
 			{
 				ItemsToPlot.Add(instance);
 			}
@@ -554,9 +563,9 @@ namespace Mappalachia
 			{
 				// Collect the instances attached to the rows
 				// Then in a separate loop (to avoid removing from the list which we are looping), remove them
-				List<GroupedInstance> itemsToRemove = selectedRows.Select(row => (GroupedInstance)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"))).ToList();
+				List<GroupedSearchResult> itemsToRemove = selectedRows.Select(row => (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"))).ToList();
 
-				foreach (GroupedInstance instance in itemsToRemove)
+				foreach (GroupedSearchResult instance in itemsToRemove)
 				{
 					ItemsToPlot.Remove(instance);
 				}

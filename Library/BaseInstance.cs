@@ -1,5 +1,21 @@
 ﻿namespace Library
 {
+	public enum LockLevel
+	{
+		// Order is used to define percieved relevance and thus sort in the UI
+		None,
+		Level0,
+		Level1,
+		Level2,
+		Level3,
+		RequiresTerminal,
+		RequiresKey,
+		Chained,
+		Barred,
+		Inaccessible,
+		Unknown,
+	}
+
 	// Abstract of the shared properties of Instance or GroupedInstance
 	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel, double spawnWeight, bool inContainer = false)
 	{

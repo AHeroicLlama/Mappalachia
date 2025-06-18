@@ -16,10 +16,10 @@ namespace Mappalachia
 		static char EscapeChar { get; } = '`';
 
 		// The core database search function - returns a collection of GroupedInstance from the given search params
-		public static async Task<List<GroupedInstance>> Search(Settings settings)
+		public static async Task<List<GroupedSearchResult>> Search(Settings settings)
 		{
 			string searchTerm = ProcessSearchString(settings.SearchSettings.SearchTerm);
-			List<GroupedInstance> results = new List<GroupedInstance>();
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
 			// 'Standard' search for entities on the Position table, joined with Entity
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
@@ -36,7 +36,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				results.Add(new GroupedInstance(
+				results.Add(new GroupedSearchResult(
 					new Entity(
 						reader.GetUInt("referenceFormID"),
 						reader.GetString("editorID"),
@@ -61,7 +61,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				results.Add(new GroupedInstance(
+				results.Add(new GroupedSearchResult(
 					new DerivedNPC(reader.GetString("npcName")),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
@@ -83,7 +83,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				results.Add(new GroupedInstance(
+				results.Add(new GroupedSearchResult(
 					new DerivedScrap(reader.GetString("component")),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("properCount"),
@@ -107,7 +107,7 @@ namespace Mappalachia
 			{
 				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
 
-				results.Add(new GroupedInstance(
+				results.Add(new GroupedSearchResult(
 					new Library.Region(
 						reader.GetUInt("regionFormID"),
 						reader.GetString("regionEditorID"),
@@ -135,7 +135,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				results.Add(new GroupedInstance(
+				results.Add(new GroupedSearchResult(
 					new Entity(
 						reader.GetUInt("contentFormID"),
 						reader.GetString("editorID"),
@@ -170,7 +170,7 @@ namespace Mappalachia
 
 				while (reader.Read())
 				{
-					results.Add(new GroupedInstance(
+					results.Add(new GroupedSearchResult(
 						new Entity(
 							reader.GetUInt("referenceFormID"),
 							reader.GetString("editorID"),
