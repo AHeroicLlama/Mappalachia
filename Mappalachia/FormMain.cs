@@ -222,6 +222,8 @@ namespace Mappalachia
 
 			SearchResults.RaiseListChangedEvents = true;
 			SearchResults.ResetBindings();
+
+			dataGridViewSearchResults.ClearSort();
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers
@@ -441,6 +443,7 @@ namespace Mappalachia
 		private void Map_ClearPlots_Click(object sender, EventArgs e)
 		{
 			ItemsToPlot.Clear();
+			dataGridViewItemsToPlot.ClearSort();
 
 			mapMenuItem.DropDown.Close();
 			UpdateFromSettings();
@@ -452,6 +455,7 @@ namespace Mappalachia
 			Settings.ResolveConflictingSettings();
 
 			ItemsToPlot.Clear();
+			dataGridViewItemsToPlot.ClearSort();
 			FormMapView.SizeMapToForm();
 
 			mapMenuItem.DropDown.Close();
@@ -500,6 +504,8 @@ namespace Mappalachia
 			Settings = new Settings();
 			SearchResults.Clear();
 			ItemsToPlot.Clear();
+			dataGridViewSearchResults.ClearSort();
+			dataGridViewItemsToPlot.ClearSort();
 			FormMapView.SizeMapToForm();
 			UpdateFromSettings();
 			Settings.ResolveConflictingSettings();
@@ -573,6 +579,11 @@ namespace Mappalachia
 
 			ItemsToPlot.RaiseListChangedEvents = true;
 			ItemsToPlot.ResetBindings();
+
+			if (ItemsToPlot.Count == 0)
+			{
+				dataGridViewItemsToPlot.ClearSort();
+			}
 		}
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
