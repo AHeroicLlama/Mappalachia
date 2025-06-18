@@ -1,6 +1,6 @@
-using System.ComponentModel;
 using System.Data;
 using System.Drawing.Imaging;
+using KGySoft.ComponentModel;
 using Library;
 
 namespace Mappalachia
@@ -11,9 +11,9 @@ namespace Mappalachia
 
 		FormMapView FormMapView { get; set; }
 
-		BindingList<GroupedSearchResult> SearchResults { get; set; } = new BindingList<GroupedSearchResult>();
+		SortableBindingList<GroupedSearchResult> SearchResults { get; set; } = new SortableBindingList<GroupedSearchResult>();
 
-		BindingList<GroupedSearchResult> ItemsToPlot { get; set; } = new BindingList<GroupedSearchResult>();
+		SortableBindingList<GroupedSearchResult> ItemsToPlot { get; set; } = new SortableBindingList<GroupedSearchResult>();
 
 		public FormMain()
 		{
@@ -247,7 +247,7 @@ namespace Mappalachia
 		}
 
 		// Programatically configure either DGV
-		void InitializeDataGridView(DataGridView dataGridView, BindingList<GroupedSearchResult> data)
+		void InitializeDataGridView(DataGridView dataGridView, SortableBindingList<GroupedSearchResult> data)
 		{
 			dataGridView.AutoGenerateColumns = false;
 			dataGridView.Columns.Clear();
@@ -260,8 +260,8 @@ namespace Mappalachia
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label", DataPropertyName = "DataValueLabel" });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer" });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel", DataPropertyName = "DataValueLockLevel" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight", DefaultCellStyle = new DataGridViewCellStyle() { Format = "#,0.##" } });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount", DefaultCellStyle = new DataGridViewCellStyle() { Format = "N0" } });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location", DataPropertyName = "DataValueLocation" });
 
 			UpdateDataGridAppearences();

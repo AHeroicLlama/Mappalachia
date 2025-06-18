@@ -9,13 +9,13 @@ namespace Mappalachia
 	{
 		public int LegendGroup { get; set; } = 0;
 
-		public int Count { get; } = count;
-
 		public PlotIcon? PlotIcon { get; set; } = null;
+
+		public int Count { get; } = count;
 
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
-		public virtual string DataValueFormID => Entity.GetFriendlyFormID();
+		public string DataValueFormID => Entity.GetFriendlyFormID();
 
 		public string DataValueEditorID => Entity.EditorID;
 
@@ -30,9 +30,9 @@ namespace Mappalachia
 		public string DataValueLockLevel => !Entity.Signature.IsLockable() && !InContainer && LockLevel == LockLevel.None ?
 						"N/A" : LockLevel.ToFriendlyName();
 
-		public string DataValueSpawnWeight => Math.Round(SpawnWeight * 100, 2).ToString();
+		public double DataValueSpawnWeight => SpawnWeight * 100;
 
-		public string DataValueCount => Count.ToString();
+		public int DataValueCount => Count;
 
 		public string DataValueLocation => Mappalachia.GetIsAdvanced() ? Space.EditorID : Space.DisplayName;
 	}

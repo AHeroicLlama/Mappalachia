@@ -17,6 +17,7 @@
 				LockLevel.RequiresKey => "Requires Key",
 				LockLevel.Inaccessible => "Inaccessible",
 				LockLevel.RequiresTerminal => "Requires Terminal",
+				LockLevel.Barred => "Barred",
 				LockLevel.Chained => "Chained",
 				LockLevel.Unknown => "Unknown",
 				_ => throw new ArgumentException($"Unexpected lock level {lockLevel}"),

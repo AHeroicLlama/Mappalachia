@@ -56,7 +56,7 @@ If you fancy doing some data mining or development with Mappalachia then you may
 
 #### Licensing
 This project is licensed under the GNU General Public License 3.0 - see [LICENSE.md](LICENSE.md) for details.<br/>
-Mappalachia uses technologies such as [.NET](https://dotnet.microsoft.com/en-us/platform/free), [SQLite](https://www.sqlite.org/copyright.html) and [SVG.NET](https://github.com/svg-net/SVG?tab=MS-PL-1-ov-file#readme) which are each subject to their own licenses.<br/>
+Mappalachia uses technologies such as [.NET](https://dotnet.microsoft.com/en-us/platform/free), [SQLite](https://www.sqlite.org/copyright.html), [SVG.NET](https://github.com/svg-net/SVG?tab=MS-PL-1-ov-file#readme) and [KGy SOFT Core Libraries](https://kgysoft.net/corelibraries) which are each subject to their own licenses.<br/>
 Use of other third-party assets are covered below.
 
 #### Legal/Disclaimer
