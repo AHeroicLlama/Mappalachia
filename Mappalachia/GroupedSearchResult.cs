@@ -15,7 +15,7 @@ namespace Mappalachia
 
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
-		public string DataValueFormID => Entity.GetFriendlyFormID();
+		public virtual string DataValueFormID => Entity.GetFriendlyFormID();
 
 		public string DataValueEditorID => Entity.EditorID;
 

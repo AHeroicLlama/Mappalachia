@@ -21,7 +21,7 @@ namespace Mappalachia
 			string searchTerm = ProcessSearchString(settings.SearchSettings.SearchTerm);
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
-			// 'Standard' search for entities on the Position table, joined with Entity
+			// 'Standard' search for entities on the Position(preGrouped) table, joined with Entity
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 			bool searchForFormID = searchTerm.IsHexFormID() && settings.SearchSettings.Advanced;
 
@@ -162,7 +162,6 @@ namespace Mappalachia
 					optionalSpaceTerm +
 					$"AND lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 					$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}) " +
-					$"OR instanceFormID = '{HexToInt(searchTerm)}' " +
 					"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
 
 				reader = await GetReader(Connection, query);
@@ -178,6 +177,30 @@ namespace Mappalachia
 						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 						reader.GetInt("count"),
 						1,
+						reader.GetString("label"),
+						reader.GetLockLevel()));
+				}
+
+				reader.Dispose();
+
+				query =
+					"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel " +
+					"FROM Position " +
+					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+					$"WHERE instanceFormID = '{HexToInt(searchTerm)}';";
+
+				reader = await GetReader(Connection, query);
+
+				while (reader.Read())
+				{
+					results.Add(new SingularSearchResult(
+						reader.GetUInt("instanceFormID"),
+						new Entity(
+							reader.GetUInt("referenceFormID"),
+							reader.GetString("editorID"),
+							reader.GetString("displayName"),
+							reader.GetSignature()),
+						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 						reader.GetString("label"),
 						reader.GetLockLevel()));
 				}
