@@ -38,6 +38,7 @@ namespace Mappalachia
 			Settings.Space = (Space)(comboBoxSpace.SelectedItem ?? throw new Exception("Selected space is null"));
 
 			UpdateFromSettings(false);
+			InitializeSignatureListView();
 
 			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
@@ -187,6 +188,16 @@ namespace Mappalachia
 
 			textBoxSearch.Text = Settings.SearchSettings.SearchTerm;
 
+			foreach (ListViewItem item in listViewSignature.Items)
+			{
+				item.Checked = Settings.SearchSettings.SelectedSignatures.Contains((Signature)(item.Tag ?? throw new Exception("Signature item was null")));
+			}
+
+			foreach (ListViewItem item in listViewLockLevel.Items)
+			{
+				item.Checked = Settings.SearchSettings.SelectedLockLevels.Contains((LockLevel)(item.Tag ?? throw new Exception("LockLevel item was null")));
+			}
+
 			UpdateDataGridAppearences();
 
 			if (reSearch)
@@ -269,6 +280,47 @@ namespace Mappalachia
 			UpdateDataGridAppearences();
 
 			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(dataGridView, e);
+		}
+
+		void InitializeSignatureListView()
+		{
+			listViewSignature.View = View.SmallIcon;
+			listViewSignature.CheckBoxes = true;
+			listViewSignature.Scrollable = false;
+
+			// Populate the list with all searchable signatures
+			foreach (Signature signature in Enum.GetValues<Signature>().Where(s => s.CanBeSearchedFor()))
+			{
+				listViewSignature.Items.Add(new ListViewItem(signature.ToFriendlyName())
+				{
+					Tag = signature,
+					ToolTipText = signature.GetDescription(),
+					Checked = Settings.SearchSettings.SelectedSignatures.Contains(signature),
+				});
+			}
+
+			// Whenever a checked status changes, update the Settings
+			listViewSignature.ItemChecked += (sender, eventArgs) =>
+			{
+				Signature item = (Signature)(eventArgs.Item?.Tag ?? throw new Exception("Signature item was null"));
+
+				if (eventArgs.Item.Checked)
+				{
+					Settings.SearchSettings.SelectedSignatures.Add(item);
+				}
+				else
+				{
+					Settings.SearchSettings.SelectedSignatures.RemoveAll(s => s.Equals(item));
+				}
+			};
+
+			listViewSignature.ItemSelectionChanged += (sender, eventArgs) =>
+			{
+				if (eventArgs.IsSelected && eventArgs.Item != null)
+				{
+					eventArgs.Item.Checked = !eventArgs.Item.Checked;
+				}
+			};
 		}
 
 		// Applies the header text and column visibility of all DGV Columns, based on Settings

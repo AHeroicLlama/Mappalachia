@@ -53,71 +53,6 @@ namespace Mappalachia
 					reader.GetLockLevel()));
 			}
 
-			// NPC search
-			query =
-				"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
-				"FROM NPC " +
-				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-				optionalSpaceTerm +
-				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
-
-			reader.Dispose();
-			reader = await GetReader(Connection, query);
-
-			while (reader.Read())
-			{
-				results.Add(new GroupedSearchResult(
-					new DerivedNPC(reader.GetString("npcName")),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-					reader.GetInt("count"),
-					reader.GetFloat("spawnWeight")));
-			}
-
-			// Scrap search
-			query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
-				"FROM Scrap " +
-				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
-				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-				optionalSpaceTerm +
-				"GROUP BY component, spaceFormID, componentQuantity;";
-
-			reader.Dispose();
-			reader = await GetReader(Connection, query);
-
-			while (reader.Read())
-			{
-				results.Add(new GroupedSearchResult(
-					new DerivedScrap(reader.GetString("component")),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-					reader.GetInt("properCount"),
-					reader.GetFloat("componentQuantity")));
-			}
-
-			// Region search
-			query =
-				"SELECT regionFormID, regionEditorID, spaceFormID " +
-				"FROM Region " +
-				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-				$"OR regionFormID = '{searchTerm}' " +
-				$"{(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
-				optionalSpaceTerm +
-				"GROUP BY regionFormID;";
-
-			reader.Dispose();
-			reader = await GetReader(Connection, query);
-
-			while (reader.Read())
-			{
-				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
-
-				results.Add(new GroupedSearchResult(
-					new Library.Region(
-						reader.GetUInt("regionFormID"),
-						reader.GetString("regionEditorID"),
-						space),
-					space));
-			}
-
 			// Container contents search
 			query = "SELECT contentFormID, editorID, displayName, signature, spaceFormID, SUM(count) as count, lockLevel, quantity " +
 				"FROM Container " +
@@ -149,6 +84,80 @@ namespace Mappalachia
 			}
 
 			reader.Dispose();
+
+			if (settings.SearchSettings.ShouldSearchForNPC())
+			{
+				// NPC search
+				query =
+					"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
+					"FROM NPC " +
+					$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}'" +
+					optionalSpaceTerm +
+					"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
+
+				reader.Dispose();
+				reader = await GetReader(Connection, query);
+
+				while (reader.Read())
+				{
+					results.Add(new GroupedSearchResult(
+						new DerivedNPC(reader.GetString("npcName")),
+						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+						reader.GetInt("count"),
+						reader.GetFloat("spawnWeight")));
+				}
+			}
+
+			if (settings.SearchSettings.ShouldSearchForScrap())
+			{
+				// Scrap search
+				query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
+					"FROM Scrap " +
+					"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
+					$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+					optionalSpaceTerm +
+					"GROUP BY component, spaceFormID, componentQuantity;";
+
+				reader.Dispose();
+				reader = await GetReader(Connection, query);
+
+				while (reader.Read())
+				{
+					results.Add(new GroupedSearchResult(
+						new DerivedScrap(reader.GetString("component")),
+						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+						reader.GetInt("properCount"),
+						reader.GetFloat("componentQuantity")));
+				}
+			}
+
+			if (settings.SearchSettings.ShouldSearchForRegion())
+			{
+				// Region search
+				query =
+					"SELECT regionFormID, regionEditorID, spaceFormID " +
+					"FROM Region " +
+					$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+					$"OR regionFormID = '{searchTerm}' " +
+					$"{(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
+					optionalSpaceTerm +
+					"GROUP BY regionFormID;";
+
+				reader.Dispose();
+				reader = await GetReader(Connection, query);
+
+				while (reader.Read())
+				{
+					Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
+
+					results.Add(new GroupedSearchResult(
+						new Library.Region(
+							reader.GetUInt("regionFormID"),
+							reader.GetString("regionEditorID"),
+							space),
+						space));
+				}
+			}
 
 			// Instance or TeleportsTo FormID-specific
 			// Instance FormID ignores all filters as it is entirely unique

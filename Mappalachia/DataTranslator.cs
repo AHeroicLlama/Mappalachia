@@ -40,7 +40,7 @@
 				Signature.CONT => "Container",
 				Signature.DOOR => "Door",
 				Signature.FLOR => "Flora",
-				Signature.FURN => "Furniture",
+				Signature.FURN => "Furniture/Animation",
 				Signature.HAZD => "Hazard",
 				Signature.IDLM => "Idle marker",
 				Signature.KEYM => "Key",
@@ -50,7 +50,7 @@
 				Signature.MSTT => "Moveable static",
 				Signature.NOTE => "Holotape",
 				Signature.NPC_ => "NPC",
-				Signature.PROJ => "Projectile",
+				Signature.PROJ => "Mine/Projectile",
 				Signature.REGN => "Region",
 				Signature.SCOL => "Static collection",
 				Signature.SECH => "Echo",
@@ -146,6 +146,16 @@
 				Signature.TERM => true,
 
 				_ => false,
+			};
+		}
+
+		public static bool CanBeSearchedFor(this Signature signature)
+		{
+			return signature switch
+			{
+				Signature.CELL or
+				Signature.WRLD => false,
+				_ => true,
 			};
 		}
 	}

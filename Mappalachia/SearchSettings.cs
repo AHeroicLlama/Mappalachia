@@ -10,7 +10,7 @@ namespace Mappalachia
 
 		public string SearchTerm { get; set; } = GetRandomSearchHint();
 
-		public List<Signature> SelectedSignatures { get; set; } = Enum.GetValues<Signature>().ToList();
+		public List<Signature> SelectedSignatures { get; set; } = Enum.GetValues<Signature>().ToList().Where(s => s.IsRecommendedSelection()).ToList();
 
 		public List<LockLevel> SelectedLockLevels { get; set; } = Enum.GetValues<LockLevel>().ToList();
 
@@ -53,6 +53,21 @@ namespace Mappalachia
 			};
 
 			return searchTermHints[new Random().Next(searchTermHints.Count)];
+		}
+
+		public bool ShouldSearchForNPC()
+		{
+			return SelectedSignatures.Contains(Signature.NPC_);
+		}
+
+		public bool ShouldSearchForScrap()
+		{
+			return SelectedSignatures.Contains(Signature.MISC);
+		}
+
+		public bool ShouldSearchForRegion()
+		{
+			return SelectedSignatures.Contains(Signature.REGN);
 		}
 	}
 }

@@ -70,6 +70,8 @@ namespace Mappalachia
 			buttonAddToMap = new Button();
 			buttonRemoveFromMap = new Button();
 			dataGridViewItemsToPlot = new DataGridView();
+			listViewSignature = new ListView();
+			listViewLockLevel = new ListView();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -81,7 +83,7 @@ namespace Mappalachia
 			menuStripMain.Location = new Point(0, 0);
 			menuStripMain.Name = "menuStripMain";
 			menuStripMain.ShowItemToolTips = true;
-			menuStripMain.Size = new Size(1264, 24);
+			menuStripMain.Size = new Size(977, 24);
 			menuStripMain.TabIndex = 0;
 			menuStripMain.Text = "menuStrip1";
 			// 
@@ -267,7 +269,7 @@ namespace Mappalachia
 			// searchInAllSpacesToolStripMenuItem
 			// 
 			searchInAllSpacesToolStripMenuItem.Name = "searchInAllSpacesToolStripMenuItem";
-			searchInAllSpacesToolStripMenuItem.Size = new Size(180, 22);
+			searchInAllSpacesToolStripMenuItem.Size = new Size(176, 22);
 			searchInAllSpacesToolStripMenuItem.Text = "Search in all Spaces";
 			searchInAllSpacesToolStripMenuItem.ToolTipText = "Constrain the search to the selected Space only, or search all Spaces.";
 			searchInAllSpacesToolStripMenuItem.Click += Search_SearchInAllSpaces_Click;
@@ -275,7 +277,7 @@ namespace Mappalachia
 			// advancedModeToolStripMenuItem
 			// 
 			advancedModeToolStripMenuItem.Name = "advancedModeToolStripMenuItem";
-			advancedModeToolStripMenuItem.Size = new Size(180, 22);
+			advancedModeToolStripMenuItem.Size = new Size(176, 22);
 			advancedModeToolStripMenuItem.Text = "Advanced Mode";
 			advancedModeToolStripMenuItem.ToolTipText = "Toggle displaying search results in technical formats, and enable searching by FormID.";
 			advancedModeToolStripMenuItem.Click += Search_AdvancedMode_Click;
@@ -347,9 +349,9 @@ namespace Mappalachia
 			// buttonSearch
 			// 
 			buttonSearch.Anchor = AnchorStyles.Top;
-			buttonSearch.Location = new Point(743, 28);
+			buttonSearch.Location = new Point(406, 29);
 			buttonSearch.Name = "buttonSearch";
-			buttonSearch.Size = new Size(75, 23);
+			buttonSearch.Size = new Size(165, 23);
 			buttonSearch.TabIndex = 5;
 			buttonSearch.Text = "Search";
 			buttonSearch.UseVisualStyleBackColor = true;
@@ -357,10 +359,10 @@ namespace Mappalachia
 			// 
 			// textBoxSearch
 			// 
-			textBoxSearch.Anchor = AnchorStyles.Top;
-			textBoxSearch.Location = new Point(447, 29);
+			textBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			textBoxSearch.Location = new Point(577, 29);
 			textBoxSearch.Name = "textBoxSearch";
-			textBoxSearch.Size = new Size(290, 23);
+			textBoxSearch.Size = new Size(388, 23);
 			textBoxSearch.TabIndex = 4;
 			textBoxSearch.Text = "Search Term";
 			textBoxSearch.TextChanged += SearchTerm_TextChanged;
@@ -376,29 +378,29 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewSearchResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewSearchResults.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewSearchResults.Location = new Point(12, 56);
+			dataGridViewSearchResults.Location = new Point(12, 185);
 			dataGridViewSearchResults.Name = "dataGridViewSearchResults";
 			dataGridViewSearchResults.ReadOnly = true;
 			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewSearchResults.Size = new Size(1240, 309);
+			dataGridViewSearchResults.Size = new Size(953, 213);
 			dataGridViewSearchResults.TabIndex = 3;
 			// 
 			// comboBoxSpace
 			// 
-			comboBoxSpace.Anchor = AnchorStyles.Top;
 			comboBoxSpace.DropDownStyle = ComboBoxStyle.DropDownList;
 			comboBoxSpace.FormattingEnabled = true;
-			comboBoxSpace.Location = new Point(12, 28);
+			comboBoxSpace.Location = new Point(12, 29);
 			comboBoxSpace.Name = "comboBoxSpace";
-			comboBoxSpace.Size = new Size(429, 23);
+			comboBoxSpace.Size = new Size(388, 23);
 			comboBoxSpace.TabIndex = 6;
 			comboBoxSpace.SelectionChangeCommitted += ComboBoxSpace_SelectionChangeCommitted;
 			// 
 			// buttonAddToMap
 			// 
-			buttonAddToMap.Location = new Point(503, 371);
+			buttonAddToMap.Anchor = AnchorStyles.Bottom;
+			buttonAddToMap.Location = new Point(359, 404);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Size = new Size(126, 23);
 			buttonAddToMap.TabIndex = 7;
@@ -408,7 +410,8 @@ namespace Mappalachia
 			// 
 			// buttonRemoveFromMap
 			// 
-			buttonRemoveFromMap.Location = new Point(635, 371);
+			buttonRemoveFromMap.Anchor = AnchorStyles.Bottom;
+			buttonRemoveFromMap.Location = new Point(491, 404);
 			buttonRemoveFromMap.Name = "buttonRemoveFromMap";
 			buttonRemoveFromMap.Size = new Size(126, 23);
 			buttonRemoveFromMap.TabIndex = 8;
@@ -422,19 +425,37 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.AllowUserToDeleteRows = false;
 			dataGridViewItemsToPlot.AllowUserToOrderColumns = true;
 			dataGridViewItemsToPlot.AllowUserToResizeRows = false;
-			dataGridViewItemsToPlot.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			dataGridViewItemsToPlot.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridViewItemsToPlot.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewItemsToPlot.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewItemsToPlot.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewItemsToPlot.Location = new Point(12, 400);
+			dataGridViewItemsToPlot.Location = new Point(12, 433);
 			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
 			dataGridViewItemsToPlot.ReadOnly = true;
 			dataGridViewItemsToPlot.RowHeadersVisible = false;
 			dataGridViewItemsToPlot.ScrollBars = ScrollBars.Vertical;
 			dataGridViewItemsToPlot.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewItemsToPlot.Size = new Size(1240, 269);
+			dataGridViewItemsToPlot.Size = new Size(953, 269);
 			dataGridViewItemsToPlot.TabIndex = 9;
+			// 
+			// listViewSignature
+			// 
+			listViewSignature.BackColor = SystemColors.ControlDark;
+			listViewSignature.Location = new Point(12, 58);
+			listViewSignature.Name = "listViewSignature";
+			listViewSignature.Size = new Size(706, 121);
+			listViewSignature.TabIndex = 10;
+			listViewSignature.UseCompatibleStateImageBehavior = false;
+			// 
+			// listViewLockLevel
+			// 
+			listViewLockLevel.BackColor = SystemColors.ControlDark;
+			listViewLockLevel.Location = new Point(724, 58);
+			listViewLockLevel.Name = "listViewLockLevel";
+			listViewLockLevel.Size = new Size(241, 121);
+			listViewLockLevel.TabIndex = 11;
+			listViewLockLevel.UseCompatibleStateImageBehavior = false;
 			// 
 			// FormMain
 			// 
@@ -442,7 +463,9 @@ namespace Mappalachia
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.ControlDarkDark;
-			ClientSize = new Size(1264, 681);
+			ClientSize = new Size(977, 714);
+			Controls.Add(listViewLockLevel);
+			Controls.Add(listViewSignature);
 			Controls.Add(dataGridViewItemsToPlot);
 			Controls.Add(buttonRemoveFromMap);
 			Controls.Add(buttonAddToMap);
@@ -508,5 +531,7 @@ namespace Mappalachia
 		private ToolStripMenuItem resetEverythingToolStripMenuItem;
 		private ToolStripMenuItem setTitleToolStripMenuItem;
 		private ToolStripMenuItem openExternallyToolStripMenuItem;
+		private ListView listViewSignature;
+		private ListView listViewLockLevel;
 	}
 }
