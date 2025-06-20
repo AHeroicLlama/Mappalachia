@@ -19,11 +19,27 @@ namespace Mappalachia
 		public static async Task<List<GroupedSearchResult>> Search(Settings settings)
 		{
 			string searchTerm = ProcessSearchString(settings.SearchSettings.SearchTerm);
-			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
 			// 'Standard' search for entities on the Position(preGrouped) table, joined with Entity
 			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 			bool searchForFormID = searchTerm.IsHexFormID() && settings.SearchSettings.Advanced;
+
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
+
+			results.AddRange(await StandardSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
+			results.AddRange(await ContainerSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
+			results.AddRange(await ScrapSearch(settings, searchTerm, optionalSpaceTerm));
+			results.AddRange(await NPCSearch(settings, searchTerm, optionalSpaceTerm));
+			results.AddRange(await RegionSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
+			results.AddRange(await TeleportsToSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
+			results.AddRange(await InstanceSearch(searchTerm, searchForFormID));
+
+			return results;
+		}
+
+		static async Task<List<GroupedSearchResult>> StandardSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
 			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel " +
 				"FROM Position_PreGrouped " +
@@ -36,7 +52,7 @@ namespace Mappalachia
 				$"AND Position_PreGrouped.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()};";
 
-			SqliteDataReader reader = await GetReader(Connection, query);
+			using SqliteDataReader reader = await GetReader(Connection, query);
 
 			while (reader.Read())
 			{
@@ -53,8 +69,14 @@ namespace Mappalachia
 					reader.GetLockLevel()));
 			}
 
-			// Container contents search
-			query = "SELECT contentFormID, editorID, displayName, signature, spaceFormID, SUM(count) as count, lockLevel, quantity " +
+			return results;
+		}
+
+		static async Task<List<GroupedSearchResult>> ContainerSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
+
+			string query = "SELECT contentFormID, editorID, displayName, signature, spaceFormID, SUM(count) as count, lockLevel, quantity " +
 				"FROM Container " +
 				"JOIN Entity ON Container.contentFormID = Entity.entityFormID " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Container.containerFormID " +
@@ -64,8 +86,7 @@ namespace Mappalachia
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} " +
 				$"GROUP BY editorID, contentFormID, lockLevel, quantity, spaceFormID;";
 
-			reader.Dispose();
-			reader = await GetReader(Connection, query);
+			using SqliteDataReader reader = await GetReader(Connection, query);
 
 			while (reader.Read())
 			{
@@ -83,138 +104,173 @@ namespace Mappalachia
 					true));
 			}
 
-			reader.Dispose();
+			return results;
+		}
 
-			if (settings.SearchSettings.ShouldSearchForNPC())
+		static async Task<List<GroupedSearchResult>> ScrapSearch(Settings settings, string searchTerm, string optionalSpaceTerm)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
+
+			if (!settings.SearchSettings.ShouldSearchForScrap())
 			{
-				// NPC search
-				query =
-					"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
-					"FROM NPC " +
-					$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}'" +
-					optionalSpaceTerm +
-					"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
-
-				reader.Dispose();
-				reader = await GetReader(Connection, query);
-
-				while (reader.Read())
-				{
-					results.Add(new GroupedSearchResult(
-						new DerivedNPC(reader.GetString("npcName")),
-						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-						reader.GetInt("count"),
-						reader.GetFloat("spawnWeight")));
-				}
+				return results;
 			}
 
-			if (settings.SearchSettings.ShouldSearchForScrap())
+			// Note: We are not looking inside of containers here
+			string query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
+				"FROM Scrap " +
+				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
+				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				optionalSpaceTerm +
+				"GROUP BY component, spaceFormID, componentQuantity;";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
 			{
-				// Scrap search
-				query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
-					"FROM Scrap " +
-					"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
-					$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-					optionalSpaceTerm +
-					"GROUP BY component, spaceFormID, componentQuantity;";
-
-				reader.Dispose();
-				reader = await GetReader(Connection, query);
-
-				while (reader.Read())
-				{
-					results.Add(new GroupedSearchResult(
-						new DerivedScrap(reader.GetString("component")),
-						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-						reader.GetInt("properCount"),
-						reader.GetFloat("componentQuantity")));
-				}
+				results.Add(new GroupedSearchResult(
+					new DerivedScrap(reader.GetString("component")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					reader.GetInt("properCount"),
+					reader.GetFloat("componentQuantity")));
 			}
 
-			if (settings.SearchSettings.ShouldSearchForRegion())
+			return results;
+		}
+
+		static async Task<List<GroupedSearchResult>> NPCSearch(Settings settings, string searchTerm, string optionalSpaceTerm)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
+
+			if (!settings.SearchSettings.ShouldSearchForNPC())
 			{
-				// Region search
-				query =
-					"SELECT regionFormID, regionEditorID, spaceFormID " +
-					"FROM Region " +
-					$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-					$"OR regionFormID = '{searchTerm}' " +
-					$"{(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
-					optionalSpaceTerm +
-					"GROUP BY regionFormID;";
-
-				reader.Dispose();
-				reader = await GetReader(Connection, query);
-
-				while (reader.Read())
-				{
-					Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
-
-					results.Add(new GroupedSearchResult(
-						new Library.Region(
-							reader.GetUInt("regionFormID"),
-							reader.GetString("regionEditorID"),
-							space),
-						space));
-				}
+				return results;
 			}
 
-			// Instance or TeleportsTo FormID-specific
-			// Instance FormID ignores all filters as it is entirely unique
-			if (searchForFormID)
+			string query =
+				"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
+				"FROM NPC " +
+				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}'" +
+				optionalSpaceTerm +
+				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
 			{
-				query =
-					"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, count(*) AS count " +
-					"FROM Position " +
-					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
-					$"WHERE ((teleportsToFormID = '{HexToInt(searchTerm)}') " +
-					optionalSpaceTerm +
-					$"AND lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
-					$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}) " +
-					"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
+				results.Add(new GroupedSearchResult(
+					new DerivedNPC(reader.GetString("npcName")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					reader.GetInt("count"),
+					reader.GetFloat("spawnWeight")));
+			}
 
-				reader = await GetReader(Connection, query);
+			return results;
+		}
 
-				while (reader.Read())
-				{
-					results.Add(new GroupedSearchResult(
-						new Entity(
-							reader.GetUInt("referenceFormID"),
-							reader.GetString("editorID"),
-							reader.GetString("displayName"),
-							reader.GetSignature()),
-						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-						reader.GetInt("count"),
-						1,
-						reader.GetString("label"),
-						reader.GetLockLevel()));
-				}
+		static async Task<List<GroupedSearchResult>> RegionSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
-				reader.Dispose();
+			if (!settings.SearchSettings.ShouldSearchForRegion())
+			{
+				return results;
+			}
 
-				query =
-					"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel " +
-					"FROM Position " +
-					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
-					$"WHERE instanceFormID = '{HexToInt(searchTerm)}';";
+			string query =
+				"SELECT regionFormID, regionEditorID, spaceFormID " +
+				"FROM Region " +
+				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR regionFormID = '{searchTerm}' " +
+				$"{(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
+				optionalSpaceTerm +
+				"GROUP BY regionFormID;";
 
-				reader = await GetReader(Connection, query);
+			using SqliteDataReader reader = await GetReader(Connection, query);
 
-				while (reader.Read())
-				{
-					results.Add(new SingularSearchResult(
-						reader.GetUInt("instanceFormID"),
-						new Entity(
-							reader.GetUInt("referenceFormID"),
-							reader.GetString("editorID"),
-							reader.GetString("displayName"),
-							reader.GetSignature()),
-						GetSpaceByFormID(reader.GetUInt("spaceFormID")),
-						reader.GetString("label"),
-						reader.GetLockLevel()));
-				}
+			while (reader.Read())
+			{
+				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
 
-				reader.Dispose();
+				results.Add(new GroupedSearchResult(
+					new Library.Region(
+						reader.GetUInt("regionFormID"),
+						reader.GetString("regionEditorID"),
+						space),
+					space));
+			}
+
+			return results;
+		}
+
+		static async Task<List<GroupedSearchResult>> TeleportsToSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
+
+			if (!searchForFormID)
+			{
+				return results;
+			}
+
+			string query =
+				"SELECT referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, count(*) AS count " +
+				"FROM Position " +
+				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+				$"WHERE ((teleportsToFormID = '{HexToInt(searchTerm)}') " +
+				optionalSpaceTerm +
+				$"AND lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
+				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}) " +
+				"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				results.Add(new GroupedSearchResult(
+					new Entity(
+						reader.GetUInt("referenceFormID"),
+						reader.GetString("editorID"),
+						reader.GetString("displayName"),
+						reader.GetSignature()),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					reader.GetInt("count"),
+					1,
+					reader.GetString("label"),
+					reader.GetLockLevel()));
+			}
+
+			return results;
+		}
+
+		static async Task<List<SingularSearchResult>> InstanceSearch(string searchTerm, bool searchForFormID)
+		{
+			List<SingularSearchResult> results = new List<SingularSearchResult>();
+
+			if (!searchForFormID)
+			{
+				return results;
+			}
+
+			string query =
+				"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel " +
+				"FROM Position " +
+				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+				$"WHERE instanceFormID = '{HexToInt(searchTerm)}';";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				results.Add(new SingularSearchResult(
+					reader.GetUInt("instanceFormID"),
+					new Entity(
+						reader.GetUInt("referenceFormID"),
+						reader.GetString("editorID"),
+						reader.GetString("displayName"),
+						reader.GetSignature()),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					reader.GetString("label"),
+					reader.GetLockLevel()));
 			}
 
 			return results;

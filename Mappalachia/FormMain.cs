@@ -34,11 +34,9 @@ namespace Mappalachia
 				comboBoxSpace.SelectedIndex = 0;
 			}
 
-			// Re-link the selected space to the instance loaded from the DB, not restored from settings
-			Settings.Space = (Space)(comboBoxSpace.SelectedItem ?? throw new Exception("Selected space is null"));
-
 			UpdateFromSettings(false);
 			InitializeSignatureListView();
+			InitializeLockLevelListView();
 
 			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
@@ -124,6 +122,23 @@ namespace Mappalachia
 			}
 		}
 
+		// Initialize the ListViews for the search filters
+		static void InitializeListViewGeneric(ListView listView)
+		{
+			listView.View = View.SmallIcon;
+			listView.CheckBoxes = true;
+			listView.Scrollable = false;
+
+			// Toggle the check by clicking the label
+			listView.ItemSelectionChanged += (sender, eventArgs) =>
+			{
+				if (eventArgs.IsSelected && eventArgs.Item != null)
+				{
+					eventArgs.Item.Checked = !eventArgs.Item.Checked;
+				}
+			};
+		}
+
 		// Read in fields from Settings and update UI elements respectively
 		void UpdateFromSettings(bool reDraw = true, bool reSearch = false)
 		{
@@ -190,7 +205,11 @@ namespace Mappalachia
 
 			foreach (ListViewItem item in listViewSignature.Items)
 			{
-				item.Checked = Settings.SearchSettings.SelectedSignatures.Contains((Signature)(item.Tag ?? throw new Exception("Signature item was null")));
+				Signature data = (Signature)(item.Tag ?? throw new Exception("Signature item was null"));
+
+				item.Checked = Settings.SearchSettings.SelectedSignatures.Contains(data);
+				item.Text = Settings.SearchSettings.Advanced ? data.ToString() : data.ToFriendlyName();
+				item.ToolTipText = Settings.SearchSettings.Advanced ? data.ToFriendlyName() : data.GetDescription();
 			}
 
 			foreach (ListViewItem item in listViewLockLevel.Items)
@@ -284,9 +303,9 @@ namespace Mappalachia
 
 		void InitializeSignatureListView()
 		{
-			listViewSignature.View = View.SmallIcon;
-			listViewSignature.CheckBoxes = true;
-			listViewSignature.Scrollable = false;
+			InitializeListViewGeneric(listViewSignature);
+
+			listViewSignature.ShowItemToolTips = true;
 
 			// Populate the list with all searchable signatures
 			foreach (Signature signature in Enum.GetValues<Signature>().Where(s => s.CanBeSearchedFor()))
@@ -313,12 +332,34 @@ namespace Mappalachia
 					Settings.SearchSettings.SelectedSignatures.RemoveAll(s => s.Equals(item));
 				}
 			};
+		}
 
-			listViewSignature.ItemSelectionChanged += (sender, eventArgs) =>
+		void InitializeLockLevelListView()
+		{
+			InitializeListViewGeneric(listViewLockLevel);
+
+			// Populate the list with all searchable lock levels
+			foreach (LockLevel lockLevel in Enum.GetValues<LockLevel>())
 			{
-				if (eventArgs.IsSelected && eventArgs.Item != null)
+				listViewLockLevel.Items.Add(new ListViewItem(lockLevel.ToFriendlyName())
 				{
-					eventArgs.Item.Checked = !eventArgs.Item.Checked;
+					Tag = lockLevel,
+					Checked = Settings.SearchSettings.SelectedLockLevels.Contains(lockLevel),
+				});
+			}
+
+			// Whenever a checked status changes, update the Settings
+			listViewLockLevel.ItemChecked += (sender, eventArgs) =>
+			{
+				LockLevel item = (LockLevel)(eventArgs.Item?.Tag ?? throw new Exception("LockLevel item was null"));
+
+				if (eventArgs.Item.Checked)
+				{
+					Settings.SearchSettings.SelectedLockLevels.Add(item);
+				}
+				else
+				{
+					Settings.SearchSettings.SelectedLockLevels.RemoveAll(s => s.Equals(item));
 				}
 			};
 		}
@@ -517,6 +558,7 @@ namespace Mappalachia
 		private void ComboBoxSpace_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			Settings.Space = (Space)(comboBoxSpace.SelectedItem ?? throw new Exception("Space combobox SelectedItem was null"));
+			Settings.ResolveConflictingSettings();
 			UpdateFromSettings();
 		}
 
@@ -642,6 +684,34 @@ namespace Mappalachia
 		{
 			Settings.SaveToFile();
 			FileIO.Cleanup();
+		}
+
+		private void ButtonSelectAllSignature_Click(object sender, EventArgs e)
+		{
+			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().ToList();
+			UpdateFromSettings(false, true);
+		}
+
+		private void ButtonSelectRecommended_Click(object sender, EventArgs e)
+		{
+			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().Where(s => s.IsRecommendedSelection()).ToList();
+			UpdateFromSettings(false, true);
+		}
+
+		private void ButtonUnselectAllSignature_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.SearchSettings.SelectedSignatures.Clear(), false, true);
+		}
+
+		private void ButtonSelectAllLockLevel_Click(object sender, EventArgs e)
+		{
+			Settings.SearchSettings.SelectedLockLevels = Enum.GetValues<LockLevel>().ToList();
+			UpdateFromSettings(false, true);
+		}
+
+		private void ButtonUnselectAllLockLevel_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.SearchSettings.SelectedLockLevels.Clear(), false, true);
 		}
 	}
 }

@@ -5,7 +5,7 @@ namespace Mappalachia
 {
 	public class Settings
 	{
-		Space space;
+		public Space Space { get; set; }
 
 		volatile Version? lastDeclinedUpdateVersion;
 
@@ -32,6 +32,12 @@ namespace Mappalachia
 				{
 					Settings settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(Paths.SettingsPath)) ?? throw new Exception("Settings JSON Deserialized to null");
 					settings.MapSettings.RootSettings = settings;
+
+					// Re-associate the space from the settings file with the same virgin space from the database
+					// This ensures JSON-ignored data (those not compared in overrode .Equals()) are not lost
+					// Failing this, fall back to the first space
+					settings.Space = Database.AllSpaces.Where(s => s.Equals(settings.Space)).FirstOrDefault() ?? Database.AllSpaces.First();
+
 					return settings;
 				}
 				catch (Exception e)
@@ -52,28 +58,12 @@ namespace Mappalachia
 
 		public Settings()
 		{
-			space ??= Database.AllSpaces.First();
+			Space ??= Database.AllSpaces.First();
 			PlotSettings ??= new PlotSettings();
 			SearchSettings ??= new SearchSettings();
 			MapSettings ??= new MapSettings(this);
 
 			ResolveConflictingSettings();
-		}
-
-		public Space Space
-		{
-			get => space;
-
-			set
-			{
-				if (Space == value)
-				{
-					return;
-				}
-
-				space = value;
-				ResolveConflictingSettings();
-			}
 		}
 
 		// Check for and amend settings which shouldn't be used together

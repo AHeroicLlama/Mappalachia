@@ -72,9 +72,18 @@ namespace Mappalachia
 			dataGridViewItemsToPlot = new DataGridView();
 			listViewSignature = new ListView();
 			listViewLockLevel = new ListView();
+			groupBoxFilterSignature = new GroupBox();
+			buttonSelectRecommended = new Button();
+			buttonUnselectAllSignature = new Button();
+			buttonSelectAllSignature = new Button();
+			groupBoxFilterLockLevel = new GroupBox();
+			buttonUnselectAllLockLevel = new Button();
+			buttonSelectAllLockLevel = new Button();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
+			groupBoxFilterSignature.SuspendLayout();
+			groupBoxFilterLockLevel.SuspendLayout();
 			SuspendLayout();
 			// 
 			// menuStripMain
@@ -348,8 +357,8 @@ namespace Mappalachia
 			// 
 			// buttonSearch
 			// 
-			buttonSearch.Anchor = AnchorStyles.Top;
-			buttonSearch.Location = new Point(406, 29);
+			buttonSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			buttonSearch.Location = new Point(800, 27);
 			buttonSearch.Name = "buttonSearch";
 			buttonSearch.Size = new Size(165, 23);
 			buttonSearch.TabIndex = 5;
@@ -359,8 +368,8 @@ namespace Mappalachia
 			// 
 			// textBoxSearch
 			// 
-			textBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			textBoxSearch.Location = new Point(577, 29);
+			textBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			textBoxSearch.Location = new Point(406, 29);
 			textBoxSearch.Name = "textBoxSearch";
 			textBoxSearch.Size = new Size(388, 23);
 			textBoxSearch.TabIndex = 4;
@@ -378,13 +387,13 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewSearchResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewSearchResults.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewSearchResults.Location = new Point(12, 185);
+			dataGridViewSearchResults.Location = new Point(12, 238);
 			dataGridViewSearchResults.Name = "dataGridViewSearchResults";
 			dataGridViewSearchResults.ReadOnly = true;
 			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewSearchResults.Size = new Size(953, 213);
+			dataGridViewSearchResults.Size = new Size(953, 160);
 			dataGridViewSearchResults.TabIndex = 3;
 			// 
 			// comboBoxSpace
@@ -441,21 +450,100 @@ namespace Mappalachia
 			// 
 			// listViewSignature
 			// 
+			listViewSignature.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			listViewSignature.BackColor = SystemColors.ControlDark;
-			listViewSignature.Location = new Point(12, 58);
+			listViewSignature.Location = new Point(6, 22);
 			listViewSignature.Name = "listViewSignature";
-			listViewSignature.Size = new Size(706, 121);
+			listViewSignature.Size = new Size(685, 111);
 			listViewSignature.TabIndex = 10;
 			listViewSignature.UseCompatibleStateImageBehavior = false;
 			// 
 			// listViewLockLevel
 			// 
+			listViewLockLevel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			listViewLockLevel.BackColor = SystemColors.ControlDark;
-			listViewLockLevel.Location = new Point(724, 58);
+			listViewLockLevel.Location = new Point(6, 22);
 			listViewLockLevel.Name = "listViewLockLevel";
-			listViewLockLevel.Size = new Size(241, 121);
+			listViewLockLevel.Size = new Size(238, 111);
 			listViewLockLevel.TabIndex = 11;
 			listViewLockLevel.UseCompatibleStateImageBehavior = false;
+			// 
+			// groupBoxFilterSignature
+			// 
+			groupBoxFilterSignature.Anchor = AnchorStyles.Top;
+			groupBoxFilterSignature.Controls.Add(buttonSelectRecommended);
+			groupBoxFilterSignature.Controls.Add(buttonUnselectAllSignature);
+			groupBoxFilterSignature.Controls.Add(buttonSelectAllSignature);
+			groupBoxFilterSignature.Controls.Add(listViewSignature);
+			groupBoxFilterSignature.Location = new Point(12, 58);
+			groupBoxFilterSignature.Name = "groupBoxFilterSignature";
+			groupBoxFilterSignature.Size = new Size(697, 165);
+			groupBoxFilterSignature.TabIndex = 12;
+			groupBoxFilterSignature.TabStop = false;
+			groupBoxFilterSignature.Text = "Filter by category";
+			// 
+			// buttonSelectRecommended
+			// 
+			buttonSelectRecommended.Location = new Point(280, 136);
+			buttonSelectRecommended.Name = "buttonSelectRecommended";
+			buttonSelectRecommended.Size = new Size(137, 23);
+			buttonSelectRecommended.TabIndex = 13;
+			buttonSelectRecommended.Text = "Select Recommended";
+			buttonSelectRecommended.UseVisualStyleBackColor = true;
+			buttonSelectRecommended.Click += ButtonSelectRecommended_Click;
+			// 
+			// buttonUnselectAllSignature
+			// 
+			buttonUnselectAllSignature.Location = new Point(423, 136);
+			buttonUnselectAllSignature.Name = "buttonUnselectAllSignature";
+			buttonUnselectAllSignature.Size = new Size(80, 23);
+			buttonUnselectAllSignature.TabIndex = 12;
+			buttonUnselectAllSignature.Text = "Unselect All";
+			buttonUnselectAllSignature.UseVisualStyleBackColor = true;
+			buttonUnselectAllSignature.Click += ButtonUnselectAllSignature_Click;
+			// 
+			// buttonSelectAllSignature
+			// 
+			buttonSelectAllSignature.Location = new Point(194, 136);
+			buttonSelectAllSignature.Name = "buttonSelectAllSignature";
+			buttonSelectAllSignature.Size = new Size(80, 23);
+			buttonSelectAllSignature.TabIndex = 11;
+			buttonSelectAllSignature.Text = "Select All";
+			buttonSelectAllSignature.UseVisualStyleBackColor = true;
+			buttonSelectAllSignature.Click += ButtonSelectAllSignature_Click;
+			// 
+			// groupBoxFilterLockLevel
+			// 
+			groupBoxFilterLockLevel.Anchor = AnchorStyles.Top;
+			groupBoxFilterLockLevel.Controls.Add(buttonUnselectAllLockLevel);
+			groupBoxFilterLockLevel.Controls.Add(buttonSelectAllLockLevel);
+			groupBoxFilterLockLevel.Controls.Add(listViewLockLevel);
+			groupBoxFilterLockLevel.Location = new Point(715, 58);
+			groupBoxFilterLockLevel.Name = "groupBoxFilterLockLevel";
+			groupBoxFilterLockLevel.Size = new Size(250, 165);
+			groupBoxFilterLockLevel.TabIndex = 13;
+			groupBoxFilterLockLevel.TabStop = false;
+			groupBoxFilterLockLevel.Text = "Filter by lock level";
+			// 
+			// buttonUnselectAllLockLevel
+			// 
+			buttonUnselectAllLockLevel.Location = new Point(128, 136);
+			buttonUnselectAllLockLevel.Name = "buttonUnselectAllLockLevel";
+			buttonUnselectAllLockLevel.Size = new Size(80, 23);
+			buttonUnselectAllLockLevel.TabIndex = 14;
+			buttonUnselectAllLockLevel.Text = "Unselect All";
+			buttonUnselectAllLockLevel.UseVisualStyleBackColor = true;
+			buttonUnselectAllLockLevel.Click += ButtonUnselectAllLockLevel_Click;
+			// 
+			// buttonSelectAllLockLevel
+			// 
+			buttonSelectAllLockLevel.Location = new Point(42, 136);
+			buttonSelectAllLockLevel.Name = "buttonSelectAllLockLevel";
+			buttonSelectAllLockLevel.Size = new Size(80, 23);
+			buttonSelectAllLockLevel.TabIndex = 13;
+			buttonSelectAllLockLevel.Text = "Select All";
+			buttonSelectAllLockLevel.UseVisualStyleBackColor = true;
+			buttonSelectAllLockLevel.Click += ButtonSelectAllLockLevel_Click;
 			// 
 			// FormMain
 			// 
@@ -464,8 +552,8 @@ namespace Mappalachia
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.ControlDarkDark;
 			ClientSize = new Size(977, 714);
-			Controls.Add(listViewLockLevel);
-			Controls.Add(listViewSignature);
+			Controls.Add(groupBoxFilterLockLevel);
+			Controls.Add(groupBoxFilterSignature);
 			Controls.Add(dataGridViewItemsToPlot);
 			Controls.Add(buttonRemoveFromMap);
 			Controls.Add(buttonAddToMap);
@@ -484,6 +572,8 @@ namespace Mappalachia
 			menuStripMain.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).EndInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).EndInit();
+			groupBoxFilterSignature.ResumeLayout(false);
+			groupBoxFilterLockLevel.ResumeLayout(false);
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -533,5 +623,12 @@ namespace Mappalachia
 		private ToolStripMenuItem openExternallyToolStripMenuItem;
 		private ListView listViewSignature;
 		private ListView listViewLockLevel;
+		private GroupBox groupBoxFilterSignature;
+		private GroupBox groupBoxFilterLockLevel;
+		private Button buttonSelectRecommended;
+		private Button buttonUnselectAllSignature;
+		private Button buttonSelectAllSignature;
+		private Button buttonUnselectAllLockLevel;
+		private Button buttonSelectAllLockLevel;
 	}
 }
