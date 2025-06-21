@@ -282,19 +282,20 @@ namespace Mappalachia
 		void InitializeDataGridView(DataGridView dataGridView, SortableBindingList<GroupedSearchResult> data)
 		{
 			dataGridView.AutoGenerateColumns = false;
+			dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridView.Columns.Clear();
 			dataGridView.DataSource = new BindingSource(data, string.Empty);
 
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID", DataPropertyName = "DataValueFormID", });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EditorID", DataPropertyName = "DataValueEditorID" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName", DataPropertyName = "DataValueDisplayName" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature", DataPropertyName = "DataValueSignature" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label", DataPropertyName = "DataValueLabel" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel", DataPropertyName = "DataValueLockLevel" });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight", DefaultCellStyle = new DataGridViewCellStyle() { Format = "#,0.##" } });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount", DefaultCellStyle = new DataGridViewCellStyle() { Format = "N0" } });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location", DataPropertyName = "DataValueLocation" });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID", DataPropertyName = "DataValueFormID", FillWeight = 2 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EditorID", DataPropertyName = "DataValueEditorID", FillWeight = 6 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName", DataPropertyName = "DataValueDisplayName", FillWeight = 5 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature", DataPropertyName = "DataValueSignature", FillWeight = 3 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label", DataPropertyName = "DataValueLabel", FillWeight = 3 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer", FillWeight = 1 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel", DataPropertyName = "DataValueLockLevel", FillWeight = 2 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight", DefaultCellStyle = new DataGridViewCellStyle() { Format = "#,0.##" }, FillWeight = 2 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount", DefaultCellStyle = new DataGridViewCellStyle() { Format = "N0" }, FillWeight = 2 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location", DataPropertyName = "DataValueLocation", FillWeight = 4 });
 
 			UpdateDataGridAppearences();
 

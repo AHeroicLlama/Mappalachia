@@ -393,7 +393,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewSearchResults.Size = new Size(953, 160);
+			dataGridViewSearchResults.Size = new Size(953, 225);
 			dataGridViewSearchResults.TabIndex = 3;
 			// 
 			// comboBoxSpace
@@ -409,7 +409,7 @@ namespace Mappalachia
 			// buttonAddToMap
 			// 
 			buttonAddToMap.Anchor = AnchorStyles.Bottom;
-			buttonAddToMap.Location = new Point(359, 404);
+			buttonAddToMap.Location = new Point(359, 469);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Size = new Size(126, 23);
 			buttonAddToMap.TabIndex = 7;
@@ -420,7 +420,7 @@ namespace Mappalachia
 			// buttonRemoveFromMap
 			// 
 			buttonRemoveFromMap.Anchor = AnchorStyles.Bottom;
-			buttonRemoveFromMap.Location = new Point(491, 404);
+			buttonRemoveFromMap.Location = new Point(491, 469);
 			buttonRemoveFromMap.Name = "buttonRemoveFromMap";
 			buttonRemoveFromMap.Size = new Size(126, 23);
 			buttonRemoveFromMap.TabIndex = 8;
@@ -439,13 +439,13 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewItemsToPlot.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewItemsToPlot.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewItemsToPlot.Location = new Point(12, 433);
+			dataGridViewItemsToPlot.Location = new Point(12, 498);
 			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
 			dataGridViewItemsToPlot.ReadOnly = true;
 			dataGridViewItemsToPlot.RowHeadersVisible = false;
 			dataGridViewItemsToPlot.ScrollBars = ScrollBars.Vertical;
 			dataGridViewItemsToPlot.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewItemsToPlot.Size = new Size(953, 269);
+			dataGridViewItemsToPlot.Size = new Size(953, 204);
 			dataGridViewItemsToPlot.TabIndex = 9;
 			// 
 			// listViewSignature
