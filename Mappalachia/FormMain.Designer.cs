@@ -68,7 +68,7 @@ namespace Mappalachia
 			textBoxSearch = new TextBox();
 			dataGridViewSearchResults = new DataGridView();
 			comboBoxSpace = new ComboBox();
-			buttonAddToMap = new Button();
+			buttonAddToMap = new DropDownButton();
 			buttonRemoveFromMap = new Button();
 			dataGridViewItemsToPlot = new DataGridView();
 			listViewSignature = new ListView();
@@ -107,6 +107,7 @@ namespace Mappalachia
 			// showPreviewToolStripMenuItem
 			// 
 			showPreviewToolStripMenuItem.Name = "showPreviewToolStripMenuItem";
+			showPreviewToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Space;
 			showPreviewToolStripMenuItem.Size = new Size(233, 22);
 			showPreviewToolStripMenuItem.Text = "Show Preview";
 			showPreviewToolStripMenuItem.ToolTipText = "Bring up the preview window.";
@@ -420,13 +421,13 @@ namespace Mappalachia
 			// buttonAddToMap
 			// 
 			buttonAddToMap.Anchor = AnchorStyles.Bottom;
+			buttonAddToMap.ContextMenu = null;
 			buttonAddToMap.Location = new Point(359, 469);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Size = new Size(126, 23);
 			buttonAddToMap.TabIndex = 7;
 			buttonAddToMap.Text = "Add to Map";
 			buttonAddToMap.UseVisualStyleBackColor = true;
-			buttonAddToMap.Click += ButtonAddToMap_Click;
 			// 
 			// buttonRemoveFromMap
 			// 
@@ -625,7 +626,7 @@ namespace Mappalachia
 		private ComboBox comboBoxSpace;
 		private ToolStripMenuItem searchSettingsToolStripMenuItem;
 		private ToolStripMenuItem searchInAllSpacesToolStripMenuItem;
-		private Button buttonAddToMap;
+		private DropDownButton buttonAddToMap;
 		private Button buttonRemoveFromMap;
 		private DataGridView dataGridViewItemsToPlot;
 		private ToolStripMenuItem advancedModeToolStripMenuItem;

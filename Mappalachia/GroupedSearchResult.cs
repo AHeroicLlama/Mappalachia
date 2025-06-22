@@ -7,17 +7,13 @@ namespace Mappalachia
 	public class GroupedSearchResult(Entity entity, Space space, int count = 1, double spawnWeight = 1, string label = "", LockLevel lockLevel = LockLevel.None, bool inContainer = false)
 		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
 	{
-		public int LegendGroup { get; set; } = 0;
-
 		// TODO placeholder
-		public PlotIcon? PlotIcon { get; set; } = new PlotIcon(Color.Red);
+		public PlotIcon? PlotIcon { get; set; }
 
 		public int Count { get; } = count;
 
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
-		public int DataValueLegendGroup => LegendGroup;
-
 		public virtual string DataValueFormID => Entity.GetFriendlyFormID();
 
 		public string DataValueEditorID => Entity.EditorID;

@@ -37,13 +37,18 @@ namespace Mappalachia
 			}
 
 			UpdateFromSettings(false);
+
+			ToolStripMenuItem addAsGroup = new ToolStripMenuItem() { Text = "Add as group" };
+			addAsGroup.Click += (sender, e) => { ButtonAddToMap_Click(true); };
+			buttonAddToMap.ContextMenu = new ContextMenuStrip() { Items = { addAsGroup } };
+			buttonAddToMap.Click += (sender, e) => { ButtonAddToMap_Click(false); };
+
 			InitializeSignatureListView();
 			InitializeLockLevelListView();
 
 			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
-
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LegendGroup", DataPropertyName = "DataValueLegendGroup", FillWeight = 2 });
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
+
 			dataGridViewItemsToPlot.Columns.Add(new DataGridViewButtonColumn() { Name = "Plot Icon", FillWeight = 2, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
 			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem })
@@ -688,7 +693,6 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.ClearSort();
 			FormMapView.SizeMapToForm();
 			UpdateFromSettings();
-			Settings.ResolveConflictingSettings();
 		}
 
 		private void Discord_Click(object sender, EventArgs e)
@@ -734,14 +738,26 @@ namespace Mappalachia
 			SetSetting(() => Settings.SearchSettings.SelectedLockLevels.Clear(), false, false);
 		}
 
-		private void ButtonAddToMap_Click(object sender, EventArgs e)
+		private void ButtonAddToMap_Click(bool addAsGroup = false)
 		{
 			ItemsToPlot.RaiseListChangedEvents = false;
 
 			List<GroupedSearchResult> itemsToAdd = new List<GroupedSearchResult>();
 
+			List<DataGridViewRow?> selectedRows = dataGridViewSearchResults.SelectedCells
+				.Cast<DataGridViewCell>()
+				.DistinctBy(c => c.RowIndex)
+				.Select(c => c.OwningRow)
+				.Reverse()
+				.ToList();
+
+			if (selectedRows.Count == 0)
+			{
+				return;
+			}
+
 			// From the selected cells, find the unique rows, and find the data bound to those
-			foreach (DataGridViewRow? row in dataGridViewSearchResults.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex).Select(c => c.OwningRow).Reverse())
+			foreach (DataGridViewRow? row in selectedRows)
 			{
 				GroupedSearchResult instance = (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"));
 
@@ -751,15 +767,29 @@ namespace Mappalachia
 				}
 			}
 
+			PlotIcon? groupPlotIcon = addAsGroup ? new PlotIcon() : null;
+
 			// Add the valid items to the actual list
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
 			foreach (GroupedSearchResult instance in itemsToAdd)
 			{
+				if (addAsGroup)
+				{
+					instance.PlotIcon = groupPlotIcon;
+				}
+				else
+				{
+					instance.PlotIcon = new PlotIcon();
+				}
+
 				ItemsToPlot.Add(instance);
 			}
 
 			ItemsToPlot.RaiseListChangedEvents = true;
 			ItemsToPlot.ResetBindings();
+
+			// Scroll to bottom of list
+			dataGridViewItemsToPlot.FirstDisplayedScrollingRowIndex = dataGridViewItemsToPlot.Rows.Count - 1;
 		}
 
 		private void ButtonRemoveFromMap_Click(object sender, EventArgs e)
@@ -767,6 +797,11 @@ namespace Mappalachia
 			ItemsToPlot.RaiseListChangedEvents = false;
 
 			List<DataGridViewRow?> selectedRows = dataGridViewItemsToPlot.SelectedCells.Cast<DataGridViewCell>().DistinctBy(c => c.RowIndex).Select(c => c.OwningRow).ToList();
+
+			if (selectedRows.Count == 0)
+			{
+				return;
+			}
 
 			// Shortcut to remove all
 			if (selectedRows.Count == ItemsToPlot.Count)
