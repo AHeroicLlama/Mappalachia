@@ -12,16 +12,25 @@ namespace Mappalachia
 
 		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
 
-		public static Image DoorMarker { get; } = LoadSVGIcon(Paths.DoorMarkerPath);
-
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
-		static ImageCodecInfo JpgCodec { get; set; } = ImageCodecInfo.GetImageDecoders().Where(ic => ic.FormatID == ImageFormat.Jpeg.Guid).SingleOrDefault() ?? throw new Exception($"Failed to get jpeg codec");
+		static ImageCodecInfo JpgCodec { get; set; } = ImageCodecInfo.GetImageDecoders().SingleOrDefault(ic => ic.FormatID == ImageFormat.Jpeg.Guid) ?? throw new Exception($"Failed to get jpeg codec");
 
 		static FileIO()
 		{
 			FontCollection.AddFontFile(Paths.FontPath);
 			CreateSavedMapsFolder();
+		}
+
+		static Image? doorMarker;
+
+		public static Image DoorMarker
+		{
+			get
+			{
+				doorMarker ??= LoadSVGIcon(Paths.DoorMarkerPath);
+				return doorMarker;
+			}
 		}
 
 		public static FontFamily GetFontFamily()

@@ -7,6 +7,8 @@ namespace Mappalachia
 {
 	public partial class FormMain : Form
 	{
+		static int PlotIconCellPadding { get; } = 5;
+
 		public Settings Settings { get; private set; } = Settings.LoadFromFile();
 
 		FormMapView FormMapView { get; set; }
@@ -39,7 +41,10 @@ namespace Mappalachia
 			InitializeLockLevelListView();
 
 			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
+
+			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LegendGroup", DataPropertyName = "DataValueLegendGroup", FillWeight = 2 });
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
+			dataGridViewItemsToPlot.Columns.Add(new DataGridViewButtonColumn() { Name = "Plot Icon", FillWeight = 2, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
 			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem })
 			{
@@ -76,6 +81,9 @@ namespace Mappalachia
 		{
 			switch (columnName)
 			{
+				case "LegendGroup":
+					return "The group that this instance belongs to, for the purpose of sharing the same plot icon.";
+
 				case "FormID":
 					return advanced ? string.Empty : "An internal code name for this entity";
 
@@ -142,6 +150,8 @@ namespace Mappalachia
 		// Read in fields from Settings and update UI elements respectively
 		void UpdateFromSettings(bool reDraw = true, bool reSearch = false)
 		{
+			Settings.ResolveConflictingSettings();
+
 			comboBoxSpace.SelectedItem = Settings.Space;
 
 			grayscaleMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
@@ -278,12 +288,77 @@ namespace Mappalachia
 			e.ToolTipText = GetCellToolTip(columnName, instance, Settings.SearchSettings.Advanced);
 		}
 
+		// If the location cell is double clicked, set the current space to that space
+		private void SwitchSpaceOnDoubleClick(DataGridView dataGridView, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0 || e.ColumnIndex < 0)
+			{
+				return;
+			}
+
+			DataGridViewColumn clickedColumn = dataGridView.Columns[e.ColumnIndex];
+
+			if (clickedColumn.Name == "Location")
+			{
+				DataGridViewRow clickedRow = dataGridView.Rows[e.RowIndex];
+				Space clickedSpace = ((GroupedSearchResult)(clickedRow.DataBoundItem ?? throw new Exception("Double clicked row data was null"))).Space;
+
+				if (!clickedSpace.Equals(Settings.Space))
+				{
+					SetSetting(() => Settings.Space = Database.AllSpaces.FirstOrDefault(s => s.Equals(clickedSpace)) ?? Settings.Space, true, false);
+				}
+			}
+		}
+
+		// Handle the drawing of plot icons on the cell of plot icon column
+		private void DataGridViewItemsToPlot_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+		{
+			if (e.RowIndex < 0 || e.ColumnIndex < 0)
+			{
+				return;
+			}
+
+			DataGridViewColumn paintedColumn = dataGridViewItemsToPlot.Columns[e.ColumnIndex];
+
+			if (paintedColumn.Name == "Plot Icon")
+			{
+				e.PaintBackground(e.ClipBounds, true);
+
+				DataGridViewRow paintedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
+				GroupedSearchResult data = (GroupedSearchResult)(paintedRow.DataBoundItem ?? throw new NullReferenceException("Painted row data was null"));
+				Image icon = data.PlotIcon?.GetImage() ?? throw new NullReferenceException("Data icon image was null");
+
+				Rectangle cellBounds = e.CellBounds;
+
+				double resizeFactor = Math.Min(
+					cellBounds.Width / (double)icon.Width,
+					cellBounds.Height / (double)icon.Height);
+
+				int width = (int)(icon.Width * resizeFactor) - PlotIconCellPadding;
+				int height = (int)(icon.Height * resizeFactor) - PlotIconCellPadding;
+
+				Rectangle iconBounds = new Rectangle(
+					cellBounds.X + (cellBounds.Width / 2) - (width / 2),
+					cellBounds.Y + (cellBounds.Height / 2) - (height / 2),
+					width,
+					height);
+
+				if (e.Graphics == null)
+				{
+					throw new NullReferenceException("Graphics object for cell icon painting event was null");
+				}
+
+				e.Graphics.DrawImage(icon, iconBounds);
+
+				e.Handled = true;
+			}
+		}
+
 		// Programatically configure either DGV
 		void InitializeDataGridView(DataGridView dataGridView, SortableBindingList<GroupedSearchResult> data)
 		{
 			dataGridView.AutoGenerateColumns = false;
 			dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-			dataGridView.Columns.Clear();
 			dataGridView.DataSource = new BindingSource(data, string.Empty);
 
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID", DataPropertyName = "DataValueFormID", FillWeight = 2 });
@@ -291,7 +366,7 @@ namespace Mappalachia
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName", DataPropertyName = "DataValueDisplayName", FillWeight = 5 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature", DataPropertyName = "DataValueSignature", FillWeight = 3 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label", DataPropertyName = "DataValueLabel", FillWeight = 3 });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer", FillWeight = 1 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer", FillWeight = 2 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel", DataPropertyName = "DataValueLockLevel", FillWeight = 2 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight", DefaultCellStyle = new DataGridViewCellStyle() { Format = "#,0.##" }, FillWeight = 2 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount", DefaultCellStyle = new DataGridViewCellStyle() { Format = "N0" }, FillWeight = 2 });
@@ -300,6 +375,7 @@ namespace Mappalachia
 			UpdateDataGridAppearences();
 
 			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(dataGridView, e);
+			dataGridView.CellDoubleClick += (s, e) => SwitchSpaceOnDoubleClick(dataGridView, e);
 		}
 
 		void InitializeSignatureListView()
@@ -434,6 +510,16 @@ namespace Mappalachia
 			SetSetting(() => Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground);
 		}
 
+		private void Map_SetBrightness_Click(object sender, EventArgs e)
+		{
+			FormSetBrightness brightnessForm = new FormSetBrightness(Settings);
+
+			if (brightnessForm.ShowDialog() == DialogResult.OK)
+			{
+				SetSetting(() => Settings.MapSettings.Brightness = brightnessForm.BrightnessValue);
+			}
+		}
+
 		private void Map_HightlightWater_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
@@ -490,8 +576,7 @@ namespace Mappalachia
 
 			if (titleForm.ShowDialog() == DialogResult.OK)
 			{
-				Settings.MapSettings.Title = titleForm.TextBoxValue;
-				UpdateFromSettings();
+				SetSetting(() => Settings.MapSettings.Title = titleForm.TextBoxValue);
 			}
 		}
 
@@ -621,6 +706,34 @@ namespace Mappalachia
 			Settings.SearchSettings.SearchTerm = textBoxSearch.Text;
 		}
 
+		private void ButtonSelectAllSignature_Click(object sender, EventArgs e)
+		{
+			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().ToList();
+			UpdateFromSettings(false, false);
+		}
+
+		private void ButtonSelectRecommended_Click(object sender, EventArgs e)
+		{
+			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().Where(s => s.IsRecommendedSelection()).ToList();
+			UpdateFromSettings(false, false);
+		}
+
+		private void ButtonUnselectAllSignature_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.SearchSettings.SelectedSignatures.Clear(), false, false);
+		}
+
+		private void ButtonSelectAllLockLevel_Click(object sender, EventArgs e)
+		{
+			Settings.SearchSettings.SelectedLockLevels = Enum.GetValues<LockLevel>().ToList();
+			UpdateFromSettings(false, false);
+		}
+
+		private void ButtonUnselectAllLockLevel_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.SearchSettings.SelectedLockLevels.Clear(), false, false);
+		}
+
 		private void ButtonAddToMap_Click(object sender, EventArgs e)
 		{
 			ItemsToPlot.RaiseListChangedEvents = false;
@@ -685,34 +798,6 @@ namespace Mappalachia
 		{
 			Settings.SaveToFile();
 			FileIO.Cleanup();
-		}
-
-		private void ButtonSelectAllSignature_Click(object sender, EventArgs e)
-		{
-			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().ToList();
-			UpdateFromSettings(false, true);
-		}
-
-		private void ButtonSelectRecommended_Click(object sender, EventArgs e)
-		{
-			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().Where(s => s.IsRecommendedSelection()).ToList();
-			UpdateFromSettings(false, true);
-		}
-
-		private void ButtonUnselectAllSignature_Click(object sender, EventArgs e)
-		{
-			SetSetting(() => Settings.SearchSettings.SelectedSignatures.Clear(), false, true);
-		}
-
-		private void ButtonSelectAllLockLevel_Click(object sender, EventArgs e)
-		{
-			Settings.SearchSettings.SelectedLockLevels = Enum.GetValues<LockLevel>().ToList();
-			UpdateFromSettings(false, true);
-		}
-
-		private void ButtonUnselectAllLockLevel_Click(object sender, EventArgs e)
-		{
-			SetSetting(() => Settings.SearchSettings.SelectedLockLevels.Clear(), false, true);
 		}
 	}
 }

@@ -33,8 +33,6 @@ namespace Mappalachia
 			mapMenuItem = new ToolStripMenuItem();
 			showPreviewToolStripMenuItem = new ToolStripMenuItem();
 			openExternallyToolStripMenuItem = new ToolStripMenuItem();
-			grayscaleMenuItem = new ToolStripMenuItem();
-			highlightWaterMenuItem = new ToolStripMenuItem();
 			setTitleToolStripMenuItem = new ToolStripMenuItem();
 			mapMapMarkersMenuItem = new ToolStripMenuItem();
 			mapMarkerIconsMenuItem = new ToolStripMenuItem();
@@ -44,6 +42,9 @@ namespace Mappalachia
 			backgroundSatelliteMenuItem = new ToolStripMenuItem();
 			backgroundMilitaryMenuItem = new ToolStripMenuItem();
 			backgroundNoneMenuItem = new ToolStripMenuItem();
+			grayscaleMenuItem = new ToolStripMenuItem();
+			setBrightnessToolStripMenuItem = new ToolStripMenuItem();
+			highlightWaterMenuItem = new ToolStripMenuItem();
 			mapLegendStyleMenuItem = new ToolStripMenuItem();
 			legendNormalMenuItem = new ToolStripMenuItem();
 			legendExtendedMenuItem = new ToolStripMenuItem();
@@ -98,7 +99,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, grayscaleMenuItem, highlightWaterMenuItem, setTitleToolStripMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, grayscaleMenuItem, setBrightnessToolStripMenuItem, highlightWaterMenuItem, mapLegendStyleMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -106,7 +107,7 @@ namespace Mappalachia
 			// showPreviewToolStripMenuItem
 			// 
 			showPreviewToolStripMenuItem.Name = "showPreviewToolStripMenuItem";
-			showPreviewToolStripMenuItem.Size = new Size(191, 22);
+			showPreviewToolStripMenuItem.Size = new Size(233, 22);
 			showPreviewToolStripMenuItem.Text = "Show Preview";
 			showPreviewToolStripMenuItem.ToolTipText = "Bring up the preview window.";
 			showPreviewToolStripMenuItem.Click += Map_ShowPreview_Click;
@@ -114,31 +115,15 @@ namespace Mappalachia
 			// openExternallyToolStripMenuItem
 			// 
 			openExternallyToolStripMenuItem.Name = "openExternallyToolStripMenuItem";
-			openExternallyToolStripMenuItem.Size = new Size(191, 22);
+			openExternallyToolStripMenuItem.Size = new Size(233, 22);
 			openExternallyToolStripMenuItem.Text = "Open Externally";
 			openExternallyToolStripMenuItem.ToolTipText = "Open the current map image in your default image viewer.";
 			openExternallyToolStripMenuItem.Click += Map_OpenExternally;
 			// 
-			// grayscaleMenuItem
-			// 
-			grayscaleMenuItem.Name = "grayscaleMenuItem";
-			grayscaleMenuItem.Size = new Size(191, 22);
-			grayscaleMenuItem.Text = "Grayscale Background";
-			grayscaleMenuItem.ToolTipText = "Set the background to black and white, making plots more visible.";
-			grayscaleMenuItem.Click += Map_Grayscale_Click;
-			// 
-			// highlightWaterMenuItem
-			// 
-			highlightWaterMenuItem.Name = "highlightWaterMenuItem";
-			highlightWaterMenuItem.Size = new Size(191, 22);
-			highlightWaterMenuItem.Text = "Highlight Water";
-			highlightWaterMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
-			highlightWaterMenuItem.Click += Map_HightlightWater_Click;
-			// 
 			// setTitleToolStripMenuItem
 			// 
 			setTitleToolStripMenuItem.Name = "setTitleToolStripMenuItem";
-			setTitleToolStripMenuItem.Size = new Size(191, 22);
+			setTitleToolStripMenuItem.Size = new Size(233, 22);
 			setTitleToolStripMenuItem.Text = "Set Title";
 			setTitleToolStripMenuItem.ToolTipText = "Set a title for your map.";
 			setTitleToolStripMenuItem.Click += Map_SetTitle_Click;
@@ -147,7 +132,7 @@ namespace Mappalachia
 			// 
 			mapMapMarkersMenuItem.DropDownItems.AddRange(new ToolStripItem[] { mapMarkerIconsMenuItem, mapMarkerLabelsMenuItem });
 			mapMapMarkersMenuItem.Name = "mapMapMarkersMenuItem";
-			mapMapMarkersMenuItem.Size = new Size(191, 22);
+			mapMapMarkersMenuItem.Size = new Size(233, 22);
 			mapMapMarkersMenuItem.Text = "Map Markers";
 			// 
 			// mapMarkerIconsMenuItem
@@ -170,7 +155,7 @@ namespace Mappalachia
 			// 
 			mapBackgroundImageMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backgroundNormalMenuItem, backgroundSatelliteMenuItem, backgroundMilitaryMenuItem, backgroundNoneMenuItem });
 			mapBackgroundImageMenuItem.Name = "mapBackgroundImageMenuItem";
-			mapBackgroundImageMenuItem.Size = new Size(191, 22);
+			mapBackgroundImageMenuItem.Size = new Size(233, 22);
 			mapBackgroundImageMenuItem.Text = "Background Image";
 			// 
 			// backgroundNormalMenuItem
@@ -205,11 +190,36 @@ namespace Mappalachia
 			backgroundNoneMenuItem.ToolTipText = "Disable the background map image.";
 			backgroundNoneMenuItem.Click += Map_Background_None_Click;
 			// 
+			// grayscaleMenuItem
+			// 
+			grayscaleMenuItem.Name = "grayscaleMenuItem";
+			grayscaleMenuItem.ShortcutKeys = Keys.Control | Keys.G;
+			grayscaleMenuItem.Size = new Size(233, 22);
+			grayscaleMenuItem.Text = "Grayscale Background";
+			grayscaleMenuItem.ToolTipText = "Set the background to black and white, making plots more visible.";
+			grayscaleMenuItem.Click += Map_Grayscale_Click;
+			// 
+			// setBrightnessToolStripMenuItem
+			// 
+			setBrightnessToolStripMenuItem.Name = "setBrightnessToolStripMenuItem";
+			setBrightnessToolStripMenuItem.Size = new Size(233, 22);
+			setBrightnessToolStripMenuItem.Text = "Set Brightness";
+			setBrightnessToolStripMenuItem.Click += Map_SetBrightness_Click;
+			// 
+			// highlightWaterMenuItem
+			// 
+			highlightWaterMenuItem.Name = "highlightWaterMenuItem";
+			highlightWaterMenuItem.ShortcutKeys = Keys.Control | Keys.H;
+			highlightWaterMenuItem.Size = new Size(233, 22);
+			highlightWaterMenuItem.Text = "Highlight Water";
+			highlightWaterMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
+			highlightWaterMenuItem.Click += Map_HightlightWater_Click;
+			// 
 			// mapLegendStyleMenuItem
 			// 
 			mapLegendStyleMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalMenuItem, legendExtendedMenuItem, legendHiddenMenuItem });
 			mapLegendStyleMenuItem.Name = "mapLegendStyleMenuItem";
-			mapLegendStyleMenuItem.Size = new Size(191, 22);
+			mapLegendStyleMenuItem.Size = new Size(233, 22);
 			mapLegendStyleMenuItem.Text = "Legend Style";
 			// 
 			// legendNormalMenuItem
@@ -239,7 +249,8 @@ namespace Mappalachia
 			// quickSaveToolStripMenuItem
 			// 
 			quickSaveToolStripMenuItem.Name = "quickSaveToolStripMenuItem";
-			quickSaveToolStripMenuItem.Size = new Size(191, 22);
+			quickSaveToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+			quickSaveToolStripMenuItem.Size = new Size(233, 22);
 			quickSaveToolStripMenuItem.Text = "Quick Save";
 			quickSaveToolStripMenuItem.ToolTipText = "Quickly save the current image, using recommended settings.";
 			quickSaveToolStripMenuItem.Click += Map_QuickSave_Click;
@@ -247,7 +258,8 @@ namespace Mappalachia
 			// exportToFileToolStripMenuItem
 			// 
 			exportToFileToolStripMenuItem.Name = "exportToFileToolStripMenuItem";
-			exportToFileToolStripMenuItem.Size = new Size(191, 22);
+			exportToFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+			exportToFileToolStripMenuItem.Size = new Size(233, 22);
 			exportToFileToolStripMenuItem.Text = "Export to File";
 			exportToFileToolStripMenuItem.ToolTipText = "Save the current map image, with your choice of settings.";
 			exportToFileToolStripMenuItem.Click += Map_ExportToFile_Click;
@@ -255,7 +267,7 @@ namespace Mappalachia
 			// clearPlotsToolStripMenuItem
 			// 
 			clearPlotsToolStripMenuItem.Name = "clearPlotsToolStripMenuItem";
-			clearPlotsToolStripMenuItem.Size = new Size(191, 22);
+			clearPlotsToolStripMenuItem.Size = new Size(233, 22);
 			clearPlotsToolStripMenuItem.Text = "Clear Plots";
 			clearPlotsToolStripMenuItem.ToolTipText = "Clear just the currently plotted items.";
 			clearPlotsToolStripMenuItem.Click += Map_ClearPlots_Click;
@@ -263,7 +275,7 @@ namespace Mappalachia
 			// resetToolStripMenuItem
 			// 
 			resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-			resetToolStripMenuItem.Size = new Size(191, 22);
+			resetToolStripMenuItem.Size = new Size(233, 22);
 			resetToolStripMenuItem.Text = "Reset";
 			resetToolStripMenuItem.ToolTipText = "Reset all map-related settings (those in this menu), and currently selected plots.";
 			resetToolStripMenuItem.Click += Map_Reset_Click;
@@ -381,7 +393,6 @@ namespace Mappalachia
 			dataGridViewSearchResults.AllowUserToAddRows = false;
 			dataGridViewSearchResults.AllowUserToDeleteRows = false;
 			dataGridViewSearchResults.AllowUserToOrderColumns = true;
-			dataGridViewSearchResults.AllowUserToResizeRows = false;
 			dataGridViewSearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridViewSearchResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewSearchResults.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
@@ -433,7 +444,6 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.AllowUserToAddRows = false;
 			dataGridViewItemsToPlot.AllowUserToDeleteRows = false;
 			dataGridViewItemsToPlot.AllowUserToOrderColumns = true;
-			dataGridViewItemsToPlot.AllowUserToResizeRows = false;
 			dataGridViewItemsToPlot.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridViewItemsToPlot.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
@@ -447,6 +457,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridViewItemsToPlot.Size = new Size(953, 204);
 			dataGridViewItemsToPlot.TabIndex = 9;
+			dataGridViewItemsToPlot.CellPainting += DataGridViewItemsToPlot_CellPainting;
 			// 
 			// listViewSignature
 			// 
@@ -630,5 +641,6 @@ namespace Mappalachia
 		private Button buttonSelectAllSignature;
 		private Button buttonUnselectAllLockLevel;
 		private Button buttonSelectAllLockLevel;
+		private ToolStripMenuItem setBrightnessToolStripMenuItem;
 	}
 }

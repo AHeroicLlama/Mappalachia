@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	partial class FormSetTitle
+	partial class FormSetBrightness
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,24 +28,25 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			textBox = new TextBox();
+			numericUpDownBrightness = new NumericUpDown();
 			buttonOK = new Button();
 			buttonCancel = new Button();
+			((System.ComponentModel.ISupportInitialize)numericUpDownBrightness).BeginInit();
 			SuspendLayout();
 			// 
-			// textBox
+			// numericUpDownBrightness
 			// 
-			textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			textBox.Location = new Point(12, 12);
-			textBox.MaxLength = 256;
-			textBox.Name = "textBox";
-			textBox.Size = new Size(300, 23);
-			textBox.TabIndex = 0;
+			numericUpDownBrightness.Location = new Point(12, 12);
+			numericUpDownBrightness.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+			numericUpDownBrightness.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+			numericUpDownBrightness.Name = "numericUpDownBrightness";
+			numericUpDownBrightness.Size = new Size(153, 23);
+			numericUpDownBrightness.TabIndex = 0;
+			numericUpDownBrightness.Value = new decimal(new int[] { 10, 0, 0, 0 });
 			// 
 			// buttonOK
 			// 
-			buttonOK.Anchor = AnchorStyles.Bottom;
-			buttonOK.Location = new Point(84, 41);
+			buttonOK.Location = new Point(10, 41);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
 			buttonOK.TabIndex = 1;
@@ -55,39 +56,37 @@
 			// 
 			// buttonCancel
 			// 
-			buttonCancel.Anchor = AnchorStyles.Bottom;
-			buttonCancel.Location = new Point(165, 41);
+			buttonCancel.Location = new Point(91, 41);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
 			buttonCancel.TabIndex = 2;
 			buttonCancel.Text = "Cancel";
 			buttonCancel.UseVisualStyleBackColor = true;
 			// 
-			// FormSetTitle
+			// FormSetBrightness
 			// 
 			AcceptButton = buttonOK;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = buttonCancel;
-			ClientSize = new Size(324, 69);
+			ClientSize = new Size(177, 74);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
-			Controls.Add(textBox);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
+			Controls.Add(numericUpDownBrightness);
 			MaximizeBox = false;
 			MinimizeBox = false;
-			Name = "FormSetTitle";
+			Name = "FormSetBrightness";
 			ShowIcon = false;
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
-			Text = "Set Map Title";
+			Text = "Set Brightness (%)";
+			((System.ComponentModel.ISupportInitialize)numericUpDownBrightness).EndInit();
 			ResumeLayout(false);
-			PerformLayout();
 		}
 
 		#endregion
 
-		private TextBox textBox;
+		private NumericUpDown numericUpDownBrightness;
 		private Button buttonOK;
 		private Button buttonCancel;
 	}

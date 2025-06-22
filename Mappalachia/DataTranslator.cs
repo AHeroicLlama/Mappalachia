@@ -20,7 +20,7 @@
 				LockLevel.Barred => "Barred",
 				LockLevel.Chained => "Chained",
 				LockLevel.Unknown => "Unknown",
-				_ => throw new ArgumentException($"Unexpected lock level {lockLevel}"),
+				_ => string.Concat(lockLevel.ToString().Select(c => char.IsUpper(c) || char.IsAsciiDigit(c) ? " " + c : c.ToString())).Trim()
 			};
 		}
 
