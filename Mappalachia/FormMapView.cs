@@ -1,3 +1,5 @@
+using Library;
+
 namespace Mappalachia
 {
 	public partial class FormMapView : Form
@@ -20,12 +22,14 @@ namespace Mappalachia
 			UpdateKeepOnTopText();
 			menuStripPreview.BringToFront();
 
-			UpdateMap(settings);
+			// Draw a map free of plots
+			UpdateMap(new List<Instance>(), settings);
 		}
 
-		public void UpdateMap(Settings settings)
+		// Call a map draw, and update the picture box with the response
+		public void UpdateMap(List<Instance> instances, Settings settings)
 		{
-			pictureBoxMapDisplay.Image = Map.Draw(settings);
+			pictureBoxMapDisplay.Image = Map.Draw(instances, settings);
 		}
 
 		// Returns the currently displayed map as an Image

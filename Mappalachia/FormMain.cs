@@ -49,9 +49,9 @@ namespace Mappalachia
 			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
 
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewButtonColumn() { Name = "Plot Icon", FillWeight = 2, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
+			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Plot Icon", FillWeight = 2, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
-			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersMenuItem, mapBackgroundImageMenuItem, mapLegendStyleMenuItem })
+			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, mapLegendStyleToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem })
 			{
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
@@ -158,66 +158,89 @@ namespace Mappalachia
 			Settings.ResolveConflictingSettings();
 
 			comboBoxSpace.SelectedItem = Settings.Space;
+			textBoxSearch.Text = Settings.SearchSettings.SearchTerm;
 
-			grayscaleMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
-			highlightWaterMenuItem.Checked = Settings.MapSettings.HighlightWater;
-			mapMarkerIconsMenuItem.Checked = Settings.MapSettings.MapMarkerIcons;
-			mapMarkerLabelsMenuItem.Checked = Settings.MapSettings.MapMarkerLabels;
+			// Update the check for boolean settings
+			grayscaleToolStripMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
+			highlightWaterToolStripMenuItem.Checked = Settings.MapSettings.HighlightWater;
+			mapMarkerIconsToolStripMenuItem.Checked = Settings.MapSettings.MapMarkerIcons;
+			mapMarkerLabelsToolStripMenuItem.Checked = Settings.MapSettings.MapMarkerLabels;
+			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchSettings.SearchInAllSpaces;
+			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
+			drawInstanceFormIDToolStripMenuItem.Checked = Settings.PlotSettings.DrawInstanceFormID;
+			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.ShowPlotsInOtherSpaces;
 
-			backgroundNormalMenuItem.Checked = false;
-			backgroundMilitaryMenuItem.Checked = false;
-			backgroundSatelliteMenuItem.Checked = false;
-			backgroundNoneMenuItem.Checked = false;
+			// Set all items which are members of "pick only one" lists to be unchecked, first
+			foreach (ToolStripMenuItem item in new[] { backgroundNormalToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundNoneToolStripMenuItem, legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem, volumeBorderToolStripMenuItem, volumeFillToolStripMenuItem, volumeBothToolStripMenuItem, plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeClusterToolStripMenuItem })
+			{
+				item.Checked = false;
+			}
 
+			// For each of the "pick only one" lists, set the single checked item
 			switch (Settings.MapSettings.BackgroundImage)
 			{
 				case BackgroundImageType.Menu:
-					backgroundNormalMenuItem.Checked = true;
+					backgroundNormalToolStripMenuItem.Checked = true;
 					break;
 				case BackgroundImageType.Render:
-					backgroundSatelliteMenuItem.Checked = true;
+					backgroundSatelliteToolStripMenuItem.Checked = true;
 					break;
 				case BackgroundImageType.Military:
-					backgroundMilitaryMenuItem.Checked = true;
+					backgroundMilitaryToolStripMenuItem.Checked = true;
 					break;
 				case BackgroundImageType.None:
-					backgroundNoneMenuItem.Checked = true;
+					backgroundNoneToolStripMenuItem.Checked = true;
 					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.MapSettings.BackgroundImage)} value {Settings.MapSettings.BackgroundImage}");
 			}
 
-			legendNormalMenuItem.Checked = false;
-			legendExtendedMenuItem.Checked = false;
-			legendHiddenMenuItem.Checked = false;
-
 			switch (Settings.MapSettings.LegendStyle)
 			{
 				case LegendStyle.Normal:
-					legendNormalMenuItem.Checked = true;
+					legendNormalToolStripMenuItem.Checked = true;
 					break;
 				case LegendStyle.Extended:
-					legendExtendedMenuItem.Checked = true;
+					legendExtendedToolStripMenuItem.Checked = true;
 					break;
 				case LegendStyle.None:
-					legendHiddenMenuItem.Checked = true;
+					legendHiddenToolStripMenuItem.Checked = true;
 					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.MapSettings.LegendStyle)} value {Settings.MapSettings.LegendStyle}");
 			}
 
-			backgroundNormalMenuItem.Enabled = Settings.Space.IsWorldspace;
-			backgroundMilitaryMenuItem.Enabled = Settings.Space.IsAppalachia();
+			switch (Settings.PlotSettings.VolumeDrawMode)
+			{
+				case VolumeDrawMode.Border:
+					volumeBorderToolStripMenuItem.Checked = true;
+					break;
+				case VolumeDrawMode.Fill:
+					volumeFillToolStripMenuItem.Checked = true;
+					break;
+				case VolumeDrawMode.Both:
+					volumeBothToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.PlotSettings.VolumeDrawMode)} value {Settings.PlotSettings.VolumeDrawMode}");
+			}
 
-			highlightWaterMenuItem.Enabled = Settings.Space.IsWorldspace;
-			mapMapMarkersMenuItem.Enabled = Settings.Space.IsWorldspace;
+			switch (Settings.PlotSettings.Mode)
+			{
+				case PlotMode.Standard:
+					plotModeStandardToolStripMenuItem.Checked = true;
+					break;
+				case PlotMode.Topographic:
+					plotModeTopographicToolStripMenuItem.Checked = true;
+					break;
+				case PlotMode.Cluster:
+					plotModeClusterToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.PlotSettings.Mode)} value {Settings.PlotSettings.Mode}");
+			}
 
-			textBoxSearch.Text = Settings.SearchSettings.SearchTerm;
-			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchSettings.SearchInAllSpaces;
-			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
-
-			textBoxSearch.Text = Settings.SearchSettings.SearchTerm;
-
+			// Update the multi-selectable checkboxes of the list view filters
 			foreach (ListViewItem item in listViewSignature.Items)
 			{
 				Signature data = (Signature)(item.Tag ?? throw new Exception("Signature item was null"));
@@ -232,6 +255,13 @@ namespace Mappalachia
 				item.Checked = Settings.SearchSettings.SelectedLockLevels.Contains((LockLevel)(item.Tag ?? throw new Exception("LockLevel item was null")));
 			}
 
+			// Disable some now unavailable settings, for clarity
+			backgroundNormalToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
+			backgroundMilitaryToolStripMenuItem.Enabled = Settings.Space.IsAppalachia();
+
+			highlightWaterToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
+			mapMapMarkersToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
+
 			UpdateDataGridAppearences();
 
 			if (reSearch)
@@ -241,7 +271,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				FormMapView.UpdateMap(Settings);
+				FireMapDraw();
 			}
 		}
 
@@ -269,6 +299,12 @@ namespace Mappalachia
 			SearchResults.ResetBindings();
 
 			dataGridViewSearchResults.ClearSort();
+		}
+
+		void FireMapDraw()
+		{
+			// TODO fetch instances from DB
+			FormMapView.UpdateMap(new List<Instance>(), Settings);
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers
@@ -635,6 +671,7 @@ namespace Mappalachia
 
 		private void Map_Reset_Click(object sender, EventArgs e)
 		{
+			Settings.Space = Database.AllSpaces.First();
 			Settings.MapSettings = new MapSettings(Settings);
 			Settings.ResolveConflictingSettings();
 
@@ -661,6 +698,53 @@ namespace Mappalachia
 		private void Search_AdvancedMode_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced, false, true);
+		}
+
+		private void Plot_Mode_Standard_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Standard);
+		}
+
+		private void Plot_Mode_Topographic_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Topographic);
+		}
+
+		private void Plot_Mode_Cluster_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Cluster);
+		}
+
+		private void Plot_ClusterSettings_Click(object sender, EventArgs e)
+		{
+			// TODO
+			// Spawn cluster settings form
+			plotSettingsMenuItem.DropDown.Close();
+		}
+
+		private void Plot_Volume_Fill_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Fill);
+		}
+
+		private void Plot_Volume_Border_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Border);
+		}
+
+		private void Plot_Volume_Both_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Both);
+		}
+
+		private void Plot_ShowPlotsInOtherSpaces(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.ShowPlotsInOtherSpaces = !Settings.PlotSettings.ShowPlotsInOtherSpaces);
+		}
+
+		private void Plot_DrawInstanceFormIDs_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.DrawInstanceFormID = !Settings.PlotSettings.DrawInstanceFormID);
 		}
 
 		private void Help_About_Click(object sender, EventArgs e)

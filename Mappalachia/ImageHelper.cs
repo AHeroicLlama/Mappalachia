@@ -72,5 +72,14 @@ namespace Mappalachia
 
 			return bitmap;
 		}
+
+		// Linearly interpolates the RGB values of two colors to form a new 'child' color
+		public static Color LerpColors(Color colorX, Color colorY, double range)
+		{
+			return Color.FromArgb(
+				(int)(colorX.R + ((colorY.R - colorX.R) * range)),
+				(int)(colorX.G + ((colorY.G - colorX.G) * range)),
+				(int)(colorX.B + ((colorY.B - colorX.B) * range)));
+		}
 	}
 }

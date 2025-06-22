@@ -1,4 +1,6 @@
-﻿namespace Library
+﻿using System.Drawing;
+
+namespace Library
 {
 	public static class GeometryHelper
 	{
@@ -38,6 +40,12 @@
 		{
 			return test.X >= Math.Min(a.X, b.X) && test.X <= Math.Max(a.X, b.X) &&
 				test.Y >= Math.Min(a.Y, b.Y) && test.Y <= Math.Max(a.Y, b.Y);
+		}
+
+		// Cross-product o->a and o->b
+		public static double VectorCrossProduct(PointF o, PointF a, PointF b)
+		{
+			return ((a.X - o.X) * (b.Y - o.Y)) - ((a.Y - o.Y) * (b.X - o.X));
 		}
 	}
 }

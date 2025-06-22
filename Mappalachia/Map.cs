@@ -43,10 +43,14 @@ namespace Mappalachia
 
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
-		public static Image Draw(Settings settings)
+		// The primary map draw function
+		public static Image Draw(List<Instance> instances, Settings settings, RectangleF? superResCrop = null)
 		{
-			// Load in the chosen base background image
-			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
+			// Gather the base background image
+			Image mapImage = superResCrop != null ?
+				GetSuperResBackground(settings, (RectangleF)superResCrop) :
+				new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
+
 			using Graphics graphics = Graphics.FromImage(mapImage);
 			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
@@ -59,13 +63,85 @@ namespace Mappalachia
 				graphics.DrawImage(settings.Space.GetWaterMask(), 0, 0);
 			}
 
+			// Call the relevant plot function
+			switch (settings.PlotSettings.Mode)
+			{
+				case PlotMode.Standard:
+					DrawStandardPlots(instances, settings, graphics);
+					break;
+
+				case PlotMode.Topographic:
+					DrawStandardPlots(instances, settings, graphics, true);
+					DrawTopographicLegend(settings, graphics);
+					break;
+
+				case PlotMode.Cluster:
+					DrawClusterPlots(instances, settings, graphics);
+					break;
+
+				default:
+					throw new Exception("Unexpected PlotMode: " + settings.PlotSettings.Mode);
+			}
+
+			if (settings.PlotSettings.ShowPlotsInOtherSpaces)
+			{
+				DrawConnectingSpacePlots(instances, settings, graphics);
+			}
+
+			if (settings.PlotSettings.DrawInstanceFormID)
+			{
+				DrawInstanceFormIDs(instances, settings, graphics);
+			}
+
 			DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
 			DrawMapMarkerIconsAndLabels(settings, graphics);
+			mapImage = DrawLegend(instances, settings, mapImage);
 
 			GC.Collect();
 
 			return mapImage;
+		}
+
+		static Image GetSuperResBackground(Settings settings, RectangleF superResCrop)
+		{
+			// TODO
+			return new Bitmap(MapImageResolution, MapImageResolution);
+		}
+
+		// Standard including topographic plots
+		static void DrawStandardPlots(List<Instance> instances, Settings settings, Graphics graphics, bool topographic = false)
+		{
+			// TODO
+		}
+
+		static void DrawClusterPlots(List<Instance> instances, Settings settings, Graphics graphics)
+		{
+			// TODO
+		}
+
+		// Draw plots where plotted entities exist in a space reachable by this one
+		static void DrawConnectingSpacePlots(List<Instance> instances, Settings settings, Graphics graphics)
+		{
+			// TODO
+		}
+
+		// Draw the FormID of the instance of the plot
+		static void DrawInstanceFormIDs(List<Instance> instances, Settings settings, Graphics graphics)
+		{
+			// TODO
+		}
+
+		// Draw the color scale demonstrating the topographic color/height mapping
+		static void DrawTopographicLegend(Settings settings, Graphics graphics)
+		{
+			// TODO
+		}
+
+		// Draws the region or shape belonging to the given instance
+		static void DrawRegionOrShape(Settings settings, Graphics graphics, Instance instance)
+		{
+			// TODO
 		}
 
 		static void DrawTitle(Settings settings, Graphics graphics)
@@ -131,6 +207,24 @@ namespace Mappalachia
 					graphics.DrawStringCentered(marker.Label, font, BrushGeneric, new PointF(coord.X, coord.Y + labelOffset), !settings.MapSettings.MapMarkerIcons, MapMarkerLabelTextMaxWidth);
 				}
 			}
+		}
+
+		// Draw the legend
+		// May return an image of different dimensions if extended legend is used
+		static Image DrawLegend(List<Instance> instances, Settings settings, Image image)
+		{
+			// TODO
+			switch (settings.MapSettings.LegendStyle)
+			{
+				case LegendStyle.Normal:
+					break;
+				case LegendStyle.Extended:
+					break;
+				case LegendStyle.None:
+					break;
+			}
+
+			return image;
 		}
 
 		// Draw the image at the given coordinates, centered on the coord
