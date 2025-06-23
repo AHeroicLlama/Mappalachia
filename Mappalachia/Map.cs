@@ -103,7 +103,9 @@ namespace Mappalachia
 			return mapImage;
 		}
 
-		static Image GetSuperResBackground(Settings settings, RectangleF superResCrop)
+		// TODO temp disable warning
+#pragma warning disable IDE0060 // Remove unused parameter
+		static Bitmap GetSuperResBackground(Settings settings, RectangleF superResCrop)
 		{
 			// TODO
 			return new Bitmap(MapImageResolution, MapImageResolution);
@@ -226,6 +228,7 @@ namespace Mappalachia
 
 			return image;
 		}
+#pragma warning restore IDE0060 // Remove unused parameter
 
 		// Draw the image at the given coordinates, centered on the coord
 		static void DrawImageCentered(this Graphics graphics, Image image, PointF coord)

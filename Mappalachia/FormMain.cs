@@ -54,9 +54,9 @@ namespace Mappalachia
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
 
-			FormMapView = new FormMapView(Settings);
+			FormMapView = new FormMapView();
 
-			UpdateFromSettings(false);
+			UpdateFromSettings(true);
 		}
 
 		// Return the header for a DataGridViewColumn with the given name
@@ -272,7 +272,7 @@ namespace Mappalachia
 
 			if (reDraw)
 			{
-				FireMapDraw();
+				DrawMap();
 			}
 		}
 
@@ -302,10 +302,10 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClearSort();
 		}
 
-		void FireMapDraw()
+		void DrawMap()
 		{
 			// TODO fetch instances from DB
-			FormMapView.UpdateMap(new List<Instance>(), Settings);
+			FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, FormMapView.GetCurrentPanZoomView());
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers
@@ -517,6 +517,20 @@ namespace Mappalachia
 			}
 		}
 
+		// Restore, bring to front, and otherwise display the map preview form
+		void ShowMapPreview()
+		{
+			FormMapView.BringToFront();
+			FormMapView.Show();
+			FormMapView.Focus();
+
+			if (FormMapView.WindowState == FormWindowState.Minimized)
+			{
+				FormMapView.WindowState = FormWindowState.Normal;
+				FormMapView.SizeMapToForm();
+			}
+		}
+
 		// Defer showing the map view until after the main form has been shown
 		private void FormMain_Shown(object sender, EventArgs e)
 		{
@@ -531,20 +545,12 @@ namespace Mappalachia
 
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
 		{
-			FormMapView.BringToFront();
-			FormMapView.Show();
-			FormMapView.Focus();
-
-			if (FormMapView.WindowState == FormWindowState.Minimized)
-			{
-				FormMapView.WindowState = FormWindowState.Normal;
-				FormMapView.SizeMapToForm();
-			}
+			ShowMapPreview();
 		}
 
 		private void Map_OpenExternally(object sender, EventArgs e)
 		{
-			FileIO.TempSave(FormMapView.GetCurrentMapImage(), true);
+			FileIO.TempSave(FormMapView.MapImage, true);
 		}
 
 		private void Map_Grayscale_Click(object sender, EventArgs e)
@@ -624,7 +630,7 @@ namespace Mappalachia
 
 		private void Map_QuickSave_Click(object sender, EventArgs e)
 		{
-			FileIO.QuickSave(FormMapView.GetCurrentMapImage(), Settings);
+			FileIO.QuickSave(FormMapView.MapImage, Settings);
 			mapMenuItem.DropDown.Close();
 		}
 
@@ -645,7 +651,7 @@ namespace Mappalachia
 
 				if (saveDialog.ShowDialog() == DialogResult.OK)
 				{
-					Image saveTarget = FormMapView.GetCurrentMapImage();
+					Image saveTarget = FormMapView.MapImage;
 					ImageFormat imageFormat = formExportToFile.ImageFormat;
 
 					// If PNG is recommended and selected, set black backgrounds transparent
@@ -917,6 +923,12 @@ namespace Mappalachia
 			{
 				dataGridViewItemsToPlot.ClearSort();
 			}
+		}
+
+		private void ButtonUpdateMap_Click(object sender, EventArgs e)
+		{
+			DrawMap();
+			ShowMapPreview();
 		}
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)

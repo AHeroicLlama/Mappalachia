@@ -67,6 +67,7 @@ namespace Mappalachia
 			volumeBorderToolStripMenuItem = new ToolStripMenuItem();
 			volumeBothToolStripMenuItem = new ToolStripMenuItem();
 			showPlotsInOtherSpacesToolStripMenuItem = new ToolStripMenuItem();
+			showRegionLevelsToolStripMenuItem = new ToolStripMenuItem();
 			drawInstanceFormIDToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
@@ -92,7 +93,7 @@ namespace Mappalachia
 			groupBoxFilterLockLevel = new GroupBox();
 			buttonUnselectAllLockLevel = new Button();
 			buttonSelectAllLockLevel = new Button();
-			showRegionLevelsToolStripMenuItem = new ToolStripMenuItem();
+			buttonUpdateMap = new Button();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -402,6 +403,14 @@ namespace Mappalachia
 			showPlotsInOtherSpacesToolStripMenuItem.ToolTipText = "Add notes to show where other locations (accessible from the current selected one) also contain quantities of your selected items.";
 			showPlotsInOtherSpacesToolStripMenuItem.Click += Plot_ShowPlotsInOtherSpaces;
 			// 
+			// showRegionLevelsToolStripMenuItem
+			// 
+			showRegionLevelsToolStripMenuItem.Name = "showRegionLevelsToolStripMenuItem";
+			showRegionLevelsToolStripMenuItem.Size = new Size(227, 22);
+			showRegionLevelsToolStripMenuItem.Text = "Show Region Levels";
+			showRegionLevelsToolStripMenuItem.ToolTipText = "Show the level range for plotted regions.";
+			showRegionLevelsToolStripMenuItem.Click += Plot_ShowRegionLevels_Click;
+			// 
 			// drawInstanceFormIDToolStripMenuItem
 			// 
 			drawInstanceFormIDToolStripMenuItem.Name = "drawInstanceFormIDToolStripMenuItem";
@@ -511,7 +520,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewSearchResults.Size = new Size(953, 225);
+			dataGridViewSearchResults.Size = new Size(953, 254);
 			dataGridViewSearchResults.TabIndex = 3;
 			// 
 			// comboBoxSpace
@@ -528,7 +537,7 @@ namespace Mappalachia
 			// 
 			buttonAddToMap.Anchor = AnchorStyles.Bottom;
 			buttonAddToMap.ContextMenu = null;
-			buttonAddToMap.Location = new Point(359, 469);
+			buttonAddToMap.Location = new Point(360, 498);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Padding = new Padding(0, 0, 15, 0);
 			buttonAddToMap.Size = new Size(126, 23);
@@ -539,7 +548,7 @@ namespace Mappalachia
 			// buttonRemoveFromMap
 			// 
 			buttonRemoveFromMap.Anchor = AnchorStyles.Bottom;
-			buttonRemoveFromMap.Location = new Point(491, 469);
+			buttonRemoveFromMap.Location = new Point(492, 498);
 			buttonRemoveFromMap.Name = "buttonRemoveFromMap";
 			buttonRemoveFromMap.Size = new Size(126, 23);
 			buttonRemoveFromMap.TabIndex = 8;
@@ -557,7 +566,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewItemsToPlot.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewItemsToPlot.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewItemsToPlot.Location = new Point(12, 498);
+			dataGridViewItemsToPlot.Location = new Point(12, 527);
 			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
 			dataGridViewItemsToPlot.ReadOnly = true;
 			dataGridViewItemsToPlot.RowHeadersVisible = false;
@@ -664,13 +673,15 @@ namespace Mappalachia
 			buttonSelectAllLockLevel.UseVisualStyleBackColor = true;
 			buttonSelectAllLockLevel.Click += ButtonSelectAllLockLevel_Click;
 			// 
-			// showRegionLevelsToolStripMenuItem
+			// buttonUpdateMap
 			// 
-			showRegionLevelsToolStripMenuItem.Name = "showRegionLevelsToolStripMenuItem";
-			showRegionLevelsToolStripMenuItem.Size = new Size(227, 22);
-			showRegionLevelsToolStripMenuItem.Text = "Show Region Levels";
-			showRegionLevelsToolStripMenuItem.ToolTipText = "Show the level range for plotted regions.";
-			showRegionLevelsToolStripMenuItem.Click += Plot_ShowRegionLevels_Click;
+			buttonUpdateMap.Location = new Point(411, 737);
+			buttonUpdateMap.Name = "buttonUpdateMap";
+			buttonUpdateMap.Size = new Size(155, 27);
+			buttonUpdateMap.TabIndex = 14;
+			buttonUpdateMap.Text = "Update Map";
+			buttonUpdateMap.UseVisualStyleBackColor = true;
+			buttonUpdateMap.Click += ButtonUpdateMap_Click;
 			// 
 			// FormMain
 			// 
@@ -678,7 +689,8 @@ namespace Mappalachia
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.ControlDarkDark;
-			ClientSize = new Size(977, 714);
+			ClientSize = new Size(977, 776);
+			Controls.Add(buttonUpdateMap);
 			Controls.Add(groupBoxFilterLockLevel);
 			Controls.Add(groupBoxFilterSignature);
 			Controls.Add(dataGridViewItemsToPlot);
@@ -771,5 +783,6 @@ namespace Mappalachia
 		private ToolStripMenuItem drawInstanceFormIDToolStripMenuItem;
 		private ToolStripMenuItem showPlotsInOtherSpacesToolStripMenuItem;
 		private ToolStripMenuItem showRegionLevelsToolStripMenuItem;
+		private Button buttonUpdateMap;
 	}
 }

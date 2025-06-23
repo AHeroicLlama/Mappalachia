@@ -1,4 +1,4 @@
-using Library;
+using System.ComponentModel;
 
 namespace Mappalachia
 {
@@ -11,9 +11,23 @@ namespace Mappalachia
 
 		int MinDimension { get; } = (int)Math.Pow(2, 7); // 128
 
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public Image MapImage
+		{
+			get
+			{
+				return pictureBoxMapDisplay.Image ?? throw new Exception("Map image is null");
+			}
+
+			set
+			{
+				pictureBoxMapDisplay.Image = value;
+			}
+		}
+
 		Point LastMouseDragEnd { get; set; }
 
-		public FormMapView(Settings settings)
+		public FormMapView()
 		{
 			InitializeComponent();
 
@@ -21,21 +35,12 @@ namespace Mappalachia
 			SizeMapToForm();
 			UpdateKeepOnTopText();
 			menuStripPreview.BringToFront();
-
-			// Draw a map free of plots
-			UpdateMap(new List<Instance>(), settings);
 		}
 
-		// Call a map draw, and update the picture box with the response
-		public void UpdateMap(List<Instance> instances, Settings settings)
+		// Return a rectangle representing the extents that the map image is actually visible, given pan or zoom
+		public RectangleF GetCurrentPanZoomView()
 		{
-			pictureBoxMapDisplay.Image = Map.Draw(instances, settings);
-		}
-
-		// Returns the currently displayed map as an Image
-		public Image GetCurrentMapImage()
-		{
-			return pictureBoxMapDisplay.Image ?? throw new Exception("Map image is null");
+			return new RectangleF();
 		}
 
 		// Set the form itself so the 'client area'/viewport is square, (matching the map image)
@@ -95,7 +100,7 @@ namespace Mappalachia
 
 		private void PictureBoxMapDisplay_DoubleClick(object sender, EventArgs e)
 		{
-			FileIO.TempSave(GetCurrentMapImage(), true);
+			FileIO.TempSave(MapImage, true);
 		}
 
 		// Intercept mouse wheel events to handle zooming
