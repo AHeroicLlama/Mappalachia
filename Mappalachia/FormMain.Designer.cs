@@ -66,8 +66,8 @@ namespace Mappalachia
 			volumeFillToolStripMenuItem = new ToolStripMenuItem();
 			volumeBorderToolStripMenuItem = new ToolStripMenuItem();
 			volumeBothToolStripMenuItem = new ToolStripMenuItem();
-			drawInstanceFormIDToolStripMenuItem = new ToolStripMenuItem();
 			showPlotsInOtherSpacesToolStripMenuItem = new ToolStripMenuItem();
+			drawInstanceFormIDToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
@@ -92,6 +92,7 @@ namespace Mappalachia
 			groupBoxFilterLockLevel = new GroupBox();
 			buttonUnselectAllLockLevel = new Button();
 			buttonSelectAllLockLevel = new Button();
+			showRegionLevelsToolStripMenuItem = new ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -256,7 +257,7 @@ namespace Mappalachia
 			legendHiddenToolStripMenuItem.Name = "legendHiddenToolStripMenuItem";
 			legendHiddenToolStripMenuItem.Size = new Size(122, 22);
 			legendHiddenToolStripMenuItem.Text = "Hidden";
-			legendHiddenToolStripMenuItem.ToolTipText = "No not draw a legend.";
+			legendHiddenToolStripMenuItem.ToolTipText = "Do not draw a legend.";
 			legendHiddenToolStripMenuItem.Click += Map_Legend_Hidden_Click;
 			// 
 			// quickSaveToolStripMenuItem
@@ -290,7 +291,7 @@ namespace Mappalachia
 			resetToolStripMenuItem.Name = "resetToolStripMenuItem";
 			resetToolStripMenuItem.Size = new Size(233, 22);
 			resetToolStripMenuItem.Text = "Reset";
-			resetToolStripMenuItem.ToolTipText = "Reset all map-related settings (those in this menu), and currently selected plots.";
+			resetToolStripMenuItem.ToolTipText = "Reset all map-related settings (those in this menu), currently selected plots, and the chosen location.";
 			resetToolStripMenuItem.Click += Map_Reset_Click;
 			// 
 			// searchSettingsToolStripMenuItem
@@ -318,7 +319,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -393,14 +394,6 @@ namespace Mappalachia
 			volumeBothToolStripMenuItem.ToolTipText = "Draw the full volume and add a border to areas.";
 			volumeBothToolStripMenuItem.Click += Plot_Volume_Both_Click;
 			// 
-			// drawInstanceFormIDToolStripMenuItem
-			// 
-			drawInstanceFormIDToolStripMenuItem.Name = "drawInstanceFormIDToolStripMenuItem";
-			drawInstanceFormIDToolStripMenuItem.Size = new Size(227, 22);
-			drawInstanceFormIDToolStripMenuItem.Text = "Draw Instance FormID";
-			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot.";
-			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
-			// 
 			// showPlotsInOtherSpacesToolStripMenuItem
 			// 
 			showPlotsInOtherSpacesToolStripMenuItem.Name = "showPlotsInOtherSpacesToolStripMenuItem";
@@ -408,6 +401,14 @@ namespace Mappalachia
 			showPlotsInOtherSpacesToolStripMenuItem.Text = "Show plots in other locations";
 			showPlotsInOtherSpacesToolStripMenuItem.ToolTipText = "Add notes to show where other locations (accessible from the current selected one) also contain quantities of your selected items.";
 			showPlotsInOtherSpacesToolStripMenuItem.Click += Plot_ShowPlotsInOtherSpaces;
+			// 
+			// drawInstanceFormIDToolStripMenuItem
+			// 
+			drawInstanceFormIDToolStripMenuItem.Name = "drawInstanceFormIDToolStripMenuItem";
+			drawInstanceFormIDToolStripMenuItem.Size = new Size(227, 22);
+			drawInstanceFormIDToolStripMenuItem.Text = "Draw Instance FormID";
+			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot.";
+			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -663,6 +664,14 @@ namespace Mappalachia
 			buttonSelectAllLockLevel.UseVisualStyleBackColor = true;
 			buttonSelectAllLockLevel.Click += ButtonSelectAllLockLevel_Click;
 			// 
+			// showRegionLevelsToolStripMenuItem
+			// 
+			showRegionLevelsToolStripMenuItem.Name = "showRegionLevelsToolStripMenuItem";
+			showRegionLevelsToolStripMenuItem.Size = new Size(227, 22);
+			showRegionLevelsToolStripMenuItem.Text = "Show Region Levels";
+			showRegionLevelsToolStripMenuItem.ToolTipText = "Show the level range for plotted regions.";
+			showRegionLevelsToolStripMenuItem.Click += Plot_ShowRegionLevels_Click;
+			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
@@ -761,5 +770,6 @@ namespace Mappalachia
 		private ToolStripMenuItem clusterSettingsToolStripMenuItem;
 		private ToolStripMenuItem drawInstanceFormIDToolStripMenuItem;
 		private ToolStripMenuItem showPlotsInOtherSpacesToolStripMenuItem;
+		private ToolStripMenuItem showRegionLevelsToolStripMenuItem;
 	}
 }

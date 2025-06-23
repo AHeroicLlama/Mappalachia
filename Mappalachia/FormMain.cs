@@ -36,8 +36,6 @@ namespace Mappalachia
 				comboBoxSpace.SelectedIndex = 0;
 			}
 
-			UpdateFromSettings(false);
-
 			ToolStripMenuItem addAsGroup = new ToolStripMenuItem() { Text = "Add as group" };
 			addAsGroup.Click += (sender, e) => { ButtonAddToMap_Click(true); };
 			buttonAddToMap.ContextMenu = new ContextMenuStrip() { Items = { addAsGroup } };
@@ -57,6 +55,8 @@ namespace Mappalachia
 			}
 
 			FormMapView = new FormMapView(Settings);
+
+			UpdateFromSettings(false);
 		}
 
 		// Return the header for a DataGridViewColumn with the given name
@@ -169,6 +169,7 @@ namespace Mappalachia
 			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
 			drawInstanceFormIDToolStripMenuItem.Checked = Settings.PlotSettings.DrawInstanceFormID;
 			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.ShowPlotsInOtherSpaces;
+			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
 
 			// Set all items which are members of "pick only one" lists to be unchecked, first
 			foreach (ToolStripMenuItem item in new[] { backgroundNormalToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundNoneToolStripMenuItem, legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem, volumeBorderToolStripMenuItem, volumeFillToolStripMenuItem, volumeBothToolStripMenuItem, plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeClusterToolStripMenuItem })
@@ -740,6 +741,11 @@ namespace Mappalachia
 		private void Plot_ShowPlotsInOtherSpaces(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.PlotSettings.ShowPlotsInOtherSpaces = !Settings.PlotSettings.ShowPlotsInOtherSpaces);
+		}
+
+		private void Plot_ShowRegionLevels_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.ShowRegionLevels = !Settings.PlotSettings.ShowRegionLevels);
 		}
 
 		private void Plot_DrawInstanceFormIDs_Click(object sender, EventArgs e)

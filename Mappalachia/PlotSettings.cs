@@ -26,5 +26,7 @@
 		public ClusterSettings ClusterSettings { get; set; } = new ClusterSettings();
 
 		public bool ShowPlotsInOtherSpaces { get; set; } = true;
+
+		public bool ShowRegionLevels { get; set; } = false;
 	}
 }

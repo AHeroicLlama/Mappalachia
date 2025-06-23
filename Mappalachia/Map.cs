@@ -35,7 +35,7 @@ namespace Mappalachia
 
 		static Brush BrushGeneric { get; } = Brushes.White;
 
-		static Brush DropShadowBrush { get; } = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
+		static Brush BrushDropShadow { get; } = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 
 		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
@@ -257,7 +257,7 @@ namespace Mappalachia
 				textBounds.Width,
 				textBounds.Height);
 
-			graphics.DrawString(text, font, DropShadowBrush, textBoundsShadow, stringFormat);
+			graphics.DrawString(text, font, BrushDropShadow, textBoundsShadow, stringFormat);
 			graphics.DrawString(text, font, brush, textBounds, stringFormat);
 		}
 
