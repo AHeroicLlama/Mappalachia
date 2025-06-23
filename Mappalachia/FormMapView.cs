@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Library;
 
 namespace Mappalachia
 {
@@ -38,9 +39,15 @@ namespace Mappalachia
 		}
 
 		// Return a rectangle representing the extents that the map image is actually visible, given pan or zoom
+		// Ignores the menu strip
 		public RectangleF GetCurrentPanZoomView()
 		{
-			return new RectangleF();
+			float factor = (float)Common.MapImageResolution / pictureBoxMapDisplay.Width;
+			return new RectangleF(
+				(pictureBoxMapDisplay.Location.X * -1) * factor,
+				(pictureBoxMapDisplay.Location.Y * -1) * factor,
+				ClientSize.Width * factor,
+				ClientSize.Height * factor);
 		}
 
 		// Set the form itself so the 'client area'/viewport is square, (matching the map image)

@@ -47,12 +47,16 @@ namespace Mappalachia
 		public static Image Draw(List<Instance> instances, Settings settings, RectangleF? superResCrop = null)
 		{
 			// Gather the base background image
-			Image mapImage = superResCrop != null ?
-				GetSuperResBackground(settings, (RectangleF)superResCrop) :
-				new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
+			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
 
 			using Graphics graphics = Graphics.FromImage(mapImage);
 			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+			// TODO WIP Debug
+			if (superResCrop != null)
+			{
+				graphics.DrawRectangle(new Pen(Brushes.Red, 5), (RectangleF)superResCrop);
+			}
 
 			// Apply the brightness and grayscale if selected
 			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
