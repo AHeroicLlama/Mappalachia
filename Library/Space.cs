@@ -18,6 +18,21 @@ namespace Library
 		[JsonIgnore]
 		public double MaxRange { get; } = maxRange;
 
+		[JsonIgnore]
+		public double Radius { get; } = maxRange / 2d;
+
+		[JsonIgnore]
+		public double MinX { get; } = centerX - (maxRange / 2d);
+
+		[JsonIgnore]
+		public double MaxX { get; } = centerX + (maxRange / 2d);
+
+		[JsonIgnore]
+		public double MinY { get; } = centerY - (maxRange / 2d);
+
+		[JsonIgnore]
+		public double MaxY { get; } = centerY + (maxRange / 2d);
+
 		// Accessed via variable name in the UI - provides the name for the Space select dropdown
 		[JsonIgnore]
 		public string FriendlyName => $"{DisplayName} ({EditorID})";
@@ -27,41 +42,16 @@ namespace Library
 			return EditorID.Equals("APPALACHIA", StringComparison.OrdinalIgnoreCase);
 		}
 
-		public double GetRadius()
-		{
-			return MaxRange / 2d;
-		}
-
-		public double GetMinX()
-		{
-			return CenterX - GetRadius();
-		}
-
-		public double GetMaxX()
-		{
-			return CenterX + GetRadius();
-		}
-
-		public double GetMinY()
-		{
-			return CenterY - GetRadius();
-		}
-
-		public double GetMaxY()
-		{
-			return CenterY + GetRadius();
-		}
-
 		// Return the super res tiles for the space
 		public List<SuperResTile> GetTiles()
 		{
 			List<SuperResTile> tiles = new List<SuperResTile>();
 
 			// The maximum possible coordinate which could be captured in a tile
-			double minX = GetMinX() - Common.TileWidth;
-			double maxX = GetMaxX() + Common.TileWidth;
-			double minY = GetMinY() - Common.TileWidth;
-			double maxY = GetMaxY() + Common.TileWidth;
+			double minX = MinX - Common.TileWidth;
+			double maxX = MaxX + Common.TileWidth;
+			double minY = MinY - Common.TileWidth;
+			double maxY = MaxY + Common.TileWidth;
 
 			// The center coord of the edge tiles: the coordinate edge, rounded down, minus the tile radius
 			int minXCenter = (int)(minX - (minX % Common.TileWidth)) - Common.TileRadius;

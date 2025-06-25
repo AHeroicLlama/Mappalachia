@@ -46,8 +46,8 @@ namespace Library
 					reader.GetString("label"),
 					reader.GetUInt("spaceFormID"),
 					new Coord(
-						reader.GetFloat("x"),
-						reader.GetFloat("y"))));
+						reader.GetDouble("x"),
+						reader.GetDouble("y"))));
 			}
 
 			return mapMarkers;
@@ -149,8 +149,8 @@ namespace Library
 					region.AddPoint(new RegionPoint(
 					region,
 					new Coord(
-						pointReader.GetFloat("x"),
-						pointReader.GetFloat("y")),
+						pointReader.GetDouble("x"),
+						pointReader.GetDouble("y")),
 					pointReader.GetUInt("subRegionIndex"),
 					pointReader.GetUInt("coordIndex")));
 				}

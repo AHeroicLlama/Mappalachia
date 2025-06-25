@@ -10,17 +10,17 @@
 	}
 
 	// Represents a Primitive Shape
-	public readonly struct Shape(ShapeType shapeType, float boundX, float boundY, float boundZ, float rotZ)
+	public readonly struct Shape(ShapeType shapeType, double boundX, double boundY, double boundZ, double rotZ)
 	{
 		public ShapeType ShapeType { get; } = shapeType;
 
-		public float BoundX { get; } = boundX;
+		public double BoundX { get; } = boundX;
 
-		public float BoundY { get; } = boundY;
+		public double BoundY { get; } = boundY;
 
-		public float BoundZ { get; } = boundZ;
+		public double BoundZ { get; } = boundZ;
 
 		// The rotation of the shape in degrees around the Z axis
-		public float RotZ { get; } = rotZ;
+		public double RotZ { get; } = rotZ;
 	}
 }

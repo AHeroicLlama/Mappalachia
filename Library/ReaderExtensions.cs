@@ -10,11 +10,6 @@ namespace Library
 			return reader.GetDouble(reader.GetOrdinal(columnName));
 		}
 
-		public static float GetFloat(this SqliteDataReader reader, string columnName)
-		{
-			return reader.GetFloat(reader.GetOrdinal(columnName));
-		}
-
 		public static int GetInt(this SqliteDataReader reader, string columnName)
 		{
 			return reader.GetInt32(reader.GetOrdinal(columnName));
@@ -38,9 +33,9 @@ namespace Library
 		public static Coord GetCoord(this SqliteDataReader reader)
 		{
 			return new Coord(
-				reader.GetFloat(reader.GetOrdinal("x")),
-				reader.GetFloat(reader.GetOrdinal("y")),
-				reader.GetFloat(reader.GetOrdinal("z")));
+				reader.GetDouble("x"),
+				reader.GetDouble("y"),
+				reader.GetDouble("z"));
 		}
 
 		public static LockLevel GetLockLevel(this SqliteDataReader reader)
@@ -66,10 +61,10 @@ namespace Library
 
 			return new Shape(
 				Enum.Parse<ShapeType>(reader.GetString(shapeOrdinal)),
-				reader.GetFloat("boundX"),
-				reader.GetFloat("boundY"),
-				reader.GetFloat("boundZ"),
-				reader.GetFloat("rotZ"));
+				reader.GetDouble("boundX"),
+				reader.GetDouble("boundY"),
+				reader.GetDouble("boundZ"),
+				reader.GetDouble("rotZ"));
 		}
 
 		public static Signature GetSignature(this SqliteDataReader reader)

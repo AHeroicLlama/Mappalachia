@@ -269,11 +269,25 @@ namespace Mappalachia
 		}
 
 		// Returns the X/Y of a Coord, scaled from world to image coordinates (given the scaling of the space), as a PointF
+		// Inverse of AsWorldCoord
 		static PointF AsScaledPoint(this Coord coord, Space space)
 		{
+			float halfRes = MapImageResolution / 2f;
+
 			return new PointF(
-				(MapImageResolution / 2) * (float)(1 + ((coord.X - space.CenterX) / space.GetRadius())),
-				(MapImageResolution / 2) * (float)(1 + (((coord.Y * -1) - space.CenterY) / space.GetRadius())));
+				halfRes * (float)(1 + ((coord.X - space.CenterX) / space.Radius)),
+				halfRes * (float)(1 + (((coord.Y * -1) - space.CenterY) / space.Radius)));
+		}
+
+		// Returns the game world coordinate of a point on the map image
+		// Inverse of AsScaledPoint
+		static Coord AsWorldCoord(this PointF point, Space space)
+		{
+			float halfRes = MapImageResolution / 2f;
+
+			return new Coord(
+				(((point.X / halfRes) - 1) * space.Radius) + space.CenterX,
+				-1 * ((((point.Y / halfRes) - 1) * space.Radius) + space.CenterY));
 		}
 
 		// Returns the application font in the given pixel size

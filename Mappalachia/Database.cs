@@ -132,7 +132,7 @@ namespace Mappalachia
 					new DerivedScrap(reader.GetString("component")),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("properCount"),
-					reader.GetFloat("componentQuantity")));
+					reader.GetDouble("componentQuantity")));
 			}
 
 			return results;
@@ -162,7 +162,7 @@ namespace Mappalachia
 					new DerivedNPC(reader.GetString("npcName")),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
-					reader.GetFloat("spawnWeight")));
+					reader.GetDouble("spawnWeight")));
 			}
 
 			return results;
