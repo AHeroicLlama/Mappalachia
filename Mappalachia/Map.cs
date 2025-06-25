@@ -44,7 +44,7 @@ namespace Mappalachia
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		// The primary map draw function
-		public static Image Draw(List<Instance> instances, Settings settings, RectangleF? superResCrop = null)
+		public static Image Draw(List<Instance> instances, Settings settings, RectangleF superResCrop)
 		{
 			// Gather the base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
@@ -52,10 +52,20 @@ namespace Mappalachia
 			using Graphics graphics = Graphics.FromImage(mapImage);
 			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-			// TODO WIP Debug
-			if (superResCrop != null)
+			// TODO WIP super res tile Debug
+			if (true)
 			{
-				graphics.DrawRectangle(new Pen(Brushes.Red, 5), (RectangleF)superResCrop);
+				graphics.DrawRectangle(new Pen(Brushes.Red, 5), superResCrop);
+
+				List<SuperResTile> superResTiles = SuperResTile.GetTilesInRect(superResCrop.AsWorldRectangle(settings.Space), settings.Space);
+
+				Console.WriteLine(superResTiles.Count);
+
+				foreach (SuperResTile tile in superResTiles)
+				{
+					RectangleF tileRect = tile.GetRectangle().AsImageRectangle(settings.Space);
+					graphics.DrawRectangle(new Pen(Brushes.Blue, 5), tileRect);
+				}
 			}
 
 			// Apply the brightness and grayscale if selected
@@ -197,7 +207,7 @@ namespace Mappalachia
 
 			foreach (MapMarker marker in mapMarkers)
 			{
-				PointF coord = marker.Coord.AsScaledPoint(settings.Space);
+				PointF coord = marker.Coord.AsImagePoint(settings.Space);
 				int labelOffset = 0;
 
 				if (settings.MapSettings.MapMarkerIcons)
@@ -270,7 +280,7 @@ namespace Mappalachia
 
 		// Returns the X/Y of a Coord, scaled from world to image coordinates (given the scaling of the space), as a PointF
 		// Inverse of AsWorldCoord
-		static PointF AsScaledPoint(this Coord coord, Space space)
+		static PointF AsImagePoint(this Coord coord, Space space)
 		{
 			float halfRes = MapImageResolution / 2f;
 
@@ -288,6 +298,29 @@ namespace Mappalachia
 			return new Coord(
 				(((point.X / halfRes) - 1) * space.Radius) + space.CenterX,
 				-1 * ((((point.Y / halfRes) - 1) * space.Radius) + space.CenterY));
+		}
+
+		// Returns the rectangle in world coordinates, given a rectangle in image coordinates
+		static RectangleF AsWorldRectangle(this RectangleF rect, Space space)
+		{
+			PointF bottomRightImage = new PointF(rect.Right, rect.Bottom);
+
+			Coord topLeft = rect.Location.AsWorldCoord(space);
+			Coord bottomRight = bottomRightImage.AsWorldCoord(space);
+
+			return new RectangleF((float)topLeft.X, (float)topLeft.Y, (float)(bottomRight.X - topLeft.X), (float)(bottomRight.Y - topLeft.Y));
+		}
+
+		// Returns the rectangle in image coordinates, given a rectangle in world coordinates
+		static RectangleF AsImageRectangle(this RectangleF rect, Space space)
+		{
+			Coord topLeftWorld = new Coord(rect.Left, rect.Top);
+			Coord bottomRightWorld = new Coord(rect.Right, rect.Bottom);
+
+			PointF topLeft = topLeftWorld.AsImagePoint(space);
+			PointF bottomRight = bottomRightWorld.AsImagePoint(space);
+
+			return new RectangleF(topLeft.X, topLeft.Y, Math.Abs(bottomRight.X - topLeft.X), Math.Abs(bottomRight.Y - topLeft.Y));
 		}
 
 		// Returns the application font in the given pixel size
