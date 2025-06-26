@@ -64,7 +64,9 @@ namespace Mappalachia
 				foreach (SuperResTile tile in superResTiles)
 				{
 					RectangleF tileRect = tile.GetRectangle().AsImageRectangle(settings.Space);
-					graphics.DrawRectangle(new Pen(Brushes.Blue, 5), tileRect);
+					graphics.DrawRectangle(new Pen(Brushes.Blue, 1), tileRect);
+
+					graphics.DrawStringCentered($"{tile.GetXID()}, {tile.GetYID()}", GetFont(16), BrushGeneric, new Coord(tile.XCenter, tile.YCenter).AsImagePoint(tile.Space));
 				}
 			}
 

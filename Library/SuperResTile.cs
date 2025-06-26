@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using static Library.Common;
 
 namespace Library
 {
@@ -9,22 +10,16 @@ namespace Library
 		{
 			List<SuperResTile> tiles = new List<SuperResTile>();
 
-			// The maximum possible coordinate which could be captured in a tile
-			double minX = rect.Left - Common.TileWidth;
-			double maxX = rect.Right + Common.TileWidth;
-			double minY = rect.Bottom - Common.TileWidth;
-			double maxY = rect.Top + Common.TileWidth;
+			int minXCenter = (int)((rect.Left - TileRadius) - (rect.Left % TileWidth));
+			int maxXCenter = (int)((rect.Right + TileRadius) - (rect.Right % TileWidth));
 
-			// The center coord of the edge tiles: the coordinate edge, rounded down, minus the tile radius
-			int minXCenter = (int)(minX - (minX % Common.TileWidth)) - Common.TileRadius;
-			int maxXCenter = (int)(maxX - (maxX % Common.TileWidth)) - Common.TileRadius;
-			int minYCenter = (int)(minY - (minY % Common.TileWidth)) - Common.TileRadius;
-			int maxYCenter = (int)(maxY - (maxY % Common.TileWidth)) - Common.TileRadius;
+			int minYCenter = (int)((rect.Bottom - TileRadius) - (rect.Bottom % TileWidth));
+			int maxYCenter = (int)((rect.Top + TileRadius) - (rect.Top % TileWidth));
 
-			// Loop over every tile for the space
-			for (int x = minXCenter; x <= maxXCenter; x += Common.TileWidth)
+			// Loop over every tile for the rectangle
+			for (int x = minXCenter; x <= maxXCenter; x += TileWidth)
 			{
-				for (int y = minYCenter; y <= maxYCenter; y += Common.TileWidth)
+				for (int y = minYCenter; y <= maxYCenter; y += TileWidth)
 				{
 					tiles.Add(new SuperResTile(space, x, y));
 				}
@@ -41,27 +36,27 @@ namespace Library
 
 		public int GetXID()
 		{
-			return (XCenter - Common.TileRadius) / Common.TileWidth;
+			return (XCenter - TileRadius) / TileWidth;
 		}
 
 		public int GetYID()
 		{
-			return (YCenter - Common.TileRadius) / Common.TileWidth;
+			return (YCenter - TileRadius) / TileWidth;
 		}
 
 		// Returns if the coordinate exists within the tile
 		public bool ContainsPoint(Coord coord)
 		{
-			return coord.X > XCenter - Common.TileRadius &&
-				coord.X < XCenter + Common.TileRadius &&
-				coord.Y > YCenter - Common.TileRadius &&
-				coord.Y < YCenter + Common.TileRadius;
+			return coord.X > XCenter - TileRadius &&
+				coord.X < XCenter + TileRadius &&
+				coord.Y > YCenter - TileRadius &&
+				coord.Y < YCenter + TileRadius;
 		}
 
 		// Returns a rectangle which represents the tile's bounds in world coordinates
 		public RectangleF GetRectangle()
 		{
-			return new RectangleF(XCenter - Common.TileRadius, YCenter + Common.TileRadius, Common.TileWidth, Common.TileWidth);
+			return new RectangleF(XCenter - TileRadius, YCenter + TileRadius, TileWidth, TileWidth);
 		}
 	}
 }

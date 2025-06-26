@@ -46,7 +46,7 @@ namespace Library
 		// Return the super res tiles for the space
 		public List<SuperResTile> GetTiles()
 		{
-			return SuperResTile.GetTilesInRect(new RectangleF((float)MinX, (float)MinY, (float)(MaxX - MinX), (float)(MaxY - MinY)), this);
+			return SuperResTile.GetTilesInRect(new RectangleF((float)MinX, (float)MaxY, (float)(MaxX - MinX), (float)(MaxY - MinY) * -1), this);
 		}
 	}
 }
