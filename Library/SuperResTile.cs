@@ -10,22 +10,25 @@ namespace Library
 		{
 			List<SuperResTile> tiles = new List<SuperResTile>();
 
-			int minXCenter = (int)((rect.Left - TileRadius) - (rect.Left % TileWidth));
-			int maxXCenter = (int)((rect.Right + TileRadius) - (rect.Right % TileWidth));
-
-			int minYCenter = (int)((rect.Bottom - TileRadius) - (rect.Bottom % TileWidth));
-			int maxYCenter = (int)((rect.Top + TileRadius) - (rect.Top % TileWidth));
-
 			// Loop over every tile for the rectangle
-			for (int x = minXCenter; x <= maxXCenter; x += TileWidth)
+			for (int x = SnapToTileCenter(rect.Left); x <= SnapToTileCenter(rect.Right); x += TileWidth)
 			{
-				for (int y = minYCenter; y <= maxYCenter; y += TileWidth)
+				for (int y = SnapToTileCenter(rect.Bottom); y <= SnapToTileCenter(rect.Top); y += TileWidth)
 				{
 					tiles.Add(new SuperResTile(space, x, y));
 				}
 			}
 
 			return tiles;
+		}
+
+		// Returns an int representing the center coord of the tile (or rather lines of tiles) which exist at the coordinate dimension
+		static int SnapToTileCenter(float position)
+		{
+			// Start with the passed position
+			// Then remove the remainder of the tile width (hence rounding down to the nearest tile edge)
+			// Then move the point back to the center of the tile, away from zero
+			return (int)(position - (position % TileWidth) + (TileRadius * (position < 0 ? -1 : 1)));
 		}
 
 		public Space Space { get; } = space;
