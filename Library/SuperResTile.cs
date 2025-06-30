@@ -56,10 +56,32 @@ namespace Library
 				coord.Y < YCenter + TileRadius;
 		}
 
-		// Returns a rectangle which represents the tile's bounds in world coordinates
-		public RectangleF GetRectangle()
+		// Returns the Coord of the top-left corner of the tile, in world coordinates
+		public Coord GetTopLeft()
 		{
-			return new RectangleF(XCenter - TileRadius, YCenter + TileRadius, TileWidth, TileWidth);
+			return new Coord(XCenter - TileRadius, YCenter + TileRadius);
+		}
+
+		public override bool Equals(object? obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+
+			if (ReferenceEquals(this, obj))
+			{
+				return true;
+			}
+
+			SuperResTile other = (SuperResTile)obj;
+
+			return XCenter == other.XCenter && YCenter == other.YCenter && Space.Equals(other.Space);
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(XCenter, YCenter, Space);
 		}
 	}
 }

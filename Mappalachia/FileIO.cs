@@ -12,9 +12,13 @@ namespace Mappalachia
 
 		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
 
+		static Dictionary<SuperResTile, Image> SuperResTileImageCache { get; } = new Dictionary<SuperResTile, Image>();
+
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
 		static ImageCodecInfo JpgCodec { get; set; } = ImageCodecInfo.GetImageDecoders().SingleOrDefault(ic => ic.FormatID == ImageFormat.Jpeg.Guid) ?? throw new Exception($"Failed to get jpeg codec");
+
+		static Image EmptyMapImage { get; } = new Bitmap(MapImageResolution, MapImageResolution);
 
 		static FileIO()
 		{
@@ -38,6 +42,29 @@ namespace Mappalachia
 			return FontCollection.Families.First();
 		}
 
+		// Return the image for the super res tile, uses caching
+		public static Image GetImage(this SuperResTile tile)
+		{
+			if (SuperResTileImageCache.TryGetValue(tile, out Image? value))
+			{
+				return value;
+			}
+
+			string path = $"{Paths.SuperResTilePath}{tile.Space.EditorID}\\{tile.GetXID()}.{tile.GetYID()}{SuperResTileImageFileType}";
+
+			// This may be common as we do not pre-render tiles outside of the playable space.
+			// TODO we need to handle informing of downloading them, if delivered as an 'addon' download.
+			if (!File.Exists(path))
+			{
+				return EmptyMapImage;
+			}
+
+			Image image = new Bitmap(path);
+			SuperResTileImageCache[tile] = image;
+
+			return image;
+		}
+
 		// Return a background image from the file path, or a cached version if loaded before
 		static Image LoadBackgroundImage(string path)
 		{
@@ -55,7 +82,7 @@ namespace Mappalachia
 		{
 			if (backgroundImageType == BackgroundImageType.None)
 			{
-				return GetEmptyMapImage();
+				return EmptyMapImage;
 			}
 
 			string path = (space.IsWorldspace ? Paths.WorldspaceImgPath : Paths.CellImgPath) + space.EditorID;
@@ -78,7 +105,7 @@ namespace Mappalachia
 
 			if (!File.Exists(path))
 			{
-				return GetEmptyMapImage();
+				return EmptyMapImage;
 			}
 
 			return LoadBackgroundImage(path);
@@ -88,22 +115,17 @@ namespace Mappalachia
 		{
 			if (!space.IsWorldspace)
 			{
-				return GetEmptyMapImage();
+				return EmptyMapImage;
 			}
 
 			string path = Paths.WorldspaceImgPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
 
 			if (!File.Exists(path))
 			{
-				return GetEmptyMapImage();
+				return EmptyMapImage;
 			}
 
 			return LoadBackgroundImage(path);
-		}
-
-		static Bitmap GetEmptyMapImage()
-		{
-			return new Bitmap(MapImageResolution, MapImageResolution);
 		}
 
 		// Returns the image for the icon of the mapMarker, uses caching

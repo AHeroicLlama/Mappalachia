@@ -48,23 +48,25 @@ namespace Mappalachia
 		{
 			// Gather the base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
+			//Image mapImage = new Bitmap(MapImageResolution, MapImageResolution);
 
 			using Graphics graphics = Graphics.FromImage(mapImage);
 			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
 			// TODO WIP super res tile Debug
-			if (true)
+			List<SuperResTile> superResTiles = SuperResTile.GetTilesInRect(superResCrop.AsWorldRectangle(settings.Space), settings.Space);
+
+			if (superResTiles.Count < 100)
 			{
 				graphics.DrawRectangle(new Pen(Brushes.Red, 5), superResCrop);
-
-				List<SuperResTile> superResTiles = SuperResTile.GetTilesInRect(superResCrop.AsWorldRectangle(settings.Space), settings.Space);
-
-				Console.WriteLine(superResTiles.Count);
-
+				float tileImageWidth = (float)((double)TileWidth).AsImageLength(settings.Space);
 				foreach (SuperResTile tile in superResTiles)
 				{
-					RectangleF tileRect = tile.GetRectangle().AsImageRectangle(settings.Space);
-					graphics.DrawRectangle(new Pen(Brushes.Blue, 1), tileRect);
+					PointF point = tile.GetTopLeft().AsImagePoint(tile.Space);
+					RectangleF rectangle = new RectangleF(point.X, point.Y, tileImageWidth, tileImageWidth);
+
+					graphics.DrawRectangle(new Pen(Brushes.Blue, 1), rectangle);
+					graphics.DrawImage(tile.GetImage(), rectangle);
 
 					graphics.DrawStringCentered($"{tile.GetXID()}, {tile.GetYID()}", GetFont(16), BrushGeneric, new Coord(tile.XCenter, tile.YCenter).AsImagePoint(tile.Space));
 				}
@@ -284,18 +286,18 @@ namespace Mappalachia
 		// Inverse of AsWorldCoord
 		static PointF AsImagePoint(this Coord coord, Space space)
 		{
-			float halfRes = MapImageResolution / 2f;
+			int halfRes = MapImageResolution / 2;
 
 			return new PointF(
-				halfRes * (float)(1 + ((coord.X - space.CenterX) / space.Radius)),
-				halfRes * (float)(1 + (((coord.Y * -1) - space.CenterY) / space.Radius)));
+				(float)(halfRes * (1 + ((coord.X - space.CenterX) / space.Radius))),
+				(float)(halfRes * (1 + (((coord.Y * -1) - space.CenterY) / space.Radius))));
 		}
 
 		// Returns the game world coordinate of a point on the map image
 		// Inverse of AsScaledPoint
 		static Coord AsWorldCoord(this PointF point, Space space)
 		{
-			float halfRes = MapImageResolution / 2f;
+			int halfRes = MapImageResolution / 2;
 
 			return new Coord(
 				(((point.X / halfRes) - 1) * space.Radius) + space.CenterX,
@@ -323,6 +325,12 @@ namespace Mappalachia
 			PointF bottomRight = bottomRightWorld.AsImagePoint(space);
 
 			return new RectangleF(topLeft.X, topLeft.Y, Math.Abs(bottomRight.X - topLeft.X), Math.Abs(bottomRight.Y - topLeft.Y));
+		}
+
+		// Return a length in image dimensions, given a length in world dimensions
+		static double AsImageLength(this double length, Space space)
+		{
+			return length * (MapImageResolution / 2) / space.Radius;
 		}
 
 		// Returns the application font in the given pixel size

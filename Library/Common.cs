@@ -11,6 +11,8 @@ namespace Library
 
 		public static string BackgroundImageFileType { get; } = ".jpg";
 
+		public static string SuperResTileImageFileType { get; } = ".jpg";
+
 		public static string MaskImageFileType { get; } = ".png";
 
 		public static string WaterMaskAddendum { get; } = "_waterMask";

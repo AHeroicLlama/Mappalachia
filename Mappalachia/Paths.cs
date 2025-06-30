@@ -2,12 +2,14 @@
 
 namespace Mappalachia
 {
-	// Local paths relative to the executable
+	// Static local paths relative to the executable
 	public static class Paths
 	{
 		static string ImgPath { get; } = @"img\";
 
 		public static string DatabasePath { get; } = @"data\mappalachia.db";
+
+		public static string SuperResTilePath { get; } = @$"{ImgPath}super\";
 
 		public static string CellImgPath { get; } = @$"{ImgPath}cell\";
 
