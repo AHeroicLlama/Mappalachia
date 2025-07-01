@@ -47,6 +47,7 @@
 			pictureBoxMapDisplay.TabIndex = 1;
 			pictureBoxMapDisplay.TabStop = false;
 			pictureBoxMapDisplay.DoubleClick += PictureBoxMapDisplay_DoubleClick;
+			pictureBoxMapDisplay.MouseClick += PictureBoxMapDisplay_MouseClick;
 			pictureBoxMapDisplay.MouseDown += PictureBoxMapDisplay_MouseDown;
 			pictureBoxMapDisplay.MouseMove += PictureBoxMapDisplay_MouseMove;
 			// 

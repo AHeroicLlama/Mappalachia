@@ -1,3 +1,4 @@
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Library;
 using static Library.Common;
@@ -44,17 +45,24 @@ namespace Mappalachia
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		// The primary map draw function
-		public static Image Draw(List<Instance> instances, Settings settings, RectangleF superResCrop)
+		public static Image Draw(List<Instance> instances, Settings settings, PointF? superResPosition)
 		{
 			// Gather the base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
 
 			using Graphics graphics = Graphics.FromImage(mapImage);
-			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+			graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+			graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-			if (settings.Space.IsWorldspace || SuperResInCells)
+			// TODO debug super res
+			if ((settings.Space.IsWorldspace || SuperResInCells) && superResPosition != null)
 			{
-				// TODO
+				PointF superResPoint = (PointF)superResPosition;
+
+				Pen pen = new Pen(Color.Red, 2);
+				int size = 32;
+				graphics.DrawLine(pen, superResPoint.X - size, superResPoint.Y - size, superResPoint.X + size, superResPoint.Y + size);
+				graphics.DrawLine(pen, superResPoint.X - size, superResPoint.Y + size, superResPoint.X + size, superResPoint.Y - size);
 			}
 
 			// Apply the brightness and grayscale if selected

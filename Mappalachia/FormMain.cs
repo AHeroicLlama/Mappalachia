@@ -54,7 +54,7 @@ namespace Mappalachia
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
 
-			FormMapView = new FormMapView();
+			FormMapView = new FormMapView(this);
 
 			UpdateFromSettings(true);
 		}
@@ -302,10 +302,10 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClearSort();
 		}
 
-		void DrawMap()
+		public void DrawMap(PointF? superResPosition = null)
 		{
 			// TODO fetch instances from DB
-			FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, FormMapView.GetCurrentPanZoomView());
+			FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, superResPosition);
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers

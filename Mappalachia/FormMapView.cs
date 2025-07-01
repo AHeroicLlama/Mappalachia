@@ -26,9 +26,11 @@ namespace Mappalachia
 			}
 		}
 
+		FormMain FormMain { get; }
+
 		Point LastMouseDragEnd { get; set; }
 
-		public FormMapView()
+		public FormMapView(FormMain formMain)
 		{
 			InitializeComponent();
 
@@ -36,12 +38,20 @@ namespace Mappalachia
 			SizeMapToForm();
 			UpdateKeepOnTopText();
 			menuStripPreview.BringToFront();
+
+			FormMain = formMain;
+		}
+
+		// Return a value effectively representing the current zoom level
+		float GetZoomFactor()
+		{
+			return (float)Common.MapImageResolution / pictureBoxMapDisplay.Width;
 		}
 
 		// Return a rectangle representing the extents that the map image is actually visible, given pan or zoom
 		public RectangleF GetCurrentPanZoomView()
 		{
-			float factor = (float)Common.MapImageResolution / pictureBoxMapDisplay.Width;
+			float factor = GetZoomFactor();
 
 			return new RectangleF(
 				(pictureBoxMapDisplay.Location.X * -1) * factor,
@@ -144,6 +154,29 @@ namespace Mappalachia
 		{
 			e.Cancel = true;
 			Hide();
+		}
+
+		// On right click, show a context menu, when selected pass the click location to a draw call on the main form
+		private void PictureBoxMapDisplay_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button != MouseButtons.Right)
+			{
+				return;
+			}
+
+			ContextMenuStrip contextMenu = new ContextMenuStrip();
+			ToolStripMenuItem enhance = new ToolStripMenuItem() { Text = "Enhance!" };
+			contextMenu.Items.Add(enhance);
+
+			enhance.Click += (s, args) =>
+			{
+				float factor = GetZoomFactor();
+				FormMain.DrawMap(new PointF(e.X * factor, e.Y * factor));
+			};
+
+			contextMenu.Show(this, new Point(
+				e.X + pictureBoxMapDisplay.Location.X,
+				e.Y + pictureBoxMapDisplay.Location.Y));
 		}
 	}
 }
