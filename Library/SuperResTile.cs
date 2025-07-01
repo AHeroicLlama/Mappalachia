@@ -62,6 +62,11 @@ namespace Library
 			return new Coord(XCenter - TileRadius, YCenter + TileRadius);
 		}
 
+		public RectangleF GetRectangle()
+		{
+			return new RectangleF(XCenter - TileRadius, YCenter + TileRadius, TileWidth, TileWidth);
+		}
+
 		public override bool Equals(object? obj)
 		{
 			if (obj == null)

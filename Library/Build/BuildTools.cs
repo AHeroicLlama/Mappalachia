@@ -185,7 +185,7 @@ namespace Library
 		// Return the final file path of the Super Res tile
 		public static string GetFilePath(this SuperResTile tile)
 		{
-			return $"{SuperResPath}{tile.Space.EditorID}\\{tile.GetXID()}.{tile.GetYID()}.{Common.SuperResTileImageFileType}";
+			return $"{SuperResPath}{tile.Space.EditorID}\\{tile.GetXID()}.{tile.GetYID()}{Common.SuperResTileImageFileType}";
 		}
 
 		// Filters through the super res folder and attempts to locate and remove redundant old tiles/folders or rogue files/folders

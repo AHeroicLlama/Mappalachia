@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
+using static Library.Common;
 
 namespace BackgroundRenderer
 {
@@ -61,7 +62,7 @@ namespace BackgroundRenderer
 			List<Space> cells = spaces.Where(space => !space.IsWorldspace).ToList();
 			List<Space> worldspaces = spaces.Where(space => space.IsWorldspace).ToList();
 
-			StdOutWithColor($"Rendering {worldspaces.Count} worldspace{Common.Pluralize(worldspaces)} and {cells.Count} cell{Common.Pluralize(cells)}...", ColorInfo);
+			StdOutWithColor($"Rendering {worldspaces.Count} worldspace{Pluralize(worldspaces)} and {cells.Count} cell{Pluralize(cells)}...", ColorInfo);
 
 			int spacesRendered = 0;
 
@@ -79,7 +80,11 @@ namespace BackgroundRenderer
 			// Render cells in parallel
 			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async cell =>
 			{
-				await SuperResRenderSpace(cell);
+				if (SuperResInCells)
+				{
+					await SuperResRenderSpace(cell);
+				}
+
 				RenderSpace(cell, true);
 				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
 			});
@@ -95,7 +100,7 @@ namespace BackgroundRenderer
 			{
 				Space space = await GetSingleSpaceInput();
 
-				double resolution = Common.MapImageResolution;
+				double resolution = MapImageResolution;
 				double scale = resolution / space.MaxRange;
 				double cameraX = space.CenterX;
 				double cameraY = space.CenterY;
@@ -110,7 +115,7 @@ namespace BackgroundRenderer
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
 				renderJob.WaitForExit();
-				Common.OpenURI(outputFile);
+				OpenURI(outputFile);
 
 				StdOutWithColor("Using Paint.NET or similar, draw a bounding box around the correct cell contents and take a note of the Top-Left X and Y pixel coordinate, plus the width and height of the selected area.\nSee Developer help documentation for more info.", ColorInfo);
 
@@ -200,15 +205,15 @@ namespace BackgroundRenderer
 			{
 				string outputFile = TempPath + $"debug_{space.EditorID}_Z{height}.dds";
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.MapImageResolution} {Common.MapImageResolution} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {MapImageResolution} {MapImageResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {Common.MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
 				Process renderJob = StartProcess(renderCommand);
 				renderJob.WaitForExit();
-				Common.OpenURI(outputFile);
+				OpenURI(outputFile);
 
 				StdOutWithColor($"Was {height} the correct height? Enter \"y\" to save, \"exit\" to exit, or otherwise enter a new height to try again:\n", ColorQuestion);
 				string input = Console.ReadLine() ?? "1000";
@@ -235,9 +240,9 @@ namespace BackgroundRenderer
 		// Worldspaces also see the watermask generated.
 		static void RenderSpace(Space space, bool silent = false)
 		{
-			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
+			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : MapImageResolution;
 			string ddsFile = TempPath + $"{space.EditorID}.dds";
-			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + Common.BackgroundImageFileType;
+			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + BackgroundImageFileType;
 			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;
 			double scale = renderResolution / space.MaxRange;
 
@@ -248,7 +253,7 @@ namespace BackgroundRenderer
 				$"-ltxtres 512 -tc 4096 -mc 64 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
 				$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
 
-			string resizeCommand = $"magick {ddsFile} -resize {Common.MapImageResolution}x{Common.MapImageResolution} " +
+			string resizeCommand = $"magick {ddsFile} -resize {MapImageResolution}x{MapImageResolution} " +
 						$"-quality {(space.IsWorldspace ? JpgQualityHigh : JpgQualityStandard)} JPEG:{finalFile}";
 
 			Process render = StartProcess(renderCommand, silent);
@@ -260,15 +265,15 @@ namespace BackgroundRenderer
 			// Do the watermask
 			if (space.IsWorldspace)
 			{
-				string waterMaskDDS = TempPath + space.EditorID + Common.WaterMaskAddendum + ".dds";
-				string waterMaskFinalFile = WorldPath + space.EditorID + Common.WaterMaskAddendum + Common.MaskImageFileType;
+				string waterMaskDDS = TempPath + space.EditorID + WaterMaskAddendum + ".dds";
+				string waterMaskFinalFile = WorldPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
 
 				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
 					$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
 
-				string waterMaskResizeCommand = $"magick {waterMaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {Common.MapImageResolution}x{Common.MapImageResolution} PNG:{waterMaskFinalFile}";
+				string waterMaskResizeCommand = $"magick {waterMaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {MapImageResolution}x{MapImageResolution} PNG:{waterMaskFinalFile}";
 
 				Process waterMaskRender = StartProcess(waterMaskRenderCommand, silent);
 				waterMaskRender.WaitForExit();
@@ -280,7 +285,7 @@ namespace BackgroundRenderer
 
 		static async Task SuperResRenderSpace(Space space)
 		{
-			double scale = 1d / Common.SuperResScale;
+			double scale = 1d / SuperResScale;
 
 			string outputPath = TempPath + $"{space.EditorID}\\";
 			string finalPath = SuperResPath + $"{space.EditorID}\\";
@@ -347,7 +352,7 @@ namespace BackgroundRenderer
 				Console.WriteLine();
 			}
 
-			StdOutWithColor($"Super Res Rendering {tiles.Count} tile{Common.Pluralize(tiles)} of {space.EditorID}", ColorInfo);
+			StdOutWithColor($"Super Res Rendering {tiles.Count} tile{Pluralize(tiles)} of {space.EditorID}", ColorInfo);
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			int i = 0;
@@ -358,9 +363,9 @@ namespace BackgroundRenderer
 				string outputFile = $"{outputPath}{tile.GetXID()}.{tile.GetYID()}.dds";
 				string finalFile = tile.GetFilePath();
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {Common.SuperResTileSize} {Common.SuperResTileSize} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {SuperResTileSize} {SuperResTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-r {tile.GetXID() * Common.SuperResScale} {tile.GetYID() * Common.SuperResScale} {(tile.GetXID() + 1) * Common.SuperResScale} {(tile.GetYID() + 1) * Common.SuperResScale} " +
+					$"-r {tile.GetXID() * SuperResScale} {tile.GetYID() * SuperResScale} {(tile.GetXID() + 1) * SuperResScale} {(tile.GetYID() + 1) * SuperResScale} " +
 					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 1 " +
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
@@ -382,7 +387,7 @@ namespace BackgroundRenderer
 				if (!space.IsWorldspace)
 				{
 					long size = new FileInfo(finalFile).Length;
-					if (size <= (Math.Pow(Common.SuperResTileSize, 2) / (8 * 8 * 4)) + 512)
+					if (size <= (Math.Pow(SuperResTileSize, 2) / (8 * 8 * 4)) + 512)
 					{
 						File.Delete(finalFile);
 					}
@@ -404,7 +409,7 @@ namespace BackgroundRenderer
 		public static async Task<bool> HasEntities(this SuperResTile tile)
 		{
 			string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {tile.Space.FormID} AND " +
-				$"x >= {tile.XCenter - Common.TileRadius} AND x <= {tile.XCenter + Common.TileRadius} AND y >= {tile.YCenter - Common.TileRadius} AND y <= {tile.YCenter + Common.TileRadius}";
+				$"x >= {tile.XCenter - TileRadius} AND x <= {tile.XCenter + TileRadius} AND y >= {tile.YCenter - TileRadius} AND y <= {tile.YCenter + TileRadius}";
 
 			SqliteDataReader reader = await CommonDatabase.GetReader(GetNewConnection(), countQuery);
 			reader.Read();
@@ -443,10 +448,10 @@ namespace BackgroundRenderer
 					Coord regionPointA = region.Points[i].Point;
 					Coord regionPointB = region.Points[j].Point;
 
-					Coord topLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter + Common.TileRadius);
-					Coord topRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter + Common.TileWidth);
-					Coord bottomLeft = new Coord(tile.XCenter - Common.TileRadius, tile.YCenter - Common.TileRadius);
-					Coord bottomRight = new Coord(tile.XCenter + Common.TileRadius, tile.YCenter - Common.TileRadius);
+					Coord topLeft = new Coord(tile.XCenter - TileRadius, tile.YCenter + TileRadius);
+					Coord topRight = new Coord(tile.XCenter + TileRadius, tile.YCenter + TileWidth);
+					Coord bottomLeft = new Coord(tile.XCenter - TileRadius, tile.YCenter - TileRadius);
+					Coord bottomRight = new Coord(tile.XCenter + TileRadius, tile.YCenter - TileRadius);
 
 					if (GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, topRight) ||
 						GeometryHelper.LinesIntersect(regionPointA, regionPointB, bottomLeft, bottomRight) ||
