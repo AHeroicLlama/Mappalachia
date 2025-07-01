@@ -32,7 +32,7 @@ namespace Library
 
 		public static int TileRadius { get; } = TileWidth / 2;
 
-		public static bool SuperResInCells { get; } = false; // Configures if super res is done for cells
+		public static bool SuperResInCells { get; } = false; // Configures if super res is used for cells
 
 		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
 

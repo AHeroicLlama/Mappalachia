@@ -37,15 +37,9 @@ namespace Library
 
 		public int YCenter { get; } = yCenter;
 
-		public int GetXID()
-		{
-			return (XCenter - TileRadius) / TileWidth;
-		}
+		public int XId => (XCenter - TileRadius) / TileWidth;
 
-		public int GetYID()
-		{
-			return (YCenter - TileRadius) / TileWidth;
-		}
+		public int YId => (YCenter - TileRadius) / TileWidth;
 
 		// Returns if the coordinate exists within the tile
 		public bool ContainsPoint(Coord coord)
@@ -54,17 +48,6 @@ namespace Library
 				coord.X < XCenter + TileRadius &&
 				coord.Y > YCenter - TileRadius &&
 				coord.Y < YCenter + TileRadius;
-		}
-
-		// Returns the Coord of the top-left corner of the tile, in world coordinates
-		public Coord GetTopLeft()
-		{
-			return new Coord(XCenter - TileRadius, YCenter + TileRadius);
-		}
-
-		public RectangleF GetRectangle()
-		{
-			return new RectangleF(XCenter - TileRadius, YCenter + TileRadius, TileWidth, TileWidth);
 		}
 
 		public override bool Equals(object? obj)

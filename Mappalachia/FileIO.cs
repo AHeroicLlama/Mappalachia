@@ -50,7 +50,7 @@ namespace Mappalachia
 				return value;
 			}
 
-			string path = $"{Paths.SuperResTilePath}{tile.Space.EditorID}\\{tile.GetXID()}.{tile.GetYID()}{SuperResTileImageFileType}";
+			string path = $"{Paths.SuperResTilePath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{SuperResTileImageFileType}";
 
 			// This may be common as we do not pre-render tiles outside of the playable space.
 			// TODO we need to handle informing of downloading them, if delivered as an 'addon' download.

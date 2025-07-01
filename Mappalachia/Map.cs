@@ -54,7 +54,7 @@ namespace Mappalachia
 
 			if (settings.Space.IsWorldspace || SuperResInCells)
 			{
-				DrawSuperResTiles(settings, graphics, superResCrop);
+				// TODO
 			}
 
 			// Apply the brightness and grayscale if selected
@@ -104,46 +104,6 @@ namespace Mappalachia
 			GC.Collect();
 
 			return mapImage;
-		}
-
-		// TODO WIP
-		static void DrawSuperResTiles(Settings settings, Graphics graphics, RectangleF superResCrop)
-		{
-			//graphics.FillRectangle(Brushes.Orange, 0, 0, MapImageResolution, MapImageResolution);
-			List<SuperResTile> superResTiles = SuperResTile.GetTilesInRect(superResCrop.AsWorldRectangle(settings.Space), settings.Space);
-
-			if (superResTiles.Count == 0)
-			{
-				return;
-			}
-
-			// Capture the rectangle from the first tile (arbitrary) and reuse it for all tiles in this draw
-			// This avoids tiny gaps between the tiles caused by rounding errors
-			SuperResTile firstTile = superResTiles.Where(t => t.GetXID() == 0 && t.GetYID() == 0).FirstOrDefault() ?? throw new Exception("SuperResTile was null");
-			RectangleF firstRect = firstTile.GetRectangle().AsImageRectangle(settings.Space).AsRoundedRectangle();
-
-			Console.WriteLine($"first tile: {firstTile.GetXID()},{firstTile.GetYID()}");
-			Console.WriteLine($"First rect: {firstRect}");
-
-			foreach (SuperResTile tile in superResTiles.Where(t => Math.Abs(t.GetXID()) < 5 && Math.Abs(t.GetYID()) < 5))
-			{
-				RectangleF rectangle = new RectangleF(
-					firstRect.X + (firstRect.Width * (tile.GetXID() - firstTile.GetXID())),
-					firstRect.Y - (firstRect.Height * (tile.GetYID() - firstTile.GetYID())),
-					firstRect.Width,
-					firstRect.Height);
-
-				rectangle = tile.GetRectangle().SnappedToTileGrid().AsImageRectangle(tile.Space);
-
-				graphics.DrawImage(tile.GetImage(), rectangle);
-				graphics.DrawStringCentered($"{tile.GetXID()}, {tile.GetYID()}", GetFont(16), BrushGeneric, new Coord(tile.XCenter, tile.YCenter).AsImagePoint(tile.Space));
-
-				//Console.WriteLine($"{tile.GetXID()},{tile.GetYID()}:{rectangle}");
-
-				//graphics.DrawRectangle(new Pen(Brushes.Blue, 1), rectangle);
-			}
-
-			//graphics.DrawRectangle(new Pen(Brushes.Red, 5), superResCrop);
 		}
 
 		// TODO temp disable warning
@@ -316,57 +276,6 @@ namespace Mappalachia
 			return new PointF(
 				(float)(halfRes * (1 + ((coord.X - space.CenterX) / space.Radius))),
 				(float)(halfRes * (1 + (((coord.Y * -1) - space.CenterY) / space.Radius))));
-		}
-
-		// Returns the game world coordinate of a point on the map image
-		// Inverse of AsScaledPoint
-		static Coord AsWorldCoord(this PointF point, Space space)
-		{
-			int halfRes = MapImageResolution / 2;
-
-			return new Coord(
-				(((point.X / halfRes) - 1) * space.Radius) + space.CenterX,
-				-1 * ((((point.Y / halfRes) - 1) * space.Radius) + space.CenterY));
-		}
-
-		// Returns the rectangle in world coordinates, given a rectangle in image coordinates
-		static RectangleF AsWorldRectangle(this RectangleF rect, Space space)
-		{
-			PointF bottomRightImage = new PointF(rect.Right, rect.Bottom);
-
-			Coord topLeft = rect.Location.AsWorldCoord(space);
-			Coord bottomRight = bottomRightImage.AsWorldCoord(space);
-
-			return new RectangleF((float)topLeft.X, (float)topLeft.Y, (float)(bottomRight.X - topLeft.X), (float)(bottomRight.Y - topLeft.Y));
-		}
-
-		// Returns the rectangle in image coordinates, given a rectangle in world coordinates
-		static RectangleF AsImageRectangle(this RectangleF rect, Space space)
-		{
-			Coord topLeftWorld = new Coord(rect.Left, rect.Top);
-			Coord bottomRightWorld = new Coord(rect.Right, rect.Bottom);
-
-			PointF topLeft = topLeftWorld.AsImagePoint(space);
-			PointF bottomRight = bottomRightWorld.AsImagePoint(space);
-
-			return new RectangleF(topLeft.X, topLeft.Y, Math.Abs(bottomRight.X - topLeft.X), Math.Abs(bottomRight.Y - topLeft.Y));
-		}
-
-		// Returns the rectangleF with properties rounded to nearest int
-		static RectangleF AsRoundedRectangle(this RectangleF rect)
-		{
-			return new RectangleF((float)Math.Round(rect.X), (float)Math.Round(rect.Y), (float)Math.Round(rect.Width), (float)Math.Round(rect.Height));
-		}
-
-		static RectangleF SnappedToTileGrid(this RectangleF rect)
-		{
-			return new RectangleF(rect.X - (rect.X % TileWidth), rect.Y - (rect.Y % TileWidth), rect.Width, rect.Height);
-		}
-
-		// Return a length in image dimensions, given a length in world dimensions
-		static double AsImageLength(this double length, Space space)
-		{
-			return length * (MapImageResolution / 2) / space.Radius;
 		}
 
 		// Returns the application font in the given pixel size

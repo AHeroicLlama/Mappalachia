@@ -338,8 +338,8 @@ namespace BackgroundRenderer
 						int radius = int.Parse(Console.ReadLine() ?? "0");
 
 						tiles = tiles.Where(t =>
-							Math.Abs(t.GetXID() - xCenter) <= radius &&
-							Math.Abs(t.GetYID() - yCenter) <= radius)
+							Math.Abs(t.XId - xCenter) <= radius &&
+							Math.Abs(t.YId - yCenter) <= radius)
 							.ToList();
 
 						break;
@@ -360,12 +360,12 @@ namespace BackgroundRenderer
 			// Loop over every tile for the space
 			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, tile =>
 			{
-				string outputFile = $"{outputPath}{tile.GetXID()}.{tile.GetYID()}.dds";
+				string outputFile = $"{outputPath}{tile.XId}.{tile.YId}.dds";
 				string finalFile = tile.GetFilePath();
 
 				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {SuperResTileSize} {SuperResTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-r {tile.GetXID() * SuperResScale} {tile.GetYID() * SuperResScale} {(tile.GetXID() + 1) * SuperResScale} {(tile.GetYID() + 1) * SuperResScale} " +
+					$"-r {tile.XId * SuperResScale} {tile.YId * SuperResScale} {(tile.XId + 1) * SuperResScale} {(tile.YId + 1) * SuperResScale} " +
 					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 1 " +
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
@@ -399,7 +399,7 @@ namespace BackgroundRenderer
 					TimeSpan timePerTile = stopwatch.Elapsed / i;
 					TimeSpan timeRemaining = timePerTile * (tiles.Count - i);
 					StdOutWithColor(
-						$"{space.EditorID} Super Res: {tile.GetXID()},{tile.GetYID()} (X:{tile.XCenter}, Y:{tile.YCenter}) (Tile {i} of {tiles.Count} ({Math.Round(((double)i / tiles.Count) * 100, 2)}%)) " +
+						$"{space.EditorID} Super Res: {tile.XId},{tile.YId} (X:{tile.XCenter}, Y:{tile.YCenter}) (Tile {i} of {tiles.Count} ({Math.Round(((double)i / tiles.Count) * 100, 2)}%)) " +
 						$"Est {timeRemaining.Days}D {timeRemaining.Hours:D2}H {timeRemaining.Minutes:D2}M {timeRemaining.Seconds:D2}S remaining", ColorInfo);
 				}
 			});

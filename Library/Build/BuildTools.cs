@@ -185,7 +185,7 @@ namespace Library
 		// Return the final file path of the Super Res tile
 		public static string GetFilePath(this SuperResTile tile)
 		{
-			return $"{SuperResPath}{tile.Space.EditorID}\\{tile.GetXID()}.{tile.GetYID()}{Common.SuperResTileImageFileType}";
+			return $"{SuperResPath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{Common.SuperResTileImageFileType}";
 		}
 
 		// Filters through the super res folder and attempts to locate and remove redundant old tiles/folders or rogue files/folders
@@ -240,7 +240,7 @@ namespace Library
 					int tileY = int.Parse(tileFileName.Split(".")[1]);
 
 					// Find the X and Y of the tile this file represents. If it is no longer needed by the space, delete it.
-					if (!tiles.Where(tile => tile.GetXID() == tileX && tile.GetYID() == tileY).Any())
+					if (!tiles.Where(tile => tile.XId == tileX && tile.YId == tileY).Any())
 					{
 						StdOutWithColor($"Deleting super res tile {tilePath}", ColorInfo);
 						File.Delete(tilePath);

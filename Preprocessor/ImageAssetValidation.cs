@@ -135,7 +135,7 @@ namespace Preprocessor
 
 			if (blackPxPercent == 100f)
 			{
-				FailValidation($"Super res tile {tile.GetXID()}, {tile.GetYID()} for {tile.Space.EditorID} has too many black pixels ({blackPxPercent}%)");
+				FailValidation($"Super res tile {tile.XId}, {tile.YId} for {tile.Space.EditorID} has too many black pixels ({blackPxPercent}%)");
 			}
 		}
 
