@@ -194,9 +194,9 @@ namespace Mappalachia
 						break;
 
 					case "XPDAC02Boardwalk":
-						nudgeX = -5000;
+						nudgeX = 1000;
 						nudgeY = 200;
-						nudgeScale = 4.7f;
+						nudgeScale = 2f;
 						break;
 
 					case "XPDAC02Pier":
@@ -292,6 +292,18 @@ namespace Mappalachia
 						nudgeX = 600;
 						nudgeY = 300;
 						nudgeScale = 1f;
+						break;
+
+					case "GHLCamp01":
+						nudgeX = 0;
+						nudgeY = -1200;
+						nudgeScale = 1.5f;
+						break;
+
+					case "GHLCamp02":
+						nudgeX = -700;
+						nudgeY = 0;
+						nudgeScale = 1.3f;
 						break;
 
 					default:
