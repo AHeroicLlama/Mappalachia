@@ -165,18 +165,16 @@ namespace Mappalachia
 			}
 
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
-			ToolStripMenuItem enhance = new ToolStripMenuItem() { Text = "Enhance!" };
+			ToolStripMenuItem enhance = new ToolStripMenuItem() { Text = "Spotlight here" };
 			contextMenu.Items.Add(enhance);
 
 			enhance.Click += (s, args) =>
 			{
 				float factor = GetZoomFactor();
-				FormMain.DrawMap(new PointF(e.X * factor, e.Y * factor));
+				FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
 			};
 
-			contextMenu.Show(this, new Point(
-				e.X + pictureBoxMapDisplay.Location.X,
-				e.Y + pictureBoxMapDisplay.Location.Y));
+			contextMenu.Show(pictureBoxMapDisplay, e.Location);
 		}
 	}
 }

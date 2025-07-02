@@ -26,5 +26,24 @@
 
 			TaskDialog.ShowDialog(page);
 		}
+
+		public static void Info(string title, string summary, string body)
+		{
+			TaskDialogPage page = new TaskDialogPage
+			{
+				Caption = title,
+				Heading = summary,
+				Text = body,
+				Icon = TaskDialogIcon.Information,
+				AllowCancel = true,
+				DefaultButton = TaskDialogButton.OK,
+				Buttons = new TaskDialogButtonCollection()
+				{
+					TaskDialogButton.OK,
+				},
+			};
+
+			TaskDialog.ShowDialog(page);
+		}
 	}
 }

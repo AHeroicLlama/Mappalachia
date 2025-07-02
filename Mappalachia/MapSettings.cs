@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Library;
 
 namespace Mappalachia
 {
@@ -38,5 +39,13 @@ namespace Mappalachia
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
 
 		public string Title { get; set; } = string.Empty;
+
+		public int SpotlightTileRange { get; set; } = 3;
+
+		[JsonIgnore]
+		public Coord SpotlightLocation { get; set; } = new Coord(0, 0);
+
+		[JsonIgnore]
+		public bool SpotlightEnabled { get; set; } = false;
 	}
 }

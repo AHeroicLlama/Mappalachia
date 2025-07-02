@@ -46,7 +46,7 @@
 			radioPNG.Location = new Point(12, 29);
 			radioPNG.Name = "radioPNG";
 			radioPNG.Size = new Size(49, 19);
-			radioPNG.TabIndex = 0;
+			radioPNG.TabIndex = 1;
 			radioPNG.TabStop = true;
 			radioPNG.Text = "PNG";
 			toolTipExportToFile.SetToolTip(radioPNG, "Supports transparency, large file size.");
@@ -59,7 +59,7 @@
 			radioJPG.Location = new Point(12, 54);
 			radioJPG.Name = "radioJPG";
 			radioJPG.Size = new Size(44, 19);
-			radioJPG.TabIndex = 1;
+			radioJPG.TabIndex = 2;
 			radioJPG.TabStop = true;
 			radioJPG.Text = "JPG";
 			toolTipExportToFile.SetToolTip(radioJPG, "No transparency, variable file size.");
@@ -72,7 +72,7 @@
 			numericUpDownJPGQuality.Minimum = new decimal(new int[] { 20, 0, 0, 0 });
 			numericUpDownJPGQuality.Name = "numericUpDownJPGQuality";
 			numericUpDownJPGQuality.Size = new Size(67, 23);
-			numericUpDownJPGQuality.TabIndex = 2;
+			numericUpDownJPGQuality.TabIndex = 4;
 			numericUpDownJPGQuality.Value = new decimal(new int[] { 20, 0, 0, 0 });
 			// 
 			// labelFileType
@@ -81,7 +81,7 @@
 			labelFileType.Location = new Point(12, 9);
 			labelFileType.Name = "labelFileType";
 			labelFileType.Size = new Size(53, 15);
-			labelFileType.TabIndex = 3;
+			labelFileType.TabIndex = 0;
 			labelFileType.Text = "File Type";
 			// 
 			// labelJPGQuality
@@ -90,7 +90,7 @@
 			labelJPGQuality.Location = new Point(8, 86);
 			labelJPGQuality.Name = "labelJPGQuality";
 			labelJPGQuality.Size = new Size(88, 15);
-			labelJPGQuality.TabIndex = 4;
+			labelJPGQuality.TabIndex = 3;
 			labelJPGQuality.Text = "JPG Quality (%)";
 			// 
 			// buttonOK

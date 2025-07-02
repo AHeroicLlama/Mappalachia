@@ -57,7 +57,7 @@
 			menuStripPreview.Location = new Point(0, 0);
 			menuStripPreview.Name = "menuStripPreview";
 			menuStripPreview.Size = new Size(1008, 24);
-			menuStripPreview.TabIndex = 2;
+			menuStripPreview.TabIndex = 0;
 			// 
 			// resetZoomMenuItem
 			// 

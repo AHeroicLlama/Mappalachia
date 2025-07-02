@@ -103,7 +103,7 @@
 			labelProductName.MaximumSize = new Size(0, 20);
 			labelProductName.Name = "labelProductName";
 			labelProductName.Size = new Size(308, 20);
-			labelProductName.TabIndex = 19;
+			labelProductName.TabIndex = 2;
 			labelProductName.Text = "Product Name";
 			labelProductName.TextAlign = ContentAlignment.MiddleLeft;
 			// 
@@ -115,7 +115,7 @@
 			labelVersion.MaximumSize = new Size(0, 20);
 			labelVersion.Name = "labelVersion";
 			labelVersion.Size = new Size(308, 20);
-			labelVersion.TabIndex = 0;
+			labelVersion.TabIndex = 3;
 			labelVersion.Text = "Version";
 			labelVersion.TextAlign = ContentAlignment.MiddleLeft;
 			// 
@@ -127,7 +127,7 @@
 			labelCopyright.MaximumSize = new Size(0, 20);
 			labelCopyright.Name = "labelCopyright";
 			labelCopyright.Size = new Size(308, 20);
-			labelCopyright.TabIndex = 21;
+			labelCopyright.TabIndex = 4;
 			labelCopyright.Text = "Copyright";
 			labelCopyright.TextAlign = ContentAlignment.MiddleLeft;
 			// 
@@ -141,7 +141,7 @@
 			textBoxDescription.ReadOnly = true;
 			textBoxDescription.ScrollBars = ScrollBars.Both;
 			textBoxDescription.Size = new Size(308, 147);
-			textBoxDescription.TabIndex = 23;
+			textBoxDescription.TabIndex = 5;
 			textBoxDescription.TabStop = false;
 			textBoxDescription.Text = "Description";
 			// 
@@ -153,7 +153,7 @@
 			okButton.Margin = new Padding(4, 3, 4, 3);
 			okButton.Name = "okButton";
 			okButton.Size = new Size(88, 27);
-			okButton.TabIndex = 24;
+			okButton.TabIndex = 0;
 			okButton.Text = "&OK";
 			// 
 			// FormAbout

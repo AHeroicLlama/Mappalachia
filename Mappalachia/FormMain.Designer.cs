@@ -45,6 +45,10 @@ namespace Mappalachia
 			grayscaleToolStripMenuItem = new ToolStripMenuItem();
 			setBrightnessToolStripMenuItem = new ToolStripMenuItem();
 			highlightWaterToolStripMenuItem = new ToolStripMenuItem();
+			spotlightToolStripMenuItem = new ToolStripMenuItem();
+			spotlightEnabledToolStripMenuItem = new ToolStripMenuItem();
+			spotlightSetRangeToolStripMenuItem = new ToolStripMenuItem();
+			spotlightCoordToolStripMenuItem = new ToolStripMenuItem();
 			mapLegendStyleToolStripMenuItem = new ToolStripMenuItem();
 			legendNormalToolStripMenuItem = new ToolStripMenuItem();
 			legendExtendedToolStripMenuItem = new ToolStripMenuItem();
@@ -113,7 +117,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, mapLegendStyleToolStripMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, spotlightToolStripMenuItem, mapLegendStyleToolStripMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -229,6 +233,34 @@ namespace Mappalachia
 			highlightWaterToolStripMenuItem.Text = "Highlight Water";
 			highlightWaterToolStripMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
 			highlightWaterToolStripMenuItem.Click += Map_HightlightWater_Click;
+			// 
+			// spotlightToolStripMenuItem
+			// 
+			spotlightToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { spotlightEnabledToolStripMenuItem, spotlightSetRangeToolStripMenuItem, spotlightCoordToolStripMenuItem });
+			spotlightToolStripMenuItem.Name = "spotlightToolStripMenuItem";
+			spotlightToolStripMenuItem.Size = new Size(233, 22);
+			spotlightToolStripMenuItem.Text = "Spotlight";
+			// 
+			// spotlightEnabledToolStripMenuItem
+			// 
+			spotlightEnabledToolStripMenuItem.Name = "spotlightEnabledToolStripMenuItem";
+			spotlightEnabledToolStripMenuItem.Size = new Size(126, 22);
+			spotlightEnabledToolStripMenuItem.Text = "Enabled";
+			spotlightEnabledToolStripMenuItem.Click += Map_Spotlight_Enabled_Click;
+			// 
+			// spotlightSetRangeToolStripMenuItem
+			// 
+			spotlightSetRangeToolStripMenuItem.Name = "spotlightSetRangeToolStripMenuItem";
+			spotlightSetRangeToolStripMenuItem.Size = new Size(126, 22);
+			spotlightSetRangeToolStripMenuItem.Text = "Set Range";
+			spotlightSetRangeToolStripMenuItem.Click += Map_Spotlight_SetRange_Click;
+			// 
+			// spotlightCoordToolStripMenuItem
+			// 
+			spotlightCoordToolStripMenuItem.Name = "spotlightCoordToolStripMenuItem";
+			spotlightCoordToolStripMenuItem.Size = new Size(126, 22);
+			spotlightCoordToolStripMenuItem.Text = "Coord";
+			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
 			// 
 			// mapLegendStyleToolStripMenuItem
 			// 
@@ -489,7 +521,7 @@ namespace Mappalachia
 			buttonSearch.Location = new Point(800, 27);
 			buttonSearch.Name = "buttonSearch";
 			buttonSearch.Size = new Size(165, 23);
-			buttonSearch.TabIndex = 5;
+			buttonSearch.TabIndex = 3;
 			buttonSearch.Text = "Search";
 			buttonSearch.UseVisualStyleBackColor = true;
 			buttonSearch.Click += ButtonSearch_Click;
@@ -500,7 +532,7 @@ namespace Mappalachia
 			textBoxSearch.Location = new Point(406, 29);
 			textBoxSearch.Name = "textBoxSearch";
 			textBoxSearch.Size = new Size(388, 23);
-			textBoxSearch.TabIndex = 4;
+			textBoxSearch.TabIndex = 2;
 			textBoxSearch.Text = "Search Term";
 			textBoxSearch.TextChanged += SearchTerm_TextChanged;
 			// 
@@ -521,7 +553,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridViewSearchResults.Size = new Size(953, 254);
-			dataGridViewSearchResults.TabIndex = 3;
+			dataGridViewSearchResults.TabIndex = 6;
 			// 
 			// comboBoxSpace
 			// 
@@ -530,7 +562,7 @@ namespace Mappalachia
 			comboBoxSpace.Location = new Point(12, 29);
 			comboBoxSpace.Name = "comboBoxSpace";
 			comboBoxSpace.Size = new Size(388, 23);
-			comboBoxSpace.TabIndex = 6;
+			comboBoxSpace.TabIndex = 1;
 			comboBoxSpace.SelectionChangeCommitted += ComboBoxSpace_SelectionChangeCommitted;
 			// 
 			// buttonAddToMap
@@ -583,7 +615,7 @@ namespace Mappalachia
 			listViewSignature.Location = new Point(6, 22);
 			listViewSignature.Name = "listViewSignature";
 			listViewSignature.Size = new Size(685, 111);
-			listViewSignature.TabIndex = 10;
+			listViewSignature.TabIndex = 0;
 			listViewSignature.UseCompatibleStateImageBehavior = false;
 			// 
 			// listViewLockLevel
@@ -593,7 +625,7 @@ namespace Mappalachia
 			listViewLockLevel.Location = new Point(6, 22);
 			listViewLockLevel.Name = "listViewLockLevel";
 			listViewLockLevel.Size = new Size(238, 111);
-			listViewLockLevel.TabIndex = 11;
+			listViewLockLevel.TabIndex = 0;
 			listViewLockLevel.UseCompatibleStateImageBehavior = false;
 			// 
 			// groupBoxFilterSignature
@@ -606,7 +638,7 @@ namespace Mappalachia
 			groupBoxFilterSignature.Location = new Point(12, 58);
 			groupBoxFilterSignature.Name = "groupBoxFilterSignature";
 			groupBoxFilterSignature.Size = new Size(697, 165);
-			groupBoxFilterSignature.TabIndex = 12;
+			groupBoxFilterSignature.TabIndex = 4;
 			groupBoxFilterSignature.TabStop = false;
 			groupBoxFilterSignature.Text = "Filter by category";
 			// 
@@ -615,7 +647,7 @@ namespace Mappalachia
 			buttonSelectRecommended.Location = new Point(280, 136);
 			buttonSelectRecommended.Name = "buttonSelectRecommended";
 			buttonSelectRecommended.Size = new Size(137, 23);
-			buttonSelectRecommended.TabIndex = 13;
+			buttonSelectRecommended.TabIndex = 2;
 			buttonSelectRecommended.Text = "Select Recommended";
 			buttonSelectRecommended.UseVisualStyleBackColor = true;
 			buttonSelectRecommended.Click += ButtonSelectRecommended_Click;
@@ -625,7 +657,7 @@ namespace Mappalachia
 			buttonUnselectAllSignature.Location = new Point(423, 136);
 			buttonUnselectAllSignature.Name = "buttonUnselectAllSignature";
 			buttonUnselectAllSignature.Size = new Size(80, 23);
-			buttonUnselectAllSignature.TabIndex = 12;
+			buttonUnselectAllSignature.TabIndex = 3;
 			buttonUnselectAllSignature.Text = "Unselect All";
 			buttonUnselectAllSignature.UseVisualStyleBackColor = true;
 			buttonUnselectAllSignature.Click += ButtonUnselectAllSignature_Click;
@@ -635,7 +667,7 @@ namespace Mappalachia
 			buttonSelectAllSignature.Location = new Point(194, 136);
 			buttonSelectAllSignature.Name = "buttonSelectAllSignature";
 			buttonSelectAllSignature.Size = new Size(80, 23);
-			buttonSelectAllSignature.TabIndex = 11;
+			buttonSelectAllSignature.TabIndex = 1;
 			buttonSelectAllSignature.Text = "Select All";
 			buttonSelectAllSignature.UseVisualStyleBackColor = true;
 			buttonSelectAllSignature.Click += ButtonSelectAllSignature_Click;
@@ -649,7 +681,7 @@ namespace Mappalachia
 			groupBoxFilterLockLevel.Location = new Point(715, 58);
 			groupBoxFilterLockLevel.Name = "groupBoxFilterLockLevel";
 			groupBoxFilterLockLevel.Size = new Size(250, 165);
-			groupBoxFilterLockLevel.TabIndex = 13;
+			groupBoxFilterLockLevel.TabIndex = 5;
 			groupBoxFilterLockLevel.TabStop = false;
 			groupBoxFilterLockLevel.Text = "Filter by lock level";
 			// 
@@ -658,7 +690,7 @@ namespace Mappalachia
 			buttonUnselectAllLockLevel.Location = new Point(128, 136);
 			buttonUnselectAllLockLevel.Name = "buttonUnselectAllLockLevel";
 			buttonUnselectAllLockLevel.Size = new Size(80, 23);
-			buttonUnselectAllLockLevel.TabIndex = 14;
+			buttonUnselectAllLockLevel.TabIndex = 2;
 			buttonUnselectAllLockLevel.Text = "Unselect All";
 			buttonUnselectAllLockLevel.UseVisualStyleBackColor = true;
 			buttonUnselectAllLockLevel.Click += ButtonUnselectAllLockLevel_Click;
@@ -668,7 +700,7 @@ namespace Mappalachia
 			buttonSelectAllLockLevel.Location = new Point(42, 136);
 			buttonSelectAllLockLevel.Name = "buttonSelectAllLockLevel";
 			buttonSelectAllLockLevel.Size = new Size(80, 23);
-			buttonSelectAllLockLevel.TabIndex = 13;
+			buttonSelectAllLockLevel.TabIndex = 1;
 			buttonSelectAllLockLevel.Text = "Select All";
 			buttonSelectAllLockLevel.UseVisualStyleBackColor = true;
 			buttonSelectAllLockLevel.Click += ButtonSelectAllLockLevel_Click;
@@ -678,7 +710,7 @@ namespace Mappalachia
 			buttonUpdateMap.Location = new Point(411, 737);
 			buttonUpdateMap.Name = "buttonUpdateMap";
 			buttonUpdateMap.Size = new Size(155, 27);
-			buttonUpdateMap.TabIndex = 14;
+			buttonUpdateMap.TabIndex = 10;
 			buttonUpdateMap.Text = "Update Map";
 			buttonUpdateMap.UseVisualStyleBackColor = true;
 			buttonUpdateMap.Click += ButtonUpdateMap_Click;
@@ -784,5 +816,9 @@ namespace Mappalachia
 		private ToolStripMenuItem showPlotsInOtherSpacesToolStripMenuItem;
 		private ToolStripMenuItem showRegionLevelsToolStripMenuItem;
 		private Button buttonUpdateMap;
+		private ToolStripMenuItem spotlightToolStripMenuItem;
+		private ToolStripMenuItem spotlightEnabledToolStripMenuItem;
+		private ToolStripMenuItem spotlightSetRangeToolStripMenuItem;
+		private ToolStripMenuItem spotlightCoordToolStripMenuItem;
 	}
 }

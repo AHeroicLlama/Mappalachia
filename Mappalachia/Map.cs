@@ -45,7 +45,7 @@ namespace Mappalachia
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		// The primary map draw function
-		public static Image Draw(List<Instance> instances, Settings settings, PointF? spotlightPosition)
+		public static Image Draw(List<Instance> instances, Settings settings)
 		{
 			// Gather the base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
@@ -55,9 +55,9 @@ namespace Mappalachia
 			graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
 			// TODO debug spotlight
-			if ((settings.Space.IsWorldspace || SpotlightInCells) && spotlightPosition != null)
+			if ((settings.Space.IsWorldspace || SpotlightInCells) && settings.MapSettings.SpotlightEnabled)
 			{
-				PointF spotlightPoint = (PointF)spotlightPosition;
+				PointF spotlightPoint = settings.MapSettings.SpotlightLocation.AsImagePoint(settings.Space);
 
 				Pen pen = new Pen(Color.Red, 2);
 				int size = 32;
@@ -277,13 +277,24 @@ namespace Mappalachia
 
 		// Returns the X/Y of a Coord, scaled from world to image coordinates (given the scaling of the space), as a PointF
 		// Inverse of AsWorldCoord
-		static PointF AsImagePoint(this Coord coord, Space space)
+		public static PointF AsImagePoint(this Coord coord, Space space)
 		{
-			int halfRes = MapImageResolution / 2;
+			float halfRes = MapImageResolution / 2f;
 
 			return new PointF(
 				(float)(halfRes * (1 + ((coord.X - space.CenterX) / space.Radius))),
 				(float)(halfRes * (1 + (((coord.Y * -1) - space.CenterY) / space.Radius))));
+		}
+
+		// Returns the game world coordinate of a point on the map image
+		// Inverse of AsImagePoint
+		public static Coord AsWorldCoord(this PointF point, Space space)
+		{
+			double halfRes = MapImageResolution / 2d;
+
+			return new Coord(
+				(((point.X / halfRes) - 1) * space.Radius) + space.CenterX,
+				-1 * ((((point.Y / halfRes) - 1) * space.Radius) + space.CenterY));
 		}
 
 		// Returns the application font in the given pixel size
