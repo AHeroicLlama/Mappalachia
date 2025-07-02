@@ -12,14 +12,14 @@ namespace BackgroundRenderer
 
 		static int JpgQualityHigh { get; } = 100;
 
-		static int RenderParallelism { get; } = 16; // Max cells or super res tiles to render in parallel
+		static int RenderParallelism { get; } = 16; // Max cells or spotlight tiles to render in parallel
 
 		static async Task Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
 			// Ensure the output directories exist
-			foreach (string directory in new string[] { CellPath, WorldPath, SuperResPath })
+			foreach (string directory in new string[] { CellPath, WorldPath, SpotlightPath })
 			{
 				if (!Directory.Exists(directory))
 				{
@@ -27,9 +27,9 @@ namespace BackgroundRenderer
 				}
 			}
 
-			CleanUpSuperRes();
+			CleanUpSpotlight();
 
-			StdOutWithColor("Enter:\n1: Render (Inc. super res) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode", ColorQuestion);
+			StdOutWithColor("Enter:\n1: Render (Inc. spotlight) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode", ColorQuestion);
 
 			switch (Console.ReadKey().KeyChar)
 			{
@@ -70,7 +70,7 @@ namespace BackgroundRenderer
 			foreach (Space worldspace in worldspaces)
 			{
 				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID.ToHex()})", ColorInfo);
-				await SuperResRenderSpace(worldspace);
+				await SpotlightRenderSpace(worldspace);
 				RenderSpace(worldspace);
 				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
 			}
@@ -80,9 +80,9 @@ namespace BackgroundRenderer
 			// Render cells in parallel
 			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async cell =>
 			{
-				if (SuperResInCells)
+				if (SpotlightInCells)
 				{
-					await SuperResRenderSpace(cell);
+					await SpotlightRenderSpace(cell);
 				}
 
 				RenderSpace(cell, true);
@@ -283,15 +283,15 @@ namespace BackgroundRenderer
 			}
 		}
 
-		static async Task SuperResRenderSpace(Space space)
+		static async Task SpotlightRenderSpace(Space space)
 		{
-			double scale = 1d / SuperResScale;
+			double scale = 1d / SpotlightScale;
 
 			string outputPath = TempPath + $"{space.EditorID}\\";
-			string finalPath = SuperResPath + $"{space.EditorID}\\";
+			string finalPath = SpotlightPath + $"{space.EditorID}\\";
 
-			// If there is little to no improvement from super res, skip
-			if (!space.WouldBenefitFromSuperRes())
+			// If there is little to no improvement from spotlight, skip
+			if (!space.WouldBenefitFromSpotlight())
 			{
 				return;
 			}
@@ -299,7 +299,7 @@ namespace BackgroundRenderer
 			Directory.CreateDirectory(outputPath);
 			Directory.CreateDirectory(finalPath);
 
-			List<SuperResTile> tiles = space.GetTiles();
+			List<SpotlightTile> tiles = space.GetTiles();
 			List<Region> worldBorderRegions = await space.GetWorldBorders();
 
 			if (worldBorderRegions.Count > 0)
@@ -314,7 +314,7 @@ namespace BackgroundRenderer
 
 			if (space.IsWorldspace)
 			{
-				StdOutWithColor($"Depending on your hardware, Super Res rendering an entire worldspace ({space.EditorID}) may take a few hours. Would you like to:\n1:Render the whole space\n2:Render only missing tiles\n3:Define a target area to render", ColorQuestion);
+				StdOutWithColor($"Depending on your hardware, Spotlight rendering an entire worldspace ({space.EditorID}) may take a few hours. Would you like to:\n1:Render the whole space\n2:Render only missing tiles\n3:Define a target area to render", ColorQuestion);
 
 				switch (Console.ReadKey().KeyChar)
 				{
@@ -352,7 +352,7 @@ namespace BackgroundRenderer
 				Console.WriteLine();
 			}
 
-			StdOutWithColor($"Super Res Rendering {tiles.Count} tile{Pluralize(tiles)} of {space.EditorID}", ColorInfo);
+			StdOutWithColor($"Spotlight Rendering {tiles.Count} tile{Pluralize(tiles)} of {space.EditorID}", ColorInfo);
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			int i = 0;
@@ -363,9 +363,9 @@ namespace BackgroundRenderer
 				string outputFile = $"{outputPath}{tile.XId}.{tile.YId}.dds";
 				string finalFile = tile.GetFilePath();
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {SuperResTileSize} {SuperResTileSize} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {SpotlightTileSize} {SpotlightTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-r {tile.XId * SuperResScale} {tile.YId * SuperResScale} {(tile.XId + 1) * SuperResScale} {(tile.YId + 1) * SuperResScale} " +
+					$"-r {tile.XId * SpotlightScale} {tile.YId * SpotlightScale} {(tile.XId + 1) * SpotlightScale} {(tile.YId + 1) * SpotlightScale} " +
 					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 1 " +
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
@@ -387,7 +387,7 @@ namespace BackgroundRenderer
 				if (!space.IsWorldspace)
 				{
 					long size = new FileInfo(finalFile).Length;
-					if (size <= (Math.Pow(SuperResTileSize, 2) / (8 * 8 * 4)) + 512)
+					if (size <= (Math.Pow(SpotlightTileSize, 2) / (8 * 8 * 4)) + 512)
 					{
 						File.Delete(finalFile);
 					}
@@ -399,14 +399,14 @@ namespace BackgroundRenderer
 					TimeSpan timePerTile = stopwatch.Elapsed / i;
 					TimeSpan timeRemaining = timePerTile * (tiles.Count - i);
 					StdOutWithColor(
-						$"{space.EditorID} Super Res: {tile.XId},{tile.YId} (X:{tile.XCenter}, Y:{tile.YCenter}) (Tile {i} of {tiles.Count} ({Math.Round(((double)i / tiles.Count) * 100, 2)}%)) " +
+						$"{space.EditorID} Spotlight: {tile.XId},{tile.YId} (X:{tile.XCenter}, Y:{tile.YCenter}) (Tile {i} of {tiles.Count} ({Math.Round(((double)i / tiles.Count) * 100, 2)}%)) " +
 						$"Est {timeRemaining.Days}D {timeRemaining.Hours:D2}H {timeRemaining.Minutes:D2}M {timeRemaining.Seconds:D2}S remaining", ColorInfo);
 				}
 			});
 		}
 
 		// Return if this tile contains any entities
-		public static async Task<bool> HasEntities(this SuperResTile tile)
+		public static async Task<bool> HasEntities(this SpotlightTile tile)
 		{
 			string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {tile.Space.FormID} AND " +
 				$"x >= {tile.XCenter - TileRadius} AND x <= {tile.XCenter + TileRadius} AND y >= {tile.YCenter - TileRadius} AND y <= {tile.YCenter + TileRadius}";
@@ -418,7 +418,7 @@ namespace BackgroundRenderer
 		}
 
 		// Returns if the tile intersects any of the regions
-		public static bool IntersectsRegions(this SuperResTile tile, List<Region> regions)
+		public static bool IntersectsRegions(this SpotlightTile tile, List<Region> regions)
 		{
 			foreach (Region region in regions)
 			{

@@ -43,10 +43,10 @@ namespace Library
 			return EditorID.Equals("APPALACHIA", StringComparison.OrdinalIgnoreCase);
 		}
 
-		// Return the super res tiles for the space
-		public List<SuperResTile> GetTiles()
+		// Return the spotlight tiles for the space
+		public List<SpotlightTile> GetTiles()
 		{
-			return SuperResTile.GetTilesInRect(new RectangleF((float)MinX, (float)MaxY, (float)(MaxX - MinX), (float)(MaxY - MinY) * -1), this);
+			return SpotlightTile.GetTilesInRect(new RectangleF((float)MinX, (float)MaxY, (float)(MaxX - MinX), (float)(MaxY - MinY) * -1), this);
 		}
 	}
 }

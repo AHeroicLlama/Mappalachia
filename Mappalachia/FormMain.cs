@@ -302,10 +302,10 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClearSort();
 		}
 
-		public void DrawMap(PointF? superResPosition = null)
+		public void DrawMap(PointF? spotlightPosition = null)
 		{
 			// TODO fetch instances from DB
-			FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, superResPosition);
+			FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, spotlightPosition);
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers

@@ -38,7 +38,7 @@ namespace Preprocessor
 				ValidateSpace(space);
 			});
 
-			// Inverse of above (excluding super res), check there are no extraneous files
+			// Inverse of above (excluding spotlight), check there are no extraneous files
 			// First check each cell file against a cell in the database
 			Parallel.ForEach(Directory.GetFiles(CellPath), file =>
 			{
@@ -91,8 +91,8 @@ namespace Preprocessor
 				FailValidation($"Too {(actualMapMarkerImageFiles < expectedMapMarkerImageFiles ? "few" : "many")} mapmarkers in the mapmarker image folder. Expected {expectedMapMarkerImageFiles}, found {actualMapMarkerImageFiles}");
 			}
 
-			// Similarly, now check the super res structure for extraneous files
-			CleanUpSuperRes();
+			// Similarly, now check the spotlight structure for extraneous files
+			CleanUpSpotlight();
 		}
 
 		static bool ValidateSpaceImageExists(Space space, string path)
@@ -128,14 +128,14 @@ namespace Preprocessor
 			}
 		}
 
-		// Validate that the super res tile is not 100% black
-		static void ValidateTileImageBlackPx(SuperResTile tile, string path)
+		// Validate that the spotlight tile is not 100% black
+		static void ValidateTileImageBlackPx(SpotlightTile tile, string path)
 		{
 			float blackPxPercent = GetBlackPxPercent(path);
 
 			if (blackPxPercent == 100f)
 			{
-				FailValidation($"Super res tile {tile.XId}, {tile.YId} for {tile.Space.EditorID} has too many black pixels ({blackPxPercent}%)");
+				FailValidation($"Spotlight tile {tile.XId}, {tile.YId} for {tile.Space.EditorID} has too many black pixels ({blackPxPercent}%)");
 			}
 		}
 
@@ -197,7 +197,7 @@ namespace Preprocessor
 			}
 		}
 
-		static void ValidateTileImageFileSize(SuperResTile tile, string path)
+		static void ValidateTileImageFileSize(SpotlightTile tile, string path)
 		{
 			int fileSizeKB = (int)(new FileInfo(path).Length / Kilobyte);
 
@@ -244,19 +244,19 @@ namespace Preprocessor
 			}
 
 			int i = 0;
-			List<SuperResTile> tiles = space.GetTiles();
+			List<SpotlightTile> tiles = space.GetTiles();
 
-			// Validate Super Res tiles
+			// Validate spotlight tiles
 			Parallel.ForEach(tiles, tile =>
 			{
 				Interlocked.Increment(ref i);
 
 				string file = tile.GetFilePath();
 
-				// We don't fail on a missing super res tile, because it may have been deleted due to being empty, or not rendered due to being outside the world border
+				// We don't fail on a missing spotlight tile, because it may have been deleted due to being empty, or not rendered due to being outside the world border
 				if (File.Exists(file))
 				{
-					Console.WriteLine($"Super res tile {i} of {tiles.Count}: {space.EditorID}");
+					Console.WriteLine($"Spotlight tile {i} of {tiles.Count}: {space.EditorID}");
 					ValidateTileImageFileSize(tile, file);
 					ValidateImageDimensions(file);
 					ValidateTileImageBlackPx(tile, file);

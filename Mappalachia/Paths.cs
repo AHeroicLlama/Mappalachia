@@ -9,7 +9,7 @@ namespace Mappalachia
 
 		public static string DatabasePath { get; } = @"data\mappalachia.db";
 
-		public static string SuperResTilePath { get; } = @$"{ImgPath}super\";
+		public static string SpotlightTilePath { get; } = @$"{ImgPath}spotlight\";
 
 		public static string CellImgPath { get; } = @$"{ImgPath}cell\";
 

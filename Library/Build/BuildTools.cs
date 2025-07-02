@@ -51,7 +51,7 @@ namespace Library
 
 		public static string WorldPath { get; } = ImagePath + @"wrld\";
 
-		public static string SuperResPath { get; } = ImagePath + @"super\";
+		public static string SpotlightPath { get; } = ImagePath + @"spotlight\";
 
 		public static string MapMarkerPath { get; } = ImagePath + @"mapmarker\";
 
@@ -77,7 +77,7 @@ namespace Library
 
 		public static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
-		static double SuperResImprovementThresholdPerc { get; } = 25; // Percent improvement in resolution necessary to render a super res
+		static double SpotlightImprovementThresholdPerc { get; } = 25; // Percent improvement in resolution necessary to render spotlight tiles
 
 		static Regex TileFileNameValidation { get; } = new Regex(@"(-?[0-9]{1,2}\.){2}jpg");
 
@@ -171,37 +171,37 @@ namespace Library
 			return path.TrimEnd('\\', '/');
 		}
 
-		// Return if the improvement in quality which super res would provide meets the threshold
-		public static bool WouldBenefitFromSuperRes(this Space space)
+		// Return if the improvement in quality which spotlight would provide meets the threshold
+		public static bool WouldBenefitFromSpotlight(this Space space)
 		{
-			double scale = 1d / Common.SuperResScale;
+			double scale = 1d / Common.SpotlightScale;
 			int singleRenderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
 			double singleScale = singleRenderResolution / space.MaxRange;
 			double relativeImprovementPerc = ((scale - singleScale) / singleScale) * 100;
 
-			return relativeImprovementPerc >= SuperResImprovementThresholdPerc;
+			return relativeImprovementPerc >= SpotlightImprovementThresholdPerc;
 		}
 
-		// Return the final file path of the Super Res tile
-		public static string GetFilePath(this SuperResTile tile)
+		// Return the final file path of the spotlight tile
+		public static string GetFilePath(this SpotlightTile tile)
 		{
-			return $"{SuperResPath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{Common.SuperResTileImageFileType}";
+			return $"{SpotlightPath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{Common.SpotlightTileImageFileType}";
 		}
 
-		// Filters through the super res folder and attempts to locate and remove redundant old tiles/folders or rogue files/folders
-		public static async void CleanUpSuperRes()
+		// Filters through the spotlight folder and attempts to locate and remove redundant old tiles/folders or rogue files/folders
+		public static async void CleanUpSpotlight()
 		{
 			StdOutWithColor("Checking for unnecessary tile files...", ColorInfo);
 			List<Space> spaces = await CommonDatabase.GetAllSpaces(GetNewConnection());
 
-			// The super res directory should have no file at root
-			foreach (string file in Directory.GetFiles(SuperResPath))
+			// The spotlight directory should have no file at root
+			foreach (string file in Directory.GetFiles(SpotlightPath))
 			{
 				StdOutWithColor($"Deleting rogue file {file}", ColorInfo);
 				File.Delete(file);
 			}
 
-			foreach (string directory in Directory.GetDirectories(SuperResPath))
+			foreach (string directory in Directory.GetDirectories(SpotlightPath))
 			{
 				// The folder for each space should contain no folders
 				foreach (string innerDirectory in Directory.GetDirectories(directory))
@@ -213,15 +213,15 @@ namespace Library
 				// Find the space this folder represents
 				Space? space = spaces.Where(space => space.EditorID == Path.GetFileName(directory)).FirstOrDefault();
 
-				// If the space no longer exists, or, if the space no longer benefits from super res, delete its folder
-				if (space == null || !space.WouldBenefitFromSuperRes())
+				// If the space no longer exists, or, if the space no longer benefits from spotlight, delete its folder
+				if (space == null || !space.WouldBenefitFromSpotlight())
 				{
 					Directory.Delete(directory, true);
-					StdOutWithColor($"Deleting super res folder {directory}", ColorInfo);
+					StdOutWithColor($"Deleting spotlight folder {directory}", ColorInfo);
 					continue;
 				}
 
-				List<SuperResTile> tiles = space.GetTiles();
+				List<SpotlightTile> tiles = space.GetTiles();
 
 				// Loop every candidate tile file in the space folder
 				foreach (string tilePath in Directory.GetFiles(directory))
@@ -242,7 +242,7 @@ namespace Library
 					// Find the X and Y of the tile this file represents. If it is no longer needed by the space, delete it.
 					if (!tiles.Where(tile => tile.XId == tileX && tile.YId == tileY).Any())
 					{
-						StdOutWithColor($"Deleting super res tile {tilePath}", ColorInfo);
+						StdOutWithColor($"Deleting spotlight tile {tilePath}", ColorInfo);
 						File.Delete(tilePath);
 					}
 				}

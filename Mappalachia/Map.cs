@@ -45,7 +45,7 @@ namespace Mappalachia
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		// The primary map draw function
-		public static Image Draw(List<Instance> instances, Settings settings, PointF? superResPosition)
+		public static Image Draw(List<Instance> instances, Settings settings, PointF? spotlightPosition)
 		{
 			// Gather the base background image
 			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
@@ -54,15 +54,15 @@ namespace Mappalachia
 			graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 			graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-			// TODO debug super res
-			if ((settings.Space.IsWorldspace || SuperResInCells) && superResPosition != null)
+			// TODO debug spotlight
+			if ((settings.Space.IsWorldspace || SpotlightInCells) && spotlightPosition != null)
 			{
-				PointF superResPoint = (PointF)superResPosition;
+				PointF spotlightPoint = (PointF)spotlightPosition;
 
 				Pen pen = new Pen(Color.Red, 2);
 				int size = 32;
-				graphics.DrawLine(pen, superResPoint.X - size, superResPoint.Y - size, superResPoint.X + size, superResPoint.Y + size);
-				graphics.DrawLine(pen, superResPoint.X - size, superResPoint.Y + size, superResPoint.X + size, superResPoint.Y - size);
+				graphics.DrawLine(pen, spotlightPoint.X - size, spotlightPoint.Y - size, spotlightPoint.X + size, spotlightPoint.Y + size);
+				graphics.DrawLine(pen, spotlightPoint.X - size, spotlightPoint.Y + size, spotlightPoint.X + size, spotlightPoint.Y - size);
 			}
 
 			// Apply the brightness and grayscale if selected
@@ -116,7 +116,7 @@ namespace Mappalachia
 
 		// TODO temp disable warning
 #pragma warning disable IDE0060 // Remove unused parameter
-		static Bitmap GetSuperResBackground(Settings settings, RectangleF superResCrop)
+		static Bitmap GetSpotlightBackground(Settings settings, RectangleF spotlightCrop)
 		{
 			// TODO
 			return new Bitmap(MapImageResolution, MapImageResolution);

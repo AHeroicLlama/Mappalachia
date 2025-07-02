@@ -22,7 +22,7 @@ Paint.NET is recommended to be installed but is only needed for X/Y coordinate c
 
 ## Rendering Cells and Worldspaces
 In the main `Mappalachia.sln`, build and run the `BackgroundRenderer` project and select option 1. Follow the instructions to select which space(s) you wish to render.<br/>
-In order to save time, if your choice includes a worldspace, you will receive further instructions on how to select a subset of the super resolution tiles to be rendered if necessary.<br/>
+In order to save time, if your choice includes a worldspace, you will receive further instructions on how to select a subset of the Spotlight tiles to be rendered if necessary.<br/>
 The background renderer will connect to the database to identify which spaces should be rendered, therefore the database must be up to date and compiled.<br/>
 The background renderer will also need to access Fallout 76 game assets directly from your installation in order to render them. If your Fallout 76 is installed in a non-standard path, edit the `Library.BuildTools.GamePath` string accordingly before building.<br/>
 The renderer will use fo76utils to render the images, then ImageMagick to convert them. The outputted files will be placed in the `Assets\img\` folder.<br/>

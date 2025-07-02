@@ -12,7 +12,7 @@ namespace Mappalachia
 
 		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
 
-		static Dictionary<SuperResTile, Image> SuperResTileImageCache { get; } = new Dictionary<SuperResTile, Image>();
+		static Dictionary<SpotlightTile, Image> SpotlightTileImageCache { get; } = new Dictionary<SpotlightTile, Image>();
 
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
@@ -42,15 +42,15 @@ namespace Mappalachia
 			return FontCollection.Families.First();
 		}
 
-		// Return the image for the super res tile, uses caching
-		public static Image GetImage(this SuperResTile tile)
+		// Return the image for the spotlight tile, uses caching
+		public static Image GetImage(this SpotlightTile tile)
 		{
-			if (SuperResTileImageCache.TryGetValue(tile, out Image? value))
+			if (SpotlightTileImageCache.TryGetValue(tile, out Image? value))
 			{
 				return value;
 			}
 
-			string path = $"{Paths.SuperResTilePath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{SuperResTileImageFileType}";
+			string path = $"{Paths.SpotlightTilePath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{SpotlightTileImageFileType}";
 
 			// This may be common as we do not pre-render tiles outside of the playable space.
 			// TODO we need to handle informing of downloading them, if delivered as an 'addon' download.
@@ -60,7 +60,7 @@ namespace Mappalachia
 			}
 
 			Image image = new Bitmap(path);
-			SuperResTileImageCache[tile] = image;
+			SpotlightTileImageCache[tile] = image;
 
 			return image;
 		}

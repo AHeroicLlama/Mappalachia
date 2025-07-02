@@ -3,19 +3,19 @@ using static Library.Common;
 
 namespace Library
 {
-	public class SuperResTile(Space space, int xCenter, int yCenter)
+	public class SpotlightTile(Space space, int xCenter, int yCenter)
 	{
 		// Returns all the tiles which exist within the rectangle of world coordinates
-		public static List<SuperResTile> GetTilesInRect(RectangleF rect, Space space)
+		public static List<SpotlightTile> GetTilesInRect(RectangleF rect, Space space)
 		{
-			List<SuperResTile> tiles = new List<SuperResTile>();
+			List<SpotlightTile> tiles = new List<SpotlightTile>();
 
 			// Loop over every tile for the rectangle
 			for (int x = SnapToTileCenter(rect.Left); x <= SnapToTileCenter(rect.Right); x += TileWidth)
 			{
 				for (int y = SnapToTileCenter(rect.Bottom); y <= SnapToTileCenter(rect.Top); y += TileWidth)
 				{
-					tiles.Add(new SuperResTile(space, x, y));
+					tiles.Add(new SpotlightTile(space, x, y));
 				}
 			}
 
@@ -62,7 +62,7 @@ namespace Library
 				return true;
 			}
 
-			SuperResTile other = (SuperResTile)obj;
+			SpotlightTile other = (SpotlightTile)obj;
 
 			return XCenter == other.XCenter && YCenter == other.YCenter && Space.Equals(other.Space);
 		}

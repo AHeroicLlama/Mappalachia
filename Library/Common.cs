@@ -11,7 +11,7 @@ namespace Library
 
 		public static string BackgroundImageFileType { get; } = ".jpg";
 
-		public static string SuperResTileImageFileType { get; } = ".jpg";
+		public static string SpotlightTileImageFileType { get; } = ".jpg";
 
 		public static string MaskImageFileType { get; } = ".png";
 
@@ -23,16 +23,16 @@ namespace Library
 
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
 
-		public static int SuperResTileSize { get; } = (int)Math.Pow(2, 12); // 4096
+		public static int SpotlightTileSize { get; } = (int)Math.Pow(2, 12); // 4096
 
-		public static int SuperResScale { get; } = 4; // The ratios of game coordinates to pixels, or the width in cells for each tile (x*x arrangement) used for super resolution
+		public static int SpotlightScale { get; } = 4; // The ratios of game coordinates to pixels, or the width in cells for each tile (x*x arrangement) used for spotlight
 
-		// The size in game coordinates of super res tiles
-		public static int TileWidth { get; } = SuperResTileSize * SuperResScale;
+		// The size in game coordinates of spotlight tiles
+		public static int TileWidth { get; } = SpotlightTileSize * SpotlightScale;
 
 		public static int TileRadius { get; } = TileWidth / 2;
 
-		public static bool SuperResInCells { get; } = false; // Configures if super res is used for cells
+		public static bool SpotlightInCells { get; } = false; // Configures if spotlight is used for cells
 
 		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
 
