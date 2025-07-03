@@ -48,16 +48,19 @@ namespace Mappalachia
 		public static Image Draw(List<Instance> instances, Settings settings)
 		{
 			// Gather the base background image
-			Image mapImage = new Bitmap(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage));
-
+			Image mapImage = new Bitmap(FileIO.EmptyMapImage);
 			using Graphics graphics = Graphics.FromImage(mapImage);
 			graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 			graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
+			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
+
+			graphics.DrawImage(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage), backgroundRectangle);
+
 			// TODO debug spotlight
 			if ((settings.Space.IsWorldspace || SpotlightInCells) && settings.MapSettings.SpotlightEnabled)
 			{
-				PointF spotlightPoint = settings.MapSettings.SpotlightLocation.AsImagePoint(settings.Space);
+				PointF spotlightPoint = settings.MapSettings.SpotlightLocation.AsImagePoint(settings);
 
 				Pen pen = new Pen(Color.Red, 2);
 				int size = 32;
@@ -71,7 +74,7 @@ namespace Mappalachia
 			// Overlay the water mask
 			if (settings.MapSettings.HighlightWater && settings.Space.IsWorldspace)
 			{
-				graphics.DrawImage(settings.Space.GetWaterMask(), 0, 0);
+				graphics.DrawImage(settings.Space.GetWaterMask(), backgroundRectangle);
 			}
 
 			// Call the relevant plot function
@@ -205,7 +208,7 @@ namespace Mappalachia
 
 			foreach (MapMarker marker in mapMarkers)
 			{
-				PointF coord = marker.Coord.AsImagePoint(settings.Space);
+				PointF coord = marker.Coord.AsImagePoint(settings);
 				int labelOffset = 0;
 
 				if (settings.MapSettings.MapMarkerIcons)
@@ -277,24 +280,60 @@ namespace Mappalachia
 
 		// Returns the X/Y of a Coord, scaled from world to image coordinates (given the scaling of the space), as a PointF
 		// Inverse of AsWorldCoord
-		public static PointF AsImagePoint(this Coord coord, Space space)
+		public static PointF AsImagePoint(this Coord coord, Settings settings, bool ignoreSpotlight = false)
 		{
+			if (settings.MapSettings.SpotlightEnabled && !ignoreSpotlight)
+			{
+				double factor = settings.Space.Radius / (TileWidth * settings.MapSettings.SpotlightTileRange);
+
+				coord = new Coord(
+					(coord.X - settings.MapSettings.SpotlightLocation.X) * factor,
+					(coord.Y - settings.MapSettings.SpotlightLocation.Y) * factor);
+			}
+
 			float halfRes = MapImageResolution / 2f;
 
-			return new PointF(
-				(float)(halfRes * (1 + ((coord.X - space.CenterX) / space.Radius))),
-				(float)(halfRes * (1 + (((coord.Y * -1) - space.CenterY) / space.Radius))));
+			PointF point = new PointF(
+				(float)(halfRes * (1 + ((coord.X - settings.Space.CenterX) / settings.Space.Radius))),
+				(float)(halfRes * (1 + (((coord.Y * -1) - settings.Space.CenterY) / settings.Space.Radius))));
+
+			return point;
+		}
+
+		// Returns a RectangleF in image coordinates which represents the size of the core map background images, with spotlight scaling considered
+		// Can be used to apply the background images (and water mask) with respect to spotlight settings
+		public static RectangleF GetScaledMapBackgroundRect(Settings settings)
+		{
+			if (!settings.MapSettings.SpotlightEnabled)
+			{
+				return new RectangleF(0, 0, MapImageResolution, MapImageResolution);
+			}
+
+			float factor = (TileWidth * SpotlightScale) / settings.MapSettings.SpotlightTileRange / (float)MapImageResolution;
+			float width = MapImageResolution * factor;
+
+			Coord offsetSpotLight = new Coord(
+				settings.MapSettings.SpotlightLocation.X,
+				settings.MapSettings.SpotlightLocation.Y);
+
+			PointF spotlightPoint = offsetSpotLight.AsImagePoint(settings, true);
+
+			return new RectangleF(
+				(spotlightPoint.X * (factor * -1)) + (MapImageResolution / 2),
+				(spotlightPoint.Y * (factor * -1)) + (MapImageResolution / 2),
+				width,
+				width);
 		}
 
 		// Returns the game world coordinate of a point on the map image
 		// Inverse of AsImagePoint
-		public static Coord AsWorldCoord(this PointF point, Space space)
+		public static Coord AsWorldCoord(this PointF point, Settings settings)
 		{
 			double halfRes = MapImageResolution / 2d;
 
 			return new Coord(
-				(((point.X / halfRes) - 1) * space.Radius) + space.CenterX,
-				-1 * ((((point.Y / halfRes) - 1) * space.Radius) + space.CenterY));
+				(((point.X / halfRes) - 1) * settings.Space.Radius) + settings.Space.CenterX,
+				-1 * ((((point.Y / halfRes) - 1) * settings.Space.Radius) + settings.Space.CenterY));
 		}
 
 		// Returns the application font in the given pixel size

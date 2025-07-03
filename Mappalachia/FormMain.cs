@@ -64,7 +64,17 @@ namespace Mappalachia
 		internal void SetSpotlightLocation(PointF point)
 		{
 			Settings.MapSettings.SpotlightEnabled = true;
-			SetSetting(() => Settings.MapSettings.SpotlightLocation = point.AsWorldCoord(Settings.Space));
+			SetSetting(() => Settings.MapSettings.SpotlightLocation = point.AsWorldCoord(Settings));
+		}
+
+		internal bool IsSpotlightEnabled()
+		{
+			return Settings.MapSettings.SpotlightEnabled;
+		}
+
+		internal void TurnOffSpotlight()
+		{
+			SetSetting(() => Settings.MapSettings.SpotlightEnabled = false);
 		}
 
 		// Return the header for a DataGridViewColumn with the given name

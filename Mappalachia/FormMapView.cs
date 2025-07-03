@@ -165,13 +165,21 @@ namespace Mappalachia
 			}
 
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
-			ToolStripMenuItem enhance = new ToolStripMenuItem() { Text = "Spotlight here" };
+			ToolStripMenuItem enhance = new ToolStripMenuItem() { Text = FormMain.IsSpotlightEnabled() ? "Disable Spotlight" : "Spotlight Here" };
 			contextMenu.Items.Add(enhance);
 
 			enhance.Click += (s, args) =>
 			{
 				float factor = GetZoomFactor();
-				FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
+
+				if (FormMain.IsSpotlightEnabled())
+				{
+					FormMain.TurnOffSpotlight();
+				}
+				else
+				{
+					FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
+				}
 			};
 
 			contextMenu.Show(pictureBoxMapDisplay, e.Location);

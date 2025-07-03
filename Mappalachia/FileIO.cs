@@ -18,7 +18,7 @@ namespace Mappalachia
 
 		static ImageCodecInfo JpgCodec { get; set; } = ImageCodecInfo.GetImageDecoders().SingleOrDefault(ic => ic.FormatID == ImageFormat.Jpeg.Guid) ?? throw new Exception($"Failed to get jpeg codec");
 
-		static Image EmptyMapImage { get; } = new Bitmap(MapImageResolution, MapImageResolution);
+		public static Image EmptyMapImage { get; } = new Bitmap(MapImageResolution, MapImageResolution);
 
 		static FileIO()
 		{
