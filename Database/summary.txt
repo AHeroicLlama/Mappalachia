@@ -3,9 +3,9 @@ mappalachia.db
 ==SQLite version== 
 3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
 ==Checksum== 
-fa83d8c9f0888cecfc43f947673149a1
+ca28426f73a3c6139e20664c265dfca4
 ==File Size== 
-488521728 
+488820736 
 ==Tables== 
 Entity_Info      Map_Markers      Region           Standard_Search
 Game_Version     NPC_Search       Scrap_Search   
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-PTS 0.2.1785.0
+PTS 0.2.1836.0
 ==Mean Average X/Y/Z Coord==
--9260.31400429045|-5112.61978105629|11158.4430643767
+-9277.88425186097|-4994.91305135932|11149.8944854766
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ PTS 0.2.1785.0
 ==Z outliers==
 78
 ==Average X Bounds Width==
-23.0317585037349
+23.0581203305683
 ==Average Y Bounds Width==
-16.9119270623395
+16.9347996925537
 ==Average Z Bounds Width==
-16.8134713885227
+16.8209417857477
 ==Average Z Rotation==
-4.38861736915306
+4.39305963532947
 ==Average display name string length==
-2.83801036531412
+2.83130960883996
 ==Average editorID string length==
-25.252643997809
+25.2625099785723
 ==Map Markers==
 APPALACHIA|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 APPALACHIA|AirfieldMarker|Crashed Plane|147706|58411
@@ -473,7 +473,7 @@ APPALACHIA|RadioTowerMarker|Relay Tower EM-B1-27|-119286|37573
 APPALACHIA|RadioTowerMarker|Relay Tower HG-B7-09|-132480|-72652
 APPALACHIA|RadioTowerMarker|Relay Tower HN-B1-12|-6316|34602
 APPALACHIA|RadioTowerMarker|Relay Tower LW-B1-22|105336|88146
-APPALACHIA|RadioTowerMarker|Research Site Bavaria|75264|-232416
+APPALACHIA|RadioTowerMarker|Research Site Bavaria|75264|-232271
 APPALACHIA|RadioTowerMarker|Research Site Rhineland|-557|-219269
 APPALACHIA|RadioTowerMarker|Research Site Saxony|-46744|-234346
 APPALACHIA|RadioTowerMarker|Transmission Station 1AT-U03|-154116|126040
@@ -569,7 +569,7 @@ APPALACHIA|WoodShackMarker|Susan's Cabin|97676|-204801
 APPALACHIA|WoodShackMarker|Toxic Larry's Meat 'n Go|115473|39450
 APPALACHIA|WoodShackMarker|Treetops|162220|-26927
 ==Total Unique entities==
-47466
+47602
 ==Regions==
 Space|Region|subRegions|maxVerts
 APPALACHIA|76Border|1|66
@@ -809,10 +809,10 @@ AMSHQ01|Box|314
 AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
-APPALACHIA||3196644
-APPALACHIA|Box|71393
+APPALACHIA||3195218
+APPALACHIA|Box|71439
 APPALACHIA|Ellipsoid|3
-APPALACHIA|Line|1777
+APPALACHIA|Line|1802
 APPALACHIA|Plane|204
 APPALACHIA|Sphere|2662
 AVRMedicalCenter01||5742
@@ -1039,7 +1039,7 @@ PoseidonPlant01|Line|4
 PoseidonPlant02||3827
 PoseidonPlant02|Box|360
 PoseidonPlant02|Line|2
-RD01GleamingDepths||18386
+RD01GleamingDepths||18390
 RD01GleamingDepths|Box|1336
 RD01GleamingDepths|Line|2
 RD01GleamingDepths|Plane|47
@@ -1254,9 +1254,11 @@ WestTek01|Sphere|2
 WestTek02||4964
 WestTek02|Box|162
 WestTek02|Sphere|1
+WestTek02Arena||3082
+WestTek02Arena|Box|128
 WhitespringBunker01||15833
 WhitespringBunker01|Box|500
-WhitespringMall01||6810
+WhitespringMall01||6811
 WhitespringMall01|Box|137
 WhitespringRefuge01||11464
 WhitespringRefuge01|Box|227
@@ -1324,14 +1326,14 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3271543
+APPALACHIA||3270186
 APPALACHIA|Advanced (Level 1)|341
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
 APPALACHIA|Expert (Level 2)|208
 APPALACHIA|Inaccessible|33
 APPALACHIA|Master (Level 3)|88
-APPALACHIA|Novice (Level 0)|362
+APPALACHIA|Novice (Level 0)|364
 APPALACHIA|Requires Key|93
 APPALACHIA|Requires Terminal|9
 APPALACHIA|Unknown|1
@@ -1593,7 +1595,7 @@ PoseidonPlant02|Advanced (Level 1)|3
 PoseidonPlant02|Expert (Level 2)|1
 PoseidonPlant02|Requires Key|2
 PoseidonPlant02|Requires Terminal|1
-RD01GleamingDepths||19757
+RD01GleamingDepths||19761
 RD01GleamingDepths|Inaccessible|14
 RadioResearchCenter01||3464
 RadioResearchCenter01|Advanced (Level 1)|3
@@ -1852,11 +1854,13 @@ WestTek02||5120
 WestTek02|Inaccessible|5
 WestTek02|Novice (Level 0)|1
 WestTek02|Requires Terminal|1
+WestTek02Arena||3204
+WestTek02Arena|Inaccessible|6
 WhitespringBunker01||16323
 WhitespringBunker01|Advanced (Level 1)|1
 WhitespringBunker01|Master (Level 3)|2
 WhitespringBunker01|Novice (Level 0)|7
-WhitespringMall01||6934
+WhitespringMall01||6935
 WhitespringMall01|Advanced (Level 1)|1
 WhitespringMall01|Expert (Level 2)|1
 WhitespringMall01|Master (Level 3)|3
@@ -1972,35 +1976,35 @@ AMSHQ02|SCOL|186
 AMSHQ02|STAT|1421
 AMSHQ02|TERM|1
 AMSHQ02|TXST|46
-APPALACHIA|ACTI|23978
-APPALACHIA|ALCH|311
+APPALACHIA|ACTI|24005
+APPALACHIA|ALCH|310
 APPALACHIA|AMMO|80
 APPALACHIA|ARMO|132
-APPALACHIA|ASPC|2378
+APPALACHIA|ASPC|2381
 APPALACHIA|BNDS|10492
-APPALACHIA|BOOK|598
+APPALACHIA|BOOK|599
 APPALACHIA|CNCY|265
-APPALACHIA|CONT|13667
+APPALACHIA|CONT|13677
 APPALACHIA|DOOR|2662
-APPALACHIA|FLOR|51709
-APPALACHIA|FURN|15887
+APPALACHIA|FLOR|51717
+APPALACHIA|FURN|15893
 APPALACHIA|HAZD|1087
-APPALACHIA|IDLM|19120
+APPALACHIA|IDLM|19121
 APPALACHIA|KEYM|38
-APPALACHIA|LIGH|9284
-APPALACHIA|LVLI|73927
-APPALACHIA|MISC|38014
-APPALACHIA|MSTT|24693
+APPALACHIA|LIGH|9332
+APPALACHIA|LVLI|73942
+APPALACHIA|MISC|38026
+APPALACHIA|MSTT|24709
 APPALACHIA|NOTE|185
-APPALACHIA|NPC_|8293
+APPALACHIA|NPC_|8294
 APPALACHIA|PROJ|93
-APPALACHIA|SCOL|366713
+APPALACHIA|SCOL|366917
 APPALACHIA|SECH|253
-APPALACHIA|SOUN|5918
-APPALACHIA|STAT|2531697
+APPALACHIA|SOUN|5959
+APPALACHIA|STAT|2529937
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
-APPALACHIA|TXST|70500
+APPALACHIA|TXST|70513
 APPALACHIA|WEAP|260
 AVRMedicalCenter01|ACTI|56
 AVRMedicalCenter01|ASPC|24
@@ -3501,13 +3505,13 @@ RD01GleamingDepths|ACTI|127
 RD01GleamingDepths|ARMO|4
 RD01GleamingDepths|BNDS|128
 RD01GleamingDepths|BOOK|6
-RD01GleamingDepths|CONT|60
+RD01GleamingDepths|CONT|65
 RD01GleamingDepths|DOOR|23
 RD01GleamingDepths|FURN|65
 RD01GleamingDepths|HAZD|49
 RD01GleamingDepths|IDLM|19
 RD01GleamingDepths|LIGH|952
-RD01GleamingDepths|LVLI|30
+RD01GleamingDepths|LVLI|29
 RD01GleamingDepths|MISC|96
 RD01GleamingDepths|MSTT|342
 RD01GleamingDepths|NOTE|8
@@ -4842,6 +4846,20 @@ WestTek02|STAT|4058
 WestTek02|TACT|1
 WestTek02|TERM|2
 WestTek02|TXST|65
+WestTek02Arena|ACTI|13
+WestTek02Arena|BNDS|21
+WestTek02Arena|CONT|19
+WestTek02Arena|DOOR|11
+WestTek02Arena|FURN|7
+WestTek02Arena|LIGH|107
+WestTek02Arena|LVLI|11
+WestTek02Arena|MISC|24
+WestTek02Arena|MSTT|63
+WestTek02Arena|NPC_|1
+WestTek02Arena|SCOL|236
+WestTek02Arena|SOUN|31
+WestTek02Arena|STAT|2608
+WestTek02Arena|TXST|58
 WhitespringBunker01|ACTI|688
 WhitespringBunker01|ASPC|12
 WhitespringBunker01|BNDS|52
@@ -4869,7 +4887,7 @@ WhitespringMall01|ARMO|11
 WhitespringMall01|ASPC|1
 WhitespringMall01|BNDS|6
 WhitespringMall01|BOOK|1
-WhitespringMall01|CONT|151
+WhitespringMall01|CONT|152
 WhitespringMall01|DOOR|50
 WhitespringMall01|FLOR|1
 WhitespringMall01|FURN|151
@@ -5275,7 +5293,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3266234
+APPALACHIA||3264866
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -5875,7 +5893,6 @@ APPALACHIA|CampClutterDisable|1
 APPALACHIA|CampClutterEnable|1
 APPALACHIA|CampMcClintock_LocationCenter|1
 APPALACHIA|CampMcClintock_LocationEdge|1
-APPALACHIA|CampRapidan_BrownHouseGroup002|1
 APPALACHIA|CampVentureArmorWorkbenchRef|1
 APPALACHIA|CappyImposterHandler|1
 APPALACHIA|CappyMarker01|1
@@ -7994,20 +8011,30 @@ APPALACHIA|MN2_Bonfire09|1
 APPALACHIA|MN2_Bonfire10|1
 APPALACHIA|MN2_Bonfire11|1
 APPALACHIA|MN2_EventRadioTransmitterRef|1
+APPALACHIA|MN2_Forest_Sandbox|1
+APPALACHIA|MN2_Grounds_Sandbox|1
+APPALACHIA|MN2_Helipad_Sandbox|1
 APPALACHIA|MN2_InitiallyDisabled_Marker|1
 APPALACHIA|MN2_InitiallyEnabled_Marker|1
 APPALACHIA|MN2_MarkerPyre_CliffsOffset|1
 APPALACHIA|MN2_MarkerPyre_ForestOffset|1
 APPALACHIA|MN2_Marker_PyreCliffs|1
+APPALACHIA|MN2_Marker_PyreForest|1
+APPALACHIA|MN2_Marker_PyreForest02|1
 APPALACHIA|MN2_Marker_PyreForest_Copy01|1
-APPALACHIA|MN2_Marker_PyreForest_Copy02|1
-APPALACHIA|MN2_Marker_PyreForest_Copy03|1
 APPALACHIA|MN2_Marker_PyreRoomsOffset|1
 APPALACHIA|MN2_Mischief_PlayerSpawnCenter|1
+APPALACHIA|MN2_Mischief_PyreForest|1
+APPALACHIA|MN2_Mischief_PyreForest_Trigger|1
+APPALACHIA|MN2_Mischief_PyreGrounds|1
+APPALACHIA|MN2_Mischief_PyreGrounds_Trigger|1
+APPALACHIA|MN2_Mischief_PyreHelipad|1
+APPALACHIA|MN2_Mischief_PyreHelipad_Trigger|1
+APPALACHIA|MN2_Mischief_PyreStart|1
 APPALACHIA|MN2_PlayerSpawnMarker|1
 APPALACHIA|MN2_SpawnCenter_Boss|1
 APPALACHIA|MN2_SpawnCenter_Forest|1
-APPALACHIA|MN2_SpawnCenter_Grounds_Copy01|1
+APPALACHIA|MN2_SpawnCenter_Grounds|1
 APPALACHIA|MN2_SpawnCenter_Helipad|1
 APPALACHIA|MN2_SteelJackMarker|1
 APPALACHIA|MOON_Ambsuh_Root|1
@@ -10201,6 +10228,10 @@ APPALACHIA|SecondaryBridgePrefer|1
 APPALACHIA|SecureStorageDoorREF|1
 APPALACHIA|ShootingRangeAttendantRef|1
 APPALACHIA|Sign_The_Rusty_PickRef|1
+APPALACHIA|SilverBridgePhase02EnableMarker|1
+APPALACHIA|SilverBridgePhase02NavCutVolume|1
+APPALACHIA|SilverBridgePhase03EnableMarker|1
+APPALACHIA|SilverBridgePhase03NavCutVolume|1
 APPALACHIA|SkyboundTowerPOI|1
 APPALACHIA|SmallFissureTrigger1|1
 APPALACHIA|SmallFissureTrigger2|1
@@ -13981,7 +14012,7 @@ PoseidonPlant02|W05_MQR_204P_LevHideoutInstanceMarker|1
 PoseidonPlant02|WL020_LockedDoor_EnableMarker|1
 PoseidonPlant02|WL020_Post204P_UnlockedDoor01|1
 PoseidonPlant02|WL020_Post204P_UnlockedDoor02|1
-RD01GleamingDepths||19589
+RD01GleamingDepths||19593
 RD01GleamingDepths|EncounterDoor_Marker01|1
 RD01GleamingDepths|EncounterDoor_Marker02|1
 RD01GleamingDepths|EncounterDoor_Marker03|1
@@ -16065,6 +16096,11 @@ WestTek02|BS02_MQ05_Catalyst_TubeRef|1
 WestTek02|BS02_MQ05_Catalyst_ViewingRoomDoorRef|1
 WestTek02|BS02_MQ05_Catalyst_ViewingRoomDoorTerminal_Ref|1
 WestTek02|TestElevDoorARef092|1
+WestTek02Arena||3206
+WestTek02Arena|BS02_MQ05_Catalyst_BossRoomHatch_Ref001|1
+WestTek02Arena|BS02_MQ05_Catalyst_TubeRef001|1
+WestTek02Arena|KlaxonManagerMain|1
+WestTek02Arena|WestTek01ElevatorDoor001|1
 WhitespringBunker01||16267
 WhitespringBunker01|EN01A_KeycardPrinterSpawnMarker|1
 WhitespringBunker01|EN01A_LogSpawnMarker|1
@@ -16132,7 +16168,7 @@ WhitespringBunker01|xSCElevatorTest|1
 WhitespringBunker01|xSCModus|1
 WhitespringBunker01|xSCModus2|1
 WhitespringBunker01|xSCSpot|1
-WhitespringMall01||6928
+WhitespringMall01||6929
 WhitespringMall01|EX002_WhitespringMall_ElevToRefuge_LoadDoor01|1
 WhitespringMall01|EX002_WhitespringMall_ElevToRefuge_LoadDoor02|1
 WhitespringMall01|EX002_WhitespringMall_ElevToRefuge_LoadDoor03|1
@@ -17427,9 +17463,9 @@ AMSHQ01|75|1
 AMSHQ01|100|5474
 AMSHQ02|100|1993
 APPALACHIA|50|53
-APPALACHIA|75|166
+APPALACHIA|75|167
 APPALACHIA|85|251
-APPALACHIA|100|3272213
+APPALACHIA|100|3270857
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -17530,7 +17566,7 @@ OrwellOrchardsShelter01|100|2209
 OverseersHome01|100|1250
 PoseidonPlant01|100|15659
 PoseidonPlant02|100|4189
-RD01GleamingDepths|100|19771
+RD01GleamingDepths|100|19775
 RadioResearchCenter01|100|3472
 RaiderCave02|100|1874
 RaiderRaidTrailerInt|100|106
@@ -17642,8 +17678,10 @@ WendigoCave01|100|6741
 WestTek01|100|11786
 WestTek02|75|1
 WestTek02|100|5126
+WestTek02Arena|75|1
+WestTek02Arena|100|3209
 WhitespringBunker01|100|16333
-WhitespringMall01|100|6947
+WhitespringMall01|100|6948
 WhitespringRefuge01|100|11691
 XPDAC01Casino|100|13811
 XPDAC01EntertainmentDistrict|100|6793
@@ -17729,37 +17767,37 @@ AMSHQ02|Steel|42|23
 AMSHQ02|Wood|15|13
 APPALACHIA|Acid|1445|936
 APPALACHIA|Adhesive|1274|542
-APPALACHIA|Aluminum|2413|1553
-APPALACHIA|Antiseptic|910|434
+APPALACHIA|Aluminum|2417|1555
+APPALACHIA|Antiseptic|912|435
 APPALACHIA|Asbestos|1742|1293
 APPALACHIA|Ballistic Fiber|286|110
-APPALACHIA|Bone|4294|1437
-APPALACHIA|Ceramic|4038|3488
+APPALACHIA|Bone|4280|1432
+APPALACHIA|Ceramic|4041|3491
 APPALACHIA|Circuitry|506|395
-APPALACHIA|Cloth|6246|5518
+APPALACHIA|Cloth|6248|5520
 APPALACHIA|Concrete|2447|447
 APPALACHIA|Copper|1632|1520
-APPALACHIA|Cork|647|524
-APPALACHIA|Crystal|373|208
+APPALACHIA|Cork|646|523
+APPALACHIA|Crystal|370|207
 APPALACHIA|Fertilizer|1195|412
 APPALACHIA|Fiber Optics|44|43
 APPALACHIA|Fiberglass|1133|872
 APPALACHIA|Gear|1257|1044
-APPALACHIA|Glass|9554|7889
+APPALACHIA|Glass|9560|7895
 APPALACHIA|Gold|96|96
 APPALACHIA|Gunpowder|1|1
 APPALACHIA|Lead|5577|3212
-APPALACHIA|Leather|1987|897
+APPALACHIA|Leather|1977|894
 APPALACHIA|Nuclear Material|148|148
-APPALACHIA|Oil|3852|2582
+APPALACHIA|Oil|3850|2582
 APPALACHIA|Plastic|6192|4264
-APPALACHIA|Rubber|2222|1262
+APPALACHIA|Rubber|2224|1264
 APPALACHIA|Screw|1261|1123
 APPALACHIA|Silver|291|243
 APPALACHIA|Spring|1407|1375
-APPALACHIA|Steel|19838|10135
+APPALACHIA|Steel|19851|10143
 APPALACHIA|Ultracite|1|1
-APPALACHIA|Wood|6082|3585
+APPALACHIA|Wood|6087|3588
 AVRMedicalCenter01|Acid|6|5
 AVRMedicalCenter01|Adhesive|4|1
 AVRMedicalCenter01|Aluminum|33|18
@@ -20921,6 +20959,20 @@ WestTek02|Screw|6|5
 WestTek02|Spring|8|8
 WestTek02|Steel|39|19
 WestTek02|Wood|31|16
+WestTek02Arena|Aluminum|6|3
+WestTek02Arena|Asbestos|6|4
+WestTek02Arena|Ceramic|9|9
+WestTek02Arena|Crystal|2|1
+WestTek02Arena|Fiber Optics|1|1
+WestTek02Arena|Gear|5|3
+WestTek02Arena|Glass|4|2
+WestTek02Arena|Lead|1|1
+WestTek02Arena|Plastic|6|4
+WestTek02Arena|Rubber|7|5
+WestTek02Arena|Screw|2|2
+WestTek02Arena|Spring|3|3
+WestTek02Arena|Steel|9|5
+WestTek02Arena|Wood|8|4
 WhitespringBunker01|Acid|2|1
 WhitespringBunker01|Adhesive|5|2
 WhitespringBunker01|Aluminum|14|9
@@ -21526,6 +21578,7 @@ WhitespringRefuge01|Robot|100.0|1
 00081A9D|WatogaMunicipalCenter01|Watoga Municipal Center|0|768|350|-634|2171|-1164|1864|0|0|1.0
 0053F689|OverseersHome01|Overseer's Home|0|2005|822|1112|2899|-185|1830|0|0|1.0
 005B7D87|Vault94Dungeon|Vault 94|0|-12586|-527|-17811|-7362|-5911|4857|0|0|1.0
+0082BF23|WestTek02Arena|FEV Production Facility|0|7865|3037|3840|11890|-454|6528|0|0|1.0
 00620445|SheltersMissileSilo|Abandoned Mine Shelter|0|1368|287|-1352|4088|-2985|3560|0|0|1.0
 007AD56F|SheltersGleamingDepths|Gleaming Depths Shelter|0|1480|208|-944|3904|-4320|4736|0|0|1.0
 00664055|SheltersPittTrench01|Neighborhood Square Shelter|0|1958|1279|-3195|7112|-5571|8129|0|0|1.0
@@ -21702,4 +21755,4 @@ WhitespringRefuge01|Robot|100.0|1
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4406064|4406064
+4407924|4407924

@@ -101,6 +101,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005D87CA,,,0
 0066923E,,,0
 00781446,PackInF1SurvivalTentVintageCamperPKINStorageCell,,0
+008269FA,testStaticCollectioncontrol,Quick Test Cell,0
 000182CC,76HoldingCellPowerSystem,Quick Test Cell,0
 000648AC,,,0
 0007330C,COPY0265,,0
@@ -332,6 +333,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006822A3,PackInATXPackInEventFurnitureAppleBarrelStorageCellDUPLICATE000,,0
 0078CBDF,WarehouseRaids,Quick Test Cell,0
 0079A1EF,DebugJamieR,Quick Test Cell,0
+008269FB,testStaticCollectionSCs,Quick Test Cell,0
 00005029,PackInPACKMtnTopCreosoteShrubSmall01StorageCell,,0
 00093B5D,,,0
 00192DC9,PackInBld02Angle45BrickACom01PackInStorageCell,,0
@@ -351,6 +353,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005B4619,PackInSheltersEntranceSmallGreenhouseSmallStorageCell,,0
 005F0E75,DebugDobert04,Quick Test Cell,0
 0060A6A9,,,0
+0081C7E9,D11GOTestCell,Quick Test Cell,0
 000028BF,,,0
 0002FE87,PackInworkshopPACKTableTest01GroupedStorageCell,,0
 0009BABF,,,0
@@ -484,6 +487,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006AC521,DebugHillValley,Hill Valley,0
 006C6DBD,PackInSCORES14CollectronpackinAutoMinerStorageCell,,0
 006DC389,,,0
+008428BD,PackInSCORES22PackinNukaColaFoosballTableNewStorageCell,,0
 00004007,zCUT76DangerRoom,76 PVP Playground,0
 000042C3,zCUTTestDrewIndScraps,Quick Test Cell,0
 0003D983,PackInLvlBloodbugAmbushCeilingShortPackInStorageCell,,0
@@ -562,6 +566,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0051AD6C,PackInMSiloOperationsConsoleSingleTall09StorageCell,,0
 00526A7C,,,0
 005600D8,PackInREPackInMiningStorageCell,,0
+008269FC,testStaticCollectioncontrolSCcombined,Quick Test Cell,0
 0000747E,zCUTDebugJustinM,Quick Test Cell,0
 0000792E,,,0
 0000C302,,,0
@@ -782,6 +787,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005A65D9,PackInSheltersEntranceCavesmallStorageCell,,0
 00665A65,76HoldingCellNWOT,Quick Test Cell,0
 00777999,WarehouseGlassShader,Glass Shader Test Cell,0
+008269FD,testStaticCollectionFragmented,Quick Test Cell,0
 0000408B,zCUTTestLockpickHack,Quick Test Cell,0
 000043AB,PackInPACKToxicTreeStumpBranches02StorageCell,,0
 00004B17,zCUTTestCory01,Quick Test Cell,0
@@ -1108,6 +1114,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006DC382,PackInPACKStormCrptMtnTopPineTree01StorageCell,,0
 006EC426,,,0
 00811982,PackInFishingPackinLGTFishCatchLightingRig01StorageCell,,0
+0084585E,PackInSCORES22CollectronpackinRoboButlerStorageCell,,0
 00001698,PackInWorkshopPACKWrhsPrefab01StorageCell,,0
 000028F4,,,0
 0000E0F0,PackInFEVDecalTrap02StorageCell,,0
@@ -1257,6 +1264,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 00586D49,PackInDenizenPackInRaiderIntimidatorStorageCell,,0
 006C1BF5,76StormCDBTest,Quick Test Cell,0
 006CE265,DebugDaveB,Quick Test Cell,0
+0082A6A9,PackInATXCollectronpackinLiberatedStorageCell,,0
 00002873,PackInWildernessSandboxPackInMainStorageCell,,0
 0015D6D7,,,0
 00170F57,COPY0088,,0
@@ -1768,6 +1776,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0069B669,DebugJeffU04,Aquarium,0
 006CD0F1,DebugGreenScreen,DebugGreenScreen,0
 006DC385,,,0
+0084133D,PackInSCORES22PackinNukaColaFoosballTableStorageCell,,0
 000028F7,,,0
 00021BCB,,,0
 001466FF,PackInTrapGunWallVertAutoPackinStorageCell,,0
