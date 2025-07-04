@@ -180,6 +180,8 @@ namespace Mappalachia
 				{
 					FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
 				}
+
+				SizeMapToForm();
 			};
 
 			contextMenu.Show(pictureBoxMapDisplay, e.Location);

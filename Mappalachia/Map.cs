@@ -309,7 +309,7 @@ namespace Mappalachia
 				return new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 			}
 
-			float factor = (TileWidth * SpotlightScale) / settings.MapSettings.SpotlightTileRange / (float)MapImageResolution;
+			float factor = (TileWidth * SpotlightScale) / settings.MapSettings.SpotlightTileRange / ((float)MapImageResolution / 2);
 			float width = MapImageResolution * factor;
 
 			Coord offsetSpotLight = new Coord(
