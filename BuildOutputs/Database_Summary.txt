@@ -5,10 +5,10 @@ Size
 347852 KB
 
 Built At UTC
-16/06/2025 17:03:40
+04/07/2025 15:30:16
 
 CSV Imported with SQLite Version
-3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
+3.50.2 2025-06-28 14:00:48 2af157d77fb1304a74176eaee7fbc7c7e932d946bf25325e9c26c91db19e3079 (64-bit)
 
 Tables
 Container            NPC                  RegionPoints       

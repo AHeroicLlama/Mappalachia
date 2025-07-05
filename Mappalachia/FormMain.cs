@@ -64,7 +64,7 @@ namespace Mappalachia
 		internal void SetSpotlightLocation(PointF point)
 		{
 			Settings.MapSettings.SpotlightEnabled = true;
-			SetSetting(() => Settings.MapSettings.SpotlightLocation = point.AsWorldCoord(Settings));
+			SetSetting(() => Settings.MapSettings.SpotlightLocation = point.AsWorldCoord(Settings, true));
 		}
 
 		internal bool IsSpotlightEnabled()
