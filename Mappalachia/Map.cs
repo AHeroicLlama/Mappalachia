@@ -55,10 +55,16 @@ namespace Mappalachia
 
 			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
 
-			graphics.DrawImage(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage), backgroundRectangle);
+			// Respect the selected background image, but in spotlight, force render, unless it's none
+			BackgroundImageType backgroundImageType =
+				settings.MapSettings.SpotlightEnabled && settings.MapSettings.BackgroundImage != BackgroundImageType.None
+				? BackgroundImageType.Render :
+				settings.MapSettings.BackgroundImage;
+
+			graphics.DrawImage(settings.Space.GetBackgroundImage(backgroundImageType), backgroundRectangle);
 
 			// TODO debug spotlight
-			if ((settings.Space.IsWorldspace || SpotlightInCells) && settings.MapSettings.SpotlightEnabled)
+			if ((settings.Space.IsWorldspace || SpotlightInCells) && settings.MapSettings.SpotlightEnabled && settings.MapSettings.BackgroundImage != BackgroundImageType.None)
 			{
 				List<SpotlightTile> spotlightTiles = SpotlightTile.GetTilesInRect(new RectangleF(0, 0, MapImageResolution, MapImageResolution).AsWorldRectangle(settings), settings.Space);
 
