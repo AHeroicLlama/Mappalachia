@@ -60,12 +60,12 @@ namespace Mappalachia
 			// TODO debug spotlight
 			if ((settings.Space.IsWorldspace || SpotlightInCells) && settings.MapSettings.SpotlightEnabled)
 			{
-				PointF spotlightPoint = settings.MapSettings.SpotlightLocation.AsImagePoint(settings);
+				List<SpotlightTile> spotlightTiles = SpotlightTile.GetTilesInRect(new RectangleF(0, 0, MapImageResolution, MapImageResolution).AsWorldRectangle(settings), settings.Space);
 
-				Pen pen = new Pen(Color.Red, 2);
-				int size = 32;
-				graphics.DrawLine(pen, spotlightPoint.X - size, spotlightPoint.Y - size, spotlightPoint.X + size, spotlightPoint.Y + size);
-				graphics.DrawLine(pen, spotlightPoint.X - size, spotlightPoint.Y + size, spotlightPoint.X + size, spotlightPoint.Y - size);
+				foreach (SpotlightTile tile in spotlightTiles)
+				{
+					graphics.DrawImage(tile.GetImage(), tile.GetRectangle().AsImageRectangle(settings));
+				}
 			}
 
 			// Apply the brightness and grayscale if selected
@@ -335,6 +335,30 @@ namespace Mappalachia
 			PointF bottomRight = new PointF(MapImageResolution, MapImageResolution).AsWorldCoord(settings, true).AsImagePoint(settings);
 
 			return new RectangleF(topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
+		}
+
+		public static RectangleF AsWorldRectangle(this RectangleF rect, Settings settings)
+		{
+			Coord topLeft = new PointF(rect.Left, rect.Top).AsWorldCoord(settings);
+			Coord bottomRight = new PointF(rect.Right, rect.Bottom).AsWorldCoord(settings);
+
+			return new RectangleF(
+				(float)topLeft.X,
+				(float)topLeft.Y,
+				(float)(bottomRight.X - topLeft.X),
+				(float)(bottomRight.Y - topLeft.Y));
+		}
+
+		// Returns the rectangle in image coordinates, given a rectangle in world coordinates
+		static RectangleF AsImageRectangle(this RectangleF rect, Settings settings)
+		{
+			Coord topLeftWorld = new Coord(rect.Left, rect.Top);
+			Coord bottomRightWorld = new Coord(rect.Right, rect.Bottom);
+
+			PointF topLeft = topLeftWorld.AsImagePoint(settings);
+			PointF bottomRight = bottomRightWorld.AsImagePoint(settings);
+
+			return new RectangleF(topLeft.X, topLeft.Y, Math.Abs(bottomRight.X - topLeft.X), Math.Abs(bottomRight.Y - topLeft.Y));
 		}
 
 		// Returns the application font in the given pixel size

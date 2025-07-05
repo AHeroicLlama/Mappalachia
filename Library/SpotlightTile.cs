@@ -50,6 +50,12 @@ namespace Library
 				coord.Y < YCenter + TileRadius;
 		}
 
+		// Returns the rectangleF in world coordinates which defines the location of this tile
+		public RectangleF GetRectangle()
+		{
+			return new RectangleF(XCenter - TileRadius, YCenter + TileRadius, TileWidth, TileWidth);
+		}
+
 		public override bool Equals(object? obj)
 		{
 			if (obj == null)
