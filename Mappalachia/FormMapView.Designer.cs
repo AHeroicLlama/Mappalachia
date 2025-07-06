@@ -39,20 +39,21 @@
 			// 
 			// pictureBoxMapDisplay
 			// 
-			pictureBoxMapDisplay.BackColor = Color.MidnightBlue;
-			pictureBoxMapDisplay.Location = new Point(0, 24);
+			pictureBoxMapDisplay.BackColor = Color.Silver;
+			pictureBoxMapDisplay.Location = new Point(0, 0);
 			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
 			pictureBoxMapDisplay.Size = new Size(1008, 961);
 			pictureBoxMapDisplay.SizeMode = PictureBoxSizeMode.Zoom;
 			pictureBoxMapDisplay.TabIndex = 1;
 			pictureBoxMapDisplay.TabStop = false;
-			pictureBoxMapDisplay.DoubleClick += PictureBoxMapDisplay_DoubleClick;
 			pictureBoxMapDisplay.MouseClick += PictureBoxMapDisplay_MouseClick;
+			pictureBoxMapDisplay.MouseDoubleClick += PictureBoxMapDisplay_DoubleClick;
 			pictureBoxMapDisplay.MouseDown += PictureBoxMapDisplay_MouseDown;
 			pictureBoxMapDisplay.MouseMove += PictureBoxMapDisplay_MouseMove;
 			// 
 			// menuStripPreview
 			// 
+			menuStripPreview.AllowClickThrough = true;
 			menuStripPreview.Items.AddRange(new ToolStripItem[] { resetZoomMenuItem, keepOnTopMenuItem });
 			menuStripPreview.Location = new Point(0, 0);
 			menuStripPreview.Name = "menuStripPreview";
@@ -78,7 +79,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			BackColor = Color.Black;
+			BackColor = Color.DimGray;
 			ClientSize = new Size(1008, 985);
 			Controls.Add(pictureBoxMapDisplay);
 			Controls.Add(menuStripPreview);

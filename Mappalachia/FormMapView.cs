@@ -115,9 +115,13 @@ namespace Mappalachia
 			LastMouseDragEnd = e.Location;
 		}
 
+		// Open external on double-left-click
 		private void PictureBoxMapDisplay_DoubleClick(object sender, EventArgs e)
 		{
-			FileIO.TempSave(MapImage, true);
+			if (((MouseEventArgs)e).Button == MouseButtons.Left)
+			{
+				FileIO.TempSave(MapImage, true);
+			}
 		}
 
 		// Intercept mouse wheel events to handle zooming
@@ -156,7 +160,7 @@ namespace Mappalachia
 			Hide();
 		}
 
-		// On right click, show a context menu, when selected pass the click location to a draw call on the main form
+		// On right click, show a context menu, when selected pass the click location to Spotlight via the main form
 		private void PictureBoxMapDisplay_MouseClick(object sender, MouseEventArgs e)
 		{
 			if (e.Button != MouseButtons.Right)
@@ -166,19 +170,24 @@ namespace Mappalachia
 
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
 
-			ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
-			spotlight.Click += (s, args) =>
+			if (FormMain.Settings.MapSettings.LegendStyle != LegendStyle.Extended)
 			{
-				float factor = GetZoomFactor();
-				FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
-				SizeMapToForm();
-			};
+				ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
 
-			contextMenu.Items.Add(spotlight);
+				spotlight.Click += (s, args) =>
+				{
+					float factor = GetZoomFactor();
+					FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
+					SizeMapToForm();
+				};
+
+				contextMenu.Items.Add(spotlight);
+			}
 
 			if (FormMain.IsSpotlightEnabled())
 			{
 				ToolStripMenuItem turnOff = new ToolStripMenuItem() { Text = "Disable Spotlight" };
+
 				turnOff.Click += (s, args) =>
 				{
 					FormMain.TurnOffSpotlight();
@@ -188,7 +197,10 @@ namespace Mappalachia
 				contextMenu.Items.Add(turnOff);
 			}
 
-			contextMenu.Show(pictureBoxMapDisplay, e.Location);
+			if (contextMenu.Items.Count > 0)
+			{
+				contextMenu.Show(pictureBoxMapDisplay, e.Location);
+			}
 		}
 	}
 }

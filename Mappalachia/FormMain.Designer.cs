@@ -107,6 +107,7 @@ namespace Mappalachia
 			// 
 			// menuStripMain
 			// 
+			menuStripMain.AllowClickThrough = true;
 			menuStripMain.Items.AddRange(new ToolStripItem[] { mapMenuItem, searchSettingsToolStripMenuItem, plotSettingsMenuItem, helpToolStripMenuItem, joinTheDiscordToolStripMenuItem, sayThanksToolStripMenuItem });
 			menuStripMain.Location = new Point(0, 0);
 			menuStripMain.Name = "menuStripMain";

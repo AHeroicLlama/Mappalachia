@@ -55,24 +55,10 @@ namespace Mappalachia
 
 			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
 
-			// Respect the selected background image, but in spotlight, force render, unless it's none
-			BackgroundImageType backgroundImageType =
-				settings.MapSettings.SpotlightEnabled && settings.MapSettings.BackgroundImage != BackgroundImageType.None
-				? BackgroundImageType.Render :
-				settings.MapSettings.BackgroundImage;
+			// Draw the main background image
+			graphics.DrawImage(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage), backgroundRectangle);
 
-			graphics.DrawImage(settings.Space.GetBackgroundImage(backgroundImageType), backgroundRectangle);
-
-			// TODO debug spotlight
-			if ((settings.Space.IsWorldspace || SpotlightInCells) && settings.MapSettings.SpotlightEnabled && settings.MapSettings.BackgroundImage != BackgroundImageType.None)
-			{
-				List<SpotlightTile> spotlightTiles = SpotlightTile.GetTilesInRect(new RectangleF(0, 0, MapImageResolution, MapImageResolution).AsWorldRectangle(settings), settings.Space);
-
-				foreach (SpotlightTile tile in spotlightTiles)
-				{
-					graphics.DrawImage(tile.GetImage(), tile.GetRectangle().AsImageRectangle(settings));
-				}
-			}
+			DrawSpotlightTiles(settings, graphics);
 
 			// Apply the brightness and grayscale if selected
 			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
@@ -103,16 +89,8 @@ namespace Mappalachia
 					throw new Exception("Unexpected PlotMode: " + settings.PlotSettings.Mode);
 			}
 
-			if (settings.PlotSettings.ShowPlotsInOtherSpaces)
-			{
-				DrawConnectingSpacePlots(instances, settings, graphics);
-			}
-
-			if (settings.PlotSettings.DrawInstanceFormID)
-			{
-				DrawInstanceFormIDs(instances, settings, graphics);
-			}
-
+			DrawConnectingSpacePlots(instances, settings, graphics);
+			DrawInstanceFormIDs(instances, settings, graphics);
 			DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
 			DrawMapMarkerIconsAndLabels(settings, graphics);
@@ -123,14 +101,25 @@ namespace Mappalachia
 			return mapImage;
 		}
 
-		// TODO temp disable warning
-#pragma warning disable IDE0060 // Remove unused parameter
-		static Bitmap GetSpotlightBackground(Settings settings, RectangleF spotlightCrop)
+		static void DrawSpotlightTiles(Settings settings, Graphics graphics)
 		{
-			// TODO
-			return new Bitmap(MapImageResolution, MapImageResolution);
+			if (!settings.MapSettings.SpotlightEnabled ||
+				settings.MapSettings.BackgroundImage != BackgroundImageType.Render ||
+				(!settings.Space.IsWorldspace && !SpotlightInCells))
+			{
+				return;
+			}
+
+			List<SpotlightTile> spotlightTiles = SpotlightTile.GetTilesInRect(new RectangleF(0, 0, MapImageResolution, MapImageResolution).AsWorldRectangle(settings), settings.Space);
+
+			foreach (SpotlightTile tile in spotlightTiles)
+			{
+				graphics.DrawImage(tile.GetImage(), tile.GetRectangle().AsImageRectangle(settings));
+			}
 		}
 
+		// TODO temp disable warning
+#pragma warning disable IDE0060 // Remove unused parameter
 		// Standard including topographic plots
 		static void DrawStandardPlots(List<Instance> instances, Settings settings, Graphics graphics, bool topographic = false)
 		{
@@ -145,12 +134,22 @@ namespace Mappalachia
 		// Draw plots where plotted entities exist in a space reachable by this one
 		static void DrawConnectingSpacePlots(List<Instance> instances, Settings settings, Graphics graphics)
 		{
+			if (!settings.PlotSettings.ShowPlotsInOtherSpaces)
+			{
+				return;
+			}
+
 			// TODO
 		}
 
 		// Draw the FormID of the instance of the plot
 		static void DrawInstanceFormIDs(List<Instance> instances, Settings settings, Graphics graphics)
 		{
+			if (!settings.PlotSettings.DrawInstanceFormID)
+			{
+				return;
+			}
+
 			// TODO
 		}
 
@@ -241,8 +240,15 @@ namespace Mappalachia
 			{
 				case LegendStyle.Normal:
 					break;
+
 				case LegendStyle.Extended:
-					break;
+					int additionalWidth = 600;
+					Bitmap resizedImage = new Bitmap(MapImageResolution + additionalWidth, MapImageResolution);
+
+					Graphics graphics = Graphics.FromImage(resizedImage);
+					graphics.DrawImage(image, additionalWidth, 0);
+					return resizedImage;
+
 				case LegendStyle.None:
 					break;
 			}
@@ -326,6 +332,21 @@ namespace Mappalachia
 			return new Coord(
 				(coord.X / factor) + settings.MapSettings.SpotlightLocation.X,
 				(coord.Y / factor) + settings.MapSettings.SpotlightLocation.Y);
+		}
+
+		// Returns the PointF of the map image as it would have been, if spotlight was ignored
+		public static PointF RemoveSpotlight(this PointF point, Settings settings)
+		{
+			if (!settings.MapSettings.SpotlightEnabled)
+			{
+				return point;
+			}
+
+			RectangleF spotlightScale = GetScaledMapBackgroundRect(settings);
+
+			return new PointF(
+				(point.X - spotlightScale.Left) / spotlightScale.Width * MapImageResolution,
+				(point.Y - spotlightScale.Top) / spotlightScale.Height * MapImageResolution);
 		}
 
 		// Returns a RectangleF in image coordinates which represents the full size of the core map background images, with spotlight scaling considered
