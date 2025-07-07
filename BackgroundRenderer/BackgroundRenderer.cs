@@ -445,8 +445,8 @@ namespace BackgroundRenderer
 						j = 0;
 					}
 
-					Coord regionPointA = region.Points[i].Point;
-					Coord regionPointB = region.Points[j].Point;
+					Coord regionPointA = region.Points[i].Coord;
+					Coord regionPointB = region.Points[j].Coord;
 
 					Coord topLeft = new Coord(tile.XCenter - TileRadius, tile.YCenter + TileRadius);
 					Coord topRight = new Coord(tile.XCenter + TileRadius, tile.YCenter + TileWidth);

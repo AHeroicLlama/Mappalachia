@@ -58,8 +58,8 @@
 				// Iterate all adjacent pairs of points of the subregion, wrapping around
 				for (int i = 0, j = count - 1; i < count; j = i++)
 				{
-					Coord a = subRegion[i].Point;
-					Coord b = subRegion[j].Point;
+					Coord a = subRegion[i].Coord;
+					Coord b = subRegion[j].Coord;
 
 					// If n is not between a and b in y dimension, skip
 					if ((a.Y > n.Y) == (b.Y > n.Y))

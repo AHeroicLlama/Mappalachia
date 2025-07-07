@@ -50,7 +50,7 @@ namespace Mappalachia
 			// Gather the base background image
 			Image mapImage = new Bitmap(FileIO.EmptyMapImage);
 			using Graphics graphics = Graphics.FromImage(mapImage);
-			graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+			graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 			graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
 			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
@@ -120,6 +120,7 @@ namespace Mappalachia
 
 		// TODO temp disable warning
 #pragma warning disable IDE0060 // Remove unused parameter
+
 		// Standard including topographic plots
 		static void DrawStandardPlots(List<Instance> instances, Settings settings, Graphics graphics, bool topographic = false)
 		{
@@ -307,7 +308,7 @@ namespace Mappalachia
 
 			PointF point = new PointF(
 				(float)(halfRes * (1 + ((coord.X - settings.Space.CenterX) / settings.Space.Radius))),
-				(float)(halfRes * (1 + (((coord.Y * -1) - settings.Space.CenterY) / settings.Space.Radius))));
+				(float)(halfRes * (1 - ((coord.Y - settings.Space.CenterY) / settings.Space.Radius))));
 
 			return point;
 		}
@@ -358,8 +359,8 @@ namespace Mappalachia
 				return new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 			}
 
-			PointF topLeft = new PointF(0, 0).AsWorldCoord(settings, true).AsImagePoint(settings);
-			PointF bottomRight = new PointF(MapImageResolution, MapImageResolution).AsWorldCoord(settings, true).AsImagePoint(settings);
+			PointF topLeft = settings.Space.GetTopLeft().AsImagePoint(settings);
+			PointF bottomRight = settings.Space.GetBottomRight().AsImagePoint(settings);
 
 			return new RectangleF(topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
 		}

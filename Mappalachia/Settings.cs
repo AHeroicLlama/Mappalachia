@@ -5,7 +5,17 @@ namespace Mappalachia
 {
 	public class Settings
 	{
-		public Space Space { get; set; }
+		Space space;
+
+		public Space Space
+		{
+			get => space;
+			set
+			{
+				space = value;
+				MapSettings?.SetSpotlightToMapCenter();
+			}
+		}
 
 		volatile Version? lastDeclinedUpdateVersion;
 
@@ -56,6 +66,7 @@ namespace Mappalachia
 			File.WriteAllText(Paths.SettingsPath, JsonSerializer.Serialize(this, JsonSerializerOptions));
 		}
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 		public Settings()
 		{
 			Space ??= Database.AllSpaces.First();
@@ -64,7 +75,9 @@ namespace Mappalachia
 			MapSettings ??= new MapSettings(this);
 
 			ResolveConflictingSettings();
+			MapSettings.SetSpotlightToMapCenter();
 		}
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
 		// Check for and amend settings which shouldn't be used together
 		public void ResolveConflictingSettings()

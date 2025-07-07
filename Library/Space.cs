@@ -48,5 +48,20 @@ namespace Library
 		{
 			return SpotlightTile.GetTilesInRect(new RectangleF((float)MinX, (float)MaxY, (float)(MaxX - MinX), (float)(MaxY - MinY) * -1), this);
 		}
+
+		public Coord GetCenter()
+		{
+			return new Coord(CenterX, CenterY);
+		}
+
+		public Coord GetTopLeft()
+		{
+			return new Coord(MinX, MaxY);
+		}
+
+		public Coord GetBottomRight()
+		{
+			return new Coord(MaxX, MinY);
+		}
 	}
 }

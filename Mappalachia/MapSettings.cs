@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using Library;
 
 namespace Mappalachia
@@ -21,6 +21,16 @@ namespace Mappalachia
 				backgroundImage = value;
 				RootSettings?.ResolveConflictingSettings();
 			}
+		}
+
+		public void SetSpotlightToMapCenter()
+		{
+			if (RootSettings == null)
+			{
+				return;
+			}
+
+			SpotlightLocation = new Coord(RootSettings.Space.CenterX, RootSettings.Space.CenterY);
 		}
 
 		[JsonIgnore]
