@@ -12,8 +12,6 @@ namespace Mappalachia
 
 		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
 
-		static Dictionary<SpotlightTile, Image> SpotlightTileImageCache { get; } = new Dictionary<SpotlightTile, Image>();
-
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
 		static ImageCodecInfo JpgCodec { get; set; } = ImageCodecInfo.GetImageDecoders().SingleOrDefault(ic => ic.FormatID == ImageFormat.Jpeg.Guid) ?? throw new Exception($"Failed to get jpeg codec");
@@ -42,14 +40,9 @@ namespace Mappalachia
 			return FontCollection.Families.First();
 		}
 
-		// Return the image for the spotlight tile, uses caching
+		// Return the image for the spotlight tile
 		public static Image GetImage(this SpotlightTile tile)
 		{
-			if (SpotlightTileImageCache.TryGetValue(tile, out Image? value))
-			{
-				return value;
-			}
-
 			string path = $"{Paths.SpotlightTilePath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{SpotlightTileImageFileType}";
 
 			// This may be common as we do not pre-render tiles outside of the playable space.
@@ -59,10 +52,7 @@ namespace Mappalachia
 				return EmptyMapImage;
 			}
 
-			Image image = new Bitmap(path);
-			SpotlightTileImageCache[tile] = image;
-
-			return image;
+			return new Bitmap(path);
 		}
 
 		// Return a background image from the file path, or a cached version if loaded before

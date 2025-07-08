@@ -2,19 +2,30 @@
 {
 	public partial class FormSetSpotlightSize : Form
 	{
-		public int SpotlightRange => (int)numericUpDownSpotlightRange.Value;
+		public double SpotlightRange => Convert.ToDouble(numericUpDownSpotlightSize.Value);
 
 		public FormSetSpotlightSize(Settings settings)
 		{
 			InitializeComponent();
-			numericUpDownSpotlightRange.Value = settings.MapSettings.SpotlightSize;
-			numericUpDownSpotlightRange.Select(0, 2);
+			trackBarSpotlightSize.Value = (int)Math.Round(settings.MapSettings.SpotlightSize);
+			numericUpDownSpotlightSize.Value = Convert.ToDecimal(settings.MapSettings.SpotlightSize);
+			numericUpDownSpotlightSize.Select(0, 2);
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
 			Close();
+		}
+
+		private void TrackBarSpotlightSize_ValueChanged(object sender, EventArgs e)
+		{
+			numericUpDownSpotlightSize.Value = trackBarSpotlightSize.Value;
+		}
+
+		private void NumericUpDownSpotlightSize_ValueChanged(object sender, EventArgs e)
+		{
+			trackBarSpotlightSize.Value = (int)Math.Round(numericUpDownSpotlightSize.Value);
 		}
 	}
 }

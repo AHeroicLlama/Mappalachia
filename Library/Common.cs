@@ -23,9 +23,11 @@ namespace Library
 
 		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
 
+		public static double SpotlightMinimumTiles { get; } = 1.5; // Number of effective tiles required to bother rendering spotlight tiles for a space.
+
 		public static int SpotlightTileSize { get; } = (int)Math.Pow(2, 12); // 4096
 
-		public static int SpotlightScale { get; } = 2; // The ratios of game coordinates to pixels, or the width in cells for each tile (x*x arrangement) used for spotlight
+		public static int SpotlightScale { get; } = 4; // The ratios of game coordinates to pixels, or the width in cells for each tile (x*x arrangement) used for spotlight
 
 		// The size in game coordinates of spotlight tiles
 		public static int TileWidth { get; } = SpotlightTileSize * SpotlightScale;

@@ -30,38 +30,55 @@
 		{
 			buttonOK = new Button();
 			buttonCancel = new Button();
-			numericUpDownSpotlightRange = new NumericUpDown();
-			((System.ComponentModel.ISupportInitialize)numericUpDownSpotlightRange).BeginInit();
+			trackBarSpotlightSize = new TrackBar();
+			numericUpDownSpotlightSize = new NumericUpDown();
+			((System.ComponentModel.ISupportInitialize)trackBarSpotlightSize).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownSpotlightSize).BeginInit();
 			SuspendLayout();
 			// 
 			// buttonOK
 			// 
-			buttonOK.Location = new Point(11, 41);
+			buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			buttonOK.Location = new Point(12, 92);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
-			buttonOK.TabIndex = 1;
+			buttonOK.TabIndex = 2;
 			buttonOK.Text = "OK";
 			buttonOK.UseVisualStyleBackColor = true;
 			buttonOK.Click += ButtonOK_Click;
 			// 
 			// buttonCancel
 			// 
-			buttonCancel.Location = new Point(92, 41);
+			buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			buttonCancel.Location = new Point(93, 92);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
-			buttonCancel.TabIndex = 2;
+			buttonCancel.TabIndex = 3;
 			buttonCancel.Text = "Cancel";
 			buttonCancel.UseVisualStyleBackColor = true;
 			// 
-			// numericUpDownSpotlightRange
+			// trackBarSpotlightSize
 			// 
-			numericUpDownSpotlightRange.Location = new Point(63, 12);
-			numericUpDownSpotlightRange.Maximum = new decimal(new int[] { 8, 0, 0, 0 });
-			numericUpDownSpotlightRange.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownSpotlightRange.Name = "numericUpDownSpotlightRange";
-			numericUpDownSpotlightRange.Size = new Size(51, 23);
-			numericUpDownSpotlightRange.TabIndex = 0;
-			numericUpDownSpotlightRange.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			trackBarSpotlightSize.LargeChange = 2;
+			trackBarSpotlightSize.Location = new Point(12, 12);
+			trackBarSpotlightSize.Maximum = 8;
+			trackBarSpotlightSize.Minimum = 1;
+			trackBarSpotlightSize.Name = "trackBarSpotlightSize";
+			trackBarSpotlightSize.Size = new Size(158, 45);
+			trackBarSpotlightSize.TabIndex = 1;
+			trackBarSpotlightSize.Value = 1;
+			trackBarSpotlightSize.ValueChanged += TrackBarSpotlightSize_ValueChanged;
+			// 
+			// numericUpDownSpotlightSize
+			// 
+			numericUpDownSpotlightSize.Location = new Point(69, 63);
+			numericUpDownSpotlightSize.Maximum = new decimal(new int[] { 8, 0, 0, 0 });
+			numericUpDownSpotlightSize.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownSpotlightSize.Name = "numericUpDownSpotlightSize";
+			numericUpDownSpotlightSize.Size = new Size(44, 23);
+			numericUpDownSpotlightSize.TabIndex = 0;
+			numericUpDownSpotlightSize.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownSpotlightSize.ValueChanged += NumericUpDownSpotlightSize_ValueChanged;
 			// 
 			// FormSetSpotlightSize
 			// 
@@ -69,8 +86,9 @@
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = buttonCancel;
-			ClientSize = new Size(176, 76);
-			Controls.Add(numericUpDownSpotlightRange);
+			ClientSize = new Size(182, 126);
+			Controls.Add(numericUpDownSpotlightSize);
+			Controls.Add(trackBarSpotlightSize);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
 			FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -81,14 +99,17 @@
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Set Spotlight Size";
-			((System.ComponentModel.ISupportInitialize)numericUpDownSpotlightRange).EndInit();
+			((System.ComponentModel.ISupportInitialize)trackBarSpotlightSize).EndInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownSpotlightSize).EndInit();
 			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
 
 		private Button buttonOK;
 		private Button buttonCancel;
-		private NumericUpDown numericUpDownSpotlightRange;
+		private TrackBar trackBarSpotlightSize;
+		private NumericUpDown numericUpDownSpotlightSize;
 	}
 }

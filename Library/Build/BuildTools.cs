@@ -77,8 +77,6 @@ namespace Library
 
 		public static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
-		static double SpotlightImprovementThresholdPerc { get; } = 25; // Percent improvement in resolution necessary to render spotlight tiles
-
 		static Regex TileFileNameValidation { get; } = new Regex(@"(-?[0-9]{1,2}\.){2}jpg");
 
 		static ReaderWriterLock ErrorLogLock { get; } = new ReaderWriterLock();
@@ -171,17 +169,6 @@ namespace Library
 			return path.TrimEnd('\\', '/');
 		}
 
-		// Return if the improvement in quality which spotlight would provide meets the threshold
-		public static bool WouldBenefitFromSpotlight(this Space space)
-		{
-			double scale = 1d / Common.SpotlightScale;
-			int singleRenderResolution = space.IsWorldspace ? WorldspaceRenderResolution : Common.MapImageResolution;
-			double singleScale = singleRenderResolution / space.MaxRange;
-			double relativeImprovementPerc = ((scale - singleScale) / singleScale) * 100;
-
-			return relativeImprovementPerc >= SpotlightImprovementThresholdPerc;
-		}
-
 		// Return the final file path of the spotlight tile
 		public static string GetFilePath(this SpotlightTile tile)
 		{
@@ -214,7 +201,7 @@ namespace Library
 				Space? space = spaces.Where(space => space.EditorID == Path.GetFileName(directory)).FirstOrDefault();
 
 				// If the space no longer exists, or, if the space no longer benefits from spotlight, delete its folder
-				if (space == null || !space.WouldBenefitFromSpotlight())
+				if (space == null || space.IsSuitableForSpotlight())
 				{
 					Directory.Delete(directory, true);
 					StdOutWithColor($"Deleting spotlight folder {directory}", ColorInfo);

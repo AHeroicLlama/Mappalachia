@@ -51,7 +51,7 @@ namespace Mappalachia
 		public string Title { get; set; } = string.Empty;
 
 		// The size of the spotlight in tiles
-		public int SpotlightSize { get; set; } = 2;
+		public double SpotlightSize { get; set; } = 3;
 
 		[JsonIgnore]
 		public Coord SpotlightLocation { get; set; } = new Coord(0, 0);

@@ -78,6 +78,16 @@ namespace Mappalachia
 			SetSetting(() => Settings.MapSettings.SpotlightEnabled = false);
 		}
 
+		internal void OpenSpotlightSetSizeDialog()
+		{
+			FormSetSpotlightSize spotlightRangeForm = new FormSetSpotlightSize(Settings);
+
+			if (spotlightRangeForm.ShowDialog() == DialogResult.OK)
+			{
+				SetSetting(() => Settings.MapSettings.SpotlightSize = spotlightRangeForm.SpotlightRange);
+			}
+		}
+
 		// Return the header for a DataGridViewColumn with the given name
 		static string GetColumnHeader(string columnName, bool advanced)
 		{
@@ -287,6 +297,8 @@ namespace Mappalachia
 
 			highlightWaterToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
 			mapMapMarkersToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
+
+			spotlightToolStripMenuItem.Enabled = Settings.Space.IsSuitableForSpotlight();
 
 			UpdateDataGridAppearences();
 
@@ -635,12 +647,7 @@ namespace Mappalachia
 
 		private void Map_Spotlight_SetRange_Click(object sender, EventArgs e)
 		{
-			FormSetSpotlightSize spotlightRangeForm = new FormSetSpotlightSize(Settings);
-
-			if (spotlightRangeForm.ShowDialog() == DialogResult.OK)
-			{
-				SetSetting(() => Settings.MapSettings.SpotlightSize = spotlightRangeForm.SpotlightRange);
-			}
+			OpenSpotlightSetSizeDialog();
 		}
 
 		private void Map_Spotlight_Coord_Click(object sender, EventArgs e)

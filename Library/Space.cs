@@ -58,5 +58,17 @@ namespace Library
 		{
 			return new RectangleF((float)MinX, (float)MaxY, (float)Math.Abs(MaxX - MinX), (float)Math.Abs(MaxY - MinY));
 		}
+
+		// Return the maximum spotlight size which the space could utilise, before it actually makes the view smaller than the non-spotlight perspective
+		public double GetMaxSpotlightBenefit()
+		{
+			return MaxRange / Common.TileWidth;
+		}
+
+		// Return if the Space is large enough to meet the necessary requirement to suitably benefit from spotlight
+		public bool IsSuitableForSpotlight()
+		{
+			return GetMaxSpotlightBenefit() >= Common.SpotlightMinimumTiles;
+		}
 	}
 }

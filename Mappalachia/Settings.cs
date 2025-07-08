@@ -91,6 +91,11 @@ namespace Mappalachia
 			{
 				MapSettings.BackgroundImage = BackgroundImageType.Render;
 			}
+
+			if (!Space.IsSuitableForSpotlight())
+			{
+				MapSettings.SpotlightEnabled = false;
+			}
 		}
 	}
 }

@@ -168,8 +168,15 @@ namespace Mappalachia
 				return;
 			}
 
+			// Show no context menu if the map is not suitable for spotlight
+			if (!FormMain.Settings.Space.IsSuitableForSpotlight())
+			{
+				return;
+			}
+
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
 
+			// Don't allow control of spotlight if the legend style is extended, as the image is not square
 			if (FormMain.Settings.MapSettings.LegendStyle != LegendStyle.Extended)
 			{
 				ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
@@ -186,7 +193,8 @@ namespace Mappalachia
 
 			if (FormMain.IsSpotlightEnabled())
 			{
-				ToolStripMenuItem turnOff = new ToolStripMenuItem() { Text = "Disable Spotlight" };
+				ToolStripMenuItem turnOff = new ToolStripMenuItem() { Text = "Turn Off Spotlight" };
+				ToolStripMenuItem setSize = new ToolStripMenuItem() { Text = "Set Spotlight Size..." };
 
 				turnOff.Click += (s, args) =>
 				{
@@ -194,6 +202,12 @@ namespace Mappalachia
 					SizeMapToForm();
 				};
 
+				setSize.Click += (s, args) =>
+				{
+					FormMain.OpenSpotlightSetSizeDialog();
+				};
+
+				contextMenu.Items.Add(setSize);
 				contextMenu.Items.Add(turnOff);
 			}
 

@@ -8,7 +8,7 @@ namespace Library
 		// Returns all the tiles which exist within the rectangle of world coordinates
 		public static List<SpotlightTile> GetTilesInRect(RectangleF rect, Space space)
 		{
-			rect.Height = rect.Height * -1;
+			rect.Height *= -1;
 
 			List<SpotlightTile> tiles = new List<SpotlightTile>();
 
