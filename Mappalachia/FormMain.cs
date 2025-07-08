@@ -63,7 +63,7 @@ namespace Mappalachia
 		// Implies enabling spotlight
 		internal void SetSpotlightLocation(PointF point)
 		{
-			Settings.MapSettings.SpotlightLocation = point.RemoveSpotlight(Settings).AsWorldCoord(Settings, true);
+			Settings.MapSettings.SpotlightLocation = point.AsWorldCoord(Settings);
 			Settings.MapSettings.SpotlightEnabled = true;
 			UpdateFromSettings();
 		}
@@ -193,7 +193,7 @@ namespace Mappalachia
 
 			// Update the text of some items
 			setBrightnessToolStripMenuItem.Text = $"Set Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
-			spotlightSetRangeToolStripMenuItem.Text = $"Set Range ({Settings.MapSettings.SpotlightTileRange})";
+			spotlightSetRangeToolStripMenuItem.Text = $"Set Range ({Settings.MapSettings.SpotlightSize})";
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
 			// Set all items which are members of "pick only one" lists to be unchecked, first
@@ -635,11 +635,11 @@ namespace Mappalachia
 
 		private void Map_Spotlight_SetRange_Click(object sender, EventArgs e)
 		{
-			FormSetSpotlightRange spotlightRangeForm = new FormSetSpotlightRange(Settings);
+			FormSetSpotlightSize spotlightRangeForm = new FormSetSpotlightSize(Settings);
 
 			if (spotlightRangeForm.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.MapSettings.SpotlightTileRange = spotlightRangeForm.SpotlightRange);
+				SetSetting(() => Settings.MapSettings.SpotlightSize = spotlightRangeForm.SpotlightRange);
 			}
 		}
 

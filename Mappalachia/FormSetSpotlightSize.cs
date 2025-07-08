@@ -1,13 +1,13 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormSetSpotlightRange : Form
+	public partial class FormSetSpotlightSize : Form
 	{
 		public int SpotlightRange => (int)numericUpDownSpotlightRange.Value;
 
-		public FormSetSpotlightRange(Settings settings)
+		public FormSetSpotlightSize(Settings settings)
 		{
 			InitializeComponent();
-			numericUpDownSpotlightRange.Value = settings.MapSettings.SpotlightTileRange;
+			numericUpDownSpotlightRange.Value = settings.MapSettings.SpotlightSize;
 			numericUpDownSpotlightRange.Select(0, 2);
 		}
 

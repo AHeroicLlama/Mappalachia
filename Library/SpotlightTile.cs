@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using static Library.Common;
 
 namespace Library
@@ -8,6 +8,8 @@ namespace Library
 		// Returns all the tiles which exist within the rectangle of world coordinates
 		public static List<SpotlightTile> GetTilesInRect(RectangleF rect, Space space)
 		{
+			rect.Height = rect.Height * -1;
+
 			List<SpotlightTile> tiles = new List<SpotlightTile>();
 
 			// Loop over every tile for the rectangle

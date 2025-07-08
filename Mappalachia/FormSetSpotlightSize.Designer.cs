@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	partial class FormSetSpotlightRange
+	partial class FormSetSpotlightSize
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -63,7 +63,7 @@
 			numericUpDownSpotlightRange.TabIndex = 0;
 			numericUpDownSpotlightRange.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			// 
-			// FormSetSpotlightRange
+			// FormSetSpotlightSize
 			// 
 			AcceptButton = buttonOK;
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -76,11 +76,11 @@
 			FormBorderStyle = FormBorderStyle.FixedDialog;
 			MaximizeBox = false;
 			MinimizeBox = false;
-			Name = "FormSetSpotlightRange";
+			Name = "FormSetSpotlightSize";
 			ShowIcon = false;
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
-			Text = "Set Spotlight Range";
+			Text = "Set Spotlight Size";
 			((System.ComponentModel.ISupportInitialize)numericUpDownSpotlightRange).EndInit();
 			ResumeLayout(false);
 		}

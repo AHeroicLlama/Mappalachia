@@ -46,7 +46,7 @@ namespace Library
 		// Return the spotlight tiles for the space
 		public List<SpotlightTile> GetTiles()
 		{
-			return SpotlightTile.GetTilesInRect(new RectangleF((float)MinX, (float)MaxY, (float)(MaxX - MinX), (float)(MaxY - MinY) * -1), this);
+			return SpotlightTile.GetTilesInRect(new RectangleF((float)MinX, (float)MaxY, (float)Math.Abs(MaxX - MinX), (float)Math.Abs(MaxY - MinY)), this);
 		}
 
 		public Coord GetCenter()
@@ -54,14 +54,9 @@ namespace Library
 			return new Coord(CenterX, CenterY);
 		}
 
-		public Coord GetTopLeft()
+		public RectangleF GetRectangle()
 		{
-			return new Coord(MinX, MaxY);
-		}
-
-		public Coord GetBottomRight()
-		{
-			return new Coord(MaxX, MinY);
+			return new RectangleF((float)MinX, (float)MaxY, (float)Math.Abs(MaxX - MinX), (float)Math.Abs(MaxY - MinY));
 		}
 	}
 }

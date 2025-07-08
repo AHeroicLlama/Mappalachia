@@ -291,67 +291,61 @@ namespace Mappalachia
 			graphics.DrawString(text, font, brush, textBounds, stringFormat);
 		}
 
-		// Returns the X/Y of a Coord, scaled from world to image coordinates (given the scaling of the space), as a PointF
-		// Inverse of AsWorldCoord
-		public static PointF AsImagePoint(this Coord coord, Settings settings, bool ignoreSpotlight = false)
+		// Returns the given World Coord as an Image PointF, considering spotlight scaling
+		public static PointF AsImagePoint(this Coord coord, Settings settings)
 		{
-			if (settings.MapSettings.SpotlightEnabled && !ignoreSpotlight)
-			{
-				double factor = settings.Space.Radius / (TileWidth * settings.MapSettings.SpotlightTileRange / 2);
+			// Find the center of the map in world coordinates
+			Coord center = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightLocation : settings.Space.GetCenter();
 
-				coord = new Coord(
-					(coord.X - settings.MapSettings.SpotlightLocation.X) * factor,
-					(coord.Y - settings.MapSettings.SpotlightLocation.Y) * factor);
-			}
+			// Get the effective range of the image in world coordinates
+			double plotRange = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightSize * TileWidth : settings.Space.MaxRange;
 
-			float halfRes = MapImageResolution / 2f;
+			// Find the factor between world and image coordinate
+			double factor = plotRange / MapImageResolution;
 
-			PointF point = new PointF(
-				(float)(halfRes * (1 + ((coord.X - settings.Space.CenterX) / settings.Space.Radius))),
-				(float)(halfRes * (1 - ((coord.Y - settings.Space.CenterY) / settings.Space.Radius))));
-
-			return point;
-		}
-
-		// Returns the game world coordinate of a point on the map image
-		// Inverse of AsImagePoint
-		public static Coord AsWorldCoord(this PointF point, Settings settings, bool ignoreSpotlight = false)
-		{
-			double halfRes = MapImageResolution / 2d;
-
-			Coord coord = new Coord(
-				(((point.X / halfRes) - 1) * settings.Space.Radius) + settings.Space.CenterX,
-				-1 * ((((point.Y / halfRes) - 1) * settings.Space.Radius) + settings.Space.CenterY));
-
-			if (!settings.MapSettings.SpotlightEnabled || ignoreSpotlight)
-			{
-				return coord;
-			}
-
-			double factor = settings.Space.Radius / (TileWidth * settings.MapSettings.SpotlightTileRange);
-
-			return new Coord(
-				(coord.X / factor) + settings.MapSettings.SpotlightLocation.X,
-				(coord.Y / factor) + settings.MapSettings.SpotlightLocation.Y);
-		}
-
-		// Returns the PointF of the map image as it would have been, if spotlight was ignored
-		public static PointF RemoveSpotlight(this PointF point, Settings settings)
-		{
-			if (!settings.MapSettings.SpotlightEnabled)
-			{
-				return point;
-			}
-
-			RectangleF spotlightScale = GetScaledMapBackgroundRect(settings);
-
+			// Apply the scaling factor, offset by the center, and flip the Y axis
 			return new PointF(
-				(point.X - spotlightScale.Left) / spotlightScale.Width * MapImageResolution,
-				(point.Y - spotlightScale.Top) / spotlightScale.Height * MapImageResolution);
+				(float)(((coord.X - center.X) / factor) + (MapImageResolution / 2)),
+				(float)((((coord.Y * -1) + center.Y) / factor) + (MapImageResolution / 2)));
 		}
 
-		// Returns a RectangleF in image coordinates which represents the full size of the core map background images, with spotlight scaling considered
-		// Can be used to apply the background images (and water mask) with respect to spotlight settings
+		// Returns the given Image PointF as World coordinates, considering spotlight scaling
+		public static Coord AsWorldCoord(this PointF point, Settings settings)
+		{
+			// Find the center of the map in world coordinates
+			Coord center = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightLocation : settings.Space.GetCenter();
+
+			// Get the effective range of the image in world coordinates
+			double plotRange = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightSize * TileWidth : settings.Space.MaxRange;
+
+			// Find the factor between world and image coordinate
+			double factor = plotRange / MapImageResolution;
+
+			// Inverse of the transformation made in AsImagePoint
+			return new Coord(
+				((point.X - (MapImageResolution / 2)) * factor) + center.X,
+				(((point.Y - (MapImageResolution / 2)) * factor) - center.Y) * -1);
+		}
+
+		// Returns the given RectangleF of World coordinates to one in Image coordinates, considering spotlight scaling
+		public static RectangleF AsImageRectangle(this RectangleF rect, Settings settings)
+		{
+			PointF topLeft = new Coord(rect.Left, rect.Top).AsImagePoint(settings);
+			PointF bottomRight = new Coord(rect.Right, rect.Bottom).AsImagePoint(settings);
+
+			return new RectangleF(topLeft.X, topLeft.Y, Math.Abs(bottomRight.X - topLeft.X), Math.Abs(bottomRight.Y - topLeft.Y));
+		}
+
+		// Returns the given RectangleF of image coordinates to one in World coordinates, considering spotlight scaling
+		public static RectangleF AsWorldRectangle(this RectangleF rect, Settings settings)
+		{
+			Coord topLeft = new PointF(rect.Left, rect.Top).AsWorldCoord(settings);
+			Coord bottomRight = new PointF(rect.Right, rect.Bottom).AsWorldCoord(settings);
+
+			return new RectangleF((float)topLeft.X, (float)topLeft.Y, (float)Math.Abs(bottomRight.X - topLeft.X), (float)Math.Abs(topLeft.Y - bottomRight.Y));
+		}
+
+		// Returns the RectangleF in image coordinates which contains the map background when spotlight scaling is considered
 		public static RectangleF GetScaledMapBackgroundRect(Settings settings)
 		{
 			if (!settings.MapSettings.SpotlightEnabled)
@@ -359,34 +353,7 @@ namespace Mappalachia
 				return new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 			}
 
-			PointF topLeft = settings.Space.GetTopLeft().AsImagePoint(settings);
-			PointF bottomRight = settings.Space.GetBottomRight().AsImagePoint(settings);
-
-			return new RectangleF(topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
-		}
-
-		public static RectangleF AsWorldRectangle(this RectangleF rect, Settings settings)
-		{
-			Coord topLeft = new PointF(rect.Left, rect.Top).AsWorldCoord(settings);
-			Coord bottomRight = new PointF(rect.Right, rect.Bottom).AsWorldCoord(settings);
-
-			return new RectangleF(
-				(float)topLeft.X,
-				(float)topLeft.Y,
-				(float)(bottomRight.X - topLeft.X),
-				(float)(bottomRight.Y - topLeft.Y));
-		}
-
-		// Returns the rectangle in image coordinates, given a rectangle in world coordinates
-		static RectangleF AsImageRectangle(this RectangleF rect, Settings settings)
-		{
-			Coord topLeftWorld = new Coord(rect.Left, rect.Top);
-			Coord bottomRightWorld = new Coord(rect.Right, rect.Bottom);
-
-			PointF topLeft = topLeftWorld.AsImagePoint(settings);
-			PointF bottomRight = bottomRightWorld.AsImagePoint(settings);
-
-			return new RectangleF(topLeft.X, topLeft.Y, Math.Abs(bottomRight.X - topLeft.X), Math.Abs(bottomRight.Y - topLeft.Y));
+			return settings.Space.GetRectangle().AsImageRectangle(settings);
 		}
 
 		// Returns the application font in the given pixel size

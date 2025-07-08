@@ -245,21 +245,21 @@ namespace Mappalachia
 			// spotlightEnabledToolStripMenuItem
 			// 
 			spotlightEnabledToolStripMenuItem.Name = "spotlightEnabledToolStripMenuItem";
-			spotlightEnabledToolStripMenuItem.Size = new Size(126, 22);
+			spotlightEnabledToolStripMenuItem.Size = new Size(180, 22);
 			spotlightEnabledToolStripMenuItem.Text = "Enabled";
 			spotlightEnabledToolStripMenuItem.Click += Map_Spotlight_Enabled_Click;
 			// 
 			// spotlightSetRangeToolStripMenuItem
 			// 
 			spotlightSetRangeToolStripMenuItem.Name = "spotlightSetRangeToolStripMenuItem";
-			spotlightSetRangeToolStripMenuItem.Size = new Size(126, 22);
-			spotlightSetRangeToolStripMenuItem.Text = "Set Range";
+			spotlightSetRangeToolStripMenuItem.Size = new Size(180, 22);
+			spotlightSetRangeToolStripMenuItem.Text = "Set Size";
 			spotlightSetRangeToolStripMenuItem.Click += Map_Spotlight_SetRange_Click;
 			// 
 			// spotlightCoordToolStripMenuItem
 			// 
 			spotlightCoordToolStripMenuItem.Name = "spotlightCoordToolStripMenuItem";
-			spotlightCoordToolStripMenuItem.Size = new Size(126, 22);
+			spotlightCoordToolStripMenuItem.Size = new Size(180, 22);
 			spotlightCoordToolStripMenuItem.Text = "Coord";
 			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
 			// 
