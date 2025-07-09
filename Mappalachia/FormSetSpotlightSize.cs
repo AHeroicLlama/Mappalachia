@@ -7,8 +7,19 @@
 		public FormSetSpotlightSize(Settings settings)
 		{
 			InitializeComponent();
-			trackBarSpotlightSize.Value = (int)Math.Round(settings.MapSettings.SpotlightSize);
-			numericUpDownSpotlightSize.Value = Convert.ToDecimal(settings.MapSettings.SpotlightSize);
+
+			int maxSizeThisSpace = Math.Min((int)settings.Space.GetMaxSpotlightBenefit(), 8);
+			int cappedSpotlightSize = Math.Min(Math.Max((int)settings.MapSettings.SpotlightSize, 1), maxSizeThisSpace);
+
+			trackBarSpotlightSize.Value = cappedSpotlightSize;
+			numericUpDownSpotlightSize.Value = Convert.ToDecimal(cappedSpotlightSize);
+
+			trackBarSpotlightSize.Maximum = maxSizeThisSpace;
+			numericUpDownSpotlightSize.Maximum = maxSizeThisSpace;
+
+			numericUpDownSpotlightSize.Minimum = 1;
+			trackBarSpotlightSize.Minimum = 1;
+
 			numericUpDownSpotlightSize.Select(0, 2);
 		}
 

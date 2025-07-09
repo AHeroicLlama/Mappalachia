@@ -342,7 +342,15 @@ namespace Mappalachia
 		public void DrawMap()
 		{
 			// TODO fetch instances from DB
-			FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings);
+
+			Progress<ProgressInfo> progress = new Progress<ProgressInfo>(progressInfo =>
+			{
+				progressBarMain.Value = progressInfo.Percent;
+				labelProgressStatus.Text = progressInfo.Status;
+				labelProgressStatus.Location = new Point((Width / 2) - (labelProgressStatus.Width / 2), labelProgressStatus.Location.Y);
+			});
+
+			Task.Run(() => FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, progress));
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers
@@ -845,6 +853,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClearSort();
 			dataGridViewItemsToPlot.ClearSort();
 			FormMapView.SizeMapToForm();
+			FileIO.ClearSpotlightTileImageCache();
 			UpdateFromSettings();
 		}
 

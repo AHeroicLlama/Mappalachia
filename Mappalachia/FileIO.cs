@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using Library;
@@ -11,6 +12,8 @@ namespace Mappalachia
 		static Dictionary<string, Image> BackgroundImageCache { get; } = new Dictionary<string, Image>();
 
 		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
+
+		static ConcurrentDictionary<SpotlightTile, Image> SpotlightTileImageCache { get; } = new ConcurrentDictionary<SpotlightTile, Image>();
 
 		static PrivateFontCollection FontCollection { get; } = new PrivateFontCollection();
 
@@ -40,19 +43,38 @@ namespace Mappalachia
 			return FontCollection.Families.First();
 		}
 
-		// Return the image for the spotlight tile
-		public static Image GetImage(this SpotlightTile tile)
+		public static void ClearSpotlightTileImageCache()
 		{
+			foreach (KeyValuePair<SpotlightTile, Image> entry in SpotlightTileImageCache)
+			{
+				entry.Value.Dispose();
+			}
+
+			SpotlightTileImageCache.Clear();
+			GC.Collect();
+		}
+
+		// Return the image for the spotlight tile
+		public static Image? GetSpotlightTileImage(this SpotlightTile tile)
+		{
+			if (SpotlightTileImageCache.TryGetValue(tile, out Image? value))
+			{
+				return value;
+			}
+
 			string path = $"{Paths.SpotlightTilePath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{SpotlightTileImageFileType}";
 
 			// This may be common as we do not pre-render tiles outside of the playable space.
 			// TODO we need to handle informing of downloading them, if delivered as an 'addon' download.
 			if (!File.Exists(path))
 			{
-				return EmptyMapImage;
+				return null;
 			}
 
-			return new Bitmap(path);
+			Image image = new Bitmap(path);
+			SpotlightTileImageCache[tile] = image;
+
+			return image;
 		}
 
 		// Return a background image from the file path, or a cached version if loaded before

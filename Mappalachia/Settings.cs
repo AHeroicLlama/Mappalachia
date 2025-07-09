@@ -13,7 +13,16 @@ namespace Mappalachia
 			set
 			{
 				space = value;
+
+				// This is a workaround to detect a Space which has been initialized from the settings JSON and not the database
+				// It will be replaced before the form load completes, so we don't care - we just needed its FormID/EditorID.
+				if (space.MaxRange == 0)
+				{
+					return;
+				}
+
 				MapSettings?.SetSpotlightToMapCenter();
+				MapSettings?.CapSpotlightSizeToSpace();
 			}
 		}
 

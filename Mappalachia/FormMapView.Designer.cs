@@ -39,7 +39,7 @@
 			// 
 			// pictureBoxMapDisplay
 			// 
-			pictureBoxMapDisplay.BackColor = Color.Silver;
+			pictureBoxMapDisplay.BackColor = Color.Black;
 			pictureBoxMapDisplay.Location = new Point(0, 0);
 			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
 			pictureBoxMapDisplay.Size = new Size(1008, 961);
@@ -79,7 +79,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			BackColor = Color.DimGray;
+			BackColor = Color.Black;
 			ClientSize = new Size(1008, 985);
 			Controls.Add(pictureBoxMapDisplay);
 			Controls.Add(menuStripPreview);

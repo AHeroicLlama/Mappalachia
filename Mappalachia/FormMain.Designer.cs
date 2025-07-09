@@ -98,6 +98,8 @@ namespace Mappalachia
 			buttonUnselectAllLockLevel = new Button();
 			buttonSelectAllLockLevel = new Button();
 			buttonUpdateMap = new Button();
+			progressBarMain = new ProgressBar();
+			labelProgressStatus = new Label();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -245,21 +247,21 @@ namespace Mappalachia
 			// spotlightEnabledToolStripMenuItem
 			// 
 			spotlightEnabledToolStripMenuItem.Name = "spotlightEnabledToolStripMenuItem";
-			spotlightEnabledToolStripMenuItem.Size = new Size(180, 22);
+			spotlightEnabledToolStripMenuItem.Size = new Size(116, 22);
 			spotlightEnabledToolStripMenuItem.Text = "Enabled";
 			spotlightEnabledToolStripMenuItem.Click += Map_Spotlight_Enabled_Click;
 			// 
 			// spotlightSetRangeToolStripMenuItem
 			// 
 			spotlightSetRangeToolStripMenuItem.Name = "spotlightSetRangeToolStripMenuItem";
-			spotlightSetRangeToolStripMenuItem.Size = new Size(180, 22);
+			spotlightSetRangeToolStripMenuItem.Size = new Size(116, 22);
 			spotlightSetRangeToolStripMenuItem.Text = "Set Size";
 			spotlightSetRangeToolStripMenuItem.Click += Map_Spotlight_SetRange_Click;
 			// 
 			// spotlightCoordToolStripMenuItem
 			// 
 			spotlightCoordToolStripMenuItem.Name = "spotlightCoordToolStripMenuItem";
-			spotlightCoordToolStripMenuItem.Size = new Size(180, 22);
+			spotlightCoordToolStripMenuItem.Size = new Size(116, 22);
 			spotlightCoordToolStripMenuItem.Text = "Coord";
 			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
 			// 
@@ -553,7 +555,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewSearchResults.Size = new Size(953, 254);
+			dataGridViewSearchResults.Size = new Size(953, 236);
 			dataGridViewSearchResults.TabIndex = 6;
 			// 
 			// comboBoxSpace
@@ -570,7 +572,7 @@ namespace Mappalachia
 			// 
 			buttonAddToMap.Anchor = AnchorStyles.Bottom;
 			buttonAddToMap.ContextMenu = null;
-			buttonAddToMap.Location = new Point(360, 498);
+			buttonAddToMap.Location = new Point(360, 480);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Padding = new Padding(0, 0, 15, 0);
 			buttonAddToMap.Size = new Size(126, 23);
@@ -581,7 +583,7 @@ namespace Mappalachia
 			// buttonRemoveFromMap
 			// 
 			buttonRemoveFromMap.Anchor = AnchorStyles.Bottom;
-			buttonRemoveFromMap.Location = new Point(492, 498);
+			buttonRemoveFromMap.Location = new Point(492, 480);
 			buttonRemoveFromMap.Name = "buttonRemoveFromMap";
 			buttonRemoveFromMap.Size = new Size(126, 23);
 			buttonRemoveFromMap.TabIndex = 8;
@@ -599,7 +601,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewItemsToPlot.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewItemsToPlot.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewItemsToPlot.Location = new Point(12, 527);
+			dataGridViewItemsToPlot.Location = new Point(12, 509);
 			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
 			dataGridViewItemsToPlot.ReadOnly = true;
 			dataGridViewItemsToPlot.RowHeadersVisible = false;
@@ -708,13 +710,30 @@ namespace Mappalachia
 			// 
 			// buttonUpdateMap
 			// 
-			buttonUpdateMap.Location = new Point(411, 737);
+			buttonUpdateMap.Anchor = AnchorStyles.Bottom;
+			buttonUpdateMap.Location = new Point(411, 719);
 			buttonUpdateMap.Name = "buttonUpdateMap";
 			buttonUpdateMap.Size = new Size(155, 27);
 			buttonUpdateMap.TabIndex = 10;
 			buttonUpdateMap.Text = "Update Map";
 			buttonUpdateMap.UseVisualStyleBackColor = true;
 			buttonUpdateMap.Click += ButtonUpdateMap_Click;
+			// 
+			// progressBarMain
+			// 
+			progressBarMain.Location = new Point(0, 752);
+			progressBarMain.Name = "progressBarMain";
+			progressBarMain.Size = new Size(977, 23);
+			progressBarMain.TabIndex = 11;
+			// 
+			// labelProgressStatus
+			// 
+			labelProgressStatus.AutoSize = true;
+			labelProgressStatus.BackColor = Color.White;
+			labelProgressStatus.Location = new Point(488, 756);
+			labelProgressStatus.Name = "labelProgressStatus";
+			labelProgressStatus.Size = new Size(0, 15);
+			labelProgressStatus.TabIndex = 12;
 			// 
 			// FormMain
 			// 
@@ -723,6 +742,8 @@ namespace Mappalachia
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.ControlDarkDark;
 			ClientSize = new Size(977, 776);
+			Controls.Add(labelProgressStatus);
+			Controls.Add(progressBarMain);
 			Controls.Add(buttonUpdateMap);
 			Controls.Add(groupBoxFilterLockLevel);
 			Controls.Add(groupBoxFilterSignature);
@@ -821,5 +842,7 @@ namespace Mappalachia
 		private ToolStripMenuItem spotlightEnabledToolStripMenuItem;
 		private ToolStripMenuItem spotlightSetRangeToolStripMenuItem;
 		private ToolStripMenuItem spotlightCoordToolStripMenuItem;
+		private ProgressBar progressBarMain;
+		private Label labelProgressStatus;
 	}
 }

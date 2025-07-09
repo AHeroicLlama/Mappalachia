@@ -291,7 +291,7 @@ namespace BackgroundRenderer
 			string finalPath = SpotlightPath + $"{space.EditorID}\\";
 
 			// If there is little to no improvement from spotlight, skip
-			if (space.IsSuitableForSpotlight())
+			if (!space.IsSuitableForSpotlight())
 			{
 				return;
 			}

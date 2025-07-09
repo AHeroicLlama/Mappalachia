@@ -36,6 +36,8 @@ namespace Mappalachia
 
 		static Brush BrushGeneric { get; } = Brushes.White;
 
+		static Brush BrushGenericTransparent { get; } = new SolidBrush(Color.FromArgb(128, 255, 255, 255));
+
 		static Brush BrushDropShadow { get; } = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
 
 		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
@@ -45,8 +47,10 @@ namespace Mappalachia
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		// The primary map draw function
-		public static Image Draw(List<Instance> instances, Settings settings)
+		public static Image Draw(List<Instance> instances, Settings settings, Progress<ProgressInfo>? progressInfo = null)
 		{
+			UpdateProgress(progressInfo, 10, "Draw started");
+
 			// Gather the base background image
 			Image mapImage = new Bitmap(FileIO.EmptyMapImage);
 			using Graphics graphics = Graphics.FromImage(mapImage);
@@ -58,7 +62,7 @@ namespace Mappalachia
 			// Draw the main background image
 			graphics.DrawImage(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage), backgroundRectangle);
 
-			DrawSpotlightTiles(settings, graphics);
+			DrawSpotlightTiles(settings, graphics, progressInfo);
 
 			// Apply the brightness and grayscale if selected
 			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
@@ -73,16 +77,16 @@ namespace Mappalachia
 			switch (settings.PlotSettings.Mode)
 			{
 				case PlotMode.Standard:
-					DrawStandardPlots(instances, settings, graphics);
+					DrawStandardPlots(instances, settings, graphics, false, progressInfo);
 					break;
 
 				case PlotMode.Topographic:
-					DrawStandardPlots(instances, settings, graphics, true);
+					DrawStandardPlots(instances, settings, graphics, true, progressInfo);
 					DrawTopographicLegend(settings, graphics);
 					break;
 
 				case PlotMode.Cluster:
-					DrawClusterPlots(instances, settings, graphics);
+					DrawClusterPlots(instances, settings, graphics, progressInfo);
 					break;
 
 				default:
@@ -93,15 +97,27 @@ namespace Mappalachia
 			DrawInstanceFormIDs(instances, settings, graphics);
 			DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
-			DrawMapMarkerIconsAndLabels(settings, graphics);
+			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 			mapImage = DrawLegend(instances, settings, mapImage);
 
 			GC.Collect();
 
+			UpdateProgress(progressInfo, 0, "Done");
+
 			return mapImage;
 		}
 
-		static void DrawSpotlightTiles(Settings settings, Graphics graphics)
+		static void UpdateProgress(IProgress<ProgressInfo>? progressInfo, int percent, string status)
+		{
+			if (progressInfo == null)
+			{
+				return;
+			}
+
+			progressInfo.Report(new ProgressInfo(percent, status));
+		}
+
+		static void DrawSpotlightTiles(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			if (!settings.MapSettings.SpotlightEnabled ||
 				settings.MapSettings.BackgroundImage != BackgroundImageType.Render ||
@@ -112,9 +128,26 @@ namespace Mappalachia
 
 			List<SpotlightTile> spotlightTiles = SpotlightTile.GetTilesInRect(new RectangleF(0, 0, MapImageResolution, MapImageResolution).AsWorldRectangle(settings), settings.Space);
 
+			// Pre-cache the tile images in parallel
+			spotlightTiles.AsParallel().ForAll(tile =>
+			{
+				tile.GetSpotlightTileImage();
+			});
+
+			int i = 0;
 			foreach (SpotlightTile tile in spotlightTiles)
 			{
-				graphics.DrawImage(tile.GetImage(), tile.GetRectangle().AsImageRectangle(settings));
+				Image? image = tile.GetSpotlightTileImage();
+
+				if (image == null)
+				{
+					continue;
+				}
+
+				i++;
+				int percent = (int)Math.Round(i / (double)spotlightTiles.Count * 100);
+				UpdateProgress(progressInfo, percent, $"Drawing tile {i} of {spotlightTiles.Count}");
+				graphics.DrawImage(image, tile.GetRectangle().AsImageRectangle(settings));
 			}
 		}
 
@@ -122,12 +155,12 @@ namespace Mappalachia
 #pragma warning disable IDE0060 // Remove unused parameter
 
 		// Standard including topographic plots
-		static void DrawStandardPlots(List<Instance> instances, Settings settings, Graphics graphics, bool topographic = false)
+		static void DrawStandardPlots(List<Instance> instances, Settings settings, Graphics graphics, bool topographic = false, Progress<ProgressInfo>? progressInfo = null)
 		{
 			// TODO
 		}
 
-		static void DrawClusterPlots(List<Instance> instances, Settings settings, Graphics graphics)
+		static void DrawClusterPlots(List<Instance> instances, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			// TODO
 		}
@@ -190,16 +223,23 @@ namespace Mappalachia
 
 		static async void DrawWaterMark(Settings settings, Graphics graphics)
 		{
-			string text = settings.Space.IsAppalachia() ? string.Empty : $"{settings.Space.DisplayName} ({settings.Space.EditorID})\n";
+			string text = $"{settings.Space.DisplayName} ({settings.Space.EditorID})\n";
+
+			if (settings.MapSettings.SpotlightEnabled)
+			{
+				text += $"{Math.Round(settings.MapSettings.SpotlightLocation.X)}, {Math.Round(settings.MapSettings.SpotlightLocation.Y)} " +
+					$"{Math.Round(settings.MapSettings.SpotlightSize * TileWidth / settings.Space.MaxRange, 2)}:1\n";
+			}
+
 			text += $"Game Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 
 			Font font = GetFont(FontSizeWaterMark);
 			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 
-			DrawStringWithDropShadow(graphics, text, font, BrushGeneric, textBounds, BottomRight);
+			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);
 		}
 
-		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics)
+		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			if (!settings.MapSettings.MapMarkerIcons && !settings.MapSettings.MapMarkerLabels)
 			{

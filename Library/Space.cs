@@ -20,9 +20,6 @@ namespace Library
 		public double MaxRange { get; } = maxRange;
 
 		[JsonIgnore]
-		public double Radius { get; } = maxRange / 2d;
-
-		[JsonIgnore]
 		public double MinX { get; } = centerX - (maxRange / 2d);
 
 		[JsonIgnore]
@@ -65,7 +62,7 @@ namespace Library
 			return MaxRange / Common.TileWidth;
 		}
 
-		// Return if the Space is large enough to meet the necessary requirement to suitably benefit from spotlight
+		// Return if the Space is large enough to meet the minimum threshold to suitably benefit from spotlight
 		public bool IsSuitableForSpotlight()
 		{
 			return GetMaxSpotlightBenefit() >= Common.SpotlightMinimumTiles;

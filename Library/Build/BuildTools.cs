@@ -201,7 +201,7 @@ namespace Library
 				Space? space = spaces.Where(space => space.EditorID == Path.GetFileName(directory)).FirstOrDefault();
 
 				// If the space no longer exists, or, if the space no longer benefits from spotlight, delete its folder
-				if (space == null || space.IsSuitableForSpotlight())
+				if (space == null || !space.IsSuitableForSpotlight())
 				{
 					Directory.Delete(directory, true);
 					StdOutWithColor($"Deleting spotlight folder {directory}", ColorInfo);

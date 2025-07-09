@@ -7,14 +7,18 @@ namespace Mappalachia
 		static FormMain? FormMain { get; set; } = null;
 
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
 			try
 			{
 				// To customize application configuration such as set high DPI settings or default font,
 				// see https://aka.ms/applicationconfiguration.
 				ApplicationConfiguration.Initialize();
-				Console.WriteLine("Dedicated to Molly.");
+
+				if (args.Length > 0 && args[0].EqualsIgnoreCase("dedication"))
+				{
+					Console.WriteLine("Dedicated to Molly.");
+				}
 
 				FormMain = new FormMain();
 				Application.Run(FormMain);

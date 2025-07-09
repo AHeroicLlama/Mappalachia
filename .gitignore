@@ -26,8 +26,9 @@ Assets/img/spotlight/*
 # MapIconProcessor raw SWF extracts
 MapIconProcessor/extract
 
-# Packaged Mappalachia GUI Release
-Mappalachia.zip
+# Packaged Releases
+*.zip
+*.7z.[0-9][0-9][0-9]
 
 */[Tt]emp/*
 

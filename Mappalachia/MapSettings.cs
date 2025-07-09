@@ -30,13 +30,34 @@ namespace Mappalachia
 				return;
 			}
 
-			SpotlightLocation = new Coord(RootSettings.Space.CenterX, RootSettings.Space.CenterY);
+			SpotlightLocation = RootSettings.Space.GetCenter();
+		}
+
+		public void CapSpotlightSizeToSpace()
+		{
+			if (RootSettings == null)
+			{
+				return;
+			}
+
+			int maxSizeThisSpace = (int)Math.Min(RootSettings.Space.GetMaxSpotlightBenefit(), 8);
+			SpotlightSize = Math.Clamp(SpotlightSize, 1, maxSizeThisSpace);
 		}
 
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
 
-		public float Brightness { get; set; } = 1.0f;
+		float brightness = 1.0f;
+
+		public float Brightness
+		{
+			get => brightness;
+
+			set
+			{
+				brightness = Math.Clamp(value, 0.1f, 2.0f);
+			}
+		}
 
 		public bool GrayscaleBackground { get; set; } = false;
 
@@ -51,12 +72,36 @@ namespace Mappalachia
 		public string Title { get; set; } = string.Empty;
 
 		// The size of the spotlight in tiles
-		public double SpotlightSize { get; set; } = 3;
+		public double SpotlightSize { get; set; } = 1;
+
+		Coord spotlightLocation = new Coord(0, 0);
 
 		[JsonIgnore]
-		public Coord SpotlightLocation { get; set; } = new Coord(0, 0);
+		public Coord SpotlightLocation
+		{
+			get => spotlightLocation;
+			set
+			{
+				spotlightLocation = value;
+				FileIO.ClearSpotlightTileImageCache();
+			}
+		}
+
+		bool spotlightEnabled = false;
 
 		[JsonIgnore]
-		public bool SpotlightEnabled { get; set; } = false;
+		public bool SpotlightEnabled
+		{
+			get => spotlightEnabled;
+			set
+			{
+				spotlightEnabled = value;
+
+				if (!SpotlightEnabled)
+				{
+					FileIO.ClearSpotlightTileImageCache();
+				}
+			}
+		}
 	}
 }
