@@ -34,8 +34,6 @@ namespace Library
 
 		public static int TileRadius { get; } = TileWidth / 2;
 
-		public static bool SpotlightInCells { get; } = true; // Configures if spotlight is used for cells
-
 		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
 
 		// Return if this string appears to represent a FormID in hexadecimal

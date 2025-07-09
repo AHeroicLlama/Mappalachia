@@ -120,8 +120,7 @@ namespace Mappalachia
 		static void DrawSpotlightTiles(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			if (!settings.MapSettings.SpotlightEnabled ||
-				settings.MapSettings.BackgroundImage != BackgroundImageType.Render ||
-				(!settings.Space.IsWorldspace && !SpotlightInCells))
+				settings.MapSettings.BackgroundImage != BackgroundImageType.Render)
 			{
 				return;
 			}

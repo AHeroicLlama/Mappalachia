@@ -80,11 +80,7 @@ namespace BackgroundRenderer
 			// Render cells in parallel
 			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async cell =>
 			{
-				if (SpotlightInCells)
-				{
-					await SpotlightRenderSpace(cell);
-				}
-
+				await SpotlightRenderSpace(cell);
 				RenderSpace(cell, true);
 				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
 			});
