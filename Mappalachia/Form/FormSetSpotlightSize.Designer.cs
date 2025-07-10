@@ -38,7 +38,7 @@
 			// 
 			// buttonOK
 			// 
-			buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			buttonOK.Anchor = AnchorStyles.Bottom;
 			buttonOK.Location = new Point(12, 92);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
@@ -49,7 +49,7 @@
 			// 
 			// buttonCancel
 			// 
-			buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			buttonCancel.Anchor = AnchorStyles.Bottom;
 			buttonCancel.Location = new Point(93, 92);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
@@ -59,9 +59,10 @@
 			// 
 			// trackBarSpotlightSize
 			// 
+			trackBarSpotlightSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			trackBarSpotlightSize.LargeChange = 2;
 			trackBarSpotlightSize.Location = new Point(12, 12);
-			trackBarSpotlightSize.Maximum = 8;
+			trackBarSpotlightSize.Maximum = 32;
 			trackBarSpotlightSize.Minimum = 1;
 			trackBarSpotlightSize.Name = "trackBarSpotlightSize";
 			trackBarSpotlightSize.Size = new Size(158, 45);
@@ -71,8 +72,9 @@
 			// 
 			// numericUpDownSpotlightSize
 			// 
+			numericUpDownSpotlightSize.Anchor = AnchorStyles.Top;
 			numericUpDownSpotlightSize.Location = new Point(69, 63);
-			numericUpDownSpotlightSize.Maximum = new decimal(new int[] { 8, 0, 0, 0 });
+			numericUpDownSpotlightSize.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
 			numericUpDownSpotlightSize.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
 			numericUpDownSpotlightSize.Name = "numericUpDownSpotlightSize";
 			numericUpDownSpotlightSize.Size = new Size(44, 23);

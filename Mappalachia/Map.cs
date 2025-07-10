@@ -146,6 +146,7 @@ namespace Mappalachia
 				i++;
 				int percent = (int)Math.Round(i / (double)spotlightTiles.Count * 100);
 				UpdateProgress(progressInfo, percent, $"Drawing tile {i} of {spotlightTiles.Count}");
+
 				graphics.DrawImage(image, tile.GetRectangle().AsImageRectangle(settings));
 			}
 		}
@@ -227,7 +228,7 @@ namespace Mappalachia
 			if (settings.MapSettings.SpotlightEnabled)
 			{
 				text += $"{Math.Round(settings.MapSettings.SpotlightLocation.X)}, {Math.Round(settings.MapSettings.SpotlightLocation.Y)} " +
-					$"{Math.Round(settings.MapSettings.SpotlightSize * TileWidth / settings.Space.MaxRange, 2)}:1\n";
+					$"{Math.Round(settings.MapSettings.SpotlightSize * TileWidth / settings.Space.MaxRange, 3)}:1\n";
 			}
 
 			text += $"Game Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";

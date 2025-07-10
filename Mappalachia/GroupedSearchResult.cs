@@ -7,7 +7,6 @@ namespace Mappalachia
 	public class GroupedSearchResult(Entity entity, Space space, int count = 1, double spawnWeight = 1, string label = "", LockLevel lockLevel = LockLevel.None, bool inContainer = false)
 		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
 	{
-		// TODO placeholder
 		public PlotIcon? PlotIcon { get; set; }
 
 		public int Count { get; } = count;

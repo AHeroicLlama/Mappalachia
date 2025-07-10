@@ -17,6 +17,10 @@ namespace Mappalachia
 
 		SortableBindingList<GroupedSearchResult> ItemsToPlot { get; set; } = new SortableBindingList<GroupedSearchResult>();
 
+		bool DrawRequested { get; set; } = false;
+
+		bool CurrentlyDrawing { get; set; } = false;
+
 		public FormMain()
 		{
 			InitializeComponent();
@@ -86,6 +90,11 @@ namespace Mappalachia
 			{
 				SetSetting(() => Settings.MapSettings.SpotlightSize = spotlightRangeForm.SpotlightRange);
 			}
+		}
+
+		internal void SetClusterSettings(ClusterSettings newClusterSettings)
+		{
+			SetSetting(() => Settings.PlotSettings.ClusterSettings = newClusterSettings);
 		}
 
 		// Return the header for a DataGridViewColumn with the given name
@@ -167,10 +176,6 @@ namespace Mappalachia
 		// Initialize the ListViews for the search filters
 		static void InitializeListViewGeneric(ListView listView)
 		{
-			listView.View = View.SmallIcon;
-			listView.CheckBoxes = true;
-			listView.Scrollable = false;
-
 			// Toggle the check by clicking the label
 			listView.ItemSelectionChanged += (sender, eventArgs) =>
 			{
@@ -339,10 +344,18 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClearSort();
 		}
 
-		public void DrawMap()
+		public async void DrawMap()
 		{
-			// TODO fetch instances from DB
+			if (CurrentlyDrawing)
+			{
+				DrawRequested = true;
+				return;
+			}
 
+			CurrentlyDrawing = true;
+			buttonUpdateMap.Enabled = false;
+
+			// TODO fetch instances from DB
 			Progress<ProgressInfo> progress = new Progress<ProgressInfo>(progressInfo =>
 			{
 				progressBarMain.Value = progressInfo.Percent;
@@ -350,7 +363,16 @@ namespace Mappalachia
 				labelProgressStatus.Location = new Point((Width / 2) - (labelProgressStatus.Width / 2), labelProgressStatus.Location.Y);
 			});
 
-			Task.Run(() => FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, progress));
+			await Task.Run(() => FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, progress));
+
+			CurrentlyDrawing = false;
+			buttonUpdateMap.Enabled = true;
+
+			if (DrawRequested)
+			{
+				DrawRequested = false;
+				DrawMap();
+			}
 		}
 
 		// Sets the tooltip/mouse-over text for cells and column headers
@@ -789,8 +811,20 @@ namespace Mappalachia
 
 		private void Plot_ClusterSettings_Click(object sender, EventArgs e)
 		{
-			// TODO
-			// Spawn cluster settings form
+			FormClusterSettings clusterForm = new FormClusterSettings(this);
+			DialogResult result = clusterForm.ShowDialog();
+
+			if (result == DialogResult.OK)
+			{
+				SetSetting(() => Settings.PlotSettings.ClusterSettings = clusterForm.ClusterSettings);
+			}
+			else if (result == DialogResult.Abort)
+			{
+				// The form sends an Abort result if the form caused a draw via Live Update setting, but cancelled
+				// Thus we now need to re-draw
+				DrawMap();
+			}
+
 			plotSettingsMenuItem.DropDown.Close();
 		}
 
@@ -853,7 +887,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClearSort();
 			dataGridViewItemsToPlot.ClearSort();
 			FormMapView.SizeMapToForm();
-			FileIO.ClearSpotlightTileImageCache();
+			FileIO.FlushSpotlightTileImageCache();
 			UpdateFromSettings();
 		}
 

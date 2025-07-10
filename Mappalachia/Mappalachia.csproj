@@ -20,6 +20,14 @@
 Mappalachia is a Windows application for generating and exporting complex maps of entities within the Fallout 76 game world.</Description>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
 	<Compile Remove="img\**" />
 	<Compile Remove="publish\**" />
@@ -39,7 +47,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 
   <ItemGroup>
 	<PackageReference Include="KGySoft.CoreLibraries" Version="9.0.0" />
-	<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.6" />
+	<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.7" />
 	<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -52,7 +60,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	<Exec Command="robocopy $(SolutionDir)Assets\ $(TargetDir) /s&#xD;&#xA;robocopy $(SolutionDir)Assets\ $(ProjectDir)publish /s&#xD;&#xA;if %25errorlevel%25 leq 2 exit 0 else exit %25errorlevel%25" />
+	<Exec Command="robocopy $(SolutionDir)Assets\ $(TargetDir) /s&#xD;&#xA;robocopy $(SolutionDir)Assets\ $(ProjectDir)publish /s&#xD;&#xA;if %25errorlevel%25 leq 3 exit 0 else exit %25errorlevel%25" />
   </Target>
 
 </Project>

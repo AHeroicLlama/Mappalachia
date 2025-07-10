@@ -316,3 +316,6 @@ dotnet_diagnostic.IDE0040.severity = none
 
 # IDE0071: Simplify interpolation
 dotnet_diagnostic.IDE0071.severity = silent
+
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = silent

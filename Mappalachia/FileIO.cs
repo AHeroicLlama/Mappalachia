@@ -43,7 +43,7 @@ namespace Mappalachia
 			return FontCollection.Families.First();
 		}
 
-		public static void ClearSpotlightTileImageCache()
+		public static void FlushSpotlightTileImageCache()
 		{
 			foreach (KeyValuePair<SpotlightTile, Image> entry in SpotlightTileImageCache)
 			{

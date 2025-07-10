@@ -65,7 +65,7 @@ namespace Library
 		// Return if the Space is large enough to meet the minimum threshold to suitably benefit from spotlight
 		public bool IsSuitableForSpotlight()
 		{
-			return GetMaxSpotlightBenefit() >= Common.SpotlightMinimumTiles;
+			return GetMaxSpotlightBenefit() >= Common.SpotlightMinTileResolution;
 		}
 	}
 }

@@ -3,6 +3,7 @@ using Library;
 
 namespace Mappalachia
 {
+	// Parent class for all settings
 	public class Settings
 	{
 		Space space;

@@ -40,7 +40,7 @@ namespace Mappalachia
 				return;
 			}
 
-			int maxSizeThisSpace = (int)Math.Min(RootSettings.Space.GetMaxSpotlightBenefit(), 8);
+			int maxSizeThisSpace = (int)Math.Min(RootSettings.Space.GetMaxSpotlightBenefit(), Common.SpotlightMaxSize);
 			SpotlightSize = Math.Clamp(SpotlightSize, 1, maxSizeThisSpace);
 		}
 
@@ -83,7 +83,7 @@ namespace Mappalachia
 			set
 			{
 				spotlightLocation = value;
-				FileIO.ClearSpotlightTileImageCache();
+				FileIO.FlushSpotlightTileImageCache();
 			}
 		}
 
@@ -99,7 +99,13 @@ namespace Mappalachia
 
 				if (!SpotlightEnabled)
 				{
-					FileIO.ClearSpotlightTileImageCache();
+					FileIO.FlushSpotlightTileImageCache();
+				}
+
+				// We assume for the majority of cases, using satellite implies wanting the high res render too
+				if (SpotlightEnabled)
+				{
+					backgroundImage = BackgroundImageType.Render;
 				}
 			}
 		}

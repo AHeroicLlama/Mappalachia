@@ -95,7 +95,7 @@
 			// 
 			// buttonOK
 			// 
-			buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			buttonOK.Anchor = AnchorStyles.Bottom;
 			buttonOK.Location = new Point(12, 138);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
@@ -106,7 +106,7 @@
 			// 
 			// buttonCancel
 			// 
-			buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			buttonCancel.Anchor = AnchorStyles.Bottom;
 			buttonCancel.Location = new Point(95, 138);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);

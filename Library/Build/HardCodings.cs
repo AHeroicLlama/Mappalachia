@@ -6,10 +6,10 @@ namespace Library
 	// For multiple reasons, a small subset of data (or expected data) is hardcoded.
 	// Naturally hardcoding things comes with risks and may require review after each patch. For that reason all hardcoded items are kept together here.
 	// Hardcoding may be done for the following reasons: Datamining is not realistic, or a route is not known. Or the data is apparently server-side.
-	// Notably Map Markers are the main offender of this
+	// Notably Map Markers are the main offenders of this
 	public static partial class BuildTools
 	{
-		public static string FissureSiteLabel { get; } = "Fissure Site";
+		static string FissureSiteLabel { get; } = "Fissure Site";
 
 		public static Regex SpaceFormIDRegex { get; } = new Regex(@"\[(WRLD|CELL):([0-9A-F]{8})\]");
 
@@ -35,11 +35,11 @@ namespace Library
 
 		public static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
 
-		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood|Pure (Crimson|Violet|Yellowcake|Fluorescent|Cobalt) Flux|Pure Violet Flux)$");
+		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood|Pure (Crimson|Violet|Yellowcake|Fluorescent|Cobalt) Flux)$");
 
 		public static Regex ValidIconFolder { get; } = new Regex("DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
-		public static string MapMarkerIconInitialFileName { get; } = "1.svg";
+		public static string MapMarkerIconInitialFileName { get; } = "1.svg"; // Frame 1
 
 		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{

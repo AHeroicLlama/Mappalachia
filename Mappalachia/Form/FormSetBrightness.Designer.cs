@@ -36,6 +36,7 @@
 			// 
 			// numericUpDownBrightness
 			// 
+			numericUpDownBrightness.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			numericUpDownBrightness.Location = new Point(12, 12);
 			numericUpDownBrightness.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
 			numericUpDownBrightness.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
@@ -46,6 +47,7 @@
 			// 
 			// buttonOK
 			// 
+			buttonOK.Anchor = AnchorStyles.Bottom;
 			buttonOK.Location = new Point(10, 41);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
@@ -56,6 +58,7 @@
 			// 
 			// buttonCancel
 			// 
+			buttonCancel.Anchor = AnchorStyles.Bottom;
 			buttonCancel.Location = new Point(91, 41);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);

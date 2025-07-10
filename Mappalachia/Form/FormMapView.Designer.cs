@@ -40,7 +40,7 @@
 			// pictureBoxMapDisplay
 			// 
 			pictureBoxMapDisplay.BackColor = Color.Black;
-			pictureBoxMapDisplay.Location = new Point(0, 0);
+			pictureBoxMapDisplay.Location = new Point(0, 27);
 			pictureBoxMapDisplay.Name = "pictureBoxMapDisplay";
 			pictureBoxMapDisplay.Size = new Size(1008, 961);
 			pictureBoxMapDisplay.SizeMode = PictureBoxSizeMode.Zoom;
@@ -57,6 +57,7 @@
 			menuStripPreview.Items.AddRange(new ToolStripItem[] { resetZoomMenuItem, keepOnTopMenuItem });
 			menuStripPreview.Location = new Point(0, 0);
 			menuStripPreview.Name = "menuStripPreview";
+			menuStripPreview.ShowItemToolTips = true;
 			menuStripPreview.Size = new Size(1008, 24);
 			menuStripPreview.TabIndex = 0;
 			// 
@@ -65,6 +66,7 @@
 			resetZoomMenuItem.Name = "resetZoomMenuItem";
 			resetZoomMenuItem.Size = new Size(82, 20);
 			resetZoomMenuItem.Text = "Reset Zoom";
+			resetZoomMenuItem.ToolTipText = "Move and resize the map image to best fit the window.";
 			resetZoomMenuItem.Click += ResetZoom_Click;
 			// 
 			// keepOnTopMenuItem
@@ -73,6 +75,7 @@
 			keepOnTopMenuItem.Name = "keepOnTopMenuItem";
 			keepOnTopMenuItem.Size = new Size(83, 20);
 			keepOnTopMenuItem.Text = "Keep on top";
+			keepOnTopMenuItem.ToolTipText = "Force the preview window to show over everything else.";
 			keepOnTopMenuItem.Click += KeepOnTop_Click;
 			// 
 			// FormMapView

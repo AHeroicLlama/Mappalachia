@@ -100,6 +100,8 @@ namespace Mappalachia
 			buttonUpdateMap = new Button();
 			progressBarMain = new ProgressBar();
 			labelProgressStatus = new Label();
+			labelSearchResults = new Label();
+			labelItemsToPlot = new Label();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -114,7 +116,7 @@ namespace Mappalachia
 			menuStripMain.Location = new Point(0, 0);
 			menuStripMain.Name = "menuStripMain";
 			menuStripMain.ShowItemToolTips = true;
-			menuStripMain.Size = new Size(977, 24);
+			menuStripMain.Size = new Size(984, 24);
 			menuStripMain.TabIndex = 0;
 			menuStripMain.Text = "menuStrip1";
 			// 
@@ -520,10 +522,10 @@ namespace Mappalachia
 			// 
 			// buttonSearch
 			// 
-			buttonSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			buttonSearch.Location = new Point(800, 27);
+			buttonSearch.Anchor = AnchorStyles.Top;
+			buttonSearch.Location = new Point(807, 29);
 			buttonSearch.Name = "buttonSearch";
-			buttonSearch.Size = new Size(165, 23);
+			buttonSearch.Size = new Size(168, 22);
 			buttonSearch.TabIndex = 3;
 			buttonSearch.Text = "Search";
 			buttonSearch.UseVisualStyleBackColor = true;
@@ -531,10 +533,10 @@ namespace Mappalachia
 			// 
 			// textBoxSearch
 			// 
-			textBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			textBoxSearch.Location = new Point(406, 29);
+			textBoxSearch.Anchor = AnchorStyles.Top;
+			textBoxSearch.Location = new Point(410, 30);
 			textBoxSearch.Name = "textBoxSearch";
-			textBoxSearch.Size = new Size(388, 23);
+			textBoxSearch.Size = new Size(391, 23);
 			textBoxSearch.TabIndex = 2;
 			textBoxSearch.Text = "Search Term";
 			textBoxSearch.TextChanged += SearchTerm_TextChanged;
@@ -549,22 +551,24 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewSearchResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewSearchResults.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewSearchResults.Location = new Point(12, 238);
+			dataGridViewSearchResults.Location = new Point(12, 257);
+			dataGridViewSearchResults.MinimumSize = new Size(960, 0);
 			dataGridViewSearchResults.Name = "dataGridViewSearchResults";
 			dataGridViewSearchResults.ReadOnly = true;
 			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
 			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewSearchResults.Size = new Size(953, 236);
+			dataGridViewSearchResults.Size = new Size(963, 237);
 			dataGridViewSearchResults.TabIndex = 6;
 			// 
 			// comboBoxSpace
 			// 
+			comboBoxSpace.Anchor = AnchorStyles.Top;
 			comboBoxSpace.DropDownStyle = ComboBoxStyle.DropDownList;
 			comboBoxSpace.FormattingEnabled = true;
-			comboBoxSpace.Location = new Point(12, 29);
+			comboBoxSpace.Location = new Point(12, 30);
 			comboBoxSpace.Name = "comboBoxSpace";
-			comboBoxSpace.Size = new Size(388, 23);
+			comboBoxSpace.Size = new Size(392, 23);
 			comboBoxSpace.TabIndex = 1;
 			comboBoxSpace.SelectionChangeCommitted += ComboBoxSpace_SelectionChangeCommitted;
 			// 
@@ -572,7 +576,7 @@ namespace Mappalachia
 			// 
 			buttonAddToMap.Anchor = AnchorStyles.Bottom;
 			buttonAddToMap.ContextMenu = null;
-			buttonAddToMap.Location = new Point(360, 480);
+			buttonAddToMap.Location = new Point(363, 500);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Padding = new Padding(0, 0, 15, 0);
 			buttonAddToMap.Size = new Size(126, 23);
@@ -583,7 +587,7 @@ namespace Mappalachia
 			// buttonRemoveFromMap
 			// 
 			buttonRemoveFromMap.Anchor = AnchorStyles.Bottom;
-			buttonRemoveFromMap.Location = new Point(492, 480);
+			buttonRemoveFromMap.Location = new Point(495, 500);
 			buttonRemoveFromMap.Name = "buttonRemoveFromMap";
 			buttonRemoveFromMap.Size = new Size(126, 23);
 			buttonRemoveFromMap.TabIndex = 8;
@@ -601,35 +605,42 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewItemsToPlot.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridViewItemsToPlot.EditMode = DataGridViewEditMode.EditProgrammatically;
-			dataGridViewItemsToPlot.Location = new Point(12, 509);
+			dataGridViewItemsToPlot.Location = new Point(12, 529);
+			dataGridViewItemsToPlot.MinimumSize = new Size(960, 170);
 			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
 			dataGridViewItemsToPlot.ReadOnly = true;
 			dataGridViewItemsToPlot.RowHeadersVisible = false;
 			dataGridViewItemsToPlot.ScrollBars = ScrollBars.Vertical;
 			dataGridViewItemsToPlot.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dataGridViewItemsToPlot.Size = new Size(953, 204);
+			dataGridViewItemsToPlot.Size = new Size(963, 170);
 			dataGridViewItemsToPlot.TabIndex = 9;
 			dataGridViewItemsToPlot.CellPainting += DataGridViewItemsToPlot_CellPainting;
 			// 
 			// listViewSignature
 			// 
-			listViewSignature.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			listViewSignature.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			listViewSignature.BackColor = SystemColors.ControlDark;
-			listViewSignature.Location = new Point(6, 22);
+			listViewSignature.CheckBoxes = true;
+			listViewSignature.Location = new Point(3, 16);
+			listViewSignature.Margin = new Padding(0);
 			listViewSignature.Name = "listViewSignature";
-			listViewSignature.Size = new Size(685, 111);
+			listViewSignature.Size = new Size(693, 135);
 			listViewSignature.TabIndex = 0;
 			listViewSignature.UseCompatibleStateImageBehavior = false;
+			listViewSignature.View = View.List;
 			// 
 			// listViewLockLevel
 			// 
-			listViewLockLevel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			listViewLockLevel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			listViewLockLevel.BackColor = SystemColors.ControlDark;
-			listViewLockLevel.Location = new Point(6, 22);
+			listViewLockLevel.CheckBoxes = true;
+			listViewLockLevel.Location = new Point(3, 16);
+			listViewLockLevel.Margin = new Padding(0);
 			listViewLockLevel.Name = "listViewLockLevel";
-			listViewLockLevel.Size = new Size(238, 111);
+			listViewLockLevel.Size = new Size(255, 135);
 			listViewLockLevel.TabIndex = 0;
 			listViewLockLevel.UseCompatibleStateImageBehavior = false;
+			listViewLockLevel.View = View.List;
 			// 
 			// groupBoxFilterSignature
 			// 
@@ -638,16 +649,17 @@ namespace Mappalachia
 			groupBoxFilterSignature.Controls.Add(buttonUnselectAllSignature);
 			groupBoxFilterSignature.Controls.Add(buttonSelectAllSignature);
 			groupBoxFilterSignature.Controls.Add(listViewSignature);
-			groupBoxFilterSignature.Location = new Point(12, 58);
+			groupBoxFilterSignature.Location = new Point(12, 56);
 			groupBoxFilterSignature.Name = "groupBoxFilterSignature";
-			groupBoxFilterSignature.Size = new Size(697, 165);
+			groupBoxFilterSignature.Size = new Size(699, 183);
 			groupBoxFilterSignature.TabIndex = 4;
 			groupBoxFilterSignature.TabStop = false;
 			groupBoxFilterSignature.Text = "Filter by category";
 			// 
 			// buttonSelectRecommended
 			// 
-			buttonSelectRecommended.Location = new Point(280, 136);
+			buttonSelectRecommended.Anchor = AnchorStyles.Bottom;
+			buttonSelectRecommended.Location = new Point(281, 154);
 			buttonSelectRecommended.Name = "buttonSelectRecommended";
 			buttonSelectRecommended.Size = new Size(137, 23);
 			buttonSelectRecommended.TabIndex = 2;
@@ -657,7 +669,8 @@ namespace Mappalachia
 			// 
 			// buttonUnselectAllSignature
 			// 
-			buttonUnselectAllSignature.Location = new Point(423, 136);
+			buttonUnselectAllSignature.Anchor = AnchorStyles.Bottom;
+			buttonUnselectAllSignature.Location = new Point(424, 154);
 			buttonUnselectAllSignature.Name = "buttonUnselectAllSignature";
 			buttonUnselectAllSignature.Size = new Size(80, 23);
 			buttonUnselectAllSignature.TabIndex = 3;
@@ -667,7 +680,8 @@ namespace Mappalachia
 			// 
 			// buttonSelectAllSignature
 			// 
-			buttonSelectAllSignature.Location = new Point(194, 136);
+			buttonSelectAllSignature.Anchor = AnchorStyles.Bottom;
+			buttonSelectAllSignature.Location = new Point(195, 154);
 			buttonSelectAllSignature.Name = "buttonSelectAllSignature";
 			buttonSelectAllSignature.Size = new Size(80, 23);
 			buttonSelectAllSignature.TabIndex = 1;
@@ -681,16 +695,18 @@ namespace Mappalachia
 			groupBoxFilterLockLevel.Controls.Add(buttonUnselectAllLockLevel);
 			groupBoxFilterLockLevel.Controls.Add(buttonSelectAllLockLevel);
 			groupBoxFilterLockLevel.Controls.Add(listViewLockLevel);
-			groupBoxFilterLockLevel.Location = new Point(715, 58);
+			groupBoxFilterLockLevel.Location = new Point(714, 56);
+			groupBoxFilterLockLevel.Margin = new Padding(0);
 			groupBoxFilterLockLevel.Name = "groupBoxFilterLockLevel";
-			groupBoxFilterLockLevel.Size = new Size(250, 165);
+			groupBoxFilterLockLevel.Size = new Size(261, 183);
 			groupBoxFilterLockLevel.TabIndex = 5;
 			groupBoxFilterLockLevel.TabStop = false;
 			groupBoxFilterLockLevel.Text = "Filter by lock level";
 			// 
 			// buttonUnselectAllLockLevel
 			// 
-			buttonUnselectAllLockLevel.Location = new Point(128, 136);
+			buttonUnselectAllLockLevel.Anchor = AnchorStyles.Bottom;
+			buttonUnselectAllLockLevel.Location = new Point(133, 154);
 			buttonUnselectAllLockLevel.Name = "buttonUnselectAllLockLevel";
 			buttonUnselectAllLockLevel.Size = new Size(80, 23);
 			buttonUnselectAllLockLevel.TabIndex = 2;
@@ -700,7 +716,8 @@ namespace Mappalachia
 			// 
 			// buttonSelectAllLockLevel
 			// 
-			buttonSelectAllLockLevel.Location = new Point(42, 136);
+			buttonSelectAllLockLevel.Anchor = AnchorStyles.Bottom;
+			buttonSelectAllLockLevel.Location = new Point(47, 154);
 			buttonSelectAllLockLevel.Name = "buttonSelectAllLockLevel";
 			buttonSelectAllLockLevel.Size = new Size(80, 23);
 			buttonSelectAllLockLevel.TabIndex = 1;
@@ -711,7 +728,7 @@ namespace Mappalachia
 			// buttonUpdateMap
 			// 
 			buttonUpdateMap.Anchor = AnchorStyles.Bottom;
-			buttonUpdateMap.Location = new Point(411, 719);
+			buttonUpdateMap.Location = new Point(415, 705);
 			buttonUpdateMap.Name = "buttonUpdateMap";
 			buttonUpdateMap.Size = new Size(155, 27);
 			buttonUpdateMap.TabIndex = 10;
@@ -721,27 +738,53 @@ namespace Mappalachia
 			// 
 			// progressBarMain
 			// 
-			progressBarMain.Location = new Point(0, 752);
+			progressBarMain.Dock = DockStyle.Bottom;
+			progressBarMain.Location = new Point(0, 738);
 			progressBarMain.Name = "progressBarMain";
-			progressBarMain.Size = new Size(977, 23);
+			progressBarMain.Size = new Size(984, 23);
 			progressBarMain.TabIndex = 11;
 			// 
 			// labelProgressStatus
 			// 
+			labelProgressStatus.Anchor = AnchorStyles.Bottom;
 			labelProgressStatus.AutoSize = true;
-			labelProgressStatus.BackColor = Color.White;
-			labelProgressStatus.Location = new Point(488, 756);
+			labelProgressStatus.BackColor = Color.FromArgb(230, 230, 230);
+			labelProgressStatus.Location = new Point(466, 741);
 			labelProgressStatus.Name = "labelProgressStatus";
-			labelProgressStatus.Size = new Size(0, 15);
+			labelProgressStatus.Size = new Size(52, 15);
 			labelProgressStatus.TabIndex = 12;
+			labelProgressStatus.Text = "Progress";
+			labelProgressStatus.TextAlign = ContentAlignment.MiddleCenter;
+			// 
+			// labelSearchResults
+			// 
+			labelSearchResults.AutoSize = true;
+			labelSearchResults.Location = new Point(12, 239);
+			labelSearchResults.Name = "labelSearchResults";
+			labelSearchResults.Size = new Size(79, 15);
+			labelSearchResults.TabIndex = 13;
+			labelSearchResults.Text = "Search results";
+			// 
+			// labelItemsToPlot
+			// 
+			labelItemsToPlot.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			labelItemsToPlot.AutoSize = true;
+			labelItemsToPlot.Location = new Point(12, 511);
+			labelItemsToPlot.Name = "labelItemsToPlot";
+			labelItemsToPlot.Size = new Size(120, 15);
+			labelItemsToPlot.TabIndex = 14;
+			labelItemsToPlot.Text = "Items selected to plot";
 			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			AutoScroll = true;
 			BackColor = SystemColors.ControlDarkDark;
-			ClientSize = new Size(977, 776);
+			ClientSize = new Size(984, 761);
+			Controls.Add(labelItemsToPlot);
+			Controls.Add(labelSearchResults);
 			Controls.Add(labelProgressStatus);
 			Controls.Add(progressBarMain);
 			Controls.Add(buttonUpdateMap);
@@ -757,6 +800,7 @@ namespace Mappalachia
 			Controls.Add(menuStripMain);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MainMenuStrip = menuStripMain;
+			MinimumSize = new Size(1000, 800);
 			Name = "FormMain";
 			Text = "Mappalachia";
 			FormClosing += FormMain_FormClosing;
@@ -844,5 +888,7 @@ namespace Mappalachia
 		private ToolStripMenuItem spotlightCoordToolStripMenuItem;
 		private ProgressBar progressBarMain;
 		private Label labelProgressStatus;
+		private Label labelSearchResults;
+		private Label labelItemsToPlot;
 	}
 }

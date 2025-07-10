@@ -1,4 +1,6 @@
-﻿namespace Mappalachia
+﻿using Library;
+
+namespace Mappalachia
 {
 	public partial class FormSetSpotlightSize : Form
 	{
@@ -8,17 +10,17 @@
 		{
 			InitializeComponent();
 
-			int maxSizeThisSpace = Math.Min((int)settings.Space.GetMaxSpotlightBenefit(), 8);
+			int maxSizeThisSpace = Math.Min((int)settings.Space.GetMaxSpotlightBenefit(), Common.SpotlightMaxSize);
 			int cappedSpotlightSize = Math.Min(Math.Max((int)settings.MapSettings.SpotlightSize, 1), maxSizeThisSpace);
-
-			trackBarSpotlightSize.Value = cappedSpotlightSize;
-			numericUpDownSpotlightSize.Value = Convert.ToDecimal(cappedSpotlightSize);
 
 			trackBarSpotlightSize.Maximum = maxSizeThisSpace;
 			numericUpDownSpotlightSize.Maximum = maxSizeThisSpace;
 
 			numericUpDownSpotlightSize.Minimum = 1;
 			trackBarSpotlightSize.Minimum = 1;
+
+			trackBarSpotlightSize.Value = cappedSpotlightSize;
+			numericUpDownSpotlightSize.Value = Convert.ToDecimal(cappedSpotlightSize);
 
 			numericUpDownSpotlightSize.Select(0, 2);
 		}
