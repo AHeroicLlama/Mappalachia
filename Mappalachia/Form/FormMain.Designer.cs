@@ -525,7 +525,7 @@ namespace Mappalachia
 			buttonSearch.Anchor = AnchorStyles.Top;
 			buttonSearch.Location = new Point(807, 29);
 			buttonSearch.Name = "buttonSearch";
-			buttonSearch.Size = new Size(168, 22);
+			buttonSearch.Size = new Size(168, 21);
 			buttonSearch.TabIndex = 3;
 			buttonSearch.Text = "Search";
 			buttonSearch.UseVisualStyleBackColor = true;

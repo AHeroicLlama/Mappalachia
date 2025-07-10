@@ -4,6 +4,7 @@
 * You have optionally [built and validated the database](Preprocessor.md), or, have a copy of `mappalachia.db` from a release
 * You have optionally [extracted the map marker icons](IconExtraction.md), or, are confident they do not need updating
 * You have optionally [rendered the background images](BackgroundRendering.md), or, have a copy of them all from a release.
+* An installation of [7-Zip](https://www.7-zip.org/download.html)
 * An installation of Visual Studio
 * Experience using Mappalachia as an end user
 * Competency in C# .NET and SQLite SQL
@@ -32,5 +33,5 @@ In order to package a Mappalachia release there are a few steps.
 * If any cells or worldspaces have changed, you must [run the background renderer](BackgroundRendering.md) for those spaces. Review the space coordinate checksum section of the Database Summary to identify this.
 * Use the validation functionality of the [Preprocessor](Preprocessor.md) to verify that image assets appear correct, particularly if any have been regenerated/extracted.
 * In Visual Studio, right click the Mappalachia Project and select 'Publish'. With the included `PublishProfile.pubxml` selected, press 'Publish'.
-* Launch `Mappalachia\package_release.bat`. This batch script will just check for a published build, remove any generated preferences file and then zip up the `publish` folder, leaving the zip in the folder besides the batch script.
-* `Mappalachia.zip` is the file which should now be distributed to end users.
+* Launch `Mappalachia\Package_Release.bat`. This requires a 7-Zip installation and assumes the default installation directory. It will use 7-Zip to create the `Mappalachia.zip` and additional 'spotlight' archives, placing them at `dist\`.
+* `Mappalachia.zip` is the file which should now be distributed to end users. Additionally all the `spotlight.7z.xxx` files should be made available as optional downloads.

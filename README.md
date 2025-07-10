@@ -17,7 +17,7 @@ For help installing please refer to the [installation and first launch guide](Do
 ## Getting started - User Guides
 A number of User guides exist for Mappalachia in document form;<br/>
 
-* [**Installation and First run**](Docs/User/Installation_and_first_run.md) covers initial installation and getting Mappalachia running.
+* [**Installation**](Docs/User/Installation.md) covers initial installation & launch, plus installing the optional Spotlight feature.
 * [**First map**](Docs/User/First_map.md) explains the basic steps to creating your first Mappalachia map and other core features.
 * [**Customization Options**](Docs/User/Customization.md) covers all the various customization and visual options for your map.
 * [**Advanced Searching**](Docs/User/Advanced_searching.md) explains the intelligent NPC, Scrap and Region search functions, as well as using filters to find exactly what you need.
