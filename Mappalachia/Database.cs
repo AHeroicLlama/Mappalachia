@@ -276,6 +276,32 @@ namespace Mappalachia
 			return results;
 		}
 
+		// Return all instances of the given GroupedSearchResult
+		public static async Task<List<Instance>> GetStandardInstances(GroupedSearchResult searchResult)
+		{
+			List<Instance> instances = new List<Instance>();
+
+			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
+				$"WHERE referenceFormID = {searchResult.Entity.FormID} AND spaceFormID = {searchResult.Space.FormID} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND label = '{searchResult.Label}'";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					searchResult.Entity,
+					searchResult.Space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					searchResult.Label,
+					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
+					searchResult.LockLevel,
+					reader.GetShape()));
+			}
+
+			return instances;
+		}
+
 		public static async Task<string> GetGameVersion()
 		{
 			return await CommonDatabase.GetGameVersion(Connection);
@@ -301,9 +327,9 @@ namespace Mappalachia
 			return lockLevel.ToString();
 		}
 
-		static Space GetSpaceByFormID(uint formID)
+		static Space? GetSpaceByFormID(uint formID)
 		{
-			return AllSpaces.Where(space => space.FormID == formID).FirstOrDefault() ?? throw new Exception($"No Space with formID {formID} was found");
+			return AllSpaces.Where(space => space.FormID == formID).FirstOrDefault();
 		}
 	}
 }

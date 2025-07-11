@@ -364,7 +364,7 @@ namespace Mappalachia
 				labelProgressStatus.Location = new Point((Width / 2) - (labelProgressStatus.Width / 2), labelProgressStatus.Location.Y);
 			});
 
-			await Task.Run(() => FormMapView.MapImage = Map.Draw(new List<Instance>(), Settings, progress));
+			await Task.Run(() => FormMapView.MapImage = Map.Draw(ItemsToPlot.ToList(), Settings, progress));
 
 			CurrentlyDrawing = false;
 			buttonUpdateMap.Enabled = true;
@@ -964,7 +964,7 @@ namespace Mappalachia
 				}
 			}
 
-			PlotIcon? groupPlotIcon = addAsGroup ? new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette) : null;
+			PlotIcon? groupPlotIcon = addAsGroup ? new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize) : null;
 
 			// Add the valid items to the actual list
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
@@ -976,7 +976,7 @@ namespace Mappalachia
 				}
 				else
 				{
-					instance.PlotIcon = new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette);
+					instance.PlotIcon = new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize);
 				}
 
 				ItemsToPlot.Add(instance);

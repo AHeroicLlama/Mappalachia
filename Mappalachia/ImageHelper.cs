@@ -1,4 +1,5 @@
-﻿using System.Drawing.Imaging;
+﻿using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 namespace Mappalachia
@@ -99,6 +100,17 @@ namespace Mappalachia
 			bitmap.UnlockBits(bitmapData);
 
 			return bitmap;
+		}
+
+		public static Image Resize(this Image image, int width, int height)
+		{
+			Bitmap resizedImage = new Bitmap(width, height);
+			using Graphics graphics = Graphics.FromImage(resizedImage);
+			graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+			graphics.DrawImage(image, 0, 0, width, height);
+
+			return resizedImage;
 		}
 
 		// Linearly interpolates the RGB values of two colors to form a new 'child' color

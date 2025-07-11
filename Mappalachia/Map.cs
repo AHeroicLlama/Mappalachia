@@ -47,7 +47,7 @@ namespace Mappalachia
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		// The primary map draw function
-		public static Image Draw(List<Instance> instances, Settings settings, Progress<ProgressInfo>? progressInfo = null)
+		public static Image Draw(List<GroupedSearchResult> itemsToPlot, Settings settings, Progress<ProgressInfo>? progressInfo = null)
 		{
 			UpdateProgress(progressInfo, 10, "Draw started");
 
@@ -77,28 +77,28 @@ namespace Mappalachia
 			switch (settings.PlotSettings.Mode)
 			{
 				case PlotMode.Standard:
-					DrawStandardPlots(instances, settings, graphics, false, progressInfo);
+					DrawStandardPlots(itemsToPlot, settings, graphics, false, progressInfo);
 					break;
 
 				case PlotMode.Topographic:
-					DrawStandardPlots(instances, settings, graphics, true, progressInfo);
+					DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo);
 					DrawTopographicLegend(settings, graphics);
 					break;
 
 				case PlotMode.Cluster:
-					DrawClusterPlots(instances, settings, graphics, progressInfo);
+					DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo);
 					break;
 
 				default:
 					throw new Exception("Unexpected PlotMode: " + settings.PlotSettings.Mode);
 			}
 
-			DrawConnectingSpacePlots(instances, settings, graphics);
-			DrawInstanceFormIDs(instances, settings, graphics);
+			DrawConnectingSpacePlots(itemsToPlot, settings, graphics);
+			DrawInstanceFormIDs(itemsToPlot, settings, graphics);
 			DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
-			mapImage = DrawLegend(instances, settings, mapImage);
+			mapImage = DrawLegend(itemsToPlot, settings, mapImage);
 
 			GC.Collect();
 
@@ -155,18 +155,28 @@ namespace Mappalachia
 #pragma warning disable IDE0060 // Remove unused parameter
 
 		// Standard including topographic plots
-		static void DrawStandardPlots(List<Instance> instances, Settings settings, Graphics graphics, bool topographic = false, Progress<ProgressInfo>? progressInfo = null)
+		static async void DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic = false, Progress<ProgressInfo>? progressInfo = null)
 		{
-			// TODO
+			// TODO WIP
+			foreach (GroupedSearchResult item in itemsToPlot)
+			{
+				// TODO - this should hook up to a generic instance search, not standard only
+				List<Instance> instances = await Database.GetStandardInstances(item);
+
+				foreach (Instance instance in instances)
+				{
+					graphics.DrawImageCentered(item.PlotIcon.Image, instance.Coord.AsImagePoint(settings));
+				}
+			}
 		}
 
-		static void DrawClusterPlots(List<Instance> instances, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
+		static void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			// TODO
 		}
 
 		// Draw plots where plotted entities exist in a space reachable by this one
-		static void DrawConnectingSpacePlots(List<Instance> instances, Settings settings, Graphics graphics)
+		static void DrawConnectingSpacePlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics)
 		{
 			if (!settings.PlotSettings.ShowPlotsInOtherSpaces)
 			{
@@ -177,7 +187,7 @@ namespace Mappalachia
 		}
 
 		// Draw the FormID of the instance of the plot
-		static void DrawInstanceFormIDs(List<Instance> instances, Settings settings, Graphics graphics)
+		static void DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics)
 		{
 			if (!settings.PlotSettings.DrawInstanceFormID)
 			{
@@ -274,7 +284,7 @@ namespace Mappalachia
 
 		// Draw the legend
 		// May return an image of different dimensions if extended legend is used
-		static Image DrawLegend(List<Instance> instances, Settings settings, Image image)
+		static Image DrawLegend(List<GroupedSearchResult> itemsToPlot, Settings settings, Image image)
 		{
 			// TODO
 			switch (settings.MapSettings.LegendStyle)
