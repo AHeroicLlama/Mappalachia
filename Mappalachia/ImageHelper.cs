@@ -37,7 +37,7 @@ namespace Mappalachia
 			]);
 		}
 
-		// Returns a copy of the original image, where all opaque black pixels are transparent
+		// Returns the original image, where all opaque black pixels are transparent
 		// Note similar implementation to Preprocessor.ImageAssetValidation.GetBlackPxPercent
 		public static Image ReplaceBlackWithTransparency(this Image image)
 		{
@@ -64,6 +64,34 @@ namespace Mappalachia
 					{
 						buffer[alphaAddress] = 0;
 					}
+				}
+			}
+
+			Marshal.Copy(buffer, 0, bitmapData.Scan0, size);
+			bitmap.UnlockBits(bitmapData);
+
+			return bitmap;
+		}
+
+		// Returns the original image, with all pixels set to the given color, persisting transparency
+		public static Image SetColor(this Image image, Color color)
+		{
+			Bitmap bitmap = (Bitmap)image;
+
+			// We copy the bitmap data out into a byte array, because accessing the pixels from the bitmap object is very slow
+			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+			int size = bitmapData.Stride * bitmap.Height;
+			byte[] buffer = new byte[size];
+			Marshal.Copy(bitmapData.Scan0, buffer, 0, size);
+			int stride = bitmapData.Stride;
+
+			for (int x = 0; x < bitmapData.Height; x++)
+			{
+				for (int y = 0; y < bitmapData.Width; y++)
+				{
+					buffer[(x * stride) + (y * 4) + 2] = color.R;
+					buffer[(x * stride) + (y * 4) + 1] = color.G;
+					buffer[(x * stride) + (y * 4)] = color.B;
 				}
 			}
 

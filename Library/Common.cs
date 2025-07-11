@@ -15,6 +15,8 @@ namespace Library
 
 		public static string MaskImageFileType { get; } = ".png";
 
+		public static string PlotIconFileType { get; } = ".png";
+
 		public static string WaterMaskAddendum { get; } = "_waterMask";
 
 		public static string BackgroundMenuAddendum { get; } = "_menu";

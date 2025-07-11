@@ -1,38 +1,21 @@
 ﻿namespace Mappalachia
 {
-	public class PlotIcon()
+	public class PlotIcon
 	{
-		public Color Color { get; set; } = Color.Red;
+		public Color Color { get; set; }
 
-		Image? Image { get; set; }
+		public Image? Image { get; set; }
 
-		// TODO - placeholder
-		public Image GetImage()
+		const string IconShapeNames = "ABCDEF";
+
+		public PlotIcon(int offset, List<Color> palette)
 		{
-			Image ??= Database.AllMapMarkers[new Random().Next(Database.AllMapMarkers.Count)].GetMapMarkerImage();
-			return Image;
-		}
+			int colorIndex = offset % palette.Count;
+			int iconIndex = (offset / palette.Count) % IconShapeNames.Length;
 
-		public override bool Equals(object? other)
-		{
-			if (other is null)
-			{
-				return false;
-			}
-
-			if (other is not PlotIcon)
-			{
-				return false;
-			}
-
-			// TODO
-			throw new NotImplementedException();
-		}
-
-		public override int GetHashCode()
-		{
-			// TODO
-			throw new NotImplementedException();
+			Color = palette[colorIndex];
+			Image = FileIO.GetPlotIconImage(IconShapeNames[iconIndex].ToString());
+			Image = Image.SetColor(Color);
 		}
 	}
 }

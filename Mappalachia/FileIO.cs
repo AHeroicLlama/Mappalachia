@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
@@ -12,6 +12,8 @@ namespace Mappalachia
 		static Dictionary<string, Image> BackgroundImageCache { get; } = new Dictionary<string, Image>();
 
 		static Dictionary<string, Image> MapMarkerIconImageCache { get; } = new Dictionary<string, Image>();
+
+		static Dictionary<string, Image> PlotIconImageCache { get; } = new Dictionary<string, Image>();
 
 		static ConcurrentDictionary<SpotlightTile, Image> SpotlightTileImageCache { get; } = new ConcurrentDictionary<SpotlightTile, Image>();
 
@@ -77,6 +79,27 @@ namespace Mappalachia
 			GC.Collect();
 		}
 
+		// Return a new copy of the plot icon image with the given name
+		public static Image GetPlotIconImage(string fileName)
+		{
+			if (PlotIconImageCache.TryGetValue(fileName, out Image? value))
+			{
+				return new Bitmap(value);
+			}
+
+			string path = Paths.IconsPath + fileName + PlotIconFileType;
+
+			if (!File.Exists(path))
+			{
+				throw new ArgumentException($"{fileName} is not a valid plot icon file");
+			}
+
+			Image image = new Bitmap(path);
+			PlotIconImageCache[fileName] = image;
+
+			return new Bitmap(image);
+		}
+
 		// Return the image for the spotlight tile
 		public static Image? GetSpotlightTileImage(this SpotlightTile tile)
 		{
@@ -87,8 +110,7 @@ namespace Mappalachia
 
 			string path = $"{Paths.SpotlightTilePath}{tile.Space.EditorID}\\{tile.XId}.{tile.YId}{SpotlightTileImageFileType}";
 
-			// This may be common as we do not pre-render tiles outside of the playable space.
-			// TODO we need to handle informing of downloading them, if delivered as an 'addon' download.
+			// This may be common as we do not pre-render tiles outside of the playable space or those without entities.
 			if (!File.Exists(path))
 			{
 				return null;

@@ -1,4 +1,6 @@
-﻿namespace Mappalachia
+﻿using System.Text.Json.Serialization;
+
+namespace Mappalachia
 {
 	public enum PlotMode
 	{
@@ -28,5 +30,11 @@
 		public bool ShowPlotsInOtherSpaces { get; set; } = true;
 
 		public bool ShowRegionLevels { get; set; } = false;
+
+		[JsonIgnore]
+		public List<Color> Palette { get; set; } = new List<Color>
+		{
+			Color.Red, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.Green,
+		};
 	}
 }

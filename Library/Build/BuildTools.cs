@@ -49,6 +49,8 @@ namespace Library
 
 		public static string CellPath { get; } = ImagePath + @"cell\";
 
+		public static string IconPath { get; } = ImagePath + @"icon\";
+
 		public static string WorldPath { get; } = ImagePath + @"wrld\";
 
 		public static string SpotlightPath { get; } = ImagePath + @"spotlight\";

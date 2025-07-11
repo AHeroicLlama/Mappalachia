@@ -436,7 +436,7 @@ namespace Mappalachia
 
 				DataGridViewRow paintedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 				GroupedSearchResult data = (GroupedSearchResult)(paintedRow.DataBoundItem ?? throw new NullReferenceException("Painted row data was null"));
-				Image icon = data.PlotIcon?.GetImage() ?? throw new NullReferenceException("Data icon image was null");
+				Image icon = data.PlotIcon?.Image ?? throw new NullReferenceException("Data icon image was null");
 
 				Rectangle cellBounds = e.CellBounds;
 
@@ -964,7 +964,7 @@ namespace Mappalachia
 				}
 			}
 
-			PlotIcon? groupPlotIcon = addAsGroup ? new PlotIcon() : null;
+			PlotIcon? groupPlotIcon = addAsGroup ? new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette) : null;
 
 			// Add the valid items to the actual list
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
@@ -976,7 +976,7 @@ namespace Mappalachia
 				}
 				else
 				{
-					instance.PlotIcon = new PlotIcon();
+					instance.PlotIcon = new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette);
 				}
 
 				ItemsToPlot.Add(instance);

@@ -17,6 +17,8 @@ namespace Mappalachia
 
 		public static string MapMarkersPath { get; } = @$"{ImgPath}mapmarker\";
 
+		public static string IconsPath { get; } = @$"{ImgPath}icon\";
+
 		public static string DoorMarkerPath { get; } = @$"{ImgPath}DoorMarker{Common.MapMarkerImageFileType}";
 
 		public static string FontPath { get; } = @"font\futura_condensed_bold.otf";
