@@ -29,10 +29,13 @@ Mappalachia is a Windows application for generating and exporting complex maps o
   </PropertyGroup>
 
   <ItemGroup>
+	<Compile Remove="dist\**" />
 	<Compile Remove="img\**" />
 	<Compile Remove="publish\**" />
+	<EmbeddedResource Remove="dist\**" />
 	<EmbeddedResource Remove="img\**" />
 	<EmbeddedResource Remove="publish\**" />
+	<None Remove="dist\**" />
 	<None Remove="img\**" />
 	<None Remove="publish\**" />
   </ItemGroup>

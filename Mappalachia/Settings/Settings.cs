@@ -16,10 +16,15 @@ namespace Mappalachia
 				space = value;
 
 				// This is a workaround to detect a Space which has been initialized from the settings JSON and not the database
-				// It will be replaced before the form load completes, so we don't care - we just needed its FormID/EditorID.
+				// It will be replaced by LoadFromFile, so we don't care - we just needed its FormID/EditorID.
 				if (space.MaxRange == 0)
 				{
 					return;
+				}
+
+				if (MapSettings != null)
+				{
+					MapSettings.SpotlightEnabled = false;
 				}
 
 				MapSettings?.SetSpotlightToMapCenter();
@@ -76,7 +81,6 @@ namespace Mappalachia
 			File.WriteAllText(Paths.SettingsPath, JsonSerializer.Serialize(this, JsonSerializerOptions));
 		}
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 		public Settings()
 		{
 			Space ??= Database.AllSpaces.First();
@@ -87,7 +91,6 @@ namespace Mappalachia
 			ResolveConflictingSettings();
 			MapSettings.SetSpotlightToMapCenter();
 		}
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
 		// Check for and amend settings which shouldn't be used together
 		public void ResolveConflictingSettings()

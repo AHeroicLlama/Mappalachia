@@ -63,26 +63,27 @@ namespace Mappalachia
 			UpdateFromSettings(true);
 		}
 
-		// Allows the map preview form to set the spotlight location - converts the image coordinate to world coordinate
-		// Implies enabling spotlight
-		internal void SetSpotlightLocation(PointF point)
+		public bool ProcessCmdKeyFromChild(ref Message message, Keys keys)
+		{
+			Message messageCopy = message;
+			messageCopy.HWnd = Handle;
+			return ProcessCmdKey(ref messageCopy, keys);
+		}
+
+		// Functions for forms which update map/settings before they close, ensuring the UI is updated and the map redrawn if necessary
+		public void SetSpotlightLocation(PointF point)
 		{
 			Settings.MapSettings.SpotlightLocation = point.AsWorldCoord(Settings);
 			Settings.MapSettings.SpotlightEnabled = true;
 			UpdateFromSettings();
 		}
 
-		internal bool IsSpotlightEnabled()
+		public void ToggleSpotlight(bool enabled)
 		{
-			return Settings.MapSettings.SpotlightEnabled;
+			SetSetting(() => Settings.MapSettings.SpotlightEnabled = enabled);
 		}
 
-		internal void TurnOffSpotlight()
-		{
-			SetSetting(() => Settings.MapSettings.SpotlightEnabled = false);
-		}
-
-		internal void OpenSpotlightSetSizeDialog()
+		public void OpenSpotlightSetSizeDialog()
 		{
 			FormSetSpotlightSize spotlightRangeForm = new FormSetSpotlightSize(Settings);
 
@@ -92,7 +93,7 @@ namespace Mappalachia
 			}
 		}
 
-		internal void SetClusterSettings(ClusterSettings newClusterSettings)
+		public void SetClusterSettings(ClusterSettings newClusterSettings)
 		{
 			SetSetting(() => Settings.PlotSettings.ClusterSettings = newClusterSettings);
 		}

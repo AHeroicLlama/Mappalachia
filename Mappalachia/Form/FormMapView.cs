@@ -42,6 +42,17 @@ namespace Mappalachia
 			FormMain = formMain;
 		}
 
+		// Try to pass shortcut keys to Main Form first
+		protected override bool ProcessCmdKey(ref Message message, Keys keys)
+		{
+			if (FormMain.ProcessCmdKeyFromChild(ref message, keys))
+			{
+				return true;
+			}
+
+			return base.ProcessCmdKey(ref message, keys);
+		}
+
 		// Return a value effectively representing the current zoom level
 		float GetZoomFactor()
 		{
@@ -191,14 +202,14 @@ namespace Mappalachia
 				contextMenu.Items.Add(spotlight);
 			}
 
-			if (FormMain.IsSpotlightEnabled())
+			if (FormMain.Settings.MapSettings.SpotlightEnabled)
 			{
 				ToolStripMenuItem turnOff = new ToolStripMenuItem() { Text = "Turn Off Spotlight" };
 				ToolStripMenuItem setSize = new ToolStripMenuItem() { Text = "Set Spotlight Size..." };
 
 				turnOff.Click += (s, args) =>
 				{
-					FormMain.TurnOffSpotlight();
+					FormMain.ToggleSpotlight(false);
 					SizeMapToForm();
 				};
 

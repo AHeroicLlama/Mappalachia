@@ -43,6 +43,29 @@ namespace Mappalachia
 			return FontCollection.Families.First();
 		}
 
+		public static bool IsSpotlightInstalled()
+		{
+			if (!Directory.Exists(Paths.SpotlightTilePath))
+			{
+				return false;
+			}
+
+			foreach (string directory in Directory.GetDirectories(Paths.SpotlightTilePath))
+			{
+				foreach (string file in Directory.GetFiles(directory, $"*{SpotlightTileImageFileType}"))
+				{
+					if (new FileInfo(file).Length > 0)
+					{
+						// We found a non-0-byte jpg file in a subfolder of the spotlight directory
+						// This is enough to consider spotlight installed.
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
 		public static void FlushSpotlightTileImageCache()
 		{
 			foreach (KeyValuePair<SpotlightTile, Image> entry in SpotlightTileImageCache)

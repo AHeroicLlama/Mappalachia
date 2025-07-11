@@ -35,12 +35,20 @@ namespace Mappalachia
 
 		public void CapSpotlightSizeToSpace()
 		{
+			// May have not finihsed initializing yet
 			if (RootSettings == null)
 			{
 				return;
 			}
 
 			int maxSizeThisSpace = (int)Math.Min(RootSettings.Space.GetMaxSpotlightBenefit(), Common.SpotlightMaxSize);
+
+			if (maxSizeThisSpace <= 0)
+			{
+				SpotlightSize = 1;
+				return;
+			}
+
 			SpotlightSize = Math.Clamp(SpotlightSize, 1, maxSizeThisSpace);
 		}
 
@@ -72,11 +80,10 @@ namespace Mappalachia
 		public string Title { get; set; } = string.Empty;
 
 		// The size of the spotlight in tiles
-		public double SpotlightSize { get; set; } = 1;
+		public double SpotlightSize { get; set; } = 2;
 
 		Coord spotlightLocation = new Coord(0, 0);
 
-		[JsonIgnore]
 		public Coord SpotlightLocation
 		{
 			get => spotlightLocation;
@@ -89,23 +96,29 @@ namespace Mappalachia
 
 		bool spotlightEnabled = false;
 
-		[JsonIgnore]
 		public bool SpotlightEnabled
 		{
 			get => spotlightEnabled;
 			set
 			{
+				// We assume for the majority of cases, turning on spotlight implies wanting the high res render too
+				// But if it's already on, we leave as-is
+				if (value && !SpotlightEnabled)
+				{
+					backgroundImage = BackgroundImageType.Render;
+				}
+
+				if (!FileIO.IsSpotlightInstalled())
+				{
+					Notify.SpotlightInstallationPrompt();
+					return;
+				}
+
 				spotlightEnabled = value;
 
 				if (!SpotlightEnabled)
 				{
 					FileIO.FlushSpotlightTileImageCache();
-				}
-
-				// We assume for the majority of cases, using satellite implies wanting the high res render too
-				if (SpotlightEnabled)
-				{
-					backgroundImage = BackgroundImageType.Render;
 				}
 			}
 		}
