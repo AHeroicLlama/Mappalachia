@@ -323,7 +323,7 @@ namespace Mappalachia
 			List<Instance> teleporters = new List<Instance>();
 
 			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
-				$"WHERE spaceFormID = {space.FormID} AND teleportsToFormID != '' AND teleportsToFormID != {space.FormID}";
+				$"WHERE spaceFormID = {space.FormID} AND teleportsToFormID IS NOT NULL AND teleportsToFormID != {space.FormID}";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 

@@ -1,11 +1,11 @@
 MD5 Checksum
-A9173D9D6224FEB8F994D19ED5A9826F
+FD150ED0B3CB4C2CF4C3F6EEF13C989D
 
 Size
-347852 KB
+365056 KB
 
 Built At UTC
-12/07/2025 22:36:06
+12/07/2025 23:16:35
 
 CSV Imported with SQLite Version
 3.50.2 2025-06-28 14:00:48 2af157d77fb1304a74176eaee7fbc7c7e932d946bf25325e9c26c91db19e3079 (64-bit)
@@ -19,7 +19,7 @@ Meta                 Region
 Indices
 indexComponent           indexNPC                 sqlite_autoindex_Meta_1
 indexCount               indexReference         
-indexGeneral             indexTeleportsTo
+indexGeneral             indexSpaceTeleportsTo
 
 Game Version
 1.7.20.10

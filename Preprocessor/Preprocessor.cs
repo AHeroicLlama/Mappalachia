@@ -330,7 +330,7 @@ namespace Preprocessor
 			// Create indexes
 			SimpleQuery("CREATE INDEX indexGeneral ON Position(referenceFormID, lockLevel, label, spaceFormID);");
 			SimpleQuery("CREATE INDEX indexNPC ON NPC(spawnWeight, npcName, spaceFormID, instanceFormID);");
-			SimpleQuery("CREATE INDEX indexTeleportsTo ON Position(teleportsToFormID);");
+			SimpleQuery("CREATE INDEX indexSpaceTeleportsTo ON Position(spaceFormID, teleportsToFormID);");
 			SimpleQuery("CREATE INDEX indexCount ON Position_PreGrouped(count);");
 			SimpleQuery("CREATE INDEX indexReference ON Position_PreGrouped(referenceFormID);");
 			SimpleQuery("CREATE INDEX indexComponent ON Scrap(component);");
