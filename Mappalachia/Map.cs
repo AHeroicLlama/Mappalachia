@@ -121,7 +121,7 @@ namespace Mappalachia
 			progressInfo.Report(new ProgressInfo(percent, status));
 		}
 
-		// Overload to easily calculate percentages give x/y progress
+		// Overload to automatically calculate percentage from x out of y
 		static void UpdateProgress(IProgress<ProgressInfo>? progressInfo, int current, int total, string status)
 		{
 			if (progressInfo == null)
@@ -133,7 +133,6 @@ namespace Mappalachia
 			{
 				progressInfo.Report(new ProgressInfo(0, status));
 			}
-
 
 			progressInfo.Report(new ProgressInfo((int)Math.Round((current / (double)total) * 100), status));
 		}
@@ -202,7 +201,7 @@ namespace Mappalachia
 			// TODO
 		}
 
-		// Draw plots where plotted entities exist in a space reachable by this one
+		// Draw doors where plotted entities exist in a space reachable by this one
 		static async void DrawConnectingSpacePlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			if (!settings.PlotSettings.ShowPlotsInOtherSpaces)
@@ -210,54 +209,57 @@ namespace Mappalachia
 				return;
 			}
 
+			Dictionary<Space, int> connectionsToSpace = new Dictionary<Space, int>();
+
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
 				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting instances in other spaces");
 
-				// Draw doors where the space of the selected item is the selected space, but more exist in connecting spaces
-				foreach (Instance teleporter in (await Database.GetTeleporters(item.Space)).DistinctBy(i => i.TeleportsTo))
+				// Find all 'teleporters' which exit this space or the space which this item is in
+				// Take only one result per the source and destination of the teleporter
+				List<Instance> teleporters =
+					(await Database.GetTeleporters(item.Space))
+					.Concat(await Database.GetTeleporters(settings.Space))
+					.DistinctBy(i => (i.Space, i.TeleportsTo)).ToList();
+
+				foreach (Instance teleporter in teleporters)
 				{
-					if (teleporter.Space != settings.Space)
+					// Require one end of the teleporter in this space, and another end of it in the space where the item is
+					if (!(teleporter.Space == settings.Space && (teleporter.Space == item.Space || teleporter.TeleportsTo == item.Space)))
 					{
 						continue;
 					}
 
-					DrawFinalConnectingSpacePlot(item, teleporter, settings, graphics);
-				}
+					List<Instance> instances = await Database.GetInstances(item, teleporter.TeleportsTo!);
 
-				// If the item's space is the selected space, then we already did all we need to above
-				if (item.Space == settings.Space)
-				{
-					continue;
-				}
-
-				// Draw doors where the space of the selected item is not the selected space
-				foreach (Instance teleporter in (await Database.GetTeleporters(settings.Space)).DistinctBy(i => i.TeleportsTo))
-				{
-					if (item.Space != teleporter.TeleportsTo)
+					if (instances.Count == 0)
 					{
 						continue;
 					}
 
-					DrawFinalConnectingSpacePlot(item, teleporter, settings, graphics);
+					// We use this Dict to simply track how many items have been attributed to each space
+					// in order that we can Y-offset the label to prevent overtyping
+					if (!connectionsToSpace.ContainsKey(teleporter.TeleportsTo!))
+					{
+						connectionsToSpace.Add(teleporter.TeleportsTo!, 1);
+					}
+					else
+					{
+						connectionsToSpace[teleporter.TeleportsTo!]++;
+					}
+
+					PointF point = teleporter.Coord.AsImagePoint(settings);
+					graphics.DrawImageCentered(FileIO.DoorMarker, teleporter.Coord.AsImagePoint(settings));
+
+					graphics.DrawStringCentered(
+						$"{teleporter.TeleportsTo!.DisplayName}: {item.Entity.EditorID} ({instanceCount})",
+						GetFont(FontSizeItemsInOtherSpaces),
+						new SolidBrush(item.PlotIcon.Color),
+						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])),
+						true);
 				}
 			}
-		}
-
-		static async void DrawFinalConnectingSpacePlot(GroupedSearchResult item, Instance teleporter, Settings settings, Graphics graphics)
-		{
-			List<Instance> instances = await Database.GetInstances(item, teleporter.TeleportsTo!);
-
-			if (instances.Count == 0)
-			{
-				return;
-			}
-
-			// TODO polish
-			graphics.DrawImageCentered(FileIO.DoorMarker, teleporter.Coord.AsImagePoint(settings));
-			PointF point = teleporter.Coord.AsImagePoint(settings);
-			graphics.DrawStringCentered($"{teleporter.TeleportsTo.DisplayName}: {instances.Count} {item.Entity.EditorID}", GetFont(FontSizeItemsInOtherSpaces), new SolidBrush(item.PlotIcon.Color), new PointF(point.X, point.Y + 50), true);
 		}
 
 		// Draw the FormID of the instance of the plot
