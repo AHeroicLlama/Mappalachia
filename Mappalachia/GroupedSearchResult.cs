@@ -11,6 +11,8 @@ namespace Mappalachia
 
 		public int Count { get; } = count;
 
+		public int LegendGroup { get; set; } = 0;
+
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
 		public virtual string DataValueFormID => Entity.GetFriendlyFormID();

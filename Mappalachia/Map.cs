@@ -28,6 +28,8 @@ namespace Mappalachia
 
 		static int DropShadowOffset { get; } = 2;
 
+		static int FontSizeItemsInOtherSpaces { get; } = 20;
+
 		static int FontSizeMapMarkerLabel { get; } = 20;
 
 		static int FontSizeWaterMark { get; } = 60;
@@ -56,6 +58,7 @@ namespace Mappalachia
 			using Graphics graphics = Graphics.FromImage(mapImage);
 			graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 			graphics.SmoothingMode = SmoothingMode.AntiAlias;
+			graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
 			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
 
@@ -72,6 +75,8 @@ namespace Mappalachia
 			{
 				graphics.DrawImage(settings.Space.GetWaterMask(), backgroundRectangle);
 			}
+
+			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
 			// Call the relevant plot function
 			switch (settings.PlotSettings.Mode)
@@ -93,11 +98,10 @@ namespace Mappalachia
 					throw new Exception("Unexpected PlotMode: " + settings.PlotSettings.Mode);
 			}
 
-			DrawConnectingSpacePlots(itemsToPlot, settings, graphics);
+			DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
 			DrawInstanceFormIDs(itemsToPlot, settings, graphics);
 			DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
-			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 			mapImage = DrawLegend(itemsToPlot, settings, mapImage);
 
 			GC.Collect();
@@ -115,6 +119,23 @@ namespace Mappalachia
 			}
 
 			progressInfo.Report(new ProgressInfo(percent, status));
+		}
+
+		// Overload to easily calculate percentages give x/y progress
+		static void UpdateProgress(IProgress<ProgressInfo>? progressInfo, int current, int total, string status)
+		{
+			if (progressInfo == null)
+			{
+				return;
+			}
+
+			if (current == 0)
+			{
+				progressInfo.Report(new ProgressInfo(0, status));
+			}
+
+
+			progressInfo.Report(new ProgressInfo((int)Math.Round((current / (double)total) * 100), status));
 		}
 
 		static void DrawSpotlightTiles(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
@@ -157,11 +178,17 @@ namespace Mappalachia
 		// Standard including topographic plots
 		static async void DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic = false, Progress<ProgressInfo>? progressInfo = null)
 		{
-			// TODO WIP
+			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				// TODO - this should hook up to a generic instance search, not standard only
-				List<Instance> instances = await Database.GetStandardInstances(item);
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting standard coordinates");
+
+				if (item.Space != settings.Space)
+				{
+					continue;
+				}
+
+				List<Instance> instances = await Database.GetInstances(item, item.Space);
 
 				foreach (Instance instance in instances)
 				{
@@ -170,24 +197,71 @@ namespace Mappalachia
 			}
 		}
 
-		static void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
+		static async void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			// TODO
 		}
 
 		// Draw plots where plotted entities exist in a space reachable by this one
-		static void DrawConnectingSpacePlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics)
+		static async void DrawConnectingSpacePlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			if (!settings.PlotSettings.ShowPlotsInOtherSpaces)
 			{
 				return;
 			}
 
-			// TODO
+			int i = 0;
+			foreach (GroupedSearchResult item in itemsToPlot)
+			{
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting instances in other spaces");
+
+				// Draw doors where the space of the selected item is the selected space, but more exist in connecting spaces
+				foreach (Instance teleporter in (await Database.GetTeleporters(item.Space)).DistinctBy(i => i.TeleportsTo))
+				{
+					if (teleporter.Space != settings.Space)
+					{
+						continue;
+					}
+
+					DrawFinalConnectingSpacePlot(item, teleporter, settings, graphics);
+				}
+
+				// If the item's space is the selected space, then we already did all we need to above
+				if (item.Space == settings.Space)
+				{
+					continue;
+				}
+
+				// Draw doors where the space of the selected item is not the selected space
+				foreach (Instance teleporter in (await Database.GetTeleporters(settings.Space)).DistinctBy(i => i.TeleportsTo))
+				{
+					if (item.Space != teleporter.TeleportsTo)
+					{
+						continue;
+					}
+
+					DrawFinalConnectingSpacePlot(item, teleporter, settings, graphics);
+				}
+			}
+		}
+
+		static async void DrawFinalConnectingSpacePlot(GroupedSearchResult item, Instance teleporter, Settings settings, Graphics graphics)
+		{
+			List<Instance> instances = await Database.GetInstances(item, teleporter.TeleportsTo!);
+
+			if (instances.Count == 0)
+			{
+				return;
+			}
+
+			// TODO polish
+			graphics.DrawImageCentered(FileIO.DoorMarker, teleporter.Coord.AsImagePoint(settings));
+			PointF point = teleporter.Coord.AsImagePoint(settings);
+			graphics.DrawStringCentered($"{teleporter.TeleportsTo.DisplayName}: {instances.Count} {item.Entity.EditorID}", GetFont(FontSizeItemsInOtherSpaces), new SolidBrush(item.PlotIcon.Color), new PointF(point.X, point.Y + 50), true);
 		}
 
 		// Draw the FormID of the instance of the plot
-		static void DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics)
+		static async void DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics)
 		{
 			if (!settings.PlotSettings.DrawInstanceFormID)
 			{
@@ -198,13 +272,13 @@ namespace Mappalachia
 		}
 
 		// Draw the color scale demonstrating the topographic color/height mapping
-		static void DrawTopographicLegend(Settings settings, Graphics graphics)
+		static async void DrawTopographicLegend(Settings settings, Graphics graphics)
 		{
 			// TODO
 		}
 
 		// Draws the region or shape belonging to the given instance
-		static void DrawRegionOrShape(Settings settings, Graphics graphics, Instance instance)
+		static async void DrawRegionOrShape(Settings settings, Graphics graphics, Instance instance)
 		{
 			// TODO
 		}
@@ -313,7 +387,7 @@ namespace Mappalachia
 			graphics.DrawImage(image, coord.X - (image.Width / 2), coord.Y - (image.Height / 2));
 		}
 
-		// Draw the string at the given coordinates, centered on the coord. Optional drop shadow, text wrap, and vertically centered or top-aligned to the coord
+		// Draw the string at the given coordinates, centered on the coord. Text wrap, and vertically centered or top-aligned to the coord
 		static void DrawStringCentered(this Graphics graphics, string text, Font font, Brush brush, PointF coord, bool centerVert = true, int wrapWidth = -1)
 		{
 			// Calculate a rectangle which holds the text, when wrapped.

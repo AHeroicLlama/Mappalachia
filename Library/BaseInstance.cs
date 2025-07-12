@@ -40,7 +40,7 @@
 
 		public override bool Equals(object? obj)
 		{
-			if (obj is not BaseInstance other || obj is null)
+			if (obj is null)
 			{
 				return false;
 			}
@@ -48,6 +48,16 @@
 			if (ReferenceEquals(this, obj))
 			{
 				return true;
+			}
+
+			if (obj.GetType() != GetType())
+			{
+				return false;
+			}
+
+			if (obj is not BaseInstance other)
+			{
+				return false;
 			}
 
 			return Entity.Equals(other.Entity) &&

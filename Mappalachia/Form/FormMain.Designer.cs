@@ -452,7 +452,7 @@ namespace Mappalachia
 			// 
 			drawInstanceFormIDToolStripMenuItem.Name = "drawInstanceFormIDToolStripMenuItem";
 			drawInstanceFormIDToolStripMenuItem.Size = new Size(227, 22);
-			drawInstanceFormIDToolStripMenuItem.Text = "Draw Instance FormID";
+			drawInstanceFormIDToolStripMenuItem.Text = "Show Instance FormID";
 			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot.";
 			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
 			// 
@@ -555,9 +555,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.MinimumSize = new Size(960, 0);
 			dataGridViewSearchResults.Name = "dataGridViewSearchResults";
 			dataGridViewSearchResults.ReadOnly = true;
-			dataGridViewSearchResults.RowHeadersVisible = false;
 			dataGridViewSearchResults.ScrollBars = ScrollBars.Vertical;
-			dataGridViewSearchResults.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridViewSearchResults.Size = new Size(963, 237);
 			dataGridViewSearchResults.TabIndex = 6;
 			// 
@@ -609,9 +607,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.MinimumSize = new Size(960, 170);
 			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
 			dataGridViewItemsToPlot.ReadOnly = true;
-			dataGridViewItemsToPlot.RowHeadersVisible = false;
 			dataGridViewItemsToPlot.ScrollBars = ScrollBars.Vertical;
-			dataGridViewItemsToPlot.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			dataGridViewItemsToPlot.Size = new Size(963, 170);
 			dataGridViewItemsToPlot.TabIndex = 9;
 			dataGridViewItemsToPlot.CellPainting += DataGridViewItemsToPlot_CellPainting;

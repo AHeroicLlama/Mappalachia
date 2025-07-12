@@ -356,7 +356,6 @@ namespace Mappalachia
 			CurrentlyDrawing = true;
 			buttonUpdateMap.Enabled = false;
 
-			// TODO fetch instances from DB
 			Progress<ProgressInfo> progress = new Progress<ProgressInfo>(progressInfo =>
 			{
 				progressBarMain.Value = progressInfo.Percent;
@@ -954,6 +953,7 @@ namespace Mappalachia
 			}
 
 			// From the selected cells, find the unique rows, and find the data bound to those
+			// Skip rows which are already in the ItemsToPlot list
 			foreach (DataGridViewRow? row in selectedRows)
 			{
 				GroupedSearchResult instance = (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"));
@@ -964,7 +964,7 @@ namespace Mappalachia
 				}
 			}
 
-			PlotIcon? groupPlotIcon = addAsGroup ? new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize) : null;
+			int groupLegendGroup = GetNextAvailableLegendGroup();
 
 			// Add the valid items to the actual list
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
@@ -972,11 +972,13 @@ namespace Mappalachia
 			{
 				if (addAsGroup)
 				{
-					instance.PlotIcon = groupPlotIcon;
+					instance.LegendGroup = groupLegendGroup;
+					instance.PlotIcon = new PlotIcon(groupLegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize);
 				}
 				else
 				{
-					instance.PlotIcon = new PlotIcon(ItemsToPlot.Count, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize);
+					instance.LegendGroup = GetNextAvailableLegendGroup();
+					instance.PlotIcon = new PlotIcon(instance.LegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize);
 				}
 
 				ItemsToPlot.Add(instance);
@@ -1014,6 +1016,7 @@ namespace Mappalachia
 				foreach (GroupedSearchResult instance in itemsToRemove)
 				{
 					ItemsToPlot.Remove(instance);
+					instance.PlotIcon = null;
 				}
 			}
 
@@ -1030,6 +1033,16 @@ namespace Mappalachia
 		{
 			DrawMap();
 			ShowMapPreview();
+		}
+
+		int GetNextAvailableLegendGroup()
+		{
+			if (ItemsToPlot.Count == 0)
+			{
+				return 0;
+			}
+
+			return ItemsToPlot.Max(i => i.LegendGroup) + 1;
 		}
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)

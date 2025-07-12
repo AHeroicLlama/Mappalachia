@@ -32,12 +32,12 @@ namespace Mappalachia
 		public bool ShowRegionLevels { get; set; } = false;
 
 		// TODO make editable in UI
-		public int PlotIconSize { get; set; } = 32;
+		public int PlotIconSize { get; set; } = 64;
 
 		[JsonIgnore]
 		public List<Color> Palette { get; set; } = new List<Color>
 		{
-			Color.Red, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.Green,
+			Color.OrangeRed, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.Green,
 		};
 	}
 }

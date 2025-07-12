@@ -53,9 +53,15 @@ namespace Library
 		[JsonIgnore]
 		public Signature Signature { get; } = signature;
 
+		// Return a representation of the FormID suitable for display in the UI
+		public virtual string GetFriendlyFormID()
+		{
+			return FormID.ToHex();
+		}
+
 		public override bool Equals(object? obj)
 		{
-			if (obj is not Entity other || obj is null)
+			if (obj is null)
 			{
 				return false;
 			}
@@ -65,18 +71,22 @@ namespace Library
 				return true;
 			}
 
+			if (obj.GetType() != GetType())
+			{
+				return false;
+			}
+
+			if (obj is not Entity other)
+			{
+				return false;
+			}
+
 			return FormID.Equals(other.FormID) && EditorID.Equals(other.EditorID);
 		}
 
 		public override int GetHashCode()
 		{
 			return HashCode.Combine(FormID);
-		}
-
-		// Return a representation of the FormID suitable for display in the UI
-		public virtual string GetFriendlyFormID()
-		{
-			return FormID.ToHex();
 		}
 	}
 }

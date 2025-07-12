@@ -62,7 +62,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
 					reader.GetInt("count"),
 					1,
 					reader.GetString("label"),
@@ -96,7 +96,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
 					reader.GetInt("count"),
 					reader.GetInt("quantity"),
 					string.Empty,
@@ -130,7 +130,7 @@ namespace Mappalachia
 			{
 				results.Add(new GroupedSearchResult(
 					new DerivedScrap(reader.GetString("component")),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
 					reader.GetInt("properCount"),
 					reader.GetDouble("componentQuantity")));
 			}
@@ -160,7 +160,7 @@ namespace Mappalachia
 			{
 				results.Add(new GroupedSearchResult(
 					new DerivedNPC(reader.GetString("npcName")),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
 					reader.GetInt("count"),
 					reader.GetDouble("spawnWeight")));
 			}
@@ -190,7 +190,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
+				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID")) !;
 
 				results.Add(new GroupedSearchResult(
 					new Library.Region(
@@ -232,7 +232,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
 					reader.GetInt("count"),
 					1,
 					reader.GetString("label"),
@@ -268,7 +268,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
 					reader.GetString("label"),
 					reader.GetLockLevel()));
 			}
@@ -276,13 +276,83 @@ namespace Mappalachia
 			return results;
 		}
 
-		// Return all instances of the given GroupedSearchResult
-		public static async Task<List<Instance>> GetStandardInstances(GroupedSearchResult searchResult)
+		// Returns all Instances of the given GroupedSearchResult
+		// TODO WIP
+		public static async Task<List<Instance>> GetInstances(GroupedSearchResult searchResult, Space? space = null)
 		{
+			space ??= searchResult.Space;
+
+			List<Instance> instances = new List<Instance>();
+
+			if (searchResult is SingularSearchResult singular)
+			{
+				Instance? instance = await GetSingularInstance(singular, space);
+
+				if (instance != null)
+				{
+					instances.Add(instance);
+				}
+			}
+			else if (searchResult.InContainer)
+			{
+				// TODO
+			}
+			else if (searchResult.Entity is Library.Region)
+			{
+				// TODO
+			}
+			else if (searchResult.Entity.GetType() == typeof(Entity))
+			{
+				instances.AddRange(await GetStandardInstances(searchResult, space));
+			}
+			else if (searchResult.Entity is DerivedScrap)
+			{
+				// TODO
+			}
+			else if (searchResult.Entity is DerivedNPC)
+			{
+				// TODO
+			}
+
+			return instances;
+		}
+
+		// Returns all instances in the given space which teleport to another space
+		public static async Task<List<Instance>> GetTeleporters(Space space)
+		{
+			List<Instance> teleporters = new List<Instance>();
+
+			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
+				$"WHERE spaceFormID = {space.FormID} AND teleportsToFormID != '' AND teleportsToFormID != {space.FormID}";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				// TODO a few fields are irrelevant here
+				teleporters.Add(new Instance(
+					null,
+					space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					string.Empty,
+					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
+					LockLevel.None,
+					reader.GetShape()));
+			}
+
+			return teleporters;
+		}
+
+		// Return all 'standard' instances of the given GroupedSearchResult in the given space
+		static async Task<List<Instance>> GetStandardInstances(GroupedSearchResult searchResult, Space? space = null)
+		{
+			space ??= searchResult.Space;
+
 			List<Instance> instances = new List<Instance>();
 
 			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
-				$"WHERE referenceFormID = {searchResult.Entity.FormID} AND spaceFormID = {searchResult.Space.FormID} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND label = '{searchResult.Label}'";
+				$"WHERE referenceFormID = {searchResult.Entity.FormID} AND spaceFormID = {space.FormID} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND label = '{searchResult.Label}'";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 
@@ -290,7 +360,7 @@ namespace Mappalachia
 			{
 				instances.Add(new Instance(
 					searchResult.Entity,
-					searchResult.Space,
+					space,
 					reader.GetCoord(),
 					reader.GetUInt("instanceFormID"),
 					searchResult.Label,
@@ -300,6 +370,34 @@ namespace Mappalachia
 			}
 
 			return instances;
+		}
+
+		// Returns the instance of a SingularSearchResult
+		static async Task<Instance?> GetSingularInstance(SingularSearchResult searchResult, Space? space = null)
+		{
+			space ??= searchResult.Space;
+
+			Instance? instance = null;
+
+			string query = "SELECT x, y, z, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ, spaceFormID FROM Position " +
+				$"WHERE instanceFormID = {searchResult.InstanceFormID} AND spaceFormID = {space.FormID}";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			if (reader.Read())
+			{
+				instance = new Instance(
+					searchResult.Entity,
+					space,
+					reader.GetCoord(),
+					searchResult.InstanceFormID,
+					searchResult.Label,
+					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
+					searchResult.LockLevel,
+					reader.GetShape());
+			}
+
+			return instance;
 		}
 
 		public static async Task<string> GetGameVersion()

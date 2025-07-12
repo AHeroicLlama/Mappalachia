@@ -107,6 +107,7 @@ namespace Mappalachia
 			Bitmap resizedImage = new Bitmap(width, height);
 			using Graphics graphics = Graphics.FromImage(resizedImage);
 			graphics.SmoothingMode = SmoothingMode.AntiAlias;
+			graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
 			graphics.DrawImage(image, 0, 0, width, height);
 
