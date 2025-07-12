@@ -320,6 +320,13 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Position;");
 			SimpleQuery("ALTER TABLE temp RENAME TO Position;");
 
+			// Null empty rows which are not TEXT
+			SimpleQuery("UPDATE Position SET teleportsToFormID = NULL WHERE teleportsToFormID = '';");
+			SimpleQuery("UPDATE Position SET boundX = NULL WHERE boundX = '';");
+			SimpleQuery("UPDATE Position SET boundY = NULL WHERE boundY = '';");
+			SimpleQuery("UPDATE Position SET boundZ = NULL WHERE boundZ = '';");
+			SimpleQuery("UPDATE Position SET rotZ = NULL WHERE rotZ = '';");
+
 			// Create indexes
 			SimpleQuery("CREATE INDEX indexGeneral ON Position(referenceFormID, lockLevel, label, spaceFormID);");
 			SimpleQuery("CREATE INDEX indexNPC ON NPC(spawnWeight, npcName, spaceFormID, instanceFormID);");

@@ -7,7 +7,14 @@ namespace Library
 	{
 		public static double GetDouble(this SqliteDataReader reader, string columnName)
 		{
-			return reader.GetDouble(reader.GetOrdinal(columnName));
+			int ordinal = reader.GetOrdinal(columnName);
+
+			if (reader.IsDBNull(ordinal))
+			{
+				return 0;
+			}
+
+			return reader.GetDouble(ordinal);
 		}
 
 		public static int GetInt(this SqliteDataReader reader, string columnName)
@@ -17,7 +24,14 @@ namespace Library
 
 		public static uint GetUInt(this SqliteDataReader reader, string columnName)
 		{
-			return (uint)reader.GetInt32(reader.GetOrdinal(columnName));
+			int ordinal = reader.GetOrdinal(columnName);
+
+			if (reader.IsDBNull(ordinal))
+			{
+				return 0;
+			}
+
+			return (uint)reader.GetInt32(ordinal);
 		}
 
 		public static string GetString(this SqliteDataReader reader, string columnName)

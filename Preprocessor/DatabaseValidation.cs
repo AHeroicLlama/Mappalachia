@@ -112,7 +112,16 @@ namespace Preprocessor
 			while (reader.Read())
 			{
 				row++;
-				string value = reader.GetString(0);
+
+				string? value;
+				if (reader.IsDBNull(0))
+				{
+					value = null;
+				}
+				else
+				{
+					value = reader.GetString(0);
+				}
 
 				if (string.IsNullOrEmpty(value))
 				{
