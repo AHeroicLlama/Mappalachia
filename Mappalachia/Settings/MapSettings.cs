@@ -108,7 +108,8 @@ namespace Mappalachia
 					backgroundImage = BackgroundImageType.Render;
 				}
 
-				if (!FileIO.IsSpotlightInstalled())
+				// If we try to turn it on, but it's not installed, prompt on installation
+				if (value && !FileIO.IsSpotlightInstalled())
 				{
 					Notify.SpotlightInstallationPrompt();
 					return;

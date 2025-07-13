@@ -58,6 +58,8 @@ namespace Mappalachia
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
 
+			installSpotlightToolStripMenuItem.Enabled = !FileIO.IsSpotlightInstalled();
+
 			FormMapView = new FormMapView(this);
 
 			UpdateFromSettings(true);
@@ -871,6 +873,11 @@ namespace Mappalachia
 		private void Help_CheckForUpdates_Click(object sender, EventArgs e)
 		{
 			UpdateChecker.CheckForUpdates(Settings, true);
+		}
+
+		private void Help_InstallSpotlight_Click(object sender, EventArgs e)
+		{
+			Common.OpenURI(URLs.SpotlightInstallationGuide);
 		}
 
 		private void Help_ViewGitHub_Click(object sender, EventArgs e)

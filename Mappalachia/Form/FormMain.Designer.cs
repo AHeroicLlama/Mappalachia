@@ -77,6 +77,7 @@ namespace Mappalachia
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
 			checkForUpdatesToolStripMenuItem = new ToolStripMenuItem();
+			installSpotlightToolStripMenuItem = new ToolStripMenuItem();
 			viewGitHubToolStripMenuItem = new ToolStripMenuItem();
 			resetEverythingToolStripMenuItem = new ToolStripMenuItem();
 			joinTheDiscordToolStripMenuItem = new ToolStripMenuItem();
@@ -458,7 +459,7 @@ namespace Mappalachia
 			// 
 			// helpToolStripMenuItem
 			// 
-			helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, openUserGuidesToolStripMenuItem, checkForUpdatesToolStripMenuItem, viewGitHubToolStripMenuItem, resetEverythingToolStripMenuItem });
+			helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, openUserGuidesToolStripMenuItem, checkForUpdatesToolStripMenuItem, installSpotlightToolStripMenuItem, viewGitHubToolStripMenuItem, resetEverythingToolStripMenuItem });
 			helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			helpToolStripMenuItem.ShortcutKeyDisplayString = "";
 			helpToolStripMenuItem.Size = new Size(44, 20);
@@ -467,7 +468,7 @@ namespace Mappalachia
 			// aboutToolStripMenuItem
 			// 
 			aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			aboutToolStripMenuItem.Size = new Size(171, 22);
+			aboutToolStripMenuItem.Size = new Size(180, 22);
 			aboutToolStripMenuItem.Text = "About";
 			aboutToolStripMenuItem.ToolTipText = "View additional info about the application.";
 			aboutToolStripMenuItem.Click += Help_About_Click;
@@ -475,7 +476,7 @@ namespace Mappalachia
 			// openUserGuidesToolStripMenuItem
 			// 
 			openUserGuidesToolStripMenuItem.Name = "openUserGuidesToolStripMenuItem";
-			openUserGuidesToolStripMenuItem.Size = new Size(171, 22);
+			openUserGuidesToolStripMenuItem.Size = new Size(180, 22);
 			openUserGuidesToolStripMenuItem.Text = "Open User Guides";
 			openUserGuidesToolStripMenuItem.ToolTipText = "Read documentation online.";
 			openUserGuidesToolStripMenuItem.Click += Help_UserGuides_Click;
@@ -483,15 +484,23 @@ namespace Mappalachia
 			// checkForUpdatesToolStripMenuItem
 			// 
 			checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-			checkForUpdatesToolStripMenuItem.Size = new Size(171, 22);
+			checkForUpdatesToolStripMenuItem.Size = new Size(180, 22);
 			checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
 			checkForUpdatesToolStripMenuItem.ToolTipText = "Check if there is a new version available.";
 			checkForUpdatesToolStripMenuItem.Click += Help_CheckForUpdates_Click;
 			// 
+			// installSpotlightToolStripMenuItem
+			// 
+			installSpotlightToolStripMenuItem.Name = "installSpotlightToolStripMenuItem";
+			installSpotlightToolStripMenuItem.Size = new Size(180, 22);
+			installSpotlightToolStripMenuItem.Text = "Install Spotlight";
+			installSpotlightToolStripMenuItem.ToolTipText = "View a guide on installing the Spotlight feature.";
+			installSpotlightToolStripMenuItem.Click += Help_InstallSpotlight_Click;
+			// 
 			// viewGitHubToolStripMenuItem
 			// 
 			viewGitHubToolStripMenuItem.Name = "viewGitHubToolStripMenuItem";
-			viewGitHubToolStripMenuItem.Size = new Size(171, 22);
+			viewGitHubToolStripMenuItem.Size = new Size(180, 22);
 			viewGitHubToolStripMenuItem.Text = "View GitHub";
 			viewGitHubToolStripMenuItem.ToolTipText = "Go to the project home, or see the open source code.";
 			viewGitHubToolStripMenuItem.Click += Help_ViewGitHub_Click;
@@ -499,7 +508,7 @@ namespace Mappalachia
 			// resetEverythingToolStripMenuItem
 			// 
 			resetEverythingToolStripMenuItem.Name = "resetEverythingToolStripMenuItem";
-			resetEverythingToolStripMenuItem.Size = new Size(171, 22);
+			resetEverythingToolStripMenuItem.Size = new Size(180, 22);
 			resetEverythingToolStripMenuItem.Text = "Reset Everything";
 			resetEverythingToolStripMenuItem.ToolTipText = "Reset every application setting.";
 			resetEverythingToolStripMenuItem.Click += Help_ResetEverything_Click;
@@ -886,5 +895,6 @@ namespace Mappalachia
 		private Label labelProgressStatus;
 		private Label labelSearchResults;
 		private Label labelItemsToPlot;
+		private ToolStripMenuItem installSpotlightToolStripMenuItem;
 	}
 }
