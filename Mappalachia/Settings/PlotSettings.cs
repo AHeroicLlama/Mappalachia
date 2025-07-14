@@ -27,12 +27,12 @@ namespace Mappalachia
 
 		public ClusterSettings ClusterSettings { get; set; } = new ClusterSettings();
 
-		public bool ShowPlotsInOtherSpaces { get; set; } = true;
+		public bool ShowPlotsInOtherSpaces { get; set; } = false;
 
 		public bool ShowRegionLevels { get; set; } = false;
 
 		// TODO make editable in UI
-		public int PlotIconSize { get; set; } = 64;
+		public int PlotIconSize { get; set; } = 50;
 
 		[JsonIgnore]
 		public List<Color> Palette { get; set; } = new List<Color>

@@ -26,8 +26,6 @@ namespace Mappalachia
 
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
 
-		static int DropShadowOffset { get; } = 2;
-
 		static int FontSizeItemsInOtherSpaces { get; } = 20;
 
 		static int FontSizeMapMarkerLabel { get; } = 20;
@@ -36,11 +34,15 @@ namespace Mappalachia
 
 		static int FontSizeTitle { get; } = 72;
 
+		public static int DropShadowOffset { get; } = 2;
+
+		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
+
 		static Brush BrushGeneric { get; } = Brushes.White;
 
 		static Brush BrushGenericTransparent { get; } = new SolidBrush(Color.FromArgb(128, 255, 255, 255));
 
-		static Brush BrushDropShadow { get; } = new SolidBrush(Color.FromArgb(128, 0, 0, 0));
+		static Brush BrushDropShadow { get; } = new SolidBrush(DropShadowColor);
 
 		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
@@ -214,7 +216,7 @@ namespace Mappalachia
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting instances in other spaces");
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Finding instances in other spaces");
 
 				// Find all 'teleporters' which exit this space or the space which this item is in
 				// Take only one result per the source and destination of the teleporter
@@ -240,13 +242,13 @@ namespace Mappalachia
 
 					// We use this Dict to simply track how many items have been attributed to each space
 					// in order that we can Y-offset the label to prevent overtyping
-					if (!connectionsToSpace.ContainsKey(teleporter.TeleportsTo!))
+					if (!connectionsToSpace.TryGetValue(teleporter.TeleportsTo!, out int count))
 					{
 						connectionsToSpace.Add(teleporter.TeleportsTo!, 1);
 					}
 					else
 					{
-						connectionsToSpace[teleporter.TeleportsTo!]++;
+						connectionsToSpace[teleporter.TeleportsTo!] = ++count;
 					}
 
 					PointF point = teleporter.Coord.AsImagePoint(settings);

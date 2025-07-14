@@ -74,10 +74,10 @@ namespace Mappalachia
 			return bitmap;
 		}
 
-		// Returns the original image, with all pixels set to the given color, persisting transparency
+		// Returns a copy of the original image, with all pixels set to the given color, persisting transparency
 		public static Image SetColor(this Image image, Color color)
 		{
-			Bitmap bitmap = (Bitmap)image;
+			Bitmap bitmap = new Bitmap(image);
 
 			// We copy the bitmap data out into a byte array, because accessing the pixels from the bitmap object is very slow
 			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);

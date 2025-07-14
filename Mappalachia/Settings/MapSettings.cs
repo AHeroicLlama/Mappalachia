@@ -71,7 +71,7 @@ namespace Mappalachia
 
 		public bool HighlightWater { get; set; } = false;
 
-		public bool MapMarkerIcons { get; set; } = false;
+		public bool MapMarkerIcons { get; set; } = true;
 
 		public bool MapMarkerLabels { get; set; } = false;
 
