@@ -38,11 +38,11 @@ namespace Mappalachia
 
 		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
 
+		static Brush BrushDropShadow { get; } = new SolidBrush(DropShadowColor);
+
 		static Brush BrushGeneric { get; } = Brushes.White;
 
 		static Brush BrushGenericTransparent { get; } = new SolidBrush(Color.FromArgb(128, 255, 255, 255));
-
-		static Brush BrushDropShadow { get; } = new SolidBrush(DropShadowColor);
 
 		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
@@ -55,16 +55,15 @@ namespace Mappalachia
 		{
 			UpdateProgress(progressInfo, 10, "Draw started");
 
-			// Gather the base background image
+			// Set up the original image and graphics objects
 			Image mapImage = new Bitmap(FileIO.EmptyMapImage);
 			using Graphics graphics = Graphics.FromImage(mapImage);
 			graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 			graphics.SmoothingMode = SmoothingMode.AntiAlias;
 			graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
+			// Draw the initial background image
 			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
-
-			// Draw the main background image
 			graphics.DrawImage(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage), backgroundRectangle);
 
 			DrawSpotlightTiles(settings, graphics, progressInfo);
@@ -360,7 +359,6 @@ namespace Mappalachia
 			}
 		}
 
-		// Draw the legend
 		// May return an image of different dimensions if extended legend is used
 		static Image DrawLegend(List<GroupedSearchResult> itemsToPlot, Settings settings, Image image)
 		{

@@ -65,9 +65,7 @@ namespace Preprocessor
 
 				ConcludeValidation();
 			}
-
-			// If the database doesn't exist yet, we do the full build and validate
-			else
+			else // If the database doesn't exist yet, we do the full build and validate
 			{
 				stopwatch.Start();
 				Preprocess();
@@ -92,7 +90,7 @@ namespace Preprocessor
 			SimpleQuery("PRAGMA foreign_keys = 0");
 
 			// Create the Meta table, add the game version to it
-			SimpleQuery("CREATE TABLE Meta (key TEXT PRIMARY KEY, value TEXT);");
+			SimpleQuery("CREATE TABLE Meta (key TEXT NOT NULL UNIQUE PRIMARY KEY, value TEXT) STRICT;");
 			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{gameVersion}');");
 
 			// Create new tables
@@ -326,6 +324,8 @@ namespace Preprocessor
 			SimpleQuery("UPDATE Position SET boundY = NULL WHERE boundY = '';");
 			SimpleQuery("UPDATE Position SET boundZ = NULL WHERE boundZ = '';");
 			SimpleQuery("UPDATE Position SET rotZ = NULL WHERE rotZ = '';");
+
+			AssignConstraints();
 
 			// Create indexes
 			SimpleQuery("CREATE INDEX indexGeneral ON Position(referenceFormID, lockLevel, label, spaceFormID);");
@@ -589,6 +589,71 @@ namespace Preprocessor
 			transaction.Commit();
 
 			SimpleQuery($"DROP INDEX '{tempIndex}'", true);
+		}
+
+		// Assigns NOT NULL and UNIQUE constraints on columns, also sets tables to STRICT (except Meta)
+		// Unfortately SQLite requires that we fully re-create the table in order to achieve this
+		static void AssignConstraints()
+		{
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Container;");
+			SimpleQuery("DROP TABLE Container;");
+			SimpleQuery("CREATE TABLE Container (containerFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), contentFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), quantity INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Container (containerFormID, contentFormID, quantity) SELECT containerFormID, contentFormID, quantity FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Entity;");
+			SimpleQuery("DROP TABLE Entity;");
+			SimpleQuery("CREATE TABLE Entity (entityFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, displayName TEXT, editorID TEXT NOT NULL UNIQUE, signature TEXT NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Entity (entityFormID, displayName, editorID, signature) SELECT entityFormID, displayName, editorID, signature FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM MapMarker;");
+			SimpleQuery("DROP TABLE MapMarker;");
+			SimpleQuery("CREATE TABLE MapMarker (x REAL NOT NULL, y REAL NOT NULL, label TEXT NOT NULL, icon TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID)) STRICT;");
+			SimpleQuery("INSERT INTO MapMarker (x, y, label, icon, spaceFormID) SELECT x, y, label, icon, spaceFormID FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM NPC;");
+			SimpleQuery("DROP TABLE NPC;");
+			SimpleQuery("CREATE TABLE NPC (npcName TEXT NOT NULL, spawnWeight REAL NOT NULL, spaceFormID INTEGER NOT NULL, instanceFormID INTEGER NOT NULL REFERENCES Position (instanceFormID)) STRICT;");
+			SimpleQuery("INSERT INTO NPC (npcName, spawnWeight, spaceFormID, instanceFormID) SELECT npcName, spawnWeight, spaceFormID, instanceFormID FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Position;");
+			SimpleQuery("DROP TABLE Position;");
+			SimpleQuery("CREATE TABLE Position (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), x REAL NOT NULL, y REAL NOT NULL, z REAL NOT NULL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, referenceFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), teleportsToFormID INTEGER REFERENCES Space (spaceFormID), label TEXT NOT NULL, instanceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY) STRICT;");
+			SimpleQuery("INSERT INTO Position (spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID) SELECT spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Position_PreGrouped;");
+			SimpleQuery("DROP TABLE Position_PreGrouped;");
+			SimpleQuery("CREATE TABLE Position_PreGrouped (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), referenceFormID INTEGER NOT NULL REFERENCES Entity (EntityFormID), lockLevel TEXT, label TEXT, count INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Position_PreGrouped (spaceFormID, referenceFormID, lockLevel, label, count) SELECT spaceFormID, referenceFormID, lockLevel, label, count FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Region;");
+			SimpleQuery("DROP TABLE Region;");
+			SimpleQuery("CREATE TABLE Region (regionFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, regionEditorID TEXT NOT NULL UNIQUE, spaceFormID TEXT NOT NULL REFERENCES Space (spaceFormID), minLevel INTEGER NOT NULL, maxLevel INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Region (regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel) SELECT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM RegionPoints;");
+			SimpleQuery("DROP TABLE RegionPoints;");
+			SimpleQuery("CREATE TABLE RegionPoints (subRegionIndex INTEGER NOT NULL, coordIndex INTEGER NOT NULL, x REAL NOT NULL, y REAL NOT NULL, regionFormID INTEGER NOT NULL REFERENCES Region (regionFormID)) STRICT;");
+			SimpleQuery("INSERT INTO RegionPoints (subRegionIndex, coordIndex, x, y, regionFormID) SELECT subRegionIndex, coordIndex, x, y, regionFormID FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Scrap;");
+			SimpleQuery("DROP TABLE Scrap;");
+			SimpleQuery("CREATE TABLE Scrap (junkFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), component TEXT NOT NULL, componentQuantity INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Scrap (junkFormID, component, componentQuantity) SELECT junkFormID, component, componentQuantity FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Space;");
+			SimpleQuery("DROP TABLE Space;");
+			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
 		}
 
 		// Return the given string with custom escape sequences replaced

@@ -555,6 +555,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.AllowUserToAddRows = false;
 			dataGridViewSearchResults.AllowUserToDeleteRows = false;
 			dataGridViewSearchResults.AllowUserToOrderColumns = true;
+			dataGridViewSearchResults.AllowUserToResizeRows = false;
 			dataGridViewSearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridViewSearchResults.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewSearchResults.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
@@ -607,6 +608,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.AllowUserToAddRows = false;
 			dataGridViewItemsToPlot.AllowUserToDeleteRows = false;
 			dataGridViewItemsToPlot.AllowUserToOrderColumns = true;
+			dataGridViewItemsToPlot.AllowUserToResizeRows = false;
 			dataGridViewItemsToPlot.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridViewItemsToPlot.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;

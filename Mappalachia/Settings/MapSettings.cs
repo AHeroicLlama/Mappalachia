@@ -23,38 +23,6 @@ namespace Mappalachia
 			}
 		}
 
-		public void SetSpotlightToMapCenter()
-		{
-			if (RootSettings == null)
-			{
-				return;
-			}
-
-			SpotlightLocation = RootSettings.Space.GetCenter();
-		}
-
-		public void CapSpotlightSizeToSpace()
-		{
-			// May have not finihsed initializing yet
-			if (RootSettings == null)
-			{
-				return;
-			}
-
-			int maxSizeThisSpace = (int)Math.Min(RootSettings.Space.GetMaxSpotlightBenefit(), Common.SpotlightMaxSize);
-
-			if (maxSizeThisSpace <= 0)
-			{
-				SpotlightSize = 1;
-				return;
-			}
-
-			SpotlightSize = Math.Clamp(SpotlightSize, 1, maxSizeThisSpace);
-		}
-
-		[JsonIgnore]
-		public Settings RootSettings { get; set; } = rootSettings;
-
 		float brightness = 1.0f;
 
 		public float Brightness
@@ -66,21 +34,6 @@ namespace Mappalachia
 				brightness = Math.Clamp(value, 0.1f, 2.0f);
 			}
 		}
-
-		public bool GrayscaleBackground { get; set; } = false;
-
-		public bool HighlightWater { get; set; } = false;
-
-		public bool MapMarkerIcons { get; set; } = true;
-
-		public bool MapMarkerLabels { get; set; } = false;
-
-		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
-
-		public string Title { get; set; } = string.Empty;
-
-		// The size of the spotlight in tiles
-		public double SpotlightSize { get; set; } = 2;
 
 		Coord spotlightLocation = new Coord(0, 0);
 
@@ -122,6 +75,53 @@ namespace Mappalachia
 					FileIO.FlushSpotlightTileImageCache();
 				}
 			}
+		}
+
+		// The size of the spotlight in tiles
+		public double SpotlightSize { get; set; } = 2;
+
+		public bool GrayscaleBackground { get; set; } = false;
+
+		public bool HighlightWater { get; set; } = false;
+
+		public bool MapMarkerIcons { get; set; } = true;
+
+		public bool MapMarkerLabels { get; set; } = false;
+
+		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
+
+		public string Title { get; set; } = string.Empty;
+
+		[JsonIgnore]
+		public Settings RootSettings { get; set; } = rootSettings;
+
+		public void SetSpotlightToMapCenter()
+		{
+			if (RootSettings == null)
+			{
+				return;
+			}
+
+			SpotlightLocation = RootSettings.Space.GetCenter();
+		}
+
+		public void CapSpotlightSizeToSpace()
+		{
+			// May have not finihsed initializing yet
+			if (RootSettings == null)
+			{
+				return;
+			}
+
+			int maxSizeThisSpace = (int)Math.Min(RootSettings.Space.GetMaxSpotlightBenefit(), Common.SpotlightMaxSize);
+
+			if (maxSizeThisSpace <= 0)
+			{
+				SpotlightSize = 1;
+				return;
+			}
+
+			SpotlightSize = Math.Clamp(SpotlightSize, 1, maxSizeThisSpace);
 		}
 	}
 }

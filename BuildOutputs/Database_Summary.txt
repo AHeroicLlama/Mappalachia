@@ -1,11 +1,11 @@
 MD5 Checksum
-FD150ED0B3CB4C2CF4C3F6EEF13C989D
+8F9E82698B5FD58C369A522EACDA0995
 
 Size
-365056 KB
+419080 KB
 
 Built At UTC
-12/07/2025 23:16:35
+15/07/2025 16:24:33
 
 CSV Imported with SQLite Version
 3.50.2 2025-06-28 14:00:48 2af157d77fb1304a74176eaee7fbc7c7e932d946bf25325e9c26c91db19e3079 (64-bit)
@@ -17,9 +17,13 @@ MapMarker            Position_PreGrouped  Space
 Meta                 Region
 
 Indices
-indexComponent           indexNPC                 sqlite_autoindex_Meta_1
-indexCount               indexReference         
-indexGeneral             indexSpaceTeleportsTo
+indexComponent               sqlite_autoindex_Entity_2  
+indexCount                   sqlite_autoindex_Meta_1    
+indexGeneral                 sqlite_autoindex_Position_1
+indexNPC                     sqlite_autoindex_Region_1  
+indexReference               sqlite_autoindex_Region_2  
+indexSpaceTeleportsTo        sqlite_autoindex_Space_1   
+sqlite_autoindex_Entity_1    sqlite_autoindex_Space_2
 
 Game Version
 1.7.20.10

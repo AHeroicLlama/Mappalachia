@@ -122,13 +122,5 @@ namespace Mappalachia
 				(int)(colorX.G + ((colorY.G - colorX.G) * range)),
 				(int)(colorX.B + ((colorY.B - colorX.B) * range)));
 		}
-
-		// Returns the Point which is the rounded version of the PointF
-		public static Point AsPointByRounding(this PointF point)
-		{
-			return new Point(
-				(int)Math.Round(point.X),
-				(int)Math.Round(point.Y));
-		}
 	}
 }
