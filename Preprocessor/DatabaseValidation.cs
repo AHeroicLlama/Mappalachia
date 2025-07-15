@@ -6,14 +6,6 @@ namespace Preprocessor
 {
 	internal partial class Preprocessor
 	{
-		enum ColumnType
-		{
-			TEXT,
-			REAL,
-			INTEGER,
-			BOOL,
-		}
-
 		static void ValidateDatabase()
 		{
 			StdOutWithColor("Validating database", ColorInfo);
@@ -32,75 +24,16 @@ namespace Preprocessor
 				FailValidation($"Integrity check failed");
 			}
 
-			// Position(s) "label" and Entity "displayName" columns not validated as they have no restrictions
-			ValidateColumnMatchesFormat("Position", "spaceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position", "x", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "y", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "z", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "lockLevel", true, ColumnType.TEXT, ValidateLockLevel);
-			ValidateColumnMatchesFormat("Position", "primitiveShape", true, ColumnType.TEXT, ValidatePrimitiveShape);
-			ValidateColumnMatchesFormat("Position", "boundX", true, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "boundY", true, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "boundZ", true, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "rotZ", true, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Position", "referenceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position", "teleportsToFormID", true, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position", "instanceFormID", false, ColumnType.INTEGER);
-
-			ValidateColumnMatchesFormat("Position_PreGrouped", "spaceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position_PreGrouped", "referenceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", true, ColumnType.TEXT, ValidateLockLevel);
-			ValidateColumnMatchesFormat("Position_PreGrouped", "count", false, ColumnType.INTEGER);
-
-			ValidateColumnMatchesFormat("Entity", "entityFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Entity", "editorID", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("Entity", "signature", false, ColumnType.TEXT, ValidateSignature);
-
-			ValidateColumnMatchesFormat("Container", "containerFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Container", "contentFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Container", "quantity", false, ColumnType.INTEGER);
-
-			ValidateColumnMatchesFormat("Space", "spaceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Space", "spaceEditorID", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("Space", "spaceDisplayName", false, ColumnType.TEXT);
-
-			ValidateColumnMatchesFormat("Space", "centerX", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Space", "centerY", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("Space", "maxRange", false, ColumnType.REAL);
-
-			ValidateColumnMatchesFormat("MapMarker", "x", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("MapMarker", "y", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("MapMarker", "label", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("MapMarker", "icon", false, ColumnType.TEXT, ValidateMapMarkerIcon);
-			ValidateColumnMatchesFormat("MapMarker", "spaceFormID", false, ColumnType.INTEGER);
-
-			ValidateColumnMatchesFormat("NPC", "npcName", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("NPC", "spawnWeight", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("NPC", "spaceFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("NPC", "instanceFormID", false, ColumnType.INTEGER);
-
-			ValidateColumnMatchesFormat("Region", "regionFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Region", "regionEditorID", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("Region", "minLevel", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Region", "maxLevel", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Region", "spaceFormID", false, ColumnType.INTEGER);
-
-			ValidateColumnMatchesFormat("RegionPoints", "regionFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("RegionPoints", "subRegionIndex", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("RegionPoints", "coordIndex", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("RegionPoints", "x", false, ColumnType.REAL);
-			ValidateColumnMatchesFormat("RegionPoints", "y", false, ColumnType.REAL);
-
-			ValidateColumnMatchesFormat("Scrap", "junkFormID", false, ColumnType.INTEGER);
-			ValidateColumnMatchesFormat("Scrap", "component", false, ColumnType.TEXT, ValidateComponent);
-			ValidateColumnMatchesFormat("Scrap", "componentQuantity", false, ColumnType.INTEGER);
-
-			ValidateColumnMatchesFormat("Meta", "key", false, ColumnType.TEXT);
-			ValidateColumnMatchesFormat("Meta", "value", false, ColumnType.TEXT);
+			ValidateColumnMatchesFormat("Position", "lockLevel", true, ValidateLockLevel);
+			ValidateColumnMatchesFormat("Position", "primitiveShape", true, ValidatePrimitiveShape);
+			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", true, ValidateLockLevel);
+			ValidateColumnMatchesFormat("Entity", "signature", false, ValidateSignature);
+			ValidateColumnMatchesFormat("MapMarker", "icon", false, ValidateMapMarkerIcon);
+			ValidateColumnMatchesFormat("Scrap", "component", false, ValidateComponent);
 		}
 
-		// Validate all rows of the table column match the type and optional regex pattern, including optional blanks
-		static void ValidateColumnMatchesFormat(string tableName, string columnName, bool allowBlanks, ColumnType type, Regex? validPattern = null)
+		// Validate all rows of the table column match the regex pattern, including optional blanks
+		static void ValidateColumnMatchesFormat(string tableName, string columnName, bool allowBlanks, Regex validPattern)
 		{
 			Console.WriteLine($"Validating {tableName}.{columnName}");
 
@@ -135,47 +68,9 @@ namespace Preprocessor
 					}
 				}
 
-				if (validPattern != null && !validPattern.IsMatch(value))
+				if (value != null && !validPattern.IsMatch(value))
 				{
 					FailValidation($"{tableName}.{columnName}: value {value} did not match pattern {validPattern} (Row {row})");
-				}
-
-				bool typeValidationFailed = false;
-				switch (type)
-				{
-					case ColumnType.REAL:
-						if (!double.TryParse(value, out _))
-						{
-							typeValidationFailed = true;
-						}
-
-						break;
-
-					case ColumnType.INTEGER:
-						if (!int.TryParse(value, out _))
-						{
-							typeValidationFailed = true;
-						}
-
-						break;
-
-					case ColumnType.BOOL:
-						if (!(value == "0" || value == "1"))
-						{
-							typeValidationFailed = true;
-						}
-
-						break;
-
-					// Anything is valid string/text, so nothing to check
-					case ColumnType.TEXT:
-					default:
-						break;
-				}
-
-				if (typeValidationFailed)
-				{
-					FailValidation($"{tableName}.{columnName}: value {value} could not be parsed as type {type} (Row {row})");
 				}
 			}
 		}
