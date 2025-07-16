@@ -277,7 +277,6 @@ namespace Mappalachia
 		}
 
 		// Returns all Instances of the given GroupedSearchResult
-		// TODO WIP
 		public static async Task<List<Instance>> GetInstances(GroupedSearchResult searchResult, Space? space = null)
 		{
 			space ??= searchResult.Space;
@@ -295,11 +294,16 @@ namespace Mappalachia
 			}
 			else if (searchResult.InContainer)
 			{
-				// TODO
+				instances.AddRange(await GetInContainerInstances(searchResult, space));
 			}
 			else if (searchResult.Entity is Library.Region)
 			{
-				// TODO
+				Instance? instance = await GetRegionInstance(searchResult, space);
+
+				if (instance != null)
+				{
+					instances.Add(instance);
+				}
 			}
 			else if (searchResult.Entity.GetType() == typeof(Entity))
 			{
@@ -307,11 +311,11 @@ namespace Mappalachia
 			}
 			else if (searchResult.Entity is DerivedScrap)
 			{
-				// TODO
+				instances.AddRange(await GetScrapInstances(searchResult, space));
 			}
 			else if (searchResult.Entity is DerivedNPC)
 			{
-				// TODO
+				instances.AddRange(await GetNPCInstances(searchResult, space));
 			}
 
 			return instances;
@@ -398,6 +402,143 @@ namespace Mappalachia
 			}
 
 			return instance;
+		}
+
+		// Returns the instances of a GroupedSearchResult which is inContainer
+		static async Task<List<Instance>> GetInContainerInstances(GroupedSearchResult searchResult, Space? space = null)
+		{
+			space ??= searchResult.Space;
+
+			List<Instance> instances = new List<Instance>();
+
+			string query = "SELECT x, y, z, quantity, instanceFormID FROM Position " +
+				"JOIN Container ON Container.containerFormID = Position.referenceFormID " +
+				$"WHERE contentFormID = {searchResult.Entity.FormID} AND quantity = {searchResult.SpawnWeight} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND spaceFormID = {space.FormID};";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					searchResult.Entity,
+					space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					searchResult.Label,
+					null,
+					searchResult.LockLevel,
+					null,
+					reader.GetInt("quantity"),
+					true));
+			}
+
+			return instances;
+		}
+
+		// Returns the instance of a GroupedSearchResult which is a Region
+		static async Task<Instance?> GetRegionInstance(GroupedSearchResult searchResult, Space? space = null)
+		{
+			Library.Region region = (Library.Region)searchResult.Entity;
+
+			space ??= searchResult.Space;
+
+			string regionQuery = "SELECT minLevel, maxLevel FROM Region " +
+				$"WHERE regionFormID = {region.FormID} AND spaceFormID = {space.FormID};";
+
+			using SqliteDataReader regionReader = await GetReader(Connection, regionQuery);
+
+			if (!regionReader.Read())
+			{
+				return null;
+			}
+
+			region.MinLevel = regionReader.GetUInt("minLevel");
+			region.MaxLevel = regionReader.GetUInt("maxLevel");
+
+			string pointQuery = "SELECT x, y, subRegionIndex, coordIndex FROM RegionPoints " +
+				$"WHERE regionFormID = {region.FormID};";
+
+			using SqliteDataReader pointReader = await GetReader(Connection, pointQuery);
+
+			while (pointReader.Read())
+			{
+				region.AddPoint(
+					new RegionPoint(
+						region,
+						new Coord(
+							pointReader.GetDouble("x"),
+							pointReader.GetDouble("y")),
+						pointReader.GetUInt("subRegionIndex"),
+						pointReader.GetUInt("coordIndex")));
+			}
+
+			Instance instance = new Instance(
+				region,
+				space,
+				new Coord(0, 0),
+				0,
+				searchResult.Label,
+				null,
+				LockLevel.None,
+				null);
+
+			return instance;
+		}
+
+		// Returns the instances of a GroupedSearchResult which is Scrap
+		static async Task<List<Instance>> GetScrapInstances(GroupedSearchResult searchResult, Space? space = null)
+		{
+			space ??= searchResult.Space;
+
+			List<Instance> instances = new List<Instance>();
+
+			// TODO
+			string query = "";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					searchResult.Entity,
+					space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					searchResult.Label,
+					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
+					searchResult.LockLevel,
+					reader.GetShape()));
+			}
+
+			return instances;
+		}
+
+		// Returns the instances of a GroupedSearchResult which is an NPC
+		static async Task<List<Instance>> GetNPCInstances(GroupedSearchResult searchResult, Space? space = null)
+		{
+			space ??= searchResult.Space;
+
+			List<Instance> instances = new List<Instance>();
+
+			// TODO
+			string query = "";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					searchResult.Entity,
+					space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					searchResult.Label,
+					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
+					searchResult.LockLevel,
+					reader.GetShape()));
+			}
+
+			return instances;
 		}
 
 		public static async Task<string> GetGameVersion()

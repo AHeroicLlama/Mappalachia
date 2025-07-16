@@ -34,6 +34,10 @@ namespace Mappalachia
 
 		static int FontSizeTitle { get; } = 72;
 
+		static int VolumeEdgeThickness { get; } = 5;
+
+		static int VolumeFillAlpha { get; } = 64;
+
 		public static int DropShadowOffset { get; } = 2;
 
 		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
@@ -172,16 +176,13 @@ namespace Mappalachia
 			}
 		}
 
-		// TODO temp disable warning
-#pragma warning disable IDE0060 // Remove unused parameter
-
 		// Standard including topographic plots
 		static async void DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic = false, Progress<ProgressInfo>? progressInfo = null)
 		{
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting standard coordinates");
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting standard coordinates and volumes");
 
 				if (item.Space != settings.Space)
 				{
@@ -192,7 +193,14 @@ namespace Mappalachia
 
 				foreach (Instance instance in instances)
 				{
-					graphics.DrawImageCentered(item.PlotIcon.Image, instance.Coord.AsImagePoint(settings));
+					if (instance.Entity is Library.Region || instance.PrimitiveShape != null)
+					{
+						DrawVolume(settings, graphics, instance, item.PlotIcon.Color);
+					}
+					else
+					{
+						graphics.DrawImageCentered(item.PlotIcon.Image, instance.Coord.AsImagePoint(settings));
+					}
 				}
 			}
 		}
@@ -281,11 +289,109 @@ namespace Mappalachia
 		}
 
 		// Draws the region or shape belonging to the given instance
-		static async void DrawRegionOrShape(Settings settings, Graphics graphics, Instance instance)
+		static void DrawVolume(Settings settings, Graphics graphics, Instance instance, Color color)
 		{
-			// TODO
+			Pen pen = new Pen(color, VolumeEdgeThickness);
+			Brush brush = new SolidBrush(Color.FromArgb(VolumeFillAlpha, color.R, color.G, color.B));
+
+			if (instance.Entity is Library.Region region)
+			{
+				foreach (List<RegionPoint> subregion in region.GetAllSubRegions())
+				{
+					PointF[] points = subregion.Select(s => s.Coord.AsImagePoint(settings)).ToArray();
+
+					if (settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Fill || settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Both)
+					{
+						graphics.FillPolygon(brush, points, FillMode.Winding);
+					}
+
+					if (settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Border || settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Both)
+					{
+						graphics.DrawPolygon(pen, points);
+					}
+
+					if (settings.PlotSettings.ShowRegionLevels)
+					{
+						string levelString = string.Empty;
+
+						if (region.MinLevel != 0 && region.MaxLevel != 0)
+						{
+							if (region.MinLevel <= 1)
+							{
+								levelString = $"\u2264{region.MaxLevel}";
+							}
+							else if (region.MaxLevel == 0)
+							{
+								levelString = $"\u2265{region.MinLevel}";
+							}
+							else
+							{
+								levelString = $"{region.MinLevel}-{region.MaxLevel}";
+							}
+						}
+
+						// TODO - get center of volume for string location, and var for font
+						graphics.DrawStringCentered(levelString, GetFont(32), new SolidBrush(color), region.Points.First().Coord.AsImagePoint(settings), true);
+					}
+				}
+			}
+			else if (instance.PrimitiveShape != null)
+			{
+				Shape shape = (Shape)instance.PrimitiveShape;
+				PointF topLeft = new Coord(instance.Coord.X - (shape.BoundX / 2), instance.Coord.Y + (shape.BoundY / 2)).AsImagePoint(settings);
+				PointF center = instance.Coord.AsImagePoint(settings);
+				RectangleF rectangle = new RectangleF(topLeft.X, topLeft.Y, shape.BoundX.AsImageLength(settings), shape.BoundY.AsImageLength(settings));
+
+				// Rotate the graphics 'canvas' around the center of the shape
+				graphics.TranslateTransform(center.X, center.Y);
+				graphics.RotateTransform((float)shape.RotZ);
+				graphics.TranslateTransform(-center.X, -center.Y);
+
+				VolumeDrawMode drawMode = settings.PlotSettings.VolumeDrawMode;
+
+				switch (shape.ShapeType)
+				{
+					case ShapeType.Box:
+					case ShapeType.Line:
+					case ShapeType.Plane:
+						if (drawMode == VolumeDrawMode.Fill || drawMode == VolumeDrawMode.Both)
+						{
+							graphics.FillRectangle(brush, rectangle);
+						}
+
+						if (drawMode == VolumeDrawMode.Border || drawMode == VolumeDrawMode.Both)
+						{
+							graphics.DrawRectangle(pen, rectangle);
+						}
+
+						break;
+
+					case ShapeType.Sphere:
+					case ShapeType.Ellipsoid:
+						if (drawMode == VolumeDrawMode.Fill || drawMode == VolumeDrawMode.Both)
+						{
+							graphics.FillEllipse(brush, rectangle);
+						}
+
+						if (drawMode == VolumeDrawMode.Border || drawMode == VolumeDrawMode.Both)
+						{
+							graphics.DrawEllipse(pen, rectangle);
+						}
+
+						break;
+
+					default:
+						graphics.ResetTransform();
+						throw new Exception($"Unexpected shape type {shape.ShapeType}");
+				}
+
+				graphics.ResetTransform();
+			}
+			else
+			{
+				throw new Exception("Requested to draw the volume of an Instance which is not a region nor shape");
+			}
 		}
-#pragma warning restore IDE0060 // Remove unused parameter
 
 		static void DrawTitle(Settings settings, Graphics graphics)
 		{
@@ -417,17 +523,33 @@ namespace Mappalachia
 			graphics.DrawString(text, font, brush, textBounds, stringFormat);
 		}
 
-		// Returns the given World Coord as an Image PointF, considering spotlight scaling
-		public static PointF AsImagePoint(this Coord coord, Settings settings)
+		// Return the effective center of the map image in world coords
+		static Coord GetWorldCenter(Settings settings)
 		{
-			// Find the center of the map in world coordinates
-			Coord center = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightLocation : settings.Space.GetCenter();
+			return settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightLocation : settings.Space.GetCenter();
+		}
 
+		// Return the value which defines the scaling factor from world to image coords
+		static double GetWorldToImageFactor(Settings settings)
+		{
 			// Get the effective range of the image in world coordinates
 			double plotRange = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightSize * TileWidth : settings.Space.MaxRange;
 
 			// Find the factor between world and image coordinate
-			double factor = plotRange / MapImageResolution;
+			return plotRange / MapImageResolution;
+		}
+
+		// Returns a single length/size value scaled from world scale to image scale
+		static float AsImageLength(this double value, Settings settings)
+		{
+			return (float)(value / GetWorldToImageFactor(settings));
+		}
+
+		// Returns the given World Coord as an Image PointF, considering spotlight scaling
+		public static PointF AsImagePoint(this Coord coord, Settings settings)
+		{
+			Coord center = GetWorldCenter(settings);
+			double factor = GetWorldToImageFactor(settings);
 
 			// Apply the scaling factor, offset by the center, and flip the Y axis
 			return new PointF(
@@ -438,14 +560,8 @@ namespace Mappalachia
 		// Returns the given Image PointF as World coordinates, considering spotlight scaling
 		public static Coord AsWorldCoord(this PointF point, Settings settings)
 		{
-			// Find the center of the map in world coordinates
-			Coord center = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightLocation : settings.Space.GetCenter();
-
-			// Get the effective range of the image in world coordinates
-			double plotRange = settings.MapSettings.SpotlightEnabled ? settings.MapSettings.SpotlightSize * TileWidth : settings.Space.MaxRange;
-
-			// Find the factor between world and image coordinate
-			double factor = plotRange / MapImageResolution;
+			Coord center = GetWorldCenter(settings);
+			double factor = GetWorldToImageFactor(settings);
 
 			// Inverse of the transformation made in AsImagePoint
 			return new Coord(

@@ -9,9 +9,9 @@
 		// The space which this region exists within
 		public Space Space { get; } = space;
 
-		public uint MinLevel { get; } = minLevel;
+		public uint MinLevel { get; set; } = minLevel;
 
-		public uint MaxLevel { get; } = maxLevel;
+		public uint MaxLevel { get; set; } = maxLevel;
 
 		public void AddPoint(RegionPoint point)
 		{
