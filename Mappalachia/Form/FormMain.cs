@@ -85,9 +85,12 @@ namespace Mappalachia
 			SetSetting(() => Settings.MapSettings.SpotlightEnabled = enabled);
 		}
 
-		public void OpenSpotlightSetSizeDialog()
+		public void OpenSpotlightSetSizeDialog(bool topMost = false)
 		{
-			FormSetSpotlightSize spotlightRangeForm = new FormSetSpotlightSize(Settings);
+			FormSetSpotlightSize spotlightRangeForm = new FormSetSpotlightSize(Settings)
+			{
+				TopMost = topMost,
+			};
 
 			if (spotlightRangeForm.ShowDialog() == DialogResult.OK)
 			{
@@ -203,6 +206,7 @@ namespace Mappalachia
 			mapMarkerIconsToolStripMenuItem.Checked = Settings.MapSettings.MapMarkerIcons;
 			mapMarkerLabelsToolStripMenuItem.Checked = Settings.MapSettings.MapMarkerLabels;
 			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchSettings.SearchInAllSpaces;
+			searchInInstancesOnlyToolStripMenuItem.Checked = Settings.SearchSettings.SearchInInstancesOnly;
 			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
 			drawInstanceFormIDToolStripMenuItem.Checked = Settings.PlotSettings.DrawInstanceFormID;
 			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.ShowPlotsInOtherSpaces;
@@ -789,6 +793,11 @@ namespace Mappalachia
 		private void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces, false, true);
+		}
+
+		private void Search_SearchInInstancesOnly_click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.SearchSettings.SearchInInstancesOnly = !Settings.SearchSettings.SearchInInstancesOnly, false, true);
 		}
 
 		private void Search_AdvancedMode_Click(object sender, EventArgs e)

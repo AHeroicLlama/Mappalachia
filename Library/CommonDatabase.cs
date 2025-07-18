@@ -66,6 +66,7 @@ namespace Library
 					reader.GetString("spaceEditorID"),
 					reader.GetString("spaceDisplayName"),
 					reader.GetBool("isWorldspace"),
+					reader.GetBool("isInstanceable"),
 					reader.GetDouble("centerX"),
 					reader.GetDouble("centerY"),
 					reader.GetDouble("maxRange")));
@@ -98,6 +99,7 @@ namespace Library
 				reader.GetString("spaceEditorID"),
 				reader.GetString("spaceDisplayName"),
 				reader.GetBool("isWorldspace"),
+				reader.GetBool("isInstanceable"),
 				reader.GetDouble("centerX"),
 				reader.GetDouble("centerY"),
 				reader.GetDouble("maxRange"));

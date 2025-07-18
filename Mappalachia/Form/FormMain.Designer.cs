@@ -59,6 +59,7 @@ namespace Mappalachia
 			resetToolStripMenuItem = new ToolStripMenuItem();
 			searchSettingsToolStripMenuItem = new ToolStripMenuItem();
 			searchInAllSpacesToolStripMenuItem = new ToolStripMenuItem();
+			searchInInstancesOnlyToolStripMenuItem = new ToolStripMenuItem();
 			advancedModeToolStripMenuItem = new ToolStripMenuItem();
 			plotSettingsMenuItem = new ToolStripMenuItem();
 			plotModeMenuItem = new ToolStripMenuItem();
@@ -335,7 +336,7 @@ namespace Mappalachia
 			// 
 			// searchSettingsToolStripMenuItem
 			// 
-			searchSettingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchInAllSpacesToolStripMenuItem, advancedModeToolStripMenuItem });
+			searchSettingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchInAllSpacesToolStripMenuItem, searchInInstancesOnlyToolStripMenuItem, advancedModeToolStripMenuItem });
 			searchSettingsToolStripMenuItem.Name = "searchSettingsToolStripMenuItem";
 			searchSettingsToolStripMenuItem.Size = new Size(99, 20);
 			searchSettingsToolStripMenuItem.Text = "Search Settings";
@@ -343,15 +344,23 @@ namespace Mappalachia
 			// searchInAllSpacesToolStripMenuItem
 			// 
 			searchInAllSpacesToolStripMenuItem.Name = "searchInAllSpacesToolStripMenuItem";
-			searchInAllSpacesToolStripMenuItem.Size = new Size(176, 22);
+			searchInAllSpacesToolStripMenuItem.Size = new Size(200, 22);
 			searchInAllSpacesToolStripMenuItem.Text = "Search in all Spaces";
 			searchInAllSpacesToolStripMenuItem.ToolTipText = "Constrain the search to the selected Space only, or search all Spaces.";
 			searchInAllSpacesToolStripMenuItem.Click += Search_SearchInAllSpaces_Click;
 			// 
+			// searchInInstancesOnlyToolStripMenuItem
+			// 
+			searchInInstancesOnlyToolStripMenuItem.Name = "searchInInstancesOnlyToolStripMenuItem";
+			searchInInstancesOnlyToolStripMenuItem.Size = new Size(200, 22);
+			searchInInstancesOnlyToolStripMenuItem.Text = "Search in instances only";
+			searchInInstancesOnlyToolStripMenuItem.ToolTipText = "Only show results for spaces which are (or may be) instances.";
+			searchInInstancesOnlyToolStripMenuItem.Click += Search_SearchInInstancesOnly_click;
+			// 
 			// advancedModeToolStripMenuItem
 			// 
 			advancedModeToolStripMenuItem.Name = "advancedModeToolStripMenuItem";
-			advancedModeToolStripMenuItem.Size = new Size(176, 22);
+			advancedModeToolStripMenuItem.Size = new Size(200, 22);
 			advancedModeToolStripMenuItem.Text = "Advanced Mode";
 			advancedModeToolStripMenuItem.ToolTipText = "Toggle displaying search results in technical formats, and enable searching by FormID.";
 			advancedModeToolStripMenuItem.Click += Search_AdvancedMode_Click;
@@ -468,7 +477,7 @@ namespace Mappalachia
 			// aboutToolStripMenuItem
 			// 
 			aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			aboutToolStripMenuItem.Size = new Size(180, 22);
+			aboutToolStripMenuItem.Size = new Size(171, 22);
 			aboutToolStripMenuItem.Text = "About";
 			aboutToolStripMenuItem.ToolTipText = "View additional info about the application.";
 			aboutToolStripMenuItem.Click += Help_About_Click;
@@ -476,7 +485,7 @@ namespace Mappalachia
 			// openUserGuidesToolStripMenuItem
 			// 
 			openUserGuidesToolStripMenuItem.Name = "openUserGuidesToolStripMenuItem";
-			openUserGuidesToolStripMenuItem.Size = new Size(180, 22);
+			openUserGuidesToolStripMenuItem.Size = new Size(171, 22);
 			openUserGuidesToolStripMenuItem.Text = "Open User Guides";
 			openUserGuidesToolStripMenuItem.ToolTipText = "Read documentation online.";
 			openUserGuidesToolStripMenuItem.Click += Help_UserGuides_Click;
@@ -484,7 +493,7 @@ namespace Mappalachia
 			// checkForUpdatesToolStripMenuItem
 			// 
 			checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-			checkForUpdatesToolStripMenuItem.Size = new Size(180, 22);
+			checkForUpdatesToolStripMenuItem.Size = new Size(171, 22);
 			checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
 			checkForUpdatesToolStripMenuItem.ToolTipText = "Check if there is a new version available.";
 			checkForUpdatesToolStripMenuItem.Click += Help_CheckForUpdates_Click;
@@ -492,7 +501,7 @@ namespace Mappalachia
 			// installSpotlightToolStripMenuItem
 			// 
 			installSpotlightToolStripMenuItem.Name = "installSpotlightToolStripMenuItem";
-			installSpotlightToolStripMenuItem.Size = new Size(180, 22);
+			installSpotlightToolStripMenuItem.Size = new Size(171, 22);
 			installSpotlightToolStripMenuItem.Text = "Install Spotlight";
 			installSpotlightToolStripMenuItem.ToolTipText = "View a guide on installing the Spotlight feature.";
 			installSpotlightToolStripMenuItem.Click += Help_InstallSpotlight_Click;
@@ -500,7 +509,7 @@ namespace Mappalachia
 			// viewGitHubToolStripMenuItem
 			// 
 			viewGitHubToolStripMenuItem.Name = "viewGitHubToolStripMenuItem";
-			viewGitHubToolStripMenuItem.Size = new Size(180, 22);
+			viewGitHubToolStripMenuItem.Size = new Size(171, 22);
 			viewGitHubToolStripMenuItem.Text = "View GitHub";
 			viewGitHubToolStripMenuItem.ToolTipText = "Go to the project home, or see the open source code.";
 			viewGitHubToolStripMenuItem.Click += Help_ViewGitHub_Click;
@@ -508,7 +517,7 @@ namespace Mappalachia
 			// resetEverythingToolStripMenuItem
 			// 
 			resetEverythingToolStripMenuItem.Name = "resetEverythingToolStripMenuItem";
-			resetEverythingToolStripMenuItem.Size = new Size(180, 22);
+			resetEverythingToolStripMenuItem.Size = new Size(171, 22);
 			resetEverythingToolStripMenuItem.Text = "Reset Everything";
 			resetEverythingToolStripMenuItem.ToolTipText = "Reset every application setting.";
 			resetEverythingToolStripMenuItem.Click += Help_ResetEverything_Click;
@@ -898,5 +907,6 @@ namespace Mappalachia
 		private Label labelSearchResults;
 		private Label labelItemsToPlot;
 		private ToolStripMenuItem installSpotlightToolStripMenuItem;
+		private ToolStripMenuItem searchInInstancesOnlyToolStripMenuItem;
 	}
 }

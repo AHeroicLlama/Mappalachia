@@ -1,14 +1,17 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Text.Json.Serialization;
 
 namespace Library
 {
 	// Represents a Worldspace (WRLD) or Cell (CELL)
-	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, double centerX, double centerY, double maxRange)
+	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, bool isInstanceable, double centerX, double centerY, double maxRange)
 		: Entity(formID, editorID, displayName, isWorldspace ? Signature.WRLD : Signature.CELL)
 	{
 		[JsonIgnore]
 		public bool IsWorldspace { get; } = isWorldspace;
+
+		[JsonIgnore]
+		public bool IsInstanceable { get; } = isInstanceable;
 
 		[JsonIgnore]
 		public double CenterX { get; } = centerX;

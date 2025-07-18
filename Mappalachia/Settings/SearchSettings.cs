@@ -10,6 +10,8 @@ namespace Mappalachia
 
 		public string SearchTerm { get; set; } = GetRandomSearchHint();
 
+		public bool SearchInInstancesOnly { get; set; } = false;
+
 		public List<Signature> SelectedSignatures { get; set; } = Enum.GetValues<Signature>().ToList().Where(s => s.IsRecommendedSelection()).ToList();
 
 		public List<LockLevel> SelectedLockLevels { get; set; } = Enum.GetValues<LockLevel>().ToList();

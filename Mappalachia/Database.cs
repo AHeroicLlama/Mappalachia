@@ -19,25 +19,32 @@ namespace Mappalachia
 		public static async Task<List<GroupedSearchResult>> Search(Settings settings)
 		{
 			string searchTerm = ProcessSearchString(settings.SearchSettings.SearchTerm);
-
-			// 'Standard' search for entities on the Position(preGrouped) table, joined with Entity
-			string optionalSpaceTerm = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
+			string optionalSpaceClause = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 			bool searchForFormID = searchTerm.IsHexFormID() && settings.SearchSettings.Advanced;
 
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
-			results.AddRange(await StandardSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
-			results.AddRange(await ContainerSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
-			results.AddRange(await ScrapSearch(settings, searchTerm, optionalSpaceTerm));
-			results.AddRange(await NPCSearch(settings, searchTerm, optionalSpaceTerm));
-			results.AddRange(await RegionSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
-			results.AddRange(await TeleportsToSearch(settings, searchTerm, optionalSpaceTerm, searchForFormID));
+			results.AddRange(await StandardSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
+			results.AddRange(await ContainerSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
+			results.AddRange(await ScrapSearch(settings, searchTerm, optionalSpaceClause));
+			results.AddRange(await NPCSearch(settings, searchTerm, optionalSpaceClause));
+			results.AddRange(await RegionSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
+			results.AddRange(await TeleportsToSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
 			results.AddRange(await InstanceSearch(searchTerm, searchForFormID));
+
+			// We use LINQ to filter out results here, to avoid joining on the Space table in each search function
+			if (settings.SearchSettings.SearchInInstancesOnly)
+			{
+				return results.Where(
+					r => r is SingularSearchResult ||
+					r.Space.IsInstanceable)
+					.ToList();
+			}
 
 			return results;
 		}
 
-		static async Task<List<GroupedSearchResult>> StandardSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		static async Task<List<GroupedSearchResult>> StandardSearch(Settings settings, string searchTerm, string optionalSpaceClause, bool searchForFormID)
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
@@ -48,7 +55,7 @@ namespace Mappalachia
 				$"OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				$"OR displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				$"{(searchForFormID ? $"OR referenceFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
-				optionalSpaceTerm +
+				optionalSpaceClause +
 				$"AND Position_PreGrouped.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()};";
 
@@ -72,7 +79,7 @@ namespace Mappalachia
 			return results;
 		}
 
-		static async Task<List<GroupedSearchResult>> ContainerSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		static async Task<List<GroupedSearchResult>> ContainerSearch(Settings settings, string searchTerm, string optionalSpaceClause, bool searchForFormID)
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
@@ -81,7 +88,7 @@ namespace Mappalachia
 				"JOIN Entity ON Container.contentFormID = Entity.entityFormID " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Container.containerFormID " +
 				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR editorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' OR displayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' {(searchForFormID ? $"OR contentFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
-				optionalSpaceTerm +
+				optionalSpaceClause +
 				$"AND Position_PreGrouped.lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} " +
 				$"GROUP BY editorID, contentFormID, lockLevel, quantity, spaceFormID;";
@@ -107,7 +114,7 @@ namespace Mappalachia
 			return results;
 		}
 
-		static async Task<List<GroupedSearchResult>> ScrapSearch(Settings settings, string searchTerm, string optionalSpaceTerm)
+		static async Task<List<GroupedSearchResult>> ScrapSearch(Settings settings, string searchTerm, string optionalSpaceClause)
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
@@ -121,7 +128,7 @@ namespace Mappalachia
 				"FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
 				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-				optionalSpaceTerm +
+				optionalSpaceClause +
 				"GROUP BY component, spaceFormID, componentQuantity;";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
@@ -138,7 +145,7 @@ namespace Mappalachia
 			return results;
 		}
 
-		static async Task<List<GroupedSearchResult>> NPCSearch(Settings settings, string searchTerm, string optionalSpaceTerm)
+		static async Task<List<GroupedSearchResult>> NPCSearch(Settings settings, string searchTerm, string optionalSpaceClause)
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
@@ -151,7 +158,7 @@ namespace Mappalachia
 				"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
 				"FROM NPC " +
 				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}'" +
-				optionalSpaceTerm +
+				optionalSpaceClause +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
@@ -168,7 +175,7 @@ namespace Mappalachia
 			return results;
 		}
 
-		static async Task<List<GroupedSearchResult>> RegionSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		static async Task<List<GroupedSearchResult>> RegionSearch(Settings settings, string searchTerm, string optionalSpaceClause, bool searchForFormID)
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
@@ -183,7 +190,7 @@ namespace Mappalachia
 				$"WHERE (regionEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
 				$"OR regionFormID = '{searchTerm}' " +
 				$"{(searchForFormID ? $"OR regionFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
-				optionalSpaceTerm +
+				optionalSpaceClause +
 				"GROUP BY regionFormID;";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
@@ -203,7 +210,7 @@ namespace Mappalachia
 			return results;
 		}
 
-		static async Task<List<GroupedSearchResult>> TeleportsToSearch(Settings settings, string searchTerm, string optionalSpaceTerm, bool searchForFormID)
+		static async Task<List<GroupedSearchResult>> TeleportsToSearch(Settings settings, string searchTerm, string optionalSpaceClause, bool searchForFormID)
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
@@ -217,7 +224,7 @@ namespace Mappalachia
 				"FROM Position " +
 				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE ((teleportsToFormID = '{HexToInt(searchTerm)}') " +
-				optionalSpaceTerm +
+				optionalSpaceClause +
 				$"AND lockLevel IN {settings.SearchSettings.SelectedLockLevels.Select(l => l.ToStringForQuery()).ToSqliteCollection()} " +
 				$"AND Entity.signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()}) " +
 				"GROUP BY spaceFormID, Position.referenceFormID, teleportsToFormID, lockLevel, label;";

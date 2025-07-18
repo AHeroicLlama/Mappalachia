@@ -215,7 +215,7 @@ namespace Mappalachia
 
 				setSize.Click += (s, args) =>
 				{
-					FormMain.OpenSpotlightSetSizeDialog();
+					FormMain.OpenSpotlightSetSizeDialog(TopMost);
 				};
 
 				contextMenu.Items.Add(setSize);

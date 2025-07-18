@@ -97,7 +97,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT);");
 			SimpleQuery($"CREATE TABLE Container(containerFormID INTEGER REFERENCES Entity(entityFormID), contentFormID INTEGER REFERENCES Entity(entityFormID), quantity INTEGER);");
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
-			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER);");
+			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, isInstanceable INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, parentLocationFormID TEXT, minLevel INTEGER, maxLevel INTEGER, property TEXT, value INTEGER);");
 			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, locationFormID TEXT, subRegionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL);");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
@@ -193,16 +193,19 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Region;");
 			SimpleQuery("ALTER TABLE TempRegion RENAME TO Region;");
 
+			// Properly populate the isInstanceable flag - no value is false
+			SimpleQuery($"UPDATE Space SET isInstanceable = 0 WHERE isInstanceable != 1;");
+
 			// Discard spaces which are not accessible, and output a list of those
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
-			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace;");
+			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable;");
 			deletedRows.Sort();
-			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace");
+			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable");
 			File.WriteAllLines(DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding a temporary maximum estimate for the center x/y and max 2d range
-			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, centerX REAL, centerY REAL, maxRange REAL);");
-			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, (MIN(x) + MAX(x)) / 2, (MIN(y) + MAX(y)) / 2, MAX(ABS(MIN(x) - MAX(x)), ABS(MIN(y) - MAX(y))) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
+			SimpleQuery($"CREATE TABLE TempSpace(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, isInstanceable INTEGER, centerX REAL, centerY REAL, maxRange REAL);");
+			SimpleQuery("INSERT INTO TempSpace (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange) SELECT Space.spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, (MIN(x) + MAX(x)) / 2, (MIN(y) + MAX(y)) / 2, MAX(ABS(MIN(x) - MAX(x)), ABS(MIN(y) - MAX(y))) FROM Space JOIN Position ON Space.spaceFormID = Position.spaceFormID GROUP BY Space.spaceFormID;");
 			SimpleQuery("DROP TABLE Space;");
 			SimpleQuery("ALTER TABLE TempSpace RENAME TO Space;");
 
@@ -367,7 +370,7 @@ namespace Preprocessor
 			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", await CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, isInstanceable, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg CenterX, CenterY", SimpleQuery("SELECT AVG(centerX), AVG(centerY) FROM Space;"));
@@ -394,7 +397,7 @@ namespace Preprocessor
 				"JOIN Space on NPC.spaceFormID = Space.spaceFormID " +
 				"GROUP BY npcName, spaceDisplayName " +
 				"ORDER BY isWorldspace DESC, spaceDisplayName, npcName;"));
-			AddToSummaryReport("Worldspaces", SimpleQuery("SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space WHERE isWorldspace = 1;"));
+			AddToSummaryReport("Worldspaces", SimpleQuery("SELECT spaceFormID, spaceEditorID, spaceDisplayName, isInstanceable FROM Space WHERE isWorldspace = 1;"));
 			AddToSummaryReport("Avg spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Space;"));
 			AddToSummaryReport("Avg entityFormID as Dec", SimpleQuery("SELECT AVG(entityFormID) FROM Entity;"));
 			AddToSummaryReport("Avg containerFormID as Dec", SimpleQuery("SELECT AVG(containerFormID) FROM Container;"));
@@ -651,8 +654,8 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Space;");
 			SimpleQuery("DROP TABLE Space;");
-			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL) STRICT;");
-			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, centerX, centerY, maxRange FROM temp;");
+			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
 

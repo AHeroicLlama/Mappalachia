@@ -1,5 +1,5 @@
 // Gets the FormID, EditorID, and DisplayName of every relevant CELL and WRLD
-// Header 'spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace'
+// Header 'spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable'
 unit _mappalachia_space;
 
 	uses _mappalachia_lib;
@@ -61,12 +61,13 @@ unit _mappalachia_space;
 	procedure ripSpace(space : IInterface; isWorldspace : Integer);
 	var
 		spaceEditorID, spaceDisplayName : IInterface;
-		entry : String;
+		entry, isInstanceable : String;
 	begin
 		spaceEditorID := EditorID(space);
 		spaceDisplayName := sanitize(DisplayName(space));
+		isInstanceable := GetEditValue(ElementByName(ElementByName(ElementByName(space, 'Record Header'), 'Record Flags'), 'Is Instancable'));
 
-		entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace);
+		entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace) + ',' + isInstanceable;
 		outputStrings.Add(entry);
 	end;
 end.

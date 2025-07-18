@@ -416,7 +416,14 @@ namespace Mappalachia
 
 		static async void DrawWaterMark(Settings settings, Graphics graphics)
 		{
-			string text = $"{settings.Space.DisplayName} ({settings.Space.EditorID})\n";
+			string text = $"{settings.Space.DisplayName} ({settings.Space.EditorID})";
+
+			if (settings.Space.IsInstanceable)
+			{
+				text += " (Instanced)";
+			}
+
+			text += "\n";
 
 			if (settings.MapSettings.SpotlightEnabled)
 			{
