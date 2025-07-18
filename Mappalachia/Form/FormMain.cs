@@ -349,6 +349,13 @@ namespace Mappalachia
 			SearchResults.ResetBindings();
 
 			dataGridViewSearchResults.ClearSort();
+			dataGridViewSearchResults.ClearSelection();
+			dataGridViewSearchResults.CurrentCell = null;
+
+			if (searchResults.Count > 0)
+			{
+				dataGridViewSearchResults.FirstDisplayedScrollingRowIndex = 0;
+			}
 		}
 
 		public async void DrawMap()

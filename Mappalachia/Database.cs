@@ -418,7 +418,7 @@ namespace Mappalachia
 
 			List<Instance> instances = new List<Instance>();
 
-			string query = "SELECT x, y, z, quantity, instanceFormID FROM Position " +
+			string query = "SELECT x, y, z, instanceFormID FROM Position " +
 				"JOIN Container ON Container.containerFormID = Position.referenceFormID " +
 				$"WHERE contentFormID = {searchResult.Entity.FormID} AND quantity = {searchResult.SpawnWeight} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND spaceFormID = {space.FormID};";
 
@@ -435,7 +435,7 @@ namespace Mappalachia
 					null,
 					searchResult.LockLevel,
 					null,
-					reader.GetInt("quantity"),
+					searchResult.SpawnWeight,
 					true));
 			}
 
@@ -492,34 +492,6 @@ namespace Mappalachia
 			return instance;
 		}
 
-		// Returns the instances of a GroupedSearchResult which is Scrap
-		static async Task<List<Instance>> GetScrapInstances(GroupedSearchResult searchResult, Space? space = null)
-		{
-			space ??= searchResult.Space;
-
-			List<Instance> instances = new List<Instance>();
-
-			// TODO
-			string query = "";
-
-			using SqliteDataReader reader = await GetReader(Connection, query);
-
-			while (reader.Read())
-			{
-				instances.Add(new Instance(
-					searchResult.Entity,
-					space,
-					reader.GetCoord(),
-					reader.GetUInt("instanceFormID"),
-					searchResult.Label,
-					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
-					searchResult.LockLevel,
-					reader.GetShape()));
-			}
-
-			return instances;
-		}
-
 		// Returns the instances of a GroupedSearchResult which is an NPC
 		static async Task<List<Instance>> GetNPCInstances(GroupedSearchResult searchResult, Space? space = null)
 		{
@@ -527,8 +499,9 @@ namespace Mappalachia
 
 			List<Instance> instances = new List<Instance>();
 
-			// TODO
-			string query = "";
+			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
+				"JOIN NPC ON npc.instanceFormID = Position.instanceFormID " +
+				$"WHERE npcName = '{searchResult.Entity.DisplayName}' AND npc.spawnWeight = {searchResult.SpawnWeight} AND npc.spaceFormID = {space.FormID}";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 
@@ -540,9 +513,40 @@ namespace Mappalachia
 					reader.GetCoord(),
 					reader.GetUInt("instanceFormID"),
 					searchResult.Label,
-					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
-					searchResult.LockLevel,
-					reader.GetShape()));
+					null,
+					LockLevel.None,
+					null,
+					searchResult.SpawnWeight));
+			}
+
+			return instances;
+		}
+
+		// Returns the instances of a GroupedSearchResult which is scrap
+		static async Task<List<Instance>> GetScrapInstances(GroupedSearchResult searchResult, Space? space = null)
+		{
+			space ??= searchResult.Space;
+
+			List<Instance> instances = new List<Instance>();
+
+			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
+				"JOIN Scrap ON Scrap.junkFormID = Position.referenceFormID " +
+				$"WHERE component = '{searchResult.Entity.DisplayName}' AND Scrap.componentQuantity = {searchResult.SpawnWeight} AND Position.spaceFormID = {space.FormID}";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					searchResult.Entity,
+					space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					searchResult.Label,
+					null,
+					LockLevel.None,
+					null,
+					searchResult.SpawnWeight));
 			}
 
 			return instances;

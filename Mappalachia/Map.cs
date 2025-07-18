@@ -265,8 +265,7 @@ namespace Mappalachia
 						$"{teleporter.TeleportsTo!.DisplayName}: {item.Entity.EditorID} ({instances.Count})",
 						GetFont(FontSizeItemsInOtherSpaces),
 						new SolidBrush(item.PlotIcon.Color),
-						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])),
-						true);
+						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])));
 				}
 			}
 		}
@@ -279,7 +278,15 @@ namespace Mappalachia
 				return;
 			}
 
-			// TODO
+			foreach (GroupedSearchResult searchResult in itemsToPlot)
+			{
+				foreach (Instance instance in await Database.GetInstances(searchResult))
+				{
+					// TODO const font
+					PointF point = instance.Coord.AsImagePoint(settings);
+					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), GetFont(32), new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSize / 2)), false);
+				}
+			}
 		}
 
 		// Draw the color scale demonstrating the topographic color/height mapping
@@ -331,7 +338,7 @@ namespace Mappalachia
 						}
 
 						// TODO - get center of volume for string location, and var for font
-						graphics.DrawStringCentered(levelString, GetFont(32), new SolidBrush(color), region.Points.First().Coord.AsImagePoint(settings), true);
+						graphics.DrawStringCentered(levelString, GetFont(32), new SolidBrush(color), region.Points.First().Coord.AsImagePoint(settings));
 					}
 				}
 			}
