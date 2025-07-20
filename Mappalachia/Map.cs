@@ -239,7 +239,15 @@ namespace Mappalachia
 
 		static async void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
-			// TODO
+			foreach (GroupedSearchResult item in itemsToPlot)
+			{
+				foreach (Instance instance in await Database.GetInstances(item))
+				{
+
+				}
+			}
+
+			//cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList();
 		}
 
 		// Draw doors where plotted entities exist in a space reachable by this one

@@ -15,6 +15,8 @@ namespace Library
 		// The Primitive Shape, if exists
 		public Shape? PrimitiveShape { get; } = primitiveShape;
 
+		public Cluster? Cluster { get; set; } = null;
+
 		// Return the height as Topograph plots would see it - the Z coord, or the top edge of the volume
 		public double HeightForTopograph => PrimitiveShape != null ? Coord.Z + (((Shape)PrimitiveShape).BoundZ / 2) : Coord.Z;
 	}

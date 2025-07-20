@@ -47,5 +47,45 @@ namespace Library
 		{
 			return ((a.X - o.X) * (b.Y - o.Y)) - ((a.Y - o.Y) * (b.X - o.X));
 		}
+
+		// Returns a collection of points which define the convex hull of all given points
+		public static List<PointF> GetConvexHull(List<PointF> verts)
+		{
+			if (verts.Count == 1)
+			{
+				return new List<PointF>();
+			}
+
+			// Monotone Chain https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
+			int k = 0;
+			List<PointF> hull = new PointF[2 * verts.Count].ToList();
+
+			verts.Sort((a, b) =>
+					a.X != b.X ? a.X.CompareTo(b.X) : a.Y.CompareTo(b.Y));
+
+			// Build lower hull
+			for (int i = 0; i < verts.Count; ++i)
+			{
+				while (k >= 2 && VectorCrossProduct(hull[k - 2], hull[k - 1], verts[i]) <= 0)
+				{
+					k--;
+				}
+
+				hull[k++] = verts[i];
+			}
+
+			// Build upper hull
+			for (int i = verts.Count - 2, t = k + 1; i >= 0; i--)
+			{
+				while (k >= t && VectorCrossProduct(hull[k - 2], hull[k - 1], verts[i]) <= 0)
+				{
+					k--;
+				}
+
+				hull[k++] = verts[i];
+			}
+
+			return hull.Take(k - 1).ToList();
+		}
 	}
 }
