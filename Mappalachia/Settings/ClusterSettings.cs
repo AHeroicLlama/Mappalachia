@@ -2,7 +2,8 @@
 {
 	public class ClusterSettings
 	{
-		public int Range { get; set; } = 100;
+		// Range in game units
+		public int Range { get; set; } = 10000;
 
 		public int MinWeight { get; set; } = 3;
 

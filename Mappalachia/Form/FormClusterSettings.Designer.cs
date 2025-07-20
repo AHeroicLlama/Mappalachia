@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+namespace Mappalachia
 {
 	partial class FormClusterSettings
 	{
@@ -66,13 +66,15 @@
 			// trackBarClusterRange
 			// 
 			trackBarClusterRange.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			trackBarClusterRange.LargeChange = 2000;
 			trackBarClusterRange.Location = new Point(169, 12);
-			trackBarClusterRange.Maximum = 2000;
+			trackBarClusterRange.Maximum = 200000;
 			trackBarClusterRange.Minimum = 1;
 			trackBarClusterRange.Name = "trackBarClusterRange";
 			trackBarClusterRange.Size = new Size(364, 45);
+			trackBarClusterRange.SmallChange = 500;
 			trackBarClusterRange.TabIndex = 1;
-			trackBarClusterRange.TickFrequency = 50;
+			trackBarClusterRange.TickFrequency = 2000;
 			toolTipClusterSettings.SetToolTip(trackBarClusterRange, "The maximum 'search' range in pixels that each cluster will extend.");
 			trackBarClusterRange.Value = 1;
 			trackBarClusterRange.ValueChanged += TrackBarClusterRange_ValueChanged;
@@ -122,6 +124,7 @@
 			checkBoxLiveUpdate.Text = "Live Update";
 			toolTipClusterSettings.SetToolTip(checkBoxLiveUpdate, "Automatically re-draw the map when you move the sliders. May result in laggy behavior.");
 			checkBoxLiveUpdate.UseVisualStyleBackColor = true;
+			checkBoxLiveUpdate.CheckedChanged += CheckBoxLiveUpdate_CheckedChanged;
 			// 
 			// FormClusterSettings
 			// 

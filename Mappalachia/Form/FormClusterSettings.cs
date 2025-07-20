@@ -1,4 +1,6 @@
-﻿namespace Mappalachia
+﻿using Library;
+
+namespace Mappalachia
 {
 	public partial class FormClusterSettings : Form
 	{
@@ -28,7 +30,9 @@
 			FormMain = formMain;
 			InitialSettings = FormMain.Settings.PlotSettings.ClusterSettings;
 
-			trackBarClusterRange.Value = InitialSettings.Range;
+			trackBarClusterRange.Maximum = (int)(FormMain.Settings.Space.MaxRange / 2);
+
+			trackBarClusterRange.Value = Math.Min(InitialSettings.Range, trackBarClusterRange.Maximum);
 			trackBarClusterMinWeight.Value = InitialSettings.MinWeight;
 			checkBoxLiveUpdate.Checked = InitialSettings.LiveUpdate;
 		}
@@ -54,16 +58,21 @@
 		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)
 		{
 			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
-			TrackbarValueChanged();
+			UpdateMapView();
 		}
 
 		private void TrackBarClusterWeight_ValueChanged(object sender, EventArgs e)
 		{
 			labelClusterMinWeight.Text = $"Min. Cluster Weight ({trackBarClusterMinWeight.Value})";
-			TrackbarValueChanged();
+			UpdateMapView();
 		}
 
-		void TrackbarValueChanged()
+		private void CheckBoxLiveUpdate_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateMapView();
+		}
+
+		void UpdateMapView()
 		{
 			if (checkBoxLiveUpdate.Checked)
 			{

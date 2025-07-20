@@ -228,6 +228,7 @@ namespace Mappalachia
 			// setBrightnessToolStripMenuItem
 			// 
 			setBrightnessToolStripMenuItem.Name = "setBrightnessToolStripMenuItem";
+			setBrightnessToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.B;
 			setBrightnessToolStripMenuItem.Size = new Size(233, 22);
 			setBrightnessToolStripMenuItem.Text = "Set Brightness";
 			setBrightnessToolStripMenuItem.Click += Map_SetBrightness_Click;

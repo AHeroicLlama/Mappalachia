@@ -49,16 +49,16 @@ namespace Library
 		}
 
 		// Returns a collection of points which define the convex hull of all given points
-		public static List<PointF> GetConvexHull(List<PointF> verts)
+		public static PointF[] GetConvexHull(this List<PointF> verts)
 		{
 			if (verts.Count == 1)
 			{
-				return new List<PointF>();
+				return Array.Empty<PointF>();
 			}
 
 			// Monotone Chain https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
 			int k = 0;
-			List<PointF> hull = new PointF[2 * verts.Count].ToList();
+			PointF[] hull = new PointF[2 * verts.Count];
 
 			verts.Sort((a, b) =>
 					a.X != b.X ? a.X.CompareTo(b.X) : a.Y.CompareTo(b.Y));
@@ -85,7 +85,22 @@ namespace Library
 				hull[k++] = verts[i];
 			}
 
-			return hull.Take(k - 1).ToList();
+			return hull.Take(k - 1).ToArray();
+		}
+
+		public static double Pythagoras(double a, double b)
+		{
+			return Math.Sqrt((a * a) + (b * b));
+		}
+
+		public static double Pythagoras(PointF a, PointF b)
+		{
+			return Pythagoras(a.X - b.X, a.Y - b.Y);
+		}
+
+		public static double Pythagoras(Coord a, Coord b)
+		{
+			return Pythagoras(a.X - b.X, a.Y - b.Y);
 		}
 	}
 }

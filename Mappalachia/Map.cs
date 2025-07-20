@@ -241,13 +241,62 @@ namespace Mappalachia
 		{
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				foreach (Instance instance in await Database.GetInstances(item))
-				{
+				List<Instance> instances = await Database.GetInstances(item);
+				List<Cluster> clusters = new List<Cluster>();
 
+				// Pass 1 - arbitrarily 'greedily' form clusters
+				// At the end of this pass, points may not necessarily be assigned to their optimum cluster
+				foreach (Instance outerInstance in instances)
+				{
+					if (outerInstance.Cluster != null)
+					{
+						continue;
+					}
+
+					clusters.Add(outerInstance.Cluster = new Cluster(outerInstance));
+
+					foreach (Instance innerInstance in instances)
+					{
+						if (innerInstance.Cluster != null)
+						{
+							continue;
+						}
+
+						if (GeometryHelper.Pythagoras(outerInstance.Coord, innerInstance.Coord) < settings.PlotSettings.ClusterSettings.Range)
+						{
+							outerInstance.Cluster.AddMember(innerInstance);
+						}
+					}
+				}
+
+				// Pass 2 - now clusters are defined, re-evaluate that each point is assigned to its closest
+				foreach (Instance instance in instances)
+				{
+					Cluster closestCluster = clusters.MinBy(cluster => GeometryHelper.Pythagoras(instance.Coord, cluster.Origin.Coord));
+
+					if (instance.Cluster == closestCluster)
+					{
+						continue;
+					}
+
+					instance.MoveToCluster(closestCluster);
+				}
+
+				foreach (Cluster cluster in clusters)
+				{
+					if (cluster.Members.Count < 2)
+					{
+						continue;
+					}
+
+					if (cluster.GetWeight() < settings.PlotSettings.ClusterSettings.MinWeight)
+					{
+						continue;
+					}
+
+					graphics.DrawPolygon(new Pen(item.PlotIcon.Color, 5), cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
 				}
 			}
-
-			//cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList();
 		}
 
 		// Draw doors where plotted entities exist in a space reachable by this one
