@@ -552,6 +552,16 @@ namespace Mappalachia
 			return instances;
 		}
 
+		// Returns the min (item1) and max (item2) z coordinate of all instances of the itemsToPlot
+		// Excluding items not in the current space
+		public static async Task<(double, double)> GetZRange(List<GroupedSearchResult> itemsToPlot, Settings settings)
+		{
+			List<Instance> allInstances = (await Task.WhenAll(itemsToPlot.Where(item => item.Space == settings.Space).Select(async item => await GetInstances(item))))
+				.SelectMany(instance => instance).ToList();
+
+			return (allInstances.Min(i => i.HeightForTopograph), allInstances.Max(i => i.HeightForTopograph));
+		}
+
 		public static async Task<string> GetGameVersion()
 		{
 			return await CommonDatabase.GetGameVersion(Connection);

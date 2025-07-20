@@ -54,6 +54,16 @@ namespace Mappalachia
 
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
+		static int TopographLegendRectHeight { get; } = 1600;
+
+		static RectangleF TopographLegendRect { get; } = new RectangleF(
+			MapImageResolution - 150,
+			(MapImageResolution - TopographLegendRectHeight) / 2,
+			100,
+			TopographLegendRectHeight);
+
+		static float TopographLegendDivisions { get; } = 100;
+
 		// The primary map draw function
 		public static Image Draw(List<GroupedSearchResult> itemsToPlot, Settings settings, Progress<ProgressInfo>? progressInfo = null)
 		{
@@ -83,31 +93,35 @@ namespace Mappalachia
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
-			// Call the relevant plot function
-			switch (settings.PlotSettings.Mode)
+			if (itemsToPlot.Count > 0)
 			{
-				case PlotMode.Standard:
-					DrawStandardPlots(itemsToPlot, settings, graphics, false, progressInfo);
-					break;
+				// Call the relevant plot function
+				switch (settings.PlotSettings.Mode)
+				{
+					case PlotMode.Standard:
+						DrawStandardPlots(itemsToPlot, settings, graphics, false, progressInfo);
+						break;
 
-				case PlotMode.Topographic:
-					DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo);
-					DrawTopographicLegend(settings, graphics);
-					break;
+					case PlotMode.Topographic:
+						DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo);
+						DrawTopographicLegend(settings, graphics, TopographLegendRect, TopographLegendDivisions);
+						break;
 
-				case PlotMode.Cluster:
-					DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo);
-					break;
+					case PlotMode.Cluster:
+						DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo);
+						break;
 
-				default:
-					throw new Exception("Unexpected PlotMode: " + settings.PlotSettings.Mode);
+					default:
+						throw new Exception("Unexpected PlotMode: " + settings.PlotSettings.Mode);
+				}
+
+				DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
+				DrawInstanceFormIDs(itemsToPlot, settings, graphics);
+				mapImage = DrawLegend(itemsToPlot, settings, mapImage);
 			}
 
-			DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
-			DrawInstanceFormIDs(itemsToPlot, settings, graphics);
 			DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
-			mapImage = DrawLegend(itemsToPlot, settings, mapImage);
 
 			GC.Collect();
 
@@ -179,6 +193,8 @@ namespace Mappalachia
 		// Standard including topographic plots
 		static async void DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic = false, Progress<ProgressInfo>? progressInfo = null)
 		{
+			(double, double) topographRange = topographic ? await Database.GetZRange(itemsToPlot, settings) : (-1, -1);
+
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
@@ -193,13 +209,29 @@ namespace Mappalachia
 
 				foreach (Instance instance in instances)
 				{
-					if (instance.Entity is Library.Region || instance.PrimitiveShape != null)
+					Image iconImage = item.PlotIcon.Image;
+					Color color = item.PlotIcon.Color;
+
+					if (topographic)
 					{
-						DrawVolume(settings, graphics, instance, item.PlotIcon.Color);
+						double range = (instance.HeightForTopograph - topographRange.Item1) / (topographRange.Item2 - topographRange.Item1);
+
+						// Overrides the image and color
+						color = ImageHelper.LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), range);
+						iconImage = iconImage.SetColor(color);
+					}
+
+					if (instance.Entity is Library.Region region)
+					{
+						DrawRegion(settings, graphics, region, color);
+					}
+					else if (instance.PrimitiveShape != null)
+					{
+						DrawPrimitiveShape(settings, graphics, instance, color);
 					}
 					else
 					{
-						graphics.DrawImageCentered(item.PlotIcon.Image, instance.Coord.AsImagePoint(settings));
+						graphics.DrawImageCentered(iconImage, instance.Coord.AsImagePoint(settings));
 					}
 				}
 			}
@@ -290,114 +322,125 @@ namespace Mappalachia
 		}
 
 		// Draw the color scale demonstrating the topographic color/height mapping
-		static async void DrawTopographicLegend(Settings settings, Graphics graphics)
+		static void DrawTopographicLegend(Settings settings, Graphics graphics, RectangleF legendRect, float divisions)
 		{
-			// TODO
+			float height = legendRect.Height;
+			float step = height / divisions;
+
+			for (float y = 0; y < height; y += step)
+			{
+				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
+				graphics.FillRectangle(new SolidBrush(ImageHelper.LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height)), sliceRect);
+			}
 		}
 
-		// Draws the region or shape belonging to the given instance
-		static void DrawVolume(Settings settings, Graphics graphics, Instance instance, Color color)
+		// Draws the region instance
+		static void DrawRegion(Settings settings, Graphics graphics, Library.Region region, Color color)
 		{
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(Color.FromArgb(VolumeFillAlpha, color.R, color.G, color.B));
 
-			if (instance.Entity is Library.Region region)
+			foreach (List<RegionPoint> subregion in region.GetAllSubRegions())
 			{
-				foreach (List<RegionPoint> subregion in region.GetAllSubRegions())
+				PointF[] points = subregion.Select(s => s.Coord.AsImagePoint(settings)).ToArray();
+
+				if (settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Fill || settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Both)
 				{
-					PointF[] points = subregion.Select(s => s.Coord.AsImagePoint(settings)).ToArray();
-
-					if (settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Fill || settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Both)
-					{
-						graphics.FillPolygon(brush, points, FillMode.Winding);
-					}
-
-					if (settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Border || settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Both)
-					{
-						graphics.DrawPolygon(pen, points);
-					}
-
-					if (settings.PlotSettings.ShowRegionLevels)
-					{
-						string levelString = string.Empty;
-
-						if (region.MinLevel != 0 && region.MaxLevel != 0)
-						{
-							if (region.MinLevel <= 1)
-							{
-								levelString = $"\u2264{region.MaxLevel}";
-							}
-							else if (region.MaxLevel == 0)
-							{
-								levelString = $"\u2265{region.MinLevel}";
-							}
-							else
-							{
-								levelString = $"{region.MinLevel}-{region.MaxLevel}";
-							}
-						}
-
-						// TODO - get center of volume for string location, and var for font
-						graphics.DrawStringCentered(levelString, GetFont(32), new SolidBrush(color), region.Points.First().Coord.AsImagePoint(settings));
-					}
-				}
-			}
-			else if (instance.PrimitiveShape != null)
-			{
-				Shape shape = (Shape)instance.PrimitiveShape;
-				PointF topLeft = new Coord(instance.Coord.X - (shape.BoundX / 2), instance.Coord.Y + (shape.BoundY / 2)).AsImagePoint(settings);
-				PointF center = instance.Coord.AsImagePoint(settings);
-				RectangleF rectangle = new RectangleF(topLeft.X, topLeft.Y, shape.BoundX.AsImageLength(settings), shape.BoundY.AsImageLength(settings));
-
-				// Rotate the graphics 'canvas' around the center of the shape
-				graphics.TranslateTransform(center.X, center.Y);
-				graphics.RotateTransform((float)shape.RotZ);
-				graphics.TranslateTransform(-center.X, -center.Y);
-
-				VolumeDrawMode drawMode = settings.PlotSettings.VolumeDrawMode;
-
-				switch (shape.ShapeType)
-				{
-					case ShapeType.Box:
-					case ShapeType.Line:
-					case ShapeType.Plane:
-						if (drawMode == VolumeDrawMode.Fill || drawMode == VolumeDrawMode.Both)
-						{
-							graphics.FillRectangle(brush, rectangle);
-						}
-
-						if (drawMode == VolumeDrawMode.Border || drawMode == VolumeDrawMode.Both)
-						{
-							graphics.DrawRectangle(pen, rectangle);
-						}
-
-						break;
-
-					case ShapeType.Sphere:
-					case ShapeType.Ellipsoid:
-						if (drawMode == VolumeDrawMode.Fill || drawMode == VolumeDrawMode.Both)
-						{
-							graphics.FillEllipse(brush, rectangle);
-						}
-
-						if (drawMode == VolumeDrawMode.Border || drawMode == VolumeDrawMode.Both)
-						{
-							graphics.DrawEllipse(pen, rectangle);
-						}
-
-						break;
-
-					default:
-						graphics.ResetTransform();
-						throw new Exception($"Unexpected shape type {shape.ShapeType}");
+					graphics.FillPolygon(brush, points, FillMode.Winding);
 				}
 
-				graphics.ResetTransform();
+				if (settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Border || settings.PlotSettings.VolumeDrawMode == VolumeDrawMode.Both)
+				{
+					graphics.DrawPolygon(pen, points);
+				}
+
+				if (settings.PlotSettings.ShowRegionLevels)
+				{
+					string levelString = string.Empty;
+
+					if (region.MinLevel != 0 && region.MaxLevel != 0)
+					{
+						if (region.MinLevel <= 1)
+						{
+							levelString = $"\u2264{region.MaxLevel}";
+						}
+						else if (region.MaxLevel == 0)
+						{
+							levelString = $"\u2265{region.MinLevel}";
+						}
+						else
+						{
+							levelString = $"{region.MinLevel}-{region.MaxLevel}";
+						}
+					}
+
+					// TODO - get center of volume for string location, and var for font
+					graphics.DrawStringCentered(levelString, GetFont(32), new SolidBrush(color), region.Points.First().Coord.AsImagePoint(settings));
+				}
 			}
-			else
+		}
+
+		// Draws the Shape belonging to the given instance
+		static void DrawPrimitiveShape(Settings settings, Graphics graphics, Instance instance, Color color)
+		{
+			if (instance.PrimitiveShape == null)
 			{
-				throw new Exception("Requested to draw the volume of an Instance which is not a region nor shape");
+				throw new Exception("Instance has no shape");
 			}
+
+			Shape shape = (Shape)instance.PrimitiveShape;
+
+			Pen pen = new Pen(color, VolumeEdgeThickness);
+			Brush brush = new SolidBrush(Color.FromArgb(VolumeFillAlpha, color.R, color.G, color.B));
+
+			PointF topLeft = new Coord(instance.Coord.X - (shape.BoundX / 2), instance.Coord.Y + (shape.BoundY / 2)).AsImagePoint(settings);
+			PointF center = instance.Coord.AsImagePoint(settings);
+			RectangleF rectangle = new RectangleF(topLeft.X, topLeft.Y, shape.BoundX.AsImageLength(settings), shape.BoundY.AsImageLength(settings));
+
+			// Rotate the graphics 'canvas' around the center of the shape
+			graphics.TranslateTransform(center.X, center.Y);
+			graphics.RotateTransform((float)shape.RotZ);
+			graphics.TranslateTransform(-center.X, -center.Y);
+
+			VolumeDrawMode drawMode = settings.PlotSettings.VolumeDrawMode;
+
+			switch (shape.ShapeType)
+			{
+				case ShapeType.Box:
+				case ShapeType.Line:
+				case ShapeType.Plane:
+					if (drawMode == VolumeDrawMode.Fill || drawMode == VolumeDrawMode.Both)
+					{
+						graphics.FillRectangle(brush, rectangle);
+					}
+
+					if (drawMode == VolumeDrawMode.Border || drawMode == VolumeDrawMode.Both)
+					{
+						graphics.DrawRectangle(pen, rectangle);
+					}
+
+					break;
+
+				case ShapeType.Sphere:
+				case ShapeType.Ellipsoid:
+					if (drawMode == VolumeDrawMode.Fill || drawMode == VolumeDrawMode.Both)
+					{
+						graphics.FillEllipse(brush, rectangle);
+					}
+
+					if (drawMode == VolumeDrawMode.Border || drawMode == VolumeDrawMode.Both)
+					{
+						graphics.DrawEllipse(pen, rectangle);
+					}
+
+					break;
+
+				default:
+					graphics.ResetTransform();
+					throw new Exception($"Unexpected shape type {shape.ShapeType}");
+			}
+
+			graphics.ResetTransform();
 		}
 
 		static void DrawTitle(Settings settings, Graphics graphics)

@@ -39,5 +39,11 @@ namespace Mappalachia
 		{
 			Color.OrangeRed, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.Green,
 		};
+
+		[JsonIgnore]
+		public List<Color> TopographicPalette { get; set; } = new List<Color>
+		{
+			Color.Cyan, Color.OrangeRed, Color.White,
+		};
 	}
 }

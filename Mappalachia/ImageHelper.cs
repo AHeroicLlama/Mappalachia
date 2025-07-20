@@ -115,12 +115,48 @@ namespace Mappalachia
 		}
 
 		// Linearly interpolates the RGB values of two colors to form a new 'child' color
-		public static Color LerpColors(Color colorX, Color colorY, double range)
+		static Color LerpColors(Color colorX, Color colorY, double range)
 		{
 			return Color.FromArgb(
 				(int)(colorX.R + ((colorY.R - colorX.R) * range)),
 				(int)(colorX.G + ((colorY.G - colorX.G) * range)),
 				(int)(colorX.B + ((colorY.B - colorX.B) * range)));
+		}
+
+		// Linearly interpolates the RGB values of a range of colors to form a new 'child' color
+		public static Color LerpColors(Color[] colors, double range)
+		{
+			if (colors.Length == 1)
+			{
+				return colors[0];
+			}
+
+			if (colors.Length == 0)
+			{
+				return Color.Black;
+			}
+
+			if (range < 0 || range > 1)
+			{
+				throw new ArgumentOutOfRangeException(nameof(range));
+			}
+
+			if (range == 0)
+			{
+				return colors[0];
+			}
+
+			if (range == 1)
+			{
+				return colors.Last();
+			}
+
+			double position = range * (colors.Length - 1);
+
+			int prevIndex = (int)Math.Floor(position);
+			int nextIndex = prevIndex + 1;
+
+			return LerpColors(colors[prevIndex], colors[nextIndex], position - prevIndex);
 		}
 	}
 }

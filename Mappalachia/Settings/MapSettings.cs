@@ -23,7 +23,7 @@ namespace Mappalachia
 			}
 		}
 
-		float brightness = 1.0f;
+		float brightness = 0.5f;
 
 		public float Brightness
 		{
@@ -84,7 +84,7 @@ namespace Mappalachia
 
 		public bool HighlightWater { get; set; } = false;
 
-		public bool MapMarkerIcons { get; set; } = true;
+		public bool MapMarkerIcons { get; set; } = false;
 
 		public bool MapMarkerLabels { get; set; } = false;
 

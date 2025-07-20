@@ -79,25 +79,37 @@ namespace Mappalachia
 			GC.Collect();
 		}
 
-		// Return a new copy of the plot icon image with the given name
-		public static Image GetPlotIconImage(string fileName)
+		// Return a new copy of the plot icon image with the given index, when all files in the path are indexed
+		public static Image GetPlotIconImage(int index)
 		{
-			if (PlotIconImageCache.TryGetValue(fileName, out Image? value))
+			string targetFile = Directory.GetFiles(Paths.IconsPath)[index];
+
+			if (PlotIconImageCache.TryGetValue(targetFile, out Image? value))
 			{
 				return new Bitmap(value);
 			}
 
-			string path = Paths.IconsPath + fileName + PlotIconFileType;
-
-			if (!File.Exists(path))
+			if (!File.Exists(targetFile))
 			{
-				throw new ArgumentException($"{fileName} is not a valid plot icon file");
+				throw new ArgumentException($"{targetFile} is not a valid plot icon file");
 			}
 
-			Image image = new Bitmap(path);
-			PlotIconImageCache[fileName] = image;
+			Image image = new Bitmap(targetFile);
+			PlotIconImageCache[targetFile] = image;
 
 			return new Bitmap(image);
+		}
+
+		public static int GetAvailblePlotIconCount()
+		{
+			int count = Directory.GetFiles(Paths.IconsPath, "*" + PlotIconFileType).Count();
+
+			if (count < 1)
+			{
+				throw new Exception($"No suitable plot icon files found at {Paths.IconsPath}");
+			}
+
+			return count;
 		}
 
 		// Return the image for the spotlight tile
