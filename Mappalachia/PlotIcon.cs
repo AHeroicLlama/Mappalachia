@@ -1,10 +1,10 @@
 ﻿namespace Mappalachia
 {
-	public class PlotIcon
+	public class PlotIcon : IDisposable
 	{
 		public Color Color { get; }
 
-		public Image? Image { get; set; }
+		public Image Image { get; set; }
 
 		public PlotIcon(int offset, List<Color> palette, int size)
 		{
@@ -24,6 +24,12 @@
 			graphics.DrawImage(baseIcon.SetColor(Color), new PointF(Map.DropShadowOffset, Map.DropShadowOffset));
 
 			Image = finalImage;
+		}
+
+		public void Dispose()
+		{
+			Image.Dispose();
+			GC.SuppressFinalize(this);
 		}
 	}
 }

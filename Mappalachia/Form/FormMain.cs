@@ -98,9 +98,11 @@ namespace Mappalachia
 			}
 		}
 
+		// Called by cluster settings 'live preview' - intentionally do not update UI, just draw the map
 		public void SetClusterSettings(ClusterSettings newClusterSettings)
 		{
-			SetSetting(() => Settings.PlotSettings.ClusterSettings = newClusterSettings);
+			Settings.PlotSettings.ClusterSettings = newClusterSettings;
+			DrawMap();
 		}
 
 		// Return the header for a DataGridViewColumn with the given name
@@ -724,7 +726,9 @@ namespace Mappalachia
 
 			if (titleForm.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.MapSettings.Title = titleForm.TextBoxValue);
+				Settings.MapSettings.Title = titleForm.TextBoxValue;
+				Settings.MapSettings.TitleFontSize = titleForm.FontSize;
+				UpdateFromSettings();
 			}
 		}
 
@@ -1039,7 +1043,7 @@ namespace Mappalachia
 				foreach (GroupedSearchResult instance in itemsToRemove)
 				{
 					ItemsToPlot.Remove(instance);
-					instance.PlotIcon = null;
+					instance.Dispose();
 				}
 			}
 

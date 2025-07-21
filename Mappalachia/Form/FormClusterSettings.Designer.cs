@@ -69,14 +69,14 @@ namespace Mappalachia
 			trackBarClusterRange.LargeChange = 2000;
 			trackBarClusterRange.Location = new Point(169, 12);
 			trackBarClusterRange.Maximum = 200000;
-			trackBarClusterRange.Minimum = 1;
+			trackBarClusterRange.Minimum = 100;
 			trackBarClusterRange.Name = "trackBarClusterRange";
 			trackBarClusterRange.Size = new Size(364, 45);
-			trackBarClusterRange.SmallChange = 500;
+			trackBarClusterRange.SmallChange = 100;
 			trackBarClusterRange.TabIndex = 1;
 			trackBarClusterRange.TickFrequency = 2000;
 			toolTipClusterSettings.SetToolTip(trackBarClusterRange, "The maximum 'search' range in pixels that each cluster will extend.");
-			trackBarClusterRange.Value = 1;
+			trackBarClusterRange.Value = 100;
 			trackBarClusterRange.ValueChanged += TrackBarClusterRange_ValueChanged;
 			// 
 			// labelClusterRange

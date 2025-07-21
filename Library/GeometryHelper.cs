@@ -102,5 +102,15 @@ namespace Library
 		{
 			return Pythagoras(a.X - b.X, a.Y - b.Y);
 		}
+
+		public static Coord GetCentroid(this IEnumerable<Coord> coords)
+		{
+			return new Coord(coords.Average(coord => coord.X), coords.Average(coord => coord.Y));
+		}
+
+		public static Coord GetCentroid(this IEnumerable<Instance> instances)
+		{
+			return instances.Select(instance => instance.Coord).GetCentroid();
+		}
 	}
 }

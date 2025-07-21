@@ -92,6 +92,8 @@ namespace Mappalachia
 
 		public string Title { get; set; } = string.Empty;
 
+		public int TitleFontSize { get; set; } = 72;
+
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
 

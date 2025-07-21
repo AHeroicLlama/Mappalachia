@@ -9,6 +9,12 @@ namespace Mappalachia
 		// Amends both (or either) the brightness and grayscale of the image
 		public static void AdjustBrightnessOrGrayscale(this Image original, float brightness, bool grayscale)
 		{
+			// No amendments to make - exit early
+			if (brightness == 1 && !grayscale)
+			{
+				return;
+			}
+
 			using Graphics graphics = Graphics.FromImage(original);
 			using ImageAttributes attributes = new ImageAttributes();
 
@@ -157,6 +163,11 @@ namespace Mappalachia
 			int nextIndex = prevIndex + 1;
 
 			return LerpColors(colors[prevIndex], colors[nextIndex], position - prevIndex);
+		}
+
+		public static Color WithAlpha(this Color color, int alpha)
+		{
+			return Color.FromArgb(alpha, color.R, color.G, color.B);
 		}
 	}
 }

@@ -6,11 +6,11 @@ namespace Mappalachia
 	// Parent class for all settings
 	public class Settings
 	{
-		Space space;
+		Space? space;
 
 		public Space Space
 		{
-			get => space;
+			get => space ?? throw new Exception("Settings Space is null");
 			set
 			{
 				space = value;
@@ -83,7 +83,7 @@ namespace Mappalachia
 
 		public Settings()
 		{
-			Space ??= Database.AllSpaces.First();
+			space ??= Database.AllSpaces.First(); // Bypasses the getter
 			PlotSettings ??= new PlotSettings();
 			SearchSettings ??= new SearchSettings();
 			MapSettings ??= new MapSettings(this);

@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.Common;
@@ -69,7 +70,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					1,
 					reader.GetString("label"),
@@ -103,7 +104,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					reader.GetInt("quantity"),
 					string.Empty,
@@ -123,11 +124,14 @@ namespace Mappalachia
 				return results;
 			}
 
+			string substituteSearch = new Regex("derived|scrap", RegexOptions.IgnoreCase).Replace(searchTerm, string.Empty).Trim();
+
 			// Note: We are not looking inside of containers here
 			string query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
 				"FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
 				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR component LIKE '%{substituteSearch}%' ESCAPE '{EscapeChar}'" +
 				optionalSpaceClause +
 				"GROUP BY component, spaceFormID, componentQuantity;";
 
@@ -137,7 +141,7 @@ namespace Mappalachia
 			{
 				results.Add(new GroupedSearchResult(
 					new DerivedScrap(reader.GetString("component")),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("properCount"),
 					reader.GetDouble("componentQuantity")));
 			}
@@ -154,10 +158,13 @@ namespace Mappalachia
 				return results;
 			}
 
+			string substituteSearch = new Regex("derived|spawn", RegexOptions.IgnoreCase).Replace(searchTerm, string.Empty).Trim();
+
 			string query =
 				"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
 				"FROM NPC " +
-				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}'" +
+				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR npcName LIKE '%{substituteSearch}%' ESCAPE '{EscapeChar}'" +
 				optionalSpaceClause +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 
@@ -167,7 +174,7 @@ namespace Mappalachia
 			{
 				results.Add(new GroupedSearchResult(
 					new DerivedNPC(reader.GetString("npcName")),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					reader.GetDouble("spawnWeight")));
 			}
@@ -197,7 +204,7 @@ namespace Mappalachia
 
 			while (reader.Read())
 			{
-				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID")) !;
+				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
 
 				results.Add(new GroupedSearchResult(
 					new Library.Region(
@@ -239,7 +246,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					1,
 					reader.GetString("label"),
@@ -275,7 +282,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					GetSpaceByFormID(reader.GetUInt("spaceFormID")) !,
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetString("label"),
 					reader.GetLockLevel()));
 			}
@@ -333,16 +340,21 @@ namespace Mappalachia
 		{
 			List<Instance> teleporters = new List<Instance>();
 
-			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
+			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ, " +
+				"referenceFormID, editorID, displayName, signature FROM Position " +
+				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {space.FormID} AND teleportsToFormID IS NOT NULL AND teleportsToFormID != {space.FormID}";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 
 			while (reader.Read())
 			{
-				// TODO a few fields are irrelevant here
 				teleporters.Add(new Instance(
-					null,
+					new Entity(
+						reader.GetUInt("referenceFormID"),
+						reader.GetString("editorID"),
+						reader.GetString("displayName"),
+						reader.GetSignature()),
 					space,
 					reader.GetCoord(),
 					reader.GetUInt("instanceFormID"),
@@ -482,7 +494,7 @@ namespace Mappalachia
 			Instance instance = new Instance(
 				region,
 				space,
-				new Coord(0, 0),
+				region.GetAllSubRegions().First().GetCentroid(),
 				0,
 				searchResult.Label,
 				null,
@@ -552,11 +564,10 @@ namespace Mappalachia
 			return instances;
 		}
 
-		// Returns the min (item1) and max (item2) z coordinate of all instances of the itemsToPlot
-		// Excluding items not in the current space
+		// Returns the min (item1) and max (item2) z coordinate of all instances of the itemsToPlot in the current space
 		public static async Task<(double, double)> GetZRange(List<GroupedSearchResult> itemsToPlot, Settings settings)
 		{
-			List<Instance> allInstances = (await Task.WhenAll(itemsToPlot.Where(item => item.Space == settings.Space).Select(async item => await GetInstances(item))))
+			List<Instance> allInstances = (await Task.WhenAll(itemsToPlot.Select(async item => await GetInstances(item, settings.Space))))
 				.SelectMany(instance => instance).ToList();
 
 			return (allInstances.Min(i => i.HeightForTopograph), allInstances.Max(i => i.HeightForTopograph));
@@ -587,9 +598,14 @@ namespace Mappalachia
 			return lockLevel.ToString();
 		}
 
-		static Space? GetSpaceByFormID(uint formID)
+		static Space GetSpaceByFormID(uint formID)
 		{
-			return AllSpaces.Where(space => space.FormID == formID).FirstOrDefault();
+			if (formID == 0)
+			{
+				return null!;
+			}
+
+			return AllSpaces.Where(space => space.FormID == formID).FirstOrDefault() ?? throw new Exception($"Space with formID {formID.ToHex()} not found!");
 		}
 	}
 }

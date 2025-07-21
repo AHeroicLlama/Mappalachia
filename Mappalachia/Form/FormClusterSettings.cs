@@ -1,6 +1,4 @@
-﻿using Library;
-
-namespace Mappalachia
+﻿namespace Mappalachia
 {
 	public partial class FormClusterSettings : Form
 	{

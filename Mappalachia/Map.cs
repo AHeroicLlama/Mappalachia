@@ -26,17 +26,25 @@ namespace Mappalachia
 
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
 
-		static int FontSizeItemsInOtherSpaces { get; } = 20;
+		static Font FontItemsInOtherSpaces { get; } = GetFont(20);
 
-		static int FontSizeMapMarkerLabel { get; } = 20;
+		static Font FontMapMarkerLabel { get; } = GetFont(20);
 
-		static int FontSizeWaterMark { get; } = 60;
+		static Font FontWatermark { get; } = GetFont(60);
 
-		static int FontSizeTitle { get; } = 72;
+		static Font FontClusterLabel { get; } = GetFont(26);
+
+		static Font FontInstanceFormID { get; } = GetFont(32);
+
+		static Font FontRegionLevel { get; } = GetFont(32);
 
 		static int VolumeEdgeThickness { get; } = 5;
 
 		static int VolumeFillAlpha { get; } = 64;
+
+		static int ClusterLabelAlpha { get; } = 200;
+
+		static int ClusterLineThickness { get; } = 2;
 
 		public static int DropShadowOffset { get; } = 2;
 
@@ -241,11 +249,19 @@ namespace Mappalachia
 		{
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				List<Instance> instances = await Database.GetInstances(item);
+				if (item.Space != settings.Space)
+				{
+					continue;
+				}
+
+				List<Instance> instances = await Database.GetInstances(item, item.Space);
 				List<Cluster> clusters = new List<Cluster>();
 
+				int i = 0;
 				foreach (Instance outerInstance in instances)
 				{
+					UpdateProgress(progressInfo, ++i, instances.Count, "Finding clusters");
+
 					if (outerInstance.IsMemberOfCluster)
 					{
 						continue;
@@ -262,43 +278,48 @@ namespace Mappalachia
 
 						if (GeometryHelper.Pythagoras(innerInstance.Coord, outerInstance.Coord) < settings.PlotSettings.ClusterSettings.Range)
 						{
-							outerInstance.Cluster.AddMember(innerInstance);
+							outerInstance.Cluster!.AddMember(innerInstance);
 						}
 					}
 				}
 
+				i = 0;
 				foreach (Instance instance in instances)
 				{
-					Cluster closestCluster = clusters.MinBy(cluster => GeometryHelper.Pythagoras(cluster.Origin.Coord, instance.Coord));
+					UpdateProgress(progressInfo, ++i, instances.Count, "Optimizing clusters");
+
+					Cluster closestCluster = clusters.MinBy(cluster => GeometryHelper.Pythagoras(cluster.Origin.Coord, instance.Coord)) ?? throw new Exception("Failed to find a closest cluster");
 
 					if (instance.Cluster == closestCluster)
 					{
 						continue;
 					}
 
-					instance.Cluster.RemoveMember(instance);
+					instance.Cluster!.RemoveMember(instance);
 					closestCluster.AddMember(instance);
 				}
+
+				i = 0;
+				Color color = item.PlotIcon.Color;
+				Pen pen = new Pen(color, ClusterLineThickness);
+				Brush brush = new SolidBrush(color.WithAlpha(ClusterLabelAlpha));
 
 				// Draw all qualifying clusters
 				foreach (Cluster cluster in clusters)
 				{
-					if (cluster.Members.Count < 2)
-					{
-						continue;
-					}
+					UpdateProgress(progressInfo, ++i, clusters.Count, "Drawing clusters");
 
 					if (cluster.GetWeight() < settings.PlotSettings.ClusterSettings.MinWeight)
 					{
 						continue;
 					}
 
-					graphics.DrawPolygon(new Pen(item.PlotIcon.Color, 3), cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
-
-					foreach (Instance instance in cluster.Members)
+					if (cluster.Members.Count > 1)
 					{
-						graphics.DrawLine(new Pen(Color.Cyan), cluster.Origin.Coord.AsImagePoint(settings), instance.Coord.AsImagePoint(settings));
+						graphics.DrawPolygon(pen, cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
 					}
+
+					graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), FontClusterLabel, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
 				}
 			}
 		}
@@ -356,7 +377,7 @@ namespace Mappalachia
 
 					graphics.DrawStringCentered(
 						$"{teleporter.TeleportsTo!.DisplayName}: {item.Entity.EditorID} ({instances.Count})",
-						GetFont(FontSizeItemsInOtherSpaces),
+						FontItemsInOtherSpaces,
 						new SolidBrush(item.PlotIcon.Color),
 						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])));
 				}
@@ -373,11 +394,15 @@ namespace Mappalachia
 
 			foreach (GroupedSearchResult searchResult in itemsToPlot)
 			{
-				foreach (Instance instance in await Database.GetInstances(searchResult))
+				foreach (Instance instance in await Database.GetInstances(searchResult, settings.Space))
 				{
-					// TODO const font
+					if (instance.InstanceFormID == 0)
+					{
+						continue;
+					}
+
 					PointF point = instance.Coord.AsImagePoint(settings);
-					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), GetFont(32), new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSize / 2)), false);
+					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), FontInstanceFormID, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSize / 2)), false);
 				}
 			}
 		}
@@ -399,7 +424,7 @@ namespace Mappalachia
 		static void DrawRegion(Settings settings, Graphics graphics, Library.Region region, Color color)
 		{
 			Pen pen = new Pen(color, VolumeEdgeThickness);
-			Brush brush = new SolidBrush(Color.FromArgb(VolumeFillAlpha, color.R, color.G, color.B));
+			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
 
 			foreach (List<RegionPoint> subregion in region.GetAllSubRegions())
 			{
@@ -435,8 +460,7 @@ namespace Mappalachia
 						}
 					}
 
-					// TODO - get center of volume for string location, and var for font
-					graphics.DrawStringCentered(levelString, GetFont(32), new SolidBrush(color), region.Points.First().Coord.AsImagePoint(settings));
+					graphics.DrawStringCentered(levelString, FontRegionLevel, new SolidBrush(color), subregion.GetCentroid().AsImagePoint(settings));
 				}
 			}
 		}
@@ -452,7 +476,7 @@ namespace Mappalachia
 			Shape shape = (Shape)instance.PrimitiveShape;
 
 			Pen pen = new Pen(color, VolumeEdgeThickness);
-			Brush brush = new SolidBrush(Color.FromArgb(VolumeFillAlpha, color.R, color.G, color.B));
+			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
 
 			PointF topLeft = new Coord(instance.Coord.X - (shape.BoundX / 2), instance.Coord.Y + (shape.BoundY / 2)).AsImagePoint(settings);
 			PointF center = instance.Coord.AsImagePoint(settings);
@@ -513,7 +537,7 @@ namespace Mappalachia
 				return;
 			}
 
-			Font font = GetFont(FontSizeTitle);
+			Font font = GetFont(settings.MapSettings.TitleFontSize);
 			SizeF stringBounds = graphics.MeasureString(titleText, font, new SizeF(MapImageResolution, MapImageResolution));
 
 			RectangleF textBounds = new RectangleF(
@@ -543,11 +567,9 @@ namespace Mappalachia
 			}
 
 			text += $"Game Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
-
-			Font font = GetFont(FontSizeWaterMark);
 			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 
-			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);
+			DrawStringWithDropShadow(graphics, text, FontWatermark, BrushGenericTransparent, textBounds, BottomRight);
 		}
 
 		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
@@ -557,11 +579,11 @@ namespace Mappalachia
 				return;
 			}
 
+			UpdateProgress(progressInfo, 50, "Drawing map markers");
+
 			List<MapMarker> mapMarkers = Database.AllMapMarkers
 				.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
 				.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
-
-			Font font = GetFont(FontSizeMapMarkerLabel);
 
 			foreach (MapMarker marker in mapMarkers)
 			{
@@ -578,7 +600,7 @@ namespace Mappalachia
 
 				if (settings.MapSettings.MapMarkerLabels)
 				{
-					graphics.DrawStringCentered(marker.Label, font, BrushGeneric, new PointF(coord.X, coord.Y + labelOffset), !settings.MapSettings.MapMarkerIcons, MapMarkerLabelTextMaxWidth);
+					graphics.DrawStringCentered(marker.Label, FontMapMarkerLabel, BrushGeneric, new PointF(coord.X, coord.Y + labelOffset), !settings.MapSettings.MapMarkerIcons, MapMarkerLabelTextMaxWidth);
 				}
 			}
 		}

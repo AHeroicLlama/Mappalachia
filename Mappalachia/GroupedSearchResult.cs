@@ -5,9 +5,22 @@ namespace Mappalachia
 	// Represents an amount of BaseInstances which share the same basic properties
 	// This is used to represent a row on the search results
 	public class GroupedSearchResult(Entity entity, Space space, int count = 1, double spawnWeight = 1, string label = "", LockLevel lockLevel = LockLevel.None, bool inContainer = false)
-		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
+		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer), IDisposable
 	{
-		public PlotIcon? PlotIcon { get; set; }
+		PlotIcon? plotIcon;
+
+		public PlotIcon PlotIcon
+		{
+			get
+			{
+				return plotIcon ?? throw new Exception("Search result Plot Icon not assigned");
+			}
+
+			set
+			{
+				plotIcon = value;
+			}
+		}
 
 		public int Count { get; } = count;
 
@@ -34,5 +47,12 @@ namespace Mappalachia
 		public int DataValueCount => Count;
 
 		public string DataValueLocation => Mappalachia.GetIsAdvanced() ? Space.EditorID : Space.DisplayName;
+
+		public void Dispose()
+		{
+			plotIcon?.Dispose();
+			plotIcon = null;
+			GC.SuppressFinalize(this);
+		}
 	}
 }

@@ -15,22 +15,12 @@
 
 		public void AddMember(Instance instance)
 		{
-			if (Members.Contains(instance) || instance.Cluster != null)
-			{
-				throw new Exception("Instance is already a member of a cluster");
-			}
-
 			Members.Add(instance);
 			instance.Cluster = this;
 		}
 
 		public void RemoveMember(Instance instance)
 		{
-			if (!Members.Contains(instance))
-			{
-				throw new Exception("Tried to remove an instance, but was not a member");
-			}
-
 			Members.Remove(instance);
 			instance.Cluster = null;
 		}
@@ -43,11 +33,6 @@
 		public double GetWeight()
 		{
 			return Members.Sum(instance => instance.SpawnWeight);
-		}
-
-		public Coord GetCentroid()
-		{
-			return new Coord(Members.Average(instance => instance.Coord.X), Members.Average(instance => instance.Coord.Y));
 		}
 	}
 }

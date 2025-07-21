@@ -65,7 +65,9 @@ namespace Preprocessor
 
 				ConcludeValidation();
 			}
-			else // If the database doesn't exist yet, we do the full build and validate
+
+			// If the database doesn't exist yet, we do the full build and validate
+			else
 			{
 				stopwatch.Start();
 				Preprocess();
