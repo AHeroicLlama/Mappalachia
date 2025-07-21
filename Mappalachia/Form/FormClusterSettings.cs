@@ -35,6 +35,9 @@ namespace Mappalachia
 			trackBarClusterRange.Value = Math.Min(InitialSettings.Range, trackBarClusterRange.Maximum);
 			trackBarClusterMinWeight.Value = InitialSettings.MinWeight;
 			checkBoxLiveUpdate.Checked = InitialSettings.LiveUpdate;
+
+			SetRangeLabel();
+			SetWeightLabel();
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
@@ -57,19 +60,29 @@ namespace Mappalachia
 
 		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)
 		{
-			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
+			SetRangeLabel();
 			UpdateMapView();
 		}
 
 		private void TrackBarClusterWeight_ValueChanged(object sender, EventArgs e)
 		{
-			labelClusterMinWeight.Text = $"Min. Cluster Weight ({trackBarClusterMinWeight.Value})";
+			SetWeightLabel();
 			UpdateMapView();
 		}
 
 		private void CheckBoxLiveUpdate_CheckedChanged(object sender, EventArgs e)
 		{
 			UpdateMapView();
+		}
+
+		void SetRangeLabel()
+		{
+			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
+		}
+
+		void SetWeightLabel()
+		{
+			labelClusterMinWeight.Text = $"Min. Cluster Weight ({trackBarClusterMinWeight.Value})";
 		}
 
 		void UpdateMapView()

@@ -5,8 +5,8 @@
 	{
 		public Cluster(Instance origin)
 		{
-			AddMember(origin);
 			Origin = origin;
+			AddMember(Origin);
 		}
 
 		public List<Instance> Members { get; } = new List<Instance>();
@@ -15,24 +15,39 @@
 
 		public void AddMember(Instance instance)
 		{
+			if (Members.Contains(instance) || instance.Cluster != null)
+			{
+				throw new Exception("Instance is already a member of a cluster");
+			}
+
 			Members.Add(instance);
 			instance.Cluster = this;
 		}
 
 		public void RemoveMember(Instance instance)
 		{
-			if (instance == Origin)
+			if (!Members.Contains(instance))
 			{
-				throw new InvalidOperationException("Cannot remove the origin point instance member of a cluster");
+				throw new Exception("Tried to remove an instance, but was not a member");
 			}
 
 			Members.Remove(instance);
 			instance.Cluster = null;
 		}
 
+		public bool ContainsInstance(Instance instance)
+		{
+			return Members.Contains(instance);
+		}
+
 		public double GetWeight()
 		{
 			return Members.Sum(instance => instance.SpawnWeight);
+		}
+
+		public Coord GetCentroid()
+		{
+			return new Coord(Members.Average(instance => instance.Coord.X), Members.Average(instance => instance.Coord.Y));
 		}
 	}
 }

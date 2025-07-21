@@ -20,10 +20,26 @@ namespace Library
 
 		public Cluster? Cluster { get; set; } = null;
 
-		public void MoveToCluster(Cluster newCluster)
+		public bool IsMemberOfCluster => Cluster != null;
+
+		public override bool Equals(object? obj)
 		{
-			Cluster?.RemoveMember(this);
-			newCluster.AddMember(this);
+			if (obj is null)
+			{
+				return false;
+			}
+
+			if (obj is not Instance other)
+			{
+				return false;
+			}
+
+			return InstanceFormID == other.InstanceFormID;
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(InstanceFormID);
 		}
 	}
 }

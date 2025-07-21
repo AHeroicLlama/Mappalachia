@@ -244,44 +244,43 @@ namespace Mappalachia
 				List<Instance> instances = await Database.GetInstances(item);
 				List<Cluster> clusters = new List<Cluster>();
 
-				// Pass 1 - arbitrarily 'greedily' form clusters
-				// At the end of this pass, points may not necessarily be assigned to their optimum cluster
 				foreach (Instance outerInstance in instances)
 				{
-					if (outerInstance.Cluster != null)
+					if (outerInstance.IsMemberOfCluster)
 					{
 						continue;
 					}
 
-					clusters.Add(outerInstance.Cluster = new Cluster(outerInstance));
+					clusters.Add(new Cluster(outerInstance));
 
 					foreach (Instance innerInstance in instances)
 					{
-						if (innerInstance.Cluster != null)
+						if (innerInstance.IsMemberOfCluster)
 						{
 							continue;
 						}
 
-						if (GeometryHelper.Pythagoras(outerInstance.Coord, innerInstance.Coord) < settings.PlotSettings.ClusterSettings.Range)
+						if (GeometryHelper.Pythagoras(innerInstance.Coord, outerInstance.Coord) < settings.PlotSettings.ClusterSettings.Range)
 						{
 							outerInstance.Cluster.AddMember(innerInstance);
 						}
 					}
 				}
 
-				// Pass 2 - now clusters are defined, re-evaluate that each point is assigned to its closest
 				foreach (Instance instance in instances)
 				{
-					Cluster closestCluster = clusters.MinBy(cluster => GeometryHelper.Pythagoras(instance.Coord, cluster.Origin.Coord));
+					Cluster closestCluster = clusters.MinBy(cluster => GeometryHelper.Pythagoras(cluster.Origin.Coord, instance.Coord));
 
 					if (instance.Cluster == closestCluster)
 					{
 						continue;
 					}
 
-					instance.MoveToCluster(closestCluster);
+					instance.Cluster.RemoveMember(instance);
+					closestCluster.AddMember(instance);
 				}
 
+				// Draw all qualifying clusters
 				foreach (Cluster cluster in clusters)
 				{
 					if (cluster.Members.Count < 2)
@@ -294,7 +293,12 @@ namespace Mappalachia
 						continue;
 					}
 
-					graphics.DrawPolygon(new Pen(item.PlotIcon.Color, 5), cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
+					graphics.DrawPolygon(new Pen(item.PlotIcon.Color, 3), cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
+
+					foreach (Instance instance in cluster.Members)
+					{
+						graphics.DrawLine(new Pen(Color.Cyan), cluster.Origin.Coord.AsImagePoint(settings), instance.Coord.AsImagePoint(settings));
+					}
 				}
 			}
 		}
