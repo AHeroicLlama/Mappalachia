@@ -450,7 +450,7 @@ namespace Mappalachia
 
 				DataGridViewRow paintedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 				GroupedSearchResult data = (GroupedSearchResult)(paintedRow.DataBoundItem ?? throw new NullReferenceException("Painted row data was null"));
-				Image icon = data.PlotIcon?.Image ?? throw new NullReferenceException("Data icon image was null");
+				Image icon = data.PlotIcon.GetImage() ?? throw new NullReferenceException("Data icon image was null");
 
 				Rectangle cellBounds = e.CellBounds;
 

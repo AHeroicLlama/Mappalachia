@@ -4,7 +4,21 @@
 	{
 		public Color Color { get; }
 
-		public Image Image { get; set; }
+		Image Image { get; set; }
+
+		public Image GetImage()
+		{
+			return Image;
+		}
+
+		// Re-draw the icon image, using a different color
+		public Image GetImage(Color color)
+		{
+			return GenerateIconImage(color);
+		}
+
+		// The raw plot icon image from file - no shadow, no color
+		Image BaseIconImage { get; set; }
 
 		public PlotIcon(int offset, List<Color> palette, int size)
 		{
@@ -15,15 +29,20 @@
 			int iconIndex = (offset / palette.Count) % availableIcons;
 
 			// Gather the raw icon from file and set it to the requested size
-			using Image baseIcon = FileIO.GetPlotIconImage(iconIndex).Resize(size, size);
+			BaseIconImage = FileIO.GetPlotIconImage(iconIndex).Resize(size, size);
+			Image = GenerateIconImage(Color);
+		}
 
+		Image GenerateIconImage(Color color)
+		{
 			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
-			Image finalImage = new Bitmap(baseIcon.Width + (Map.DropShadowOffset * 2), baseIcon.Height + (Map.DropShadowOffset * 2));
-			using Graphics graphics = Graphics.FromImage(finalImage);
-			graphics.DrawImage(baseIcon.SetColor(Map.DropShadowColor), new PointF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2));
-			graphics.DrawImage(baseIcon.SetColor(Color), new PointF(Map.DropShadowOffset, Map.DropShadowOffset));
+			Image image = new Bitmap(BaseIconImage.Width + (Map.DropShadowOffset * 2), BaseIconImage.Height + (Map.DropShadowOffset * 2));
+			using Graphics graphics = Graphics.FromImage(image);
 
-			Image = finalImage;
+			graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new PointF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2));
+			graphics.DrawImage(BaseIconImage.SetColor(color), new PointF(Map.DropShadowOffset, Map.DropShadowOffset));
+
+			return image;
 		}
 
 		public void Dispose()

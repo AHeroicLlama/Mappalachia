@@ -217,7 +217,7 @@ namespace Mappalachia
 
 				foreach (Instance instance in instances)
 				{
-					Image iconImage = item.PlotIcon.Image;
+					Image iconImage = item.PlotIcon.GetImage();
 					Color color = item.PlotIcon.Color;
 
 					if (topographic)
@@ -226,7 +226,7 @@ namespace Mappalachia
 
 						// Overrides the image and color
 						color = ImageHelper.LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), range);
-						iconImage = iconImage.SetColor(color);
+						iconImage = item.PlotIcon.GetImage(color);
 					}
 
 					if (instance.Entity is Library.Region region)

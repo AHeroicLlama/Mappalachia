@@ -323,6 +323,9 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Position;");
 			SimpleQuery("ALTER TABLE temp RENAME TO Position;");
 
+			// Null teleporters which target a space we dropped
+			SimpleQuery("UPDATE Position SET teleportsToFormID = NULL WHERE teleportsToFormID NOT IN (SELECT spaceFormID FROM Space);");
+
 			// Null empty rows which are not TEXT
 			SimpleQuery("UPDATE Position SET teleportsToFormID = NULL WHERE teleportsToFormID = '';");
 			SimpleQuery("UPDATE Position SET boundX = NULL WHERE boundX = '';");
