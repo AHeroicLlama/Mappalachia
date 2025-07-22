@@ -1,9 +1,9 @@
 ==Database name== 
 mappalachia.db 
 ==SQLite version== 
-3.49.1 2025-02-18 13:38:58 873d4e274b4988d260ba8354a9718324a1c26187a4ab4c1cc0227c03d0f10e70 (64-bit)
+3.50.2 2025-06-28 14:00:48 2af157d77fb1304a74176eaee7fbc7c7e932d946bf25325e9c26c91db19e3079 (64-bit)
 ==Checksum== 
-cad78e75f5d138d3dedfe2d8d40797f9
+8bfa450fef505cb449df64055e2cd6e3
 ==File Size== 
 488521728 
 ==Tables== 
@@ -14,9 +14,9 @@ Lock_Levels      Position_Data    Space_Info
 Index_PositionData_CoverAll     Index_ScrapSearch_CompMagSpace
 Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace 
 ==Game Version==
-1.7.20.12
+1.7.21.8
 ==Mean Average X/Y/Z Coord==
--9260.31400429045|-5112.61978105629|11158.4430643767
+-9260.2607355405|-5112.64269509354|11158.4452584233
 ==Min/Max X/Y/Z Coord==
 -402000|407637|-407387|549735|-50907|94940000
 ==100 most common xyz coordinates + count==
@@ -123,17 +123,17 @@ Index_PositionData_SpaceXYZ     Index_StandardSearch_RefSpace
 ==Z outliers==
 78
 ==Average X Bounds Width==
-23.0317585037349
+23.031801838647
 ==Average Y Bounds Width==
-16.9119270623395
+16.9120067652187
 ==Average Z Bounds Width==
-16.8134713885227
+16.8136546297763
 ==Average Z Rotation==
-4.38861736915306
+4.38865577592347
 ==Average display name string length==
-2.83801036531412
+2.83126869759407
 ==Average editorID string length==
-25.252643997809
+25.2480091012514
 ==Map Markers==
 APPALACHIA|AgriculturalCenterMarker|Vault-Tec Agricultural Research Center|-117195|19445
 APPALACHIA|AirfieldMarker|Crashed Plane|147706|58411
@@ -810,7 +810,7 @@ AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
 APPALACHIA||3196644
-APPALACHIA|Box|71393
+APPALACHIA|Box|71395
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1777
 APPALACHIA|Plane|204
@@ -1324,7 +1324,7 @@ AMSHQ01|Requires Terminal|2
 AMSHQ02||1990
 AMSHQ02|Expert (Level 2)|1
 AMSHQ02|Requires Terminal|2
-APPALACHIA||3271543
+APPALACHIA||3271545
 APPALACHIA|Advanced (Level 1)|341
 APPALACHIA|Barred|1
 APPALACHIA|Chained|4
@@ -1997,7 +1997,7 @@ APPALACHIA|PROJ|93
 APPALACHIA|SCOL|366713
 APPALACHIA|SECH|253
 APPALACHIA|SOUN|5918
-APPALACHIA|STAT|2531697
+APPALACHIA|STAT|2531699
 APPALACHIA|TACT|64
 APPALACHIA|TERM|385
 APPALACHIA|TXST|70500
@@ -5275,7 +5275,7 @@ AMSHQ02|BS02_MQ02_Missing_PlayerMarker|1
 AMSHQ02|BS02_MQ02_Missing_SheenaDialogueTrigger|1
 AMSHQ02|BS02_MQ02_Missing_XMarkerBasementEnemies|1
 AMSHQ02|BasementtoAMSHQ|1
-APPALACHIA||3266234
+APPALACHIA||3266236
 APPALACHIA|76ExitEventQuest_CenterMaker|1
 APPALACHIA|76ExitEventSpawnAreaRef001|1
 APPALACHIA|76ExitEventSpawnAreaRef002|1
@@ -17429,7 +17429,7 @@ AMSHQ02|100|1993
 APPALACHIA|50|53
 APPALACHIA|75|166
 APPALACHIA|85|251
-APPALACHIA|100|3272213
+APPALACHIA|100|3272215
 AVRMedicalCenter01|100|5936
 AlleghenyAsylum01|100|15012
 ArktosPharmaLab01|50|1
@@ -21702,4 +21702,4 @@ WhitespringRefuge01|Robot|100.0|1
 006240BB|WhitespringRefuge01|Whitespring Refuge|0|-8840|10960|-16336|-1344|5056|16864|0|0|1.0
 00735883|XPDPitt01FoundryDungeon|The Foundry|0|1735|4360|-5058|8529|-2416|11136|0|0|1.0
 ==Instance IDs Count Vs Distinct==
-4406064|4406064
+4406066|4406066
