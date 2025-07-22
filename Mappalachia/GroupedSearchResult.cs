@@ -26,6 +26,44 @@ namespace Mappalachia
 
 		public int LegendGroup { get; set; } = 0;
 
+		public string OverridingLegendText { private get; set; } = string.Empty;
+
+		public string GetLegendText()
+		{
+			if (!OverridingLegendText.IsNullOrWhiteSpace())
+			{
+				return OverridingLegendText;
+			}
+
+			string text;
+
+			if (Entity is DerivedNPC || Entity is DerivedScrap)
+			{
+				text = Entity.DisplayName;
+			}
+			else
+			{
+				text = $"{Entity.EditorID}";
+
+				if (!Entity.DisplayName.IsNullOrWhiteSpace())
+				{
+					text += $" ({Entity.DisplayName})";
+				}
+			}
+
+			if (Entity is DerivedNPC)
+			{
+				text += $" [{Math.Round(SpawnWeight * 100, 2)}%]";
+			}
+
+			if (Entity is DerivedScrap)
+			{
+				text += $" [x{SpawnWeight}]";
+			}
+
+			return text;
+		}
+
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
 		public virtual string DataValueFormID => Entity.GetFriendlyFormID();

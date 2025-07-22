@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.Runtime.InteropServices;
 
 namespace Mappalachia
@@ -15,7 +16,7 @@ namespace Mappalachia
 				return;
 			}
 
-			using Graphics graphics = Graphics.FromImage(original);
+			using Graphics graphics = GraphicsFromImageHQ(original);
 			using ImageAttributes attributes = new ImageAttributes();
 
 			attributes.SetColorMatrix(GenerateColorMatrix(brightness, grayscale));
@@ -111,9 +112,7 @@ namespace Mappalachia
 		public static Image Resize(this Image image, int width, int height)
 		{
 			Bitmap resizedImage = new Bitmap(width, height);
-			using Graphics graphics = Graphics.FromImage(resizedImage);
-			graphics.SmoothingMode = SmoothingMode.AntiAlias;
-			graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+			using Graphics graphics = GraphicsFromImageHQ(resizedImage);
 
 			graphics.DrawImage(image, 0, 0, width, height);
 
@@ -168,6 +167,17 @@ namespace Mappalachia
 		public static Color WithAlpha(this Color color, int alpha)
 		{
 			return Color.FromArgb(alpha, color.R, color.G, color.B);
+		}
+
+		// Returns a Graphics object FromImage, set with high quality/smoothing/AA options
+		public static Graphics GraphicsFromImageHQ(Image image)
+		{
+			Graphics graphics = Graphics.FromImage(image);
+			graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+			graphics.SmoothingMode = SmoothingMode.AntiAlias;
+			graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+			return graphics;
 		}
 	}
 }

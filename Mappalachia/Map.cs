@@ -1,7 +1,7 @@
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using Library;
 using static Library.Common;
+using static Mappalachia.ImageHelper;
 
 namespace Mappalachia
 {
@@ -24,7 +24,13 @@ namespace Mappalachia
 	{
 		public static double IconScale { get; } = 1.5;
 
+		static int LegendWidth { get; } = 600;
+
+		static int LegendXOffset { get; } = 20;
+
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
+
+		static Font FontLegend { get; } = GetFont(32);
 
 		static Font FontItemsInOtherSpaces { get; } = GetFont(20);
 
@@ -40,11 +46,11 @@ namespace Mappalachia
 
 		static int VolumeEdgeThickness { get; } = 5;
 
-		static int VolumeFillAlpha { get; } = 64;
+		static int VolumeFillAlpha { get; } = 128;
 
 		static int ClusterLabelAlpha { get; } = 200;
 
-		static int ClusterLineThickness { get; } = 2;
+		static int ClusterLineThickness { get; } = 3;
 
 		public static int DropShadowOffset { get; } = 2;
 
@@ -61,6 +67,8 @@ namespace Mappalachia
 		static StringFormat TopRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near };
 
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
+
+		static StringFormat CenterLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
 
 		static int TopographLegendRectHeight { get; } = 1600;
 
@@ -79,10 +87,7 @@ namespace Mappalachia
 
 			// Set up the original image and graphics objects
 			Image mapImage = new Bitmap(FileIO.EmptyMapImage);
-			using Graphics graphics = Graphics.FromImage(mapImage);
-			graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-			graphics.SmoothingMode = SmoothingMode.AntiAlias;
-			graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+			using Graphics graphics = GraphicsFromImageHQ(mapImage);
 
 			// Draw the initial background image
 			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
@@ -225,7 +230,7 @@ namespace Mappalachia
 						double range = (instance.HeightForTopograph - topographRange.Item1) / (topographRange.Item2 - topographRange.Item1);
 
 						// Overrides the image and color
-						color = ImageHelper.LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), range);
+						color = LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), range);
 						iconImage = item.PlotIcon.GetImage(color);
 					}
 
@@ -327,17 +332,12 @@ namespace Mappalachia
 		// Draw doors where plotted entities exist in a space reachable by this one
 		static async void DrawConnectingSpacePlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
-			if (!settings.PlotSettings.ShowPlotsInOtherSpaces)
-			{
-				return;
-			}
-
 			Dictionary<Space, int> connectionsToSpace = new Dictionary<Space, int>();
 
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Finding instances in other spaces");
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Finding instances in other spaces");
 
 				// Find all 'teleporters' which exit this space or the space which this item is in
 				// Take only one result per the source and destination of the teleporter
@@ -348,13 +348,25 @@ namespace Mappalachia
 
 				foreach (Instance teleporter in teleporters)
 				{
-					// Require one end of the teleporter in this space, and another end of it in the space where the item is
-					if (!(teleporter.Space == settings.Space && (teleporter.Space == item.Space || teleporter.TeleportsTo == item.Space)))
+					// If autofind is off, and the door doesn't go this this space, nor the items space - skip
+					if (!settings.PlotSettings.AutoFindPlotsInConnectedSpaces && teleporter.TeleportsTo != settings.Space && teleporter.TeleportsTo != item.Space)
 					{
 						continue;
 					}
 
-					List<Instance> instances = await Database.GetInstances(item, teleporter.TeleportsTo!);
+					// If the item cannot be reached by this door - skip
+					if (item.Space != teleporter.Space && item.Space != teleporter.TeleportsTo)
+					{
+						continue;
+					}
+
+					// If the door doesn't exist on the curent map - skip
+					if (teleporter.Space != settings.Space)
+					{
+						continue;
+					}
+
+					List<Instance> instances = await Database.GetInstances(item, teleporter.TeleportsTo);
 
 					if (instances.Count == 0)
 					{
@@ -416,7 +428,7 @@ namespace Mappalachia
 			for (float y = 0; y < height; y += step)
 			{
 				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
-				graphics.FillRectangle(new SolidBrush(ImageHelper.LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height)), sliceRect);
+				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height)), sliceRect);
 			}
 		}
 
@@ -608,22 +620,40 @@ namespace Mappalachia
 		// May return an image of different dimensions if extended legend is used
 		static Image DrawLegend(List<GroupedSearchResult> itemsToPlot, Settings settings, Image image)
 		{
-			// TODO
-			switch (settings.MapSettings.LegendStyle)
+			if (itemsToPlot.Count == 0)
 			{
-				case LegendStyle.Normal:
-					break;
+				return image;
+			}
 
-				case LegendStyle.Extended:
-					int additionalWidth = 600;
-					Bitmap resizedImage = new Bitmap(MapImageResolution + additionalWidth, MapImageResolution);
+			if (settings.MapSettings.LegendStyle == LegendStyle.None)
+			{
+				return image;
+			}
 
-					Graphics graphics = Graphics.FromImage(resizedImage);
-					graphics.DrawImage(image, additionalWidth, 0);
-					return resizedImage;
+			if (settings.MapSettings.LegendStyle == LegendStyle.Extended)
+			{
+				Bitmap resizedImage = new Bitmap(MapImageResolution + LegendWidth + LegendXOffset, MapImageResolution);
 
-				case LegendStyle.None:
-					break;
+				using Graphics resizeGraphics = GraphicsFromImageHQ(resizedImage);
+				resizeGraphics.DrawImage(image, LegendWidth + LegendXOffset, 0);
+				image = resizedImage;
+			}
+
+			using Graphics graphics = GraphicsFromImageHQ(image);
+
+			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
+			// Then half it, flip it, and offset by the midpoint of the image
+			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendWidth, MapImageResolution)).Height, settings.PlotSettings.PlotIconSize)) / -2);
+
+			foreach (GroupedSearchResult item in itemsToPlot)
+			{
+				SizeF bounds = graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendWidth, MapImageResolution));
+
+				graphics.DrawStringWithDropShadow(item.GetLegendText(), FontLegend, new SolidBrush(item.PlotIcon.Color), new RectangleF(LegendXOffset, height, bounds.Width, bounds.Height), CenterLeft);
+
+				graphics.DrawImageCentered(item.PlotIcon.GetImage(), new PointF(LegendXOffset / 2, height + (bounds.Height / 2)));
+
+				height += Math.Max(bounds.Height, settings.PlotSettings.PlotIconSize);
 			}
 
 			return image;

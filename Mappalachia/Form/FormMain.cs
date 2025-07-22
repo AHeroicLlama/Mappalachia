@@ -211,7 +211,7 @@ namespace Mappalachia
 			searchInInstancesOnlyToolStripMenuItem.Checked = Settings.SearchSettings.SearchInInstancesOnly;
 			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
 			drawInstanceFormIDToolStripMenuItem.Checked = Settings.PlotSettings.DrawInstanceFormID;
-			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.ShowPlotsInOtherSpaces;
+			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.AutoFindPlotsInConnectedSpaces;
 			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
 			spotlightEnabledToolStripMenuItem.Checked = Settings.MapSettings.SpotlightEnabled;
 
@@ -867,7 +867,7 @@ namespace Mappalachia
 
 		private void Plot_ShowPlotsInOtherSpaces(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.ShowPlotsInOtherSpaces = !Settings.PlotSettings.ShowPlotsInOtherSpaces);
+			SetSetting(() => Settings.PlotSettings.AutoFindPlotsInConnectedSpaces = !Settings.PlotSettings.AutoFindPlotsInConnectedSpaces);
 		}
 
 		private void Plot_ShowRegionLevels_Click(object sender, EventArgs e)

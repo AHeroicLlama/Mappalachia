@@ -28,9 +28,9 @@
 			FormMain = formMain;
 			InitialSettings = FormMain.Settings.PlotSettings.ClusterSettings;
 
-			trackBarClusterRange.Maximum = (int)(FormMain.Settings.Space.MaxRange / 2);
+			trackBarClusterRange.Maximum = (int)Math.Min(FormMain.Settings.Space.MaxRange / 2, InitialSettings.MaxRange);
 
-			trackBarClusterRange.Value = Math.Min(InitialSettings.Range, trackBarClusterRange.Maximum);
+			trackBarClusterRange.Value = Math.Clamp(InitialSettings.Range, trackBarClusterRange.Minimum, trackBarClusterRange.Maximum);
 			trackBarClusterMinWeight.Value = InitialSettings.MinWeight;
 			checkBoxLiveUpdate.Checked = InitialSettings.LiveUpdate;
 

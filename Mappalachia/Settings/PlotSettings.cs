@@ -27,7 +27,7 @@ namespace Mappalachia
 
 		public ClusterSettings ClusterSettings { get; set; } = new ClusterSettings();
 
-		public bool ShowPlotsInOtherSpaces { get; set; } = false;
+		public bool AutoFindPlotsInConnectedSpaces { get; set; } = false;
 
 		public bool ShowRegionLevels { get; set; } = false;
 

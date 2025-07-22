@@ -1,4 +1,6 @@
-﻿namespace Mappalachia
+﻿using System.Text.Json.Serialization;
+
+namespace Mappalachia
 {
 	public class ClusterSettings
 	{
@@ -8,5 +10,8 @@
 		public int MinWeight { get; set; } = 3;
 
 		public bool LiveUpdate { get; set; } = true;
+
+		[JsonIgnore]
+		public int MaxRange { get; } = 50000;
 	}
 }

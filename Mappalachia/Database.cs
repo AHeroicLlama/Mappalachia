@@ -14,6 +14,10 @@ namespace Mappalachia
 
 		public static List<MapMarker> AllMapMarkers { get; } = GetMapMarkers(Connection, "SELECT * FROM MapMarker").Result;
 
+		static Regex SubstituteScrap { get; } = new Regex("derived|scrap", RegexOptions.IgnoreCase);
+
+		static Regex SubstituteNPC { get; } = new Regex("derived|spawn", RegexOptions.IgnoreCase);
+
 		static char EscapeChar { get; } = '`';
 
 		// The core database search function - returns a collection of GroupedInstance from the given search params
@@ -124,7 +128,7 @@ namespace Mappalachia
 				return results;
 			}
 
-			string substituteSearch = new Regex("derived|scrap", RegexOptions.IgnoreCase).Replace(searchTerm, string.Empty).Trim();
+			string substituteSearch = SubstituteScrap.Replace(searchTerm, string.Empty).Trim();
 
 			// Note: We are not looking inside of containers here
 			string query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
@@ -158,7 +162,7 @@ namespace Mappalachia
 				return results;
 			}
 
-			string substituteSearch = new Regex("derived|spawn", RegexOptions.IgnoreCase).Replace(searchTerm, string.Empty).Trim();
+			string substituteSearch = SubstituteNPC.Replace(searchTerm, string.Empty).Trim();
 
 			string query =
 				"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +

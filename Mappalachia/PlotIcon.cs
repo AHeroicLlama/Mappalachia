@@ -37,7 +37,7 @@
 		{
 			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
 			Image image = new Bitmap(BaseIconImage.Width + (Map.DropShadowOffset * 2), BaseIconImage.Height + (Map.DropShadowOffset * 2));
-			using Graphics graphics = Graphics.FromImage(image);
+			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
 
 			graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new PointF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2));
 			graphics.DrawImage(BaseIconImage.SetColor(color), new PointF(Map.DropShadowOffset, Map.DropShadowOffset));

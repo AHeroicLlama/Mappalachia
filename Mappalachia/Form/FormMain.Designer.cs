@@ -377,7 +377,7 @@ namespace Mappalachia
 			// 
 			plotModeMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeClusterToolStripMenuItem });
 			plotModeMenuItem.Name = "plotModeMenuItem";
-			plotModeMenuItem.Size = new Size(227, 22);
+			plotModeMenuItem.Size = new Size(240, 22);
 			plotModeMenuItem.Text = "Plot Mode";
 			// 
 			// plotModeStandardToolStripMenuItem
@@ -407,7 +407,7 @@ namespace Mappalachia
 			// clusterSettingsToolStripMenuItem
 			// 
 			clusterSettingsToolStripMenuItem.Name = "clusterSettingsToolStripMenuItem";
-			clusterSettingsToolStripMenuItem.Size = new Size(227, 22);
+			clusterSettingsToolStripMenuItem.Size = new Size(240, 22);
 			clusterSettingsToolStripMenuItem.Text = "Cluster Settings";
 			clusterSettingsToolStripMenuItem.ToolTipText = "Adjust settings relevant to Cluster plot mode.";
 			clusterSettingsToolStripMenuItem.Click += Plot_ClusterSettings_Click;
@@ -416,7 +416,7 @@ namespace Mappalachia
 			// 
 			volumeDrawStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { volumeFillToolStripMenuItem, volumeBorderToolStripMenuItem, volumeBothToolStripMenuItem });
 			volumeDrawStyleToolStripMenuItem.Name = "volumeDrawStyleToolStripMenuItem";
-			volumeDrawStyleToolStripMenuItem.Size = new Size(227, 22);
+			volumeDrawStyleToolStripMenuItem.Size = new Size(240, 22);
 			volumeDrawStyleToolStripMenuItem.Text = "Volume Draw Style";
 			// 
 			// volumeFillToolStripMenuItem
@@ -446,15 +446,15 @@ namespace Mappalachia
 			// showPlotsInOtherSpacesToolStripMenuItem
 			// 
 			showPlotsInOtherSpacesToolStripMenuItem.Name = "showPlotsInOtherSpacesToolStripMenuItem";
-			showPlotsInOtherSpacesToolStripMenuItem.Size = new Size(227, 22);
-			showPlotsInOtherSpacesToolStripMenuItem.Text = "Show plots in other locations";
-			showPlotsInOtherSpacesToolStripMenuItem.ToolTipText = "Add notes to show where other locations (accessible from the current selected one) also contain quantities of your selected items.";
+			showPlotsInOtherSpacesToolStripMenuItem.Size = new Size(240, 22);
+			showPlotsInOtherSpacesToolStripMenuItem.Text = "Auto-find items in other spaces";
+			showPlotsInOtherSpacesToolStripMenuItem.ToolTipText = "Automatically plots where spaces reachable from this one contain more of the plotted item.";
 			showPlotsInOtherSpacesToolStripMenuItem.Click += Plot_ShowPlotsInOtherSpaces;
 			// 
 			// showRegionLevelsToolStripMenuItem
 			// 
 			showRegionLevelsToolStripMenuItem.Name = "showRegionLevelsToolStripMenuItem";
-			showRegionLevelsToolStripMenuItem.Size = new Size(227, 22);
+			showRegionLevelsToolStripMenuItem.Size = new Size(240, 22);
 			showRegionLevelsToolStripMenuItem.Text = "Show Region Levels";
 			showRegionLevelsToolStripMenuItem.ToolTipText = "Show the level range for plotted regions.";
 			showRegionLevelsToolStripMenuItem.Click += Plot_ShowRegionLevels_Click;
@@ -462,7 +462,7 @@ namespace Mappalachia
 			// drawInstanceFormIDToolStripMenuItem
 			// 
 			drawInstanceFormIDToolStripMenuItem.Name = "drawInstanceFormIDToolStripMenuItem";
-			drawInstanceFormIDToolStripMenuItem.Size = new Size(227, 22);
+			drawInstanceFormIDToolStripMenuItem.Size = new Size(240, 22);
 			drawInstanceFormIDToolStripMenuItem.Text = "Show Instance FormID";
 			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot.";
 			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
