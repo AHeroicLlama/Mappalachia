@@ -983,11 +983,11 @@ namespace Mappalachia
 			// Skip rows which are already in the ItemsToPlot list
 			foreach (DataGridViewRow? row in selectedRows)
 			{
-				GroupedSearchResult instance = (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"));
+				GroupedSearchResult result = (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"));
 
-				if (!ItemsToPlot.Contains(instance))
+				if (!ItemsToPlot.Contains(result))
 				{
-					itemsToAdd.Add(instance);
+					itemsToAdd.Add(result);
 				}
 			}
 
@@ -995,20 +995,20 @@ namespace Mappalachia
 
 			// Add the valid items to the actual list
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
-			foreach (GroupedSearchResult instance in itemsToAdd)
+			foreach (GroupedSearchResult result in itemsToAdd)
 			{
 				if (addAsGroup)
 				{
-					instance.LegendGroup = groupLegendGroup;
-					instance.PlotIcon = new PlotIcon(groupLegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize);
+					result.LegendGroup = groupLegendGroup;
+					result.PlotIcon = new PlotIcon(groupLegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize, result);
 				}
 				else
 				{
-					instance.LegendGroup = GetNextAvailableLegendGroup();
-					instance.PlotIcon = new PlotIcon(instance.LegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize);
+					result.LegendGroup = GetNextAvailableLegendGroup();
+					result.PlotIcon = new PlotIcon(result.LegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize, result);
 				}
 
-				ItemsToPlot.Add(instance);
+				ItemsToPlot.Add(result);
 			}
 
 			ItemsToPlot.RaiseListChangedEvents = true;

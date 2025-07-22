@@ -134,8 +134,8 @@ namespace Mappalachia
 			string query = "SELECT component, spaceFormID, componentQuantity, SUM(count) AS properCount " +
 				"FROM Scrap " +
 				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Scrap.junkFormID " +
-				$"WHERE component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-				$"OR component LIKE '%{substituteSearch}%' ESCAPE '{EscapeChar}'" +
+				$"WHERE (component LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR component LIKE '%{substituteSearch}%' ESCAPE '{EscapeChar}') " +
 				optionalSpaceClause +
 				"GROUP BY component, spaceFormID, componentQuantity;";
 
@@ -164,11 +164,10 @@ namespace Mappalachia
 
 			string substituteSearch = SubstituteNPC.Replace(searchTerm, string.Empty).Trim();
 
-			string query =
-				"SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
+			string query = "SELECT npcName, spaceFormID, spawnWeight, count(*) AS count " +
 				"FROM NPC " +
-				$"WHERE npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
-				$"OR npcName LIKE '%{substituteSearch}%' ESCAPE '{EscapeChar}'" +
+				$"WHERE (npcName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR npcName LIKE '%{substituteSearch}%' ESCAPE '{EscapeChar}') " +
 				optionalSpaceClause +
 				"GROUP BY NPC.spaceFormID, npcName, spawnWeight;";
 

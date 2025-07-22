@@ -24,9 +24,11 @@ namespace Mappalachia
 	{
 		public static double IconScale { get; } = 1.5;
 
-		static int LegendWidth { get; } = 600;
+		static int LegendXMax { get; } = 650;
 
-		static int LegendXOffset { get; } = 20;
+		static int LegendXPadding { get; } = 5;
+
+		static int LegendYPadding { get; } = 5;
 
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
 
@@ -227,7 +229,16 @@ namespace Mappalachia
 
 					if (topographic)
 					{
-						double range = (instance.HeightForTopograph - topographRange.Item1) / (topographRange.Item2 - topographRange.Item1);
+						double range;
+
+						if (topographRange.Item1 == topographRange.Item2)
+						{
+							range = 0.5;
+						}
+						else
+						{
+							range = (instance.HeightForTopograph - topographRange.Item1) / (topographRange.Item2 - topographRange.Item1);
+						}
 
 						// Overrides the image and color
 						color = LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), range);
@@ -632,28 +643,45 @@ namespace Mappalachia
 
 			if (settings.MapSettings.LegendStyle == LegendStyle.Extended)
 			{
-				Bitmap resizedImage = new Bitmap(MapImageResolution + LegendWidth + LegendXOffset, MapImageResolution);
+				Bitmap resizedImage = new Bitmap(MapImageResolution + LegendXMax, MapImageResolution);
 
 				using Graphics resizeGraphics = GraphicsFromImageHQ(resizedImage);
-				resizeGraphics.DrawImage(image, LegendWidth + LegendXOffset, 0);
+				resizeGraphics.DrawImage(image, LegendXMax, 0);
 				image = resizedImage;
 			}
 
 			using Graphics graphics = GraphicsFromImageHQ(image);
 
+			int iconSize = settings.PlotSettings.PlotIconSize;
+
 			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
 			// Then half it, flip it, and offset by the midpoint of the image
-			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendWidth, MapImageResolution)).Height, settings.PlotSettings.PlotIconSize)) / -2);
+			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendXMax, MapImageResolution)).Height, iconSize)) / -2);
 
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				SizeF bounds = graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendWidth, MapImageResolution));
+				Color legendColor = settings.PlotSettings.Mode == PlotMode.Topographic ?
+					LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), 0.5) :
+					item.PlotIcon.Color;
 
-				graphics.DrawStringWithDropShadow(item.GetLegendText(), FontLegend, new SolidBrush(item.PlotIcon.Color), new RectangleF(LegendXOffset, height, bounds.Width, bounds.Height), CenterLeft);
+				Image legendIcon = settings.PlotSettings.Mode == PlotMode.Topographic ?
+					item.PlotIcon.GetImage(legendColor) :
+					item.PlotIcon.GetImage();
 
-				graphics.DrawImageCentered(item.PlotIcon.GetImage(), new PointF(LegendXOffset / 2, height + (bounds.Height / 2)));
+				SizeF bounds = graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendXMax - iconSize - (LegendXPadding * 2), MapImageResolution));
 
-				height += Math.Max(bounds.Height, settings.PlotSettings.PlotIconSize);
+				graphics.DrawStringWithDropShadow(
+					item.GetLegendText(),
+					FontLegend,
+					new SolidBrush(legendColor),
+					new RectangleF((LegendXPadding * 2) + iconSize, height, bounds.Width, bounds.Height),
+					CenterLeft);
+
+				graphics.DrawImageCentered(
+					legendIcon,
+					new PointF(LegendXPadding + (iconSize / 2), height + (bounds.Height / 2)));
+
+				height += Math.Max(bounds.Height, iconSize + LegendYPadding);
 			}
 
 			return image;

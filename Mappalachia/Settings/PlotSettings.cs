@@ -29,7 +29,7 @@ namespace Mappalachia
 
 		public bool AutoFindPlotsInConnectedSpaces { get; set; } = false;
 
-		public bool ShowRegionLevels { get; set; } = false;
+		public bool ShowRegionLevels { get; set; } = true;
 
 		// TODO make editable in UI
 		public int PlotIconSize { get; set; } = 50;

@@ -6,6 +6,8 @@
 
 		Image Image { get; set; }
 
+		public GroupedSearchResult Parent { get; }
+
 		public Image GetImage()
 		{
 			return Image;
@@ -20,8 +22,10 @@
 		// The raw plot icon image from file - no shadow, no color
 		Image BaseIconImage { get; set; }
 
-		public PlotIcon(int offset, List<Color> palette, int size)
+		public PlotIcon(int offset, List<Color> palette, int size, GroupedSearchResult parent)
 		{
+			Parent = parent;
+
 			int colorIndex = offset % palette.Count;
 			Color = palette[colorIndex];
 
@@ -35,6 +39,15 @@
 
 		Image GenerateIconImage(Color color)
 		{
+			if (Parent.Entity is Library.Region)
+			{
+				Image volumeImage = new Bitmap(BaseIconImage.Width, BaseIconImage.Height);
+				using Graphics volumeGraphics = ImageHelper.GraphicsFromImageHQ(volumeImage);
+				volumeGraphics.Clear(color);
+
+				return volumeImage;
+			}
+
 			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
 			Image image = new Bitmap(BaseIconImage.Width + (Map.DropShadowOffset * 2), BaseIconImage.Height + (Map.DropShadowOffset * 2));
 			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
