@@ -101,6 +101,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005D87CA,,,0
 0066923E,,,0
 00781446,PackInF1SurvivalTentVintageCamperPKINStorageCell,,0
+008269FA,testStaticCollectioncontrol,Quick Test Cell,0
 000182CC,76HoldingCellPowerSystem,Quick Test Cell,0
 000648AC,,,0
 0007330C,COPY0265,,0
@@ -332,6 +333,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 006822A3,PackInATXPackInEventFurnitureAppleBarrelStorageCellDUPLICATE000,,0
 0078CBDF,WarehouseRaids,Quick Test Cell,0
 0079A1EF,DebugJamieR,Quick Test Cell,0
+008269FB,testStaticCollectionSCs,Quick Test Cell,0
 00005029,PackInPACKMtnTopCreosoteShrubSmall01StorageCell,,0
 00093B5D,,,0
 00192DC9,PackInBld02Angle45BrickACom01PackInStorageCell,,0
@@ -562,6 +564,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 0051AD6C,PackInMSiloOperationsConsoleSingleTall09StorageCell,,0
 00526A7C,,,0
 005600D8,PackInREPackInMiningStorageCell,,0
+008269FC,testStaticCollectioncontrolSCcombined,Quick Test Cell,0
 0000747E,zCUTDebugJustinM,Quick Test Cell,0
 0000792E,,,0
 0000C302,,,0
@@ -782,6 +785,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace
 005A65D9,PackInSheltersEntranceCavesmallStorageCell,,0
 00665A65,76HoldingCellNWOT,Quick Test Cell,0
 00777999,WarehouseGlassShader,Glass Shader Test Cell,0
+008269FD,testStaticCollectionFragmented,Quick Test Cell,0
 0000408B,zCUTTestLockpickHack,Quick Test Cell,0
 000043AB,PackInPACKToxicTreeStumpBranches02StorageCell,,0
 00004B17,zCUTTestCory01,Quick Test Cell,0
