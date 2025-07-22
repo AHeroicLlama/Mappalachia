@@ -2244,6 +2244,10 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 8511193,PackInF1S21SurvivalTentBoathousePKINStorageCell,,0,0
 8511195,PackInF1S21SurvivalTentBoathousePKINNewStorageCell,,0,0
 851270,COPY0285,,0,0
+8546810,testStaticCollectioncontrol,Quick Test Cell,0,0
+8546811,testStaticCollectionSCs,Quick Test Cell,0,0
+8546812,testStaticCollectioncontrolSCcombined,Quick Test Cell,0,0
+8546813,testStaticCollectionFragmented,Quick Test Cell,0,0
 87451,PackInPACKForestTrees030104StorageCell,,0,0
 87638,zCUTTestRender01,Quick Test Cell,0,0
 89026,,,0,0
