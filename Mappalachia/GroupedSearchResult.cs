@@ -26,16 +26,13 @@ namespace Mappalachia
 
 		public int LegendGroup { get; set; } = 0;
 
-		public string OverridingLegendText { private get; set; } = string.Empty;
+		public string LegendText { get; set; } = string.Empty;
 
-		public string GetLegendText()
+		public void GenerateLegendText()
 		{
-			if (!OverridingLegendText.IsNullOrWhiteSpace())
-			{
-				return OverridingLegendText;
-			}
-
 			string text;
+
+			List<string> additionalInfo = new List<string>();
 
 			if (Entity is DerivedNPC || Entity is DerivedScrap)
 			{
@@ -47,8 +44,23 @@ namespace Mappalachia
 
 				if (!Entity.DisplayName.IsNullOrWhiteSpace())
 				{
-					text += $" ({Entity.DisplayName})";
+					additionalInfo.Add($"\"{Entity.DisplayName}\"");
 				}
+			}
+
+			if (!Label.IsNullOrWhiteSpace())
+			{
+				additionalInfo.Add(Label);
+			}
+
+			if (LockLevelRelevant())
+			{
+				additionalInfo.Add(LockLevel.ToFriendlyName());
+			}
+
+			if (additionalInfo.Count > 0)
+			{
+				text += $" ({string.Join(", ", additionalInfo)})";
 			}
 
 			if (Entity is DerivedNPC)
@@ -61,7 +73,12 @@ namespace Mappalachia
 				text += $" [x{SpawnWeight}]";
 			}
 
-			return text;
+			LegendText = text;
+		}
+
+		bool LockLevelRelevant()
+		{
+			return Entity.Signature.IsLockable() || InContainer || LockLevel != LockLevel.None;
 		}
 
 		// Properties referenced by UI DGVs to map data to cells
@@ -78,7 +95,7 @@ namespace Mappalachia
 
 		public string DataValueInContainer => InContainer ? "Yes" : "No";
 
-		public string DataValueLockLevel => !Entity.Signature.IsLockable() && !InContainer && LockLevel == LockLevel.None ? "N/A" : LockLevel.ToFriendlyName();
+		public string DataValueLockLevel => LockLevelRelevant() ? LockLevel.ToFriendlyName() : "N/A";
 
 		public double DataValueSpawnWeight => SpawnWeight * 100;
 
@@ -88,8 +105,8 @@ namespace Mappalachia
 
 		public void Dispose()
 		{
-			plotIcon?.Dispose();
 			plotIcon = null;
+			LegendText = string.Empty;
 			GC.SuppressFinalize(this);
 		}
 	}

@@ -570,8 +570,18 @@ namespace Mappalachia
 		// Returns the min (item1) and max (item2) z coordinate of all instances of the itemsToPlot in the current space
 		public static async Task<(double, double)> GetZRange(List<GroupedSearchResult> itemsToPlot, Settings settings)
 		{
+			if (itemsToPlot.Count == 0)
+			{
+				return (0, 0);
+			}
+
 			List<Instance> allInstances = (await Task.WhenAll(itemsToPlot.Select(async item => await GetInstances(item, settings.Space))))
 				.SelectMany(instance => instance).ToList();
+
+			if (allInstances.Count == 0)
+			{
+				return (0, 0);
+			}
 
 			return (allInstances.Min(i => i.HeightForTopograph), allInstances.Max(i => i.HeightForTopograph));
 		}

@@ -48,10 +48,19 @@ namespace Mappalachia
 			InitializeSignatureListView();
 			InitializeLockLevelListView();
 
+			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LegendText", DataPropertyName = "LegendText", FillWeight = 10, ReadOnly = false });
+
 			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
 
-			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Plot Icon", FillWeight = 2, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
+			// Set these columns hidden in the Items To Plot
+			foreach (string columnName in new List<string>() { "EditorID", "DisplayName", "Label", "SpawnWeight", })
+			{
+				DataGridViewColumn column = dataGridViewItemsToPlot.Columns[columnName] ?? throw new Exception($"No Column with name {columnName}");
+				column.Visible = false;
+			}
+
+			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "PlotIcon", FillWeight = 2, ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
 			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, mapLegendStyleToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem })
 			{
@@ -444,7 +453,7 @@ namespace Mappalachia
 
 			DataGridViewColumn paintedColumn = dataGridViewItemsToPlot.Columns[e.ColumnIndex];
 
-			if (paintedColumn.Name == "Plot Icon")
+			if (paintedColumn.Name == "PlotIcon")
 			{
 				e.PaintBackground(e.ClipBounds, true);
 
@@ -476,6 +485,73 @@ namespace Mappalachia
 
 				e.Handled = true;
 			}
+		}
+
+		// Handle editing the legend text on Items To Plot
+		private void DataGridViewItemsToPlot_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0 || e.ColumnIndex < 0)
+			{
+				return;
+			}
+
+			DataGridViewColumn editedColumn = dataGridViewItemsToPlot.Columns[e.ColumnIndex];
+
+			if (editedColumn.Name != "LegendText")
+			{
+				return;
+			}
+
+			DataGridViewRow editedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
+			GroupedSearchResult boundData = (GroupedSearchResult)(editedRow.DataBoundItem ?? throw new Exception("Edited row bound to null"));
+
+			// Find rows with the same legend group - make their legend text the same
+			foreach (GroupedSearchResult itemToPlot in ItemsToPlot)
+			{
+				if (itemToPlot.LegendGroup != boundData.LegendGroup)
+				{
+					continue;
+				}
+
+				itemToPlot.LegendText = boundData.LegendText;
+			}
+
+			dataGridViewItemsToPlot.InvalidateColumn(e.ColumnIndex);
+		}
+
+		// Edit plot icon by clicking the cell
+		private void DataGridViewItemsToPlot_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0 || e.ColumnIndex < 0)
+			{
+				return;
+			}
+
+			DataGridViewColumn editedColumn = dataGridViewItemsToPlot.Columns[e.ColumnIndex];
+
+			if (editedColumn.Name != "PlotIcon")
+			{
+				return;
+			}
+
+			DataGridViewRow editedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
+			GroupedSearchResult boundData = (GroupedSearchResult)(editedRow.DataBoundItem ?? throw new Exception("Edited row bound to null"));
+
+			// WIP TODO - Open the form to create new icon, and assign it
+			boundData.PlotIcon.Color = Color.HotPink;
+
+			// Find rows with the same legend group - make their icon the same
+			foreach (GroupedSearchResult itemToPlot in ItemsToPlot)
+			{
+				if (itemToPlot.LegendGroup != boundData.LegendGroup)
+				{
+					continue;
+				}
+
+				itemToPlot.PlotIcon = boundData.PlotIcon;
+			}
+
+			dataGridViewItemsToPlot.InvalidateColumn(e.ColumnIndex);
 		}
 
 		// Programatically configure either DGV
@@ -997,6 +1073,8 @@ namespace Mappalachia
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
 			foreach (GroupedSearchResult result in itemsToAdd)
 			{
+				result.GenerateLegendText();
+
 				if (addAsGroup)
 				{
 					result.LegendGroup = groupLegendGroup;

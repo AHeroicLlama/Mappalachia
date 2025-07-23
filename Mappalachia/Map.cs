@@ -32,7 +32,7 @@ namespace Mappalachia
 
 		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
 
-		static Font FontLegend { get; } = GetFont(32);
+		static Font FontLegend { get; } = GetFont(40);
 
 		static Font FontItemsInOtherSpaces { get; } = GetFont(20);
 
@@ -48,7 +48,9 @@ namespace Mappalachia
 
 		static int VolumeEdgeThickness { get; } = 5;
 
-		static int VolumeFillAlpha { get; } = 128;
+		static int VolumeFillAlpha { get; } = 64;
+
+		static int TopographLegendAlpha { get; } = 128;
 
 		static int ClusterLabelAlpha { get; } = 200;
 
@@ -273,6 +275,22 @@ namespace Mappalachia
 				List<Instance> instances = await Database.GetInstances(item, item.Space);
 				List<Cluster> clusters = new List<Cluster>();
 
+				// Split out volumes - draw them normally, outside of the cluster calculation + draw
+				List<Instance> regions = instances.Where(instance => instance.Entity is Library.Region).ToList();
+				List<Instance> shapes = instances.Where(instance => instance.PrimitiveShape != null).ToList();
+
+				instances = instances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape == null).ToList();
+
+				foreach (Instance regionInstance in regions)
+				{
+					DrawRegion(settings, graphics, (Library.Region)regionInstance.Entity, item.PlotIcon.Color);
+				}
+
+				foreach (Instance shapeInstance in shapes)
+				{
+					DrawPrimitiveShape(settings, graphics, shapeInstance, item.PlotIcon.Color);
+				}
+
 				int i = 0;
 				foreach (Instance outerInstance in instances)
 				{
@@ -345,16 +363,24 @@ namespace Mappalachia
 		{
 			Dictionary<Space, int> connectionsToSpace = new Dictionary<Space, int>();
 
+			List<Instance> teleportersInSelectedSpace = await Database.GetTeleporters(settings.Space);
+
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
 				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Finding instances in other spaces");
 
+				// We're purely plotting this whole search result in the selected space - skip
+				if (item.Space == settings.Space && !settings.PlotSettings.AutoFindPlotsInConnectedSpaces)
+				{
+					continue;
+				}
+
 				// Find all 'teleporters' which exit this space or the space which this item is in
 				// Take only one result per the source and destination of the teleporter
 				List<Instance> teleporters =
 					(await Database.GetTeleporters(item.Space))
-					.Concat(await Database.GetTeleporters(settings.Space))
+					.Concat(teleportersInSelectedSpace)
 					.DistinctBy(i => (i.Space, i.TeleportsTo)).ToList();
 
 				foreach (Instance teleporter in teleporters)
@@ -439,7 +465,7 @@ namespace Mappalachia
 			for (float y = 0; y < height; y += step)
 			{
 				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
-				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height)), sliceRect);
+				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
 			}
 		}
 
@@ -467,20 +493,22 @@ namespace Mappalachia
 				{
 					string levelString = string.Empty;
 
-					if (region.MinLevel != 0 && region.MaxLevel != 0)
+					if (region.MinLevel == 0 && region.MaxLevel == 0)
 					{
-						if (region.MinLevel <= 1)
-						{
-							levelString = $"\u2264{region.MaxLevel}";
-						}
-						else if (region.MaxLevel == 0)
-						{
-							levelString = $"\u2265{region.MinLevel}";
-						}
-						else
-						{
-							levelString = $"{region.MinLevel}-{region.MaxLevel}";
-						}
+						continue;
+					}
+
+					if (region.MinLevel <= 1 && region.MaxLevel != 0)
+					{
+						levelString = $"\u2264{region.MaxLevel}";
+					}
+					else if (region.MinLevel != 0 && region.MaxLevel == 0)
+					{
+						levelString = $"\u2265{region.MinLevel}";
+					}
+					else
+					{
+						levelString = $"{region.MinLevel}-{region.MaxLevel}";
 					}
 
 					graphics.DrawStringCentered(levelString, FontRegionLevel, new SolidBrush(color), subregion.GetCentroid().AsImagePoint(settings));
@@ -631,6 +659,8 @@ namespace Mappalachia
 		// May return an image of different dimensions if extended legend is used
 		static Image DrawLegend(List<GroupedSearchResult> itemsToPlot, Settings settings, Image image)
 		{
+			itemsToPlot = itemsToPlot.DistinctBy(item => (item.LegendGroup, item.LegendText, item.PlotIcon)).ToList();
+
 			if (itemsToPlot.Count == 0)
 			{
 				return image;
@@ -656,7 +686,7 @@ namespace Mappalachia
 
 			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
 			// Then half it, flip it, and offset by the midpoint of the image
-			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendXMax, MapImageResolution)).Height, iconSize)) / -2);
+			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax, MapImageResolution)).Height, iconSize)) / -2);
 
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
@@ -664,22 +694,25 @@ namespace Mappalachia
 					LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), 0.5) :
 					item.PlotIcon.Color;
 
-				Image legendIcon = settings.PlotSettings.Mode == PlotMode.Topographic ?
-					item.PlotIcon.GetImage(legendColor) :
-					item.PlotIcon.GetImage();
-
-				SizeF bounds = graphics.MeasureString(item.GetLegendText(), FontLegend, new SizeF(LegendXMax - iconSize - (LegendXPadding * 2), MapImageResolution));
+				SizeF bounds = graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - iconSize - (LegendXPadding * 2), MapImageResolution));
 
 				graphics.DrawStringWithDropShadow(
-					item.GetLegendText(),
+					item.LegendText,
 					FontLegend,
 					new SolidBrush(legendColor),
 					new RectangleF((LegendXPadding * 2) + iconSize, height, bounds.Width, bounds.Height),
 					CenterLeft);
 
-				graphics.DrawImageCentered(
-					legendIcon,
-					new PointF(LegendXPadding + (iconSize / 2), height + (bounds.Height / 2)));
+				if (item.Entity is not Library.Region)
+				{
+					Image legendIcon = settings.PlotSettings.Mode == PlotMode.Topographic ?
+					item.PlotIcon.GetImage(legendColor) :
+					item.PlotIcon.GetImage();
+
+					graphics.DrawImageCentered(
+						legendIcon,
+						new PointF(LegendXPadding + (iconSize / 2), height + (bounds.Height / 2)));
+				}
 
 				height += Math.Max(bounds.Height, iconSize + LegendYPadding);
 			}

@@ -54,6 +54,7 @@
 			// menuStripPreview
 			// 
 			menuStripPreview.AllowClickThrough = true;
+			menuStripPreview.BackColor = SystemColors.ControlDark;
 			menuStripPreview.Items.AddRange(new ToolStripItem[] { resetZoomMenuItem, keepOnTopMenuItem });
 			menuStripPreview.Location = new Point(0, 0);
 			menuStripPreview.Name = "menuStripPreview";

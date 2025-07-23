@@ -56,19 +56,7 @@ namespace Mappalachia
 		// Return a value effectively representing the current zoom level
 		float GetZoomFactor()
 		{
-			return (float)Common.MapImageResolution / pictureBoxMapDisplay.Width;
-		}
-
-		// Return a rectangle representing the extents that the map image is actually visible, given pan or zoom
-		public RectangleF GetCurrentPanZoomView()
-		{
-			float factor = GetZoomFactor();
-
-			return new RectangleF(
-				(pictureBoxMapDisplay.Location.X * -1) * factor,
-				((pictureBoxMapDisplay.Location.Y * -1) + menuStripPreview.Height) * factor,
-				ClientSize.Width * factor,
-				(ClientSize.Height - menuStripPreview.Height) * factor);
+			return (float)MapImage.Width / pictureBoxMapDisplay.Width;
 		}
 
 		// Set the form itself so the 'client area'/viewport is square, (matching the map image)
@@ -186,21 +174,28 @@ namespace Mappalachia
 			}
 
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
+			ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
 
-			// Don't allow control of spotlight if the legend style is extended, as the image is not square
-			if (FormMain.Settings.MapSettings.LegendStyle != LegendStyle.Extended)
+			spotlight.Click += (s, args) =>
 			{
-				ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
+				float factor = GetZoomFactor();
 
-				spotlight.Click += (s, args) =>
+				// Extended legend style results in a final image larger than the normal dimensions
+				if (FormMain.Settings.MapSettings.LegendStyle == LegendStyle.Extended)
 				{
-					float factor = GetZoomFactor();
+					FormMain.SetSpotlightLocation(new PointF(
+						(e.X * factor) - (MapImage.Width - Common.MapImageResolution),
+						(e.Y * factor) - ((MapImage.Width - Common.MapImageResolution) / 2)));
+				}
+				else
+				{
 					FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
-					SizeMapToForm();
-				};
+				}
 
-				contextMenu.Items.Add(spotlight);
-			}
+				SizeMapToForm();
+			};
+
+			contextMenu.Items.Add(spotlight);
 
 			if (FormMain.Settings.MapSettings.SpotlightEnabled)
 			{

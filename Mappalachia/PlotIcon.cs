@@ -1,27 +1,7 @@
 ﻿namespace Mappalachia
 {
-	public class PlotIcon : IDisposable
+	public class PlotIcon
 	{
-		public Color Color { get; }
-
-		Image Image { get; set; }
-
-		public GroupedSearchResult Parent { get; }
-
-		public Image GetImage()
-		{
-			return Image;
-		}
-
-		// Re-draw the icon image, using a different color
-		public Image GetImage(Color color)
-		{
-			return GenerateIconImage(color);
-		}
-
-		// The raw plot icon image from file - no shadow, no color
-		Image BaseIconImage { get; set; }
-
 		public PlotIcon(int offset, List<Color> palette, int size, GroupedSearchResult parent)
 		{
 			Parent = parent;
@@ -34,7 +14,52 @@
 
 			// Gather the raw icon from file and set it to the requested size
 			BaseIconImage = FileIO.GetPlotIconImage(iconIndex).Resize(size, size);
-			Image = GenerateIconImage(Color);
+		}
+
+		Color color;
+
+		public Color Color
+		{
+			get => color;
+			set
+			{
+				color = value;
+				InvalidateImage();
+			}
+		}
+
+		Image baseIconImage;
+
+		// The raw plot icon image from file - no shadow, no color
+		Image BaseIconImage
+		{
+			get => baseIconImage;
+			set
+			{
+				baseIconImage = value;
+				InvalidateImage();
+			}
+		}
+
+		Image? Image { get; set; }
+
+		public GroupedSearchResult Parent { get; }
+
+		public Image GetImage()
+		{
+			Image ??= GenerateIconImage(Color);
+			return Image;
+		}
+
+		void InvalidateImage()
+		{
+			Image = null;
+		}
+
+		// Re-draw the icon image, using a different color
+		public Image GetImage(Color color)
+		{
+			return GenerateIconImage(color);
 		}
 
 		Image GenerateIconImage(Color color)
@@ -56,12 +81,6 @@
 			graphics.DrawImage(BaseIconImage.SetColor(color), new PointF(Map.DropShadowOffset, Map.DropShadowOffset));
 
 			return image;
-		}
-
-		public void Dispose()
-		{
-			Image.Dispose();
-			GC.SuppressFinalize(this);
 		}
 	}
 }
