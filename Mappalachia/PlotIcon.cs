@@ -4,6 +4,7 @@
 	{
 		public PlotIcon(int offset, List<Color> palette, int size, GroupedSearchResult parent)
 		{
+			Size = size;
 			Parent = parent;
 
 			int colorIndex = offset % palette.Count;
@@ -13,7 +14,19 @@
 			int iconIndex = (offset / palette.Count) % availableIcons;
 
 			// Gather the raw icon from file and set it to the requested size
-			BaseIconImage = FileIO.GetPlotIconImage(iconIndex).Resize(size, size);
+			BaseIconImage = FileIO.GetPlotIconImage(iconIndex);
+		}
+
+		int size;
+
+		public int Size
+		{
+			get => size;
+			set
+			{
+				size = value;
+				InvalidateImage();
+			}
 		}
 
 		Color color;
@@ -66,7 +79,7 @@
 		{
 			if (Parent.Entity is Library.Region)
 			{
-				Image volumeImage = new Bitmap(BaseIconImage.Width, BaseIconImage.Height);
+				Image volumeImage = new Bitmap(Size, Size);
 				using Graphics volumeGraphics = ImageHelper.GraphicsFromImageHQ(volumeImage);
 				volumeGraphics.Clear(color);
 
@@ -74,11 +87,11 @@
 			}
 
 			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
-			Image image = new Bitmap(BaseIconImage.Width + (Map.DropShadowOffset * 2), BaseIconImage.Height + (Map.DropShadowOffset * 2));
+			Image image = new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
 			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
 
-			graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new PointF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2));
-			graphics.DrawImage(BaseIconImage.SetColor(color), new PointF(Map.DropShadowOffset, Map.DropShadowOffset));
+			graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new RectangleF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2, Size, Size));
+			graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));
 
 			return image;
 		}

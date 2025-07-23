@@ -682,11 +682,10 @@ namespace Mappalachia
 
 			using Graphics graphics = GraphicsFromImageHQ(image);
 
-			int iconSize = settings.PlotSettings.PlotIconSize;
-
+			// TODO BUG - height of varying height plot icons not correct
 			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
 			// Then half it, flip it, and offset by the midpoint of the image
-			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax, MapImageResolution)).Height, iconSize)) / -2);
+			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax, MapImageResolution)).Height, item.PlotIcon.Size)) / -2);
 
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
@@ -694,13 +693,13 @@ namespace Mappalachia
 					LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), 0.5) :
 					item.PlotIcon.Color;
 
-				SizeF bounds = graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - iconSize - (LegendXPadding * 2), MapImageResolution));
+				SizeF bounds = graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution));
 
 				graphics.DrawStringWithDropShadow(
 					item.LegendText,
 					FontLegend,
 					new SolidBrush(legendColor),
-					new RectangleF((LegendXPadding * 2) + iconSize, height, bounds.Width, bounds.Height),
+					new RectangleF((LegendXPadding * 2) + item.PlotIcon.Size, height, bounds.Width, bounds.Height),
 					CenterLeft);
 
 				if (item.Entity is not Library.Region)
@@ -711,10 +710,10 @@ namespace Mappalachia
 
 					graphics.DrawImageCentered(
 						legendIcon,
-						new PointF(LegendXPadding + (iconSize / 2), height + (bounds.Height / 2)));
+						new PointF(LegendXPadding + (item.PlotIcon.Size / 2), height + (bounds.Height / 2)));
 				}
 
-				height += Math.Max(bounds.Height, iconSize + LegendYPadding);
+				height += Math.Max(bounds.Height, item.PlotIcon.Size + LegendYPadding);
 			}
 
 			return image;

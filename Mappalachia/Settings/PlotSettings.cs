@@ -31,6 +31,10 @@ namespace Mappalachia
 
 		public bool ShowRegionLevels { get; set; } = true;
 
+		public int PlotIconMaxSize { get; } = 256;
+
+		public int PlotIconMinSize { get; } = 16;
+
 		// TODO make editable in UI
 		public int PlotIconSize { get; set; } = 50;
 

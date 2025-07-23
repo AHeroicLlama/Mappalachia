@@ -102,7 +102,7 @@ namespace Mappalachia
 
 		public static int GetAvailblePlotIconCount()
 		{
-			int count = Directory.GetFiles(Paths.IconsPath, "*" + PlotIconFileType).Count();
+			int count = Directory.GetFiles(Paths.IconsPath, "*" + PlotIconFileType).Length;
 
 			if (count < 1)
 			{

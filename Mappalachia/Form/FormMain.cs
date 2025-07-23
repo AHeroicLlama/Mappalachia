@@ -537,8 +537,16 @@ namespace Mappalachia
 			DataGridViewRow editedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 			GroupedSearchResult boundData = (GroupedSearchResult)(editedRow.DataBoundItem ?? throw new Exception("Edited row bound to null"));
 
-			// WIP TODO - Open the form to create new icon, and assign it
-			boundData.PlotIcon.Color = Color.HotPink;
+			FormEditPlotIcon plotIconForm = new FormEditPlotIcon(this, boundData.PlotIcon);
+
+			if (plotIconForm.ShowDialog() == DialogResult.OK)
+			{
+				boundData.PlotIcon = plotIconForm.CurrentIcon;
+			}
+			else
+			{
+				return;
+			}
 
 			// Find rows with the same legend group - make their icon the same
 			foreach (GroupedSearchResult itemToPlot in ItemsToPlot)
