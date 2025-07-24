@@ -83,20 +83,31 @@ namespace Mappalachia
 		public static Image GetPlotIconImage(int index)
 		{
 			string targetFile = Directory.GetFiles(Paths.IconsPath)[index];
+			return GetPlotIconImage(targetFile);
+		}
 
-			if (PlotIconImageCache.TryGetValue(targetFile, out Image? value))
+		// Return a new copy of the plot icon image at the given path
+		public static Image GetPlotIconImage(string path)
+		{
+			Image image;
+
+			try
 			{
-				return new Bitmap(value);
+				if (PlotIconImageCache.TryGetValue(path, out Image? value))
+				{
+					return value;
+				}
+
+				image = new Bitmap(path);
+			}
+			catch (Exception e)
+			{
+				Notify.GenericError("Failed to load plot icon image", $"There was an error loading the file {Path.GetFullPath(path)} as a plot icon image.\nIf you're using custom plot icons, ensure they meet the criteria listed in the user documentation.", e);
+
+				image = new Bitmap(8, 8);
 			}
 
-			if (!File.Exists(targetFile))
-			{
-				throw new ArgumentException($"{targetFile} is not a valid plot icon file");
-			}
-
-			Image image = new Bitmap(targetFile);
-			PlotIconImageCache[targetFile] = image;
-
+			PlotIconImageCache[path] = image;
 			return new Bitmap(image);
 		}
 

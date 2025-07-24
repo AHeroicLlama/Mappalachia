@@ -2,6 +2,14 @@
 {
 	public class PlotIcon
 	{
+		public PlotIcon(PlotIcon source)
+		{
+			Parent = source.Parent;
+			Size = source.Size;
+			Color = source.Color;
+			baseIconImage = source.BaseIconImage;
+		}
+
 		public PlotIcon(int offset, List<Color> palette, int size, GroupedSearchResult parent)
 		{
 			Size = size;
@@ -14,7 +22,7 @@
 			int iconIndex = (offset / palette.Count) % availableIcons;
 
 			// Gather the raw icon from file and set it to the requested size
-			BaseIconImage = FileIO.GetPlotIconImage(iconIndex);
+			baseIconImage = FileIO.GetPlotIconImage(iconIndex);
 		}
 
 		int size;
@@ -44,9 +52,9 @@
 		Image baseIconImage;
 
 		// The raw plot icon image from file - no shadow, no color
-		Image BaseIconImage
+		public Image BaseIconImage
 		{
-			get => baseIconImage;
+			private get => baseIconImage;
 			set
 			{
 				baseIconImage = value;

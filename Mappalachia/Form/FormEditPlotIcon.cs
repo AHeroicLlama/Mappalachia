@@ -18,14 +18,26 @@ namespace Mappalachia
 
 			trackBarIconSize.Minimum = FormMain.Settings.PlotSettings.PlotIconMinSize;
 			trackBarIconSize.Maximum = FormMain.Settings.PlotSettings.PlotIconMaxSize;
-			trackBarIconSize.Value = CurrentIcon.Size;
+			trackBarIconSize.Value = Math.Clamp(CurrentIcon.Size, trackBarIconSize.Minimum, trackBarIconSize.Maximum);
+
+			if (CurrentIcon.Parent.Entity is Library.Region)
+			{
+				buttonSelectIcon.Enabled = false;
+				trackBarIconSize.Enabled = false;
+			}
 
 			RefreshPreviewImage();
 		}
 
 		private void ButtonSelectIcon_Click(object sender, EventArgs e)
 		{
-			// TODO open file picker at icon folder and load accordingly
+			OpenFileDialog openFileDialog = new OpenFileDialog() { InitialDirectory = Path.GetFullPath(Paths.IconsPath), Filter = "PNG|*.png" };
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				CurrentIcon.BaseIconImage = FileIO.GetPlotIconImage(openFileDialog.FileName);
+				RefreshPreviewImage();
+			}
 		}
 
 		private void ButtonSelectColor_Click(object sender, EventArgs e)

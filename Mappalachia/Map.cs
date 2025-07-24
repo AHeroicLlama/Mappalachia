@@ -24,7 +24,7 @@ namespace Mappalachia
 	{
 		public static double IconScale { get; } = 1.5;
 
-		static int LegendXMax { get; } = 650;
+		static int LegendXMax { get; } = (int)(MapImageResolution / 6.3);
 
 		static int LegendXPadding { get; } = 5;
 
@@ -40,7 +40,7 @@ namespace Mappalachia
 
 		static Font FontWatermark { get; } = GetFont(60);
 
-		static Font FontClusterLabel { get; } = GetFont(26);
+		static Font FontClusterLabel { get; } = GetFont(32);
 
 		static Font FontInstanceFormID { get; } = GetFont(32);
 
@@ -68,18 +68,20 @@ namespace Mappalachia
 
 		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
+		static StringFormat CenterLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+
 		static StringFormat TopRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near };
 
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
-		static StringFormat CenterLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+		static int TopographLegendRectHeight { get; } = MapImageResolution / 3;
 
-		static int TopographLegendRectHeight { get; } = 1600;
+		static int TopographLegendRectWidth { get; } = MapImageResolution / 40;
 
 		static RectangleF TopographLegendRect { get; } = new RectangleF(
-			MapImageResolution - 150,
+			MapImageResolution - TopographLegendRectWidth,
 			(MapImageResolution - TopographLegendRectHeight) / 2,
-			100,
+			TopographLegendRectWidth,
 			TopographLegendRectHeight);
 
 		static float TopographLegendDivisions { get; } = 100;
@@ -110,6 +112,8 @@ namespace Mappalachia
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
+			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
+
 			if (itemsToPlot.Count > 0)
 			{
 				// Call the relevant plot function
@@ -133,8 +137,8 @@ namespace Mappalachia
 				}
 
 				DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
-				DrawInstanceFormIDs(itemsToPlot, settings, graphics);
-				mapImage = DrawLegend(itemsToPlot, settings, mapImage);
+				DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
+				mapImage = DrawLegend(itemsToPlot, settings, mapImage, progressInfo);
 			}
 
 			DrawWaterMark(settings, graphics);
@@ -226,10 +230,11 @@ namespace Mappalachia
 
 				foreach (Instance instance in instances)
 				{
-					Image iconImage = item.PlotIcon.GetImage();
+					Image? iconImage = null;
 					Color color = item.PlotIcon.Color;
 
-					if (topographic)
+					// If this is topographic plot mode, and this is not a volume
+					if (topographic && item.Entity is not Library.Region)
 					{
 						double range;
 
@@ -244,7 +249,12 @@ namespace Mappalachia
 
 						// Overrides the image and color
 						color = LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), range);
-						iconImage = item.PlotIcon.GetImage(color);
+
+						// If this is not a shape (therefore a normal topograph plot)
+						if (instance.PrimitiveShape == null)
+						{
+							iconImage = item.PlotIcon.GetImage(color);
+						}
 					}
 
 					if (instance.Entity is Library.Region region)
@@ -257,7 +267,7 @@ namespace Mappalachia
 					}
 					else
 					{
-						graphics.DrawImageCentered(iconImage, instance.Coord.AsImagePoint(settings));
+						graphics.DrawImageCentered(iconImage ?? item.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
 					}
 				}
 			}
@@ -434,15 +444,23 @@ namespace Mappalachia
 		}
 
 		// Draw the FormID of the instance of the plot
-		static async void DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics)
+		static async void DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
 		{
 			if (!settings.PlotSettings.DrawInstanceFormID)
 			{
 				return;
 			}
 
+			int i = 0;
 			foreach (GroupedSearchResult searchResult in itemsToPlot)
 			{
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Drawing Instance FormIDs");
+
+				if (searchResult.Space != settings.Space)
+				{
+					continue;
+				}
+
 				foreach (Instance instance in await Database.GetInstances(searchResult, settings.Space))
 				{
 					if (instance.InstanceFormID == 0)
@@ -657,9 +675,9 @@ namespace Mappalachia
 		}
 
 		// May return an image of different dimensions if extended legend is used
-		static Image DrawLegend(List<GroupedSearchResult> itemsToPlot, Settings settings, Image image)
+		static Image DrawLegend(List<GroupedSearchResult> itemsToPlot, Settings settings, Image image, Progress<ProgressInfo>? progressInfo)
 		{
-			itemsToPlot = itemsToPlot.DistinctBy(item => (item.LegendGroup, item.LegendText, item.PlotIcon)).ToList();
+			itemsToPlot = itemsToPlot.DistinctBy(item => (item.LegendGroup, item.LegendText)).ToList();
 
 			if (itemsToPlot.Count == 0)
 			{
@@ -682,38 +700,40 @@ namespace Mappalachia
 
 			using Graphics graphics = GraphicsFromImageHQ(image);
 
-			// TODO BUG - height of varying height plot icons not correct
 			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
 			// Then half it, flip it, and offset by the midpoint of the image
-			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax, MapImageResolution)).Height, item.PlotIcon.Size)) / -2);
+			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size)) / -2);
 
+			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				Color legendColor = settings.PlotSettings.Mode == PlotMode.Topographic ?
-					LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), 0.5) :
-					item.PlotIcon.Color;
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Drawing legend");
 
 				SizeF bounds = graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution));
+
+				float halfRowHeight = Math.Max(bounds.Height, item.PlotIcon.Size + LegendYPadding) / 2;
+				float midPointRowPos = height + halfRowHeight;
+				float iconXMid = LegendXPadding + (item.PlotIcon.Size / 2);
 
 				graphics.DrawStringWithDropShadow(
 					item.LegendText,
 					FontLegend,
-					new SolidBrush(legendColor),
-					new RectangleF((LegendXPadding * 2) + item.PlotIcon.Size, height, bounds.Width, bounds.Height),
+					new SolidBrush(item.PlotIcon.Color),
+					new RectangleF(iconXMid * 2, midPointRowPos - (bounds.Height / 2), bounds.Width, bounds.Height),
 					CenterLeft);
 
 				if (item.Entity is not Library.Region)
 				{
 					Image legendIcon = settings.PlotSettings.Mode == PlotMode.Topographic ?
-					item.PlotIcon.GetImage(legendColor) :
-					item.PlotIcon.GetImage();
+						item.PlotIcon.GetImage(item.PlotIcon.Color) :
+						item.PlotIcon.GetImage();
 
 					graphics.DrawImageCentered(
 						legendIcon,
-						new PointF(LegendXPadding + (item.PlotIcon.Size / 2), height + (bounds.Height / 2)));
+						new PointF(iconXMid, midPointRowPos));
 				}
 
-				height += Math.Max(bounds.Height, item.PlotIcon.Size + LegendYPadding);
+				height += halfRowHeight * 2;
 			}
 
 			return image;

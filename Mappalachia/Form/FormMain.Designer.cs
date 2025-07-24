@@ -623,6 +623,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			dataGridViewItemsToPlot.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			dataGridViewItemsToPlot.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewItemsToPlot.EditMode = DataGridViewEditMode.EditOnEnter;
 			dataGridViewItemsToPlot.Location = new Point(12, 529);
 			dataGridViewItemsToPlot.MinimumSize = new Size(960, 170);
 			dataGridViewItemsToPlot.Name = "dataGridViewItemsToPlot";
@@ -630,8 +631,8 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.Size = new Size(963, 170);
 			dataGridViewItemsToPlot.TabIndex = 9;
 			dataGridViewItemsToPlot.CellClick += DataGridViewItemsToPlot_CellClick;
-			dataGridViewItemsToPlot.CellEndEdit += DataGridViewItemsToPlot_CellEndEdit;
 			dataGridViewItemsToPlot.CellPainting += DataGridViewItemsToPlot_CellPainting;
+			dataGridViewItemsToPlot.CellValidating += DataGridViewItemsToPlot_CellValidating;
 			// 
 			// listViewSignature
 			// 

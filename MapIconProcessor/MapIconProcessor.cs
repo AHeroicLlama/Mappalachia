@@ -49,7 +49,7 @@ class MapIconProcessor
 		StdOutWithColor("Rendering plot icon shapes...", ColorInfo);
 
 		int size = 256;
-		Pen pen = new Pen(Color.Black, 20);
+		Pen pen = new Pen(Color.Yellow, 20);
 		int padding = (int)Math.Round(5 + pen.Width);
 		Image image = new Bitmap(size, size);
 
@@ -69,7 +69,7 @@ class MapIconProcessor
 
 		// Marker triangle
 		int trianglePadding = 60;
-		graphics.DrawPolygon(pen, new PointF(trianglePadding, padding), new PointF(size - trianglePadding, padding), new PointF(size / 2f, size / 2f));
+		graphics.DrawPolygon(pen, new PointF(trianglePadding, padding), new PointF(size - trianglePadding, padding), new PointF(size / 2f, (size / 2f) - (pen.Width / 2) - 2));
 		image.Save($"{IconPath}B{Common.PlotIconFileType}");
 
 		graphics.Clear(Color.Transparent);

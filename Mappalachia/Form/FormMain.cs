@@ -48,13 +48,14 @@ namespace Mappalachia
 			InitializeSignatureListView();
 			InitializeLockLevelListView();
 
+			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LegendGroup", DataPropertyName = "LegendGroup", FillWeight = 2, ReadOnly = false });
 			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LegendText", DataPropertyName = "LegendText", FillWeight = 10, ReadOnly = false });
 
 			InitializeDataGridView(dataGridViewSearchResults, SearchResults);
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
 
 			// Set these columns hidden in the Items To Plot
-			foreach (string columnName in new List<string>() { "EditorID", "DisplayName", "Label", "SpawnWeight", })
+			foreach (string columnName in new List<string>() { "DisplayName", "Label", "SpawnWeight", })
 			{
 				DataGridViewColumn column = dataGridViewItemsToPlot.Columns[columnName] ?? throw new Exception($"No Column with name {columnName}");
 				column.Visible = false;
@@ -143,6 +144,9 @@ namespace Mappalachia
 			{
 				case "LegendGroup":
 					return "The group that this instance belongs to, for the purpose of sharing the same plot icon.";
+
+				case "LegendText":
+					return "The text which will represent this item on the map legend.";
 
 				case "FormID":
 					return advanced ? string.Empty : "An internal code name for this entity";
@@ -488,35 +492,71 @@ namespace Mappalachia
 		}
 
 		// Handle editing the legend text on Items To Plot
-		private void DataGridViewItemsToPlot_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		private void DataGridViewItemsToPlot_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.ColumnIndex < 0)
 			{
 				return;
 			}
 
-			DataGridViewColumn editedColumn = dataGridViewItemsToPlot.Columns[e.ColumnIndex];
-
-			if (editedColumn.Name != "LegendText")
+			if (e.RowIndex >= ItemsToPlot.Count)
 			{
 				return;
 			}
 
+			if (e.FormattedValue == null)
+			{
+				dataGridViewItemsToPlot.CancelEdit();
+				e.Cancel = true;
+				return;
+			}
+
+			DataGridViewColumn editedColumn = dataGridViewItemsToPlot.Columns[e.ColumnIndex];
 			DataGridViewRow editedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 			GroupedSearchResult boundData = (GroupedSearchResult)(editedRow.DataBoundItem ?? throw new Exception("Edited row bound to null"));
 
-			// Find rows with the same legend group - make their legend text the same
-			foreach (GroupedSearchResult itemToPlot in ItemsToPlot)
+			if (editedColumn.Name == "LegendText")
 			{
-				if (itemToPlot.LegendGroup != boundData.LegendGroup)
+				string newLegendText = e.FormattedValue.ToString() ?? throw new Exception("New legend text entered was null");
+
+				if (newLegendText == boundData.LegendText)
 				{
-					continue;
+					return;
 				}
 
-				itemToPlot.LegendText = boundData.LegendText;
+				// Find rows with the same legend group - make their legend text the same
+				foreach (GroupedSearchResult itemToPlot in ItemsToPlot)
+				{
+					if (itemToPlot.LegendGroup != boundData.LegendGroup)
+					{
+						continue;
+					}
+
+					itemToPlot.LegendText = newLegendText;
+				}
+			}
+			else if (editedColumn.Name == "LegendGroup")
+			{
+				if (!uint.TryParse(e.FormattedValue.ToString(), out uint newLegendGroup))
+				{
+					dataGridViewItemsToPlot.CancelEdit();
+					e.Cancel = true;
+					return;
+				}
+
+				foreach (GroupedSearchResult itemToPlot in ItemsToPlot)
+				{
+					// We found an existing item of this group - copy over the properties
+					if (itemToPlot.LegendGroup == newLegendGroup)
+					{
+						boundData.LegendGroup = itemToPlot.LegendGroup;
+						boundData.LegendText = itemToPlot.LegendText;
+						boundData.PlotIcon = new PlotIcon(itemToPlot.PlotIcon);
+					}
+				}
 			}
 
-			dataGridViewItemsToPlot.InvalidateColumn(e.ColumnIndex);
+			dataGridViewItemsToPlot.Refresh();
 		}
 
 		// Edit plot icon by clicking the cell
@@ -541,7 +581,7 @@ namespace Mappalachia
 
 			if (plotIconForm.ShowDialog() == DialogResult.OK)
 			{
-				boundData.PlotIcon = plotIconForm.CurrentIcon;
+				boundData.PlotIcon = new PlotIcon(plotIconForm.CurrentIcon);
 			}
 			else
 			{
@@ -556,10 +596,10 @@ namespace Mappalachia
 					continue;
 				}
 
-				itemToPlot.PlotIcon = boundData.PlotIcon;
+				itemToPlot.PlotIcon = new PlotIcon(boundData.PlotIcon);
 			}
 
-			dataGridViewItemsToPlot.InvalidateColumn(e.ColumnIndex);
+			dataGridViewItemsToPlot.Refresh();
 		}
 
 		// Programatically configure either DGV
@@ -584,6 +624,7 @@ namespace Mappalachia
 
 			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(dataGridView, e);
 			dataGridView.CellDoubleClick += (s, e) => SwitchSpaceOnDoubleClick(dataGridView, e);
+			dataGridView.DataError += (s, e) => e.ThrowException = false;
 		}
 
 		void InitializeSignatureListView()
