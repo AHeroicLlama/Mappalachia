@@ -45,6 +45,7 @@ namespace Library
 	{
 		public uint FormID { get; } = formID;
 
+		[JsonIgnore]
 		public string EditorID { get; } = editorID;
 
 		[JsonIgnore]
@@ -81,7 +82,7 @@ namespace Library
 				return false;
 			}
 
-			return FormID.Equals(other.FormID) && EditorID.Equals(other.EditorID);
+			return FormID.Equals(other.FormID);
 		}
 
 		public override int GetHashCode()

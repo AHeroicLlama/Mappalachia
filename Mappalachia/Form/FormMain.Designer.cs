@@ -383,7 +383,8 @@ namespace Mappalachia
 			// plotModeStandardToolStripMenuItem
 			// 
 			plotModeStandardToolStripMenuItem.Name = "plotModeStandardToolStripMenuItem";
-			plotModeStandardToolStripMenuItem.Size = new Size(141, 22);
+			plotModeStandardToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.S;
+			plotModeStandardToolStripMenuItem.Size = new Size(180, 22);
 			plotModeStandardToolStripMenuItem.Text = "Standard";
 			plotModeStandardToolStripMenuItem.ToolTipText = "Use icons to plot the location of each mapped entity.";
 			plotModeStandardToolStripMenuItem.Click += Plot_Mode_Standard_Click;
@@ -391,7 +392,8 @@ namespace Mappalachia
 			// plotModeTopographicToolStripMenuItem
 			// 
 			plotModeTopographicToolStripMenuItem.Name = "plotModeTopographicToolStripMenuItem";
-			plotModeTopographicToolStripMenuItem.Size = new Size(141, 22);
+			plotModeTopographicToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.T;
+			plotModeTopographicToolStripMenuItem.Size = new Size(180, 22);
 			plotModeTopographicToolStripMenuItem.Text = "Topographic";
 			plotModeTopographicToolStripMenuItem.ToolTipText = "Similar to standard, but color is used to indicate the height of plots against a scale.";
 			plotModeTopographicToolStripMenuItem.Click += Plot_Mode_Topographic_Click;
@@ -399,7 +401,8 @@ namespace Mappalachia
 			// plotModeClusterToolStripMenuItem
 			// 
 			plotModeClusterToolStripMenuItem.Name = "plotModeClusterToolStripMenuItem";
-			plotModeClusterToolStripMenuItem.Size = new Size(141, 22);
+			plotModeClusterToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.C;
+			plotModeClusterToolStripMenuItem.Size = new Size(180, 22);
 			plotModeClusterToolStripMenuItem.Text = "Cluster";
 			plotModeClusterToolStripMenuItem.ToolTipText = "Shows the areas with the highest densities of your selected items - customizable.";
 			plotModeClusterToolStripMenuItem.Click += Plot_Mode_Cluster_Click;

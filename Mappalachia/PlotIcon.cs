@@ -62,19 +62,22 @@
 			}
 		}
 
-		Image? Image { get; set; }
+		Image? DropShadowCache { get; set; }
+
+		Image? FinalImage { get; set; }
 
 		public GroupedSearchResult Parent { get; }
 
 		public Image GetImage()
 		{
-			Image ??= GenerateIconImage(Color);
-			return Image;
+			FinalImage ??= GenerateIconImage(Color);
+			return FinalImage;
 		}
 
 		void InvalidateImage()
 		{
-			Image = null;
+			FinalImage = null;
+			DropShadowCache = null;
 		}
 
 		// Re-draw the icon image, using a different color
@@ -95,13 +98,19 @@
 			}
 
 			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
-			Image image = new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
+			Image image = DropShadowCache != null ? new Bitmap(DropShadowCache) : new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
 			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
 
-			graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new RectangleF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2, Size, Size));
+			if (DropShadowCache == null)
+			{
+				graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new RectangleF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2, Size, Size));
+				DropShadowCache = image;
+			}
+
 			graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));
 
-			return image;
+			FinalImage = image;
+			return FinalImage;
 		}
 	}
 }
