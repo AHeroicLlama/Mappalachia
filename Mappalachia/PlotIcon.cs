@@ -33,7 +33,7 @@
 			set
 			{
 				size = value;
-				InvalidateImage();
+				InvalidateCache();
 			}
 		}
 
@@ -45,7 +45,7 @@
 			set
 			{
 				color = value;
-				InvalidateImage();
+				InvalidateCache();
 			}
 		}
 
@@ -58,14 +58,18 @@
 			set
 			{
 				baseIconImage = value;
-				InvalidateImage();
+				InvalidateCache();
 			}
 		}
 
+		// A cache of this icon in various colors
+		// Plotting in standard mode will also add one entry to this cache
 		Dictionary<Color, Image> TopographicCache { get; set; } = new Dictionary<Color, Image>();
 
+		// A cache of just the drop shadow image for this icon
 		Image? DropShadowCache { get; set; }
 
+		// A cache of the final icon image (for standard plot mode)
 		Image? FinalImageCache { get; set; }
 
 		public GroupedSearchResult Parent { get; }
@@ -76,7 +80,7 @@
 			return FinalImageCache;
 		}
 
-		void InvalidateImage()
+		void InvalidateCache()
 		{
 			FinalImageCache = null;
 			DropShadowCache = null;
@@ -116,8 +120,8 @@
 			}
 
 			graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));
-			TopographicCache.Add(color, image);
 
+			TopographicCache.Add(color, image);
 			return image;
 		}
 	}

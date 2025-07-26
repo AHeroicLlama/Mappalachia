@@ -1,4 +1,4 @@
-﻿using System.Drawing.Drawing2D;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Runtime.InteropServices;
@@ -91,17 +91,14 @@ namespace Mappalachia
 			int size = bitmapData.Stride * bitmap.Height;
 			byte[] buffer = new byte[size];
 			Marshal.Copy(bitmapData.Scan0, buffer, 0, size);
-			int stride = bitmapData.Stride;
 
-			Parallel.For(0, bitmapData.Height, x =>
+			// Works on the basis this is 4 bytes per pixel
+			for (int i = 0; i < size; i += 4)
 			{
-				for (int y = 0; y < bitmapData.Width; y++)
-				{
-					buffer[(x * stride) + (y * 4) + 2] = color.R;
-					buffer[(x * stride) + (y * 4) + 1] = color.G;
-					buffer[(x * stride) + (y * 4)] = color.B;
-				}
-			});
+				buffer[i + 2] = color.R;
+				buffer[i + 1] = color.G;
+				buffer[i] = color.B;
+			}
 
 			Marshal.Copy(buffer, 0, bitmapData.Scan0, size);
 			bitmap.UnlockBits(bitmapData);
