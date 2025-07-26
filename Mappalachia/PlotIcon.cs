@@ -62,22 +62,25 @@
 			}
 		}
 
+		Dictionary<Color, Image> TopographicCache { get; set; } = new Dictionary<Color, Image>();
+
 		Image? DropShadowCache { get; set; }
 
-		Image? FinalImage { get; set; }
+		Image? FinalImageCache { get; set; }
 
 		public GroupedSearchResult Parent { get; }
 
 		public Image GetImage()
 		{
-			FinalImage ??= GenerateIconImage(Color);
-			return FinalImage;
+			FinalImageCache ??= GenerateIconImage(Color);
+			return FinalImageCache;
 		}
 
 		void InvalidateImage()
 		{
-			FinalImage = null;
+			FinalImageCache = null;
 			DropShadowCache = null;
+			TopographicCache.Clear();
 		}
 
 		// Re-draw the icon image, using a different color
@@ -97,6 +100,11 @@
 				return volumeImage;
 			}
 
+			if (TopographicCache.TryGetValue(color, out Image? cachedTopographIcon))
+			{
+				return cachedTopographIcon;
+			}
+
 			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
 			Image image = DropShadowCache != null ? new Bitmap(DropShadowCache) : new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
 			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
@@ -108,9 +116,9 @@
 			}
 
 			graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));
+			TopographicCache.Add(color, image);
 
-			FinalImage = image;
-			return FinalImage;
+			return image;
 		}
 	}
 }
