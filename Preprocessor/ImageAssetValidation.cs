@@ -18,6 +18,10 @@ namespace Preprocessor
 
 		static uint MaxTileImageSizeKB { get; } = 9000;
 
+		static uint MinIconImageSizeKB { get; } = 1;
+
+		static uint MaxIconImageSizeKB { get; } = 5;
+
 		static uint MinMapMarkerImageSizeBytes { get; } = 500;
 
 		static uint MaxMapMarkerImageSizeBytes { get; } = 16000;
@@ -93,6 +97,51 @@ namespace Preprocessor
 
 			// Similarly, now check the spotlight structure for extraneous files
 			CleanUpSpotlight();
+
+			ValidatePlotIcons();
+		}
+
+		static bool ValidatePlotIcons()
+		{
+			if (!Directory.Exists(IconPath))
+			{
+				FailValidation("Plot Icon directory doesn't exist!");
+				return false;
+			}
+
+			List<string> iconFiles = Directory.GetFiles(IconPath).ToList();
+
+			if (iconFiles.Count == 0)
+			{
+				FailValidation("No plot icon files found at {IconPath}");
+				return false;
+			}
+
+			Parallel.ForEach(iconFiles, filePath =>
+			{
+				Console.WriteLine($"Plot Icon: {Path.GetFileName(filePath)}");
+
+				int fileSizeKB = (int)(new FileInfo(filePath).Length / Kilobyte);
+
+				if (fileSizeKB < MinIconImageSizeKB)
+				{
+					FailValidation($"Plot icon {filePath} appears too small.");
+				}
+
+				if (fileSizeKB > MaxIconImageSizeKB)
+				{
+					FailValidation($"Plot icon {filePath} appears too large.");
+				}
+
+				Image image = new Bitmap(filePath);
+
+				if (image.Width != PlotIconSize || image.Height != PlotIconSize)
+				{
+					FailValidation($"Image {filePath} is not of the expected dimensions");
+				}
+			});
+
+			return true;
 		}
 
 		static bool ValidateSpaceImageExists(Space space, string path)

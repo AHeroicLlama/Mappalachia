@@ -48,7 +48,9 @@ class MapIconProcessor
 	{
 		StdOutWithColor("Rendering plot icon shapes...", ColorInfo);
 
-		int size = 256;
+		Directory.CreateDirectory(IconPath);
+
+		int size = PlotIconSize;
 		Pen pen = new Pen(Color.Yellow, 20);
 		int padding = (int)Math.Round(5 + pen.Width);
 		Image image = new Bitmap(size, size);

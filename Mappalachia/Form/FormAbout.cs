@@ -35,7 +35,7 @@ namespace Mappalachia
 					}
 				}
 
-				return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
+				return string.Empty;
 			}
 		}
 

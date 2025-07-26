@@ -79,6 +79,8 @@ namespace Library
 
 		public static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
 
+		public static int PlotIconSize { get; } = 256;
+
 		static Regex TileFileNameValidation { get; } = new Regex(@"(-?[0-9]{1,2}\.){2}jpg");
 
 		static ReaderWriterLock ErrorLogLock { get; } = new ReaderWriterLock();

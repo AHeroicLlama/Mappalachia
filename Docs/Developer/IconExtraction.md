@@ -1,4 +1,4 @@
-# Extracting Map Marker icons
+# Extracting map marker icons & generating plot icons
 
 ### Prerequisites and assumptions
 * You have already [built the database](Preprocessor.md)
@@ -35,6 +35,8 @@ This should now populate a `sprites` folder filled with around 200 sub-folders a
 ## MapIconProcessor
 Now in `Mappalachia.sln`, compile and run the `MapIconProcessor` project.<br/>
 This is a small program whose job is to extract the necessary map marker icon images, rename, trim, and validate them.<br/>
+
+This program will also generate the plot icon image assets, placing them at the correct location in the `Assets\` folder.
 
 Similarly to the preprocessor, if there are any errors these will be outputted to the console, and written to `BuildOutputs\Errors.txt`.<br/>
 The MapIconProcessor accesses the database to identify which map markers are required, so you are required to have built the database in order to run it.<br/>

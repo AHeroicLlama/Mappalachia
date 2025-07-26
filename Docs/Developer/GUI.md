@@ -17,11 +17,11 @@ You will find the GUI project `Mappalachia` under the main solution, `Mappalachi
 As this point, you should simply be able to 'start debugging' in Visual Studio to get it to run.
 <br/>
 
-## Debugging without building the database
-Building the database is a multi-step process and you don't *need* to build it to debug the Mappalachia GUI, you just need a working copy of it.<br/>
+## Debugging without building assets
+Building the database and generating image assets is a multi-step process and you don't *need* to build them to debug the Mappalachia GUI, you just need working copies of them.<br/>
 
-If you want to debug Mappalachia and skip out on the datamining steps, you need to grab a copy of the pre-assembled `mappalachia.db` from a release. This can be found in `data\mappalachia.db`.<br/>
-To use this copy in your debugging, you should recreate the `Assets\data\` folder (alongside the `img\` and `font\` folders) and place `mappalachia.db` inside. Then rebuild the project, and a post-build event will copy this to the relevant location(s) in `bin\`, therefore allowing you to debug.
+If you want to debug Mappalachia and skip out on the datamining and asset generations steps, you need to grab a copy of the pre-assembled assets from a release.<br/>
+To use these in your debugging, copy the `img\` and `data\` folders from the root of a release, and place them in the `Assets\` folder at the root of the repository, then rebuild the project. A post-build event will copy them to the relevant location(s) in `bin\`, therefore allowing you to debug.
 <br/>
 
 ## Packaging a release.

@@ -93,7 +93,7 @@ namespace Mappalachia
 			Marshal.Copy(bitmapData.Scan0, buffer, 0, size);
 			int stride = bitmapData.Stride;
 
-			for (int x = 0; x < bitmapData.Height; x++)
+			Parallel.For(0, bitmapData.Height, x =>
 			{
 				for (int y = 0; y < bitmapData.Width; y++)
 				{
@@ -101,7 +101,7 @@ namespace Mappalachia
 					buffer[(x * stride) + (y * 4) + 1] = color.G;
 					buffer[(x * stride) + (y * 4)] = color.B;
 				}
-			}
+			});
 
 			Marshal.Copy(buffer, 0, bitmapData.Scan0, size);
 			bitmap.UnlockBits(bitmapData);
