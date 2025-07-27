@@ -77,12 +77,18 @@
 
 		private void RadioButtonGroupEverything_CheckedChanged(object sender, EventArgs e)
 		{
-			UpdateMapView();
+			if (radioButtonGroupEverything.Checked)
+			{
+				UpdateMapView();
+			}
 		}
 
 		private void RadioButtonPerLegendGroup_CheckedChanged(object sender, EventArgs e)
 		{
-			UpdateMapView();
+			if (radioButtonPerLegendGroup.Checked)
+			{
+				UpdateMapView();
+			}
 		}
 
 		void SetRangeLabel()

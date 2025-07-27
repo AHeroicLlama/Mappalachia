@@ -275,31 +275,50 @@ namespace Mappalachia
 
 		static async void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
-			foreach (GroupedSearchResult item in itemsToPlot)
+			List<List<GroupedSearchResult>> clusterGroups = settings.PlotSettings.ClusterSettings.ClusterPerLegendGroup ?
+				itemsToPlot.GroupBy(i => i.LegendGroup).Select(g => g.ToList()).ToList() :
+				new List<List<GroupedSearchResult>>() { itemsToPlot };
+
+			foreach (List<GroupedSearchResult> group in clusterGroups)
 			{
-				if (item.Space != settings.Space)
+				List<Instance> instances = new List<Instance>();
+
+				GroupedSearchResult leadItem = group.First();
+
+				foreach (GroupedSearchResult item in group)
 				{
-					continue;
+					if (item.Space != settings.Space)
+					{
+						continue;
+					}
+
+					List<Instance> intermediateInstances = await Database.GetInstances(item, item.Space);
+
+					List<Instance> regions = intermediateInstances.Where(instance => instance.Entity is Library.Region).ToList();
+					List<Instance> shapes = intermediateInstances.Where(instance => instance.PrimitiveShape != null).ToList();
+
+					intermediateInstances = intermediateInstances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape == null).ToList();
+
+					// Assign the lead item as the first GroupedSearchResult with non-region non-shape plots
+					if (intermediateInstances.Count > 0)
+					{
+						leadItem ??= item;
+					}
+
+					foreach (Instance regionInstance in regions)
+					{
+						DrawRegion(settings, graphics, (Library.Region)regionInstance.Entity, item.PlotIcon.Color);
+					}
+
+					foreach (Instance shapeInstance in shapes)
+					{
+						DrawPrimitiveShape(settings, graphics, shapeInstance, item.PlotIcon.Color);
+					}
+
+					instances.AddRange(intermediateInstances);
 				}
 
-				List<Instance> instances = await Database.GetInstances(item, item.Space);
 				List<Cluster> clusters = new List<Cluster>();
-
-				// Split out volumes - draw them normally, outside of the cluster calculation + draw
-				List<Instance> regions = instances.Where(instance => instance.Entity is Library.Region).ToList();
-				List<Instance> shapes = instances.Where(instance => instance.PrimitiveShape != null).ToList();
-
-				instances = instances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape == null).ToList();
-
-				foreach (Instance regionInstance in regions)
-				{
-					DrawRegion(settings, graphics, (Library.Region)regionInstance.Entity, item.PlotIcon.Color);
-				}
-
-				foreach (Instance shapeInstance in shapes)
-				{
-					DrawPrimitiveShape(settings, graphics, shapeInstance, item.PlotIcon.Color);
-				}
 
 				int i = 0;
 				foreach (Instance outerInstance in instances)
@@ -344,7 +363,7 @@ namespace Mappalachia
 				}
 
 				i = 0;
-				Color color = item.PlotIcon.Color;
+				Color color = leadItem.PlotIcon.Color;
 				Pen pen = new Pen(color, ClusterLineThickness);
 				Brush brush = new SolidBrush(color.WithAlpha(ClusterLabelAlpha));
 
