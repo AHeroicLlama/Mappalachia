@@ -491,7 +491,7 @@ namespace Mappalachia
 			}
 		}
 
-		// Handle editing the legend text on Items To Plot
+		// Handle editing the legend group and legend text on Items To Plot
 		private void DataGridViewItemsToPlot_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.ColumnIndex < 0)
@@ -507,20 +507,18 @@ namespace Mappalachia
 			if (e.FormattedValue == null)
 			{
 				dataGridViewItemsToPlot.CancelEdit();
-				e.Cancel = true;
 				return;
 			}
 
 			DataGridViewColumn editedColumn = dataGridViewItemsToPlot.Columns[e.ColumnIndex];
-			DataGridViewRow editedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
-			GroupedSearchResult boundData = (GroupedSearchResult)(editedRow.DataBoundItem ?? throw new Exception("Edited row bound to null"));
+			GroupedSearchResult boundData = (GroupedSearchResult)(dataGridViewItemsToPlot.Rows[e.RowIndex].DataBoundItem ?? throw new Exception("Edited row bound to null"));
 
 			if (editedColumn.Name == "LegendText")
 			{
-				string newLegendText = e.FormattedValue.ToString() ?? throw new Exception("New legend text entered was null");
-
-				if (newLegendText == boundData.LegendText)
+				// Cancel and exit if the value is not changing
+				if (boundData.LegendText == e.FormattedValue.ToString())
 				{
+					dataGridViewItemsToPlot.CancelEdit();
 					return;
 				}
 
@@ -532,31 +530,41 @@ namespace Mappalachia
 						continue;
 					}
 
-					itemToPlot.LegendText = newLegendText;
+					itemToPlot.LegendText = e.FormattedValue.ToString() ?? string.Empty;
+					dataGridViewItemsToPlot.Refresh();
 				}
 			}
 			else if (editedColumn.Name == "LegendGroup")
 			{
-				if (!uint.TryParse(e.FormattedValue.ToString(), out uint newLegendGroup))
+				// We expect the DGV to handle this already, but this is a safety check
+				if (!uint.TryParse(e.FormattedValue.ToString(), out uint incomingLegendGroup))
 				{
 					dataGridViewItemsToPlot.CancelEdit();
-					e.Cancel = true;
+					return;
+				}
+
+				// Cancel and exit if the value is not changing
+				if (boundData.LegendGroup == incomingLegendGroup)
+				{
+					dataGridViewItemsToPlot.CancelEdit();
 					return;
 				}
 
 				foreach (GroupedSearchResult itemToPlot in ItemsToPlot)
 				{
-					// We found an existing item of this group - copy over the properties
-					if (itemToPlot.LegendGroup == newLegendGroup)
+					// Find an existing item of this group - copy over the properties and exit
+					// Note that this simply copies the first legend text+icon encountered from this group
+					// It is possible for one group to share multiple legend texts+icons per item
+					if (itemToPlot.LegendGroup == incomingLegendGroup)
 					{
-						boundData.LegendGroup = itemToPlot.LegendGroup;
 						boundData.LegendText = itemToPlot.LegendText;
 						boundData.PlotIcon = new PlotIcon(itemToPlot.PlotIcon);
+						dataGridViewItemsToPlot.Refresh();
+
+						break;
 					}
 				}
 			}
-
-			dataGridViewItemsToPlot.Refresh();
 		}
 
 		// Edit plot icon by clicking the cell
@@ -624,7 +632,11 @@ namespace Mappalachia
 
 			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(dataGridView, e);
 			dataGridView.CellDoubleClick += (s, e) => SwitchSpaceOnDoubleClick(dataGridView, e);
-			dataGridView.DataError += (s, e) => e.ThrowException = false;
+			dataGridView.DataError += (s, e) =>
+			{
+				e.ThrowException = false;
+				dataGridView.CancelEdit();
+			};
 		}
 
 		void InitializeSignatureListView()
