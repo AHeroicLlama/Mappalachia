@@ -42,9 +42,9 @@ namespace Mappalachia
 
 		private void ButtonSelectColor_Click(object sender, EventArgs e)
 		{
-			if (colorDialog.ShowDialog() == DialogResult.OK)
+			if (ColorDialog.ShowDialog() == DialogResult.OK)
 			{
-				CurrentIcon.Color = colorDialog.Color;
+				CurrentIcon.Color = ColorDialog.Color;
 				RefreshPreviewImage();
 			}
 		}

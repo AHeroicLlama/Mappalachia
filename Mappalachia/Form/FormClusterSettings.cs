@@ -14,16 +14,14 @@
 			Range = trackBarClusterRange.Value,
 			MinWeight = trackBarClusterMinWeight.Value,
 			LiveUpdate = checkBoxLiveUpdate.Checked,
+			ClusterPerLegendGroup = radioButtonPerLegendGroup.Checked,
 		};
 
-		public int ClusterMinWeightValue => trackBarClusterMinWeight.Value;
+		bool Initialized { get; set; } = false;
 
 		public FormClusterSettings(FormMain formMain)
 		{
 			InitializeComponent();
-
-			// Disable while loading so setting the trackbars doesn't fire draws
-			checkBoxLiveUpdate.Checked = false;
 
 			FormMain = formMain;
 			InitialSettings = FormMain.Settings.PlotSettings.ClusterSettings;
@@ -33,9 +31,13 @@
 			trackBarClusterRange.Value = Math.Clamp(InitialSettings.Range, trackBarClusterRange.Minimum, trackBarClusterRange.Maximum);
 			trackBarClusterMinWeight.Value = InitialSettings.MinWeight;
 			checkBoxLiveUpdate.Checked = InitialSettings.LiveUpdate;
+			radioButtonPerLegendGroup.Checked = InitialSettings.ClusterPerLegendGroup;
+			radioButtonGroupEverything.Checked = !InitialSettings.ClusterPerLegendGroup;
 
 			SetRangeLabel();
 			SetWeightLabel();
+
+			Initialized = true;
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
@@ -73,6 +75,16 @@
 			UpdateMapView();
 		}
 
+		private void RadioButtonGroupEverything_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateMapView();
+		}
+
+		private void RadioButtonPerLegendGroup_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateMapView();
+		}
+
 		void SetRangeLabel()
 		{
 			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
@@ -85,6 +97,11 @@
 
 		void UpdateMapView()
 		{
+			if (!Initialized)
+			{
+				return;
+			}
+
 			if (checkBoxLiveUpdate.Checked)
 			{
 				FormMain.SetClusterSettings(ClusterSettings);

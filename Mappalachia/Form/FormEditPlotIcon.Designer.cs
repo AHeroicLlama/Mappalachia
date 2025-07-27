@@ -33,7 +33,7 @@
 			buttonCancel = new Button();
 			buttonSelectIcon = new Button();
 			buttonSelectColor = new Button();
-			colorDialog = new ColorDialog();
+			ColorDialog = new ColorDialog();
 			trackBarIconSize = new TrackBar();
 			labelSize = new Label();
 			((System.ComponentModel.ISupportInitialize)pictureBoxIcon).BeginInit();
@@ -55,7 +55,7 @@
 			buttonOK.Location = new Point(61, 411);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
-			buttonOK.TabIndex = 1;
+			buttonOK.TabIndex = 4;
 			buttonOK.Text = "OK";
 			buttonOK.UseVisualStyleBackColor = true;
 			buttonOK.Click += ButtonOK_Click;
@@ -66,7 +66,7 @@
 			buttonCancel.Location = new Point(142, 411);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
-			buttonCancel.TabIndex = 2;
+			buttonCancel.TabIndex = 5;
 			buttonCancel.Text = "Cancel";
 			buttonCancel.UseVisualStyleBackColor = true;
 			// 
@@ -76,7 +76,7 @@
 			buttonSelectIcon.Location = new Point(12, 274);
 			buttonSelectIcon.Name = "buttonSelectIcon";
 			buttonSelectIcon.Size = new Size(107, 23);
-			buttonSelectIcon.TabIndex = 3;
+			buttonSelectIcon.TabIndex = 0;
 			buttonSelectIcon.Text = "Select Icon";
 			buttonSelectIcon.UseVisualStyleBackColor = true;
 			buttonSelectIcon.Click += ButtonSelectIcon_Click;
@@ -87,7 +87,7 @@
 			buttonSelectColor.Location = new Point(160, 274);
 			buttonSelectColor.Name = "buttonSelectColor";
 			buttonSelectColor.Size = new Size(107, 23);
-			buttonSelectColor.TabIndex = 4;
+			buttonSelectColor.TabIndex = 1;
 			buttonSelectColor.Text = "Select Color";
 			buttonSelectColor.UseVisualStyleBackColor = true;
 			buttonSelectColor.Click += ButtonSelectColor_Click;
@@ -99,7 +99,7 @@
 			trackBarIconSize.Minimum = 16;
 			trackBarIconSize.Name = "trackBarIconSize";
 			trackBarIconSize.Size = new Size(255, 45);
-			trackBarIconSize.TabIndex = 5;
+			trackBarIconSize.TabIndex = 3;
 			trackBarIconSize.TickFrequency = 8;
 			trackBarIconSize.Value = 50;
 			trackBarIconSize.Scroll += TrackBarIconSize_Scroll;
@@ -110,7 +110,7 @@
 			labelSize.Location = new Point(12, 321);
 			labelSize.Name = "labelSize";
 			labelSize.Size = new Size(27, 15);
-			labelSize.TabIndex = 6;
+			labelSize.TabIndex = 2;
 			labelSize.Text = "Size";
 			// 
 			// FormEditPlotIcon
@@ -148,7 +148,7 @@
 		private Button buttonCancel;
 		private Button buttonSelectIcon;
 		private Button buttonSelectColor;
-		private ColorDialog colorDialog;
+		private ColorDialog ColorDialog;
 		private TrackBar trackBarIconSize;
 		private Label labelSize;
 	}

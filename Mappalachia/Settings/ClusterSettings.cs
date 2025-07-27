@@ -11,6 +11,8 @@ namespace Mappalachia
 
 		public bool LiveUpdate { get; set; } = true;
 
+		public bool ClusterPerLegendGroup { get; set; } = false;
+
 		[JsonIgnore]
 		public int MaxRange { get; } = 50000;
 	}
