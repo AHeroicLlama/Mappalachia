@@ -350,7 +350,7 @@ namespace Library
 				case "LPI_FloraFungusGlowing04":
 				case "LPI_FloraFungusGlowing05":
 				case "LPI_FloraFungusGlowing06":
-				case "LPI_FloraRhododenron01":
+				case "LPI_FloraRhododendron01":
 				case "LPI_TrapFloraThistle":
 					return FluxColor.Fluorescent.ToString();
 

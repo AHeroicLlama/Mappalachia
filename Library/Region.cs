@@ -1,4 +1,4 @@
-﻿namespace Library
+namespace Library
 {
 	public class Region(uint formID, string editorID, Space space, uint minLevel = 0, uint maxLevel = 0)
 		: Entity(formID, editorID, string.Empty, Signature.REGN)

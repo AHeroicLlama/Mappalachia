@@ -22,9 +22,11 @@ namespace Mappalachia
 			{
 				"Alcohol",
 				"Alien Blaster",
+				"Ballistic Fiber",
 				"Caps",
 				"Flora",
 				"Fusion Core",
+				"Ghoul",
 				"Ginseng",
 				"Hardpoint",
 				"Instrument",
@@ -41,12 +43,13 @@ namespace Mappalachia
 				"Pumpkin",
 				"RETrigger",
 				"Rare",
+				"Raw Flux",
 				"Recipe",
 				"SFM04_Organic_Pod",
+				"Starlight Creeper",
 				"Strange Encounter",
 				"Tales from West Virginia",
 				"Teddy Bear",
-				"Thistle",
 				"Treasure Map Mound",
 				"Trunk Boss",
 				"Vein",
@@ -65,6 +68,11 @@ namespace Mappalachia
 		public bool ShouldSearchForScrap()
 		{
 			return SelectedSignatures.Contains(Signature.MISC) && SelectedLockLevels.Contains(LockLevel.None);
+		}
+
+		public bool ShouldSearchForRawFlux()
+		{
+			return SelectedSignatures.Contains(Signature.ALCH) && SelectedLockLevels.Contains(LockLevel.None);
 		}
 
 		public bool ShouldSearchForRegion()

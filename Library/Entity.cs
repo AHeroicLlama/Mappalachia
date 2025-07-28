@@ -82,7 +82,7 @@ namespace Library
 				return false;
 			}
 
-			return FormID.Equals(other.FormID);
+			return FormID.Equals(other.FormID) && EditorID.Equals(other.EditorID);
 		}
 
 		public override int GetHashCode()

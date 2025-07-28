@@ -18,23 +18,26 @@ namespace Mappalachia
 
 		static Regex SubstituteNPC { get; } = new Regex("derived|spawn", RegexOptions.IgnoreCase);
 
+		static Regex SubstituteFlux { get; } = new Regex("derived|raw|flux", RegexOptions.IgnoreCase);
+
 		static char EscapeChar { get; } = '`';
 
 		// The core database search function - returns a collection of GroupedInstance from the given search params
 		public static async Task<List<GroupedSearchResult>> Search(Settings settings)
 		{
 			string searchTerm = ProcessSearchString(settings.SearchSettings.SearchTerm);
-			string optionalSpaceClause = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
+			string allSpacesClause = settings.SearchSettings.SearchInAllSpaces ? string.Empty : $"AND spaceFormID = {settings.Space.FormID} ";
 			bool searchForFormID = searchTerm.IsHexFormID() && settings.SearchSettings.Advanced;
 
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
-			results.AddRange(await StandardSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
-			results.AddRange(await ContainerSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
-			results.AddRange(await ScrapSearch(settings, searchTerm, optionalSpaceClause));
-			results.AddRange(await NPCSearch(settings, searchTerm, optionalSpaceClause));
-			results.AddRange(await RegionSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
-			results.AddRange(await TeleportsToSearch(settings, searchTerm, optionalSpaceClause, searchForFormID));
+			results.AddRange(await StandardSearch(settings, searchTerm, allSpacesClause, searchForFormID));
+			results.AddRange(await ContainerSearch(settings, searchTerm, allSpacesClause, searchForFormID));
+			results.AddRange(await ScrapSearch(settings, searchTerm, allSpacesClause));
+			results.AddRange(await NPCSearch(settings, searchTerm, allSpacesClause));
+			results.AddRange(await FluxSearch(settings, searchTerm, allSpacesClause));
+			results.AddRange(await RegionSearch(settings, searchTerm, allSpacesClause, searchForFormID));
+			results.AddRange(await TeleportsToSearch(settings, searchTerm, allSpacesClause, searchForFormID));
 			results.AddRange(await InstanceSearch(searchTerm, searchForFormID));
 
 			// We use LINQ to filter out results here, to avoid joining on the Space table in each search function
@@ -181,6 +184,40 @@ namespace Mappalachia
 					reader.GetInt("count"),
 					reader.GetDouble("spawnWeight")));
 			}
+
+			return results;
+		}
+
+		static async Task<List<GroupedSearchResult>> FluxSearch(Settings settings, string searchTerm, string optionalSpaceClause)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
+
+			if (!settings.SearchSettings.ShouldSearchForRawFlux())
+			{
+				return results;
+			}
+
+			string substituteSearch = SubstituteFlux.Replace(searchTerm, string.Empty).Trim();
+
+			string query = "SELECT color, spaceFormID, SUM(count) AS properCount " +
+				"FROM Flux " +
+				"JOIN Position_PreGrouped ON Position_PreGrouped.referenceFormID = Flux.referenceFormID " +
+				$"WHERE (color LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR color LIKE '%{substituteSearch}%' ESCAPE '{EscapeChar}') " +
+				optionalSpaceClause +
+				"GROUP BY spaceFormID, color;";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				results.Add(new GroupedSearchResult(
+					new DerivedRawFlux(reader.GetFluxColor()),
+					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
+					reader.GetInt("properCount")));
+			}
+
+			results = results.Where(r => r.Space.IsNukable()).ToList();
 
 			return results;
 		}
@@ -334,6 +371,10 @@ namespace Mappalachia
 			{
 				instances.AddRange(await GetNPCInstances(searchResult, space));
 			}
+			else if (searchResult.Entity is DerivedRawFlux)
+			{
+				instances.AddRange(await GetFluxInstances(searchResult, space));
+			}
 
 			return instances;
 		}
@@ -371,10 +412,8 @@ namespace Mappalachia
 		}
 
 		// Return all 'standard' instances of the given GroupedSearchResult in the given space
-		static async Task<List<Instance>> GetStandardInstances(GroupedSearchResult searchResult, Space? space = null)
+		static async Task<List<Instance>> GetStandardInstances(GroupedSearchResult searchResult, Space space)
 		{
-			space ??= searchResult.Space;
-
 			List<Instance> instances = new List<Instance>();
 
 			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
@@ -399,10 +438,8 @@ namespace Mappalachia
 		}
 
 		// Returns the instance of a SingularSearchResult
-		static async Task<Instance?> GetSingularInstance(SingularSearchResult searchResult, Space? space = null)
+		static async Task<Instance?> GetSingularInstance(SingularSearchResult searchResult, Space space)
 		{
-			space ??= searchResult.Space;
-
 			Instance? instance = null;
 
 			string query = "SELECT x, y, z, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ, spaceFormID FROM Position " +
@@ -427,10 +464,8 @@ namespace Mappalachia
 		}
 
 		// Returns the instances of a GroupedSearchResult which is inContainer
-		static async Task<List<Instance>> GetInContainerInstances(GroupedSearchResult searchResult, Space? space = null)
+		static async Task<List<Instance>> GetInContainerInstances(GroupedSearchResult searchResult, Space space)
 		{
-			space ??= searchResult.Space;
-
 			List<Instance> instances = new List<Instance>();
 
 			string query = "SELECT x, y, z, instanceFormID FROM Position " +
@@ -458,14 +493,16 @@ namespace Mappalachia
 		}
 
 		// Returns the instance of a GroupedSearchResult which is a Region
-		static async Task<Instance?> GetRegionInstance(GroupedSearchResult searchResult, Space? space = null)
+		static async Task<Instance?> GetRegionInstance(GroupedSearchResult searchResult, Space space)
 		{
-			Library.Region region = (Library.Region)searchResult.Entity;
+			return await GetRegion(searchResult.Entity.EditorID, space);
+		}
 
-			space ??= searchResult.Space;
-
-			string regionQuery = "SELECT minLevel, maxLevel FROM Region " +
-				$"WHERE regionFormID = {region.FormID} AND spaceFormID = {space.FormID};";
+		// Return the region with the given EditorID from the given Space
+		static async Task<Instance?> GetRegion(string editorID, Space space)
+		{
+			string regionQuery = "SELECT minLevel, maxLevel, regionFormID FROM Region " +
+				$"WHERE regionEditorID = '{editorID}' AND spaceFormID = {space.FormID};";
 
 			using SqliteDataReader regionReader = await GetReader(Connection, regionQuery);
 
@@ -474,8 +511,12 @@ namespace Mappalachia
 				return null;
 			}
 
-			region.MinLevel = regionReader.GetUInt("minLevel");
-			region.MaxLevel = regionReader.GetUInt("maxLevel");
+			Library.Region region = new Library.Region(
+				regionReader.GetUInt("regionFormID"),
+				editorID,
+				space,
+				regionReader.GetUInt("minLevel"),
+				regionReader.GetUInt("maxLevel"));
 
 			string pointQuery = "SELECT x, y, subRegionIndex, coordIndex FROM RegionPoints " +
 				$"WHERE regionFormID = {region.FormID};";
@@ -499,7 +540,7 @@ namespace Mappalachia
 				space,
 				region.GetAllSubRegions().First().GetCentroid(),
 				0,
-				searchResult.Label,
+				string.Empty,
 				null,
 				LockLevel.None,
 				null);
@@ -508,10 +549,8 @@ namespace Mappalachia
 		}
 
 		// Returns the instances of a GroupedSearchResult which is an NPC
-		static async Task<List<Instance>> GetNPCInstances(GroupedSearchResult searchResult, Space? space = null)
+		static async Task<List<Instance>> GetNPCInstances(GroupedSearchResult searchResult, Space space)
 		{
-			space ??= searchResult.Space;
-
 			List<Instance> instances = new List<Instance>();
 
 			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
@@ -538,10 +577,8 @@ namespace Mappalachia
 		}
 
 		// Returns the instances of a GroupedSearchResult which is scrap
-		static async Task<List<Instance>> GetScrapInstances(GroupedSearchResult searchResult, Space? space = null)
+		static async Task<List<Instance>> GetScrapInstances(GroupedSearchResult searchResult, Space space)
 		{
-			space ??= searchResult.Space;
-
 			List<Instance> instances = new List<Instance>();
 
 			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
@@ -562,6 +599,43 @@ namespace Mappalachia
 					LockLevel.None,
 					null,
 					searchResult.SpawnWeight));
+			}
+
+			return instances;
+		}
+
+		// Returns the instances of a GroupedSearchResult which has an Entity of DerivedRawFlux
+		static async Task<List<Instance>> GetFluxInstances(GroupedSearchResult searchResult, Space space)
+		{
+			List<Instance> instances = new List<Instance>();
+
+			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
+				$"JOIN Flux ON Flux.referenceFormID = Position.referenceFormID " +
+				$"WHERE Flux.Color = '{((DerivedRawFlux)searchResult.Entity).Color}' AND spaceFormID = {space.FormID}";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					searchResult.Entity,
+					space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					searchResult.Label,
+					null,
+					LockLevel.None,
+					null,
+					searchResult.SpawnWeight));
+			}
+
+			// Find the Non-nukable zone(s), and exclude instances which lie within them
+			foreach (string regionEditorID in space.GetNonNukableZoneEditorIds())
+			{
+				Instance regionInstance = (await GetRegion(regionEditorID, space)) ?? throw new Exception($"No Region with editorID {regionEditorID} found");
+				Library.Region nonNukableZone = (Library.Region)regionInstance.Entity;
+
+				instances = instances.Where(i => !nonNukableZone.ContainsPoint(i.Coord)).ToList();
 			}
 
 			return instances;

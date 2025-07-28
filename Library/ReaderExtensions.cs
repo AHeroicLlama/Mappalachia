@@ -1,4 +1,5 @@
 using Microsoft.Data.Sqlite;
+using static Library.Common;
 
 namespace Library
 {
@@ -86,6 +87,13 @@ namespace Library
 			string signature = reader.GetString("signature");
 
 			return Enum.Parse<Signature>(signature);
+		}
+
+		public static FluxColor GetFluxColor(this SqliteDataReader reader)
+		{
+			string color = reader.GetString("color");
+
+			return Enum.Parse<FluxColor>(color);
 		}
 	}
 }

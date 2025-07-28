@@ -40,7 +40,19 @@ namespace Library
 
 		public bool IsAppalachia()
 		{
-			return EditorID.Equals("APPALACHIA", StringComparison.OrdinalIgnoreCase);
+			return EditorID.EqualsIgnoreCase("APPALACHIA");
+		}
+
+		// Return if this Space can be targeted (or otherwise somehow affected) by a nuke
+		public bool IsNukable()
+		{
+			return IsAppalachia();
+		}
+
+		// Return the EditorIDs of known regions in this space which are "non-nukable"
+		public List<string> GetNonNukableZoneEditorIds()
+		{
+			return IsAppalachia() ? new List<string> { "NonNukableZone" } : new List<string>();
 		}
 
 		// Return the spotlight tiles for the space
