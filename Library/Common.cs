@@ -40,6 +40,15 @@ namespace Library
 
 		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
 
+		public enum FluxColor
+		{
+			Crimson,
+			Cobalt,
+			Fluorescent,
+			Violet,
+			Yellowcake,
+		}
+
 		// Return if this string appears to represent a FormID in hexadecimal
 		public static bool IsHexFormID(this string formID)
 		{

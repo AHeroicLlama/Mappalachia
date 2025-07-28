@@ -1,30 +1,30 @@
 MD5 Checksum
-B686E8C76A3082C12F316B1853A4781E
+279B0C184947863A2118F6B1F68194A4
 
 Size
-456140 KB
+456148 KB
 
 Built At UTC
-24/07/2025 21:48:00
+28/07/2025 19:03:20
 
 CSV Imported with SQLite Version
 3.50.2 2025-06-28 14:00:48 2af157d77fb1304a74176eaee7fbc7c7e932d946bf25325e9c26c91db19e3079 (64-bit)
 
 Tables
-Container            NPC                  RegionPoints       
-Entity               Position             Scrap              
-MapMarker            Position_PreGrouped  Space              
-Meta                 Region
+Container            Meta                 Region             
+Entity               NPC                  RegionPoints       
+Flux                 Position             Scrap              
+MapMarker            Position_PreGrouped  Space
 
 Indices
 indexComponent               sqlite_autoindex_Entity_2  
-indexCount                   sqlite_autoindex_Meta_1    
-indexGeneral                 sqlite_autoindex_Position_1
-indexNPC                     sqlite_autoindex_Region_1  
-indexReference               sqlite_autoindex_Region_2  
-indexSpaceTeleportsTo        sqlite_autoindex_Space_1   
-indexTeleportsTo             sqlite_autoindex_Space_2   
-sqlite_autoindex_Entity_1
+indexCount                   sqlite_autoindex_Flux_1    
+indexGeneral                 sqlite_autoindex_Meta_1    
+indexNPC                     sqlite_autoindex_Position_1
+indexReference               sqlite_autoindex_Region_1  
+indexSpaceTeleportsTo        sqlite_autoindex_Region_2  
+indexTeleportsTo             sqlite_autoindex_Space_1   
+sqlite_autoindex_Entity_1    sqlite_autoindex_Space_2
 
 Game Version
 1.7.21.7
@@ -1161,6 +1161,13 @@ Avg Container quantity per item
 
 Unique Container count
 461
+
+Flux-producing entities count
+Cobalt,12
+Crimson,17
+Fluorescent,7
+Violet,20
+Yellowcake,13
 
 Entities outside of space range
 APPALACHIA:357471

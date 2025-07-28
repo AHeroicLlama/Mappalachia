@@ -333,6 +333,13 @@ namespace Preprocessor
 			SimpleQuery("UPDATE Position SET boundZ = NULL WHERE boundZ = '';");
 			SimpleQuery("UPDATE Position SET rotZ = NULL WHERE rotZ = '';");
 
+			// Create the Flux table
+			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER, editorID STRING, color STRING);");
+			SimpleQuery("INSERT INTO Flux (referenceFormID, editorID) SELECT DISTINCT referenceFormID, editorID FROM Position JOIN Entity ON Entity.entityFormID = Position.referenceFormID;");
+			TransformColumn(GetFluxLoot, "Flux", "editorID", "color");
+			SimpleQuery("DELETE FROM Flux WHERE color = '';");
+			SimpleQuery("ALTER TABLE Flux DROP COLUMN editorID;");
+
 			AssignConstraints();
 
 			// Create indexes
@@ -419,9 +426,10 @@ namespace Preprocessor
 			AddToSummaryReport("Avg region maxLevel", SimpleQuery("SELECT AVG(maxLevel) FROM Region;"));
 			AddToSummaryReport("Avg junkFormID as Dec", SimpleQuery("SELECT AVG(junkFormID) FROM Scrap;"));
 			AddToSummaryReport("Avg X, Y per Space", SimpleQuery("SELECT spaceEditorID, AVG(x), AVG(y) FROM Space JOIN Position ON Position.spaceFormID = Space.spaceFormID GROUP BY Space.spaceFormID ORDER BY isWorldspace DESC, space.spaceEditorID ASC;"));
-			AddToSummaryReport("Avg Container items per container", SimpleQuery("SELECT avg(contentsCount) FROM (SELECT count(contentFormID) as contentsCount FROM Container GROUP BY ContainerFormID);"));
-			AddToSummaryReport("Avg Container quantity per item", SimpleQuery("SELECT avg(quantity) FROM Container;"));
+			AddToSummaryReport("Avg Container items per container", SimpleQuery("SELECT AVG(contentsCount) FROM (SELECT count(contentFormID) as contentsCount FROM Container GROUP BY ContainerFormID);"));
+			AddToSummaryReport("Avg Container quantity per item", SimpleQuery("SELECT AVG(quantity) FROM Container;"));
 			AddToSummaryReport("Unique Container count", SimpleQuery("SELECT count(DISTINCT containerFormID) FROM Container;"));
+			AddToSummaryReport("Flux-producing entities count", SimpleQuery("SELECT color, COUNT(*) FROM Flux GROUP BY color;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -662,6 +670,12 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Space;");
 			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Flux;");
+			SimpleQuery("DROP TABLE Flux;");
+			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, color STRING NOT NULL);");
+			SimpleQuery("INSERT INTO Flux (referenceFormID, color) SELECT referenceFormID, color FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
 
