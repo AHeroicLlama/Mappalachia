@@ -87,7 +87,7 @@ namespace Mappalachia
 		static float TopographLegendDivisions { get; } = 100;
 
 		// The primary map draw function
-		public static Image Draw(List<GroupedSearchResult> itemsToPlot, Settings settings, Progress<ProgressInfo>? progressInfo = null)
+		public static Image? Draw(List<GroupedSearchResult> itemsToPlot, Settings settings, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			UpdateProgress(progressInfo, 10, "Draw started");
 
@@ -99,7 +99,12 @@ namespace Mappalachia
 			RectangleF backgroundRectangle = GetScaledMapBackgroundRect(settings);
 			graphics.DrawImage(settings.Space.GetBackgroundImage(settings.MapSettings.BackgroundImage), backgroundRectangle);
 
-			DrawSpotlightTiles(settings, graphics, progressInfo);
+			DrawSpotlightTiles(settings, graphics, progressInfo, cancellationToken);
+
+			if (cancellationToken.IsCancellationRequested)
+			{
+				return null;
+			}
 
 			// Apply the brightness and grayscale if selected
 			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
@@ -120,20 +125,25 @@ namespace Mappalachia
 				switch (settings.PlotSettings.Mode)
 				{
 					case PlotMode.Standard:
-						DrawStandardPlots(itemsToPlot, settings, graphics, false, progressInfo);
+						DrawStandardPlots(itemsToPlot, settings, graphics, false, progressInfo, cancellationToken);
 						break;
 
 					case PlotMode.Topographic:
-						DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo);
+						DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo, cancellationToken);
 						DrawTopographicLegend(settings, graphics, TopographLegendRect, TopographLegendDivisions);
 						break;
 
 					case PlotMode.Cluster:
-						DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo);
+						DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo, cancellationToken);
 						break;
 
 					default:
 						throw new Exception("Unexpected PlotMode: " + settings.PlotSettings.Mode);
+				}
+
+				if (cancellationToken.IsCancellationRequested)
+				{
+					return null;
 				}
 
 				DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
@@ -177,7 +187,7 @@ namespace Mappalachia
 			progressInfo.Report(new ProgressInfo((int)Math.Round((current / (double)total) * 100), status));
 		}
 
-		static void DrawSpotlightTiles(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
+		static void DrawSpotlightTiles(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			if (!settings.MapSettings.SpotlightEnabled ||
 				settings.MapSettings.BackgroundImage != BackgroundImageType.Render)
@@ -186,6 +196,11 @@ namespace Mappalachia
 			}
 
 			List<SpotlightTile> spotlightTiles = SpotlightTile.GetTilesInRect(new RectangleF(0, 0, MapImageResolution, MapImageResolution).AsWorldRectangle(settings), settings.Space);
+
+			if (cancellationToken.IsCancellationRequested)
+			{
+				return;
+			}
 
 			// Pre-cache the tile images in parallel
 			spotlightTiles.AsParallel().ForAll(tile =>
@@ -196,6 +211,11 @@ namespace Mappalachia
 			int i = 0;
 			foreach (SpotlightTile tile in spotlightTiles)
 			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					return;
+				}
+
 				Image? image = tile.GetSpotlightTileImage();
 
 				if (image == null)
@@ -212,14 +232,19 @@ namespace Mappalachia
 		}
 
 		// Standard including topographic plots
-		static async void DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic = false, Progress<ProgressInfo>? progressInfo = null)
+		static async void DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			(double, double) topographRange = topographic ? await Database.GetZRange(itemsToPlot, settings) : (-1, -1);
 
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting standard coordinates and volumes");
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Plotting {(topographic ? "topographic" : "standard")} coordinates and volumes");
+
+				if (cancellationToken.IsCancellationRequested)
+				{
+					return;
+				}
 
 				if (item.Space != settings.Space)
 				{
@@ -273,7 +298,7 @@ namespace Mappalachia
 			}
 		}
 
-		static async void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
+		static async void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			List<List<GroupedSearchResult>> clusterGroups = settings.PlotSettings.ClusterSettings.ClusterPerLegendGroup ?
 				itemsToPlot.GroupBy(i => i.LegendGroup).Select(g => g.ToList()).ToList() :
@@ -284,6 +309,8 @@ namespace Mappalachia
 				List<Instance> instances = new List<Instance>();
 
 				GroupedSearchResult leadItem = group.First();
+
+				UpdateProgress(progressInfo, 20, "Arranging cluster instances");
 
 				foreach (GroupedSearchResult item in group)
 				{
@@ -298,12 +325,6 @@ namespace Mappalachia
 					List<Instance> shapes = intermediateInstances.Where(instance => instance.PrimitiveShape != null).ToList();
 
 					intermediateInstances = intermediateInstances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape == null).ToList();
-
-					// Assign the lead item as the first GroupedSearchResult with non-region non-shape plots
-					if (intermediateInstances.Count > 0)
-					{
-						leadItem ??= item;
-					}
 
 					foreach (Instance regionInstance in regions)
 					{
@@ -320,10 +341,14 @@ namespace Mappalachia
 
 				List<Cluster> clusters = new List<Cluster>();
 
-				int i = 0;
+				UpdateProgress(progressInfo, 40, "Forming clusters");
+
 				foreach (Instance outerInstance in instances)
 				{
-					UpdateProgress(progressInfo, ++i, instances.Count, "Finding clusters");
+					if (cancellationToken.IsCancellationRequested)
+					{
+						return;
+					}
 
 					if (outerInstance.IsMemberOfCluster)
 					{
@@ -346,10 +371,14 @@ namespace Mappalachia
 					}
 				}
 
-				i = 0;
+				UpdateProgress(progressInfo, 60, "Optimizing clusters");
+
 				foreach (Instance instance in instances)
 				{
-					UpdateProgress(progressInfo, ++i, instances.Count, "Optimizing clusters");
+					if (cancellationToken.IsCancellationRequested)
+					{
+						return;
+					}
 
 					Cluster closestCluster = clusters.MinBy(cluster => GeometryHelper.Pythagoras(cluster.Origin.Coord, instance.Coord)) ?? throw new Exception("Failed to find a closest cluster");
 
@@ -362,16 +391,15 @@ namespace Mappalachia
 					closestCluster.AddMember(instance);
 				}
 
-				i = 0;
 				Color color = leadItem.PlotIcon.Color;
 				Pen pen = new Pen(color, ClusterLineThickness);
 				Brush brush = new SolidBrush(color.WithAlpha(ClusterLabelAlpha));
 
+				UpdateProgress(progressInfo, 80, "Drawing clusters");
+
 				// Draw all qualifying clusters
 				foreach (Cluster cluster in clusters)
 				{
-					UpdateProgress(progressInfo, ++i, clusters.Count, "Drawing clusters");
-
 					if (cluster.GetWeight() < settings.PlotSettings.ClusterSettings.MinWeight)
 					{
 						continue;
@@ -470,10 +498,9 @@ namespace Mappalachia
 				return;
 			}
 
-			int i = 0;
 			foreach (GroupedSearchResult searchResult in itemsToPlot)
 			{
-				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Drawing Instance FormIDs");
+				UpdateProgress(progressInfo, 90, "Drawing Instance FormIDs");
 
 				if (searchResult.Space != settings.Space)
 				{
@@ -723,10 +750,9 @@ namespace Mappalachia
 			// Then half it, flip it, and offset by the midpoint of the image
 			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size)) / -2);
 
-			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
-				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, $"Drawing legend");
+				UpdateProgress(progressInfo, 95, $"Drawing legend");
 
 				SizeF bounds = graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution));
 

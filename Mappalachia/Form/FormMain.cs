@@ -21,6 +21,8 @@ namespace Mappalachia
 
 		bool CurrentlyDrawing { get; set; } = false;
 
+		CancellationTokenSource DrawCancellationTokenSource { get; set; } = new CancellationTokenSource();
+
 		public FormMain()
 		{
 			InitializeComponent();
@@ -378,11 +380,14 @@ namespace Mappalachia
 			if (CurrentlyDrawing)
 			{
 				DrawRequested = true;
+				DrawCancellationTokenSource.Cancel();
+				GC.Collect();
 				return;
 			}
 
 			CurrentlyDrawing = true;
 			buttonUpdateMap.Enabled = false;
+			DrawCancellationTokenSource = new CancellationTokenSource();
 
 			Progress<ProgressInfo> progress = new Progress<ProgressInfo>(progressInfo =>
 			{
@@ -391,7 +396,7 @@ namespace Mappalachia
 				labelProgressStatus.Location = new Point((Width / 2) - (labelProgressStatus.Width / 2), labelProgressStatus.Location.Y);
 			});
 
-			await Task.Run(() => FormMapView.MapImage = Map.Draw(ItemsToPlot.ToList(), Settings, progress));
+			await Task.Run(() => FormMapView.MapImage = Map.Draw(ItemsToPlot.ToList(), Settings, progress, DrawCancellationTokenSource.Token) ?? FormMapView.MapImage);
 
 			CurrentlyDrawing = false;
 			buttonUpdateMap.Enabled = true;
