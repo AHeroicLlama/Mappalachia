@@ -388,7 +388,8 @@ namespace Preprocessor
 			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", await CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, isInstanceable, centerX, centerY, maxRange FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
+			AddToSummaryReport("Avg northAngle", SimpleQuery("SELECT AVG(northAngle) FROM Space;"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
 			AddToSummaryReport("Avg CenterX, CenterY", SimpleQuery("SELECT AVG(centerX), AVG(centerY) FROM Space;"));
@@ -435,6 +436,14 @@ namespace Preprocessor
 			AddToSummaryReport("Avg Container quantity per item", SimpleQuery("SELECT AVG(quantity) FROM Container;"));
 			AddToSummaryReport("Unique Container count", SimpleQuery("SELECT count(DISTINCT containerFormID) FROM Container;"));
 			AddToSummaryReport("Flux-producing entities count", SimpleQuery("SELECT color, COUNT(*) FROM Flux GROUP BY color;"));
+			AddToSummaryReport("Non-standard NorthMarker counts", SimpleQuery(
+				"SELECT * FROM (" +
+					"SELECT spaceEditorID, COUNT(Position.spaceFormID) AS northMarkerCount FROM Position " +
+					"JOIN Space ON Space.spaceFormID = Position.spaceFormID " +
+					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+					"WHERE Entity.editorID = 'NorthMarker' " +
+					"GROUP BY Position.spaceFormID) " +
+				"WHERE northMarkerCount != 1;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -886,7 +895,15 @@ namespace Preprocessor
 
 		static string GetNorthAngle(string spaceFormID)
 		{
-			using SqliteCommand command = new SqliteCommand($"SELECT MAX(rotZ) AS rotation FROM Position WHERE referenceFormID = '{NorthMarkerFormID}' AND spaceFormID = {spaceFormID}", GetNewConnection());
+			string query = $"SELECT MAX(rotZ) AS rotation FROM Position WHERE referenceFormID = '{NorthMarkerFormID}' AND spaceFormID = {spaceFormID}";
+
+			if (NorthMarkerPreference.TryGetValue(spaceFormID.ToHex(), out string? value))
+			{
+				uint instance = Common.HexToInt(value);
+				query = $"SELECT MAX(rotZ) AS rotation FROM Position WHERE instanceFormID = '{instance}' AND spaceFormID = {spaceFormID}";
+			}
+
+			using SqliteCommand command = new SqliteCommand(query, GetNewConnection());
 			using SqliteDataReader reader = command.ExecuteReader();
 
 			if (!reader.Read() || reader.IsDBNull(0))

@@ -249,8 +249,16 @@ namespace Library
 			"swamptree", "babylon",
 		};
 
-		// The base-10 Form ID of NorthMarker
-		public static int NorthMarkerFormID { get; } = 3;
+		// The Form ID of NorthMarker
+		public static uint NorthMarkerFormID { get; } = HexToInt("00000003");
+
+		// Some spaces have 2 North Markers - we specify which one we want to pick to give the north angle
+		// Key = space FormID in Hex, Value = northMarker instance FormID in Hex
+		public static Dictionary<string, string> NorthMarkerPreference { get; } = new Dictionary<string, string>()
+		{
+			{ "00473CE3", "0040C221" }, // Burrows01
+			{ "006143D4", "006150A9" }, // UncannyCavernsDungeon
+		};
 
 		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others
 		public static string CorrectFissureLabels(string label)

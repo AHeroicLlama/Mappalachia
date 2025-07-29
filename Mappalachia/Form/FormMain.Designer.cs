@@ -34,6 +34,7 @@ namespace Mappalachia
 			showPreviewToolStripMenuItem = new ToolStripMenuItem();
 			openExternallyToolStripMenuItem = new ToolStripMenuItem();
 			setTitleToolStripMenuItem = new ToolStripMenuItem();
+			fontSizesToolStripMenuItem = new ToolStripMenuItem();
 			mapMapMarkersToolStripMenuItem = new ToolStripMenuItem();
 			mapMarkerIconsToolStripMenuItem = new ToolStripMenuItem();
 			mapMarkerLabelsToolStripMenuItem = new ToolStripMenuItem();
@@ -45,6 +46,10 @@ namespace Mappalachia
 			grayscaleToolStripMenuItem = new ToolStripMenuItem();
 			setBrightnessToolStripMenuItem = new ToolStripMenuItem();
 			highlightWaterToolStripMenuItem = new ToolStripMenuItem();
+			showCompassToolStripMenuItem = new ToolStripMenuItem();
+			compassAlwaysToolStripMenuItem = new ToolStripMenuItem();
+			compassWhenUsefulToolStripMenuItem = new ToolStripMenuItem();
+			compassNeverToolStripMenuItem = new ToolStripMenuItem();
 			spotlightToolStripMenuItem = new ToolStripMenuItem();
 			spotlightEnabledToolStripMenuItem = new ToolStripMenuItem();
 			spotlightSetRangeToolStripMenuItem = new ToolStripMenuItem();
@@ -104,7 +109,6 @@ namespace Mappalachia
 			labelProgressStatus = new Label();
 			labelSearchResults = new Label();
 			labelItemsToPlot = new Label();
-			fontSizesToolStripMenuItem = new ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -125,7 +129,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, spotlightToolStripMenuItem, mapLegendStyleToolStripMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, mapLegendStyleToolStripMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -154,6 +158,14 @@ namespace Mappalachia
 			setTitleToolStripMenuItem.Text = "Set Title";
 			setTitleToolStripMenuItem.ToolTipText = "Set a title for your map.";
 			setTitleToolStripMenuItem.Click += Map_SetTitle_Click;
+			// 
+			// fontSizesToolStripMenuItem
+			// 
+			fontSizesToolStripMenuItem.Name = "fontSizesToolStripMenuItem";
+			fontSizesToolStripMenuItem.Size = new Size(233, 22);
+			fontSizesToolStripMenuItem.Text = "Font Sizes";
+			fontSizesToolStripMenuItem.ToolTipText = "Set font sizes.";
+			fontSizesToolStripMenuItem.Click += Map_SetFontSizes_Click;
 			// 
 			// mapMapMarkersToolStripMenuItem
 			// 
@@ -242,6 +254,38 @@ namespace Mappalachia
 			highlightWaterToolStripMenuItem.Text = "Highlight Water";
 			highlightWaterToolStripMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
 			highlightWaterToolStripMenuItem.Click += Map_HightlightWater_Click;
+			// 
+			// showCompassToolStripMenuItem
+			// 
+			showCompassToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { compassAlwaysToolStripMenuItem, compassWhenUsefulToolStripMenuItem, compassNeverToolStripMenuItem });
+			showCompassToolStripMenuItem.Name = "showCompassToolStripMenuItem";
+			showCompassToolStripMenuItem.Size = new Size(233, 22);
+			showCompassToolStripMenuItem.Text = "Show Compass";
+			showCompassToolStripMenuItem.ToolTipText = "Choose when to display a compass rose on the map.";
+			// 
+			// compassAlwaysToolStripMenuItem
+			// 
+			compassAlwaysToolStripMenuItem.Name = "compassAlwaysToolStripMenuItem";
+			compassAlwaysToolStripMenuItem.Size = new Size(180, 22);
+			compassAlwaysToolStripMenuItem.Text = "Always";
+			compassAlwaysToolStripMenuItem.ToolTipText = "The compass rose is always drawn.";
+			compassAlwaysToolStripMenuItem.Click += Map_Compass_Always_Click;
+			// 
+			// compassWhenUsefulToolStripMenuItem
+			// 
+			compassWhenUsefulToolStripMenuItem.Name = "compassWhenUsefulToolStripMenuItem";
+			compassWhenUsefulToolStripMenuItem.Size = new Size(180, 22);
+			compassWhenUsefulToolStripMenuItem.Text = "When Useful";
+			compassWhenUsefulToolStripMenuItem.ToolTipText = "The compass is drawn only when North is not 'up' on the map already.";
+			compassWhenUsefulToolStripMenuItem.Click += Map_Compass_WhenUseful_Click;
+			// 
+			// compassNeverToolStripMenuItem
+			// 
+			compassNeverToolStripMenuItem.Name = "compassNeverToolStripMenuItem";
+			compassNeverToolStripMenuItem.Size = new Size(180, 22);
+			compassNeverToolStripMenuItem.Text = "Never";
+			compassNeverToolStripMenuItem.ToolTipText = "The compass is never drawn.";
+			compassNeverToolStripMenuItem.Click += Map_Compass_Never_Click;
 			// 
 			// spotlightToolStripMenuItem
 			// 
@@ -797,14 +841,6 @@ namespace Mappalachia
 			labelItemsToPlot.TabIndex = 14;
 			labelItemsToPlot.Text = "Items selected to plot";
 			// 
-			// fontSizesToolStripMenuItem
-			// 
-			fontSizesToolStripMenuItem.Name = "fontSizesToolStripMenuItem";
-			fontSizesToolStripMenuItem.Size = new Size(233, 22);
-			fontSizesToolStripMenuItem.Text = "Font Sizes";
-			fontSizesToolStripMenuItem.ToolTipText = "Set font sizes.";
-			fontSizesToolStripMenuItem.Click += Map_SetFontSizes_Click;
-			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
@@ -923,5 +959,9 @@ namespace Mappalachia
 		private ToolStripMenuItem installSpotlightToolStripMenuItem;
 		private ToolStripMenuItem searchInInstancesOnlyToolStripMenuItem;
 		private ToolStripMenuItem fontSizesToolStripMenuItem;
+		private ToolStripMenuItem showCompassToolStripMenuItem;
+		private ToolStripMenuItem compassAlwaysToolStripMenuItem;
+		private ToolStripMenuItem compassWhenUsefulToolStripMenuItem;
+		private ToolStripMenuItem compassNeverToolStripMenuItem;
 	}
 }

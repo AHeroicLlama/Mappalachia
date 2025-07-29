@@ -40,6 +40,17 @@ namespace Mappalachia
 			}
 		}
 
+		static Image? compassRose;
+
+		public static Image CompassRose
+		{
+			get
+			{
+				compassRose ??= LoadCompassRoseImage();
+				return compassRose;
+			}
+		}
+
 		public static FontFamily GetFontFamily()
 		{
 			return FontCollection.Families.First();
@@ -229,6 +240,11 @@ namespace Mappalachia
 		{
 			Svg.SvgDocument document = Svg.SvgDocument.Open(path);
 			return document.Draw((int)(document.Width * Map.IconScale), 0);
+		}
+
+		static Bitmap LoadCompassRoseImage()
+		{
+			return new Bitmap(Paths.CompassRosePath);
 		}
 
 		static string GetFileExtension(this ImageFormat format)

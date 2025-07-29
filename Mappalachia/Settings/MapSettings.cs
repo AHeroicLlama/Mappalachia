@@ -95,6 +95,8 @@ namespace Mappalachia
 
 		public string Title { get; set; } = string.Empty;
 
+		public CompassStyle CompassStyle { get; set; } = CompassStyle.WhenUseful;
+
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
 

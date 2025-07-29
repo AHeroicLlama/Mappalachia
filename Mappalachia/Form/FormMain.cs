@@ -236,7 +236,7 @@ namespace Mappalachia
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
 			// Set all items which are members of "pick only one" lists to be unchecked, first
-			foreach (ToolStripMenuItem item in new[] { backgroundNormalToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundNoneToolStripMenuItem, legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem, volumeBorderToolStripMenuItem, volumeFillToolStripMenuItem, volumeBothToolStripMenuItem, plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeClusterToolStripMenuItem })
+			foreach (ToolStripMenuItem item in new[] { backgroundNormalToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundNoneToolStripMenuItem, legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem, volumeBorderToolStripMenuItem, volumeFillToolStripMenuItem, volumeBothToolStripMenuItem, plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeClusterToolStripMenuItem, compassAlwaysToolStripMenuItem, compassWhenUsefulToolStripMenuItem, compassNeverToolStripMenuItem })
 			{
 				item.Checked = false;
 			}
@@ -303,6 +303,21 @@ namespace Mappalachia
 					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.PlotSettings.Mode)} value {Settings.PlotSettings.Mode}");
+			}
+
+			switch (Settings.MapSettings.CompassStyle)
+			{
+				case CompassStyle.Always:
+					compassAlwaysToolStripMenuItem.Checked = true;
+					break;
+				case CompassStyle.WhenUseful:
+					compassWhenUsefulToolStripMenuItem.Checked = true;
+					break;
+				case CompassStyle.Off:
+					compassNeverToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.CompassStyle)} value {Settings.MapSettings.CompassStyle}");
 			}
 
 			// Update the multi-selectable checkboxes of the list view filters
@@ -851,6 +866,21 @@ namespace Mappalachia
 		private void Map_HightlightWater_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
+		}
+
+		private void Map_Compass_Always_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.Always);
+		}
+
+		private void Map_Compass_WhenUseful_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.WhenUseful);
+		}
+
+		private void Map_Compass_Never_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.Off);
 		}
 
 		private void Map_Spotlight_SetRange_Click(object sender, EventArgs e)

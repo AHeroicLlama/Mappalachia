@@ -20,8 +20,17 @@ namespace Mappalachia
 		None,
 	}
 
+	public enum CompassStyle
+	{
+		Off,
+		WhenUseful,
+		Always,
+	}
+
 	public static class Map
 	{
+		public static int CompassSize { get; } = MapImageResolution / 8;
+
 		public static double IconScale { get; } = 1.5;
 
 		static int TitlePadding { get; } = 30;
@@ -91,6 +100,8 @@ namespace Mappalachia
 			{
 				return null;
 			}
+
+			DrawCompassRose(settings, graphics);
 
 			// Apply the brightness and grayscale if selected
 			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
@@ -171,6 +182,31 @@ namespace Mappalachia
 			}
 
 			progressInfo.Report(new ProgressInfo((int)Math.Round((current / (double)total) * 100), status));
+		}
+
+		static void DrawCompassRose(Settings settings, Graphics graphics)
+		{
+			if (settings.MapSettings.CompassStyle == CompassStyle.Off)
+			{
+				return;
+			}
+
+			if (settings.MapSettings.CompassStyle == CompassStyle.WhenUseful && settings.Space.NorthAngle <= 0.01)
+			{
+				return;
+			}
+
+			Image canvas = new Bitmap(CompassSize, CompassSize);
+			Graphics compassGraphic = GraphicsFromImageHQ(canvas);
+
+			// Rotate the graphic around its center by the north angle, then draw the compass onto it
+			compassGraphic.TranslateTransform(canvas.Width / 2, canvas.Height / 2);
+			compassGraphic.RotateTransform((float)settings.Space.NorthAngle);
+			compassGraphic.TranslateTransform(canvas.Width / -2, canvas.Height / -2);
+			compassGraphic.DrawImage(FileIO.CompassRose, new RectangleF(0, 0, canvas.Width, canvas.Height));
+
+			// Draw the rotated compass onto the map
+			graphics.DrawImage(canvas, new RectangleF(MapImageResolution - canvas.Width, 0, canvas.Width, canvas.Height));
 		}
 
 		static void DrawSpotlightTiles(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
@@ -668,15 +704,7 @@ namespace Mappalachia
 				text += " (Instanced)";
 			}
 
-			text += "\n";
-
-			if (settings.MapSettings.SpotlightEnabled)
-			{
-				text += $"{Math.Round(settings.MapSettings.SpotlightLocation.X)}, {Math.Round(settings.MapSettings.SpotlightLocation.Y)} " +
-					$"{Math.Round(settings.MapSettings.SpotlightSize * TileWidth / settings.Space.MaxRange, 3)}:1\n";
-			}
-
-			text += $"Game Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
+			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 
 			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);

@@ -60,6 +60,11 @@ namespace Library
 			return formID.ToString("X8");
 		}
 
+		public static string ToHex(this string formID)
+		{
+			return uint.Parse(formID).ToHex();
+		}
+
 		public static uint HexToInt(string hex)
 		{
 			return Convert.ToUInt32(FormID.Matches(hex)[0].Value, 16);
