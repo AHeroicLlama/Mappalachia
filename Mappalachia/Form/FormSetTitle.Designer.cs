@@ -32,9 +32,6 @@
 			buttonOK = new Button();
 			buttonCancel = new Button();
 			labelTitle = new Label();
-			numericUpDownFontSize = new NumericUpDown();
-			labelFontSize = new Label();
-			((System.ComponentModel.ISupportInitialize)numericUpDownFontSize).BeginInit();
 			SuspendLayout();
 			// 
 			// textBox
@@ -49,7 +46,7 @@
 			// buttonOK
 			// 
 			buttonOK.Anchor = AnchorStyles.Bottom;
-			buttonOK.Location = new Point(89, 121);
+			buttonOK.Location = new Point(89, 60);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
 			buttonOK.TabIndex = 1;
@@ -60,7 +57,7 @@
 			// buttonCancel
 			// 
 			buttonCancel.Anchor = AnchorStyles.Bottom;
-			buttonCancel.Location = new Point(170, 121);
+			buttonCancel.Location = new Point(170, 60);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
 			buttonCancel.TabIndex = 2;
@@ -76,34 +73,13 @@
 			labelTitle.TabIndex = 3;
 			labelTitle.Text = "Title";
 			// 
-			// numericUpDownFontSize
-			// 
-			numericUpDownFontSize.Location = new Point(12, 78);
-			numericUpDownFontSize.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
-			numericUpDownFontSize.Minimum = new decimal(new int[] { 16, 0, 0, 0 });
-			numericUpDownFontSize.Name = "numericUpDownFontSize";
-			numericUpDownFontSize.Size = new Size(71, 23);
-			numericUpDownFontSize.TabIndex = 4;
-			numericUpDownFontSize.Value = new decimal(new int[] { 72, 0, 0, 0 });
-			// 
-			// labelFontSize
-			// 
-			labelFontSize.AutoSize = true;
-			labelFontSize.Location = new Point(12, 60);
-			labelFontSize.Name = "labelFontSize";
-			labelFontSize.Size = new Size(76, 15);
-			labelFontSize.TabIndex = 5;
-			labelFontSize.Text = "Font Size (Pt)";
-			// 
 			// FormSetTitle
 			// 
 			AcceptButton = buttonOK;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = buttonCancel;
-			ClientSize = new Size(334, 149);
-			Controls.Add(labelFontSize);
-			Controls.Add(numericUpDownFontSize);
+			ClientSize = new Size(334, 88);
 			Controls.Add(labelTitle);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
@@ -116,7 +92,6 @@
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Set Map Title";
-			((System.ComponentModel.ISupportInitialize)numericUpDownFontSize).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -127,7 +102,5 @@
 		private Button buttonOK;
 		private Button buttonCancel;
 		private Label labelTitle;
-		private NumericUpDown numericUpDownFontSize;
-		private Label labelFontSize;
 	}
 }

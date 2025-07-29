@@ -48,14 +48,11 @@
 			{
 				DialogResult = DialogResult.Abort;
 			}
-
-			Close();
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
-			Close();
 		}
 
 		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)

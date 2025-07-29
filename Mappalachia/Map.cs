@@ -24,27 +24,13 @@ namespace Mappalachia
 	{
 		public static double IconScale { get; } = 1.5;
 
+		static int TitlePadding { get; } = 30;
+
 		static int LegendXMax { get; } = (int)(MapImageResolution / 6.3);
 
 		static int LegendXPadding { get; } = 5;
 
 		static int LegendYPadding { get; } = 5;
-
-		static int MapMarkerLabelTextMaxWidth { get; } = 150; // Max width of the label text, before it attempts to wrap
-
-		static Font FontLegend { get; } = GetFont(40);
-
-		static Font FontItemsInOtherSpaces { get; } = GetFont(20);
-
-		static Font FontMapMarkerLabel { get; } = GetFont(20);
-
-		static Font FontWatermark { get; } = GetFont(60);
-
-		static Font FontClusterLabel { get; } = GetFont(32);
-
-		static Font FontInstanceFormID { get; } = GetFont(32);
-
-		static Font FontRegionLevel { get; } = GetFont(32);
 
 		static int VolumeEdgeThickness { get; } = 5;
 
@@ -300,6 +286,8 @@ namespace Mappalachia
 
 		static async void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeClusterLabel);
+
 			List<List<GroupedSearchResult>> clusterGroups = settings.PlotSettings.ClusterSettings.ClusterPerLegendGroup ?
 				itemsToPlot.GroupBy(i => i.LegendGroup).Select(g => g.ToList()).ToList() :
 				new List<List<GroupedSearchResult>>() { itemsToPlot };
@@ -410,7 +398,7 @@ namespace Mappalachia
 						graphics.DrawPolygon(pen, cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
 					}
 
-					graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), FontClusterLabel, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
+					graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), font, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
 				}
 			}
 		}
@@ -421,6 +409,8 @@ namespace Mappalachia
 			Dictionary<Space, int> connectionsToSpace = new Dictionary<Space, int>();
 
 			List<Instance> teleportersInSelectedSpace = await Database.GetTeleporters(settings.Space);
+
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeItemsInOtherSpaces);
 
 			int i = 0;
 			foreach (GroupedSearchResult item in itemsToPlot)
@@ -483,7 +473,7 @@ namespace Mappalachia
 
 					graphics.DrawStringCentered(
 						$"{teleporter.TeleportsTo!.DisplayName}: {item.Entity.EditorID} ({instances.Count})",
-						FontItemsInOtherSpaces,
+						font,
 						new SolidBrush(item.PlotIcon.Color),
 						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])));
 				}
@@ -497,6 +487,8 @@ namespace Mappalachia
 			{
 				return;
 			}
+
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeInstanceFormID);
 
 			foreach (GroupedSearchResult searchResult in itemsToPlot)
 			{
@@ -515,7 +507,7 @@ namespace Mappalachia
 					}
 
 					PointF point = instance.Coord.AsImagePoint(settings);
-					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), FontInstanceFormID, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSize / 2)), false);
+					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), font, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSize / 2)), false);
 				}
 			}
 		}
@@ -538,6 +530,7 @@ namespace Mappalachia
 		{
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeRegionLevel);
 
 			foreach (List<RegionPoint> subregion in region.GetAllSubRegions())
 			{
@@ -575,7 +568,7 @@ namespace Mappalachia
 						levelString = $"{region.MinLevel}-{region.MaxLevel}";
 					}
 
-					graphics.DrawStringCentered(levelString, FontRegionLevel, new SolidBrush(color), subregion.GetCentroid().AsImagePoint(settings));
+					graphics.DrawStringCentered(levelString, font, new SolidBrush(color), subregion.GetCentroid().AsImagePoint(settings));
 				}
 			}
 		}
@@ -645,20 +638,20 @@ namespace Mappalachia
 
 		static void DrawTitle(Settings settings, Graphics graphics)
 		{
-			string titleText = settings.MapSettings.Title.Trim();
+			string titleText = settings.MapSettings.Title;
 
 			if (titleText.IsNullOrWhiteSpace())
 			{
 				return;
 			}
 
-			Font font = GetFont(settings.MapSettings.TitleFontSize);
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeTitle);
 			SizeF stringBounds = graphics.MeasureString(titleText, font, new SizeF(MapImageResolution, MapImageResolution));
 
 			RectangleF textBounds = new RectangleF(
-				MapImageResolution - stringBounds.Width,
+				MapImageResolution - stringBounds.Width - TitlePadding,
 				0,
-				stringBounds.Width,
+				stringBounds.Width + TitlePadding,
 				stringBounds.Height);
 
 			DrawStringWithDropShadow(graphics, titleText, font, BrushGeneric, textBounds, TopRight);
@@ -666,6 +659,8 @@ namespace Mappalachia
 
 		static async void DrawWaterMark(Settings settings, Graphics graphics)
 		{
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeWatermark);
+
 			string text = $"{settings.Space.DisplayName} ({settings.Space.EditorID})";
 
 			if (settings.Space.IsInstanceable)
@@ -684,7 +679,7 @@ namespace Mappalachia
 			text += $"Game Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 
-			DrawStringWithDropShadow(graphics, text, FontWatermark, BrushGenericTransparent, textBounds, BottomRight);
+			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);
 		}
 
 		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
@@ -695,6 +690,8 @@ namespace Mappalachia
 			}
 
 			UpdateProgress(progressInfo, 50, "Drawing map markers");
+
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeMapMarkerLabel);
 
 			List<MapMarker> mapMarkers = Database.AllMapMarkers
 				.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
@@ -715,7 +712,7 @@ namespace Mappalachia
 
 				if (settings.MapSettings.MapMarkerLabels)
 				{
-					graphics.DrawStringCentered(marker.Label, FontMapMarkerLabel, BrushGeneric, new PointF(coord.X, coord.Y + labelOffset), !settings.MapSettings.MapMarkerIcons, MapMarkerLabelTextMaxWidth);
+					graphics.DrawStringCentered(marker.Label, font, BrushGeneric, new PointF(coord.X, coord.Y + labelOffset), !settings.MapSettings.MapMarkerIcons);
 				}
 			}
 		}
@@ -745,16 +742,17 @@ namespace Mappalachia
 			}
 
 			using Graphics graphics = GraphicsFromImageHQ(image);
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeLegend);
 
 			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
 			// Then half it, flip it, and offset by the midpoint of the image
-			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size)) / -2);
+			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, font, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size)) / -2);
 
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
 				UpdateProgress(progressInfo, 95, $"Drawing legend");
 
-				SizeF bounds = graphics.MeasureString(item.LegendText, FontLegend, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution));
+				SizeF bounds = graphics.MeasureString(item.LegendText, font, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution));
 
 				float halfRowHeight = Math.Max(bounds.Height, item.PlotIcon.Size + LegendYPadding) / 2;
 				float midPointRowPos = height + halfRowHeight;
@@ -762,7 +760,7 @@ namespace Mappalachia
 
 				graphics.DrawStringWithDropShadow(
 					item.LegendText,
-					FontLegend,
+					font,
 					new SolidBrush(item.PlotIcon.Color),
 					new RectangleF(iconXMid * 2, midPointRowPos - (bounds.Height / 2), bounds.Width, bounds.Height),
 					CenterLeft);

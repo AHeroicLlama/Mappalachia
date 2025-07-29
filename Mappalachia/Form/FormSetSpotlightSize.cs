@@ -28,7 +28,6 @@ namespace Mappalachia
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
-			Close();
 		}
 
 		private void TrackBarSpotlightSize_ValueChanged(object sender, EventArgs e)

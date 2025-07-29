@@ -104,6 +104,7 @@ namespace Mappalachia
 			labelProgressStatus = new Label();
 			labelSearchResults = new Label();
 			labelItemsToPlot = new Label();
+			fontSizesToolStripMenuItem = new ToolStripMenuItem();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -124,7 +125,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, spotlightToolStripMenuItem, mapLegendStyleToolStripMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, spotlightToolStripMenuItem, mapLegendStyleToolStripMenuItem, quickSaveToolStripMenuItem, exportToFileToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -796,6 +797,14 @@ namespace Mappalachia
 			labelItemsToPlot.TabIndex = 14;
 			labelItemsToPlot.Text = "Items selected to plot";
 			// 
+			// fontSizesToolStripMenuItem
+			// 
+			fontSizesToolStripMenuItem.Name = "fontSizesToolStripMenuItem";
+			fontSizesToolStripMenuItem.Size = new Size(233, 22);
+			fontSizesToolStripMenuItem.Text = "Font Sizes";
+			fontSizesToolStripMenuItem.ToolTipText = "Set font sizes.";
+			fontSizesToolStripMenuItem.Click += Map_SetFontSizes_Click;
+			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
@@ -913,5 +922,6 @@ namespace Mappalachia
 		private Label labelItemsToPlot;
 		private ToolStripMenuItem installSpotlightToolStripMenuItem;
 		private ToolStripMenuItem searchInInstancesOnlyToolStripMenuItem;
+		private ToolStripMenuItem fontSizesToolStripMenuItem;
 	}
 }

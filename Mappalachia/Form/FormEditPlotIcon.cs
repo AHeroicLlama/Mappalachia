@@ -63,7 +63,6 @@ namespace Mappalachia
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
-			Close();
 		}
 	}
 }

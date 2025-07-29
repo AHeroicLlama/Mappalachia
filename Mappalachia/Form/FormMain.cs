@@ -590,11 +590,11 @@ namespace Mappalachia
 			DataGridViewRow editedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 			GroupedSearchResult boundData = (GroupedSearchResult)(editedRow.DataBoundItem ?? throw new Exception("Edited row bound to null"));
 
-			FormEditPlotIcon plotIconForm = new FormEditPlotIcon(this, boundData.PlotIcon);
+			FormEditPlotIcon plotIconForm = new FormEditPlotIcon(this, new PlotIcon(boundData.PlotIcon));
 
 			if (plotIconForm.ShowDialog() == DialogResult.OK)
 			{
-				boundData.PlotIcon = new PlotIcon(plotIconForm.CurrentIcon);
+				boundData.PlotIcon = plotIconForm.CurrentIcon;
 			}
 			else
 			{
@@ -620,6 +620,7 @@ namespace Mappalachia
 		{
 			dataGridView.AutoGenerateColumns = false;
 			dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+			dataGridView.RowHeadersWidth = (int)(dataGridView.Width * 0.025);
 			dataGridView.DataSource = new BindingSource(data, string.Empty);
 
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "FormID", DataPropertyName = "DataValueFormID", FillWeight = 2 });
@@ -777,24 +778,24 @@ namespace Mappalachia
 			FileIO.TempSave(FormMapView.MapImage, true);
 		}
 
-		private void Map_Grayscale_Click(object sender, EventArgs e)
+		private void Map_SetTitle_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground);
-		}
+			FormSetTitle titleForm = new FormSetTitle(Settings);
 
-		private void Map_SetBrightness_Click(object sender, EventArgs e)
-		{
-			FormSetBrightness brightnessForm = new FormSetBrightness(Settings);
-
-			if (brightnessForm.ShowDialog() == DialogResult.OK)
+			if (titleForm.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.MapSettings.Brightness = brightnessForm.BrightnessValue);
+				SetSetting(() => Settings.MapSettings.Title = titleForm.TextBoxValue);
 			}
 		}
 
-		private void Map_HightlightWater_Click(object sender, EventArgs e)
+		private void Map_SetFontSizes_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
+			FormFontSettings fontSettingsForm = new FormFontSettings(Settings.MapSettings.FontSettings);
+
+			if (fontSettingsForm.ShowDialog() == DialogResult.OK)
+			{
+				SetSetting(() => Settings.MapSettings.FontSettings = fontSettingsForm.FontSettings);
+			}
 		}
 
 		private void Map_MapMarkers_Icons_Click(object sender, EventArgs e)
@@ -832,6 +833,26 @@ namespace Mappalachia
 			SetSetting(() => Settings.MapSettings.SpotlightEnabled = !Settings.MapSettings.SpotlightEnabled);
 		}
 
+		private void Map_Grayscale_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground);
+		}
+
+		private void Map_SetBrightness_Click(object sender, EventArgs e)
+		{
+			FormSetBrightness brightnessForm = new FormSetBrightness(Settings);
+
+			if (brightnessForm.ShowDialog() == DialogResult.OK)
+			{
+				SetSetting(() => Settings.MapSettings.Brightness = brightnessForm.BrightnessValue);
+			}
+		}
+
+		private void Map_HightlightWater_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
+		}
+
 		private void Map_Spotlight_SetRange_Click(object sender, EventArgs e)
 		{
 			OpenSpotlightSetSizeDialog();
@@ -860,18 +881,6 @@ namespace Mappalachia
 		private void Map_Legend_Hidden_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.None);
-		}
-
-		private void Map_SetTitle_Click(object sender, EventArgs e)
-		{
-			FormSetTitle titleForm = new FormSetTitle(Settings);
-
-			if (titleForm.ShowDialog() == DialogResult.OK)
-			{
-				Settings.MapSettings.Title = titleForm.TextBoxValue;
-				Settings.MapSettings.TitleFontSize = titleForm.FontSize;
-				UpdateFromSettings();
-			}
 		}
 
 		private void Map_QuickSave_Click(object sender, EventArgs e)

@@ -5,6 +5,8 @@ namespace Mappalachia
 {
 	public class MapSettings(Settings rootSettings)
 	{
+		public FontSettings FontSettings { get; set; } = new FontSettings();
+
 		BackgroundImageType backgroundImage = BackgroundImageType.Menu;
 
 		public BackgroundImageType BackgroundImage
@@ -92,8 +94,6 @@ namespace Mappalachia
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
 
 		public string Title { get; set; } = string.Empty;
-
-		public int TitleFontSize { get; set; } = 72;
 
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
