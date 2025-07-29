@@ -326,12 +326,10 @@ namespace Preprocessor
 			// Null teleporters which target a space we dropped
 			SimpleQuery("UPDATE Position SET teleportsToFormID = NULL WHERE teleportsToFormID NOT IN (SELECT spaceFormID FROM Space);");
 
-			// Null empty rows which are not TEXT
-			SimpleQuery("UPDATE Position SET teleportsToFormID = NULL WHERE teleportsToFormID = '';");
-			SimpleQuery("UPDATE Position SET boundX = NULL WHERE boundX = '';");
-			SimpleQuery("UPDATE Position SET boundY = NULL WHERE boundY = '';");
-			SimpleQuery("UPDATE Position SET boundZ = NULL WHERE boundZ = '';");
-			SimpleQuery("UPDATE Position SET rotZ = NULL WHERE rotZ = '';");
+			// Add NorthAngle column to Space
+			SimpleQuery("ALTER TABLE Space ADD COLUMN northAngle REAL;");
+			TransformColumn(GetNorthAngle, "Space", "spaceFormID", "northAngle");
+			SimpleQuery("UPDATE Position SET rotZ = '' WHERE primitiveShape = '';"); // Delete rotZ data except for shapes
 
 			// Create the Flux table
 			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER, editorID STRING, color STRING);");
@@ -339,6 +337,13 @@ namespace Preprocessor
 			TransformColumn(GetFluxLoot, "Flux", "editorID", "color");
 			SimpleQuery("DELETE FROM Flux WHERE color = '';");
 			SimpleQuery("ALTER TABLE Flux DROP COLUMN editorID;");
+
+			// Null empty rows which are not TEXT
+			SimpleQuery("UPDATE Position SET teleportsToFormID = NULL WHERE teleportsToFormID = '';");
+			SimpleQuery("UPDATE Position SET boundX = NULL WHERE boundX = '';");
+			SimpleQuery("UPDATE Position SET boundY = NULL WHERE boundY = '';");
+			SimpleQuery("UPDATE Position SET boundZ = NULL WHERE boundZ = '';");
+			SimpleQuery("UPDATE Position SET rotZ = NULL WHERE rotZ = '';");
 
 			AssignConstraints();
 
@@ -668,8 +673,8 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Space;");
 			SimpleQuery("DROP TABLE Space;");
-			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL) STRICT;");
-			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange FROM temp;");
+			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Flux;");
@@ -877,6 +882,19 @@ namespace Preprocessor
 			}
 
 			return label;
+		}
+
+		static string GetNorthAngle(string spaceFormID)
+		{
+			using SqliteCommand command = new SqliteCommand($"SELECT MAX(rotZ) AS rotation FROM Position WHERE referenceFormID = '{NorthMarkerFormID}' AND spaceFormID = {spaceFormID}", GetNewConnection());
+			using SqliteDataReader reader = command.ExecuteReader();
+
+			if (!reader.Read() || reader.IsDBNull(0))
+			{
+				return "0";
+			}
+
+			return reader.GetString("rotation");
 		}
 
 		// Returns num/denom

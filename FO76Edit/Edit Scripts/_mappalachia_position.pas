@@ -129,7 +129,7 @@ unit _mappalachia_position;
 		position = GetPosition(item);
 	var
 		primitiveEntry, boundsEntry, location, teleportTarget : IInterface;
-		primitiveShape, rotZ : String;
+		primitiveShape : String;
 		i : Integer;
 	begin
 		if(Assigned(displayName) and Assigned(position)) then begin // Skip records missing key data
@@ -148,11 +148,6 @@ unit _mappalachia_position;
 				end;
 			end;
 
-			// We only need the Z Rotation for primitive shapes
-			if(primitiveShape <> '') then begin
-				rotZ := FloatToStr(GetRotation(item).z);
-			end;
-
 			outputStrings.Add(
 				spaceFormID + ',' +
 				sanitize(displayName) + ',' +
@@ -165,7 +160,7 @@ unit _mappalachia_position;
 				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Y')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
-				rotZ + ',' +
+				FloatToStr(GetRotation(item).z) + ',' +
 				GetEditValue(ElementByName(ElementByName(ElementByName(item, 'Map Marker'), 'TNAM - TNAM'), 'Type')) + ',' +
 				sanitize(shortName) + ',' +
 				sanitize(GetEditValue(teleportTarget))

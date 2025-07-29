@@ -249,6 +249,9 @@ namespace Library
 			"swamptree", "babylon",
 		};
 
+		// The base-10 Form ID of NorthMarker
+		public static int NorthMarkerFormID { get; } = 3;
+
 		// Fix fissure site naming - Rename Zeta to Prime, drop Greek alphabet names from all others
 		public static string CorrectFissureLabels(string label)
 		{

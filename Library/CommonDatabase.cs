@@ -69,7 +69,8 @@ namespace Library
 					reader.GetBool("isInstanceable"),
 					reader.GetDouble("centerX"),
 					reader.GetDouble("centerY"),
-					reader.GetDouble("maxRange")));
+					reader.GetDouble("maxRange"),
+					reader.GetDouble("northAngle")));
 			}
 
 			return spaces;
@@ -102,7 +103,8 @@ namespace Library
 				reader.GetBool("isInstanceable"),
 				reader.GetDouble("centerX"),
 				reader.GetDouble("centerY"),
-				reader.GetDouble("maxRange"));
+				reader.GetDouble("maxRange"),
+				0);
 		}
 
 		// Returns a collection of all coordinates of the given Space

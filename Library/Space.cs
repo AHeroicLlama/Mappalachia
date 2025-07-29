@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Library
 {
 	// Represents a Worldspace (WRLD) or Cell (CELL)
-	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, bool isInstanceable, double centerX, double centerY, double maxRange)
+	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, bool isInstanceable, double centerX, double centerY, double maxRange, double northAngle)
 		: Entity(formID, editorID, displayName, isWorldspace ? Signature.WRLD : Signature.CELL)
 	{
 		[JsonIgnore]
@@ -21,6 +21,9 @@ namespace Library
 
 		[JsonIgnore]
 		public double MaxRange { get; } = maxRange;
+
+		[JsonIgnore]
+		public double NorthAngle { get; } = northAngle;
 
 		[JsonIgnore]
 		public double MinX { get; } = centerX - (maxRange / 2d);
