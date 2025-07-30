@@ -441,7 +441,7 @@ namespace Preprocessor
 					"SELECT spaceEditorID, COUNT(Position.spaceFormID) AS northMarkerCount FROM Position " +
 					"JOIN Space ON Space.spaceFormID = Position.spaceFormID " +
 					"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
-					"WHERE Entity.editorID = 'NorthMarker' " +
+					$"WHERE Entity.entityFormID = '{NorthMarkerFormID}' " +
 					"GROUP BY Position.spaceFormID) " +
 				"WHERE northMarkerCount != 1;"));
 

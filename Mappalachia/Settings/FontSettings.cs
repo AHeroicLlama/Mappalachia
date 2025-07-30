@@ -1,20 +1,14 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Mappalachia
+﻿namespace Mappalachia
 {
 	public class FontSettings
 	{
-		[JsonIgnore]
-		public int MinSizePlotted { get; } = 16;
+		public static int MinSizePlotted { get; } = 16;
 
-		[JsonIgnore]
-		public int MaxSizePlotted { get; } = 100;
+		public static int MaxSizePlotted { get; } = 100;
 
-		[JsonIgnore]
-		public int MinSizeStatic { get; } = 32;
+		public static int MinSizeStatic { get; } = 32;
 
-		[JsonIgnore]
-		public int MaxSizeStatic { get; } = 200;
+		public static int MaxSizeStatic { get; } = 200;
 
 		public int SizeTitle { get; set; } = 72;
 

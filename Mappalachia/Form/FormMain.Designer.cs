@@ -72,6 +72,7 @@ namespace Mappalachia
 			plotModeTopographicToolStripMenuItem = new ToolStripMenuItem();
 			plotModeClusterToolStripMenuItem = new ToolStripMenuItem();
 			clusterSettingsToolStripMenuItem = new ToolStripMenuItem();
+			plotIconSettingsToolStripMenuItem = new ToolStripMenuItem();
 			volumeDrawStyleToolStripMenuItem = new ToolStripMenuItem();
 			volumeFillToolStripMenuItem = new ToolStripMenuItem();
 			volumeBorderToolStripMenuItem = new ToolStripMenuItem();
@@ -266,7 +267,7 @@ namespace Mappalachia
 			// compassAlwaysToolStripMenuItem
 			// 
 			compassAlwaysToolStripMenuItem.Name = "compassAlwaysToolStripMenuItem";
-			compassAlwaysToolStripMenuItem.Size = new Size(180, 22);
+			compassAlwaysToolStripMenuItem.Size = new Size(141, 22);
 			compassAlwaysToolStripMenuItem.Text = "Always";
 			compassAlwaysToolStripMenuItem.ToolTipText = "The compass rose is always drawn.";
 			compassAlwaysToolStripMenuItem.Click += Map_Compass_Always_Click;
@@ -274,7 +275,7 @@ namespace Mappalachia
 			// compassWhenUsefulToolStripMenuItem
 			// 
 			compassWhenUsefulToolStripMenuItem.Name = "compassWhenUsefulToolStripMenuItem";
-			compassWhenUsefulToolStripMenuItem.Size = new Size(180, 22);
+			compassWhenUsefulToolStripMenuItem.Size = new Size(141, 22);
 			compassWhenUsefulToolStripMenuItem.Text = "When Useful";
 			compassWhenUsefulToolStripMenuItem.ToolTipText = "The compass is drawn only when North is not 'up' on the map already.";
 			compassWhenUsefulToolStripMenuItem.Click += Map_Compass_WhenUseful_Click;
@@ -282,7 +283,7 @@ namespace Mappalachia
 			// compassNeverToolStripMenuItem
 			// 
 			compassNeverToolStripMenuItem.Name = "compassNeverToolStripMenuItem";
-			compassNeverToolStripMenuItem.Size = new Size(180, 22);
+			compassNeverToolStripMenuItem.Size = new Size(141, 22);
 			compassNeverToolStripMenuItem.Text = "Never";
 			compassNeverToolStripMenuItem.ToolTipText = "The compass is never drawn.";
 			compassNeverToolStripMenuItem.Click += Map_Compass_Never_Click;
@@ -413,7 +414,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, clusterSettingsToolStripMenuItem, plotIconSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -459,6 +460,14 @@ namespace Mappalachia
 			clusterSettingsToolStripMenuItem.Text = "Cluster Settings";
 			clusterSettingsToolStripMenuItem.ToolTipText = "Adjust settings relevant to Cluster plot mode.";
 			clusterSettingsToolStripMenuItem.Click += Plot_ClusterSettings_Click;
+			// 
+			// plotIconSettingsToolStripMenuItem
+			// 
+			plotIconSettingsToolStripMenuItem.Name = "plotIconSettingsToolStripMenuItem";
+			plotIconSettingsToolStripMenuItem.Size = new Size(240, 22);
+			plotIconSettingsToolStripMenuItem.Text = "Default Plot Icon Settings";
+			plotIconSettingsToolStripMenuItem.ToolTipText = "Edit the default plot icon settings.";
+			plotIconSettingsToolStripMenuItem.Click += Plot_IconSettings_Click;
 			// 
 			// volumeDrawStyleToolStripMenuItem
 			// 
@@ -963,5 +972,6 @@ namespace Mappalachia
 		private ToolStripMenuItem compassAlwaysToolStripMenuItem;
 		private ToolStripMenuItem compassWhenUsefulToolStripMenuItem;
 		private ToolStripMenuItem compassNeverToolStripMenuItem;
+		private ToolStripMenuItem plotIconSettingsToolStripMenuItem;
 	}
 }

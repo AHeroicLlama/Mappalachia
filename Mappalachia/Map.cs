@@ -29,6 +29,8 @@ namespace Mappalachia
 
 	public static class Map
 	{
+		public static int BlastRadius { get; } = 20460; // 0x002D1160
+
 		public static int CompassSize { get; } = MapImageResolution / 8;
 
 		public static double IconScale { get; } = 1.5;
@@ -295,7 +297,7 @@ namespace Mappalachia
 						}
 
 						// Overrides the image and color
-						color = LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), range);
+						color = LerpColors(settings.PlotSettings.PlotIconSettings.TopographicPalette.ToArray(), range);
 
 						// If this is not a shape (therefore a normal topograph plot)
 						if (instance.PrimitiveShape == null)
@@ -415,20 +417,29 @@ namespace Mappalachia
 					closestCluster.AddMember(instance);
 				}
 
+				if (clusters.Count == 0)
+				{
+					break;
+				}
+
 				Color color = leadItem.PlotIcon.Color;
 				Pen pen = new Pen(color, ClusterLineThickness);
 				Brush brush = new SolidBrush(color.WithAlpha(ClusterLabelAlpha));
 
 				UpdateProgress(progressInfo, 80, "Drawing clusters");
 
-				// Draw all qualifying clusters
-				foreach (Cluster cluster in clusters)
-				{
-					if (cluster.GetWeight() < settings.PlotSettings.ClusterSettings.MinWeight)
-					{
-						continue;
-					}
+				List<Cluster> clustersForDraw = clusters.Where(c => c.GetWeight() >= settings.PlotSettings.ClusterSettings.MinWeight).ToList();
 
+				// We already checked the list isn't empty - it must be empty because all clusters are too small
+				// So, for improved UX we still keep just the biggest cluster
+				if (clustersForDraw.Count == 0)
+				{
+					clustersForDraw.Add(clusters.MaxBy(c => c.GetWeight()) !);
+				}
+
+				// Draw all qualifying clusters
+				foreach (Cluster cluster in clustersForDraw)
+				{
 					if (cluster.Members.Count > 1)
 					{
 						graphics.DrawPolygon(pen, cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
@@ -543,7 +554,7 @@ namespace Mappalachia
 					}
 
 					PointF point = instance.Coord.AsImagePoint(settings);
-					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), font, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSize / 2)), false);
+					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), font, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSettings.Size / 2)), false);
 				}
 			}
 		}
@@ -557,7 +568,7 @@ namespace Mappalachia
 			for (float y = 0; y < height; y += step)
 			{
 				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
-				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
+				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.PlotIconSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
 			}
 		}
 

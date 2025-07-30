@@ -605,7 +605,7 @@ namespace Mappalachia
 			DataGridViewRow editedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 			GroupedSearchResult boundData = (GroupedSearchResult)(editedRow.DataBoundItem ?? throw new Exception("Edited row bound to null"));
 
-			FormEditPlotIcon plotIconForm = new FormEditPlotIcon(this, new PlotIcon(boundData.PlotIcon));
+			FormEditPlotIcon plotIconForm = new FormEditPlotIcon(new PlotIcon(boundData.PlotIcon));
 
 			if (plotIconForm.ShowDialog() == DialogResult.OK)
 			{
@@ -1031,6 +1031,16 @@ namespace Mappalachia
 			plotSettingsMenuItem.DropDown.Close();
 		}
 
+		private void Plot_IconSettings_Click(object sender, EventArgs e)
+		{
+			FormPlotIconSettings formPlotIconSettings = new FormPlotIconSettings(Settings.PlotSettings.PlotIconSettings);
+
+			if (formPlotIconSettings.ShowDialog() == DialogResult.OK)
+			{
+				SetSetting(() => Settings.PlotSettings.PlotIconSettings = formPlotIconSettings.PlotIconSettings);
+			}
+		}
+
 		private void Plot_Volume_Fill_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Fill);
@@ -1183,12 +1193,12 @@ namespace Mappalachia
 				if (addAsGroup)
 				{
 					result.LegendGroup = groupLegendGroup;
-					result.PlotIcon = new PlotIcon(groupLegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize, result);
+					result.PlotIcon = new PlotIcon(groupLegendGroup, Settings.PlotSettings.PlotIconSettings.Palette, Settings.PlotSettings.PlotIconSettings.Size, result);
 				}
 				else
 				{
 					result.LegendGroup = GetNextAvailableLegendGroup();
-					result.PlotIcon = new PlotIcon(result.LegendGroup, Settings.PlotSettings.Palette, Settings.PlotSettings.PlotIconSize, result);
+					result.PlotIcon = new PlotIcon(result.LegendGroup, Settings.PlotSettings.PlotIconSettings.Palette, Settings.PlotSettings.PlotIconSettings.Size, result);
 				}
 
 				ItemsToPlot.Add(result);

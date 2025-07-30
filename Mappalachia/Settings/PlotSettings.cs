@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Mappalachia
+﻿namespace Mappalachia
 {
 	public enum PlotMode
 	{
@@ -27,29 +25,10 @@ namespace Mappalachia
 
 		public ClusterSettings ClusterSettings { get; set; } = new ClusterSettings();
 
+		public PlotIconSettings PlotIconSettings { get; set; } = new PlotIconSettings();
+
 		public bool AutoFindPlotsInConnectedSpaces { get; set; } = false;
 
 		public bool ShowRegionLevels { get; set; } = true;
-
-		[JsonIgnore]
-		public int PlotIconMaxSize { get; } = 256;
-
-		[JsonIgnore]
-		public int PlotIconMinSize { get; } = 16;
-
-		// TODO make editable in UI
-		public int PlotIconSize { get; set; } = 50;
-
-		[JsonIgnore]
-		public List<Color> Palette { get; set; } = new List<Color>
-		{
-			Color.OrangeRed, Color.Cyan, Color.Yellow, Color.Magenta, Color.Lime, Color.RoyalBlue, Color.Coral, Color.Green,
-		};
-
-		[JsonIgnore]
-		public List<Color> TopographicPalette { get; set; } = new List<Color>
-		{
-			Color.Cyan, Color.OrangeRed, Color.White,
-		};
 	}
 }

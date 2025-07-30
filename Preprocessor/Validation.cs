@@ -6,12 +6,14 @@ namespace Preprocessor
 	{
 		static List<string> ValidationFailures { get; } = new List<string>();
 
-		static void FailValidation(string reason)
+		static bool FailValidation(string reason)
 		{
 			StdOutWithColor($"Validation failure: {reason}", ColorError);
 			ValidationFailures.Add(reason);
 
 			AppendToErrorLog(reason);
+
+			return false;
 		}
 
 		static void ConcludeValidation()

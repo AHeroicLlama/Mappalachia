@@ -53,7 +53,11 @@ namespace Library
 		{
 			if (verts.Count == 1)
 			{
-				return Array.Empty<PointF>();
+#pragma warning disable IDE0079
+#pragma warning disable SA1010
+				return [];
+#pragma warning restore SA1010
+#pragma warning restore IDE0079
 			}
 
 			// Monotone Chain https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
@@ -91,11 +95,6 @@ namespace Library
 		public static double Pythagoras(double a, double b)
 		{
 			return Math.Sqrt((a * a) + (b * b));
-		}
-
-		public static double Pythagoras(PointF a, PointF b)
-		{
-			return Pythagoras(a.X - b.X, a.Y - b.Y);
 		}
 
 		public static double Pythagoras(Coord a, Coord b)

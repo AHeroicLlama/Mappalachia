@@ -77,13 +77,12 @@ namespace Preprocessor
 
 			// Unique case for door marker (not a MapMarker, not in the DB, but still an icon svg)
 			Console.WriteLine("Icon: DoorMarker");
-			string doorMarkerPath = ImagePath + "DoorMarker" + MapMarkerImageFileType;
 			MapMarker doorMarker = new MapMarker("DoorMarker", string.Empty, 0, new Coord(0, 0));
 
-			if (ValidateMapMarkerImageExists(doorMarker, doorMarkerPath))
+			if (ValidateMapMarkerImageExists(doorMarker, DoorMarkerPath))
 			{
-				ValidateMapMarkerFileSize(doorMarker, doorMarkerPath);
-				ValidateSVG(doorMarkerPath);
+				ValidateMapMarkerFileSize(doorMarker, DoorMarkerPath);
+				ValidateSVG(DoorMarkerPath);
 			}
 
 			// Similarly as above, do the same file count check for map markers
@@ -99,22 +98,51 @@ namespace Preprocessor
 			CleanUpSpotlight();
 
 			ValidatePlotIcons();
+
+			ValidateCompassRose();
+		}
+
+		static bool ValidateCompassRose()
+		{
+			Console.WriteLine($"Compass Rose: {Path.GetFileName(CompassRosePath)}");
+
+			if (!File.Exists(CompassRosePath))
+			{
+				return FailValidation($"Compass rose file not found at {CompassRosePath}");
+			}
+
+			Image image = new Bitmap(CompassRosePath);
+
+			if (image.Width != image.Height)
+			{
+				return FailValidation($"Compass image is not square");
+			}
+
+			if (image.Width < 256 || image.Height < 256)
+			{
+				return FailValidation($"Compass image dimensions appear to be too small");
+			}
+
+			if (new FileInfo(CompassRosePath).Length < Kilobyte)
+			{
+				return FailValidation($"Compass image file size appears to be too small");
+			}
+
+			return true;
 		}
 
 		static bool ValidatePlotIcons()
 		{
 			if (!Directory.Exists(IconPath))
 			{
-				FailValidation("Plot Icon directory doesn't exist!");
-				return false;
+				return FailValidation("Plot Icon directory doesn't exist!");
 			}
 
 			List<string> iconFiles = Directory.GetFiles(IconPath).ToList();
 
 			if (iconFiles.Count == 0)
 			{
-				FailValidation("No plot icon files found at {IconPath}");
-				return false;
+				return FailValidation("No plot icon files found at {IconPath}");
 			}
 
 			Parallel.ForEach(iconFiles, filePath =>
@@ -148,8 +176,7 @@ namespace Preprocessor
 		{
 			if (!File.Exists(path))
 			{
-				FailValidation($"Image for space {space.EditorID} was not found at {path}");
-				return false;
+				return FailValidation($"Image for space {space.EditorID} was not found at {path}");
 			}
 
 			return true;
@@ -159,8 +186,7 @@ namespace Preprocessor
 		{
 			if (!File.Exists(path))
 			{
-				FailValidation($"Image for marker icon {marker.Icon} was not found at {path}");
-				return false;
+				return FailValidation($"Image for marker icon {marker.Icon} was not found at {path}");
 			}
 
 			return true;

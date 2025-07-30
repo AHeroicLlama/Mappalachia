@@ -1,4 +1,6 @@
-﻿namespace Mappalachia
+﻿using System.Text.Json.Serialization;
+
+namespace Mappalachia
 {
 	public class PlotIcon
 	{
@@ -39,6 +41,7 @@
 
 		Color color;
 
+		[JsonConverter(typeof(JsonConverterColor))]
 		public Color Color
 		{
 			get => color;

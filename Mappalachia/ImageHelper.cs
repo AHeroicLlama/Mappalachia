@@ -176,5 +176,10 @@ namespace Mappalachia
 
 			return graphics;
 		}
+
+		public static Color ToColor(this string? color)
+		{
+			return ColorTranslator.FromHtml(color ?? "#000000");
+		}
 	}
 }

@@ -27,29 +27,29 @@
 		{
 			InitialFontSettings = fontSettings;
 
-			numericUpDownTitle.Minimum = InitialFontSettings.MinSizeStatic;
-			numericUpDownTitle.Maximum = InitialFontSettings.MaxSizeStatic;
+			numericUpDownTitle.Minimum = FontSettings.MinSizeStatic;
+			numericUpDownTitle.Maximum = FontSettings.MaxSizeStatic;
 
-			numericUpDownLegend.Minimum = InitialFontSettings.MinSizePlotted;
-			numericUpDownLegend.Maximum = InitialFontSettings.MaxSizePlotted;
+			numericUpDownLegend.Minimum = FontSettings.MinSizePlotted;
+			numericUpDownLegend.Maximum = FontSettings.MaxSizePlotted;
 
-			numericUpDownItemsInOtherSpaces.Minimum = InitialFontSettings.MinSizePlotted;
-			numericUpDownItemsInOtherSpaces.Maximum = InitialFontSettings.MaxSizePlotted;
+			numericUpDownItemsInOtherSpaces.Minimum = FontSettings.MinSizePlotted;
+			numericUpDownItemsInOtherSpaces.Maximum = FontSettings.MaxSizePlotted;
 
-			numericUpDownMapMarkerLabel.Minimum = InitialFontSettings.MinSizePlotted;
-			numericUpDownMapMarkerLabel.Maximum = InitialFontSettings.MaxSizePlotted;
+			numericUpDownMapMarkerLabel.Minimum = FontSettings.MinSizePlotted;
+			numericUpDownMapMarkerLabel.Maximum = FontSettings.MaxSizePlotted;
 
-			numericUpDownWatermark.Minimum = InitialFontSettings.MinSizeStatic;
-			numericUpDownWatermark.Maximum = InitialFontSettings.MaxSizeStatic;
+			numericUpDownWatermark.Minimum = FontSettings.MinSizeStatic;
+			numericUpDownWatermark.Maximum = FontSettings.MaxSizeStatic;
 
-			numericUpDownClusterLabel.Minimum = InitialFontSettings.MinSizePlotted;
-			numericUpDownClusterLabel.Maximum = InitialFontSettings.MaxSizePlotted;
+			numericUpDownClusterLabel.Minimum = FontSettings.MinSizePlotted;
+			numericUpDownClusterLabel.Maximum = FontSettings.MaxSizePlotted;
 
-			numericUpDownInstanceFormID.Minimum = InitialFontSettings.MinSizePlotted;
-			numericUpDownInstanceFormID.Maximum = InitialFontSettings.MaxSizePlotted;
+			numericUpDownInstanceFormID.Minimum = FontSettings.MinSizePlotted;
+			numericUpDownInstanceFormID.Maximum = FontSettings.MaxSizePlotted;
 
-			numericUpDownRegionLevel.Minimum = InitialFontSettings.MinSizePlotted;
-			numericUpDownRegionLevel.Maximum = InitialFontSettings.MaxSizePlotted;
+			numericUpDownRegionLevel.Minimum = FontSettings.MinSizePlotted;
+			numericUpDownRegionLevel.Maximum = FontSettings.MaxSizePlotted;
 
 			numericUpDownTitle.Value = Math.Clamp(InitialFontSettings.SizeTitle, numericUpDownTitle.Minimum, numericUpDownTitle.Maximum);
 			numericUpDownLegend.Value = Math.Clamp(InitialFontSettings.SizeLegend, numericUpDownLegend.Minimum, numericUpDownLegend.Maximum);

@@ -22,7 +22,14 @@ namespace Mappalachia
 
 			set
 			{
-				pictureBoxMapDisplay.Image = value;
+				try
+				{
+					pictureBoxMapDisplay.Image = value;
+				}
+				catch (InvalidOperationException)
+				{
+					// Not recoverable, no action
+				}
 			}
 		}
 

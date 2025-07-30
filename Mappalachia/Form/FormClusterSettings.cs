@@ -9,13 +9,11 @@
 		// The settings when the form opened, so we can revert on cancel
 		ClusterSettings InitialSettings { get; }
 
-		public ClusterSettings ClusterSettings => new ClusterSettings
-		{
-			Range = trackBarClusterRange.Value,
-			MinWeight = trackBarClusterMinWeight.Value,
-			LiveUpdate = checkBoxLiveUpdate.Checked,
-			ClusterPerLegendGroup = radioButtonPerLegendGroup.Checked,
-		};
+		public ClusterSettings ClusterSettings => new ClusterSettings(
+			trackBarClusterRange.Value,
+			trackBarClusterMinWeight.Value,
+			checkBoxLiveUpdate.Checked,
+			radioButtonPerLegendGroup.Checked);
 
 		bool Initialized { get; set; } = false;
 
@@ -26,7 +24,7 @@
 			FormMain = formMain;
 			InitialSettings = FormMain.Settings.PlotSettings.ClusterSettings;
 
-			trackBarClusterRange.Maximum = (int)Math.Min(FormMain.Settings.Space.MaxRange / 2, InitialSettings.MaxRange);
+			trackBarClusterRange.Maximum = (int)Math.Min(FormMain.Settings.Space.MaxRange / 2, ClusterSettings.MaxRange);
 
 			trackBarClusterRange.Value = Math.Clamp(InitialSettings.Range, trackBarClusterRange.Minimum, trackBarClusterRange.Maximum);
 			trackBarClusterMinWeight.Value = InitialSettings.MinWeight;
@@ -90,7 +88,7 @@
 
 		void SetRangeLabel()
 		{
-			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
+			labelClusterRange.Text = $"Cluster Radius ({trackBarClusterRange.Value})";
 		}
 
 		void SetWeightLabel()
@@ -110,6 +108,25 @@
 				FormMain.SetClusterSettings(ClusterSettings);
 				LiveUpdateCausedDraw = true;
 			}
+		}
+
+		private void LabelClusterRange_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button != MouseButtons.Right)
+			{
+				return;
+			}
+
+			ContextMenuStrip contextMenu = new ContextMenuStrip();
+			ToolStripMenuItem setToNukerange = new ToolStripMenuItem() { Text = "Set to Nuke blast zone radius" };
+
+			setToNukerange.Click += (s, args) =>
+			{
+				trackBarClusterRange.Value = Map.BlastRadius;
+			};
+
+			contextMenu.Items.Add(setToNukerange);
+			contextMenu.Show(this, e.Location);
 		}
 	}
 }

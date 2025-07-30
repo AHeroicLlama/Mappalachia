@@ -7,18 +7,17 @@ namespace Mappalachia
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public PlotIcon CurrentIcon { get; set; }
 
-		FormMain FormMain { get; }
-
-		public FormEditPlotIcon(FormMain formMain, PlotIcon plotIcon)
+		public FormEditPlotIcon(PlotIcon plotIcon)
 		{
 			InitializeComponent();
 
-			FormMain = formMain;
 			CurrentIcon = plotIcon;
 
-			trackBarIconSize.Minimum = FormMain.Settings.PlotSettings.PlotIconMinSize;
-			trackBarIconSize.Maximum = FormMain.Settings.PlotSettings.PlotIconMaxSize;
+			trackBarIconSize.Minimum = PlotIconSettings.MinSize;
+			trackBarIconSize.Maximum = PlotIconSettings.MaxSize;
 			trackBarIconSize.Value = Math.Clamp(CurrentIcon.Size, trackBarIconSize.Minimum, trackBarIconSize.Maximum);
+
+			SetSizeLabel();
 
 			if (CurrentIcon.Parent.Entity is Library.Region)
 			{
@@ -52,7 +51,13 @@ namespace Mappalachia
 		private void TrackBarIconSize_Scroll(object sender, EventArgs e)
 		{
 			CurrentIcon.Size = trackBarIconSize.Value;
+			SetSizeLabel();
 			RefreshPreviewImage();
+		}
+
+		void SetSizeLabel()
+		{
+			labelSize.Text = $"Size ({CurrentIcon.Size})";
 		}
 
 		void RefreshPreviewImage()
