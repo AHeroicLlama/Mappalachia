@@ -732,6 +732,9 @@ namespace Mappalachia
 			}
 
 			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
+
+			text += $"\nMappalachia V2 Alpha. Please provide feedback via Discord. Bugs and incorrect data may exist.";
+
 			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 
 			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);

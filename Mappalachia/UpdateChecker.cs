@@ -42,6 +42,9 @@ namespace Mappalachia
 					.SingleOrDefault(asset => asset.GetProperty("name").ToString() == Common.DistributableFileName)
 					.GetProperty("browser_download_url").ToString();
 
+				// Alpha hack to force update prompt
+				currentVersion = new Version("1.0.0.0");
+
 				// If there's no update, and the user didn't request the check, silently exit
 				if (!userRequested && currentVersion >= latestVersion)
 				{
