@@ -14,7 +14,7 @@
 		{
 		}
 
-		public static int MaxRange { get; } = 50000;
+		public static int MaxRange { get; } = 25000;
 
 		// Range in game units
 		public int Range { get; set; } = 10000;

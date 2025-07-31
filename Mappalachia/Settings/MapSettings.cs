@@ -52,6 +52,7 @@ namespace Mappalachia
 
 		bool spotlightEnabled = false;
 
+		[JsonIgnore]
 		public bool SpotlightEnabled
 		{
 			get => spotlightEnabled;

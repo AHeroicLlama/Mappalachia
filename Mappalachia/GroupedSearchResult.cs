@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Library;
 
 namespace Mappalachia
@@ -83,24 +84,34 @@ namespace Mappalachia
 
 		// Properties referenced by UI DGVs to map data to cells
 		// they are referenced via a string value of their name
+		[JsonIgnore]
 		public virtual string DataValueFormID => Entity.GetFriendlyFormID();
 
+		[JsonIgnore]
 		public string DataValueEditorID => Entity.EditorID;
 
+		[JsonIgnore]
 		public string DataValueDisplayName => Entity.DisplayName;
 
+		[JsonIgnore]
 		public string DataValueSignature => Mappalachia.GetIsAdvanced() ? Entity.Signature.ToString() : Entity.Signature.ToFriendlyName();
 
+		[JsonIgnore]
 		public string DataValueLabel => Label;
 
+		[JsonIgnore]
 		public string DataValueInContainer => InContainer ? "Yes" : "No";
 
+		[JsonIgnore]
 		public string DataValueLockLevel => LockLevelRelevant() ? LockLevel.ToFriendlyName() : "N/A";
 
+		[JsonIgnore]
 		public double DataValueSpawnWeight => SpawnWeight * 100;
 
+		[JsonIgnore]
 		public int DataValueCount => Count;
 
+		[JsonIgnore]
 		public string DataValueLocation => Mappalachia.GetIsAdvanced() ? Space.EditorID : Space.DisplayName;
 
 		public void Dispose()

@@ -102,7 +102,7 @@
 
 		void SetSizeLabel()
 		{
-			labelIconSize.Text = $"Size ({trackBarIconSize.Value})";
+			labelIconSize.Text = $"Default Icon Size ({trackBarIconSize.Value})";
 		}
 	}
 }

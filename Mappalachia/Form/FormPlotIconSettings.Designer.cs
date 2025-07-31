@@ -81,9 +81,9 @@
 			labelStandardPalette.AutoSize = true;
 			labelStandardPalette.Location = new Point(12, 9);
 			labelStandardPalette.Name = "labelStandardPalette";
-			labelStandardPalette.Size = new Size(93, 15);
+			labelStandardPalette.Size = new Size(134, 15);
 			labelStandardPalette.TabIndex = 3;
-			labelStandardPalette.Text = "Standard Palette";
+			labelStandardPalette.Text = "Default Standard Palette";
 			// 
 			// buttonAddColorStandard
 			// 
@@ -177,9 +177,9 @@
 			labelIconSize.AutoSize = true;
 			labelIconSize.Location = new Point(12, 219);
 			labelIconSize.Name = "labelIconSize";
-			labelIconSize.Size = new Size(53, 15);
+			labelIconSize.Size = new Size(94, 15);
 			labelIconSize.TabIndex = 12;
-			labelIconSize.Text = "Icon Size";
+			labelIconSize.Text = "Default Icon Size";
 			// 
 			// FormPlotIconSettings
 			// 
@@ -208,7 +208,7 @@
 			ShowIcon = false;
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
-			Text = "Default Plot Icon Settings";
+			Text = "Plot Icon Settings";
 			((System.ComponentModel.ISupportInitialize)trackBarIconSize).EndInit();
 			ResumeLayout(false);
 			PerformLayout();

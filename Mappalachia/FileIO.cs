@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Text.Json;
 using Library;
 using static Library.Common;
 
@@ -23,10 +24,13 @@ namespace Mappalachia
 
 		public static Image EmptyMapImage { get; } = new Bitmap(MapImageResolution, MapImageResolution);
 
+		public static JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions() { WriteIndented = true };
+
 		static FileIO()
 		{
 			FontCollection.AddFontFile(Paths.FontPath);
 			CreateSavedMapsFolder();
+			CreateRecipesFolder();
 		}
 
 		static Image? doorMarker;
@@ -270,6 +274,11 @@ namespace Mappalachia
 		public static void CreateSavedMapsFolder()
 		{
 			Directory.CreateDirectory(Paths.SavedMapsPath);
+		}
+
+		public static void CreateRecipesFolder()
+		{
+			Directory.CreateDirectory(Paths.RecipesPath);
 		}
 
 		// Save an image to the temp folder

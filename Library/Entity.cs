@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Library
 {
@@ -41,11 +41,15 @@ namespace Library
 	}
 
 	// Represents any entity in the ESM
+	[JsonPolymorphic(TypeDiscriminatorPropertyName = "EntityChildType")]
+	[JsonDerivedType(typeof(DerivedNPC), "DerivedNPC")]
+	[JsonDerivedType(typeof(DerivedScrap), "DerivedScrap")]
+	[JsonDerivedType(typeof(DerivedRawFlux), "DerivedRawFlux")]
+	[JsonDerivedType(typeof(Region), "Region")]
 	public class Entity(uint formID, string editorID, string displayName, Signature signature)
 	{
 		public uint FormID { get; } = formID;
 
-		[JsonIgnore]
 		public string EditorID { get; } = editorID;
 
 		[JsonIgnore]

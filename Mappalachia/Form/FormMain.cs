@@ -1,6 +1,7 @@
 using System.Data;
 using System.Drawing.Imaging;
 using KGySoft.ComponentModel;
+using KGySoft.CoreLibraries;
 using Library;
 
 namespace Mappalachia
@@ -411,7 +412,14 @@ namespace Mappalachia
 				labelProgressStatus.Location = new Point((Width / 2) - (labelProgressStatus.Width / 2), labelProgressStatus.Location.Y);
 			});
 
-			await Task.Run(() => FormMapView.MapImage = Map.Draw(ItemsToPlot.ToList(), Settings, progress, DrawCancellationTokenSource.Token) ?? FormMapView.MapImage);
+			try
+			{
+				await Task.Run(() => FormMapView.MapImage = Map.Draw(ItemsToPlot.ToList(), Settings, progress, DrawCancellationTokenSource.Token) ?? FormMapView.MapImage);
+			}
+			catch (Exception ex)
+			{
+				Notify.GenericError("Draw operation failed", "An unexpected error occurred while drawing the map.\nIf you loaded a recipe, it may be corrupt.\n\nIf this error keeps occuring, consider joining our Discord for support, or reset your settings by clicking 'Help' > 'Reset Everything'.", ex);
+			}
 
 			CurrentlyDrawing = false;
 			buttonUpdateMap.Enabled = true;
@@ -483,7 +491,7 @@ namespace Mappalachia
 
 				DataGridViewRow paintedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 				GroupedSearchResult data = (GroupedSearchResult)(paintedRow.DataBoundItem ?? throw new NullReferenceException("Painted row data was null"));
-				Image icon = data.PlotIcon.GetImage() ?? throw new NullReferenceException("Data icon image was null");
+				Image icon = new Bitmap(data.PlotIcon.GetImage() ?? throw new NullReferenceException("Data icon image was null"));
 
 				Rectangle cellBounds = e.CellBounds;
 
@@ -913,13 +921,7 @@ namespace Mappalachia
 			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.None);
 		}
 
-		private void Map_QuickSave_Click(object sender, EventArgs e)
-		{
-			FileIO.QuickSave(FormMapView.MapImage, Settings);
-			mapMenuItem.DropDown.Close();
-		}
-
-		private void Map_ExportToFile_Click(object sender, EventArgs e)
+		private void Map_SaveImage_Click(object sender, EventArgs e)
 		{
 			FileIO.CreateSavedMapsFolder();
 
@@ -950,6 +952,63 @@ namespace Mappalachia
 			}
 
 			mapMenuItem.DropDown.Close();
+		}
+
+		private void Map_QuickSaveImage_Click(object sender, EventArgs e)
+		{
+			FileIO.QuickSave(FormMapView.MapImage, Settings);
+			mapMenuItem.DropDown.Close();
+		}
+
+		private void Map_LoadRecipe_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog() { InitialDirectory = Path.GetFullPath(Paths.RecipesPath), Filter = Common.RecipeFileFilter };
+
+			mapMenuItem.DropDown.Close();
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				Recipe? recipe = Recipe.LoadFromFile(openFileDialog.FileName);
+
+				if (recipe == null)
+				{
+					return;
+				}
+
+				// We're about to overwrite some of the current user settings - so write to file now as we would on exit
+				Settings.SaveToFile();
+				Settings.DoNotSave = true;
+
+				Settings.Space = recipe.Space;
+				Settings.PopulateSpaceFromDatabase();
+
+				ItemsToPlot.Clear();
+				ItemsToPlot.AddRange(recipe.ItemsToPlot);
+
+				Settings.PlotSettings = recipe.PlotSettings;
+				Settings.MapSettings = recipe.MapSettings;
+
+				UpdateFromSettings();
+			}
+		}
+
+		private void Map_SaveAsRecipe_Click(object sender, EventArgs e)
+		{
+			FileIO.CreateRecipesFolder();
+
+			SaveFileDialog saveDialog = new SaveFileDialog
+			{
+				Filter = Common.RecipeFileFilter,
+				FileName = "Recipe",
+				InitialDirectory = Path.GetFullPath(Paths.RecipesPath),
+			};
+
+			mapMenuItem.DropDown.Close();
+
+			if (saveDialog.ShowDialog() == DialogResult.OK)
+			{
+				new Recipe(Settings.Space, Settings.MapSettings, Settings.PlotSettings, ItemsToPlot).SaveToFile(saveDialog.FileName);
+			}
 		}
 
 		private void Map_ClearPlots_Click(object sender, EventArgs e)
@@ -1193,12 +1252,20 @@ namespace Mappalachia
 				if (addAsGroup)
 				{
 					result.LegendGroup = groupLegendGroup;
-					result.PlotIcon = new PlotIcon(groupLegendGroup, Settings.PlotSettings.PlotIconSettings.Palette, Settings.PlotSettings.PlotIconSettings.Size, result);
+					result.PlotIcon = new PlotIcon(
+						groupLegendGroup,
+						Settings.PlotSettings.PlotIconSettings.Palette,
+						Settings.PlotSettings.PlotIconSettings.Size,
+						result.Entity is Library.Region);
 				}
 				else
 				{
 					result.LegendGroup = GetNextAvailableLegendGroup();
-					result.PlotIcon = new PlotIcon(result.LegendGroup, Settings.PlotSettings.PlotIconSettings.Palette, Settings.PlotSettings.PlotIconSettings.Size, result);
+					result.PlotIcon = new PlotIcon(
+						result.LegendGroup,
+						Settings.PlotSettings.PlotIconSettings.Palette,
+						Settings.PlotSettings.PlotIconSettings.Size,
+						result.Entity is Library.Region);
 				}
 
 				ItemsToPlot.Add(result);

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using KGySoft.CoreLibraries;
 
 namespace Mappalachia
 {
@@ -19,7 +20,7 @@ namespace Mappalachia
 
 			SetSizeLabel();
 
-			if (CurrentIcon.Parent.Entity is Library.Region)
+			if (CurrentIcon.ParentIsRegion)
 			{
 				buttonSelectIcon.Enabled = false;
 				trackBarIconSize.Enabled = false;
@@ -35,6 +36,7 @@ namespace Mappalachia
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				CurrentIcon.BaseIconImage = FileIO.GetPlotIconImage(openFileDialog.FileName);
+				CurrentIcon.BaseIconIndex = Directory.GetFiles(Paths.IconsPath).Select(p => Path.GetFullPath(p)).IndexOf(openFileDialog.FileName);
 				RefreshPreviewImage();
 			}
 		}

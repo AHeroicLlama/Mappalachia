@@ -6,26 +6,36 @@ namespace Mappalachia
 	{
 		public PlotIcon(PlotIcon source)
 		{
-			Parent = source.Parent;
+			ParentIsRegion = source.ParentIsRegion;
 			Size = source.Size;
 			Color = source.Color;
 			baseIconImage = source.BaseIconImage;
+			BaseIconIndex = source.BaseIconIndex;
 		}
 
-		public PlotIcon(int offset, List<Color> palette, int size, GroupedSearchResult parent)
+		public PlotIcon(int offset, List<Color> palette, int size, bool parentIsRegion)
 		{
+			BaseIconIndex = offset;
 			Size = size;
-			Parent = parent;
+			ParentIsRegion = parentIsRegion;
 
 			int colorIndex = offset % palette.Count;
 			Color = palette[colorIndex];
 
 			int availableIcons = FileIO.GetAvailblePlotIconCount();
-			int iconIndex = (offset / palette.Count) % availableIcons;
+			BaseIconIndex = (offset / palette.Count) % availableIcons;
 
 			// Gather the raw icon from file and set it to the requested size
-			baseIconImage = FileIO.GetPlotIconImage(iconIndex);
+			baseIconImage = FileIO.GetPlotIconImage(BaseIconIndex);
 		}
+
+		public PlotIcon()
+		{
+		}
+
+		public bool ParentIsRegion { get; set; }
+
+		public int BaseIconIndex { get; set; }
 
 		int size;
 
@@ -52,12 +62,17 @@ namespace Mappalachia
 			}
 		}
 
-		Image baseIconImage;
+		Image? baseIconImage;
 
 		// The raw plot icon image from file - no shadow, no color
 		public Image BaseIconImage
 		{
-			private get => baseIconImage;
+			private get
+			{
+				baseIconImage ??= FileIO.GetPlotIconImage(BaseIconIndex);
+				return baseIconImage;
+			}
+
 			set
 			{
 				baseIconImage = value;
@@ -74,8 +89,6 @@ namespace Mappalachia
 
 		// A cache of the final icon image (for standard plot mode)
 		Image? FinalImageCache { get; set; }
-
-		public GroupedSearchResult Parent { get; }
 
 		public Image GetImage()
 		{
@@ -98,7 +111,7 @@ namespace Mappalachia
 
 		Image GenerateIconImage(Color color)
 		{
-			if (Parent.Entity is Library.Region)
+			if (ParentIsRegion)
 			{
 				Image volumeImage = new Bitmap(Size, Size);
 				using Graphics volumeGraphics = ImageHelper.GraphicsFromImageHQ(volumeImage);

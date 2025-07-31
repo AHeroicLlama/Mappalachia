@@ -1,10 +1,9 @@
-﻿using Library;
-using static Library.Common;
+﻿using static Library.Common;
 
-namespace Mappalachia
+namespace Library
 {
 	public class DerivedRawFlux(FluxColor color)
-		: Entity(0, $"DerivedRaw{color}Flux", $"Raw {color} Flux", Signature.ALCH)
+		: Entity(0, color.ToString(), $"Derived Raw {color} Flux", Signature.ALCH)
 	{
 		public FluxColor Color { get; } = color;
 

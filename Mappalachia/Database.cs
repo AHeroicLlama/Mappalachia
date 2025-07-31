@@ -555,7 +555,7 @@ namespace Mappalachia
 
 			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
 				"JOIN NPC ON npc.instanceFormID = Position.instanceFormID " +
-				$"WHERE npcName = '{searchResult.Entity.DisplayName}' AND npc.spawnWeight = {searchResult.SpawnWeight} AND npc.spaceFormID = {space.FormID}";
+				$"WHERE npcName = '{searchResult.Entity.EditorID}' AND npc.spawnWeight = {searchResult.SpawnWeight} AND npc.spaceFormID = {space.FormID}";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 
@@ -583,7 +583,7 @@ namespace Mappalachia
 
 			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
 				"JOIN Scrap ON Scrap.junkFormID = Position.referenceFormID " +
-				$"WHERE component = '{searchResult.Entity.DisplayName}' AND Scrap.componentQuantity = {searchResult.SpawnWeight} AND Position.spaceFormID = {space.FormID}";
+				$"WHERE component = '{searchResult.Entity.EditorID}' AND Scrap.componentQuantity = {searchResult.SpawnWeight} AND Position.spaceFormID = {space.FormID}";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 

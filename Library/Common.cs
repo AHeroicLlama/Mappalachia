@@ -17,6 +17,10 @@ namespace Library
 
 		public static string PlotIconFileType { get; } = ".png";
 
+		public static string RecipeFileType { get; } = ".json";
+
+		public static string RecipeFileFilter { get; } = $"Mappalachia JSON Recipe|*{RecipeFileType}";
+
 		public static string WaterMaskAddendum { get; } = "_waterMask";
 
 		public static string BackgroundMenuAddendum { get; } = "_menu";

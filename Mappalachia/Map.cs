@@ -270,7 +270,7 @@ namespace Mappalachia
 					return;
 				}
 
-				if (item.Space != settings.Space)
+				if (!item.Space.Equals(settings.Space))
 				{
 					continue;
 				}
@@ -340,7 +340,7 @@ namespace Mappalachia
 
 				foreach (GroupedSearchResult item in group)
 				{
-					if (item.Space != settings.Space)
+					if (!item.Space.Equals(settings.Space))
 					{
 						continue;
 					}
@@ -419,7 +419,7 @@ namespace Mappalachia
 
 				if (clusters.Count == 0)
 				{
-					break;
+					continue;
 				}
 
 				Color color = leadItem.PlotIcon.Color;
@@ -430,22 +430,37 @@ namespace Mappalachia
 
 				List<Cluster> clustersForDraw = clusters.Where(c => c.GetWeight() >= settings.PlotSettings.ClusterSettings.MinWeight).ToList();
 
-				// We already checked the list isn't empty - it must be empty because all clusters are too small
-				// So, for improved UX we still keep just the biggest cluster
 				if (clustersForDraw.Count == 0)
 				{
-					clustersForDraw.Add(clusters.MaxBy(c => c.GetWeight()) !);
+					Cluster? largest = clusters.MaxBy(c => c.GetWeight());
+
+					if (largest != null)
+					{
+						clustersForDraw.Add(largest);
+					}
 				}
 
 				// Draw all qualifying clusters
 				foreach (Cluster cluster in clustersForDraw)
 				{
-					if (cluster.Members.Count > 1)
+					if (cluster.Members.Count == 0)
 					{
-						graphics.DrawPolygon(pen, cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
+						continue;
 					}
 
-					graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), font, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
+					// If the cluster is actually a polygon and not a line nor a point, draw the polygon, else, just use normal icons
+					if (cluster.Members.Count > 2)
+					{
+						graphics.DrawPolygon(pen, cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
+						graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), font, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
+					}
+					else
+					{
+						foreach (Instance instance in cluster.Members)
+						{
+							graphics.DrawImageCentered(leadItem.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
+						}
+					}
 				}
 			}
 		}
@@ -465,7 +480,7 @@ namespace Mappalachia
 				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Finding instances in other spaces");
 
 				// We're purely plotting this whole search result in the selected space - skip
-				if (item.Space == settings.Space && !settings.PlotSettings.AutoFindPlotsInConnectedSpaces)
+				if (item.Space.Equals(settings.Space) && !settings.PlotSettings.AutoFindPlotsInConnectedSpaces)
 				{
 					continue;
 				}
@@ -475,24 +490,25 @@ namespace Mappalachia
 				List<Instance> teleporters =
 					(await Database.GetTeleporters(item.Space))
 					.Concat(teleportersInSelectedSpace)
-					.DistinctBy(i => (i.Space, i.TeleportsTo)).ToList();
+					.DistinctBy(i => (i.Space, i.TeleportsTo))
+					.ToList();
 
 				foreach (Instance teleporter in teleporters)
 				{
 					// If autofind is off, and the door doesn't go this this space, nor the items space - skip
-					if (!settings.PlotSettings.AutoFindPlotsInConnectedSpaces && teleporter.TeleportsTo != settings.Space && teleporter.TeleportsTo != item.Space)
+					if (!settings.PlotSettings.AutoFindPlotsInConnectedSpaces && !settings.Space.Equals(teleporter.TeleportsTo) && !item.Space.Equals(teleporter.TeleportsTo))
 					{
 						continue;
 					}
 
 					// If the item cannot be reached by this door - skip
-					if (item.Space != teleporter.Space && item.Space != teleporter.TeleportsTo)
+					if (!item.Space.Equals(teleporter.Space) && !item.Space.Equals(teleporter.TeleportsTo))
 					{
 						continue;
 					}
 
 					// If the door doesn't exist on the curent map - skip
-					if (teleporter.Space != settings.Space)
+					if (!teleporter.Space.Equals(settings.Space))
 					{
 						continue;
 					}
@@ -541,7 +557,7 @@ namespace Mappalachia
 			{
 				UpdateProgress(progressInfo, 90, "Drawing Instance FormIDs");
 
-				if (searchResult.Space != settings.Space)
+				if (!searchResult.Space.Equals(settings.Space))
 				{
 					continue;
 				}

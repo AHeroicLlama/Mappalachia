@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Library;
 
 namespace Mappalachia
@@ -6,6 +7,9 @@ namespace Mappalachia
 	// Parent class for all settings
 	public class Settings
 	{
+		[JsonIgnore]
+		public bool DoNotSave { get; set; } = false;
+
 		Space? space;
 
 		public Space Space
@@ -47,8 +51,6 @@ namespace Mappalachia
 
 		public SearchSettings SearchSettings { get; set; }
 
-		JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions() { WriteIndented = true };
-
 		public static Settings LoadFromFile()
 		{
 			if (File.Exists(Paths.SettingsPath))
@@ -57,11 +59,7 @@ namespace Mappalachia
 				{
 					Settings settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(Paths.SettingsPath)) ?? throw new Exception("Settings JSON Deserialized to null");
 					settings.MapSettings.RootSettings = settings;
-
-					// Re-associate the space from the settings file with the same virgin space from the database
-					// This ensures JSON-ignored data (those not compared in overrode .Equals()) are not lost
-					// Failing this, fall back to the first space
-					settings.Space = Database.AllSpaces.Where(s => s.Equals(settings.Space)).FirstOrDefault() ?? Database.AllSpaces.First();
+					settings.PopulateSpaceFromDatabase();
 
 					return settings;
 				}
@@ -76,9 +74,22 @@ namespace Mappalachia
 			return new Settings();
 		}
 
+		// Re-associate a deserialized space with the same virgin space from the database
+		// This ensures JSON-ignored data (those not compared in overrode .Equals()) are not lost
+		// Failing this, fall back to the first space
+		public void PopulateSpaceFromDatabase()
+		{
+			Space = Database.AllSpaces.Where(s => s.Equals(Space)).FirstOrDefault() ?? Database.AllSpaces.First();
+		}
+
 		public void SaveToFile()
 		{
-			File.WriteAllText(Paths.SettingsPath, JsonSerializer.Serialize(this, JsonSerializerOptions));
+			if (DoNotSave)
+			{
+				return;
+			}
+
+			File.WriteAllText(Paths.SettingsPath, JsonSerializer.Serialize(this, FileIO.JsonSerializerOptions));
 		}
 
 		public Settings()

@@ -29,6 +29,8 @@ namespace Mappalachia
 
 		public static string SavedMapsPath { get; } = @"Saved_Maps\";
 
+		public static string RecipesPath { get; } = @"Recipes\";
+
 		public static string TempPath { get; } = @"temp\";
 	}
 }

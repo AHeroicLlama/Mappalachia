@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Library
 {
 	public class Region(uint formID, string editorID, Space space, uint minLevel = 0, uint maxLevel = 0)
@@ -9,8 +11,10 @@ namespace Library
 		// The space which this region exists within
 		public Space Space { get; } = space;
 
+		[JsonIgnore]
 		public uint MinLevel { get; set; } = minLevel;
 
+		[JsonIgnore]
 		public uint MaxLevel { get; set; } = maxLevel;
 
 		public void AddPoint(RegionPoint point)

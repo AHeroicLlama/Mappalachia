@@ -72,13 +72,13 @@ namespace Mappalachia
 			trackBarClusterRange.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			trackBarClusterRange.LargeChange = 2000;
 			trackBarClusterRange.Location = new Point(169, 12);
-			trackBarClusterRange.Maximum = 200000;
+			trackBarClusterRange.Maximum = 25000;
 			trackBarClusterRange.Minimum = 100;
 			trackBarClusterRange.Name = "trackBarClusterRange";
 			trackBarClusterRange.Size = new Size(364, 45);
 			trackBarClusterRange.SmallChange = 100;
 			trackBarClusterRange.TabIndex = 1;
-			trackBarClusterRange.TickFrequency = 5000;
+			trackBarClusterRange.TickFrequency = 500;
 			toolTipClusterSettings.SetToolTip(trackBarClusterRange, "The maximum 'search' range in pixels that each cluster will extend.");
 			trackBarClusterRange.Value = 100;
 			trackBarClusterRange.ValueChanged += TrackBarClusterRange_ValueChanged;
@@ -98,11 +98,11 @@ namespace Mappalachia
 			// 
 			trackBarClusterMinWeight.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			trackBarClusterMinWeight.Location = new Point(169, 63);
-			trackBarClusterMinWeight.Maximum = 2000;
+			trackBarClusterMinWeight.Maximum = 500;
 			trackBarClusterMinWeight.Name = "trackBarClusterMinWeight";
 			trackBarClusterMinWeight.Size = new Size(364, 45);
 			trackBarClusterMinWeight.TabIndex = 3;
-			trackBarClusterMinWeight.TickFrequency = 50;
+			trackBarClusterMinWeight.TickFrequency = 10;
 			toolTipClusterSettings.SetToolTip(trackBarClusterMinWeight, "The minimum weight/quantity required to draw a cluster.");
 			trackBarClusterMinWeight.ValueChanged += TrackBarClusterWeight_ValueChanged;
 			// 
