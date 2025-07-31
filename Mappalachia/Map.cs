@@ -513,6 +513,12 @@ namespace Mappalachia
 						continue;
 					}
 
+					// If the plot is flux but the target space isn't nukable - skip
+					if (item.Entity is DerivedRawFlux && !teleporter.TeleportsTo!.IsNukable())
+					{
+						continue;
+					}
+
 					List<Instance> instances = await Database.GetInstances(item, teleporter.TeleportsTo);
 
 					if (instances.Count == 0)
@@ -570,7 +576,7 @@ namespace Mappalachia
 					}
 
 					PointF point = instance.Coord.AsImagePoint(settings);
-					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), font, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (settings.PlotSettings.PlotIconSettings.Size / 2)), false);
+					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), font, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (searchResult.PlotIcon.Size / 2)), false);
 				}
 			}
 		}
