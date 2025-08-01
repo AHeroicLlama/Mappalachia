@@ -59,8 +59,8 @@ namespace Mappalachia
 			set
 			{
 				// We assume for the majority of cases, turning on spotlight implies wanting the high res render too
-				// But if it's already on, we leave as-is
-				if (value && !SpotlightEnabled)
+				// But if it's already on or not installed, we leave as-is
+				if (value && !SpotlightEnabled && FileIO.IsSpotlightInstalled())
 				{
 					backgroundImage = BackgroundImageType.Render;
 				}
@@ -69,7 +69,6 @@ namespace Mappalachia
 				if (value && !FileIO.IsSpotlightInstalled())
 				{
 					Notify.SpotlightInstallationPrompt();
-					return;
 				}
 
 				spotlightEnabled = value;
