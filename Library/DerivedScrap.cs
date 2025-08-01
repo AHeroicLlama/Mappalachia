@@ -1,7 +1,7 @@
 namespace Library
 {
 	public class DerivedScrap(string editorID)
-		: Entity(0, editorID, $"Derived {editorID.WithoutWhitespace()} Scrap", Signature.MISC)
+		: Entity(0, editorID, $"Derived {editorID} Scrap", Signature.MISC)
 	{
 		public override string GetFriendlyFormID()
 		{

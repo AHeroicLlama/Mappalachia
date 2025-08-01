@@ -25,7 +25,7 @@ namespace Mappalachia
 			var dividerRectangle = new RectangleF(Width - DividerInsetPosition, 0, DividerInsetPosition, Height);
 
 			// Check the drop down has been left clicked
-			if (ContextMenu != null &&
+			if (ContextMenu is not null &&
 				e.Button == MouseButtons.Left &&
 				dividerRectangle.Contains(e.Location))
 			{
@@ -45,7 +45,7 @@ namespace Mappalachia
 			TriangleWidth = DividerInsetPosition / 3f;
 			TriangleHeight = ClientRectangle.Height / 5f;
 
-			if (ContextMenu == null || DividerInsetPosition <= 0)
+			if (ContextMenu is null || DividerInsetPosition <= 0)
 			{
 				return;
 			}

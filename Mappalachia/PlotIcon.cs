@@ -126,13 +126,13 @@ namespace Mappalachia
 			}
 
 			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
-			Image image = DropShadowCache != null ? new Bitmap(DropShadowCache) : new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
+			Image image = DropShadowCache is not null ? new Bitmap(DropShadowCache) : new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
 			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
 
-			if (DropShadowCache == null)
+			if (DropShadowCache is null)
 			{
 				graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new RectangleF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2, Size, Size));
-				DropShadowCache = image;
+				DropShadowCache = new Bitmap(image);
 			}
 
 			graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));

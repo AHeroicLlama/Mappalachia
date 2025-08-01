@@ -91,7 +91,6 @@
 			MainMenuStrip = menuStripPreview;
 			MinimumSize = new Size(256, 256);
 			Name = "FormMapView";
-			ShowInTaskbar = false;
 			Text = "Mappalachia: Preview";
 			FormClosing += FormMapView_FormClosing;
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();

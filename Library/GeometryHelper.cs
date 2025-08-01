@@ -53,11 +53,9 @@ namespace Library
 		{
 			if (verts.Count == 1)
 			{
-#pragma warning disable IDE0079
-#pragma warning disable SA1010
-				return [];
-#pragma warning restore SA1010
-#pragma warning restore IDE0079
+#pragma warning disable IDE0301 // Simplify collection initialization
+				return Array.Empty<PointF>();
+#pragma warning restore IDE0301 // Simplify collection initialization
 			}
 
 			// Monotone Chain https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain

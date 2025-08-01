@@ -12,7 +12,7 @@ namespace Mappalachia
 		// Query the registry to find if the URL protocol is registered
 		static bool IsProtocolRegistered(string protocol)
 		{
-			return Registry.ClassesRoot.OpenSubKey(protocol)?.GetValue("URL Protocol") != null;
+			return Registry.ClassesRoot.OpenSubKey(protocol)?.GetValue("URL Protocol") is not null;
 		}
 
 		public static Uri DiscordInvite

@@ -308,7 +308,7 @@ namespace Library
 		// Neatly handles modifying attributes of xml nodes
 		static void SetAttributeValue(this XmlNode? node, string attributeName, string value)
 		{
-			if (node == null)
+			if (node is null)
 			{
 				throw new NullReferenceException("XML Node is null");
 			}

@@ -68,7 +68,7 @@ namespace Preprocessor
 					}
 				}
 
-				if (value != null && !validPattern.IsMatch(value))
+				if (value is not null && !validPattern.IsMatch(value))
 				{
 					FailValidation($"{tableName}.{columnName}: value {value} did not match pattern {validPattern} (Row {row})");
 				}

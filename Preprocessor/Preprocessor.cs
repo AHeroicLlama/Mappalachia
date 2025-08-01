@@ -562,7 +562,7 @@ namespace Preprocessor
 				string? newValue = method(originalValue);
 
 				// If the new value is null (method indicates value should not be changed), skip
-				if (newValue == null)
+				if (newValue is null)
 				{
 					continue;
 				}
@@ -606,7 +606,7 @@ namespace Preprocessor
 				string? newValue = method(originalValueA, originalValueB);
 
 				// If the new value is null (method indicates value should not be changed), skip.
-				if (newValue == null)
+				if (newValue is null)
 				{
 					continue;
 				}
@@ -944,7 +944,7 @@ namespace Preprocessor
 		{
 			string? gameVersion = GetGameVersionFromExe();
 
-			if (gameVersion == null)
+			if (gameVersion is null)
 			{
 				StdOutWithColor($"Unable to determine game version from exe at {GameExePath}.", ColorInfo);
 				return GetGameVersionFromUser();

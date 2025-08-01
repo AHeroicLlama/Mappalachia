@@ -22,7 +22,7 @@ namespace Mappalachia
 
 			set
 			{
-				if (value == null || value.Count < 1)
+				if (value is null || value.Count < 1)
 				{
 					palette = new List<Color>() { Color.White };
 					return;
@@ -44,7 +44,7 @@ namespace Mappalachia
 
 			set
 			{
-				if (value == null || value.Count < 1)
+				if (value is null || value.Count < 1)
 				{
 					topographicPalette = new List<Color>() { Color.White };
 					return;

@@ -24,6 +24,8 @@ namespace Mappalachia
 
 		CancellationTokenSource DrawCancellationTokenSource { get; set; } = new CancellationTokenSource();
 
+		PlotMode LastPlotMode { get; set; } = PlotMode.Standard;
+
 		public FormMain()
 		{
 			InitializeComponent();
@@ -58,7 +60,7 @@ namespace Mappalachia
 			InitializeDataGridView(dataGridViewItemsToPlot, ItemsToPlot);
 
 			// Set these columns hidden in the Items To Plot
-			foreach (string columnName in new List<string>() { "DisplayName", "Label", "SpawnWeight", })
+			foreach (string columnName in new[] { "DisplayName", "Label", "SpawnWeight", })
 			{
 				DataGridViewColumn column = dataGridViewItemsToPlot.Columns[columnName] ?? throw new Exception($"No Column with name {columnName}");
 				column.Visible = false;
@@ -112,9 +114,11 @@ namespace Mappalachia
 		}
 
 		// Called by cluster settings 'live preview' - intentionally do not update UI, just draw the map
-		public void SetClusterSettings(ClusterSettings newClusterSettings)
+		public void ClusterSettingsLiveUpdate(ClusterSettings newClusterSettings)
 		{
 			Settings.PlotSettings.ClusterSettings = newClusterSettings;
+			Settings.PlotSettings.Mode = PlotMode.Cluster;
+
 			DrawMap();
 		}
 
@@ -203,7 +207,7 @@ namespace Mappalachia
 			// Toggle the check by clicking the label
 			listView.ItemSelectionChanged += (sender, eventArgs) =>
 			{
-				if (eventArgs.IsSelected && eventArgs.Item != null)
+				if (eventArgs.IsSelected && eventArgs.Item is not null)
 				{
 					eventArgs.Item.Checked = !eventArgs.Item.Checked;
 				}
@@ -397,7 +401,6 @@ namespace Mappalachia
 			{
 				DrawRequested = true;
 				DrawCancellationTokenSource.Cancel();
-				GC.Collect();
 				return;
 			}
 
@@ -414,7 +417,7 @@ namespace Mappalachia
 
 			try
 			{
-				await Task.Run(() => FormMapView.MapImage = Map.Draw(ItemsToPlot.ToList(), Settings, progress, DrawCancellationTokenSource.Token) ?? FormMapView.MapImage);
+				await Task.Run(async () => FormMapView.MapImage = await Map.Draw(ItemsToPlot.ToList(), Settings, progress, DrawCancellationTokenSource.Token) ?? FormMapView.MapImage);
 			}
 			catch (Exception ex)
 			{
@@ -491,7 +494,7 @@ namespace Mappalachia
 
 				DataGridViewRow paintedRow = dataGridViewItemsToPlot.Rows[e.RowIndex];
 				GroupedSearchResult data = (GroupedSearchResult)(paintedRow.DataBoundItem ?? throw new NullReferenceException("Painted row data was null"));
-				Image icon = new Bitmap(data.PlotIcon.GetImage() ?? throw new NullReferenceException("Data icon image was null"));
+				using Image icon = new Bitmap(data.PlotIcon.GetImage() ?? throw new NullReferenceException("Data icon image was null"));
 
 				Rectangle cellBounds = e.CellBounds;
 
@@ -508,7 +511,7 @@ namespace Mappalachia
 					width,
 					height);
 
-				if (e.Graphics == null)
+				if (e.Graphics is null)
 				{
 					throw new NullReferenceException("Graphics object for cell icon painting event was null");
 				}
@@ -532,7 +535,7 @@ namespace Mappalachia
 				return;
 			}
 
-			if (e.FormattedValue == null)
+			if (e.FormattedValue is null)
 			{
 				dataGridViewItemsToPlot.CancelEdit();
 				return;
@@ -559,8 +562,9 @@ namespace Mappalachia
 					}
 
 					itemToPlot.LegendText = e.FormattedValue.ToString() ?? string.Empty;
-					dataGridViewItemsToPlot.Refresh();
 				}
+
+				dataGridViewItemsToPlot.Refresh();
 			}
 			else if (editedColumn.Name == "LegendGroup")
 			{
@@ -587,11 +591,12 @@ namespace Mappalachia
 					{
 						boundData.LegendText = itemToPlot.LegendText;
 						boundData.PlotIcon = new PlotIcon(itemToPlot.PlotIcon);
-						dataGridViewItemsToPlot.Refresh();
 
 						break;
 					}
 				}
+
+				dataGridViewItemsToPlot.Refresh();
 			}
 		}
 
@@ -735,7 +740,7 @@ namespace Mappalachia
 		// We don't need to update tooltips as they are fetched dynamically via CellToolTipNeeded events
 		void UpdateDataGridAppearences()
 		{
-			foreach (DataGridView dataGridView in new List<DataGridView>() { dataGridViewSearchResults, dataGridViewItemsToPlot })
+			foreach (DataGridView dataGridView in new[] { dataGridViewSearchResults, dataGridViewItemsToPlot })
 			{
 				foreach (DataGridViewColumn column in dataGridView.Columns)
 				{
@@ -970,7 +975,7 @@ namespace Mappalachia
 			{
 				Recipe? recipe = Recipe.LoadFromFile(openFileDialog.FileName);
 
-				if (recipe == null)
+				if (recipe is null)
 				{
 					return;
 				}
@@ -980,7 +985,6 @@ namespace Mappalachia
 				Settings.DoNotSave = true;
 
 				Settings.Space = recipe.Space;
-				Settings.PopulateSpaceFromDatabase();
 
 				ItemsToPlot.Clear();
 				ItemsToPlot.AddRange(recipe.ItemsToPlot);
@@ -1073,6 +1077,9 @@ namespace Mappalachia
 
 		private void Plot_ClusterSettings_Click(object sender, EventArgs e)
 		{
+			// Capture the current plot mode so it can be restored to if the dialog is cancelled
+			LastPlotMode = Settings.PlotSettings.Mode;
+
 			FormClusterSettings clusterForm = new FormClusterSettings(this);
 			DialogResult result = clusterForm.ShowDialog();
 
@@ -1084,7 +1091,7 @@ namespace Mappalachia
 			{
 				// The form sends an Abort result if the form caused a draw via Live Update setting, but cancelled
 				// Thus we now need to re-draw
-				DrawMap();
+				SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
 			}
 
 			plotSettingsMenuItem.DropDown.Close();
@@ -1298,7 +1305,7 @@ namespace Mappalachia
 			{
 				// Collect the instances attached to the rows
 				// Then in a separate loop (to avoid removing from the list which we are looping), remove them
-				List<GroupedSearchResult> itemsToRemove = selectedRows.Select(row => (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was or was bound to null"))).ToList();
+				List<GroupedSearchResult> itemsToRemove = selectedRows.Select(row => (GroupedSearchResult)(row?.DataBoundItem ?? throw new Exception("Row was (or was bound to) null"))).ToList();
 
 				foreach (GroupedSearchResult instance in itemsToRemove)
 				{
