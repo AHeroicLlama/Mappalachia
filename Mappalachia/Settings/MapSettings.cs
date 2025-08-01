@@ -9,6 +9,9 @@ namespace Mappalachia
 
 		BackgroundImageType backgroundImage = BackgroundImageType.Menu;
 
+		// A record of the background image before spotlight was enabled
+		BackgroundImageType backgroundImagePreSpotlight = BackgroundImageType.Menu;
+
 		public BackgroundImageType BackgroundImage
 		{
 			get => backgroundImage;
@@ -21,6 +24,7 @@ namespace Mappalachia
 				}
 
 				backgroundImage = value;
+				backgroundImagePreSpotlight = value;
 				RootSettings?.ResolveConflictingSettings();
 			}
 		}
@@ -58,17 +62,29 @@ namespace Mappalachia
 			get => spotlightEnabled;
 			set
 			{
+				// If we try to turn it on, but it's not installed, prompt on installation
+				if (value && !FileIO.IsSpotlightInstalled())
+				{
+					Notify.SpotlightInstallationPrompt();
+				}
+
+				// Store the background image setting before spotlight is turned on
+				if (value && !SpotlightEnabled)
+				{
+					backgroundImagePreSpotlight = backgroundImage;
+				}
+
+				// Restore the background image setting once spotlight is turned off
+				if (!value && SpotlightEnabled)
+				{
+					backgroundImage = backgroundImagePreSpotlight;
+				}
+
 				// We assume for the majority of cases, turning on spotlight implies wanting the high res render too
 				// But if it's already on or not installed, we leave as-is
 				if (value && !SpotlightEnabled && FileIO.IsSpotlightInstalled())
 				{
 					backgroundImage = BackgroundImageType.Render;
-				}
-
-				// If we try to turn it on, but it's not installed, prompt on installation
-				if (value && !FileIO.IsSpotlightInstalled())
-				{
-					Notify.SpotlightInstallationPrompt();
 				}
 
 				spotlightEnabled = value;
