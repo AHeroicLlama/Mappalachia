@@ -24,6 +24,8 @@ namespace Mappalachia
 
 		CancellationTokenSource DrawCancellationTokenSource { get; set; } = new CancellationTokenSource();
 
+		PlotMode LastPlotMode { get; set; } = PlotMode.Standard;
+
 		public FormMain()
 		{
 			InitializeComponent();
@@ -112,9 +114,11 @@ namespace Mappalachia
 		}
 
 		// Called by cluster settings 'live preview' - intentionally do not update UI, just draw the map
-		public void SetClusterSettings(ClusterSettings newClusterSettings)
+		public void ClusterSettingsLiveUpdate(ClusterSettings newClusterSettings)
 		{
 			Settings.PlotSettings.ClusterSettings = newClusterSettings;
+			Settings.PlotSettings.Mode = PlotMode.Cluster;
+
 			DrawMap();
 		}
 
@@ -1073,6 +1077,9 @@ namespace Mappalachia
 
 		private void Plot_ClusterSettings_Click(object sender, EventArgs e)
 		{
+			// Capture the current plot mode so it can be restored to if the dialog is cancelled
+			LastPlotMode = Settings.PlotSettings.Mode;
+
 			FormClusterSettings clusterForm = new FormClusterSettings(this);
 			DialogResult result = clusterForm.ShowDialog();
 
@@ -1084,7 +1091,7 @@ namespace Mappalachia
 			{
 				// The form sends an Abort result if the form caused a draw via Live Update setting, but cancelled
 				// Thus we now need to re-draw
-				DrawMap();
+				SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
 			}
 
 			plotSettingsMenuItem.DropDown.Close();

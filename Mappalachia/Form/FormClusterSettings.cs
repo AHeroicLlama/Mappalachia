@@ -4,8 +4,6 @@
 	{
 		FormMain FormMain { get; }
 
-		bool LiveUpdateCausedDraw { get; set; } = false;
-
 		// The settings when the form opened, so we can revert on cancel
 		ClusterSettings InitialSettings { get; }
 
@@ -36,16 +34,13 @@
 			SetWeightLabel();
 
 			Initialized = true;
+			UpdateMapView();
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 			FormMain.Settings.PlotSettings.ClusterSettings = InitialSettings;
-
-			if (LiveUpdateCausedDraw)
-			{
-				DialogResult = DialogResult.Abort;
-			}
+			DialogResult = DialogResult.Abort;
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)
@@ -105,8 +100,7 @@
 
 			if (checkBoxLiveUpdate.Checked)
 			{
-				FormMain.SetClusterSettings(ClusterSettings);
-				LiveUpdateCausedDraw = true;
+				FormMain.ClusterSettingsLiveUpdate(ClusterSettings);
 			}
 		}
 
