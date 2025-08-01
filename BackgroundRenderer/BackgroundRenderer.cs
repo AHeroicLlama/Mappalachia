@@ -168,7 +168,7 @@ namespace BackgroundRenderer
 
 				// If the user aborted this space, don't add it to the list.
 				// Additionally, if we haven't corrected any spaces yet, don't offer to render - just do another space
-				if (correctedSpace != null)
+				if (correctedSpace is not null)
 				{
 					correctedSpaces.Add(correctedSpace);
 				}
@@ -180,7 +180,7 @@ namespace BackgroundRenderer
 				StdOutWithColor($"Press \"y\" to finish height correction and render the corrected cells.\nPress any other key to correct another cell.", ColorInfo);
 
 				char key = Console.ReadKey().KeyChar;
-				if (key.ToString().Equals("y", StringComparison.OrdinalIgnoreCase))
+				if (key.ToString().EqualsIgnoreCase("y"))
 				{
 					Console.WriteLine("\n");
 					break;
@@ -215,7 +215,7 @@ namespace BackgroundRenderer
 				string input = Console.ReadLine() ?? "1000";
 
 				// The correct crop has been found - save it to a file, do the proper render, and finish.
-				if (input.Equals("y", StringComparison.OrdinalIgnoreCase))
+				if (input.EqualsIgnoreCase("y"))
 				{
 					string correctionPath = CellZCorrectionPath + space.EditorID;
 
@@ -223,7 +223,7 @@ namespace BackgroundRenderer
 					StdOutWithColor($"Correction file written to {correctionPath}.\n", ColorInfo);
 					return space;
 				}
-				else if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
+				else if (input.EqualsIgnoreCase("exit"))
 				{
 					return null;
 				}
@@ -247,7 +247,7 @@ namespace BackgroundRenderer
 				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + (space.IsWorldspace ? 0 : 32)} -ssaa 2 " +
 				$"-ltxtres 512 -tc 4096 -mc 64 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
-				$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
+				$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
 			string resizeCommand = $"magick {ddsFile} -resize {MapImageResolution}x{MapImageResolution} " +
 						$"-quality {(space.IsWorldspace ? JpgQualityHigh : JpgQualityStandard)} JPEG:{finalFile}";
@@ -267,7 +267,7 @@ namespace BackgroundRenderer
 				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
-					$"-xm " + string.Join(" -xm ", BuildTools.RenderExcludeModels);
+					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
 				string waterMaskResizeCommand = $"magick {waterMaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {MapImageResolution}x{MapImageResolution} PNG:{waterMaskFinalFile}";
 
@@ -504,7 +504,7 @@ namespace BackgroundRenderer
 
 				Space? space = await CommonDatabase.GetSpaceByEditorID(GetNewConnection(), input);
 
-				if (space == null)
+				if (space is null)
 				{
 					StdOutWithColor($"Space with editorID \"{input}\" was not found in the database.", ColorError);
 				}
@@ -523,7 +523,7 @@ namespace BackgroundRenderer
 			StdOutWithColor($"{space.EditorID} (0x{space.FormID.ToHex()}) Done. ({count}/{spaces.Count} ({percentRemaining.ToString("0.00")}%))", ColorInfo);
 
 			// If this isn't the last item, and we have a timer going
-			if (count != spaces.Count && stopwatch != null)
+			if (count != spaces.Count && stopwatch is not null)
 			{
 				TimeSpan avgTimePerSpace = stopwatch.Elapsed / count;
 				TimeSpan estTimeRemaining = avgTimePerSpace * (spaces.Count - count);

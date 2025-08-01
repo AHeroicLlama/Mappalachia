@@ -108,7 +108,7 @@ namespace Library
 		// Value is cached in solutionPath so is only calculated once per launch
 		static string GetRepoRoot()
 		{
-			if (solutionPath != null)
+			if (solutionPath is not null)
 			{
 				return solutionPath;
 			}
@@ -209,7 +209,7 @@ namespace Library
 				Space? space = spaces.Where(space => space.EditorID == Path.GetFileName(directory)).FirstOrDefault();
 
 				// If the space no longer exists, or, if the space no longer benefits from spotlight, delete its folder
-				if (space == null || !space.IsSuitableForSpotlight())
+				if (space is null || !space.IsSuitableForSpotlight())
 				{
 					Directory.Delete(directory, true);
 					StdOutWithColor($"Deleting spotlight folder {directory}", ColorInfo);

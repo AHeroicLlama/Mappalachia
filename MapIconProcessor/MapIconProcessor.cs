@@ -159,7 +159,7 @@ class MapIconProcessor
 	// Recursively removes unnecessary attributes which reference FFDec, under the given node
 	static void CleanXMLNode(XmlNode node)
 	{
-		if (node.Attributes != null)
+		if (node.Attributes is not null)
 		{
 			IEnumerable<XmlAttribute> attributes = node.Attributes.Cast<XmlAttribute>().Reverse();
 

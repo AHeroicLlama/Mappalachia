@@ -341,7 +341,7 @@ namespace Mappalachia
 			{
 				Instance? instance = await GetSingularInstance(singular, space);
 
-				if (instance != null)
+				if (instance is not null)
 				{
 					instances.Add(instance);
 				}
@@ -354,7 +354,7 @@ namespace Mappalachia
 			{
 				Instance? instance = await GetRegionInstance(searchResult, space);
 
-				if (instance != null)
+				if (instance is not null)
 				{
 					instances.Add(instance);
 				}
@@ -692,7 +692,7 @@ namespace Mappalachia
 				return null!;
 			}
 
-			return AllSpaces.Where(space => space.FormID == formID).FirstOrDefault() ?? throw new Exception($"Space with formID {formID.ToHex()} not found!");
+			return AllSpaces.FirstOrDefault(space => space.FormID == formID) ?? throw new Exception($"Space with formID {formID.ToHex()} not found!");
 		}
 	}
 }

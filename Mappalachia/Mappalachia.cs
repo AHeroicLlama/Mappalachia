@@ -7,7 +7,7 @@ namespace Mappalachia
 	{
 		static FormMain? FormMain { get; set; } = null;
 
-		public static bool GUILaunched => FormMain == null;
+		public static bool GUILaunched => FormMain is null;
 
 		[STAThread]
 		static void Main(string[] args)
@@ -34,7 +34,7 @@ namespace Mappalachia
 
 						Recipe? recipe = Recipe.LoadFromFile(arg);
 
-						if (recipe == null)
+						if (recipe is null)
 						{
 							continue;
 						}
@@ -46,9 +46,9 @@ namespace Mappalachia
 							Space = recipe.Space,
 						};
 
-						Image? image = Map.Draw(recipe.ItemsToPlot.ToList(), settings, null, new CancellationTokenSource().Token);
+						Image? image = Map.Draw(recipe.ItemsToPlot.ToList(), settings, null, new CancellationTokenSource().Token).Result;
 
-						if (image == null)
+						if (image is null)
 						{
 							continue;
 						}

@@ -7,7 +7,7 @@
 		{
 			DataGridViewColumn? sortedColumn = dataGridView.SortedColumn;
 
-			if (sortedColumn == null)
+			if (sortedColumn is null)
 			{
 				return;
 			}

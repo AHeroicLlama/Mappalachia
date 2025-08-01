@@ -16,7 +16,7 @@ namespace Mappalachia
 				return;
 			}
 
-			if (exception != null)
+			if (exception is not null)
 			{
 				body += $"\n\nError details:\n{exception.Message}";
 			}

@@ -84,7 +84,7 @@ namespace Mappalachia
 		static float TopographLegendDivisions { get; } = 100;
 
 		// The primary map draw function
-		public static Image? Draw(List<GroupedSearchResult> itemsToPlot, Settings settings, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
+		public static async Task<Image?> Draw(List<GroupedSearchResult> itemsToPlot, Settings settings, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			UpdateProgress(progressInfo, 10, "Draw started");
 
@@ -124,16 +124,16 @@ namespace Mappalachia
 				switch (settings.PlotSettings.Mode)
 				{
 					case PlotMode.Standard:
-						DrawStandardPlots(itemsToPlot, settings, graphics, false, progressInfo, cancellationToken);
+						await DrawStandardPlots(itemsToPlot, settings, graphics, false, progressInfo, cancellationToken);
 						break;
 
 					case PlotMode.Topographic:
-						DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo, cancellationToken);
+						await DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo, cancellationToken);
 						DrawTopographicLegend(settings, graphics, TopographLegendRect, TopographLegendDivisions);
 						break;
 
 					case PlotMode.Cluster:
-						DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo, cancellationToken);
+						await DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo, cancellationToken);
 						break;
 
 					default:
@@ -145,12 +145,12 @@ namespace Mappalachia
 					return null;
 				}
 
-				DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
-				DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
+				await DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
+				await DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
 				mapImage = DrawLegend(itemsToPlot, settings, mapImage, progressInfo);
 			}
 
-			DrawWaterMark(settings, graphics);
+			await DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
 
 			GC.Collect();
@@ -162,7 +162,7 @@ namespace Mappalachia
 
 		static void UpdateProgress(IProgress<ProgressInfo>? progressInfo, int percent, string status)
 		{
-			if (progressInfo == null)
+			if (progressInfo is null)
 			{
 				return;
 			}
@@ -173,7 +173,7 @@ namespace Mappalachia
 		// Overload to automatically calculate percentage from x out of y
 		static void UpdateProgress(IProgress<ProgressInfo>? progressInfo, int current, int total, string status)
 		{
-			if (progressInfo == null)
+			if (progressInfo is null)
 			{
 				return;
 			}
@@ -181,6 +181,7 @@ namespace Mappalachia
 			if (current == 0)
 			{
 				progressInfo.Report(new ProgressInfo(0, status));
+				return;
 			}
 
 			progressInfo.Report(new ProgressInfo((int)Math.Round((current / (double)total) * 100), status));
@@ -198,8 +199,8 @@ namespace Mappalachia
 				return;
 			}
 
-			Image canvas = new Bitmap(CompassSize, CompassSize);
-			Graphics compassGraphic = GraphicsFromImageHQ(canvas);
+			using Image canvas = new Bitmap(CompassSize, CompassSize);
+			using Graphics compassGraphic = GraphicsFromImageHQ(canvas);
 
 			// Rotate the graphic around its center by the north angle, then draw the compass onto it
 			compassGraphic.TranslateTransform(canvas.Width / 2, canvas.Height / 2);
@@ -242,7 +243,7 @@ namespace Mappalachia
 
 				Image? image = tile.GetSpotlightTileImage();
 
-				if (image == null)
+				if (image is null)
 				{
 					continue;
 				}
@@ -256,7 +257,7 @@ namespace Mappalachia
 		}
 
 		// Standard including topographic plots
-		static async void DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
+		static async Task DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			(double, double) topographRange = topographic ? await Database.GetZRange(itemsToPlot, settings) : (-1, -1);
 
@@ -300,7 +301,7 @@ namespace Mappalachia
 						color = LerpColors(settings.PlotSettings.PlotIconSettings.TopographicPalette.ToArray(), range);
 
 						// If this is not a shape (therefore a normal topograph plot)
-						if (instance.PrimitiveShape == null)
+						if (instance.PrimitiveShape is null)
 						{
 							iconImage = item.PlotIcon.GetImage(color);
 						}
@@ -310,7 +311,7 @@ namespace Mappalachia
 					{
 						DrawRegion(settings, graphics, region, color);
 					}
-					else if (instance.PrimitiveShape != null)
+					else if (instance.PrimitiveShape is not null)
 					{
 						DrawPrimitiveShape(settings, graphics, instance, color);
 					}
@@ -322,7 +323,7 @@ namespace Mappalachia
 			}
 		}
 
-		static async void DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
+		static async Task DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeClusterLabel);
 
@@ -348,9 +349,9 @@ namespace Mappalachia
 					List<Instance> intermediateInstances = await Database.GetInstances(item, item.Space);
 
 					List<Instance> regions = intermediateInstances.Where(instance => instance.Entity is Library.Region).ToList();
-					List<Instance> shapes = intermediateInstances.Where(instance => instance.PrimitiveShape != null).ToList();
+					List<Instance> shapes = intermediateInstances.Where(instance => instance.PrimitiveShape is not null).ToList();
 
-					intermediateInstances = intermediateInstances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape == null).ToList();
+					intermediateInstances = intermediateInstances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape is null).ToList();
 
 					foreach (Instance regionInstance in regions)
 					{
@@ -434,7 +435,7 @@ namespace Mappalachia
 				{
 					Cluster? largest = clusters.MaxBy(c => c.GetWeight());
 
-					if (largest != null)
+					if (largest is not null)
 					{
 						clustersForDraw.Add(largest);
 					}
@@ -466,7 +467,7 @@ namespace Mappalachia
 		}
 
 		// Draw doors where plotted entities exist in a space reachable by this one
-		static async void DrawConnectingSpacePlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
+		static async Task DrawConnectingSpacePlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			Dictionary<Space, int> connectionsToSpace = new Dictionary<Space, int>();
 
@@ -550,7 +551,7 @@ namespace Mappalachia
 		}
 
 		// Draw the FormID of the instance of the plot
-		static async void DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
+		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
 		{
 			if (!settings.PlotSettings.DrawInstanceFormID)
 			{
@@ -645,7 +646,7 @@ namespace Mappalachia
 		// Draws the Shape belonging to the given instance
 		static void DrawPrimitiveShape(Settings settings, Graphics graphics, Instance instance, Color color)
 		{
-			if (instance.PrimitiveShape == null)
+			if (instance.PrimitiveShape is null)
 			{
 				throw new Exception("Instance has no shape");
 			}
@@ -726,7 +727,7 @@ namespace Mappalachia
 			DrawStringWithDropShadow(graphics, titleText, font, BrushGeneric, textBounds, TopRight);
 		}
 
-		static async void DrawWaterMark(Settings settings, Graphics graphics)
+		static async Task DrawWaterMark(Settings settings, Graphics graphics)
 		{
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeWatermark);
 

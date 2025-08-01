@@ -26,7 +26,7 @@ namespace Mappalachia
 					PopulateSpaceFromDatabase();
 				}
 
-				if (MapSettings != null)
+				if (MapSettings is not null)
 				{
 					MapSettings.SpotlightEnabled = false;
 				}

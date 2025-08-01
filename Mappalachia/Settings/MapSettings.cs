@@ -103,7 +103,7 @@ namespace Mappalachia
 
 		public void SetSpotlightToMapCenter()
 		{
-			if (RootSettings == null)
+			if (RootSettings is null)
 			{
 				return;
 			}
@@ -114,7 +114,7 @@ namespace Mappalachia
 		public void CapSpotlightSizeToSpace()
 		{
 			// May have not finihsed initializing yet
-			if (RootSettings == null)
+			if (RootSettings is null)
 			{
 				return;
 			}

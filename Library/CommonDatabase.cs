@@ -23,7 +23,7 @@ namespace Library
 		{
 			SqliteCommand query = connection.CreateCommand();
 			query.CommandText = queryText;
-			return await query.ExecuteReaderAsync();
+			return await query.ExecuteReaderAsync().ConfigureAwait(false);
 		}
 
 		public static async Task<string> GetGameVersion(SqliteConnection connection)
