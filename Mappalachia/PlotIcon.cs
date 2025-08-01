@@ -132,7 +132,7 @@ namespace Mappalachia
 			if (DropShadowCache is null)
 			{
 				graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new RectangleF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2, Size, Size));
-				DropShadowCache = image;
+				DropShadowCache = new Bitmap(image);
 			}
 
 			graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));
