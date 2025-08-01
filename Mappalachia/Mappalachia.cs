@@ -1,3 +1,4 @@
+using System.Drawing.Imaging;
 using Library;
 
 namespace Mappalachia
@@ -5,6 +6,8 @@ namespace Mappalachia
 	static class Mappalachia
 	{
 		static FormMain? FormMain { get; set; } = null;
+
+		public static bool GUILaunched => FormMain == null;
 
 		[STAThread]
 		static void Main(string[] args)
@@ -15,9 +18,57 @@ namespace Mappalachia
 				// see https://aka.ms/applicationconfiguration.
 				ApplicationConfiguration.Initialize();
 
-				if (args.Length > 0 && args[0].EqualsIgnoreCase("dedication"))
+				Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+				bool passedRecipesAsArgs = false;
+
+				foreach (string arg in args)
 				{
-					Console.WriteLine("Dedicated to Molly.");
+					if (arg.EndsWith(Common.RecipeFileType))
+					{
+						if (!File.Exists(arg))
+						{
+							continue;
+						}
+
+						passedRecipesAsArgs = true;
+
+						Recipe? recipe = Recipe.LoadFromFile(arg);
+
+						if (recipe == null)
+						{
+							continue;
+						}
+
+						Settings settings = new Settings
+						{
+							MapSettings = recipe.MapSettings,
+							PlotSettings = recipe.PlotSettings,
+							Space = recipe.Space,
+						};
+
+						Image? image = Map.Draw(recipe.ItemsToPlot.ToList(), settings, null, new CancellationTokenSource().Token);
+
+						if (image == null)
+						{
+							continue;
+						}
+
+						ImageFormat outputFormat = FileIO.GetImageFileTypeRecommendation(settings);
+						string outputPath = Path.GetDirectoryName(arg) + "\\" + Path.GetFileNameWithoutExtension(arg) + "." + outputFormat;
+						FileIO.Save(image, outputFormat, outputPath);
+
+						Console.WriteLine($"Recipe {arg} drawn as image file {outputPath}.");
+					}
+					else if (arg.EqualsIgnoreCase("dedication"))
+					{
+						Console.WriteLine("Dedicated to Molly.");
+					}
+				}
+
+				// The user had passed recipes as arguments, so we don't launch the GUI
+				if (passedRecipesAsArgs)
+				{
+					return;
 				}
 
 				FormMain = new FormMain();
@@ -25,6 +76,7 @@ namespace Mappalachia
 			}
 			catch (Exception exception)
 			{
+				MessageBox.Show(exception.ToString());
 				Notify.FatalException(exception);
 				Application.Exit();
 			}

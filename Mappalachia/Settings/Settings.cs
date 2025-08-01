@@ -20,10 +20,10 @@ namespace Mappalachia
 				space = value;
 
 				// This is a workaround to detect a Space which has been initialized from the settings JSON and not the database
-				// It will be replaced by LoadFromFile, so we don't care - we just needed its FormID/EditorID.
 				if (space.MaxRange == 0)
 				{
-					return;
+					// This re-calls this setter
+					PopulateSpaceFromDatabase();
 				}
 
 				if (MapSettings != null)
@@ -59,7 +59,6 @@ namespace Mappalachia
 				{
 					Settings settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(Paths.SettingsPath)) ?? throw new Exception("Settings JSON Deserialized to null");
 					settings.MapSettings.RootSettings = settings;
-					settings.PopulateSpaceFromDatabase();
 
 					return settings;
 				}
@@ -75,9 +74,9 @@ namespace Mappalachia
 		}
 
 		// Re-associate a deserialized space with the same virgin space from the database
-		// This ensures JSON-ignored data (those not compared in overrode .Equals()) are not lost
+		// This ensures JSON-ignored data are restored
 		// Failing this, fall back to the first space
-		public void PopulateSpaceFromDatabase()
+		void PopulateSpaceFromDatabase()
 		{
 			Space = Database.AllSpaces.Where(s => s.Equals(Space)).FirstOrDefault() ?? Database.AllSpaces.First();
 		}

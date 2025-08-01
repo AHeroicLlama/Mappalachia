@@ -6,6 +6,16 @@ namespace Mappalachia
 	{
 		public static void GenericError(string summary, string body, Exception? exception = null, string title = "Mappalachia: Error")
 		{
+			if (!Mappalachia.GUILaunched)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(summary);
+				Console.WriteLine(body);
+				Console.WriteLine(exception);
+				Console.ResetColor();
+				return;
+			}
+
 			if (exception != null)
 			{
 				body += $"\n\nError details:\n{exception.Message}";
@@ -30,6 +40,14 @@ namespace Mappalachia
 
 		public static void Info(string title, string summary, string body)
 		{
+			if (!Mappalachia.GUILaunched)
+			{
+				Console.WriteLine(summary);
+				Console.WriteLine(body);
+				Console.ResetColor();
+				return;
+			}
+
 			TaskDialogPage page = new TaskDialogPage
 			{
 				Caption = title,
@@ -49,6 +67,14 @@ namespace Mappalachia
 
 		public static void SpotlightInstallationPrompt()
 		{
+			if (!Mappalachia.GUILaunched)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine("Spotlight is not installed! Unable to be used. Please install it and try again.");
+				Console.ResetColor();
+				return;
+			}
+
 			TaskDialogButton openInstallGuide = new TaskDialogButton("Open installation guide");
 			openInstallGuide.Click += (sender, e) => { Common.OpenURI(URLs.SpotlightInstallationGuide); };
 
@@ -72,6 +98,14 @@ namespace Mappalachia
 
 		public static void FatalException(Exception exception)
 		{
+			if (!Mappalachia.GUILaunched)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine($"Fatal!\n{exception}");
+				Console.ResetColor();
+				return;
+			}
+
 			TaskDialogButton discordButton = new TaskDialogButton("Join Discord")
 			{
 				AllowCloseDialog = false,

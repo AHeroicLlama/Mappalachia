@@ -980,7 +980,6 @@ namespace Mappalachia
 				Settings.DoNotSave = true;
 
 				Settings.Space = recipe.Space;
-				Settings.PopulateSpaceFromDatabase();
 
 				ItemsToPlot.Clear();
 				ItemsToPlot.AddRange(recipe.ItemsToPlot);
