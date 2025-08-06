@@ -68,7 +68,7 @@ namespace Mappalachia
 
 			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "PlotIcon", FillWeight = 2, ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
-			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, mapLegendStyleToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem })
+			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendStyleToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem })
 			{
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
@@ -240,10 +240,13 @@ namespace Mappalachia
 			spotlightSetRangeToolStripMenuItem.Text = $"Set Range ({Settings.MapSettings.SpotlightSize})";
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
-			// Set all items which are members of "pick only one" lists to be unchecked, first
-			foreach (ToolStripMenuItem item in new[] { backgroundNormalToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundNoneToolStripMenuItem, legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem, volumeBorderToolStripMenuItem, volumeFillToolStripMenuItem, volumeBothToolStripMenuItem, plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeClusterToolStripMenuItem, compassAlwaysToolStripMenuItem, compassWhenUsefulToolStripMenuItem, compassNeverToolStripMenuItem })
+			// Set all members of lists items which are "pick only one" lists to be unchecked
+			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendStyleToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem })
 			{
-				item.Checked = false;
+				foreach (ToolStripMenuItem subItem in item.DropDownItems)
+				{
+					subItem.Checked = false;
+				}
 			}
 
 			// For each of the "pick only one" lists, set the single checked item
@@ -302,6 +305,9 @@ namespace Mappalachia
 					break;
 				case PlotMode.Topographic:
 					plotModeTopographicToolStripMenuItem.Checked = true;
+					break;
+				case PlotMode.Heatmap:
+					plotModeHeatmapToolStripMenuItem.Checked = true;
 					break;
 				case PlotMode.Cluster:
 					plotModeClusterToolStripMenuItem.Checked = true;
@@ -421,7 +427,10 @@ namespace Mappalachia
 			}
 			catch (Exception ex)
 			{
-				Notify.GenericError("Draw operation failed", "An unexpected error occurred while drawing the map.\nIf you loaded a recipe, it may be corrupt.\n\nIf this error keeps occuring, consider joining our Discord for support, or reset your settings by clicking 'Help' > 'Reset Everything'.", ex);
+				progressBarMain.Value = 0;
+				labelProgressStatus.Text = "Draw failed";
+
+				Notify.GenericError("Draw operation failed", "An unexpected error occurred while drawing the map.\nIf you loaded a recipe, it may be corrupt.\n\nIf this error keeps occurring, consider joining our Discord for support, or reset your settings by clicking 'Help' > 'Reset Everything'.", ex);
 			}
 
 			CurrentlyDrawing = false;
@@ -1068,6 +1077,11 @@ namespace Mappalachia
 		private void Plot_Mode_Topographic_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Topographic);
+		}
+
+		private void Plot_Mode_Heatmap_Click(object sender, EventArgs e)
+		{
+			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Heatmap);
 		}
 
 		private void Plot_Mode_Cluster_Click(object sender, EventArgs e)

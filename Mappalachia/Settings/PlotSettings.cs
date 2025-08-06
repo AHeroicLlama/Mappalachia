@@ -4,6 +4,7 @@
 	{
 		Standard,
 		Topographic,
+		Heatmap,
 		Cluster,
 	}
 

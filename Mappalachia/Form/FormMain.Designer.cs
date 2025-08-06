@@ -38,7 +38,7 @@ namespace Mappalachia
 			mapMapMarkersToolStripMenuItem = new ToolStripMenuItem();
 			mapMarkerIconsToolStripMenuItem = new ToolStripMenuItem();
 			mapMarkerLabelsToolStripMenuItem = new ToolStripMenuItem();
-			mapBackgroundImageMenuItem = new ToolStripMenuItem();
+			backgroundImageMenuItem = new ToolStripMenuItem();
 			backgroundNormalToolStripMenuItem = new ToolStripMenuItem();
 			backgroundSatelliteToolStripMenuItem = new ToolStripMenuItem();
 			backgroundMilitaryToolStripMenuItem = new ToolStripMenuItem();
@@ -54,7 +54,7 @@ namespace Mappalachia
 			spotlightEnabledToolStripMenuItem = new ToolStripMenuItem();
 			spotlightSetRangeToolStripMenuItem = new ToolStripMenuItem();
 			spotlightCoordToolStripMenuItem = new ToolStripMenuItem();
-			mapLegendStyleToolStripMenuItem = new ToolStripMenuItem();
+			legendStyleToolStripMenuItem = new ToolStripMenuItem();
 			legendNormalToolStripMenuItem = new ToolStripMenuItem();
 			legendExtendedToolStripMenuItem = new ToolStripMenuItem();
 			legendHiddenToolStripMenuItem = new ToolStripMenuItem();
@@ -72,9 +72,10 @@ namespace Mappalachia
 			plotModeMenuItem = new ToolStripMenuItem();
 			plotModeStandardToolStripMenuItem = new ToolStripMenuItem();
 			plotModeTopographicToolStripMenuItem = new ToolStripMenuItem();
+			plotModeHeatmapToolStripMenuItem = new ToolStripMenuItem();
 			plotModeClusterToolStripMenuItem = new ToolStripMenuItem();
-			clusterSettingsToolStripMenuItem = new ToolStripMenuItem();
 			plotIconSettingsToolStripMenuItem = new ToolStripMenuItem();
+			clusterSettingsToolStripMenuItem = new ToolStripMenuItem();
 			volumeDrawStyleToolStripMenuItem = new ToolStripMenuItem();
 			volumeFillToolStripMenuItem = new ToolStripMenuItem();
 			volumeBorderToolStripMenuItem = new ToolStripMenuItem();
@@ -132,7 +133,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, mapBackgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, mapLegendStyleToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendStyleToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -195,10 +196,10 @@ namespace Mappalachia
 			// 
 			// mapBackgroundImageMenuItem
 			// 
-			mapBackgroundImageMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backgroundNormalToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundNoneToolStripMenuItem });
-			mapBackgroundImageMenuItem.Name = "mapBackgroundImageMenuItem";
-			mapBackgroundImageMenuItem.Size = new Size(240, 22);
-			mapBackgroundImageMenuItem.Text = "Background Image";
+			backgroundImageMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backgroundNormalToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundNoneToolStripMenuItem });
+			backgroundImageMenuItem.Name = "mapBackgroundImageMenuItem";
+			backgroundImageMenuItem.Size = new Size(240, 22);
+			backgroundImageMenuItem.Text = "Background Image";
 			// 
 			// backgroundNormalToolStripMenuItem
 			// 
@@ -320,10 +321,10 @@ namespace Mappalachia
 			// 
 			// mapLegendStyleToolStripMenuItem
 			// 
-			mapLegendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem });
-			mapLegendStyleToolStripMenuItem.Name = "mapLegendStyleToolStripMenuItem";
-			mapLegendStyleToolStripMenuItem.Size = new Size(240, 22);
-			mapLegendStyleToolStripMenuItem.Text = "Legend Style";
+			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem });
+			legendStyleToolStripMenuItem.Name = "mapLegendStyleToolStripMenuItem";
+			legendStyleToolStripMenuItem.Size = new Size(240, 22);
+			legendStyleToolStripMenuItem.Text = "Legend Style";
 			// 
 			// legendNormalToolStripMenuItem
 			// 
@@ -439,7 +440,7 @@ namespace Mappalachia
 			// 
 			// plotModeMenuItem
 			// 
-			plotModeMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeClusterToolStripMenuItem });
+			plotModeMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeStandardToolStripMenuItem, plotModeTopographicToolStripMenuItem, plotModeHeatmapToolStripMenuItem, plotModeClusterToolStripMenuItem });
 			plotModeMenuItem.Name = "plotModeMenuItem";
 			plotModeMenuItem.Size = new Size(240, 22);
 			plotModeMenuItem.Text = "Plot Mode";
@@ -448,7 +449,7 @@ namespace Mappalachia
 			// 
 			plotModeStandardToolStripMenuItem.Name = "plotModeStandardToolStripMenuItem";
 			plotModeStandardToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.S;
-			plotModeStandardToolStripMenuItem.Size = new Size(178, 22);
+			plotModeStandardToolStripMenuItem.Size = new Size(180, 22);
 			plotModeStandardToolStripMenuItem.Text = "Standard";
 			plotModeStandardToolStripMenuItem.ToolTipText = "Use icons to plot the location of each mapped entity.";
 			plotModeStandardToolStripMenuItem.Click += Plot_Mode_Standard_Click;
@@ -457,27 +458,28 @@ namespace Mappalachia
 			// 
 			plotModeTopographicToolStripMenuItem.Name = "plotModeTopographicToolStripMenuItem";
 			plotModeTopographicToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.T;
-			plotModeTopographicToolStripMenuItem.Size = new Size(178, 22);
+			plotModeTopographicToolStripMenuItem.Size = new Size(180, 22);
 			plotModeTopographicToolStripMenuItem.Text = "Topographic";
 			plotModeTopographicToolStripMenuItem.ToolTipText = "Similar to standard, but color is used to indicate the height of plots against a scale.";
 			plotModeTopographicToolStripMenuItem.Click += Plot_Mode_Topographic_Click;
+			// 
+			// plotModeHeatmapToolStripMenuItem
+			// 
+			plotModeHeatmapToolStripMenuItem.Name = "plotModeHeatmapToolStripMenuItem";
+			plotModeHeatmapToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.H;
+			plotModeHeatmapToolStripMenuItem.Size = new Size(180, 22);
+			plotModeHeatmapToolStripMenuItem.Text = "Heatmap";
+			plotModeHeatmapToolStripMenuItem.ToolTipText = "Shows plotted items in a heatmap.";
+			plotModeHeatmapToolStripMenuItem.Click += Plot_Mode_Heatmap_Click;
 			// 
 			// plotModeClusterToolStripMenuItem
 			// 
 			plotModeClusterToolStripMenuItem.Name = "plotModeClusterToolStripMenuItem";
 			plotModeClusterToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.C;
-			plotModeClusterToolStripMenuItem.Size = new Size(178, 22);
+			plotModeClusterToolStripMenuItem.Size = new Size(180, 22);
 			plotModeClusterToolStripMenuItem.Text = "Cluster";
 			plotModeClusterToolStripMenuItem.ToolTipText = "Shows the areas with the highest densities of your selected items - customizable.";
 			plotModeClusterToolStripMenuItem.Click += Plot_Mode_Cluster_Click;
-			// 
-			// clusterSettingsToolStripMenuItem
-			// 
-			clusterSettingsToolStripMenuItem.Name = "clusterSettingsToolStripMenuItem";
-			clusterSettingsToolStripMenuItem.Size = new Size(240, 22);
-			clusterSettingsToolStripMenuItem.Text = "Cluster Settings";
-			clusterSettingsToolStripMenuItem.ToolTipText = "Adjust settings relevant to Cluster plot mode.";
-			clusterSettingsToolStripMenuItem.Click += Plot_ClusterSettings_Click;
 			// 
 			// plotIconSettingsToolStripMenuItem
 			// 
@@ -486,6 +488,14 @@ namespace Mappalachia
 			plotIconSettingsToolStripMenuItem.Text = "Plot Icon Settings";
 			plotIconSettingsToolStripMenuItem.ToolTipText = "Edit the default plot icon settings.";
 			plotIconSettingsToolStripMenuItem.Click += Plot_IconSettings_Click;
+			// 
+			// clusterSettingsToolStripMenuItem
+			// 
+			clusterSettingsToolStripMenuItem.Name = "clusterSettingsToolStripMenuItem";
+			clusterSettingsToolStripMenuItem.Size = new Size(240, 22);
+			clusterSettingsToolStripMenuItem.Text = "Cluster Settings";
+			clusterSettingsToolStripMenuItem.ToolTipText = "Adjust settings relevant to Cluster plot mode.";
+			clusterSettingsToolStripMenuItem.Click += Plot_ClusterSettings_Click;
 			// 
 			// volumeDrawStyleToolStripMenuItem
 			// 
@@ -539,7 +549,7 @@ namespace Mappalachia
 			drawInstanceFormIDToolStripMenuItem.Name = "drawInstanceFormIDToolStripMenuItem";
 			drawInstanceFormIDToolStripMenuItem.Size = new Size(240, 22);
 			drawInstanceFormIDToolStripMenuItem.Text = "Show Instance FormID";
-			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot.";
+			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot. Only applies to Standard or Topographic plot mode.";
 			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
 			// 
 			// helpToolStripMenuItem
@@ -929,12 +939,12 @@ namespace Mappalachia
 		private ToolStripMenuItem mapMarkerIconsToolStripMenuItem;
 		private ToolStripMenuItem mapMarkerLabelsToolStripMenuItem;
 		private ToolStripMenuItem resetToolStripMenuItem;
-		private ToolStripMenuItem mapBackgroundImageMenuItem;
+		private ToolStripMenuItem backgroundImageMenuItem;
 		private ToolStripMenuItem backgroundNormalToolStripMenuItem;
 		private ToolStripMenuItem backgroundSatelliteToolStripMenuItem;
 		private ToolStripMenuItem backgroundMilitaryToolStripMenuItem;
 		private ToolStripMenuItem backgroundNoneToolStripMenuItem;
-		private ToolStripMenuItem mapLegendStyleToolStripMenuItem;
+		private ToolStripMenuItem legendStyleToolStripMenuItem;
 		private ToolStripMenuItem legendNormalToolStripMenuItem;
 		private ToolStripMenuItem legendExtendedToolStripMenuItem;
 		private ToolStripMenuItem legendHiddenToolStripMenuItem;
@@ -993,5 +1003,6 @@ namespace Mappalachia
 		private ToolStripMenuItem plotIconSettingsToolStripMenuItem;
 		private ToolStripMenuItem saveAsRecipeToolStripMenuItem;
 		private ToolStripMenuItem loadRecipeToolStripMenuItem;
+		private ToolStripMenuItem plotModeHeatmapToolStripMenuItem;
 	}
 }

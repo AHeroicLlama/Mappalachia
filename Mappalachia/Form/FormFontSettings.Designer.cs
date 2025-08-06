@@ -219,7 +219,6 @@
 			// buttonResetAll
 			// 
 			buttonResetAll.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			buttonResetAll.Font = new Font("Segoe UI", 8F);
 			buttonResetAll.Location = new Point(163, 253);
 			buttonResetAll.Name = "buttonResetAll";
 			buttonResetAll.Size = new Size(69, 23);

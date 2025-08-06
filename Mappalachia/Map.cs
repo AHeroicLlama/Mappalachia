@@ -71,6 +71,8 @@ namespace Mappalachia
 
 		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
+		static StringFormat BottomLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far };
+
 		static int TopographLegendRectHeight { get; } = MapImageResolution / 3;
 
 		static int TopographLegendRectWidth { get; } = MapImageResolution / 40;
@@ -132,6 +134,10 @@ namespace Mappalachia
 						DrawTopographicLegend(settings, graphics, TopographLegendRect, TopographLegendDivisions);
 						break;
 
+					case PlotMode.Heatmap:
+						DrawHeatmapPlots(itemsToPlot, settings, graphics, progressInfo, cancellationToken);
+						break;
+
 					case PlotMode.Cluster:
 						await DrawClusterPlots(itemsToPlot, settings, graphics, progressInfo, cancellationToken);
 						break;
@@ -146,7 +152,6 @@ namespace Mappalachia
 				}
 
 				await DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
-				await DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
 				mapImage = DrawLegend(itemsToPlot, settings, mapImage, progressInfo);
 			}
 
@@ -276,6 +281,7 @@ namespace Mappalachia
 					continue;
 				}
 
+				Font instanceFormIDFont = GetFont(settings.MapSettings.FontSettings.SizeInstanceFormID);
 				List<Instance> instances = await Database.GetInstances(item, item.Space);
 
 				foreach (Instance instance in instances)
@@ -319,8 +325,19 @@ namespace Mappalachia
 					{
 						graphics.DrawImageCentered(iconImage ?? item.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
 					}
+
+					if (settings.PlotSettings.DrawInstanceFormID)
+					{
+						PointF point = instance.Coord.AsImagePoint(settings);
+						graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), instanceFormIDFont, new SolidBrush(item.PlotIcon.Color), new PointF(point.X, point.Y + (item.PlotIcon.Size / 2)), false);
+					}
 				}
 			}
+		}
+
+		static async Task DrawHeatmapPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
+		{
+
 		}
 
 		static async Task DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
@@ -546,38 +563,6 @@ namespace Mappalachia
 						font,
 						new SolidBrush(item.PlotIcon.Color),
 						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])));
-				}
-			}
-		}
-
-		// Draw the FormID of the instance of the plot
-		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
-		{
-			if (!settings.PlotSettings.DrawInstanceFormID)
-			{
-				return;
-			}
-
-			Font font = GetFont(settings.MapSettings.FontSettings.SizeInstanceFormID);
-
-			foreach (GroupedSearchResult searchResult in itemsToPlot)
-			{
-				UpdateProgress(progressInfo, 90, "Drawing Instance FormIDs");
-
-				if (!searchResult.Space.Equals(settings.Space))
-				{
-					continue;
-				}
-
-				foreach (Instance instance in await Database.GetInstances(searchResult, settings.Space))
-				{
-					if (instance.InstanceFormID == 0)
-					{
-						continue;
-					}
-
-					PointF point = instance.Coord.AsImagePoint(settings);
-					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), font, new SolidBrush(searchResult.PlotIcon.Color), new PointF(point.X, point.Y + (searchResult.PlotIcon.Size / 2)), false);
 				}
 			}
 		}
@@ -808,7 +793,8 @@ namespace Mappalachia
 
 			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
 			// Then half it, flip it, and offset by the midpoint of the image
-			float height = (MapImageResolution / 2) + (itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, font, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size)) / -2);
+			float totalHeight = itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, font, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size));
+			float yPos = (MapImageResolution / 2) + (totalHeight / -2);
 
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
@@ -817,7 +803,7 @@ namespace Mappalachia
 				SizeF bounds = graphics.MeasureString(item.LegendText, font, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution));
 
 				float halfRowHeight = Math.Max(bounds.Height, item.PlotIcon.Size + LegendYPadding) / 2;
-				float midPointRowPos = height + halfRowHeight;
+				float midPointRowPos = yPos + halfRowHeight;
 				float iconXMid = LegendXPadding + (item.PlotIcon.Size / 2);
 
 				graphics.DrawStringWithDropShadow(
@@ -838,7 +824,20 @@ namespace Mappalachia
 						new PointF(iconXMid, midPointRowPos));
 				}
 
-				height += halfRowHeight * 2;
+				yPos += halfRowHeight * 2;
+			}
+
+			if (totalHeight > MapImageResolution)
+			{
+				string text = "(continued)";
+				SizeF size = graphics.MeasureString(text, font);
+
+				graphics.DrawStringWithDropShadow(
+					text,
+					font,
+					BrushGeneric,
+					new RectangleF(LegendXMax, MapImageResolution - size.Height, MapImageResolution - size.Width, size.Height),
+					BottomLeft);
 			}
 
 			return image;
