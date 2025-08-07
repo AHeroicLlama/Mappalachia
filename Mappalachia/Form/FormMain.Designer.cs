@@ -75,6 +75,7 @@ namespace Mappalachia
 			plotModeHeatmapToolStripMenuItem = new ToolStripMenuItem();
 			plotModeClusterToolStripMenuItem = new ToolStripMenuItem();
 			plotIconSettingsToolStripMenuItem = new ToolStripMenuItem();
+			heatmapSettingsToolStripMenuItem = new ToolStripMenuItem();
 			clusterSettingsToolStripMenuItem = new ToolStripMenuItem();
 			volumeDrawStyleToolStripMenuItem = new ToolStripMenuItem();
 			volumeFillToolStripMenuItem = new ToolStripMenuItem();
@@ -194,10 +195,10 @@ namespace Mappalachia
 			mapMarkerLabelsToolStripMenuItem.ToolTipText = "Display the names of the fast travel locations.";
 			mapMarkerLabelsToolStripMenuItem.Click += Map_MapMarkers_Labels_Click;
 			// 
-			// mapBackgroundImageMenuItem
+			// backgroundImageMenuItem
 			// 
 			backgroundImageMenuItem.DropDownItems.AddRange(new ToolStripItem[] { backgroundNormalToolStripMenuItem, backgroundSatelliteToolStripMenuItem, backgroundMilitaryToolStripMenuItem, backgroundNoneToolStripMenuItem });
-			backgroundImageMenuItem.Name = "mapBackgroundImageMenuItem";
+			backgroundImageMenuItem.Name = "backgroundImageMenuItem";
 			backgroundImageMenuItem.Size = new Size(240, 22);
 			backgroundImageMenuItem.Text = "Background Image";
 			// 
@@ -319,10 +320,10 @@ namespace Mappalachia
 			spotlightCoordToolStripMenuItem.Text = "Coord";
 			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
 			// 
-			// mapLegendStyleToolStripMenuItem
+			// legendStyleToolStripMenuItem
 			// 
 			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem });
-			legendStyleToolStripMenuItem.Name = "mapLegendStyleToolStripMenuItem";
+			legendStyleToolStripMenuItem.Name = "legendStyleToolStripMenuItem";
 			legendStyleToolStripMenuItem.Size = new Size(240, 22);
 			legendStyleToolStripMenuItem.Text = "Legend Style";
 			// 
@@ -433,7 +434,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotIconSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotIconSettingsToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -449,7 +450,7 @@ namespace Mappalachia
 			// 
 			plotModeStandardToolStripMenuItem.Name = "plotModeStandardToolStripMenuItem";
 			plotModeStandardToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.S;
-			plotModeStandardToolStripMenuItem.Size = new Size(180, 22);
+			plotModeStandardToolStripMenuItem.Size = new Size(178, 22);
 			plotModeStandardToolStripMenuItem.Text = "Standard";
 			plotModeStandardToolStripMenuItem.ToolTipText = "Use icons to plot the location of each mapped entity.";
 			plotModeStandardToolStripMenuItem.Click += Plot_Mode_Standard_Click;
@@ -458,7 +459,7 @@ namespace Mappalachia
 			// 
 			plotModeTopographicToolStripMenuItem.Name = "plotModeTopographicToolStripMenuItem";
 			plotModeTopographicToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.T;
-			plotModeTopographicToolStripMenuItem.Size = new Size(180, 22);
+			plotModeTopographicToolStripMenuItem.Size = new Size(178, 22);
 			plotModeTopographicToolStripMenuItem.Text = "Topographic";
 			plotModeTopographicToolStripMenuItem.ToolTipText = "Similar to standard, but color is used to indicate the height of plots against a scale.";
 			plotModeTopographicToolStripMenuItem.Click += Plot_Mode_Topographic_Click;
@@ -467,7 +468,7 @@ namespace Mappalachia
 			// 
 			plotModeHeatmapToolStripMenuItem.Name = "plotModeHeatmapToolStripMenuItem";
 			plotModeHeatmapToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.H;
-			plotModeHeatmapToolStripMenuItem.Size = new Size(180, 22);
+			plotModeHeatmapToolStripMenuItem.Size = new Size(178, 22);
 			plotModeHeatmapToolStripMenuItem.Text = "Heatmap";
 			plotModeHeatmapToolStripMenuItem.ToolTipText = "Shows plotted items in a heatmap.";
 			plotModeHeatmapToolStripMenuItem.Click += Plot_Mode_Heatmap_Click;
@@ -476,7 +477,7 @@ namespace Mappalachia
 			// 
 			plotModeClusterToolStripMenuItem.Name = "plotModeClusterToolStripMenuItem";
 			plotModeClusterToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.C;
-			plotModeClusterToolStripMenuItem.Size = new Size(180, 22);
+			plotModeClusterToolStripMenuItem.Size = new Size(178, 22);
 			plotModeClusterToolStripMenuItem.Text = "Cluster";
 			plotModeClusterToolStripMenuItem.ToolTipText = "Shows the areas with the highest densities of your selected items - customizable.";
 			plotModeClusterToolStripMenuItem.Click += Plot_Mode_Cluster_Click;
@@ -488,6 +489,14 @@ namespace Mappalachia
 			plotIconSettingsToolStripMenuItem.Text = "Plot Icon Settings";
 			plotIconSettingsToolStripMenuItem.ToolTipText = "Edit the default plot icon settings.";
 			plotIconSettingsToolStripMenuItem.Click += Plot_IconSettings_Click;
+			// 
+			// heatmapSettingsToolStripMenuItem
+			// 
+			heatmapSettingsToolStripMenuItem.Name = "heatmapSettingsToolStripMenuItem";
+			heatmapSettingsToolStripMenuItem.Size = new Size(240, 22);
+			heatmapSettingsToolStripMenuItem.Text = "Heatmap Settings";
+			heatmapSettingsToolStripMenuItem.ToolTipText = "Adjust the range and intensity of heatmaps.";
+			heatmapSettingsToolStripMenuItem.Click += Plot_HeatmapSettings_Click;
 			// 
 			// clusterSettingsToolStripMenuItem
 			// 
@@ -1004,5 +1013,6 @@ namespace Mappalachia
 		private ToolStripMenuItem saveAsRecipeToolStripMenuItem;
 		private ToolStripMenuItem loadRecipeToolStripMenuItem;
 		private ToolStripMenuItem plotModeHeatmapToolStripMenuItem;
+		private ToolStripMenuItem heatmapSettingsToolStripMenuItem;
 	}
 }

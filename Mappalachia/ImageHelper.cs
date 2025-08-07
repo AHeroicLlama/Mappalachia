@@ -46,7 +46,6 @@ namespace Mappalachia
 		}
 
 		// Returns the original image, where all opaque black pixels are transparent
-		// Note similar implementation to Preprocessor.ImageAssetValidation.GetBlackPxPercent
 		public static Image ReplaceBlackWithTransparency(this Image image)
 		{
 			Bitmap bitmap = (Bitmap)image;
@@ -104,6 +103,81 @@ namespace Mappalachia
 			bitmap.UnlockBits(bitmapData);
 
 			return bitmap;
+		}
+
+		// Returns a copy of the original bitmap where the alpha value of non-zero alpha pixels are interpolated to the given colors
+		public static Bitmap InterpolateAgainstAlpha(this Bitmap image, Color[] colors)
+		{
+			(byte, byte) minMaxAlpha = GetMinMaxAlpha(image, true);
+
+			Bitmap bitmap = new Bitmap(image);
+
+			// We copy the bitmap data out into a byte array, because accessing the pixels from the bitmap object is very slow
+			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+			int size = bitmapData.Stride * bitmap.Height;
+			byte[] buffer = new byte[size];
+			Marshal.Copy(bitmapData.Scan0, buffer, 0, size);
+
+			// Works on the basis this is 4 bytes per pixel
+			for (int i = 0; i < size; i += 4)
+			{
+				byte alpha = buffer[i + 3];
+
+				if (alpha == 0)
+				{
+					continue;
+				}
+
+				double intensity = alpha / (double)(minMaxAlpha.Item2 - minMaxAlpha.Item1);
+
+				Color color = LerpColors(colors, intensity).WithAlpha(alpha);
+
+				buffer[i + 2] = color.R;
+				buffer[i + 1] = color.G;
+				buffer[i] = color.B;
+			}
+
+			Marshal.Copy(buffer, 0, bitmapData.Scan0, size);
+			bitmap.UnlockBits(bitmapData);
+
+			return bitmap;
+		}
+
+		// Return the min (Item1) and max (Item2) alpha values in the bitmap.
+		// If exceptZero is true, alpha values of 0 are not considered for the minimum.
+		public static (byte, byte) GetMinMaxAlpha(Bitmap bitmap, bool exceptZero = false)
+		{
+			byte minAlpha = 0;
+			byte maxAlpha = 0;
+
+			if (bitmap.Width == 0 || bitmap.Height == 0)
+			{
+				throw new ArgumentException("Image dimensions cannot be zero.", nameof(bitmap));
+			}
+
+			BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+			int size = bitmapData.Stride * bitmap.Height;
+			byte[] buffer = new byte[size];
+			Marshal.Copy(bitmapData.Scan0, buffer, 0, size);
+
+			// Works on the basis this is 4 bytes per pixel
+			for (int i = 0; i < size; i += 4)
+			{
+				byte alpha = buffer[i + 3];
+
+				maxAlpha = Math.Max(maxAlpha, alpha);
+
+				if (exceptZero && alpha == 0)
+				{
+					continue;
+				}
+
+				minAlpha = Math.Min(minAlpha, alpha);
+			}
+
+			bitmap.UnlockBits(bitmapData);
+
+			return (minAlpha, maxAlpha);
 		}
 
 		public static Image Resize(this Image image, int width, int height)

@@ -79,7 +79,7 @@ namespace Mappalachia
 			trackBarClusterRange.SmallChange = 100;
 			trackBarClusterRange.TabIndex = 1;
 			trackBarClusterRange.TickFrequency = 500;
-			toolTipClusterSettings.SetToolTip(trackBarClusterRange, "The maximum 'search' range in pixels that each cluster will extend.");
+			toolTipClusterSettings.SetToolTip(trackBarClusterRange, "The maximum 'search' range in game units that each cluster will extend.");
 			trackBarClusterRange.Value = 100;
 			trackBarClusterRange.ValueChanged += TrackBarClusterRange_ValueChanged;
 			// 
@@ -91,7 +91,7 @@ namespace Mappalachia
 			labelClusterRange.Size = new Size(128, 15);
 			labelClusterRange.TabIndex = 0;
 			labelClusterRange.Text = "Cluster Radius (XXXXX)";
-			toolTipClusterSettings.SetToolTip(labelClusterRange, "The maximum 'search' range in pixels that each cluster will extend.");
+			toolTipClusterSettings.SetToolTip(labelClusterRange, "The maximum 'search' range in game units that each cluster will extend.");
 			labelClusterRange.MouseClick += LabelClusterRange_MouseClick;
 			// 
 			// trackBarClusterMinWeight

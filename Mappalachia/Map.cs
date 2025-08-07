@@ -135,7 +135,7 @@ namespace Mappalachia
 						break;
 
 					case PlotMode.Heatmap:
-						DrawHeatmapPlots(itemsToPlot, settings, graphics, progressInfo, cancellationToken);
+						await DrawHeatmapPlots(itemsToPlot, settings, graphics, progressInfo, cancellationToken);
 						break;
 
 					case PlotMode.Cluster:
@@ -337,7 +337,77 @@ namespace Mappalachia
 
 		static async Task DrawHeatmapPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
+			HeatmapSettings heatmapSettings = settings.PlotSettings.HeatmapSettings;
 
+			using Bitmap heatmap = new Bitmap(MapImageResolution, MapImageResolution);
+			using Graphics heatmapOverlay = Graphics.FromImage(heatmap);
+			using Bitmap heatBlobDefaultWeight = CreateRadialGradientHeatSpot(heatmapSettings.Range, heatmapSettings.Intensity);
+
+			int i = 0;
+			foreach (GroupedSearchResult item in itemsToPlot)
+			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					return;
+				}
+
+				if (item.Space != settings.Space)
+				{
+					continue;
+				}
+
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Plotting heatmap");
+
+				Bitmap heatBlob = item.SpawnWeight == 1 ? heatBlobDefaultWeight : CreateRadialGradientHeatSpot(heatmapSettings.Range, (int)(heatmapSettings.Intensity * item.SpawnWeight));
+
+				foreach (Instance instance in await Database.GetInstances(item, item.Space))
+				{
+					if (cancellationToken.IsCancellationRequested)
+					{
+						return;
+					}
+
+					heatmapOverlay.DrawImageCentered(heatBlob, instance.Coord.AsImagePoint(settings));
+				}
+			}
+
+			if (cancellationToken.IsCancellationRequested)
+			{
+				return;
+			}
+
+			UpdateProgress(progressInfo, 90, "Colorizing heatmap");
+			graphics.DrawImage(heatmap.InterpolateAgainstAlpha(settings.PlotSettings.PlotIconSettings.TopographicPalette.ToArray()), new PointF(0, 0));
+		}
+
+		// Return a bitmap of given size containing a black circular/radial gradient of linearly decreasing alpha
+		static Bitmap CreateRadialGradientHeatSpot(int size, int intensity)
+		{
+			Bitmap bitmap = new Bitmap(size, size);
+			double radius = size / 2;
+
+			using Graphics graphics = Graphics.FromImage(bitmap);
+
+			for (int x = 0; x < size; x++)
+			{
+				for (int y = 0; y < size; y++)
+				{
+					double xDist = x - radius;
+					double yDist = y - radius;
+					double distanceSquared = (xDist * xDist) + (yDist * yDist);
+					double gradient = 1 - (distanceSquared / (radius * radius));
+
+					if (gradient <= 0)
+					{
+						continue;
+					}
+
+					int alpha = Math.Min(255, (int)(gradient * intensity));
+					bitmap.SetPixel(x, y, Color.Black.WithAlpha(alpha));
+				}
+			}
+
+			return bitmap;
 		}
 
 		static async Task DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
@@ -897,6 +967,11 @@ namespace Mappalachia
 		static float AsImageLength(this double value, Settings settings)
 		{
 			return (float)(value / GetWorldToImageFactor(settings));
+		}
+
+		static int AsImageLength(this int value, Settings settings)
+		{
+			return (int)(value / GetWorldToImageFactor(settings));
 		}
 
 		// Returns the given World Coord as an Image PointF, considering spotlight scaling

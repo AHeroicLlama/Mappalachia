@@ -24,6 +24,8 @@
 
 		public VolumeDrawMode VolumeDrawMode { get; set; } = VolumeDrawMode.Both;
 
+		public HeatmapSettings HeatmapSettings { get; set; } = new HeatmapSettings();
+
 		public ClusterSettings ClusterSettings { get; set; } = new ClusterSettings();
 
 		public PlotIconSettings PlotIconSettings { get; set; } = new PlotIconSettings();

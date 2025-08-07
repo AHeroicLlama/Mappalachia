@@ -122,6 +122,15 @@ namespace Mappalachia
 			DrawMap();
 		}
 
+		// Called by heatmap settings 'live preview' - intentionally do not update UI, just draw the map
+		public void HeatmapSettingsLiveUpdate(HeatmapSettings newHeatmapSettings)
+		{
+			Settings.PlotSettings.HeatmapSettings = newHeatmapSettings;
+			Settings.PlotSettings.Mode = PlotMode.Heatmap;
+
+			DrawMap();
+		}
+
 		// Return the header for a DataGridViewColumn with the given name
 		static string GetColumnHeader(string columnName, bool advanced)
 		{
@@ -240,7 +249,7 @@ namespace Mappalachia
 			spotlightSetRangeToolStripMenuItem.Text = $"Set Range ({Settings.MapSettings.SpotlightSize})";
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
-			// Set all members of lists items which are "pick only one" lists to be unchecked
+			// Set all members of list items which are "pick only one" lists to be unchecked
 			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendStyleToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem })
 			{
 				foreach (ToolStripMenuItem subItem in item.DropDownItems)
@@ -1100,6 +1109,28 @@ namespace Mappalachia
 			if (result == DialogResult.OK)
 			{
 				SetSetting(() => Settings.PlotSettings.ClusterSettings = clusterForm.ClusterSettings);
+			}
+			else if (result == DialogResult.Abort)
+			{
+				// The form sends an Abort result if the form caused a draw via Live Update setting, but cancelled
+				// Thus we now need to re-draw
+				SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
+			}
+
+			plotSettingsMenuItem.DropDown.Close();
+		}
+
+		private void Plot_HeatmapSettings_Click(object sender, EventArgs e)
+		{
+			// Capture the current plot mode so it can be restored to if the dialog is cancelled
+			LastPlotMode = Settings.PlotSettings.Mode;
+
+			FormHeatmapSettings heatmapForm = new FormHeatmapSettings(this);
+			DialogResult result = heatmapForm.ShowDialog();
+
+			if (result == DialogResult.OK)
+			{
+				SetSetting(() => Settings.PlotSettings.HeatmapSettings = heatmapForm.HeatmapSettings);
 			}
 			else if (result == DialogResult.Abort)
 			{
