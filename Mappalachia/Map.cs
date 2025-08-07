@@ -304,7 +304,7 @@ namespace Mappalachia
 						}
 
 						// Overrides the image and color
-						color = LerpColors(settings.PlotSettings.PlotIconSettings.TopographicPalette.ToArray(), range);
+						color = LerpColors(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray(), range);
 
 						// If this is not a shape (therefore a normal topograph plot)
 						if (instance.PrimitiveShape is null)
@@ -377,7 +377,7 @@ namespace Mappalachia
 			}
 
 			UpdateProgress(progressInfo, 90, "Colorizing heatmap");
-			graphics.DrawImage(heatmap.InterpolateAgainstAlpha(settings.PlotSettings.PlotIconSettings.TopographicPalette.ToArray()), new PointF(0, 0));
+			graphics.DrawImage(heatmap.InterpolateAgainstAlpha(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray()), new PointF(0, 0));
 		}
 
 		// Return a bitmap of given size containing a black circular/radial gradient of linearly decreasing alpha
@@ -646,7 +646,7 @@ namespace Mappalachia
 			for (float y = 0; y < height; y += step)
 			{
 				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
-				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.PlotIconSettings.TopographicPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
+				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
 			}
 		}
 

@@ -74,7 +74,7 @@ namespace Mappalachia
 			plotModeTopographicToolStripMenuItem = new ToolStripMenuItem();
 			plotModeHeatmapToolStripMenuItem = new ToolStripMenuItem();
 			plotModeClusterToolStripMenuItem = new ToolStripMenuItem();
-			plotIconSettingsToolStripMenuItem = new ToolStripMenuItem();
+			plotStylesToolStripMenuItem = new ToolStripMenuItem();
 			heatmapSettingsToolStripMenuItem = new ToolStripMenuItem();
 			clusterSettingsToolStripMenuItem = new ToolStripMenuItem();
 			volumeDrawStyleToolStripMenuItem = new ToolStripMenuItem();
@@ -434,7 +434,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotIconSettingsToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -482,13 +482,13 @@ namespace Mappalachia
 			plotModeClusterToolStripMenuItem.ToolTipText = "Shows the areas with the highest densities of your selected items - customizable.";
 			plotModeClusterToolStripMenuItem.Click += Plot_Mode_Cluster_Click;
 			// 
-			// plotIconSettingsToolStripMenuItem
+			// plotStylesToolStripMenuItem
 			// 
-			plotIconSettingsToolStripMenuItem.Name = "plotIconSettingsToolStripMenuItem";
-			plotIconSettingsToolStripMenuItem.Size = new Size(240, 22);
-			plotIconSettingsToolStripMenuItem.Text = "Plot Icon Settings";
-			plotIconSettingsToolStripMenuItem.ToolTipText = "Edit the default plot icon settings.";
-			plotIconSettingsToolStripMenuItem.Click += Plot_IconSettings_Click;
+			plotStylesToolStripMenuItem.Name = "plotStylesToolStripMenuItem";
+			plotStylesToolStripMenuItem.Size = new Size(240, 22);
+			plotStylesToolStripMenuItem.Text = "Plot Styles";
+			plotStylesToolStripMenuItem.ToolTipText = "Edit color palettes and default plot icon settings.";
+			plotStylesToolStripMenuItem.Click += Plot_PlotStyles_Click;
 			// 
 			// heatmapSettingsToolStripMenuItem
 			// 
@@ -1009,7 +1009,7 @@ namespace Mappalachia
 		private ToolStripMenuItem compassAlwaysToolStripMenuItem;
 		private ToolStripMenuItem compassWhenUsefulToolStripMenuItem;
 		private ToolStripMenuItem compassNeverToolStripMenuItem;
-		private ToolStripMenuItem plotIconSettingsToolStripMenuItem;
+		private ToolStripMenuItem plotStylesToolStripMenuItem;
 		private ToolStripMenuItem saveAsRecipeToolStripMenuItem;
 		private ToolStripMenuItem loadRecipeToolStripMenuItem;
 		private ToolStripMenuItem plotModeHeatmapToolStripMenuItem;

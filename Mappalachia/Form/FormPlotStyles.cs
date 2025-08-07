@@ -1,23 +1,23 @@
 ﻿namespace Mappalachia
 {
-	// Does user control of the PlotIconSettings
+	// Does user control of the PlotStyleSettings
 	// Does not use a model
-	public partial class FormPlotIconSettings : Form
+	public partial class FormPlotStyles : Form
 	{
 		// Create a new settings instance from the form state
-		public PlotIconSettings PlotIconSettings => new PlotIconSettings()
+		public PlotStyleSettings PlotStyleSettings => new PlotStyleSettings()
 		{
 			// Note we're using the BackColor field to actually store the color
 			// as this is more reliable than parsing it to text and back again
 			Palette = listViewStandardPalette.Items.Cast<ListViewItem>().Select(i => i.BackColor).ToList(),
-			TopographicPalette = listViewTopographPalette.Items.Cast<ListViewItem>().Select(i => i.BackColor).ToList(),
+			SecondaryPalette = listViewSecondaryPalette.Items.Cast<ListViewItem>().Select(i => i.BackColor).ToList(),
 			Size = trackBarIconSize.Value,
 		};
 
-		public FormPlotIconSettings(PlotIconSettings plotIconSettings)
+		public FormPlotStyles(PlotStyleSettings plotStyleSettings)
 		{
 			InitializeComponent();
-			UpdatePalettes(plotIconSettings);
+			UpdatePalettes(plotStyleSettings);
 			SetSizeLabel();
 		}
 
@@ -41,24 +41,24 @@
 			}
 		}
 
-		void UpdatePalettes(PlotIconSettings plotIconSettings)
+		void UpdatePalettes(PlotStyleSettings plotStyleSettings)
 		{
 			listViewStandardPalette.Clear();
-			listViewTopographPalette.Clear();
+			listViewSecondaryPalette.Clear();
 
-			foreach (Color color in plotIconSettings.Palette)
+			foreach (Color color in plotStyleSettings.Palette)
 			{
 				listViewStandardPalette.Items.Add(new ListViewItem() { Text = color.Name, BackColor = color });
 			}
 
-			foreach (Color color in plotIconSettings.TopographicPalette)
+			foreach (Color color in plotStyleSettings.SecondaryPalette)
 			{
-				listViewTopographPalette.Items.Add(new ListViewItem() { Text = color.Name, BackColor = color });
+				listViewSecondaryPalette.Items.Add(new ListViewItem() { Text = color.Name, BackColor = color });
 			}
 
-			trackBarIconSize.Minimum = PlotIconSettings.MinSize;
-			trackBarIconSize.Maximum = PlotIconSettings.MaxSize;
-			trackBarIconSize.Value = Math.Clamp(plotIconSettings.Size, trackBarIconSize.Minimum, trackBarIconSize.Maximum);
+			trackBarIconSize.Minimum = PlotStyleSettings.MinSize;
+			trackBarIconSize.Maximum = PlotStyleSettings.MaxSize;
+			trackBarIconSize.Value = Math.Clamp(plotStyleSettings.Size, trackBarIconSize.Minimum, trackBarIconSize.Maximum);
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)
@@ -78,17 +78,17 @@
 
 		private void ButtonAddColorTopograph_Click(object sender, EventArgs e)
 		{
-			AddColor(listViewTopographPalette);
+			AddColor(listViewSecondaryPalette);
 		}
 
 		private void ButtonRemoveSelectedTopograph_Click(object sender, EventArgs e)
 		{
-			RemoveColor(listViewTopographPalette);
+			RemoveColor(listViewSecondaryPalette);
 		}
 
 		private void ButtonResetAll_Click(object sender, EventArgs e)
 		{
-			PlotIconSettings newSettings = new PlotIconSettings();
+			PlotStyleSettings newSettings = new PlotStyleSettings();
 			trackBarIconSize.Value = newSettings.Size;
 			SetSizeLabel();
 

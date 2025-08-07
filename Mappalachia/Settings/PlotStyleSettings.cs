@@ -2,7 +2,7 @@
 
 namespace Mappalachia
 {
-	public class PlotIconSettings
+	public class PlotStyleSettings
 	{
 		public static int MaxSize { get; } = 256;
 
@@ -32,25 +32,25 @@ namespace Mappalachia
 			}
 		}
 
-		List<Color> topographicPalette = new List<Color> { Color.Cyan, Color.OrangeRed, Color.White };
+		List<Color> secondaryPalette = new List<Color> { Color.Cyan, Color.OrangeRed, Color.White };
 
 		[JsonConverter(typeof(JsonConverterColorList))]
-		public List<Color> TopographicPalette
+		public List<Color> SecondaryPalette
 		{
 			get
 			{
-				return topographicPalette;
+				return secondaryPalette;
 			}
 
 			set
 			{
 				if (value is null || value.Count < 1)
 				{
-					topographicPalette = new List<Color>() { Color.White };
+					secondaryPalette = new List<Color>() { Color.White };
 					return;
 				}
 
-				topographicPalette = value;
+				secondaryPalette = value;
 			}
 		}
 	}

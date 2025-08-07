@@ -28,7 +28,7 @@
 
 		public ClusterSettings ClusterSettings { get; set; } = new ClusterSettings();
 
-		public PlotIconSettings PlotIconSettings { get; set; } = new PlotIconSettings();
+		public PlotStyleSettings PlotStyleSettings { get; set; } = new PlotStyleSettings();
 
 		public bool AutoFindPlotsInConnectedSpaces { get; set; } = false;
 

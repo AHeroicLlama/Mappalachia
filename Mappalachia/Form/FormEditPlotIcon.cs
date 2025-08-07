@@ -14,8 +14,8 @@ namespace Mappalachia
 
 			CurrentIcon = plotIcon;
 
-			trackBarIconSize.Minimum = PlotIconSettings.MinSize;
-			trackBarIconSize.Maximum = PlotIconSettings.MaxSize;
+			trackBarIconSize.Minimum = PlotStyleSettings.MinSize;
+			trackBarIconSize.Maximum = PlotStyleSettings.MaxSize;
 			trackBarIconSize.Value = Math.Clamp(CurrentIcon.Size, trackBarIconSize.Minimum, trackBarIconSize.Maximum);
 
 			SetSizeLabel();

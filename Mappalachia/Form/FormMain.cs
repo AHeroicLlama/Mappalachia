@@ -1142,13 +1142,13 @@ namespace Mappalachia
 			plotSettingsMenuItem.DropDown.Close();
 		}
 
-		private void Plot_IconSettings_Click(object sender, EventArgs e)
+		private void Plot_PlotStyles_Click(object sender, EventArgs e)
 		{
-			FormPlotIconSettings formPlotIconSettings = new FormPlotIconSettings(Settings.PlotSettings.PlotIconSettings);
+			FormPlotStyles formPlotStyles = new FormPlotStyles(Settings.PlotSettings.PlotStyleSettings);
 
-			if (formPlotIconSettings.ShowDialog() == DialogResult.OK)
+			if (formPlotStyles.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.PlotSettings.PlotIconSettings = formPlotIconSettings.PlotIconSettings);
+				SetSetting(() => Settings.PlotSettings.PlotStyleSettings = formPlotStyles.PlotStyleSettings);
 			}
 		}
 
@@ -1306,8 +1306,8 @@ namespace Mappalachia
 					result.LegendGroup = groupLegendGroup;
 					result.PlotIcon = new PlotIcon(
 						groupLegendGroup,
-						Settings.PlotSettings.PlotIconSettings.Palette,
-						Settings.PlotSettings.PlotIconSettings.Size,
+						Settings.PlotSettings.PlotStyleSettings.Palette,
+						Settings.PlotSettings.PlotStyleSettings.Size,
 						result.Entity is Library.Region);
 				}
 				else
@@ -1315,8 +1315,8 @@ namespace Mappalachia
 					result.LegendGroup = GetNextAvailableLegendGroup();
 					result.PlotIcon = new PlotIcon(
 						result.LegendGroup,
-						Settings.PlotSettings.PlotIconSettings.Palette,
-						Settings.PlotSettings.PlotIconSettings.Size,
+						Settings.PlotSettings.PlotStyleSettings.Palette,
+						Settings.PlotSettings.PlotStyleSettings.Size,
 						result.Entity is Library.Region);
 				}
 

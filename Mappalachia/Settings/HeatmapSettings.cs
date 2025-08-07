@@ -33,7 +33,7 @@
 
 		// The amount of alpha added per 1 'spawnWeight' per item
 		// Naturally this caps at 255 on the final image
-		public int Intensity { get; set; } = 16;
+		public int Intensity { get; set; } = 32;
 
 		public bool LiveUpdate { get; set; } = true;
 	}

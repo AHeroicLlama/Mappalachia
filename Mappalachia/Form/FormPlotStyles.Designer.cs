@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	partial class FormPlotIconSettings
+	partial class FormPlotStyles
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -37,8 +37,8 @@
 			buttonRemoveSelectedStandard = new Button();
 			buttonRemoveSelectedTopograph = new Button();
 			buttonAddColorTopograph = new Button();
-			labelTopographPalette = new Label();
-			listViewTopographPalette = new ListView();
+			labelSecondaryPalette = new Label();
+			listViewSecondaryPalette = new ListView();
 			colorDialog = new ColorDialog();
 			buttonResetAll = new Button();
 			toolTip = new ToolTip(components);
@@ -127,24 +127,24 @@
 			buttonAddColorTopograph.UseVisualStyleBackColor = true;
 			buttonAddColorTopograph.Click += ButtonAddColorTopograph_Click;
 			// 
-			// labelTopographPalette
+			// labelSecondaryPalette
 			// 
-			labelTopographPalette.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			labelTopographPalette.AutoSize = true;
-			labelTopographPalette.Location = new Point(243, 9);
-			labelTopographPalette.Name = "labelTopographPalette";
-			labelTopographPalette.Size = new Size(113, 15);
-			labelTopographPalette.TabIndex = 7;
-			labelTopographPalette.Text = "Topographic Palette";
+			labelSecondaryPalette.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			labelSecondaryPalette.AutoSize = true;
+			labelSecondaryPalette.Location = new Point(243, 9);
+			labelSecondaryPalette.Name = "labelSecondaryPalette";
+			labelSecondaryPalette.Size = new Size(178, 15);
+			labelSecondaryPalette.TabIndex = 7;
+			labelSecondaryPalette.Text = "Heatmap && Topographic Palette";
 			// 
-			// listViewTopographPalette
+			// listViewSecondaryPalette
 			// 
-			listViewTopographPalette.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			listViewTopographPalette.Location = new Point(247, 27);
-			listViewTopographPalette.Name = "listViewTopographPalette";
-			listViewTopographPalette.Size = new Size(227, 133);
-			listViewTopographPalette.TabIndex = 6;
-			listViewTopographPalette.UseCompatibleStateImageBehavior = false;
+			listViewSecondaryPalette.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			listViewSecondaryPalette.Location = new Point(247, 27);
+			listViewSecondaryPalette.Name = "listViewSecondaryPalette";
+			listViewSecondaryPalette.Size = new Size(227, 133);
+			listViewSecondaryPalette.TabIndex = 6;
+			listViewSecondaryPalette.UseCompatibleStateImageBehavior = false;
 			// 
 			// buttonResetAll
 			// 
@@ -181,7 +181,7 @@
 			labelIconSize.TabIndex = 12;
 			labelIconSize.Text = "Default Icon Size";
 			// 
-			// FormPlotIconSettings
+			// FormPlotStyles
 			// 
 			AcceptButton = buttonOK;
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -193,8 +193,8 @@
 			Controls.Add(buttonResetAll);
 			Controls.Add(buttonRemoveSelectedTopograph);
 			Controls.Add(buttonAddColorTopograph);
-			Controls.Add(labelTopographPalette);
-			Controls.Add(listViewTopographPalette);
+			Controls.Add(labelSecondaryPalette);
+			Controls.Add(listViewSecondaryPalette);
 			Controls.Add(buttonRemoveSelectedStandard);
 			Controls.Add(buttonAddColorStandard);
 			Controls.Add(labelStandardPalette);
@@ -204,11 +204,11 @@
 			FormBorderStyle = FormBorderStyle.FixedDialog;
 			MaximizeBox = false;
 			MinimizeBox = false;
-			Name = "FormPlotIconSettings";
+			Name = "FormPlotStyles";
 			ShowIcon = false;
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
-			Text = "Plot Icon Settings";
+			Text = "Plot Styles";
 			((System.ComponentModel.ISupportInitialize)trackBarIconSize).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
@@ -224,8 +224,8 @@
 		private Button buttonRemoveSelectedStandard;
 		private Button buttonRemoveSelectedTopograph;
 		private Button buttonAddColorTopograph;
-		private Label labelTopographPalette;
-		private ListView listViewTopographPalette;
+		private Label labelSecondaryPalette;
+		private ListView listViewSecondaryPalette;
 		private ColorDialog colorDialog;
 		private Button buttonResetAll;
 		private ToolTip toolTip;
