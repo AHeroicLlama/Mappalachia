@@ -26,11 +26,20 @@ namespace Mappalachia
 
 		PlotMode LastPlotMode { get; set; } = PlotMode.Standard;
 
+		Progress<ProgressInfo> Progress { get; set; }
+
 		public FormMain()
 		{
 			InitializeComponent();
 
 			UpdateChecker.CheckForUpdates(Settings);
+
+			Progress = new Progress<ProgressInfo>(progressInfo =>
+			{
+				progressBarMain.Value = progressInfo.Percent;
+				labelProgressStatus.Text = progressInfo.Status;
+				labelProgressStatus.Location = new Point((Width / 2) - (labelProgressStatus.Width / 2), labelProgressStatus.Location.Y);
+			});
 
 			comboBoxSpace.DataSource = Database.AllSpaces;
 			comboBoxSpace.DisplayMember = "FriendlyName";
@@ -421,29 +430,25 @@ namespace Mappalachia
 
 			CurrentlyDrawing = true;
 			buttonUpdateMap.Enabled = false;
+			buttonAddToMap.Enabled = false;
+			buttonRemoveFromMap.Enabled = false;
 			DrawCancellationTokenSource = new CancellationTokenSource();
-
-			Progress<ProgressInfo> progress = new Progress<ProgressInfo>(progressInfo =>
-			{
-				progressBarMain.Value = progressInfo.Percent;
-				labelProgressStatus.Text = progressInfo.Status;
-				labelProgressStatus.Location = new Point((Width / 2) - (labelProgressStatus.Width / 2), labelProgressStatus.Location.Y);
-			});
 
 			try
 			{
-				await Task.Run(async () => FormMapView.MapImage = await Map.Draw(ItemsToPlot.ToList(), Settings, progress, DrawCancellationTokenSource.Token) ?? FormMapView.MapImage);
+				await Task.Run(async () => FormMapView.MapImage = await Map.Draw(ItemsToPlot.ToList(), Settings, Progress, DrawCancellationTokenSource.Token) ?? FormMapView.MapImage);
 			}
 			catch (Exception ex)
 			{
-				progressBarMain.Value = 0;
-				labelProgressStatus.Text = "Draw failed";
+				FormHelper.UpdateProgress(Progress, 0, "Draw failed");
 
 				Notify.GenericError("Draw operation failed", "An unexpected error occurred while drawing the map.\nIf you loaded a recipe, it may be corrupt.\n\nIf this error keeps occurring, consider joining our Discord for support, or reset your settings by clicking 'Help' > 'Reset Everything'.", ex);
 			}
 
 			CurrentlyDrawing = false;
 			buttonUpdateMap.Enabled = true;
+			buttonAddToMap.Enabled = true;
+			buttonRemoveFromMap.Enabled = true;
 
 			if (DrawRequested)
 			{
@@ -1110,10 +1115,9 @@ namespace Mappalachia
 			{
 				SetSetting(() => Settings.PlotSettings.ClusterSettings = clusterForm.ClusterSettings);
 			}
-			else if (result == DialogResult.Abort)
+			else
 			{
-				// The form sends an Abort result if the form caused a draw via Live Update setting, but cancelled
-				// Thus we now need to re-draw
+				// The form did not return OK, so we restore the last plot mode and redraw
 				SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
 			}
 
@@ -1132,10 +1136,9 @@ namespace Mappalachia
 			{
 				SetSetting(() => Settings.PlotSettings.HeatmapSettings = heatmapForm.HeatmapSettings);
 			}
-			else if (result == DialogResult.Abort)
+			else
 			{
-				// The form sends an Abort result if the form caused a draw via Live Update setting, but cancelled
-				// Thus we now need to re-draw
+				// The form did not return OK, so we restore the last plot mode and redraw
 				SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
 			}
 
@@ -1355,7 +1358,6 @@ namespace Mappalachia
 				foreach (GroupedSearchResult instance in itemsToRemove)
 				{
 					ItemsToPlot.Remove(instance);
-					instance.Dispose();
 				}
 			}
 

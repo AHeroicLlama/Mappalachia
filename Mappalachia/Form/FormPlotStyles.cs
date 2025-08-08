@@ -2,7 +2,7 @@
 {
 	// Does user control of the PlotStyleSettings
 	// Does not use a model
-	public partial class FormPlotStyles : Form
+	public partial class FormPlotStyles : GenericlToolForm
 	{
 		// Create a new settings instance from the form state
 		public PlotStyleSettings PlotStyleSettings => new PlotStyleSettings()

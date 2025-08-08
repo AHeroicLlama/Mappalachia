@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormSetTitle : Form
+	public partial class FormSetTitle : GenericlToolForm
 	{
 		public string TextBoxValue => textBox.Text.Trim();
 

@@ -201,13 +201,7 @@
 			Controls.Add(listViewStandardPalette);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormPlotStyles";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Plot Styles";
 			((System.ComponentModel.ISupportInitialize)trackBarIconSize).EndInit();
 			ResumeLayout(false);

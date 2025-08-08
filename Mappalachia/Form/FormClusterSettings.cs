@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormClusterSettings : Form
+	public partial class FormClusterSettings : GenericlToolForm
 	{
 		FormMain FormMain { get; }
 
@@ -40,7 +40,6 @@
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 			FormMain.Settings.PlotSettings.ClusterSettings = InitialSettings;
-			DialogResult = DialogResult.Abort;
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)

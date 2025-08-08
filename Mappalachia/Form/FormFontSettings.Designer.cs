@@ -254,13 +254,7 @@
 			Controls.Add(numericUpDownTitle);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormFontSettings";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Font Sizes (Pt)";
 			((System.ComponentModel.ISupportInitialize)numericUpDownTitle).EndInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownLegend).EndInit();

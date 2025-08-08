@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormHeatmapSettings : Form
+	public partial class FormHeatmapSettings : GenericlToolForm
 	{
 		FormMain FormMain { get; }
 
@@ -42,7 +42,6 @@
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
 			FormMain.Settings.PlotSettings.HeatmapSettings = InitialSettings;
-			DialogResult = DialogResult.Abort;
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)

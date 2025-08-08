@@ -84,13 +84,7 @@
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
 			Controls.Add(textBox);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormSetTitle";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Set Map Title";
 			ResumeLayout(false);
 			PerformLayout();

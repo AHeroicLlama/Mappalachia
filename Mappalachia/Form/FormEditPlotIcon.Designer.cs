@@ -127,13 +127,7 @@
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
 			Controls.Add(pictureBoxIcon);
-			FormBorderStyle = FormBorderStyle.FixedSingle;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormEditPlotIcon";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Edit Plot Icon";
 			((System.ComponentModel.ISupportInitialize)pictureBoxIcon).EndInit();
 			((System.ComponentModel.ISupportInitialize)trackBarIconSize).EndInit();

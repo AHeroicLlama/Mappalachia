@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormSetBrightness : Form
+	public partial class FormSetBrightness : GenericlToolForm
 	{
 		public float BrightnessValue => (float)Math.Round(numericUpDownBrightness.Value) / 100;
 

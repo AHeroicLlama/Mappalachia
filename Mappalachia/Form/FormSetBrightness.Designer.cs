@@ -76,13 +76,7 @@
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
 			Controls.Add(numericUpDownBrightness);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormSetBrightness";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Set Brightness (%)";
 			((System.ComponentModel.ISupportInitialize)numericUpDownBrightness).EndInit();
 			ResumeLayout(false);

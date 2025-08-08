@@ -44,7 +44,7 @@ namespace Mappalachia
 			// buttonOK
 			// 
 			buttonOK.Anchor = AnchorStyles.Bottom;
-			buttonOK.Location = new Point(194, 113);
+			buttonOK.Location = new Point(135, 113);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
 			buttonOK.TabIndex = 6;
@@ -55,7 +55,7 @@ namespace Mappalachia
 			// buttonCancel
 			// 
 			buttonCancel.Anchor = AnchorStyles.Bottom;
-			buttonCancel.Location = new Point(275, 113);
+			buttonCancel.Location = new Point(216, 113);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
 			buttonCancel.TabIndex = 7;
@@ -67,11 +67,11 @@ namespace Mappalachia
 			// 
 			trackBarRange.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			trackBarRange.LargeChange = 16;
-			trackBarRange.Location = new Point(169, 12);
+			trackBarRange.Location = new Point(102, 12);
 			trackBarRange.Maximum = 512;
 			trackBarRange.Minimum = 10;
 			trackBarRange.Name = "trackBarRange";
-			trackBarRange.Size = new Size(364, 45);
+			trackBarRange.Size = new Size(313, 45);
 			trackBarRange.SmallChange = 4;
 			trackBarRange.TabIndex = 1;
 			trackBarRange.TickFrequency = 20;
@@ -82,21 +82,21 @@ namespace Mappalachia
 			// labelClusterRange
 			// 
 			labelClusterRange.AutoSize = true;
-			labelClusterRange.Location = new Point(39, 12);
+			labelClusterRange.Location = new Point(24, 12);
 			labelClusterRange.Name = "labelClusterRange";
-			labelClusterRange.Size = new Size(124, 15);
+			labelClusterRange.Size = new Size(72, 15);
 			labelClusterRange.TabIndex = 0;
-			labelClusterRange.Text = "Heatmap Range (XXX)";
+			labelClusterRange.Text = "Range (XXX)";
 			toolTipClusterSettings.SetToolTip(labelClusterRange, "The range of influence in pixels that the 'heat' from each entity spreads.");
 			// 
 			// trackBarIntensity
 			// 
 			trackBarIntensity.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			trackBarIntensity.Location = new Point(169, 63);
+			trackBarIntensity.Location = new Point(102, 62);
 			trackBarIntensity.Maximum = 128;
 			trackBarIntensity.Minimum = 4;
 			trackBarIntensity.Name = "trackBarIntensity";
-			trackBarIntensity.Size = new Size(364, 45);
+			trackBarIntensity.Size = new Size(313, 45);
 			trackBarIntensity.SmallChange = 2;
 			trackBarIntensity.TabIndex = 3;
 			trackBarIntensity.TickFrequency = 5;
@@ -107,11 +107,11 @@ namespace Mappalachia
 			// labelClusterMinWeight
 			// 
 			labelClusterMinWeight.AutoSize = true;
-			labelClusterMinWeight.Location = new Point(86, 63);
+			labelClusterMinWeight.Location = new Point(12, 62);
 			labelClusterMinWeight.Name = "labelClusterMinWeight";
-			labelClusterMinWeight.Size = new Size(77, 15);
+			labelClusterMinWeight.Size = new Size(84, 15);
 			labelClusterMinWeight.TabIndex = 2;
-			labelClusterMinWeight.Text = "Intensity (XX)";
+			labelClusterMinWeight.Text = "Intensity (XXX)";
 			toolTipClusterSettings.SetToolTip(labelClusterMinWeight, "The individual heat which each item applies to the map.");
 			// 
 			// checkBoxLiveUpdate
@@ -120,7 +120,7 @@ namespace Mappalachia
 			checkBoxLiveUpdate.AutoSize = true;
 			checkBoxLiveUpdate.Checked = true;
 			checkBoxLiveUpdate.CheckState = CheckState.Checked;
-			checkBoxLiveUpdate.Location = new Point(100, 116);
+			checkBoxLiveUpdate.Location = new Point(41, 116);
 			checkBoxLiveUpdate.Name = "checkBoxLiveUpdate";
 			checkBoxLiveUpdate.Size = new Size(88, 19);
 			checkBoxLiveUpdate.TabIndex = 5;
@@ -135,7 +135,7 @@ namespace Mappalachia
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = buttonCancel;
-			ClientSize = new Size(545, 148);
+			ClientSize = new Size(427, 148);
 			Controls.Add(checkBoxLiveUpdate);
 			Controls.Add(labelClusterMinWeight);
 			Controls.Add(trackBarIntensity);
@@ -143,13 +143,7 @@ namespace Mappalachia
 			Controls.Add(trackBarRange);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormHeatmapSettings";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Heatmap Settings";
 			((System.ComponentModel.ISupportInitialize)trackBarRange).EndInit();
 			((System.ComponentModel.ISupportInitialize)trackBarIntensity).EndInit();

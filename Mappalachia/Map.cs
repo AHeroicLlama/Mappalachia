@@ -1,6 +1,7 @@
 using System.Drawing.Drawing2D;
 using Library;
 using static Library.Common;
+using static Mappalachia.FormHelper;
 using static Mappalachia.ImageHelper;
 
 namespace Mappalachia
@@ -163,33 +164,6 @@ namespace Mappalachia
 			UpdateProgress(progressInfo, 0, "Done");
 
 			return mapImage;
-		}
-
-		static void UpdateProgress(IProgress<ProgressInfo>? progressInfo, int percent, string status)
-		{
-			if (progressInfo is null)
-			{
-				return;
-			}
-
-			progressInfo.Report(new ProgressInfo(percent, status));
-		}
-
-		// Overload to automatically calculate percentage from x out of y
-		static void UpdateProgress(IProgress<ProgressInfo>? progressInfo, int current, int total, string status)
-		{
-			if (progressInfo is null)
-			{
-				return;
-			}
-
-			if (current == 0)
-			{
-				progressInfo.Report(new ProgressInfo(0, status));
-				return;
-			}
-
-			progressInfo.Report(new ProgressInfo((int)Math.Round((current / (double)total) * 100), status));
 		}
 
 		static void DrawCompassRose(Settings settings, Graphics graphics)
@@ -360,7 +334,7 @@ namespace Mappalachia
 
 				Bitmap heatBlob = item.SpawnWeight == 1 ? heatBlobDefaultWeight : CreateRadialGradientHeatSpot(heatmapSettings.Range, (int)(heatmapSettings.Intensity * item.SpawnWeight));
 
-				foreach (Instance instance in await Database.GetInstances(item, item.Space))
+				foreach (Instance instance in await GetInstancesDrawingVolumes(item, settings, graphics))
 				{
 					if (cancellationToken.IsCancellationRequested)
 					{
@@ -410,6 +384,26 @@ namespace Mappalachia
 			return bitmap;
 		}
 
+		// Returns the non-shape non-region instances of the given item, drawing the volumes of the shapes and regions
+		static async Task<List<Instance>> GetInstancesDrawingVolumes(GroupedSearchResult parentItem, Settings settings, Graphics graphics)
+		{
+			List<Instance> instances = await Database.GetInstances(parentItem, parentItem.Space);
+			List<Instance> regions = instances.Where(instance => instance.Entity is Library.Region).ToList();
+			List<Instance> shapes = instances.Where(instance => instance.PrimitiveShape is not null).ToList();
+
+			foreach (Instance regionInstance in regions)
+			{
+				DrawRegion(settings, graphics, (Library.Region)regionInstance.Entity, parentItem.PlotIcon.Color);
+			}
+
+			foreach (Instance shapeInstance in shapes)
+			{
+				DrawPrimitiveShape(settings, graphics, shapeInstance, parentItem.PlotIcon.Color);
+			}
+
+			return instances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape is null).ToList();
+		}
+
 		static async Task DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeClusterLabel);
@@ -433,24 +427,7 @@ namespace Mappalachia
 						continue;
 					}
 
-					List<Instance> intermediateInstances = await Database.GetInstances(item, item.Space);
-
-					List<Instance> regions = intermediateInstances.Where(instance => instance.Entity is Library.Region).ToList();
-					List<Instance> shapes = intermediateInstances.Where(instance => instance.PrimitiveShape is not null).ToList();
-
-					intermediateInstances = intermediateInstances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape is null).ToList();
-
-					foreach (Instance regionInstance in regions)
-					{
-						DrawRegion(settings, graphics, (Library.Region)regionInstance.Entity, item.PlotIcon.Color);
-					}
-
-					foreach (Instance shapeInstance in shapes)
-					{
-						DrawPrimitiveShape(settings, graphics, shapeInstance, item.PlotIcon.Color);
-					}
-
-					instances.AddRange(intermediateInstances);
+					instances.AddRange(await GetInstancesDrawingVolumes(item, settings, graphics));
 				}
 
 				List<Cluster> clusters = new List<Cluster>();

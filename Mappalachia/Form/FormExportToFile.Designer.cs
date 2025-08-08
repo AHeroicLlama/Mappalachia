@@ -128,13 +128,7 @@
 			Controls.Add(radioPNG);
 			Controls.Add(radioJPG);
 			Controls.Add(numericUpDownJPGQuality);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormExportToFile";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Export To File";
 			((System.ComponentModel.ISupportInitialize)numericUpDownJPGQuality).EndInit();
 			ResumeLayout(false);

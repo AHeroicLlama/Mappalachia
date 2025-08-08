@@ -136,9 +136,9 @@ namespace Mappalachia
 			groupBoxLegendGroup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			groupBoxLegendGroup.Controls.Add(radioButtonGroupEverything);
 			groupBoxLegendGroup.Controls.Add(radioButtonPerLegendGroup);
-			groupBoxLegendGroup.Location = new Point(169, 114);
+			groupBoxLegendGroup.Location = new Point(145, 114);
 			groupBoxLegendGroup.Name = "groupBoxLegendGroup";
-			groupBoxLegendGroup.Size = new Size(364, 49);
+			groupBoxLegendGroup.Size = new Size(254, 49);
 			groupBoxLegendGroup.TabIndex = 4;
 			groupBoxLegendGroup.TabStop = false;
 			groupBoxLegendGroup.Text = "Grouping Mode";
@@ -185,13 +185,7 @@ namespace Mappalachia
 			Controls.Add(trackBarClusterRange);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormClusterSettings";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Cluster Settings";
 			((System.ComponentModel.ISupportInitialize)trackBarClusterRange).EndInit();
 			((System.ComponentModel.ISupportInitialize)trackBarClusterMinWeight).EndInit();

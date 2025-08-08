@@ -3,7 +3,7 @@ using KGySoft.CoreLibraries;
 
 namespace Mappalachia
 {
-	public partial class FormEditPlotIcon : Form
+	public partial class FormEditPlotIcon : GenericlToolForm
 	{
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public PlotIcon CurrentIcon { get; set; }

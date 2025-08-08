@@ -93,13 +93,7 @@
 			Controls.Add(trackBarSpotlightSize);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			MinimizeBox = false;
 			Name = "FormSetSpotlightSize";
-			ShowIcon = false;
-			ShowInTaskbar = false;
-			StartPosition = FormStartPosition.CenterParent;
 			Text = "Set Spotlight Size";
 			((System.ComponentModel.ISupportInitialize)trackBarSpotlightSize).EndInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownSpotlightSize).EndInit();
