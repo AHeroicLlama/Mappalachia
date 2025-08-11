@@ -440,7 +440,7 @@ namespace Mappalachia
 			}
 			catch (Exception ex)
 			{
-				FormHelper.UpdateProgress(Progress, 0, "Draw failed");
+				FormsHelper.UpdateProgress(Progress, 0, "Draw failed");
 
 				Notify.GenericError("Draw operation failed", "An unexpected error occurred while drawing the map.\nIf you loaded a recipe, it may be corrupt.\n\nIf this error keeps occurring, consider joining our Discord for support, or reset your settings by clicking 'Help' > 'Reset Everything'.", ex);
 			}

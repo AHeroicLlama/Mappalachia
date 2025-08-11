@@ -1,7 +1,7 @@
 using System.Drawing.Drawing2D;
 using Library;
 using static Library.Common;
-using static Mappalachia.FormHelper;
+using static Mappalachia.FormsHelper;
 using static Mappalachia.ImageHelper;
 
 namespace Mappalachia
@@ -718,6 +718,7 @@ namespace Mappalachia
 
 				case ShapeType.Sphere:
 				case ShapeType.Ellipsoid:
+				case ShapeType.Cylinder:
 					if (drawMode == VolumeDrawMode.Fill || drawMode == VolumeDrawMode.Both)
 					{
 						graphics.FillEllipse(brush, rectangle);

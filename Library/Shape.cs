@@ -7,6 +7,7 @@
 		Line,
 		Plane,
 		Ellipsoid,
+		Cylinder,
 	}
 
 	// Represents a Primitive Shape
