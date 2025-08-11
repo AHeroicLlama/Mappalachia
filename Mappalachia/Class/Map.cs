@@ -343,6 +343,7 @@ namespace Mappalachia
 									break;
 								case "Sphere":
 								case "Ellipsoid":
+								case "Cylinder":
 									volumeGraphic.FillEllipse(volumeBrush, new RectangleF(0, 0, (float)Math.Round(point.boundX), (float)Math.Round(point.boundY)));
 									break;
 								default:

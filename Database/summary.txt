@@ -3,7 +3,7 @@ mappalachia.db
 ==SQLite version== 
 3.50.2 2025-06-28 14:00:48 2af157d77fb1304a74176eaee7fbc7c7e932d946bf25325e9c26c91db19e3079 (64-bit)
 ==Checksum== 
-8bfa450fef505cb449df64055e2cd6e3
+03b592ba28a3f16bc08277aa00bebb09
 ==File Size== 
 488521728 
 ==Tables== 
@@ -810,7 +810,8 @@ AMSHQ01|Sphere|3
 AMSHQ02||1939
 AMSHQ02|Box|54
 APPALACHIA||3196644
-APPALACHIA|Box|71395
+APPALACHIA|Box|71387
+APPALACHIA|Cylinder|8
 APPALACHIA|Ellipsoid|3
 APPALACHIA|Line|1777
 APPALACHIA|Plane|204
@@ -935,7 +936,8 @@ FreeStatesBunker07|Box|47
 GHLCamp01||3331
 GHLCamp01|Box|98
 GHLCamp02||1298
-GHLCamp02|Box|141
+GHLCamp02|Box|140
+GHLCamp02|Cylinder|1
 GHLEmmettMnt02||1402
 GHLEmmettMnt02|Box|93
 GarrahanMiningHQ01||8860
@@ -1017,7 +1019,8 @@ MorgantownHighSchoolDungeon|Sphere|1
 MountBlairWarehouseBasement01||312
 MountBlairWarehouseBasement01|Box|7
 NPECultistCave||3987
-NPECultistCave|Box|256
+NPECultistCave|Box|255
+NPECultistCave|Cylinder|1
 NPEVault7601||6921
 NPEVault7601|Box|141
 NPEVault7601|Line|2
@@ -1040,7 +1043,8 @@ PoseidonPlant02||3827
 PoseidonPlant02|Box|360
 PoseidonPlant02|Line|2
 RD01GleamingDepths||18386
-RD01GleamingDepths|Box|1336
+RD01GleamingDepths|Box|1308
+RD01GleamingDepths|Cylinder|28
 RD01GleamingDepths|Line|2
 RD01GleamingDepths|Plane|47
 RadioResearchCenter01||3328
@@ -1268,12 +1272,15 @@ XPDAC01EntertainmentDistrict|Box|518
 XPDAC01NightClub||2783
 XPDAC01NightClub|Box|213
 XPDAC02Aquarium||15615
-XPDAC02Aquarium|Box|514
+XPDAC02Aquarium|Box|469
+XPDAC02Aquarium|Cylinder|45
 XPDAC02AquariumDungeon||11663
-XPDAC02AquariumDungeon|Box|426
+XPDAC02AquariumDungeon|Box|394
+XPDAC02AquariumDungeon|Cylinder|32
 XPDAC02AquariumDungeon|Sphere|1
 XPDAC02Boardwalk||9989
-XPDAC02Boardwalk|Box|765
+XPDAC02Boardwalk|Box|762
+XPDAC02Boardwalk|Cylinder|3
 XPDAC02Boardwalk|Sphere|2
 XPDAC02Pier||7228
 XPDAC02Pier|Box|246
@@ -1290,11 +1297,13 @@ XPDAC03FloodedCityCenter||16136
 XPDAC03FloodedCityCenter|Box|950
 XPDAC03FloodedCityCenter|Plane|5
 XPDPitt01Foundry||16367
-XPDPitt01Foundry|Box|560
+XPDPitt01Foundry|Box|551
+XPDPitt01Foundry|Cylinder|9
 XPDPitt01Foundry|Plane|6
 XPDPitt01Foundry|Sphere|1
 XPDPitt01FoundryDungeon||14870
-XPDPitt01FoundryDungeon|Box|498
+XPDPitt01FoundryDungeon|Box|491
+XPDPitt01FoundryDungeon|Cylinder|7
 XPDPitt01FoundryDungeon|Plane|6
 XPDPitt01FoundryDungeon|Sphere|1
 XPDPitt01Industrial||18823
