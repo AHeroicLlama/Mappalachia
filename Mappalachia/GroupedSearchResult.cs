@@ -56,7 +56,7 @@ namespace Mappalachia
 
 			if (LockLevelRelevant())
 			{
-				additionalInfo.Add(LockLevel.ToFriendlyName());
+				additionalInfo.Add(LockLevel.ToFriendlyNameWithContext());
 			}
 
 			if (additionalInfo.Count > 0)

@@ -22,7 +22,7 @@
 			FormMain = formMain;
 			InitialSettings = FormMain.Settings.PlotSettings.ClusterSettings;
 
-			trackBarClusterRange.Maximum = (int)Math.Min(FormMain.Settings.Space.MaxRange / 2, ClusterSettings.MaxRange);
+			trackBarClusterRange.Maximum = ClusterSettings.GetMaxRangeForSpace(FormMain.Settings.Space);
 
 			trackBarClusterRange.Value = Math.Clamp(InitialSettings.Range, trackBarClusterRange.Minimum, trackBarClusterRange.Maximum);
 			trackBarClusterMinWeight.Value = InitialSettings.MinWeight;
@@ -106,6 +106,11 @@
 		private void LabelClusterRange_MouseClick(object sender, MouseEventArgs e)
 		{
 			if (e.Button != MouseButtons.Right)
+			{
+				return;
+			}
+
+			if (!FormMain.Settings.Space.IsNukable() || trackBarClusterRange.Maximum < Map.BlastRadius)
 			{
 				return;
 			}

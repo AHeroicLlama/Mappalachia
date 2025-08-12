@@ -26,13 +26,10 @@ namespace Mappalachia
 					PopulateSpaceFromDatabase();
 				}
 
-				if (MapSettings is not null)
-				{
-					MapSettings.SpotlightEnabled = false;
-				}
-
-				MapSettings?.SetSpotlightToMapCenter();
-				MapSettings?.CapSpotlightSizeToSpace();
+				MapSettings.SpotlightEnabled = false;
+				MapSettings.SetSpotlightToMapCenter();
+				MapSettings.CapSpotlightSizeToSpace();
+				PlotSettings.ClusterSettings.CapToSpace(Space);
 			}
 		}
 

@@ -24,6 +24,15 @@
 			};
 		}
 
+		public static string ToFriendlyNameWithContext(this LockLevel lockLevel)
+		{
+			return lockLevel switch
+			{
+				LockLevel.None => "Not Locked",
+				_ => ToFriendlyName(lockLevel),
+			};
+		}
+
 		public static string ToFriendlyName(this Signature signature)
 		{
 			return signature switch

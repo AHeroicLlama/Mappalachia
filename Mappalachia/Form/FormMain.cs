@@ -413,7 +413,7 @@ namespace Mappalachia
 			dataGridViewSearchResults.ClearSelection();
 			dataGridViewSearchResults.CurrentCell = null;
 
-			if (searchResults.Count > 0)
+			if (searchResults.Count > 0 && dataGridViewSearchResults.DisplayedRowCount(true) > 0)
 			{
 				dataGridViewSearchResults.FirstDisplayedScrollingRowIndex = 0;
 			}
@@ -1330,7 +1330,10 @@ namespace Mappalachia
 			ItemsToPlot.ResetBindings();
 
 			// Scroll to bottom of list
-			dataGridViewItemsToPlot.FirstDisplayedScrollingRowIndex = dataGridViewItemsToPlot.Rows.Count - 1;
+			if (dataGridViewItemsToPlot.DisplayedRowCount(true) > 0)
+			{
+				dataGridViewItemsToPlot.FirstDisplayedScrollingRowIndex = dataGridViewItemsToPlot.Rows.Count - 1;
+			}
 		}
 
 		private void ButtonRemoveFromMap_Click(object sender, EventArgs e)
