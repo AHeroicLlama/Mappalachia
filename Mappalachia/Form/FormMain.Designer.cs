@@ -116,6 +116,7 @@ namespace Mappalachia
 			labelItemsToPlot = new Label();
 			labelSearchTerm = new Label();
 			labelSelectedSpace = new Label();
+			panelBackgroundAutoScrollTrigger = new Panel();
 			menuStripMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewItemsToPlot).BeginInit();
@@ -908,13 +909,23 @@ namespace Mappalachia
 			labelSelectedSpace.TabIndex = 16;
 			labelSelectedSpace.Text = "Selected Space";
 			// 
+			// panelBackgroundAutoScrollTrigger
+			// 
+			panelBackgroundAutoScrollTrigger.Location = new Point(0, 0);
+			panelBackgroundAutoScrollTrigger.Name = "panelBackgroundAutoScrollTrigger";
+			panelBackgroundAutoScrollTrigger.Size = new Size(984, 736);
+			panelBackgroundAutoScrollTrigger.TabIndex = 17;
+			// 
 			// FormMain
 			// 
 			AcceptButton = buttonSearch;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			AutoScroll = true;
 			BackColor = SystemColors.ControlDarkDark;
 			ClientSize = new Size(984, 761);
+			Controls.Add(groupBoxFilterLockLevel);
+			Controls.Add(groupBoxFilterSignature);
 			Controls.Add(labelSelectedSpace);
 			Controls.Add(labelSearchTerm);
 			Controls.Add(labelItemsToPlot);
@@ -923,8 +934,6 @@ namespace Mappalachia
 			Controls.Add(comboBoxSpace);
 			Controls.Add(progressBarMain);
 			Controls.Add(buttonUpdateMap);
-			Controls.Add(groupBoxFilterLockLevel);
-			Controls.Add(groupBoxFilterSignature);
 			Controls.Add(dataGridViewItemsToPlot);
 			Controls.Add(buttonRemoveFromMap);
 			Controls.Add(buttonAddToMap);
@@ -932,6 +941,7 @@ namespace Mappalachia
 			Controls.Add(textBoxSearch);
 			Controls.Add(dataGridViewSearchResults);
 			Controls.Add(menuStripMain);
+			Controls.Add(panelBackgroundAutoScrollTrigger);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MainMenuStrip = menuStripMain;
 			MinimumSize = new Size(1000, 800);
@@ -1038,5 +1048,6 @@ namespace Mappalachia
 		private ToolStripMenuItem heatmapSettingsToolStripMenuItem;
 		private Label labelSearchTerm;
 		private Label labelSelectedSpace;
+		private Panel panelBackgroundAutoScrollTrigger;
 	}
 }
