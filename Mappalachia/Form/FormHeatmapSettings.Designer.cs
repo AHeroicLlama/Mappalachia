@@ -47,7 +47,7 @@ namespace Mappalachia
 			buttonOK.Location = new Point(135, 113);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
-			buttonOK.TabIndex = 6;
+			buttonOK.TabIndex = 5;
 			buttonOK.Text = "OK";
 			buttonOK.UseVisualStyleBackColor = true;
 			buttonOK.Click += ButtonOK_Click;
@@ -58,7 +58,7 @@ namespace Mappalachia
 			buttonCancel.Location = new Point(216, 113);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
-			buttonCancel.TabIndex = 7;
+			buttonCancel.TabIndex = 6;
 			buttonCancel.Text = "Cancel";
 			buttonCancel.UseVisualStyleBackColor = true;
 			buttonCancel.Click += ButtonCancel_Click;
@@ -123,7 +123,7 @@ namespace Mappalachia
 			checkBoxLiveUpdate.Location = new Point(41, 116);
 			checkBoxLiveUpdate.Name = "checkBoxLiveUpdate";
 			checkBoxLiveUpdate.Size = new Size(88, 19);
-			checkBoxLiveUpdate.TabIndex = 5;
+			checkBoxLiveUpdate.TabIndex = 4;
 			checkBoxLiveUpdate.Text = "Live Update";
 			toolTipClusterSettings.SetToolTip(checkBoxLiveUpdate, "Automatically re-draw the map when you move the sliders. May result in laggy behavior.");
 			checkBoxLiveUpdate.UseVisualStyleBackColor = true;
