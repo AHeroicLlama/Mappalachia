@@ -10,15 +10,18 @@ namespace MapIconProcessor;
 
 class MapIconProcessor
 {
-	static string[] Directories { get; } = Directory.GetDirectories(MapIconExtractPath + "sprites");
-
-	static List<string> Errors { get; } = new List<string>();
-
 	static async Task Main()
 	{
 		Console.Title = "Mappalachia Map Icon Extractor";
 
 		GeneratePlotIconShapes();
+
+		if (!Directory.Exists(MapIconExtractPath))
+		{
+			ReportError($"Map icon extract path {MapIconExtractPath} not found. Plot Icons have been generated but map markers cannot be processed. Please see documentation.");
+			Console.ReadKey();
+			return;
+		}
 
 		List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(GetNewConnection(), "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
 
@@ -30,18 +33,17 @@ class MapIconProcessor
 			}
 
 			// We exhausted all the folders without finding the right icon, log error but continue
-			string error = $"Failed to find suitable icon SVG for marker icon {mapMarker.Icon}";
-			Errors.Add(error);
+			ReportError($"Failed to find suitable icon SVG for marker icon {mapMarker.Icon}");
 		}
 
-		foreach (string error in Errors)
-		{
-			StdOutWithColor(error, ColorError);
-			AppendToErrorLog(error);
-		}
-
-		StdOutWithColor("Done. Press any key.", ColorInfo);
+		StdOutWithColor("Finished. Press any key.", ColorInfo);
 		Console.ReadKey();
+	}
+
+	static void ReportError(string error)
+	{
+		StdOutWithColor(error, ColorError);
+		AppendToErrorLog(error);
 	}
 
 	static void GeneratePlotIconShapes()
@@ -121,7 +123,7 @@ class MapIconProcessor
 	// Returns if search was successful
 	static bool ExtractIcon(MapMarker mapMarker)
 	{
-		foreach (string directory in Directories)
+		foreach (string directory in Directory.GetDirectories(MapIconExtractPath + "sprites"))
 		{
 			Match match = ValidIconFolder.Match(directory);
 

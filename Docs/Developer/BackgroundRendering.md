@@ -44,5 +44,5 @@ Select option 3 when running the Background Renderer to enter a wizard to help f
 The wizard will prompt you to re-render the cell properly once the correct Z crop is found.
 
 ### Next steps
-You may now wish to validate the exported images with the validation functionality of the [Preprocessor](Preprocessor.md), or also optionally [extract the map marker icons](IconExtraction.md) if not already.<br/>
+You may now wish to validate the exported images with the validation functionality of the [Preprocessor](Preprocessor.md), or also optionally [extract the map marker icons](IconGeneration.md) if not already.<br/>
 Otherwise, you can now move on to development of the actual [end-user GUI program, Mappalachia](GUI.md).

@@ -2,7 +2,7 @@
 
 ### Prerequisites and assumptions
 * You have optionally [built and validated the database](Preprocessor.md), or, have a copy of `mappalachia.db` from a release
-* You have optionally [extracted the map marker icons](IconExtraction.md), or, are confident they do not need updating
+* You have optionally [extracted the map marker icons](IconGeneration.md), or, are confident they do not need updating
 * You have optionally [rendered the background images](BackgroundRendering.md), or, have a copy of them all from a release.
 * An installation of [7-Zip](https://www.7-zip.org/download.html)
 * An installation of Visual Studio
@@ -29,7 +29,7 @@ In order to package a Mappalachia release there are a few steps.
 * Make sure the database has been newly compiled from the latest Fallout 76 version. ([Extraction with Edit Scripts](EditScripts.md) and [Preprocessing](preprocessor.md)).
 * Verify using git that the database summary report (`BuildOutputs\Database_Summary.txt`) has not indicated any issues. Particularly look for large changes in averaged values, or any changes in cell table info.
 * Verify using git that the discarded cells report (`BuildOutputs\Discarded_Cells.csv`) does not indicate any in-game cells have been incorrectly skipped.
-* You should assess if any map marker icons may have changed or been added and if so, [run the extraction](IconExtraction.md).
+* You should assess if any map marker icons may have changed or been added and if so, [run the extraction](IconGeneration.md).
 * If any cells or worldspaces have changed, you must [run the background renderer](BackgroundRendering.md) for those spaces. Review the space coordinate checksum section of the Database Summary to identify this.
 * Use the validation functionality of the [Preprocessor](Preprocessor.md) to verify that image assets appear correct, particularly if any have been regenerated/extracted.
 * In Visual Studio, right click the Mappalachia Project and select 'Publish'. With the included `PublishProfile.pubxml` selected, press 'Publish'.
