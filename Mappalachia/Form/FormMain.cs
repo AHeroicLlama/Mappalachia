@@ -84,6 +84,8 @@ namespace Mappalachia
 
 			installSpotlightToolStripMenuItem.Enabled = !FileIO.IsSpotlightInstalled();
 
+			MinimumSize = Size;
+
 			FormMapView = new FormMapView(this);
 
 			UpdateFromSettings(true);

@@ -7,20 +7,22 @@ namespace Mappalachia
 {
 	static class ImageHelper
 	{
-		// Amends both (or either) the brightness and grayscale of the image
-		public static void AdjustBrightnessOrGrayscale(this Image original, float brightness, bool grayscale)
+		// Amends both (or either) the brightness and grayscale of the image, returning it.
+		public static Image AdjustBrightnessOrGrayscale(this Image image, float brightness, bool grayscale)
 		{
 			// No amendments to make - exit early
 			if (brightness == 1 && !grayscale)
 			{
-				return;
+				return image;
 			}
 
-			using Graphics graphics = GraphicsFromImageHQ(original);
+			using Graphics graphics = GraphicsFromImageHQ(image);
 			using ImageAttributes attributes = new ImageAttributes();
 
 			attributes.SetColorMatrix(GenerateColorMatrix(brightness, grayscale));
-			graphics.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height), 0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+			graphics.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+
+			return image;
 		}
 
 		// Returns a ColorMatrix suitable for modifying the brightness and/or grayscale of an image

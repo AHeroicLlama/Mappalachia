@@ -852,7 +852,7 @@ namespace Mappalachia
 			// 
 			// progressBarMain
 			// 
-			progressBarMain.Dock = DockStyle.Bottom;
+			progressBarMain.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			progressBarMain.Location = new Point(0, 739);
 			progressBarMain.Name = "progressBarMain";
 			progressBarMain.Size = new Size(984, 22);
@@ -913,7 +913,7 @@ namespace Mappalachia
 			// 
 			panelBackgroundAutoScrollTrigger.Location = new Point(0, 0);
 			panelBackgroundAutoScrollTrigger.Name = "panelBackgroundAutoScrollTrigger";
-			panelBackgroundAutoScrollTrigger.Size = new Size(984, 736);
+			panelBackgroundAutoScrollTrigger.Size = new Size(984, 761);
 			panelBackgroundAutoScrollTrigger.TabIndex = 17;
 			// 
 			// FormMain
@@ -944,7 +944,6 @@ namespace Mappalachia
 			Controls.Add(panelBackgroundAutoScrollTrigger);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MainMenuStrip = menuStripMain;
-			MinimumSize = new Size(1000, 800);
 			Name = "FormMain";
 			Text = "Mappalachia";
 			FormClosing += FormMain_FormClosing;

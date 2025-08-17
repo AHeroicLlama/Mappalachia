@@ -800,6 +800,13 @@ namespace Mappalachia
 				if (settings.MapSettings.MapMarkerIcons)
 				{
 					Image image = marker.GetMapMarkerImage();
+
+					// Hidden option - convert a new copy to grayscale
+					if (settings.MapSettings.MapMarkerGrayscale)
+					{
+						image = new Bitmap(image).AdjustBrightnessOrGrayscale(1, true);
+					}
+
 					graphics.DrawImageCentered(image, coord);
 
 					labelOffset = image.Height / 2;
