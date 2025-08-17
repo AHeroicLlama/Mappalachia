@@ -52,6 +52,7 @@ class MapIconProcessor
 
 		int size = PlotIconSize;
 		Pen pen = new Pen(Color.Yellow, 20);
+		Brush brush = new SolidBrush(Color.Yellow);
 		int padding = (int)Math.Round(5 + pen.Width);
 		Image image = new Bitmap(size, size);
 
@@ -105,6 +106,13 @@ class MapIconProcessor
 		int squarePadding = 55;
 		graphics.DrawPolygon(pen, new PointF(squarePadding, squarePadding), new PointF(size - squarePadding, squarePadding), new PointF(size - squarePadding, size - squarePadding), new PointF(squarePadding, size - squarePadding));
 		image.Save($"{IconPath}F{Common.PlotIconFileType}");
+
+		graphics.Clear(Color.Transparent);
+
+		// Dot
+		int dotRadius = 25;
+		graphics.FillEllipse(brush, new RectangleF((size / 2) - dotRadius, (size / 2) - dotRadius, dotRadius * 2, dotRadius * 2));
+		image.Save($"{IconPath}G{Common.PlotIconFileType}");
 
 		StdOutWithColor("Done\n", ColorInfo);
 	}
