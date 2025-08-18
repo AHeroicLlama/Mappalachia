@@ -58,6 +58,11 @@ namespace Library
 			return new RectangleF(XCenter - TileRadius, YCenter + TileRadius, TileWidth, TileWidth);
 		}
 
+		public Coord GetCenter()
+		{
+			return new Coord(XCenter, YCenter);
+		}
+
 		public override bool Equals(object? obj)
 		{
 			if (obj is null)

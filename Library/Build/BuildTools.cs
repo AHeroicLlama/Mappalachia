@@ -19,7 +19,13 @@ namespace Library
 
 		static string OutputsPath { get; } = GetRepoRoot() + @"BuildOutputs\";
 
-		static string BGRendererCorrectionsPath { get; } = GetRepoRoot() + @"BackgroundRenderer\Corrections\";
+		static string BGRendererPath { get; } = GetRepoRoot() + @"BackgroundRenderer\";
+
+		static string BGRendererCorrectionsPath { get; } = @$"{BGRendererPath}Corrections\";
+
+		public static string PreviousAssetsSpotlightPath { get; } = @$"{BGRendererPath}PreviousVersion\spotlight\";
+
+		public static string SpotlightPatchDiffPath { get; } = OutputsPath + @"SpotlightPatchDiff\";
 
 		public static string MapIconExtractPath { get; } = GetRepoRoot() + @"MapIconProcessor\Extract\";
 

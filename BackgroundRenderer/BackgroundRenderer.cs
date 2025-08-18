@@ -1,4 +1,7 @@
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
@@ -13,6 +16,8 @@ namespace BackgroundRenderer
 		static int JpgQualityHigh { get; } = 100;
 
 		static int RenderParallelism { get; } = 16; // Max cells or spotlight tiles to render in parallel
+
+		static double PixelDiffThreshold { get; } = 50;
 
 		static async Task Main()
 		{
@@ -29,7 +34,7 @@ namespace BackgroundRenderer
 
 			CleanUpSpotlight();
 
-			StdOutWithColor("Enter:\n1: Render (Inc. spotlight) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode", ColorQuestion);
+			StdOutWithColor("Enter:\n1: Render (Inc. spotlight) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode\n4: Generate spotlight patch/diff", ColorQuestion);
 
 			switch (Console.ReadKey().KeyChar)
 			{
@@ -43,6 +48,10 @@ namespace BackgroundRenderer
 
 				case '3':
 					await SpaceHeightCorrection();
+					break;
+
+				case '4':
+					GenerateSpotlightPatch();
 					break;
 
 				default:
@@ -296,7 +305,7 @@ namespace BackgroundRenderer
 			Directory.CreateDirectory(finalPath);
 
 			List<SpotlightTile> tiles = space.GetTiles();
-			List<Region> worldBorderRegions = await space.GetWorldBorders();
+			List<Library.Region> worldBorderRegions = await space.GetWorldBorders();
 
 			if (worldBorderRegions.Count > 0)
 			{
@@ -414,9 +423,9 @@ namespace BackgroundRenderer
 		}
 
 		// Returns if the tile intersects any of the regions
-		public static bool IntersectsRegions(this SpotlightTile tile, List<Region> regions)
+		public static bool IntersectsRegions(this SpotlightTile tile, List<Library.Region> regions)
 		{
-			foreach (Region region in regions)
+			foreach (Library.Region region in regions)
 			{
 				if (region.Points.Count == 0)
 				{
@@ -532,7 +541,7 @@ namespace BackgroundRenderer
 		}
 
 		// Returns the predetermined cropped height for a cell, otherwise max height
-		public static int GetSpaceCameraHeight(Space space)
+		static int GetSpaceCameraHeight(Space space)
 		{
 			string cropFile = CellZCorrectionPath + space.EditorID;
 
@@ -546,20 +555,83 @@ namespace BackgroundRenderer
 			}
 		}
 
-		// Starts the given process from CMD. Returns the Process reference. Discards the std out if silent is true.
-		public static Process StartProcess(string command, bool silent = false)
+		static void GenerateSpotlightPatch()
 		{
-			ProcessStartInfo processStartInfo = new ProcessStartInfo()
+			if (!Directory.Exists(PreviousAssetsSpotlightPath) || Directory.GetDirectories(PreviousAssetsSpotlightPath).Length == 0)
 			{
-				FileName = "CMD.exe",
-				Arguments = "/C " + command,
-				RedirectStandardOutput = silent,
-				RedirectStandardError = silent,
-			};
+				StdOutWithColor($"Previous assets not found at {PreviousAssetsSpotlightPath}. (Folder empty or non-existent)\nExiting.", ColorError);
+				Console.ReadKey();
+				return;
+			}
 
-			Process? process = Process.Start(processStartInfo);
+			if (Directory.Exists(SpotlightPatchDiffPath))
+			{
+				Directory.Delete(SpotlightPatchDiffPath, true);
+			}
 
-			return process ?? throw new Exception("Failed to start process with command " + command);
+			Directory.CreateDirectory(SpotlightPatchDiffPath);
+
+			StdOutWithColor($"\nGenerating spotlight patch between {PreviousAssetsSpotlightPath} and {SpotlightPath}...\n", ColorInfo);
+
+			Parallel.ForEach(Directory.GetDirectories(PreviousAssetsSpotlightPath), directory =>
+			{
+				Parallel.ForEach(Directory.GetFiles(directory), previousFilePath =>
+				{
+					string diffDirectory = SpotlightPatchDiffPath + Path.GetFileName(directory) + "\\";
+					string newFilePath = Path.Combine(SpotlightPath, Path.GetFileName(directory) + "\\" + Path.GetFileName(previousFilePath));
+
+					double error = GetTotalPixelValueDifference(new Bitmap(newFilePath), new Bitmap(previousFilePath));
+
+					// If the image is significantly different, or if it's new
+					if (!File.Exists(newFilePath) ||
+						 error > PixelDiffThreshold)
+					{
+						if (!Directory.Exists(diffDirectory))
+						{
+							Directory.CreateDirectory(diffDirectory);
+						}
+
+						File.Copy(newFilePath, diffDirectory + Path.GetFileName(previousFilePath));
+					}
+				});
+			});
+
+			StdOutWithColor($"Spotlight patch generated at {SpotlightPatchDiffPath}.", ColorInfo);
+			Console.ReadKey();
+		}
+
+		// Return the grand total sum of the difference in values for each channel of each pixel in the bitmaps
+		static double GetTotalPixelValueDifference(Bitmap bitmap1, Bitmap bitmap2)
+		{
+			Rectangle dimensionRect = new Rectangle(0, 0, bitmap1.Width, bitmap1.Height);
+			var bitmap1Data = bitmap1.LockBits(dimensionRect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+			var bitmap2Data = bitmap2.LockBits(dimensionRect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+
+			try
+			{
+				int bytes = Math.Abs(bitmap1Data.Stride) * bitmap1.Height;
+
+				byte[] buffer1 = new byte[bytes];
+				byte[] buffer2 = new byte[bytes];
+
+				Marshal.Copy(bitmap1Data.Scan0, buffer1, 0, bytes);
+				Marshal.Copy(bitmap2Data.Scan0, buffer2, 0, bytes);
+
+				double error = 0;
+
+				// Compare pixel buffers
+				for (int i = 0; i < bytes; i++)
+				{
+					error += Math.Abs(buffer1[i] - buffer2[i]);
+				}
+
+				return error;
+			}
+			finally
+			{
+				bitmap1.UnlockBits(bitmap1Data);
+				bitmap2.UnlockBits(bitmap2Data);
+			}
 		}
 	}
 }

@@ -222,16 +222,24 @@ namespace Mappalachia
 
 				Image? image = tile.GetSpotlightTileImage();
 
-				if (image is null)
+				if (image is not null)
 				{
-					continue;
+					i++;
+					int percent = (int)Math.Round(i / (double)spotlightTiles.Count * 100);
+					UpdateProgress(progressInfo, percent, $"Drawing tile {i} of {spotlightTiles.Count}");
+
+					graphics.DrawImage(image, tile.GetRectangle().AsImageRectangle(settings));
 				}
 
-				i++;
-				int percent = (int)Math.Round(i / (double)spotlightTiles.Count * 100);
-				UpdateProgress(progressInfo, percent, $"Drawing tile {i} of {spotlightTiles.Count}");
+#if DEBUG_SPOTLIGHT
+				graphics.DrawStringCentered(
+						$"{tile.XId}, {tile.YId}",
+						GetFont(72),
+						BrushGeneric,
+						tile.GetCenter().AsImagePoint(settings));
 
-				graphics.DrawImage(image, tile.GetRectangle().AsImageRectangle(settings));
+				graphics.DrawRectangle(new Pen(Color.Orange, 5), tile.GetRectangle().AsImageRectangle(settings));
+#endif
 			}
 		}
 

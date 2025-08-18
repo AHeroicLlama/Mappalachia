@@ -90,6 +90,22 @@ namespace Library
 			OpenURI(uri.ToString());
 		}
 
+		// Starts the given process from CMD. Returns the Process reference. Discards the std out if silent is true.
+		public static Process StartProcess(string command, bool silent = false)
+		{
+			ProcessStartInfo processStartInfo = new ProcessStartInfo()
+			{
+				FileName = "CMD.exe",
+				Arguments = "/C " + command,
+				RedirectStandardOutput = silent,
+				RedirectStandardError = silent,
+			};
+
+			Process? process = Process.Start(processStartInfo);
+
+			return process ?? throw new Exception("Failed to start process with command " + command);
+		}
+
 		public static string Pluralize<T>(IEnumerable<T> collection)
 		{
 			return collection.Count() == 1 ? string.Empty : "s";

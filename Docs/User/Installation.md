@@ -16,7 +16,7 @@ You just need to select 'more info' then 'run anyway'.<br/>
 ## Installing Spotlight
 Spotlight is a powerful optional feature which allows you to zoom in to satellite views at great detail. (See [Advanced Plotting](Advanced_plotting.md) for more details on using it once installed.)<br/>
 
-Due to the large file sizes, spotlight is not included by default, but you can choose to download and install by following these steps:<br/>
+Due to the large file sizes, spotlight is not included by default, but you can choose to download and install it by following these steps:<br/>
 * If you have not already, [install 7-Zip](https://www.7-zip.org/download.html). 7-Zip is a popular tool for creating and opening compressed files.
 * Go to the [latest release](https://github.com/AHeroicLlama/Mappalachia/releases/latest) on GitHub.
 * Under assets, download all files named `spotlight.7z.xxx` where xxx are numbers 001 and up.

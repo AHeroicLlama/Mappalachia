@@ -246,7 +246,7 @@ namespace Library
 		// Values passed with the -xm argument to the render command
 		public static List<string> RenderExcludeModels { get; } = new List<string>()
 		{
-			"swamptree", "babylon",
+			"babylon", "76Trailer",
 		};
 
 		// The Form ID of NorthMarker
