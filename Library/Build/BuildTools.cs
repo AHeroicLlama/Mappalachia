@@ -25,7 +25,7 @@ namespace Library
 
 		public static string PreviousAssetsSpotlightPath { get; } = @$"{BGRendererPath}PreviousVersion\spotlight\";
 
-		public static string SpotlightPatchDiffPath { get; } = OutputsPath + @"SpotlightPatchDiff\";
+		public static string SpotlightPatchDiffPath { get; } = OutputsPath + @"SpotlightPatchDiff\spotlight\";
 
 		public static string MapIconExtractPath { get; } = GetRepoRoot() + @"MapIconProcessor\Extract\";
 

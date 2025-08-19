@@ -43,6 +43,11 @@ Select option 3 when running the Background Renderer to enter a wizard to help f
 
 The wizard will prompt you to re-render the cell properly once the correct Z crop is found.
 
+## Spotlight diff/patch
+Option 4 of the background renderer is a tool which will compare the latest spotlight tile renders with those of a provided previous version. The output is therefore only new or modified tiles, allowing users to update their spotlight tiles without downloading all of them again.<br/>
+To use this tool, take the `spotlight` folder of the latest release, and place it at `BackgroundRenderer\PreviousVersion\spotlight`. The tool will collect only new or differing files (by MD5 checksum) at `BuildOutputs\SpotlightPatchDiff\spotlight`.<br/>
+You do not need to take any further action. When run later, the `Package_Release.bat` will capture these into a zip, at `mappalachia\dist`.
+
 ### Next steps
 You may now wish to validate the exported images with the validation functionality of the [Preprocessor](Preprocessor.md), or also optionally [extract the map marker icons](IconGeneration.md) if not already.<br/>
 Otherwise, you can now move on to development of the actual [end-user GUI program, Mappalachia](GUI.md).

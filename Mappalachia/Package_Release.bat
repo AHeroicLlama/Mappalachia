@@ -11,4 +11,10 @@ cd publish
 cd img
 "C:\Program Files\7-Zip\7z.exe" a -t7z -v2047M "..\..\dist\spotlight.7z" "spotlight"
 
+cd ..\..\..\BuildOutputs\SpotlightPatchDiff
+if exist spotlight\ (
+	"C:\Program Files\7-Zip\7z.exe" a -tzip "..\..\Mappalachia\dist\Patch_Spotlight.zip" "*"
+)
+
+
 PAUSE

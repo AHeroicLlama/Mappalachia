@@ -1,7 +1,4 @@
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
 using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
@@ -16,8 +13,6 @@ namespace BackgroundRenderer
 		static int JpgQualityHigh { get; } = 100;
 
 		static int RenderParallelism { get; } = 16; // Max cells or spotlight tiles to render in parallel
-
-		static double PixelDiffThreshold { get; } = 50;
 
 		static async Task Main()
 		{
@@ -254,7 +249,7 @@ namespace BackgroundRenderer
 			string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {ddsFile} {renderResolution} {renderResolution} " +
 				$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString}" +
 				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
-				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + (space.IsWorldspace ? 0 : 32)} -ssaa 2 " +
+				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + (space.IsWorldspace ? 0 : 32) + 256 + 1024} -ssaa 2 " +
 				$"-ltxtres 512 -tc 4096 -mc 64 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
 				$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
@@ -305,7 +300,7 @@ namespace BackgroundRenderer
 			Directory.CreateDirectory(finalPath);
 
 			List<SpotlightTile> tiles = space.GetTiles();
-			List<Library.Region> worldBorderRegions = await space.GetWorldBorders();
+			List<Region> worldBorderRegions = await space.GetWorldBorders();
 
 			if (worldBorderRegions.Count > 0)
 			{
@@ -372,7 +367,7 @@ namespace BackgroundRenderer
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
 					$"-r {tile.XId * SpotlightScale} {tile.YId * SpotlightScale} {(tile.XId + 1) * SpotlightScale} {(tile.YId + 1) * SpotlightScale} " +
 					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
-					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 256 + 32} -ssaa 1 " +
+					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 32 + 256 + 1024} -ssaa 1 " +
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
 					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
@@ -411,7 +406,7 @@ namespace BackgroundRenderer
 		}
 
 		// Return if this tile contains any entities
-		public static async Task<bool> HasEntities(this SpotlightTile tile)
+		static async Task<bool> HasEntities(this SpotlightTile tile)
 		{
 			string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {tile.Space.FormID} AND " +
 				$"x >= {tile.XCenter - TileRadius} AND x <= {tile.XCenter + TileRadius} AND y >= {tile.YCenter - TileRadius} AND y <= {tile.YCenter + TileRadius}";
@@ -423,9 +418,9 @@ namespace BackgroundRenderer
 		}
 
 		// Returns if the tile intersects any of the regions
-		public static bool IntersectsRegions(this SpotlightTile tile, List<Library.Region> regions)
+		static bool IntersectsRegions(this SpotlightTile tile, List<Region> regions)
 		{
-			foreach (Library.Region region in regions)
+			foreach (Region region in regions)
 			{
 				if (region.Points.Count == 0)
 				{
@@ -555,6 +550,7 @@ namespace BackgroundRenderer
 			}
 		}
 
+		// Compares current spotlight tile assets with a previous copy, identifying only new files and moving them to a new directory
 		static void GenerateSpotlightPatch()
 		{
 			if (!Directory.Exists(PreviousAssetsSpotlightPath) || Directory.GetDirectories(PreviousAssetsSpotlightPath).Length == 0)
@@ -578,60 +574,33 @@ namespace BackgroundRenderer
 				Parallel.ForEach(Directory.GetFiles(directory), previousFilePath =>
 				{
 					string diffDirectory = SpotlightPatchDiffPath + Path.GetFileName(directory) + "\\";
-					string newFilePath = Path.Combine(SpotlightPath, Path.GetFileName(directory) + "\\" + Path.GetFileName(previousFilePath));
+					string newFilePath = SpotlightPath + Path.GetFileName(directory) + "\\" + Path.GetFileName(previousFilePath);
 
-					double error = GetTotalPixelValueDifference(new Bitmap(newFilePath), new Bitmap(previousFilePath));
-
-					// If the image is significantly different, or if it's new
+					// If the image is new, or a different file length, or has a different MD5 hash, copy it to the diff directory
 					if (!File.Exists(newFilePath) ||
-						 error > PixelDiffThreshold)
+						new FileInfo(newFilePath).Length != new FileInfo(previousFilePath).Length ||
+						GetMD5Hash(newFilePath) != GetMD5Hash(previousFilePath))
 					{
 						if (!Directory.Exists(diffDirectory))
 						{
 							Directory.CreateDirectory(diffDirectory);
 						}
 
+						StdOutWithColor($"New/Modified tile: {Path.GetFileName(directory)}\\{Path.GetFileName(previousFilePath)}", ColorInfo);
 						File.Copy(newFilePath, diffDirectory + Path.GetFileName(previousFilePath));
 					}
 				});
 			});
 
-			StdOutWithColor($"Spotlight patch generated at {SpotlightPatchDiffPath}.", ColorInfo);
+			// If we found no tiles (therefore no folder), delete the "spotlight" folder, as a signal to the release packager .bat
+			if (Directory.GetDirectories(SpotlightPatchDiffPath).Length == 0)
+			{
+				StdOutWithColor("No new or modified spotlight tiles found. Deleting empty spotlight folder.", ColorInfo);
+				Directory.Delete(SpotlightPatchDiffPath, true);
+			}
+
+			StdOutWithColor($"Spotlight patch finished.", ColorInfo);
 			Console.ReadKey();
-		}
-
-		// Return the grand total sum of the difference in values for each channel of each pixel in the bitmaps
-		static double GetTotalPixelValueDifference(Bitmap bitmap1, Bitmap bitmap2)
-		{
-			Rectangle dimensionRect = new Rectangle(0, 0, bitmap1.Width, bitmap1.Height);
-			var bitmap1Data = bitmap1.LockBits(dimensionRect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-			var bitmap2Data = bitmap2.LockBits(dimensionRect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-
-			try
-			{
-				int bytes = Math.Abs(bitmap1Data.Stride) * bitmap1.Height;
-
-				byte[] buffer1 = new byte[bytes];
-				byte[] buffer2 = new byte[bytes];
-
-				Marshal.Copy(bitmap1Data.Scan0, buffer1, 0, bytes);
-				Marshal.Copy(bitmap2Data.Scan0, buffer2, 0, bytes);
-
-				double error = 0;
-
-				// Compare pixel buffers
-				for (int i = 0; i < bytes; i++)
-				{
-					error += Math.Abs(buffer1[i] - buffer2[i]);
-				}
-
-				return error;
-			}
-			finally
-			{
-				bitmap1.UnlockBits(bitmap1Data);
-				bitmap2.UnlockBits(bitmap2Data);
-			}
 		}
 	}
 }

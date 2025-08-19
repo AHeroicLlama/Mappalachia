@@ -33,5 +33,5 @@ In order to package a Mappalachia release there are a few steps.
 * If any cells or worldspaces have changed, you must [run the background renderer](BackgroundRendering.md) for those spaces. Review the space coordinate checksum section of the Database Summary to identify this.
 * Use the validation functionality of the [Preprocessor](Preprocessor.md) to verify that image assets appear correct, particularly if any have been regenerated/extracted.
 * In Visual Studio, right click the Mappalachia Project and select 'Publish'. With the included `PublishProfile.pubxml` selected, press 'Publish'.
-* Launch `Mappalachia\Package_Release.bat`. This requires a 7-Zip installation and assumes the default installation directory. It will use 7-Zip to create the `Mappalachia.zip` and additional 'spotlight' archives, placing them at `dist\`.
-* `Mappalachia.zip` is the file which should now be distributed to end users. Additionally all the `spotlight.7z.xxx` files should be made available as optional downloads.
+* Launch `Mappalachia\Package_Release.bat`. This requires a 7-Zip installation and assumes the default installation directory. It will use 7-Zip to create the `Mappalachia.zip`, `Patch_Spotlight.zip`, and additional 'spotlight' archives, placing them at `dist\`.
+* `Mappalachia.zip` is the file which should now be distributed to end users. Additionally, `Patch_Spotlight.zip` and all the `spotlight.7z.xxx` files should be made available as optional downloads.
