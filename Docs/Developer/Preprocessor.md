@@ -30,4 +30,4 @@ The preprocessor also provides validation functionality, of both the database it
 If errors are found in either step they are outputted to the console at the end. The errors are also written to the file `BuildOutputs\Errors.txt`. These must be addressed before continuing.
 
 ### Next steps
-Now the database has been assembled and validated, you can optionally [extract map icons](IconGeneration.md), [render map backgrounds](BackgroundRendering.md), or move to [development and deployment of the GUI itself](GUI.md).
+Now the database has been assembled and validated, you can optionally [extract map icons](IconGeneration.md), [render map backgrounds](BackgroundRendering.md), or move to [development of the GUI itself](GUI.md).

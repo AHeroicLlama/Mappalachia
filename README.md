@@ -12,18 +12,18 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 
 ## Download and Installation
 [__Download Mappalachia.zip here__](https://github.com/AHeroicLlama/Mappalachia/releases/latest) to get started generating maps. Simply unzip it to a folder and then launch Mappalachia.exe.<br/>
-For help installing please refer to the [installation and first launch guide](Docs/User/Installation_and_first_run.md).<br/>
+For help installing please refer to the [installation and first launch guide](Docs/User/Installation.md).<br/>
 
 ## Getting started - User Guides
 A number of User guides exist for Mappalachia in document form;<br/>
 
-* [**Installation**](Docs/User/Installation.md) covers initial installation & launch, plus installing the optional Spotlight feature.
-* [**First map**](Docs/User/First_map.md) explains the basic steps to creating your first Mappalachia map and other core features.
-* [**Customization Options**](Docs/User/Customization.md) covers all the various customization and visual options for your map.
-* [**Advanced Searching**](Docs/User/Advanced_searching.md) explains the intelligent NPC, Scrap and Region search functions, as well as using filters to find exactly what you need.
-* [**Advanced Plotting**](Docs/User/Advanced_plotting.md) details the powerful cluster mode, as well as topographical and heatmap plotting, item grouping and volume mapping.
-* [**Interiors and other Spaces**](Docs/User/Choosing_spaces.md) explains the mapping of other spaces such as interiors.
-* [**In-Game Map mod**](Docs/User/Game_map_mod.md) explains how to use third-party tools to create a mod which replaces the in-game map with your own Mappalachia map.
+* [**Installation and first launch**](Docs/User/Installation.md)
+* [**Map Basics**](Docs/User/First_map.md)
+* [**Customization Options**](Docs/User/Customization.md)
+* [**Advanced Searching**](Docs/User/Advanced_searching.md)
+* [**Advanced Plotting**](Docs/User/Advanced_plotting.md)
+* [**Interiors and other Spaces**](Docs/User/Choosing_spaces.md)
+* [**In-Game Map mod**](Docs/User/Game_map_mod.md)
 
 ## Discord
 [Join the Mappalachia Discord](https://discord.gg/Z2GMpm6rad) for discussion and help.
@@ -41,18 +41,16 @@ If you fancy doing some data mining or development with Mappalachia then you may
 * [**FO76Edit scripts**](Docs/Developer/EditScripts.md) explains using FO76Edit to run the Mappalachia edit scripts to export rough, raw game data.
 * [**Preprocessor**](Docs/Developer/Preprocessor.md) covers using the CLI tool to assemble the database, and provide data and asset validation.
 * [**Background Image Rendering**](Docs/Developer/BackgroundRendering.md) explains using the powerful fo76utils to render top-down views of locations, used for map backgrounds.
-* [**Map Icon extraction**](Docs/Developer/IconExtraction.md) explains the process of exporting map marker icons from the game to Mappalachia.
-* [**GUI**](Docs/Developer/GUI.md) covers developing the Mappalachia GUI itself, including how to update Mappalachia following a new game update.
+* [**Map Icon extraction**](Docs/Developer/IconGeneration.md) explains the process of exporting map marker icons from the game to Mappalachia.
+* [**GUI**](Docs/Developer/GUI.md) covers developing and debugging the Mappalachia GUI itself.
+* [**Deployment**](Docs/Developer/Deployment.md) explains how to update and deploy Mappalachia, including following a game update.
 
 ## Thanks
 * Every single person who has so generously donated to say thanks for Mappalachia.
+* All prominent members of the Mappalachia Discord who have provided feedback and ideas for new features. (Gilpo, Duchess Flame, MeatServo, Scratchy, frame, +rat, fo76utils, pcrov and more)
 * Contributors to and developers of XEdit and FO76Edit, namely Eckserah.
 * Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
 * [fo76utils](https://github.com/fo76utils) for their excellent and powerful render tool, used to render backgrounds for all cell maps and the Appalachia satellite map option.
-* Gilpo for providing great ideas and feedback for new Mappalachia features.
-* Duchess Flame for useful feature feedback, driving community engagement and moral support.
-* frame for reporting and helping to test DPI scaling issues.
-* Everyone who ever gave feedback to the original Mappalachia. Your feedback, comments, questions, and PMs were essential to defining and guiding the features I have been able to bring to life here.
 
 #### Licensing
 This project is licensed under the GNU General Public License 3.0 - see [LICENSE.md](LICENSE.md) for details.<br/>
