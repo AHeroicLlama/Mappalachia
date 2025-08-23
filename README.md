@@ -11,10 +11,10 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 [![License](https://img.shields.io/github/license/AHeroicLlama/Mappalachia)](LICENSE.md)
 
 ## Download and Installation
-[__Download Mappalachia.zip here__](https://github.com/AHeroicLlama/Mappalachia/releases/latest) to get started generating maps. Simply unzip it to a folder and then launch Mappalachia.exe.<br/>
+[__Download 'Mappalachia.zip' from here__](https://github.com/AHeroicLlama/Mappalachia/releases/latest) to get started generating maps. Simply unzip it to a folder and then launch Mappalachia.exe.<br/>
 For help installing please refer to the [installation and first launch guide](Docs/User/Installation.md).<br/>
 
-## Getting started - User Guides
+## User Guides
 A number of User guides exist for Mappalachia in document form;<br/>
 
 * [**Installation and first launch**](Docs/User/Installation.md)
@@ -29,12 +29,12 @@ A number of User guides exist for Mappalachia in document form;<br/>
 [Join the Mappalachia Discord](https://discord.gg/Z2GMpm6rad) for discussion and help.
 
 ## Info for Developers
-Alongside the source code for the GUI itself, this repository also contains the necessary scripts and code used to export, preprocess and build the Mappalachia database and supporting image assets.
+Alongside the source code for the GUI itself, this repository also contains the necessary scripts and code used to export, preprocess and build the Mappalachia database and also generate/render supporting image assets.
 
 The required information is compiled in 3 key steps.
 1. Extract the raw data in CSV using FO76Edit
 2. Preprocess the data and assemble the database, with validation
-3. (Optional) Image Asset rendering and extraction
+3. Image Asset rendering and extraction
 
 If you fancy doing some data mining or development with Mappalachia then you may be interested in the following documentation;
 
@@ -49,12 +49,12 @@ If you fancy doing some data mining or development with Mappalachia then you may
 * Every single person who has so generously donated to say thanks for Mappalachia.
 * All prominent members of the Mappalachia Discord who have provided feedback and ideas for new features. (Gilpo, Duchess Flame, MeatServo, Scratchy, frame, +rat, fo76utils, pcrov and more)
 * Contributors to and developers of XEdit and FO76Edit, namely Eckserah.
-* Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts, and offering valuable knowledge and feedback based on their own experiences datamining and creating Fallout 76 maps.
-* [fo76utils](https://github.com/fo76utils) for their excellent and powerful render tool, used to render backgrounds for all cell maps and the Appalachia satellite map option.
+* Members of the FO76 Datamining Discord, for helping out with FO76Edit and Edit Scripts.
+* [fo76utils](https://github.com/fo76utils) for their excellent, powerful [render tool](https://github.com/fo76utils/fo76utils), used to render background images.
 
 #### Licensing
 This project is licensed under the GNU General Public License 3.0 - see [LICENSE.md](LICENSE.md) for details.<br/>
-Mappalachia uses technologies such as [.NET](https://dotnet.microsoft.com/en-us/platform/free), [SQLite](https://www.sqlite.org/copyright.html), [SVG.NET](https://github.com/svg-net/SVG?tab=MS-PL-1-ov-file#readme) and [KGy SOFT Core Libraries](https://kgysoft.net/corelibraries) which are each subject to their own licenses.<br/>
+Mappalachia uses technologies such as [.NET](https://dotnet.microsoft.com/en-us/platform/free), [SQLite](https://www.sqlite.org/copyright.html), [SVG.NET](https://github.com/svg-net/SVG?tab=MS-PL-1-ov-file#readme) and [KGy SOFT Core Libraries](https://kgysoft.net/corelibraries/#license) which are each subject to their own licenses.<br/>
 Use of other third-party assets are covered below.
 
 #### Legal/Disclaimer

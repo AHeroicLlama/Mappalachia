@@ -3,8 +3,7 @@
 ### Prerequisites and assumptions
 * You have optionally [built and validated the database](Preprocessor.md), or, have a copy of `mappalachia.db` from a release
 * You have optionally [extracted the map marker icons](IconGeneration.md), or, are confident they do not need updating
-* You have optionally [rendered the background images](BackgroundRendering.md), or, have a copy of them all from a release.
-* An installation of [7-Zip](https://www.7-zip.org/download.html)
+* You have optionally [rendered the background images](BackgroundRendering.md), or, have a copy of them all from a release
 * An installation of Visual Studio
 * Experience using Mappalachia as an end user
 * Competency in C# .NET and SQLite SQL

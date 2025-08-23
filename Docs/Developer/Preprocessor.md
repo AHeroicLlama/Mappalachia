@@ -1,10 +1,10 @@
 # Preprocessing the exported data
 
 ### Prerequisites and assumptions
-* You have already run the [export scripts](EditScripts.md) using FO76Edit
-* An installation of Visual Studio
+* You have already run the [export scripts](EditScripts.md) using [FO76Edit](https://www.nexusmods.com/fallout76/mods/30)
+* An installation of [Visual Studio](https://visualstudio.microsoft.com/downloads/)
 * A copy of `sqlite3.exe` in place (See '[How to use the Preprocessor](#how-to-use-the-preprocessor)')
-* (Optional) competency with C# .NET and SQLite
+* (Optional) competency with C# .NET and [SQLite SQL](https://www.sqlite.org/lang.html)
 
 ## What is the Preprocessor?
 The Mappalachia Preprocessor is a C# .NET CLI tool responsible for assembling and populating the database. It takes in the exported CSVs from XEdit and transforms and combines the data into its final form. It also performs validation against both the database and the existing image assets.<br/>
@@ -22,7 +22,9 @@ In the event they are different, the in-game value should be used.
 The outputted database will be placed at `Assets\data\Mappalachia.db`.<br/>
 
 Upon completion, the Preprocessor will generate the file `BuildOutputs\Database_Summary.txt`. This file is version controlled in git, and should be reviewed for changes whenever a new game update is released. Any unusual values or changes may indicate errors.<br/>
-Similarly, it will generate `BuildOutputs\Discarded_Cells.csv`. This lists cells which were present in the ESM export, but were not kept in the database. This should be reviewed to ensure no cells were incorrectly discarded.
+Similarly, it will generate `BuildOutputs\Discarded_Cells.csv`. This lists cells which were present in the ESM export, but were not kept in the database. This should be reviewed to ensure no cells were incorrectly discarded.<br/>
+
+For potential errors which may arise here, see also: [Deployment troubleshooting](Deployment.md#data-troubleshooting--common-errors-to-check)
 
 ## Validation
 The preprocessor also provides validation functionality, of both the database itself, and the existing image assets. These are automatically run when building the database, or may optionally be run alone.<br/>
