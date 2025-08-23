@@ -262,7 +262,7 @@ namespace Mappalachia
 			highlightWaterToolStripMenuItem.Size = new Size(240, 22);
 			highlightWaterToolStripMenuItem.Text = "Highlight Water";
 			highlightWaterToolStripMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
-			highlightWaterToolStripMenuItem.Click += Map_HightlightWater_Click;
+			highlightWaterToolStripMenuItem.Click += Map_HighlightWater_Click;
 			// 
 			// showCompassToolStripMenuItem
 			// 

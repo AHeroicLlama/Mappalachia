@@ -130,7 +130,7 @@ namespace Mappalachia
 
 		public void CapSpotlightSizeToSpace()
 		{
-			// May have not finihsed initializing yet
+			// May have not finished initializing yet
 			if (RootSettings is null)
 			{
 				return;

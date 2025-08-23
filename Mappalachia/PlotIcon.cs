@@ -22,7 +22,7 @@ namespace Mappalachia
 			int colorIndex = offset % palette.Count;
 			Color = palette[colorIndex];
 
-			int availableIcons = FileIO.GetAvailblePlotIconCount();
+			int availableIcons = FileIO.GetAvailablePlotIconCount();
 			BaseIconIndex = (offset / palette.Count) % availableIcons;
 
 			// Gather the raw icon from file and set it to the requested size
@@ -125,7 +125,7 @@ namespace Mappalachia
 				return cachedTopographIcon;
 			}
 
-			// Draw the dropshadow of the icon, then draw the main icon over that, meanwhile settings its color
+			// Draw the drop shadow of the icon, then draw the main icon over that, meanwhile settings its color
 			Image image = DropShadowCache is not null ? new Bitmap(DropShadowCache) : new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
 			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
 

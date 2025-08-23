@@ -1,9 +1,9 @@
 ﻿namespace Mappalachia
 {
 	// This should be abstract, but the designer requires a concrete class
-	public class GenericlToolForm : Form
+	public class GenericToolForm : Form
 	{
-		protected GenericlToolForm()
+		protected GenericToolForm()
 		{
 			StartPosition = FormStartPosition.CenterParent;
 			FormBorderStyle = FormBorderStyle.FixedDialog;

@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormHeatmapSettings : GenericlToolForm
+	public partial class FormHeatmapSettings : GenericToolForm
 	{
 		FormMain FormMain { get; }
 

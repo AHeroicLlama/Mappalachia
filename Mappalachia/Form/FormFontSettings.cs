@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormFontSettings : GenericlToolForm
+	public partial class FormFontSettings : GenericToolForm
 	{
 		FontSettings InitialFontSettings { get; set; }
 

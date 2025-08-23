@@ -1,6 +1,6 @@
 ﻿namespace Mappalachia
 {
-	public partial class FormClusterSettings : GenericlToolForm
+	public partial class FormClusterSettings : GenericToolForm
 	{
 		FormMain FormMain { get; }
 

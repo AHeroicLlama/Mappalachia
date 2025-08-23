@@ -2,7 +2,7 @@
 
 namespace Mappalachia
 {
-	public partial class FormSetSpotlightSize : GenericlToolForm
+	public partial class FormSetSpotlightSize : GenericToolForm
 	{
 		public double SpotlightRange => Convert.ToDouble(numericUpDownSpotlightSize.Value);
 

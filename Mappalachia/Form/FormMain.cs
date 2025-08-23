@@ -375,7 +375,7 @@ namespace Mappalachia
 
 			spotlightToolStripMenuItem.Enabled = Settings.Space.IsSuitableForSpotlight();
 
-			UpdateDataGridAppearences();
+			UpdateDataGridAppearances();
 
 			if (reSearch)
 			{
@@ -668,7 +668,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.Refresh();
 		}
 
-		// Programatically configure either DGV
+		// Programmatically configure either DGV
 		void InitializeDataGridView(DataGridView dataGridView, SortableBindingList<GroupedSearchResult> data)
 		{
 			dataGridView.AutoGenerateColumns = false;
@@ -687,7 +687,7 @@ namespace Mappalachia
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount", DefaultCellStyle = new DataGridViewCellStyle() { Format = "N0" }, FillWeight = 2 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location", DataPropertyName = "DataValueLocation", FillWeight = 4 });
 
-			UpdateDataGridAppearences();
+			UpdateDataGridAppearances();
 
 			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(dataGridView, e);
 			dataGridView.CellDoubleClick += (s, e) => SwitchSpaceOnDoubleClick(dataGridView, e);
@@ -763,7 +763,7 @@ namespace Mappalachia
 
 		// Applies the header text and column visibility of all DGV Columns, based on Settings
 		// We don't need to update tooltips as they are fetched dynamically via CellToolTipNeeded events
-		void UpdateDataGridAppearences()
+		void UpdateDataGridAppearances()
 		{
 			foreach (DataGridView dataGridView in new[] { dataGridViewSearchResults, dataGridViewItemsToPlot })
 			{
@@ -901,7 +901,7 @@ namespace Mappalachia
 			}
 		}
 
-		private void Map_HightlightWater_Click(object sender, EventArgs e)
+		private void Map_HighlightWater_Click(object sender, EventArgs e)
 		{
 			SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
 		}

@@ -126,7 +126,7 @@ namespace Mappalachia
 			return new Bitmap(image);
 		}
 
-		public static int GetAvailblePlotIconCount()
+		public static int GetAvailablePlotIconCount()
 		{
 			int count = Directory.GetFiles(Paths.IconsPath, "*" + PlotIconFileType).Length;
 
@@ -282,7 +282,7 @@ namespace Mappalachia
 		}
 
 		// Save an image to the temp folder
-		public static void TempSave(Image image, bool openAferSave = false)
+		public static void TempSave(Image image, bool openAfterSave = false)
 		{
 			Directory.CreateDirectory(Paths.TempPath);
 
@@ -291,7 +291,7 @@ namespace Mappalachia
 
 			Save(image, format, path, 100);
 
-			if (openAferSave)
+			if (openAfterSave)
 			{
 				OpenURI(path);
 			}

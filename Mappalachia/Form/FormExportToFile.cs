@@ -2,7 +2,7 @@
 
 namespace Mappalachia
 {
-	public partial class FormExportToFile : GenericlToolForm
+	public partial class FormExportToFile : GenericToolForm
 	{
 		public int JpgQuality => (int)numericUpDownJPGQuality.Value;
 

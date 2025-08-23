@@ -580,7 +580,7 @@ namespace Mappalachia
 						continue;
 					}
 
-					// If the door doesn't exist on the curent map - skip
+					// If the door doesn't exist on the current map - skip
 					if (!teleporter.Space.Equals(settings.Space))
 					{
 						continue;
