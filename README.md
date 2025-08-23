@@ -19,10 +19,8 @@ A number of User guides exist for Mappalachia in document form;<br/>
 
 * [**Installation and first launch**](Docs/User/Installation.md)
 * [**Map Basics**](Docs/User/First_map.md)
-* [**Customization Options**](Docs/User/Customization.md)
-* [**Advanced Searching**](Docs/User/Advanced_searching.md)
-* [**Advanced Plotting**](Docs/User/Advanced_plotting.md)
-* [**Interiors and other Spaces**](Docs/User/Choosing_spaces.md)
+* [**Map Customization**](Docs/User/Map_customization.md)
+* [**Alternative Plot Modes**](Docs/User/Plot_modes.md)
 * [**In-Game Map mod**](Docs/User/Game_map_mod.md)
 
 ## Discord

@@ -4,16 +4,16 @@
 While the intended use for Mappalachia while playing is from a second monitor, another device, or by alt-tabbing - it is possible for PC players to replace the in-game map with their own Mappalachia map.
 
 ## Prerequisites
-* An installation of [Mappalachia](..\readme.md#download-and-installation)
-* An installation of [Paint.NET](https://www.getpaint.net/)
+* An installation of [Mappalachia](..\\..\readme.md#download-and-installation)
+* An installation of [Paint.NET](https://www.getpaint.net/download.html#download)
 * An installation of [Baka File Tool](https://www.nexusmods.com/fallout76/mods/9)
 * Moderate computer literacy - this guide gets a little technical.
 
 ## Generating the map
-In Mappalachia, create the map you want to see in-game. When you're ready, go to 'Map' > 'Export To File...'.<br>
+In Mappalachia, create the map you want to see in-game. When you're ready, go to 'Map' > 'Save Image'.<br>
 Export the map image file to any location. (Maximum quality settings are advised (PNG)).
 
-Note: Ensure you have not selected 'Extended' legend style, as the final image would be wider than the normal map texture.
+Note: Ensure you have not used 'Extended' legend style, as the final image must be the same dimensions as the normal map texture.
 
 ## Creating the DDS
 If you wish to make any further manual edits to the map image, you should do this now.
@@ -36,7 +36,7 @@ Now press 'Create Archive'. Your mod archive file will be generated beside the e
 Rename the ba2 file as you wish.
 
 ## Installing the mod
-The process is now the same as installing any mod for Fallout 76
+The process is now the same as installing any mod for Fallout 76.
 
 Navigate to the 'Data' directory of your Fallout 76 installation, default `C:\Program Files (x86)\Steam\steamapps\common\Fallout76\Data`.<br>
 Place your .ba2 file in this folder.
