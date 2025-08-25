@@ -24,7 +24,7 @@ namespace Mappalachia
 				searchInstancesOnly = value;
 
 				// Search in instances only implies searching in all spaces
-				if (value)
+				if (searchInstancesOnly)
 				{
 					SearchInAllSpaces = true;
 				}

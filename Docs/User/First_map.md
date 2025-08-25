@@ -28,5 +28,5 @@ At the bottom of the 'Map' menu you can select 'Clear Plots' or 'Reset'.<br/>
 * Clear Plots will simply remove items from the legend and the map. It won't change any Map settings. This is ideal for making a new map.
 * Reset will completely reset all map-related settings.
 
-## Next steps
+## Next guide
 [Map Customization](Map_customization.md)

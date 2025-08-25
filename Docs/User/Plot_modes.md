@@ -27,7 +27,10 @@ Cluster mode groups nearby points into bounded areas or 'clusters' and labels th
 The maximum size and minimum weight of clusters can be controlled under 'Plot Settings' > 'Cluster Settings'.<br/>
 Here you may also choose if clusters are formed of all plotted items together, or if different legend groups form independent clusters.<br/>
 
+*Tip: Right clicking the cluster radius text on this window will allow you set the range equivalent to the size of a nuke zone. This can be useful for finding flux (See [Flux and other derived results](Derived_results.md))*<br/>
+
 The value drawn against the cluster represents the total 'weighted chance' of the cluster.
 
-## Next steps
-[Space selection and misc advanced features](Advanced.md)
+## Next guide
+[Scrap, NPCs, and Flux](Derived_results.md)
+

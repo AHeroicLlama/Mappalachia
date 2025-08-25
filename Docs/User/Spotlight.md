@@ -1,3 +1,3 @@
 
-## Next steps
+## Next guide
 [Recipes](Recipes.md)

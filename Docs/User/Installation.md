@@ -34,6 +34,6 @@ If a new version is available, you will be given the option to download it. The 
 If you already have the latest version of spotlight installed, you may quickly download only newly updated parts of it for the current patch by downloading `Patch_Spotlight.zip` from the latest release, and unzipping it into the `img\` folder, merging with the `spotlight\` folder you already have there.<br/>
 This zip will always only contain spotlight data which changed between this release and the prior.
 
-## Next steps
+## Next guide
 [Your first map](First_map.md)
 
