@@ -32,14 +32,14 @@ This option will add a colored overlay which clearly highlights the surface of a
 ### Show Compass
 This option controls when a compass rose should be displayed on the map. The default option, "When Useful" only draws when North is not 'up' in the current map. You may also select to always or never show it.
 
-### Spotlight
-See [Spotlight](Spotlight.md)
-
 ### Legend Style
 This provides control over how (or if) the legend is drawn.
-- Normal: The default mode, the legend is drawn up against the left hand side, inside the map image.
-- Extended: The final image is expanded, drawing the legend fully outside of the original map image, ensuring none of the map can be obscured.
-- Hidden: No legend is drawn.
+* Normal: The default mode, the legend is drawn up against the left hand side, inside the map image.
+* Extended: The final image is expanded, drawing the legend fully outside of the original map image, ensuring none of the map can be obscured.
+* Hidden: No legend is drawn.
+<br/><br/>
+
+Note: see [Spotlight](Spotlight.md) and [Recipes](Recipes.md) for other options in this menu.
 
 ## Next steps
 [Alternative plot modes](Plot_modes.md)
