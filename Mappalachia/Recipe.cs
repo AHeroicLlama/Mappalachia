@@ -27,6 +27,25 @@ namespace Mappalachia
 			}
 		}
 
+		public Settings AsSettings()
+		{
+			Settings settings = new Settings
+			{
+				Space = Space,
+				MapSettings = MapSettings,
+				PlotSettings = PlotSettings,
+			};
+
+			settings.MapSettings.RootSettings = settings;
+
+			foreach (GroupedSearchResult item in ItemsToPlot)
+			{
+				item.Space = item.Space.PopulateFromData();
+			}
+
+			return settings;
+		}
+
 		public void SaveToFile(string filePath)
 		{
 			FileIO.CreateRecipesFolder();

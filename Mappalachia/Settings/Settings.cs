@@ -22,23 +22,26 @@ namespace Mappalachia
 				// This is a workaround to detect a Space which has been initialized from the settings JSON and not the database
 				if (space.MaxRange == 0)
 				{
-					// This re-calls this setter
-					PopulateSpaceFromDatabase();
+					space = Database.PopulateFromData(Space);
+				}
+				else
+				{
+					MapSettings.SpotlightEnabled = false;
+					MapSettings.SetSpotlightToMapCenter();
 				}
 
-				MapSettings.SpotlightEnabled = false;
-				MapSettings.SetSpotlightToMapCenter();
 				MapSettings.CapSpotlightSizeToSpace();
-				PlotSettings.ClusterSettings.CapToSpace(Space);
+				PlotSettings.ClusterSettings.CapToSpace(space);
 			}
 		}
 
 		volatile Version? lastDeclinedUpdateVersion;
 
-		// The UpdateChecker runs async and will read/write this
 		public Version? LastDeclinedUpdateVersion
 		{
 			get => lastDeclinedUpdateVersion;
+
+			// The UpdateChecker runs async and will read/write this
 			set => Interlocked.Exchange(ref lastDeclinedUpdateVersion, value);
 		}
 
@@ -68,14 +71,6 @@ namespace Mappalachia
 			}
 
 			return new Settings();
-		}
-
-		// Re-associate a deserialized space with the same virgin space from the database
-		// This ensures JSON-ignored data are restored
-		// Failing this, fall back to the first space
-		void PopulateSpaceFromDatabase()
-		{
-			Space = Database.AllSpaces.Where(s => s.Equals(Space)).FirstOrDefault() ?? Database.AllSpaces.First();
 		}
 
 		public void SaveToFile()

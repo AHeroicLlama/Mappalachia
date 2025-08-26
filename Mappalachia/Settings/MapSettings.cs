@@ -43,7 +43,6 @@ namespace Mappalachia
 
 		Coord spotlightLocation = new Coord(0, 0);
 
-		[JsonIgnore]
 		public Coord SpotlightLocation
 		{
 			get => spotlightLocation;
@@ -56,7 +55,6 @@ namespace Mappalachia
 
 		bool spotlightEnabled = false;
 
-		[JsonIgnore]
 		public bool SpotlightEnabled
 		{
 			get => spotlightEnabled;

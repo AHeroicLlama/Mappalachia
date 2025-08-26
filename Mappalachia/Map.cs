@@ -333,7 +333,7 @@ namespace Mappalachia
 					return;
 				}
 
-				if (item.Space != settings.Space)
+				if (!item.Space.Equals(settings.Space))
 				{
 					continue;
 				}

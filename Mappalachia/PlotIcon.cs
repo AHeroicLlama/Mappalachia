@@ -82,7 +82,7 @@ namespace Mappalachia
 
 		// A cache of this icon in various colors
 		// Plotting in standard mode will also add one entry to this cache
-		Dictionary<Color, Image> TopographicCache { get; set; } = new Dictionary<Color, Image>();
+		Dictionary<Color, Image> ColorCache { get; set; } = new Dictionary<Color, Image>();
 
 		// A cache of just the drop shadow image for this icon
 		Image? DropShadowCache { get; set; }
@@ -100,7 +100,7 @@ namespace Mappalachia
 		{
 			FinalImageCache = null;
 			DropShadowCache = null;
-			TopographicCache.Clear();
+			ColorCache.Clear();
 		}
 
 		// Re-draw the icon image, using a different color
@@ -120,25 +120,35 @@ namespace Mappalachia
 				return volumeImage;
 			}
 
-			if (TopographicCache.TryGetValue(color, out Image? cachedTopographIcon))
+			if (ColorCache.TryGetValue(color, out Image? cachedColoredIcon))
 			{
-				return cachedTopographIcon;
+				return cachedColoredIcon;
 			}
 
-			// Draw the drop shadow of the icon, then draw the main icon over that, meanwhile settings its color
-			Image image = DropShadowCache is not null ? new Bitmap(DropShadowCache) : new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
-			using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
-
-			if (DropShadowCache is null)
+			try
 			{
-				graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new RectangleF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2, Size, Size));
-				DropShadowCache = new Bitmap(image);
+				// Draw the drop shadow of the icon, then draw the main icon over that, meanwhile settings its color
+				Image image = DropShadowCache is not null ? new Bitmap(DropShadowCache) : new Bitmap(Size + (Map.DropShadowOffset * 2), Size + (Map.DropShadowOffset * 2));
+				using Graphics graphics = ImageHelper.GraphicsFromImageHQ(image);
+
+				if (DropShadowCache is null)
+				{
+					graphics.DrawImage(BaseIconImage.SetColor(Map.DropShadowColor), new RectangleF(Map.DropShadowOffset * 2, Map.DropShadowOffset * 2, Size, Size));
+					DropShadowCache = new Bitmap(image);
+				}
+
+				graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));
+
+				ColorCache.TryAdd(color, image);
+
+				return image;
 			}
 
-			graphics.DrawImage(BaseIconImage.SetColor(color), new RectangleF(Map.DropShadowOffset, Map.DropShadowOffset, Size, Size));
-
-			TopographicCache.Add(color, image);
-			return image;
+			// Protects from a rare race condition where multiple threads try to generate and populate the cache having both missed
+			catch (Exception)
+			{
+				return ColorCache[color];
+			}
 		}
 	}
 }

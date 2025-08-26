@@ -23,7 +23,7 @@
 		public virtual Entity Entity { get; } = entity;
 
 		// The Space which this exists in
-		public virtual Space Space { get; } = space;
+		public virtual Space Space { get; set; } = space;
 
 		// The Level of the lock on this instance
 		public virtual LockLevel LockLevel { get; } = lockLevel;

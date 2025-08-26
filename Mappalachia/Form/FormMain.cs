@@ -434,6 +434,7 @@ namespace Mappalachia
 			buttonUpdateMap.Enabled = false;
 			buttonAddToMap.Enabled = false;
 			buttonRemoveFromMap.Enabled = false;
+			dataGridViewItemsToPlot.Enabled = false;
 			DrawCancellationTokenSource = new CancellationTokenSource();
 
 			try
@@ -451,6 +452,7 @@ namespace Mappalachia
 			buttonUpdateMap.Enabled = true;
 			buttonAddToMap.Enabled = true;
 			buttonRemoveFromMap.Enabled = true;
+			dataGridViewItemsToPlot.Enabled = true;
 
 			if (DrawRequested)
 			{
@@ -1007,15 +1009,13 @@ namespace Mappalachia
 
 				// We're about to overwrite some of the current user settings - so write to file now as we would on exit
 				Settings.SaveToFile();
-				Settings.DoNotSave = true;
 
-				Settings.Space = recipe.Space;
+				Settings = recipe.AsSettings();
 
 				ItemsToPlot.Clear();
 				ItemsToPlot.AddRange(recipe.ItemsToPlot);
 
-				Settings.PlotSettings = recipe.PlotSettings;
-				Settings.MapSettings = recipe.MapSettings;
+				Settings.DoNotSave = true;
 
 				UpdateFromSettings();
 			}

@@ -660,6 +660,14 @@ namespace Mappalachia
 			return (allInstances.Min(i => i.HeightForTopograph), allInstances.Max(i => i.HeightForTopograph));
 		}
 
+		// Return the fully-populated version of the same space from the database
+		// This can be used to ensure JSON-ignored data are restored
+		// Failing this, fall back to the first space
+		public static Space PopulateFromData(this Space space)
+		{
+			return AllSpaces.Where(s => s.Equals(space)).FirstOrDefault() ?? throw new Exception($"Space {space.EditorID} could not be found in the database.");
+		}
+
 		public static async Task<string> GetGameVersion()
 		{
 			return await CommonDatabase.GetGameVersion(Connection);

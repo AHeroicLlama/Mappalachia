@@ -1,14 +1,25 @@
 ﻿namespace Library
 {
-	public readonly struct Coord(double x, double y, double z = 0)
+	public struct Coord
 	{
-		public double X { get; } = x;
+		public Coord(double x, double y, double z = 0)
+		{
+			X = x;
+			Y = y;
+			Z = z;
+		}
 
-		public double Y { get; } = y;
+		public Coord()
+		{
+		}
 
-		public double Z { get; } = z;
+		public double X { get; set; }
 
-		public override string ToString()
+		public double Y { get; set; }
+
+		public double Z { get; set; }
+
+		public override readonly string ToString()
 		{
 			return $"{{X={X}, Y={Y}, Z={Z}}}";
 		}

@@ -29,9 +29,9 @@ namespace Mappalachia
 
 		public static Uri Releases { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia/releases");
 
-		public static Uri HelpDocs { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia#getting-started---user-guides");
+		public static Uri HelpDocs { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia#user-guides");
 
-		public static Uri SpotlightInstallationGuide { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia/blob/master/Docs/User/Installation.md#installing-spotlight");
+		public static Uri SpotlightInstallationGuide { get; } = new Uri("https://github.com/AHeroicLlama/Mappalachia/blob/master/Docs/User/Spotlight.md#installing-spotlight");
 
 		public static Uri DonatePaypal { get; } = new Uri("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TDVKFJ97TFFVC&source=url");
 	}
