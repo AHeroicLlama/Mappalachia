@@ -2,7 +2,7 @@
 {
 	public enum LockLevel
 	{
-		// Order is used to define percieved relevance and thus sort in the UI
+		// Order is used to define perceived relevance and thus sort in the UI
 		None,
 		Level0,
 		Level1,

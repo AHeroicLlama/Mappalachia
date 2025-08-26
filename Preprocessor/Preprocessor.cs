@@ -623,7 +623,7 @@ namespace Preprocessor
 		}
 
 		// Assigns NOT NULL and UNIQUE constraints on columns, also sets tables to STRICT (except Meta)
-		// Unfortately SQLite requires that we fully re-create the table in order to achieve this
+		// Unfortunately SQLite requires that we fully re-create the table in order to achieve this
 		static void AssignConstraints()
 		{
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Container;");
