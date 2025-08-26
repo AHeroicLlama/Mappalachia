@@ -49,7 +49,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="KGySoft.CoreLibraries" Version="9.0.0" />
+	<PackageReference Include="KGySoft.CoreLibraries" Version="10.0.0" />
 	<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.8" />
 	<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 	  <PrivateAssets>all</PrivateAssets>
