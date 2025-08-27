@@ -28,7 +28,7 @@ Ensure you open `mapmarkerslibrary.swf`, not the similarly named `mapmarkerlibra
 Some questions may appear, select 'Yes to all'.<br/>
 In JPEXS, on the left hand side displaying the contents of `mapmarkerslibrary.swf`, select the `sprites` folder.<br/>
 Under File > Export, select 'Export selection'. Ensure the file type is set as SVG, and the zoom is at 100%.<br/>
-Press OK and select the output location inside the cloned repository at `MapIconProcessor\extract\`.<br/>
+Press OK and select the output location inside the cloned repository at `MapIconProcessor\extract\`, creating the `extract\` folder if it does not exist.<br/>
 If errors appear, select 'Ignore All'. The bottom-left of the window will indicate when the extract has finished.<br/>
 This should now populate a `sprites` folder filled with around 200 sub-folders all prefixed "DefineSprite".
 

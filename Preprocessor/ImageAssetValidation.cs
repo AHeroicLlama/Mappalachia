@@ -44,23 +44,26 @@ namespace Preprocessor
 
 			// Inverse of above (excluding spotlight), check there are no extraneous files
 			// First check each cell file against a cell in the database
-			Parallel.ForEach(Directory.GetFiles(CellPath), file =>
+			if (Directory.Exists(CellPath))
 			{
-				string expectedEditorId = Path.GetFileNameWithoutExtension(file);
-
-				if (!spaces.Where(space => space.EditorID == expectedEditorId && !space.IsWorldspace).Any())
+				Parallel.ForEach(Directory.GetFiles(CellPath), file =>
 				{
-					FailValidation($"File {file} has no corresponding Cell and should be deleted.");
+					string expectedEditorId = Path.GetFileNameWithoutExtension(file);
+
+					if (!spaces.Where(space => space.EditorID == expectedEditorId && !space.IsWorldspace).Any())
+					{
+						FailValidation($"File {file} has no corresponding Cell and should be deleted.");
+					}
+				});
+
+				// Check the count of images in the cell image folder matches the count of cells in the DB
+				int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
+				int actualCellImageFiles = Directory.GetFiles(CellPath).Length;
+
+				if (actualCellImageFiles != expectedCellImageFiles)
+				{
+					FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
 				}
-			});
-
-			// Check the count of images in the cell image folder matches the count of cells in the DB
-			int expectedCellImageFiles = spaces.Where(space => !space.IsWorldspace).Count();
-			int actualCellImageFiles = Directory.GetFiles(CellPath).Length;
-
-			if (actualCellImageFiles != expectedCellImageFiles)
-			{
-				FailValidation($"Too {(actualCellImageFiles < expectedCellImageFiles ? "few" : "many")} files in the cell image folder. Expected {expectedCellImageFiles}, found {actualCellImageFiles}");
 			}
 
 			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map

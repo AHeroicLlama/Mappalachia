@@ -27,6 +27,13 @@ namespace BackgroundRenderer
 				}
 			}
 
+			if (!File.Exists(Fo76UtilsRenderPath))
+			{
+				StdOutWithColor($"FO76Utils render was not found at {Fo76UtilsRenderPath}. Please ensure this is in place first. For more info, see developer documentation.", ColorError);
+				Console.ReadKey();
+				return;
+			}
+
 			CleanUpSpotlight();
 
 			StdOutWithColor("Enter:\n1: Render (Inc. spotlight) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode\n4: Generate spotlight patch/diff", ColorQuestion);

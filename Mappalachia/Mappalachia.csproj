@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<OutputType>WinExe</OutputType>
@@ -68,8 +68,8 @@ Mappalachia is a Windows application for generating and exporting complex maps o
     </Compile>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	<Exec Command="robocopy $(SolutionDir)Assets\ $(TargetDir) /s&#xD;&#xA;robocopy $(SolutionDir)Assets\ $(ProjectDir)publish /s&#xD;&#xA;if %25errorlevel%25 leq 3 exit 0 else exit %25errorlevel%25" />
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="robocopy $(SolutionDir)Assets\ $(TargetDir) /s&#xD;&#xA;robocopy $(SolutionDir)Assets\ $(ProjectDir)publish /s&#xD;&#xA;if %25errorlevel%25 leq 3 exit 0 else exit %25errorlevel%25" />
   </Target>
 
 </Project>

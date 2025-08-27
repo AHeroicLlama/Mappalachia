@@ -71,6 +71,8 @@ namespace Preprocessor
 			{
 				stopwatch.Start();
 				Preprocess();
+				ValidateDatabase();
+				ValidateImageAssets();
 			}
 
 			StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", ColorInfo);

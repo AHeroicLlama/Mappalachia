@@ -10,7 +10,7 @@
 The Mappalachia Preprocessor is a C# .NET CLI tool responsible for assembling and populating the database. It takes in the exported CSVs from XEdit and transforms and combines the data into its final form. It also performs validation against both the database and the existing image assets.<br/>
 
 ## How to use the Preprocessor
-Before running, ensure that `sqlite3.exe` is placed into the `Utilities\` folder. This can be found at the [SQLite downloads page](https://www.sqlite.org/download.html), under precombiled binaries for Windows.
+Before running, create the `Utilities\` folder at the root of the repository, and place `sqlite3.exe` into it. This can be found at the [SQLite downloads page](https://www.sqlite.org/download.html), under precombiled binaries for Windows.
 
 Find the Preprocessor project inside the main Mappalachia solution at `Mappalachia.sln`, then build and start the `Preprocessor` project.<br/>
 If the database does not exist, it will automatically generate the database and perform data and image asset validation.<br/>

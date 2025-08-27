@@ -195,6 +195,12 @@ namespace Library
 			StdOutWithColor("Checking for unnecessary tile files...", ColorInfo);
 			List<Space> spaces = await CommonDatabase.GetAllSpaces(GetNewConnection());
 
+			if (!Directory.Exists(SpotlightPath))
+			{
+				StdOutWithColor("Spotlight path not found - unable to cleanup", ColorError);
+				return;
+			}
+
 			// The spotlight directory should have no file at root
 			foreach (string file in Directory.GetFiles(SpotlightPath))
 			{
