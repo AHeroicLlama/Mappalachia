@@ -2192,6 +2192,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 79032,PackInTESTPackInStorageCell,,0,0
 7912861,DebugBSTownBuildings,,0,0
 7916511,WarehouseRaids,Quick Test Cell,0,1
+7917384,StormPresidentialBunker,Presidential Bunker,0,0
 79246,PackInPACKForestTreeX04bStorageCell,,0,0
 79247,PackInPACKForestTreeX04StorageCell,,0,0
 7935480,76HoldingCellMile,Quick Test Cell,0,0

@@ -147,8 +147,9 @@ namespace Library
 			"spaceEditorID LIKE 'PackIn%' OR " +
 			"spaceEditorID LIKE 'COPY%' OR " +
 			"spaceEditorID LIKE 'XPD%SteelTower%' OR " +
-			"spaceDisplayName = 'Purgatory' OR " +
-			"spaceDisplayName = 'Vault 63 Engineering Sector' OR " +
+			"spaceEditorID = 'StormPresidentialBunker' OR " +
+			"spaceEditorID = 'StormEngineeringVlt63' OR " +
+			"spaceEditorID = 'XPDPitt02ACCJ' OR " +
 			"spaceDisplayName = 'Diamond City' OR " +
 			"spaceDisplayName = 'Goodneighbor'";
 

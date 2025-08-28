@@ -401,7 +401,7 @@ namespace Preprocessor
 			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, COUNT(signature) FROM Entity GROUP BY signature;"));
 			AddToSummaryReport("Position PreGrouped Count", SimpleQuery("SELECT COUNT(*) FROM Position_PreGrouped;"));
 			AddToSummaryReport("Avg Num Instances per Reference", SimpleQuery("SELECT AVG(count) FROM Position_PreGrouped;"));
-			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT COUNT(DISTINCT referenceFormID) FROM Position;").First()} = {SimpleQuery("SELECT count(DISTINCT referenceFormID) FROM Position_PreGrouped;").First()} = {SimpleQuery("SELECT count(DISTINCT entityFormID) FROM Entity;").First()}");
+			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT COUNT(*) FROM (SELECT contentFormID FROM Container UNION SELECT referenceFormID FROM Position);").First()} = {SimpleQuery("SELECT COUNT(*) FROM (SELECT contentFormID FROM Container UNION SELECT referenceFormID FROM Position_PreGrouped);").First()} = {SimpleQuery("SELECT count(DISTINCT entityFormID) FROM Entity;").First()}");
 			AddToSummaryReport("Avg Length Entity DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(displayName) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Entity EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(editorID) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Space DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceDisplayName) AS length FROM Space);"));
