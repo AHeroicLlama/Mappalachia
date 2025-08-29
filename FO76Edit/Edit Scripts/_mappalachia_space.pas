@@ -18,6 +18,7 @@ unit _mappalachia_space;
 		createDir('Output');
 		AddMessage('Writing output to file: ' + outputFile);
 		outputStrings.SaveToFile(outputFile);
+		outputStrings.Free;
 	end;
 
 	procedure ripWorldspaces();

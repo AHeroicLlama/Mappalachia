@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+namespace Mappalachia
 {
 	public partial class FormClusterSettings : GenericToolForm
 	{
@@ -90,7 +90,7 @@
 			labelClusterMinWeight.Text = $"Min. Cluster Weight ({trackBarClusterMinWeight.Value})";
 		}
 
-		void UpdateMapView()
+		async void UpdateMapView()
 		{
 			if (!Initialized)
 			{
@@ -99,7 +99,7 @@
 
 			if (checkBoxLiveUpdate.Checked)
 			{
-				FormMain.ClusterSettingsLiveUpdate(ClusterSettings);
+				await FormMain.ClusterSettingsLiveUpdate(ClusterSettings);
 			}
 		}
 

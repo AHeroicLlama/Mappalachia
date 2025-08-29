@@ -28,7 +28,7 @@ namespace Preprocessor
 
 		static float MaxBlackPixelsBackgroundPerc { get; } = 90f;
 
-		static async void ValidateImageAssets()
+		static async Task ValidateImageAssets()
 		{
 			Console.WriteLine("Validating image assets");
 
@@ -98,7 +98,7 @@ namespace Preprocessor
 			}
 
 			// Similarly, now check the spotlight structure for extraneous files
-			CleanUpSpotlight();
+			await CleanUpSpotlight();
 
 			ValidatePlotIcons();
 

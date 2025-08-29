@@ -22,6 +22,7 @@ unit _mappalachia_position;
 		AddMessage('Writing position output to file: ' + outputFile);
 		createDir('Output');
 		outputStrings.SaveToFile(outputFile);
+		outputStrings.Free;
 	end;
 
 	// Rips all interiors

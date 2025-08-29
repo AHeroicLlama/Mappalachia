@@ -34,7 +34,7 @@ namespace BackgroundRenderer
 				return;
 			}
 
-			CleanUpSpotlight();
+			await CleanUpSpotlight();
 
 			StdOutWithColor("Enter:\n1: Render (Inc. spotlight) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode\n4: Generate spotlight patch/diff", ColorQuestion);
 

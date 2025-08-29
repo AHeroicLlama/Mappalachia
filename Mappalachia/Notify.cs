@@ -46,7 +46,6 @@ namespace Mappalachia
 			{
 				Console.WriteLine(summary);
 				Console.WriteLine(body);
-				Console.ResetColor();
 				return;
 			}
 
@@ -89,7 +88,7 @@ namespace Mappalachia
 			{
 				Caption = "Spotlight",
 				Heading = "Spotlight is not installed",
-				Text = "Spotlight mode is a free feature available through an optional download. It appears you have not installed it yet, however.\n\nIf you'd like to use spotlight, please use the button below to follow the quick installation guide, before trying again.",
+				Text = "Spotlight mode is a free feature available through an optional download. It appears you have not installed it yet, however.\n\nIf you'd like to use spotlight, please use the button below to follow the quick installation guide, before trying again.\nSpotlight will continue to operate in low resolution mode until then.",
 				Icon = TaskDialogIcon.Warning,
 				AllowCancel = true,
 				DefaultButton = openInstallGuide,

@@ -76,7 +76,7 @@
 			labelClusterMinWeight.Text = $"Intensity ({trackBarIntensity.Value})";
 		}
 
-		void UpdateMapView()
+		async void UpdateMapView()
 		{
 			if (!Initialized)
 			{
@@ -85,7 +85,7 @@
 
 			if (checkBoxLiveUpdate.Checked)
 			{
-				FormMain.HeatmapSettingsLiveUpdate(HeatmapSettings);
+				await FormMain.HeatmapSettingsLiveUpdate(HeatmapSettings);
 			}
 		}
 	}

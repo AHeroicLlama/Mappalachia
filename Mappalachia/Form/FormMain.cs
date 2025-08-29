@@ -88,7 +88,12 @@ namespace Mappalachia
 
 			FormMapView = new FormMapView(this);
 
-			UpdateFromSettings(true);
+			UpdateFromSettingsOnStartup();
+		}
+
+		async void UpdateFromSettingsOnStartup()
+		{
+			await UpdateFromSettings(true);
 		}
 
 		public bool ProcessCmdKeyFromChild(ref Message message, Keys keys)
@@ -99,19 +104,19 @@ namespace Mappalachia
 		}
 
 		// Functions for forms which update map/settings before they close, ensuring the UI is updated and the map redrawn if necessary
-		public void SetSpotlightLocation(PointF point)
+		public async Task SetSpotlightLocation(PointF point)
 		{
 			Settings.MapSettings.SpotlightLocation = point.AsWorldCoord(Settings);
 			Settings.MapSettings.SpotlightEnabled = true;
-			UpdateFromSettings();
+			await UpdateFromSettings();
 		}
 
-		public void ToggleSpotlight(bool enabled)
+		public async Task ToggleSpotlight(bool enabled)
 		{
-			SetSetting(() => Settings.MapSettings.SpotlightEnabled = enabled);
+			await SetSetting(() => Settings.MapSettings.SpotlightEnabled = enabled);
 		}
 
-		public void OpenSpotlightSetSizeDialog(bool topMost = false)
+		public async Task OpenSpotlightSetSizeDialog(bool topMost = false)
 		{
 			FormSetSpotlightSize spotlightRangeForm = new FormSetSpotlightSize(Settings)
 			{
@@ -120,26 +125,26 @@ namespace Mappalachia
 
 			if (spotlightRangeForm.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.MapSettings.SpotlightSize = spotlightRangeForm.SpotlightRange);
+				await SetSetting(() => Settings.MapSettings.SpotlightSize = spotlightRangeForm.SpotlightRange);
 			}
 		}
 
 		// Called by cluster settings 'live preview' - intentionally do not update UI, just draw the map
-		public void ClusterSettingsLiveUpdate(ClusterSettings newClusterSettings)
+		public async Task ClusterSettingsLiveUpdate(ClusterSettings newClusterSettings)
 		{
 			Settings.PlotSettings.ClusterSettings = newClusterSettings;
 			Settings.PlotSettings.Mode = PlotMode.Cluster;
 
-			DrawMap();
+			await DrawMap();
 		}
 
 		// Called by heatmap settings 'live preview' - intentionally do not update UI, just draw the map
-		public void HeatmapSettingsLiveUpdate(HeatmapSettings newHeatmapSettings)
+		public async Task HeatmapSettingsLiveUpdate(HeatmapSettings newHeatmapSettings)
 		{
 			Settings.PlotSettings.HeatmapSettings = newHeatmapSettings;
 			Settings.PlotSettings.Mode = PlotMode.Heatmap;
 
-			DrawMap();
+			await DrawMap();
 		}
 
 		// Return the header for a DataGridViewColumn with the given name
@@ -235,7 +240,7 @@ namespace Mappalachia
 		}
 
 		// Read in fields from Settings and update UI elements respectively
-		void UpdateFromSettings(bool reDraw = true, bool reSearch = false)
+		async Task UpdateFromSettings(bool reDraw = true, bool reSearch = false)
 		{
 			Settings.ResolveConflictingSettings();
 
@@ -379,16 +384,16 @@ namespace Mappalachia
 
 			if (reSearch)
 			{
-				Search();
+				await Search();
 			}
 
 			if (reDraw)
 			{
-				DrawMap();
+				await DrawMap();
 			}
 		}
 
-		async void Search()
+		async Task Search()
 		{
 			List<GroupedSearchResult> searchResults = await Database.Search(Settings);
 
@@ -421,7 +426,7 @@ namespace Mappalachia
 			}
 		}
 
-		public async void DrawMap()
+		public async Task DrawMap()
 		{
 			if (CurrentlyDrawing)
 			{
@@ -457,7 +462,7 @@ namespace Mappalachia
 			if (DrawRequested)
 			{
 				DrawRequested = false;
-				DrawMap();
+				await DrawMap();
 			}
 		}
 
@@ -484,7 +489,7 @@ namespace Mappalachia
 		}
 
 		// If the location cell is double clicked, set the current space to that space
-		private void SwitchSpaceOnDoubleClick(DataGridView dataGridView, DataGridViewCellEventArgs e)
+		private async Task SwitchSpaceOnDoubleClick(DataGridView dataGridView, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.ColumnIndex < 0)
 			{
@@ -500,7 +505,7 @@ namespace Mappalachia
 
 				if (!clickedSpace.Equals(Settings.Space))
 				{
-					SetSetting(() => Settings.Space = Database.AllSpaces.FirstOrDefault(s => s.Equals(clickedSpace)) ?? Settings.Space, true, false);
+					await SetSetting(() => Settings.Space = Database.AllSpaces.FirstOrDefault(s => s.Equals(clickedSpace)) ?? Settings.Space, true, false);
 				}
 			}
 		}
@@ -692,7 +697,7 @@ namespace Mappalachia
 			UpdateDataGridAppearances();
 
 			dataGridView.CellToolTipTextNeeded += (s, e) => SetDataGridCellToolTip(dataGridView, e);
-			dataGridView.CellDoubleClick += (s, e) => SwitchSpaceOnDoubleClick(dataGridView, e);
+			dataGridView.CellDoubleClick += async (s, e) => await SwitchSpaceOnDoubleClick(dataGridView, e);
 			dataGridView.DataError += (s, e) =>
 			{
 				e.ThrowException = false;
@@ -783,10 +788,10 @@ namespace Mappalachia
 		}
 
 		// Shorthand to apply a new user-selected setting, update the UI, and optionally redraw the map
-		void SetSetting(Action setSetting, bool redraw = true, bool reSearch = false)
+		async Task SetSetting(Action setSetting, bool redraw = true, bool reSearch = false)
 		{
 			setSetting();
-			UpdateFromSettings(redraw, reSearch);
+			await UpdateFromSettings(redraw, reSearch);
 		}
 
 		void DontCloseClickedDropDown(object? sender, ToolStripDropDownClosingEventArgs e)
@@ -818,9 +823,9 @@ namespace Mappalachia
 			BringToFront();
 		}
 
-		private void ButtonSearch_Click(object sender, EventArgs e)
+		private async void ButtonSearch_Click(object sender, EventArgs e)
 		{
-			Search();
+			await Search();
 		}
 
 		private void Map_ShowPreview_Click(object sender, EventArgs e)
@@ -833,99 +838,99 @@ namespace Mappalachia
 			FileIO.TempSave(FormMapView.MapImage, true);
 		}
 
-		private void Map_SetTitle_Click(object sender, EventArgs e)
+		private async void Map_SetTitle_Click(object sender, EventArgs e)
 		{
 			FormSetTitle titleForm = new FormSetTitle(Settings);
 
 			if (titleForm.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.MapSettings.Title = titleForm.TextBoxValue);
+				await SetSetting(() => Settings.MapSettings.Title = titleForm.TextBoxValue);
 			}
 		}
 
-		private void Map_SetFontSizes_Click(object sender, EventArgs e)
+		private async void Map_SetFontSizes_Click(object sender, EventArgs e)
 		{
 			FormFontSettings fontSettingsForm = new FormFontSettings(Settings.MapSettings.FontSettings);
 
 			if (fontSettingsForm.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.MapSettings.FontSettings = fontSettingsForm.FontSettings);
+				await SetSetting(() => Settings.MapSettings.FontSettings = fontSettingsForm.FontSettings);
 			}
 		}
 
-		private void Map_MapMarkers_Icons_Click(object sender, EventArgs e)
+		private async void Map_MapMarkers_Icons_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.MapMarkerIcons = !Settings.MapSettings.MapMarkerIcons);
+			await SetSetting(() => Settings.MapSettings.MapMarkerIcons = !Settings.MapSettings.MapMarkerIcons);
 		}
 
-		private void Map_MapMarkers_Labels_Click(object sender, EventArgs e)
+		private async void Map_MapMarkers_Labels_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.MapMarkerLabels = !Settings.MapSettings.MapMarkerLabels);
+			await SetSetting(() => Settings.MapSettings.MapMarkerLabels = !Settings.MapSettings.MapMarkerLabels);
 		}
 
-		private void Map_Background_Normal_Click(object sender, EventArgs e)
+		private async void Map_Background_Normal_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Menu);
+			await SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Menu);
 		}
 
-		private void Map_Background_Satellite_Click(object sender, EventArgs e)
+		private async void Map_Background_Satellite_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Render);
+			await SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Render);
 		}
 
-		private void Map_Background_Military_Click(object sender, EventArgs e)
+		private async void Map_Background_Military_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Military);
+			await SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.Military);
 		}
 
-		private void Map_Background_None_Click(object sender, EventArgs e)
+		private async void Map_Background_None_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.None);
+			await SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.None);
 		}
 
-		private void Map_Spotlight_Enabled_Click(object sender, EventArgs e)
+		private async void Map_Spotlight_Enabled_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.SpotlightEnabled = !Settings.MapSettings.SpotlightEnabled);
+			await SetSetting(() => Settings.MapSettings.SpotlightEnabled = !Settings.MapSettings.SpotlightEnabled);
 		}
 
-		private void Map_Grayscale_Click(object sender, EventArgs e)
+		private async void Map_Grayscale_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground);
+			await SetSetting(() => Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground);
 		}
 
-		private void Map_SetBrightness_Click(object sender, EventArgs e)
+		private async void Map_SetBrightness_Click(object sender, EventArgs e)
 		{
 			FormSetBrightness brightnessForm = new FormSetBrightness(Settings);
 
 			if (brightnessForm.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.MapSettings.Brightness = brightnessForm.BrightnessValue);
+				await SetSetting(() => Settings.MapSettings.Brightness = brightnessForm.BrightnessValue);
 			}
 		}
 
-		private void Map_HighlightWater_Click(object sender, EventArgs e)
+		private async void Map_HighlightWater_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
+			await SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
 		}
 
-		private void Map_Compass_Always_Click(object sender, EventArgs e)
+		private async void Map_Compass_Always_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.Always);
+			await SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.Always);
 		}
 
-		private void Map_Compass_WhenUseful_Click(object sender, EventArgs e)
+		private async void Map_Compass_WhenUseful_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.WhenUseful);
+			await SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.WhenUseful);
 		}
 
-		private void Map_Compass_Never_Click(object sender, EventArgs e)
+		private async void Map_Compass_Never_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.Off);
+			await SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.Off);
 		}
 
-		private void Map_Spotlight_SetRange_Click(object sender, EventArgs e)
+		private async void Map_Spotlight_SetRange_Click(object sender, EventArgs e)
 		{
-			OpenSpotlightSetSizeDialog();
+			await OpenSpotlightSetSizeDialog();
 		}
 
 		private void Map_Spotlight_Coord_Click(object sender, EventArgs e)
@@ -938,19 +943,19 @@ namespace Mappalachia
 			ShowMapPreview();
 		}
 
-		private void Map_Legend_Normal_Click(object sender, EventArgs e)
+		private async void Map_Legend_Normal_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Normal);
+			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Normal);
 		}
 
-		private void Map_Legend_Extended_Click(object sender, EventArgs e)
+		private async void Map_Legend_Extended_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Extended);
+			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Extended);
 		}
 
-		private void Map_Legend_Hidden_Click(object sender, EventArgs e)
+		private async void Map_Legend_Hidden_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.None);
+			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.None);
 		}
 
 		private void Map_SaveImage_Click(object sender, EventArgs e)
@@ -992,7 +997,7 @@ namespace Mappalachia
 			mapMenuItem.DropDown.Close();
 		}
 
-		private void Map_LoadRecipe_Click(object sender, EventArgs e)
+		private async void Map_LoadRecipe_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog() { InitialDirectory = Path.GetFullPath(Paths.RecipesPath), Filter = Common.RecipeFileFilter };
 
@@ -1017,7 +1022,7 @@ namespace Mappalachia
 
 				Settings.DoNotSave = true;
 
-				UpdateFromSettings();
+				await UpdateFromSettings();
 			}
 		}
 
@@ -1040,16 +1045,16 @@ namespace Mappalachia
 			}
 		}
 
-		private void Map_ClearPlots_Click(object sender, EventArgs e)
+		private async void Map_ClearPlots_Click(object sender, EventArgs e)
 		{
 			ItemsToPlot.Clear();
 			dataGridViewItemsToPlot.ClearSort();
 
 			mapMenuItem.DropDown.Close();
-			UpdateFromSettings();
+			await UpdateFromSettings();
 		}
 
-		private void Map_Reset_Click(object sender, EventArgs e)
+		private async void Map_Reset_Click(object sender, EventArgs e)
 		{
 			Settings.Space = Database.AllSpaces.First();
 			Settings.MapSettings = new MapSettings(Settings);
@@ -1060,52 +1065,52 @@ namespace Mappalachia
 			FormMapView.SizeMapToForm();
 
 			mapMenuItem.DropDown.Close();
-			UpdateFromSettings();
+			await UpdateFromSettings();
 		}
 
-		private void ComboBoxSpace_SelectionChangeCommitted(object sender, EventArgs e)
+		private async void ComboBoxSpace_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			Settings.Space = (Space)(comboBoxSpace.SelectedItem ?? throw new Exception("Space combobox SelectedItem was null"));
 			Settings.ResolveConflictingSettings();
-			UpdateFromSettings();
+			await UpdateFromSettings();
 		}
 
-		private void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
+		private async void Search_SearchInAllSpaces_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces, false, true);
+			await SetSetting(() => Settings.SearchSettings.SearchInAllSpaces = !Settings.SearchSettings.SearchInAllSpaces, false, true);
 		}
 
-		private void Search_SearchInInstancesOnly_click(object sender, EventArgs e)
+		private async void Search_SearchInInstancesOnly_click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.SearchSettings.SearchInInstancesOnly = !Settings.SearchSettings.SearchInInstancesOnly, false, true);
+			await SetSetting(() => Settings.SearchSettings.SearchInInstancesOnly = !Settings.SearchSettings.SearchInInstancesOnly, false, true);
 		}
 
-		private void Search_AdvancedMode_Click(object sender, EventArgs e)
+		private async void Search_AdvancedMode_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced, false, true);
+			await SetSetting(() => Settings.SearchSettings.Advanced = !Settings.SearchSettings.Advanced, false, true);
 		}
 
-		private void Plot_Mode_Standard_Click(object sender, EventArgs e)
+		private async void Plot_Mode_Standard_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Standard);
+			await SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Standard);
 		}
 
-		private void Plot_Mode_Topographic_Click(object sender, EventArgs e)
+		private async void Plot_Mode_Topographic_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Topographic);
+			await SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Topographic);
 		}
 
-		private void Plot_Mode_Heatmap_Click(object sender, EventArgs e)
+		private async void Plot_Mode_Heatmap_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Heatmap);
+			await SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Heatmap);
 		}
 
-		private void Plot_Mode_Cluster_Click(object sender, EventArgs e)
+		private async void Plot_Mode_Cluster_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Cluster);
+			await SetSetting(() => Settings.PlotSettings.Mode = PlotMode.Cluster);
 		}
 
-		private void Plot_ClusterSettings_Click(object sender, EventArgs e)
+		private async void Plot_ClusterSettings_Click(object sender, EventArgs e)
 		{
 			// Capture the current plot mode so it can be restored to if the dialog is cancelled
 			LastPlotMode = Settings.PlotSettings.Mode;
@@ -1115,18 +1120,18 @@ namespace Mappalachia
 
 			if (result == DialogResult.OK)
 			{
-				SetSetting(() => Settings.PlotSettings.ClusterSettings = clusterForm.ClusterSettings);
+				await SetSetting(() => Settings.PlotSettings.ClusterSettings = clusterForm.ClusterSettings);
 			}
 			else
 			{
 				// The form did not return OK, so we restore the last plot mode and redraw
-				SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
+				await SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
 			}
 
 			plotSettingsMenuItem.DropDown.Close();
 		}
 
-		private void Plot_HeatmapSettings_Click(object sender, EventArgs e)
+		private async void Plot_HeatmapSettings_Click(object sender, EventArgs e)
 		{
 			// Capture the current plot mode so it can be restored to if the dialog is cancelled
 			LastPlotMode = Settings.PlotSettings.Mode;
@@ -1136,55 +1141,55 @@ namespace Mappalachia
 
 			if (result == DialogResult.OK)
 			{
-				SetSetting(() => Settings.PlotSettings.HeatmapSettings = heatmapForm.HeatmapSettings);
+				await SetSetting(() => Settings.PlotSettings.HeatmapSettings = heatmapForm.HeatmapSettings);
 			}
 			else
 			{
 				// The form did not return OK, so we restore the last plot mode and redraw
-				SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
+				await SetSetting(() => Settings.PlotSettings.Mode = LastPlotMode);
 			}
 
 			plotSettingsMenuItem.DropDown.Close();
 		}
 
-		private void Plot_PlotStyles_Click(object sender, EventArgs e)
+		private async void Plot_PlotStyles_Click(object sender, EventArgs e)
 		{
 			FormPlotStyles formPlotStyles = new FormPlotStyles(Settings.PlotSettings.PlotStyleSettings);
 
 			if (formPlotStyles.ShowDialog() == DialogResult.OK)
 			{
-				SetSetting(() => Settings.PlotSettings.PlotStyleSettings = formPlotStyles.PlotStyleSettings);
+				await SetSetting(() => Settings.PlotSettings.PlotStyleSettings = formPlotStyles.PlotStyleSettings);
 			}
 		}
 
-		private void Plot_Volume_Fill_Click(object sender, EventArgs e)
+		private async void Plot_Volume_Fill_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Fill);
+			await SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Fill);
 		}
 
-		private void Plot_Volume_Border_Click(object sender, EventArgs e)
+		private async void Plot_Volume_Border_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Border);
+			await SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Border);
 		}
 
-		private void Plot_Volume_Both_Click(object sender, EventArgs e)
+		private async void Plot_Volume_Both_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Both);
+			await SetSetting(() => Settings.PlotSettings.VolumeDrawMode = VolumeDrawMode.Both);
 		}
 
-		private void Plot_ShowPlotsInOtherSpaces(object sender, EventArgs e)
+		private async void Plot_ShowPlotsInOtherSpaces(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.AutoFindPlotsInConnectedSpaces = !Settings.PlotSettings.AutoFindPlotsInConnectedSpaces);
+			await SetSetting(() => Settings.PlotSettings.AutoFindPlotsInConnectedSpaces = !Settings.PlotSettings.AutoFindPlotsInConnectedSpaces);
 		}
 
-		private void Plot_ShowRegionLevels_Click(object sender, EventArgs e)
+		private async void Plot_ShowRegionLevels_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.ShowRegionLevels = !Settings.PlotSettings.ShowRegionLevels);
+			await SetSetting(() => Settings.PlotSettings.ShowRegionLevels = !Settings.PlotSettings.ShowRegionLevels);
 		}
 
-		private void Plot_DrawInstanceFormIDs_Click(object sender, EventArgs e)
+		private async void Plot_DrawInstanceFormIDs_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.PlotSettings.DrawInstanceFormID = !Settings.PlotSettings.DrawInstanceFormID);
+			await SetSetting(() => Settings.PlotSettings.DrawInstanceFormID = !Settings.PlotSettings.DrawInstanceFormID);
 		}
 
 		private void Help_About_Click(object sender, EventArgs e)
@@ -1213,7 +1218,7 @@ namespace Mappalachia
 		}
 
 		// Note that this creates a new instance of Settings, so references passed will become disconnected
-		private void Help_ResetEverything_Click(object sender, EventArgs e)
+		private async void Help_ResetEverything_Click(object sender, EventArgs e)
 		{
 			Settings = new Settings();
 			SearchResults.Clear();
@@ -1222,7 +1227,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.ClearSort();
 			FormMapView.SizeMapToForm();
 			FileIO.FlushSpotlightTileImageCache();
-			UpdateFromSettings();
+			await UpdateFromSettings();
 		}
 
 		private void Discord_Click(object sender, EventArgs e)
@@ -1240,32 +1245,32 @@ namespace Mappalachia
 			Settings.SearchSettings.SearchTerm = textBoxSearch.Text;
 		}
 
-		private void ButtonSelectAllSignature_Click(object sender, EventArgs e)
+		private async void ButtonSelectAllSignature_Click(object sender, EventArgs e)
 		{
 			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().ToList();
-			UpdateFromSettings(false, false);
+			await UpdateFromSettings(false, false);
 		}
 
-		private void ButtonSelectRecommended_Click(object sender, EventArgs e)
+		private async void ButtonSelectRecommended_Click(object sender, EventArgs e)
 		{
 			Settings.SearchSettings.SelectedSignatures = Enum.GetValues<Signature>().Where(s => s.IsRecommendedSelection()).ToList();
-			UpdateFromSettings(false, false);
+			await UpdateFromSettings(false, false);
 		}
 
-		private void ButtonUnselectAllSignature_Click(object sender, EventArgs e)
+		private async void ButtonUnselectAllSignature_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.SearchSettings.SelectedSignatures.Clear(), false, false);
+			await SetSetting(() => Settings.SearchSettings.SelectedSignatures.Clear(), false, false);
 		}
 
-		private void ButtonSelectAllLockLevel_Click(object sender, EventArgs e)
+		private async void ButtonSelectAllLockLevel_Click(object sender, EventArgs e)
 		{
 			Settings.SearchSettings.SelectedLockLevels = Enum.GetValues<LockLevel>().ToList();
-			UpdateFromSettings(false, false);
+			await UpdateFromSettings(false, false);
 		}
 
-		private void ButtonUnselectAllLockLevel_Click(object sender, EventArgs e)
+		private async void ButtonUnselectAllLockLevel_Click(object sender, EventArgs e)
 		{
-			SetSetting(() => Settings.SearchSettings.SelectedLockLevels.Clear(), false, false);
+			await SetSetting(() => Settings.SearchSettings.SelectedLockLevels.Clear(), false, false);
 		}
 
 		private void ButtonAddToMap_Click(bool addAsGroup = false)
@@ -1375,9 +1380,9 @@ namespace Mappalachia
 			}
 		}
 
-		private void ButtonUpdateMap_Click(object sender, EventArgs e)
+		private async void ButtonUpdateMap_Click(object sender, EventArgs e)
 		{
-			DrawMap();
+			await DrawMap();
 			ShowMapPreview();
 		}
 

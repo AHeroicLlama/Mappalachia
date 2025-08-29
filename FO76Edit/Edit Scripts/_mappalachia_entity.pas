@@ -48,6 +48,8 @@ unit _mappalachia_entity;
 		AddMessage('Writing output to file: ' + outputFileContainer);
 		outputStrings.SaveToFile(outputFile);
 		outputStringsContainer.SaveToFile(outputFileContainer);
+		outputStrings.Free;
+		outputStringsContainer.Free;
 	end;
 
 	procedure ripItem(item : IInterface; signature : String);

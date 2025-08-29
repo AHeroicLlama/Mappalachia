@@ -12,7 +12,7 @@ unit _mappalachia_lib;
 		Result := StringReplace(input, '''', '''''', [rfReplaceAll]);
 	end;
 
-	// Handle the pulling of every recrod from a given signature group and write it to the output file.
+	// Handle the pulling of every record from a given signature group and write it to the output file.
 	// Calling script must provide its own ripItem method for handling each actual entry.
 	// See: goToRipItem()
 	function processRecordGroup(signature, fileName: String): Integer;
@@ -31,6 +31,7 @@ unit _mappalachia_lib;
 		AddMessage('Writing output to file: ' + outputFile);
 		createDir('Output');
 		outputStrings.SaveToFile(outputFile);
+		outputStrings.Free;
 	end;
 
 	// The ripItem method exists for many units.

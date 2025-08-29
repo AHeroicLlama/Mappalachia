@@ -190,7 +190,7 @@ namespace Library
 		}
 
 		// Filters through the spotlight folder and attempts to locate and remove redundant old tiles/folders or rogue files/folders
-		public static async void CleanUpSpotlight()
+		public static async Task CleanUpSpotlight()
 		{
 			StdOutWithColor("Checking for unnecessary tile files...", ColorInfo);
 			List<Space> spaces = await CommonDatabase.GetAllSpaces(GetNewConnection());

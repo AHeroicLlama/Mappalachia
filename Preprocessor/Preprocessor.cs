@@ -15,7 +15,7 @@ namespace Preprocessor
 
 		static int CellPadding { get; } = 300; // Number of game units which we expand the Cell's maxRange value, above the initial crop
 
-		static void Main()
+		static async Task Main()
 		{
 			Console.Title = "Mappalachia Preprocessor";
 
@@ -40,22 +40,22 @@ namespace Preprocessor
 				switch (input)
 				{
 					case '1':
-						Preprocess();
+						await Preprocess();
 						ValidateDatabase();
-						ValidateImageAssets();
+						await ValidateImageAssets();
 						break;
 					case '2':
 						ValidateDatabase();
-						ValidateImageAssets();
+						await ValidateImageAssets();
 						break;
 					case '3':
 						ValidateDatabase();
 						break;
 					case '4':
-						ValidateImageAssets();
+						await ValidateImageAssets();
 						break;
 					case '5': // Deprecated hidden option for debugging DB w/o checking image assets
-						Preprocess();
+						await Preprocess();
 						ValidateDatabase();
 						break;
 
@@ -70,16 +70,16 @@ namespace Preprocessor
 			else
 			{
 				stopwatch.Start();
-				Preprocess();
+				await Preprocess();
 				ValidateDatabase();
-				ValidateImageAssets();
+				await ValidateImageAssets();
 			}
 
 			StdOutWithColor($"Finished. {stopwatch.Elapsed.ToString(@"m\m\ s\s")}. Press any key", ColorInfo);
 			Console.ReadKey();
 		}
 
-		static async void Preprocess()
+		static async Task Preprocess()
 		{
 			Directory.CreateDirectory(DataPath);
 
@@ -365,12 +365,12 @@ namespace Preprocessor
 			SimpleQuery("VACUUM;");
 			SimpleQuery("PRAGMA query_only;");
 
-			GenerateSummary();
+			await GenerateSummary();
 
 			StdOutWithColor($"Build and Preprocess Done.\n", ColorInfo);
 		}
 
-		static async void GenerateSummary()
+		static async Task GenerateSummary()
 		{
 			StdOutWithColor($"\nGenerating Summary Report at {DatabaseSummaryPath}\n", ColorInfo);
 
@@ -455,9 +455,9 @@ namespace Preprocessor
 				double maxRadius = space.MaxRange / 2d;
 
 				// Find the count of coordinates in the space which are further from the center than the max range
-				int outlierSum = coordinates.Where(c =>
+				int outlierSum = coordinates.Count(c =>
 					Math.Abs(space.CenterX - c.X) > maxRadius ||
-					Math.Abs(space.CenterY - c.Y) > maxRadius).Count();
+					Math.Abs(space.CenterY - c.Y) > maxRadius);
 
 				spaceExterns.Add($"{space.EditorID}:{outlierSum}");
 				spaceChecksums.Add($"{space.EditorID}:{coordinates.ApproximateChecksum()}");
@@ -917,10 +917,7 @@ namespace Preprocessor
 		}
 
 		// Returns num/denom
-		static string DivideString(string num, string denom)
-		{
-			return (double.Parse(num) / double.Parse(denom)).ToString();
-		}
+		static string DivideString(string num, string denom) => (double.Parse(num) / double.Parse(denom)).ToString();
 
 		// Simplifies/corrects the given lock level string
 		static string ReduceLockLevel(string lockLevel)

@@ -183,20 +183,20 @@ namespace Mappalachia
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
 			ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
 
-			spotlight.Click += (s, args) =>
+			spotlight.Click += async (s, args) =>
 			{
 				float factor = GetZoomFactor();
 
 				// Extended legend style results in a final image larger than the normal dimensions
 				if (FormMain.Settings.MapSettings.LegendStyle == LegendStyle.Extended)
 				{
-					FormMain.SetSpotlightLocation(new PointF(
+					await FormMain.SetSpotlightLocation(new PointF(
 						(e.X * factor) - (MapImage.Width - Common.MapImageResolution),
 						(e.Y * factor) - ((MapImage.Width - Common.MapImageResolution) / 2)));
 				}
 				else
 				{
-					FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
+					await FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
 				}
 
 				SizeMapToForm();
@@ -209,15 +209,15 @@ namespace Mappalachia
 				ToolStripMenuItem turnOff = new ToolStripMenuItem() { Text = "Turn Off Spotlight" };
 				ToolStripMenuItem setSize = new ToolStripMenuItem() { Text = "Set Spotlight Size..." };
 
-				turnOff.Click += (s, args) =>
+				turnOff.Click += async (s, args) =>
 				{
-					FormMain.ToggleSpotlight(false);
+					await FormMain.ToggleSpotlight(false);
 					SizeMapToForm();
 				};
 
-				setSize.Click += (s, args) =>
+				setSize.Click += async (s, args) =>
 				{
-					FormMain.OpenSpotlightSetSizeDialog(TopMost);
+					await FormMain.OpenSpotlightSetSizeDialog(TopMost);
 				};
 
 				contextMenu.Items.Add(setSize);

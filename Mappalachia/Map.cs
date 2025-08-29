@@ -153,11 +153,16 @@ namespace Mappalachia
 				}
 
 				await DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
-				mapImage = DrawLegend(itemsToPlot, settings, mapImage, progressInfo);
 			}
 
 			await DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
+
+			// Must be final step of draw due to potentially resizing final image
+			if (itemsToPlot.Count > 0)
+			{
+				mapImage = DrawLegend(itemsToPlot, settings, mapImage, progressInfo);
+			}
 
 			GC.Collect();
 
@@ -890,6 +895,7 @@ namespace Mappalachia
 				yPos += halfRowHeight * 2;
 			}
 
+			// Draw a "(continued)" if the legend is too tall to fit
 			if (totalHeight > MapImageResolution)
 			{
 				string text = "(continued)";
