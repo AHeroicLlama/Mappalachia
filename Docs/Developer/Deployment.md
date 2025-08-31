@@ -16,6 +16,7 @@ In order to package a Mappalachia release there are a few steps.
 * If any cells or worldspaces have changed, you must [run the background renderer](BackgroundRendering.md) for those spaces. Review the space coordinate checksum section of the Database Summary to identify this. It is typically best to assume Appalachia has changed, and render it always.
 * Run the spotlight patch/diff tool inside the background renderer to generate the spotlight tile patch. You should run this even if you didn't render anything new, since it will ensure the patch directory is cleared of old files.
 * Use the validation functionality of the [Preprocessor](Preprocessor.md) to verify that image assets appear correct, particularly if any have been regenerated/extracted.
+* Update the game version shield in `README.md`, and increment the Package Version in `Mappalachia.csproj`. Releases which only represent a game update should only increment the patch number.
 * In Visual Studio, right click the Mappalachia Project and select 'Publish'. With the included `PublishProfile.pubxml` selected, press 'Publish'.
 * Launch `Mappalachia\Package_Release.bat`. This requires a 7-Zip installation and assumes the default installation directory. It will use 7-Zip to create the `Mappalachia.zip`, `Patch_Spotlight.zip`, and additional 'spotlight' archives, placing them at `dist\`.
 * `Mappalachia.zip` is the file which should now be distributed to end users. Additionally, `Patch_Spotlight.zip` and all the `spotlight.7z.xxx` files should be made available as optional downloads.
