@@ -1,114 +1,190 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.Data.Sqlite;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
+using Library;
+using static Library.BuildTools;
 
-namespace Mappalachia
+namespace MapIconProcessor;
+
+class MapIconProcessor
 {
-	static class MapIconProcessor
+	static async Task Main()
 	{
-		const string mappalachiaRoot = @"..\\..\\..\\..\\";
+		Console.Title = "Mappalachia Map Icon Extractor";
 
-		const string databasePath = mappalachiaRoot + @"Mappalachia\\data\\mappalachia.db";
-		const string mapIconProcessorPath = mappalachiaRoot + @"MapIconProcessor\\";
+		GeneratePlotIconShapes();
 
-		const string extractPath = mapIconProcessorPath + @"extract\\sprites";
-		const string outputPath = mappalachiaRoot + @"\\Mappalachia\\img\\mapmarker";
-		const string missingMarkersFile = outputPath + @"\\MissingMarkers.error";
-		const string fileExtension = ".svg";
-
-		static readonly Regex validIconFolder = new Regex(extractPath + @"\\DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
-
-		const string workshopMarker = "PublicWorkshopMarker"; // This icon needs special handling
-
-		static void Main()
+		if (!Directory.Exists(MapIconExtractPath))
 		{
-			// Cleanup prior run, removing all icons (Except the special case)
-			foreach (string file in Directory.GetFiles(outputPath))
-			{
-				if (Path.GetFileName(file) != workshopMarker + fileExtension)
-				{
-					File.Delete(file);
-				}
-			}
-
-			List<string> mapMarkers = new List<string>();
-
-			SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
-			connection.Open();
-
-			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = "SELECT DISTINCT mapMarkerName FROM Map_Markers";
-			query.Parameters.Clear();
-			SqliteDataReader reader = query.ExecuteReader();
-
-			while (reader.Read())
-			{
-				mapMarkers.Add(reader.GetString(0));
-			}
-
-			// Map marker names from the database, along with a bool indicating if they're accounted for
-			Dictionary<string, bool> requiredMarkerNames = new Dictionary<string, bool>(mapMarkers.ToDictionary(line => line, value => false));
-
-			if (!Directory.Exists(outputPath))
-			{
-				Directory.CreateDirectory(outputPath);
-			}
-
-			Console.WriteLine("Reading raw extracts from " + Path.GetFullPath(extractPath));
-			Console.WriteLine("Placing outputs at " + Path.GetFullPath(outputPath));
-
-			foreach (string iconFolder in Directory.GetDirectories(extractPath.Replace("\\\\", "\\")))
-			{
-				Match match = validIconFolder.Match(iconFolder);
-
-				// A folder which doesn't even look like an icon at all - skip entirely
-				if (!match.Success)
-				{
-					continue;
-				}
-
-				string iconName = match.Groups[1].Captures[0].ToString();
-
-				// This is a marker but we don't need it, so also skip
-				if (!requiredMarkerNames.ContainsKey(iconName))
-				{
-					Console.WriteLine("Skipping " + iconName);
-					continue;
-				}
-
-				// Don't copy this marker because we don't want to overwrite some edits manually made to it
-				if (iconName == workshopMarker)
-				{
-					Console.WriteLine($"\n## {workshopMarker} is required but we will not copy the file!\n");
-					requiredMarkerNames[workshopMarker] = true; // Mark as checked
-					continue;
-				}
-
-				// Looks like we want this icon - copy and rename appropriately
-				try
-				{
-					Console.WriteLine("Copying " + iconName);
-					File.Copy(iconFolder + "\\1" + fileExtension, outputPath + "\\" + iconName + fileExtension, true);
-					requiredMarkerNames[iconName] = true;
-				}
-				catch (FileNotFoundException)
-				{
-					// Mark it as missing so it is handled later
-					requiredMarkerNames[iconName] = false;
-				}
-			}
-
-			// Verify each marker in the database was accounted for
-			foreach (KeyValuePair<string, bool> marker in requiredMarkerNames)
-			{
-				if (marker.Value == false)
-				{
-					Console.WriteLine("ERROR: File for marker " + marker.Key + " was not found anywhere in any appropriately named subfolder of the extract folder.");
-					File.AppendAllText(missingMarkersFile, marker.Key + "\n");
-				}
-			}
-
-			Console.WriteLine("\nFinished " + (File.Exists(missingMarkersFile) ? "with errors" : "successfully") + "\nPress any key");
+			ReportError($"Map icon extract path {MapIconExtractPath} not found. Plot Icons have been generated but map markers cannot be processed. Please see documentation.");
 			Console.ReadKey();
+			return;
+		}
+
+		List<MapMarker> mapMarkers = await CommonDatabase.GetMapMarkers(GetNewConnection(), "SELECT * FROM MapMarker GROUP BY icon ORDER BY icon ASC;");
+
+		foreach (MapMarker mapMarker in mapMarkers)
+		{
+			if (ExtractIcon(mapMarker))
+			{
+				continue;
+			}
+
+			// We exhausted all the folders without finding the right icon, log error but continue
+			ReportError($"Failed to find suitable icon SVG for marker icon {mapMarker.Icon}");
+		}
+
+		StdOutWithColor("Finished. Press any key.", ColorInfo);
+		Console.ReadKey();
+	}
+
+	static void ReportError(string error)
+	{
+		StdOutWithColor(error, ColorError);
+		AppendToErrorLog(error);
+	}
+
+	static void GeneratePlotIconShapes()
+	{
+		StdOutWithColor("Rendering plot icon shapes...", ColorInfo);
+
+		Directory.CreateDirectory(IconPath);
+
+		int size = PlotIconSize;
+		Pen pen = new Pen(Color.Yellow, 20);
+		Brush brush = new SolidBrush(Color.Yellow);
+		int padding = (int)Math.Round(5 + pen.Width);
+		Image image = new Bitmap(size, size);
+
+		using Graphics graphics = Graphics.FromImage(image);
+		graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+		// Crosshair circle
+		int circlePadding = 55;
+		graphics.DrawEllipse(pen, new RectangleF(circlePadding, circlePadding, size - (circlePadding * 2), size - (circlePadding * 2)));
+		graphics.DrawLine(pen, new PointF(size / 2f, 0), new PointF(size / 2f, circlePadding));
+		graphics.DrawLine(pen, new PointF(size / 2f, size), new PointF(size / 2f, size - circlePadding));
+		graphics.DrawLine(pen, new PointF(0, size / 2f), new PointF(circlePadding, size / 2f));
+		graphics.DrawLine(pen, new PointF(size, size / 2f), new PointF(size - circlePadding, size / 2f));
+		image.Save($"{IconPath}A{Common.PlotIconFileType}");
+
+		graphics.Clear(Color.Transparent);
+
+		// Marker triangle
+		int trianglePadding = 60;
+		graphics.DrawPolygon(pen, new PointF(trianglePadding, padding), new PointF(size - trianglePadding, padding), new PointF(size / 2f, (size / 2f) - (pen.Width / 2) - 2));
+		image.Save($"{IconPath}B{Common.PlotIconFileType}");
+
+		graphics.Clear(Color.Transparent);
+
+		// Diamond
+		int diamondPadding = 45;
+		graphics.DrawPolygon(pen, new PointF(size / 2, diamondPadding), new PointF(size - diamondPadding, size / 2), new PointF(size / 2, size - diamondPadding), new PointF(diamondPadding, size / 2));
+		image.Save($"{IconPath}C{Common.PlotIconFileType}");
+
+		graphics.Clear(Color.Transparent);
+
+		// X
+		int xPadding = 50;
+		graphics.DrawLine(pen, new PointF(xPadding, xPadding), new Point(size - xPadding, size - xPadding));
+		graphics.DrawLine(pen, new PointF(xPadding, size - xPadding), new Point(size - xPadding, xPadding));
+		image.Save($"{IconPath}D{Common.PlotIconFileType}");
+
+		graphics.Clear(Color.Transparent);
+
+		// UI-Like selector
+		int selectorFract = 3;
+		graphics.DrawLines(pen, new Point(size / selectorFract, padding), new PointF(padding, padding), new Point(padding, size / selectorFract));
+		graphics.DrawLines(pen, new Point(size - (size / selectorFract), padding), new PointF(size - padding, padding), new Point(size - padding, size / selectorFract));
+		graphics.DrawLines(pen, new Point(size / selectorFract, size - padding), new PointF(padding, size - padding), new Point(padding, size - (size / selectorFract)));
+		graphics.DrawLines(pen, new Point(size - (size / selectorFract), size - padding), new PointF(size - padding, size - padding), new Point(size - padding, size - (size / selectorFract)));
+		image.Save($"{IconPath}E{Common.PlotIconFileType}");
+
+		graphics.Clear(Color.Transparent);
+
+		// Square
+		int squarePadding = 55;
+		graphics.DrawPolygon(pen, new PointF(squarePadding, squarePadding), new PointF(size - squarePadding, squarePadding), new PointF(size - squarePadding, size - squarePadding), new PointF(squarePadding, size - squarePadding));
+		image.Save($"{IconPath}F{Common.PlotIconFileType}");
+
+		graphics.Clear(Color.Transparent);
+
+		// Dot
+		int dotRadius = 25;
+		graphics.FillEllipse(brush, new RectangleF((size / 2) - dotRadius, (size / 2) - dotRadius, dotRadius * 2, dotRadius * 2));
+		image.Save($"{IconPath}G{Common.PlotIconFileType}");
+
+		StdOutWithColor("Done\n", ColorInfo);
+	}
+
+	// Searches for and copies out the map marker icon SVG for the given MapMarker
+	// Returns if search was successful
+	static bool ExtractIcon(MapMarker mapMarker)
+	{
+		foreach (string directory in Directory.GetDirectories(MapIconExtractPath + "sprites"))
+		{
+			Match match = ValidIconFolder.Match(directory);
+
+			// This appears to be the directory containing this map marker icon - read it in, clean it, and write it back out
+			if (match.Success && match.Groups[1].Value == mapMarker.Icon)
+			{
+				string markerPath = directory + $"\\{MapMarkerIconInitialFileName}";
+				string targetPath = MapMarkerPath + mapMarker.Icon + ".svg";
+
+				XmlDocument document = new XmlDocument();
+				document.Load(markerPath);
+
+				// Run the mapmarker svg against hardcodings to apply any bespoke fixes
+				document = FixMapMarkerSVG(document, mapMarker);
+
+				foreach (XmlNode node in document)
+				{
+					CleanXMLNode(node);
+				}
+
+				XmlWriterSettings settings = new XmlWriterSettings()
+				{
+					Indent = true,
+					IndentChars = "\t",
+					OmitXmlDeclaration = true,
+					NamespaceHandling = NamespaceHandling.OmitDuplicates,
+				};
+
+				StringWriter stringWriter = new StringWriter(new StringBuilder());
+				XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings);
+				document.Save(xmlWriter);
+
+				File.WriteAllText(targetPath, stringWriter.ToString());
+
+				Console.WriteLine($"{mapMarker.Icon}: Success");
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// Recursively removes unnecessary attributes which reference FFDec, under the given node
+	static void CleanXMLNode(XmlNode node)
+	{
+		if (node.Attributes is not null)
+		{
+			IEnumerable<XmlAttribute> attributes = node.Attributes.Cast<XmlAttribute>().Reverse();
+
+			foreach (XmlAttribute attribute in attributes)
+			{
+				if (attribute.Name.Contains("ffdec", StringComparison.OrdinalIgnoreCase))
+				{
+					node.Attributes.RemoveNamedItem(attribute.Name);
+				}
+			}
+		}
+
+		foreach (XmlNode childNode in node.ChildNodes)
+		{
+			CleanXMLNode(childNode);
 		}
 	}
 }

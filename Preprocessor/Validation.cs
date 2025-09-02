@@ -1,24 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using static Library.BuildTools;
 
-namespace Mappalachia
+namespace Preprocessor
 {
-	public static class Validation
+	internal partial class Preprocessor
 	{
-		public static readonly Regex headersToEscape = new Regex("[Ee]ditorID|[Dd]isplayName");
-		public static readonly Regex propertyWithoutFormID = new Regex("(.*) \\[[A-Z_]{4}:[0-9A-F]{8}\\]");
-		public static readonly Regex componentNameOnly = new Regex(".* \"(.*)\" .*");
-		public static readonly Regex formIdOnly = new Regex("\\[[A-Z_]{4}:([0-9A-F]{8})\\]");
-		public static readonly Regex matchFormID = new Regex("[0-9A-F]{8}");
-		public static readonly Regex validNpcClass = new Regex("^(Main|Sub)$");
-		public static readonly Regex validPrimitiveShape = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid)$");
-		public static readonly Regex validLockLevel = new Regex("^(Advanced \\(Level 1\\)|Chained|Expert \\(Level 2\\)|Inaccessible|Master \\(Level 3\\)|Novice \\(Level 0\\)|Requires Key|Requires Terminal|Unknown|Barred)$");
-		public static readonly Regex validSignature = new Regex("[A-Z_]{4}");
-		public static readonly Regex validSQLiteBoolean = new Regex("^(0|1)$");
-		public static readonly Regex unescapedDoubleQuote = new Regex("(?<!\\\\)(\")");
-		public static readonly Regex shortNameIsolateRef = new Regex("^(.*) ?\\[[A-Z_]{4}:[0-9A-F]{8}\\]$");
-		public static readonly Regex shortNameGetRef = new Regex("^.* ?\\[[A-Z_]{4}:([0-9A-F]{8})\\]$");
+		static List<string> ValidationFailures { get; } = new List<string>();
 
-		public static readonly List<string> decimalHeaders = new List<string> { "x", "y", "z", "boundX", "boundY", "boundZ", "rotZ" };
+		static bool FailValidation(string reason)
+		{
+			StdOutWithColor($"Validation failure: {reason}", ColorError);
+			ValidationFailures.Add(reason);
+
+			AppendToErrorLog(reason);
+
+			return false;
+		}
+
+		static void ConcludeValidation()
+		{
+			Console.WriteLine();
+
+			if (ValidationFailures.Count > 0)
+			{
+				Console.ForegroundColor = ConsoleColor.Red;
+
+				Console.WriteLine($"Validation failed. The following {ValidationFailures.Count} error(s) were reported:");
+
+				foreach (string failure in ValidationFailures)
+				{
+					Console.WriteLine($"* {failure}");
+				}
+
+				Console.WriteLine($"\nError details stored to {ErrorsPath}");
+
+				Console.ResetColor();
+			}
+			else
+			{
+				StdOutWithColor("Validation passed!", ConsoleColor.Green);
+			}
+		}
 	}
 }

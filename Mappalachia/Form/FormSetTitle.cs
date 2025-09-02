@@ -1,31 +1,18 @@
-﻿using System.Windows.Forms;
-
-namespace Mappalachia
+﻿namespace Mappalachia
 {
-	public partial class FormSetTitle : Form
+	public partial class FormSetTitle : GenericToolForm
 	{
-		public FormSetTitle()
+		public string TextBoxValue => textBox.Text.Trim();
+
+		public FormSetTitle(Settings settings)
 		{
 			InitializeComponent();
-
-			textBoxTitle.Text = SettingsMap.title;
-			textBoxTitle.SelectAll();
+			textBox.Text = settings.MapSettings.Title;
 		}
 
-		private void ButtonOK_Click(object sender, System.EventArgs e)
+		private void ButtonOK_Click(object sender, EventArgs e)
 		{
-			if (SettingsMap.title != textBoxTitle.Text)
-			{
-				SettingsMap.title = textBoxTitle.Text;
-				FormMaster.DrawMap(true);
-			}
-
-			Close();
-		}
-
-		private void ButtonCancel_Click(object sender, System.EventArgs e)
-		{
-			Close();
+			DialogResult = DialogResult.OK;
 		}
 	}
 }

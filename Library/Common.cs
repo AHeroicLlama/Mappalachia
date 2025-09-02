@@ -1,0 +1,124 @@
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
+
+namespace Library
+{
+	public static class Common
+	{
+		public static string DistributableFileName { get; } = "Mappalachia.zip";
+
+		public static string MapMarkerImageFileType { get; } = ".svg";
+
+		public static string BackgroundImageFileType { get; } = ".jpg";
+
+		public static string SpotlightTileImageFileType { get; } = ".jpg";
+
+		public static string MaskImageFileType { get; } = ".png";
+
+		public static string PlotIconFileType { get; } = ".png";
+
+		public static string RecipeFileType { get; } = ".json";
+
+		public static string RecipeFileFilter { get; } = $"Mappalachia JSON Recipe|*{RecipeFileType}";
+
+		public static string WaterMaskAddendum { get; } = "_waterMask";
+
+		public static string BackgroundMenuAddendum { get; } = "_menu";
+
+		public static string BackgroundMilitaryAddendum { get; } = "_military";
+
+		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
+
+		public static int SpotlightMaxSize { get; } = 16; // The maximum user-selectable spotlight size, in tiles.
+
+		public static double SpotlightMinTileResolution { get; } = 2; // Number of effective tiles (counted across width of the space) required to bother rendering spotlight tiles per space.
+
+		public static int SpotlightTileSize { get; } = (int)Math.Pow(2, 12); // 4096
+
+		public static int SpotlightScale { get; } = 2; // The ratios of game coordinates to pixels, or the width in cells for each tile (x*x arrangement) used for spotlight
+
+		// The size in game coordinates of spotlight tiles
+		public static int TileWidth { get; } = SpotlightTileSize * SpotlightScale;
+
+		public static int TileRadius { get; } = TileWidth / 2;
+
+		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
+
+		public enum FluxColor
+		{
+			Crimson,
+			Cobalt,
+			Fluorescent,
+			Violet,
+			Yellowcake,
+		}
+
+		// Return if this string appears to represent a FormID in hexadecimal
+		public static bool IsHexFormID(this string formID)
+		{
+			return FormID.IsMatch(formID);
+		}
+
+		public static string ToHex(this uint formID)
+		{
+			return formID.ToString("X8");
+		}
+
+		public static string ToHex(this string formID)
+		{
+			return uint.Parse(formID).ToHex();
+		}
+
+		public static uint HexToInt(string hex)
+		{
+			return Convert.ToUInt32(FormID.Matches(hex)[0].Value, 16);
+		}
+
+		public static string WithoutWhitespace(this string input)
+		{
+			return new string(input.Where(character => !char.IsWhiteSpace(character)).ToArray());
+		}
+
+		// Opens the web page or file path with the default application
+		public static void OpenURI(string uri)
+		{
+			Process.Start(new ProcessStartInfo { FileName = uri, UseShellExecute = true });
+		}
+
+		public static void OpenURI(Uri uri)
+		{
+			OpenURI(uri.ToString());
+		}
+
+		// Starts the given process from CMD. Returns the Process reference. Discards the std out if silent is true.
+		public static Process StartProcess(string command, bool silent = false)
+		{
+			ProcessStartInfo processStartInfo = new ProcessStartInfo()
+			{
+				FileName = "CMD.exe",
+				Arguments = "/C " + command,
+				RedirectStandardOutput = silent,
+				RedirectStandardError = silent,
+			};
+
+			Process? process = Process.Start(processStartInfo);
+
+			return process ?? throw new Exception("Failed to start process with command " + command);
+		}
+
+		public static string Pluralize<T>(IEnumerable<T> collection)
+		{
+			return collection.Count() == 1 ? string.Empty : "s";
+		}
+
+		public static bool EqualsIgnoreCase(this string value, string comparison)
+		{
+			return value.Equals(comparison, StringComparison.OrdinalIgnoreCase);
+		}
+
+		public static bool IsNullOrWhiteSpace(this string value)
+		{
+			return string.IsNullOrWhiteSpace(value);
+		}
+	}
+}

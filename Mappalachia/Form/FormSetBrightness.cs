@@ -1,27 +1,19 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace Mappalachia.Forms
+﻿namespace Mappalachia
 {
-	public partial class FormSetBrightness : Form
+	public partial class FormSetBrightness : GenericToolForm
 	{
-		public FormSetBrightness()
+		public float BrightnessValue => (float)Math.Round(numericUpDownBrightness.Value) / 100;
+
+		public FormSetBrightness(Settings settings)
 		{
 			InitializeComponent();
-			numericUpDownBrightness.Minimum = SettingsMap.brightnessMin;
-			numericUpDownBrightness.Maximum = SettingsMap.brightnessMax;
-
-			numericUpDownBrightness.Value = SettingsMap.brightness;
+			numericUpDownBrightness.Value = (int)Math.Round(settings.MapSettings.Brightness * 100);
 			numericUpDownBrightness.Select(0, 3);
 		}
 
-		private void ButtonBrightnessConfirm_Click(object sender, EventArgs e)
+		private void ButtonOK_Click(object sender, EventArgs e)
 		{
-			SettingsMap.brightness = (int)numericUpDownBrightness.Value;
-
-			Close();
-
-			FormMaster.DrawMap(true);
+			DialogResult = DialogResult.OK;
 		}
 	}
 }
