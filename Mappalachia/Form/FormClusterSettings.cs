@@ -1,122 +1,130 @@
-﻿using System;
-using System.Windows.Forms;
-
 namespace Mappalachia
 {
-	public partial class FormSetClusterRange : Form
+	public partial class FormClusterSettings : GenericToolForm
 	{
-		readonly int initialRangeValue;
-		readonly int initialWeightCapValue;
-		readonly bool initialWebValue;
-		bool usedLiveUpdate;
-		bool initialized = false;
+		FormMain FormMain { get; }
 
-		public FormSetClusterRange()
+		// The settings when the form opened, so we can revert on cancel
+		ClusterSettings InitialSettings { get; }
+
+		public ClusterSettings ClusterSettings => new ClusterSettings(
+			trackBarClusterRange.Value,
+			trackBarClusterMinWeight.Value,
+			checkBoxLiveUpdate.Checked,
+			radioButtonPerLegendGroup.Checked);
+
+		bool Initialized { get; set; } = false;
+
+		public FormClusterSettings(FormMain formMain)
 		{
 			InitializeComponent();
 
-			trackBarClusterRange.Minimum = SettingsPlotCluster.minRange;
-			trackBarClusterRange.Maximum = SettingsPlotCluster.maxRange;
-			trackBarClusterRange.Value = SettingsPlotCluster.clusterRange;
+			FormMain = formMain;
+			InitialSettings = FormMain.Settings.PlotSettings.ClusterSettings;
 
-			trackBarMinClusterWeight.Minimum = SettingsPlotCluster.minWeightCap;
-			trackBarMinClusterWeight.Maximum = SettingsPlotCluster.maxWeightCap;
-			trackBarMinClusterWeight.Value = SettingsPlotCluster.minClusterWeight;
+			trackBarClusterRange.Maximum = ClusterSettings.GetMaxRangeForSpace(FormMain.Settings.Space);
 
-			checkBoxDrawClusterWeb.Checked = SettingsPlotCluster.clusterWeb;
+			trackBarClusterRange.Value = Math.Clamp(InitialSettings.Range, trackBarClusterRange.Minimum, trackBarClusterRange.Maximum);
+			trackBarClusterMinWeight.Value = InitialSettings.MinWeight;
+			checkBoxLiveUpdate.Checked = InitialSettings.LiveUpdate;
+			radioButtonPerLegendGroup.Checked = InitialSettings.ClusterPerLegendGroup;
+			radioButtonGroupEverything.Checked = !InitialSettings.ClusterPerLegendGroup;
 
-			checkBoxliveUpdate.Enabled = SettingsPlot.IsCluster();
-			checkBoxliveUpdate.Checked = SettingsPlotCluster.liveUpdate;
+			SetRangeLabel();
+			SetWeightLabel();
 
-			initialRangeValue = SettingsPlotCluster.clusterRange;
-			initialWeightCapValue = SettingsPlotCluster.minClusterWeight;
-			initialWebValue = SettingsPlotCluster.clusterWeb;
-
-			UpdateRangeLabel();
-			UpdateWeightLabel();
-
-			usedLiveUpdate = false;
-			initialized = true;
-		}
-
-		void UpdateRangeLabel()
-		{
-			labelClusterRange.Text = $"Cluster Range ({trackBarClusterRange.Value})";
-		}
-
-		void UpdateWeightLabel()
-		{
-			labelMinClusterWeight.Text = $"Min. Cluster Weight ({trackBarMinClusterWeight.Value})";
-		}
-
-		private void CheckBoxDrawClusterWeb_CheckedChanged(object sender, EventArgs e)
-		{
-			LiveUpdate();
-		}
-
-		private void CheckBoxliveUpdate_CheckedChanged(object sender, EventArgs e)
-		{
-			SettingsPlotCluster.liveUpdate = checkBoxliveUpdate.Checked;
-			LiveUpdate();
-		}
-
-		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)
-		{
-			UpdateRangeLabel();
-			LiveUpdate();
-		}
-
-		private void TrackBarMinClusterWeight_ValueChanged(object sender, EventArgs e)
-		{
-			UpdateWeightLabel();
-			LiveUpdate();
-		}
-
-		void LiveUpdate()
-		{
-			// If the form is still loading or liveUpdate is off or it's not in cluster mode or there are no clusters to draw
-			if (!initialized || !SettingsPlotCluster.liveUpdate || !SettingsPlot.IsCluster() || FormMaster.GetNonRegionLegendItems().Count == 0)
-			{
-				return;
-			}
-
-			SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
-			SettingsPlotCluster.minClusterWeight = trackBarMinClusterWeight.Value;
-			SettingsPlotCluster.clusterWeb = checkBoxDrawClusterWeb.Checked;
-			usedLiveUpdate = true;
-			FormMaster.QueueDraw(false);
-		}
-
-		private void ButtonOK_Click(object sender, EventArgs e)
-		{
-			SettingsPlotCluster.clusterWeb = checkBoxDrawClusterWeb.Checked;
-			SettingsPlotCluster.clusterRange = trackBarClusterRange.Value;
-			SettingsPlotCluster.minClusterWeight = trackBarMinClusterWeight.Value;
-
-			Close();
-
-			if (SettingsPlot.IsCluster())
-			{
-				FormMaster.QueueDraw(false);
-			}
+			Initialized = true;
+			UpdateMapView();
 		}
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
-			// If they used live update but now wish to cancel, we need to ensure we reset to the initial value
-			if (usedLiveUpdate)
+			FormMain.Settings.PlotSettings.ClusterSettings = InitialSettings;
+		}
+
+		private void ButtonOK_Click(object sender, EventArgs e)
+		{
+			DialogResult = DialogResult.OK;
+		}
+
+		private void TrackBarClusterRange_ValueChanged(object sender, EventArgs e)
+		{
+			SetRangeLabel();
+			UpdateMapView();
+		}
+
+		private void TrackBarClusterWeight_ValueChanged(object sender, EventArgs e)
+		{
+			SetWeightLabel();
+			UpdateMapView();
+		}
+
+		private void CheckBoxLiveUpdate_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateMapView();
+		}
+
+		private void RadioButtonGroupEverything_CheckedChanged(object sender, EventArgs e)
+		{
+			if (radioButtonGroupEverything.Checked)
 			{
-				SettingsPlotCluster.clusterRange = initialRangeValue;
-				SettingsPlotCluster.minClusterWeight = initialWeightCapValue;
-				SettingsPlotCluster.clusterWeb = initialWebValue;
-				FormMaster.DrawMap(false);
+				UpdateMapView();
 			}
 		}
 
-		// Offset the window to the left so it doesn't obscure the map preview when it loads
-		private void FormSetClusterRange_Load(object sender, EventArgs e)
+		private void RadioButtonPerLegendGroup_CheckedChanged(object sender, EventArgs e)
 		{
-			Location = new System.Drawing.Point(Location.X - (Width / 2), Location.Y);
+			if (radioButtonPerLegendGroup.Checked)
+			{
+				UpdateMapView();
+			}
+		}
+
+		void SetRangeLabel()
+		{
+			labelClusterRange.Text = $"Cluster Radius ({trackBarClusterRange.Value})";
+		}
+
+		void SetWeightLabel()
+		{
+			labelClusterMinWeight.Text = $"Min. Cluster Weight ({trackBarClusterMinWeight.Value})";
+		}
+
+		async void UpdateMapView()
+		{
+			if (!Initialized)
+			{
+				return;
+			}
+
+			if (checkBoxLiveUpdate.Checked)
+			{
+				await FormMain.ClusterSettingsLiveUpdate(ClusterSettings);
+			}
+		}
+
+		private void LabelClusterRange_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button != MouseButtons.Right)
+			{
+				return;
+			}
+
+			if (!FormMain.Settings.Space.IsNukable() || trackBarClusterRange.Maximum < Map.BlastRadius)
+			{
+				return;
+			}
+
+			ContextMenuStrip contextMenu = new ContextMenuStrip();
+			ToolStripMenuItem setToNukerange = new ToolStripMenuItem() { Text = "Set to Nuke blast zone radius" };
+
+			setToNukerange.Click += (s, args) =>
+			{
+				trackBarClusterRange.Value = Map.BlastRadius;
+			};
+
+			contextMenu.Items.Add(setToNukerange);
+			contextMenu.Show(this, e.Location);
 		}
 	}
 }

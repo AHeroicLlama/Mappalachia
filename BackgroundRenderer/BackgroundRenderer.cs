@@ -1,391 +1,613 @@
 using System.Diagnostics;
+using Library;
 using Microsoft.Data.Sqlite;
+using static Library.BuildTools;
+using static Library.Common;
 
 namespace BackgroundRenderer
 {
-	public partial class BackgroundRenderer
+	static class BackgroundRenderer
 	{
-		const string magickPath = "C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe";
-		const string fo76DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Fallout76\\Data";
-		static readonly string thisAppPath = Directory.GetCurrentDirectory();
-		static readonly string mappalachiaRoot = thisAppPath + "..\\..\\..\\..\\..\\";
-		static readonly string databasePath = Path.GetFullPath(mappalachiaRoot + "Mappalachia\\data\\mappalachia.db");
-		static readonly string imageDirectory = Path.GetFullPath(mappalachiaRoot + "Mappalachia\\img\\");
-		static readonly string cellDirectory = Path.GetFullPath(imageDirectory + "cell\\");
-		static readonly string utilsRenderPath = Path.GetFullPath(mappalachiaRoot + "FO76Utils\\render.exe");
+		static int JpgQualityStandard { get; } = 85;
 
-		// Values passed with the -xm argument to the render command
-		static readonly List<string> excludeModels = new List<string>()
-		{
-			"babylon",
-			"cranberrybog",
-			"cranbog",
-			"bog",
-			"grass",
-			"trees",
-			"tree",
-			"plants",
-			"shrub",
-			"vine",
-			"root",
-			"stump",
-			"fog",
-			"cloud",
-			"effects",
-		};
+		static int JpgQualityHigh { get; } = 100;
 
-		const double maxScale = 16;
-		const double minScale = 0.002;
+		static int RenderParallelism { get; } = 16; // Max cells or spotlight tiles to render in parallel
 
-		const int cellRenderResolution = 4096; // (Recommend 4096) use 16384 for minor increase in quality only if you have 12h to wait and a high-end PC
-		const int worldspaceRenderResolution = 16384;
-		const int nativeResolution = 4096;
-		const int SSAA = 2; // 0,1,2
-		const bool keepDDSRender = false; // Whether or not to keep the raw DDS outputs after they're converted to JPEG
-		const int cellQuality = 85; // The % quality of the final JPEGs
-		const int worldspaceQuality = 100;
-
-		// Manually-adjusted camera heights for cells which would otherwise be predominantly obscured by a roof or ceiling
-		static readonly Dictionary<string, int> recommendedHeights = new Dictionary<string, int>()
-		{
-			{ "AMSHQ01", 3000 },
-			{ "BlueRidgeOffice01", 350 },
-			{ "CraterWarRoom01", 50 },
-			{ "CraterWatchstation01", -700 },
-			{ "DuncanDuncanRobotics01", 500 },
-			{ "FortAtlas01", -1300 },
-			{ "FoundationSupplyRoom01", 200 },
-			{ "FraternityHouse01", 850 },
-			{ "FraternityHouse02", 850 },
-			{ "TheRoseRoom01", 500 },
-			{ "LewisandSonsFarmingSupply01", 500 },
-			{ "OverseersHome01", 675 },
-			{ "PoseidonPlant02", 3000 },
-			{ "LittleRobsHideout01", 300 },
-			{ "MiresEye01", 300 },
-			{ "RaiderRaidTrailerInt", 150 },
-			{ "SheltersRootCellar", 300 },
-			{ "SheltersSoundStage", 1000 },
-			{ "SheltersToxicWasteland", 2000 },
-			{ "SugarGrove02", 1000 },
-			{ "SurlysShack01", 250 },
-			{ "TheCraterCore01", 100 },
-			{ "TheWayward01", 400 },
-			{ "TopOfTheWorld01", -1800 },
-			{ "VTecAgCenter01", 400 },
-			{ "ValleyGalleria01", 700 },
-			{ "Vault63Entrance", 4750 },
-			{ "Vault79Entrance", -200 },
-			{ "WVLumberCo01", 1000 },
-			{ "XPDAC02Pier", 400 },
-			{ "XPDAC03CommunityCenter", 600 },
-			{ "XPDAC03CommunityCenterDungeon", 600 },
-			{ "XPDPitt02Sanctum", 700 },
-			{ "StormHallucinogeniccave", 600 },
-			{ "StormRadioBunkerInt", 800 },
-			{ "StormStolzManor", 700 },
-			{ "MILEBlueRidgeHQ", 500 },
-			{ "StormCultistTunnels", 6500 },
-			{ "StormEngineeringVlt63", 1300 },
-			{ "StormWeatherLab01", 1000 },
-			{ "StormVault63AtriumUpper", -800 },
-			{ "StormVisitorCenterInt", 1250 },
-			{ "StormVault63Entrance", 4600 },
-		};
-
-		// Cells which are so small, fo76utils won't render at 16k, so we force render at native 4k
-		static readonly List<string> extraSmallCells = new List<string>()
-		{
-			"UCB02",
-			"RaiderRaidTrailerInt",
-		};
-
-		// Debug parameters
-		static readonly bool debugOn = false;
-		static readonly string debugEditorID = "";
-		static readonly int debugNudgeX = 0;
-		static readonly int debugNudgeY = 0;
-		static readonly float debugScale = 1f;
-		static readonly int debugCameraZ = 65536;
-
-		// Renders a space with parameters setup for debugging, designed to be used to find the appropriate scale/nudge/z-heights for spaces
-		static void DebugRender()
-		{
-			Console.WriteLine("Debug Rendering " + debugEditorID);
-
-			SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
-			connection.Open();
-			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = $"SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale FROM Space_Info WHERE spaceEditorID = '{debugEditorID}'";
-			query.Parameters.Clear();
-			SqliteDataReader reader = query.ExecuteReader();
-			reader.Read();
-
-			Space space = new Space(
-				reader.GetString(0),
-				reader.GetString(1),
-				reader.GetBoolean(2),
-				reader.GetInt32(3),
-				reader.GetInt32(4),
-				Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)),
-				Math.Abs(reader.GetInt32(8) - reader.GetInt32(7)),
-				debugNudgeX,
-				debugNudgeY,
-				debugScale);
-
-			if (space.formID == string.Empty)
-			{
-				space.formID = "0025DA15";
-			}
-
-			int resolution = 2048;
-			int renderResolution = resolution;
-			int range = Math.Max(space.xRange, space.yRange);
-			double scale = ((double)resolution / range) * space.nudgeScale;
-
-			string renderFile = $"{imageDirectory}{space.editorID}{(space.isWorldspace ? "_render_debug" : string.Empty)}.dds";
-			double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
-			double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
-
-			string terrainString = space.isWorldspace ? $"-btd \"{fo76DataPath}\\Terrain\\Appalachia.btd\" " : string.Empty;
-
-			string renderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} " +
-				$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {debugCameraZ} " +
-				$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
-
-			Process render = Process.Start("CMD.exe", "/C " + renderCommand);
-			render.WaitForExit();
-
-			Process.Start(new ProcessStartInfo { FileName = renderFile, UseShellExecute = true });
-		}
-
-		public static void Main()
+		static async Task Main()
 		{
 			Console.Title = "Mappalachia Background Renderer";
 
-			if (!File.Exists(magickPath))
+			// Ensure the output directories exist
+			foreach (string directory in new string[] { CellPath, WorldPath, SpotlightPath })
 			{
-				Console.WriteLine($"Can't find ImageMagick at {magickPath}, please check the hardcoded path is correct and you have an installation at that path.");
-				Console.ReadKey();
-				return;
-			}
-
-			if (!File.Exists(utilsRenderPath))
-			{
-				Console.WriteLine($"Can't find fo76utils render at {utilsRenderPath}, please check the hardcoded path is correct and you have it placed at that path.");
-				Console.ReadKey();
-				return;
-			}
-
-			if (!File.Exists(databasePath))
-			{
-				Console.WriteLine($"Can't find Mappalachia database at {databasePath}, please check the database has been built or copied from a release to that path.");
-				Console.ReadKey();
-				return;
-			}
-
-			if (debugOn)
-			{
-				DebugRender();
-				return;
-			}
-
-			Console.WriteLine("Paste space-separated EditorIDs of Cells or Worldspaces you need rendering. Otherwise paste nothing to render all");
-			string arg = Console.ReadLine() ?? string.Empty;
-			List<string> args = arg.Split(' ').Where(a => !string.IsNullOrWhiteSpace(a)).ToList();
-
-			Stopwatch stopwatch = new Stopwatch();
-			stopwatch.Start();
-
-			if (args.Count == 0)
-			{
-				Console.WriteLine("Rendering all spaces in database...");
-			}
-			else
-			{
-				Console.WriteLine("\nOnly rendering spaces with the following EditorIDs:");
-				foreach (string editorId in args)
+				if (!Directory.Exists(directory))
 				{
-					Console.WriteLine(editorId);
+					Directory.CreateDirectory(directory);
+				}
+			}
+
+			if (!File.Exists(Fo76UtilsRenderPath))
+			{
+				StdOutWithColor($"FO76Utils render was not found at {Fo76UtilsRenderPath}. Please ensure this is in place first. For more info, see developer documentation.", ColorError);
+				Console.ReadKey();
+				return;
+			}
+
+			await CleanUpSpotlight();
+
+			StdOutWithColor("Enter:\n1: Render (Inc. spotlight) Mode\n2: Space Zoom/Offset (X/Y) correction/debug mode\n3: Space height (Z) crop correction/debug mode\n4: Generate spotlight patch/diff", ColorQuestion);
+
+			switch (Console.ReadKey().KeyChar)
+			{
+				case '1':
+					await NormalRender();
+					break;
+
+				case '2':
+					await SpaceZoomOffsetCorrection();
+					break;
+
+				case '3':
+					await SpaceHeightCorrection();
+					break;
+
+				case '4':
+					GenerateSpotlightPatch();
+					break;
+
+				default:
+					throw new Exception("Invalid Choice");
+			}
+		}
+
+		// Performs the typical end-product render for the given spaces, or if null, asks the user for which
+		// Provides informative logging output, est time remaining etc
+		static async Task NormalRender(List<Space>? spaces = null)
+		{
+			spaces ??= await GetSpaceInput();
+
+			Stopwatch generalStopwatch = Stopwatch.StartNew();
+
+			// Break the spaces into cells and worldspaces
+			List<Space> cells = spaces.Where(space => !space.IsWorldspace).ToList();
+			List<Space> worldspaces = spaces.Where(space => space.IsWorldspace).ToList();
+
+			StdOutWithColor($"Rendering {worldspaces.Count} worldspace{Pluralize(worldspaces)} and {cells.Count} cell{Pluralize(cells)}...", ColorInfo);
+
+			int spacesRendered = 0;
+
+			// Do the serial render of worldspaces first
+			foreach (Space worldspace in worldspaces)
+			{
+				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID.ToHex()})", ColorInfo);
+				await SpotlightRenderSpace(worldspace);
+				RenderSpace(worldspace);
+				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
+			}
+
+			Stopwatch cellStopwatch = Stopwatch.StartNew();
+
+			// Render cells in parallel
+			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async cell =>
+			{
+				await SpotlightRenderSpace(cell);
+				RenderSpace(cell, true);
+				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
+			});
+
+			StdOutWithColor($"\nRendering Finished. {generalStopwatch.Elapsed.ToString(@"hh\:mm\:ss")}. Press Any Key.", ColorInfo);
+			Console.ReadKey();
+		}
+
+		// Runs through the process of rendering a cell, opening it, asking the user for corrective input, then storing that as a file
+		static async Task SpaceZoomOffsetCorrection()
+		{
+			while (true)
+			{
+				Space space = await GetSingleSpaceInput();
+
+				double resolution = MapImageResolution;
+				double scale = resolution / space.MaxRange;
+				double cameraX = space.CenterX;
+				double cameraY = space.CenterY;
+				int cameraZ = GetSpaceCameraHeight(space);
+				string outputFile = TempPath + $"debug_{space.EditorID}.dds";
+
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {resolution} {resolution} " +
+					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
+					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
+
+				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
+				Process renderJob = StartProcess(renderCommand);
+				renderJob.WaitForExit();
+				OpenURI(outputFile);
+
+				StdOutWithColor("Using Paint.NET or similar, draw a bounding box around the correct cell contents and take a note of the Top-Left X and Y pixel coordinate, plus the width and height of the selected area.\nSee Developer help documentation for more info.", ColorInfo);
+
+				StdOutWithColor("Enter Top-Left X:", ColorQuestion);
+				int topLeftX = int.Parse(Console.ReadLine() ?? string.Empty);
+
+				StdOutWithColor("Enter Top-Left Y:", ColorQuestion);
+				int topLeftY = int.Parse(Console.ReadLine() ?? string.Empty);
+
+				StdOutWithColor("Enter Width:", ColorQuestion);
+				int width = int.Parse(Console.ReadLine() ?? string.Empty);
+
+				StdOutWithColor("Enter height:", ColorQuestion);
+				int height = int.Parse(Console.ReadLine() ?? string.Empty);
+
+				// Get the corrected range as a proportion of the selected space against the ratio used initially
+				double correctedRange = Math.Max(width, height) / scale;
+
+				// Find the px coord of the center of the user-drawn bounding box
+				double boundingBoxCenterX = topLeftX + (width / 2d);
+				double boundingBoxCenterY = topLeftY + (height / 2d);
+
+				// Find the necessary correction in pixels
+				double correctionXPx = (resolution / 2d) - boundingBoxCenterX;
+				double correctionYPx = (resolution / 2d) - boundingBoxCenterY;
+
+				// Translate the pixel correction to game coordinates
+				double actualCorrectionX = correctionXPx / scale;
+				double actualCorrectionY = correctionYPx / scale;
+
+				// Get the new space centers once correction is applied
+				double correctedXCenter = cameraX - actualCorrectionX;
+				double correctedYCenter = cameraY + actualCorrectionY;
+
+				string correctionPath = CellXYScaleCorrectionPath + space.EditorID;
+
+				StdOutWithColor($"Corrections:\nxCenter: {space.CenterX}->{correctedXCenter}\nyCenter:{space.CenterY}->{correctedYCenter}\nmaxRange: {space.MaxRange}->{correctedRange}", ColorInfo);
+				File.WriteAllText(correctionPath, $"{correctedXCenter}\n{correctedYCenter}\n{correctedRange}");
+
+				StdOutWithColor($"Correction file written to {correctionPath}.\nYou must rebuild the database and re-render the affected cell(s).\n\nPress any key to do another space.\n", ColorInfo);
+				Console.ReadKey();
+			}
+		}
+
+		// Handles the process of manually finding the correct height crop for a space render
+		// Overarching function which simply tracks the corrected spaces, calls the heavy-lifting function, and finally renders the corrected spaces.
+		static async Task SpaceHeightCorrection()
+		{
+			List<Space> correctedSpaces = new List<Space>();
+
+			while (true)
+			{
+				Space? correctedSpace = await DoSpaceHeightCorrection();
+
+				// If the user aborted this space, don't add it to the list.
+				// Additionally, if we haven't corrected any spaces yet, don't offer to render - just do another space
+				if (correctedSpace is not null)
+				{
+					correctedSpaces.Add(correctedSpace);
+				}
+				else if (correctedSpaces.Count == 0)
+				{
+					continue;
+				}
+
+				StdOutWithColor($"Press \"y\" to finish height correction and render the corrected cells.\nPress any other key to correct another cell.", ColorInfo);
+
+				char key = Console.ReadKey().KeyChar;
+				if (key.ToString().EqualsIgnoreCase("y"))
+				{
+					Console.WriteLine("\n");
+					break;
+				}
+			}
+
+			await NormalRender(correctedSpaces);
+		}
+
+		// Does the space height correction
+		static async Task<Space?> DoSpaceHeightCorrection()
+		{
+			Space space = await GetSingleSpaceInput();
+			int height = GetSpaceCameraHeight(space);
+
+			// Loop of user estimates new height, render, ask again.
+			while (true)
+			{
+				string outputFile = TempPath + $"debug_{space.EditorID}_Z{height}.dds";
+
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {MapImageResolution} {MapImageResolution} " +
+					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
+					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
+
+				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
+				Process renderJob = StartProcess(renderCommand);
+				renderJob.WaitForExit();
+				OpenURI(outputFile);
+
+				StdOutWithColor($"Was {height} the correct height? Enter \"y\" to save, \"exit\" to exit, or otherwise enter a new height to try again:\n", ColorQuestion);
+				string input = Console.ReadLine() ?? "1000";
+
+				// The correct crop has been found - save it to a file, do the proper render, and finish.
+				if (input.EqualsIgnoreCase("y"))
+				{
+					string correctionPath = CellZCorrectionPath + space.EditorID;
+
+					File.WriteAllText(correctionPath, height.ToString());
+					StdOutWithColor($"Correction file written to {correctionPath}.\n", ColorInfo);
+					return space;
+				}
+				else if (input.EqualsIgnoreCase("exit"))
+				{
+					return null;
+				}
+
+				height = int.Parse(input);
+			}
+		}
+
+		// Renders a space in the normal way, and converts and moves it appropriately.
+		// Worldspaces also see the watermask generated.
+		static void RenderSpace(Space space, bool silent = false)
+		{
+			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : MapImageResolution;
+			string ddsFile = TempPath + $"{space.EditorID}.dds";
+			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + BackgroundImageFileType;
+			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;
+			double scale = renderResolution / space.MaxRange;
+
+			string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {ddsFile} {renderResolution} {renderResolution} " +
+				$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString}" +
+				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
+				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + (space.IsWorldspace ? 0 : 32) + 256 + 1024} -ssaa 2 " +
+				$"-ltxtres 512 -tc 4096 -mc 64 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
+				$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+
+			string resizeCommand = $"magick {ddsFile} -resize {MapImageResolution}x{MapImageResolution} " +
+						$"-quality {(space.IsWorldspace ? JpgQualityHigh : JpgQualityStandard)} JPEG:{finalFile}";
+
+			Process render = StartProcess(renderCommand, silent);
+			render.WaitForExit();
+
+			Process magickResizeConvert = StartProcess(resizeCommand, silent);
+			magickResizeConvert.WaitForExit();
+
+			// Do the watermask
+			if (space.IsWorldspace)
+			{
+				string waterMaskDDS = TempPath + space.EditorID + WaterMaskAddendum + ".dds";
+				string waterMaskFinalFile = WorldPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
+
+				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
+					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
+					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
+					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+
+				string waterMaskResizeCommand = $"magick {waterMaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {MapImageResolution}x{MapImageResolution} PNG:{waterMaskFinalFile}";
+
+				Process waterMaskRender = StartProcess(waterMaskRenderCommand, silent);
+				waterMaskRender.WaitForExit();
+
+				Process magickWaterMaskResizeConvert = StartProcess(waterMaskResizeCommand, silent);
+				magickWaterMaskResizeConvert.WaitForExit();
+			}
+		}
+
+		static async Task SpotlightRenderSpace(Space space)
+		{
+			double scale = 1d / SpotlightScale;
+
+			string outputPath = TempPath + $"{space.EditorID}\\";
+			string finalPath = SpotlightPath + $"{space.EditorID}\\";
+
+			// If there is little to no improvement from spotlight, skip
+			if (!space.IsSuitableForSpotlight())
+			{
+				return;
+			}
+
+			Directory.CreateDirectory(outputPath);
+			Directory.CreateDirectory(finalPath);
+
+			List<SpotlightTile> tiles = space.GetTiles();
+			List<Region> worldBorderRegions = await space.GetWorldBorders();
+
+			if (worldBorderRegions.Count > 0)
+			{
+				tiles = tiles.Where(t => t.IntersectsRegions(worldBorderRegions)).ToList();
+			}
+
+			if (!space.IsWorldspace)
+			{
+				tiles = tiles.Where(t => t.HasEntities().Result).ToList();
+			}
+
+			if (space.IsWorldspace)
+			{
+				StdOutWithColor($"Depending on your hardware, Spotlight rendering an entire worldspace ({space.EditorID}) may take a few hours. Would you like to:\n1:Render the whole space\n2:Render only missing tiles\n3:Define a target area to render", ColorQuestion);
+
+				switch (Console.ReadKey().KeyChar)
+				{
+					case '1':
+						break;
+
+					case '2':
+						tiles = tiles.Where(t => !File.Exists(t.GetFilePath())).ToList();
+						break;
+
+					case '3':
+						StdOutWithColor("\nEnter 3 values: X and Y coordinate of the center tile, and the radius of tiles around it.", ColorQuestion);
+
+						StdOutWithColor("Center X:", ColorQuestion);
+						int xCenter = int.Parse(Console.ReadLine() ?? "0");
+
+						StdOutWithColor("Center Y:", ColorQuestion);
+						int yCenter = int.Parse(Console.ReadLine() ?? "0");
+
+						StdOutWithColor("Radius (tiles):", ColorQuestion);
+						int radius = int.Parse(Console.ReadLine() ?? "0");
+
+						tiles = tiles.Where(t =>
+							Math.Abs(t.XId - xCenter) <= radius &&
+							Math.Abs(t.YId - yCenter) <= radius)
+							.ToList();
+
+						break;
+
+					default:
+						StdOutWithColor("Unrecognized input. Skipping this operation. Please try again.", ColorError);
+						return;
 				}
 
 				Console.WriteLine();
 			}
 
-			Console.WriteLine($"Rendered cells will be placed at {cellDirectory}\nRendered Worldspaces at {imageDirectory}\n");
-			if (!Directory.Exists(cellDirectory))
-			{
-				Directory.CreateDirectory(cellDirectory);
-			}
+			StdOutWithColor($"Spotlight Rendering {tiles.Count} tile{Pluralize(tiles)} of {space.EditorID}", ColorInfo);
 
-			List<Space> spaces = new List<Space>();
-
-			SqliteConnection connection = new SqliteConnection("Data Source=" + databasePath + ";Mode=ReadOnly");
-			connection.Open();
-
-			SqliteCommand query = connection.CreateCommand();
-			query.CommandText = "SELECT spaceFormID, spaceEditorID, isWorldspace, xCenter, yCenter, xMin, xMax, yMin, yMax, nudgeX, nudgeY, nudgeScale FROM Space_Info ORDER BY isWorldspace desc";
-			query.Parameters.Clear();
-			SqliteDataReader reader = query.ExecuteReader();
-
-			while (reader.Read())
-			{
-				string formId = reader.GetString(0);
-				string editorId = reader.GetString(1);
-
-				// We specified certain cells, so skip everything not asked for
-				if (args.Count > 0 && !args.Contains(editorId))
-				{
-					Console.WriteLine("Skipping " + editorId);
-					continue;
-				}
-
-				// Account for database hack which replaces repeated Appalachia formid with empty string
-				if (formId == string.Empty)
-				{
-					formId = "0025DA15";
-				}
-
-				// Skip CharGen02-05 as they are duplicates of 01
-				// Mappalachia GUI will target CharGen01 for all of these
-				if (editorId.StartsWith("CharGen") && editorId != "CharGen01")
-				{
-					Console.WriteLine($"Skipping {editorId} as duplicate");
-					continue;
-				}
-
-				spaces.Add(new Space(
-					formId,
-					editorId,
-					reader.GetBoolean(2),
-					reader.GetInt32(3),
-					reader.GetInt32(4),
-					Math.Abs(reader.GetInt32(6) - reader.GetInt32(5)),
-					Math.Abs(reader.GetInt32(8) - reader.GetInt32(7)),
-					reader.GetInt32(9),
-					reader.GetInt32(10),
-					reader.GetFloat(11)));
-			}
-
-			Console.WriteLine($"\nRendering {spaces.Count} space{(spaces.Count == 1 ? string.Empty : "s")}. Cells at {cellRenderResolution}px, Worldspaces at {worldspaceRenderResolution}px");
+			Stopwatch stopwatch = Stopwatch.StartNew();
 			int i = 0;
 
-			foreach (Space space in spaces)
+			// Loop over every tile for the space
+			Parallel.ForEach(tiles, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, tile =>
 			{
-				i++;
-				Console.WriteLine($"\n0x{space.formID} : {space.editorID} ({i} of {spaces.Count})");
-				int resolution = space.isWorldspace ? worldspaceRenderResolution : cellRenderResolution;
+				string outputFile = $"{outputPath}{tile.XId}.{tile.YId}.dds";
+				string finalFile = tile.GetFilePath();
 
-				if (resolution > nativeResolution && extraSmallCells.Contains(space.editorID))
-				{
-					Console.WriteLine($"Rendering space {space.editorID} at {nativeResolution} instead due to small size");
-					resolution = nativeResolution;
-				}
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {SpotlightTileSize} {SpotlightTileSize} " +
+					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
+					$"-r {tile.XId * SpotlightScale} {tile.YId * SpotlightScale} {(tile.XId + 1) * SpotlightScale} {(tile.YId + 1) * SpotlightScale} " +
+					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
+					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 32 + 256 + 1024} -ssaa 1 " +
+					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
+					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
 
-				int range = Math.Max(space.xRange, space.yRange);
+				string convertCommand = $"magick {outputFile} -quality {JpgQualityStandard} JPEG:{finalFile}";
 
-				if (range == 0)
-				{
-					LogError($"Space {space.editorID} has a natural range of 0. Unable to properly render.");
-					continue;
-				}
-
-				double scale = ((double)resolution / range) * space.nudgeScale;
-
-				// Override Appalachia scale to match in-game map
-				if (space.editorID == "APPALACHIA")
-				{
-					scale = 0.028 / (16384d / worldspaceRenderResolution);
-					space.xCenter = 0;
-					space.yCenter = 0;
-				}
-
-				if (scale > maxScale || scale < minScale)
-				{
-					LogError($"Space {space.editorID} too small or large to render at this resolution! (Scale of {scale} outside range {minScale}-{maxScale})." +
-						$" Change the render resolution in order to preserve the scale. FormID: {space.formID}");
-				}
-
-				// Default camera height unless a custom height was defined to cut into roofs
-				int cameraZ = 65536;
-				if (recommendedHeights.ContainsKey(space.editorID))
-				{
-					cameraZ = recommendedHeights[space.editorID];
-				}
-
-				string renderFile = $"{imageDirectory}{space.editorID}{(space.isWorldspace ? "_render" : string.Empty)}.dds";
-				string convertedFile = $"{(space.isWorldspace ? imageDirectory : cellDirectory)}{space.editorID}{(space.isWorldspace ? "_render" : string.Empty)}.jpg";
-
-				string terrainString = space.isWorldspace ? $"-btd \"{fo76DataPath}\\Terrain\\Appalachia.btd\" " : string.Empty;
-
-				int renderResolution = space.isWorldspace ? worldspaceRenderResolution : cellRenderResolution;
-				double cameraX = space.xCenter - (space.nudgeX * (renderResolution / 4096d) / scale);
-				double cameraY = space.yCenter + (space.nudgeY * (renderResolution / 4096d) / scale);
-
-				// -rq 1 + 2 + 12 + 256 (+32 for cells)
-				string renderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {renderFile} {resolution} {resolution} " +
-					$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
-					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {(space.isWorldspace ? "271" : "303")} -ssaa {SSAA} " +
-					$"-ltxtres 512 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
-					$"-xm " + string.Join(" -xm ", excludeModels);
-
-				string resizeCommand = $"\"{magickPath}\" convert {renderFile} -resize {nativeResolution}x{nativeResolution} " +
-						$"-quality {(space.isWorldspace ? worldspaceQuality : cellQuality)} JPEG:{convertedFile}";
-
-				Process render = Process.Start("CMD.exe", "/C " + renderCommand);
+				Process render = StartProcess(renderCommand, true);
 				render.WaitForExit();
 
-				if (File.Exists(renderFile))
-				{
-					Console.WriteLine($"Converting and downsampling with ImageMagick...");
-					Process magickResizeConvert = Process.Start("CMD.exe", "/C " + resizeCommand);
-					magickResizeConvert.WaitForExit();
+				Process magickResizeConvert = StartProcess(convertCommand);
+				magickResizeConvert.WaitForExit();
 
-					if (!keepDDSRender)
+				File.Delete(outputFile);
+
+				// If the file appears to be the minimum size given its resolution, (plus 512 bytes)
+				// This suggests there are no visible entities here, so delete it.
+				// Not necessary for Worldspaces
+				if (!space.IsWorldspace)
+				{
+					long size = new FileInfo(finalFile).Length;
+					if (size <= (Math.Pow(SpotlightTileSize, 2) / (8 * 8 * 4)) + 512)
 					{
-						File.Delete(renderFile);
+						File.Delete(finalFile);
 					}
+				}
+
+				if (space.IsWorldspace)
+				{
+					Interlocked.Increment(ref i);
+					TimeSpan timePerTile = stopwatch.Elapsed / i;
+					TimeSpan timeRemaining = timePerTile * (tiles.Count - i);
+					StdOutWithColor(
+						$"{space.EditorID} Spotlight: {tile.XId},{tile.YId} (X:{tile.XCenter}, Y:{tile.YCenter}) (Tile {i} of {tiles.Count} ({Math.Round(((double)i / tiles.Count) * 100, 2)}%)) " +
+						$"Est {timeRemaining.Days}D {timeRemaining.Hours:D2}H {timeRemaining.Minutes:D2}M {timeRemaining.Seconds:D2}S remaining", ColorInfo);
+				}
+			});
+		}
+
+		// Return if this tile contains any entities
+		static async Task<bool> HasEntities(this SpotlightTile tile)
+		{
+			string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {tile.Space.FormID} AND " +
+				$"x >= {tile.XCenter - TileRadius} AND x <= {tile.XCenter + TileRadius} AND y >= {tile.YCenter - TileRadius} AND y <= {tile.YCenter + TileRadius}";
+
+			SqliteDataReader reader = await CommonDatabase.GetReader(GetNewConnection(), countQuery);
+			reader.Read();
+
+			return Convert.ToInt32(reader["count"]) > 0;
+		}
+
+		// Returns if the tile intersects any of the regions
+		static bool IntersectsRegions(this SpotlightTile tile, List<Region> regions)
+		{
+			foreach (Region region in regions)
+			{
+				if (region.Points.Count == 0)
+				{
+					throw new ArgumentException($"Region {region.EditorID} has no points");
+				}
+
+				// First case - The tile is at least partly within the region because the center of it is
+				// It may not be wholly contained
+				if (region.ContainsPoint(new Coord(tile.XCenter, tile.YCenter)))
+				{
+					return true;
+				}
+
+				// Edge cases
+				// Test if any of the 4 edges of the tile intersect any of the region's edges
+				for (int i = 0; i < region.Points.Count; i++)
+				{
+					int j = i + 1;
+
+					if (i == region.Points.Count - 1)
+					{
+						j = 0;
+					}
+
+					Coord regionPointA = region.Points[i].Coord;
+					Coord regionPointB = region.Points[j].Coord;
+
+					Coord topLeft = new Coord(tile.XCenter - TileRadius, tile.YCenter + TileRadius);
+					Coord topRight = new Coord(tile.XCenter + TileRadius, tile.YCenter + TileWidth);
+					Coord bottomLeft = new Coord(tile.XCenter - TileRadius, tile.YCenter - TileRadius);
+					Coord bottomRight = new Coord(tile.XCenter + TileRadius, tile.YCenter - TileRadius);
+
+					if (GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, topRight) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, bottomLeft, bottomRight) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, bottomLeft) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, topRight, bottomRight))
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		// Returns a list of Spaces gathered from the user, for rendering
+		static async Task<List<Space>> GetSpaceInput()
+		{
+			StdOutWithColor("\nEnter a space-separated list of space EditorIDs to render.\nEnter nothing to render all, 'cell' for all Cells, or 'world' for all WorldSpaces", ColorQuestion);
+			string input = (Console.ReadLine() ?? string.Empty).Trim();
+
+			if (input.EqualsIgnoreCase("cell") || input.EqualsIgnoreCase("world"))
+			{
+				int worldspaceFlag = input.EqualsIgnoreCase("world") ? 1 : 0;
+				return await CommonDatabase.GetSpaces(GetNewConnection(), $"SELECT * FROM Space WHERE isWorldSpace == {worldspaceFlag} ORDER BY spaceEditorID ASC;");
+			}
+
+			if (input.IsNullOrWhiteSpace())
+			{
+				return await CommonDatabase.GetAllSpaces(GetNewConnection());
+			}
+
+			List<string> requestedIDs = input.Split(" ").Where(space => !space.IsNullOrWhiteSpace()).ToList();
+
+			// Select spaces unconditionally if none provided, otherwise select only the list of provided spaces
+			string query = $"SELECT * FROM Space WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()} ORDER BY isWorldspace DESC, spaceEditorID ASC;";
+			List<Space> spaces = await CommonDatabase.GetSpaces(GetNewConnection(), query);
+
+			// If we specified cells, ensure we found them all in the DB before proceeding
+			if (spaces.Count != requestedIDs.Count)
+			{
+				throw new Exception("Inputted cells were not all found. Check for typos in EditorIDs");
+			}
+
+			return spaces;
+		}
+
+		// Asks for a single editorID and returns the corresponding space
+		static async Task<Space> GetSingleSpaceInput()
+		{
+			while (true)
+			{
+				StdOutWithColor("\nEnter the EditorID of the space:", ColorQuestion);
+				string input = Console.ReadLine() ?? string.Empty;
+
+				Space? space = await CommonDatabase.GetSpaceByEditorID(GetNewConnection(), input);
+
+				if (space is null)
+				{
+					StdOutWithColor($"Space with editorID \"{input}\" was not found in the database.", ColorError);
 				}
 				else
 				{
-					LogError($"No file {renderFile}, maybe it was not rendered?");
-				}
-
-				// Also render the watermask dds
-				// Different render params and we don't convert the DDS
-				if (space.isWorldspace)
-				{
-					Console.WriteLine($"\n0x{space.formID} : {space.editorID} (Water Mask) ({i} of {spaces.Count})");
-
-					string waterMaskRenderFile = $"{imageDirectory}{space.editorID}_waterMask.dds";
-
-					string waterMaskRenderCommand = $"{utilsRenderPath} \"{fo76DataPath}\\SeventySix.esm\" {waterMaskRenderFile} {resolution} {resolution} " +
-						$"\"{fo76DataPath}\" {terrainString} -w 0x{space.formID} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
-						$"-light 1 0 0 -ssaa {SSAA} -ltxtres 64 -wtxt \"\" -wrefl 0 -watercolor 0x7F0000FF -xm water " +
-						$"-xm " + string.Join(" -xm ", excludeModels);
-
-					Process waterMaskRender = Process.Start("CMD.exe", "/C " + waterMaskRenderCommand);
-					waterMaskRender.WaitForExit();
-				}
-
-				// Calc and log est time remaining during batch job
-				if (i != spaces.Count)
-				{
-					int remainingCells = spaces.Count - i;
-					TimeSpan timePerCell = stopwatch.Elapsed / i;
-					TimeSpan estTimeRemain = timePerCell * remainingCells;
-					Console.WriteLine("\nEst. Time remaining: " + estTimeRemain);
+					return space;
 				}
 			}
-
-			Console.WriteLine($"Finished in {stopwatch.Elapsed}");
-			Console.ReadKey();
 		}
 
-		static void LogError(string err)
+		static void AnnounceRenderProgress(List<Space> spaces, Space space, ref int cellsRendered, Stopwatch? stopwatch = null)
 		{
-			Console.WriteLine(err);
-			File.AppendAllText(imageDirectory + "\\errors.txt", $"{DateTime.Now} {err}\n");
+			int count = Interlocked.Increment(ref cellsRendered);
+
+			double percentRemaining = (100d * count) / spaces.Count;
+			StdOutWithColor($"{space.EditorID} (0x{space.FormID.ToHex()}) Done. ({count}/{spaces.Count} ({percentRemaining.ToString("0.00")}%))", ColorInfo);
+
+			// If this isn't the last item, and we have a timer going
+			if (count != spaces.Count && stopwatch is not null)
+			{
+				TimeSpan avgTimePerSpace = stopwatch.Elapsed / count;
+				TimeSpan estTimeRemaining = avgTimePerSpace * (spaces.Count - count);
+				StdOutWithColor($"Est {estTimeRemaining.ToString(@"hh\:mm\:ss")} remaining", ColorInfo);
+			}
+		}
+
+		// Returns the predetermined cropped height for a cell, otherwise max height
+		static int GetSpaceCameraHeight(Space space)
+		{
+			string cropFile = CellZCorrectionPath + space.EditorID;
+
+			if (File.Exists(cropFile))
+			{
+				return int.Parse(File.ReadAllText(cropFile));
+			}
+			else
+			{
+				return (int)Math.Pow(2, 16);
+			}
+		}
+
+		// Compares current spotlight tile assets with a previous copy, identifying only new files and moving them to a new directory
+		static void GenerateSpotlightPatch()
+		{
+			if (!Directory.Exists(PreviousAssetsSpotlightPath) || Directory.GetDirectories(PreviousAssetsSpotlightPath).Length == 0)
+			{
+				StdOutWithColor($"Previous assets not found at {PreviousAssetsSpotlightPath}. (Folder empty or non-existent)\nExiting.", ColorError);
+				Console.ReadKey();
+				return;
+			}
+
+			if (Directory.Exists(SpotlightPatchDiffPath))
+			{
+				Directory.Delete(SpotlightPatchDiffPath, true);
+			}
+
+			Directory.CreateDirectory(SpotlightPatchDiffPath);
+
+			StdOutWithColor($"\nGenerating spotlight patch between {PreviousAssetsSpotlightPath} and {SpotlightPath}...\n", ColorInfo);
+
+			Parallel.ForEach(Directory.GetDirectories(PreviousAssetsSpotlightPath), directory =>
+			{
+				Parallel.ForEach(Directory.GetFiles(directory), previousFilePath =>
+				{
+					string diffDirectory = SpotlightPatchDiffPath + Path.GetFileName(directory) + "\\";
+					string newFilePath = SpotlightPath + Path.GetFileName(directory) + "\\" + Path.GetFileName(previousFilePath);
+
+					// If the image is new, or a different file length, or has a different MD5 hash, copy it to the diff directory
+					if (!File.Exists(newFilePath) ||
+						new FileInfo(newFilePath).Length != new FileInfo(previousFilePath).Length ||
+						GetMD5Hash(newFilePath) != GetMD5Hash(previousFilePath))
+					{
+						if (!Directory.Exists(diffDirectory))
+						{
+							Directory.CreateDirectory(diffDirectory);
+						}
+
+						StdOutWithColor($"New/Modified tile: {Path.GetFileName(directory)}\\{Path.GetFileName(previousFilePath)}", ColorInfo);
+						File.Copy(newFilePath, diffDirectory + Path.GetFileName(previousFilePath));
+					}
+				});
+			});
+
+			// If we found no tiles (therefore no folder), delete the "spotlight" folder, as a signal to the release packager .bat
+			if (Directory.GetDirectories(SpotlightPatchDiffPath).Length == 0)
+			{
+				StdOutWithColor("No new or modified spotlight tiles found. Deleting empty spotlight folder.", ColorInfo);
+				Directory.Delete(SpotlightPatchDiffPath, true);
+			}
+
+			StdOutWithColor($"Spotlight patch finished.", ColorInfo);
+			Console.ReadKey();
 		}
 	}
 }

@@ -2,21 +2,18 @@
 unit Mappalachia;
 
 uses
-	_mappalachia_componentQuantity,
-	_mappalachia_entityInfo,
-	_mappalachia_junkScrap,
+	_mappalachia_component,
+	_mappalachia_entity,
+	_mappalachia_scrap,
 	_mappalachia_location,
-	_mappalachia_positionData,
+	_mappalachia_position,
 	_mappalachia_region,
-	_mappalachia_spaceInfo;
+	_mappalachia_space;
 
 	function initialize: Integer;
 	begin
-		AddMessage('Now running _mappalachia_componentQuantity...');
-		_mappalachia_componentQuantity.initialize();
-
-		AddMessage('Now running _mappalachia_junkScrap...');
-		_mappalachia_junkScrap.initialize();
+		AddMessage('Now running _mappalachia_space...');
+		_mappalachia_space.initialize();
 
 		AddMessage('Now running _mappalachia_location...');
 		_mappalachia_location.initialize();
@@ -24,14 +21,17 @@ uses
 		AddMessage('Now running _mappalachia_region...');
 		_mappalachia_region.initialize();
 
-		AddMessage('Now running _mappalachia_spaceInfo...');
-		_mappalachia_spaceInfo.initialize();
+		AddMessage('Now running _mappalachia_scrap...');
+		_mappalachia_scrap.initialize();
 
-		AddMessage('Now running _mappalachia_entityInfo...');
-		_mappalachia_entityInfo.initialize();
+		AddMessage('Now running _mappalachia_component...');
+		_mappalachia_component.initialize();
 
-		AddMessage('Now running _mappalachia_positionData...');
-		_mappalachia_positionData.initialize();
+		AddMessage('Now running _mappalachia_entity...');
+		_mappalachia_entity.initialize();
+
+		AddMessage('Now running _mappalachia_position...');
+		_mappalachia_position.initialize();
 
 		AddMessage('Mappalachia export finished.');
 	end;

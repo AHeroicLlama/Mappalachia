@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Mappalachia.Forms
+﻿namespace Mappalachia
 {
 	partial class FormSetBrightness
 	{
@@ -30,68 +28,64 @@ namespace Mappalachia.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSetBrightness));
-            this.numericUpDownBrightness = new System.Windows.Forms.NumericUpDown();
-            this.buttonBrightnessConfirm = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBrightness)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // numericUpDownBrightness
-            // 
-            this.numericUpDownBrightness.Location = new System.Drawing.Point(14, 14);
-            this.numericUpDownBrightness.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.numericUpDownBrightness.Name = "numericUpDownBrightness";
-            this.numericUpDownBrightness.Size = new System.Drawing.Size(88, 23);
-            this.numericUpDownBrightness.TabIndex = 0;
-            // 
-            // buttonBrightnessConfirm
-            // 
-            this.buttonBrightnessConfirm.Location = new System.Drawing.Point(14, 44);
-            this.buttonBrightnessConfirm.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonBrightnessConfirm.Name = "buttonBrightnessConfirm";
-            this.buttonBrightnessConfirm.Size = new System.Drawing.Size(88, 27);
-            this.buttonBrightnessConfirm.TabIndex = 1;
-            this.buttonBrightnessConfirm.Text = "OK";
-            this.buttonBrightnessConfirm.UseVisualStyleBackColor = true;
-            this.buttonBrightnessConfirm.Click += new System.EventHandler(this.ButtonBrightnessConfirm_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(108, 44);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(88, 27);
-            this.buttonCancel.TabIndex = 2;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // FormSetBrightness
-            // 
-            this.AcceptButton = this.buttonBrightnessConfirm;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(212, 83);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonBrightnessConfirm);
-            this.Controls.Add(this.numericUpDownBrightness);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "FormSetBrightness";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Set Brightness (%)";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBrightness)).EndInit();
-            this.ResumeLayout(false);
-
+			numericUpDownBrightness = new NumericUpDown();
+			buttonOK = new Button();
+			buttonCancel = new Button();
+			((System.ComponentModel.ISupportInitialize)numericUpDownBrightness).BeginInit();
+			SuspendLayout();
+			// 
+			// numericUpDownBrightness
+			// 
+			numericUpDownBrightness.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			numericUpDownBrightness.Location = new Point(12, 12);
+			numericUpDownBrightness.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+			numericUpDownBrightness.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+			numericUpDownBrightness.Name = "numericUpDownBrightness";
+			numericUpDownBrightness.Size = new Size(153, 23);
+			numericUpDownBrightness.TabIndex = 0;
+			numericUpDownBrightness.Value = new decimal(new int[] { 10, 0, 0, 0 });
+			// 
+			// buttonOK
+			// 
+			buttonOK.Anchor = AnchorStyles.Bottom;
+			buttonOK.Location = new Point(10, 41);
+			buttonOK.Name = "buttonOK";
+			buttonOK.Size = new Size(75, 23);
+			buttonOK.TabIndex = 1;
+			buttonOK.Text = "OK";
+			buttonOK.UseVisualStyleBackColor = true;
+			buttonOK.Click += ButtonOK_Click;
+			// 
+			// buttonCancel
+			// 
+			buttonCancel.Anchor = AnchorStyles.Bottom;
+			buttonCancel.Location = new Point(91, 41);
+			buttonCancel.Name = "buttonCancel";
+			buttonCancel.Size = new Size(75, 23);
+			buttonCancel.TabIndex = 2;
+			buttonCancel.Text = "Cancel";
+			buttonCancel.UseVisualStyleBackColor = true;
+			// 
+			// FormSetBrightness
+			// 
+			AcceptButton = buttonOK;
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			CancelButton = buttonCancel;
+			ClientSize = new Size(177, 74);
+			Controls.Add(buttonCancel);
+			Controls.Add(buttonOK);
+			Controls.Add(numericUpDownBrightness);
+			Name = "FormSetBrightness";
+			Text = "Set Brightness (%)";
+			((System.ComponentModel.ISupportInitialize)numericUpDownBrightness).EndInit();
+			ResumeLayout(false);
 		}
 
 		#endregion
 
-		private System.Windows.Forms.NumericUpDown numericUpDownBrightness;
-		private System.Windows.Forms.Button buttonBrightnessConfirm;
-		private System.Windows.Forms.Button buttonCancel;
+		private NumericUpDown numericUpDownBrightness;
+		private Button buttonOK;
+		private Button buttonCancel;
 	}
 }

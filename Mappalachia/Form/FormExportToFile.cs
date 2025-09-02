@@ -1,86 +1,34 @@
-﻿using System;
-using System.Drawing.Imaging;
-using System.Windows.Forms;
+﻿using System.Drawing.Imaging;
 
 namespace Mappalachia
 {
-	public partial class FormExportToFile : Form
+	public partial class FormExportToFile : GenericToolForm
 	{
-		public FormExportToFile()
+		public int JpgQuality => (int)numericUpDownJPGQuality.Value;
+
+		public ImageFormat ImageFormat => radioJPG.Checked ? ImageFormat.Jpeg : ImageFormat.Png;
+
+		public string Filter => radioJPG.Checked ? "JPG|*.jpg|JPEG|*.jpeg" : "PNG|*.png";
+
+		public FormExportToFile(Settings settings)
 		{
 			InitializeComponent();
-			SettingsFileExport.UpdateRecommendation();
+
+			radioPNG.Checked = FileIO.GetImageFileTypeRecommendation(settings) == ImageFormat.Png;
+			radioJPG.Checked = !radioPNG.Checked;
+
+			numericUpDownJPGQuality.Value = 85;
+			numericUpDownJPGQuality.Enabled = radioJPG.Checked;
 		}
 
-		private void FormExportToFile_Load(object sender, EventArgs e)
+		private void Radio_CheckChanged(object sender, EventArgs e)
 		{
-			UpdateFormState();
+			numericUpDownJPGQuality.Enabled = radioJPG.Checked;
 		}
 
-		private void CheckBoxUseRecommended_CheckedChanged(object sender, EventArgs e)
-		{
-			SettingsFileExport.SetUseRecommended(checkBoxUseRecommended.Checked);
-			UpdateFormState();
-		}
-
-		private void RadioButtonPNG_CheckedChanged(object sender, EventArgs e)
-		{
-			SettingsFileExport.fileType = radioButtonPNG.Checked ? SettingsFileExport.ExtensionType.PNG : SettingsFileExport.ExtensionType.JPEG;
-			UpdateFormState();
-		}
-
-		private void NumericUpDownJPEGQuality_ValueChanged(object sender, EventArgs e)
-		{
-			SettingsFileExport.jpegQuality = (int)numericUpDownJPEGQuality.Value;
-			UpdateFormState();
-		}
-
-		private void CheckBoxShowDirectory_CheckedChanged(object sender, EventArgs e)
-		{
-			SettingsFileExport.openExplorer = checkBoxShowDirectory.Checked;
-		}
-
-		// Update the values and enabled states of the form members when something relevant changes
-		void UpdateFormState()
-		{
-			// Assign the values from the Settings Class
-			checkBoxUseRecommended.Checked = SettingsFileExport.useRecommended;
-			radioButtonPNG.Checked = SettingsFileExport.IsPNG();
-			radioButtonJPEG.Checked = SettingsFileExport.IsJPEG();
-			numericUpDownJPEGQuality.Value = SettingsFileExport.jpegQuality;
-			checkBoxShowDirectory.Checked = SettingsFileExport.openExplorer;
-
-			// Update the form enabled states accordingly
-			radioButtonJPEG.Enabled = !checkBoxUseRecommended.Checked;
-			radioButtonPNG.Enabled = !checkBoxUseRecommended.Checked;
-			numericUpDownJPEGQuality.Enabled = !checkBoxUseRecommended.Checked && radioButtonJPEG.Checked;
-			labelJPEGQualityPerc.Enabled = numericUpDownJPEGQuality.Enabled;
-		}
-
-		// Show the save dialog, then ask IOManager to write the file
 		private void ButtonOK_Click(object sender, EventArgs e)
 		{
-			string userFileName = IOManager.SanitizeFilename(SettingsMap.title);
-
-			SaveFileDialog dialog = new SaveFileDialog
-			{
-				Filter = SettingsFileExport.IsPNG() ? "PNG|*.png" : "JPEG|*.jpeg",
-				FileName = string.IsNullOrWhiteSpace(userFileName) ? "Mappalachia Map" : userFileName,
-			};
-
-			if (dialog.ShowDialog() == DialogResult.OK)
-			{
-				string fileName = dialog.FileName;
-				ImageFormat imageFormat = SettingsFileExport.IsPNG() ? ImageFormat.Png : ImageFormat.Jpeg;
-				IOManager.WriteToFile(fileName, Map.GetImage(), imageFormat, SettingsFileExport.jpegQuality);
-
-				if (SettingsFileExport.openExplorer)
-				{
-					IOManager.SelectFile(fileName);
-				}
-
-				Close();
-			}
+			DialogResult = DialogResult.OK;
 		}
 	}
 }

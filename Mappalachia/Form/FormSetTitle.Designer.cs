@@ -28,25 +28,27 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSetTitle));
-			textBoxTitle = new System.Windows.Forms.TextBox();
-			buttonOK = new System.Windows.Forms.Button();
-			buttonCancel = new System.Windows.Forms.Button();
+			textBox = new TextBox();
+			buttonOK = new Button();
+			buttonCancel = new Button();
+			labelTitle = new Label();
 			SuspendLayout();
 			// 
-			// textBoxTitle
+			// textBox
 			// 
-			textBoxTitle.Location = new System.Drawing.Point(12, 12);
-			textBoxTitle.MaxLength = 200;
-			textBoxTitle.Name = "textBoxTitle";
-			textBoxTitle.Size = new System.Drawing.Size(434, 23);
-			textBoxTitle.TabIndex = 0;
+			textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			textBox.Location = new Point(12, 25);
+			textBox.MaxLength = 256;
+			textBox.Name = "textBox";
+			textBox.Size = new Size(310, 23);
+			textBox.TabIndex = 0;
 			// 
 			// buttonOK
 			// 
-			buttonOK.Location = new System.Drawing.Point(151, 41);
+			buttonOK.Anchor = AnchorStyles.Bottom;
+			buttonOK.Location = new Point(89, 60);
 			buttonOK.Name = "buttonOK";
-			buttonOK.Size = new System.Drawing.Size(75, 23);
+			buttonOK.Size = new Size(75, 23);
 			buttonOK.TabIndex = 1;
 			buttonOK.Text = "OK";
 			buttonOK.UseVisualStyleBackColor = true;
@@ -54,28 +56,35 @@
 			// 
 			// buttonCancel
 			// 
-			buttonCancel.Location = new System.Drawing.Point(232, 41);
+			buttonCancel.Anchor = AnchorStyles.Bottom;
+			buttonCancel.Location = new Point(170, 60);
 			buttonCancel.Name = "buttonCancel";
-			buttonCancel.Size = new System.Drawing.Size(75, 23);
+			buttonCancel.Size = new Size(75, 23);
 			buttonCancel.TabIndex = 2;
 			buttonCancel.Text = "Cancel";
 			buttonCancel.UseVisualStyleBackColor = true;
-			buttonCancel.Click += ButtonCancel_Click;
+			// 
+			// labelTitle
+			// 
+			labelTitle.AutoSize = true;
+			labelTitle.Location = new Point(12, 7);
+			labelTitle.Name = "labelTitle";
+			labelTitle.Size = new Size(30, 15);
+			labelTitle.TabIndex = 3;
+			labelTitle.Text = "Title";
 			// 
 			// FormSetTitle
 			// 
 			AcceptButton = buttonOK;
-			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = buttonCancel;
-			ClientSize = new System.Drawing.Size(458, 74);
+			ClientSize = new Size(334, 88);
+			Controls.Add(labelTitle);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonOK);
-			Controls.Add(textBoxTitle);
-			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+			Controls.Add(textBox);
 			Name = "FormSetTitle";
-			StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			Text = "Set Map Title";
 			ResumeLayout(false);
 			PerformLayout();
@@ -83,8 +92,9 @@
 
 		#endregion
 
-		private System.Windows.Forms.TextBox textBoxTitle;
-		private System.Windows.Forms.Button buttonOK;
-		private System.Windows.Forms.Button buttonCancel;
+		private TextBox textBox;
+		private Button buttonOK;
+		private Button buttonCancel;
+		private Label labelTitle;
 	}
 }

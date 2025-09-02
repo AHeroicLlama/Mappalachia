@@ -1,10 +1,10 @@
-﻿using System;
 using System.Reflection;
-using System.Windows.Forms;
+using Library;
 
 namespace Mappalachia
 {
-	internal partial class FormAbout : Form
+	// Largely auto-generated
+	public partial class FormAbout : Form
 	{
 		public FormAbout()
 		{
@@ -13,8 +13,11 @@ namespace Mappalachia
 			labelProductName.Text = AssemblyProduct;
 			labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
 			labelCopyright.Text = AssemblyCopyright;
-			labelCompanyName.Text = AssemblyCompany;
-			textBoxDescription.Text = AssemblyDescription + "\r\nDatabase game version: " + IOManager.GetGameVersion();
+			linkLabelGitHub.Text = "GitHub";
+			textBoxDescription.Text = AssemblyDescription + "\r\nDatabase game version: " + Database.GetGameVersion().Result + "\r\n\r\n" +
+				"Mappalachia is provided as a non-commercial, free tool solely for the benefit of players of Fallout 76. Mappalachia and its creator are neither affiliated with - nor endorsed by - ZeniMax Media or any of its subsidiaries including Bethesda Softworks LLC. Any and all game data and/or assets including but not limited to images, characters, names and other game data which are contained within this application are extracted from a purchased copy of Fallout 76 and are shared with the player community in good faith and for the explicit purpose of making maps for the benefit of said community, with an understanding that this lies within fair use.\r\n" +
+				"Great care has been taken to minimize such data so that it cannot be reconstructed in any meaningful way.\r\n" +
+				"If you have any concerns or queries, please direct them to mappalachia.feedback@gmail.com";
 		}
 
 		public static string AssemblyTitle
@@ -22,27 +25,40 @@ namespace Mappalachia
 			get
 			{
 				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+
 				if (attributes.Length > 0)
 				{
 					AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-					if (!string.IsNullOrEmpty(titleAttribute.Title))
+					if (titleAttribute.Title != string.Empty)
 					{
 						return titleAttribute.Title;
 					}
 				}
 
-				return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
+				return string.Empty;
 			}
 		}
 
-		public static string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		public static string AssemblyVersion
+		{
+			get
+			{
+				return Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? throw new NullReferenceException("Assembly version is null");
+			}
+		}
 
 		public static string AssemblyDescription
 		{
 			get
 			{
 				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyDescriptionAttribute)attributes[0]).Description;
+
+				if (attributes.Length == 0)
+				{
+					return string.Empty;
+				}
+
+				return ((AssemblyDescriptionAttribute)attributes[0]).Description;
 			}
 		}
 
@@ -51,7 +67,13 @@ namespace Mappalachia
 			get
 			{
 				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyProductAttribute)attributes[0]).Product;
+
+				if (attributes.Length == 0)
+				{
+					return string.Empty;
+				}
+
+				return ((AssemblyProductAttribute)attributes[0]).Product;
 			}
 		}
 
@@ -60,7 +82,13 @@ namespace Mappalachia
 			get
 			{
 				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+
+				if (attributes.Length == 0)
+				{
+					return string.Empty;
+				}
+
+				return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
 			}
 		}
 
@@ -69,14 +97,20 @@ namespace Mappalachia
 			get
 			{
 				object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyCompanyAttribute)attributes[0]).Company;
+
+				if (attributes.Length == 0)
+				{
+					return string.Empty;
+				}
+
+				return ((AssemblyCompanyAttribute)attributes[0]).Company;
 			}
 		}
 
-		private void OkButton_Click(object sender, EventArgs e)
+		private void LinkLabelGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Close();
-			Dispose();
+			Common.OpenURI(URLs.GitHub);
+			linkLabelGitHub.LinkVisited = true;
 		}
 	}
 }
