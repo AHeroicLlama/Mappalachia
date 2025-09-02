@@ -2242,6 +2242,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 8460674,PackInFishingPackinLGTFishCatchLightingRig01StorageCell,,0,0
 8489724,PackInFishingQuestIntroBarrelPackInStorageCell,,0,0
 850351,,,0,0
+8505321,D11GOTestCell,Quick Test Cell,0,0
 8511193,PackInF1S21SurvivalTentBoathousePKINStorageCell,,0,0
 8511195,PackInF1S21SurvivalTentBoathousePKINNewStorageCell,,0,0
 851270,COPY0285,,0,0
@@ -2249,6 +2250,10 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 8546811,testStaticCollectionSCs,Quick Test Cell,0,0
 8546812,testStaticCollectioncontrolSCcombined,Quick Test Cell,0,0
 8546813,testStaticCollectionFragmented,Quick Test Cell,0,0
+8562345,PackInATXCollectronpackinLiberatedStorageCell,,0,0
+8655677,PackInSCORES22PackinNukaColaFoosballTableStorageCell,,0,0
+8661181,PackInSCORES22PackinNukaColaFoosballTableNewStorageCell,,0,0
+8673374,PackInSCORES22CollectronpackinRoboButlerStorageCell,,0,0
 87451,PackInPACKForestTrees030104StorageCell,,0,0
 87638,zCUTTestRender01,Quick Test Cell,0,0
 89026,,,0,0

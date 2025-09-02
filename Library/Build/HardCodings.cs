@@ -101,6 +101,7 @@ namespace Library
 			new List<string>() { "XPDAC02Aquarium", "XPDAC02AquariumDungeon" },
 			new List<string>() { "XPDAC03CommunityCenter", "XPDAC03CommunityCenterDungeon" },
 			new List<string>() { "XPDPitt01Foundry", "XPDPitt01FoundryDungeon" },
+			new List<string>() { "WestTek02", "WestTek02Arena" },
 		};
 
 		// Monongah Workshop (0x003D4B48) does not have its 'Map Marker/FULL - Name' record assigned so the export scripts don't find it
