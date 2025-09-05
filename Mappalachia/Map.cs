@@ -538,19 +538,13 @@ namespace Mappalachia
 						continue;
 					}
 
-					// If the cluster is actually a polygon and not a line nor a point, draw the polygon, else, just use normal icons
-					if (cluster.Members.Count > 2)
+					// If the cluster is not just a single point, draw the polygon
+					if (cluster.Members.Count > 1)
 					{
 						graphics.DrawPolygon(pen, cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
-						graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), font, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
 					}
-					else
-					{
-						foreach (Instance instance in cluster.Members)
-						{
-							graphics.DrawImageCentered(leadItem.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
-						}
-					}
+
+					graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), font, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
 				}
 			}
 		}
