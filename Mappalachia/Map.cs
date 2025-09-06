@@ -152,6 +152,7 @@ namespace Mappalachia
 					return null;
 				}
 
+				await DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
 				await DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
 			}
 
@@ -260,6 +261,42 @@ namespace Mappalachia
 			}
 		}
 
+		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
+		{
+			if (!settings.PlotSettings.DrawInstanceFormID)
+			{
+				return;
+			}
+
+			Font instanceFormIDFont = GetFont(settings.MapSettings.FontSettings.SizeInstanceFormID);
+
+			int i = 0;
+			foreach (GroupedSearchResult item in itemsToPlot)
+			{
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Drawing instance FormIDs");
+
+				// Regions don't have instance Form IDs
+				if (item.Entity is Library.Region)
+				{
+					continue;
+				}
+
+				foreach (Instance instance in await Database.GetInstances(item, item.Space))
+				{
+					// Skip plots in cluster and heatmap mode since they're not plotted distinctly,
+					// unless they're shapes which are
+					if (instance.PrimitiveShape is null && (settings.PlotSettings.Mode == PlotMode.Cluster || settings.PlotSettings.Mode == PlotMode.Heatmap))
+					{
+						continue;
+					}
+
+					PointF point = instance.Coord.AsImagePoint(settings);
+
+					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), instanceFormIDFont, new SolidBrush(item.PlotIcon.Color), new PointF(point.X, point.Y + (item.PlotIcon.Size / 2)), false);
+				}
+			}
+		}
+
 		// Standard including topographic plots
 		static async Task DrawStandardPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, bool topographic, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
 		{
@@ -280,7 +317,6 @@ namespace Mappalachia
 					continue;
 				}
 
-				Font instanceFormIDFont = GetFont(settings.MapSettings.FontSettings.SizeInstanceFormID);
 				List<Instance> instances = await Database.GetInstances(item, item.Space);
 
 				foreach (Instance instance in instances)
@@ -323,12 +359,6 @@ namespace Mappalachia
 					else
 					{
 						graphics.DrawImageCentered(iconImage ?? item.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
-					}
-
-					if (settings.PlotSettings.DrawInstanceFormID)
-					{
-						PointF point = instance.Coord.AsImagePoint(settings);
-						graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), instanceFormIDFont, new SolidBrush(item.PlotIcon.Color), new PointF(point.X, point.Y + (item.PlotIcon.Size / 2)), false);
 					}
 				}
 			}
