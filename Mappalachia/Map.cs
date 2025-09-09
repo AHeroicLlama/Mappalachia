@@ -284,7 +284,7 @@ namespace Mappalachia
 				foreach (Instance instance in await Database.GetInstances(item, item.Space))
 				{
 					// Skip plots in cluster and heatmap mode since they're not plotted distinctly,
-					// unless they're shapes which are
+					// unless they're shapes.
 					if (instance.PrimitiveShape is null && (settings.PlotSettings.Mode == PlotMode.Cluster || settings.PlotSettings.Mode == PlotMode.Heatmap))
 					{
 						continue;
