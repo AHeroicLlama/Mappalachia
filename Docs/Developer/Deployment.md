@@ -19,7 +19,8 @@ In order to package a Mappalachia release there are a few steps.
 * Update the game version shield in `README.md`, and increment the Package Version in `Mappalachia.csproj`. Releases which only represent a game update should only increment the patch number.
 * In Visual Studio, right click the Mappalachia Project and select 'Publish'. With the included `PublishProfile.pubxml` selected, press 'Publish'.
 * Launch `Mappalachia\Package_Release.bat`. This requires a 7-Zip installation and assumes the default installation directory. It will use 7-Zip to create the `Mappalachia.zip`, `Patch_Spotlight.zip`, and additional 'spotlight' archives, placing them at `dist\`.
-* `Mappalachia.zip` is the file which should now be distributed to end users. Additionally, `Patch_Spotlight.zip` and all the `spotlight.7z.xxx` files should be made available as optional downloads.
+* `Mappalachia.zip` is the file which should now be distributed to end users. Additionally, `Patch_Spotlight.zip` should be made available as an optional download.
+* All the `spotlight.7z.xxx` files should be attached to the [specific `spotlight` release on Github](https://github.com/AHeroicLlama/Mappalachia/releases/tag/spotlight), replacing all current assets there.
 
 ## Data troubleshooting & common errors to check
 What follows is a list of changes you may need to make or check following a new game update.<br/>
