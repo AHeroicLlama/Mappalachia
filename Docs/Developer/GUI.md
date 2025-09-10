@@ -22,3 +22,6 @@ Building the database and generating image assets is a multi-step process and yo
 If you want to debug Mappalachia and skip out on the datamining and asset generations steps, you need to grab a copy of the pre-assembled assets from a release.<br/>
 To use these in your debugging, copy the `img\` and `data\` folders from the root of a release, and place them in the `Assets\` folder at the root of the repository, then rebuild the project. A post-build event will copy them to the relevant location(s) in `bin\`, therefore allowing you to debug.
 <br/>
+
+### Next steps
+See [Deployment](Deployment.md) for the full process of packaging and deploying a release, including after a game update.

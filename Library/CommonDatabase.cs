@@ -19,10 +19,19 @@ namespace Library
 		}
 
 		// Shortcut to return a reader with the given query already executed
-		public static async Task<SqliteDataReader> GetReader(SqliteConnection connection, string queryText)
+		public static async Task<SqliteDataReader> GetReader(SqliteConnection connection, string queryText, Dictionary<string, object>? parameters = null)
 		{
 			SqliteCommand query = connection.CreateCommand();
 			query.CommandText = queryText;
+
+			if (parameters != null)
+			{
+				foreach (KeyValuePair<string, object> param in parameters)
+				{
+					query.Parameters.AddWithValue(param.Key, param.Value);
+				}
+			}
+
 			return await query.ExecuteReaderAsync().ConfigureAwait(false);
 		}
 

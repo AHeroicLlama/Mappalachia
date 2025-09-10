@@ -562,7 +562,7 @@ namespace Mappalachia
 			drawInstanceFormIDToolStripMenuItem.Name = "drawInstanceFormIDToolStripMenuItem";
 			drawInstanceFormIDToolStripMenuItem.Size = new Size(240, 22);
 			drawInstanceFormIDToolStripMenuItem.Text = "Show Instance FormID";
-			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot. Only applies to Standard or Topographic plot mode.";
+			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot. Generally only applies to Standard or Topographic plot mode.";
 			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
 			// 
 			// helpToolStripMenuItem

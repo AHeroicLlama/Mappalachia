@@ -470,9 +470,14 @@ namespace Mappalachia
 
 			string query = "SELECT x, y, z, instanceFormID FROM Position " +
 				"JOIN Container ON Container.containerFormID = Position.referenceFormID " +
-				$"WHERE contentFormID = {searchResult.Entity.FormID} AND quantity = {searchResult.SpawnWeight} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND spaceFormID = {space.FormID};";
+				$"WHERE contentFormID = {searchResult.Entity.FormID} AND quantity = $spawnWeight AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND spaceFormID = {space.FormID};";
 
-			using SqliteDataReader reader = await GetReader(Connection, query);
+			Dictionary<string, object> parameters = new Dictionary<string, object>
+			{
+				{ "$spawnWeight", searchResult.SpawnWeight },
+			};
+
+			using SqliteDataReader reader = await GetReader(Connection, query, parameters);
 
 			while (reader.Read())
 			{
@@ -555,9 +560,14 @@ namespace Mappalachia
 
 			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
 				"JOIN NPC ON npc.instanceFormID = Position.instanceFormID " +
-				$"WHERE npcName = '{searchResult.Entity.EditorID}' AND npc.spawnWeight = {searchResult.SpawnWeight} AND npc.spaceFormID = {space.FormID}";
+				$"WHERE npcName = '{searchResult.Entity.EditorID}' AND npc.spawnWeight = $spawnWeight AND npc.spaceFormID = {space.FormID}";
 
-			using SqliteDataReader reader = await GetReader(Connection, query);
+			Dictionary<string, object> parameters = new Dictionary<string, object>
+			{
+				{ "$spawnWeight", searchResult.SpawnWeight },
+			};
+
+			using SqliteDataReader reader = await GetReader(Connection, query, parameters);
 
 			while (reader.Read())
 			{
@@ -583,7 +593,12 @@ namespace Mappalachia
 
 			string query = "SELECT x, y, z, Position.instanceFormID FROM Position " +
 				"JOIN Scrap ON Scrap.junkFormID = Position.referenceFormID " +
-				$"WHERE component = '{searchResult.Entity.EditorID}' AND Scrap.componentQuantity = {searchResult.SpawnWeight} AND Position.spaceFormID = {space.FormID}";
+				$"WHERE component = '{searchResult.Entity.EditorID}' AND Scrap.componentQuantity = $spawnWeight AND Position.spaceFormID = {space.FormID}";
+
+			Dictionary<string, object> parameters = new Dictionary<string, object>
+			{
+				{ "$spawnWeight", searchResult.SpawnWeight },
+			};
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 

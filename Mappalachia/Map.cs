@@ -30,7 +30,7 @@ namespace Mappalachia
 
 	public static class Map
 	{
-		public static int BlastRadius { get; } = 20460; // 0x002D1160
+		public static int BlastRadius { get; } = 20460; // See GLOB 0x002D1160
 
 		public static int CompassSize { get; } = MapImageResolution / 8;
 
@@ -152,6 +152,7 @@ namespace Mappalachia
 					return null;
 				}
 
+				await DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
 				await DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
 			}
 
@@ -227,6 +228,14 @@ namespace Mappalachia
 
 				Image? image = tile.GetSpotlightTileImage();
 
+				SmoothingMode priorSmoothingMode = graphics.SmoothingMode;
+				PixelOffsetMode priorPixelOffsetMode = graphics.PixelOffsetMode;
+				InterpolationMode priorInterpolationMode = graphics.InterpolationMode;
+
+				graphics.SmoothingMode = SmoothingMode.None;
+				graphics.PixelOffsetMode = PixelOffsetMode.Half;
+				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+
 				if (image is not null)
 				{
 					i++;
@@ -235,6 +244,10 @@ namespace Mappalachia
 
 					graphics.DrawImage(image, tile.GetRectangle().AsImageRectangle(settings));
 				}
+
+				graphics.SmoothingMode = priorSmoothingMode;
+				graphics.PixelOffsetMode = priorPixelOffsetMode;
+				graphics.InterpolationMode = priorInterpolationMode;
 
 #if DEBUG_SPOTLIGHT
 				graphics.DrawStringCentered(
@@ -245,6 +258,42 @@ namespace Mappalachia
 
 				graphics.DrawRectangle(new Pen(Color.Orange, 5), tile.GetRectangle().AsImageRectangle(settings));
 #endif
+			}
+		}
+
+		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
+		{
+			if (!settings.PlotSettings.DrawInstanceFormID)
+			{
+				return;
+			}
+
+			Font instanceFormIDFont = GetFont(settings.MapSettings.FontSettings.SizeInstanceFormID);
+
+			int i = 0;
+			foreach (GroupedSearchResult item in itemsToPlot)
+			{
+				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Drawing instance FormIDs");
+
+				// Regions don't have instance Form IDs
+				if (item.Entity is Library.Region)
+				{
+					continue;
+				}
+
+				foreach (Instance instance in await Database.GetInstances(item, item.Space))
+				{
+					// Skip plots in cluster and heatmap mode since they're not plotted distinctly,
+					// unless they're shapes.
+					if (instance.PrimitiveShape is null && (settings.PlotSettings.Mode == PlotMode.Cluster || settings.PlotSettings.Mode == PlotMode.Heatmap))
+					{
+						continue;
+					}
+
+					PointF point = instance.Coord.AsImagePoint(settings);
+
+					graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), instanceFormIDFont, new SolidBrush(item.PlotIcon.Color), new PointF(point.X, point.Y + (item.PlotIcon.Size / 2)), false);
+				}
 			}
 		}
 
@@ -268,7 +317,6 @@ namespace Mappalachia
 					continue;
 				}
 
-				Font instanceFormIDFont = GetFont(settings.MapSettings.FontSettings.SizeInstanceFormID);
 				List<Instance> instances = await Database.GetInstances(item, item.Space);
 
 				foreach (Instance instance in instances)
@@ -311,12 +359,6 @@ namespace Mappalachia
 					else
 					{
 						graphics.DrawImageCentered(iconImage ?? item.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
-					}
-
-					if (settings.PlotSettings.DrawInstanceFormID)
-					{
-						PointF point = instance.Coord.AsImagePoint(settings);
-						graphics.DrawStringCentered(instance.InstanceFormID.ToHex(), instanceFormIDFont, new SolidBrush(item.PlotIcon.Color), new PointF(point.X, point.Y + (item.PlotIcon.Size / 2)), false);
 					}
 				}
 			}
@@ -526,19 +568,13 @@ namespace Mappalachia
 						continue;
 					}
 
-					// If the cluster is actually a polygon and not a line nor a point, draw the polygon, else, just use normal icons
-					if (cluster.Members.Count > 2)
+					// If the cluster is not just a single point, draw the polygon
+					if (cluster.Members.Count > 1)
 					{
 						graphics.DrawPolygon(pen, cluster.Members.Select(m => m.Coord.AsImagePoint(settings)).ToList().GetConvexHull());
-						graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), font, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
 					}
-					else
-					{
-						foreach (Instance instance in cluster.Members)
-						{
-							graphics.DrawImageCentered(leadItem.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
-						}
-					}
+
+					graphics.DrawStringCentered(Math.Round(cluster.GetWeight(), 2).ToString(), font, brush, cluster.Members.GetCentroid().AsImagePoint(settings));
 				}
 			}
 		}
@@ -633,11 +669,23 @@ namespace Mappalachia
 			float height = legendRect.Height;
 			float step = height / divisions;
 
+			SmoothingMode priorSmoothingMode = graphics.SmoothingMode;
+			PixelOffsetMode priorPixelOffsetMode = graphics.PixelOffsetMode;
+			InterpolationMode priorInterpolationMode = graphics.InterpolationMode;
+
+			graphics.SmoothingMode = SmoothingMode.None;
+			graphics.PixelOffsetMode = PixelOffsetMode.Half;
+			graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+
 			for (float y = 0; y < height; y += step)
 			{
 				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
 				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
 			}
+
+			graphics.SmoothingMode = priorSmoothingMode;
+			graphics.PixelOffsetMode = priorPixelOffsetMode;
+			graphics.InterpolationMode = priorInterpolationMode;
 		}
 
 		// Draws the region instance
