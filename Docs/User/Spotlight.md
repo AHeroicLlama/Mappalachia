@@ -6,7 +6,7 @@ The detail of the world and thus the accuracy of the plots becomes much clearer,
 
 Due to the large file sizes, spotlight is not included by default, but you can choose to download and install it by following these steps:<br/>
 * If you have not already, [install 7-Zip](https://www.7-zip.org/download.html). 7-Zip is a popular tool for creating and opening compressed files.
-* Go to the [latest release](https://github.com/AHeroicLlama/Mappalachia/releases/latest) on GitHub.
+* Go to the special [spotlight release](https://github.com/AHeroicLlama/Mappalachia/releases/tag/spotlight) on GitHub.
 * Under assets, download all files named `spotlight.7z.xxx` where xxx are numbers 001 and up.
 * Once all files are downloaded, move them to your Mappalachia install location, into the folder `img\`.
 * Right click the file `spotlight.7z.001`, and select `7-Zip` > `Extract Here`.
@@ -15,7 +15,7 @@ Due to the large file sizes, spotlight is not included by default, but you can c
 * You may delete all the files you downloaded, leaving the new folder remaining.
 
 ## Updating Spotlight
-If you already have the latest version of spotlight installed, you may quickly download only newly updated parts of it for the current patch by downloading `Patch_Spotlight.zip` from the latest release, and unzipping it into the `img\` folder, merging with the `spotlight\` folder you already have there.<br/>
+If you already have the latest version of spotlight installed, you may quickly download only newly updated parts of it for the current patch by downloading `Patch_Spotlight.zip` from the [latest release](https://github.com/AHeroicLlama/Mappalachia/releases/latest), and unzipping it into the `img\` folder, merging with the `spotlight\` folder you already have there.<br/>
 This zip will always only contain spotlight data which changed between this release and the prior.<br/>
 If you don't have the latest spotlight installed, you may still update it by repeating this process for each release you're missing, oldest to newest.
 
