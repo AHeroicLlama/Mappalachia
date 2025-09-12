@@ -600,7 +600,7 @@ namespace Mappalachia
 				{ "$spawnWeight", searchResult.SpawnWeight },
 			};
 
-			using SqliteDataReader reader = await GetReader(Connection, query);
+			using SqliteDataReader reader = await GetReader(Connection, query, parameters);
 
 			while (reader.Read())
 			{
