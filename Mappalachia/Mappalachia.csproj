@@ -10,7 +10,7 @@
 	<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
 	<ApplicationIcon>favicon_small.ico</ApplicationIcon>
 	<StartupObject>Mappalachia.Mappalachia</StartupObject>
-	<Version>2.0.1.0</Version>
+	<Version>2.0.1.1</Version>
 	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	<Authors>AHeroicLlama</Authors>
 	<Copyright>$(Authors)</Copyright>
@@ -31,12 +31,15 @@ Mappalachia is a Windows application for generating and exporting complex maps o
   <ItemGroup>
 	<Compile Remove="dist\**" />
 	<Compile Remove="img\**" />
+	<Compile Remove="Mappalachia\**" />
 	<Compile Remove="publish\**" />
 	<EmbeddedResource Remove="dist\**" />
 	<EmbeddedResource Remove="img\**" />
+	<EmbeddedResource Remove="Mappalachia\**" />
 	<EmbeddedResource Remove="publish\**" />
 	<None Remove="dist\**" />
 	<None Remove="img\**" />
+	<None Remove="Mappalachia\**" />
 	<None Remove="publish\**" />
   </ItemGroup>
 
