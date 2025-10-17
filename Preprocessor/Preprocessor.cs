@@ -855,7 +855,7 @@ namespace Preprocessor
 			}
 
 			// Extract only the part containing the NPC name
-			string name = NPCRegex.Match(value).Groups[2].Value;
+			string name = NPCRegex.Match(value).Groups[3].Value;
 
 			// Add a space if it looks like it needs it
 			if (TitleCaseAddSpaceRegex.IsMatch(name))

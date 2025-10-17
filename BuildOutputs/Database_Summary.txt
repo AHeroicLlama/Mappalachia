@@ -1,11 +1,11 @@
 MD5 Checksum
-A24C99DAC033D7B54514BC617F3C3B2B
+B8DB88A3E93FFE80F78D16D438EB16A7
 
 Size
 469608 KB
 
 Built At UTC
-16/10/2025 23:30:11
+17/10/2025 14:40:01
 
 CSV Imported with SQLite Version
 3.50.4 2025-07-30 19:33:53 4d8adfb30e03f9cf27f800a2c1ba3c48fb4ca1b08b0f5ed59a4d5ecbf45e20a3 (64-bit)
@@ -454,7 +454,7 @@ Appalachia,CabinMarker,Sunday Brothers' Cabin
 Appalachia,CabinMarker,Surly's Shack
 Appalachia,CabinMarker,Tycoon Lake
 Appalachia,CamperMarker,Naked Creek
-Appalachia,CamperMarker,Pine Bluff Overlook
+Appalachia,CamperMarker,Prospect Hill
 Appalachia,CapitalBuildingMarker,Charleston Capitol Building
 Appalachia,CarMarker,Abandoned Convoy
 Appalachia,CarMarker,Makeout Point
@@ -476,7 +476,7 @@ Appalachia,CaveMarker,The Deep
 Appalachia,CaveMarker,Uncanny Caverns
 Appalachia,CaveMarker,Wendigo Cave
 Appalachia,ChurchMarker,Haven Church
-Appalachia,ChurchMarker,Hillside Church
+Appalachia,ChurchMarker,Shade Hill Church
 Appalachia,CityMarker,Charleston
 Appalachia,CityMarker,Morgantown
 Appalachia,CityMarker,Watoga
@@ -498,8 +498,7 @@ Appalachia,CultistMarker,Organ Cave West
 Appalachia,CultistMarker,Sacrament
 Appalachia,DamMarker,Crevasse Dam
 Appalachia,DamMarker,Grafton Dam
-Appalachia,DriveInMarker,Starlight Drive-in
-Appalachia,ElectricalSubstationMarker,Derelict Power Substation
+Appalachia,ElectricalSubstationMarker,Abraxodyne Chemical Power Substation
 Appalachia,ElectricalSubstationMarker,Monongah Power Substation MZ-01
 Appalachia,ElectricalSubstationMarker,Monongah Power Substation MZ-02
 Appalachia,ElectricalSubstationMarker,Monongah Power Substation MZ-03
@@ -514,7 +513,7 @@ Appalachia,ElevatedHighwayMarker,New River Gorge Bridge - East
 Appalachia,ElevatedHighwayMarker,New River Gorge Bridge - West
 Appalachia,EncampmentMarker,Blue Ridge Bunkhouse
 Appalachia,EncampmentMarker,Checkpoint Canyon
-Appalachia,EncampmentMarker,Desolate Encampment
+Appalachia,EncampmentMarker,Hamley Run Camp
 Appalachia,EncampmentMarker,Milepost Zero
 Appalachia,EncampmentMarker,Overseer's Camp
 Appalachia,EncampmentMarker,Overseer's Home
@@ -522,7 +521,6 @@ Appalachia,EncampmentMarker,Striker Row
 Appalachia,EncampmentMarker,Sylvie & Sons Logging Camp
 Appalachia,EncampmentMarker,The Trading Post
 Appalachia,FactoryMarker,Abandoned Mine Shaft 1
-Appalachia,FactoryMarker,Abraxodyne Storage Depot
 Appalachia,FactoryMarker,Big Meadows Gas Well
 Appalachia,FactoryMarker,Braxson's Quality Medical Supplies
 Appalachia,FactoryMarker,Gilman Lumber Mill
@@ -531,6 +529,7 @@ Appalachia,FactoryMarker,Hornwright Testing Site #02
 Appalachia,FactoryMarker,Hornwright Testing Site #03
 Appalachia,FactoryMarker,Hornwright Testing Site #04
 Appalachia,FactoryMarker,Mama Dolce's Food Processing
+Appalachia,FactoryMarker,Meadow Breeze Storage Depot
 Appalachia,FactoryMarker,Summersville Dam
 Appalachia,FactoryMarker,WV Lumber Co.
 Appalachia,FarmMarker,Aaronholt Homestead
@@ -701,6 +700,7 @@ Appalachia,PublicWorkshopMarker,Monongah Power Plant Yard
 Appalachia,PublicWorkshopMarker,Mount Blair
 Appalachia,PublicWorkshopMarker,Poseidon Energy Plant Yard
 Appalachia,PublicWorkshopMarker,Red Rocket Mega Stop
+Appalachia,PublicWorkshopMarker,Starlight Drive-in
 Appalachia,PublicWorkshopMarker,Sunshine Meadows Industrial Farm
 Appalachia,PublicWorkshopMarker,Thunder Mt. Power Plant Yard
 Appalachia,PublicWorkshopMarker,Tyler County Dirt Track
@@ -833,12 +833,10 @@ Appalachia,WoodShackMarker,Southhampton Estate
 Appalachia,WoodShackMarker,Susan's Cabin
 Appalachia,WoodShackMarker,Toxic Larry's Meat 'n Go
 Appalachia,WoodShackMarker,Treetops
-Appalachia,WoodShackMarker,Wildwood Horse Ranch
+Appalachia,WoodShackMarker,Westbrook Horse Ranch
 
 NPCs by Space and Weight
 Appalachia,Angler,0.1393373361471521
-Appalachia,BURNScorpion,0.12250622007941761
-Appalachia,BURNStingwing,0.12250622007941761
 Appalachia,Beaver,0.125
 Appalachia,Bloatfly,0.17089118030451655
 Appalachia,Bloodbug,0.2794465260549635
@@ -865,7 +863,7 @@ Appalachia,Opposum,0.2619047619047619
 Appalachia,Rabbit,0.08333333333333333
 Appalachia,Rad Ant,0.23008030875235624
 Appalachia,Rad Rat,0.12011431072709187
-Appalachia,Rad Scorpion,0.12262233984502893
+Appalachia,Rad Scorpion,0.12255983738543866
 Appalachia,Rad Toad,0.2571039412936646
 Appalachia,Radroach,0.1329827814798356
 Appalachia,Radstag,0.20833333333333334
@@ -873,7 +871,7 @@ Appalachia,Robot,0.317382518602451
 Appalachia,Scorched,0.44947892273076984
 Appalachia,Snallygaster,0.6703296703296703
 Appalachia,Squirrel,0.08333333333333333
-Appalachia,Stingwing,0.14108370376849405
+Appalachia,Stingwing,0.12797018587032244
 Appalachia,Super Mutant,0.3642547524880893
 Appalachia,Thrasher,0.19879744795073584
 Appalachia,Tick,0.21797404821701494
