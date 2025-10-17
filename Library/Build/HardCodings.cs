@@ -32,11 +32,11 @@ namespace Library
 
 		public static Regex ValidatePrimitiveShape { get; } = new Regex("^(Box|Line|Plane|Sphere|Ellipsoid|Cylinder)$");
 
-		public static Regex ValidateSignature { get; } = new Regex("^(ACTI|ALCH|AMMO|ARMO|ASPC|BNDS|BOOK|CNCY|CONT|DOOR|FLOR|FURN|HAZD|IDLM|KEYM|LIGH|LVLI|MISC|MSTT|NOTE|NPC_|PROJ|SCOL|SECH|SOUN|STAT|TACT|TERM|TXST|WEAP)$");
+		public static Regex ValidateSignature { get; } = new Regex("^(ACTI|ALCH|AMMO|ARMO|ASPC|BNDS|BOOK|CNCY|CONT|DOOR|FLOR|FURN|HAZD|IDLM|KEYM|LIGH|LVLI|MISC|MSTT|NOTE|NPC_|PROJ|SCOL|SECH|SOUN|STAT|TACT|TERM|TRAP|TXST|WEAP)$");
 
 		public static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
 
-		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood|Pure (Crimson|Violet|Yellowcake|Fluorescent|Cobalt) Flux)$");
+		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Coal|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood|Pure (Crimson|Violet|Yellowcake|Fluorescent|Cobalt) Flux)$");
 
 		public static Regex ValidIconFolder { get; } = new Regex("DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
@@ -88,6 +88,9 @@ namespace Library
 			"Fissure Site Kappa",
 			"Fissure Site Tau",
 		};
+
+		// As above, but provides a pattern for a LIKE term
+		public static string MapMarkersToRemovePattern { get; } = "$REGION_%";
 
 		// Spaces which appear to be copy/pastes or alternates of the same thing, and therefore can and should share scaling/adjustments
 		public static List<List<string>> SisterSpaces { get; } = new List<List<string>>()
@@ -285,7 +288,11 @@ namespace Library
 		{
 			if (space.IsAppalachia())
 			{
-				return await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'");
+				List<Region> borderRegions = new List<Region>();
+				borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'"));
+				borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'BurningSpringsBorderRegion%'"));
+
+				return borderRegions;
 			}
 
 			return new List<Region>();

@@ -1947,7 +1947,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 6496780,PackInHumanFemaleTubeStorageCell,,0,0
 6496781,PackInZetanTubePackInStorageCell,,0,0
 6496786,,,0,0
-6504089,StormBossTestCell,Quick Test Cell,0,0
+6504089,zzzStormBossTestCell,Quick Test Cell,0,0
 650515,PackInToxicVentLG01FXlgPKNStorageCell,,0,0
 6506256,,,0,0
 6507290,PackInXPDAmbEWSNodePackinStorageCell,,0,0
@@ -2025,12 +2025,12 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 6831591,PackInATXAppleBucketPKINStorageCell,,0,0
 6835071,PackInMoonCommunalCampfirePackInStorageCell,,0,0
 6841078,ZZZ76StormGPVault,Quick Test Cell,0,0
-6842286,CUTStormVault63Atrium,TestCell,0,0
+6842286,zzzCUTStormVault63Atrium,TestCell,0,0
 6847472,XPDRttP01SteelTowerUpperFloors,Steel Tower Upper Floors,0,0
-6860715,StormArenaTest,,0,0
+6860715,zzzStormArenaTest,,0,0
 6864927,DebugBadenG,Quick Test Cell,0,0
-6865093,StormTrainTunnelsTest,,0,0
-6876023,StormBossPrototypeBadenG01,Quick Test Cell,0,0
+6865093,zzzStormTrainTunnelsTest,,0,0
+6876023,zzzStormBossPrototypeBadenG01,Quick Test Cell,0,0
 6876355,DebugAFinn,Quick Test Cell,0,0
 6897064,zzz76StormRDVault63Hub,Vault 63 Atrium,0,0
 6901872,zCUTTest01,,0,0
@@ -2040,19 +2040,19 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 6927977,DebugJeffU04,Aquarium,0,0
 6935600,DebugJeffU05,Aquarium,0,0
 6949437,StormEngineeringVlt63,Vault 63 Engineering Sector,0,1
-6949438,StormRadToadZooTest,,0,0
-6968154,DebugStormLuna,Quick Test Cell,0,0
-6992390,StormTradingPostTest,,0,0
-6992391,StormRangerStationTest,,0,0
+6949438,zzzStormRadToadZooTest,,0,0
+6968154,zzzDebugStormLuna,Quick Test Cell,0,0
+6992390,zzzStormTradingPostTest,,0,0
+6992391,zzzStormRangerStationTest,,0,0
 6997281,DebugHillValley,Hill Valley,0,0
-7005328,StormPilkerFarmTEST,Quick Test Cell,0,0
+7005328,zzzStormPilkerFarmTEST,Quick Test Cell,0,0
 702259,PackInIndCat1WayExtendablePairPackInStorageCell,,0,0
 7029129,zCutStormCultistTunnelTest,,0,0
 7058450,ZZZStormWeatherLab,Quick Test Cell,0,0
-7063298,DebugStormHKFT,Quick Test Cell,0,0
-7064972,StormRangerRadioStationTEST,Quick Test Cell,0,0
+7063298,zzzDebugStormHKFT,Quick Test Cell,0,0
+7064972,zzzStormRangerRadioStationTEST,Quick Test Cell,0,0
 7081446,,,0,0
-7085045,76StormCDBTest,Quick Test Cell,0,0
+7085045,zzz76StormCDBTest,Quick Test Cell,0,0
 7105981,PackInSCORES14CollectronpackinAutoMinerStorageCell,,0,0
 7112937,DebugFKhan,Quick Test Cell,0,0
 71150,TestSimplygonWithSCHouses,,1,0
@@ -2153,11 +2153,11 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 7311275,zCUTVault63AshHeapExt,Quick Test Cell,0,0
 7327066,NPESuburbiaWorldspace,NPE Suburbia,1,0
 737459,PackInEncSentryBotAmbushPackInStorageCell,,0,0
-7380041,76DebugTMartins,Quick Test Cell,0,0
-7421602,DebugTMartins,Quick Test Cell,0,0
+7380041,zzz76DebugTMartins,Quick Test Cell,0,0
+7421602,DebugVFX,Quick Test Cell,0,0
 74265,TestSimplygonStaticWithPoxyHouses,,1,0
 7496642,,,0,0
-7509805,STORMTreetopLookout,Quick Test Cell,0,0
+7509805,zzzSTORMTreetopLookout,Quick Test Cell,0,0
 7510070,76D11TestCell,Quick Test Cell,0,0
 7516903,TreetopsLookoutJoeCopy,Quick Test Cell,0,0
 75170,TestPhysicsWorld,Test Physics World,1,0
@@ -2174,7 +2174,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 7737444,PackInDRIVEEncounterPointPackInStorageCell,,0,0
 7775846,DebugMarkoS01,Quick Test Cell,0,0
 7776031,PackInStormHWSkylineDriveSign01StorageCell,,0,0
-7778569,DebugTomR,Quick Test Cell,0,1
+7778569,zzzDebugTomR,Quick Test Cell,0,1
 7793399,PackInStormE01HarvesterPartsBoxPKN2StorageCell,,0,0
 7793400,PackInStormE01HarvesterPartsBoxPKN3StorageCell,,0,0
 7806400,PackInSCORES17CollectronpackinScoutmasterStorageCell,,0,0
@@ -2213,49 +2213,243 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 8031571,,,0,0
 8031572,,,0,0
 8031573,,,0,0
+8049253,DebugMarkW,Quick Test Cell,0,0
+8054163,,,0,0
 8054307,TestMikeInt,Quick Test Cell,0,0
+8054896,DebugAsh,Quick Test Cell,0,0
+8056593,zzzDebugLRowland,Quick Test Cell,0,0
+8065481,76BurnAssetZoo,Quick Test Cell,0,0
 806575,PackInLvlMirelurkHunterAggro1670GroundPackInStorageCell,,0,0
 806576,PackInLvlMirelurkHunterAggro1200GroundPackInStorageCell,,0,0
 806577,PackInLvlMirelurkHunterAggro800GroundPackInStorageCell,,0,0
 806578,PackInLvlMirelurkHunterAggro512GroundPackInStorageCell,,0,0
 806579,PackInLvlMirelurkHunterAmbushGroundPackInStorageCell,,0,0
+8071443,,,0,0
+8071444,,,0,0
+8077254,zzzTestCellCDB2,Quick Test Cell,0,0
+8077255,zzzTestCellCDB,Quick Test Cell,0,0
+8082513,ZZZ76D11KK,Quick Test Cell,0,0
+8088972,ZZZDebugCWicks,Quick Test Cell,0,0
+8088973,ZCUT76DSTestCell1,Quick Test Cell,0,0
+8089696,ZZZ76D11KKCopy01,Quick Test Cell,0,0
+8091958,zCUTDebugDavidBAthens,Quick Test Cell,0,0
+8110102,PackInBurnHighwayTownArchStorageCell,,0,0
 8111587,76HoldingCellFishing,Quick Test Cell,0,0
 81153,WarehouseAnimations,Animation Test Cell,0,0
+8119432,zzzDebugLunaPlayground,,0,0
 81335,,,0,0
 81337,,,0,0
 81338,PackInForestPackBoulders01StorageCellDUPLICATE001,,0,0
 81340,PackInForestPackTree02aStorageCell,,0,0
 81341,PackInForestPackTree04aStorageCellDUPLICATE001,,0,0
+8135351,ZCUT76GOD11,Quick Test Cell,0,0
 8136731,PackInGHLPackinLGTFaceLightingRig01StorageCell,,0,0
+8145056,zzzDebugRK,,0,0
+8183194,,,0,0
+8183195,PackInBurnAbroxodyneTrainCar03StorageCell,,0,0
+8183196,PackInBurnAbraxodyneTrainCar04StorageCell,,0,0
+8183197,PackInBurnAbraxodyneTrainCar01StorageCell,,0,0
+8190510,76D11NPCStorage,Quick Test Cell,0,0
+8190643,ZZZBurnChopShop01,Diner Basement,0,0
 82018,zCUTTestLiz,Quick Test Cell,0,0
+8203028,PackInBurnThroneRoomStorageCell,,0,0
+8207857,zzzBURNSQ04TestCell,Quick Test Cell,0,0
+8210959,zCUTDebugDavidB,Quick Test Cell,0,0
 82429,,,0,0
 82430,,,0,0
 82432,,,0,0
 82448,PackInForestPackLog02aStorageCell,,0,0
 82466,PackInForestPackLog01StorageCell,,0,0
 82467,,,0,0
+8251133,ZZZBurnCheckpointCanyonInt,ZZZ Checkpoint Canyon Interior,0,0
+8255198,ZZZBurnCheckpointCanyonInterior,Quick Test Cell,0,0
+8255353,zzzBURNSQ01TestCell,Quick Test Cell,0,0
+8259535,ZCUT76DSTestCell,Quick Test Cell,0,0
+8286706,PackInPACKStormWildCarrotCopy01StorageCell,,0,0
+8290554,PackInPACKBurnMetalBarrelsStorageCell,,0,0
+8290555,PackInPACKBurnDebrisConcretePipeStorageCell,,0,0
+8290556,PackInPACKBurnMinecart01StorageCell,,0,0
+8290557,PackInPACKBurnBrambleShrubs01StorageCell,,0,0
+8290558,PackInPACKBurnDeadTreesStorageCell,,0,0
+8290559,PackInPACKBurnToxicShrubsSmallStorageCell,,0,0
+8290560,PackInPACKBurnToxicShrubsLargeStorageCell,,0,0
+8290561,PackInPACKBurnScatteredStonesStorageCell,,0,0
+8290562,PackInPACKBurnToxicCreeperStorageCell,,0,0
+8290573,,,0,0
+8290574,,,0,0
+8290576,,,0,0
+8290578,PackInPACKBurnRocks01StorageCell,,0,0
+8290579,,,0,0
+8290580,,,0,0
+8290581,,,0,0
+8290582,PackInPACKBurnRocksShrubs01StorageCell,,0,0
+8292882,,,0,0
+8292883,,,0,0
+8292884,PackInPACKBurnRBRocks04StorageCell,,0,0
+8292885,PackInPACKBurnRBRocks03StorageCell,,0,0
+8292886,,,0,0
+8292887,,,0,0
+8292888,PackInPACKBurnRKBScrapPile02StorageCell,,0,0
+8301345,,,0,0
+8301346,PackInPACKBurnAbraxodyneTrainsStorageCell,,0,0
+8301347,,,0,0
+8301348,PackInPACKBurnDriedGrass01StorageCell,,0,0
+8301349,PackInPACKBurnCrateBuriedStorageCell,,0,0
+8301350,PackInPACKBurnDebrisScrapMetal02StorageCell,,0,0
+8301352,PackInPACKBurnIndustrialLargePipeStorageCell,,0,0
+8301353,PackInPACKBurnAbraxodyneTrainDerailedStorageCell,,0,0
+8301354,PackInPACKBurnDeadStumpsStorageCell,,0,0
+8301537,,,0,0
+8301538,,,0,0
+8301539,,,0,0
+8301540,,,0,0
+8301541,PackInPACKBurnRBRocks05StorageCell,,0,0
+8301542,PackInPACKBurnRBTrees04StorageCell,,0,0
+8301543,PackInPACKBurnRBTrees01StorageCell,,0,0
+8301544,PackInPACKBurnRBRocks07StorageCell,,0,0
+8301545,PackInPACKBurnRBTrees03StorageCell,,0,0
+8301546,PackInPACKBurnRBRocks06StorageCell,,0,0
+8301547,PackInPACKBurnRBTrees02StorageCell,,0,0
+8302397,,,0,0
 8305797,DebugGamejam2025,,0,0
+8306165,,,0,0
+8306166,,,0,0
+8306167,PackInPACKBurnSBRocks01Copy01StorageCell,,0,0
+8306168,,,0,0
+8306528,PackInPACKBurnDebrisConcretePipeStackedStorageCell,,0,0
+8306529,PackInPACKBurnCrateStacked02StorageCell,,0,0
+8306531,PackInPACKBurnDeadTrees02StorageCellCopy01,,0,0
+8306532,PackInPACKBurnCrateBuried02StorageCell,,0,0
+8312130,PackInPACKBurnTrees03StorageCell,,0,0
+8312131,PackInPACKBurnRKBGeneric02StorageCell,,0,0
+8312132,PackInPACKBurnRKBGeneric03StorageCell,,0,0
+8312133,PackInPACKBurnTrees04StorageCell,,0,0
+8312134,PackInPACKBurnTrees05StorageCell,,0,0
+8312135,PackInPACKBurnDriedGrass02StorageCell,,0,0
+8313250,PackInPACKBurnWheelPartsStorageCell,,0,0
+8313251,PackInPACKBurnRustedVehiclesStorageCell,,0,0
+8313252,PackInPACKBurnAutoLargePartsStorageCell,,0,0
+8313253,PackInPACKBurnAutoLargePartsCopy01StorageCell,,0,0
+8313278,DebugCKinsey,,0,0
+8313279,76CellTemplateCopy01,Quick Test Cell,0,0
+8327100,,,0,0
+8327101,PackInPACKBurnRKBGeneric05StorageCell,,0,0
 8330,DebugLiam,Quick Test Cell,0,0
+8332123,PackInBurnBountyHuntDailyPackInStorageCell,,0,0
+8332124,PackInBurnBountyHuntPublicPackInStorageCell,,0,0
+8341804,PackInPACKBurnTrees01DenseStorageCell,,0,0
+8341807,PackInPACKBurnTrees02DenseStorageCell,,0,0
+8344442,PackInPACKBurnShrubs03StorageCell,,0,0
+8345077,zzzXPDPitt02TrenchCopy01,The Pitt - Trench,0,1
+8346478,PackInPACKBurnDeadTrees04StorageCell,,0,0
+8346480,PackInPACKBurnDeadTrees03StorageCell,,0,0
+8346483,PackInPACKBurnRKDeadStumps03StorageCell,,0,0
+8346485,PackInPACKBurnRKDeadStumps02StorageCell,,0,0
 835405,COPY0001,,0,0
+8380618,zzzBurnDinoGolfDinerInterior,Dino Golf Diner,0,1
+8383235,PackInBurnRKConcreteGreebleStorageCell,,0,0
+8387125,PackInBurnRoadSign11StorageCell,,0,0
+8387126,PackInBurnRoadSign09StorageCell,,0,0
+8387127,PackInBurnRoadSignLarge02StorageCell,,0,0
+8387128,PackInBurnRoadSign07aStorageCell,,0,0
+8387129,PackInBurnRoadSignLarge01StorageCell,,0,0
+8387130,PackInBurnRoadSign08StorageCell,,0,0
+8387131,PackInBurnRoadSign01StorageCell,,0,0
+8387132,PackInBurnRoadSign05StorageCell,,0,0
+8387133,PackInBurnRoadSign02StorageCell,,0,0
+8387134,PackInBurnRoadSign04StorageCell,,0,0
+8387135,PackInBurnRoadSign07StorageCell,,0,0
+8387136,PackInBurnRoadSign10StorageCell,,0,0
+8387137,PackInBurnRoadSign06StorageCell,,0,0
+8387138,PackInBurnRoadSign03StorageCell,,0,0
+8389080,,,0,0
+8389636,,,0,0
+8390693,PackInRustedMetalTrimStorageCell,,0,0
+8390694,PackInPackBurnWrshWallDecalA01StorageCell,,0,0
+8398062,PackInBurnLettersMiniGolfStorageCell,,0,0
+8398063,PackInBurnLettersFortStorageCell,,0,0
+8398064,PackInBurnLettersCornhengeStorageCell,,0,0
+8398065,,,0,0
+8398066,,,0,0
+8398067,PackInBurnRoadSignWVStateLine01StorageCellCopy01,,0,0
+8398068,PackInBurnRoadSignCornhenge01StorageCell,,0,0
+8398069,,,0,0
+8398070,PackInBurnRoadSignAthensCityLimits01StorageCell,,0,0
+8398071,,,0,0
+8398072,PackInBurnRoadsignsOhioStateLine01StorageCell,,0,0
+8398073,PackInBurnRoadsignMiniGolfSign01StorageCell,,0,0
+8398074,PackInBurnRoadSignAshCave01StorageCell,,0,0
+8398075,PackInBurnRoadSignDriveInSign01StorageCell,,0,0
+8398076,PackInBurnRoadsignsHighwaySign01StorageCell,,0,0
+8398077,PackInBurnLettersDriveinStorageCell,,0,0
+8398078,PackInBurnRoadSign03aCopy01StorageCell,,0,0
+8398079,PackInBurnRoadSignFort01StorageCell,,0,0
+8407952,ZZZ76CellTemplateCWCopy01,Quick Test Cell,0,0
+8408975,ZZZ76D11KKPOIs,TestCell,0,0
+8416098,,,0,0
+8416099,PackInPACKBurnBranches02StorageCell,,0,0
+8416784,PackInRustedMetalTrim03StorageCell,,0,0
+8416785,PackInRustedMetalTrim02StorageCell,,0,0
+8418661,TestDan,Quick Test Cell,0,0
+8429065,PackInBurnSignRoute35East01StorageCell,,0,0
+8429066,PackInBurnSignRoute35West01StorageCell,,0,0
+8431828,ZZZ76CellTemplateCW,Quick Test Cell,0,0
+8437723,zzzBURNE02SinkholeTestCell,Quick Test Cell,0,0
 8453140,PackInATXFencePatrioticPicketFenceGate02128PCKNStorageCell,,0,0
 8453141,PackInATXFencePatrioticPicketFenceGate01128PCKNStorageCell,,0,0
+8458801,PackInBurnBusStopRural01StorageCell,,0,0
 8460674,PackInFishingPackinLGTFishCatchLightingRig01StorageCell,,0,0
+8462670,zzzDebugChloe,Quick Test Cell,0,0
+8466868,PackInStormPlaqueStandingPackinStorageCell,,0,0
+8466869,,,0,0
+8466871,,,0,0
+8476225,zzzBurnRailroadServiceYardInt,zzz,0,0
+8479844,PackInBurnBountyHuntDailyPackInStorageCellCopy01,,0,0
 8489724,PackInFishingQuestIntroBarrelPackInStorageCell,,0,0
 850351,,,0,0
-8505321,D11GOTestCell,Quick Test Cell,0,0
+8505321,zzzD11GOTestCell,Quick Test Cell,0,0
 8511193,PackInF1S21SurvivalTentBoathousePKINStorageCell,,0,0
 8511195,PackInF1S21SurvivalTentBoathousePKINNewStorageCell,,0,0
 851270,COPY0285,,0,0
+8523773,PackInBurnElectricalBox01StorageCell,,0,0
+8533616,,,0,0
+8539707,,,0,0
+8539708,,,0,0
+8539709,zzzDebugArchieF,Quick Test Cell,0,0
+8544713,PackInBurnIndustrialPipeline03StorageCell,,0,0
+8544714,PackInBurnIndustrialPipeline01StorageCell,,0,0
+8544715,PackInBurnIndustrialPipeline02StorageCell,,0,0
+8544716,PackInBurnIndustrialPipelinebend01StorageCell,,0,0
 8546810,testStaticCollectioncontrol,Quick Test Cell,0,0
 8546811,testStaticCollectionSCs,Quick Test Cell,0,0
 8546812,testStaticCollectioncontrolSCcombined,Quick Test Cell,0,0
 8546813,testStaticCollectionFragmented,Quick Test Cell,0,0
+8548600,DebugJosephSLightingExamples,Quick Test Cell,0,0
+8550905,PackInBurnLvlRadHogGroupFloraPackinStorageCell,,0,0
 8562345,PackInATXCollectronpackinLiberatedStorageCell,,0,0
+8565183,zzzBURNFictionCell,Quick Test Cell,0,0
+8592258,PackInBurnRadscorpionNest01DamagedStorageCell,,0,0
+8592259,PackInBurnRadscorpionNest01StorageCell,,0,0
+8601433,,,0,0
+8613913,PackInBurnChurchsign01StorageCell,,0,0
+8613914,PackInBurnChurchsign01altStorageCell,,0,0
+8616988,zzzDebugCKinsey022,,0,0
+8639021,zzz76D11TestCellGO,Quick Test Cell,0,0
+8639918,PackInBurnREPackInObjectStorageCell,,0,0
+8639919,PackInBurnREPackInAssaultStorageCell,,0,0
+8639920,PackInBurnREPackInTravelStorageCell,,0,0
+8639921,PackInBurnREPackInSceneStorageCell,,0,0
+8655618,PackInATXCollectronpackinToxicBobStorageCell,,0,0
 8655677,PackInSCORES22PackinNukaColaFoosballTableStorageCell,,0,0
 8661181,PackInSCORES22PackinNukaColaFoosballTableNewStorageCell,,0,0
 8673374,PackInSCORES22CollectronpackinRoboButlerStorageCell,,0,0
+8680988,PackInBurnDustDevilPKINStorageCell,,0,0
+8686697,DebugRaihanS,Quick Test Cell,0,0
+8686950,PackInBurnBountyHuntGruntStackPackInStorageCell,,0,0
+8701871,PackInBurnAbraxodyneTrainCar03aStorageCell,,0,0
 87451,PackInPACKForestTrees030104StorageCell,,0,0
 87638,zCUTTestRender01,Quick Test Cell,0,0
+8769097,PackInSCORES23CollectronpackinCornbotStorageCell,,0,0
 89026,,,0,0
 9017,PackInPACKToxicBasinGroupMed02StorageCell,,0,0
 9077,PackInPACKToxicBasinGroupMed01StorageCell,,0,0

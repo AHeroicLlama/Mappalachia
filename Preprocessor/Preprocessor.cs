@@ -121,6 +121,7 @@ namespace Preprocessor
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
 			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {MapMarkersToRemove.ToSqliteCollection()};");
+			SimpleQuery($"DELETE FROM MapMarker WHERE label LIKE '{MapMarkersToRemovePattern}';");
 			SimpleQuery(AddMissingMarkersQuery);
 			SimpleQuery(CorrectDuplicateMarkersQuery);
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
@@ -698,7 +699,7 @@ namespace Preprocessor
 		// Return the given string with custom escape sequences replaced
 		static string UnescapeCharacters(string input)
 		{
-			return input.Replace(":COMMA:", ",").Replace(":QUOT:", "\"").Replace("''", "'").Replace(":CRLF:", "\r\n");
+			return input.Replace(":COMMA:", ",").Replace(":QUOT:", "\"").Replace("''", "'").Replace(":CR:", "\r").Replace(":LF:", "\n");
 		}
 
 		// Converts a valid 8-char hex FormID to the string value of the integer value of itself
