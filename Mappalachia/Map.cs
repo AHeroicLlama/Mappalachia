@@ -832,7 +832,7 @@ namespace Mappalachia
 				text += " (Instanced)";
 			}
 
-			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
+			text += $"\nGame Version PTS {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
 
 			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);

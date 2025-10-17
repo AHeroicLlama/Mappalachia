@@ -1202,11 +1202,6 @@ namespace Mappalachia
 			Common.OpenURI(URLs.HelpDocs);
 		}
 
-		private void Help_CheckForUpdates_Click(object sender, EventArgs e)
-		{
-			UpdateChecker.CheckForUpdates(Settings, true);
-		}
-
 		private void Help_InstallSpotlight_Click(object sender, EventArgs e)
 		{
 			Common.OpenURI(URLs.SpotlightInstallationGuide);
