@@ -325,7 +325,7 @@ namespace Mappalachia
 			// 
 			// legendStyleToolStripMenuItem
 			// 
-			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem });
+			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendExtendedToolStripMenuItem, legendNormalToolStripMenuItem, legendHiddenToolStripMenuItem });
 			legendStyleToolStripMenuItem.Name = "legendStyleToolStripMenuItem";
 			legendStyleToolStripMenuItem.Size = new Size(240, 22);
 			legendStyleToolStripMenuItem.Text = "Legend Style";
@@ -333,15 +333,15 @@ namespace Mappalachia
 			// legendNormalToolStripMenuItem
 			// 
 			legendNormalToolStripMenuItem.Name = "legendNormalToolStripMenuItem";
-			legendNormalToolStripMenuItem.Size = new Size(122, 22);
-			legendNormalToolStripMenuItem.Text = "Normal";
+			legendNormalToolStripMenuItem.Size = new Size(180, 22);
+			legendNormalToolStripMenuItem.Text = "Compact";
 			legendNormalToolStripMenuItem.ToolTipText = "Draw the legend on the left hand side of the map.";
 			legendNormalToolStripMenuItem.Click += Map_Legend_Normal_Click;
 			// 
 			// legendExtendedToolStripMenuItem
 			// 
 			legendExtendedToolStripMenuItem.Name = "legendExtendedToolStripMenuItem";
-			legendExtendedToolStripMenuItem.Size = new Size(122, 22);
+			legendExtendedToolStripMenuItem.Size = new Size(180, 22);
 			legendExtendedToolStripMenuItem.Text = "Extended";
 			legendExtendedToolStripMenuItem.ToolTipText = "Draw the legend outside the map, extending the final image to fit the legend.";
 			legendExtendedToolStripMenuItem.Click += Map_Legend_Extended_Click;
@@ -349,7 +349,7 @@ namespace Mappalachia
 			// legendHiddenToolStripMenuItem
 			// 
 			legendHiddenToolStripMenuItem.Name = "legendHiddenToolStripMenuItem";
-			legendHiddenToolStripMenuItem.Size = new Size(122, 22);
+			legendHiddenToolStripMenuItem.Size = new Size(180, 22);
 			legendHiddenToolStripMenuItem.Text = "Hidden";
 			legendHiddenToolStripMenuItem.ToolTipText = "Do not draw a legend.";
 			legendHiddenToolStripMenuItem.Click += Map_Legend_Hidden_Click;
@@ -575,7 +575,7 @@ namespace Mappalachia
 			// aboutToolStripMenuItem
 			// 
 			aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			aboutToolStripMenuItem.Size = new Size(180, 22);
+			aboutToolStripMenuItem.Size = new Size(168, 22);
 			aboutToolStripMenuItem.Text = "About";
 			aboutToolStripMenuItem.ToolTipText = "View additional info about the application.";
 			aboutToolStripMenuItem.Click += Help_About_Click;
@@ -583,7 +583,7 @@ namespace Mappalachia
 			// openUserGuidesToolStripMenuItem
 			// 
 			openUserGuidesToolStripMenuItem.Name = "openUserGuidesToolStripMenuItem";
-			openUserGuidesToolStripMenuItem.Size = new Size(180, 22);
+			openUserGuidesToolStripMenuItem.Size = new Size(168, 22);
 			openUserGuidesToolStripMenuItem.Text = "Open User Guides";
 			openUserGuidesToolStripMenuItem.ToolTipText = "Read documentation online.";
 			openUserGuidesToolStripMenuItem.Click += Help_UserGuides_Click;
@@ -591,7 +591,7 @@ namespace Mappalachia
 			// installSpotlightToolStripMenuItem
 			// 
 			installSpotlightToolStripMenuItem.Name = "installSpotlightToolStripMenuItem";
-			installSpotlightToolStripMenuItem.Size = new Size(180, 22);
+			installSpotlightToolStripMenuItem.Size = new Size(168, 22);
 			installSpotlightToolStripMenuItem.Text = "Install Spotlight";
 			installSpotlightToolStripMenuItem.ToolTipText = "View a guide on installing the Spotlight feature.";
 			installSpotlightToolStripMenuItem.Click += Help_InstallSpotlight_Click;
@@ -599,7 +599,7 @@ namespace Mappalachia
 			// viewGitHubToolStripMenuItem
 			// 
 			viewGitHubToolStripMenuItem.Name = "viewGitHubToolStripMenuItem";
-			viewGitHubToolStripMenuItem.Size = new Size(180, 22);
+			viewGitHubToolStripMenuItem.Size = new Size(168, 22);
 			viewGitHubToolStripMenuItem.Text = "View GitHub";
 			viewGitHubToolStripMenuItem.ToolTipText = "Go to the project home, or see the open source code.";
 			viewGitHubToolStripMenuItem.Click += Help_ViewGitHub_Click;
@@ -607,7 +607,7 @@ namespace Mappalachia
 			// resetEverythingToolStripMenuItem
 			// 
 			resetEverythingToolStripMenuItem.Name = "resetEverythingToolStripMenuItem";
-			resetEverythingToolStripMenuItem.Size = new Size(180, 22);
+			resetEverythingToolStripMenuItem.Size = new Size(168, 22);
 			resetEverythingToolStripMenuItem.Text = "Reset Everything";
 			resetEverythingToolStripMenuItem.ToolTipText = "Reset every application setting.";
 			resetEverythingToolStripMenuItem.Click += Help_ResetEverything_Click;

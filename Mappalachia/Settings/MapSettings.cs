@@ -107,7 +107,7 @@ namespace Mappalachia
 
 		public bool MapMarkerGrayscale { get; set; } = false; // Not accessible via UI
 
-		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
+		public LegendStyle LegendStyle { get; set; } = LegendStyle.Extended;
 
 		public string Title { get; set; } = string.Empty;
 

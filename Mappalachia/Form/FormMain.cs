@@ -295,7 +295,7 @@ namespace Mappalachia
 
 			switch (Settings.MapSettings.LegendStyle)
 			{
-				case LegendStyle.Normal:
+				case LegendStyle.Compact:
 					legendNormalToolStripMenuItem.Checked = true;
 					break;
 				case LegendStyle.Extended:
@@ -945,7 +945,7 @@ namespace Mappalachia
 
 		private async void Map_Legend_Normal_Click(object sender, EventArgs e)
 		{
-			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Normal);
+			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Compact);
 		}
 
 		private async void Map_Legend_Extended_Click(object sender, EventArgs e)

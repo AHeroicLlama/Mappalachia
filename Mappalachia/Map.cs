@@ -16,8 +16,8 @@ namespace Mappalachia
 
 	public enum LegendStyle
 	{
-		Normal,
 		Extended,
+		Compact,
 		None,
 	}
 
@@ -38,7 +38,7 @@ namespace Mappalachia
 
 		static int TitlePadding { get; } = 30;
 
-		static int LegendXMax { get; } = (int)(MapImageResolution / 6.3);
+		static int LegendXMax { get; } = MapImageResolution / 8;
 
 		static int LegendXPadding { get; } = 5;
 
