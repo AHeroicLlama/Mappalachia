@@ -27,6 +27,7 @@ namespace Library
 		REGN,
 		ACTI,
 		TACT,
+		TRAP,
 		DOOR,
 		HAZD,
 		IDLM,
