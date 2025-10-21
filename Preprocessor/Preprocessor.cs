@@ -698,7 +698,7 @@ namespace Preprocessor
 		// Return the given string with custom escape sequences replaced
 		static string UnescapeCharacters(string input)
 		{
-			return input.Replace(":COMMA:", ",").Replace(":QUOT:", "\"").Replace("''", "'").Replace(":CRLF:", "\r\n");
+			return input.Replace(":COMMA:", ",").Replace(":QUOT:", "\"").Replace("''", "'").Replace(":CR:", "\r").Replace(":LF:", "\n");
 		}
 
 		// Converts a valid 8-char hex FormID to the string value of the integer value of itself

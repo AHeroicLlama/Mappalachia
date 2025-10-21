@@ -2251,6 +2251,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 8546812,testStaticCollectioncontrolSCcombined,Quick Test Cell,0,0
 8546813,testStaticCollectionFragmented,Quick Test Cell,0,0
 8562345,PackInATXCollectronpackinLiberatedStorageCell,,0,0
+8655618,PackInATXCollectronpackinToxicBobStorageCell,,0,0
 8655677,PackInSCORES22PackinNukaColaFoosballTableStorageCell,,0,0
 8661181,PackInSCORES22PackinNukaColaFoosballTableNewStorageCell,,0,0
 8673374,PackInSCORES22CollectronpackinRoboButlerStorageCell,,0,0

@@ -88,6 +88,16 @@ namespace Preprocessor
 				ValidateSVG(DoorMarkerPath);
 			}
 
+			Parallel.ForEach(Directory.GetFiles(MapMarkerPath), file =>
+			{
+				string expectedIconName = Path.GetFileNameWithoutExtension(file);
+
+				if (!mapMarkers.Where(mapmarker => mapmarker.Icon == expectedIconName).Any())
+				{
+					FailValidation($"Marker Icon File {file} is not used by any map marker and should be deleted.");
+				}
+			});
+
 			// Similarly as above, do the same file count check for map markers
 			int expectedMapMarkerImageFiles = mapMarkers.Count;
 			int actualMapMarkerImageFiles = Directory.GetFiles(MapMarkerPath).Length;

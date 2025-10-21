@@ -578,14 +578,14 @@ namespace BackgroundRenderer
 
 			Parallel.ForEach(Directory.GetDirectories(PreviousAssetsSpotlightPath), directory =>
 			{
+				string diffDirectory = SpotlightPatchDiffPath + Path.GetFileName(directory) + "\\";
+
 				Parallel.ForEach(Directory.GetFiles(directory), previousFilePath =>
 				{
-					string diffDirectory = SpotlightPatchDiffPath + Path.GetFileName(directory) + "\\";
 					string newFilePath = SpotlightPath + Path.GetFileName(directory) + "\\" + Path.GetFileName(previousFilePath);
 
-					// If the image is new, or a different file length, or has a different MD5 hash, copy it to the diff directory
-					if (!File.Exists(newFilePath) ||
-						new FileInfo(newFilePath).Length != new FileInfo(previousFilePath).Length ||
+					// If the image is a different file length, or has a different MD5 hash, copy it to the diff directory
+					if (new FileInfo(newFilePath).Length != new FileInfo(previousFilePath).Length ||
 						GetMD5Hash(newFilePath) != GetMD5Hash(previousFilePath))
 					{
 						if (!Directory.Exists(diffDirectory))
@@ -595,6 +595,23 @@ namespace BackgroundRenderer
 
 						StdOutWithColor($"New/Modified tile: {Path.GetFileName(directory)}\\{Path.GetFileName(previousFilePath)}", ColorInfo);
 						File.Copy(newFilePath, diffDirectory + Path.GetFileName(previousFilePath));
+					}
+				});
+			});
+
+			Parallel.ForEach(Directory.GetDirectories(SpotlightPath), directory =>
+			{
+				string diffDirectory = SpotlightPatchDiffPath + Path.GetFileName(directory) + "\\";
+
+				Parallel.ForEach(Directory.GetFiles(directory), newFilePath =>
+				{
+					string previousFilePath = PreviousAssetsSpotlightPath + Path.GetFileName(directory) + "\\" + Path.GetFileName(newFilePath);
+
+					// If the image is new
+					if (!File.Exists(previousFilePath))
+					{
+						StdOutWithColor($"New tile: {Path.GetFileName(directory)}\\{Path.GetFileName(newFilePath)}", ColorInfo);
+						File.Copy(newFilePath, diffDirectory + Path.GetFileName(newFilePath));
 					}
 				});
 			});

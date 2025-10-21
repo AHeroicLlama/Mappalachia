@@ -15,8 +15,8 @@ Due to the large file sizes, spotlight is not included by default, but you can c
 * You may delete all the files you downloaded, leaving the new folder remaining.
 
 ## Updating Spotlight
-If you already have the latest version of spotlight installed, you may quickly download only newly updated parts of it for the current patch by downloading `Patch_Spotlight.zip` from the [latest release](https://github.com/AHeroicLlama/Mappalachia/releases/latest), and unzipping it into the `img\` folder, merging with the `spotlight\` folder you already have there.<br/>
-This zip will always only contain spotlight data which changed between this release and the prior.<br/>
+If you already have the latest version of spotlight installed, you may download only newly updated parts of it for the current patch by downloading `patch_spotlight.7z.XXX` files from the [latest release](https://github.com/AHeroicLlama/Mappalachia/releases/latest), and similarly unzipping them into the `img\` folder, merging with the `spotlight\` folder you already have there.<br/>
+These files will always only contain spotlight data which changed between this release and the prior.<br/>
 If you don't have the latest spotlight installed, you may still update it by repeating this process for each release you're missing, oldest to newest.
 
 ## Using Spotlight

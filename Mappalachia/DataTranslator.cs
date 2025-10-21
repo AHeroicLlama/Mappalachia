@@ -67,6 +67,7 @@
 				Signature.STAT => "Static object",
 				Signature.TACT => "Voice activator",
 				Signature.TERM => "Terminal",
+				Signature.TRAP => "Trap",
 				Signature.TXST => "Decal",
 				Signature.WEAP => "Weapon",
 				Signature.WRLD => "World",
@@ -111,6 +112,7 @@
 				Signature.STAT => "Environmental scenery which does not move and cannot be interacted with.",
 				Signature.TACT => "A trigger/activator which causes a voice line to be played.",
 				Signature.TERM => string.Empty,
+				Signature.TRAP => string.Empty,
 				Signature.TXST => "A decal applied to a surface such as paint or dirt.",
 				Signature.WEAP => string.Empty,
 				Signature.WRLD => "The main outside world.",
@@ -140,6 +142,7 @@
 				Signature.PROJ or
 				Signature.REGN or
 				Signature.TERM or
+				Signature.TRAP or
 				Signature.WEAP => true,
 
 				_ => false
