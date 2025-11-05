@@ -19,7 +19,9 @@ namespace Mappalachia
 		{
 			get
 			{
-				return IsProtocolRegistered(DiscordProtocolName) ? new Uri($"{DiscordProtocolName}://-/invite/{DiscordInviteCode}") : new Uri($"https://discord.gg/invite/{DiscordInviteCode}");
+				return IsProtocolRegistered(DiscordProtocolName) ?
+					new Uri($"{DiscordProtocolName}://-/invite/{DiscordInviteCode}") :
+					new Uri($"https://discord.gg/invite/{DiscordInviteCode}");
 			}
 		}
 

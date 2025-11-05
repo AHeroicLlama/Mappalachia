@@ -19,7 +19,7 @@ If the database already exists, you will have the option to re-build it, or just
 The Preprocessor will ask you to confirm the current version of Fallout 76. It will fetch this from `Fallout76.exe` if you have it installed in the default Steam location. However, it is recommended to confirm this value in-game too, as the values are commonly different.<br/>
 In the event they are different, the in-game value should be used.
 
-The outputted database will be placed at `Assets\data\Mappalachia.db`.<br/>
+The outputted database will be placed at `Assets\data\mappalachia.db`.<br/>
 
 Upon completion, the Preprocessor will generate the file `BuildOutputs\Database_Summary.txt`. This file is version controlled in git, and should be reviewed for changes whenever a new game update is released. Any unusual values or changes may indicate errors.<br/>
 Similarly, it will generate `BuildOutputs\Discarded_Cells.csv`. This lists cells which were present in the ESM export, but were not kept in the database. This should be reviewed to ensure no cells were incorrectly discarded.<br/>

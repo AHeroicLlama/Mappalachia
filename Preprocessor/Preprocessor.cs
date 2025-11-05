@@ -969,7 +969,7 @@ namespace Preprocessor
 			}
 		}
 
-		// Return the game version string on the FO76 exe, assuming it is present else null
+		// Return the game version string on the exe, assuming it is present else null
 		static string? GetGameVersionFromExe()
 		{
 			return File.Exists(GameExePath) ? FileVersionInfo.GetVersionInfo(GameExePath).FileVersion : null;
