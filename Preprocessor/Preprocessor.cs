@@ -526,10 +526,9 @@ namespace Preprocessor
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			string path = SqlitePath;
 			List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {Fo76EditOutputPath}{tableName}.csv {tableName}" };
 
-			Process process = Process.Start(path, args);
+			Process process = Process.Start(SqlitePath, args);
 			process.WaitForExit();
 		}
 
