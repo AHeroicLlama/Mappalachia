@@ -131,7 +131,7 @@
 			// 
 			labelSecondaryPalette.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			labelSecondaryPalette.AutoSize = true;
-			labelSecondaryPalette.Location = new Point(243, 9);
+			labelSecondaryPalette.Location = new Point(247, 9);
 			labelSecondaryPalette.Name = "labelSecondaryPalette";
 			labelSecondaryPalette.Size = new Size(178, 15);
 			labelSecondaryPalette.TabIndex = 7;
