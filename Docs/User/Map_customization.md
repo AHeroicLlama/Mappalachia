@@ -33,8 +33,8 @@ This option controls when a compass rose should be displayed on the map. The def
 
 ## Legend Style
 This provides control over how (or if) the legend is drawn.
-* Normal: The default mode, the legend is drawn up against the left hand side, inside the map image.
-* Extended: The final image is expanded, drawing the legend fully outside of the original map image, ensuring none of the map can be obscured.
+* Extended: The default mode, the final image is expanded, drawing the legend fully outside of the original map image, ensuring none of the map can be obscured.
+* Compact: The legend is drawn up against the left hand side, inside the map image.
 * Hidden: No legend is drawn.
 <br/><br/>
 

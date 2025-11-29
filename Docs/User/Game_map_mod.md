@@ -13,7 +13,7 @@ While the intended use for Mappalachia while playing is from a second monitor, a
 In Mappalachia, create the map you want to see in-game. When you're ready, go to 'Map' > 'Save Image'.<br>
 Export the map image file to any location. (Maximum quality settings are advised (PNG)).
 
-Note: Ensure you have not used 'Extended' legend style, as the final image must be the same dimensions as the normal map texture.
+You must ensure you use either 'Compact' or 'Hidden' legend style, because the final image must be the same dimensions as the normal map texture, which 'Extended' does not provide.
 
 ## Creating the DDS
 If you wish to make any further manual edits to the map image, you should do this now.
