@@ -652,7 +652,7 @@ namespace Mappalachia
 					}
 
 					PointF point = teleporter.Coord.AsImagePoint(settings);
-					graphics.DrawImageCentered(FileIO.DoorMarker, teleporter.Coord.AsImagePoint(settings));
+					graphics.DrawImageCentered(FileIO.GetDoorMarker(settings.MapSettings.DoorIconScale), teleporter.Coord.AsImagePoint(settings));
 
 					graphics.DrawStringCentered(
 						$"{teleporter.TeleportsTo!.DisplayName}: {item.Entity.EditorID} ({instances.Count})",
