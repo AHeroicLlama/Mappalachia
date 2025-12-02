@@ -109,7 +109,7 @@ namespace Mappalachia
 
 		public double DoorIconScale { get; set; } = 1; // Not accessible via UI
 
-		public LegendStyle LegendStyle { get; set; } = LegendStyle.Normal;
+		public LegendStyle LegendStyle { get; set; } = LegendStyle.Extended;
 
 		public string Title { get; set; } = string.Empty;
 

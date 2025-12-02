@@ -121,6 +121,7 @@ namespace Preprocessor
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
 			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {MapMarkersToRemove.ToSqliteCollection()};");
+			SimpleQuery($"DELETE FROM MapMarker WHERE label LIKE '{MapMarkersToRemovePattern}';");
 			SimpleQuery(AddMissingMarkersQuery);
 			SimpleQuery(CorrectDuplicateMarkersQuery);
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
@@ -853,7 +854,7 @@ namespace Preprocessor
 			}
 
 			// Extract only the part containing the NPC name
-			string name = NPCRegex.Match(value).Groups[2].Value;
+			string name = NPCRegex.Match(value).Groups[3].Value;
 
 			// Add a space if it looks like it needs it
 			if (TitleCaseAddSpaceRegex.IsMatch(name))
