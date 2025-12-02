@@ -593,7 +593,7 @@ namespace BackgroundRenderer
 							Directory.CreateDirectory(diffDirectory);
 						}
 
-						StdOutWithColor($"New/Modified tile: {Path.GetFileName(directory)}\\{Path.GetFileName(previousFilePath)}", ColorInfo);
+						StdOutWithColor($"Modified tile: {Path.GetFileName(directory)}\\{Path.GetFileName(previousFilePath)}", ColorInfo);
 						File.Copy(newFilePath, diffDirectory + Path.GetFileName(previousFilePath));
 					}
 				});

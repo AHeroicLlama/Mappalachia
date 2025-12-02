@@ -55,8 +55,8 @@ namespace Mappalachia
 			spotlightSetRangeToolStripMenuItem = new ToolStripMenuItem();
 			spotlightCoordToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleToolStripMenuItem = new ToolStripMenuItem();
-			legendNormalToolStripMenuItem = new ToolStripMenuItem();
 			legendExtendedToolStripMenuItem = new ToolStripMenuItem();
+			legendCompactToolStripMenuItem = new ToolStripMenuItem();
 			legendHiddenToolStripMenuItem = new ToolStripMenuItem();
 			loadRecipeToolStripMenuItem = new ToolStripMenuItem();
 			saveAsRecipeToolStripMenuItem = new ToolStripMenuItem();
@@ -306,51 +306,51 @@ namespace Mappalachia
 			// spotlightEnabledToolStripMenuItem
 			// 
 			spotlightEnabledToolStripMenuItem.Name = "spotlightEnabledToolStripMenuItem";
-			spotlightEnabledToolStripMenuItem.Size = new Size(116, 22);
+			spotlightEnabledToolStripMenuItem.Size = new Size(180, 22);
 			spotlightEnabledToolStripMenuItem.Text = "Enabled";
 			spotlightEnabledToolStripMenuItem.Click += Map_Spotlight_Enabled_Click;
 			// 
 			// spotlightSetRangeToolStripMenuItem
 			// 
 			spotlightSetRangeToolStripMenuItem.Name = "spotlightSetRangeToolStripMenuItem";
-			spotlightSetRangeToolStripMenuItem.Size = new Size(116, 22);
+			spotlightSetRangeToolStripMenuItem.Size = new Size(180, 22);
 			spotlightSetRangeToolStripMenuItem.Text = "Set Size";
 			spotlightSetRangeToolStripMenuItem.Click += Map_Spotlight_SetRange_Click;
 			// 
 			// spotlightCoordToolStripMenuItem
 			// 
 			spotlightCoordToolStripMenuItem.Name = "spotlightCoordToolStripMenuItem";
-			spotlightCoordToolStripMenuItem.Size = new Size(116, 22);
+			spotlightCoordToolStripMenuItem.Size = new Size(180, 22);
 			spotlightCoordToolStripMenuItem.Text = "Coord";
 			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
 			// 
 			// legendStyleToolStripMenuItem
 			// 
-			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendNormalToolStripMenuItem, legendExtendedToolStripMenuItem, legendHiddenToolStripMenuItem });
+			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendExtendedToolStripMenuItem, legendCompactToolStripMenuItem, legendHiddenToolStripMenuItem });
 			legendStyleToolStripMenuItem.Name = "legendStyleToolStripMenuItem";
 			legendStyleToolStripMenuItem.Size = new Size(240, 22);
 			legendStyleToolStripMenuItem.Text = "Legend Style";
 			// 
-			// legendNormalToolStripMenuItem
-			// 
-			legendNormalToolStripMenuItem.Name = "legendNormalToolStripMenuItem";
-			legendNormalToolStripMenuItem.Size = new Size(122, 22);
-			legendNormalToolStripMenuItem.Text = "Normal";
-			legendNormalToolStripMenuItem.ToolTipText = "Draw the legend on the left hand side of the map.";
-			legendNormalToolStripMenuItem.Click += Map_Legend_Normal_Click;
-			// 
 			// legendExtendedToolStripMenuItem
 			// 
 			legendExtendedToolStripMenuItem.Name = "legendExtendedToolStripMenuItem";
-			legendExtendedToolStripMenuItem.Size = new Size(122, 22);
+			legendExtendedToolStripMenuItem.Size = new Size(180, 22);
 			legendExtendedToolStripMenuItem.Text = "Extended";
 			legendExtendedToolStripMenuItem.ToolTipText = "Draw the legend outside the map, extending the final image to fit the legend.";
 			legendExtendedToolStripMenuItem.Click += Map_Legend_Extended_Click;
 			// 
+			// legendCompactToolStripMenuItem
+			// 
+			legendCompactToolStripMenuItem.Name = "legendCompactToolStripMenuItem";
+			legendCompactToolStripMenuItem.Size = new Size(180, 22);
+			legendCompactToolStripMenuItem.Text = "Compact";
+			legendCompactToolStripMenuItem.ToolTipText = "Draw the legend on the left hand side of the map.";
+			legendCompactToolStripMenuItem.Click += Map_Legend_Compact_Click;
+			// 
 			// legendHiddenToolStripMenuItem
 			// 
 			legendHiddenToolStripMenuItem.Name = "legendHiddenToolStripMenuItem";
-			legendHiddenToolStripMenuItem.Size = new Size(122, 22);
+			legendHiddenToolStripMenuItem.Size = new Size(180, 22);
 			legendHiddenToolStripMenuItem.Text = "Hidden";
 			legendHiddenToolStripMenuItem.ToolTipText = "Do not draw a legend.";
 			legendHiddenToolStripMenuItem.Click += Map_Legend_Hidden_Click;
@@ -1000,7 +1000,7 @@ namespace Mappalachia
 		private ToolStripMenuItem backgroundMilitaryToolStripMenuItem;
 		private ToolStripMenuItem backgroundNoneToolStripMenuItem;
 		private ToolStripMenuItem legendStyleToolStripMenuItem;
-		private ToolStripMenuItem legendNormalToolStripMenuItem;
+		private ToolStripMenuItem legendCompactToolStripMenuItem;
 		private ToolStripMenuItem legendExtendedToolStripMenuItem;
 		private ToolStripMenuItem legendHiddenToolStripMenuItem;
 		private ToolStripMenuItem clearPlotsToolStripMenuItem;
