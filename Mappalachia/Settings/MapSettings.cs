@@ -107,6 +107,8 @@ namespace Mappalachia
 
 		public bool MapMarkerGrayscale { get; set; } = false; // Not accessible via UI
 
+		public double DoorIconScale { get; set; } = 1; // Not accessible via UI
+
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Extended;
 
 		public string Title { get; set; } = string.Empty;

@@ -157,6 +157,7 @@ namespace Library
 			"spaceEditorID LIKE 'PackIn%' OR " +
 			"spaceEditorID LIKE 'COPY%' OR " +
 			"spaceEditorID LIKE 'XPD%SteelTower%' OR " +
+			"spaceEditorID = 'MILEBlueRidgeHQ' OR " +
 			"spaceEditorID = 'StormPresidentialBunker' OR " +
 			"spaceEditorID = 'StormEngineeringVlt63' OR " +
 			"spaceEditorID = 'XPDPitt02ACCJ' OR " +
@@ -207,11 +208,17 @@ namespace Library
 				case "Sacrament":
 					return "CultistMarker";
 
+				case "Highway Town":
+					return "ElevatedHighwayMarker";
+
 				case "Gleaming Depths":
 					return "GleamingDepthsMarker";
 
 				case "Foundation":
 					return "HammerWingMarker";
+
+				case "The Rust Kingdom":
+					return "IndustrialDomeMarker";
 
 				case "The Rusty Pick":
 					return "LegendaryPurveyorMarker";

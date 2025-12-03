@@ -1,4 +1,4 @@
-spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
+spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 100089,PackInPACKToxicCreeperMed02StorageCell,,0,0
 100095,PackInPACKToxicCreeperMed01StorageCell,,0,0
 100100,,,0,0
@@ -2172,6 +2172,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 7695054,StormVault63AtriumUpperOLD,Atrium Upper Level,0,0
 7732714,PackInStormE01HarvesterPartsBoxPKNStorageCell,,0,0
 7737444,PackInDRIVEEncounterPointPackInStorageCell,,0,0
+7774037,MILEBlueRidgeHQ,Milepost Zero,0,1
 7775846,DebugMarkoS01,Quick Test Cell,0,0
 7776031,PackInStormHWSkylineDriveSign01StorageCell,,0,0
 7778569,zzzDebugTomR,Quick Test Cell,0,1
@@ -2451,6 +2452,9 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 87638,zCUTTestRender01,Quick Test Cell,0,0
 8769097,PackInSCORES23CollectronpackinCornbotStorageCell,,0,0
 89026,,,0,0
+8926860,PackInWorkshopSlipperCactus03packinStorageCell,,0,0
+8926861,PackInWorkshopSlipperCactus01packinStorageCell,,0,0
+8926862,PackInWorkshopSlipperCactus02packinStorageCell,,0,0
 9017,PackInPACKToxicBasinGroupMed02StorageCell,,0,0
 9077,PackInPACKToxicBasinGroupMed01StorageCell,,0,0
 9097,PackInPACKToxicBasinGroupMed03StorageCell,,0,0

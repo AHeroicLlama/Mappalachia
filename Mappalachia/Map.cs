@@ -652,10 +652,10 @@ namespace Mappalachia
 					}
 
 					PointF point = teleporter.Coord.AsImagePoint(settings);
-					graphics.DrawImageCentered(FileIO.DoorMarker, teleporter.Coord.AsImagePoint(settings));
+					graphics.DrawImageCentered(FileIO.GetDoorMarker(settings.MapSettings.DoorIconScale), teleporter.Coord.AsImagePoint(settings));
 
 					graphics.DrawStringCentered(
-						$"{teleporter.TeleportsTo!.DisplayName}: {item.Entity.EditorID} ({instances.Count})",
+						$"{teleporter.TeleportsTo!.DisplayName}: {item.LegendText} ({instances.Count})",
 						font,
 						new SolidBrush(item.PlotIcon.Color),
 						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])));

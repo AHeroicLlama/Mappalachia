@@ -1,11 +1,11 @@
 MD5 Checksum
-B8DB88A3E93FFE80F78D16D438EB16A7
+5217A5E7C232AF961CCB1696EF2EAB40
 
 Size
-469608 KB
+468800 KB
 
 Built At UTC
-17/10/2025 14:40:01
+03/12/2025 17:17:28
 
 CSV Imported with SQLite Version
 3.50.4 2025-07-30 19:33:53 4d8adfb30e03f9cf27f800a2c1ba3c48fb4ca1b08b0f5ed59a4d5ecbf45e20a3 (64-bit)
@@ -27,7 +27,7 @@ indexTeleportsTo             sqlite_autoindex_Space_1
 sqlite_autoindex_Entity_1    sqlite_autoindex_Space_2
 
 Game Version
-0.1.2144.0
+1.7.22.12
 
 Spaces
 Appalachia,Appalachia,2480661,1,0,340,135,582500,0
@@ -101,7 +101,6 @@ KerwoodMine01,Kerwood Mine,1488055,0,1,-1183.3099946975708,2309.2469887137413,15
 LewisandSonsFarmingSupply01,Putnam Residence,6041095,0,1,-256.47171525657143,94.66799101233511,1599.0807934105399,0
 LittleRobsHideout01,Little Rob's Hideout,5962513,0,1,1513.4912291765213,2020.765430510044,5193.239117741585,0
 LousMine01,Carleton Mine,5503303,0,1,-7512.28662109375,17618.2255859375,21103.6572265625,160.577102661133
-MILEBlueRidgeHQ,Milepost Zero,7774037,0,1,-133.65490877628304,2729.210845321418,6933.3229236602765,0
 MTR08LodeBaring01,Abandoned Mine Shaft Elaine,3719347,0,0,3253.43475341797,1295.9541015625,15860.806640625,27.7089996337891
 MTR08LodeBaring02,Abandoned Mine Shaft Kittery,2790574,0,0,4449.165995262097,8557.575887759449,13653.820066992661,281.024291992187
 MamaDolceProcessing01,Mama Dolce's Food Processing,1919669,0,0,839.750610351565,1280,5932,180
@@ -234,101 +233,101 @@ XPDPitt02Sanctum,Sanctum,6518991,0,1,3368.4931640625,103.282470703125,13310.5722
 XPDPitt02Trench,The Pitt - Trench,6518990,0,1,-5392.374269723892,-8488.09703540802,27426.539948940277,0
 
 Avg northAngle
-83.4308456922776
+83.84592452656753
 
 Avg X/Y/Z
--13886.52848547549,-3181.1877815340845,11059.360656614712
+-13930.55787301079,-3178.688726739979,11077.091123477445
 
 Avg Bounds X/Y/Z
-767.0007713127169,550.8458324976737,570.5762590746388
+769.6513270436906,552.8983059847772,572.5132866984491
 
 Avg CenterX, CenterY
-321.94986551918413,-151.37589723594448
+324.21655593856457,-165.70717456210048
 
 Avg Rotation
-150.1240808399797
+150.09642646934253
 
 Lock Levels
-,4490848
+,4483860
 Barred,1
 Chained,10
-Inaccessible,173
+Inaccessible,171
 Level0,746
-Level1,681
-Level2,433
+Level1,682
+Level2,434
 Level3,192
 RequiresKey,200
 RequiresTerminal,46
 Unknown,1
 
 Primitive Shapes
-,4346102
-Box,141447
-Cylinder,174
+,4339721
+Box,140838
+Cylinder,175
 Ellipsoid,5
 Line,2262
 Plane,391
-Sphere,2950
+Sphere,2951
 
 Entity Category Count
-ACTI,1835
+ACTI,1833
 ALCH,106
 AMMO,17
 ARMO,127
 ASPC,168
 BNDS,18
-BOOK,1108
+BOOK,1103
 CNCY,1
-CONT,680
-DOOR,377
+CONT,679
+DOOR,376
 FLOR,156
-FURN,797
+FURN,793
 HAZD,55
 IDLM,25
 KEYM,103
-LIGH,2465
-LVLI,881
-MISC,967
-MSTT,1142
+LIGH,2420
+LVLI,880
+MISC,965
+MSTT,1129
 NOTE,360
-NPC_,1837
+NPC_,1831
 PROJ,2
-SCOL,13023
+SCOL,13016
 SECH,14
-SOUN,399
-STAT,23270
+SOUN,400
+STAT,23213
 TACT,92
-TERM,665
+TERM,664
 TRAP,1
 TXST,564
 WEAP,96
 
 Position PreGrouped Count
-208456
+207060
 
 Avg Num Instances per Reference
-21.5552970411022
+21.666874335941273
 
 X-Table Entity Sum
-51351 = 51351 = 51351
+51207 = 51207 = 51207
 
 Avg Length Entity DisplayName
-2.795154914217834
+2.7909465502763293
 
 Avg Length Entity EditorID
-25.27757979396701
+25.269592047962192
 
 Avg Length Space DisplayName
-18.014851485148515
+18.039800995024876
 
 Avg Length Space EditorID
-17.806930693069308
+17.82089552238806
 
 Avg Length Region EditorID
 20.867088607594937
 
 Avg Length Label
-0.07933935870738212
+0.07930624118574973
 
 Avg Count Regions, Coords from RegionPoints
 0.13924050632911392,8.882911392405063
@@ -376,464 +375,464 @@ Avg Map Marker X/Y
 4360.4106855756345,-7374.539992217352
 
 Map Markers
-Appalachia,AgriculturalCenterMarker,Honey Well Apiary
-Appalachia,AgriculturalCenterMarker,Vault-Tec Agricultural Research Center
-Appalachia,AirfieldMarker,Crashed Plane
-Appalachia,AirfieldMarker,Horizon's Rest
-Appalachia,AirfieldMarker,Morgantown Airport
-Appalachia,AmusementParkMarker,Camden Park
-Appalachia,AmusementParkMarker,Lake Reynolds
-Appalachia,AmusementParkMarker,Tyler County Fairgrounds
-Appalachia,AmusementParkMarker,Wavy Willard's Water Park
-Appalachia,AppalachianAntiquesMarker,Appalachian Antiques
-Appalachia,ArktosPharmaMarker,Arktos Pharma
-Appalachia,BloodEagleMarker,Ammo Dump
-Appalachia,BloodEagleMarker,Bloody Frank's
-Appalachia,BloodEagleMarker,Cliffwatch
-Appalachia,BloodEagleMarker,Crimson Prospect
-Appalachia,BloodEagleMarker,Dagger's Den
-Appalachia,BloodEagleMarker,Hunter's Ridge
-Appalachia,BloodEagleMarker,Ripper Alley
-Appalachia,BloodEagleMarker,Rollins Labor Camp
-Appalachia,BloodEagleMarker,Seneca Gang Camp
-Appalachia,BloodEagleMarker,Skullbone Vantage
-Appalachia,BloodEagleMarker,South Cutthroat Camp
-Appalachia,BloodEagleMarker,The Bounty
-Appalachia,BloodEagleMarker,The Crosshair
-Appalachia,BloodEagleMarker,The Kill Box
-Appalachia,BloodEagleMarker,The Pigsty
-Appalachia,BloodEagleMarker,The Sludge Works
-Appalachia,BloodEagleMarker,The Vantage
-Appalachia,BloodEagleMarker,Twin Pine Cabins
-Appalachia,BloodEagleMarker,Widow's Perch
-Appalachia,BoSMarker,Fort Atlas
-Appalachia,BoSMarker,Forward Station Alpha
-Appalachia,BoSMarker,Forward Station Delta
-Appalachia,BoSMarker,Forward Station Tango
-Appalachia,BrownstoneMarker,Black Bear Lodge
-Appalachia,BrownstoneMarker,Excelsior Model Home
-Appalachia,BrownstoneMarker,Fraternity Row
-Appalachia,BrownstoneMarker,Freddy Fear's House of Scares
-Appalachia,BrownstoneMarker,Sal's Grinders
-Appalachia,BrownstoneMarker,Slocum's Joe
-Appalachia,BrownstoneMarker,Southern Belle Motel
-Appalachia,BrownstoneMarker,The General's Steakhouse
-Appalachia,BrownstoneMarker,Wilson Brother's Auto Repair
-Appalachia,BunkerMarker,Abandoned Bunker
-Appalachia,BunkerMarker,Abbie's Bunker
-Appalachia,BunkerMarker,Carson Family Bunker
-Appalachia,BunkerMarker,Drop Site C2
-Appalachia,BunkerMarker,Drop Site G3
-Appalachia,BunkerMarker,Drop Site V9
-Appalachia,BunkerMarker,Ella Ames' Bunker
-Appalachia,BunkerMarker,Hornwright Air Purifier Site #01
-Appalachia,BunkerMarker,Hornwright Air Purifier Site #02
-Appalachia,BunkerMarker,Hornwright Air Purifier Site #03
-Appalachia,BunkerMarker,Hornwright Air Purifier Site #04
-Appalachia,BunkerMarker,Raleigh Clay's Bunker
-Appalachia,BunkerMarker,Ranger Station Bunker
-Appalachia,BunkerMarker,Ransacked Bunker
-Appalachia,BunkerMarker,Whitespring Bunker
-Appalachia,CabinMarker,Alpine River Cabins
-Appalachia,CabinMarker,Autumn Acre Cabin
-Appalachia,CabinMarker,Bailey Family Cabin
-Appalachia,CabinMarker,Camp Adams
-Appalachia,CabinMarker,Camp Liberty
-Appalachia,CabinMarker,Groves Family Cabin
-Appalachia,CabinMarker,Investigator's Cabin
-Appalachia,CabinMarker,Isolated Cabin
-Appalachia,CabinMarker,Kiddie Corner Cabins
-Appalachia,CabinMarker,Marigold Pavilion
-Appalachia,CabinMarker,Middle Mountain Pitstop
-Appalachia,CabinMarker,New River Gorge Resort
-Appalachia,CabinMarker,Overlook Cabin
-Appalachia,CabinMarker,Pioneer Scout Camp
-Appalachia,CabinMarker,Pylon Ambush Site
-Appalachia,CabinMarker,Seneca Rocks Visitor Center
-Appalachia,CabinMarker,Sunday Brothers' Cabin
-Appalachia,CabinMarker,Surly's Shack
-Appalachia,CabinMarker,Tycoon Lake
-Appalachia,CamperMarker,Naked Creek
-Appalachia,CamperMarker,Prospect Hill
-Appalachia,CapitalBuildingMarker,Charleston Capitol Building
-Appalachia,CarMarker,Abandoned Convoy
-Appalachia,CarMarker,Makeout Point
-Appalachia,CarMarker,South River Bridge
-Appalachia,CastleMarker,Fort Steuben
-Appalachia,CastleMarker,Prickett's Fort
-Appalachia,CaveMarker,Abandoned Waste Dump
-Appalachia,CaveMarker,Ash Cave
-Appalachia,CaveMarker,Carleton Mine
-Appalachia,CaveMarker,Gauley Mine
-Appalachia,CaveMarker,Gauley Mine Exit
-Appalachia,CaveMarker,Hillside Cavern
-Appalachia,CaveMarker,Hopewell Cave
-Appalachia,CaveMarker,Makeshift Vault
-Appalachia,CaveMarker,Mire's Eye
-Appalachia,CaveMarker,Mysterious Cave
-Appalachia,CaveMarker,Shining Creek Cavern
-Appalachia,CaveMarker,The Deep
-Appalachia,CaveMarker,Uncanny Caverns
-Appalachia,CaveMarker,Wendigo Cave
-Appalachia,ChurchMarker,Haven Church
-Appalachia,ChurchMarker,Shade Hill Church
-Appalachia,CityMarker,Charleston
-Appalachia,CityMarker,Morgantown
-Appalachia,CityMarker,Watoga
-Appalachia,CountryClubMarker,Bolton Greens
-Appalachia,CountryClubMarker,Dino Peaks Mini Golf
-Appalachia,CountryClubMarker,Hemlock Holes
-Appalachia,CountryClubMarker,The Whitespring Golf Club
-Appalachia,CowSpotsCreameryMarker,Cow Spots Creamery
-Appalachia,CowSpotsCreameryMarker,Lady Janet's Soft Serve
-Appalachia,CultistMarker,Blakes Offering
-Appalachia,CultistMarker,Clancy Manor
-Appalachia,CultistMarker,Johnson's Acre
-Appalachia,CultistMarker,Kanawha County Cemetery
-Appalachia,CultistMarker,Lucky Hole Mine
-Appalachia,CultistMarker,Moth-Home
-Appalachia,CultistMarker,Organ Cave North
-Appalachia,CultistMarker,Organ Cave South
-Appalachia,CultistMarker,Organ Cave West
-Appalachia,CultistMarker,Sacrament
-Appalachia,DamMarker,Crevasse Dam
-Appalachia,DamMarker,Grafton Dam
-Appalachia,ElectricalSubstationMarker,Abraxodyne Chemical Power Substation
-Appalachia,ElectricalSubstationMarker,Monongah Power Substation MZ-01
-Appalachia,ElectricalSubstationMarker,Monongah Power Substation MZ-02
-Appalachia,ElectricalSubstationMarker,Monongah Power Substation MZ-03
-Appalachia,ElectricalSubstationMarker,Poseidon Power Substation PX-01
-Appalachia,ElectricalSubstationMarker,Poseidon Power Substation PX-02
-Appalachia,ElectricalSubstationMarker,Poseidon Power Substation PX-03
-Appalachia,ElectricalSubstationMarker,Thunder Mountain Substation TM-01
-Appalachia,ElectricalSubstationMarker,Thunder Mountain Substation TM-02
-Appalachia,ElectricalSubstationMarker,Thunder Mountain Substation TM-03
-Appalachia,ElevatedHighwayMarker,Highway Town
-Appalachia,ElevatedHighwayMarker,New River Gorge Bridge - East
-Appalachia,ElevatedHighwayMarker,New River Gorge Bridge - West
-Appalachia,EncampmentMarker,Blue Ridge Bunkhouse
-Appalachia,EncampmentMarker,Checkpoint Canyon
-Appalachia,EncampmentMarker,Hamley Run Camp
-Appalachia,EncampmentMarker,Milepost Zero
-Appalachia,EncampmentMarker,Overseer's Camp
-Appalachia,EncampmentMarker,Overseer's Home
-Appalachia,EncampmentMarker,Striker Row
-Appalachia,EncampmentMarker,Sylvie & Sons Logging Camp
-Appalachia,EncampmentMarker,The Trading Post
-Appalachia,FactoryMarker,Abandoned Mine Shaft 1
-Appalachia,FactoryMarker,Big Meadows Gas Well
-Appalachia,FactoryMarker,Braxson's Quality Medical Supplies
-Appalachia,FactoryMarker,Gilman Lumber Mill
-Appalachia,FactoryMarker,Grafton Steel
-Appalachia,FactoryMarker,Hornwright Testing Site #02
-Appalachia,FactoryMarker,Hornwright Testing Site #03
-Appalachia,FactoryMarker,Hornwright Testing Site #04
-Appalachia,FactoryMarker,Mama Dolce's Food Processing
-Appalachia,FactoryMarker,Meadow Breeze Storage Depot
-Appalachia,FactoryMarker,Summersville Dam
-Appalachia,FactoryMarker,WV Lumber Co.
-Appalachia,FarmMarker,Aaronholt Homestead
-Appalachia,FarmMarker,Anchor Farm
-Appalachia,FarmMarker,Becker Farm
-Appalachia,FarmMarker,Beckwith Farm
-Appalachia,FarmMarker,Cobbleton Farm
-Appalachia,FarmMarker,Delano Grange
-Appalachia,FarmMarker,Graninger Farm
-Appalachia,FarmMarker,Mac's Farm
-Appalachia,FarmMarker,Silva Homestead
-Appalachia,FarmMarker,Smith Farm
-Appalachia,FarmMarker,Sunrise Field
-Appalachia,FarmMarker,Superior Sunset Farm
-Appalachia,FarmMarker,Wixon Homestead
-Appalachia,FarmMarker,Woods Estate
-Appalachia,FillingStationMarker,Big B's Rest Stop
-Appalachia,FillingStationMarker,Red Rocket Filling Station
-Appalachia,FillingStationMarker,The Chop Shop
-Appalachia,FissureMarker,Fissure Site
-Appalachia,FissureMarker,Fissure Site
-Appalachia,FissureMarker,Fissure Site
-Appalachia,FissureMarker,Fissure Site
-Appalachia,FissureMarker,Fissure Site
-Appalachia,FissureMarker,Fissure Site
-Appalachia,FissureMarker,Fissure Site
-Appalachia,FissureMarker,Fissure Site Prime
-Appalachia,ForestedMarker,Creekside Sundew Grove
-Appalachia,ForestedMarker,Deathclaw Island
-Appalachia,ForestedMarker,Dolly Sods Wilderness
-Appalachia,ForestedMarker,Orwell Orchards
-Appalachia,ForestedMarker,Overgrown Sundew Grove
-Appalachia,ForestedMarker,Sparse Sundew Grove
-Appalachia,ForestedMarker,Spruce Knob Campground
-Appalachia,ForestedMarker,Veiled Sundew Grove
-Appalachia,GleamingDepthsMarker,Gleaming Depths
-Appalachia,GoodneighborMarker,Eastern Regional Penitentiary
-Appalachia,GoodneighborMarker,Fort Defiance
-Appalachia,GraveyardMarker,Philippi Battlefield Cemetery
-Appalachia,GraveyardMarker,Pleasant Hills Cemetery
-Appalachia,GraveyardMarker,Point Repose
-Appalachia,HammerWingMarker,Foundation
-Appalachia,HighTechBuildingMarker,AMS Corporate Headquarters
-Appalachia,HighTechBuildingMarker,Charleston Herald
-Appalachia,HighTechBuildingMarker,Garrahan Estate
-Appalachia,HighTechBuildingMarker,Hornwright Estate
-Appalachia,HighTechBuildingMarker,Hornwright Industrial Headquarters
-Appalachia,HighTechBuildingMarker,RobCo Research Center
-Appalachia,HighTechBuildingMarker,Unfinished Mansion
-Appalachia,HighTechBuildingMarker,Watoga Civic Center
-Appalachia,HighTechBuildingMarker,Watoga Estates
-Appalachia,HighTechBuildingMarker,Watoga High School
-Appalachia,HighTechBuildingMarker,Watoga Municipal Center
-Appalachia,HighTechBuildingMarker,Watoga Shopping Plaza
-Appalachia,HighTechBuildingMarker,Watoga Transit Hub
-Appalachia,HighTechBuildingMarker,West Tek Research Center
-Appalachia,HospitalMarker,AVR Medical Center
-Appalachia,HospitalMarker,Watoga Emergency Services
-Appalachia,HouseTrailerMarker,Dent & Sons Construction
-Appalachia,HouseTrailerMarker,Hillfolk Hotdogs
-Appalachia,HouseTrailerMarker,Nicholson's End
-Appalachia,HouseTrailerMarker,Willard Corporate Housing
-Appalachia,HouseTrailerMarker,Yellow Sandy's Still
-Appalachia,IndustrialDomeMarker,Dyer Chemical
-Appalachia,IndustrialDomeMarker,R & G Processing Services
-Appalachia,IndustrialDomeMarker,The Rust Kingdom
-Appalachia,IndustrialDomeMarker,Tygart Water Treatment
-Appalachia,IndustrialStacksMarker,Sand Fork Lumber
-Appalachia,JunkyardMarker,Jackson Junkyard
-Appalachia,LandmarkMarker,Devil's Backbone
-Appalachia,LandmarkMarker,Grindstone Arch
-Appalachia,LandmarkMarker,Seneca Rocks
-Appalachia,LegendaryPurveyorMarker,The Rusty Pick
-Appalachia,LibertaliaMarker,Portside Pub
-Appalachia,LighthouseMarker,Landview Lighthouse
-Appalachia,LookoutTowerMarker,Camp Adams Lookout
-Appalachia,LookoutTowerMarker,Central Mountain Lookout
-Appalachia,LookoutTowerMarker,Dolly Sods Lookout
-Appalachia,LookoutTowerMarker,East Kanawha Lookout
-Appalachia,LookoutTowerMarker,East Mountain Lookout
-Appalachia,LookoutTowerMarker,East Ridge Lookout
-Appalachia,LookoutTowerMarker,Flatwoods Lookout
-Appalachia,LookoutTowerMarker,High Knob Lookout
-Appalachia,LookoutTowerMarker,North Kanawha Lookout
-Appalachia,LookoutTowerMarker,North Mountain Lookout
-Appalachia,LookoutTowerMarker,Old Rag Lookout
-Appalachia,LookoutTowerMarker,Pioneer Scout Lookout
-Appalachia,LookoutTowerMarker,Ranger Lookout
-Appalachia,LookoutTowerMarker,South Mountain Lookout
-Appalachia,LookoutTowerMarker,Stony Man Lookout
-Appalachia,LookoutTowerMarker,Whitespring Lookout
-Appalachia,LowRiseMarker,Big Al's Tattoo Parlor
-Appalachia,LowRiseMarker,Charleston Fire Department
-Appalachia,LowRiseMarker,Clarksburg Shooting Club
-Appalachia,LowRiseMarker,Green Country Lodge
-Appalachia,LowRiseMarker,Greg's Mine Supply
-Appalachia,LowRiseMarker,Morgantown High School
-Appalachia,LowRiseMarker,Ranger District Office
-Appalachia,LowRiseMarker,Sandy's Sock Hop
-Appalachia,LowRiseMarker,Slumber Mill Motel
-Appalachia,LowRiseMarker,The Whitespring Service Entrance
-Appalachia,LowRiseMarker,World of Corn
-Appalachia,MansionMarker,Dark Hollow Manor
-Appalachia,MansionMarker,Hornwright Summer Villa
-Appalachia,MansionMarker,Riverside Manor
-Appalachia,MansionMarker,The Rose Room
-Appalachia,MansionMarker,Torrance House
-Appalachia,MilitaryBaseMarker,Camp McClintock
-Appalachia,MilitaryBaseMarker,Firebase Hancock
-Appalachia,MilitaryBaseMarker,Firebase LT
-Appalachia,MilitaryBaseMarker,Firebase Major
-Appalachia,MilitaryBaseMarker,Radiant Hills
-Appalachia,MilitaryBaseMarker,Site Alpha
-Appalachia,MilitaryBaseMarker,Site Bravo
-Appalachia,MilitaryBaseMarker,Site Charlie
-Appalachia,MilitaryBaseMarker,Survey Camp Alpha
-Appalachia,MilitaryBaseMarker,The Thorn
-Appalachia,MilitaryBaseMarker,US-13C Bivouac
-Appalachia,MonorailMarker,Monorail Elevator
-Appalachia,MonorailMarker,Pylon V-13
-Appalachia,MonumentMarker,Rapidan Camp
-Appalachia,MonumentMarker,Sugarmaple
-Appalachia,NukaColaQuantumPlant,Kanawha Nuka-Cola Plant
-Appalachia,NukaColaQuantumPlant,Nuka-World On Tour
-Appalachia,ObservatoryMarker,Hawksbill Weather Station
-Appalachia,OfficeMarker,Camp Venture
-Appalachia,OfficeMarker,Garrahan Mining Headquarters
-Appalachia,OfficeMarker,Shenandoah Visitor Center
-Appalachia,OfficeMarker,Sons of Dane Compound
-Appalachia,OfficeMarker,Super Duper Mart
-Appalachia,OfficeMarker,Valley Galleria
-Appalachia,OverlookMarker,Bastion Park
-Appalachia,OverlookMarker,Monongah Overlook
-Appalachia,OverlookMarker,Scenic Overlook
-Appalachia,PalaceWindingPathMarker,Palace of the Winding Path
-Appalachia,PierMarker,Summersville Docks
-Appalachia,PondLakeMarker,Big Maw
-Appalachia,PondLakeMarker,Fisherman's Rest
-Appalachia,PondLakeMarker,Gnarled Shallows
-Appalachia,PondLakeMarker,Gulper Lagoon
-Appalachia,PondLakeMarker,Highland Marsh
-Appalachia,PondLakeMarker,Lake Eloise
-Appalachia,PondLakeMarker,Sacramental Glade
-Appalachia,PondLakeMarker,Solomon's Pond
-Appalachia,PondLakeMarker,Spruce Knob Channels
-Appalachia,PondLakeMarker,Spruce Knob Lake
-Appalachia,PondLakeMarker,The Bullengrube
-Appalachia,PondLakeMarker,Three Ponds
-Appalachia,PondLakeMarker,Toxic Dried Lakebed
-Appalachia,PondLakeMarker,Twin Lakes
-Appalachia,PowerPlantMarker,Monongah Power Plant
-Appalachia,PowerPlantMarker,Poseidon Energy Plant WV-06
-Appalachia,PowerPlantMarker,Thunder Mountain Power Plant
-Appalachia,PublicWorkshopMarker,Abandoned Bog Town
-Appalachia,PublicWorkshopMarker,Beckley Mine Exhibit
-Appalachia,PublicWorkshopMarker,Berkeley Springs West
-Appalachia,PublicWorkshopMarker,Billings Homestead
-Appalachia,PublicWorkshopMarker,Charleston Landfill
-Appalachia,PublicWorkshopMarker,Converted Munitions Factory
-Appalachia,PublicWorkshopMarker,Dabney Homestead
-Appalachia,PublicWorkshopMarker,Dolly Sods Campground
-Appalachia,PublicWorkshopMarker,Federal Disposal Field HZ-21
-Appalachia,PublicWorkshopMarker,Gorge Junkyard
-Appalachia,PublicWorkshopMarker,Grafton Steel Yard
-Appalachia,PublicWorkshopMarker,Hemlock Holes Maintenance
-Appalachia,PublicWorkshopMarker,Lakeside Cabins
-Appalachia,PublicWorkshopMarker,Monongah Power Plant Yard
-Appalachia,PublicWorkshopMarker,Mount Blair
-Appalachia,PublicWorkshopMarker,Poseidon Energy Plant Yard
-Appalachia,PublicWorkshopMarker,Red Rocket Mega Stop
-Appalachia,PublicWorkshopMarker,Starlight Drive-in
-Appalachia,PublicWorkshopMarker,Sunshine Meadows Industrial Farm
-Appalachia,PublicWorkshopMarker,Thunder Mt. Power Plant Yard
-Appalachia,PublicWorkshopMarker,Tyler County Dirt Track
-Appalachia,PublicWorkshopMarker,Wade Airport
-Appalachia,PumpkinMarker,Pumpkin House
-Appalachia,QuarryMarker,AMS Testing Site
-Appalachia,QuarryMarker,Abandoned Mine Shaft 2
-Appalachia,QuarryMarker,Abandoned Mine Shaft 3
-Appalachia,QuarryMarker,Abandoned Mine Shaft 4
-Appalachia,QuarryMarker,Abandoned Mine Shaft 5
-Appalachia,QuarryMarker,Abandoned Mine Shaft 6
-Appalachia,QuarryMarker,Abandoned Mine Shaft Elaine
-Appalachia,QuarryMarker,Abandoned Mine Site Kittery
-Appalachia,QuarryMarker,Belching Betty
-Appalachia,QuarryMarker,Big Bend Tunnel East
-Appalachia,QuarryMarker,Big Bend Tunnel West
-Appalachia,QuarryMarker,Blackwater Mine
-Appalachia,QuarryMarker,Brim Quarry
-Appalachia,QuarryMarker,Crater Watchstation
-Appalachia,QuarryMarker,Glassed Cavern
-Appalachia,QuarryMarker,Kerwood Mine
-Appalachia,QuarryMarker,Monongah Mine
-Appalachia,QuarryMarker,Old Crimora Mines
-Appalachia,QuarryMarker,Old Mold Quarry
-Appalachia,QuarryMarker,Quarry X3
-Appalachia,QuarryMarker,The Burning Mine
-Appalachia,RadioTowerMarker,KMAX Transmission
-Appalachia,RadioTowerMarker,Relay Tower DP-B5-21
-Appalachia,RadioTowerMarker,Relay Tower EL-B1-02
-Appalachia,RadioTowerMarker,Relay Tower EM-B1-27
-Appalachia,RadioTowerMarker,Relay Tower HG-B7-09
-Appalachia,RadioTowerMarker,Relay Tower HN-B1-12
-Appalachia,RadioTowerMarker,Relay Tower LW-B1-22
-Appalachia,RadioTowerMarker,Research Site Bavaria
-Appalachia,RadioTowerMarker,Research Site Rhineland
-Appalachia,RadioTowerMarker,Research Site Saxony
-Appalachia,RadioTowerMarker,Transmission Station 1AT-U03
-Appalachia,RadioactiveAreaMarker,Black Mountain Ordnance Works
-Appalachia,RadioactiveAreaMarker,Emmett Mountain Disposal Site
-Appalachia,RadioactiveAreaMarker,Foundation Outpost
-Appalachia,RadioactiveAreaMarker,Hemlock Springs Dump
-Appalachia,RadioactiveAreaMarker,Safe 'n Clean Disposal
-Appalachia,RaiderSettlementMarker,Bleeding Kate's Grindhouse
-Appalachia,RaiderSettlementMarker,Knife Edge
-Appalachia,RaiderSettlementMarker,Metal Dome
-Appalachia,RaiderSettlementMarker,North Cutthroat Camp
-Appalachia,RaiderSettlementMarker,Pleasant Valley Cabins
-Appalachia,RaiderSettlementMarker,The Freak Show
-Appalachia,RaiderSettlementMarker,The Sludge Hole
-Appalachia,RailroadMarker,Charleston Trainyard
-Appalachia,RailroadMarker,NAR Repair Yard
-Appalachia,RailroadMarker,Railroad Service Yard
-Appalachia,SancHillsMarker,Colonel Kelly Monument
-Appalachia,SancHillsMarker,Miners Monument
-Appalachia,SatelliteMarker,National Isolated Radio Array
-Appalachia,SatelliteMarker,National Radio Astronomy Research Center
-Appalachia,SatelliteMarker,Sugar Grove
-Appalachia,SettlementMarker,Settler's Ridge
-Appalachia,SettlementMarker,The Retreat
-Appalachia,SewerMarker,The Burrows North
-Appalachia,SewerMarker,The Burrows South
-Appalachia,SewerMarker,Watoga Underground
-Appalachia,SkiResortMarker,Pleasant Valley Ski Resort
-Appalachia,SkiResortMarker,Sunnytop Ski Lanes
-Appalachia,SkiResortMarker,Sunnytop Ski Lanes Base Lodge
-Appalachia,SkiResortMarker,White Powder Winter Sports
-Appalachia,SkullRingMarker,Ohio River Adventures
-Appalachia,SkullRingMarker,The Coop
-Appalachia,SkullRingMarker,The Crater
-Appalachia,TeapotMarker,The Giant Teapot
-Appalachia,TopOfTheWorldMarker,Top of the World
-Appalachia,TownMarker,Beckley
-Appalachia,TownMarker,Berkeley Springs
-Appalachia,TownMarker,Clarksburg
-Appalachia,TownMarker,Flatwoods
-Appalachia,TownMarker,Grafton
-Appalachia,TownMarker,Harpers Ferry
-Appalachia,TownMarker,Helvetia
-Appalachia,TownMarker,Huntersville
-Appalachia,TownMarker,Lewisburg
-Appalachia,TownMarker,Monongah
-Appalachia,TownMarker,Point Pleasant
-Appalachia,TownMarker,Summersville
-Appalachia,TownMarker,Sutton
-Appalachia,TownMarker,The Wayward
-Appalachia,TownRuinsMarker,Albany
-Appalachia,TownRuinsMarker,Athens
-Appalachia,TownRuinsMarker,Mosstown
-Appalachia,TownRuinsMarker,New Gad
-Appalachia,TownRuinsMarker,Tanagra Town
-Appalachia,TownRuinsMarker,Welch
-Appalachia,TrainStationMarker,Berkeley Springs Station
-Appalachia,TrainStationMarker,Charleston Station
-Appalachia,TrainStationMarker,Grafton Station
-Appalachia,TrainStationMarker,Hocking Hills Train Station
-Appalachia,TrainStationMarker,Lewisburg Station
-Appalachia,TrainStationMarker,Morgantown Station
-Appalachia,TrainStationMarker,Pleasant Valley Station
-Appalachia,TrainStationMarker,R&G Station
-Appalachia,TrainStationMarker,Sunnytop Station
-Appalachia,TrainStationMarker,Sutton Station
-Appalachia,TrainStationMarker,Watoga Station
-Appalachia,TrainStationMarker,Welch Station
-Appalachia,TrainStationMarker,Whitespring Station
-Appalachia,TrainTrackMark,98 NAR Regional
-Appalachia,TrainTrackMark,Flooded Trainyard
-Appalachia,TrainTrackMark,Harpers Ferry Tunnel
-Appalachia,TrainTrackMark,Morgantown Trainyard
-Appalachia,TrainTrackMark,Mount Blair Trainyard
-Appalachia,TrainTrackMark,New Appalachian Central Trainyard
-Appalachia,Vault51Marker,Vault 51
-Appalachia,Vault63Marker,Vault 63
-Appalachia,Vault76Marker,Vault 76
-Appalachia,Vault79Marker,Vault 79
-Appalachia,Vault94Marker,Vault 94
-Appalachia,Vault96Marker,Vault 96
-Appalachia,VaultMarker,Vault-Tec University
-Appalachia,WhitespringResort,The Whitespring North Entrance
-Appalachia,WhitespringResort,The Whitespring Resort
-Appalachia,WoodShackMarker,Big Fred's BBQ Shack
-Appalachia,WoodShackMarker,Bootlegger's Shack
-Appalachia,WoodShackMarker,Darling Sister's Lab
-Appalachia,WoodShackMarker,Hunter's Shack
-Appalachia,WoodShackMarker,Lewis & Sons Farming Supply
-Appalachia,WoodShackMarker,Lost Home
-Appalachia,WoodShackMarker,Moonshiner's Shack
-Appalachia,WoodShackMarker,Mountainside Bed & Breakfast
-Appalachia,WoodShackMarker,Old Danielson Cabin
-Appalachia,WoodShackMarker,Southhampton Estate
-Appalachia,WoodShackMarker,Susan's Cabin
-Appalachia,WoodShackMarker,Toxic Larry's Meat 'n Go
-Appalachia,WoodShackMarker,Treetops
-Appalachia,WoodShackMarker,Westbrook Horse Ranch
+APPALACHIA,AgriculturalCenterMarker,Honey Well Apiary
+APPALACHIA,AgriculturalCenterMarker,Vault-Tec Agricultural Research Center
+APPALACHIA,AirfieldMarker,Crashed Plane
+APPALACHIA,AirfieldMarker,Horizon's Rest
+APPALACHIA,AirfieldMarker,Morgantown Airport
+APPALACHIA,AmusementParkMarker,Camden Park
+APPALACHIA,AmusementParkMarker,Lake Reynolds
+APPALACHIA,AmusementParkMarker,Tyler County Fairgrounds
+APPALACHIA,AmusementParkMarker,Wavy Willard's Water Park
+APPALACHIA,AppalachianAntiquesMarker,Appalachian Antiques
+APPALACHIA,ArktosPharmaMarker,Arktos Pharma
+APPALACHIA,BloodEagleMarker,Ammo Dump
+APPALACHIA,BloodEagleMarker,Bloody Frank's
+APPALACHIA,BloodEagleMarker,Cliffwatch
+APPALACHIA,BloodEagleMarker,Crimson Prospect
+APPALACHIA,BloodEagleMarker,Dagger's Den
+APPALACHIA,BloodEagleMarker,Hunter's Ridge
+APPALACHIA,BloodEagleMarker,Ripper Alley
+APPALACHIA,BloodEagleMarker,Rollins Labor Camp
+APPALACHIA,BloodEagleMarker,Seneca Gang Camp
+APPALACHIA,BloodEagleMarker,Skullbone Vantage
+APPALACHIA,BloodEagleMarker,South Cutthroat Camp
+APPALACHIA,BloodEagleMarker,The Bounty
+APPALACHIA,BloodEagleMarker,The Crosshair
+APPALACHIA,BloodEagleMarker,The Kill Box
+APPALACHIA,BloodEagleMarker,The Pigsty
+APPALACHIA,BloodEagleMarker,The Sludge Works
+APPALACHIA,BloodEagleMarker,The Vantage
+APPALACHIA,BloodEagleMarker,Twin Pine Cabins
+APPALACHIA,BloodEagleMarker,Widow's Perch
+APPALACHIA,BoSMarker,Fort Atlas
+APPALACHIA,BoSMarker,Forward Station Alpha
+APPALACHIA,BoSMarker,Forward Station Delta
+APPALACHIA,BoSMarker,Forward Station Tango
+APPALACHIA,BrownstoneMarker,Black Bear Lodge
+APPALACHIA,BrownstoneMarker,Excelsior Model Home
+APPALACHIA,BrownstoneMarker,Fraternity Row
+APPALACHIA,BrownstoneMarker,Freddy Fear's House of Scares
+APPALACHIA,BrownstoneMarker,Sal's Grinders
+APPALACHIA,BrownstoneMarker,Slocum's Joe
+APPALACHIA,BrownstoneMarker,Southern Belle Motel
+APPALACHIA,BrownstoneMarker,The General's Steakhouse
+APPALACHIA,BrownstoneMarker,Wilson Brother's Auto Repair
+APPALACHIA,BunkerMarker,Abandoned Bunker
+APPALACHIA,BunkerMarker,Abbie's Bunker
+APPALACHIA,BunkerMarker,Carson Family Bunker
+APPALACHIA,BunkerMarker,Drop Site C2
+APPALACHIA,BunkerMarker,Drop Site G3
+APPALACHIA,BunkerMarker,Drop Site V9
+APPALACHIA,BunkerMarker,Ella Ames' Bunker
+APPALACHIA,BunkerMarker,Hornwright Air Purifier Site #01
+APPALACHIA,BunkerMarker,Hornwright Air Purifier Site #02
+APPALACHIA,BunkerMarker,Hornwright Air Purifier Site #03
+APPALACHIA,BunkerMarker,Hornwright Air Purifier Site #04
+APPALACHIA,BunkerMarker,Raleigh Clay's Bunker
+APPALACHIA,BunkerMarker,Ranger Station Bunker
+APPALACHIA,BunkerMarker,Ransacked Bunker
+APPALACHIA,BunkerMarker,Whitespring Bunker
+APPALACHIA,CabinMarker,Alpine River Cabins
+APPALACHIA,CabinMarker,Autumn Acre Cabin
+APPALACHIA,CabinMarker,Bailey Family Cabin
+APPALACHIA,CabinMarker,Camp Adams
+APPALACHIA,CabinMarker,Camp Liberty
+APPALACHIA,CabinMarker,Groves Family Cabin
+APPALACHIA,CabinMarker,Investigator's Cabin
+APPALACHIA,CabinMarker,Isolated Cabin
+APPALACHIA,CabinMarker,Kiddie Corner Cabins
+APPALACHIA,CabinMarker,Marigold Pavilion
+APPALACHIA,CabinMarker,Middle Mountain Pitstop
+APPALACHIA,CabinMarker,New River Gorge Resort
+APPALACHIA,CabinMarker,Overlook Cabin
+APPALACHIA,CabinMarker,Pioneer Scout Camp
+APPALACHIA,CabinMarker,Pylon Ambush Site
+APPALACHIA,CabinMarker,Seneca Rocks Visitor Center
+APPALACHIA,CabinMarker,Sunday Brothers' Cabin
+APPALACHIA,CabinMarker,Surly's Shack
+APPALACHIA,CabinMarker,Tycoon Lake
+APPALACHIA,CamperMarker,Naked Creek
+APPALACHIA,CamperMarker,Prospect Hill
+APPALACHIA,CapitalBuildingMarker,Charleston Capitol Building
+APPALACHIA,CarMarker,Abandoned Convoy
+APPALACHIA,CarMarker,Makeout Point
+APPALACHIA,CarMarker,South River Bridge
+APPALACHIA,CastleMarker,Fort Steuben
+APPALACHIA,CastleMarker,Prickett's Fort
+APPALACHIA,CaveMarker,Abandoned Waste Dump
+APPALACHIA,CaveMarker,Ash Cave
+APPALACHIA,CaveMarker,Carleton Mine
+APPALACHIA,CaveMarker,Gauley Mine
+APPALACHIA,CaveMarker,Gauley Mine Exit
+APPALACHIA,CaveMarker,Hillside Cavern
+APPALACHIA,CaveMarker,Hopewell Cave
+APPALACHIA,CaveMarker,Makeshift Vault
+APPALACHIA,CaveMarker,Mire's Eye
+APPALACHIA,CaveMarker,Mysterious Cave
+APPALACHIA,CaveMarker,Shining Creek Cavern
+APPALACHIA,CaveMarker,The Deep
+APPALACHIA,CaveMarker,Uncanny Caverns
+APPALACHIA,CaveMarker,Wendigo Cave
+APPALACHIA,ChurchMarker,Haven Church
+APPALACHIA,ChurchMarker,Shade Hill Church
+APPALACHIA,CityMarker,Charleston
+APPALACHIA,CityMarker,Morgantown
+APPALACHIA,CityMarker,Watoga
+APPALACHIA,CountryClubMarker,Bolton Greens
+APPALACHIA,CountryClubMarker,Dino Peaks Mini Golf
+APPALACHIA,CountryClubMarker,Hemlock Holes
+APPALACHIA,CountryClubMarker,The Whitespring Golf Club
+APPALACHIA,CowSpotsCreameryMarker,Cow Spots Creamery
+APPALACHIA,CowSpotsCreameryMarker,Lady Janet's Soft Serve
+APPALACHIA,CultistMarker,Blakes Offering
+APPALACHIA,CultistMarker,Clancy Manor
+APPALACHIA,CultistMarker,Johnson's Acre
+APPALACHIA,CultistMarker,Kanawha County Cemetery
+APPALACHIA,CultistMarker,Lucky Hole Mine
+APPALACHIA,CultistMarker,Moth-Home
+APPALACHIA,CultistMarker,Organ Cave North
+APPALACHIA,CultistMarker,Organ Cave South
+APPALACHIA,CultistMarker,Organ Cave West
+APPALACHIA,CultistMarker,Sacrament
+APPALACHIA,DamMarker,Crevasse Dam
+APPALACHIA,DamMarker,Grafton Dam
+APPALACHIA,ElectricalSubstationMarker,Abraxodyne Chemical Power Substation
+APPALACHIA,ElectricalSubstationMarker,Monongah Power Substation MZ-01
+APPALACHIA,ElectricalSubstationMarker,Monongah Power Substation MZ-02
+APPALACHIA,ElectricalSubstationMarker,Monongah Power Substation MZ-03
+APPALACHIA,ElectricalSubstationMarker,Poseidon Power Substation PX-01
+APPALACHIA,ElectricalSubstationMarker,Poseidon Power Substation PX-02
+APPALACHIA,ElectricalSubstationMarker,Poseidon Power Substation PX-03
+APPALACHIA,ElectricalSubstationMarker,Thunder Mountain Substation TM-01
+APPALACHIA,ElectricalSubstationMarker,Thunder Mountain Substation TM-02
+APPALACHIA,ElectricalSubstationMarker,Thunder Mountain Substation TM-03
+APPALACHIA,ElevatedHighwayMarker,Highway Town
+APPALACHIA,ElevatedHighwayMarker,New River Gorge Bridge - East
+APPALACHIA,ElevatedHighwayMarker,New River Gorge Bridge - West
+APPALACHIA,EncampmentMarker,Blue Ridge Bunkhouse
+APPALACHIA,EncampmentMarker,Checkpoint Canyon
+APPALACHIA,EncampmentMarker,Hamley Run Camp
+APPALACHIA,EncampmentMarker,Milepost Zero
+APPALACHIA,EncampmentMarker,Overseer's Camp
+APPALACHIA,EncampmentMarker,Overseer's Home
+APPALACHIA,EncampmentMarker,Striker Row
+APPALACHIA,EncampmentMarker,Sylvie & Sons Logging Camp
+APPALACHIA,EncampmentMarker,The Trading Post
+APPALACHIA,FactoryMarker,Abandoned Mine Shaft 1
+APPALACHIA,FactoryMarker,Big Meadows Gas Well
+APPALACHIA,FactoryMarker,Braxson's Quality Medical Supplies
+APPALACHIA,FactoryMarker,Gilman Lumber Mill
+APPALACHIA,FactoryMarker,Grafton Steel
+APPALACHIA,FactoryMarker,Hornwright Testing Site #02
+APPALACHIA,FactoryMarker,Hornwright Testing Site #03
+APPALACHIA,FactoryMarker,Hornwright Testing Site #04
+APPALACHIA,FactoryMarker,Mama Dolce's Food Processing
+APPALACHIA,FactoryMarker,Meadow Breeze Storage Depot
+APPALACHIA,FactoryMarker,Summersville Dam
+APPALACHIA,FactoryMarker,WV Lumber Co.
+APPALACHIA,FarmMarker,Aaronholt Homestead
+APPALACHIA,FarmMarker,Anchor Farm
+APPALACHIA,FarmMarker,Becker Farm
+APPALACHIA,FarmMarker,Beckwith Farm
+APPALACHIA,FarmMarker,Cobbleton Farm
+APPALACHIA,FarmMarker,Delano Grange
+APPALACHIA,FarmMarker,Graninger Farm
+APPALACHIA,FarmMarker,Mac's Farm
+APPALACHIA,FarmMarker,Silva Homestead
+APPALACHIA,FarmMarker,Smith Farm
+APPALACHIA,FarmMarker,Sunrise Field
+APPALACHIA,FarmMarker,Superior Sunset Farm
+APPALACHIA,FarmMarker,Wixon Homestead
+APPALACHIA,FarmMarker,Woods Estate
+APPALACHIA,FillingStationMarker,Big B's Rest Stop
+APPALACHIA,FillingStationMarker,Red Rocket Filling Station
+APPALACHIA,FillingStationMarker,The Chop Shop
+APPALACHIA,FissureMarker,Fissure Site
+APPALACHIA,FissureMarker,Fissure Site
+APPALACHIA,FissureMarker,Fissure Site
+APPALACHIA,FissureMarker,Fissure Site
+APPALACHIA,FissureMarker,Fissure Site
+APPALACHIA,FissureMarker,Fissure Site
+APPALACHIA,FissureMarker,Fissure Site
+APPALACHIA,FissureMarker,Fissure Site Prime
+APPALACHIA,ForestedMarker,Creekside Sundew Grove
+APPALACHIA,ForestedMarker,Deathclaw Island
+APPALACHIA,ForestedMarker,Dolly Sods Wilderness
+APPALACHIA,ForestedMarker,Orwell Orchards
+APPALACHIA,ForestedMarker,Overgrown Sundew Grove
+APPALACHIA,ForestedMarker,Sparse Sundew Grove
+APPALACHIA,ForestedMarker,Spruce Knob Campground
+APPALACHIA,ForestedMarker,Veiled Sundew Grove
+APPALACHIA,GleamingDepthsMarker,Gleaming Depths
+APPALACHIA,GoodneighborMarker,Eastern Regional Penitentiary
+APPALACHIA,GoodneighborMarker,Fort Defiance
+APPALACHIA,GraveyardMarker,Philippi Battlefield Cemetery
+APPALACHIA,GraveyardMarker,Pleasant Hills Cemetery
+APPALACHIA,GraveyardMarker,Point Repose
+APPALACHIA,HammerWingMarker,Foundation
+APPALACHIA,HighTechBuildingMarker,AMS Corporate Headquarters
+APPALACHIA,HighTechBuildingMarker,Charleston Herald
+APPALACHIA,HighTechBuildingMarker,Garrahan Estate
+APPALACHIA,HighTechBuildingMarker,Hornwright Estate
+APPALACHIA,HighTechBuildingMarker,Hornwright Industrial Headquarters
+APPALACHIA,HighTechBuildingMarker,RobCo Research Center
+APPALACHIA,HighTechBuildingMarker,Unfinished Mansion
+APPALACHIA,HighTechBuildingMarker,Watoga Civic Center
+APPALACHIA,HighTechBuildingMarker,Watoga Estates
+APPALACHIA,HighTechBuildingMarker,Watoga High School
+APPALACHIA,HighTechBuildingMarker,Watoga Municipal Center
+APPALACHIA,HighTechBuildingMarker,Watoga Shopping Plaza
+APPALACHIA,HighTechBuildingMarker,Watoga Transit Hub
+APPALACHIA,HighTechBuildingMarker,West Tek Research Center
+APPALACHIA,HospitalMarker,AVR Medical Center
+APPALACHIA,HospitalMarker,Watoga Emergency Services
+APPALACHIA,HouseTrailerMarker,Dent & Sons Construction
+APPALACHIA,HouseTrailerMarker,Hillfolk Hotdogs
+APPALACHIA,HouseTrailerMarker,Nicholson's End
+APPALACHIA,HouseTrailerMarker,Willard Corporate Housing
+APPALACHIA,HouseTrailerMarker,Yellow Sandy's Still
+APPALACHIA,IndustrialDomeMarker,Dyer Chemical
+APPALACHIA,IndustrialDomeMarker,R & G Processing Services
+APPALACHIA,IndustrialDomeMarker,The Rust Kingdom
+APPALACHIA,IndustrialDomeMarker,Tygart Water Treatment
+APPALACHIA,IndustrialStacksMarker,Sand Fork Lumber
+APPALACHIA,JunkyardMarker,Jackson Junkyard
+APPALACHIA,LandmarkMarker,Devil's Backbone
+APPALACHIA,LandmarkMarker,Grindstone Arch
+APPALACHIA,LandmarkMarker,Seneca Rocks
+APPALACHIA,LegendaryPurveyorMarker,The Rusty Pick
+APPALACHIA,LibertaliaMarker,Portside Pub
+APPALACHIA,LighthouseMarker,Landview Lighthouse
+APPALACHIA,LookoutTowerMarker,Camp Adams Lookout
+APPALACHIA,LookoutTowerMarker,Central Mountain Lookout
+APPALACHIA,LookoutTowerMarker,Dolly Sods Lookout
+APPALACHIA,LookoutTowerMarker,East Kanawha Lookout
+APPALACHIA,LookoutTowerMarker,East Mountain Lookout
+APPALACHIA,LookoutTowerMarker,East Ridge Lookout
+APPALACHIA,LookoutTowerMarker,Flatwoods Lookout
+APPALACHIA,LookoutTowerMarker,High Knob Lookout
+APPALACHIA,LookoutTowerMarker,North Kanawha Lookout
+APPALACHIA,LookoutTowerMarker,North Mountain Lookout
+APPALACHIA,LookoutTowerMarker,Old Rag Lookout
+APPALACHIA,LookoutTowerMarker,Pioneer Scout Lookout
+APPALACHIA,LookoutTowerMarker,Ranger Lookout
+APPALACHIA,LookoutTowerMarker,South Mountain Lookout
+APPALACHIA,LookoutTowerMarker,Stony Man Lookout
+APPALACHIA,LookoutTowerMarker,Whitespring Lookout
+APPALACHIA,LowRiseMarker,Big Al's Tattoo Parlor
+APPALACHIA,LowRiseMarker,Charleston Fire Department
+APPALACHIA,LowRiseMarker,Clarksburg Shooting Club
+APPALACHIA,LowRiseMarker,Green Country Lodge
+APPALACHIA,LowRiseMarker,Greg's Mine Supply
+APPALACHIA,LowRiseMarker,Morgantown High School
+APPALACHIA,LowRiseMarker,Ranger District Office
+APPALACHIA,LowRiseMarker,Sandy's Sock Hop
+APPALACHIA,LowRiseMarker,Slumber Mill Motel
+APPALACHIA,LowRiseMarker,The Whitespring Service Entrance
+APPALACHIA,LowRiseMarker,World of Corn
+APPALACHIA,MansionMarker,Dark Hollow Manor
+APPALACHIA,MansionMarker,Hornwright Summer Villa
+APPALACHIA,MansionMarker,Riverside Manor
+APPALACHIA,MansionMarker,The Rose Room
+APPALACHIA,MansionMarker,Torrance House
+APPALACHIA,MilitaryBaseMarker,Camp McClintock
+APPALACHIA,MilitaryBaseMarker,Firebase Hancock
+APPALACHIA,MilitaryBaseMarker,Firebase LT
+APPALACHIA,MilitaryBaseMarker,Firebase Major
+APPALACHIA,MilitaryBaseMarker,Radiant Hills
+APPALACHIA,MilitaryBaseMarker,Site Alpha
+APPALACHIA,MilitaryBaseMarker,Site Bravo
+APPALACHIA,MilitaryBaseMarker,Site Charlie
+APPALACHIA,MilitaryBaseMarker,Survey Camp Alpha
+APPALACHIA,MilitaryBaseMarker,The Thorn
+APPALACHIA,MilitaryBaseMarker,US-13C Bivouac
+APPALACHIA,MonorailMarker,Monorail Elevator
+APPALACHIA,MonorailMarker,Pylon V-13
+APPALACHIA,MonumentMarker,Rapidan Camp
+APPALACHIA,MonumentMarker,Sugarmaple
+APPALACHIA,NukaColaQuantumPlant,Kanawha Nuka-Cola Plant
+APPALACHIA,NukaColaQuantumPlant,Nuka-World On Tour
+APPALACHIA,ObservatoryMarker,Hawksbill Weather Station
+APPALACHIA,OfficeMarker,Camp Venture
+APPALACHIA,OfficeMarker,Garrahan Mining Headquarters
+APPALACHIA,OfficeMarker,Shenandoah Visitor Center
+APPALACHIA,OfficeMarker,Sons of Dane Compound
+APPALACHIA,OfficeMarker,Super Duper Mart
+APPALACHIA,OfficeMarker,Valley Galleria
+APPALACHIA,OverlookMarker,Bastion Park
+APPALACHIA,OverlookMarker,Monongah Overlook
+APPALACHIA,OverlookMarker,Scenic Overlook
+APPALACHIA,PalaceWindingPathMarker,Palace of the Winding Path
+APPALACHIA,PierMarker,Summersville Docks
+APPALACHIA,PondLakeMarker,Big Maw
+APPALACHIA,PondLakeMarker,Fisherman's Rest
+APPALACHIA,PondLakeMarker,Gnarled Shallows
+APPALACHIA,PondLakeMarker,Gulper Lagoon
+APPALACHIA,PondLakeMarker,Highland Marsh
+APPALACHIA,PondLakeMarker,Lake Eloise
+APPALACHIA,PondLakeMarker,Sacramental Glade
+APPALACHIA,PondLakeMarker,Solomon's Pond
+APPALACHIA,PondLakeMarker,Spruce Knob Channels
+APPALACHIA,PondLakeMarker,Spruce Knob Lake
+APPALACHIA,PondLakeMarker,The Bullengrube
+APPALACHIA,PondLakeMarker,Three Ponds
+APPALACHIA,PondLakeMarker,Toxic Dried Lakebed
+APPALACHIA,PondLakeMarker,Twin Lakes
+APPALACHIA,PowerPlantMarker,Monongah Power Plant
+APPALACHIA,PowerPlantMarker,Poseidon Energy Plant WV-06
+APPALACHIA,PowerPlantMarker,Thunder Mountain Power Plant
+APPALACHIA,PublicWorkshopMarker,Abandoned Bog Town
+APPALACHIA,PublicWorkshopMarker,Beckley Mine Exhibit
+APPALACHIA,PublicWorkshopMarker,Berkeley Springs West
+APPALACHIA,PublicWorkshopMarker,Billings Homestead
+APPALACHIA,PublicWorkshopMarker,Charleston Landfill
+APPALACHIA,PublicWorkshopMarker,Converted Munitions Factory
+APPALACHIA,PublicWorkshopMarker,Dabney Homestead
+APPALACHIA,PublicWorkshopMarker,Dolly Sods Campground
+APPALACHIA,PublicWorkshopMarker,Federal Disposal Field HZ-21
+APPALACHIA,PublicWorkshopMarker,Gorge Junkyard
+APPALACHIA,PublicWorkshopMarker,Grafton Steel Yard
+APPALACHIA,PublicWorkshopMarker,Hemlock Holes Maintenance
+APPALACHIA,PublicWorkshopMarker,Lakeside Cabins
+APPALACHIA,PublicWorkshopMarker,Monongah Power Plant Yard
+APPALACHIA,PublicWorkshopMarker,Mount Blair
+APPALACHIA,PublicWorkshopMarker,Poseidon Energy Plant Yard
+APPALACHIA,PublicWorkshopMarker,Red Rocket Mega Stop
+APPALACHIA,PublicWorkshopMarker,Starlight Drive-in
+APPALACHIA,PublicWorkshopMarker,Sunshine Meadows Industrial Farm
+APPALACHIA,PublicWorkshopMarker,Thunder Mt. Power Plant Yard
+APPALACHIA,PublicWorkshopMarker,Tyler County Dirt Track
+APPALACHIA,PublicWorkshopMarker,Wade Airport
+APPALACHIA,PumpkinMarker,Pumpkin House
+APPALACHIA,QuarryMarker,AMS Testing Site
+APPALACHIA,QuarryMarker,Abandoned Mine Shaft 2
+APPALACHIA,QuarryMarker,Abandoned Mine Shaft 3
+APPALACHIA,QuarryMarker,Abandoned Mine Shaft 4
+APPALACHIA,QuarryMarker,Abandoned Mine Shaft 5
+APPALACHIA,QuarryMarker,Abandoned Mine Shaft 6
+APPALACHIA,QuarryMarker,Abandoned Mine Shaft Elaine
+APPALACHIA,QuarryMarker,Abandoned Mine Site Kittery
+APPALACHIA,QuarryMarker,Belching Betty
+APPALACHIA,QuarryMarker,Big Bend Tunnel East
+APPALACHIA,QuarryMarker,Big Bend Tunnel West
+APPALACHIA,QuarryMarker,Blackwater Mine
+APPALACHIA,QuarryMarker,Brim Quarry
+APPALACHIA,QuarryMarker,Crater Watchstation
+APPALACHIA,QuarryMarker,Glassed Cavern
+APPALACHIA,QuarryMarker,Kerwood Mine
+APPALACHIA,QuarryMarker,Monongah Mine
+APPALACHIA,QuarryMarker,Old Crimora Mines
+APPALACHIA,QuarryMarker,Old Mold Quarry
+APPALACHIA,QuarryMarker,Quarry X3
+APPALACHIA,QuarryMarker,The Burning Mine
+APPALACHIA,RadioTowerMarker,KMAX Transmission
+APPALACHIA,RadioTowerMarker,Relay Tower DP-B5-21
+APPALACHIA,RadioTowerMarker,Relay Tower EL-B1-02
+APPALACHIA,RadioTowerMarker,Relay Tower EM-B1-27
+APPALACHIA,RadioTowerMarker,Relay Tower HG-B7-09
+APPALACHIA,RadioTowerMarker,Relay Tower HN-B1-12
+APPALACHIA,RadioTowerMarker,Relay Tower LW-B1-22
+APPALACHIA,RadioTowerMarker,Research Site Bavaria
+APPALACHIA,RadioTowerMarker,Research Site Rhineland
+APPALACHIA,RadioTowerMarker,Research Site Saxony
+APPALACHIA,RadioTowerMarker,Transmission Station 1AT-U03
+APPALACHIA,RadioactiveAreaMarker,Black Mountain Ordnance Works
+APPALACHIA,RadioactiveAreaMarker,Emmett Mountain Disposal Site
+APPALACHIA,RadioactiveAreaMarker,Foundation Outpost
+APPALACHIA,RadioactiveAreaMarker,Hemlock Springs Dump
+APPALACHIA,RadioactiveAreaMarker,Safe 'n Clean Disposal
+APPALACHIA,RaiderSettlementMarker,Bleeding Kate's Grindhouse
+APPALACHIA,RaiderSettlementMarker,Knife Edge
+APPALACHIA,RaiderSettlementMarker,Metal Dome
+APPALACHIA,RaiderSettlementMarker,North Cutthroat Camp
+APPALACHIA,RaiderSettlementMarker,Pleasant Valley Cabins
+APPALACHIA,RaiderSettlementMarker,The Freak Show
+APPALACHIA,RaiderSettlementMarker,The Sludge Hole
+APPALACHIA,RailroadMarker,Charleston Trainyard
+APPALACHIA,RailroadMarker,NAR Repair Yard
+APPALACHIA,RailroadMarker,Railroad Service Yard
+APPALACHIA,SancHillsMarker,Colonel Kelly Monument
+APPALACHIA,SancHillsMarker,Miners Monument
+APPALACHIA,SatelliteMarker,National Isolated Radio Array
+APPALACHIA,SatelliteMarker,National Radio Astronomy Research Center
+APPALACHIA,SatelliteMarker,Sugar Grove
+APPALACHIA,SettlementMarker,Settler's Ridge
+APPALACHIA,SettlementMarker,The Retreat
+APPALACHIA,SewerMarker,The Burrows North
+APPALACHIA,SewerMarker,The Burrows South
+APPALACHIA,SewerMarker,Watoga Underground
+APPALACHIA,SkiResortMarker,Pleasant Valley Ski Resort
+APPALACHIA,SkiResortMarker,Sunnytop Ski Lanes
+APPALACHIA,SkiResortMarker,Sunnytop Ski Lanes Base Lodge
+APPALACHIA,SkiResortMarker,White Powder Winter Sports
+APPALACHIA,SkullRingMarker,Ohio River Adventures
+APPALACHIA,SkullRingMarker,The Coop
+APPALACHIA,SkullRingMarker,The Crater
+APPALACHIA,TeapotMarker,The Giant Teapot
+APPALACHIA,TopOfTheWorldMarker,Top of the World
+APPALACHIA,TownMarker,Beckley
+APPALACHIA,TownMarker,Berkeley Springs
+APPALACHIA,TownMarker,Clarksburg
+APPALACHIA,TownMarker,Flatwoods
+APPALACHIA,TownMarker,Grafton
+APPALACHIA,TownMarker,Harpers Ferry
+APPALACHIA,TownMarker,Helvetia
+APPALACHIA,TownMarker,Huntersville
+APPALACHIA,TownMarker,Lewisburg
+APPALACHIA,TownMarker,Monongah
+APPALACHIA,TownMarker,Point Pleasant
+APPALACHIA,TownMarker,Summersville
+APPALACHIA,TownMarker,Sutton
+APPALACHIA,TownMarker,The Wayward
+APPALACHIA,TownRuinsMarker,Albany
+APPALACHIA,TownRuinsMarker,Athens
+APPALACHIA,TownRuinsMarker,Mosstown
+APPALACHIA,TownRuinsMarker,New Gad
+APPALACHIA,TownRuinsMarker,Tanagra Town
+APPALACHIA,TownRuinsMarker,Welch
+APPALACHIA,TrainStationMarker,Berkeley Springs Station
+APPALACHIA,TrainStationMarker,Charleston Station
+APPALACHIA,TrainStationMarker,Grafton Station
+APPALACHIA,TrainStationMarker,Hocking Hills Train Station
+APPALACHIA,TrainStationMarker,Lewisburg Station
+APPALACHIA,TrainStationMarker,Morgantown Station
+APPALACHIA,TrainStationMarker,Pleasant Valley Station
+APPALACHIA,TrainStationMarker,R&G Station
+APPALACHIA,TrainStationMarker,Sunnytop Station
+APPALACHIA,TrainStationMarker,Sutton Station
+APPALACHIA,TrainStationMarker,Watoga Station
+APPALACHIA,TrainStationMarker,Welch Station
+APPALACHIA,TrainStationMarker,Whitespring Station
+APPALACHIA,TrainTrackMark,98 NAR Regional
+APPALACHIA,TrainTrackMark,Flooded Trainyard
+APPALACHIA,TrainTrackMark,Harpers Ferry Tunnel
+APPALACHIA,TrainTrackMark,Morgantown Trainyard
+APPALACHIA,TrainTrackMark,Mount Blair Trainyard
+APPALACHIA,TrainTrackMark,New Appalachian Central Trainyard
+APPALACHIA,Vault51Marker,Vault 51
+APPALACHIA,Vault63Marker,Vault 63
+APPALACHIA,Vault76Marker,Vault 76
+APPALACHIA,Vault79Marker,Vault 79
+APPALACHIA,Vault94Marker,Vault 94
+APPALACHIA,Vault96Marker,Vault 96
+APPALACHIA,VaultMarker,Vault-Tec University
+APPALACHIA,WhitespringResort,The Whitespring North Entrance
+APPALACHIA,WhitespringResort,The Whitespring Resort
+APPALACHIA,WoodShackMarker,Big Fred's BBQ Shack
+APPALACHIA,WoodShackMarker,Bootlegger's Shack
+APPALACHIA,WoodShackMarker,Darling Sister's Lab
+APPALACHIA,WoodShackMarker,Hunter's Shack
+APPALACHIA,WoodShackMarker,Lewis & Sons Farming Supply
+APPALACHIA,WoodShackMarker,Lost Home
+APPALACHIA,WoodShackMarker,Moonshiner's Shack
+APPALACHIA,WoodShackMarker,Mountainside Bed & Breakfast
+APPALACHIA,WoodShackMarker,Old Danielson Cabin
+APPALACHIA,WoodShackMarker,Southhampton Estate
+APPALACHIA,WoodShackMarker,Susan's Cabin
+APPALACHIA,WoodShackMarker,Toxic Larry's Meat 'n Go
+APPALACHIA,WoodShackMarker,Treetops
+APPALACHIA,WoodShackMarker,Westbrook Horse Ranch
 
 NPCs by Space and Weight
 Appalachia,Angler,0.1393373361471521
@@ -961,28 +960,28 @@ Worldspaces
 2480661,Appalachia,Appalachia,0
 
 Avg spaceFormID as Dec
-4846604.405940594
+4832040.064676617
 
 Avg entityFormID as Dec
-3467612.3475881675
+3460286.287968442
 
 Avg containerFormID as Dec
-3299683.343262411
+3298594.1448863638
 
 Avg contentFormID as Dec
-2904946.3489361703
+2903296.4431818184
 
 Avg MapMarker spaceFormID as Dec
 2480661
 
 Avg Psn spaceFormID as Dec
-3009124.0113610593
+3001136.9821324404
 
 Avg Psn referenceFormID as Dec
-1208305.312489554
+1206475.4999321273
 
 Avg Psn instanceFormID as Dec
-3739866.170228501
+3733453.535878777
 
 Avg Psn teleportsToFormID as Dec
 3163883.0142857144
@@ -1003,7 +1002,7 @@ Avg junkFormID as Dec
 1677483.0478431373
 
 Avg X, Y per Space
-Appalachia,-18304.3368256563,-4016.4447534699584
+APPALACHIA,-18332.063947441045,-3999.2504795365176
 AMSHQ01,-38.43107245542495,296.0722459583898
 AMSHQ02,-722.9602360281565,-2598.814839831561
 AVRMedicalCenter01,2853.161347693978,-733.9409282763781
@@ -1016,15 +1015,15 @@ BlackwaterMine01,2215.6234257308206,-1887.0415030892016
 BlueRidgeOffice01,-133.36615429625792,-78.99439859456488
 BurdetteManorBasement01,437.38725541445444,496.81521783395857
 BurnAbraxodyneHQInt,181.20877034742912,860.5386642593525
-BurnAthensExecINT,811.797790581646,2259.064468329486
+BurnAthensExecINT,811.8009850987341,2259.064468329486
 BurnCheckpointCanyonInt,1021.2387746459282,-1570.6749744948058
 BurnChopShopBasement,-1051.8056831819465,604.4368692797096
 BurnHWTEugeneINT,1207.9099205930258,2432.1349249291143
 BurnHWTLoanSharkInt,1418.7269027385307,2524.818996407308
-BurnHWTMooseINT,1316.5580949906125,2272.437184084127
-BurnHWTownInt,-4209.811187549502,13885.509736155698
-BurnRailroadServiceYardInt,2058.9098036303953,2113.683272088433
-BurnRustKingdomInterior,-885.2114216167482,1743.91906937613
+BurnHWTMooseINT,1314.1674783549793,2268.0356545716654
+BurnHWTownInt,-4209.5496911124665,13885.78961039911
+BurnRailroadServiceYardInt,2058.8131216311594,2114.3811792142574
+BurnRustKingdomInterior,-884.9639067157311,1743.8125438418804
 BurningMine01,-847.4090803790401,-4704.235601675881
 Burrows01,-1767.822624451506,3067.4180348444597
 CharGen01,1863.332809732759,1424.757049428937
@@ -1074,7 +1073,6 @@ KerwoodMine01,-1034.6749129451066,3457.0735888547047
 LewisandSonsFarmingSupply01,-265.50863019798106,42.22934382304714
 LittleRobsHideout01,1539.842978454663,2266.68069927153
 LousMine01,-5676.244802895781,18882.5676871938
-MILEBlueRidgeHQ,-142.65165888981318,3002.9455665141736
 MTR08LodeBaring01,2778.0058342710495,3464.646525002268
 MTR08LodeBaring02,4528.949395067765,9855.851740459753
 MamaDolceProcessing01,977.5373754361667,1093.7831353658573
@@ -1087,13 +1085,13 @@ MorgantownApartment01,-299.0103550162522,-386.21984985291346
 MorgantownHighSchool01,1544.222257436817,-2704.502160352146
 MorgantownHighSchoolDungeon,1541.3784186822272,-2682.335085752472
 MountBlairWarehouseBasement01,176.57360907851972,-1564.1502056062034
-NPECultistCave,2775.394988718142,-4522.602088922828
+NPECultistCave,2775.4011001166955,-4522.604400749845
 NPEVault7601,1860.3485355322625,1428.0587059059528
 NVEShelter01,-165.77332916259746,-171.7693212721076
 NVEVault7601,1880.0012771811128,1429.3086124577496
 NukaColaQuantumPlant01,303.78625983497517,-232.66897397986398
 OrwellOrchardsShelter01,1362.2062114674436,1353.2029455198253
-OverseersHome01,2119.008615388913,572.5480540825654
+OverseersHome01,2120.733138554378,570.7159083538422
 PoseidonPlant01,-2999.7164842307607,4419.089736903396
 PoseidonPlant02,-1158.0408498367083,-2543.797386668468
 RD01GleamingDepths,-2018.518139245599,18.228205315055273
@@ -1128,7 +1126,7 @@ SheltersVaultReception01,6108.746159845065,-7540.913658339742
 SheltersVaultServerRoom01,1721.5643589387203,583.02510291196
 SheltersVaultStorageFacility,506.39081056254935,-26.27892386248266
 SheltersVaultStorageRoom01,1929.3812026682208,-32.62744832192698
-SheltersWranglerCasino,4493.535374590275,-2641.8120377116397
+SheltersWranglerCasino,4499.056496047973,-2646.9391461372375
 SpruceKnobCampground01,-832.4398255135832,460.6521221088762
 SpruceKnobMissileSilo01,-7981.033640180315,-30221.122560586733
 StormBrownHouse,2126.8733565968314,-708.207534649114
@@ -1207,13 +1205,13 @@ XPDPitt02Sanctum,2017.7484034381619,363.1871312081117
 XPDPitt02Trench,-8555.705636982708,-7125.709669865219
 
 Avg Container items per container
-1.4596273291925466
+1.4605809128630705
 
 Avg Container quantity per item
-4.453900709219858
+4.458806818181818
 
 Unique Container count
-483
+482
 
 Flux-producing entities count
 Cobalt,12
@@ -1227,7 +1225,7 @@ Burrows01,2
 UncannyCavernsDungeon,2
 
 Entities outside of space range
-Appalachia:343276
+APPALACHIA:343276
 AMSHQ01:0
 AMSHQ02:0
 AVRMedicalCenter01:0
@@ -1245,7 +1243,7 @@ BurnCheckpointCanyonInt:0
 BurnChopShopBasement:0
 BurnHWTEugeneINT:0
 BurnHWTLoanSharkInt:0
-BurnHWTMooseINT:4
+BurnHWTMooseINT:1
 BurnHWTownInt:3
 BurnRailroadServiceYardInt:2
 BurnRustKingdomInterior:0
@@ -1298,7 +1296,6 @@ KerwoodMine01:6
 LewisandSonsFarmingSupply01:2
 LittleRobsHideout01:23
 LousMine01:0
-MILEBlueRidgeHQ:3
 MTR08LodeBaring01:0
 MTR08LodeBaring02:4
 MamaDolceProcessing01:0
@@ -1317,7 +1314,7 @@ NVEShelter01:12
 NVEVault7601:0
 NukaColaQuantumPlant01:0
 OrwellOrchardsShelter01:1
-OverseersHome01:53
+OverseersHome01:59
 PoseidonPlant01:41
 PoseidonPlant02:211
 RD01GleamingDepths:3
@@ -1431,7 +1428,7 @@ XPDPitt02Sanctum:0
 XPDPitt02Trench:237
 
 Space Coordinate Checksums
-Appalachia:-978454200510882986
+APPALACHIA:3921149840230557384
 AMSHQ01:-5003531309026812394
 AMSHQ02:-8426578450065187914
 AVRMedicalCenter01:5512355906186978031
@@ -1444,15 +1441,15 @@ BlackwaterMine01:-7539475961946676056
 BlueRidgeOffice01:6526689698244197378
 BurdetteManorBasement01:-6434334758758832820
 BurnAbraxodyneHQInt:9034948143540770738
-BurnAthensExecINT:6674047055987011757
+BurnAthensExecINT:7146138065560320173
 BurnCheckpointCanyonInt:-7989261061187311988
 BurnChopShopBasement:6714789111411865326
 BurnHWTEugeneINT:-4595363222955775940
 BurnHWTLoanSharkInt:4222893296845283322
-BurnHWTMooseINT:2118568682715760909
-BurnHWTownInt:7727937787900712958
-BurnRailroadServiceYardInt:-8096339616803225574
-BurnRustKingdomInterior:-2021955507215963404
+BurnHWTMooseINT:7833258191086976913
+BurnHWTownInt:7336367074799473662
+BurnRailroadServiceYardInt:8711136723755463896
+BurnRustKingdomInterior:-9175708562119054414
 BurningMine01:-2907074520306969020
 Burrows01:-8826589080768175566
 CharGen01:-9021491138983520076
@@ -1502,7 +1499,6 @@ KerwoodMine01:-3506720927017107684
 LewisandSonsFarmingSupply01:-21443327328842958
 LittleRobsHideout01:-2822646197554269432
 LousMine01:2188525988652851824
-MILEBlueRidgeHQ:5613094938892038805
 MTR08LodeBaring01:1949886383071779857
 MTR08LodeBaring02:4848120563280547436
 MamaDolceProcessing01:4622565546182942941
@@ -1515,13 +1511,13 @@ MorgantownApartment01:-2919289042717407859
 MorgantownHighSchool01:93902483858161982
 MorgantownHighSchoolDungeon:-231503399315200058
 MountBlairWarehouseBasement01:-5833634737368098176
-NPECultistCave:-6626384075624576340
+NPECultistCave:-1417038217000723796
 NPEVault7601:2749999660780843399
 NVEShelter01:-7004866113017597513
 NVEVault7601:8955595778463918238
 NukaColaQuantumPlant01:8174497357835592858
 OrwellOrchardsShelter01:4897876841070416862
-OverseersHome01:-6888603849834559587
+OverseersHome01:4378913791346745139
 PoseidonPlant01:-6535611441673123052
 PoseidonPlant02:-1142371946212625758
 RD01GleamingDepths:-263098041636310569
@@ -1556,7 +1552,7 @@ SheltersVaultReception01:-3405645801426255593
 SheltersVaultServerRoom01:-4082115097947562015
 SheltersVaultStorageFacility:4482765274454311450
 SheltersVaultStorageRoom01:5855127319899376568
-SheltersWranglerCasino:4895531326258897765
+SheltersWranglerCasino:6088588148801591711
 SpruceKnobCampground01:-7546985003345963796
 SpruceKnobMissileSilo01:3527629452290527967
 StormBrownHouse:-8801076002070957379

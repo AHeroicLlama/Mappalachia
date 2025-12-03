@@ -15,7 +15,7 @@ Additionally, you may filter your search results to only show spaces which are i
 ## Volumes and Regions
 Items classified as Regions, and a few instances of Activators are represented by a volume. You can choose to show these as filled shapes, or just their border, or both, by selecting 'Plot Settings' > 'Volume Draw Style'.<br/>
 
-Some regions affect the level of NPCs spawned inside them. This level range can be labelled against the Region by selecting 'Plot Settings'. > 'Show Region Levels'
+Some regions affect the level of NPCs spawned inside them. This level range can be labelled against the Region by selecting 'Plot Settings' > 'Show Region Levels'
 
 ## Show Instance FormIDs
 An advanced option for data miners, selecting 'Plot Settings' > 'Show Instance FormID' will annotate the FormID of the plotted entities onto the map against their plot.<br/>
