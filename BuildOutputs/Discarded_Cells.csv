@@ -1,4 +1,4 @@
-spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
+spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 100089,PackInPACKToxicCreeperMed02StorageCell,,0,0
 100095,PackInPACKToxicCreeperMed01StorageCell,,0,0
 100100,,,0,0
@@ -2172,6 +2172,7 @@ spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable
 7695054,StormVault63AtriumUpperOLD,Atrium Upper Level,0,0
 7732714,PackInStormE01HarvesterPartsBoxPKNStorageCell,,0,0
 7737444,PackInDRIVEEncounterPointPackInStorageCell,,0,0
+7774037,MILEBlueRidgeHQ,Milepost Zero,0,1
 7775846,DebugMarkoS01,Quick Test Cell,0,0
 7776031,PackInStormHWSkylineDriveSign01StorageCell,,0,0
 7778569,zzzDebugTomR,Quick Test Cell,0,1

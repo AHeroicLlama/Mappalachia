@@ -205,7 +205,7 @@ namespace Preprocessor
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable;");
 			deletedRows.Sort();
-			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable");
+			deletedRows.Insert(0, "spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable");
 			File.WriteAllLines(DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding a temporary maximum estimate for the center x/y and max 2d range
