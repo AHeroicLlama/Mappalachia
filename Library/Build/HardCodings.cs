@@ -157,6 +157,7 @@ namespace Library
 			"spaceEditorID LIKE 'PackIn%' OR " +
 			"spaceEditorID LIKE 'COPY%' OR " +
 			"spaceEditorID LIKE 'XPD%SteelTower%' OR " +
+			"spaceEditorID = 'MILEBlueRidgeHQ' OR " +
 			"spaceEditorID = 'StormPresidentialBunker' OR " +
 			"spaceEditorID = 'StormEngineeringVlt63' OR " +
 			"spaceEditorID = 'XPDPitt02ACCJ' OR " +
