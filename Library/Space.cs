@@ -55,7 +55,7 @@ namespace Library
 		// Return the EditorIDs of known regions in this space which are "non-nukable"
 		public List<string> GetNonNukableZoneEditorIds()
 		{
-			return IsAppalachia() ? new List<string> { "NonNukableZone" } : new List<string>();
+			return IsAppalachia() ? new List<string> { "NonNukableZone", "BurningSpringsHighwayTownNukeExclusionRegion" } : new List<string>();
 		}
 
 		// Return the spotlight tiles for the space

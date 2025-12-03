@@ -16,8 +16,8 @@ namespace Mappalachia
 
 	public enum LegendStyle
 	{
-		Normal,
 		Extended,
+		Compact,
 		None,
 	}
 
@@ -38,7 +38,7 @@ namespace Mappalachia
 
 		static int TitlePadding { get; } = 30;
 
-		static int LegendXMax { get; } = (int)(MapImageResolution / 6.3);
+		static int LegendXMax { get; } = MapImageResolution / 8;
 
 		static int LegendXPadding { get; } = 5;
 
@@ -652,10 +652,10 @@ namespace Mappalachia
 					}
 
 					PointF point = teleporter.Coord.AsImagePoint(settings);
-					graphics.DrawImageCentered(FileIO.DoorMarker, teleporter.Coord.AsImagePoint(settings));
+					graphics.DrawImageCentered(FileIO.GetDoorMarker(settings.MapSettings.DoorIconScale), teleporter.Coord.AsImagePoint(settings));
 
 					graphics.DrawStringCentered(
-						$"{teleporter.TeleportsTo!.DisplayName}: {item.Entity.EditorID} ({instances.Count})",
+						$"{teleporter.TeleportsTo!.DisplayName}: {item.LegendText} ({instances.Count})",
 						font,
 						new SolidBrush(item.PlotIcon.Color),
 						new PointF(point.X, point.Y + 20 + (25 * connectionsToSpace[teleporter.TeleportsTo])));

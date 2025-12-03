@@ -24,7 +24,7 @@ namespace Library
 
 		public static Regex TitleCaseAddSpaceRegex { get; } = new Regex("(.*[a-z])([A-Z].*)");
 
-		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
+		public static Regex NPCRegex { get; } = new Regex("ESSChance(Main|Sub|Critter[AB])(BURN)?(.*?)s?(LARGE|GIANTONLY)? " + SignatureFormIDRegex);
 
 		public static Regex LockLevelRegex { get; } = new Regex(@"(Novice|Advanced|Expert|Master) \((Level [0-3])\)");
 
@@ -36,7 +36,7 @@ namespace Library
 
 		public static Regex ValidateMapMarkerIcon { get; } = new Regex("^(WhitespringResort|NukaColaQuantumPlant|TrainTrackMark|.*Marker)$");
 
-		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood|Pure (Crimson|Violet|Yellowcake|Fluorescent|Cobalt) Flux)$");
+		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Coal|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood|Pure (Crimson|Violet|Yellowcake|Fluorescent|Cobalt) Flux)$");
 
 		public static Regex ValidIconFolder { get; } = new Regex("DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
@@ -44,6 +44,7 @@ namespace Library
 
 		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
+			{ "Abraxodyne Storage Depot", "Meadow Breeze Storage Depot" },
 			{ "Animal Cave", "Hopewell Cave" },
 			{ "Bleeding Kate's Grinder", "Bleeding Kate's Grindhouse" },
 			{ "Building Summersville Dam", "Summersville Dam" },
@@ -51,9 +52,16 @@ namespace Library
 			{ "Cranberry Bog Region", "Quarry X3" },
 			{ "Cranberry Glade", "Sacramental Glade" },
 			{ "Crater Outpost", "Crater Watchstation" },
+			{ "Derelict Power Substation", "Abraxodyne Chemical Power Substation" },
+			{ "Desolate Encampment", "Hamley Run Camp" },
 			{ "Emmett Mt. Disposal Site", "Emmett Mountain Disposal Site" },
+			{ "Federal Field NG-17", "Big Meadows Gas Well" },
 			{ "Garrahan Excavations Headquarters", "Garrahan Mining Headquarters" },
 			{ "Hawke's Refuge", "Dagger's Den" },
+			{ "Hillside Church", "Shade Hill Church" },
+			{ "Lightning Pylon A", "Research Site Saxony" },
+			{ "Lightning Pylon B", "Research Site Bavaria" },
+			{ "Lightning Pylon C", "Research Site Rhineland" },
 			{ "Lumber Camp", "Sylvie & Sons Logging Camp" },
 			{ "Maybell Pond", "Beckwith Farm" },
 			{ "Middle Mountain Cabins", "Middle Mountain Pitstop" },
@@ -62,23 +70,21 @@ namespace Library
 			{ "Morgantown Regional Airfield", "Morgantown Airport" },
 			{ "Mountain Region", "Colonel Kelly Monument" },
 			{ "Nuked Crater", "Foundation Outpost" },
+			{ "Pine Bluff Overlook", "Prospect Hill" },
 			{ "Relay Tower 2", "Relay Tower HN-B1-12" },
 			{ "Relay Tower 3", "Relay Tower DP-B5-21" },
 			{ "Relay Tower 4", "Relay Tower LW-B1-22" },
 			{ "Relay Tower 5", "Relay Tower HG-B7-09" },
 			{ "Relay Tower 6", "Relay Tower EM-B1-27" },
 			{ "Schram Homestead", "Silva Homestead" },
+			{ "Shenandoah Weather Station", "Hawksbill Weather Station" },
+			{ "Shining Creek Caverns", "Shining Creek Cavern" },
 			{ "Sundew Grove 02", "Veiled Sundew Grove" },
 			{ "Sundew Grove 03", "Creekside Sundew Grove" },
 			{ "The Burrows", "The Burrows South" },
 			{ "The Savage Divide", "Monorail Elevator" },
+			{ "Wildwood Horse Ranch", "Westbrook Horse Ranch" },
 			{ "World's Largest Teapot", "The Giant Teapot" },
-			{ "Lightning Pylon A", "Research Site Saxony" },
-			{ "Lightning Pylon B", "Research Site Bavaria" },
-			{ "Lightning Pylon C", "Research Site Rhineland" },
-			{ "Federal Field NG-17", "Big Meadows Gas Well" },
-			{ "Shenandoah Weather Station", "Hawksbill Weather Station" },
-			{ "Shining Creek Caverns", "Shining Creek Cavern" },
 		};
 
 		public static List<string> MapMarkersToRemove { get; } = new List<string>()
@@ -88,6 +94,9 @@ namespace Library
 			"Fissure Site Kappa",
 			"Fissure Site Tau",
 		};
+
+		// As above, but provides a pattern for a LIKE term
+		public static string MapMarkersToRemovePattern { get; } = "$REGION_%";
 
 		// Spaces which appear to be copy/pastes or alternates of the same thing, and therefore can and should share scaling/adjustments
 		public static List<List<string>> SisterSpaces { get; } = new List<List<string>>()
@@ -148,12 +157,14 @@ namespace Library
 			"spaceEditorID LIKE 'PackIn%' OR " +
 			"spaceEditorID LIKE 'COPY%' OR " +
 			"spaceEditorID LIKE 'XPD%SteelTower%' OR " +
+			"spaceEditorID = 'MILEBlueRidgeHQ' OR " +
 			"spaceEditorID = 'StormPresidentialBunker' OR " +
 			"spaceEditorID = 'StormEngineeringVlt63' OR " +
 			"spaceEditorID = 'XPDPitt02ACCJ' OR " +
 			"spaceDisplayName = 'Diamond City' OR " +
 			"spaceDisplayName = 'Goodneighbor'";
 
+		// Operates against already-finalized labels
 		public static string? GetCorrectedMarkerIcon(string markerName)
 		{
 			switch (markerName)
@@ -197,11 +208,17 @@ namespace Library
 				case "Sacrament":
 					return "CultistMarker";
 
+				case "Highway Town":
+					return "ElevatedHighwayMarker";
+
 				case "Gleaming Depths":
 					return "GleamingDepthsMarker";
 
 				case "Foundation":
 					return "HammerWingMarker";
+
+				case "The Rust Kingdom":
+					return "IndustrialDomeMarker";
 
 				case "The Rusty Pick":
 					return "LegendaryPurveyorMarker";
@@ -223,6 +240,7 @@ namespace Library
 				case "Mount Blair":
 				case "Poseidon Energy Plant Yard":
 				case "Red Rocket Mega Stop":
+				case "Starlight Drive-in":
 				case "Sunshine Meadows Industrial Farm":
 				case "Thunder Mt. Power Plant Yard":
 				case "Tyler County Dirt Track":
@@ -285,7 +303,11 @@ namespace Library
 		{
 			if (space.IsAppalachia())
 			{
-				return await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'");
+				List<Region> borderRegions = new List<Region>();
+				borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'"));
+				borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'BurningSpringsSubRegion%'"));
+
+				return borderRegions;
 			}
 
 			return new List<Region>();

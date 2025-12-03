@@ -16,5 +16,4 @@ if exist spotlight\ (
 	"C:\Program Files\7-Zip\7z.exe" a -t7z -v2047M "..\..\Mappalachia\dist\patch_spotlight.7z" "*"
 )
 
-
 PAUSE

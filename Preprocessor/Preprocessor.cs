@@ -121,6 +121,7 @@ namespace Preprocessor
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
 			TransformColumn(UnescapeCharacters, "MapMarker", "label");
 			SimpleQuery($"DELETE FROM MapMarker WHERE label IN {MapMarkersToRemove.ToSqliteCollection()};");
+			SimpleQuery($"DELETE FROM MapMarker WHERE label LIKE '{MapMarkersToRemovePattern}';");
 			SimpleQuery(AddMissingMarkersQuery);
 			SimpleQuery(CorrectDuplicateMarkersQuery);
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
@@ -204,7 +205,7 @@ namespace Preprocessor
 			TransformColumn(UnescapeCharacters, "Space", "spaceDisplayName");
 			List<string> deletedRows = SimpleQuery($"DELETE FROM Space WHERE {DiscardCellsQuery} RETURNING spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable;");
 			deletedRows.Sort();
-			deletedRows.Insert(0, "spaceFormID,spaceDisplayName,spaceEditorID,isWorldspace,isInstanceable");
+			deletedRows.Insert(0, "spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable");
 			File.WriteAllLines(DiscardedCellsPath, deletedRows);
 
 			// Create a replacement copy of Space, adding a temporary maximum estimate for the center x/y and max 2d range
@@ -526,10 +527,9 @@ namespace Preprocessor
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			string path = SqlitePath;
 			List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {Fo76EditOutputPath}{tableName}.csv {tableName}" };
 
-			Process process = Process.Start(path, args);
+			Process process = Process.Start(SqlitePath, args);
 			process.WaitForExit();
 		}
 
@@ -544,7 +544,7 @@ namespace Preprocessor
 
 			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumn});", true);
 
-			string readQuery = $"SELECT {sourceColumn}, ROWID FROM {tableName}";
+			string readQuery = $"SELECT {sourceColumn}, ROWID FROM {tableName} ORDER BY ROWID";
 			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE ROWID = @rowID";
 
 			Console.WriteLine($"Transform {tableName}.{sourceColumn} -> {targetColumn}: {method.Method.Name}");
@@ -587,7 +587,7 @@ namespace Preprocessor
 
 			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumnA}, {sourceColumnB});", true);
 
-			string readQuery = $"SELECT {sourceColumnA}, {sourceColumnB}, ROWID FROM {tableName}";
+			string readQuery = $"SELECT {sourceColumnA}, {sourceColumnB}, ROWID FROM {tableName} ORDER BY ROWID";
 			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE ROWID = @rowID";
 
 			Console.WriteLine($"Transform {tableName}.{sourceColumnA},{sourceColumnB} -> {targetColumn}: {method.Method.Name}");
@@ -854,7 +854,7 @@ namespace Preprocessor
 			}
 
 			// Extract only the part containing the NPC name
-			string name = NPCRegex.Match(value).Groups[2].Value;
+			string name = NPCRegex.Match(value).Groups[3].Value;
 
 			// Add a space if it looks like it needs it
 			if (TitleCaseAddSpaceRegex.IsMatch(name))

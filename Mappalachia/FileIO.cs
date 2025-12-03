@@ -35,13 +35,11 @@ namespace Mappalachia
 
 		static Image? doorMarker;
 
-		public static Image DoorMarker
+		// Return the Door Marker icon - Cache and thus scale will remain stale
+		public static Image GetDoorMarker(double scale = 1)
 		{
-			get
-			{
-				doorMarker ??= LoadSVGIcon(Paths.DoorMarkerPath);
-				return doorMarker;
-			}
+			doorMarker ??= LoadSVGIcon(Paths.DoorMarkerPath, scale);
+			return doorMarker;
 		}
 
 		static Image? compassRose;
@@ -233,17 +231,17 @@ namespace Mappalachia
 				return value;
 			}
 
-			Image marker = LoadSVGIcon(path);
+			Image marker = LoadSVGIcon(path, Map.IconScale);
 
 			MapMarkerIconImageCache[mapMarker.Icon] = marker;
 			return marker;
 		}
 
 		// Return an Image of an SVG icon document from the path
-		static Bitmap LoadSVGIcon(string path)
+		static Bitmap LoadSVGIcon(string path, double scale)
 		{
 			Svg.SvgDocument document = Svg.SvgDocument.Open(path);
-			return document.Draw((int)(document.Width * Map.IconScale), 0);
+			return document.Draw((int)(document.Width * scale), 0);
 		}
 
 		static Bitmap LoadCompassRoseImage()
