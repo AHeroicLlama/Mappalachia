@@ -64,6 +64,10 @@ namespace Mappalachia
 
 		static Brush BrushGenericTransparent { get; } = new SolidBrush(Color.FromArgb(128, 255, 255, 255));
 
+		static Pen CoordinateGridLinePen { get; } = new Pen(Color.DarkGray, 2);
+
+		static Brush CoordinateGridLabelBrush { get; } = new SolidBrush(Color.White);
+
 		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
 		static StringFormat CenterLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
@@ -105,6 +109,8 @@ namespace Mappalachia
 			{
 				return null;
 			}
+
+			DrawCoordinateGrid(settings, graphics);
 
 			DrawCompassRose(settings, graphics);
 
@@ -170,6 +176,43 @@ namespace Mappalachia
 			UpdateProgress(progressInfo, 0, "Done");
 
 			return mapImage;
+		}
+
+		static void DrawCoordinateGrid(Settings settings, Graphics graphics)
+		{
+			if (!settings.MapSettings.ShowCoordinateGrid)
+			{
+				return;
+			}
+
+			Space space = settings.Space;
+			double gridSize = (space.IsWorldspace && !settings.MapSettings.SpotlightEnabled) ? Math.Pow(2, 14) : Math.Pow(2, 8);
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeCoordinateGrid);
+
+			double minX = space.MinX - (gridSize + (space.MinX % gridSize));
+			double maxX = space.MaxX + (gridSize - (space.MaxX % gridSize));
+			double minY = space.MinY - (gridSize + (space.MinY % gridSize));
+			double maxY = space.MaxY + (gridSize - (space.MaxY % gridSize));
+
+			for (double x = minX; x <= maxX; x += gridSize)
+			{
+				PointF bottom = new Coord(x, minY).AsImagePoint(settings);
+				graphics.DrawLine(CoordinateGridLinePen, bottom, new Coord(x, maxY).AsImagePoint(settings));
+
+				SizeF bounds = graphics.MeasureString(x.ToString(), font);
+				graphics.DrawString(x.ToString(), font, CoordinateGridLabelBrush, new PointF(bottom.X, 0));
+				graphics.DrawString(x.ToString(), font, CoordinateGridLabelBrush, new PointF(bottom.X, MapImageResolution - bounds.Height));
+			}
+
+			for (double y = minY; y <= maxY; y += gridSize)
+			{
+				PointF left = new Coord(minX, y).AsImagePoint(settings);
+				graphics.DrawLine(CoordinateGridLinePen, left, new Coord(maxX, y).AsImagePoint(settings));
+
+				SizeF bounds = graphics.MeasureString(y.ToString(), font);
+				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(0, left.Y));
+				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(MapImageResolution - bounds.Width, left.Y));
+			}
 		}
 
 		static void DrawCompassRose(Settings settings, Graphics graphics)
@@ -1010,7 +1053,7 @@ namespace Mappalachia
 			return plotRange / MapImageResolution;
 		}
 
-		// Returns a single length/size value scaled from world scale to image scale
+		// Returns a single arbitrary value scaled from world scale to image scale
 		static float AsImageLength(this double value, Settings settings)
 		{
 			return (float)(value / GetWorldToImageFactor(settings));

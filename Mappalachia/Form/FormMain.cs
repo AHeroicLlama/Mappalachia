@@ -259,6 +259,7 @@ namespace Mappalachia
 			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.AutoFindPlotsInConnectedSpaces;
 			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
 			spotlightEnabledToolStripMenuItem.Checked = Settings.MapSettings.SpotlightEnabled;
+			showCoordinateGridToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
 
 			// Update the text of some items
 			setBrightnessToolStripMenuItem.Text = $"Set Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
@@ -911,6 +912,11 @@ namespace Mappalachia
 		private async void Map_HighlightWater_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
+		}
+
+		private async void Map_ShowCoordinateGrid_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.ShowCoordinateGrid = !Settings.MapSettings.ShowCoordinateGrid);
 		}
 
 		private async void Map_Compass_Always_Click(object sender, EventArgs e)

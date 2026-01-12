@@ -115,6 +115,8 @@ namespace Mappalachia
 
 		public CompassStyle CompassStyle { get; set; } = CompassStyle.WhenUseful;
 
+		public bool ShowCoordinateGrid { get; set; } = false;
+
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
 
