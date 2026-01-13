@@ -56,6 +56,12 @@ namespace Mappalachia
 
 		public static int DropShadowOffset { get; } = 2;
 
+		public static int CoordinateGridMinPower { get; } = 7;
+
+		public static int CoordinateGridMaxPower { get; } = 14;
+
+		public static int CoordinateGridWatermarkPadding { get; } = MapImageResolution / 32;
+
 		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
 
 		static Brush BrushDropShadow { get; } = new SolidBrush(DropShadowColor);
@@ -186,7 +192,7 @@ namespace Mappalachia
 			}
 
 			Space space = settings.Space;
-			double gridSize = (space.IsWorldspace && !settings.MapSettings.SpotlightEnabled) ? Math.Pow(2, 14) : Math.Pow(2, 8);
+			double gridSize = (space.IsWorldspace && !settings.MapSettings.SpotlightEnabled) ? Math.Pow(2, CoordinateGridMaxPower) : Math.Pow(2, CoordinateGridMinPower);
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeCoordinateGrid);
 
 			double minX = space.MinX - (gridSize + (space.MinX % gridSize));
@@ -197,11 +203,27 @@ namespace Mappalachia
 			for (double x = minX; x <= maxX; x += gridSize)
 			{
 				PointF bottom = new Coord(x, minY).AsImagePoint(settings);
+				SizeF bounds = graphics.MeasureString(x.ToString(), font);
+				PointF topLabel = new PointF(bottom.X, 0);
+				PointF bottomLabel = new PointF(bottom.X, MapImageResolution - bounds.Height);
+
 				graphics.DrawLine(CoordinateGridLinePen, bottom, new Coord(x, maxY).AsImagePoint(settings));
 
-				SizeF bounds = graphics.MeasureString(x.ToString(), font);
-				graphics.DrawString(x.ToString(), font, CoordinateGridLabelBrush, new PointF(bottom.X, 0));
-				graphics.DrawString(x.ToString(), font, CoordinateGridLabelBrush, new PointF(bottom.X, MapImageResolution - bounds.Height));
+				// Skip numbering the 2 left-most and the rightmost X grid lines
+				if (x <= minX + (gridSize * 2) || x >= maxX - gridSize)
+				{
+					continue;
+				}
+
+				graphics.TranslateTransform(topLabel.X, topLabel.Y);
+				graphics.RotateTransform(-90);
+				graphics.DrawString(x.ToString(), font, CoordinateGridLabelBrush, -bounds.Width, -bounds.Height);
+				graphics.ResetTransform();
+
+				graphics.TranslateTransform(bottomLabel.X, bottomLabel.Y);
+				graphics.RotateTransform(-90);
+				graphics.DrawString(x.ToString(), font, CoordinateGridLabelBrush, -bounds.Height, -bounds.Height);
+				graphics.ResetTransform();
 			}
 
 			for (double y = minY; y <= maxY; y += gridSize)
@@ -210,8 +232,8 @@ namespace Mappalachia
 				graphics.DrawLine(CoordinateGridLinePen, left, new Coord(maxX, y).AsImagePoint(settings));
 
 				SizeF bounds = graphics.MeasureString(y.ToString(), font);
-				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(0, left.Y));
-				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(MapImageResolution - bounds.Width, left.Y));
+				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(0, left.Y - bounds.Height));
+				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(MapImageResolution - bounds.Width, left.Y - bounds.Height));
 			}
 		}
 
@@ -875,8 +897,10 @@ namespace Mappalachia
 				text += " (Instanced)";
 			}
 
+			int position = settings.MapSettings.ShowCoordinateGrid ? -CoordinateGridWatermarkPadding : 0;
+
 			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
-			RectangleF textBounds = new RectangleF(0, 0, MapImageResolution, MapImageResolution);
+			RectangleF textBounds = new RectangleF(position, position, MapImageResolution, MapImageResolution);
 
 			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);
 		}
