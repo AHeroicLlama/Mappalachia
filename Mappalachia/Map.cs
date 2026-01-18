@@ -60,7 +60,7 @@ namespace Mappalachia
 
 		public static int CoordinateGridMaxPower { get; } = 14;
 
-		public static int CoordinateGridWatermarkPadding { get; } = MapImageResolution / 32;
+		public static int CoordinateGridPadding { get; } = MapImageResolution / 32; // Padding for title and watermark, when coord grid is used
 
 		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
 
@@ -874,12 +874,14 @@ namespace Mappalachia
 				return;
 			}
 
+			float padding = settings.MapSettings.ShowCoordinateGrid ? CoordinateGridPadding : 0;
+
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeTitle);
 			SizeF stringBounds = graphics.MeasureString(titleText, font, new SizeF(MapImageResolution, MapImageResolution));
 
 			RectangleF textBounds = new RectangleF(
-				MapImageResolution - stringBounds.Width - TitlePadding,
-				0,
+				MapImageResolution - stringBounds.Width - TitlePadding - padding,
+				padding,
 				stringBounds.Width + TitlePadding,
 				stringBounds.Height);
 
@@ -897,7 +899,12 @@ namespace Mappalachia
 				text += " (Instanced)";
 			}
 
-			int position = settings.MapSettings.ShowCoordinateGrid ? -CoordinateGridWatermarkPadding : 0;
+			if (settings.MapSettings.ShowCoordinateGrid)
+			{
+				text = $"At {settings.Space.CenterX}, {settings.Space.CenterY}\nX {(int)settings.Space.MinX} to {(int)settings.Space.MaxX}\nY {(int)settings.Space.MinY} to {(int)settings.Space.MaxY}\n{text}";
+			}
+
+			int position = settings.MapSettings.ShowCoordinateGrid ? -CoordinateGridPadding : 0;
 
 			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 			RectangleF textBounds = new RectangleF(position, position, MapImageResolution, MapImageResolution);
