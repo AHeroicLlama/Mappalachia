@@ -26,6 +26,6 @@
 
 		public int SizeRegionLevel { get; set; } = 32;
 
-		public int SizeCoordinateGrid { get; set; } = 20;
+		public int SizeCoordinateGrid { get; set; } = 32;
 	}
 }

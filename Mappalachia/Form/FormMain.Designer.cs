@@ -46,7 +46,12 @@ namespace Mappalachia
 			grayscaleToolStripMenuItem = new ToolStripMenuItem();
 			setBrightnessToolStripMenuItem = new ToolStripMenuItem();
 			highlightWaterToolStripMenuItem = new ToolStripMenuItem();
-			showCoordinateGridToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridEnabledToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionFineToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionMediumToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionLargeToolStripMenuItem = new ToolStripMenuItem();
 			showCompassToolStripMenuItem = new ToolStripMenuItem();
 			compassAlwaysToolStripMenuItem = new ToolStripMenuItem();
 			compassWhenUsefulToolStripMenuItem = new ToolStripMenuItem();
@@ -139,7 +144,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showCoordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendStyleToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendStyleToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -265,13 +270,50 @@ namespace Mappalachia
 			highlightWaterToolStripMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
 			highlightWaterToolStripMenuItem.Click += Map_HighlightWater_Click;
 			// 
-			// showCoordinateGridToolStripMenuItem
+			// coordinateGridToolStripMenuItem
 			// 
-			showCoordinateGridToolStripMenuItem.Name = "showCoordinateGridToolStripMenuItem";
-			showCoordinateGridToolStripMenuItem.Size = new Size(240, 22);
-			showCoordinateGridToolStripMenuItem.Text = "Show Coordinate Grid";
-			showCoordinateGridToolStripMenuItem.ToolTipText = "Overlay a grid showing the in-game coordinate system.";
-			showCoordinateGridToolStripMenuItem.Click += Map_ShowCoordinateGrid_Click;
+			coordinateGridToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { coordinateGridEnabledToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem });
+			coordinateGridToolStripMenuItem.Name = "coordinateGridToolStripMenuItem";
+			coordinateGridToolStripMenuItem.Size = new Size(240, 22);
+			coordinateGridToolStripMenuItem.Text = "Coordinate Grid";
+			coordinateGridToolStripMenuItem.ToolTipText = "Control the appearance of a grid showing the in-game coordinate system.";
+			// 
+			// coordinateGridEnabledToolStripMenuItem
+			// 
+			coordinateGridEnabledToolStripMenuItem.Name = "coordinateGridEnabledToolStripMenuItem";
+			coordinateGridEnabledToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridEnabledToolStripMenuItem.Text = "Enabled";
+			coordinateGridEnabledToolStripMenuItem.ToolTipText = "Toggle showing the coordinate grid.";
+			coordinateGridEnabledToolStripMenuItem.Click += Map_CoordinateGrid_Enabled_Click;
+			// 
+			// coordinateGridPrecisionToolStripMenuItem
+			// 
+			coordinateGridPrecisionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { coordinateGridPrecisionFineToolStripMenuItem, coordinateGridPrecisionMediumToolStripMenuItem, coordinateGridPrecisionLargeToolStripMenuItem });
+			coordinateGridPrecisionToolStripMenuItem.Name = "coordinateGridPrecisionToolStripMenuItem";
+			coordinateGridPrecisionToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionToolStripMenuItem.Text = "Precision";
+			coordinateGridPrecisionToolStripMenuItem.ToolTipText = "Control the precision of the coordinate grid.";
+			// 
+			// coordinateGridPrecisionFineToolStripMenuItem
+			// 
+			coordinateGridPrecisionFineToolStripMenuItem.Name = "coordinateGridPrecisionFineToolStripMenuItem";
+			coordinateGridPrecisionFineToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionFineToolStripMenuItem.Text = "Fine";
+			coordinateGridPrecisionFineToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Fine;
+			// 
+			// coordinateGridPrecisionMediumToolStripMenuItem
+			// 
+			coordinateGridPrecisionMediumToolStripMenuItem.Name = "coordinateGridPrecisionMediumToolStripMenuItem";
+			coordinateGridPrecisionMediumToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionMediumToolStripMenuItem.Text = "Medium";
+			coordinateGridPrecisionMediumToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Medium;
+			// 
+			// coordinateGridPrecisionLargeToolStripMenuItem
+			// 
+			coordinateGridPrecisionLargeToolStripMenuItem.Name = "coordinateGridPrecisionLargeToolStripMenuItem";
+			coordinateGridPrecisionLargeToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionLargeToolStripMenuItem.Text = "Large";
+			coordinateGridPrecisionLargeToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Large;
 			// 
 			// showCompassToolStripMenuItem
 			// 
@@ -1073,6 +1115,11 @@ namespace Mappalachia
 		private Label labelSelectedSpace;
 		private Panel panelBackground;
 		private Panel panelAutoScrollTrigger;
-		private ToolStripMenuItem showCoordinateGridToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridEnabledToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionFineToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionMediumToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionLargeToolStripMenuItem;
 	}
 }

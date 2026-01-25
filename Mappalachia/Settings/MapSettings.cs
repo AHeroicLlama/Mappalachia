@@ -117,6 +117,27 @@ namespace Mappalachia
 
 		public bool ShowCoordinateGrid { get; set; } = false;
 
+		CoordinateGridPrecision coordinateGridPrecision = CoordinateGridPrecision.Medium;
+
+		public CoordinateGridPrecision CoordinateGridPrecision
+		{
+			get
+			{
+				return coordinateGridPrecision;
+			}
+
+			set
+			{
+				// Changing the coord grid precision implies wanting to turn it on
+				if (!ShowCoordinateGrid)
+				{
+					ShowCoordinateGrid = true;
+				}
+
+				coordinateGridPrecision = value;
+			}
+		}
+
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
 

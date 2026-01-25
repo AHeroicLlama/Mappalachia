@@ -77,7 +77,7 @@ namespace Mappalachia
 
 			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "PlotIcon", FillWeight = 2, ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
-			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendStyleToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem })
+			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendStyleToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem, coordinateGridToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem })
 			{
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
@@ -259,7 +259,7 @@ namespace Mappalachia
 			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.AutoFindPlotsInConnectedSpaces;
 			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
 			spotlightEnabledToolStripMenuItem.Checked = Settings.MapSettings.SpotlightEnabled;
-			showCoordinateGridToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
+			coordinateGridEnabledToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
 
 			// Update the text of some items
 			setBrightnessToolStripMenuItem.Text = $"Set Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
@@ -267,7 +267,7 @@ namespace Mappalachia
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
 			// Set all members of list items which are "pick only one" lists to be unchecked
-			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendStyleToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem })
+			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendStyleToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem })
 			{
 				foreach (ToolStripMenuItem subItem in item.DropDownItems)
 				{
@@ -355,6 +355,21 @@ namespace Mappalachia
 					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.MapSettings.CompassStyle)} value {Settings.MapSettings.CompassStyle}");
+			}
+
+			switch (Settings.MapSettings.CoordinateGridPrecision)
+			{
+				case CoordinateGridPrecision.Fine:
+					coordinateGridPrecisionFineToolStripMenuItem.Checked = true;
+					break;
+				case CoordinateGridPrecision.Medium:
+					coordinateGridPrecisionMediumToolStripMenuItem.Checked = true;
+					break;
+				case CoordinateGridPrecision.Large:
+					coordinateGridPrecisionLargeToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.CoordinateGridPrecision)} value {Settings.MapSettings.CoordinateGridPrecision}");
 			}
 
 			// Update the multi-selectable checkboxes of the list view filters
@@ -914,9 +929,24 @@ namespace Mappalachia
 			await SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
 		}
 
-		private async void Map_ShowCoordinateGrid_Click(object sender, EventArgs e)
+		private async void Map_CoordinateGrid_Enabled_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.ShowCoordinateGrid = !Settings.MapSettings.ShowCoordinateGrid);
+		}
+
+		private async void Map_CoordinateGrid_Precision_Fine(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.CoordinateGridPrecision = CoordinateGridPrecision.Fine);
+		}
+
+		private async void Map_CoordinateGrid_Precision_Medium(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.CoordinateGridPrecision = CoordinateGridPrecision.Medium);
+		}
+
+		private async void Map_CoordinateGrid_Precision_Large(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.CoordinateGridPrecision = CoordinateGridPrecision.Large);
 		}
 
 		private async void Map_Compass_Always_Click(object sender, EventArgs e)

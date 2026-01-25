@@ -28,6 +28,13 @@ namespace Mappalachia
 		Always,
 	}
 
+	public enum CoordinateGridPrecision
+	{
+		Fine,
+		Medium,
+		Large,
+	}
+
 	public static class Map
 	{
 		public static int BlastRadius { get; } = 20460; // See GLOB 0x002D1160
@@ -56,11 +63,13 @@ namespace Mappalachia
 
 		public static int DropShadowOffset { get; } = 2;
 
-		public static int CoordinateGridMinPower { get; } = 7;
+		public static int CoordinateGridTextMargin { get; } = MapImageResolution / 32; // Px Padding for title and watermark, when coord grid is used
 
-		public static int CoordinateGridMaxPower { get; } = 14;
+		static Pen CoordinateGridLinePenMinor { get; } = new Pen(Color.DarkGray, 1);
 
-		public static int CoordinateGridPadding { get; } = MapImageResolution / 32; // Padding for title and watermark, when coord grid is used
+		static Pen CoordinateGridLinePenMajor { get; } = new Pen(Color.DarkGray, 3);
+
+		static int CoordinateGridMajorLineInterval { get; } = 4;
 
 		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
 
@@ -69,8 +78,6 @@ namespace Mappalachia
 		static Brush BrushGeneric { get; } = Brushes.White;
 
 		static Brush BrushGenericTransparent { get; } = new SolidBrush(Color.FromArgb(128, 255, 255, 255));
-
-		static Pen CoordinateGridLinePen { get; } = new Pen(Color.DarkGray, 2);
 
 		static Brush CoordinateGridLabelBrush { get; } = new SolidBrush(Color.White);
 
@@ -116,8 +123,6 @@ namespace Mappalachia
 				return null;
 			}
 
-			DrawCoordinateGrid(settings, graphics);
-
 			DrawCompassRose(settings, graphics);
 
 			// Apply the brightness and grayscale if selected
@@ -128,6 +133,8 @@ namespace Mappalachia
 			{
 				graphics.DrawImage(settings.Space.GetWaterMask(), backgroundRectangle);
 			}
+
+			DrawCoordinateGrid(settings, graphics);
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
@@ -191,14 +198,56 @@ namespace Mappalachia
 				return;
 			}
 
-			Space space = settings.Space;
-			double gridSize = (space.IsWorldspace && !settings.MapSettings.SpotlightEnabled) ? Math.Pow(2, CoordinateGridMaxPower) : Math.Pow(2, CoordinateGridMinPower);
+			int targetIntervals = settings.MapSettings.CoordinateGridPrecision switch
+			{
+				CoordinateGridPrecision.Fine => 40,
+				CoordinateGridPrecision.Medium => 20,
+				CoordinateGridPrecision.Large => 10,
+				_ => throw new Exception($"Invalid {nameof(settings.MapSettings.CoordinateGridPrecision)} value {settings.MapSettings.CoordinateGridPrecision}"),
+			};
+
+			double gridSize, minX, maxX, minY, maxY, viewRange;
+
+			if (settings.MapSettings.SpotlightEnabled)
+			{
+				Coord spotlightLocation = settings.MapSettings.SpotlightLocation;
+				viewRange = SpotlightTileSize * settings.MapSettings.SpotlightSize;
+				gridSize = Math.Pow(2, Math.Round(Math.Log(viewRange / targetIntervals, 2)));
+
+				double spotlightRange = settings.MapSettings.SpotlightSize * SpotlightTileSize;
+				double snapFactorX = gridSize + (spotlightLocation.X % gridSize);
+				double snapFactorY = gridSize + (spotlightLocation.Y % gridSize);
+
+				minX = spotlightLocation.X - snapFactorX - spotlightRange;
+				maxX = spotlightLocation.X + snapFactorX + spotlightRange;
+				minY = spotlightLocation.Y - snapFactorY - spotlightRange;
+				maxY = spotlightLocation.Y + snapFactorY + spotlightRange;
+			}
+			else
+			{
+				viewRange = settings.Space.MaxRange;
+				gridSize = Math.Pow(2, Math.Round(Math.Log(viewRange / targetIntervals, 2)));
+
+				Space space = settings.Space;
+				minX = space.MinX - (gridSize + (space.MinX % gridSize));
+				maxX = space.MaxX + (gridSize - (space.MaxX % gridSize));
+				minY = space.MinY - (gridSize + (space.MinY % gridSize));
+				maxY = space.MaxY + (gridSize - (space.MaxY % gridSize));
+			}
+
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeCoordinateGrid);
 
-			double minX = space.MinX - (gridSize + (space.MinX % gridSize));
-			double maxX = space.MaxX + (gridSize - (space.MaxX % gridSize));
-			double minY = space.MinY - (gridSize + (space.MinY % gridSize));
-			double maxY = space.MaxY + (gridSize - (space.MaxY % gridSize));
+			for (double y = minY; y <= maxY; y += gridSize)
+			{
+				Pen pen = (y / gridSize) % CoordinateGridMajorLineInterval == 0 ? CoordinateGridLinePenMajor : CoordinateGridLinePenMinor;
+
+				PointF left = new Coord(minX, y).AsImagePoint(settings);
+				graphics.DrawLine(pen, left, new Coord(maxX, y).AsImagePoint(settings));
+
+				SizeF bounds = graphics.MeasureString(y.ToString(), font);
+				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(0, left.Y - bounds.Height));
+				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(MapImageResolution - bounds.Width, left.Y - bounds.Height));
+			}
 
 			for (double x = minX; x <= maxX; x += gridSize)
 			{
@@ -207,13 +256,9 @@ namespace Mappalachia
 				PointF topLabel = new PointF(bottom.X, 0);
 				PointF bottomLabel = new PointF(bottom.X, MapImageResolution - bounds.Height);
 
-				graphics.DrawLine(CoordinateGridLinePen, bottom, new Coord(x, maxY).AsImagePoint(settings));
+				Pen pen = (x / gridSize) % CoordinateGridMajorLineInterval == 0 ? CoordinateGridLinePenMajor : CoordinateGridLinePenMinor;
 
-				// Skip numbering the 2 left-most and the rightmost X grid lines
-				if (x <= minX + (gridSize * 2) || x >= maxX - gridSize)
-				{
-					continue;
-				}
+				graphics.DrawLine(pen, bottom, new Coord(x, maxY).AsImagePoint(settings));
 
 				graphics.TranslateTransform(topLabel.X, topLabel.Y);
 				graphics.RotateTransform(-90);
@@ -224,16 +269,6 @@ namespace Mappalachia
 				graphics.RotateTransform(-90);
 				graphics.DrawString(x.ToString(), font, CoordinateGridLabelBrush, -bounds.Height, -bounds.Height);
 				graphics.ResetTransform();
-			}
-
-			for (double y = minY; y <= maxY; y += gridSize)
-			{
-				PointF left = new Coord(minX, y).AsImagePoint(settings);
-				graphics.DrawLine(CoordinateGridLinePen, left, new Coord(maxX, y).AsImagePoint(settings));
-
-				SizeF bounds = graphics.MeasureString(y.ToString(), font);
-				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(0, left.Y - bounds.Height));
-				graphics.DrawString(y.ToString(), font, CoordinateGridLabelBrush, new PointF(MapImageResolution - bounds.Width, left.Y - bounds.Height));
 			}
 		}
 
@@ -874,7 +909,7 @@ namespace Mappalachia
 				return;
 			}
 
-			float padding = settings.MapSettings.ShowCoordinateGrid ? CoordinateGridPadding : 0;
+			float padding = settings.MapSettings.ShowCoordinateGrid ? CoordinateGridTextMargin : 0;
 
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeTitle);
 			SizeF stringBounds = graphics.MeasureString(titleText, font, new SizeF(MapImageResolution, MapImageResolution));
@@ -901,10 +936,25 @@ namespace Mappalachia
 
 			if (settings.MapSettings.ShowCoordinateGrid)
 			{
-				text = $"At {settings.Space.CenterX}, {settings.Space.CenterY}\nX {(int)settings.Space.MinX} to {(int)settings.Space.MaxX}\nY {(int)settings.Space.MinY} to {(int)settings.Space.MaxY}\n{text}";
+				int range, x, y;
+
+				if (settings.MapSettings.SpotlightEnabled)
+				{
+					range = (int)settings.MapSettings.SpotlightSize * SpotlightTileSize;
+					x = (int)settings.MapSettings.SpotlightLocation.X;
+					y = (int)settings.MapSettings.SpotlightLocation.Y;
+				}
+				else
+				{
+					range = (int)settings.Space.MaxRange;
+					x = (int)settings.Space.CenterX;
+					y = (int)settings.Space.CenterY;
+				}
+
+				text = $"Range: {range}\nCenter: {x}, {y}\n{text}";
 			}
 
-			int position = settings.MapSettings.ShowCoordinateGrid ? -CoordinateGridPadding : 0;
+			int position = settings.MapSettings.ShowCoordinateGrid ? -CoordinateGridTextMargin : 0;
 
 			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 			RectangleF textBounds = new RectangleF(position, position, MapImageResolution, MapImageResolution);
