@@ -7,11 +7,13 @@ namespace Mappalachia
 	{
 		public FontSettings FontSettings { get; set; } = new FontSettings();
 
+		[JsonInclude]
 		BackgroundImageType backgroundImage = BackgroundImageType.Menu;
 
 		// A record of the background image before spotlight was enabled
 		BackgroundImageType backgroundImagePreSpotlight = BackgroundImageType.Menu;
 
+		[JsonIgnore]
 		public BackgroundImageType BackgroundImage
 		{
 			get => backgroundImage;
@@ -114,6 +116,31 @@ namespace Mappalachia
 		public string Title { get; set; } = string.Empty;
 
 		public CompassStyle CompassStyle { get; set; } = CompassStyle.WhenUseful;
+
+		public bool ShowCoordinateGrid { get; set; } = false;
+
+		[JsonInclude]
+		CoordinateGridPrecision coordinateGridPrecision = CoordinateGridPrecision.Medium;
+
+		[JsonIgnore]
+		public CoordinateGridPrecision CoordinateGridPrecision
+		{
+			get
+			{
+				return coordinateGridPrecision;
+			}
+
+			set
+			{
+				// Changing the coord grid precision implies wanting to turn it on
+				if (!ShowCoordinateGrid)
+				{
+					ShowCoordinateGrid = true;
+				}
+
+				coordinateGridPrecision = value;
+			}
+		}
 
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;

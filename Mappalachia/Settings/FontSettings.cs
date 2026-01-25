@@ -25,5 +25,7 @@
 		public int SizeInstanceFormID { get; set; } = 32;
 
 		public int SizeRegionLevel { get; set; } = 32;
+
+		public int SizeCoordinateGrid { get; set; } = 32;
 	}
 }

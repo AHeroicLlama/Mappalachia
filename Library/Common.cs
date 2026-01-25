@@ -90,7 +90,7 @@ namespace Library
 			OpenURI(uri.ToString());
 		}
 
-		// Starts the given process from CMD. Returns the Process reference. Discards the std out if silent is true.
+		// Starts the given process from CMD. Returns the Process reference. Discards the std out/err if silent is true.
 		public static Process StartProcess(string command, bool silent = false)
 		{
 			ProcessStartInfo processStartInfo = new ProcessStartInfo()
