@@ -63,7 +63,7 @@ namespace Mappalachia
 
 		public static int DropShadowOffset { get; } = 2;
 
-		public static int CoordinateGridTextMargin { get; } = MapImageResolution / 32; // Px Padding for title and watermark, when coord grid is used
+		public static int CoordinateGridTextMargin { get; } = MapImageResolution / 25; // Px Padding for title and watermark, when coord grid is used
 
 		static Pen CoordinateGridLinePenMinor { get; } = new Pen(Color.DarkGray, 1);
 
