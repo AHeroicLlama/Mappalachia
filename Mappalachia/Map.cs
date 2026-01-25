@@ -18,7 +18,20 @@ namespace Mappalachia
 	{
 		Extended,
 		Compact,
-		None,
+		Hidden,
+	}
+
+	public enum LegendHorizontalAlignment
+	{
+		Left,
+		Right,
+	}
+
+	public enum LegendVerticalAlignment
+	{
+		Top,
+		Center,
+		Bottom,
 	}
 
 	public enum CompassStyle
@@ -1014,7 +1027,7 @@ namespace Mappalachia
 				return image;
 			}
 
-			if (settings.MapSettings.LegendStyle == LegendStyle.None)
+			if (settings.MapSettings.LegendStyle == LegendStyle.Hidden)
 			{
 				return image;
 			}
