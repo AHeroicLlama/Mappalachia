@@ -46,6 +46,12 @@ namespace Mappalachia
 			grayscaleToolStripMenuItem = new ToolStripMenuItem();
 			setBrightnessToolStripMenuItem = new ToolStripMenuItem();
 			highlightWaterToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridEnabledToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionFineToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionMediumToolStripMenuItem = new ToolStripMenuItem();
+			coordinateGridPrecisionLargeToolStripMenuItem = new ToolStripMenuItem();
 			showCompassToolStripMenuItem = new ToolStripMenuItem();
 			compassAlwaysToolStripMenuItem = new ToolStripMenuItem();
 			compassWhenUsefulToolStripMenuItem = new ToolStripMenuItem();
@@ -137,7 +143,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendStyleToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendStyleToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -263,6 +269,51 @@ namespace Mappalachia
 			highlightWaterToolStripMenuItem.ToolTipText = "Overlay a blue highlight showing accessible surface water.";
 			highlightWaterToolStripMenuItem.Click += Map_HighlightWater_Click;
 			// 
+			// coordinateGridToolStripMenuItem
+			// 
+			coordinateGridToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { coordinateGridEnabledToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem });
+			coordinateGridToolStripMenuItem.Name = "coordinateGridToolStripMenuItem";
+			coordinateGridToolStripMenuItem.Size = new Size(240, 22);
+			coordinateGridToolStripMenuItem.Text = "Coordinate Grid";
+			coordinateGridToolStripMenuItem.ToolTipText = "Control the appearance of a grid showing the in-game coordinate system.";
+			// 
+			// coordinateGridEnabledToolStripMenuItem
+			// 
+			coordinateGridEnabledToolStripMenuItem.Name = "coordinateGridEnabledToolStripMenuItem";
+			coordinateGridEnabledToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridEnabledToolStripMenuItem.Text = "Enabled";
+			coordinateGridEnabledToolStripMenuItem.ToolTipText = "Toggle showing the coordinate grid.";
+			coordinateGridEnabledToolStripMenuItem.Click += Map_CoordinateGrid_Enabled_Click;
+			// 
+			// coordinateGridPrecisionToolStripMenuItem
+			// 
+			coordinateGridPrecisionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { coordinateGridPrecisionFineToolStripMenuItem, coordinateGridPrecisionMediumToolStripMenuItem, coordinateGridPrecisionLargeToolStripMenuItem });
+			coordinateGridPrecisionToolStripMenuItem.Name = "coordinateGridPrecisionToolStripMenuItem";
+			coordinateGridPrecisionToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionToolStripMenuItem.Text = "Precision";
+			coordinateGridPrecisionToolStripMenuItem.ToolTipText = "Control the precision of the coordinate grid.";
+			// 
+			// coordinateGridPrecisionFineToolStripMenuItem
+			// 
+			coordinateGridPrecisionFineToolStripMenuItem.Name = "coordinateGridPrecisionFineToolStripMenuItem";
+			coordinateGridPrecisionFineToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionFineToolStripMenuItem.Text = "Fine";
+			coordinateGridPrecisionFineToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Fine;
+			// 
+			// coordinateGridPrecisionMediumToolStripMenuItem
+			// 
+			coordinateGridPrecisionMediumToolStripMenuItem.Name = "coordinateGridPrecisionMediumToolStripMenuItem";
+			coordinateGridPrecisionMediumToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionMediumToolStripMenuItem.Text = "Medium";
+			coordinateGridPrecisionMediumToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Medium;
+			// 
+			// coordinateGridPrecisionLargeToolStripMenuItem
+			// 
+			coordinateGridPrecisionLargeToolStripMenuItem.Name = "coordinateGridPrecisionLargeToolStripMenuItem";
+			coordinateGridPrecisionLargeToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionLargeToolStripMenuItem.Text = "Large";
+			coordinateGridPrecisionLargeToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Large;
+			// 
 			// showCompassToolStripMenuItem
 			// 
 			showCompassToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { compassAlwaysToolStripMenuItem, compassWhenUsefulToolStripMenuItem, compassNeverToolStripMenuItem });
@@ -305,21 +356,21 @@ namespace Mappalachia
 			// spotlightEnabledToolStripMenuItem
 			// 
 			spotlightEnabledToolStripMenuItem.Name = "spotlightEnabledToolStripMenuItem";
-			spotlightEnabledToolStripMenuItem.Size = new Size(180, 22);
+			spotlightEnabledToolStripMenuItem.Size = new Size(116, 22);
 			spotlightEnabledToolStripMenuItem.Text = "Enabled";
 			spotlightEnabledToolStripMenuItem.Click += Map_Spotlight_Enabled_Click;
 			// 
 			// spotlightSetRangeToolStripMenuItem
 			// 
 			spotlightSetRangeToolStripMenuItem.Name = "spotlightSetRangeToolStripMenuItem";
-			spotlightSetRangeToolStripMenuItem.Size = new Size(180, 22);
+			spotlightSetRangeToolStripMenuItem.Size = new Size(116, 22);
 			spotlightSetRangeToolStripMenuItem.Text = "Set Size";
 			spotlightSetRangeToolStripMenuItem.Click += Map_Spotlight_SetRange_Click;
 			// 
 			// spotlightCoordToolStripMenuItem
 			// 
 			spotlightCoordToolStripMenuItem.Name = "spotlightCoordToolStripMenuItem";
-			spotlightCoordToolStripMenuItem.Size = new Size(180, 22);
+			spotlightCoordToolStripMenuItem.Size = new Size(116, 22);
 			spotlightCoordToolStripMenuItem.Text = "Coord";
 			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
 			// 
@@ -333,7 +384,7 @@ namespace Mappalachia
 			// legendExtendedToolStripMenuItem
 			// 
 			legendExtendedToolStripMenuItem.Name = "legendExtendedToolStripMenuItem";
-			legendExtendedToolStripMenuItem.Size = new Size(180, 22);
+			legendExtendedToolStripMenuItem.Size = new Size(123, 22);
 			legendExtendedToolStripMenuItem.Text = "Extended";
 			legendExtendedToolStripMenuItem.ToolTipText = "Draw the legend outside the map, extending the final image to fit the legend.";
 			legendExtendedToolStripMenuItem.Click += Map_Legend_Extended_Click;
@@ -341,7 +392,7 @@ namespace Mappalachia
 			// legendCompactToolStripMenuItem
 			// 
 			legendCompactToolStripMenuItem.Name = "legendCompactToolStripMenuItem";
-			legendCompactToolStripMenuItem.Size = new Size(180, 22);
+			legendCompactToolStripMenuItem.Size = new Size(123, 22);
 			legendCompactToolStripMenuItem.Text = "Compact";
 			legendCompactToolStripMenuItem.ToolTipText = "Draw the legend on the left hand side of the map.";
 			legendCompactToolStripMenuItem.Click += Map_Legend_Compact_Click;
@@ -349,7 +400,7 @@ namespace Mappalachia
 			// legendHiddenToolStripMenuItem
 			// 
 			legendHiddenToolStripMenuItem.Name = "legendHiddenToolStripMenuItem";
-			legendHiddenToolStripMenuItem.Size = new Size(180, 22);
+			legendHiddenToolStripMenuItem.Size = new Size(123, 22);
 			legendHiddenToolStripMenuItem.Text = "Hidden";
 			legendHiddenToolStripMenuItem.ToolTipText = "Do not draw a legend.";
 			legendHiddenToolStripMenuItem.Click += Map_Legend_Hidden_Click;
@@ -1054,5 +1105,11 @@ namespace Mappalachia
 		private Label labelSelectedSpace;
 		private Panel panelBackground;
 		private Panel panelAutoScrollTrigger;
+		private ToolStripMenuItem coordinateGridToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridEnabledToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionFineToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionMediumToolStripMenuItem;
+		private ToolStripMenuItem coordinateGridPrecisionLargeToolStripMenuItem;
 	}
 }

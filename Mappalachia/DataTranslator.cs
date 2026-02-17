@@ -20,7 +20,7 @@
 				LockLevel.Barred => "Barred",
 				LockLevel.Chained => "Chained",
 				LockLevel.Unknown => "Unknown",
-				_ => string.Concat(lockLevel.ToString().Select(c => char.IsUpper(c) || char.IsAsciiDigit(c) ? " " + c : c.ToString())).Trim()
+				_ => string.Concat(lockLevel.ToString().Select(c => char.IsUpper(c) || char.IsAsciiDigit(c) ? " " + c : c.ToString())).Trim(),
 			};
 		}
 
@@ -145,7 +145,7 @@
 				Signature.TRAP or
 				Signature.WEAP => true,
 
-				_ => false
+				_ => false,
 			};
 		}
 
