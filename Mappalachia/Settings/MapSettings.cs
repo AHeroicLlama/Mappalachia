@@ -113,7 +113,7 @@ namespace Mappalachia
 
 		public LegendStyle LegendStyle { get; set; } = LegendStyle.Compact;
 
-		public LegendHorizontalAlignment LegendHorizontalAlignment { get; set; } = LegendHorizontalAlignment.Left;
+		public LegendHorizontalAlignment LegendHorizontalAlignment { get; set; } = LegendHorizontalAlignment.Right;
 
 		public LegendVerticalAlignment LegendVerticalAlignment { get; set; } = LegendVerticalAlignment.Center;
 
