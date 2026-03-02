@@ -56,9 +56,7 @@ namespace Mappalachia
 
 		public static double IconScale { get; } = 1.5;
 
-		static int TitlePadding { get; } = 30;
-
-		static int LegendWidth { get; } = MapImageResolution / 8;
+		static int LegendWidth { get; } = MapImageResolution / 7;
 
 		static int LegendXPadding { get; } = 5;
 
@@ -1057,7 +1055,9 @@ namespace Mappalachia
 
 			// Find the starting Y pos of the legend
 			// Start by summing the heights of the legend text line or icon (whichever is largest)
-			float totalHeight = itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, font, new SizeF(LegendWidth - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size));
+			float totalHeight = itemsToPlot.Sum(item => Math.Max(
+					graphics.MeasureString(item.LegendText, font, new SizeF(LegendWidth - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution), stringFormat).Height,
+					item.PlotIcon.Size + LegendYPadding));
 
 			float yPos = settings.MapSettings.LegendVerticalAlignment switch
 			{
