@@ -917,7 +917,7 @@ namespace Mappalachia
 
 		static void DrawTitle(Settings settings, Graphics graphics)
 		{
-			bool left = settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left;
+			bool legendLeft = settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left;
 
 			string titleText = settings.MapSettings.Title;
 
@@ -927,12 +927,12 @@ namespace Mappalachia
 			}
 
 			float padding = settings.MapSettings.ShowCoordinateGrid ? CoordinateGridTextMargin : 0;
-			StringFormat stringFormat = left ? TopRight : TopLeft;
+			StringFormat stringFormat = legendLeft ? TopRight : TopLeft;
 
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeTitle);
 
 			RectangleF textBounds = new RectangleF(
-				left ? padding * -1 : padding,
+				legendLeft ? padding * -1 : padding,
 				padding,
 				MapImageResolution,
 				MapImageResolution);
@@ -942,7 +942,7 @@ namespace Mappalachia
 
 		static async Task DrawWaterMark(Settings settings, Graphics graphics)
 		{
-			bool left = settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left;
+			bool legendLeft = settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left;
 
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeWatermark);
 
@@ -977,8 +977,8 @@ namespace Mappalachia
 
 			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
 
-			RectangleF textBounds = new RectangleF(left ? position : position * -1, position, MapImageResolution, MapImageResolution);
-			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, left ? BottomRight : BottomLeft);
+			RectangleF textBounds = new RectangleF(legendLeft ? position : position * -1, position, MapImageResolution, MapImageResolution);
+			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, legendLeft ? BottomRight : BottomLeft);
 		}
 
 		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
@@ -1079,27 +1079,14 @@ namespace Mappalachia
 				float iconOffset = LegendXPadding + (item.PlotIcon.Size / 2);
 
 				float iconXMid = iconOffset;
-
-				if (!left)
-				{
-					iconXMid = MapImageResolution - iconOffset;
-
-					if (extended)
-					{
-						iconXMid += LegendWidth;
-					}
-				}
-
 				float legendX = iconXMid * 2;
 
 				if (!left)
 				{
-					legendX = MapImageResolution - (iconOffset * 2) - bounds.Width;
+					float extendedOffset = extended ? LegendWidth : 0;
 
-					if (extended)
-					{
-						legendX += LegendWidth;
-					}
+					iconXMid = MapImageResolution - iconOffset + extendedOffset;
+					legendX = MapImageResolution - (iconOffset * 2) - bounds.Width + extendedOffset;
 				}
 
 				graphics.DrawStringWithDropShadow(
