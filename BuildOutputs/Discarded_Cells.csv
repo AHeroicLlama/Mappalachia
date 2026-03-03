@@ -35,7 +35,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 108842,WarehouseTestEncounterTypes,Encounter Types Test Area,0,0
 1088871,zCUTTestEncounters3,Observation Cell,0,0
 109062,DebugMandi,Quick Test Cell,0,0
-1103123,zCUTTestTony,Quick Test Cell,0,0
+1103123,DebugVanityLightStagingCell,Vanity Light Staging Cell,0,0
 1103997,TestOutsource,Test Outsource,1,0
 1106428,,,0,0
 1107398,zCUTTestConvertedMunitionsFactory01,Quick Test Cell,0,0
@@ -2456,9 +2456,12 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 8926860,PackInWorkshopSlipperCactus03packinStorageCell,,0,0
 8926861,PackInWorkshopSlipperCactus01packinStorageCell,,0,0
 8926862,PackInWorkshopSlipperCactus02packinStorageCell,,0,0
-8999648,DebugBarbaraF,Quick Test Cell,0,0
+8999648,DebugBarbaraF,Test Cell: Research Facility,0,0
 9017,PackInPACKToxicBasinGroupMed02StorageCell,,0,0
+9061850,DebugBarbaraFInstanced,Test Cell: Basement,0,1
+9069467,PackInSCORES24AmmoConstructionMachineRipArmCoStorageCell,,0,0
 9077,PackInPACKToxicBasinGroupMed01StorageCell,,0,0
+9094337,PackInATXCollectronpackinEvidenceCollectionAssistantCollectronECTStorageCell,,0,0
 9097,PackInPACKToxicBasinGroupMed03StorageCell,,0,0
 9099,PackInPACKToxicBasinSm02StorageCell,,0,0
 917871,,,0,0

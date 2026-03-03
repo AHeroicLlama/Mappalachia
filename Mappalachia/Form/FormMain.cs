@@ -77,7 +77,7 @@ namespace Mappalachia
 
 			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "PlotIcon", FillWeight = 2, ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
-			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendStyleToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem, coordinateGridToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem })
+			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem, coordinateGridToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendVerticalToolStripMenuItem, legendHorizontalToolStripMenuItem })
 			{
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
@@ -267,7 +267,7 @@ namespace Mappalachia
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
 			// Set all members of list items which are "pick only one" lists to be unchecked
-			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendStyleToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem })
+			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendHorizontalToolStripMenuItem, legendVerticalToolStripMenuItem, })
 			{
 				foreach (ToolStripMenuItem subItem in item.DropDownItems)
 				{
@@ -297,16 +297,43 @@ namespace Mappalachia
 			switch (Settings.MapSettings.LegendStyle)
 			{
 				case LegendStyle.Compact:
-					legendCompactToolStripMenuItem.Checked = true;
+					legendStyleCompactToolStripMenuItem.Checked = true;
 					break;
 				case LegendStyle.Extended:
-					legendExtendedToolStripMenuItem.Checked = true;
+					legendStyleExtendedToolStripMenuItem.Checked = true;
 					break;
-				case LegendStyle.None:
-					legendHiddenToolStripMenuItem.Checked = true;
+				case LegendStyle.Hidden:
+					legendStyleHiddenToolStripMenuItem.Checked = true;
 					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.MapSettings.LegendStyle)} value {Settings.MapSettings.LegendStyle}");
+			}
+
+			switch (Settings.MapSettings.LegendHorizontalAlignment)
+			{
+				case LegendHorizontalAlignment.Left:
+					legendHorizontalLeftToolStripMenuItem.Checked = true;
+					break;
+				case LegendHorizontalAlignment.Right:
+					legendHorizontalRightToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.LegendHorizontalAlignment)} value {Settings.MapSettings.LegendHorizontalAlignment}");
+			}
+
+			switch (Settings.MapSettings.LegendVerticalAlignment)
+			{
+				case LegendVerticalAlignment.Top:
+					legendVerticalTopToolStripMenuItem.Checked = true;
+					break;
+				case LegendVerticalAlignment.Center:
+					legendVerticalCenterToolStripMenuItem.Checked = true;
+					break;
+				case LegendVerticalAlignment.Bottom:
+					legendVerticalBottomToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.LegendVerticalAlignment)} value {Settings.MapSettings.LegendVerticalAlignment}");
 			}
 
 			switch (Settings.PlotSettings.VolumeDrawMode)
@@ -979,19 +1006,44 @@ namespace Mappalachia
 			ShowMapPreview();
 		}
 
-		private async void Map_Legend_Compact_Click(object sender, EventArgs e)
+		private async void Map_Legend_Style_Compact_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Compact);
 		}
 
-		private async void Map_Legend_Extended_Click(object sender, EventArgs e)
+		private async void Map_Legend_Style_Extended_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Extended);
 		}
 
-		private async void Map_Legend_Hidden_Click(object sender, EventArgs e)
+		private async void Map_Legend_Style_Hidden_Click(object sender, EventArgs e)
 		{
-			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.None);
+			await SetSetting(() => Settings.MapSettings.LegendStyle = LegendStyle.Hidden);
+		}
+
+		private async void Map_Legend_Horizontal_Left_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LegendHorizontalAlignment = LegendHorizontalAlignment.Left);
+		}
+
+		private async void Map_Legend_Horizontal_Right_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LegendHorizontalAlignment = LegendHorizontalAlignment.Right);
+		}
+
+		private async void Map_Legend_Vertical_Top_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LegendVerticalAlignment = LegendVerticalAlignment.Top);
+		}
+
+		private async void Map_Legend_Vertical_Center_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LegendVerticalAlignment = LegendVerticalAlignment.Center);
+		}
+
+		private async void Map_Legend_Vertical_Bottom_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LegendVerticalAlignment = LegendVerticalAlignment.Bottom);
 		}
 
 		private void Map_SaveImage_Click(object sender, EventArgs e)
