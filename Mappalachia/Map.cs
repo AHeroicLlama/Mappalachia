@@ -18,7 +18,20 @@ namespace Mappalachia
 	{
 		Extended,
 		Compact,
-		None,
+		Hidden,
+	}
+
+	public enum LegendHorizontalAlignment
+	{
+		Left,
+		Right,
+	}
+
+	public enum LegendVerticalAlignment
+	{
+		Top,
+		Center,
+		Bottom,
 	}
 
 	public enum CompassStyle
@@ -43,9 +56,7 @@ namespace Mappalachia
 
 		public static double IconScale { get; } = 1.5;
 
-		static int TitlePadding { get; } = 30;
-
-		static int LegendXMax { get; } = MapImageResolution / 8;
+		static int LegendWidth { get; } = MapImageResolution / 7;
 
 		static int LegendXPadding { get; } = 5;
 
@@ -81,15 +92,19 @@ namespace Mappalachia
 
 		static Brush CoordinateGridLabelBrush { get; } = new SolidBrush(Color.White);
 
-		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-
-		static StringFormat CenterLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+		static StringFormat TopLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
 
 		static StringFormat TopRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near };
 
-		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
+		static StringFormat CenterLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+
+		static StringFormat Center { get; } = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+
+		static StringFormat CenterRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center };
 
 		static StringFormat BottomLeft { get; } = new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Far };
+
+		static StringFormat BottomRight { get; } = new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far };
 
 		static int TopographLegendRectHeight { get; } = MapImageResolution / 3;
 
@@ -902,6 +917,8 @@ namespace Mappalachia
 
 		static void DrawTitle(Settings settings, Graphics graphics)
 		{
+			bool legendLeft = settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left;
+
 			string titleText = settings.MapSettings.Title;
 
 			if (titleText.IsNullOrWhiteSpace())
@@ -910,21 +927,23 @@ namespace Mappalachia
 			}
 
 			float padding = settings.MapSettings.ShowCoordinateGrid ? CoordinateGridTextMargin : 0;
+			StringFormat stringFormat = legendLeft ? TopRight : TopLeft;
 
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeTitle);
-			SizeF stringBounds = graphics.MeasureString(titleText, font, new SizeF(MapImageResolution, MapImageResolution));
 
 			RectangleF textBounds = new RectangleF(
-				MapImageResolution - stringBounds.Width - TitlePadding - padding,
+				legendLeft ? padding * -1 : padding,
 				padding,
-				stringBounds.Width + TitlePadding,
-				stringBounds.Height);
+				MapImageResolution,
+				MapImageResolution);
 
-			DrawStringWithDropShadow(graphics, titleText, font, BrushGeneric, textBounds, TopRight);
+			DrawStringWithDropShadow(graphics, titleText, font, BrushGeneric, textBounds, stringFormat);
 		}
 
 		static async Task DrawWaterMark(Settings settings, Graphics graphics)
 		{
+			bool legendLeft = settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left;
+
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeWatermark);
 
 			string text = $"{settings.Space.DisplayName} ({settings.Space.EditorID})";
@@ -957,9 +976,9 @@ namespace Mappalachia
 			int position = settings.MapSettings.ShowCoordinateGrid ? -CoordinateGridTextMargin : 0;
 
 			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
-			RectangleF textBounds = new RectangleF(position, position, MapImageResolution, MapImageResolution);
 
-			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, BottomRight);
+			RectangleF textBounds = new RectangleF(legendLeft ? position : position * -1, position, MapImageResolution, MapImageResolution);
+			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, legendLeft ? BottomRight : BottomLeft);
 		}
 
 		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
@@ -1007,51 +1026,75 @@ namespace Mappalachia
 		// May return an image of different dimensions if extended legend is used
 		static Image DrawLegend(List<GroupedSearchResult> itemsToPlot, Settings settings, Image image, Progress<ProgressInfo>? progressInfo)
 		{
-			itemsToPlot = itemsToPlot.DistinctBy(item => (item.LegendGroup, item.LegendText)).ToList();
-
 			if (itemsToPlot.Count == 0)
 			{
 				return image;
 			}
 
-			if (settings.MapSettings.LegendStyle == LegendStyle.None)
+			if (settings.MapSettings.LegendStyle == LegendStyle.Hidden)
 			{
 				return image;
 			}
 
-			if (settings.MapSettings.LegendStyle == LegendStyle.Extended)
+			bool left = settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left;
+			bool extended = settings.MapSettings.LegendStyle == LegendStyle.Extended;
+			itemsToPlot = itemsToPlot.DistinctBy(item => (item.LegendGroup, item.LegendText)).ToList();
+			StringFormat stringFormat = left ? CenterLeft : CenterRight;
+
+			if (extended)
 			{
-				Bitmap resizedImage = new Bitmap(MapImageResolution + LegendXMax, MapImageResolution);
+				Bitmap resizedImage = new Bitmap(MapImageResolution + LegendWidth, MapImageResolution);
 
 				using Graphics resizeGraphics = GraphicsFromImageHQ(resizedImage);
-				resizeGraphics.DrawImage(image, LegendXMax, 0);
+				resizeGraphics.DrawImage(image, left ? LegendWidth : 0, 0);
 				image = resizedImage;
 			}
 
 			using Graphics graphics = GraphicsFromImageHQ(image);
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeLegend);
 
-			// Find the starting Y pos of the legend: sum the heights of the legend text line or icon (whichever is largest)
-			// Then half it, flip it, and offset by the midpoint of the image
-			float totalHeight = itemsToPlot.Sum(item => Math.Max(graphics.MeasureString(item.LegendText, font, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution)).Height, item.PlotIcon.Size));
-			float yPos = (MapImageResolution / 2) + (totalHeight / -2);
+			// Find the starting Y pos of the legend
+			// Start by summing the heights of the legend text line or icon (whichever is largest)
+			float totalHeight = itemsToPlot.Sum(item => Math.Max(
+					graphics.MeasureString(item.LegendText, font, new SizeF(LegendWidth - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution), stringFormat).Height,
+					item.PlotIcon.Size + LegendYPadding));
+
+			float yPos = settings.MapSettings.LegendVerticalAlignment switch
+			{
+				LegendVerticalAlignment.Top => 0,
+				LegendVerticalAlignment.Center => (MapImageResolution / 2) - (totalHeight / 2),
+				LegendVerticalAlignment.Bottom => MapImageResolution - totalHeight,
+				_ => throw new ArgumentException($"Unexpected vertical legend alignment {settings.MapSettings.LegendVerticalAlignment}"),
+			};
 
 			foreach (GroupedSearchResult item in itemsToPlot)
 			{
 				UpdateProgress(progressInfo, 95, $"Drawing legend");
 
-				SizeF bounds = graphics.MeasureString(item.LegendText, font, new SizeF(LegendXMax - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution));
+				SizeF bounds = graphics.MeasureString(item.LegendText, font, new SizeF(LegendWidth - item.PlotIcon.Size - (LegendXPadding * 2), MapImageResolution), stringFormat);
 
 				float halfRowHeight = Math.Max(bounds.Height, item.PlotIcon.Size + LegendYPadding) / 2;
 				float midPointRowPos = yPos + halfRowHeight;
-				float iconXMid = LegendXPadding + (item.PlotIcon.Size / 2);
+
+				float iconOffset = LegendXPadding + (item.PlotIcon.Size / 2);
+
+				float iconXMid = iconOffset;
+				float legendX = iconXMid * 2;
+
+				if (!left)
+				{
+					float extendedOffset = extended ? LegendWidth : 0;
+
+					iconXMid = MapImageResolution - iconOffset + extendedOffset;
+					legendX = MapImageResolution - (iconOffset * 2) - bounds.Width + extendedOffset;
+				}
 
 				graphics.DrawStringWithDropShadow(
 					item.LegendText,
 					font,
 					new SolidBrush(item.PlotIcon.Color),
-					new RectangleF(iconXMid * 2, midPointRowPos - (bounds.Height / 2), bounds.Width, bounds.Height),
-					CenterLeft);
+					new RectangleF(legendX, midPointRowPos - (bounds.Height / 2), bounds.Width, bounds.Height),
+					stringFormat);
 
 				if (item.Entity is not Library.Region)
 				{
@@ -1073,11 +1116,13 @@ namespace Mappalachia
 				string text = "(continued)";
 				SizeF size = graphics.MeasureString(text, font);
 
+				float xPos = left ? LegendWidth : MapImageResolution - LegendWidth - size.Width;
+
 				graphics.DrawStringWithDropShadow(
 					text,
 					font,
 					BrushGeneric,
-					new RectangleF(LegendXMax, MapImageResolution - size.Height, MapImageResolution - size.Width, size.Height),
+					new RectangleF(xPos, MapImageResolution - size.Height, MapImageResolution - size.Width, size.Height),
 					BottomLeft);
 			}
 
