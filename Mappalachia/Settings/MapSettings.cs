@@ -111,7 +111,11 @@ namespace Mappalachia
 
 		public double DoorIconScale { get; set; } = 1; // Not accessible via UI
 
-		public LegendStyle LegendStyle { get; set; } = LegendStyle.Extended;
+		public LegendStyle LegendStyle { get; set; } = LegendStyle.Compact;
+
+		public LegendHorizontalAlignment LegendHorizontalAlignment { get; set; } = LegendHorizontalAlignment.Right;
+
+		public LegendVerticalAlignment LegendVerticalAlignment { get; set; } = LegendVerticalAlignment.Center;
 
 		public string Title { get; set; } = string.Empty;
 

@@ -60,10 +60,18 @@ namespace Mappalachia
 			spotlightEnabledToolStripMenuItem = new ToolStripMenuItem();
 			spotlightSetRangeToolStripMenuItem = new ToolStripMenuItem();
 			spotlightCoordToolStripMenuItem = new ToolStripMenuItem();
+			legendToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleToolStripMenuItem = new ToolStripMenuItem();
-			legendExtendedToolStripMenuItem = new ToolStripMenuItem();
-			legendCompactToolStripMenuItem = new ToolStripMenuItem();
-			legendHiddenToolStripMenuItem = new ToolStripMenuItem();
+			legendStyleCompactToolStripMenuItem = new ToolStripMenuItem();
+			legendStyleExtendedToolStripMenuItem = new ToolStripMenuItem();
+			legendStyleHiddenToolStripMenuItem = new ToolStripMenuItem();
+			legendHorizontalToolStripMenuItem = new ToolStripMenuItem();
+			legendHorizontalLeftToolStripMenuItem = new ToolStripMenuItem();
+			legendHorizontalRightToolStripMenuItem = new ToolStripMenuItem();
+			legendVerticalToolStripMenuItem = new ToolStripMenuItem();
+			legendVerticalTopToolStripMenuItem = new ToolStripMenuItem();
+			legendVerticalCenterToolStripMenuItem = new ToolStripMenuItem();
+			legendVerticalBottomToolStripMenuItem = new ToolStripMenuItem();
 			loadRecipeToolStripMenuItem = new ToolStripMenuItem();
 			saveAsRecipeToolStripMenuItem = new ToolStripMenuItem();
 			exportToFileToolStripMenuItem = new ToolStripMenuItem();
@@ -143,7 +151,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendStyleToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -280,7 +288,7 @@ namespace Mappalachia
 			// coordinateGridEnabledToolStripMenuItem
 			// 
 			coordinateGridEnabledToolStripMenuItem.Name = "coordinateGridEnabledToolStripMenuItem";
-			coordinateGridEnabledToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridEnabledToolStripMenuItem.Size = new Size(122, 22);
 			coordinateGridEnabledToolStripMenuItem.Text = "Enabled";
 			coordinateGridEnabledToolStripMenuItem.ToolTipText = "Toggle showing the coordinate grid.";
 			coordinateGridEnabledToolStripMenuItem.Click += Map_CoordinateGrid_Enabled_Click;
@@ -289,28 +297,28 @@ namespace Mappalachia
 			// 
 			coordinateGridPrecisionToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { coordinateGridPrecisionFineToolStripMenuItem, coordinateGridPrecisionMediumToolStripMenuItem, coordinateGridPrecisionLargeToolStripMenuItem });
 			coordinateGridPrecisionToolStripMenuItem.Name = "coordinateGridPrecisionToolStripMenuItem";
-			coordinateGridPrecisionToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionToolStripMenuItem.Size = new Size(122, 22);
 			coordinateGridPrecisionToolStripMenuItem.Text = "Precision";
 			coordinateGridPrecisionToolStripMenuItem.ToolTipText = "Control the precision of the coordinate grid.";
 			// 
 			// coordinateGridPrecisionFineToolStripMenuItem
 			// 
 			coordinateGridPrecisionFineToolStripMenuItem.Name = "coordinateGridPrecisionFineToolStripMenuItem";
-			coordinateGridPrecisionFineToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionFineToolStripMenuItem.Size = new Size(119, 22);
 			coordinateGridPrecisionFineToolStripMenuItem.Text = "Fine";
 			coordinateGridPrecisionFineToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Fine;
 			// 
 			// coordinateGridPrecisionMediumToolStripMenuItem
 			// 
 			coordinateGridPrecisionMediumToolStripMenuItem.Name = "coordinateGridPrecisionMediumToolStripMenuItem";
-			coordinateGridPrecisionMediumToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionMediumToolStripMenuItem.Size = new Size(119, 22);
 			coordinateGridPrecisionMediumToolStripMenuItem.Text = "Medium";
 			coordinateGridPrecisionMediumToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Medium;
 			// 
 			// coordinateGridPrecisionLargeToolStripMenuItem
 			// 
 			coordinateGridPrecisionLargeToolStripMenuItem.Name = "coordinateGridPrecisionLargeToolStripMenuItem";
-			coordinateGridPrecisionLargeToolStripMenuItem.Size = new Size(180, 22);
+			coordinateGridPrecisionLargeToolStripMenuItem.Size = new Size(119, 22);
 			coordinateGridPrecisionLargeToolStripMenuItem.Text = "Large";
 			coordinateGridPrecisionLargeToolStripMenuItem.Click += Map_CoordinateGrid_Precision_Large;
 			// 
@@ -374,36 +382,92 @@ namespace Mappalachia
 			spotlightCoordToolStripMenuItem.Text = "Coord";
 			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
 			// 
+			// legendToolStripMenuItem
+			// 
+			legendToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendStyleToolStripMenuItem, legendHorizontalToolStripMenuItem, legendVerticalToolStripMenuItem });
+			legendToolStripMenuItem.Name = "legendToolStripMenuItem";
+			legendToolStripMenuItem.Size = new Size(240, 22);
+			legendToolStripMenuItem.Text = "Legend";
+			// 
 			// legendStyleToolStripMenuItem
 			// 
-			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendExtendedToolStripMenuItem, legendCompactToolStripMenuItem, legendHiddenToolStripMenuItem });
+			legendStyleToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendStyleCompactToolStripMenuItem, legendStyleExtendedToolStripMenuItem, legendStyleHiddenToolStripMenuItem });
 			legendStyleToolStripMenuItem.Name = "legendStyleToolStripMenuItem";
-			legendStyleToolStripMenuItem.Size = new Size(240, 22);
-			legendStyleToolStripMenuItem.Text = "Legend Style";
+			legendStyleToolStripMenuItem.Size = new Size(188, 22);
+			legendStyleToolStripMenuItem.Text = "Style";
 			// 
-			// legendExtendedToolStripMenuItem
+			// legendStyleCompactToolStripMenuItem
 			// 
-			legendExtendedToolStripMenuItem.Name = "legendExtendedToolStripMenuItem";
-			legendExtendedToolStripMenuItem.Size = new Size(123, 22);
-			legendExtendedToolStripMenuItem.Text = "Extended";
-			legendExtendedToolStripMenuItem.ToolTipText = "Draw the legend outside the map, extending the final image to fit the legend.";
-			legendExtendedToolStripMenuItem.Click += Map_Legend_Extended_Click;
+			legendStyleCompactToolStripMenuItem.Name = "legendStyleCompactToolStripMenuItem";
+			legendStyleCompactToolStripMenuItem.Size = new Size(180, 22);
+			legendStyleCompactToolStripMenuItem.Text = "Compact";
+			legendStyleCompactToolStripMenuItem.ToolTipText = "Draw the legend inside of the map.";
+			legendStyleCompactToolStripMenuItem.Click += Map_Legend_Style_Compact_Click;
 			// 
-			// legendCompactToolStripMenuItem
+			// legendStyleExtendedToolStripMenuItem
 			// 
-			legendCompactToolStripMenuItem.Name = "legendCompactToolStripMenuItem";
-			legendCompactToolStripMenuItem.Size = new Size(123, 22);
-			legendCompactToolStripMenuItem.Text = "Compact";
-			legendCompactToolStripMenuItem.ToolTipText = "Draw the legend on the left hand side of the map.";
-			legendCompactToolStripMenuItem.Click += Map_Legend_Compact_Click;
+			legendStyleExtendedToolStripMenuItem.Name = "legendStyleExtendedToolStripMenuItem";
+			legendStyleExtendedToolStripMenuItem.Size = new Size(180, 22);
+			legendStyleExtendedToolStripMenuItem.Text = "Extended";
+			legendStyleExtendedToolStripMenuItem.ToolTipText = "Draw the legend outside the map, extending the final image to fit the legend.";
+			legendStyleExtendedToolStripMenuItem.Click += Map_Legend_Style_Extended_Click;
 			// 
-			// legendHiddenToolStripMenuItem
+			// legendStyleHiddenToolStripMenuItem
 			// 
-			legendHiddenToolStripMenuItem.Name = "legendHiddenToolStripMenuItem";
-			legendHiddenToolStripMenuItem.Size = new Size(123, 22);
-			legendHiddenToolStripMenuItem.Text = "Hidden";
-			legendHiddenToolStripMenuItem.ToolTipText = "Do not draw a legend.";
-			legendHiddenToolStripMenuItem.Click += Map_Legend_Hidden_Click;
+			legendStyleHiddenToolStripMenuItem.Name = "legendStyleHiddenToolStripMenuItem";
+			legendStyleHiddenToolStripMenuItem.Size = new Size(180, 22);
+			legendStyleHiddenToolStripMenuItem.Text = "Hidden";
+			legendStyleHiddenToolStripMenuItem.ToolTipText = "Do not draw a legend.";
+			legendStyleHiddenToolStripMenuItem.Click += Map_Legend_Style_Hidden_Click;
+			// 
+			// legendHorizontalToolStripMenuItem
+			// 
+			legendHorizontalToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendHorizontalLeftToolStripMenuItem, legendHorizontalRightToolStripMenuItem });
+			legendHorizontalToolStripMenuItem.Name = "legendHorizontalToolStripMenuItem";
+			legendHorizontalToolStripMenuItem.Size = new Size(188, 22);
+			legendHorizontalToolStripMenuItem.Text = "Horizontal Alignment";
+			// 
+			// legendHorizontalLeftToolStripMenuItem
+			// 
+			legendHorizontalLeftToolStripMenuItem.Name = "legendHorizontalLeftToolStripMenuItem";
+			legendHorizontalLeftToolStripMenuItem.Size = new Size(180, 22);
+			legendHorizontalLeftToolStripMenuItem.Text = "Left";
+			legendHorizontalLeftToolStripMenuItem.Click += Map_Legend_Horizontal_Left_Click;
+			// 
+			// legendHorizontalRightToolStripMenuItem
+			// 
+			legendHorizontalRightToolStripMenuItem.Name = "legendHorizontalRightToolStripMenuItem";
+			legendHorizontalRightToolStripMenuItem.Size = new Size(180, 22);
+			legendHorizontalRightToolStripMenuItem.Text = "Right";
+			legendHorizontalRightToolStripMenuItem.Click += Map_Legend_Horizontal_Right_Click;
+			// 
+			// legendVerticalToolStripMenuItem
+			// 
+			legendVerticalToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { legendVerticalTopToolStripMenuItem, legendVerticalCenterToolStripMenuItem, legendVerticalBottomToolStripMenuItem });
+			legendVerticalToolStripMenuItem.Name = "legendVerticalToolStripMenuItem";
+			legendVerticalToolStripMenuItem.Size = new Size(188, 22);
+			legendVerticalToolStripMenuItem.Text = "Vertical Alignment";
+			// 
+			// legendVerticalTopToolStripMenuItem
+			// 
+			legendVerticalTopToolStripMenuItem.Name = "legendVerticalTopToolStripMenuItem";
+			legendVerticalTopToolStripMenuItem.Size = new Size(180, 22);
+			legendVerticalTopToolStripMenuItem.Text = "Top";
+			legendVerticalTopToolStripMenuItem.Click += Map_Legend_Vertical_Top_Click;
+			// 
+			// legendVerticalCenterToolStripMenuItem
+			// 
+			legendVerticalCenterToolStripMenuItem.Name = "legendVerticalCenterToolStripMenuItem";
+			legendVerticalCenterToolStripMenuItem.Size = new Size(180, 22);
+			legendVerticalCenterToolStripMenuItem.Text = "Center";
+			legendVerticalCenterToolStripMenuItem.Click += Map_Legend_Vertical_Center_Click;
+			// 
+			// legendVerticalBottomToolStripMenuItem
+			// 
+			legendVerticalBottomToolStripMenuItem.Name = "legendVerticalBottomToolStripMenuItem";
+			legendVerticalBottomToolStripMenuItem.Size = new Size(180, 22);
+			legendVerticalBottomToolStripMenuItem.Text = "Bottom";
+			legendVerticalBottomToolStripMenuItem.Click += Map_Legend_Vertical_Bottom_Click;
 			// 
 			// loadRecipeToolStripMenuItem
 			// 
@@ -1040,10 +1104,10 @@ namespace Mappalachia
 		private ToolStripMenuItem backgroundSatelliteToolStripMenuItem;
 		private ToolStripMenuItem backgroundMilitaryToolStripMenuItem;
 		private ToolStripMenuItem backgroundNoneToolStripMenuItem;
+		private ToolStripMenuItem legendToolStripMenuItem;
+		private ToolStripMenuItem legendHorizontalToolStripMenuItem;
 		private ToolStripMenuItem legendStyleToolStripMenuItem;
-		private ToolStripMenuItem legendCompactToolStripMenuItem;
-		private ToolStripMenuItem legendExtendedToolStripMenuItem;
-		private ToolStripMenuItem legendHiddenToolStripMenuItem;
+		private ToolStripMenuItem legendVerticalToolStripMenuItem;
 		private ToolStripMenuItem clearPlotsToolStripMenuItem;
 		private ToolStripMenuItem quickSaveToolStripMenuItem;
 		private ToolStripMenuItem exportToFileToolStripMenuItem;
@@ -1111,5 +1175,13 @@ namespace Mappalachia
 		private ToolStripMenuItem coordinateGridPrecisionFineToolStripMenuItem;
 		private ToolStripMenuItem coordinateGridPrecisionMediumToolStripMenuItem;
 		private ToolStripMenuItem coordinateGridPrecisionLargeToolStripMenuItem;
+		private ToolStripMenuItem legendStyleCompactToolStripMenuItem;
+		private ToolStripMenuItem legendStyleExtendedToolStripMenuItem;
+		private ToolStripMenuItem legendStyleHiddenToolStripMenuItem;
+		private ToolStripMenuItem legendHorizontalLeftToolStripMenuItem;
+		private ToolStripMenuItem legendHorizontalRightToolStripMenuItem;
+		private ToolStripMenuItem legendVerticalTopToolStripMenuItem;
+		private ToolStripMenuItem legendVerticalCenterToolStripMenuItem;
+		private ToolStripMenuItem legendVerticalBottomToolStripMenuItem;
 	}
 }

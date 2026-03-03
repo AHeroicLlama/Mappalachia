@@ -3,7 +3,7 @@
 Under the 'Map' menu, there are several options which allow you to change the appearance of the overall map;
 
 ## Title
-This allows you to set a title for the map - it will show in the top-right, and will be the default filename when saving the map image.
+This allows you to set a title for the map - it will show at the top opposite the legend, and will be the default filename when saving the map image.
 
 ## Font Sizes
 Allows you to amend the sizes of all text which may appear on the map.
@@ -36,9 +36,12 @@ This option controls when a compass rose should be displayed on the map. The def
 
 ## Legend Style
 This provides control over how (or if) the legend is drawn.
-* Extended: The default mode, the final image is expanded, drawing the legend fully outside of the original map image, ensuring none of the map can be obscured.
-* Compact: The legend is drawn up against the left hand side, inside the map image.
+* Normal: The default mode, the legend is drawn up against the selected side or corner, inside the map image.
+* Extended: The final image is expanded, drawing the legend fully outside of the original map image, ensuring none of the map can be obscured.
 * Hidden: No legend is drawn.
+
+## Legend Alignment
+You may also select the horizontal and vertical alignment of the legend.
 <br/><br/>
 
 Note: see [Spotlight](Spotlight.md) and [Recipes](Recipes.md) for other options in this menu.
