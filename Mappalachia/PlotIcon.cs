@@ -17,7 +17,7 @@ namespace Mappalachia
 		{
 			BaseIconIndex = offset;
 			Size = size;
-			ParentIsRegion = parentIsRegion;
+			ParentIsRegion = parentIsRegion; // The entity this represents is a region
 
 			int colorIndex = offset % palette.Count;
 			Color = palette[colorIndex];
