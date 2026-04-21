@@ -37,6 +37,17 @@ namespace Mappalachia
 				},
 			};
 
+			if (exception is not null)
+			{
+				TaskDialogButton copyDetailsButton = new TaskDialogButton("Copy details to clipboard")
+				{
+					AllowCloseDialog = false,
+				};
+
+				copyDetailsButton.Click += (sender, e) => { Clipboard.SetText(exception.ToString()); };
+				page.Buttons.Add(copyDetailsButton);
+			}
+
 			TaskDialog.ShowDialog(page);
 		}
 
