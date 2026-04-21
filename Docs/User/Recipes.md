@@ -5,6 +5,7 @@ You can save or load a recipe at 'Map' > 'Save as recipe' or 'Load recipe'.<br/>
 Recipe files store the 'Items to plot', all Map Settings, and all Plot Settings.
 
 Note that upon loading a recipe, Mappalachia will not save your user settings until restarted.<br/>
+It is not recommended to use custom icon images when making recipes, as the custom icon is not captured in the recipe file.<br/>
 
 Recipe files are saved as JSON, and may be further edited in a text editor at your own risk.<br/>
 Technical users may pass recipe files as arguments to the `Mappalachia.exe`, which automatically outputs the rendered map image file(s).

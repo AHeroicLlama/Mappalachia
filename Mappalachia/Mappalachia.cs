@@ -76,7 +76,6 @@ namespace Mappalachia
 			}
 			catch (Exception exception)
 			{
-				MessageBox.Show(exception.ToString());
 				Notify.FatalException(exception);
 				Application.Exit();
 			}
