@@ -95,8 +95,19 @@ namespace Mappalachia
 		// Return a new copy of the plot icon image with the given index, when all files in the path are indexed
 		public static Image GetPlotIconImage(int index)
 		{
-			string targetFile = Directory.GetFiles(Paths.IconsPath)[index];
-			return GetPlotIconImage(targetFile);
+			try
+			{
+				string targetFile = Directory.GetFiles(Paths.IconsPath)[index];
+			}
+			catch (IndexOutOfRangeException e)
+			{
+				Notify.GenericError(
+					"Invalid icon index",
+					"Mappalachia attempted to draw a plot icon which was not in the provided icons folder, and/or icons in the folder have been removed. A default will be used.",
+					e);
+			}
+
+			return GetPlotIconImage(Directory.GetFiles(Paths.IconsPath)[0]);
 		}
 
 		// Return a new copy of the plot icon image at the given path
