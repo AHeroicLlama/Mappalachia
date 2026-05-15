@@ -503,6 +503,48 @@ namespace Mappalachia
 			return await GetRegion(searchResult.Entity.EditorID, space);
 		}
 
+		// Return all non-nukable regions in the given space
+		static async Task<List<Library.Region>> GetNonNukableRegions(Space space)
+		{
+			string regionQuery = "SELECT minLevel, maxLevel, regionFormID, regionEditorId FROM Region " +
+				$"WHERE nukable = 0 AND spaceFormID = {space.FormID};";
+
+			using SqliteDataReader regionReader = await GetReader(Connection, regionQuery);
+
+			List<Library.Region> regions = new List<Library.Region>();
+
+			while (regionReader.Read())
+			{
+				Library.Region region = new Library.Region(
+				regionReader.GetUInt("regionFormID"),
+				regionReader.GetString("regionEditorID"),
+				space,
+				regionReader.GetUInt("minLevel"),
+				regionReader.GetUInt("maxLevel"));
+
+				string pointQuery = "SELECT x, y, subRegionIndex, coordIndex FROM RegionPoints " +
+					$"WHERE regionFormID = {region.FormID};";
+
+				using SqliteDataReader pointReader = await GetReader(Connection, pointQuery);
+
+				while (pointReader.Read())
+				{
+					region.AddPoint(
+						new RegionPoint(
+							region,
+							new Coord(
+								pointReader.GetDouble("x"),
+								pointReader.GetDouble("y")),
+							pointReader.GetUInt("subRegionIndex"),
+							pointReader.GetUInt("coordIndex")));
+				}
+
+				regions.Add(region);
+			}
+
+			return regions;
+		}
+
 		// Return the region with the given EditorID from the given Space
 		static async Task<Instance?> GetRegion(string editorID, Space space)
 		{
@@ -645,12 +687,9 @@ namespace Mappalachia
 			}
 
 			// Find the Non-nukable zone(s), and exclude instances which lie within them
-			foreach (string regionEditorID in space.GetNonNukableZoneEditorIds())
+			foreach (Library.Region region in await GetNonNukableRegions(space))
 			{
-				Instance regionInstance = (await GetRegion(regionEditorID, space)) ?? throw new Exception($"No Region with editorID {regionEditorID} found");
-				Library.Region nonNukableZone = (Library.Region)regionInstance.Entity;
-
-				instances = instances.Where(i => !nonNukableZone.ContainsPoint(i.Coord)).ToList();
+				instances = instances.Where(i => !region.ContainsPoint(i.Coord)).ToList();
 			}
 
 			return instances;

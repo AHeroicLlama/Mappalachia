@@ -1,11 +1,11 @@
 MD5 Checksum
-B03B9B1E5F225DF7806710601F26738A
+7AFC6A39FAFF99BF7323D16FC6FA131B
 
 Size
 468988 KB
 
 Built At UTC
-28/04/2026 15:32:34
+15/05/2026 17:41:14
 
 CSV Imported with SQLite Version
 3.50.4 2025-07-30 19:33:53 4d8adfb30e03f9cf27f800a2c1ba3c48fb4ca1b08b0f5ed59a4d5ecbf45e20a3 (64-bit)
@@ -999,6 +999,11 @@ Avg region minLevel
 
 Avg region maxLevel
 27.36392405063291
+
+Nuke-safe zones
+NonNukableZone
+BigBloomWeatherRegion
+BurningSpringsHighwayTownNukeExclusionRegion
 
 Avg junkFormID as Dec
 1674372.2608012569

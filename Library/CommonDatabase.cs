@@ -85,7 +85,7 @@ namespace Library
 			return spaces;
 		}
 
-		// Returns a new List of all spaces, ordered by worlspace and editorID
+		// Returns a new List of all spaces, ordered by worldspace and editorID
 		public static async Task<List<Space>> GetAllSpaces(SqliteConnection connection)
 		{
 			return await GetSpaces(connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC");
