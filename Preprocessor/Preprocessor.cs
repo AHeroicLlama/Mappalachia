@@ -694,7 +694,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Flux;");
 			SimpleQuery("DROP TABLE Flux;");
-			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, color STRING NOT NULL);");
+			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, color TEXT NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Flux (referenceFormID, color) SELECT referenceFormID, color FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
