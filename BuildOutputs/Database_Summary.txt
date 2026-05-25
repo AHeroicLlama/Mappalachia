@@ -1,30 +1,32 @@
 MD5 Checksum
-7AFC6A39FAFF99BF7323D16FC6FA131B
+0165115D52FCC86CB9685EE0295E34B1
 
 Size
-468988 KB
+469360 KB
 
 Built At UTC
-15/05/2026 17:41:14
+25/05/2026 22:23:39
 
 CSV Imported with SQLite Version
 3.50.4 2025-07-30 19:33:53 4d8adfb30e03f9cf27f800a2c1ba3c48fb4ca1b08b0f5ed59a4d5ecbf45e20a3 (64-bit)
 
 Tables
-Container            Meta                 Region             
-Entity               NPC                  RegionPoints       
-Flux                 Position             Scrap              
-MapMarker            Position_PreGrouped  Space
+Cell                 MapMarker            Region             
+Container            Meta                 RegionPoints       
+Entity               NPC                  Scrap              
+Flux                 Position             Space              
+Location             Position_PreGrouped
 
 Indices
-indexComponent               sqlite_autoindex_Entity_2  
-indexCount                   sqlite_autoindex_Flux_1    
-indexGeneral                 sqlite_autoindex_Meta_1    
-indexNPC                     sqlite_autoindex_Position_1
-indexReference               sqlite_autoindex_Region_1  
-indexSpaceTeleportsTo        sqlite_autoindex_Region_2  
-indexTeleportsTo             sqlite_autoindex_Space_1   
-sqlite_autoindex_Entity_1    sqlite_autoindex_Space_2
+indexComponent               sqlite_autoindex_Flux_1    
+indexCount                   sqlite_autoindex_Location_1
+indexGeneral                 sqlite_autoindex_Location_2
+indexNPC                     sqlite_autoindex_Meta_1    
+indexReference               sqlite_autoindex_Position_1
+indexSpaceTeleportsTo        sqlite_autoindex_Region_1  
+indexTeleportsTo             sqlite_autoindex_Region_2  
+sqlite_autoindex_Entity_1    sqlite_autoindex_Space_1   
+sqlite_autoindex_Entity_2    sqlite_autoindex_Space_2
 
 Game Version
 1.7.24.14
@@ -1232,6 +1234,1346 @@ Yellowcake,13
 Non-standard NorthMarker counts
 Burrows01,2
 UncannyCavernsDungeon,2
+
+Locations
+8154326,BURN_FrontierFortLOC,Frontier Fort
+8324025,BURN_JacksonJunkyardLOC,Jackson Junkyard
+8071121,BullengrubeLocation_Exterior,The Bullengrube
+47963,CharlestonOrbitalDrop01Location,Charleston Enclave Orbital Drop Site #001
+2953514,EN07LimoPOI01Location,Limousine Crash
+655480,EN07NukeMeshDepotLocation,Nuke Mesh Depot
+3976291,FSLureCranberryBog01Location,Soggy Bottom
+3985828,FSLureCranberryBog02Location,Giese Berry Bog
+3857901,FSLureForest01Location,Holdingford Homestead
+3857902,FSLureForest02Location,Huntsman's Glade
+3976292,FSLureMTR01Location,Slurry Run
+3985825,FSLureMTR02Location,Dusty Heap
+3976290,FSLureMountains01Location,Jaggy's Crag
+3985824,FSLureMountains02Location,Devil's Alley
+3985827,FSLureSwamp01Location,Harrison Heights
+3985829,FSLureSwamp02Location,Cliffwalk Track
+3985826,FSLureToxicValley02Location,Old Pete's End
+8388556,GhoulCabinLocation,Point Repose
+7962465,GhoulCampLocation_Exterior,Ghoul Camp
+7962681,GhoulCaveLocation_Exterior,A Cave
+8073506,GhoulPointReposeLocation,Point Repose
+8349704,LocBurnAshCaveLocation,Ash Cave
+8363242,LocBurnAthensArmoryLocation,Athens Armory
+8363241,LocBurnAthensLocation,Athens Ruins
+8195547,LocBurnCheckpointCanyonExt,Checkpoint Canyon
+8202766,LocBurnChopShop,The Chop Shop
+8349691,LocBurnCornhengeLocation,World of Corn
+8329527,LocBurnDinoGolf,Dino Peaks Mini Golf
+8312752,LocBurnDriveinWorkshopLocation,Starlight Drive-in
+8167820,LocBurnFrontierFortLocation,Fort Steuben
+8290436,LocBurnHighwayTownExtLocation,Highway Town
+8706916,LocBurnPOI101WildwoodRanchLocation,Westbrook Horse Ranch
+8706915,LocBurnPOI133AbraxodyneStorageDepotLocation,Meadow Breeze Storage Depot
+8706909,LocBurnPOI16HillsideChurchLocation,Shade Hill Church
+8706908,LocBurnPOI19SockHopLocation,Sandy's Sock Hop
+8706911,LocBurnPOI32DesolateEncampmentCampLocation,Hamley Run Camp
+8710309,LocBurnPOI37UFOWatcherLocation,Prospect Hill
+8706910,LocBurnPOI41ApiaryLocation,Honey Well Apiary
+8706912,LocBurnPOI54AlbanyLocation,Albany
+8706913,LocBurnPOI59LanganMillLocation,Sand Fork Lumber
+8706917,LocBurnPOI71PlaygroundLocation,Cobby's Corner
+8706914,LocBurnPOI73DerelictPowerSubstationLocation,Abraxodyne Chemical Power Substation
+8232782,LocBurnRailroadServiceYardExtLocation,Railroad Service Yard
+8201215,LocBurnRustKingdomExtLocation,The Rust Kingdom
+8186409,LocBurnSDMLocation,Super Duper Mart
+8437745,LocBurnSinkholeLocation,Tycoon Lake
+8352960,LocBurnTrainStationLocation,Hocking Hills Station
+6230317,LocCranberryAMSCorporateHQLocation,AMS Corporate Headquarters
+16705,LocCranberryAbandonedBogTownLocation,Abandoned Bog Town
+4024771,LocCranberryAbandonedBogTownWorkshopLocation,Abandoned Bog Town
+16707,LocCranberryAlleghenyAsylumLocation,Fort Defiance
+16712,LocCranberryAppalachianAntiquesLocation,Appalachian Antiques
+16716,LocCranberryBigBendTunnelEastLocation,Big Bend Tunnel East
+16718,LocCranberryBootleggersShackLocation,Bootlegger's Shack
+3668608,LocCranberryDropSiteC2Location,Drop Site C2
+3668633,LocCranberryDropSiteG3Location,Drop Site G3
+3668637,LocCranberryDropSiteV9Location,Drop Site V9
+4375148,LocCranberryDuelingFarmsLocation,Dueling Farms
+1226692,LocCranberryENz04POI01Location,Bot Patrol Location POI 01
+4374802,LocCranberryElectricTowerCampLocation,Crimson Prospect
+3742227,LocCranberryFirebaseHancockLocation,Firebase Hancock
+3742224,LocCranberryFirebaseLTLocation,Firebase LT
+3742221,LocCranberryFirebaseMajorLocation,Firebase Major
+2953487,LocCranberryFissureSiteAlphaLocation,Fissure Site
+3823593,LocCranberryFissureSiteEpsilonLocation,Fissure Site
+3837144,LocCranberryFissureSiteZetaLocation,Fissure Site Prime
+399209,LocCranberryFloodedTrainyardLocation,Flooded Trainyard
+3742215,LocCranberryForwardStationAlphaLocation,Forward Station Alpha
+3742200,LocCranberryForwardStationDeltaLocation,Forward Station Delta
+57649,LocCranberryGeneralsSteakhouseLocation,The General's Steakhouse
+531237,LocCranberryGlassedCavernLocation,Glassed Cavern
+391168,LocCranberryKerwoodMineLocation,Kerwood Mine
+3824176,LocCranberryLookoutTower12Location,Ranger Lookout
+3742203,LocCranberryLostHomeLocation,Lost Home
+3668609,LocCranberryMacsFarmLocation,Mac's Farm
+3668630,LocCranberryNARRepairYardLocation,NAR Repair Yard
+3742209,LocCranberryOldMoldQuarryLocation,Old Mold Quarry
+5280587,LocCranberryPylonV13Location,Pylon V-13
+3668635,LocCranberryQuarryX3Location,Quarry X3
+630822,LocCranberryRangerDistrictOfficeLocation,Ranger District Office
+630966,LocCranberryRobCoResearchCenterLocation,RobCo Research Center
+2933452,LocCranberrySubstationThunderMtTM02Location,Thunder Mountain Substation TM-02
+5212779,LocCranberrySundewGrove01Location,Overgrown Sundew Grove
+5212781,LocCranberrySundewGrove02Location,Veiled Sundew Grove
+5212782,LocCranberrySundewGrove03Location,Creekside Sundew Grove
+5212783,LocCranberrySundewGrove04Location,Sparse Sundew Grove
+3742212,LocCranberrySunriseFieldLocation,Sunrise Field
+3742230,LocCranberrySuperiorSunsetFarmLocation,Superior Sunset Farm
+3742207,LocCranberrySurveyCampAlphaLocation,Survey Camp Alpha
+3742218,LocCranberryTheThornLocation,The Thorn
+474492,LocCranberryWatogaCivicCenterExteriorLocation,Watoga Civic Center
+29491,LocCranberryWatogaEmergencyServicesLocation,Watoga Emergency Services
+103710,LocCranberryWatogaEstatesLocation,Watoga Estates
+474493,LocCranberryWatogaHighSchoolLocation,Watoga High School
+28060,LocCranberryWatogaLocation,Watoga
+474476,LocCranberryWatogaMunicipalCenterLocation,Watoga Municipal Center
+474490,LocCranberryWatogaShoppingPlazaLocation,Watoga Shopping Plaza
+2913968,LocCranberryWatogaTrainStationLocation,Watoga Station
+474491,LocCranberryWatogaTransitHubLocation,Watoga Transit Hub
+8030835,LocFishermansRestLocation,Fisherman's Rest
+611484,LocForestAVRMedicalCenterLocation,AVR Medical Center
+16709,LocForestAaronholtHomesteadLocation,Aaronholt Homestead
+611086,LocForestAlpineRiverCabinsLocation,Alpine River Cabins
+3742270,LocForestAnchorFarmLocation,Anchor Farm
+1124666,LocForestArktosPharmaLocation,Arktos Pharma
+381752,LocForestBillingsHomesteadLocation,Billings Homestead
+16706,LocForestBlackMountainOrdnanceWorksLocation,Black Mountain Ordnance Works
+3742164,LocForestBleedingKatesGrinderLocation,Bleeding Kate's Grindhouse
+7544501,LocForestBlueRidgeEncampmentLocation,Blue Ridge Encampment
+617147,LocForestBoltonGreensLocation,Bolton Greens
+3849932,LocForestBurdetteManorLocation,The Kill Box
+617334,LocForestCampMcClintockLocation,Camp McClintock
+5609290,LocForestCharlestonCapitolLocation,Charleston Capitol Building
+3037792,LocForestCharlestonCityEastLocation,Charleston
+3037807,LocForestCharlestonCityNorthLocation,Charleston
+3037808,LocForestCharlestonCitySouthLocation,Charleston
+3037793,LocForestCharlestonCityWestLocation,Charleston
+89279,LocForestCharlestonFireDeptLocation,Charleston Fire Department
+1101034,LocForestCharlestonLandfillLocation,Charleston Landfill
+2913962,LocForestCharlestonTrainStationLocation,Charleston Station
+1101033,LocForestCharlestonTrainyardLocation,Charleston Trainyard
+3752619,LocForestClancyManorLocation,Clancy Manor
+389263,LocForestCowSpotsCreameryLocation,Cow Spots Creamery
+7327336,LocForestCraterOutpostLocation,Crater Forest Outpost
+7511212,LocForestCultistCaveNorthLocation,Organ Cave South
+7496460,LocForestCultistCaveSouthLocation,Organ Cave South
+7511213,LocForestCultistCaveWestLocation,Organ Cave South
+3668616,LocForestDarlingSistersLabLocation,Darling Sister's Lab
+3856171,LocForestDeathclawIslandLocation,Deathclaw Island
+2442308,LocForestENz04POI05Location,Bot Patrol Location POI 05
+3823594,LocForestFissureSiteKappaLocation,Fissure Site
+3823595,LocForestFissureSiteLambdaLocation,Fissure Site
+3823600,LocForestFissureSiteThetaLocation,Fissure Site
+87380,LocForestFlatwoodsLocation,Flatwoods
+2681782,LocForestFlatwoodsTavernLocation,Flatwoods Tavern
+7327334,LocForestForwardStationTangoLocation,Forward Station Tango
+7327335,LocForestFoundationOutpost,Foundation Outpost
+4371042,LocForestGauleyMineExitLocation,Gauley Mine
+630863,LocForestGiantTeapotLocation,The Giant Teapot
+686310,LocForestGilmanLumberLocation,Gilman Lumber Mill
+409031,LocForestGorgeJunkyardLocation,Gorge Junkyard
+591441,LocForestGreenCountryLodgeLocation,Green Country Lodge
+597770,LocForestGregsMineSupplyLocation,Greg's Mine Supply
+3668621,LocForestGrovesFamilyCabinLocation,Groves Family Cabin
+389310,LocForestHelvetiaLocation,Helvetia
+465552,LocForestHillfolkHotdogsLocation,Hillfolk Hotdogs
+3668620,LocForestHorizonsRestLocation,Horizon's Rest
+1100964,LocForestHornwrightIndustrialHQLocation,Hornwright Industrial Headquarters
+3846348,LocForestHornwrightSummerVillaLocation,Hornwright Summer Villa
+5199281,LocForestHuntersRidgeLocation,Hunter's Ridge
+468483,LocForestIsolatedCabinLocation,Isolated Cabin
+630989,LocForestKanawhaCountyCemeteryLocation,Kanawha County Cemetery
+3668625,LocForestLadyJanetSoftServeLocation,Lady Janet's Soft Serve
+585139,LocForestLakesideCabinsLocation,Lakeside Cabins
+630937,LocForestLandviewLighthouseLocation,Landview Lighthouse
+372458,LocForestLewisAndSonsFarmingSupplyLocation,Lewis & Sons Farming Supply
+662400,LocForestLookoutTower02Location,North Kanawha Lookout
+113328,LocForestLookoutTower03Location,East Kanawha Lookout
+3797131,LocForestLookoutTower09Location,Flatwoods Lookout
+3803040,LocForestLookoutTower10Location,Camp Adams Lookout
+576854,LocForestMamaDolceProcessingLocation,Mama Dolce's Food Processing
+3668627,LocForestMarigoldPavilionLocation,Marigold Pavilion
+3862810,LocForestMoonshinersShackLocation,Moonshiner's Shack
+1136568,LocForestMorgantownAirportLocation,Morgantown Airport
+1098475,LocForestMorgantownHighSchoolLocation,Morgantown High School
+295704,LocForestMorgantownLocation,Morgantown
+2913960,LocForestMorgantownTrainStationLocation,Morgantown Station
+576851,LocForestMorgantownTrainyardLocation,Morgantown Trainyard
+631375,LocForestNewGadLocation,New Gad
+616970,LocForestNewRiverGorgeResortLocation,New River Gorge Resort
+5220266,LocForestNewRiverGorgeRopesCourseLocation,New River Gorge Ropes Course
+598152,LocForestNukaColaQuantumPlantLocation,Kanawha Nuka-Cola Plant
+630808,LocForestOhioRiverAdventuresLocation,Ohio River Adventures
+617134,LocForestOrwellOrchardsLocation,Orwell Orchards
+1040991,LocForestOverlookCabinLocation,Overlook Cabin
+1251259,LocForestOverseersCAMPLocation,Overseer's Camp
+5222647,LocForestPOIForest25Location,Safe Shack
+617168,LocForestPointPleasantLocation,Point Pleasant
+3183209,LocForestPortsidePubLocation,Portside Pub
+16892,LocForestPoseidonEnergyLocation,Poseidon Energy Plant WV-06
+2856529,LocForestPoseidonEnergyWorkshopLocation,Poseidon Energy Plant Yard
+624143,LocForestRelayTower02Location,Relay Tower HN-B1-12
+624147,LocForestRelayTower06Location,Relay Tower EM-B1-27
+103377,LocForestRiversideManorLocation,Riverside Manor
+1230438,LocForestSilvaHomesteadLocation,Silva Homestead
+3742261,LocForestSlocumsJoeLocation,Slocum's Joe
+2941711,LocForestSubstationPoseidonPX01Location,Poseidon Power Substation PX-01
+2941710,LocForestSubstationPoseidonPX02Location,Poseidon Power Substation PX-02
+3846385,LocForestSugarmapleLocation,Sugarmaple
+3047496,LocForestSummersvilleDamLocation,Summersville Dam
+631181,LocForestSummersvilleDocksLocation,Summersville Docks
+631178,LocForestSummersvilleLocation,Summersville
+591401,LocForestSunshineMeadowsLocation,Sunshine Meadows Industrial Farm
+631793,LocForestSuttonLocation,Sutton
+4163888,LocForestSuttonOverseersHomeLocation,Overseer's Home
+2913961,LocForestSuttonTrainStationLocation,Sutton Station
+5250991,LocForestTheCrosshairLocation,The Crosshair
+5795114,LocForestThePigstyLocation,The Pigsty
+4242703,LocForestTheWaywardLocationExterior,The Wayward
+4301651,LocForestTheWaywardMuscleFightPOILocation,Wayward Fight POI
+3846398,LocForestTorranceHouseLocation,Torrance House
+3668618,LocForestTransmissionStation1ATU03Location,Transmission Station 1AT-U03
+3668626,LocForestTwinPineCabinsLocation,Twin Pine Cabins
+465572,LocForestTygartWaterTreatmentLocation,Tygart Water Treatment
+662398,LocForestTylerCountyFairgroundsLocation,Tyler County Fairgrounds
+3007869,LocForestTylerCountyTrackLocation,Tyler County Dirt Track
+5710790,LocForestUCBExteriorLocation,The Deep
+4218552,LocForestVault76LandingLocation,The Wayward
+64441,LocForestVaultTecAgCenterLocation,Vault-Tec Agricultural Research Center
+16588,LocForestVaultTecULocation,Vault-Tec University
+3697092,LocForestWVLumberCoLocation,WV Lumber Co.
+1101039,LocForestWadeAirportLocation,Wade Airport
+631075,LocForestWhitePowderWinterSportsLocation,White Powder Winter Sports
+3668631,LocForestWidowsPerchLocation,Widow's Perch
+1088430,LocForestWilsonBrothersAutoRepairLocation,Wilson Brother's Auto Repair
+3663581,LocForestWixonHomesteadLocation,Wixon Homestead
+583406,LocMTR08LodeBaring01Location,Abandoned Mine Shaft Elaine
+626794,LocMTR08LodeBaring02Location,Abandoned Mine Site Kittery
+3742197,LocMTRAMSTestSiteLocation,AMS Testing Site
+1088378,LocMTRAshforge01Location,Hornwright Air Purifier Site #01
+1088377,LocMTRAshforge02Location,Hornwright Air Purifier Site #02
+1088376,LocMTRAshforge03Location,Hornwright Air Purifier Site #03
+1088373,LocMTRAshforge04Location,Hornwright Air Purifier Site #04
+3315497,LocMTRBeckleyLocation,Beckley
+16713,LocMTRBeckleyWorkshopLocation,Beckley Mine Exhibit
+3797017,LocMTRBelchingBettyLocation,Belching Betty
+2194061,LocMTRBrimQuarryLocation,Brim Quarry
+16409,LocMTRBurningMineLocation,The Burning Mine
+102465,LocMTRCamdenParkLocation,Camden Park
+1608568,LocMTRENz04POI02Location,Bot Patrol Location POI 02
+3823596,LocMTRFissureSiteOmegaLocation,Fissure Site
+16719,LocMTRGarrahanEstateLocation,Garrahan Estate
+88889,LocMTRLakeReynoldsLocation,Lake Reynolds
+591214,LocMTRLewisburgLocation,Lewisburg
+2913966,LocMTRLewisburgTrainStationLocation,Lewisburg Station
+180341,LocMTRMineFire01Location,Abandoned Mine Shaft 1
+17905,LocMTRMineFire02Location,Abandoned Mine Shaft 2
+17906,LocMTRMineFire03Location,Abandoned Mine Shaft 3
+17907,LocMTRMineFire04Location,Abandoned Mine Shaft 4
+17908,LocMTRMineFire05Location,Abandoned Mine Shaft 5
+17909,LocMTRMineFire06Location,Abandoned Mine Shaft 6
+1261636,LocMTRMotherlode02Location,Hornwright Testing Site #02
+1161126,LocMTRMotherlode03Location,Hornwright Testing Site #03
+1161127,LocMTRMotherlode04Location,Hornwright Testing Site #04
+605137,LocMTRMountBlairLocation,Mount Blair
+605535,LocMTRMountBlairTrainyardLocation,Mount Blair Trainyard
+3742195,LocMTRNicholsonsEndLocation,Nicholson's End
+6769790,LocMTRNukaWorldOnTourLocation,Nuka-World On Tour
+3742189,LocMTRPleasantHillsCemeteryLocation,Pleasant Hills Cemetery
+4113461,LocMTRPylonAmbushSiteLocation,Pylon Ambush Site
+3668613,LocMTRRedRocketFillingStationLocation,Red Rocket Filling Station
+624146,LocMTRRelayTower05Location,Relay Tower HG-B7-09
+3742192,LocMTRRollinsWorkCampLocation,Rollins Labor Camp
+474475,LocMTRSalsGrindersLocation,Sal's Grinders
+5584137,LocMTRSludgeWorksLocation,The Sludge Works
+3824055,LocMTRStrikerRowLocation,Striker Row
+631878,LocMTRTheRustyPickLocation,The Rusty Pick
+3183142,LocMTRUnfinishedMansionLocation,Unfinished Mansion
+739441,LocMTRWelchLocation,Welch
+2913965,LocMTRWelchTrainStationLocation,Welch Station
+5899914,LocMountainAstronautCrashSiteLocation,Crash Site
+1089720,LocMountainSonsOfDaneCompoundLocation,Sons of Dane Compound
+3742180,LocMountainsAmmoDumpLocation,Ammo Dump
+3668629,LocMountainsAutumnAcreCabinLocation,Autumn Acre Cabin
+3668632,LocMountainsBaileyFamilyCabinLocation,Bailey Family Cabin
+5280592,LocMountainsBastionParkLocation,Bastion Park
+3668615,LocMountainsBeckwithFarmLocation,Beckwith Farm
+2120794,LocMountainsBigBendTunnelLocation,Big Bend Tunnel West
+468479,LocMountainsBigFredsBBQShackLocation,Big Fred's BBQ Shack
+16708,LocMountainsBlackwaterMineLocation,Blackwater Mine
+3742128,LocMountainsCliffwatchLocation,Cliffwatch
+605114,LocMountainsColKelleyMonumentLocation,Colonel Kelley Monument
+1135618,LocMountainsConvertedMunitionsFactoryLocation,Converted Munitions Factory
+399032,LocMountainsCultistCaveLocation,Lucky Hole Mine
+3742162,LocMountainsDentAndSonsConstructionLocation,Dent & Sons Construction
+5288633,LocMountainsDesertedMineLocation,Deserted Mine
+372001,LocMountainsDevilsBackboneLocation,Devil's Backbone
+1087925,LocMountainsEmmettDisposalSiteLocation,Emmett Mountain Disposal Site
+1088819,LocMountainsFederalDisposalFieldLocation,Federal Disposal Field HZ-21
+2953488,LocMountainsFissureSiteBetaLocation,Fissure Site
+3147698,LocMountainsFissureSiteGammaLocation,Fissure Site
+3823598,LocMountainsFissureSiteSigmaLocation,Fissure Site
+3823599,LocMountainsFissureSiteTauLocation,Fissure Site
+631080,LocMountainsFoundationLocation,Foundation
+6607439,LocMountainsFoundationOutpost,Foundation Outpost
+540414,LocMountainsGarrahanHQLocation,Garrahan Mining Headquarters
+16711,LocMountainsHopewellCaveLocation,Hopewell Cave
+540416,LocMountainsHornwrightEstateLocation,Hornwright Estate
+589539,LocMountainsHuntersvilleLocation,Huntersville
+1230494,LocMountainsInvestigatorsCabinLocation,Investigator's Cabin
+3742158,LocMountainsJohnsonsAcreLocation,Johnson's Acre
+5294960,LocMountainsLakeEloiseLocation,Lake Eloise
+630832,LocMountainsLookoutTower01Location,Whitespring Lookout
+113329,LocMountainsLookoutTower04Location,Central Mountain Lookout
+113331,LocMountainsLookoutTower05Location,North Mountain Lookout
+113332,LocMountainsLookoutTower06Location,East Mountain Lookout
+3728574,LocMountainsLookoutTower08Location,South Mountain Lookout
+6282560,LocMountainsMetalDomeLocation,Metal Dome
+2708945,LocMountainsMiddleMountainCabinsLocation,Middle Mountain Pitstop
+598284,LocMountainsMinersMonumentLocation,Miners Monument
+3506189,LocMountainsMoMBattleSiteLocation,Battle Site
+5294961,LocMountainsMonoRailElevatorLocation,Monorail Elevator
+604894,LocMountainsMonongahLocation,Monongah
+598583,LocMountainsMonongahMineLocation,Monongah Mine
+5353561,LocMountainsMonongahMissileSiloExteriorLocation,Missile Silo Bravo
+2913843,LocMountainsMonongahOverlookLocation,Monongah Overlook
+597767,LocMountainsMonongahPowerPlantLocation,Monongah Power Plant
+4016919,LocMountainsMonongahPowerPlantWorkshopLocation,Monongah Power Plant Yard
+611094,LocMountainsMountainsideBBLocation,Mountainside Bed & Breakfast
+3857947,LocMountainsNARRegionalLocation,98 NAR Regional
+20606,LocMountainsNationalRadioArrayLocation,National Isolated Radio Array
+450111,LocMountainsNationalRadioResearchCenterLocation,National Radio Research Center
+3668634,LocMountainsNorthCutthroatCampLocation,North Cutthroat Camp
+617129,LocMountainsObservatoryLocation,Fort Atlas
+3276860,LocMountainsPOISavageDivide08Location,
+617059,LocMountainsPalaceoftheWindingPathLocation,Palace of the Winding Path
+103337,LocMountainsPleasantValleyCabinsLocation,Pleasant Valley Cabins
+103335,LocMountainsPleasantValleySkiResortLocation,Pleasant Valley Ski Resort
+2913971,LocMountainsPleasantValleyTrainStationLocation,Pleasant Valley Station
+630864,LocMountainsPumpkinHouseLocation,Pumpkin House
+2913977,LocMountainsRNGTrainStationLocation,R&G Station
+630833,LocMountainsRedRocketMegaStopLocation,Red Rocket Mega Stop
+624142,LocMountainsRelayTower01Location,Relay Tower EL-B1-02
+624144,LocMountainsRelayTower03Location,Relay Tower DP-B5-21
+624145,LocMountainsRelayTower04Location,Relay Tower LW-B1-22
+3742105,LocMountainsRipperAlleyLocation,Ripper Alley
+3742123,LocMountainsSafeNCleanDisposalLocation,Safe 'n Clean Disposal
+5291844,LocMountainsScenicOverlookLocation,Scenic Overlook
+3668636,LocMountainsSenecaGangCampLocation,Seneca Gang Camp
+3271725,LocMountainsSenecaRocksLocation,Seneca Rocks
+630993,LocMountainsSenecaRocksVisitorCenterLocation,Seneca Rocks Visitor Center
+4359094,LocMountainsSettlerBugOutLocation,Settler Bug Out
+4359093,LocMountainsSettlerScorchedCampLocation,Savage Divide
+3668628,LocMountainsSkullboneVantageLocation,Skullbone Vantage
+3838142,LocMountainsSludgeHoleLocation,The Sludge Hole
+3742185,LocMountainsSolomonsPondLocation,Solomon's Pond
+3668624,LocMountainsSouthCutthroatCampLocation,South Cutthroat Camp
+631111,LocMountainsSpruceKnobCampgroundLocation,Spruce Knob Campground
+5294958,LocMountainsSpruceKnobChannelsLocation,Spruce Knob Channels
+5294957,LocMountainsSpruceKnobLakeLocation,Spruce Knob Lake
+5353562,LocMountainsSpruceKnobMissileSiloExteriorLocation,Missile Silo Charlie
+2937569,LocMountainsSubstationMonongahMZ01Location,Monongah Power Substation MZ-01
+2937570,LocMountainsSubstationMonongahMZ02Location,Monongah Power Substation MZ-02
+2937571,LocMountainsSubstationMonongahMZ03Location,Monongah Power Substation MZ-03
+2941709,LocMountainsSubstationPoseidonPX03Location,Poseidon Power Substation PX-03
+631134,LocMountainsSugarGroveLocation,Sugar Grove
+5307892,LocMountainsSugarGroveMissileSiloExteriorLocation,Missile Silo Alpha
+3007874,LocMountainsSunnytopSkiLanesBaseLodgeLocation,Sunnytop Ski Lanes Base Lodge
+29490,LocMountainsSunnytopSkiLanesLocation,Sunnytop Ski Lanes
+2913970,LocMountainsSunnytopTrainStationLocation,Sunnytop Station
+5250976,LocMountainsSylvieAndSonsLoggingCampLocation,Sylvie & Sons Logging Camp
+5795112,LocMountainsTheBountyLocation,The Bounty
+3752625,LocMountainsTheFreakShowLocation,The Freak Show
+3668623,LocMountainsTheRoseRoomLocation,The Rose Room
+3668611,LocMountainsTheVantageLocation,The Vantage
+2913973,LocMountainsTheWhitespringTrainStationLocation,The Whitespring Station
+103338,LocMountainsTopOfTheWorldLocation,Top of the World
+3668612,LocMountainsToxicLarrysMeatnGoLocation,Toxic Larry's Meat 'n Go
+3080998,LocMountainsTrappersCampLocation,
+3824050,LocMountainsUS13CBivouacLocation,US-13C Bivouac
+6230316,LocMountainsUncannyCavernsLocation,Uncanny Caverns
+6270221,LocMountainsWendigoCaveLocationDUPLICATE000,Wendigo Cave
+6270220,LocMountainsWestTekResearchLocation,West Tek Research Center
+3742126,LocMountainsYellowSandysStillLocation,Yellow Sandy's Still
+399019,LocSacramentalGladeLocation,Sacramental Glade
+8027757,LocStormBigBloomSiteLocation,Susan's Cabin
+7061130,LocStormBlueRidgeCampLocation,Naked Creek
+7050882,LocStormCampRapidanLocation,Rapidan Camp
+7061129,LocStormCrashedScoutsBusLocation,South River Bridge
+7556227,LocStormCrossroadLocation,Crossroad
+7050890,LocStormCultistTunnelsLocation,Old Crimora Mines
+7812278,LocStormDarkWoodManorGateLocation,Mary's Rock Tunnel
+7050879,LocStormDarkwoodManorLocation,Dark Hollow Manor
+7050892,LocStormFederalNatrualGasFieldNG17Location,Big Meadows Gas Well
+7512229,LocStormForestVault63CrashSiteLocation,Vault 63 Crash Site
+7061128,LocStormHallucinogenicCaveLocation,Shining Creek Cavern
+7050893,LocStormHighKnobFireTowerLocation,High Knob Lookout
+7525832,LocStormLightningHarvesterSiteA,Research Site Saxony
+7525831,LocStormLightningHarvesterSiteB,Research Site Bavaria
+7525830,LocStormLightningHarvesterSiteC,Research Site Rhineland
+7050886,LocStormMakeoutPointLocation,Makeout Point
+7216684,LocStormNaturalBridge,Grindstone Arch
+7096968,LocStormRadioactiveWasteSiteLocation,Hemlock Springs Dump
+7310013,LocStormRangerStationBunkerLocation,Park Ranger Radio Bunker
+7050891,LocStormRedRocketMotelLocation,The Slumber Mill Motel
+7769818,LocStormRoadLocation,Shenandoah National Park
+7050880,LocStormRobinsonRangerStationLocation,Shenandoah Visitor Center
+7096969,LocStormSkyboundTowerLocation,Old Rag Lookout
+7050881,LocStormSkylineDriveEntranceLocation,Skyline Drive Entrance
+7771668,LocStormSubstationThunderMtTM03Location,Thunder Mountain Substation TM-03
+7050888,LocStormSummerCampLocation,Camp Liberty
+7797099,LocStormThreePondsLocation,Three Ponds
+7050889,LocStormTradingPostLocation,The Trading Post
+7050884,LocStormVaultCovoyLocation,Abandoned Convoy
+7050883,LocStormWeatherStationLocation,Hawksbill Weather Station
+7050885,LocStormWoodstockTowerLocation,Stony Man Lookout
+6182464,LocSubToxicValleyMakeshiftVaultLocation,Enclave Research Facility
+282445,LocSwampAbbiesBunkerLocation,Abbie's Bunker
+16715,LocSwampBerkeleySpringsLocation,Berkeley Springs
+5514941,LocSwampBerkeleySpringsRaiderCampLocation,Bloody Frank's
+4160615,LocSwampBerkeleySpringsTrainStationLocation,Berkeley Springs Station
+2726216,LocSwampBerkeleySpringsWorkshopLocation,Berkeley Springs
+3183143,LocSwampBigBsRestStopLocation,Big B's Rest Stop
+3847258,LocSwampBigMawLocation,Big Maw
+5795121,LocSwampBlakesOfferingLocation,Blakes Offering
+3183228,LocSwampBraxsonsQualityMedicalSuppliesLocation,Braxson's Quality Medical Supplies
+2691036,LocSwampCarsonFamilyBunkerLocation,Carson Family Bunker
+3038274,LocSwampCrashedPlaneLocation,Crashed Plane
+29341,LocSwampCrevasseDamLocation,Crevasse Dam
+1089347,LocSwampDabneyHomesteadLocation,Dabney Homestead
+631727,LocSwampDaggersDenLocation,Dagger's Den
+4629868,LocSwampDelanoGrangeLocation,Delano Grange
+3007873,LocSwampDollySodsCampgroundLocation,Dolly Sods Campground
+372080,LocSwampDollySodsWildernessLocation,Dolly Sods Wilderness
+351745,LocSwampDyerChemicalLocation,Dyer Chemical
+1434314,LocSwampENz04POI03Location,Bot Patrol Location POI 03
+3369807,LocSwampEllaAmesBunkerLocation,Ella Ames' Bunker
+3752622,LocSwampExcelsiorModelHomeLocation,Excelsior Model Home
+3823597,LocSwampFissureSiteOmicronLocation,Fissure Site
+399314,LocSwampFreddyFearsHouseOfScaresLocation,Freddy Fear's House of Scares
+3795598,LocSwampFreeStatesBunker07Location,Ransacked Bunker
+5395411,LocSwampGnarledShallowsLocation,Gnarled Shallows
+5395365,LocSwampGulperLagoonLocation,Gulper Lagoon
+6346138,LocSwampHarpersFerryDungeonExtLocation,Harpers Ferry Tunnel
+459624,LocSwampHarpersFerryLocation,Harpers Ferry
+361625,LocSwampHavenChurchLocation,Haven Church
+5395278,LocSwampHighlandMarshLocation,Highland Marsh
+465612,LocSwampHuntersShackLocation,Hunter's Shack
+3183181,LocSwampKMAXTransmissionLocation,KMAX Transmission
+3824175,LocSwampLookoutTower11Location,East Ridge Lookout
+3824179,LocSwampLookoutTower13Location,Dolly Sods Lookout
+7792447,LocSwampMireseyeLocation,Mire's Eye
+3668619,LocSwampMossTownLocation,Mosstown
+5795120,LocSwampMothHomeLocation,Moth-Home
+647398,LocSwampRaleighsBunkerLocation,Raleigh Clay's Bunker
+5795123,LocSwampSacramentLocation,Sacrament
+2975038,LocSwampSamBlackwellBunkerLocation,Sam Blackwell's Bunker
+3183206,LocSwampSouthernBelleMotelLocation,Southern Belle Motel
+5251008,LocSwampSouthhamptonEstateLocation,Southhampton Estate
+2933451,LocSwampSubstationThunderMtTM01Location,Thunder Mountain Substation TM-01
+631721,LocSwampSundayBrothersCabinLocation,Sunday Brothers' Cabin
+631645,LocSwampSurvivalTrainingCenterLocation,Camp Venture
+3142776,LocSwampTanagraTownLocation,Tanagra Town
+632537,LocSwampTheRetreatLocation,The Retreat
+611765,LocSwampThunderMountainPowerPlantLocation,Thunder Mountain Power Plant
+4016920,LocSwampThunderMountainPowerPlantWorkshopLocation,Thunder Mt. Power Plant Yard
+3785676,LocSwampTreetopsLocation,Treetops
+6053385,LocSwampValleyGalleriaLocation,Valley Galleria
+569360,LocToxicBeckerFarmLocation,Becker Farm
+468474,LocToxicBlackBearLodgeLocation,Black Bear Lodge
+379964,LocToxicClarksburgLocation,Clarksburg
+389247,LocToxicClarksburgShootingClubLocation,Clarksburg Shooting Club
+3668622,LocToxicCobbletonFarmLocation,Cobbleton Farm
+4243878,LocToxicCraterWatchstationLocation,Crater Watchstation
+88293,LocToxicEasternRegionalPenLocation,Eastern Regional Penitentiary
+622487,LocToxicFissureSiteDeltaLocation,Fissure Site
+29342,LocToxicGraftonDamLocation,Grafton Dam
+3883082,LocToxicGraftonLakeLocation,Grafton Lake
+450093,LocToxicGraftonLocation,Grafton
+447218,LocToxicGraftonSteelLocation,Grafton Steel
+4425059,LocToxicGraftonSteelWorkshopLocation,Grafton Steel Yard
+2913979,LocToxicGraftonTrainStationLocation,Grafton Station
+583202,LocToxicGraningerFarmLocation,Graninger Farm
+459728,LocToxicHemlockHolesLocation,Hemlock Holes
+3658196,LocToxicHemlockHolesWorkshopLocation,Hemlock Holes Maintenance
+3668614,LocToxicKiddieCornerCabinsLocation,Kiddie Corner Cabins
+3742234,LocToxicKnifeEdgeLocation,Knife Edge
+2913948,LocToxicLookoutTower07Location,Pioneer Scout Lookout
+4242577,LocToxicLousMineLocation,Carleton Mine
+616960,LocToxicPhilippiBattlefieldCemeteryLocation,Philippi Battlefield Cemetery
+632518,LocToxicPioneerScoutCampLocation,Pioneer Scout Camp
+559803,LocToxicPrickettsFortLocation,Prickett's Fort
+4234960,LocToxicRaiderRaidLocation,Raider Raid Location
+583193,LocToxicSmithFarmLocation,Smith Farm
+7623497,LocToxicSurlysShackLocation,Surly's Shack
+399027,LocToxicTheCraterLocation,The Crater
+3458973,LocToxicToxicDriedLakebedLocation,Toxic Dried Lakebed
+730071,LocToxicWavyWillardsWaterparkLocation,Wavy Willard's Water Park
+3668610,LocToxicWillardCorporateHousingLocation,Willard Corporate Housing
+2995407,LocToxicWoodsEstateLocation,Woods Estate
+1186090,LocVault63Location,Vault 63
+1218822,LocWhitespringTheWhitespringBunkerLocation,The Whitespring Bunker
+631889,LocWhitespringTheWhitespringGolfLocation,The Whitespring Golf Club
+7737477,MILE_Location_EncounterPointA,Caravan Encounter Point 01
+7737468,MILE_Location_EncounterPointB,Caravan Encounter Point 02
+7737469,MILE_Location_EncounterPointC,Caravan Encounter Point 03
+7737470,MILE_Location_EncounterPointD,Caravan Encounter Point 04
+7737472,MILE_Location_EncounterPointE,Caravan Encounter Point 05
+7737473,MILE_Location_EncounterPointF,Caravan Encounter Point 06
+7737474,MILE_Location_EncounterPointG,Caravan Encounter Point 07
+7737475,MILE_Location_EncounterPointH,Caravan Encounter Point 08
+7737478,MILE_Location_EncounterPointI,Caravan Encounter Point 09
+7737476,MILE_Location_EncounterPointJ,Caravan Encounter Point 10
+7737467,MILE_Location_EncounterPointK,Caravan Encounter Point 11
+7737471,MILE_Location_EncounterPointL,Caravan Encounter Point 12
+7935844,MILE_Location_MilePostZero,Milepost Zero
+1864907,MTNM02SignalLocation,
+8054182,RegionBurningSpringsLocation,Burning Springs
+4770,RegionCranberryBogLocation,Cranberry Bog
+610308,RegionForestFloodlandsLocation,The Forest
+17872,RegionMTRLocation,Ash Heap
+1542648,RegionMountainLocation,Savage Divide
+6890472,RegionStormLocation,Skyline Valley
+17889,RegionSwampForestLocation,The Mire
+559802,RegionToxicValleyLocation,Toxic Valley
+3347727,SFL02_Track_HardballLocation,
+363246,SFM01_Glow_MirelurkQueenSpawnLocation01,
+372267,SFM01_Glow_MirelurkQueenSpawnLocation02,
+2885790,SFM04_Organic_NestLocation01,
+2885791,SFM04_Organic_NestLocation02,
+665205,SFS08_Heart_VineHeartLocation01,
+665693,SFS08_Heart_VineHeartLocation02,
+665206,SFS08_Heart_VineHeartLocation03,
+283135,SFZ03_Queen_BossLocation01,Site Alpha
+283144,SFZ03_Queen_BossLocation02,Site Beta
+245097,SFZ03_Queen_BossLocation03,Site Gamma
+2840116,SFZ03_Queen_BossLocation04,Site Delta
+2840121,SFZ03_Queen_BossLocation05,Site Epsilon
+3076115,SFZ08_HoneyLocation01,
+3076107,SF_BloodbugSwarmLocation01,
+3076108,SF_BloodbugSwarmLocation02,
+3076109,SF_BloodbugSwarmLocation03,
+3076110,SF_BloodbugSwarmLocation04,
+7717869,StormMarysRockTunnelLocation,Mary's Rock Tunnel
+3824054,SubForestCampAdamsLocation,Camp Adams
+77675,SubMTRENz04POI04Location,Bot Patrol Location POI 04
+8219275,SubRegionBurningSprings01Location,Burning Springs
+8219276,SubRegionBurningSprings02Location,Burning Springs
+8219277,SubRegionBurningSprings03Location,Burning Springs
+8219278,SubRegionBurningSprings04Location,Burning Springs
+8219279,SubRegionBurningSprings05Location,Burning Springs
+8219280,SubRegionBurningSprings06Location,Burning Springs
+8219281,SubRegionBurningSprings07Location,Burning Springs
+8219282,SubRegionBurningSprings08Location,Burning Springs
+8219283,SubRegionBurningSprings09Location,Burning Springs
+8219284,SubRegionBurningSprings10Location,Burning Springs
+8219285,SubRegionBurningSprings11Location,Burning Springs
+8219286,SubRegionBurningSprings12Location,Burning Springs
+8219287,SubRegionBurningSprings13Location,Burning Springs
+8219288,SubRegionBurningSprings14Location,Burning Springs
+8219289,SubRegionBurningSprings15Location,Burning Springs
+8219290,SubRegionBurningSprings16Location,Burning Springs
+8219291,SubRegionBurningSprings17Location,Burning Springs
+8219292,SubRegionBurningSprings18Location,Burning Springs
+8219293,SubRegionBurningSprings19Location,Burning Springs
+8219294,SubRegionBurningSprings20Location,Burning Springs
+3055768,SubRegionCranberry01Location,Cranberry Bog
+3073253,SubRegionCranberry02Location,Cranberry Bog
+3073262,SubRegionCranberry03Location,Cranberry Bog
+3073316,SubRegionCranberry12Location,Cranberry Bog
+3109008,SubRegionCranberry13Location,Cranberry Bog
+3109009,SubRegionCranberry14Location,Cranberry Bog
+3109010,SubRegionCranberry15Location,Cranberry Bog
+3109011,SubRegionCranberry16Location,Cranberry Bog
+3109012,SubRegionCranberry17Location,Cranberry Bog
+310780,SubRegionForestFloodlands01Location,The Forest
+310781,SubRegionForestFloodlands02Location,The Forest
+310874,SubRegionForestFloodlands03Location,The Forest
+310885,SubRegionForestFloodlands04Location,The Forest
+310900,SubRegionForestFloodlands05Location,The Forest
+3073317,SubRegionForestFloodlands06LocationLOW,The Forest
+3073318,SubRegionForestFloodlands07LocationLOW,The Forest
+3073319,SubRegionForestFloodlands08LocationLOW,The Forest
+3073320,SubRegionForestFloodlands09Location,The Forest
+3073321,SubRegionForestFloodlands10Location,The Forest
+3073325,SubRegionForestFloodlands11LocationLOW,The Forest
+3073326,SubRegionForestFloodlands12LocationLOW,The Forest
+3073327,SubRegionForestFloodlands13LocationLOW,The Forest
+3073331,SubRegionForestFloodlands14Location,The Forest
+3073332,SubRegionForestFloodlands15Location,The Forest
+3073333,SubRegionForestFloodlands16LocationLOW,The Forest
+3073363,SubRegionForestFloodlands17LocationLOW,The Forest
+3073364,SubRegionForestFloodlands18Location,The Forest
+3073365,SubRegionForestFloodlands19Location,The Forest
+3073366,SubRegionForestFloodlands20Location,The Forest
+3256031,SubRegionForestFloodlands21Location,The Forest
+3256032,SubRegionForestFloodlands22Location,The Forest
+3256033,SubRegionForestFloodlands23Location,The Forest
+3256034,SubRegionForestFloodlands24Location,The Forest
+3256035,SubRegionForestFloodlands25Location,The Forest
+3256036,SubRegionForestFloodlands26Location,The Forest
+3256043,SubRegionForestFloodlands27Location,The Forest
+3256044,SubRegionForestFloodlands28Location,The Forest
+3073381,SubRegionMountainRemoval01Location,The Ash Heap
+3073382,SubRegionMountainRemoval02Location,The Ash Heap
+3073383,SubRegionMountainRemoval03Location,The Ash Heap
+3073384,SubRegionMountainRemoval04Location,The Ash Heap
+3073385,SubRegionMountainRemoval05Location,The Ash Heap
+3073386,SubRegionMountainRemoval06Location,The Ash Heap
+3073387,SubRegionMountainRemoval07Location,The Ash Heap
+4467120,SubRegionMountainRemoval08LocationLOW,The Ash Heap
+3108967,SubRegionMountains01Location,Savage Divide
+3109102,SubRegionMountains02Location,Savage Divide
+3109103,SubRegionMountains03Location,Savage Divide
+3109104,SubRegionMountains04Location,Savage Divide
+3109105,SubRegionMountains05Location,Savage Divide
+3109106,SubRegionMountains06Location,Savage Divide
+3109107,SubRegionMountains07Location,Savage Divide
+3109108,SubRegionMountains08Location,Savage Divide
+3109109,SubRegionMountains09Location,Savage Divide
+3109110,SubRegionMountains10Location,Savage Divide
+3109111,SubRegionMountains11Location,Savage Divide
+3109112,SubRegionMountains12Location,Savage Divide
+3109113,SubRegionMountains13LocationLOW,Savage Divide
+3109114,SubRegionMountains14Location,Savage Divide
+3109115,SubRegionMountains15Location,Savage Divide
+3109116,SubRegionMountains16Location,Savage Divide
+3109117,SubRegionMountains17Location,Savage Divide
+3109118,SubRegionMountains18Location,Savage Divide
+3109119,SubRegionMountains19Location,Savage Divide
+3109120,SubRegionMountains20Location,Savage Divide
+3376949,SubRegionMountains21Location,Savage Divide
+3376950,SubRegionMountains22Location,Savage Divide
+3376951,SubRegionMountains23Location,Savage Divide
+3376952,SubRegionMountains24Location,Savage Divide
+3376953,SubRegionMountains25Location,Savage Divide
+3376954,SubRegionMountains26Location,Savage Divide
+3376955,SubRegionMountains27Location,Savage Divide
+3376956,SubRegionMountains28Location,Savage Divide
+3376957,SubRegionMountains29Location,Savage Divide
+3376958,SubRegionMountains30Location,Savage Divide
+3376999,SubRegionMountains31Location,Savage Divide
+3377000,SubRegionMountains32Location,Savage Divide
+3377001,SubRegionMountains33Location,Savage Divide
+3377002,SubRegionMountains34Location,Savage Divide
+7636852,SubRegionStorm01Location,Shenandoah National Park
+7637590,SubRegionStorm02Location,Shenandoah National Park
+7639144,SubRegionStorm03Location,Shenandoah National Park
+7659969,SubRegionStorm04Location,Shenandoah National Park
+7664770,SubRegionStorm05Location,Shenandoah National Park
+7677551,SubRegionStorm06Location,Shenandoah National Park
+7702383,SubRegionStorm07Location,Shenandoah National Park
+7703017,SubRegionStorm08Location,Shenandoah National Park
+7707478,SubRegionStorm09Location,Shenandoah National Park
+7666710,SubRegionStorm10Location,Shenandoah National Park
+7718606,SubRegionStorm11Location,Shenandoah National Park
+7672218,SubRegionStorm12Location,Shenandoah National Park
+7671650,SubRegionStorm13Location,Shenandoah National Park
+7719735,SubRegionStorm14Location,Shenandoah National Park
+7719736,SubRegionStorm15Location,Shenandoah National Park
+7711873,SubRegionStorm16Location,Shenandoah National Park
+7773109,SubRegionStorm17Location,Shenandoah National Park
+7719737,SubRegionStorm18Location,Shenandoah National Park
+3108968,SubRegionSwamp01Location,Mire
+3108969,SubRegionSwamp02Location,Mire
+3108970,SubRegionSwamp03Location,Mire
+3108971,SubRegionSwamp04Location,Mire
+3108972,SubRegionSwamp05Location,Mire
+3108973,SubRegionSwamp06Location,Mire
+3108974,SubRegionSwamp07Location,Mire
+3108975,SubRegionSwamp08Location,Mire
+3108976,SubRegionSwamp09Location,Mire
+3108977,SubRegionSwamp10Location,Mire
+3108978,SubRegionSwamp11Location,Mire
+8044165,SubRegionSwamp12Location,Mire
+3108988,SubRegionToxicValley01Location,Toxic Valley
+3108989,SubRegionToxicValley02Location,Toxic Valley
+3108991,SubRegionToxicValley04Location,Toxic Valley
+3108992,SubRegionToxicValley05LocationLOW,Toxic Valley
+3108993,SubRegionToxicValley06LocationLOW,Toxic Valley
+3108994,SubRegionToxicValley07Location,Toxic Valley
+6198647,Vault51ExteriorLocation,Vault 51
+726037,Vault76LocationExterior,Vault 76
+5822659,Vault79EntranceLocation_Exterior,Mysterious Cave
+5897398,Vault79ExitLocation_Exterior,Vault 79
+4134862,Vault94ExteriorLocation,Vault 94
+728386,Vault96ExteriorLocation,Vault 96
+5539848,W05_JP_Community_SwampLocation,Mire
+
+Cell count by location
+BURN_FrontierFortLOC,1
+BURN_JacksonJunkyardLOC,4
+BullengrubeLocation_Exterior,3
+CharlestonOrbitalDrop01Location,1
+EN07LimoPOI01Location,1
+EN07NukeMeshDepotLocation,1
+FSLureCranberryBog01Location,1
+FSLureCranberryBog02Location,1
+FSLureForest01Location,1
+FSLureForest02Location,1
+FSLureMTR01Location,1
+FSLureMTR02Location,1
+FSLureMountains01Location,1
+FSLureMountains02Location,1
+FSLureSwamp01Location,1
+FSLureSwamp02Location,1
+FSLureToxicValley02Location,1
+GhoulCabinLocation,2
+GhoulCampLocation_Exterior,4
+GhoulCaveLocation_Exterior,1
+GhoulPointReposeLocation,2
+LocBurnAshCaveLocation,10
+LocBurnAthensArmoryLocation,2
+LocBurnAthensLocation,19
+LocBurnCheckpointCanyonExt,4
+LocBurnChopShop,4
+LocBurnCornhengeLocation,9
+LocBurnDinoGolf,5
+LocBurnDriveinWorkshopLocation,12
+LocBurnFrontierFortLocation,4
+LocBurnHighwayTownExtLocation,4
+LocBurnPOI101WildwoodRanchLocation,1
+LocBurnPOI133AbraxodyneStorageDepotLocation,1
+LocBurnPOI16HillsideChurchLocation,1
+LocBurnPOI19SockHopLocation,1
+LocBurnPOI32DesolateEncampmentCampLocation,2
+LocBurnPOI37UFOWatcherLocation,1
+LocBurnPOI41ApiaryLocation,1
+LocBurnPOI54AlbanyLocation,3
+LocBurnPOI59LanganMillLocation,4
+LocBurnPOI71PlaygroundLocation,1
+LocBurnPOI73DerelictPowerSubstationLocation,1
+LocBurnRailroadServiceYardExtLocation,6
+LocBurnRustKingdomExtLocation,16
+LocBurnSDMLocation,4
+LocBurnSinkholeLocation,10
+LocBurnTrainStationLocation,4
+LocCranberryAMSCorporateHQLocation,1
+LocCranberryAbandonedBogTownLocation,8
+LocCranberryAbandonedBogTownWorkshopLocation,6
+LocCranberryAlleghenyAsylumLocation,10
+LocCranberryAppalachianAntiquesLocation,2
+LocCranberryBigBendTunnelEastLocation,2
+LocCranberryBootleggersShackLocation,1
+LocCranberryDropSiteC2Location,1
+LocCranberryDropSiteG3Location,1
+LocCranberryDropSiteV9Location,1
+LocCranberryDuelingFarmsLocation,2
+LocCranberryENz04POI01Location,2
+LocCranberryElectricTowerCampLocation,6
+LocCranberryFirebaseHancockLocation,1
+LocCranberryFirebaseLTLocation,1
+LocCranberryFirebaseMajorLocation,3
+LocCranberryFissureSiteAlphaLocation,2
+LocCranberryFissureSiteEpsilonLocation,2
+LocCranberryFissureSiteZetaLocation,2
+LocCranberryFloodedTrainyardLocation,7
+LocCranberryForwardStationAlphaLocation,5
+LocCranberryForwardStationDeltaLocation,1
+LocCranberryGeneralsSteakhouseLocation,3
+LocCranberryGlassedCavernLocation,2
+LocCranberryKerwoodMineLocation,3
+LocCranberryLookoutTower12Location,1
+LocCranberryLostHomeLocation,4
+LocCranberryMacsFarmLocation,2
+LocCranberryNARRepairYardLocation,1
+LocCranberryOldMoldQuarryLocation,5
+LocCranberryPylonV13Location,1
+LocCranberryQuarryX3Location,6
+LocCranberryRangerDistrictOfficeLocation,5
+LocCranberryRobCoResearchCenterLocation,11
+LocCranberrySubstationThunderMtTM02Location,2
+LocCranberrySundewGrove01Location,4
+LocCranberrySundewGrove02Location,4
+LocCranberrySundewGrove03Location,3
+LocCranberrySundewGrove04Location,4
+LocCranberrySunriseFieldLocation,6
+LocCranberrySuperiorSunsetFarmLocation,4
+LocCranberrySurveyCampAlphaLocation,1
+LocCranberryTheThornLocation,1
+LocCranberryWatogaCivicCenterExteriorLocation,2
+LocCranberryWatogaEmergencyServicesLocation,1
+LocCranberryWatogaEstatesLocation,2
+LocCranberryWatogaHighSchoolLocation,3
+LocCranberryWatogaLocation,18
+LocCranberryWatogaMunicipalCenterLocation,1
+LocCranberryWatogaShoppingPlazaLocation,1
+LocCranberryWatogaTrainStationLocation,1
+LocCranberryWatogaTransitHubLocation,1
+LocFishermansRestLocation,6
+LocForestAVRMedicalCenterLocation,5
+LocForestAaronholtHomesteadLocation,12
+LocForestAlpineRiverCabinsLocation,5
+LocForestAnchorFarmLocation,1
+LocForestArktosPharmaLocation,6
+LocForestBillingsHomesteadLocation,10
+LocForestBlackMountainOrdnanceWorksLocation,14
+LocForestBleedingKatesGrinderLocation,4
+LocForestBlueRidgeEncampmentLocation,1
+LocForestBoltonGreensLocation,15
+LocForestBurdetteManorLocation,2
+LocForestCampMcClintockLocation,14
+LocForestCharlestonCapitolLocation,6
+LocForestCharlestonCityEastLocation,6
+LocForestCharlestonCityNorthLocation,10
+LocForestCharlestonCitySouthLocation,7
+LocForestCharlestonCityWestLocation,3
+LocForestCharlestonFireDeptLocation,4
+LocForestCharlestonLandfillLocation,8
+LocForestCharlestonTrainStationLocation,2
+LocForestCharlestonTrainyardLocation,4
+LocForestClancyManorLocation,2
+LocForestCowSpotsCreameryLocation,1
+LocForestCraterOutpostLocation,3
+LocForestCultistCaveNorthLocation,1
+LocForestCultistCaveSouthLocation,1
+LocForestCultistCaveWestLocation,1
+LocForestDarlingSistersLabLocation,2
+LocForestDeathclawIslandLocation,6
+LocForestENz04POI05Location,1
+LocForestFissureSiteKappaLocation,2
+LocForestFissureSiteLambdaLocation,1
+LocForestFissureSiteThetaLocation,2
+LocForestFlatwoodsLocation,9
+LocForestFlatwoodsTavernLocation,2
+LocForestForwardStationTangoLocation,2
+LocForestFoundationOutpost,2
+LocForestGauleyMineExitLocation,3
+LocForestGiantTeapotLocation,5
+LocForestGilmanLumberLocation,2
+LocForestGorgeJunkyardLocation,16
+LocForestGreenCountryLodgeLocation,4
+LocForestGregsMineSupplyLocation,3
+LocForestGrovesFamilyCabinLocation,2
+LocForestHelvetiaLocation,10
+LocForestHillfolkHotdogsLocation,1
+LocForestHorizonsRestLocation,2
+LocForestHornwrightIndustrialHQLocation,1
+LocForestHornwrightSummerVillaLocation,3
+LocForestHuntersRidgeLocation,5
+LocForestIsolatedCabinLocation,2
+LocForestKanawhaCountyCemeteryLocation,5
+LocForestLadyJanetSoftServeLocation,1
+LocForestLakesideCabinsLocation,12
+LocForestLandviewLighthouseLocation,10
+LocForestLewisAndSonsFarmingSupplyLocation,2
+LocForestLookoutTower02Location,1
+LocForestLookoutTower03Location,1
+LocForestLookoutTower09Location,1
+LocForestLookoutTower10Location,1
+LocForestMamaDolceProcessingLocation,4
+LocForestMarigoldPavilionLocation,1
+LocForestMoonshinersShackLocation,1
+LocForestMorgantownAirportLocation,12
+LocForestMorgantownHighSchoolLocation,2
+LocForestMorgantownLocation,34
+LocForestMorgantownTrainStationLocation,2
+LocForestMorgantownTrainyardLocation,8
+LocForestNewGadLocation,6
+LocForestNewRiverGorgeResortLocation,12
+LocForestNewRiverGorgeRopesCourseLocation,3
+LocForestNukaColaQuantumPlantLocation,6
+LocForestOhioRiverAdventuresLocation,5
+LocForestOrwellOrchardsLocation,3
+LocForestOverlookCabinLocation,1
+LocForestOverseersCAMPLocation,1
+LocForestPOIForest25Location,1
+LocForestPointPleasantLocation,22
+LocForestPortsidePubLocation,1
+LocForestPoseidonEnergyLocation,8
+LocForestPoseidonEnergyWorkshopLocation,16
+LocForestRelayTower02Location,1
+LocForestRelayTower06Location,1
+LocForestRiversideManorLocation,5
+LocForestSilvaHomesteadLocation,4
+LocForestSlocumsJoeLocation,1
+LocForestSubstationPoseidonPX01Location,4
+LocForestSubstationPoseidonPX02Location,4
+LocForestSugarmapleLocation,1
+LocForestSummersvilleDamLocation,4
+LocForestSummersvilleDocksLocation,8
+LocForestSummersvilleLocation,11
+LocForestSunshineMeadowsLocation,8
+LocForestSuttonLocation,8
+LocForestSuttonOverseersHomeLocation,1
+LocForestSuttonTrainStationLocation,2
+LocForestTheCrosshairLocation,2
+LocForestThePigstyLocation,2
+LocForestTheWaywardLocationExterior,1
+LocForestTheWaywardMuscleFightPOILocation,1
+LocForestTorranceHouseLocation,4
+LocForestTransmissionStation1ATU03Location,1
+LocForestTwinPineCabinsLocation,2
+LocForestTygartWaterTreatmentLocation,4
+LocForestTylerCountyFairgroundsLocation,9
+LocForestTylerCountyTrackLocation,16
+LocForestUCBExteriorLocation,1
+LocForestVault76LandingLocation,2
+LocForestVaultTecAgCenterLocation,5
+LocForestVaultTecULocation,6
+LocForestWVLumberCoLocation,6
+LocForestWadeAirportLocation,42
+LocForestWhitePowderWinterSportsLocation,4
+LocForestWidowsPerchLocation,1
+LocForestWilsonBrothersAutoRepairLocation,1
+LocForestWixonHomesteadLocation,3
+LocMTR08LodeBaring01Location,2
+LocMTR08LodeBaring02Location,4
+LocMTRAMSTestSiteLocation,2
+LocMTRAshforge01Location,1
+LocMTRAshforge02Location,1
+LocMTRAshforge03Location,2
+LocMTRAshforge04Location,1
+LocMTRBeckleyLocation,12
+LocMTRBeckleyWorkshopLocation,10
+LocMTRBelchingBettyLocation,4
+LocMTRBrimQuarryLocation,5
+LocMTRBurningMineLocation,2
+LocMTRCamdenParkLocation,18
+LocMTRENz04POI02Location,1
+LocMTRFissureSiteOmegaLocation,1
+LocMTRGarrahanEstateLocation,8
+LocMTRLakeReynoldsLocation,4
+LocMTRLewisburgLocation,7
+LocMTRLewisburgTrainStationLocation,1
+LocMTRMineFire01Location,4
+LocMTRMineFire02Location,2
+LocMTRMineFire03Location,4
+LocMTRMineFire04Location,4
+LocMTRMineFire05Location,4
+LocMTRMineFire06Location,2
+LocMTRMotherlode02Location,2
+LocMTRMotherlode03Location,3
+LocMTRMotherlode04Location,5
+LocMTRMountBlairLocation,32
+LocMTRMountBlairTrainyardLocation,9
+LocMTRNicholsonsEndLocation,3
+LocMTRNukaWorldOnTourLocation,20
+LocMTRPleasantHillsCemeteryLocation,2
+LocMTRPylonAmbushSiteLocation,2
+LocMTRRedRocketFillingStationLocation,1
+LocMTRRelayTower05Location,1
+LocMTRRollinsWorkCampLocation,2
+LocMTRSalsGrindersLocation,1
+LocMTRSludgeWorksLocation,2
+LocMTRStrikerRowLocation,4
+LocMTRTheRustyPickLocation,4
+LocMTRUnfinishedMansionLocation,2
+LocMTRWelchLocation,7
+LocMTRWelchTrainStationLocation,1
+LocMountainAstronautCrashSiteLocation,1
+LocMountainSonsOfDaneCompoundLocation,8
+LocMountainsAmmoDumpLocation,1
+LocMountainsAutumnAcreCabinLocation,1
+LocMountainsBaileyFamilyCabinLocation,1
+LocMountainsBastionParkLocation,2
+LocMountainsBeckwithFarmLocation,2
+LocMountainsBigBendTunnelLocation,2
+LocMountainsBigFredsBBQShackLocation,1
+LocMountainsBlackwaterMineLocation,4
+LocMountainsCliffwatchLocation,1
+LocMountainsColKelleyMonumentLocation,1
+LocMountainsConvertedMunitionsFactoryLocation,12
+LocMountainsCultistCaveLocation,1
+LocMountainsDentAndSonsConstructionLocation,2
+LocMountainsDesertedMineLocation,1
+LocMountainsDevilsBackboneLocation,2
+LocMountainsEmmettDisposalSiteLocation,4
+LocMountainsFederalDisposalFieldLocation,17
+LocMountainsFissureSiteBetaLocation,1
+LocMountainsFissureSiteGammaLocation,3
+LocMountainsFissureSiteSigmaLocation,1
+LocMountainsFissureSiteTauLocation,3
+LocMountainsFoundationLocation,17
+LocMountainsFoundationOutpost,11
+LocMountainsGarrahanHQLocation,5
+LocMountainsHopewellCaveLocation,4
+LocMountainsHornwrightEstateLocation,4
+LocMountainsHuntersvilleLocation,9
+LocMountainsInvestigatorsCabinLocation,2
+LocMountainsJohnsonsAcreLocation,2
+LocMountainsLakeEloiseLocation,1
+LocMountainsLookoutTower01Location,1
+LocMountainsLookoutTower04Location,1
+LocMountainsLookoutTower05Location,1
+LocMountainsLookoutTower06Location,1
+LocMountainsLookoutTower08Location,1
+LocMountainsMetalDomeLocation,3
+LocMountainsMiddleMountainCabinsLocation,10
+LocMountainsMinersMonumentLocation,6
+LocMountainsMoMBattleSiteLocation,2
+LocMountainsMonoRailElevatorLocation,2
+LocMountainsMonongahLocation,10
+LocMountainsMonongahMineLocation,3
+LocMountainsMonongahMissileSiloExteriorLocation,2
+LocMountainsMonongahOverlookLocation,1
+LocMountainsMonongahPowerPlantLocation,8
+LocMountainsMonongahPowerPlantWorkshopLocation,16
+LocMountainsMountainsideBBLocation,2
+LocMountainsNARRegionalLocation,5
+LocMountainsNationalRadioArrayLocation,9
+LocMountainsNationalRadioResearchCenterLocation,2
+LocMountainsNorthCutthroatCampLocation,4
+LocMountainsObservatoryLocation,6
+LocMountainsPOISavageDivide08Location,1
+LocMountainsPalaceoftheWindingPathLocation,8
+LocMountainsPleasantValleyCabinsLocation,11
+LocMountainsPleasantValleySkiResortLocation,5
+LocMountainsPleasantValleyTrainStationLocation,2
+LocMountainsPumpkinHouseLocation,3
+LocMountainsRNGTrainStationLocation,1
+LocMountainsRedRocketMegaStopLocation,22
+LocMountainsRelayTower01Location,2
+LocMountainsRelayTower03Location,1
+LocMountainsRelayTower04Location,1
+LocMountainsRipperAlleyLocation,2
+LocMountainsSafeNCleanDisposalLocation,1
+LocMountainsScenicOverlookLocation,1
+LocMountainsSenecaGangCampLocation,1
+LocMountainsSenecaRocksLocation,4
+LocMountainsSenecaRocksVisitorCenterLocation,4
+LocMountainsSettlerBugOutLocation,1
+LocMountainsSettlerScorchedCampLocation,1
+LocMountainsSkullboneVantageLocation,1
+LocMountainsSludgeHoleLocation,1
+LocMountainsSolomonsPondLocation,5
+LocMountainsSouthCutthroatCampLocation,1
+LocMountainsSpruceKnobCampgroundLocation,10
+LocMountainsSpruceKnobChannelsLocation,1
+LocMountainsSpruceKnobLakeLocation,2
+LocMountainsSpruceKnobMissileSiloExteriorLocation,2
+LocMountainsSubstationMonongahMZ01Location,2
+LocMountainsSubstationMonongahMZ02Location,2
+LocMountainsSubstationMonongahMZ03Location,2
+LocMountainsSubstationPoseidonPX03Location,2
+LocMountainsSugarGroveLocation,4
+LocMountainsSugarGroveMissileSiloExteriorLocation,3
+LocMountainsSunnytopSkiLanesBaseLodgeLocation,4
+LocMountainsSunnytopSkiLanesLocation,4
+LocMountainsSunnytopTrainStationLocation,2
+LocMountainsSylvieAndSonsLoggingCampLocation,2
+LocMountainsTheBountyLocation,2
+LocMountainsTheFreakShowLocation,2
+LocMountainsTheRoseRoomLocation,2
+LocMountainsTheVantageLocation,4
+LocMountainsTheWhitespringTrainStationLocation,2
+LocMountainsTopOfTheWorldLocation,4
+LocMountainsToxicLarrysMeatnGoLocation,1
+LocMountainsTrappersCampLocation,1
+LocMountainsUS13CBivouacLocation,1
+LocMountainsUncannyCavernsLocation,4
+LocMountainsWendigoCaveLocationDUPLICATE000,1
+LocMountainsWestTekResearchLocation,8
+LocMountainsYellowSandysStillLocation,4
+LocSacramentalGladeLocation,7
+LocStormBigBloomSiteLocation,12
+LocStormBlueRidgeCampLocation,2
+LocStormCampRapidanLocation,13
+LocStormCrashedScoutsBusLocation,2
+LocStormCrossroadLocation,1
+LocStormCultistTunnelsLocation,3
+LocStormDarkWoodManorGateLocation,2
+LocStormDarkwoodManorLocation,16
+LocStormFederalNatrualGasFieldNG17Location,4
+LocStormForestVault63CrashSiteLocation,4
+LocStormHallucinogenicCaveLocation,1
+LocStormHighKnobFireTowerLocation,3
+LocStormLightningHarvesterSiteA,1
+LocStormLightningHarvesterSiteB,1
+LocStormLightningHarvesterSiteC,1
+LocStormMakeoutPointLocation,2
+LocStormNaturalBridge,4
+LocStormRadioactiveWasteSiteLocation,2
+LocStormRangerStationBunkerLocation,1
+LocStormRedRocketMotelLocation,7
+LocStormRoadLocation,1
+LocStormRobinsonRangerStationLocation,5
+LocStormSkyboundTowerLocation,1
+LocStormSkylineDriveEntranceLocation,2
+LocStormSubstationThunderMtTM03Location,23
+LocStormSummerCampLocation,13
+LocStormThreePondsLocation,4
+LocStormTradingPostLocation,2
+LocStormVaultCovoyLocation,3
+LocStormWeatherStationLocation,8
+LocStormWoodstockTowerLocation,2
+LocSubToxicValleyMakeshiftVaultLocation,2
+LocSwampAbbiesBunkerLocation,1
+LocSwampBerkeleySpringsLocation,10
+LocSwampBerkeleySpringsRaiderCampLocation,2
+LocSwampBerkeleySpringsTrainStationLocation,1
+LocSwampBerkeleySpringsWorkshopLocation,8
+LocSwampBigBsRestStopLocation,2
+LocSwampBigMawLocation,2
+LocSwampBlakesOfferingLocation,4
+LocSwampBraxsonsQualityMedicalSuppliesLocation,2
+LocSwampCarsonFamilyBunkerLocation,1
+LocSwampCrashedPlaneLocation,1
+LocSwampCrevasseDamLocation,6
+LocSwampDabneyHomesteadLocation,8
+LocSwampDaggersDenLocation,2
+LocSwampDelanoGrangeLocation,1
+LocSwampDollySodsCampgroundLocation,22
+LocSwampDollySodsWildernessLocation,6
+LocSwampDyerChemicalLocation,8
+LocSwampENz04POI03Location,1
+LocSwampEllaAmesBunkerLocation,1
+LocSwampExcelsiorModelHomeLocation,1
+LocSwampFissureSiteOmicronLocation,1
+LocSwampFreddyFearsHouseOfScaresLocation,2
+LocSwampFreeStatesBunker07Location,1
+LocSwampGnarledShallowsLocation,1
+LocSwampGulperLagoonLocation,1
+LocSwampHarpersFerryDungeonExtLocation,1
+LocSwampHarpersFerryLocation,11
+LocSwampHavenChurchLocation,2
+LocSwampHighlandMarshLocation,1
+LocSwampHuntersShackLocation,1
+LocSwampKMAXTransmissionLocation,1
+LocSwampLookoutTower11Location,1
+LocSwampLookoutTower13Location,1
+LocSwampMireseyeLocation,2
+LocSwampMossTownLocation,2
+LocSwampMothHomeLocation,1
+LocSwampRaleighsBunkerLocation,1
+LocSwampSacramentLocation,2
+LocSwampSamBlackwellBunkerLocation,3
+LocSwampSouthernBelleMotelLocation,1
+LocSwampSouthhamptonEstateLocation,1
+LocSwampSubstationThunderMtTM01Location,2
+LocSwampSundayBrothersCabinLocation,5
+LocSwampSurvivalTrainingCenterLocation,5
+LocSwampTanagraTownLocation,2
+LocSwampTheRetreatLocation,8
+LocSwampThunderMountainPowerPlantLocation,8
+LocSwampThunderMountainPowerPlantWorkshopLocation,12
+LocSwampTreetopsLocation,1
+LocSwampValleyGalleriaLocation,4
+LocToxicBeckerFarmLocation,2
+LocToxicBlackBearLodgeLocation,1
+LocToxicClarksburgLocation,7
+LocToxicClarksburgShootingClubLocation,3
+LocToxicCobbletonFarmLocation,1
+LocToxicCraterWatchstationLocation,2
+LocToxicEasternRegionalPenLocation,8
+LocToxicFissureSiteDeltaLocation,2
+LocToxicGraftonDamLocation,6
+LocToxicGraftonLakeLocation,2
+LocToxicGraftonLocation,22
+LocToxicGraftonSteelLocation,7
+LocToxicGraftonSteelWorkshopLocation,18
+LocToxicGraftonTrainStationLocation,1
+LocToxicGraningerFarmLocation,2
+LocToxicHemlockHolesLocation,9
+LocToxicHemlockHolesWorkshopLocation,4
+LocToxicKiddieCornerCabinsLocation,2
+LocToxicKnifeEdgeLocation,1
+LocToxicLookoutTower07Location,1
+LocToxicLousMineLocation,1
+LocToxicPhilippiBattlefieldCemeteryLocation,4
+LocToxicPioneerScoutCampLocation,6
+LocToxicPrickettsFortLocation,10
+LocToxicRaiderRaidLocation,1
+LocToxicSmithFarmLocation,2
+LocToxicSurlysShackLocation,1
+LocToxicTheCraterLocation,16
+LocToxicToxicDriedLakebedLocation,10
+LocToxicWavyWillardsWaterparkLocation,16
+LocToxicWillardCorporateHousingLocation,1
+LocToxicWoodsEstateLocation,1
+LocVault63Location,1
+LocWhitespringTheWhitespringBunkerLocation,4
+LocWhitespringTheWhitespringGolfLocation,1
+MILE_Location_EncounterPointA,2
+MILE_Location_EncounterPointB,1
+MILE_Location_EncounterPointC,1
+MILE_Location_EncounterPointD,2
+MILE_Location_EncounterPointE,1
+MILE_Location_EncounterPointF,1
+MILE_Location_EncounterPointG,4
+MILE_Location_EncounterPointH,2
+MILE_Location_EncounterPointI,2
+MILE_Location_EncounterPointJ,1
+MILE_Location_EncounterPointK,1
+MILE_Location_EncounterPointL,2
+MILE_Location_MilePostZero,2
+MTNM02SignalLocation,1
+RegionBurningSpringsLocation,249
+RegionCranberryBogLocation,204
+RegionForestFloodlandsLocation,265
+RegionMTRLocation,4
+RegionMountainLocation,394
+RegionStormLocation,166
+RegionSwampForestLocation,108
+RegionToxicValleyLocation,84
+SFL02_Track_HardballLocation,1
+SFM01_Glow_MirelurkQueenSpawnLocation01,1
+SFM01_Glow_MirelurkQueenSpawnLocation02,1
+SFM04_Organic_NestLocation01,1
+SFM04_Organic_NestLocation02,1
+SFS08_Heart_VineHeartLocation01,1
+SFS08_Heart_VineHeartLocation02,3
+SFS08_Heart_VineHeartLocation03,2
+SFZ03_Queen_BossLocation01,1
+SFZ03_Queen_BossLocation02,1
+SFZ03_Queen_BossLocation03,1
+SFZ03_Queen_BossLocation04,1
+SFZ03_Queen_BossLocation05,1
+SFZ08_HoneyLocation01,4
+SF_BloodbugSwarmLocation01,1
+SF_BloodbugSwarmLocation02,1
+SF_BloodbugSwarmLocation03,1
+SF_BloodbugSwarmLocation04,1
+StormMarysRockTunnelLocation,3
+SubForestCampAdamsLocation,3
+SubMTRENz04POI04Location,1
+SubRegionBurningSprings01Location,45
+SubRegionBurningSprings02Location,65
+SubRegionBurningSprings03Location,15
+SubRegionBurningSprings04Location,58
+SubRegionBurningSprings05Location,69
+SubRegionBurningSprings06Location,36
+SubRegionBurningSprings07Location,59
+SubRegionBurningSprings08Location,47
+SubRegionBurningSprings09Location,46
+SubRegionBurningSprings10Location,61
+SubRegionBurningSprings11Location,66
+SubRegionBurningSprings12Location,45
+SubRegionBurningSprings13Location,62
+SubRegionBurningSprings14Location,55
+SubRegionBurningSprings15Location,53
+SubRegionBurningSprings16Location,49
+SubRegionBurningSprings17Location,62
+SubRegionBurningSprings18Location,37
+SubRegionBurningSprings19Location,52
+SubRegionBurningSprings20Location,61
+SubRegionCranberry01Location,63
+SubRegionCranberry02Location,94
+SubRegionCranberry03Location,60
+SubRegionCranberry12Location,100
+SubRegionCranberry13Location,102
+SubRegionCranberry14Location,89
+SubRegionCranberry15Location,96
+SubRegionCranberry16Location,131
+SubRegionCranberry17Location,123
+SubRegionForestFloodlands01Location,115
+SubRegionForestFloodlands02Location,126
+SubRegionForestFloodlands03Location,42
+SubRegionForestFloodlands04Location,142
+SubRegionForestFloodlands05Location,117
+SubRegionForestFloodlands06LocationLOW,101
+SubRegionForestFloodlands07LocationLOW,110
+SubRegionForestFloodlands08LocationLOW,106
+SubRegionForestFloodlands09Location,73
+SubRegionForestFloodlands10Location,38
+SubRegionForestFloodlands11LocationLOW,102
+SubRegionForestFloodlands12LocationLOW,121
+SubRegionForestFloodlands13LocationLOW,118
+SubRegionForestFloodlands14Location,107
+SubRegionForestFloodlands15Location,68
+SubRegionForestFloodlands16LocationLOW,115
+SubRegionForestFloodlands17LocationLOW,102
+SubRegionForestFloodlands18Location,99
+SubRegionForestFloodlands19Location,83
+SubRegionForestFloodlands20Location,63
+SubRegionForestFloodlands21Location,113
+SubRegionForestFloodlands22Location,142
+SubRegionForestFloodlands23Location,110
+SubRegionForestFloodlands24Location,163
+SubRegionForestFloodlands25Location,106
+SubRegionForestFloodlands26Location,54
+SubRegionForestFloodlands27Location,64
+SubRegionForestFloodlands28Location,69
+SubRegionMountainRemoval01Location,111
+SubRegionMountainRemoval02Location,80
+SubRegionMountainRemoval03Location,60
+SubRegionMountainRemoval04Location,127
+SubRegionMountainRemoval05Location,135
+SubRegionMountainRemoval06Location,129
+SubRegionMountainRemoval07Location,152
+SubRegionMountainRemoval08LocationLOW,31
+SubRegionMountains01Location,53
+SubRegionMountains02Location,153
+SubRegionMountains03Location,195
+SubRegionMountains04Location,126
+SubRegionMountains05Location,119
+SubRegionMountains06Location,123
+SubRegionMountains07Location,106
+SubRegionMountains08Location,119
+SubRegionMountains09Location,135
+SubRegionMountains10Location,117
+SubRegionMountains11Location,83
+SubRegionMountains12Location,92
+SubRegionMountains13LocationLOW,107
+SubRegionMountains14Location,98
+SubRegionMountains15Location,99
+SubRegionMountains16Location,58
+SubRegionMountains17Location,105
+SubRegionMountains18Location,125
+SubRegionMountains19Location,142
+SubRegionMountains20Location,74
+SubRegionMountains21Location,106
+SubRegionMountains22Location,116
+SubRegionMountains23Location,68
+SubRegionMountains24Location,81
+SubRegionMountains25Location,73
+SubRegionMountains26Location,172
+SubRegionMountains27Location,120
+SubRegionMountains28Location,141
+SubRegionMountains29Location,93
+SubRegionMountains30Location,128
+SubRegionMountains31Location,77
+SubRegionMountains32Location,87
+SubRegionMountains33Location,87
+SubRegionMountains34Location,72
+SubRegionStorm01Location,47
+SubRegionStorm02Location,36
+SubRegionStorm03Location,36
+SubRegionStorm04Location,35
+SubRegionStorm05Location,20
+SubRegionStorm06Location,45
+SubRegionStorm07Location,44
+SubRegionStorm08Location,51
+SubRegionStorm09Location,35
+SubRegionStorm10Location,30
+SubRegionStorm11Location,44
+SubRegionStorm12Location,48
+SubRegionStorm13Location,53
+SubRegionStorm14Location,46
+SubRegionStorm15Location,48
+SubRegionStorm16Location,47
+SubRegionStorm17Location,41
+SubRegionStorm18Location,45
+SubRegionSwamp01Location,89
+SubRegionSwamp02Location,64
+SubRegionSwamp03Location,129
+SubRegionSwamp04Location,66
+SubRegionSwamp05Location,115
+SubRegionSwamp06Location,102
+SubRegionSwamp07Location,124
+SubRegionSwamp08Location,109
+SubRegionSwamp09Location,134
+SubRegionSwamp10Location,96
+SubRegionSwamp11Location,159
+SubRegionSwamp12Location,22
+SubRegionToxicValley01Location,86
+SubRegionToxicValley02Location,105
+SubRegionToxicValley04Location,99
+SubRegionToxicValley05LocationLOW,107
+SubRegionToxicValley06LocationLOW,104
+SubRegionToxicValley07Location,139
+Vault51ExteriorLocation,1
+Vault76LocationExterior,14
+Vault79EntranceLocation_Exterior,1
+Vault79ExitLocation_Exterior,1
+Vault94ExteriorLocation,1
+Vault96ExteriorLocation,2
+W05_JP_Community_SwampLocation,1
 
 Entities outside of space range
 APPALACHIA:343276

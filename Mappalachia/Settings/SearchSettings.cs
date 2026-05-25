@@ -98,5 +98,10 @@ namespace Mappalachia
 		{
 			return SelectedSignatures.Contains(Signature.REGN) && SelectedLockLevels.Contains(LockLevel.None);
 		}
+
+		public bool ShouldSearchForLocation()
+		{
+			return SelectedSignatures.Contains(Signature.LCTN) && SelectedLockLevels.Contains(LockLevel.None);
+		}
 	}
 }

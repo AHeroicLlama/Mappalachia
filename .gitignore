@@ -1,10 +1,13 @@
 # FO76Edit/XEdit
-FO76Edit/
+FO76Edit/Themes/
+FO76Edit/*.exe
 
 # Exception for Mappalachia Edit Scripts
+FO76Edit/Edit Scripts/*
 !FO76Edit/Edit Scripts/_mappalachia_*.pas
 
 # Outputs from scripts and logs, except those intentionally kept
+.~*
 *.csv
 *.txt
 !/BuildOutputs/*

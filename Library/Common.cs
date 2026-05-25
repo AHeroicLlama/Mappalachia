@@ -44,6 +44,8 @@ namespace Library
 
 		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
 
+		public static int CellSize { get; } = (int)Math.Pow(2, 12); // 4096
+
 		public enum FluxColor
 		{
 			Crimson,

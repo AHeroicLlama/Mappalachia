@@ -106,6 +106,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, locationFormID TEXT, subRegionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL, nukable INTEGER);");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
+			SimpleQuery($"CREATE TABLE LocationCell(locationFormID INTEGER, locationEditorId TEXT, locationDisplayName TEXT, spaceFormID TEXT, x INTEGER, y INTEGER);");
 
 			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
@@ -116,6 +117,11 @@ namespace Preprocessor
 			ImportTableFromCSV("Region");
 			ImportTableFromCSV("Scrap");
 			ImportTableFromCSV("Component");
+			ImportTableFromCSV("LocationCell");
+
+			// Extract WorldSpace FormID from world on LocationCell
+			TransformColumn(CaptureSpaceFormID, "LocationCell", "spaceFormID");
+			ChangeColumnType("LocationCell", "spaceFormID", "INTEGER");
 
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
@@ -259,6 +265,7 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM RegionPoints WHERE regionFormID NOT IN (SELECT regionFormID FROM Region);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
+			SimpleQuery("DELETE FROM LocationCell WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Container WHERE containerFormID NOT IN (SELECT referenceFormID FROM Position);");
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position) AND entityFormID NOT IN (SELECT contentFormID FROM Container);");
 			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
@@ -314,6 +321,12 @@ namespace Preprocessor
 			AddForeignKey("NPC", "instanceFormID", "INTEGER", "Position", "instanceFormID");
 			SimpleQuery("DROP TABLE Location;");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN locationFormID;");
+
+			// Now we've dropped the Location table used for NPC spawns, we can repurpose the name for Location Data for cells,
+			// putting cell coords in another new table, and dropping the original LocationCell
+			SimpleQuery("CREATE TABLE Location AS SELECT DISTINCT locationFormID, locationEditorID, locationDisplayName, spaceFormID FROM LocationCell");
+			SimpleQuery("CREATE TABLE Cell AS SELECT locationFormID, x, y, spaceFormID FROM LocationCell");
+			SimpleQuery("DROP TABLE LocationCell");
 
 			// Un-escape chars from columns which we've not otherwise touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
@@ -451,6 +464,8 @@ namespace Preprocessor
 					$"WHERE Entity.entityFormID = '{NorthMarkerFormID}' " +
 					"GROUP BY Position.spaceFormID) " +
 				"WHERE northMarkerCount != 1;"));
+			AddToSummaryReport("Locations", SimpleQuery("SELECT locationFormID, locationEditorID, locationDisplayName FROM Location ORDER BY locationEditorID;"));
+			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, count(*) as count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID GROUP BY Location.locationFormID ORDER BY Location.locationEditorID;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -696,6 +711,18 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Flux;");
 			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, color TEXT NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Flux (referenceFormID, color) SELECT referenceFormID, color FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Location;");
+			SimpleQuery("DROP TABLE Location;");
+			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL UNIQUE, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID)) STRICT;");
+			SimpleQuery("INSERT INTO Location (locationFormID, locationEditorID, locationDisplayName, spaceFormID) SELECT locationFormID, locationEditorID, locationDisplayName, spaceFormID FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Cell;");
+			SimpleQuery("DROP TABLE Cell;");
+			SimpleQuery("CREATE TABLE Cell (locationFormID INTEGER NOT NULL REFERENCES Location (locationFormID), x INTEGER NOT NULL, y INTEGER NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID)) STRICT;");
+			SimpleQuery("INSERT INTO Cell (locationFormID, x, y, spaceFormID) SELECT locationFormID, x, y, spaceFormID FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
 
