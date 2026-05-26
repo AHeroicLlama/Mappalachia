@@ -464,8 +464,8 @@ namespace Preprocessor
 					$"WHERE Entity.entityFormID = '{NorthMarkerFormID}' " +
 					"GROUP BY Position.spaceFormID) " +
 				"WHERE northMarkerCount != 1;"));
-			AddToSummaryReport("Locations", SimpleQuery("SELECT locationFormID, locationEditorID, locationDisplayName FROM Location ORDER BY locationEditorID;"));
-			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, count(*) as count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID GROUP BY Location.locationFormID ORDER BY Location.locationEditorID;"));
+			AddToSummaryReport("Locations", SimpleQuery("SELECT locationFormID, locationEditorID, locationDisplayName, spaceEditorID FROM Location JOIN Space ON Space.spaceFormID = Location.spaceFormID ORDER BY locationEditorID;"));
+			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, spaceEditorID, count(*) AS count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID JOIN Space ON Space.spaceFormID = Cell.spaceFormID GROUP BY Location.locationFormID, Cell.spaceFormID ORDER BY Location.locationEditorID;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
