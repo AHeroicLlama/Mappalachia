@@ -390,8 +390,8 @@ namespace Mappalachia
 			{
 				UpdateProgress(progressInfo, ++i, itemsToPlot.Count, "Drawing instance FormIDs");
 
-				// Regions don't have instance Form IDs
-				if (item.Entity is Library.Region)
+				// Regions and Locations don't have instance Form IDs
+				if (item.Entity is Library.Region or Location)
 				{
 					continue;
 				}
@@ -439,8 +439,8 @@ namespace Mappalachia
 					Image? iconImage = null;
 					Color color = item.PlotIcon.Color;
 
-					// If this is topographic plot mode, and this is not a volume
-					if (topographic && item.Entity is not Library.Region)
+					// If this is topographic plot mode, and this is not a volume/Cell
+					if (topographic && item.Entity is not Library.Region or Location)
 					{
 						double range;
 
@@ -466,6 +466,10 @@ namespace Mappalachia
 					if (instance.Entity is Library.Region region)
 					{
 						DrawRegion(settings, graphics, region, color);
+					}
+					else if (instance.Entity is Location location)
+					{
+						DrawLocation(settings, graphics, location, color);
 					}
 					else if (instance.PrimitiveShape is not null)
 					{
@@ -559,6 +563,7 @@ namespace Mappalachia
 		{
 			List<Instance> instances = await Database.GetInstances(parentItem, parentItem.Space);
 			List<Instance> regions = instances.Where(instance => instance.Entity is Library.Region).ToList();
+			List<Instance> locations = instances.Where(instance => instance.Entity is Location).ToList();
 			List<Instance> shapes = instances.Where(instance => instance.PrimitiveShape is not null).ToList();
 
 			foreach (Instance regionInstance in regions)
@@ -569,6 +574,11 @@ namespace Mappalachia
 			foreach (Instance shapeInstance in shapes)
 			{
 				DrawPrimitiveShape(settings, graphics, shapeInstance, parentItem.PlotIcon.Color);
+			}
+
+			foreach (Instance locationInstance in locations)
+			{
+				DrawLocation(settings, graphics, (Location)locationInstance.Entity, parentItem.PlotIcon.Color);
 			}
 
 			return instances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape is null).ToList();
@@ -851,6 +861,48 @@ namespace Mappalachia
 			}
 		}
 
+		static void DrawLocation(Settings settings, Graphics graphics, Location location, Color color)
+		{
+			Pen pen = new Pen(color, VolumeEdgeThickness);
+			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeRegionLevel);
+
+			foreach (Cell cell in location.Cells)
+			{
+				RectangleF cellRectangle = new RectangleF(new PointF((float)cell.Coord.X, (float)cell.Coord.Y), new Size(CellSize, CellSize)).AsImageRectangle(settings);
+
+				if (settings.PlotSettings.VolumeDrawMode is VolumeDrawMode.Fill or VolumeDrawMode.Both)
+				{
+					graphics.FillRectangle(brush, cellRectangle);
+				}
+
+				if (settings.PlotSettings.VolumeDrawMode is VolumeDrawMode.Border or VolumeDrawMode.Both)
+				{
+					CellNeighbors neighbors = cell.GetNeighbors();
+
+					if (!neighbors.Up)
+					{
+						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Top), new PointF(cellRectangle.Right, cellRectangle.Top));
+					}
+
+					if (!neighbors.Down)
+					{
+						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Bottom), new PointF(cellRectangle.Right, cellRectangle.Bottom));
+					}
+
+					if (!neighbors.Left)
+					{
+						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Bottom), new PointF(cellRectangle.Left, cellRectangle.Top));
+					}
+
+					if (!neighbors.Right)
+					{
+						graphics.DrawLine(pen, new PointF(cellRectangle.Right, cellRectangle.Bottom), new PointF(cellRectangle.Right, cellRectangle.Top));
+					}
+				}
+			}
+		}
+
 		// Draws the Shape belonging to the given instance
 		static void DrawPrimitiveShape(Settings settings, Graphics graphics, Instance instance, Color color)
 		{
@@ -1096,7 +1148,7 @@ namespace Mappalachia
 					new RectangleF(legendX, midPointRowPos - (bounds.Height / 2), bounds.Width, bounds.Height),
 					stringFormat);
 
-				if (item.Entity is not Library.Region)
+				if (item.Entity is not Library.Region or Location)
 				{
 					Image legendIcon = settings.PlotSettings.Mode == PlotMode.Topographic ?
 						item.PlotIcon.GetImage(item.PlotIcon.Color) :

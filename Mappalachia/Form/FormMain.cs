@@ -1406,7 +1406,7 @@ namespace Mappalachia
 						groupLegendGroup,
 						Settings.PlotSettings.PlotStyleSettings.Palette,
 						Settings.PlotSettings.PlotStyleSettings.Size,
-						result.Entity is Library.Region);
+						result.Entity is Library.Region or Library.Location);
 				}
 				else
 				{
@@ -1415,7 +1415,7 @@ namespace Mappalachia
 						result.LegendGroup,
 						Settings.PlotSettings.PlotStyleSettings.Palette,
 						Settings.PlotSettings.PlotStyleSettings.Size,
-						result.Entity is Library.Region);
+						result.Entity is Library.Region or Library.Location);
 				}
 
 				ItemsToPlot.Add(result);

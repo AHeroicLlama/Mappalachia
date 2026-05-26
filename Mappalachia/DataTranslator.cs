@@ -143,6 +143,7 @@ namespace Mappalachia
 				Signature.NPC_ or
 				Signature.PROJ or
 				Signature.REGN or
+				Signature.LCTN or
 				Signature.TERM or
 				Signature.TRAP or
 				Signature.WEAP => true,

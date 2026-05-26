@@ -399,7 +399,7 @@ namespace Mappalachia
 			}
 			else if (searchResult.Entity is Location)
 			{
-				instances.AddRange(await GetLocationInstances(searchResult, space));
+				instances.AddRange(await GetLocationInstance(searchResult, space));
 			}
 			else if (searchResult.Entity.GetType() == typeof(Entity))
 			{
@@ -539,33 +539,47 @@ namespace Mappalachia
 			return instances;
 		}
 
-		// Returns the instance of a GroupedSearchResult which is a Region
-		static async Task<Instance?> GetRegionInstance(GroupedSearchResult searchResult, Space space)
-		{
-			return await GetRegion(searchResult.Entity.EditorID, space);
-		}
-
-		// Returns the instances of Cells which form a Location
-		static async Task<List<Instance>> GetLocationInstances(GroupedSearchResult searchResult, Space space)
+		// Return the instance of the Location, with Cells populated
+		static async Task<Instance> GetLocationInstance(GroupedSearchResult searchResult, Space space)
 		{
 			string query = "SELECT x, y FROM Cell " +
 				$"WHERE locationFormId = '{searchResult.Entity.FormID}' AND spaceFormID = {space.FormID};";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 
-			List<Instance> cells = new List<Instance>();
+			Location location = (Location)searchResult.Entity;
+
+			List<Cell> cells = new List<Cell>();
 
 			while (reader.Read())
 			{
 				Cell cell = new Cell(
-				(Location)searchResult.Entity,
-				reader.GetInt("x"),
-				reader.GetInt("y"));
+					(Location)searchResult.Entity,
+					reader.GetInt("x"),
+					reader.GetInt("y"));
 
 				cells.Add(cell);
 			}
 
-			return cells;
+			location.Cells = cells;
+
+			Instance instance = new Instance(
+				location,
+				space,
+				location.Cells.Select(c => c.Coord).GetCentroid(),
+				0,
+				string.Empty,
+				null,
+				LockLevel.None,
+				null);
+
+			return instance;
+		}
+
+		// Returns the instance of a GroupedSearchResult which is a Region
+		static async Task<Instance?> GetRegionInstance(GroupedSearchResult searchResult, Space space)
+		{
+			return await GetRegion(searchResult.Entity.EditorID, space);
 		}
 
 		// Return all non-nukable regions in the given space

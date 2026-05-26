@@ -325,7 +325,7 @@ namespace Preprocessor
 			// Now we've dropped the Location table used for NPC spawns, we can repurpose the name for Location Data for cells,
 			// putting cell coords in another new table, and dropping the original LocationCell
 			SimpleQuery("CREATE TABLE Location AS SELECT DISTINCT locationFormID, locationEditorID, locationDisplayName, spaceFormID FROM LocationCell");
-			SimpleQuery("CREATE TABLE Cell AS SELECT locationFormID, x, y, spaceFormID FROM LocationCell");
+			SimpleQuery("CREATE TABLE Cell AS SELECT DISTINCT locationFormID, x, y, spaceFormID FROM LocationCell"); // Distinct because the ESM data has duplicates
 			SimpleQuery("DROP TABLE LocationCell");
 
 			// Un-escape chars from columns which we've not otherwise touched

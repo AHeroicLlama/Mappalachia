@@ -20,7 +20,7 @@ namespace Mappalachia
 
 			SetSizeLabel();
 
-			if (CurrentIcon.ParentIsRegion)
+			if (CurrentIcon.DoNotUseIcon)
 			{
 				buttonSelectIcon.Enabled = false;
 				trackBarIconSize.Enabled = false;
