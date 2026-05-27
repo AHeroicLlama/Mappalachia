@@ -547,21 +547,21 @@ namespace Mappalachia
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 
-			Location location = (Location)searchResult.Entity;
-
-			List<Cell> cells = new List<Cell>();
+			Location location = new Location(
+				searchResult.Entity.FormID,
+				searchResult.Entity.EditorID,
+				searchResult.Entity.DisplayName,
+				space);
 
 			while (reader.Read())
 			{
 				Cell cell = new Cell(
-					(Location)searchResult.Entity,
+					location,
 					reader.GetInt("x"),
 					reader.GetInt("y"));
 
-				cells.Add(cell);
+				location.AddCell(cell);
 			}
-
-			location.Cells = cells;
 
 			Instance instance = new Instance(
 				location,

@@ -5,6 +5,11 @@ namespace Library
 	{
 		public Space Space { get; } = space;
 
-		public List<Cell> Cells { get; set; } = new List<Cell>();
+		public List<Cell> Cells { get; } = new List<Cell>();
+
+		public void AddCell(Cell cell)
+		{
+			Cells.Add(cell);
+		}
 	}
 }

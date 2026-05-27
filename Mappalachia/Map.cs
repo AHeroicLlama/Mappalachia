@@ -865,7 +865,6 @@ namespace Mappalachia
 		{
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
-			Font font = GetFont(settings.MapSettings.FontSettings.SizeRegionLevel);
 
 			foreach (Cell cell in location.Cells)
 			{
