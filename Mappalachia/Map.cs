@@ -865,6 +865,7 @@ namespace Mappalachia
 		{
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
+			float halfWidth = VolumeEdgeThickness / 2f;
 
 			foreach (Cell cell in location.Cells)
 			{
@@ -881,22 +882,22 @@ namespace Mappalachia
 
 					if (!neighbors.Up)
 					{
-						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Top), new PointF(cellRectangle.Right, cellRectangle.Top));
+						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Top + halfWidth), new PointF(cellRectangle.Right, cellRectangle.Top + halfWidth));
 					}
 
 					if (!neighbors.Down)
 					{
-						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Bottom), new PointF(cellRectangle.Right, cellRectangle.Bottom));
+						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Bottom - halfWidth), new PointF(cellRectangle.Right, cellRectangle.Bottom - halfWidth));
 					}
 
 					if (!neighbors.Left)
 					{
-						graphics.DrawLine(pen, new PointF(cellRectangle.Left, cellRectangle.Bottom), new PointF(cellRectangle.Left, cellRectangle.Top));
+						graphics.DrawLine(pen, new PointF(cellRectangle.Left + halfWidth, cellRectangle.Bottom), new PointF(cellRectangle.Left + halfWidth, cellRectangle.Top));
 					}
 
 					if (!neighbors.Right)
 					{
-						graphics.DrawLine(pen, new PointF(cellRectangle.Right, cellRectangle.Bottom), new PointF(cellRectangle.Right, cellRectangle.Top));
+						graphics.DrawLine(pen, new PointF(cellRectangle.Right - halfWidth, cellRectangle.Bottom), new PointF(cellRectangle.Right - halfWidth, cellRectangle.Top));
 					}
 				}
 			}
