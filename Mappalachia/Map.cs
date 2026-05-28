@@ -440,7 +440,7 @@ namespace Mappalachia
 					Color color = item.PlotIcon.Color;
 
 					// If this is topographic plot mode, and this is not a volume/Cell
-					if (topographic && item.Entity is not Library.Region or Location)
+					if (topographic && (item.Entity is not Library.Region and not Location))
 					{
 						double range;
 
@@ -581,7 +581,7 @@ namespace Mappalachia
 				DrawLocation(settings, graphics, (Location)locationInstance.Entity, parentItem.PlotIcon.Color);
 			}
 
-			return instances.Where(instance => instance.Entity is not Library.Region && instance.PrimitiveShape is null).ToList();
+			return instances.Where(instance => (instance.Entity is not Library.Region and not Location) && instance.PrimitiveShape is null).ToList();
 		}
 
 		static async Task DrawClusterPlots(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo, CancellationToken cancellationToken)
@@ -1148,7 +1148,7 @@ namespace Mappalachia
 					new RectangleF(legendX, midPointRowPos - (bounds.Height / 2), bounds.Width, bounds.Height),
 					stringFormat);
 
-				if (item.Entity is not Library.Region or Location)
+				if (item.Entity is not Library.Region and not Location)
 				{
 					Image legendIcon = settings.PlotSettings.Mode == PlotMode.Topographic ?
 						item.PlotIcon.GetImage(item.PlotIcon.Color) :
