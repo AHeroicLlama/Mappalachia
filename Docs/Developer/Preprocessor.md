@@ -3,7 +3,7 @@
 ### Prerequisites and assumptions
 * You have already run the [export scripts](EditScripts.md) using [FO76Edit](https://www.nexusmods.com/fallout76/mods/30)
 * An installation of [Visual Studio](https://visualstudio.microsoft.com/downloads/)
-* A copy of `sqlite3.exe` in place (See '[How to use the Preprocessor](#how-to-use-the-preprocessor)')
+* A copy of the SQLite command-line shell (`sqlite3.exe`) in place (See '[How to use the Preprocessor](#how-to-use-the-preprocessor)')
 * (Optional) competency with C# .NET and [SQLite SQL](https://www.sqlite.org/lang.html)
 
 ## What is the Preprocessor?

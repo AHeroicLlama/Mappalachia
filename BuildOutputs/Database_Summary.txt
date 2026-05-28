@@ -1,32 +1,20 @@
 MD5 Checksum
-0F033F1932269CE4C94487F3C5BFA02D
+7252BE54FFA53ABBE2B3B0ABDD810BBE
 
 Size
 469308 KB
 
 Built At UTC
-26/05/2026 23:09:18
+28/05/2026 19:09:45
 
 CSV Imported with SQLite Version
-3.50.4 2025-07-30 19:33:53 4d8adfb30e03f9cf27f800a2c1ba3c48fb4ca1b08b0f5ed59a4d5ecbf45e20a3 (64-bit)
+3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
 
 Tables
-Cell                 MapMarker            Region             
-Container            Meta                 RegionPoints       
-Entity               NPC                  Scrap              
-Flux                 Position             Space              
-Location             Position_PreGrouped
+Cell   Container   Entity   Flux   Location   MapMarker   Meta   NPC   Position   Position_PreGrouped   Region   RegionPoints   Scrap   Space
 
 Indices
-indexComponent               sqlite_autoindex_Flux_1    
-indexCount                   sqlite_autoindex_Location_1
-indexGeneral                 sqlite_autoindex_Location_2
-indexNPC                     sqlite_autoindex_Meta_1    
-indexReference               sqlite_autoindex_Position_1
-indexSpaceTeleportsTo        sqlite_autoindex_Region_1  
-indexTeleportsTo             sqlite_autoindex_Region_2  
-sqlite_autoindex_Entity_1    sqlite_autoindex_Space_1   
-sqlite_autoindex_Entity_2    sqlite_autoindex_Space_2
+indexComponent     indexCount     indexGeneral     indexNPC     indexReference     indexSpaceTeleportsTo     indexTeleportsTo
 
 Game Version
 1.7.24.14
