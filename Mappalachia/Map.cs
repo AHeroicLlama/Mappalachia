@@ -110,12 +110,6 @@ namespace Mappalachia
 
 		static int TopographLegendRectWidth { get; } = MapImageResolution / 40;
 
-		static RectangleF TopographLegendRect { get; } = new RectangleF(
-			MapImageResolution - TopographLegendRectWidth,
-			(MapImageResolution - TopographLegendRectHeight) / 2,
-			TopographLegendRectWidth,
-			TopographLegendRectHeight);
-
 		static float TopographLegendDivisions { get; } = 100;
 
 		// The primary map draw function
@@ -166,7 +160,7 @@ namespace Mappalachia
 
 					case PlotMode.Topographic:
 						await DrawStandardPlots(itemsToPlot, settings, graphics, true, progressInfo, cancellationToken);
-						DrawTopographicLegend(settings, graphics, TopographLegendRect, TopographLegendDivisions);
+						DrawTopographicLegend(settings, graphics);
 						break;
 
 					case PlotMode.Heatmap:
@@ -789,10 +783,18 @@ namespace Mappalachia
 		}
 
 		// Draw the color scale demonstrating the topographic color/height mapping
-		static void DrawTopographicLegend(Settings settings, Graphics graphics, RectangleF legendRect, float divisions)
+		static void DrawTopographicLegend(Settings settings, Graphics graphics)
 		{
+			RectangleF legendRect = new RectangleF(
+				settings.MapSettings.LegendHorizontalAlignment == LegendHorizontalAlignment.Left ?
+					MapImageResolution - TopographLegendRectWidth :
+					0,
+				(MapImageResolution - TopographLegendRectHeight) / 2,
+				TopographLegendRectWidth,
+				TopographLegendRectHeight);
+
 			float height = legendRect.Height;
-			float step = height / divisions;
+			float step = height / TopographLegendDivisions;
 
 			SmoothingMode priorSmoothingMode = graphics.SmoothingMode;
 			PixelOffsetMode priorPixelOffsetMode = graphics.PixelOffsetMode;
