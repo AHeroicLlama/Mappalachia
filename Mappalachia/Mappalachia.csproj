@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<OutputType>WinExe</OutputType>
-	<TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
+	<TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
 	<UseWindowsForms>true</UseWindowsForms>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<Nullable>enable</Nullable>
@@ -53,7 +53,7 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 
   <ItemGroup>
 	<PackageReference Include="KGySoft.CoreLibraries" Version="10.0.0" />
-	<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.10" />
+	<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
 	<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
