@@ -6,6 +6,7 @@ uses
 	_mappalachia_entity,
 	_mappalachia_scrap,
 	_mappalachia_location,
+	_mappalachia_locationCell,
 	_mappalachia_position,
 	_mappalachia_region,
 	_mappalachia_space;
@@ -17,6 +18,9 @@ uses
 
 		AddMessage('Now running _mappalachia_location...');
 		_mappalachia_location.initialize();
+
+		AddMessage('Now running _mappalachia_locationCell...');
+		_mappalachia_locationCell.initialize();
 
 		AddMessage('Now running _mappalachia_region...');
 		_mappalachia_region.initialize();
