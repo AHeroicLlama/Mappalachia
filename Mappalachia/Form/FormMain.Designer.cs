@@ -1,3 +1,5 @@
+using Library;
+
 namespace Mappalachia
 {
 	partial class FormMain
@@ -1073,7 +1075,7 @@ namespace Mappalachia
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MainMenuStrip = menuStripMain;
 			Name = "FormMain";
-			Text = "Mappalachia";
+			Text = Common.ApplicationName;
 			FormClosing += FormMain_FormClosing;
 			Shown += FormMain_Shown;
 			menuStripMain.ResumeLayout(false);

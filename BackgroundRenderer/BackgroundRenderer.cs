@@ -16,7 +16,7 @@ namespace BackgroundRenderer
 
 		static async Task Main()
 		{
-			Console.Title = "Mappalachia Background Renderer";
+			Console.Title = $"{ApplicationName} Background Renderer";
 
 			// Ensure the output directories exist
 			foreach (string directory in new string[] { CellPath, WorldPath, SpotlightPath })

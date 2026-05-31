@@ -22,7 +22,7 @@ namespace Mappalachia
 			}
 			catch (Exception e)
 			{
-				Notify.GenericError("Recipe load failed", "Mappalachia was unable to load the provided recipe file.\nError details below.", e);
+				Notify.GenericError("Recipe load failed", $"{Common.ApplicationName} was unable to load the provided recipe file.\nError details below.", e);
 				return null;
 			}
 		}
@@ -56,7 +56,7 @@ namespace Mappalachia
 			}
 			catch (Exception e)
 			{
-				Notify.GenericError("Recipe save failed", "Mappalachia was unable to save the recipe file.\nError details below.", e);
+				Notify.GenericError("Recipe save failed", $"{Common.ApplicationName} was unable to save the recipe file.\nError details below.", e);
 			}
 		}
 	}

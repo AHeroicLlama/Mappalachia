@@ -301,16 +301,18 @@ namespace Library
 		// Empty list if not known or doesn't exist
 		public static async Task<List<Region>> GetWorldBorders(this Space space)
 		{
-			if (space.IsAppalachia())
+			switch (space.EditorID)
 			{
-				List<Region> borderRegions = new List<Region>();
-				borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'"));
-				borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'BurningSpringsSubRegion%'"));
+				case "Appalachia":
+				case "APPALACHIA":
+					List<Region> borderRegions = new List<Region>();
+					borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'"));
+					borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'BurningSpringsSubRegion%'"));
+					return borderRegions;
 
-				return borderRegions;
+				default:
+					return new List<Region>();
 			}
-
-			return new List<Region>();
 		}
 
 		public static XmlDocument FixMapMarkerSVG(XmlDocument document, MapMarker mapMarker)

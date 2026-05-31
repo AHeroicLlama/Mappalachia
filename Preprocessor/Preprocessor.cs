@@ -17,7 +17,7 @@ namespace Preprocessor
 
 		static async Task Main()
 		{
-			Console.Title = "Mappalachia Preprocessor";
+			Console.Title = $"{Common.ApplicationName} Preprocessor";
 
 			Stopwatch stopwatch = new Stopwatch();
 
@@ -85,7 +85,7 @@ namespace Preprocessor
 
 			string gameVersion = GetValidatedGameVersion();
 
-			StdOutWithColor($"Building Mappalachia database at {DatabasePath}\n", ColorInfo);
+			StdOutWithColor($"Building {Common.ApplicationName} database at {DatabasePath}\n", ColorInfo);
 
 			Connection.Close();
 			Cleanup();

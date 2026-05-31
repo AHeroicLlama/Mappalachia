@@ -1029,7 +1029,7 @@ namespace Mappalachia
 
 			int position = settings.MapSettings.ShowCoordinateGrid ? -CoordinateGridTextMargin : 0;
 
-			text += $"\nGame Version {await Database.GetGameVersion()} | Made with Mappalachia: github.com/AHeroicLlama/Mappalachia";
+			text += $"\nGame Version {await Database.GetGameVersion()} | Made with {ApplicationName}: github.com/{RepositoryName}";
 
 			RectangleF textBounds = new RectangleF(legendLeft ? position : position * -1, position, MapImageResolution, MapImageResolution);
 			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, legendLeft ? BottomRight : BottomLeft);

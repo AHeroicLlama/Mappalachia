@@ -65,7 +65,7 @@ namespace Mappalachia
 				catch (Exception e)
 				{
 					File.Delete(Paths.SettingsPath);
-					Notify.GenericError("Error loading settings from file", "Mappalachia was unable to load your last settings from the settings file.\nThe settings have been reset.", e);
+					Notify.GenericError("Error loading settings from file", $"{Common.ApplicationName} was unable to load your last settings from the settings file.\nThe settings have been reset.", e);
 					return new Settings();
 				}
 			}

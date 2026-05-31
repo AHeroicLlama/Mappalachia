@@ -103,7 +103,7 @@ namespace Mappalachia
 			{
 				Notify.GenericError(
 					"Invalid icon index",
-					"Mappalachia attempted to draw a plot icon which was not in the provided icons folder, and/or icons in the folder have been removed. A default will be used.",
+					$"{ApplicationName} attempted to draw a plot icon which was not in the provided icons folder, and/or icons in the folder have been removed. A default will be used.",
 					e);
 			}
 
@@ -347,7 +347,7 @@ namespace Mappalachia
 
 			if (fileName.IsNullOrWhiteSpace())
 			{
-				fileName = $"Mappalachia Map of {settings.Space.DisplayName}".SanitizeForFileName();
+				fileName = $"{ApplicationName} Map of {settings.Space.DisplayName}".SanitizeForFileName();
 			}
 
 			return fileName;
