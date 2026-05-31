@@ -21,7 +21,7 @@ If you are happy with the items, press the 'Update Map' button. Mappalachia will
 You can pan and zoom this map preview by left-clicking and dragging, or using the scroll wheel respectively (or equivalent touch gestures).<br/>
 Double-clicking the map will open the preview in full in your default image viewer, which may provide an easier viewing experience.<br/>
 In order to quickly export and share the map, use 'Map > Quick Save Image' (Ctrl+Shift+S).<br/>
-For more control over export settings, use 'Map > Save Image'<br/>
+For more control over export settings, use 'Map > Save Image'.<br/>
 
 ### Clear & Reset
 At the bottom of the 'Map' menu you can select 'Clear Plots' or 'Reset'.<br/>
