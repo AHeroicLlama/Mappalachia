@@ -1,6 +1,6 @@
 // Gets a list of all LCTN and their cells
 // Header 'locationFormID,locationEditorId,locationDisplayName,space,cellX,cellY'
-unit _mappalachia_location;
+unit _mappalachia_locationCell;
 
 	uses _mappalachia_lib;
 
