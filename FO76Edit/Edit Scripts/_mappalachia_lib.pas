@@ -40,7 +40,7 @@ unit _mappalachia_lib;
 	procedure goToRipItem(item: IInterface; signature: String);
 	begin
 			if(signature = 'MISC') then _mappalachia_scrap.ripItem(item)
-		else if(signature = 'LCTN') then _mappalachia_location.ripItem(item)
+		else if(signature = 'LCTN') then _mappalachia_location.ripItem(item) // Note that Location and LocationCell share the same unit but redefine ripItem
 		else if(signature = 'CMPO') then _mappalachia_component.ripItem(item)
 		else if(signature = 'REGN') then _mappalachia_region.ripItem(item)
 	end;

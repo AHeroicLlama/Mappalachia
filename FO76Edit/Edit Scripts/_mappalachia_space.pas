@@ -60,12 +60,12 @@ unit _mappalachia_space;
 	end;
 
 	procedure ripSpace(space : IInterface; isWorldspace : Integer);
+	const
+		spaceEditorID = EditorID(space);
+		spaceDisplayName = sanitize(DisplayName(space));
 	var
-		spaceEditorID, spaceDisplayName : IInterface;
 		entry, isInstanceable : String;
 	begin
-		spaceEditorID := EditorID(space);
-		spaceDisplayName := sanitize(DisplayName(space));
 		isInstanceable := GetEditValue(ElementByName(ElementByName(ElementByName(space, 'Record Header'), 'Record Flags'), 'Is Instancable'));
 
 		entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace) + ',' + isInstanceable;
