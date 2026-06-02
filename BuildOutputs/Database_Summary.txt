@@ -1,33 +1,24 @@
 MD5 Checksum
-113152CA502EFB0C1792D0EA45BA7A1A
+B90E889F51F41268D6B5B3583107D2FE
 
 Size
-468988 KB
+469432 KB
 
 Built At UTC
-21/04/2026 20:45:03
+02/06/2026 18:05:28
 
 CSV Imported with SQLite Version
-3.50.4 2025-07-30 19:33:53 4d8adfb30e03f9cf27f800a2c1ba3c48fb4ca1b08b0f5ed59a4d5ecbf45e20a3 (64-bit)
+3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
 
 Tables
-Container            Meta                 Region             
-Entity               NPC                  RegionPoints       
-Flux                 Position             Scrap              
-MapMarker            Position_PreGrouped  Space
+Cell          Entity     Location      Meta     Position                Region           Scrap
+Container     Flux       MapMarker     NPC      Position_PreGrouped     RegionPoints     Space
 
 Indices
-indexComponent               sqlite_autoindex_Entity_2  
-indexCount                   sqlite_autoindex_Flux_1    
-indexGeneral                 sqlite_autoindex_Meta_1    
-indexNPC                     sqlite_autoindex_Position_1
-indexReference               sqlite_autoindex_Region_1  
-indexSpaceTeleportsTo        sqlite_autoindex_Region_2  
-indexTeleportsTo             sqlite_autoindex_Space_1   
-sqlite_autoindex_Entity_1    sqlite_autoindex_Space_2
+indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
 
 Game Version
-1.7.24.12
+1.7.25.13
 
 Spaces
 Appalachia,Appalachia,2480661,1,0,340,135,582500,0
@@ -141,6 +132,7 @@ SheltersGleamingDepths,Gleaming Depths Shelter,8050031,0,1,1480.00048828125,208.
 SheltersHighStakes,High Stakes Shelter,7576305,0,1,219.55517578125,680.94189453125,9675.693359375,0
 SheltersHousingDevelopment,Housing Development,7964996,0,1,1062.297378540039,-2706.991683959961,35093.14907836914,0
 SheltersMissileSilo,Abandoned Mine Shelter,6423621,0,1,2433.7810341119766,287.556884765625,6844.88623046875,0
+SheltersMoonlightCamp,Moonlight Camp Shelter,9129032,0,1,5639.174003601074,1641.4503746032715,30657.040088653564,0
 SheltersNuclearTestBunker,Nuclear Test Bunker,6906035,0,1,2447.8796257972713,-1072.292842388153,7336.034636497498,0
 SheltersPittTrench01,Neighborhood Square Shelter,6701141,0,1,1958.480224609375,1278.985595703125,14000.41455078125,0
 SheltersProspectorSaloon,Prospector Saloon Shelter,8824829,0,1,2648.816811710592,-1534.2329252958293,2236.6754078865033,0
@@ -235,26 +227,26 @@ XPDPitt02Sanctum,Sanctum,6518991,0,1,3368.4931640625,103.282470703125,13310.5722
 XPDPitt02Trench,The Pitt - Trench,6518990,0,1,-5392.374269723892,-8488.09703540802,27426.539948940277,0
 
 Avg northAngle
-83.0198563046309
+82.61289622470625
 
 Avg X/Y/Z
--13920.249585198273,-3172.2806008525695,11074.43174965726
+-13917.643809578984,-3170.627697106642,11072.88364791291
 
 Avg Bounds X/Y/Z
-769.1959293631618,552.5694652723424,572.5401327498316
+770.1904827656264,552.889496417093,574.158054389112
 
 Avg CenterX, CenterY
-351.3721922911251,-192.10074264486173
+377.29278940538956,-183.11274697207676
 
 Avg Rotation
-150.0923006705571
+150.12507138074824
 
 Lock Levels
-,4485122
+,4486183
 Barred,1
 Chained,10
 Inaccessible,171
-Level0,748
+Level0,749
 Level1,683
 Level2,435
 Level3,190
@@ -263,12 +255,12 @@ RequiresTerminal,46
 Unknown,1
 
 Primitive Shapes
-,4340678
-Box,141135
+,4341498
+Box,141370
 Cylinder,181
 Ellipsoid,5
-Line,2266
-Plane,391
+Line,2272
+Plane,392
 Sphere,2951
 
 Entity Category Count
@@ -278,7 +270,7 @@ AMMO,17
 ARMO,127
 ASPC,169
 BNDS,18
-BOOK,1100
+BOOK,1104
 CNCY,1
 CONT,679
 DOOR,376
@@ -287,8 +279,8 @@ FURN,794
 HAZD,55
 IDLM,25
 KEYM,103
-LIGH,2435
-LVLI,882
+LIGH,2436
+LVLI,881
 MISC,960
 MSTT,1129
 NOTE,359
@@ -297,7 +289,7 @@ PROJ,2
 SCOL,13016
 SECH,14
 SOUN,400
-STAT,23250
+STAT,23266
 TACT,92
 TERM,664
 TRAP,1
@@ -305,31 +297,31 @@ TXST,564
 WEAP,96
 
 Position PreGrouped Count
-207288
+207456
 
 Avg Num Instances per Reference
-21.64914032650226
+21.636727788061084
 
 X-Table Entity Sum
-51256 = 51256 = 51256
+51276 = 51276 = 51276
 
 Avg Length Entity DisplayName
-2.7871273606992353
+2.787541929947734
 
 Avg Length Entity EditorID
-25.282269392851568
+25.287190888524847
 
 Avg Length Space DisplayName
-18.098522167487683
+18.11764705882353
 
 Avg Length Space EditorID
-17.87192118226601
+17.887254901960784
 
 Avg Length Region EditorID
 20.867088607594937
 
 Avg Length Label
-0.07957024757292695
+0.07990297346496256
 
 Avg Count Regions, Coords from RegionPoints
 0.13924050632911392,8.882911392405063
@@ -849,16 +841,16 @@ Appalachia,Firefly,0.27380952380952384
 Appalachia,Fog Crawler,0.10267263600596935
 Appalachia,Fox,0.08333333333333333
 Appalachia,Frog,0.10416666666666666
-Appalachia,Ghoul,0.4078811057716033
+Appalachia,Ghoul,0.4102388036604533
 Appalachia,Grafton Monster,0.125
 Appalachia,Gulper,0.1400412745653121
 Appalachia,Honey Beast,0.1550599447699872
-Appalachia,Insect,0.19298629273687987
+Appalachia,Insect,0.19425232864311953
 Appalachia,Liberator,0.14536262345971043
 Appalachia,Lost,0.23358268675132754
 Appalachia,Mega Sloth,0.11603090396193845
 Appalachia,Mirelurk,0.25707405336791606
-Appalachia,Mole Miner,0.5271733495887979
+Appalachia,Mole Miner,0.5252667905145593
 Appalachia,Mole Rat,0.16398529675045237
 Appalachia,Opposum,0.2619047619047619
 Appalachia,Rabbit,0.08333333333333333
@@ -868,15 +860,15 @@ Appalachia,Rad Scorpion,0.12255983738543866
 Appalachia,Rad Toad,0.2571039412936646
 Appalachia,Radroach,0.1329827814798356
 Appalachia,Radstag,0.20833333333333334
-Appalachia,Robot,0.317382518602451
-Appalachia,Scorched,0.44947892273076984
+Appalachia,Robot,0.3185533890679699
+Appalachia,Scorched,0.45285865649299567
 Appalachia,Snallygaster,0.6703296703296703
 Appalachia,Squirrel,0.08333333333333333
 Appalachia,Stingwing,0.12797018587032244
 Appalachia,Super Mutant,0.3642547524880893
 Appalachia,Thrasher,0.19879744795073584
 Appalachia,Tick,0.21797404821701494
-Appalachia,Vicious Dog,0.15886970058893324
+Appalachia,Vicious Dog,0.16253076826863322
 Appalachia,Wolf,0.172145796903174
 Appalachia,Yao Guai,0.09643560346022725
 AMS Headquarters,Robot,1
@@ -962,10 +954,10 @@ Worldspaces
 2480661,Appalachia,Appalachia,0
 
 Avg spaceFormID as Dec
-4872563.8965517245
+4893428.93627451
 
 Avg entityFormID as Dec
-3466395.485172468
+3468669.815644746
 
 Avg containerFormID as Dec
 3304656.018492176
@@ -977,13 +969,13 @@ Avg MapMarker spaceFormID as Dec
 2480661
 
 Avg Psn spaceFormID as Dec
-3002364.632607757
+3003460.737251288
 
 Avg Psn referenceFormID as Dec
-1207054.4302551448
+1207352.1506101252
 
 Avg Psn instanceFormID as Dec
-3735000.4529779456
+3736291.7834585262
 
 Avg Psn teleportsToFormID as Dec
 3163883.0142857144
@@ -1000,21 +992,26 @@ Avg region minLevel
 Avg region maxLevel
 27.36392405063291
 
+Nuke-safe zones
+NonNukableZone
+BigBloomWeatherRegion
+BurningSpringsHighwayTownNukeExclusionRegion
+
 Avg junkFormID as Dec
 1674372.2608012569
 
 Avg X, Y per Space
-APPALACHIA,-18324.00009323198,-3992.426737636077
+APPALACHIA,-18324.161212627194,-3991.2903112355857
 AMSHQ01,-38.43107245542495,296.0722459583898
 AMSHQ02,-722.9602360281565,-2598.814839831561
 AVRMedicalCenter01,2853.161347693978,-733.9409282763781
 AlleghenyAsylum01,-159.9532255056772,1522.9571083932012
 ArktosPharmaLab01,-4201.181785544593,-1920.562582135626
 ArktosPharmaLabDungeon,-4352.619284134937,-1905.8563356823033
-BelchingBetty01,-214.93830100048066,15604.699458800716
+BelchingBetty01,-214.62835281588312,15605.537261809066
 BigBendTunnel01,-1741.8185597575753,17763.466501019004
 BlackwaterMine01,2215.6234257308206,-1887.0415030892016
-BlueRidgeOffice01,-133.36615429625792,-78.99439859456488
+BlueRidgeOffice01,-133.20154579081048,-79.23093116131683
 BurdetteManorBasement01,437.38725541445444,496.81521783395857
 BurnAbraxodyneHQInt,181.20877034742912,860.5386642593525
 BurnAthensExecINT,811.8009850987341,2259.064468329486
@@ -1023,7 +1020,7 @@ BurnChopShopBasement,-1051.8056831819465,604.4368692797096
 BurnHWTEugeneINT,1207.9099205930258,2432.1349249291143
 BurnHWTLoanSharkInt,1418.7269027385307,2524.818996407308
 BurnHWTMooseINT,1314.1674783549793,2268.0356545716654
-BurnHWTownInt,-4209.5496911124665,13885.78961039911
+BurnHWTownInt,-4209.549036256511,13885.790853125836
 BurnRailroadServiceYardInt,2058.8131216311594,2114.3811792142574
 BurnRustKingdomInterior,-884.9938547266315,1743.8052649719123
 BurningMine01,-847.4090803790401,-4704.235601675881
@@ -1115,9 +1112,10 @@ SheltersGleamingDepths,1516.7604949993902,1816.605705714097
 SheltersHighStakes,209.07342425480743,-18.98036582755411
 SheltersHousingDevelopment,4136.078474336333,-1868.3085331950153
 SheltersMissileSilo,2484.8389555522926,34.661289068071184
+SheltersMoonlightCamp,2161.7221071377867,1398.3920859217355
 SheltersNuclearTestBunker,2261.4224247718926,-298.6807822469455
 SheltersPittTrench01,1951.7999740569692,-517.8722158730967
-SheltersProspectorSaloon,2607.190316927635,-1430.1837253893837
+SheltersProspectorSaloon,2607.190316927635,-1430.0920588606493
 SheltersRestrictedArea,2805.914981816496,-1577.2523842606959
 SheltersRootCellar,2920.4411040490413,-2335.914104147518
 SheltersSoundStage,-1445.200319709567,1108.345394935242
@@ -1149,7 +1147,7 @@ SugarGrove02,494.66690547703814,-302.2691560161071
 SugarGroveMissileSilo01,-7983.373026150042,-30221.393987671076
 SurlysShack01,9.500166201856306,103.15987344221634
 TheCraterCore01,-3969.80930604728,-435.5676017912918
-TheNukashine01,608.4501822390055,839.8165484040976
+TheNukashine01,608.3035801017802,840.1524752907935
 TheRoseRoom01,927.363345250153,712.5567195214495
 TheRustyPick01,1075.455318002454,536.1942961719536
 TheWayward01,1150.0396473432725,122.43525107635773
@@ -1189,7 +1187,7 @@ WestTek01,10402.146317416453,1376.874521123634
 WestTek02,8495.252772688935,2289.4274697813535
 WestTek02Arena,6995.014274620936,3240.3841318385994
 WhitespringBunker01,-15001.655939207623,-8897.797920471352
-WhitespringMall01,-7080.78969600858,8306.275107333391
+WhitespringMall01,-7080.779698146259,8306.253951615985
 WhitespringRefuge01,-9600.31513019135,9741.394957472925
 XPDAC01Casino,-2529.380923100643,205.918440116874
 XPDAC01EntertainmentDistrict,-2447.393442624257,-835.7244400179263
@@ -1218,7 +1216,7 @@ Unique Container count
 483
 
 Flux-producing entities count
-Cobalt,12
+Cobalt,15
 Crimson,17
 Fluorescent,8
 Violet,20
@@ -1227,6 +1225,1354 @@ Yellowcake,13
 Non-standard NorthMarker counts
 Burrows01,2
 UncannyCavernsDungeon,2
+
+Locations
+8154326,BURN_FrontierFortLOC,Frontier Fort,APPALACHIA
+8324025,BURN_JacksonJunkyardLOC,Jackson Junkyard,APPALACHIA
+8071121,BullengrubeLocation_Exterior,The Bullengrube,APPALACHIA
+47963,CharlestonOrbitalDrop01Location,Charleston Enclave Orbital Drop Site #001,APPALACHIA
+2953514,EN07LimoPOI01Location,Limousine Crash,APPALACHIA
+655480,EN07NukeMeshDepotLocation,Nuke Mesh Depot,APPALACHIA
+3976291,FSLureCranberryBog01Location,Soggy Bottom,APPALACHIA
+3985828,FSLureCranberryBog02Location,Giese Berry Bog,APPALACHIA
+3857901,FSLureForest01Location,Holdingford Homestead,APPALACHIA
+3857902,FSLureForest02Location,Huntsman's Glade,APPALACHIA
+3976292,FSLureMTR01Location,Slurry Run,APPALACHIA
+3985825,FSLureMTR02Location,Dusty Heap,APPALACHIA
+3976290,FSLureMountains01Location,Jaggy's Crag,APPALACHIA
+3985824,FSLureMountains02Location,Devil's Alley,APPALACHIA
+3985827,FSLureSwamp01Location,Harrison Heights,APPALACHIA
+3985829,FSLureSwamp02Location,Cliffwalk Track,APPALACHIA
+3985826,FSLureToxicValley02Location,Old Pete's End,APPALACHIA
+8388556,GhoulCabinLocation,Point Repose,APPALACHIA
+7962465,GhoulCampLocation_Exterior,Ghoul Camp,APPALACHIA
+7962681,GhoulCaveLocation_Exterior,A Cave,APPALACHIA
+8073506,GhoulPointReposeLocation,Point Repose,APPALACHIA
+8349704,LocBurnAshCaveLocation,Ash Cave,APPALACHIA
+8363242,LocBurnAthensArmoryLocation,Athens Armory,APPALACHIA
+8363241,LocBurnAthensLocation,Athens Ruins,APPALACHIA
+8195547,LocBurnCheckpointCanyonExt,Checkpoint Canyon,APPALACHIA
+8202766,LocBurnChopShop,The Chop Shop,APPALACHIA
+8349691,LocBurnCornhengeLocation,World of Corn,APPALACHIA
+8329527,LocBurnDinoGolf,Dino Peaks Mini Golf,APPALACHIA
+8312752,LocBurnDriveinWorkshopLocation,Starlight Drive-in,APPALACHIA
+8167820,LocBurnFrontierFortLocation,Fort Steuben,APPALACHIA
+8290436,LocBurnHighwayTownExtLocation,Highway Town,APPALACHIA
+8706916,LocBurnPOI101WildwoodRanchLocation,Westbrook Horse Ranch,APPALACHIA
+8706915,LocBurnPOI133AbraxodyneStorageDepotLocation,Meadow Breeze Storage Depot,APPALACHIA
+8706909,LocBurnPOI16HillsideChurchLocation,Shade Hill Church,APPALACHIA
+8706908,LocBurnPOI19SockHopLocation,Sandy's Sock Hop,APPALACHIA
+8706911,LocBurnPOI32DesolateEncampmentCampLocation,Hamley Run Camp,APPALACHIA
+8710309,LocBurnPOI37UFOWatcherLocation,Prospect Hill,APPALACHIA
+8706910,LocBurnPOI41ApiaryLocation,Honey Well Apiary,APPALACHIA
+8706912,LocBurnPOI54AlbanyLocation,Albany,APPALACHIA
+8706913,LocBurnPOI59LanganMillLocation,Sand Fork Lumber,APPALACHIA
+8706917,LocBurnPOI71PlaygroundLocation,Cobby's Corner,APPALACHIA
+8706914,LocBurnPOI73DerelictPowerSubstationLocation,Abraxodyne Chemical Power Substation,APPALACHIA
+8232782,LocBurnRailroadServiceYardExtLocation,Railroad Service Yard,APPALACHIA
+8201215,LocBurnRustKingdomExtLocation,The Rust Kingdom,APPALACHIA
+8186409,LocBurnSDMLocation,Super Duper Mart,APPALACHIA
+8437745,LocBurnSinkholeLocation,Tycoon Lake,APPALACHIA
+8352960,LocBurnTrainStationLocation,Hocking Hills Station,APPALACHIA
+6230317,LocCranberryAMSCorporateHQLocation,AMS Corporate Headquarters,APPALACHIA
+16705,LocCranberryAbandonedBogTownLocation,Abandoned Bog Town,APPALACHIA
+4024771,LocCranberryAbandonedBogTownWorkshopLocation,Abandoned Bog Town,APPALACHIA
+16707,LocCranberryAlleghenyAsylumLocation,Fort Defiance,APPALACHIA
+16712,LocCranberryAppalachianAntiquesLocation,Appalachian Antiques,APPALACHIA
+16716,LocCranberryBigBendTunnelEastLocation,Big Bend Tunnel East,APPALACHIA
+16718,LocCranberryBootleggersShackLocation,Bootlegger's Shack,APPALACHIA
+3668608,LocCranberryDropSiteC2Location,Drop Site C2,APPALACHIA
+3668633,LocCranberryDropSiteG3Location,Drop Site G3,APPALACHIA
+3668637,LocCranberryDropSiteV9Location,Drop Site V9,APPALACHIA
+4375148,LocCranberryDuelingFarmsLocation,Dueling Farms,APPALACHIA
+1226692,LocCranberryENz04POI01Location,Bot Patrol Location POI 01,APPALACHIA
+4374802,LocCranberryElectricTowerCampLocation,Crimson Prospect,APPALACHIA
+3742227,LocCranberryFirebaseHancockLocation,Firebase Hancock,APPALACHIA
+3742224,LocCranberryFirebaseLTLocation,Firebase LT,APPALACHIA
+3742221,LocCranberryFirebaseMajorLocation,Firebase Major,APPALACHIA
+2953487,LocCranberryFissureSiteAlphaLocation,Fissure Site,APPALACHIA
+3823593,LocCranberryFissureSiteEpsilonLocation,Fissure Site,APPALACHIA
+3837144,LocCranberryFissureSiteZetaLocation,Fissure Site Prime,APPALACHIA
+399209,LocCranberryFloodedTrainyardLocation,Flooded Trainyard,APPALACHIA
+3742215,LocCranberryForwardStationAlphaLocation,Forward Station Alpha,APPALACHIA
+3742200,LocCranberryForwardStationDeltaLocation,Forward Station Delta,APPALACHIA
+57649,LocCranberryGeneralsSteakhouseLocation,The General's Steakhouse,APPALACHIA
+531237,LocCranberryGlassedCavernLocation,Glassed Cavern,APPALACHIA
+391168,LocCranberryKerwoodMineLocation,Kerwood Mine,APPALACHIA
+3824176,LocCranberryLookoutTower12Location,Ranger Lookout,APPALACHIA
+3742203,LocCranberryLostHomeLocation,Lost Home,APPALACHIA
+3668609,LocCranberryMacsFarmLocation,Mac's Farm,APPALACHIA
+3668630,LocCranberryNARRepairYardLocation,NAR Repair Yard,APPALACHIA
+3742209,LocCranberryOldMoldQuarryLocation,Old Mold Quarry,APPALACHIA
+5280587,LocCranberryPylonV13Location,Pylon V-13,APPALACHIA
+3668635,LocCranberryQuarryX3Location,Quarry X3,APPALACHIA
+630822,LocCranberryRangerDistrictOfficeLocation,Ranger District Office,APPALACHIA
+630966,LocCranberryRobCoResearchCenterLocation,RobCo Research Center,APPALACHIA
+2933452,LocCranberrySubstationThunderMtTM02Location,Thunder Mountain Substation TM-02,APPALACHIA
+5212779,LocCranberrySundewGrove01Location,Overgrown Sundew Grove,APPALACHIA
+5212781,LocCranberrySundewGrove02Location,Veiled Sundew Grove,APPALACHIA
+5212782,LocCranberrySundewGrove03Location,Creekside Sundew Grove,APPALACHIA
+5212783,LocCranberrySundewGrove04Location,Sparse Sundew Grove,APPALACHIA
+3742212,LocCranberrySunriseFieldLocation,Sunrise Field,APPALACHIA
+3742230,LocCranberrySuperiorSunsetFarmLocation,Superior Sunset Farm,APPALACHIA
+3742207,LocCranberrySurveyCampAlphaLocation,Survey Camp Alpha,APPALACHIA
+3742218,LocCranberryTheThornLocation,The Thorn,APPALACHIA
+474492,LocCranberryWatogaCivicCenterExteriorLocation,Watoga Civic Center,APPALACHIA
+29491,LocCranberryWatogaEmergencyServicesLocation,Watoga Emergency Services,APPALACHIA
+103710,LocCranberryWatogaEstatesLocation,Watoga Estates,APPALACHIA
+474493,LocCranberryWatogaHighSchoolLocation,Watoga High School,APPALACHIA
+28060,LocCranberryWatogaLocation,Watoga,APPALACHIA
+474476,LocCranberryWatogaMunicipalCenterLocation,Watoga Municipal Center,APPALACHIA
+474490,LocCranberryWatogaShoppingPlazaLocation,Watoga Shopping Plaza,APPALACHIA
+2913968,LocCranberryWatogaTrainStationLocation,Watoga Station,APPALACHIA
+474491,LocCranberryWatogaTransitHubLocation,Watoga Transit Hub,APPALACHIA
+8030835,LocFishermansRestLocation,Fisherman's Rest,APPALACHIA
+611484,LocForestAVRMedicalCenterLocation,AVR Medical Center,APPALACHIA
+16709,LocForestAaronholtHomesteadLocation,Aaronholt Homestead,APPALACHIA
+611086,LocForestAlpineRiverCabinsLocation,Alpine River Cabins,APPALACHIA
+3742270,LocForestAnchorFarmLocation,Anchor Farm,APPALACHIA
+1124666,LocForestArktosPharmaLocation,Arktos Pharma,APPALACHIA
+381752,LocForestBillingsHomesteadLocation,Billings Homestead,APPALACHIA
+16706,LocForestBlackMountainOrdnanceWorksLocation,Black Mountain Ordnance Works,APPALACHIA
+3742164,LocForestBleedingKatesGrinderLocation,Bleeding Kate's Grindhouse,APPALACHIA
+7544501,LocForestBlueRidgeEncampmentLocation,Blue Ridge Encampment,APPALACHIA
+617147,LocForestBoltonGreensLocation,Bolton Greens,APPALACHIA
+3849932,LocForestBurdetteManorLocation,The Kill Box,APPALACHIA
+617334,LocForestCampMcClintockLocation,Camp McClintock,APPALACHIA
+5609290,LocForestCharlestonCapitolLocation,Charleston Capitol Building,APPALACHIA
+3037792,LocForestCharlestonCityEastLocation,Charleston,APPALACHIA
+3037807,LocForestCharlestonCityNorthLocation,Charleston,APPALACHIA
+3037808,LocForestCharlestonCitySouthLocation,Charleston,APPALACHIA
+3037793,LocForestCharlestonCityWestLocation,Charleston,APPALACHIA
+89279,LocForestCharlestonFireDeptLocation,Charleston Fire Department,APPALACHIA
+1101034,LocForestCharlestonLandfillLocation,Charleston Landfill,APPALACHIA
+2913962,LocForestCharlestonTrainStationLocation,Charleston Station,APPALACHIA
+1101033,LocForestCharlestonTrainyardLocation,Charleston Trainyard,APPALACHIA
+3752619,LocForestClancyManorLocation,Clancy Manor,APPALACHIA
+389263,LocForestCowSpotsCreameryLocation,Cow Spots Creamery,APPALACHIA
+7327336,LocForestCraterOutpostLocation,Crater Forest Outpost,APPALACHIA
+7511212,LocForestCultistCaveNorthLocation,Organ Cave South,APPALACHIA
+7496460,LocForestCultistCaveSouthLocation,Organ Cave South,APPALACHIA
+7511213,LocForestCultistCaveWestLocation,Organ Cave South,APPALACHIA
+3668616,LocForestDarlingSistersLabLocation,Darling Sister's Lab,APPALACHIA
+3856171,LocForestDeathclawIslandLocation,Deathclaw Island,APPALACHIA
+2442308,LocForestENz04POI05Location,Bot Patrol Location POI 05,APPALACHIA
+3823594,LocForestFissureSiteKappaLocation,Fissure Site,APPALACHIA
+3823595,LocForestFissureSiteLambdaLocation,Fissure Site,APPALACHIA
+3823600,LocForestFissureSiteThetaLocation,Fissure Site,APPALACHIA
+87380,LocForestFlatwoodsLocation,Flatwoods,APPALACHIA
+2681782,LocForestFlatwoodsTavernLocation,Flatwoods Tavern,APPALACHIA
+7327334,LocForestForwardStationTangoLocation,Forward Station Tango,APPALACHIA
+7327335,LocForestFoundationOutpost,Foundation Outpost,APPALACHIA
+4371042,LocForestGauleyMineExitLocation,Gauley Mine,APPALACHIA
+630863,LocForestGiantTeapotLocation,The Giant Teapot,APPALACHIA
+686310,LocForestGilmanLumberLocation,Gilman Lumber Mill,APPALACHIA
+409031,LocForestGorgeJunkyardLocation,Gorge Junkyard,APPALACHIA
+591441,LocForestGreenCountryLodgeLocation,Green Country Lodge,APPALACHIA
+597770,LocForestGregsMineSupplyLocation,Greg's Mine Supply,APPALACHIA
+3668621,LocForestGrovesFamilyCabinLocation,Groves Family Cabin,APPALACHIA
+389310,LocForestHelvetiaLocation,Helvetia,APPALACHIA
+465552,LocForestHillfolkHotdogsLocation,Hillfolk Hotdogs,APPALACHIA
+3668620,LocForestHorizonsRestLocation,Horizon's Rest,APPALACHIA
+1100964,LocForestHornwrightIndustrialHQLocation,Hornwright Industrial Headquarters,APPALACHIA
+3846348,LocForestHornwrightSummerVillaLocation,Hornwright Summer Villa,APPALACHIA
+5199281,LocForestHuntersRidgeLocation,Hunter's Ridge,APPALACHIA
+468483,LocForestIsolatedCabinLocation,Isolated Cabin,APPALACHIA
+630989,LocForestKanawhaCountyCemeteryLocation,Kanawha County Cemetery,APPALACHIA
+3668625,LocForestLadyJanetSoftServeLocation,Lady Janet's Soft Serve,APPALACHIA
+585139,LocForestLakesideCabinsLocation,Lakeside Cabins,APPALACHIA
+630937,LocForestLandviewLighthouseLocation,Landview Lighthouse,APPALACHIA
+372458,LocForestLewisAndSonsFarmingSupplyLocation,Lewis & Sons Farming Supply,APPALACHIA
+662400,LocForestLookoutTower02Location,North Kanawha Lookout,APPALACHIA
+113328,LocForestLookoutTower03Location,East Kanawha Lookout,APPALACHIA
+3797131,LocForestLookoutTower09Location,Flatwoods Lookout,APPALACHIA
+3803040,LocForestLookoutTower10Location,Camp Adams Lookout,APPALACHIA
+576854,LocForestMamaDolceProcessingLocation,Mama Dolce's Food Processing,APPALACHIA
+3668627,LocForestMarigoldPavilionLocation,Marigold Pavilion,APPALACHIA
+3862810,LocForestMoonshinersShackLocation,Moonshiner's Shack,APPALACHIA
+1136568,LocForestMorgantownAirportLocation,Morgantown Airport,APPALACHIA
+1098475,LocForestMorgantownHighSchoolLocation,Morgantown High School,APPALACHIA
+295704,LocForestMorgantownLocation,Morgantown,APPALACHIA
+2913960,LocForestMorgantownTrainStationLocation,Morgantown Station,APPALACHIA
+576851,LocForestMorgantownTrainyardLocation,Morgantown Trainyard,APPALACHIA
+631375,LocForestNewGadLocation,New Gad,APPALACHIA
+616970,LocForestNewRiverGorgeResortLocation,New River Gorge Resort,APPALACHIA
+5220266,LocForestNewRiverGorgeRopesCourseLocation,New River Gorge Ropes Course,APPALACHIA
+598152,LocForestNukaColaQuantumPlantLocation,Kanawha Nuka-Cola Plant,APPALACHIA
+630808,LocForestOhioRiverAdventuresLocation,Ohio River Adventures,APPALACHIA
+617134,LocForestOrwellOrchardsLocation,Orwell Orchards,APPALACHIA
+1040991,LocForestOverlookCabinLocation,Overlook Cabin,APPALACHIA
+1251259,LocForestOverseersCAMPLocation,Overseer's Camp,APPALACHIA
+5222647,LocForestPOIForest25Location,Safe Shack,APPALACHIA
+617168,LocForestPointPleasantLocation,Point Pleasant,APPALACHIA
+3183209,LocForestPortsidePubLocation,Portside Pub,APPALACHIA
+16892,LocForestPoseidonEnergyLocation,Poseidon Energy Plant WV-06,APPALACHIA
+2856529,LocForestPoseidonEnergyWorkshopLocation,Poseidon Energy Plant Yard,APPALACHIA
+624143,LocForestRelayTower02Location,Relay Tower HN-B1-12,APPALACHIA
+624147,LocForestRelayTower06Location,Relay Tower EM-B1-27,APPALACHIA
+103377,LocForestRiversideManorLocation,Riverside Manor,APPALACHIA
+1230438,LocForestSilvaHomesteadLocation,Silva Homestead,APPALACHIA
+3742261,LocForestSlocumsJoeLocation,Slocum's Joe,APPALACHIA
+2941711,LocForestSubstationPoseidonPX01Location,Poseidon Power Substation PX-01,APPALACHIA
+2941710,LocForestSubstationPoseidonPX02Location,Poseidon Power Substation PX-02,APPALACHIA
+3846385,LocForestSugarmapleLocation,Sugarmaple,APPALACHIA
+3047496,LocForestSummersvilleDamLocation,Summersville Dam,APPALACHIA
+631181,LocForestSummersvilleDocksLocation,Summersville Docks,APPALACHIA
+631178,LocForestSummersvilleLocation,Summersville,APPALACHIA
+591401,LocForestSunshineMeadowsLocation,Sunshine Meadows Industrial Farm,APPALACHIA
+631793,LocForestSuttonLocation,Sutton,APPALACHIA
+4163888,LocForestSuttonOverseersHomeLocation,Overseer's Home,APPALACHIA
+2913961,LocForestSuttonTrainStationLocation,Sutton Station,APPALACHIA
+5250991,LocForestTheCrosshairLocation,The Crosshair,APPALACHIA
+5795114,LocForestThePigstyLocation,The Pigsty,APPALACHIA
+4242703,LocForestTheWaywardLocationExterior,The Wayward,APPALACHIA
+4301651,LocForestTheWaywardMuscleFightPOILocation,Wayward Fight POI,APPALACHIA
+3846398,LocForestTorranceHouseLocation,Torrance House,APPALACHIA
+3668618,LocForestTransmissionStation1ATU03Location,Transmission Station 1AT-U03,APPALACHIA
+3668626,LocForestTwinPineCabinsLocation,Twin Pine Cabins,APPALACHIA
+465572,LocForestTygartWaterTreatmentLocation,Tygart Water Treatment,APPALACHIA
+662398,LocForestTylerCountyFairgroundsLocation,Tyler County Fairgrounds,APPALACHIA
+3007869,LocForestTylerCountyTrackLocation,Tyler County Dirt Track,APPALACHIA
+5710790,LocForestUCBExteriorLocation,The Deep,APPALACHIA
+4218552,LocForestVault76LandingLocation,The Wayward,APPALACHIA
+64441,LocForestVaultTecAgCenterLocation,Vault-Tec Agricultural Research Center,APPALACHIA
+16588,LocForestVaultTecULocation,Vault-Tec University,APPALACHIA
+3697092,LocForestWVLumberCoLocation,WV Lumber Co.,APPALACHIA
+1101039,LocForestWadeAirportLocation,Wade Airport,APPALACHIA
+631075,LocForestWhitePowderWinterSportsLocation,White Powder Winter Sports,APPALACHIA
+3668631,LocForestWidowsPerchLocation,Widow's Perch,APPALACHIA
+1088430,LocForestWilsonBrothersAutoRepairLocation,Wilson Brother's Auto Repair,APPALACHIA
+3663581,LocForestWixonHomesteadLocation,Wixon Homestead,APPALACHIA
+583406,LocMTR08LodeBaring01Location,Abandoned Mine Shaft Elaine,APPALACHIA
+626794,LocMTR08LodeBaring02Location,Abandoned Mine Site Kittery,APPALACHIA
+3742197,LocMTRAMSTestSiteLocation,AMS Testing Site,APPALACHIA
+1088378,LocMTRAshforge01Location,Hornwright Air Purifier Site #01,APPALACHIA
+1088377,LocMTRAshforge02Location,Hornwright Air Purifier Site #02,APPALACHIA
+1088376,LocMTRAshforge03Location,Hornwright Air Purifier Site #03,APPALACHIA
+1088373,LocMTRAshforge04Location,Hornwright Air Purifier Site #04,APPALACHIA
+3315497,LocMTRBeckleyLocation,Beckley,APPALACHIA
+16713,LocMTRBeckleyWorkshopLocation,Beckley Mine Exhibit,APPALACHIA
+3797017,LocMTRBelchingBettyLocation,Belching Betty,APPALACHIA
+2194061,LocMTRBrimQuarryLocation,Brim Quarry,APPALACHIA
+16409,LocMTRBurningMineLocation,The Burning Mine,APPALACHIA
+102465,LocMTRCamdenParkLocation,Camden Park,APPALACHIA
+1608568,LocMTRENz04POI02Location,Bot Patrol Location POI 02,APPALACHIA
+3823596,LocMTRFissureSiteOmegaLocation,Fissure Site,APPALACHIA
+16719,LocMTRGarrahanEstateLocation,Garrahan Estate,APPALACHIA
+88889,LocMTRLakeReynoldsLocation,Lake Reynolds,APPALACHIA
+591214,LocMTRLewisburgLocation,Lewisburg,APPALACHIA
+2913966,LocMTRLewisburgTrainStationLocation,Lewisburg Station,APPALACHIA
+180341,LocMTRMineFire01Location,Abandoned Mine Shaft 1,APPALACHIA
+17905,LocMTRMineFire02Location,Abandoned Mine Shaft 2,APPALACHIA
+17906,LocMTRMineFire03Location,Abandoned Mine Shaft 3,APPALACHIA
+17907,LocMTRMineFire04Location,Abandoned Mine Shaft 4,APPALACHIA
+17908,LocMTRMineFire05Location,Abandoned Mine Shaft 5,APPALACHIA
+17909,LocMTRMineFire06Location,Abandoned Mine Shaft 6,APPALACHIA
+1261636,LocMTRMotherlode02Location,Hornwright Testing Site #02,APPALACHIA
+1161126,LocMTRMotherlode03Location,Hornwright Testing Site #03,APPALACHIA
+1161127,LocMTRMotherlode04Location,Hornwright Testing Site #04,APPALACHIA
+605137,LocMTRMountBlairLocation,Mount Blair,APPALACHIA
+605535,LocMTRMountBlairTrainyardLocation,Mount Blair Trainyard,APPALACHIA
+3742195,LocMTRNicholsonsEndLocation,Nicholson's End,APPALACHIA
+6769790,LocMTRNukaWorldOnTourLocation,Nuka-World On Tour,APPALACHIA
+3742189,LocMTRPleasantHillsCemeteryLocation,Pleasant Hills Cemetery,APPALACHIA
+4113461,LocMTRPylonAmbushSiteLocation,Pylon Ambush Site,APPALACHIA
+3668613,LocMTRRedRocketFillingStationLocation,Red Rocket Filling Station,APPALACHIA
+624146,LocMTRRelayTower05Location,Relay Tower HG-B7-09,APPALACHIA
+3742192,LocMTRRollinsWorkCampLocation,Rollins Labor Camp,APPALACHIA
+474475,LocMTRSalsGrindersLocation,Sal's Grinders,APPALACHIA
+5584137,LocMTRSludgeWorksLocation,The Sludge Works,APPALACHIA
+3824055,LocMTRStrikerRowLocation,Striker Row,APPALACHIA
+631878,LocMTRTheRustyPickLocation,The Rusty Pick,APPALACHIA
+3183142,LocMTRUnfinishedMansionLocation,Unfinished Mansion,APPALACHIA
+739441,LocMTRWelchLocation,Welch,APPALACHIA
+2913965,LocMTRWelchTrainStationLocation,Welch Station,APPALACHIA
+5899914,LocMountainAstronautCrashSiteLocation,Crash Site,APPALACHIA
+1089720,LocMountainSonsOfDaneCompoundLocation,Sons of Dane Compound,APPALACHIA
+3742180,LocMountainsAmmoDumpLocation,Ammo Dump,APPALACHIA
+3668629,LocMountainsAutumnAcreCabinLocation,Autumn Acre Cabin,APPALACHIA
+3668632,LocMountainsBaileyFamilyCabinLocation,Bailey Family Cabin,APPALACHIA
+5280592,LocMountainsBastionParkLocation,Bastion Park,APPALACHIA
+3668615,LocMountainsBeckwithFarmLocation,Beckwith Farm,APPALACHIA
+2120794,LocMountainsBigBendTunnelLocation,Big Bend Tunnel West,APPALACHIA
+468479,LocMountainsBigFredsBBQShackLocation,Big Fred's BBQ Shack,APPALACHIA
+16708,LocMountainsBlackwaterMineLocation,Blackwater Mine,APPALACHIA
+3742128,LocMountainsCliffwatchLocation,Cliffwatch,APPALACHIA
+605114,LocMountainsColKelleyMonumentLocation,Colonel Kelley Monument,APPALACHIA
+1135618,LocMountainsConvertedMunitionsFactoryLocation,Converted Munitions Factory,APPALACHIA
+399032,LocMountainsCultistCaveLocation,Lucky Hole Mine,APPALACHIA
+3742162,LocMountainsDentAndSonsConstructionLocation,Dent & Sons Construction,APPALACHIA
+5288633,LocMountainsDesertedMineLocation,Deserted Mine,APPALACHIA
+372001,LocMountainsDevilsBackboneLocation,Devil's Backbone,APPALACHIA
+1087925,LocMountainsEmmettDisposalSiteLocation,Emmett Mountain Disposal Site,APPALACHIA
+1088819,LocMountainsFederalDisposalFieldLocation,Federal Disposal Field HZ-21,APPALACHIA
+2953488,LocMountainsFissureSiteBetaLocation,Fissure Site,APPALACHIA
+3147698,LocMountainsFissureSiteGammaLocation,Fissure Site,APPALACHIA
+3823598,LocMountainsFissureSiteSigmaLocation,Fissure Site,APPALACHIA
+3823599,LocMountainsFissureSiteTauLocation,Fissure Site,APPALACHIA
+631080,LocMountainsFoundationLocation,Foundation,APPALACHIA
+6607439,LocMountainsFoundationOutpost,Foundation Outpost,APPALACHIA
+540414,LocMountainsGarrahanHQLocation,Garrahan Mining Headquarters,APPALACHIA
+16711,LocMountainsHopewellCaveLocation,Hopewell Cave,APPALACHIA
+540416,LocMountainsHornwrightEstateLocation,Hornwright Estate,APPALACHIA
+589539,LocMountainsHuntersvilleLocation,Huntersville,APPALACHIA
+1230494,LocMountainsInvestigatorsCabinLocation,Investigator's Cabin,APPALACHIA
+3742158,LocMountainsJohnsonsAcreLocation,Johnson's Acre,APPALACHIA
+5294960,LocMountainsLakeEloiseLocation,Lake Eloise,APPALACHIA
+630832,LocMountainsLookoutTower01Location,Whitespring Lookout,APPALACHIA
+113329,LocMountainsLookoutTower04Location,Central Mountain Lookout,APPALACHIA
+113331,LocMountainsLookoutTower05Location,North Mountain Lookout,APPALACHIA
+113332,LocMountainsLookoutTower06Location,East Mountain Lookout,APPALACHIA
+3728574,LocMountainsLookoutTower08Location,South Mountain Lookout,APPALACHIA
+6282560,LocMountainsMetalDomeLocation,Metal Dome,APPALACHIA
+2708945,LocMountainsMiddleMountainCabinsLocation,Middle Mountain Pitstop,APPALACHIA
+598284,LocMountainsMinersMonumentLocation,Miners Monument,APPALACHIA
+3506189,LocMountainsMoMBattleSiteLocation,Battle Site,APPALACHIA
+5294961,LocMountainsMonoRailElevatorLocation,Monorail Elevator,APPALACHIA
+604894,LocMountainsMonongahLocation,Monongah,APPALACHIA
+598583,LocMountainsMonongahMineLocation,Monongah Mine,APPALACHIA
+5353561,LocMountainsMonongahMissileSiloExteriorLocation,Missile Silo Bravo,APPALACHIA
+2913843,LocMountainsMonongahOverlookLocation,Monongah Overlook,APPALACHIA
+597767,LocMountainsMonongahPowerPlantLocation,Monongah Power Plant,APPALACHIA
+4016919,LocMountainsMonongahPowerPlantWorkshopLocation,Monongah Power Plant Yard,APPALACHIA
+611094,LocMountainsMountainsideBBLocation,Mountainside Bed & Breakfast,APPALACHIA
+3857947,LocMountainsNARRegionalLocation,98 NAR Regional,APPALACHIA
+20606,LocMountainsNationalRadioArrayLocation,National Isolated Radio Array,APPALACHIA
+450111,LocMountainsNationalRadioResearchCenterLocation,National Radio Research Center,APPALACHIA
+611609,LocMountainsNewAppalachianCentralTrainyardLocation,New Appalachian Central Trainyard,APPALACHIA
+3668634,LocMountainsNorthCutthroatCampLocation,North Cutthroat Camp,APPALACHIA
+617129,LocMountainsObservatoryLocation,Fort Atlas,APPALACHIA
+3276860,LocMountainsPOISavageDivide08Location,,APPALACHIA
+617059,LocMountainsPalaceoftheWindingPathLocation,Palace of the Winding Path,APPALACHIA
+103337,LocMountainsPleasantValleyCabinsLocation,Pleasant Valley Cabins,APPALACHIA
+103335,LocMountainsPleasantValleySkiResortLocation,Pleasant Valley Ski Resort,APPALACHIA
+2913971,LocMountainsPleasantValleyTrainStationLocation,Pleasant Valley Station,APPALACHIA
+630864,LocMountainsPumpkinHouseLocation,Pumpkin House,APPALACHIA
+604628,LocMountainsRGProcessingServicesLocation,R & G Processing Services,APPALACHIA
+2913977,LocMountainsRNGTrainStationLocation,R&G Station,APPALACHIA
+630833,LocMountainsRedRocketMegaStopLocation,Red Rocket Mega Stop,APPALACHIA
+624142,LocMountainsRelayTower01Location,Relay Tower EL-B1-02,APPALACHIA
+624144,LocMountainsRelayTower03Location,Relay Tower DP-B5-21,APPALACHIA
+624145,LocMountainsRelayTower04Location,Relay Tower LW-B1-22,APPALACHIA
+3742105,LocMountainsRipperAlleyLocation,Ripper Alley,APPALACHIA
+3742123,LocMountainsSafeNCleanDisposalLocation,Safe 'n Clean Disposal,APPALACHIA
+5291844,LocMountainsScenicOverlookLocation,Scenic Overlook,APPALACHIA
+3668636,LocMountainsSenecaGangCampLocation,Seneca Gang Camp,APPALACHIA
+3271725,LocMountainsSenecaRocksLocation,Seneca Rocks,APPALACHIA
+630993,LocMountainsSenecaRocksVisitorCenterLocation,Seneca Rocks Visitor Center,APPALACHIA
+4359094,LocMountainsSettlerBugOutLocation,Settler Bug Out,APPALACHIA
+4359093,LocMountainsSettlerScorchedCampLocation,Savage Divide,APPALACHIA
+3668628,LocMountainsSkullboneVantageLocation,Skullbone Vantage,APPALACHIA
+3838142,LocMountainsSludgeHoleLocation,The Sludge Hole,APPALACHIA
+3742185,LocMountainsSolomonsPondLocation,Solomon's Pond,APPALACHIA
+3668624,LocMountainsSouthCutthroatCampLocation,South Cutthroat Camp,APPALACHIA
+631111,LocMountainsSpruceKnobCampgroundLocation,Spruce Knob Campground,APPALACHIA
+5294958,LocMountainsSpruceKnobChannelsLocation,Spruce Knob Channels,APPALACHIA
+5294957,LocMountainsSpruceKnobLakeLocation,Spruce Knob Lake,APPALACHIA
+5353562,LocMountainsSpruceKnobMissileSiloExteriorLocation,Missile Silo Charlie,APPALACHIA
+2937569,LocMountainsSubstationMonongahMZ01Location,Monongah Power Substation MZ-01,APPALACHIA
+2937570,LocMountainsSubstationMonongahMZ02Location,Monongah Power Substation MZ-02,APPALACHIA
+2937571,LocMountainsSubstationMonongahMZ03Location,Monongah Power Substation MZ-03,APPALACHIA
+2941709,LocMountainsSubstationPoseidonPX03Location,Poseidon Power Substation PX-03,APPALACHIA
+631134,LocMountainsSugarGroveLocation,Sugar Grove,APPALACHIA
+5307892,LocMountainsSugarGroveMissileSiloExteriorLocation,Missile Silo Alpha,APPALACHIA
+3007874,LocMountainsSunnytopSkiLanesBaseLodgeLocation,Sunnytop Ski Lanes Base Lodge,APPALACHIA
+29490,LocMountainsSunnytopSkiLanesLocation,Sunnytop Ski Lanes,APPALACHIA
+2913970,LocMountainsSunnytopTrainStationLocation,Sunnytop Station,APPALACHIA
+5250976,LocMountainsSylvieAndSonsLoggingCampLocation,Sylvie & Sons Logging Camp,APPALACHIA
+5795112,LocMountainsTheBountyLocation,The Bounty,APPALACHIA
+3752625,LocMountainsTheFreakShowLocation,The Freak Show,APPALACHIA
+3668623,LocMountainsTheRoseRoomLocation,The Rose Room,APPALACHIA
+3668611,LocMountainsTheVantageLocation,The Vantage,APPALACHIA
+2913973,LocMountainsTheWhitespringTrainStationLocation,The Whitespring Station,APPALACHIA
+103338,LocMountainsTopOfTheWorldLocation,Top of the World,APPALACHIA
+3668612,LocMountainsToxicLarrysMeatnGoLocation,Toxic Larry's Meat 'n Go,APPALACHIA
+3080998,LocMountainsTrappersCampLocation,,APPALACHIA
+3824050,LocMountainsUS13CBivouacLocation,US-13C Bivouac,APPALACHIA
+6230316,LocMountainsUncannyCavernsLocation,Uncanny Caverns,APPALACHIA
+6270221,LocMountainsWendigoCaveLocationDUPLICATE000,Wendigo Cave,APPALACHIA
+6270220,LocMountainsWestTekResearchLocation,West Tek Research Center,APPALACHIA
+3742126,LocMountainsYellowSandysStillLocation,Yellow Sandy's Still,APPALACHIA
+399019,LocSacramentalGladeLocation,Sacramental Glade,APPALACHIA
+8027757,LocStormBigBloomSiteLocation,Susan's Cabin,APPALACHIA
+7061130,LocStormBlueRidgeCampLocation,Naked Creek,APPALACHIA
+7050882,LocStormCampRapidanLocation,Rapidan Camp,APPALACHIA
+7061129,LocStormCrashedScoutsBusLocation,South River Bridge,APPALACHIA
+7556227,LocStormCrossroadLocation,Crossroad,APPALACHIA
+7050890,LocStormCultistTunnelsLocation,Old Crimora Mines,APPALACHIA
+7812278,LocStormDarkWoodManorGateLocation,Mary's Rock Tunnel,APPALACHIA
+7050879,LocStormDarkwoodManorLocation,Dark Hollow Manor,APPALACHIA
+7050892,LocStormFederalNatrualGasFieldNG17Location,Big Meadows Gas Well,APPALACHIA
+7512229,LocStormForestVault63CrashSiteLocation,Vault 63 Crash Site,APPALACHIA
+7061128,LocStormHallucinogenicCaveLocation,Shining Creek Cavern,APPALACHIA
+7050893,LocStormHighKnobFireTowerLocation,High Knob Lookout,APPALACHIA
+7525832,LocStormLightningHarvesterSiteA,Research Site Saxony,APPALACHIA
+7525831,LocStormLightningHarvesterSiteB,Research Site Bavaria,APPALACHIA
+7525830,LocStormLightningHarvesterSiteC,Research Site Rhineland,APPALACHIA
+7050886,LocStormMakeoutPointLocation,Makeout Point,APPALACHIA
+7216684,LocStormNaturalBridge,Grindstone Arch,APPALACHIA
+7096968,LocStormRadioactiveWasteSiteLocation,Hemlock Springs Dump,APPALACHIA
+7310013,LocStormRangerStationBunkerLocation,Park Ranger Radio Bunker,APPALACHIA
+7050891,LocStormRedRocketMotelLocation,The Slumber Mill Motel,APPALACHIA
+7769818,LocStormRoadLocation,Shenandoah National Park,APPALACHIA
+7050880,LocStormRobinsonRangerStationLocation,Shenandoah Visitor Center,APPALACHIA
+7096969,LocStormSkyboundTowerLocation,Old Rag Lookout,APPALACHIA
+7050881,LocStormSkylineDriveEntranceLocation,Skyline Drive Entrance,APPALACHIA
+7771668,LocStormSubstationThunderMtTM03Location,Thunder Mountain Substation TM-03,APPALACHIA
+7050888,LocStormSummerCampLocation,Camp Liberty,APPALACHIA
+7797099,LocStormThreePondsLocation,Three Ponds,APPALACHIA
+7050889,LocStormTradingPostLocation,The Trading Post,APPALACHIA
+7050884,LocStormVaultCovoyLocation,Abandoned Convoy,APPALACHIA
+7050883,LocStormWeatherStationLocation,Hawksbill Weather Station,APPALACHIA
+7050885,LocStormWoodstockTowerLocation,Stony Man Lookout,APPALACHIA
+6182464,LocSubToxicValleyMakeshiftVaultLocation,Enclave Research Facility,APPALACHIA
+282445,LocSwampAbbiesBunkerLocation,Abbie's Bunker,APPALACHIA
+16715,LocSwampBerkeleySpringsLocation,Berkeley Springs,APPALACHIA
+5514941,LocSwampBerkeleySpringsRaiderCampLocation,Bloody Frank's,APPALACHIA
+4160615,LocSwampBerkeleySpringsTrainStationLocation,Berkeley Springs Station,APPALACHIA
+2726216,LocSwampBerkeleySpringsWorkshopLocation,Berkeley Springs,APPALACHIA
+3183143,LocSwampBigBsRestStopLocation,Big B's Rest Stop,APPALACHIA
+3847258,LocSwampBigMawLocation,Big Maw,APPALACHIA
+5795121,LocSwampBlakesOfferingLocation,Blakes Offering,APPALACHIA
+3183228,LocSwampBraxsonsQualityMedicalSuppliesLocation,Braxson's Quality Medical Supplies,APPALACHIA
+2691036,LocSwampCarsonFamilyBunkerLocation,Carson Family Bunker,APPALACHIA
+3038274,LocSwampCrashedPlaneLocation,Crashed Plane,APPALACHIA
+29341,LocSwampCrevasseDamLocation,Crevasse Dam,APPALACHIA
+1089347,LocSwampDabneyHomesteadLocation,Dabney Homestead,APPALACHIA
+631727,LocSwampDaggersDenLocation,Dagger's Den,APPALACHIA
+4629868,LocSwampDelanoGrangeLocation,Delano Grange,APPALACHIA
+3007873,LocSwampDollySodsCampgroundLocation,Dolly Sods Campground,APPALACHIA
+372080,LocSwampDollySodsWildernessLocation,Dolly Sods Wilderness,APPALACHIA
+351745,LocSwampDyerChemicalLocation,Dyer Chemical,APPALACHIA
+1434314,LocSwampENz04POI03Location,Bot Patrol Location POI 03,APPALACHIA
+3369807,LocSwampEllaAmesBunkerLocation,Ella Ames' Bunker,APPALACHIA
+3752622,LocSwampExcelsiorModelHomeLocation,Excelsior Model Home,APPALACHIA
+3823597,LocSwampFissureSiteOmicronLocation,Fissure Site,APPALACHIA
+399314,LocSwampFreddyFearsHouseOfScaresLocation,Freddy Fear's House of Scares,APPALACHIA
+3795598,LocSwampFreeStatesBunker07Location,Ransacked Bunker,APPALACHIA
+5395411,LocSwampGnarledShallowsLocation,Gnarled Shallows,APPALACHIA
+5395365,LocSwampGulperLagoonLocation,Gulper Lagoon,APPALACHIA
+6346138,LocSwampHarpersFerryDungeonExtLocation,Harpers Ferry Tunnel,APPALACHIA
+459624,LocSwampHarpersFerryLocation,Harpers Ferry,APPALACHIA
+361625,LocSwampHavenChurchLocation,Haven Church,APPALACHIA
+5395278,LocSwampHighlandMarshLocation,Highland Marsh,APPALACHIA
+465612,LocSwampHuntersShackLocation,Hunter's Shack,APPALACHIA
+3183181,LocSwampKMAXTransmissionLocation,KMAX Transmission,APPALACHIA
+3824175,LocSwampLookoutTower11Location,East Ridge Lookout,APPALACHIA
+3824179,LocSwampLookoutTower13Location,Dolly Sods Lookout,APPALACHIA
+7792447,LocSwampMireseyeLocation,Mire's Eye,APPALACHIA
+3668619,LocSwampMossTownLocation,Mosstown,APPALACHIA
+5795120,LocSwampMothHomeLocation,Moth-Home,APPALACHIA
+647398,LocSwampRaleighsBunkerLocation,Raleigh Clay's Bunker,APPALACHIA
+5795123,LocSwampSacramentLocation,Sacrament,APPALACHIA
+2975038,LocSwampSamBlackwellBunkerLocation,Sam Blackwell's Bunker,APPALACHIA
+3183206,LocSwampSouthernBelleMotelLocation,Southern Belle Motel,APPALACHIA
+5251008,LocSwampSouthhamptonEstateLocation,Southhampton Estate,APPALACHIA
+2933451,LocSwampSubstationThunderMtTM01Location,Thunder Mountain Substation TM-01,APPALACHIA
+631721,LocSwampSundayBrothersCabinLocation,Sunday Brothers' Cabin,APPALACHIA
+631645,LocSwampSurvivalTrainingCenterLocation,Camp Venture,APPALACHIA
+3142776,LocSwampTanagraTownLocation,Tanagra Town,APPALACHIA
+632537,LocSwampTheRetreatLocation,The Retreat,APPALACHIA
+611765,LocSwampThunderMountainPowerPlantLocation,Thunder Mountain Power Plant,APPALACHIA
+4016920,LocSwampThunderMountainPowerPlantWorkshopLocation,Thunder Mt. Power Plant Yard,APPALACHIA
+3785676,LocSwampTreetopsLocation,Treetops,APPALACHIA
+6053385,LocSwampValleyGalleriaLocation,Valley Galleria,APPALACHIA
+569360,LocToxicBeckerFarmLocation,Becker Farm,APPALACHIA
+468474,LocToxicBlackBearLodgeLocation,Black Bear Lodge,APPALACHIA
+379964,LocToxicClarksburgLocation,Clarksburg,APPALACHIA
+389247,LocToxicClarksburgShootingClubLocation,Clarksburg Shooting Club,APPALACHIA
+3668622,LocToxicCobbletonFarmLocation,Cobbleton Farm,APPALACHIA
+4243878,LocToxicCraterWatchstationLocation,Crater Watchstation,APPALACHIA
+88293,LocToxicEasternRegionalPenLocation,Eastern Regional Penitentiary,APPALACHIA
+622487,LocToxicFissureSiteDeltaLocation,Fissure Site,APPALACHIA
+29342,LocToxicGraftonDamLocation,Grafton Dam,APPALACHIA
+3883082,LocToxicGraftonLakeLocation,Grafton Lake,APPALACHIA
+450093,LocToxicGraftonLocation,Grafton,APPALACHIA
+447218,LocToxicGraftonSteelLocation,Grafton Steel,APPALACHIA
+4425059,LocToxicGraftonSteelWorkshopLocation,Grafton Steel Yard,APPALACHIA
+2913979,LocToxicGraftonTrainStationLocation,Grafton Station,APPALACHIA
+583202,LocToxicGraningerFarmLocation,Graninger Farm,APPALACHIA
+459728,LocToxicHemlockHolesLocation,Hemlock Holes,APPALACHIA
+3658196,LocToxicHemlockHolesWorkshopLocation,Hemlock Holes Maintenance,APPALACHIA
+3668614,LocToxicKiddieCornerCabinsLocation,Kiddie Corner Cabins,APPALACHIA
+3742234,LocToxicKnifeEdgeLocation,Knife Edge,APPALACHIA
+2913948,LocToxicLookoutTower07Location,Pioneer Scout Lookout,APPALACHIA
+4242577,LocToxicLousMineLocation,Carleton Mine,APPALACHIA
+616960,LocToxicPhilippiBattlefieldCemeteryLocation,Philippi Battlefield Cemetery,APPALACHIA
+632518,LocToxicPioneerScoutCampLocation,Pioneer Scout Camp,APPALACHIA
+559803,LocToxicPrickettsFortLocation,Prickett's Fort,APPALACHIA
+4234960,LocToxicRaiderRaidLocation,Raider Raid Location,APPALACHIA
+583193,LocToxicSmithFarmLocation,Smith Farm,APPALACHIA
+7623497,LocToxicSurlysShackLocation,Surly's Shack,APPALACHIA
+399027,LocToxicTheCraterLocation,The Crater,APPALACHIA
+3458973,LocToxicToxicDriedLakebedLocation,Toxic Dried Lakebed,APPALACHIA
+730071,LocToxicWavyWillardsWaterparkLocation,Wavy Willard's Water Park,APPALACHIA
+3668610,LocToxicWillardCorporateHousingLocation,Willard Corporate Housing,APPALACHIA
+2995407,LocToxicWoodsEstateLocation,Woods Estate,APPALACHIA
+1186090,LocVault63Location,Vault 63,APPALACHIA
+1218822,LocWhitespringTheWhitespringBunkerLocation,The Whitespring Bunker,APPALACHIA
+631889,LocWhitespringTheWhitespringGolfLocation,The Whitespring Golf Club,APPALACHIA
+625141,LocWhitespringTheWhitespringLocation,The Whitespring,APPALACHIA
+7737477,MILE_Location_EncounterPointA,Caravan Encounter Point 01,APPALACHIA
+7737468,MILE_Location_EncounterPointB,Caravan Encounter Point 02,APPALACHIA
+7737469,MILE_Location_EncounterPointC,Caravan Encounter Point 03,APPALACHIA
+7737470,MILE_Location_EncounterPointD,Caravan Encounter Point 04,APPALACHIA
+7737472,MILE_Location_EncounterPointE,Caravan Encounter Point 05,APPALACHIA
+7737473,MILE_Location_EncounterPointF,Caravan Encounter Point 06,APPALACHIA
+7737474,MILE_Location_EncounterPointG,Caravan Encounter Point 07,APPALACHIA
+7737475,MILE_Location_EncounterPointH,Caravan Encounter Point 08,APPALACHIA
+7737478,MILE_Location_EncounterPointI,Caravan Encounter Point 09,APPALACHIA
+7737476,MILE_Location_EncounterPointJ,Caravan Encounter Point 10,APPALACHIA
+7737467,MILE_Location_EncounterPointK,Caravan Encounter Point 11,APPALACHIA
+7737471,MILE_Location_EncounterPointL,Caravan Encounter Point 12,APPALACHIA
+7935844,MILE_Location_MilePostZero,Milepost Zero,APPALACHIA
+1864907,MTNM02SignalLocation,,APPALACHIA
+8054182,RegionBurningSpringsLocation,Burning Springs,APPALACHIA
+4770,RegionCranberryBogLocation,Cranberry Bog,APPALACHIA
+610308,RegionForestFloodlandsLocation,The Forest,APPALACHIA
+17872,RegionMTRLocation,Ash Heap,APPALACHIA
+1542648,RegionMountainLocation,Savage Divide,APPALACHIA
+6890472,RegionStormLocation,Skyline Valley,APPALACHIA
+17889,RegionSwampForestLocation,The Mire,APPALACHIA
+559802,RegionToxicValleyLocation,Toxic Valley,APPALACHIA
+3347727,SFL02_Track_HardballLocation,,APPALACHIA
+363246,SFM01_Glow_MirelurkQueenSpawnLocation01,,APPALACHIA
+372267,SFM01_Glow_MirelurkQueenSpawnLocation02,,APPALACHIA
+2885790,SFM04_Organic_NestLocation01,,APPALACHIA
+2885791,SFM04_Organic_NestLocation02,,APPALACHIA
+665205,SFS08_Heart_VineHeartLocation01,,APPALACHIA
+665693,SFS08_Heart_VineHeartLocation02,,APPALACHIA
+665206,SFS08_Heart_VineHeartLocation03,,APPALACHIA
+283135,SFZ03_Queen_BossLocation01,Site Alpha,APPALACHIA
+283144,SFZ03_Queen_BossLocation02,Site Beta,APPALACHIA
+245097,SFZ03_Queen_BossLocation03,Site Gamma,APPALACHIA
+2840116,SFZ03_Queen_BossLocation04,Site Delta,APPALACHIA
+2840121,SFZ03_Queen_BossLocation05,Site Epsilon,APPALACHIA
+3076115,SFZ08_HoneyLocation01,,APPALACHIA
+3076107,SF_BloodbugSwarmLocation01,,APPALACHIA
+3076108,SF_BloodbugSwarmLocation02,,APPALACHIA
+3076109,SF_BloodbugSwarmLocation03,,APPALACHIA
+3076110,SF_BloodbugSwarmLocation04,,APPALACHIA
+7717869,StormMarysRockTunnelLocation,Mary's Rock Tunnel,APPALACHIA
+3824054,SubForestCampAdamsLocation,Camp Adams,APPALACHIA
+77675,SubMTRENz04POI04Location,Bot Patrol Location POI 04,APPALACHIA
+8219275,SubRegionBurningSprings01Location,Burning Springs,APPALACHIA
+8219276,SubRegionBurningSprings02Location,Burning Springs,APPALACHIA
+8219277,SubRegionBurningSprings03Location,Burning Springs,APPALACHIA
+8219278,SubRegionBurningSprings04Location,Burning Springs,APPALACHIA
+8219279,SubRegionBurningSprings05Location,Burning Springs,APPALACHIA
+8219280,SubRegionBurningSprings06Location,Burning Springs,APPALACHIA
+8219281,SubRegionBurningSprings07Location,Burning Springs,APPALACHIA
+8219282,SubRegionBurningSprings08Location,Burning Springs,APPALACHIA
+8219283,SubRegionBurningSprings09Location,Burning Springs,APPALACHIA
+8219284,SubRegionBurningSprings10Location,Burning Springs,APPALACHIA
+8219285,SubRegionBurningSprings11Location,Burning Springs,APPALACHIA
+8219286,SubRegionBurningSprings12Location,Burning Springs,APPALACHIA
+8219287,SubRegionBurningSprings13Location,Burning Springs,APPALACHIA
+8219288,SubRegionBurningSprings14Location,Burning Springs,APPALACHIA
+8219289,SubRegionBurningSprings15Location,Burning Springs,APPALACHIA
+8219290,SubRegionBurningSprings16Location,Burning Springs,APPALACHIA
+8219291,SubRegionBurningSprings17Location,Burning Springs,APPALACHIA
+8219292,SubRegionBurningSprings18Location,Burning Springs,APPALACHIA
+8219293,SubRegionBurningSprings19Location,Burning Springs,APPALACHIA
+8219294,SubRegionBurningSprings20Location,Burning Springs,APPALACHIA
+3055768,SubRegionCranberry01Location,Cranberry Bog,APPALACHIA
+3073253,SubRegionCranberry02Location,Cranberry Bog,APPALACHIA
+3073262,SubRegionCranberry03Location,Cranberry Bog,APPALACHIA
+3073316,SubRegionCranberry12Location,Cranberry Bog,APPALACHIA
+3109008,SubRegionCranberry13Location,Cranberry Bog,APPALACHIA
+3109009,SubRegionCranberry14Location,Cranberry Bog,APPALACHIA
+3109010,SubRegionCranberry15Location,Cranberry Bog,APPALACHIA
+3109011,SubRegionCranberry16Location,Cranberry Bog,APPALACHIA
+3109012,SubRegionCranberry17Location,Cranberry Bog,APPALACHIA
+310780,SubRegionForestFloodlands01Location,The Forest,APPALACHIA
+310781,SubRegionForestFloodlands02Location,The Forest,APPALACHIA
+310874,SubRegionForestFloodlands03Location,The Forest,APPALACHIA
+310885,SubRegionForestFloodlands04Location,The Forest,APPALACHIA
+310900,SubRegionForestFloodlands05Location,The Forest,APPALACHIA
+3073317,SubRegionForestFloodlands06LocationLOW,The Forest,APPALACHIA
+3073318,SubRegionForestFloodlands07LocationLOW,The Forest,APPALACHIA
+3073319,SubRegionForestFloodlands08LocationLOW,The Forest,APPALACHIA
+3073320,SubRegionForestFloodlands09Location,The Forest,APPALACHIA
+3073321,SubRegionForestFloodlands10Location,The Forest,APPALACHIA
+3073325,SubRegionForestFloodlands11LocationLOW,The Forest,APPALACHIA
+3073326,SubRegionForestFloodlands12LocationLOW,The Forest,APPALACHIA
+3073327,SubRegionForestFloodlands13LocationLOW,The Forest,APPALACHIA
+3073331,SubRegionForestFloodlands14Location,The Forest,APPALACHIA
+3073332,SubRegionForestFloodlands15Location,The Forest,APPALACHIA
+3073333,SubRegionForestFloodlands16LocationLOW,The Forest,APPALACHIA
+3073363,SubRegionForestFloodlands17LocationLOW,The Forest,APPALACHIA
+3073364,SubRegionForestFloodlands18Location,The Forest,APPALACHIA
+3073365,SubRegionForestFloodlands19Location,The Forest,APPALACHIA
+3073366,SubRegionForestFloodlands20Location,The Forest,APPALACHIA
+3256031,SubRegionForestFloodlands21Location,The Forest,APPALACHIA
+3256032,SubRegionForestFloodlands22Location,The Forest,APPALACHIA
+3256033,SubRegionForestFloodlands23Location,The Forest,APPALACHIA
+3256034,SubRegionForestFloodlands24Location,The Forest,APPALACHIA
+3256035,SubRegionForestFloodlands25Location,The Forest,APPALACHIA
+3256036,SubRegionForestFloodlands26Location,The Forest,APPALACHIA
+3256043,SubRegionForestFloodlands27Location,The Forest,APPALACHIA
+3256044,SubRegionForestFloodlands28Location,The Forest,APPALACHIA
+3073381,SubRegionMountainRemoval01Location,The Ash Heap,APPALACHIA
+3073382,SubRegionMountainRemoval02Location,The Ash Heap,APPALACHIA
+3073383,SubRegionMountainRemoval03Location,The Ash Heap,APPALACHIA
+3073384,SubRegionMountainRemoval04Location,The Ash Heap,APPALACHIA
+3073385,SubRegionMountainRemoval05Location,The Ash Heap,APPALACHIA
+3073386,SubRegionMountainRemoval06Location,The Ash Heap,APPALACHIA
+3073387,SubRegionMountainRemoval07Location,The Ash Heap,APPALACHIA
+4467120,SubRegionMountainRemoval08LocationLOW,The Ash Heap,APPALACHIA
+3108967,SubRegionMountains01Location,Savage Divide,APPALACHIA
+3109102,SubRegionMountains02Location,Savage Divide,APPALACHIA
+3109103,SubRegionMountains03Location,Savage Divide,APPALACHIA
+3109104,SubRegionMountains04Location,Savage Divide,APPALACHIA
+3109105,SubRegionMountains05Location,Savage Divide,APPALACHIA
+3109106,SubRegionMountains06Location,Savage Divide,APPALACHIA
+3109107,SubRegionMountains07Location,Savage Divide,APPALACHIA
+3109108,SubRegionMountains08Location,Savage Divide,APPALACHIA
+3109109,SubRegionMountains09Location,Savage Divide,APPALACHIA
+3109110,SubRegionMountains10Location,Savage Divide,APPALACHIA
+3109111,SubRegionMountains11Location,Savage Divide,APPALACHIA
+3109112,SubRegionMountains12Location,Savage Divide,APPALACHIA
+3109113,SubRegionMountains13LocationLOW,Savage Divide,APPALACHIA
+3109114,SubRegionMountains14Location,Savage Divide,APPALACHIA
+3109115,SubRegionMountains15Location,Savage Divide,APPALACHIA
+3109116,SubRegionMountains16Location,Savage Divide,APPALACHIA
+3109117,SubRegionMountains17Location,Savage Divide,APPALACHIA
+3109118,SubRegionMountains18Location,Savage Divide,APPALACHIA
+3109119,SubRegionMountains19Location,Savage Divide,APPALACHIA
+3109120,SubRegionMountains20Location,Savage Divide,APPALACHIA
+3376949,SubRegionMountains21Location,Savage Divide,APPALACHIA
+3376950,SubRegionMountains22Location,Savage Divide,APPALACHIA
+3376951,SubRegionMountains23Location,Savage Divide,APPALACHIA
+3376952,SubRegionMountains24Location,Savage Divide,APPALACHIA
+3376953,SubRegionMountains25Location,Savage Divide,APPALACHIA
+3376954,SubRegionMountains26Location,Savage Divide,APPALACHIA
+3376955,SubRegionMountains27Location,Savage Divide,APPALACHIA
+3376956,SubRegionMountains28Location,Savage Divide,APPALACHIA
+3376957,SubRegionMountains29Location,Savage Divide,APPALACHIA
+3376958,SubRegionMountains30Location,Savage Divide,APPALACHIA
+3376999,SubRegionMountains31Location,Savage Divide,APPALACHIA
+3377000,SubRegionMountains32Location,Savage Divide,APPALACHIA
+3377001,SubRegionMountains33Location,Savage Divide,APPALACHIA
+3377002,SubRegionMountains34Location,Savage Divide,APPALACHIA
+7636852,SubRegionStorm01Location,Shenandoah National Park,APPALACHIA
+7637590,SubRegionStorm02Location,Shenandoah National Park,APPALACHIA
+7639144,SubRegionStorm03Location,Shenandoah National Park,APPALACHIA
+7659969,SubRegionStorm04Location,Shenandoah National Park,APPALACHIA
+7664770,SubRegionStorm05Location,Shenandoah National Park,APPALACHIA
+7677551,SubRegionStorm06Location,Shenandoah National Park,APPALACHIA
+7702383,SubRegionStorm07Location,Shenandoah National Park,APPALACHIA
+7703017,SubRegionStorm08Location,Shenandoah National Park,APPALACHIA
+7707478,SubRegionStorm09Location,Shenandoah National Park,APPALACHIA
+7666710,SubRegionStorm10Location,Shenandoah National Park,APPALACHIA
+7718606,SubRegionStorm11Location,Shenandoah National Park,APPALACHIA
+7672218,SubRegionStorm12Location,Shenandoah National Park,APPALACHIA
+7671650,SubRegionStorm13Location,Shenandoah National Park,APPALACHIA
+7719735,SubRegionStorm14Location,Shenandoah National Park,APPALACHIA
+7719736,SubRegionStorm15Location,Shenandoah National Park,APPALACHIA
+7711873,SubRegionStorm16Location,Shenandoah National Park,APPALACHIA
+7773109,SubRegionStorm17Location,Shenandoah National Park,APPALACHIA
+7719737,SubRegionStorm18Location,Shenandoah National Park,APPALACHIA
+3108968,SubRegionSwamp01Location,Mire,APPALACHIA
+3108969,SubRegionSwamp02Location,Mire,APPALACHIA
+3108970,SubRegionSwamp03Location,Mire,APPALACHIA
+3108971,SubRegionSwamp04Location,Mire,APPALACHIA
+3108972,SubRegionSwamp05Location,Mire,APPALACHIA
+3108973,SubRegionSwamp06Location,Mire,APPALACHIA
+3108974,SubRegionSwamp07Location,Mire,APPALACHIA
+3108975,SubRegionSwamp08Location,Mire,APPALACHIA
+3108976,SubRegionSwamp09Location,Mire,APPALACHIA
+3108977,SubRegionSwamp10Location,Mire,APPALACHIA
+3108978,SubRegionSwamp11Location,Mire,APPALACHIA
+8044165,SubRegionSwamp12Location,Mire,APPALACHIA
+3108988,SubRegionToxicValley01Location,Toxic Valley,APPALACHIA
+3108989,SubRegionToxicValley02Location,Toxic Valley,APPALACHIA
+3108990,SubRegionToxicValley03Location,Toxic Valley,APPALACHIA
+3108991,SubRegionToxicValley04Location,Toxic Valley,APPALACHIA
+3108992,SubRegionToxicValley05LocationLOW,Toxic Valley,APPALACHIA
+3108993,SubRegionToxicValley06LocationLOW,Toxic Valley,APPALACHIA
+3108994,SubRegionToxicValley07Location,Toxic Valley,APPALACHIA
+6198647,Vault51ExteriorLocation,Vault 51,APPALACHIA
+726037,Vault76LocationExterior,Vault 76,APPALACHIA
+5822659,Vault79EntranceLocation_Exterior,Mysterious Cave,APPALACHIA
+5897398,Vault79ExitLocation_Exterior,Vault 79,APPALACHIA
+4134862,Vault94ExteriorLocation,Vault 94,APPALACHIA
+728386,Vault96ExteriorLocation,Vault 96,APPALACHIA
+5539848,W05_JP_Community_SwampLocation,Mire,APPALACHIA
+
+Cell count by location
+BURN_FrontierFortLOC,APPALACHIA,1
+BURN_JacksonJunkyardLOC,APPALACHIA,4
+BullengrubeLocation_Exterior,APPALACHIA,3
+CharlestonOrbitalDrop01Location,APPALACHIA,1
+EN07LimoPOI01Location,APPALACHIA,1
+EN07NukeMeshDepotLocation,APPALACHIA,1
+FSLureCranberryBog01Location,APPALACHIA,1
+FSLureCranberryBog02Location,APPALACHIA,1
+FSLureForest01Location,APPALACHIA,1
+FSLureForest02Location,APPALACHIA,1
+FSLureMTR01Location,APPALACHIA,1
+FSLureMTR02Location,APPALACHIA,1
+FSLureMountains01Location,APPALACHIA,1
+FSLureMountains02Location,APPALACHIA,1
+FSLureSwamp01Location,APPALACHIA,1
+FSLureSwamp02Location,APPALACHIA,1
+FSLureToxicValley02Location,APPALACHIA,1
+GhoulCabinLocation,APPALACHIA,2
+GhoulCampLocation_Exterior,APPALACHIA,4
+GhoulCaveLocation_Exterior,APPALACHIA,1
+GhoulPointReposeLocation,APPALACHIA,2
+LocBurnAshCaveLocation,APPALACHIA,10
+LocBurnAthensArmoryLocation,APPALACHIA,2
+LocBurnAthensLocation,APPALACHIA,19
+LocBurnCheckpointCanyonExt,APPALACHIA,4
+LocBurnChopShop,APPALACHIA,4
+LocBurnCornhengeLocation,APPALACHIA,9
+LocBurnDinoGolf,APPALACHIA,5
+LocBurnDriveinWorkshopLocation,APPALACHIA,6
+LocBurnFrontierFortLocation,APPALACHIA,4
+LocBurnHighwayTownExtLocation,APPALACHIA,4
+LocBurnPOI101WildwoodRanchLocation,APPALACHIA,1
+LocBurnPOI133AbraxodyneStorageDepotLocation,APPALACHIA,1
+LocBurnPOI16HillsideChurchLocation,APPALACHIA,1
+LocBurnPOI19SockHopLocation,APPALACHIA,1
+LocBurnPOI32DesolateEncampmentCampLocation,APPALACHIA,2
+LocBurnPOI37UFOWatcherLocation,APPALACHIA,1
+LocBurnPOI41ApiaryLocation,APPALACHIA,1
+LocBurnPOI54AlbanyLocation,APPALACHIA,3
+LocBurnPOI59LanganMillLocation,APPALACHIA,4
+LocBurnPOI71PlaygroundLocation,APPALACHIA,1
+LocBurnPOI73DerelictPowerSubstationLocation,APPALACHIA,1
+LocBurnRailroadServiceYardExtLocation,APPALACHIA,6
+LocBurnRustKingdomExtLocation,APPALACHIA,16
+LocBurnSDMLocation,APPALACHIA,4
+LocBurnSinkholeLocation,APPALACHIA,5
+LocBurnTrainStationLocation,APPALACHIA,4
+LocCranberryAMSCorporateHQLocation,APPALACHIA,1
+LocCranberryAbandonedBogTownLocation,APPALACHIA,8
+LocCranberryAbandonedBogTownWorkshopLocation,APPALACHIA,4
+LocCranberryAlleghenyAsylumLocation,APPALACHIA,6
+LocCranberryAppalachianAntiquesLocation,APPALACHIA,2
+LocCranberryBigBendTunnelEastLocation,APPALACHIA,2
+LocCranberryBootleggersShackLocation,APPALACHIA,1
+LocCranberryDropSiteC2Location,APPALACHIA,1
+LocCranberryDropSiteG3Location,APPALACHIA,1
+LocCranberryDropSiteV9Location,APPALACHIA,1
+LocCranberryDuelingFarmsLocation,APPALACHIA,2
+LocCranberryENz04POI01Location,APPALACHIA,2
+LocCranberryElectricTowerCampLocation,APPALACHIA,6
+LocCranberryFirebaseHancockLocation,APPALACHIA,1
+LocCranberryFirebaseLTLocation,APPALACHIA,1
+LocCranberryFirebaseMajorLocation,APPALACHIA,3
+LocCranberryFissureSiteAlphaLocation,APPALACHIA,2
+LocCranberryFissureSiteEpsilonLocation,APPALACHIA,2
+LocCranberryFissureSiteZetaLocation,APPALACHIA,2
+LocCranberryFloodedTrainyardLocation,APPALACHIA,7
+LocCranberryForwardStationAlphaLocation,APPALACHIA,5
+LocCranberryForwardStationDeltaLocation,APPALACHIA,1
+LocCranberryGeneralsSteakhouseLocation,APPALACHIA,3
+LocCranberryGlassedCavernLocation,APPALACHIA,2
+LocCranberryKerwoodMineLocation,APPALACHIA,3
+LocCranberryLookoutTower12Location,APPALACHIA,1
+LocCranberryLostHomeLocation,APPALACHIA,4
+LocCranberryMacsFarmLocation,APPALACHIA,2
+LocCranberryNARRepairYardLocation,APPALACHIA,1
+LocCranberryOldMoldQuarryLocation,APPALACHIA,5
+LocCranberryPylonV13Location,APPALACHIA,1
+LocCranberryQuarryX3Location,APPALACHIA,6
+LocCranberryRangerDistrictOfficeLocation,APPALACHIA,5
+LocCranberryRobCoResearchCenterLocation,APPALACHIA,11
+LocCranberrySubstationThunderMtTM02Location,APPALACHIA,2
+LocCranberrySundewGrove01Location,APPALACHIA,4
+LocCranberrySundewGrove02Location,APPALACHIA,4
+LocCranberrySundewGrove03Location,APPALACHIA,3
+LocCranberrySundewGrove04Location,APPALACHIA,4
+LocCranberrySunriseFieldLocation,APPALACHIA,6
+LocCranberrySuperiorSunsetFarmLocation,APPALACHIA,4
+LocCranberrySurveyCampAlphaLocation,APPALACHIA,1
+LocCranberryTheThornLocation,APPALACHIA,1
+LocCranberryWatogaCivicCenterExteriorLocation,APPALACHIA,2
+LocCranberryWatogaEmergencyServicesLocation,APPALACHIA,1
+LocCranberryWatogaEstatesLocation,APPALACHIA,2
+LocCranberryWatogaHighSchoolLocation,APPALACHIA,3
+LocCranberryWatogaLocation,APPALACHIA,18
+LocCranberryWatogaMunicipalCenterLocation,APPALACHIA,1
+LocCranberryWatogaShoppingPlazaLocation,APPALACHIA,1
+LocCranberryWatogaTrainStationLocation,APPALACHIA,1
+LocCranberryWatogaTransitHubLocation,APPALACHIA,1
+LocFishermansRestLocation,APPALACHIA,6
+LocForestAVRMedicalCenterLocation,APPALACHIA,5
+LocForestAaronholtHomesteadLocation,APPALACHIA,12
+LocForestAlpineRiverCabinsLocation,APPALACHIA,5
+LocForestAnchorFarmLocation,APPALACHIA,1
+LocForestArktosPharmaLocation,APPALACHIA,6
+LocForestBillingsHomesteadLocation,APPALACHIA,5
+LocForestBlackMountainOrdnanceWorksLocation,APPALACHIA,14
+LocForestBleedingKatesGrinderLocation,APPALACHIA,4
+LocForestBlueRidgeEncampmentLocation,APPALACHIA,1
+LocForestBoltonGreensLocation,APPALACHIA,15
+LocForestBurdetteManorLocation,APPALACHIA,2
+LocForestCampMcClintockLocation,APPALACHIA,14
+LocForestCharlestonCapitolLocation,APPALACHIA,6
+LocForestCharlestonCityEastLocation,APPALACHIA,6
+LocForestCharlestonCityNorthLocation,APPALACHIA,10
+LocForestCharlestonCitySouthLocation,APPALACHIA,7
+LocForestCharlestonCityWestLocation,APPALACHIA,3
+LocForestCharlestonFireDeptLocation,APPALACHIA,4
+LocForestCharlestonLandfillLocation,APPALACHIA,4
+LocForestCharlestonTrainStationLocation,APPALACHIA,2
+LocForestCharlestonTrainyardLocation,APPALACHIA,4
+LocForestClancyManorLocation,APPALACHIA,2
+LocForestCowSpotsCreameryLocation,APPALACHIA,1
+LocForestCraterOutpostLocation,APPALACHIA,3
+LocForestCultistCaveNorthLocation,APPALACHIA,1
+LocForestCultistCaveSouthLocation,APPALACHIA,1
+LocForestCultistCaveWestLocation,APPALACHIA,1
+LocForestDarlingSistersLabLocation,APPALACHIA,2
+LocForestDeathclawIslandLocation,APPALACHIA,6
+LocForestENz04POI05Location,APPALACHIA,1
+LocForestFissureSiteKappaLocation,APPALACHIA,2
+LocForestFissureSiteLambdaLocation,APPALACHIA,1
+LocForestFissureSiteThetaLocation,APPALACHIA,2
+LocForestFlatwoodsLocation,APPALACHIA,9
+LocForestFlatwoodsTavernLocation,APPALACHIA,2
+LocForestForwardStationTangoLocation,APPALACHIA,2
+LocForestFoundationOutpost,APPALACHIA,2
+LocForestGauleyMineExitLocation,APPALACHIA,3
+LocForestGiantTeapotLocation,APPALACHIA,5
+LocForestGilmanLumberLocation,APPALACHIA,2
+LocForestGorgeJunkyardLocation,APPALACHIA,8
+LocForestGreenCountryLodgeLocation,APPALACHIA,2
+LocForestGregsMineSupplyLocation,APPALACHIA,3
+LocForestGrovesFamilyCabinLocation,APPALACHIA,2
+LocForestHelvetiaLocation,APPALACHIA,10
+LocForestHillfolkHotdogsLocation,APPALACHIA,1
+LocForestHorizonsRestLocation,APPALACHIA,2
+LocForestHornwrightIndustrialHQLocation,APPALACHIA,1
+LocForestHornwrightSummerVillaLocation,APPALACHIA,3
+LocForestHuntersRidgeLocation,APPALACHIA,5
+LocForestIsolatedCabinLocation,APPALACHIA,2
+LocForestKanawhaCountyCemeteryLocation,APPALACHIA,5
+LocForestLadyJanetSoftServeLocation,APPALACHIA,1
+LocForestLakesideCabinsLocation,APPALACHIA,6
+LocForestLandviewLighthouseLocation,APPALACHIA,10
+LocForestLewisAndSonsFarmingSupplyLocation,APPALACHIA,2
+LocForestLookoutTower02Location,APPALACHIA,1
+LocForestLookoutTower03Location,APPALACHIA,1
+LocForestLookoutTower09Location,APPALACHIA,1
+LocForestLookoutTower10Location,APPALACHIA,1
+LocForestMamaDolceProcessingLocation,APPALACHIA,4
+LocForestMarigoldPavilionLocation,APPALACHIA,1
+LocForestMoonshinersShackLocation,APPALACHIA,1
+LocForestMorgantownAirportLocation,APPALACHIA,12
+LocForestMorgantownHighSchoolLocation,APPALACHIA,2
+LocForestMorgantownLocation,APPALACHIA,34
+LocForestMorgantownTrainStationLocation,APPALACHIA,2
+LocForestMorgantownTrainyardLocation,APPALACHIA,8
+LocForestNewGadLocation,APPALACHIA,6
+LocForestNewRiverGorgeResortLocation,APPALACHIA,12
+LocForestNewRiverGorgeRopesCourseLocation,APPALACHIA,3
+LocForestNukaColaQuantumPlantLocation,APPALACHIA,6
+LocForestOhioRiverAdventuresLocation,APPALACHIA,5
+LocForestOrwellOrchardsLocation,APPALACHIA,3
+LocForestOverlookCabinLocation,APPALACHIA,1
+LocForestOverseersCAMPLocation,APPALACHIA,1
+LocForestPOIForest25Location,APPALACHIA,1
+LocForestPointPleasantLocation,APPALACHIA,10
+LocForestPortsidePubLocation,APPALACHIA,1
+LocForestPoseidonEnergyLocation,APPALACHIA,8
+LocForestPoseidonEnergyWorkshopLocation,APPALACHIA,8
+LocForestRelayTower02Location,APPALACHIA,1
+LocForestRelayTower06Location,APPALACHIA,1
+LocForestRiversideManorLocation,APPALACHIA,5
+LocForestSilvaHomesteadLocation,APPALACHIA,4
+LocForestSlocumsJoeLocation,APPALACHIA,1
+LocForestSubstationPoseidonPX01Location,APPALACHIA,4
+LocForestSubstationPoseidonPX02Location,APPALACHIA,4
+LocForestSugarmapleLocation,APPALACHIA,1
+LocForestSummersvilleDamLocation,APPALACHIA,4
+LocForestSummersvilleDocksLocation,APPALACHIA,8
+LocForestSummersvilleLocation,APPALACHIA,11
+LocForestSunshineMeadowsLocation,APPALACHIA,4
+LocForestSuttonLocation,APPALACHIA,8
+LocForestSuttonOverseersHomeLocation,APPALACHIA,1
+LocForestSuttonTrainStationLocation,APPALACHIA,2
+LocForestTheCrosshairLocation,APPALACHIA,2
+LocForestThePigstyLocation,APPALACHIA,2
+LocForestTheWaywardLocationExterior,APPALACHIA,1
+LocForestTheWaywardMuscleFightPOILocation,APPALACHIA,1
+LocForestTorranceHouseLocation,APPALACHIA,4
+LocForestTransmissionStation1ATU03Location,APPALACHIA,1
+LocForestTwinPineCabinsLocation,APPALACHIA,2
+LocForestTygartWaterTreatmentLocation,APPALACHIA,4
+LocForestTylerCountyFairgroundsLocation,APPALACHIA,9
+LocForestTylerCountyTrackLocation,APPALACHIA,8
+LocForestUCBExteriorLocation,APPALACHIA,1
+LocForestVault76LandingLocation,APPALACHIA,2
+LocForestVaultTecAgCenterLocation,APPALACHIA,5
+LocForestVaultTecULocation,APPALACHIA,6
+LocForestWVLumberCoLocation,APPALACHIA,6
+LocForestWadeAirportLocation,APPALACHIA,24
+LocForestWhitePowderWinterSportsLocation,APPALACHIA,4
+LocForestWidowsPerchLocation,APPALACHIA,1
+LocForestWilsonBrothersAutoRepairLocation,APPALACHIA,1
+LocForestWixonHomesteadLocation,APPALACHIA,3
+LocMTR08LodeBaring01Location,APPALACHIA,2
+LocMTR08LodeBaring02Location,APPALACHIA,4
+LocMTRAMSTestSiteLocation,APPALACHIA,2
+LocMTRAshforge01Location,APPALACHIA,1
+LocMTRAshforge02Location,APPALACHIA,1
+LocMTRAshforge03Location,APPALACHIA,2
+LocMTRAshforge04Location,APPALACHIA,1
+LocMTRBeckleyLocation,APPALACHIA,12
+LocMTRBeckleyWorkshopLocation,APPALACHIA,5
+LocMTRBelchingBettyLocation,APPALACHIA,4
+LocMTRBrimQuarryLocation,APPALACHIA,5
+LocMTRBurningMineLocation,APPALACHIA,2
+LocMTRCamdenParkLocation,APPALACHIA,14
+LocMTRENz04POI02Location,APPALACHIA,1
+LocMTRFissureSiteOmegaLocation,APPALACHIA,1
+LocMTRGarrahanEstateLocation,APPALACHIA,4
+LocMTRLakeReynoldsLocation,APPALACHIA,2
+LocMTRLewisburgLocation,APPALACHIA,7
+LocMTRLewisburgTrainStationLocation,APPALACHIA,1
+LocMTRMineFire01Location,APPALACHIA,4
+LocMTRMineFire02Location,APPALACHIA,2
+LocMTRMineFire03Location,APPALACHIA,4
+LocMTRMineFire04Location,APPALACHIA,4
+LocMTRMineFire05Location,APPALACHIA,4
+LocMTRMineFire06Location,APPALACHIA,2
+LocMTRMotherlode02Location,APPALACHIA,2
+LocMTRMotherlode03Location,APPALACHIA,3
+LocMTRMotherlode04Location,APPALACHIA,5
+LocMTRMountBlairLocation,APPALACHIA,24
+LocMTRMountBlairTrainyardLocation,APPALACHIA,9
+LocMTRNicholsonsEndLocation,APPALACHIA,3
+LocMTRNukaWorldOnTourLocation,APPALACHIA,20
+LocMTRPleasantHillsCemeteryLocation,APPALACHIA,2
+LocMTRPylonAmbushSiteLocation,APPALACHIA,2
+LocMTRRedRocketFillingStationLocation,APPALACHIA,1
+LocMTRRelayTower05Location,APPALACHIA,1
+LocMTRRollinsWorkCampLocation,APPALACHIA,2
+LocMTRSalsGrindersLocation,APPALACHIA,1
+LocMTRSludgeWorksLocation,APPALACHIA,2
+LocMTRStrikerRowLocation,APPALACHIA,4
+LocMTRTheRustyPickLocation,APPALACHIA,4
+LocMTRUnfinishedMansionLocation,APPALACHIA,2
+LocMTRWelchLocation,APPALACHIA,7
+LocMTRWelchTrainStationLocation,APPALACHIA,1
+LocMountainAstronautCrashSiteLocation,APPALACHIA,1
+LocMountainSonsOfDaneCompoundLocation,APPALACHIA,8
+LocMountainsAmmoDumpLocation,APPALACHIA,1
+LocMountainsAutumnAcreCabinLocation,APPALACHIA,1
+LocMountainsBaileyFamilyCabinLocation,APPALACHIA,1
+LocMountainsBastionParkLocation,APPALACHIA,2
+LocMountainsBeckwithFarmLocation,APPALACHIA,2
+LocMountainsBigBendTunnelLocation,APPALACHIA,2
+LocMountainsBigFredsBBQShackLocation,APPALACHIA,1
+LocMountainsBlackwaterMineLocation,APPALACHIA,4
+LocMountainsCliffwatchLocation,APPALACHIA,1
+LocMountainsColKelleyMonumentLocation,APPALACHIA,1
+LocMountainsConvertedMunitionsFactoryLocation,APPALACHIA,6
+LocMountainsCultistCaveLocation,APPALACHIA,1
+LocMountainsDentAndSonsConstructionLocation,APPALACHIA,2
+LocMountainsDesertedMineLocation,APPALACHIA,1
+LocMountainsDevilsBackboneLocation,APPALACHIA,2
+LocMountainsEmmettDisposalSiteLocation,APPALACHIA,4
+LocMountainsFederalDisposalFieldLocation,APPALACHIA,9
+LocMountainsFissureSiteBetaLocation,APPALACHIA,1
+LocMountainsFissureSiteGammaLocation,APPALACHIA,3
+LocMountainsFissureSiteSigmaLocation,APPALACHIA,1
+LocMountainsFissureSiteTauLocation,APPALACHIA,3
+LocMountainsFoundationLocation,APPALACHIA,9
+LocMountainsFoundationOutpost,APPALACHIA,11
+LocMountainsGarrahanHQLocation,APPALACHIA,5
+LocMountainsHopewellCaveLocation,APPALACHIA,4
+LocMountainsHornwrightEstateLocation,APPALACHIA,4
+LocMountainsHuntersvilleLocation,APPALACHIA,9
+LocMountainsInvestigatorsCabinLocation,APPALACHIA,2
+LocMountainsJohnsonsAcreLocation,APPALACHIA,2
+LocMountainsLakeEloiseLocation,APPALACHIA,1
+LocMountainsLookoutTower01Location,APPALACHIA,1
+LocMountainsLookoutTower04Location,APPALACHIA,1
+LocMountainsLookoutTower05Location,APPALACHIA,1
+LocMountainsLookoutTower06Location,APPALACHIA,1
+LocMountainsLookoutTower08Location,APPALACHIA,1
+LocMountainsMetalDomeLocation,APPALACHIA,3
+LocMountainsMiddleMountainCabinsLocation,APPALACHIA,5
+LocMountainsMinersMonumentLocation,APPALACHIA,3
+LocMountainsMoMBattleSiteLocation,APPALACHIA,2
+LocMountainsMonoRailElevatorLocation,APPALACHIA,2
+LocMountainsMonongahLocation,APPALACHIA,10
+LocMountainsMonongahMineLocation,APPALACHIA,3
+LocMountainsMonongahMissileSiloExteriorLocation,APPALACHIA,2
+LocMountainsMonongahOverlookLocation,APPALACHIA,1
+LocMountainsMonongahPowerPlantLocation,APPALACHIA,8
+LocMountainsMonongahPowerPlantWorkshopLocation,APPALACHIA,8
+LocMountainsMountainsideBBLocation,APPALACHIA,2
+LocMountainsNARRegionalLocation,APPALACHIA,5
+LocMountainsNationalRadioArrayLocation,APPALACHIA,9
+LocMountainsNationalRadioResearchCenterLocation,APPALACHIA,2
+LocMountainsNewAppalachianCentralTrainyardLocation,APPALACHIA,10
+LocMountainsNorthCutthroatCampLocation,APPALACHIA,4
+LocMountainsObservatoryLocation,APPALACHIA,6
+LocMountainsPOISavageDivide08Location,APPALACHIA,1
+LocMountainsPalaceoftheWindingPathLocation,APPALACHIA,8
+LocMountainsPleasantValleyCabinsLocation,APPALACHIA,8
+LocMountainsPleasantValleySkiResortLocation,APPALACHIA,5
+LocMountainsPleasantValleyTrainStationLocation,APPALACHIA,2
+LocMountainsPumpkinHouseLocation,APPALACHIA,3
+LocMountainsRGProcessingServicesLocation,APPALACHIA,3
+LocMountainsRNGTrainStationLocation,APPALACHIA,1
+LocMountainsRedRocketMegaStopLocation,APPALACHIA,13
+LocMountainsRelayTower01Location,APPALACHIA,2
+LocMountainsRelayTower03Location,APPALACHIA,1
+LocMountainsRelayTower04Location,APPALACHIA,1
+LocMountainsRipperAlleyLocation,APPALACHIA,2
+LocMountainsSafeNCleanDisposalLocation,APPALACHIA,1
+LocMountainsScenicOverlookLocation,APPALACHIA,1
+LocMountainsSenecaGangCampLocation,APPALACHIA,1
+LocMountainsSenecaRocksLocation,APPALACHIA,4
+LocMountainsSenecaRocksVisitorCenterLocation,APPALACHIA,4
+LocMountainsSettlerBugOutLocation,APPALACHIA,1
+LocMountainsSettlerScorchedCampLocation,APPALACHIA,1
+LocMountainsSkullboneVantageLocation,APPALACHIA,1
+LocMountainsSludgeHoleLocation,APPALACHIA,1
+LocMountainsSolomonsPondLocation,APPALACHIA,5
+LocMountainsSouthCutthroatCampLocation,APPALACHIA,1
+LocMountainsSpruceKnobCampgroundLocation,APPALACHIA,10
+LocMountainsSpruceKnobChannelsLocation,APPALACHIA,1
+LocMountainsSpruceKnobLakeLocation,APPALACHIA,2
+LocMountainsSpruceKnobMissileSiloExteriorLocation,APPALACHIA,2
+LocMountainsSubstationMonongahMZ01Location,APPALACHIA,2
+LocMountainsSubstationMonongahMZ02Location,APPALACHIA,2
+LocMountainsSubstationMonongahMZ03Location,APPALACHIA,2
+LocMountainsSubstationPoseidonPX03Location,APPALACHIA,2
+LocMountainsSugarGroveLocation,APPALACHIA,4
+LocMountainsSugarGroveMissileSiloExteriorLocation,APPALACHIA,3
+LocMountainsSunnytopSkiLanesBaseLodgeLocation,APPALACHIA,4
+LocMountainsSunnytopSkiLanesLocation,APPALACHIA,4
+LocMountainsSunnytopTrainStationLocation,APPALACHIA,2
+LocMountainsSylvieAndSonsLoggingCampLocation,APPALACHIA,2
+LocMountainsTheBountyLocation,APPALACHIA,2
+LocMountainsTheFreakShowLocation,APPALACHIA,2
+LocMountainsTheRoseRoomLocation,APPALACHIA,2
+LocMountainsTheVantageLocation,APPALACHIA,4
+LocMountainsTheWhitespringTrainStationLocation,APPALACHIA,2
+LocMountainsTopOfTheWorldLocation,APPALACHIA,4
+LocMountainsToxicLarrysMeatnGoLocation,APPALACHIA,1
+LocMountainsTrappersCampLocation,APPALACHIA,1
+LocMountainsUS13CBivouacLocation,APPALACHIA,1
+LocMountainsUncannyCavernsLocation,APPALACHIA,4
+LocMountainsWendigoCaveLocationDUPLICATE000,APPALACHIA,1
+LocMountainsWestTekResearchLocation,APPALACHIA,8
+LocMountainsYellowSandysStillLocation,APPALACHIA,4
+LocSacramentalGladeLocation,APPALACHIA,7
+LocStormBigBloomSiteLocation,APPALACHIA,8
+LocStormBlueRidgeCampLocation,APPALACHIA,2
+LocStormCampRapidanLocation,APPALACHIA,13
+LocStormCrashedScoutsBusLocation,APPALACHIA,2
+LocStormCrossroadLocation,APPALACHIA,1
+LocStormCultistTunnelsLocation,APPALACHIA,3
+LocStormDarkWoodManorGateLocation,APPALACHIA,2
+LocStormDarkwoodManorLocation,APPALACHIA,16
+LocStormFederalNatrualGasFieldNG17Location,APPALACHIA,4
+LocStormForestVault63CrashSiteLocation,APPALACHIA,4
+LocStormHallucinogenicCaveLocation,APPALACHIA,1
+LocStormHighKnobFireTowerLocation,APPALACHIA,3
+LocStormLightningHarvesterSiteA,APPALACHIA,1
+LocStormLightningHarvesterSiteB,APPALACHIA,1
+LocStormLightningHarvesterSiteC,APPALACHIA,1
+LocStormMakeoutPointLocation,APPALACHIA,2
+LocStormNaturalBridge,APPALACHIA,4
+LocStormRadioactiveWasteSiteLocation,APPALACHIA,2
+LocStormRangerStationBunkerLocation,APPALACHIA,1
+LocStormRedRocketMotelLocation,APPALACHIA,7
+LocStormRoadLocation,APPALACHIA,1
+LocStormRobinsonRangerStationLocation,APPALACHIA,5
+LocStormSkyboundTowerLocation,APPALACHIA,1
+LocStormSkylineDriveEntranceLocation,APPALACHIA,2
+LocStormSubstationThunderMtTM03Location,APPALACHIA,14
+LocStormSummerCampLocation,APPALACHIA,13
+LocStormThreePondsLocation,APPALACHIA,4
+LocStormTradingPostLocation,APPALACHIA,2
+LocStormVaultCovoyLocation,APPALACHIA,3
+LocStormWeatherStationLocation,APPALACHIA,8
+LocStormWoodstockTowerLocation,APPALACHIA,2
+LocSubToxicValleyMakeshiftVaultLocation,APPALACHIA,2
+LocSwampAbbiesBunkerLocation,APPALACHIA,1
+LocSwampBerkeleySpringsLocation,APPALACHIA,10
+LocSwampBerkeleySpringsRaiderCampLocation,APPALACHIA,2
+LocSwampBerkeleySpringsTrainStationLocation,APPALACHIA,1
+LocSwampBerkeleySpringsWorkshopLocation,APPALACHIA,4
+LocSwampBigBsRestStopLocation,APPALACHIA,2
+LocSwampBigMawLocation,APPALACHIA,2
+LocSwampBlakesOfferingLocation,APPALACHIA,4
+LocSwampBraxsonsQualityMedicalSuppliesLocation,APPALACHIA,2
+LocSwampCarsonFamilyBunkerLocation,APPALACHIA,1
+LocSwampCrashedPlaneLocation,APPALACHIA,1
+LocSwampCrevasseDamLocation,APPALACHIA,6
+LocSwampDabneyHomesteadLocation,APPALACHIA,4
+LocSwampDaggersDenLocation,APPALACHIA,2
+LocSwampDelanoGrangeLocation,APPALACHIA,1
+LocSwampDollySodsCampgroundLocation,APPALACHIA,11
+LocSwampDollySodsWildernessLocation,APPALACHIA,6
+LocSwampDyerChemicalLocation,APPALACHIA,8
+LocSwampENz04POI03Location,APPALACHIA,1
+LocSwampEllaAmesBunkerLocation,APPALACHIA,1
+LocSwampExcelsiorModelHomeLocation,APPALACHIA,1
+LocSwampFissureSiteOmicronLocation,APPALACHIA,1
+LocSwampFreddyFearsHouseOfScaresLocation,APPALACHIA,2
+LocSwampFreeStatesBunker07Location,APPALACHIA,1
+LocSwampGnarledShallowsLocation,APPALACHIA,1
+LocSwampGulperLagoonLocation,APPALACHIA,1
+LocSwampHarpersFerryDungeonExtLocation,APPALACHIA,1
+LocSwampHarpersFerryLocation,APPALACHIA,11
+LocSwampHavenChurchLocation,APPALACHIA,2
+LocSwampHighlandMarshLocation,APPALACHIA,1
+LocSwampHuntersShackLocation,APPALACHIA,1
+LocSwampKMAXTransmissionLocation,APPALACHIA,1
+LocSwampLookoutTower11Location,APPALACHIA,1
+LocSwampLookoutTower13Location,APPALACHIA,1
+LocSwampMireseyeLocation,APPALACHIA,2
+LocSwampMossTownLocation,APPALACHIA,2
+LocSwampMothHomeLocation,APPALACHIA,1
+LocSwampRaleighsBunkerLocation,APPALACHIA,1
+LocSwampSacramentLocation,APPALACHIA,2
+LocSwampSamBlackwellBunkerLocation,APPALACHIA,3
+LocSwampSouthernBelleMotelLocation,APPALACHIA,1
+LocSwampSouthhamptonEstateLocation,APPALACHIA,1
+LocSwampSubstationThunderMtTM01Location,APPALACHIA,2
+LocSwampSundayBrothersCabinLocation,APPALACHIA,5
+LocSwampSurvivalTrainingCenterLocation,APPALACHIA,5
+LocSwampTanagraTownLocation,APPALACHIA,2
+LocSwampTheRetreatLocation,APPALACHIA,4
+LocSwampThunderMountainPowerPlantLocation,APPALACHIA,8
+LocSwampThunderMountainPowerPlantWorkshopLocation,APPALACHIA,6
+LocSwampTreetopsLocation,APPALACHIA,1
+LocSwampValleyGalleriaLocation,APPALACHIA,4
+LocToxicBeckerFarmLocation,APPALACHIA,2
+LocToxicBlackBearLodgeLocation,APPALACHIA,1
+LocToxicClarksburgLocation,APPALACHIA,7
+LocToxicClarksburgShootingClubLocation,APPALACHIA,3
+LocToxicCobbletonFarmLocation,APPALACHIA,1
+LocToxicCraterWatchstationLocation,APPALACHIA,2
+LocToxicEasternRegionalPenLocation,APPALACHIA,8
+LocToxicFissureSiteDeltaLocation,APPALACHIA,2
+LocToxicGraftonDamLocation,APPALACHIA,6
+LocToxicGraftonLakeLocation,APPALACHIA,2
+LocToxicGraftonLocation,APPALACHIA,22
+LocToxicGraftonSteelLocation,APPALACHIA,7
+LocToxicGraftonSteelWorkshopLocation,APPALACHIA,9
+LocToxicGraftonTrainStationLocation,APPALACHIA,1
+LocToxicGraningerFarmLocation,APPALACHIA,2
+LocToxicHemlockHolesLocation,APPALACHIA,9
+LocToxicHemlockHolesWorkshopLocation,APPALACHIA,2
+LocToxicKiddieCornerCabinsLocation,APPALACHIA,2
+LocToxicKnifeEdgeLocation,APPALACHIA,1
+LocToxicLookoutTower07Location,APPALACHIA,1
+LocToxicLousMineLocation,APPALACHIA,1
+LocToxicPhilippiBattlefieldCemeteryLocation,APPALACHIA,4
+LocToxicPioneerScoutCampLocation,APPALACHIA,6
+LocToxicPrickettsFortLocation,APPALACHIA,10
+LocToxicRaiderRaidLocation,APPALACHIA,1
+LocToxicSmithFarmLocation,APPALACHIA,2
+LocToxicSurlysShackLocation,APPALACHIA,1
+LocToxicTheCraterLocation,APPALACHIA,16
+LocToxicToxicDriedLakebedLocation,APPALACHIA,10
+LocToxicWavyWillardsWaterparkLocation,APPALACHIA,13
+LocToxicWillardCorporateHousingLocation,APPALACHIA,1
+LocToxicWoodsEstateLocation,APPALACHIA,1
+LocVault63Location,APPALACHIA,1
+LocWhitespringTheWhitespringBunkerLocation,APPALACHIA,4
+LocWhitespringTheWhitespringGolfLocation,APPALACHIA,1
+LocWhitespringTheWhitespringLocation,APPALACHIA,85
+MILE_Location_EncounterPointA,APPALACHIA,2
+MILE_Location_EncounterPointB,APPALACHIA,1
+MILE_Location_EncounterPointC,APPALACHIA,1
+MILE_Location_EncounterPointD,APPALACHIA,2
+MILE_Location_EncounterPointE,APPALACHIA,1
+MILE_Location_EncounterPointF,APPALACHIA,1
+MILE_Location_EncounterPointG,APPALACHIA,4
+MILE_Location_EncounterPointH,APPALACHIA,2
+MILE_Location_EncounterPointI,APPALACHIA,2
+MILE_Location_EncounterPointJ,APPALACHIA,1
+MILE_Location_EncounterPointK,APPALACHIA,1
+MILE_Location_EncounterPointL,APPALACHIA,2
+MILE_Location_MilePostZero,APPALACHIA,2
+MTNM02SignalLocation,APPALACHIA,1
+RegionBurningSpringsLocation,APPALACHIA,237
+RegionCranberryBogLocation,APPALACHIA,203
+RegionForestFloodlandsLocation,APPALACHIA,265
+RegionMTRLocation,APPALACHIA,2
+RegionMountainLocation,APPALACHIA,360
+RegionStormLocation,APPALACHIA,118
+RegionSwampForestLocation,APPALACHIA,108
+RegionToxicValleyLocation,APPALACHIA,83
+SFL02_Track_HardballLocation,APPALACHIA,1
+SFM01_Glow_MirelurkQueenSpawnLocation01,APPALACHIA,1
+SFM01_Glow_MirelurkQueenSpawnLocation02,APPALACHIA,1
+SFM04_Organic_NestLocation01,APPALACHIA,1
+SFM04_Organic_NestLocation02,APPALACHIA,1
+SFS08_Heart_VineHeartLocation01,APPALACHIA,1
+SFS08_Heart_VineHeartLocation02,APPALACHIA,3
+SFS08_Heart_VineHeartLocation03,APPALACHIA,2
+SFZ03_Queen_BossLocation01,APPALACHIA,1
+SFZ03_Queen_BossLocation02,APPALACHIA,1
+SFZ03_Queen_BossLocation03,APPALACHIA,1
+SFZ03_Queen_BossLocation04,APPALACHIA,1
+SFZ03_Queen_BossLocation05,APPALACHIA,1
+SFZ08_HoneyLocation01,APPALACHIA,4
+SF_BloodbugSwarmLocation01,APPALACHIA,1
+SF_BloodbugSwarmLocation02,APPALACHIA,1
+SF_BloodbugSwarmLocation03,APPALACHIA,1
+SF_BloodbugSwarmLocation04,APPALACHIA,1
+StormMarysRockTunnelLocation,APPALACHIA,3
+SubForestCampAdamsLocation,APPALACHIA,3
+SubMTRENz04POI04Location,APPALACHIA,1
+SubRegionBurningSprings01Location,APPALACHIA,32
+SubRegionBurningSprings02Location,APPALACHIA,46
+SubRegionBurningSprings03Location,APPALACHIA,11
+SubRegionBurningSprings04Location,APPALACHIA,39
+SubRegionBurningSprings05Location,APPALACHIA,47
+SubRegionBurningSprings06Location,APPALACHIA,29
+SubRegionBurningSprings07Location,APPALACHIA,37
+SubRegionBurningSprings08Location,APPALACHIA,40
+SubRegionBurningSprings09Location,APPALACHIA,34
+SubRegionBurningSprings10Location,APPALACHIA,45
+SubRegionBurningSprings11Location,APPALACHIA,48
+SubRegionBurningSprings12Location,APPALACHIA,36
+SubRegionBurningSprings13Location,APPALACHIA,45
+SubRegionBurningSprings14Location,APPALACHIA,37
+SubRegionBurningSprings15Location,APPALACHIA,46
+SubRegionBurningSprings16Location,APPALACHIA,38
+SubRegionBurningSprings17Location,APPALACHIA,46
+SubRegionBurningSprings18Location,APPALACHIA,28
+SubRegionBurningSprings19Location,APPALACHIA,36
+SubRegionBurningSprings20Location,APPALACHIA,47
+SubRegionCranberry01Location,APPALACHIA,41
+SubRegionCranberry02Location,APPALACHIA,62
+SubRegionCranberry03Location,APPALACHIA,42
+SubRegionCranberry12Location,APPALACHIA,64
+SubRegionCranberry13Location,APPALACHIA,68
+SubRegionCranberry14Location,APPALACHIA,74
+SubRegionCranberry15Location,APPALACHIA,75
+SubRegionCranberry16Location,APPALACHIA,92
+SubRegionCranberry17Location,APPALACHIA,99
+SubRegionForestFloodlands01Location,APPALACHIA,102
+SubRegionForestFloodlands02Location,APPALACHIA,99
+SubRegionForestFloodlands03Location,APPALACHIA,33
+SubRegionForestFloodlands04Location,APPALACHIA,119
+SubRegionForestFloodlands05Location,APPALACHIA,95
+SubRegionForestFloodlands06LocationLOW,APPALACHIA,85
+SubRegionForestFloodlands07LocationLOW,APPALACHIA,89
+SubRegionForestFloodlands08LocationLOW,APPALACHIA,85
+SubRegionForestFloodlands09Location,APPALACHIA,55
+SubRegionForestFloodlands10Location,APPALACHIA,30
+SubRegionForestFloodlands11LocationLOW,APPALACHIA,83
+SubRegionForestFloodlands12LocationLOW,APPALACHIA,91
+SubRegionForestFloodlands13LocationLOW,APPALACHIA,88
+SubRegionForestFloodlands14Location,APPALACHIA,85
+SubRegionForestFloodlands15Location,APPALACHIA,55
+SubRegionForestFloodlands16LocationLOW,APPALACHIA,91
+SubRegionForestFloodlands17LocationLOW,APPALACHIA,66
+SubRegionForestFloodlands18Location,APPALACHIA,74
+SubRegionForestFloodlands19Location,APPALACHIA,68
+SubRegionForestFloodlands20Location,APPALACHIA,48
+SubRegionForestFloodlands21Location,APPALACHIA,93
+SubRegionForestFloodlands22Location,APPALACHIA,105
+SubRegionForestFloodlands23Location,APPALACHIA,82
+SubRegionForestFloodlands24Location,APPALACHIA,127
+SubRegionForestFloodlands25Location,APPALACHIA,93
+SubRegionForestFloodlands26Location,APPALACHIA,40
+SubRegionForestFloodlands27Location,APPALACHIA,48
+SubRegionForestFloodlands28Location,APPALACHIA,53
+SubRegionMountainRemoval01Location,APPALACHIA,96
+SubRegionMountainRemoval02Location,APPALACHIA,56
+SubRegionMountainRemoval03Location,APPALACHIA,52
+SubRegionMountainRemoval04Location,APPALACHIA,108
+SubRegionMountainRemoval05Location,APPALACHIA,89
+SubRegionMountainRemoval06Location,APPALACHIA,90
+SubRegionMountainRemoval07Location,APPALACHIA,143
+SubRegionMountainRemoval08LocationLOW,APPALACHIA,21
+SubRegionMountains01Location,APPALACHIA,45
+SubRegionMountains02Location,APPALACHIA,125
+SubRegionMountains03Location,APPALACHIA,163
+SubRegionMountains04Location,APPALACHIA,105
+SubRegionMountains05Location,APPALACHIA,91
+SubRegionMountains06Location,APPALACHIA,96
+SubRegionMountains07Location,APPALACHIA,80
+SubRegionMountains08Location,APPALACHIA,96
+SubRegionMountains09Location,APPALACHIA,108
+SubRegionMountains10Location,APPALACHIA,93
+SubRegionMountains11Location,APPALACHIA,69
+SubRegionMountains12Location,APPALACHIA,74
+SubRegionMountains13LocationLOW,APPALACHIA,80
+SubRegionMountains14Location,APPALACHIA,77
+SubRegionMountains15Location,APPALACHIA,79
+SubRegionMountains16Location,APPALACHIA,46
+SubRegionMountains17Location,APPALACHIA,77
+SubRegionMountains18Location,APPALACHIA,101
+SubRegionMountains19Location,APPALACHIA,112
+SubRegionMountains20Location,APPALACHIA,58
+SubRegionMountains21Location,APPALACHIA,84
+SubRegionMountains22Location,APPALACHIA,97
+SubRegionMountains23Location,APPALACHIA,54
+SubRegionMountains24Location,APPALACHIA,64
+SubRegionMountains25Location,APPALACHIA,57
+SubRegionMountains26Location,APPALACHIA,131
+SubRegionMountains27Location,APPALACHIA,94
+SubRegionMountains28Location,APPALACHIA,102
+SubRegionMountains29Location,APPALACHIA,76
+SubRegionMountains30Location,APPALACHIA,106
+SubRegionMountains31Location,APPALACHIA,67
+SubRegionMountains32Location,APPALACHIA,75
+SubRegionMountains33Location,APPALACHIA,66
+SubRegionMountains34Location,APPALACHIA,56
+SubRegionStorm01Location,APPALACHIA,35
+SubRegionStorm02Location,APPALACHIA,26
+SubRegionStorm03Location,APPALACHIA,28
+SubRegionStorm04Location,APPALACHIA,29
+SubRegionStorm05Location,APPALACHIA,15
+SubRegionStorm06Location,APPALACHIA,29
+SubRegionStorm07Location,APPALACHIA,32
+SubRegionStorm08Location,APPALACHIA,30
+SubRegionStorm09Location,APPALACHIA,26
+SubRegionStorm10Location,APPALACHIA,21
+SubRegionStorm11Location,APPALACHIA,32
+SubRegionStorm12Location,APPALACHIA,31
+SubRegionStorm13Location,APPALACHIA,31
+SubRegionStorm14Location,APPALACHIA,30
+SubRegionStorm15Location,APPALACHIA,29
+SubRegionStorm16Location,APPALACHIA,28
+SubRegionStorm17Location,APPALACHIA,25
+SubRegionStorm18Location,APPALACHIA,32
+SubRegionSwamp01Location,APPALACHIA,75
+SubRegionSwamp02Location,APPALACHIA,53
+SubRegionSwamp03Location,APPALACHIA,98
+SubRegionSwamp04Location,APPALACHIA,52
+SubRegionSwamp05Location,APPALACHIA,90
+SubRegionSwamp06Location,APPALACHIA,78
+SubRegionSwamp07Location,APPALACHIA,99
+SubRegionSwamp08Location,APPALACHIA,77
+SubRegionSwamp09Location,APPALACHIA,97
+SubRegionSwamp10Location,APPALACHIA,74
+SubRegionSwamp11Location,APPALACHIA,114
+SubRegionSwamp12Location,APPALACHIA,16
+SubRegionToxicValley01Location,APPALACHIA,72
+SubRegionToxicValley02Location,APPALACHIA,80
+SubRegionToxicValley03Location,APPALACHIA,94
+SubRegionToxicValley04Location,APPALACHIA,83
+SubRegionToxicValley05LocationLOW,APPALACHIA,81
+SubRegionToxicValley06LocationLOW,APPALACHIA,85
+SubRegionToxicValley07Location,APPALACHIA,104
+Vault51ExteriorLocation,APPALACHIA,1
+Vault76LocationExterior,APPALACHIA,7
+Vault79EntranceLocation_Exterior,APPALACHIA,1
+Vault79ExitLocation_Exterior,APPALACHIA,1
+Vault94ExteriorLocation,APPALACHIA,1
+Vault96ExteriorLocation,APPALACHIA,2
+W05_JP_Community_SwampLocation,APPALACHIA,1
 
 Entities outside of space range
 APPALACHIA:343276
@@ -1340,6 +2686,7 @@ SheltersGleamingDepths:0
 SheltersHighStakes:0
 SheltersHousingDevelopment:210
 SheltersMissileSilo:1
+SheltersMoonlightCamp:91
 SheltersNuclearTestBunker:2
 SheltersPittTrench01:0
 SheltersProspectorSaloon:3
@@ -1434,17 +2781,17 @@ XPDPitt02Sanctum:0
 XPDPitt02Trench:237
 
 Space Coordinate Checksums
-APPALACHIA:-2357757030075492939
+APPALACHIA:-6396939638481126071
 AMSHQ01:-5003531309026812394
 AMSHQ02:-8426578450065187914
 AVRMedicalCenter01:5512355906186978031
 AlleghenyAsylum01:-9002147127855990116
 ArktosPharmaLab01:-3032608838977110447
 ArktosPharmaLabDungeon:-6624164816614785281
-BelchingBetty01:-4886606384435986307
+BelchingBetty01:6481340754658242780
 BigBendTunnel01:-3781278844718623339
 BlackwaterMine01:-7539475961946676056
-BlueRidgeOffice01:6526689698244197378
+BlueRidgeOffice01:6033796505190746209
 BurdetteManorBasement01:-6434334758758832820
 BurnAbraxodyneHQInt:9034948143540770738
 BurnAthensExecINT:7146138065560320173
@@ -1453,7 +2800,7 @@ BurnChopShopBasement:6714789111411865326
 BurnHWTEugeneINT:-4595363222955775940
 BurnHWTLoanSharkInt:4222893296845283322
 BurnHWTMooseINT:7833258191086976913
-BurnHWTownInt:-6246388991343969282
+BurnHWTownInt:7309267040644251646
 BurnRailroadServiceYardInt:8711136723755463896
 BurnRustKingdomInterior:-6143616095521952846
 BurningMine01:-2907074520306969020
@@ -1545,9 +2892,10 @@ SheltersGleamingDepths:5493877947792471283
 SheltersHighStakes:6789030092784742214
 SheltersHousingDevelopment:4292583312275563414
 SheltersMissileSilo:-8877358864476047598
+SheltersMoonlightCamp:3376052718818144553
 SheltersNuclearTestBunker:-1051857975266962099
 SheltersPittTrench01:-3297273066737434647
-SheltersProspectorSaloon:3498810321886894057
+SheltersProspectorSaloon:1694852281217426409
 SheltersRestrictedArea:2212784955584439455
 SheltersRootCellar:3272428836919681260
 SheltersSoundStage:-5027679394256772106
@@ -1579,7 +2927,7 @@ SugarGrove02:2383875065215458480
 SugarGroveMissileSilo01:9047578217620311796
 SurlysShack01:-4240305842693672698
 TheCraterCore01:3381886822035420051
-TheNukashine01:-988046373460971473
+TheNukashine01:-2713144026403941139
 TheRoseRoom01:863939594533182553
 TheRustyPick01:-6308448039719532781
 TheWayward01:5821138555934690729
@@ -1619,7 +2967,7 @@ WestTek01:-2579431043775692331
 WestTek02:1392560787450018488
 WestTek02Arena:7784509353191186261
 WhitespringBunker01:-2471826667644771022
-WhitespringMall01:-5977047699484998570
+WhitespringMall01:-7019942782544187306
 WhitespringRefuge01:-1791160485392776461
 XPDAC01Casino:3527091448670129484
 XPDAC01EntertainmentDistrict:-6099235982236417802

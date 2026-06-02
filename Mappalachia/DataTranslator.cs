@@ -1,4 +1,4 @@
-﻿namespace Mappalachia
+namespace Mappalachia
 {
 	using Library;
 
@@ -61,6 +61,7 @@
 				Signature.NPC_ => "NPC",
 				Signature.PROJ => "Mine/Projectile",
 				Signature.REGN => "Region",
+				Signature.LCTN => "Location",
 				Signature.SCOL => "Static collection",
 				Signature.SECH => "Echo",
 				Signature.SOUN => "Sound",
@@ -105,7 +106,8 @@
 				Signature.NOTE => string.Empty,
 				Signature.NPC_ => "Non-player character.",
 				Signature.PROJ => "An 'armed' weapon such as a mine.",
-				Signature.REGN => "Defined subsections of the map.",
+				Signature.REGN => "A defined bounded area on the map.",
+				Signature.LCTN => "A named location defined by associated grid squares (cells).",
 				Signature.SCOL => "A grouped set of static objects.",
 				Signature.SECH => "Trigger for echo sound effect.",
 				Signature.SOUN => "Trigger for sound effect.",
@@ -141,6 +143,7 @@
 				Signature.NPC_ or
 				Signature.PROJ or
 				Signature.REGN or
+				Signature.LCTN or
 				Signature.TERM or
 				Signature.TRAP or
 				Signature.WEAP => true,

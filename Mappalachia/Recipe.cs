@@ -18,7 +18,7 @@ namespace Mappalachia
 		{
 			try
 			{
-				return JsonSerializer.Deserialize<Recipe>(File.ReadAllText(filePath));
+				return JsonSerializer.Deserialize<Recipe>(File.ReadAllText(filePath), FileIO.JsonSerializerOptions);
 			}
 			catch (Exception e)
 			{

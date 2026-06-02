@@ -611,6 +611,12 @@ namespace BackgroundRenderer
 					if (!File.Exists(previousFilePath))
 					{
 						StdOutWithColor($"New tile: {Path.GetFileName(directory)}\\{Path.GetFileName(newFilePath)}", ColorInfo);
+
+						if (!Directory.Exists(diffDirectory))
+						{
+							Directory.CreateDirectory(diffDirectory);
+						}
+
 						File.Copy(newFilePath, diffDirectory + Path.GetFileName(newFilePath));
 					}
 				});

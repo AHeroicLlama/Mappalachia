@@ -365,6 +365,9 @@ namespace Library
 				case "LPI_FloraWildGourdVine01":
 					return FluxColor.Crimson.ToString();
 
+				case "LPI_Burn_FloraSlipperCactus01":
+				case "LPI_Burn_FloraSlipperCactus02":
+				case "LPI_Burn_FloraSlipperCactus03":
 				case "LPI_FloraBloodLeaf01":
 				case "LPI_FloraBloodLeaf02":
 				case "LPI_FloraFirecracker01":

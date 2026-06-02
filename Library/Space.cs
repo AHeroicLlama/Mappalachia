@@ -52,12 +52,6 @@ namespace Library
 			return IsAppalachia();
 		}
 
-		// Return the EditorIDs of known regions in this space which are "non-nukable"
-		public List<string> GetNonNukableZoneEditorIds()
-		{
-			return IsAppalachia() ? new List<string> { "NonNukableZone", "BurningSpringsHighwayTownNukeExclusionRegion" } : new List<string>();
-		}
-
 		// Return the spotlight tiles for the space
 		public List<SpotlightTile> GetTiles()
 		{

@@ -25,6 +25,7 @@ namespace Library
 		CNCY,
 		KEYM,
 		REGN,
+		LCTN,
 		ACTI,
 		TACT,
 		TRAP,
@@ -47,6 +48,7 @@ namespace Library
 	[JsonDerivedType(typeof(DerivedScrap), "DerivedScrap")]
 	[JsonDerivedType(typeof(DerivedRawFlux), "DerivedRawFlux")]
 	[JsonDerivedType(typeof(Region), "Region")]
+	[JsonDerivedType(typeof(Location), "Location")]
 	public class Entity(uint formID, string editorID, string displayName, Signature signature)
 	{
 		public uint FormID { get; } = formID;
