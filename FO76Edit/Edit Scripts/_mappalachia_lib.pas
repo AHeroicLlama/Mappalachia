@@ -26,7 +26,7 @@ unit _mappalachia_lib;
 		outputStrings := TStringList.Create;
 
 		for i := 0 to ElementCount(category) -1 do begin // Iterate over every item within the category
-			goToRipItem(elementByIndex(category, i), signature);
+			goToRipItem(elementByIndex(category, i), fileName);
 		end;
 
 		AddMessage('Writing output to file: ' + outputFile);
@@ -37,11 +37,12 @@ unit _mappalachia_lib;
 
 	// The ripItem method exists for many units.
 	// We need to correctly target the right version of the method.
-	procedure goToRipItem(item: IInterface; signature: String);
+	procedure goToRipItem(item: IInterface; filenameKey: String);
 	begin
-			if(signature = 'MISC') then _mappalachia_scrap.ripItem(item)
-		else if(signature = 'LCTN') then _mappalachia_location.ripItem(item)
-		else if(signature = 'CMPO') then _mappalachia_component.ripItem(item)
-		else if(signature = 'REGN') then _mappalachia_region.ripItem(item)
+			if(filenameKey = 'Scrap') then _mappalachia_scrap.ripItem(item)
+		else if(filenameKey = 'Location') then _mappalachia_location.ripItem(item)
+		else if(filenameKey = 'LocationCell') then _mappalachia_locationCell.ripItem(item)
+		else if(filenameKey = 'Component') then _mappalachia_component.ripItem(item)
+		else if(filenameKey = 'Region') then _mappalachia_region.ripItem(item)
 	end;
 end.

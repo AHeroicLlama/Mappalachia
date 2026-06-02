@@ -13,9 +13,9 @@ Use 'Plot Settings' > 'Auto-find items in other spaces' to automatically find an
 Additionally, you may filter your search results to only show spaces which are instances ('Search Settings' > 'Search in instances only').
 
 ## Volumes and Regions
-Items classified as Regions, and a few instances of Activators are represented by a volume. You can choose to show these as filled shapes, or just their border, or both, by selecting 'Plot Settings' > 'Volume Draw Style'.<br/>
+Items classified as Regions, Locations, and a few instances of Activators are represented by a volume. You can choose to show these as filled shapes, or just their border, or both, by selecting 'Plot Settings' > 'Volume Draw Style'.<br/>
 
-Some regions affect the level of NPCs spawned inside them. This level range can be labelled against the Region by selecting 'Plot Settings' > 'Show Region Levels'
+Some Regions affect the level of NPCs spawned inside them. This level range can be labelled against the Region by selecting 'Plot Settings' > 'Show Region Levels'.
 
 ## Show Instance FormIDs
 An advanced option for data miners, selecting 'Plot Settings' > 'Show Instance FormID' will annotate the FormID of the plotted entities onto the map against their plot.<br/>
@@ -30,7 +30,7 @@ Items sharing a legend group will not by default share the same legend text, how
 Finally, you may change the legend group value of an item directly, in order to change its group membership.
 
 ## Advanced
-A feature for data miners: by toggling 'Search Settings' > 'Advanced Mode' you can enable searching by FormID. You can search the form ID of the instance or its reference. FormIDs can be given with or without the `0x` prefix. This mode will also swap the signature names for their underlying 4-character IDs, and spaces will be named by their EditorID
+A feature for data miners: by toggling 'Search Settings' > 'Advanced Mode' you can enable searching by FormID. You can search the form ID of the instance or its reference. FormIDs can be given with or without the `0x` prefix. This mode will also swap the signature names for their underlying 4-character IDs, and spaces will be named by their EditorID.
 
 ## Next guide
 [Spotlight](Spotlight.md)

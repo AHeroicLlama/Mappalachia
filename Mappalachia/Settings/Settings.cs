@@ -57,7 +57,7 @@ namespace Mappalachia
 			{
 				try
 				{
-					Settings settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(Paths.SettingsPath)) ?? throw new Exception("Settings JSON Deserialized to null");
+					Settings settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(Paths.SettingsPath), FileIO.JsonSerializerOptions) ?? throw new Exception("Settings JSON Deserialized to null");
 					settings.MapSettings.RootSettings = settings;
 
 					return settings;

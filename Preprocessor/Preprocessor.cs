@@ -103,9 +103,10 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, isInstanceable INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, parentLocationFormID TEXT, minLevel INTEGER, maxLevel INTEGER, property TEXT, value INTEGER);");
-			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, locationFormID TEXT, subRegionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL);");
+			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, locationFormID TEXT, subRegionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL, nukable INTEGER);");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
+			SimpleQuery($"CREATE TABLE LocationCell(locationFormID INTEGER, locationEditorId TEXT, locationDisplayName TEXT, spaceFormID TEXT, x INTEGER, y INTEGER);");
 
 			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
@@ -116,6 +117,11 @@ namespace Preprocessor
 			ImportTableFromCSV("Region");
 			ImportTableFromCSV("Scrap");
 			ImportTableFromCSV("Component");
+			ImportTableFromCSV("LocationCell");
+
+			// Extract WorldSpace FormID from world on LocationCell
+			TransformColumn(CaptureSpaceFormID, "LocationCell", "spaceFormID");
+			ChangeColumnType("LocationCell", "spaceFormID", "INTEGER");
 
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
@@ -176,6 +182,9 @@ namespace Preprocessor
 			ChangeColumnType("Region", "locationFormID", "INTEGER");
 			AddForeignKey("Region", "locationFormID", "INTEGER", "Location", "locationFormID");
 
+			// Ensure Region nukable blanks become 1
+			TransformColumn(SetNukableBlanks, "Region", "nukable");
+
 			// For the region table, use the location column to reference the Location table, to find the min and max levels of the region
 			// Then, drop the location column. (Location table is dropped later)
 			SimpleQuery("ALTER TABLE Region ADD COLUMN 'minLevel' INTEGER;");
@@ -193,8 +202,8 @@ namespace Preprocessor
 			AddForeignKey("RegionPoints", "regionFormID", "INTEGER", "Region", "regionFormID");
 
 			// Reduce region rows to distinct rows (now that the points which made them unique are removed)
-			SimpleQuery($"CREATE TABLE TempRegion(regionFormID INTEGER PRIMARY KEY, regionEditorID TEXT, spaceFormID TEXT REFERENCES Space(spaceFormID), minLevel INTEGER, maxLevel INTEGER);");
-			SimpleQuery("INSERT INTO TempRegion SELECT DISTINCT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel FROM Region;");
+			SimpleQuery($"CREATE TABLE TempRegion(regionFormID INTEGER PRIMARY KEY, regionEditorID TEXT, spaceFormID TEXT REFERENCES Space(spaceFormID), minLevel INTEGER, maxLevel INTEGER, nukable INTEGER);");
+			SimpleQuery("INSERT INTO TempRegion SELECT DISTINCT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel, nukable FROM Region;");
 			SimpleQuery("DROP TABLE Region;");
 			SimpleQuery("ALTER TABLE TempRegion RENAME TO Region;");
 
@@ -256,6 +265,7 @@ namespace Preprocessor
 			SimpleQuery("DELETE FROM Region WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM RegionPoints WHERE regionFormID NOT IN (SELECT regionFormID FROM Region);");
 			SimpleQuery("DELETE FROM MapMarker WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
+			SimpleQuery("DELETE FROM LocationCell WHERE spaceFormID NOT IN (SELECT spaceFormID FROM Space);");
 			SimpleQuery("DELETE FROM Container WHERE containerFormID NOT IN (SELECT referenceFormID FROM Position);");
 			SimpleQuery("DELETE FROM Entity WHERE entityFormID NOT IN (SELECT referenceFormID FROM Position) AND entityFormID NOT IN (SELECT contentFormID FROM Container);");
 			SimpleQuery("DELETE FROM Scrap WHERE junkFormID NOT IN (SELECT entityFormID FROM Entity);");
@@ -311,6 +321,12 @@ namespace Preprocessor
 			AddForeignKey("NPC", "instanceFormID", "INTEGER", "Position", "instanceFormID");
 			SimpleQuery("DROP TABLE Location;");
 			SimpleQuery("ALTER TABLE Position DROP COLUMN locationFormID;");
+
+			// Now we've dropped the Location table used for NPC spawns, we can repurpose the name for Location Data for cells,
+			// putting cell coords in another new table, and dropping the original LocationCell
+			SimpleQuery("CREATE TABLE Location AS SELECT DISTINCT locationFormID, locationEditorID, locationDisplayName, spaceFormID FROM LocationCell");
+			SimpleQuery("CREATE TABLE Cell AS SELECT DISTINCT locationFormID, x, y, spaceFormID FROM LocationCell"); // Distinct because the ESM data has duplicates
+			SimpleQuery("DROP TABLE LocationCell");
 
 			// Un-escape chars from columns which we've not otherwise touched
 			TransformColumn(UnescapeCharacters, "Entity", "displayName");
@@ -433,6 +449,7 @@ namespace Preprocessor
 			AddToSummaryReport("Avg region spaceFormID as Dec", SimpleQuery("SELECT AVG(spaceFormID) FROM Region;"));
 			AddToSummaryReport("Avg region minLevel", SimpleQuery("SELECT AVG(minLevel) FROM Region;"));
 			AddToSummaryReport("Avg region maxLevel", SimpleQuery("SELECT AVG(maxLevel) FROM Region;"));
+			AddToSummaryReport("Nuke-safe zones", SimpleQuery("SELECT regionEditorId FROM Region WHERE nukable = 0;"));
 			AddToSummaryReport("Avg junkFormID as Dec", SimpleQuery("SELECT AVG(junkFormID) FROM Scrap;"));
 			AddToSummaryReport("Avg X, Y per Space", SimpleQuery("SELECT spaceEditorID, AVG(x), AVG(y) FROM Space JOIN Position ON Position.spaceFormID = Space.spaceFormID GROUP BY Space.spaceFormID ORDER BY isWorldspace DESC, space.spaceEditorID ASC;"));
 			AddToSummaryReport("Avg Container items per container", SimpleQuery("SELECT AVG(contentsCount) FROM (SELECT count(contentFormID) as contentsCount FROM Container GROUP BY ContainerFormID);"));
@@ -447,6 +464,8 @@ namespace Preprocessor
 					$"WHERE Entity.entityFormID = '{NorthMarkerFormID}' " +
 					"GROUP BY Position.spaceFormID) " +
 				"WHERE northMarkerCount != 1;"));
+			AddToSummaryReport("Locations", SimpleQuery("SELECT locationFormID, locationEditorID, locationDisplayName, spaceEditorID FROM Location JOIN Space ON Space.spaceFormID = Location.spaceFormID ORDER BY locationEditorID;"));
+			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, spaceEditorID, count(*) AS count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID JOIN Space ON Space.spaceFormID = Cell.spaceFormID GROUP BY Location.locationFormID, Cell.spaceFormID ORDER BY Location.locationEditorID;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -666,8 +685,8 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Region;");
 			SimpleQuery("DROP TABLE Region;");
-			SimpleQuery("CREATE TABLE Region (regionFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, regionEditorID TEXT NOT NULL UNIQUE, spaceFormID TEXT NOT NULL REFERENCES Space (spaceFormID), minLevel INTEGER NOT NULL, maxLevel INTEGER NOT NULL) STRICT;");
-			SimpleQuery("INSERT INTO Region (regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel) SELECT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel FROM temp;");
+			SimpleQuery("CREATE TABLE Region (regionFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, regionEditorID TEXT NOT NULL UNIQUE, spaceFormID TEXT NOT NULL REFERENCES Space (spaceFormID), minLevel INTEGER NOT NULL, maxLevel INTEGER NOT NULL, nukable INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Region (regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel, nukable) SELECT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel, nukable FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM RegionPoints;");
@@ -690,8 +709,20 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Flux;");
 			SimpleQuery("DROP TABLE Flux;");
-			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, color STRING NOT NULL);");
+			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, color TEXT NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Flux (referenceFormID, color) SELECT referenceFormID, color FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Location;");
+			SimpleQuery("DROP TABLE Location;");
+			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL UNIQUE, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID)) STRICT;");
+			SimpleQuery("INSERT INTO Location (locationFormID, locationEditorID, locationDisplayName, spaceFormID) SELECT locationFormID, locationEditorID, locationDisplayName, spaceFormID FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Cell;");
+			SimpleQuery("DROP TABLE Cell;");
+			SimpleQuery("CREATE TABLE Cell (locationFormID INTEGER NOT NULL REFERENCES Location (locationFormID), x INTEGER NOT NULL, y INTEGER NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID)) STRICT;");
+			SimpleQuery("INSERT INTO Cell (locationFormID, x, y, spaceFormID) SELECT locationFormID, x, y, spaceFormID FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
 
@@ -936,6 +967,17 @@ namespace Preprocessor
 			}
 
 			return lockLevel.WithoutWhitespace();
+		}
+
+		// Set blank values to 1
+		static string SetNukableBlanks(string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+			{
+				return "1";
+			}
+
+			return input;
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input

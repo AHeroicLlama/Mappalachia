@@ -6,18 +6,18 @@ namespace Mappalachia
 	{
 		public PlotIcon(PlotIcon source)
 		{
-			ParentIsRegion = source.ParentIsRegion;
+			DoNotUseIcon = source.DoNotUseIcon;
 			Size = source.Size;
 			Color = source.Color;
 			baseIconImage = source.BaseIconImage;
 			BaseIconIndex = source.BaseIconIndex;
 		}
 
-		public PlotIcon(int offset, List<Color> palette, int size, bool parentIsRegion)
+		public PlotIcon(int offset, List<Color> palette, int size, bool doNotUseIcon)
 		{
 			BaseIconIndex = offset;
 			Size = size;
-			ParentIsRegion = parentIsRegion; // The entity this represents is a region
+			DoNotUseIcon = doNotUseIcon; // Icon not required - likely Region or Location
 
 			int colorIndex = offset % palette.Count;
 			Color = palette[colorIndex];
@@ -33,7 +33,7 @@ namespace Mappalachia
 		{
 		}
 
-		public bool ParentIsRegion { get; set; }
+		public bool DoNotUseIcon { get; set; }
 
 		public int BaseIconIndex { get; set; }
 
@@ -111,7 +111,7 @@ namespace Mappalachia
 
 		Image GenerateIconImage(Color color)
 		{
-			if (ParentIsRegion)
+			if (DoNotUseIcon)
 			{
 				Image volumeImage = new Bitmap(Size, Size);
 				using Graphics volumeGraphics = ImageHelper.GraphicsFromImageHQ(volumeImage);

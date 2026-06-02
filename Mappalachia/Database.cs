@@ -37,6 +37,7 @@ namespace Mappalachia
 			results.AddRange(await NPCSearch(settings, searchTerm, allSpacesClause));
 			results.AddRange(await FluxSearch(settings, searchTerm, allSpacesClause));
 			results.AddRange(await RegionSearch(settings, searchTerm, allSpacesClause, searchForFormID));
+			results.AddRange(await LocationSearch(settings, searchTerm, allSpacesClause, searchForFormID));
 			results.AddRange(await TeleportsToSearch(settings, searchTerm, allSpacesClause, searchForFormID));
 			results.AddRange(await InstanceSearch(searchTerm, searchForFormID));
 
@@ -257,6 +258,43 @@ namespace Mappalachia
 			return results;
 		}
 
+		static async Task<List<GroupedSearchResult>> LocationSearch(Settings settings, string searchTerm, string optionalSpaceClause, bool searchForFormID)
+		{
+			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
+
+			if (!settings.SearchSettings.ShouldSearchForLocation())
+			{
+				return results;
+			}
+
+			string query =
+				"SELECT locationFormID, locationEditorID, locationDisplayName, spaceFormID " +
+				"FROM Location " +
+				$"WHERE (locationEditorID LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR locationDisplayName LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
+				$"OR locationFormID = '{searchTerm}' " +
+				$"{(searchForFormID ? $"OR locationFormID = '{HexToInt(searchTerm)}'" : string.Empty)}) " +
+				optionalSpaceClause +
+				"GROUP BY locationFormID;";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				Space space = GetSpaceByFormID(reader.GetUInt("spaceFormID"));
+
+				results.Add(new GroupedSearchResult(
+					new Location(
+						reader.GetUInt("locationFormID"),
+						reader.GetString("locationEditorID"),
+						reader.GetString("locationDisplayName"),
+						space),
+					space));
+			}
+
+			return results;
+		}
+
 		static async Task<List<GroupedSearchResult>> TeleportsToSearch(Settings settings, string searchTerm, string optionalSpaceClause, bool searchForFormID)
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
@@ -358,6 +396,10 @@ namespace Mappalachia
 				{
 					instances.Add(instance);
 				}
+			}
+			else if (searchResult.Entity is Location)
+			{
+				instances.AddRange(await GetLocationInstance(searchResult, space));
 			}
 			else if (searchResult.Entity.GetType() == typeof(Entity))
 			{
@@ -497,10 +539,89 @@ namespace Mappalachia
 			return instances;
 		}
 
+		// Return the instance of the Location, with Cells populated
+		static async Task<Instance> GetLocationInstance(GroupedSearchResult searchResult, Space space)
+		{
+			string query = "SELECT x, y FROM Cell " +
+				$"WHERE locationFormId = '{searchResult.Entity.FormID}' AND spaceFormID = {space.FormID};";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			Location location = new Location(
+				searchResult.Entity.FormID,
+				searchResult.Entity.EditorID,
+				searchResult.Entity.DisplayName,
+				space);
+
+			while (reader.Read())
+			{
+				Cell cell = new Cell(
+					location,
+					reader.GetInt("x"),
+					reader.GetInt("y"));
+
+				location.AddCell(cell);
+			}
+
+			Instance instance = new Instance(
+				location,
+				space,
+				location.Cells.Select(c => c.Coord).GetCentroid(),
+				0,
+				string.Empty,
+				null,
+				LockLevel.None,
+				null);
+
+			return instance;
+		}
+
 		// Returns the instance of a GroupedSearchResult which is a Region
 		static async Task<Instance?> GetRegionInstance(GroupedSearchResult searchResult, Space space)
 		{
 			return await GetRegion(searchResult.Entity.EditorID, space);
+		}
+
+		// Return all non-nukable regions in the given space
+		static async Task<List<Library.Region>> GetNonNukableRegions(Space space)
+		{
+			string regionQuery = "SELECT minLevel, maxLevel, regionFormID, regionEditorId FROM Region " +
+				$"WHERE nukable = 0 AND spaceFormID = {space.FormID};";
+
+			using SqliteDataReader regionReader = await GetReader(Connection, regionQuery);
+
+			List<Library.Region> regions = new List<Library.Region>();
+
+			while (regionReader.Read())
+			{
+				Library.Region region = new Library.Region(
+				regionReader.GetUInt("regionFormID"),
+				regionReader.GetString("regionEditorID"),
+				space,
+				regionReader.GetUInt("minLevel"),
+				regionReader.GetUInt("maxLevel"));
+
+				string pointQuery = "SELECT x, y, subRegionIndex, coordIndex FROM RegionPoints " +
+					$"WHERE regionFormID = {region.FormID};";
+
+				using SqliteDataReader pointReader = await GetReader(Connection, pointQuery);
+
+				while (pointReader.Read())
+				{
+					region.AddPoint(
+						new RegionPoint(
+							region,
+							new Coord(
+								pointReader.GetDouble("x"),
+								pointReader.GetDouble("y")),
+							pointReader.GetUInt("subRegionIndex"),
+							pointReader.GetUInt("coordIndex")));
+				}
+
+				regions.Add(region);
+			}
+
+			return regions;
 		}
 
 		// Return the region with the given EditorID from the given Space
@@ -645,12 +766,9 @@ namespace Mappalachia
 			}
 
 			// Find the Non-nukable zone(s), and exclude instances which lie within them
-			foreach (string regionEditorID in space.GetNonNukableZoneEditorIds())
+			foreach (Library.Region region in await GetNonNukableRegions(space))
 			{
-				Instance regionInstance = (await GetRegion(regionEditorID, space)) ?? throw new Exception($"No Region with editorID {regionEditorID} found");
-				Library.Region nonNukableZone = (Library.Region)regionInstance.Entity;
-
-				instances = instances.Where(i => !nonNukableZone.ContainsPoint(i.Coord)).ToList();
+				instances = instances.Where(i => !region.ContainsPoint(i.Coord)).ToList();
 			}
 
 			return instances;
