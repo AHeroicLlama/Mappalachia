@@ -7,18 +7,30 @@ unit _mappalachia_space;
 	var	outputStrings : TStringList;
 
 	procedure Initialize;
-	const
-		outputFile = ProgramPath + 'Output\Space.csv';
+	var
+		outputFile : string;
+		i : integer;
 	begin
-		outputStrings := TStringList.Create;
+		for i := 0 to FileCount() -1 do begin
+			esmNumber := i;
+			targetESM := FileByIndex(esmNumber);
+			fileName := GetFileName(targetESM);
 
-		ripWorldSpaces();
-		ripCells();
+			if (pos('.esm', fileName) = 0) then begin
+				AddMessage('Skipping ' + fileName + ' - not an ESM');
+				continue
+			end;
 
-		createDir('Output');
-		AddMessage('Writing output to file: ' + outputFile);
-		outputStrings.SaveToFile(outputFile);
-		outputStrings.Free;
+			AddMessage('Running Space export on ' + fileName);
+
+			outputFile := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Space.csv';
+			outputStrings := TStringList.Create;
+
+			ripWorldSpaces();
+			ripCells();
+
+			outputToFile(esmNumber, outputFile, outputStrings);
+		end;
 	end;
 
 	procedure ripWorldspaces();

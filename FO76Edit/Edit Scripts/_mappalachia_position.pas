@@ -7,22 +7,33 @@ unit _mappalachia_position;
 	var	outputStrings : TStringList;
 
 	procedure Initialize;
-	const
-		outputFile = ProgramPath + 'Output\Position.csv';
+	var
+		outputFile : string;
+		i : integer;
 	begin
-		outputStrings := TStringList.Create;
+		for i := 0 to FileCount() -1 do begin
+			esmNumber := i;
+			targetESM := FileByIndex(esmNumber);
+			fileName := GetFileName(targetESM);
 
-		AddMessage('Beginning Mappalachia exterior position export...');
-		ripWorldspaces();
-		AddMessage('Finished Mappalachia exterior position export.');
-		AddMessage('Beginning Mappalachia interior position export...');
-		ripInteriors();
-		AddMessage('Finished Mappalachia interior position export.');
+			if (pos('.esm', fileName) = 0) then begin
+				AddMessage('Skipping ' + fileName + ' - not an ESM');
+				continue
+			end;
 
-		AddMessage('Writing position output to file: ' + outputFile);
-		createDir('Output');
-		outputStrings.SaveToFile(outputFile);
-		outputStrings.Free;
+			AddMessage('Running Position export on ' + fileName);
+
+			outputFile := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Position.csv';
+
+			outputStrings := TStringList.Create;
+
+			AddMessage('Mappalachia exterior position  (' + fileName + ')');
+			ripWorldspaces();
+			AddMessage('Mappalachia interior position  (' + fileName + ')');
+			ripInteriors();
+
+			outputToFile(esmNumber, outputFile, outputStrings);
+		end;
 	end;
 
 	// Rips all interiors

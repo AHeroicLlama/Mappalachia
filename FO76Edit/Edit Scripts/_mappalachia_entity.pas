@@ -16,40 +16,49 @@ unit _mappalachia_entity;
 	end;
 
 	procedure ripFormIDs(); // Primary block for iterating down tree
-	const
-		outputFile = ProgramPath + 'Output\Entity.csv';
-		outputFileContainer = ProgramPath + 'Output\Container.csv';
 	var
-		i, j : Integer; // Iterators
+		i, j, k : Integer; // Iterators
 		signatureGroup : IInterface;
-		signature : String;
+		outputFile, outputFileContainer, signature : String;
+
 	begin
-		outputStrings := TStringList.Create;
-		outputStringsContainer := TStringList.Create;
+		for k := 0 to FileCount() -1 do begin
+			esmNumber := k;
+			targetESM := FileByIndex(esmNumber);
+			fileName := GetFileName(targetESM);
 
-		// Rip everything down to the end nodes of the hierarchy tree
-		for i := 0 to ElementCount(targetESM) - 1 do begin
-			signatureGroup := elementByIndex(targetESM, i);
-			signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
-			signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
-
-			// Don't export data for Cells or Worldspaces, as they won't contain themselves
-			if (signature = 'CELL') or (signature = 'WRLD') then continue;
-
-			AddMessage('Entity: ' + signature);
-
-			for j := 0 to ElementCount(signatureGroup) -1 do begin
-				ripItem(elementByIndex(signatureGroup, j), signature);
+			if (pos('.esm', fileName) = 0) then begin
+				AddMessage('Skipping ' + fileName + ' - not an ESM');
+				continue
 			end;
-		end;
 
-		createDir('Output');
-		AddMessage('Writing output to file: ' + outputFile);
-		AddMessage('Writing output to file: ' + outputFileContainer);
-		outputStrings.SaveToFile(outputFile);
-		outputStringsContainer.SaveToFile(outputFileContainer);
-		outputStrings.Free;
-		outputStringsContainer.Free;
+			AddMessage('Running Entity export on ' + fileName);
+
+			outputFile := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Entity.csv';
+			outputFileContainer := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Container.csv';
+
+			outputStrings := TStringList.Create;
+			outputStringsContainer := TStringList.Create;
+
+			// Rip everything down to the end nodes of the hierarchy tree
+			for i := 0 to ElementCount(targetESM) - 1 do begin
+				signatureGroup := elementByIndex(targetESM, i);
+				signature := StringReplace(BaseName(signatureGroup), 'GRUP Top ', '', [rfReplaceAll]);
+				signature := StringReplace(signature, '"', '', [rfReplaceAll]); // Strip the category to its 4-char identifier
+
+				// Don't export data for Cells or Worldspaces, as they won't contain themselves
+				if (signature = 'CELL') or (signature = 'WRLD') then continue;
+
+				AddMessage('Entity: ' + signature);
+
+				for j := 0 to ElementCount(signatureGroup) -1 do begin
+					ripItem(elementByIndex(signatureGroup, j), signature);
+				end;
+			end;
+
+			outputToFile(esmNumber, outputFile, outputStrings);
+			outputToFile(esmNumber, outputFileContainer, outputStringsContainer);
+		end;
 	end;
 
 	procedure ripItem(item : IInterface; signature : String);
