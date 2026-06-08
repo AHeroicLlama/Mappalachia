@@ -1,11 +1,11 @@
 MD5 Checksum
-B90E889F51F41268D6B5B3583107D2FE
+7E05AC022760A9643E0D5F22B3841206
 
 Size
 469432 KB
 
 Built At UTC
-02/06/2026 18:05:28
+08/06/2026 19:04:46
 
 CSV Imported with SQLite Version
 3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
@@ -18,7 +18,7 @@ Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
 
 Game Version
-1.7.25.13
+1.7.25.11
 
 Spaces
 APPALACHIA,Appalachia,2480661,1,0,340,135,582500,0
@@ -2573,6 +2573,60 @@ Vault79ExitLocation_Exterior,APPALACHIA,1
 Vault94ExteriorLocation,APPALACHIA,1
 Vault96ExteriorLocation,APPALACHIA,2
 W05_JP_Community_SwampLocation,APPALACHIA,1
+
+Infestation locations
+LocCranberryAbandonedBogTownLocation
+LocCranberryAlleghenyAsylumLocation
+LocCranberryAppalachianAntiquesLocation
+LocCranberryGeneralsSteakhouseLocation
+LocCranberryRangerDistrictOfficeLocation
+LocForestAaronholtHomesteadLocation
+LocForestBoltonGreensLocation
+LocForestCharlestonLandfillLocation
+LocForestCharlestonTrainyardLocation
+LocForestGiantTeapotLocation
+LocForestGorgeJunkyardLocation
+LocForestGregsMineSupplyLocation
+LocForestHelvetiaLocation
+LocForestMorgantownLocation
+LocForestMorgantownTrainyardLocation
+LocForestNewGadLocation
+LocForestSummersvilleDamLocation
+LocForestSummersvilleDocksLocation
+LocForestSunshineMeadowsLocation
+LocForestTylerCountyFairgroundsLocation
+LocForestTylerCountyTrackLocation
+LocForestWadeAirportLocation
+LocMTRAMSTestSiteLocation
+LocMTRBeckleyLocation
+LocMTRBrimQuarryLocation
+LocMTRGarrahanEstateLocation
+LocMTRLewisburgLocation
+LocMTRMountBlairLocation
+LocMTRMountBlairTrainyardLocation
+LocMTRWelchLocation
+LocMountainSonsOfDaneCompoundLocation
+LocMountainsConvertedMunitionsFactoryLocation
+LocMountainsHuntersvilleLocation
+LocMountainsMonongahLocation
+LocMountainsNewAppalachianCentralTrainyardLocation
+LocMountainsPalaceoftheWindingPathLocation
+LocMountainsPleasantValleyCabinsLocation
+LocMountainsPleasantValleySkiResortLocation
+LocMountainsRedRocketMegaStopLocation
+LocMountainsSenecaRocksVisitorCenterLocation
+LocMountainsSunnytopSkiLanesLocation
+LocSwampBerkeleySpringsLocation
+LocSwampBerkeleySpringsWorkshopLocation
+LocSwampDabneyHomesteadLocation
+LocSwampDyerChemicalLocation
+LocSwampHarpersFerryLocation
+LocToxicClarksburgLocation
+LocToxicGraftonLocation
+LocToxicGraftonSteelLocation
+LocToxicWavyWillardsWaterparkLocation
+LocWhitespringTheWhitespringGolfLocation
+SubForestCampAdamsLocation
 
 Entities outside of space range
 APPALACHIA:343276
