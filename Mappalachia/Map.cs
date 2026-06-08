@@ -52,6 +52,8 @@ namespace Mappalachia
 	{
 		public static int BlastRadius { get; } = 20460; // See GLOB 0x002D1160
 
+		public static int InfestationRadius { get; } = 20000; // See GLOB 0x008F0F08
+
 		public static int CompassSize { get; } = MapImageResolution / 8;
 
 		public static double IconScale { get; } = 1.5;
@@ -81,6 +83,14 @@ namespace Mappalachia
 		static Pen CoordinateGridLinePenMajor { get; } = new Pen(Color.DarkGray, 3);
 
 		static int CoordinateGridMajorLineInterval { get; } = 4;
+
+		static Color InfestationZoneEdgeColor { get; } = Color.FromArgb(128, 255, 120, 100);
+
+		static Color InfestationZoneInnerColor { get; } = Color.FromArgb(32, 255, 120, 100);
+
+		static Pen InfestationEdgePen { get; } = new Pen(InfestationZoneEdgeColor, 4);
+
+		static Brush InfestationInnerBrush { get; } = new SolidBrush(InfestationZoneInnerColor);
 
 		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
 
@@ -143,6 +153,8 @@ namespace Mappalachia
 				graphics.DrawImage(settings.Space.GetWaterMask(), backgroundRectangle);
 			}
 
+			await DrawInfestations(settings, graphics);
+
 			DrawCoordinateGrid(settings, graphics);
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
@@ -198,6 +210,31 @@ namespace Mappalachia
 			UpdateProgress(progressInfo, 0, "Done");
 
 			return mapImage;
+		}
+
+		static async Task DrawInfestations(Settings settings, Graphics graphics)
+		{
+			if (!settings.MapSettings.ShowInfestations)
+			{
+				return;
+			}
+
+			List<Location> infestationLocations = await Database.GetInfestationLocations(settings.Space);
+
+			foreach (Location location in infestationLocations)
+			{
+				Coord cellTopLeftCentroid = location.Cells.GetCentroid();
+				Coord trueCentroid = new Coord(cellTopLeftCentroid.X + (CellSize / 2), cellTopLeftCentroid.Y - (CellSize / 2));
+
+				RectangleF infestationZone = new RectangleF(
+					(float)(trueCentroid.X - InfestationRadius),
+					(float)(trueCentroid.Y + InfestationRadius),
+					InfestationRadius * 2,
+					InfestationRadius * 2).AsImageRectangle(settings);
+
+				graphics.FillEllipse(InfestationInnerBrush, infestationZone);
+				graphics.DrawEllipse(InfestationEdgePen, infestationZone);
+			}
 		}
 
 		static void DrawCoordinateGrid(Settings settings, Graphics graphics)

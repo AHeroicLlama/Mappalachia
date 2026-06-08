@@ -250,6 +250,7 @@ namespace Mappalachia
 			// Update the check for boolean settings
 			grayscaleToolStripMenuItem.Checked = Settings.MapSettings.GrayscaleBackground;
 			highlightWaterToolStripMenuItem.Checked = Settings.MapSettings.HighlightWater;
+			showInfestationsToolStripMenuItem.Checked = Settings.MapSettings.ShowInfestations;
 			mapMarkerIconsToolStripMenuItem.Checked = Settings.MapSettings.MapMarkerIcons;
 			mapMarkerLabelsToolStripMenuItem.Checked = Settings.MapSettings.MapMarkerLabels;
 			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchSettings.SearchInAllSpaces;
@@ -420,6 +421,7 @@ namespace Mappalachia
 
 			highlightWaterToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
 			mapMapMarkersToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
+			showInfestationsToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
 
 			spotlightToolStripMenuItem.Enabled = Settings.Space.IsSuitableForSpotlight();
 
@@ -954,6 +956,11 @@ namespace Mappalachia
 		private async void Map_HighlightWater_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.HighlightWater = !Settings.MapSettings.HighlightWater);
+		}
+
+		private async void Map_ShowInfestations_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.ShowInfestations = !Settings.MapSettings.ShowInfestations);
 		}
 
 		private async void Map_CoordinateGrid_Enabled_Click(object sender, EventArgs e)
