@@ -814,7 +814,7 @@ namespace Mappalachia
 			// buttonAddToMap
 			// 
 			buttonAddToMap.Anchor = AnchorStyles.Bottom;
-			buttonAddToMap.ContextMenu = null;
+			buttonAddToMap.ContextMenuStrip = null;
 			buttonAddToMap.Location = new Point(363, 501);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Padding = new Padding(0, 0, 15, 0);

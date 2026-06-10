@@ -56,7 +56,7 @@ namespace Mappalachia
 
 			ToolStripMenuItem addAsGroup = new ToolStripMenuItem() { Text = "Add as group" };
 			addAsGroup.Click += (sender, e) => { ButtonAddToMap_Click(true); };
-			buttonAddToMap.ContextMenu = new ContextMenuStrip() { Items = { addAsGroup } };
+			buttonAddToMap.ContextMenuStrip = new ContextMenuStrip() { Items = { addAsGroup } };
 			buttonAddToMap.Click += (sender, e) => { ButtonAddToMap_Click(false); };
 
 			InitializeSignatureListView();
