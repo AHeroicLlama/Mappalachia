@@ -79,11 +79,6 @@ namespace Library
 				return true;
 			}
 
-			if (obj.GetType() != GetType())
-			{
-				return false;
-			}
-
 			if (obj is not Entity other)
 			{
 				return false;
