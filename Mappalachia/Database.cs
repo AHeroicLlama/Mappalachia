@@ -576,6 +576,41 @@ namespace Mappalachia
 			return instance;
 		}
 
+		// Return all locations in the given space which are available for infestations
+		public static async Task<List<Location>> GetInfestationLocations(Space space)
+		{
+			string locationQuery = $"SELECT locationFormId, locationEditorId, locationDisplayName FROM Location WHERE infestation = 1 AND spaceFormID = {space.FormID};";
+			using SqliteDataReader locationReader = await GetReader(Connection, locationQuery);
+
+			List<Location> locations = new List<Location>();
+
+			while (locationReader.Read())
+			{
+				Location location = new Location(
+					locationReader.GetUInt("locationFormId"),
+					locationReader.GetString("locationEditorId"),
+					locationReader.GetString("locationDisplayName"),
+					space);
+
+				string cellQuery = $"SELECT x, y FROM Cell WHERE locationFormId = {location.FormID};";
+				using SqliteDataReader cellReader = await GetReader(Connection, cellQuery);
+
+				while (cellReader.Read())
+				{
+					Cell cell = new Cell(
+						location,
+						cellReader.GetInt("x"),
+						cellReader.GetInt("y"));
+
+					location.AddCell(cell);
+				}
+
+				locations.Add(location);
+			}
+
+			return locations;
+		}
+
 		// Returns the instance of a GroupedSearchResult which is a Region
 		static async Task<Instance?> GetRegionInstance(GroupedSearchResult searchResult, Space space)
 		{

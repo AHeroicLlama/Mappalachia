@@ -106,7 +106,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, locationFormID TEXT, subRegionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL, nukable INTEGER);");
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
-			SimpleQuery($"CREATE TABLE LocationCell(locationFormID INTEGER, locationEditorId TEXT, locationDisplayName TEXT, spaceFormID TEXT, x INTEGER, y INTEGER);");
+			SimpleQuery($"CREATE TABLE LocationCell(locationFormID INTEGER, locationEditorId TEXT, locationDisplayName TEXT, spaceFormID TEXT, x INTEGER, y INTEGER, infestation INTEGER);");
 
 			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
@@ -182,8 +182,8 @@ namespace Preprocessor
 			ChangeColumnType("Region", "locationFormID", "INTEGER");
 			AddForeignKey("Region", "locationFormID", "INTEGER", "Location", "locationFormID");
 
-			// Ensure Region nukable blanks become 1
-			TransformColumn(SetNukableBlanks, "Region", "nukable");
+			// Convert Region nukable bools, blanks become true
+			TransformColumn(ConvertNukableBool, "Region", "nukable");
 
 			// For the region table, use the location column to reference the Location table, to find the min and max levels of the region
 			// Then, drop the location column. (Location table is dropped later)
@@ -324,7 +324,7 @@ namespace Preprocessor
 
 			// Now we've dropped the Location table used for NPC spawns, we can repurpose the name for Location Data for cells,
 			// putting cell coords in another new table, and dropping the original LocationCell
-			SimpleQuery("CREATE TABLE Location AS SELECT DISTINCT locationFormID, locationEditorID, locationDisplayName, spaceFormID FROM LocationCell");
+			SimpleQuery("CREATE TABLE Location AS SELECT DISTINCT locationFormID, locationEditorID, locationDisplayName, spaceFormID, infestation FROM LocationCell");
 			SimpleQuery("CREATE TABLE Cell AS SELECT DISTINCT locationFormID, x, y, spaceFormID FROM LocationCell"); // Distinct because the ESM data has duplicates
 			SimpleQuery("DROP TABLE LocationCell");
 
@@ -466,6 +466,7 @@ namespace Preprocessor
 				"WHERE northMarkerCount != 1;"));
 			AddToSummaryReport("Locations", SimpleQuery("SELECT locationFormID, locationEditorID, locationDisplayName, spaceEditorID FROM Location JOIN Space ON Space.spaceFormID = Location.spaceFormID ORDER BY locationEditorID;"));
 			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, spaceEditorID, count(*) AS count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID JOIN Space ON Space.spaceFormID = Cell.spaceFormID GROUP BY Location.locationFormID, Cell.spaceFormID ORDER BY Location.locationEditorID;"));
+			AddToSummaryReport("Infestation locations", SimpleQuery("SELECT locationEditorID FROM Location WHERE infestation = 1 ORDER BY locationEditorID;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -715,8 +716,8 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Location;");
 			SimpleQuery("DROP TABLE Location;");
-			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL UNIQUE, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID)) STRICT;");
-			SimpleQuery("INSERT INTO Location (locationFormID, locationEditorID, locationDisplayName, spaceFormID) SELECT locationFormID, locationEditorID, locationDisplayName, spaceFormID FROM temp;");
+			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL UNIQUE, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), infestation INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Location (locationFormID, locationEditorID, locationDisplayName, spaceFormID, infestation) SELECT locationFormID, locationEditorID, locationDisplayName, spaceFormID, infestation FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Cell;");
@@ -969,15 +970,16 @@ namespace Preprocessor
 			return lockLevel.WithoutWhitespace();
 		}
 
-		// Set blank values to 1
-		static string SetNukableBlanks(string input)
+		// Source data is "True", "False", or may be blank
+		// We account for blank and convert accordingly
+		static string ConvertNukableBool(string input)
 		{
-			if (string.IsNullOrWhiteSpace(input))
+			if (input == "False")
 			{
-				return "1";
+				return "0";
 			}
 
-			return input;
+			return "1";
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input

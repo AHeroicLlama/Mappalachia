@@ -50,11 +50,6 @@
 				return true;
 			}
 
-			if (obj.GetType() != GetType())
-			{
-				return false;
-			}
-
 			if (obj is not BaseInstance other)
 			{
 				return false;

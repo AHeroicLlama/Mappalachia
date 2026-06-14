@@ -28,6 +28,9 @@ This option allows you to tweak the percentage brightness of the underlying map 
 ## Highlight Water
 This option will add a colored overlay which clearly highlights the surface of all bodies of water.
 
+## Show Infestations
+Shows the actual area of all possible infestation zones.
+
 ## Coordinate grid
 This option allows you to see a grid overlay demonstrating the in-game coordinate system. Here you can also select from 3 levels of precision for the grid lines.
 
