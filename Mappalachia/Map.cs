@@ -153,11 +153,11 @@ namespace Mappalachia
 				graphics.DrawImage(settings.Space.GetWaterMask(), backgroundRectangle);
 			}
 
-			await DrawInfestations(settings, graphics);
-
 			DrawCoordinateGrid(settings, graphics);
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
+
+			await DrawInfestations(settings, graphics);
 
 			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
 
