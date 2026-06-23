@@ -78,7 +78,7 @@ namespace Preprocessor
 			// Main check for Map Markers
 			Parallel.ForEach(mapMarkers, ValidateMapMarker);
 
-			// Unique case for door marker (not a MapMarker, not in the DB, but still an icon svg)
+			// Unique cases for door and infestation markers (not a MapMarker, not in the DB, but still an icon svg)
 			Console.WriteLine("Icon: DoorMarker");
 			MapMarker doorMarker = new MapMarker("DoorMarker", string.Empty, 0, new Coord(0, 0));
 
@@ -86,6 +86,15 @@ namespace Preprocessor
 			{
 				ValidateMapMarkerFileSize(doorMarker, DoorMarkerPath);
 				ValidateSVG(DoorMarkerPath);
+			}
+
+			Console.WriteLine("Icon: InfestationMarker");
+			MapMarker infestationMarker = new MapMarker("InfestationMarker", string.Empty, 0, new Coord(0, 0));
+
+			if (ValidateMapMarkerImageExists(infestationMarker, InfestationMarkerPath))
+			{
+				ValidateMapMarkerFileSize(infestationMarker, InfestationMarkerPath);
+				ValidateSVG(InfestationMarkerPath);
 			}
 
 			Parallel.ForEach(Directory.GetFiles(MapMarkerPath), file =>

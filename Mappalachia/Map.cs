@@ -155,9 +155,9 @@ namespace Mappalachia
 
 			DrawCoordinateGrid(settings, graphics);
 
-			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
-
 			await DrawInfestations(settings, graphics);
+
+			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
 			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
 
@@ -234,6 +234,7 @@ namespace Mappalachia
 
 				graphics.FillEllipse(InfestationInnerBrush, infestationZone);
 				graphics.DrawEllipse(InfestationEdgePen, infestationZone);
+				graphics.DrawImageCentered(FileIO.GetInfestationMarker(), trueCentroid.AsImagePoint(settings));
 			}
 		}
 
