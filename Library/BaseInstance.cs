@@ -65,7 +65,7 @@
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Entity, Space, Label, LockLevel, InContainer);
+			return HashCode.Combine(Entity, Space, Label, LockLevel, SpawnWeight, InContainer);
 		}
 	}
 }
