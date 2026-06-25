@@ -10,7 +10,7 @@ namespace Library
 
 		public CellNeighbors GetNeighbors()
 		{
-			var neighbors = new CellNeighbors();
+			CellNeighbors neighbors = new CellNeighbors();
 
 			foreach (Cell cell in parentLocation.Cells)
 			{

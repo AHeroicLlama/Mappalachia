@@ -365,6 +365,13 @@ namespace Mappalachia
 				tile.GetSpotlightTileImage();
 			});
 
+			if (cancellationToken.IsCancellationRequested)
+			{
+				return;
+			}
+
+			using GraphicsWithSmoothingDisabled smoothingDisabled = new GraphicsWithSmoothingDisabled(graphics);
+
 			int i = 0;
 			foreach (SpotlightTile tile in spotlightTiles)
 			{
@@ -375,14 +382,6 @@ namespace Mappalachia
 
 				Image? image = tile.GetSpotlightTileImage();
 
-				SmoothingMode priorSmoothingMode = graphics.SmoothingMode;
-				PixelOffsetMode priorPixelOffsetMode = graphics.PixelOffsetMode;
-				InterpolationMode priorInterpolationMode = graphics.InterpolationMode;
-
-				graphics.SmoothingMode = SmoothingMode.None;
-				graphics.PixelOffsetMode = PixelOffsetMode.Half;
-				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
-
 				if (image is not null)
 				{
 					i++;
@@ -391,10 +390,6 @@ namespace Mappalachia
 
 					graphics.DrawImage(image, tile.GetRectangle().AsImageRectangle(settings));
 				}
-
-				graphics.SmoothingMode = priorSmoothingMode;
-				graphics.PixelOffsetMode = priorPixelOffsetMode;
-				graphics.InterpolationMode = priorInterpolationMode;
 
 #if DEBUG_SPOTLIGHT
 				graphics.DrawStringCentered(
@@ -834,23 +829,13 @@ namespace Mappalachia
 			float height = legendRect.Height;
 			float step = height / TopographLegendDivisions;
 
-			SmoothingMode priorSmoothingMode = graphics.SmoothingMode;
-			PixelOffsetMode priorPixelOffsetMode = graphics.PixelOffsetMode;
-			InterpolationMode priorInterpolationMode = graphics.InterpolationMode;
-
-			graphics.SmoothingMode = SmoothingMode.None;
-			graphics.PixelOffsetMode = PixelOffsetMode.Half;
-			graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+			using GraphicsWithSmoothingDisabled smoothingDisabled = new GraphicsWithSmoothingDisabled(graphics);
 
 			for (float y = 0; y < height; y += step)
 			{
 				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
 				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
 			}
-
-			graphics.SmoothingMode = priorSmoothingMode;
-			graphics.PixelOffsetMode = priorPixelOffsetMode;
-			graphics.InterpolationMode = priorInterpolationMode;
 		}
 
 		// Draws the region instance
@@ -906,6 +891,8 @@ namespace Mappalachia
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
 			float halfWidth = VolumeEdgeThickness / 2f;
+
+			using GraphicsWithSmoothingDisabled smoothingDisabled = new GraphicsWithSmoothingDisabled(graphics);
 
 			foreach (Cell cell in location.Cells)
 			{
