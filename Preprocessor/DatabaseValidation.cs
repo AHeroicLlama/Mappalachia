@@ -30,6 +30,8 @@ namespace Preprocessor
 			ValidateColumnMatchesFormat("Entity", "signature", false, ValidateSignature);
 			ValidateColumnMatchesFormat("MapMarker", "icon", false, ValidateMapMarkerIcon);
 			ValidateColumnMatchesFormat("Scrap", "component", false, ValidateComponent);
+			ValidateColumnMatchesFormat("Flux", "color", false, ValidateFluxColor);
+			ValidateColumnMatchesFormat("NPC", "npcName", false, ValidateNPC);
 		}
 
 		// Validate all rows of the table column match the regex pattern, including optional blanks
