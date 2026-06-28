@@ -1,6 +1,6 @@
 namespace Library
 {
-	public class CellNeighbors
+	public struct CellNeighbors
 	{
 		public bool Up { get; set; }
 
