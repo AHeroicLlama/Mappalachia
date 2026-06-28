@@ -24,6 +24,11 @@ namespace Preprocessor
 				FailValidation($"Integrity check failed");
 			}
 
+			if (!SimpleQuery("SELECT key FROM Global").ToHashSet().SetEquals(GlobalsToKeep))
+			{
+				FailValidation($"Globals did not match expected list");
+			}
+
 			ValidateColumnMatchesFormat("Position", "lockLevel", true, ValidateLockLevel);
 			ValidateColumnMatchesFormat("Position", "primitiveShape", true, ValidatePrimitiveShape);
 			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", true, ValidateLockLevel);

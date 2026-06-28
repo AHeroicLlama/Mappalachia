@@ -809,6 +809,21 @@ namespace Mappalachia
 			return instances;
 		}
 
+		public static async Task<float> GetBlastRadius() => await GetGlobal("EN07_NukeBlastRadius");
+
+		public static async Task<float> GetInfestationRadius() => await GetGlobal("HTO_LCP_HostileTakeOver_TargetRadius_Location");
+
+		static async Task<float> GetGlobal(string key)
+		{
+			string query = $"SELECT value FROM Global WHERE key = '{key}'";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			reader.Read();
+
+			return reader.GetFloat("value");
+		}
+
 		// Returns the min (item1) and max (item2) z coordinate of all instances of the itemsToPlot in the current space
 		public static async Task<(double, double)> GetZRange(List<GroupedSearchResult> itemsToPlot, Settings settings)
 		{

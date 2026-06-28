@@ -1,18 +1,18 @@
 MD5 Checksum
-3D6765C5F9BE4B22946AEC11126B3B2D
+0DA3029CEEEA2F1FC3F16B42894062CF
 
 Size
-469432 KB
+469440 KB
 
 Built At UTC
-23/06/2026 20:05:51
+28/06/2026 22:34:31
 
 CSV Imported with SQLite Version
 3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
 
 Tables
-Cell          Entity     Location      Meta     Position                Region           Scrap
-Container     Flux       MapMarker     NPC      Position_PreGrouped     RegionPoints     Space
+Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
+Container     Flux       Location     Meta          Position     Region                  Scrap
 
 Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
@@ -2627,6 +2627,10 @@ LocToxicGraftonSteelLocation
 LocToxicWavyWillardsWaterparkLocation
 LocWhitespringTheWhitespringGolfLocation
 SubForestCampAdamsLocation
+
+Globals
+HTO_LCP_HostileTakeOver_TargetRadius_Location,20000
+EN07_NukeBlastRadius,20460
 
 Entities outside of space range
 APPALACHIA:343276

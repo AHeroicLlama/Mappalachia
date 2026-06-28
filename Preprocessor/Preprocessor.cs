@@ -93,7 +93,7 @@ namespace Preprocessor
 
 			SimpleQuery("PRAGMA foreign_keys = 0");
 
-			// Create the Meta table, add the game version to it
+			// Create the final Meta table, add the game version to it
 			SimpleQuery("CREATE TABLE Meta (key TEXT NOT NULL UNIQUE PRIMARY KEY, value TEXT) STRICT;");
 			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{gameVersion}');");
 
@@ -107,6 +107,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Scrap(junkFormID INTEGER REFERENCES Entity(entityFormID), component TEXT, componentQuantity TEXT);");
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 			SimpleQuery($"CREATE TABLE LocationCell(locationFormID INTEGER, locationEditorId TEXT, locationDisplayName TEXT, spaceFormID TEXT, x INTEGER, y INTEGER, infestation INTEGER);");
+			SimpleQuery($"CREATE TABLE Global(key TEXT PRIMARY KEY, value REAL);");
 
 			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
@@ -118,6 +119,10 @@ namespace Preprocessor
 			ImportTableFromCSV("Scrap");
 			ImportTableFromCSV("Component");
 			ImportTableFromCSV("LocationCell");
+			ImportTableFromCSV("Global");
+
+			// Filter the Globals to only those we need
+			SimpleQuery($"DELETE FROM Global WHERE key NOT IN {GlobalsToKeep.ToSqliteCollection()};");
 
 			// Extract WorldSpace FormID from world on LocationCell
 			TransformColumn(CaptureSpaceFormID, "LocationCell", "spaceFormID");
@@ -467,6 +472,7 @@ namespace Preprocessor
 			AddToSummaryReport("Locations", SimpleQuery("SELECT locationFormID, locationEditorID, locationDisplayName, spaceEditorID FROM Location JOIN Space ON Space.spaceFormID = Location.spaceFormID ORDER BY locationEditorID;"));
 			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, spaceEditorID, count(*) AS count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID JOIN Space ON Space.spaceFormID = Cell.spaceFormID GROUP BY Location.locationFormID, Cell.spaceFormID ORDER BY Location.locationEditorID;"));
 			AddToSummaryReport("Infestation locations", SimpleQuery("SELECT locationEditorID FROM Location WHERE infestation = 1 ORDER BY locationEditorID;"));
+			AddToSummaryReport("Globals", SimpleQuery("SELECT key, value FROM Global;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -724,6 +730,12 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Cell;");
 			SimpleQuery("CREATE TABLE Cell (locationFormID INTEGER NOT NULL REFERENCES Location (locationFormID), x INTEGER NOT NULL, y INTEGER NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID)) STRICT;");
 			SimpleQuery("INSERT INTO Cell (locationFormID, x, y, spaceFormID) SELECT locationFormID, x, y, spaceFormID FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Global;");
+			SimpleQuery("DROP TABLE Global;");
+			SimpleQuery("CREATE TABLE Global (key TEXT NOT NULL UNIQUE PRIMARY KEY, value REAL NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Global (key, value) SELECT key, value FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
 

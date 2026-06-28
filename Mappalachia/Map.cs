@@ -50,10 +50,6 @@ namespace Mappalachia
 
 	public static class Map
 	{
-		public static int BlastRadius { get; } = 20460; // See GLOB 0x002D1160
-
-		public static int InfestationRadius { get; } = 20000; // See GLOB 0x008F0F08
-
 		public static int CompassSize { get; } = MapImageResolution / 8;
 
 		public static double IconScale { get; } = 1.5;
@@ -220,6 +216,7 @@ namespace Mappalachia
 			}
 
 			List<Location> infestationLocations = await Database.GetInfestationLocations(settings.Space);
+			float infestationRadius = await Database.GetInfestationRadius();
 
 			foreach (Location location in infestationLocations)
 			{
@@ -227,10 +224,10 @@ namespace Mappalachia
 				Coord trueCentroid = new Coord(cellTopLeftCentroid.X + (CellSize / 2), cellTopLeftCentroid.Y - (CellSize / 2));
 
 				RectangleF infestationZone = new RectangleF(
-					(float)(trueCentroid.X - InfestationRadius),
-					(float)(trueCentroid.Y + InfestationRadius),
-					InfestationRadius * 2,
-					InfestationRadius * 2).AsImageRectangle(settings);
+					(float)(trueCentroid.X - infestationRadius),
+					(float)(trueCentroid.Y + infestationRadius),
+					infestationRadius * 2f,
+					infestationRadius * 2f).AsImageRectangle(settings);
 
 				graphics.FillEllipse(InfestationInnerBrush, infestationZone);
 				graphics.DrawEllipse(InfestationEdgePen, infestationZone);
