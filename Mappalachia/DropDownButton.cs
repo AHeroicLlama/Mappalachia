@@ -7,7 +7,7 @@ namespace Mappalachia
 	{
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-		public ContextMenuStrip? ContextMenu { get; set; }
+		public override ContextMenuStrip? ContextMenuStrip { get; set; }
 
 		float DividerInsetPosition { get; set; }
 
@@ -22,14 +22,14 @@ namespace Mappalachia
 
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
-			var dividerRectangle = new RectangleF(Width - DividerInsetPosition, 0, DividerInsetPosition, Height);
+			RectangleF dividerRectangle = new RectangleF(Width - DividerInsetPosition, 0, DividerInsetPosition, Height);
 
 			// Check the drop down has been left clicked
-			if (ContextMenu is not null &&
+			if (ContextMenuStrip is not null &&
 				e.Button == MouseButtons.Left &&
 				dividerRectangle.Contains(e.Location))
 			{
-				ContextMenu.Show(this, 0, Height);
+				ContextMenuStrip.Show(this, 0, Height);
 			}
 			else
 			{
@@ -45,7 +45,7 @@ namespace Mappalachia
 			TriangleWidth = DividerInsetPosition / 3f;
 			TriangleHeight = ClientRectangle.Height / 5f;
 
-			if (ContextMenu is null || DividerInsetPosition <= 0)
+			if (ContextMenuStrip is null || DividerInsetPosition <= 0)
 			{
 				return;
 			}

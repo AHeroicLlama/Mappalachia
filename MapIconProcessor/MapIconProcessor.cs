@@ -10,6 +10,14 @@ namespace MapIconProcessor;
 
 class MapIconProcessor
 {
+	static XmlWriterSettings XmlWriterSettings { get; } = new XmlWriterSettings()
+	{
+		Indent = true,
+		IndentChars = "\t",
+		OmitXmlDeclaration = true,
+		NamespaceHandling = NamespaceHandling.OmitDuplicates,
+	};
+
 	static async Task Main()
 	{
 		Console.Title = $"{Common.ApplicationName} Map Icon Extractor";
@@ -35,6 +43,10 @@ class MapIconProcessor
 			// We exhausted all the folders without finding the right icon, log error but continue
 			ReportError($"Failed to find suitable icon SVG for marker icon {mapMarker.Icon}");
 		}
+
+		// Manual clean the static marker icons
+		CleanSVG(DoorMarkerPath);
+		CleanSVG(InfestationMarkerPath);
 
 		StdOutWithColor("Finished. Press any key.", ColorInfo);
 		Console.ReadKey();
@@ -138,24 +150,12 @@ class MapIconProcessor
 
 				// Run the mapmarker svg against hardcodings to apply any bespoke fixes
 				document = FixMapMarkerSVG(document, mapMarker);
-
-				foreach (XmlNode node in document)
-				{
-					CleanXMLNode(node);
-				}
-
-				XmlWriterSettings settings = new XmlWriterSettings()
-				{
-					Indent = true,
-					IndentChars = "\t",
-					OmitXmlDeclaration = true,
-					NamespaceHandling = NamespaceHandling.OmitDuplicates,
-				};
+				CleanXMLNode(document);
 
 				StringWriter stringWriter = new StringWriter(new StringBuilder());
-				XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings);
-				document.Save(xmlWriter);
+				XmlWriter xmlWriter = XmlWriter.Create(stringWriter, XmlWriterSettings);
 
+				document.Save(xmlWriter);
 				File.WriteAllText(targetPath, stringWriter.ToString());
 
 				Console.WriteLine($"{mapMarker.Icon}: Success");
@@ -186,5 +186,20 @@ class MapIconProcessor
 		{
 			CleanXMLNode(childNode);
 		}
+	}
+
+	// Loads an SVG from path, cleans it, and writes it back out
+	static void CleanSVG(string path)
+	{
+		XmlDocument document = new XmlDocument();
+		document.Load(path);
+
+		CleanXMLNode(document);
+
+		StringWriter stringWriter = new StringWriter(new StringBuilder());
+		XmlWriter xmlWriter = XmlWriter.Create(stringWriter, XmlWriterSettings);
+
+		document.Save(xmlWriter);
+		File.WriteAllText(path, stringWriter.ToString());
 	}
 }

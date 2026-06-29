@@ -38,6 +38,10 @@ namespace Library
 
 		public static Regex ValidateComponent { get; } = new Regex("^(Acid|Adhesive|Aluminum|Antiseptic|Asbestos|Ballistic Fiber|Black Titanium|Bone|Ceramic|Circuitry|Cloth|Coal|Concrete|Copper|Cork|Crystal|Fertilizer|Fiber Optics|Fiberglass|Gear|Glass|Gold|Gunpowder|Lead|Leather|Nuclear Material|Oil|Plastic|Rubber|Screw|Silver|Spring|Steel|Ultracite|Wood|Stable (Crimson|Violet|Yellowcake|Fluorescent|Cobalt) Flux)$");
 
+		public static Regex ValidateFluxColor { get; } = new Regex("^(Crimson|Violet|Yellowcake|Fluorescent|Cobalt)$");
+
+		public static Regex ValidateNPC { get; } = new Regex("^(Angler|Beaver|Bloatfly|Bloodbug|Cat|Cave Cricket|Chicken|Deathclaw|Firefly|Fog Crawler|Fox|Frog|Ghoul|Grafton Monster|Gulper|Honey Beast|Insect|Liberator|Lost|Mega Sloth|Mirelurk|Mole Miner|Mole Rat|Opposum|Rabbit|Rad Ant|Rad Rat|Rad Scorpion|Rad Toad|Radroach|Radstag|Robot|Scorched|Snallygaster|Squirrel|Stingwing|Super Mutant|Thrasher|Tick|Vicious Dog|Wolf|Yao Guai)$");
+
 		public static Regex ValidIconFolder { get; } = new Regex("DefineSprite_[0-9]{1,3}_(([A-Z].*Marker)|WhitespringResort|NukaColaQuantumPlant|TrainTrackMark)$");
 
 		public static string MapMarkerIconInitialFileName { get; } = "1.svg"; // Frame 1
@@ -435,5 +439,11 @@ namespace Library
 					return string.Empty;
 			}
 		}
+
+		// List of Globals (GLOB) by EditorID which we should keep
+		public static List<string> GlobalsToKeep { get; } = new List<string>()
+		{
+			"EN07_NukeBlastRadius", "HTO_LCP_HostileTakeOver_TargetRadius_Location",
+		};
 	}
 }

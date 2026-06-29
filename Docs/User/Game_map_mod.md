@@ -5,7 +5,7 @@ While the intended use for Mappalachia while playing is from a second monitor, a
 
 ## Prerequisites
 * An installation of [Mappalachia](..\\..\readme.md#download-and-installation)
-* An installation of [Paint.NET](https://www.getpaint.net/download.html#download)
+* An installation of [Paint.NET](https://www.paint.net/download.html#download)
 * An installation of [Baka File Tool](https://www.nexusmods.com/fallout76/mods/9)
 * Moderate computer literacy - this guide gets a little technical.
 

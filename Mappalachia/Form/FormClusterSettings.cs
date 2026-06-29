@@ -7,6 +7,8 @@ namespace Mappalachia
 		// The settings when the form opened, so we can revert on cancel
 		ClusterSettings InitialSettings { get; }
 
+		float BlastRadius { get; set; }
+
 		public ClusterSettings ClusterSettings => new ClusterSettings(
 			trackBarClusterRange.Value,
 			trackBarClusterMinWeight.Value,
@@ -21,6 +23,8 @@ namespace Mappalachia
 
 			FormMain = formMain;
 			InitialSettings = FormMain.Settings.PlotSettings.ClusterSettings;
+
+			BlastRadius = Database.GetBlastRadius().GetAwaiter().GetResult();
 
 			trackBarClusterRange.Maximum = ClusterSettings.GetMaxRangeForSpace(FormMain.Settings.Space);
 
@@ -110,7 +114,7 @@ namespace Mappalachia
 				return;
 			}
 
-			if (!FormMain.Settings.Space.IsNukable() || trackBarClusterRange.Maximum < Map.BlastRadius)
+			if (!FormMain.Settings.Space.IsNukable() || trackBarClusterRange.Maximum < BlastRadius)
 			{
 				return;
 			}
@@ -120,7 +124,7 @@ namespace Mappalachia
 
 			setToNukerange.Click += (s, args) =>
 			{
-				trackBarClusterRange.Value = Map.BlastRadius;
+				trackBarClusterRange.Value = (int)BlastRadius;
 			};
 
 			contextMenu.Items.Add(setToNukerange);
