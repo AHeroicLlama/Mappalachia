@@ -367,7 +367,7 @@ namespace Mappalachia
 				return;
 			}
 
-			using GraphicsWithSmoothingDisabled smoothingDisabled = new GraphicsWithSmoothingDisabled(graphics);
+			using GraphicsWithPerfectAlignment correctAlignment = new GraphicsWithPerfectAlignment(graphics);
 
 			int i = 0;
 			foreach (SpotlightTile tile in spotlightTiles)
@@ -826,7 +826,7 @@ namespace Mappalachia
 			float height = legendRect.Height;
 			float step = height / TopographLegendDivisions;
 
-			using GraphicsWithSmoothingDisabled smoothingDisabled = new GraphicsWithSmoothingDisabled(graphics);
+			using GraphicsWithPerfectAlignment correctAlignment = new GraphicsWithPerfectAlignment(graphics);
 
 			for (float y = 0; y < height; y += step)
 			{
@@ -889,7 +889,7 @@ namespace Mappalachia
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
 			float halfWidth = VolumeEdgeThickness / 2f;
 
-			using GraphicsWithSmoothingDisabled smoothingDisabled = new GraphicsWithSmoothingDisabled(graphics);
+			using GraphicsWithPerfectAlignment correctAlignment = new GraphicsWithPerfectAlignment(graphics);
 
 			foreach (Cell cell in location.Cells)
 			{
