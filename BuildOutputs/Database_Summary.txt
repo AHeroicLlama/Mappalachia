@@ -1,27 +1,27 @@
 MD5 Checksum
-B90E889F51F41268D6B5B3583107D2FE
+0D8996BD4CF94F8892C9F4D73EA8D784
 
 Size
-469432 KB
+469440 KB
 
 Built At UTC
-02/06/2026 18:05:28
+29/06/2026 21:27:04
 
 CSV Imported with SQLite Version
 3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
 
 Tables
-Cell          Entity     Location      Meta     Position                Region           Scrap
-Container     Flux       MapMarker     NPC      Position_PreGrouped     RegionPoints     Space
+Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
+Container     Flux       Location     Meta          Position     Region                  Scrap
 
 Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
 
 Game Version
-1.7.25.13
+1.7.25.15
 
 Spaces
-APPALACHIA,Appalachia,2480661,1,0,340,135,582500,0
+APPALACHIA,Appalachia,2480661,1,0,-500,135,582550,0
 AMSHQ01,AMS Headquarters,107865,0,1,-62.122314453125,-120.403686523435,4527.75537109375,180.000106811523
 AMSHQ02,AMS Headquarters Basement Lab,6230427,0,1,-615.997924804685,-2510.400390625,5064.80078125,0
 AVRMedicalCenter01,AVR Medical Center,29371,0,0,2840.3534545898438,-659.23010253906,7155.9249267578125,175.497497558594
@@ -236,7 +236,7 @@ Avg Bounds X/Y/Z
 770.1904827656264,552.889496417093,574.158054389112
 
 Avg CenterX, CenterY
-377.29278940538956,-183.11274697207676
+373.175142346566,-183.11274697207676
 
 Avg Rotation
 150.12507138074824
@@ -2574,8 +2574,66 @@ Vault94ExteriorLocation,APPALACHIA,1
 Vault96ExteriorLocation,APPALACHIA,2
 W05_JP_Community_SwampLocation,APPALACHIA,1
 
+Infestation locations
+LocCranberryAbandonedBogTownLocation
+LocCranberryAlleghenyAsylumLocation
+LocCranberryAppalachianAntiquesLocation
+LocCranberryGeneralsSteakhouseLocation
+LocCranberryRangerDistrictOfficeLocation
+LocForestAaronholtHomesteadLocation
+LocForestBoltonGreensLocation
+LocForestCharlestonLandfillLocation
+LocForestCharlestonTrainyardLocation
+LocForestGiantTeapotLocation
+LocForestGorgeJunkyardLocation
+LocForestGregsMineSupplyLocation
+LocForestHelvetiaLocation
+LocForestMorgantownLocation
+LocForestMorgantownTrainyardLocation
+LocForestNewGadLocation
+LocForestSummersvilleDamLocation
+LocForestSummersvilleDocksLocation
+LocForestSunshineMeadowsLocation
+LocForestTylerCountyFairgroundsLocation
+LocForestTylerCountyTrackLocation
+LocForestWadeAirportLocation
+LocMTRAMSTestSiteLocation
+LocMTRBeckleyLocation
+LocMTRBrimQuarryLocation
+LocMTRGarrahanEstateLocation
+LocMTRLewisburgLocation
+LocMTRMountBlairLocation
+LocMTRMountBlairTrainyardLocation
+LocMTRWelchLocation
+LocMountainSonsOfDaneCompoundLocation
+LocMountainsConvertedMunitionsFactoryLocation
+LocMountainsHuntersvilleLocation
+LocMountainsMonongahLocation
+LocMountainsNewAppalachianCentralTrainyardLocation
+LocMountainsPalaceoftheWindingPathLocation
+LocMountainsPleasantValleyCabinsLocation
+LocMountainsPleasantValleySkiResortLocation
+LocMountainsRedRocketMegaStopLocation
+LocMountainsSenecaRocksVisitorCenterLocation
+LocMountainsSunnytopSkiLanesLocation
+LocSwampBerkeleySpringsLocation
+LocSwampBerkeleySpringsWorkshopLocation
+LocSwampDabneyHomesteadLocation
+LocSwampDyerChemicalLocation
+LocSwampHarpersFerryLocation
+LocToxicClarksburgLocation
+LocToxicGraftonLocation
+LocToxicGraftonSteelLocation
+LocToxicWavyWillardsWaterparkLocation
+LocWhitespringTheWhitespringGolfLocation
+SubForestCampAdamsLocation
+
+Globals
+HTO_LCP_HostileTakeOver_TargetRadius_Location,20000
+EN07_NukeBlastRadius,20460
+
 Entities outside of space range
-APPALACHIA:343276
+APPALACHIA:342116
 AMSHQ01:0
 AMSHQ02:0
 AVRMedicalCenter01:0

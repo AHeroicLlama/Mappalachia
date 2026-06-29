@@ -50,8 +50,6 @@ namespace Mappalachia
 
 	public static class Map
 	{
-		public static int BlastRadius { get; } = 20460; // See GLOB 0x002D1160
-
 		public static int CompassSize { get; } = MapImageResolution / 8;
 
 		public static double IconScale { get; } = 1.5;
@@ -81,6 +79,14 @@ namespace Mappalachia
 		static Pen CoordinateGridLinePenMajor { get; } = new Pen(Color.DarkGray, 3);
 
 		static int CoordinateGridMajorLineInterval { get; } = 4;
+
+		static Color InfestationZoneEdgeColor { get; } = Color.FromArgb(128, 255, 120, 100);
+
+		static Color InfestationZoneInnerColor { get; } = Color.FromArgb(32, 255, 120, 100);
+
+		static Pen InfestationEdgePen { get; } = new Pen(InfestationZoneEdgeColor, 4);
+
+		static Brush InfestationInnerBrush { get; } = new SolidBrush(InfestationZoneInnerColor);
 
 		public static Color DropShadowColor { get; } = Color.FromArgb(128, 0, 0, 0);
 
@@ -145,6 +151,8 @@ namespace Mappalachia
 
 			DrawCoordinateGrid(settings, graphics);
 
+			await DrawInfestations(settings, graphics);
+
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
 			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
@@ -198,6 +206,33 @@ namespace Mappalachia
 			UpdateProgress(progressInfo, 0, "Done");
 
 			return mapImage;
+		}
+
+		static async Task DrawInfestations(Settings settings, Graphics graphics)
+		{
+			if (!settings.MapSettings.ShowInfestations)
+			{
+				return;
+			}
+
+			List<Location> infestationLocations = await Database.GetInfestationLocations(settings.Space);
+			float infestationRadius = await Database.GetInfestationRadius();
+
+			foreach (Location location in infestationLocations)
+			{
+				Coord cellTopLeftCentroid = location.Cells.GetCentroid();
+				Coord trueCentroid = new Coord(cellTopLeftCentroid.X + (CellSize / 2), cellTopLeftCentroid.Y - (CellSize / 2));
+
+				RectangleF infestationZone = new RectangleF(
+					(float)(trueCentroid.X - infestationRadius),
+					(float)(trueCentroid.Y + infestationRadius),
+					infestationRadius * 2f,
+					infestationRadius * 2f).AsImageRectangle(settings);
+
+				graphics.FillEllipse(InfestationInnerBrush, infestationZone);
+				graphics.DrawEllipse(InfestationEdgePen, infestationZone);
+				graphics.DrawImageCentered(FileIO.GetInfestationMarker(), trueCentroid.AsImagePoint(settings));
+			}
 		}
 
 		static void DrawCoordinateGrid(Settings settings, Graphics graphics)
@@ -327,6 +362,13 @@ namespace Mappalachia
 				tile.GetSpotlightTileImage();
 			});
 
+			if (cancellationToken.IsCancellationRequested)
+			{
+				return;
+			}
+
+			using GraphicsWithPerfectAlignment correctAlignment = new GraphicsWithPerfectAlignment(graphics);
+
 			int i = 0;
 			foreach (SpotlightTile tile in spotlightTiles)
 			{
@@ -337,14 +379,6 @@ namespace Mappalachia
 
 				Image? image = tile.GetSpotlightTileImage();
 
-				SmoothingMode priorSmoothingMode = graphics.SmoothingMode;
-				PixelOffsetMode priorPixelOffsetMode = graphics.PixelOffsetMode;
-				InterpolationMode priorInterpolationMode = graphics.InterpolationMode;
-
-				graphics.SmoothingMode = SmoothingMode.None;
-				graphics.PixelOffsetMode = PixelOffsetMode.Half;
-				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
-
 				if (image is not null)
 				{
 					i++;
@@ -353,10 +387,6 @@ namespace Mappalachia
 
 					graphics.DrawImage(image, tile.GetRectangle().AsImageRectangle(settings));
 				}
-
-				graphics.SmoothingMode = priorSmoothingMode;
-				graphics.PixelOffsetMode = priorPixelOffsetMode;
-				graphics.InterpolationMode = priorInterpolationMode;
 
 #if DEBUG_SPOTLIGHT
 				graphics.DrawStringCentered(
@@ -796,23 +826,13 @@ namespace Mappalachia
 			float height = legendRect.Height;
 			float step = height / TopographLegendDivisions;
 
-			SmoothingMode priorSmoothingMode = graphics.SmoothingMode;
-			PixelOffsetMode priorPixelOffsetMode = graphics.PixelOffsetMode;
-			InterpolationMode priorInterpolationMode = graphics.InterpolationMode;
-
-			graphics.SmoothingMode = SmoothingMode.None;
-			graphics.PixelOffsetMode = PixelOffsetMode.Half;
-			graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+			using GraphicsWithPerfectAlignment correctAlignment = new GraphicsWithPerfectAlignment(graphics);
 
 			for (float y = 0; y < height; y += step)
 			{
 				RectangleF sliceRect = new RectangleF(legendRect.X, legendRect.Y + y, legendRect.Width, step);
 				graphics.FillRectangle(new SolidBrush(LerpColors(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray(), Math.Abs(y - height) / (double)height).WithAlpha(TopographLegendAlpha)), sliceRect);
 			}
-
-			graphics.SmoothingMode = priorSmoothingMode;
-			graphics.PixelOffsetMode = priorPixelOffsetMode;
-			graphics.InterpolationMode = priorInterpolationMode;
 		}
 
 		// Draws the region instance
@@ -868,6 +888,8 @@ namespace Mappalachia
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
 			float halfWidth = VolumeEdgeThickness / 2f;
+
+			using GraphicsWithPerfectAlignment correctAlignment = new GraphicsWithPerfectAlignment(graphics);
 
 			foreach (Cell cell in location.Cells)
 			{

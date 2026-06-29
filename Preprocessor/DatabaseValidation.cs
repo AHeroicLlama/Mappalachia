@@ -24,12 +24,19 @@ namespace Preprocessor
 				FailValidation($"Integrity check failed");
 			}
 
+			if (!SimpleQuery("SELECT key FROM Global").ToHashSet().SetEquals(GlobalsToKeep))
+			{
+				FailValidation($"Globals did not match expected list");
+			}
+
 			ValidateColumnMatchesFormat("Position", "lockLevel", true, ValidateLockLevel);
 			ValidateColumnMatchesFormat("Position", "primitiveShape", true, ValidatePrimitiveShape);
 			ValidateColumnMatchesFormat("Position_PreGrouped", "lockLevel", true, ValidateLockLevel);
 			ValidateColumnMatchesFormat("Entity", "signature", false, ValidateSignature);
 			ValidateColumnMatchesFormat("MapMarker", "icon", false, ValidateMapMarkerIcon);
 			ValidateColumnMatchesFormat("Scrap", "component", false, ValidateComponent);
+			ValidateColumnMatchesFormat("Flux", "color", false, ValidateFluxColor);
+			ValidateColumnMatchesFormat("NPC", "npcName", false, ValidateNPC);
 		}
 
 		// Validate all rows of the table column match the regex pattern, including optional blanks

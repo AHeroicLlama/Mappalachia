@@ -18,6 +18,18 @@ namespace Library
 			return reader.GetDouble(ordinal);
 		}
 
+		public static float GetFloat(this SqliteDataReader reader, string columnName)
+		{
+			int ordinal = reader.GetOrdinal(columnName);
+
+			if (reader.IsDBNull(ordinal))
+			{
+				return 0;
+			}
+
+			return reader.GetFloat(ordinal);
+		}
+
 		public static int GetInt(this SqliteDataReader reader, string columnName)
 		{
 			return reader.GetInt32(reader.GetOrdinal(columnName));

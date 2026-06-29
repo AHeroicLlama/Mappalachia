@@ -65,6 +65,8 @@ namespace Library
 
 		public static string DoorMarkerPath { get; } = ImagePath + "DoorMarker" + Common.MapMarkerImageFileType;
 
+		public static string InfestationMarkerPath { get; } = ImagePath + "InfestationMarker" + Common.MapMarkerImageFileType;
+
 		public static string CompassRosePath { get; } = ImagePath + "CompassRose.png";
 
 		static string GamePath { get; } = @"C:\Program Files (x86)\Steam\steamapps\common\Fallout76\";

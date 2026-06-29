@@ -50,11 +50,6 @@
 				return true;
 			}
 
-			if (obj.GetType() != GetType())
-			{
-				return false;
-			}
-
 			if (obj is not BaseInstance other)
 			{
 				return false;
@@ -70,7 +65,7 @@
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Entity, Space, Label, LockLevel, InContainer);
+			return HashCode.Combine(Entity, Space, Label, LockLevel, SpawnWeight, InContainer);
 		}
 	}
 }
