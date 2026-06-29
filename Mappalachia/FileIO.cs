@@ -106,7 +106,7 @@ namespace Mappalachia
 		{
 			try
 			{
-				string targetFile = Directory.GetFiles(Paths.IconsPath)[index];
+				return GetPlotIconImage(Directory.GetFiles(Paths.IconsPath)[index]);
 			}
 			catch (IndexOutOfRangeException e)
 			{
