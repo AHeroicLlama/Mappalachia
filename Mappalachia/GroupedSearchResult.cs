@@ -3,6 +3,9 @@ using Library;
 
 namespace Mappalachia
 {
+	[JsonPolymorphic(TypeDiscriminatorPropertyName = "SearchResultType")]
+	[JsonDerivedType(typeof(SingularSearchResult), "SingularSearchResult")]
+
 	// Represents an amount of BaseInstances which share the same basic properties
 	// This is used to represent a row on the search results
 	public class GroupedSearchResult(Entity entity, Space space, int count = 1, double spawnWeight = 1, string label = "", LockLevel lockLevel = LockLevel.None, bool inContainer = false)
