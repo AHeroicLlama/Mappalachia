@@ -1,18 +1,18 @@
 MD5 Checksum
-86C2027472C4651E2514606FE4403EEB
+0D8996BD4CF94F8892C9F4D73EA8D784
 
 Size
-469812 KB
+469440 KB
 
 Built At UTC
-14/06/2026 10:08:48
+29/06/2026 21:27:04
 
 CSV Imported with SQLite Version
 3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
 
 Tables
-Cell          Entity     Location      Meta     Position                Region           Scrap
-Container     Flux       MapMarker     NPC      Position_PreGrouped     RegionPoints     Space
+Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
+Container     Flux       Location     Meta          Position     Region                  Scrap
 
 Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
@@ -21,7 +21,7 @@ Game Version
 0.1.2354.0
 
 Spaces
-Appalachia,Appalachia,2480661,1,0,340,135,582500,0
+APPALACHIA,Appalachia,2480661,1,0,-500,135,582550,0
 AMSHQ01,AMS Headquarters,107865,0,1,-62.122314453125,-120.403686523435,4527.75537109375,180.000106811523
 AMSHQ02,AMS Headquarters Basement Lab,6230427,0,1,-615.997924804685,-2510.400390625,5064.80078125,0
 AVRMedicalCenter01,AVR Medical Center,29371,0,0,2840.3534545898438,-659.23010253906,7155.9249267578125,175.497497558594
@@ -237,7 +237,7 @@ Avg Bounds X/Y/Z
 769.7374435754227,551.541094315128,573.7693566050924
 
 Avg CenterX, CenterY
-368.73402265447913,-176.907911425681
+373.175142346566,-183.11274697207676
 
 Avg Rotation
 150.11876370576758
@@ -2613,8 +2613,12 @@ LocToxicGraftonLocation
 LocToxicGraftonSteelLocation
 LocWhitespringTheWhitespringGolfLocation
 
+Globals
+HTO_LCP_HostileTakeOver_TargetRadius_Location,20000
+EN07_NukeBlastRadius,20460
+
 Entities outside of space range
-Appalachia:343276
+APPALACHIA:342116
 AMSHQ01:0
 AMSHQ02:0
 AVRMedicalCenter01:0

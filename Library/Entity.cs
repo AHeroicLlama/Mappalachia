@@ -89,7 +89,7 @@ namespace Library
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(FormID);
+			return HashCode.Combine(FormID, EditorID);
 		}
 	}
 }

@@ -29,5 +29,10 @@ namespace Mappalachia
 
 			return InstanceFormID.Equals(other.InstanceFormID);
 		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(InstanceFormID);
+		}
 	}
 }

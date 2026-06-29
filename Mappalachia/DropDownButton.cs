@@ -22,7 +22,7 @@ namespace Mappalachia
 
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
-			var dividerRectangle = new RectangleF(Width - DividerInsetPosition, 0, DividerInsetPosition, Height);
+			RectangleF dividerRectangle = new RectangleF(Width - DividerInsetPosition, 0, DividerInsetPosition, Height);
 
 			// Check the drop down has been left clicked
 			if (ContextMenuStrip is not null &&

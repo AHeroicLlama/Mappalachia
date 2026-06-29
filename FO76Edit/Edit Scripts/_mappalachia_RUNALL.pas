@@ -3,6 +3,7 @@ unit Mappalachia;
 
 uses
 	_mappalachia_component,
+	_mappalachia_global,
 	_mappalachia_entity,
 	_mappalachia_scrap,
 	_mappalachia_location,
@@ -13,6 +14,9 @@ uses
 
 	function initialize: Integer;
 	begin
+		AddMessage('Now running _mappalachia_global...');
+		_mappalachia_global.initialize();
+
 		AddMessage('Now running _mappalachia_space...');
 		_mappalachia_space.initialize();
 
