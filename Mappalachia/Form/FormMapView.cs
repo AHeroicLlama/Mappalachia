@@ -60,12 +60,6 @@ namespace Mappalachia
 			return base.ProcessCmdKey(ref message, keys);
 		}
 
-		// Return a value effectively representing the current zoom level
-		float GetZoomFactor()
-		{
-			return (float)MapImage.Width / pictureBoxMapDisplay.Width;
-		}
-
 		// Set the form itself so the 'client area'/viewport is square, (matching the map image)
 		void SquareForm(object sender, EventArgs e)
 		{
@@ -166,7 +160,7 @@ namespace Mappalachia
 			Hide();
 		}
 
-		// On right click, show a context menu, when selected pass the click location to Spotlight via the main form
+		// On right click, show a context menu, when selected pass the click location to Spotlight and verbose via the main form
 		private void PictureBoxMapDisplay_MouseClick(object sender, MouseEventArgs e)
 		{
 			if (e.Button != MouseButtons.Right)
@@ -174,59 +168,83 @@ namespace Mappalachia
 				return;
 			}
 
-			// Show no context menu if the map is not suitable for spotlight
-			if (!FormMain.Settings.Space.IsSuitableForSpotlight())
-			{
-				return;
-			}
-
 			ContextMenuStrip contextMenu = new ContextMenuStrip();
-			ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
 
-			spotlight.Click += async (s, args) =>
+			if (FormMain.Settings.Space.IsSuitableForSpotlight())
 			{
-				float factor = GetZoomFactor();
+				ToolStripMenuItem spotlight = new ToolStripMenuItem() { Text = "Spotlight Here" };
 
-				// Extended legend style results in a final image larger than the normal dimensions
-				if (FormMain.Settings.MapSettings.LegendStyle == LegendStyle.Extended)
+				spotlight.Click += async (s, args) =>
 				{
-					await FormMain.SetSpotlightLocation(new PointF(
-						(e.X * factor) - (MapImage.Width - Common.MapImageResolution),
-						(e.Y * factor) - ((MapImage.Width - Common.MapImageResolution) / 2)));
-				}
-				else
-				{
-					await FormMain.SetSpotlightLocation(new PointF(e.X * factor, e.Y * factor));
-				}
-
-				SizeMapToForm();
-			};
-
-			contextMenu.Items.Add(spotlight);
-
-			if (FormMain.Settings.MapSettings.SpotlightEnabled)
-			{
-				ToolStripMenuItem turnOff = new ToolStripMenuItem() { Text = "Turn Off Spotlight" };
-				ToolStripMenuItem setSize = new ToolStripMenuItem() { Text = "Set Spotlight Size..." };
-
-				turnOff.Click += async (s, args) =>
-				{
-					await FormMain.ToggleSpotlight(false);
+					await FormMain.SetSpotlightLocation(GetClickPoint(e));
 					SizeMapToForm();
 				};
 
-				setSize.Click += async (s, args) =>
+				contextMenu.Items.Add(spotlight);
+
+				if (FormMain.Settings.MapSettings.SpotlightEnabled)
 				{
-					await FormMain.OpenSpotlightSetSizeDialog(TopMost);
+					ToolStripMenuItem turnOff = new ToolStripMenuItem() { Text = "Turn Off Spotlight" };
+					ToolStripMenuItem setSize = new ToolStripMenuItem() { Text = "Set Spotlight Size..." };
+
+					turnOff.Click += async (s, args) =>
+					{
+						await FormMain.ToggleSpotlight(false);
+						SizeMapToForm();
+					};
+
+					setSize.Click += async (s, args) =>
+					{
+						await FormMain.OpenSpotlightSetSizeDialog(TopMost);
+					};
+
+					contextMenu.Items.Add(setSize);
+					contextMenu.Items.Add(turnOff);
+				}
+			}
+
+			ToolStripMenuItem verbose = new ToolStripMenuItem() { Text = "What's Here?" };
+
+			verbose.Click += async (s, args) =>
+			{
+				await FormMain.SetVerboseLocation(GetClickPoint(e));
+			};
+
+			contextMenu.Items.Add(verbose);
+
+			if (FormMain.Settings.MapSettings.VerboseEnabled)
+			{
+				ToolStripMenuItem turnOffVerbose = new ToolStripMenuItem() { Text = "Turn Off 'What's Here?'" };
+
+				turnOffVerbose.Click += async (s, args) =>
+				{
+					await FormMain.ToggleVerbose(false);
 				};
 
-				contextMenu.Items.Add(setSize);
-				contextMenu.Items.Add(turnOff);
+				contextMenu.Items.Add(turnOffVerbose);
 			}
 
 			if (contextMenu.Items.Count > 0)
 			{
 				contextMenu.Show(pictureBoxMapDisplay, e.Location);
+			}
+		}
+
+		// Returns the pixel coordinate point of the click, accounting for pan/zoom and extended legend style
+		PointF GetClickPoint(MouseEventArgs e)
+		{
+			float zoomFactor = (float)MapImage.Width / pictureBoxMapDisplay.Width;
+
+			// Extended legend style results in a final image larger than the normal dimensions
+			if (FormMain.Settings.MapSettings.LegendStyle == LegendStyle.Extended)
+			{
+				return new PointF(
+					(e.X * zoomFactor) - (MapImage.Width - Common.MapImageResolution),
+					(e.Y * zoomFactor) - ((MapImage.Width - Common.MapImageResolution) / 2));
+			}
+			else
+			{
+				return new PointF(e.X * zoomFactor, e.Y * zoomFactor);
 			}
 		}
 	}

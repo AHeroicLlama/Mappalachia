@@ -99,6 +99,24 @@ namespace Mappalachia
 		// The size of the spotlight in tiles
 		public double SpotlightSize { get; set; } = 2;
 
+		bool verboseEnabled = false;
+
+		public bool VerboseEnabled
+		{
+			get => verboseEnabled;
+			set
+			{
+				verboseEnabled = value;
+
+				if (value)
+				{
+					SpotlightEnabled = true;
+				}
+			}
+		}
+
+		public Coord VerboseLocation { get; set; } = default;
+
 		public bool GrayscaleBackground { get; set; } = false;
 
 		public bool HighlightWater { get; set; } = false;

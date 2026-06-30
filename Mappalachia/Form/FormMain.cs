@@ -129,6 +129,18 @@ namespace Mappalachia
 			}
 		}
 
+		public async Task SetVerboseLocation(PointF point)
+		{
+			Settings.MapSettings.VerboseLocation = point.AsWorldCoord(Settings);
+			Settings.MapSettings.VerboseEnabled = true;
+			await UpdateFromSettings();
+		}
+
+		public async Task ToggleVerbose(bool enabled)
+		{
+			await SetSetting(() => Settings.MapSettings.VerboseEnabled = enabled);
+		}
+
 		// Called by cluster settings 'live preview' - intentionally do not update UI, just draw the map
 		public async Task ClusterSettingsLiveUpdate(ClusterSettings newClusterSettings)
 		{

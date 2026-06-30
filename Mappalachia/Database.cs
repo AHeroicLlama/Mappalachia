@@ -453,6 +453,40 @@ namespace Mappalachia
 			return teleporters;
 		}
 
+		// Return all instances within range of the coord
+		public static async Task<List<Instance>> GetInstancesInRange(Coord coord, double range, Space space)
+		{
+			List<Instance> instances = new List<Instance>();
+
+			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
+				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+				$"WHERE spaceFormID = {space.FormID} AND " +
+				$"x BETWEEN {coord.X - range} AND {coord.X + range} AND " +
+				$"y BETWEEN {coord.Y - range} AND {coord.Y + range} AND " +
+				$"(x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) <= {range * range};";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					new Entity(
+						reader.GetUInt("entityFormID"),
+						reader.GetString("editorID"),
+						reader.GetString("displayName"),
+						reader.GetSignature()),
+					space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					reader.GetString("label"),
+					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
+					reader.GetLockLevel(),
+					reader.GetShape()));
+			}
+
+			return instances;
+		}
+
 		// Return all 'standard' instances of the given GroupedSearchResult in the given space
 		static async Task<List<Instance>> GetStandardInstances(GroupedSearchResult searchResult, Space space)
 		{

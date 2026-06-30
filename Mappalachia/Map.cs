@@ -54,6 +54,8 @@ namespace Mappalachia
 
 		public static double IconScale { get; } = 1.5;
 
+		static float VerboseRange { get; } = 256; // TODO
+
 		static int LegendWidth { get; } = MapImageResolution / 7;
 
 		static int LegendXPadding { get; } = 5;
@@ -154,6 +156,8 @@ namespace Mappalachia
 			await DrawInfestations(settings, graphics);
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
+
+			await DrawVerboseInformation(settings, graphics, progressInfo);
 
 			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
 
@@ -397,6 +401,42 @@ namespace Mappalachia
 
 				graphics.DrawRectangle(new Pen(Color.Orange, 5), tile.GetRectangle().AsImageRectangle(settings));
 #endif
+			}
+		}
+
+		static async Task DrawVerboseInformation(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
+		{
+			if (!settings.MapSettings.VerboseEnabled)
+			{
+				return;
+			}
+
+			Font font = GetFont(21);
+			List<SolidBrush> brushes = settings.PlotSettings.PlotStyleSettings.Palette.Select(c => new SolidBrush(c)).ToList();
+			Coord centerPoint = settings.MapSettings.VerboseLocation;
+
+			graphics.DrawEllipse(new Pen(Color.Blue), new RectangleF((float)centerPoint.X - (VerboseRange / 2f), (float)centerPoint.Y + (VerboseRange / 2f), VerboseRange, VerboseRange).AsImageRectangle(settings));
+
+			int i = 0;
+			foreach (Instance instance in await Database.GetInstancesInRange(settings.MapSettings.VerboseLocation, VerboseRange, settings.Space))
+			{
+				PointF point = instance.Coord.AsImagePoint(settings);
+				Entity entity = instance.Entity;
+				SolidBrush brush = brushes[i++ % brushes.Count];
+
+				string data =
+					$"{entity.EditorID} [{entity.Signature}:{entity.FormID}]\n" +
+					$"Reference {instance.InstanceFormID.ToHex()}\n" +
+					$"{(entity.DisplayName.IsNullOrWhiteSpace() ? $"{entity.DisplayName}\n" : string.Empty)}" +
+					$"{(instance.Label.IsNullOrWhiteSpace() ? $"{instance.Label}\n" : string.Empty)}" +
+					$"{(instance.LockLevel != LockLevel.None ? $"{instance.LockLevel.ToFriendlyNameWithContext()}\n" : string.Empty)}";
+
+				if (instance.PrimitiveShape is not null)
+				{
+					DrawPrimitiveShape(settings, graphics, instance, brush.Color);
+				}
+
+				graphics.DrawStringCentered(data, font, brush, point, false);
 			}
 		}
 
