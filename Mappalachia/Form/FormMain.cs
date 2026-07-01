@@ -129,16 +129,23 @@ namespace Mappalachia
 			}
 		}
 
-		public async Task SetVerboseLocation(PointF point)
+		public async Task SetLookupLocation(PointF point)
 		{
-			Settings.MapSettings.VerboseLocation = point.AsWorldCoord(Settings);
-			Settings.MapSettings.VerboseEnabled = true;
+			Settings.MapSettings.LookupLocation = point.AsWorldCoord(Settings);
+			Settings.MapSettings.LookupEnabled = true;
+
+			if (!Settings.MapSettings.SpotlightEnabled)
+			{
+				Settings.MapSettings.SpotlightLocation = Settings.MapSettings.LookupLocation;
+				Settings.MapSettings.SpotlightEnabled = true;
+			}
+
 			await UpdateFromSettings();
 		}
 
-		public async Task ToggleVerbose(bool enabled)
+		public async Task ToggleLookup(bool enabled)
 		{
-			await SetSetting(() => Settings.MapSettings.VerboseEnabled = enabled);
+			await SetSetting(() => Settings.MapSettings.LookupEnabled = enabled);
 		}
 
 		// Called by cluster settings 'live preview' - intentionally do not update UI, just draw the map

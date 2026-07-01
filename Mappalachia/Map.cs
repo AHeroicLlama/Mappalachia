@@ -54,7 +54,11 @@ namespace Mappalachia
 
 		public static double IconScale { get; } = 1.5;
 
-		static float VerboseRange { get; } = 256; // TODO
+		// TODO allow to be customised
+		static float LookupRange { get; } = 1024; // The Radius in game units of the lookup circle
+
+		// TODO perhaps account for font size
+		static int LookupLabelOffset { get; } = 150; // Value in Px at which the Lookup labels are drawn from the edge of the lookup circle
 
 		static int LegendWidth { get; } = MapImageResolution / 7;
 
@@ -157,7 +161,7 @@ namespace Mappalachia
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
-			await DrawVerboseInformation(settings, graphics, progressInfo);
+			await DrawLookup(settings, graphics, progressInfo);
 
 			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
 
@@ -404,40 +408,71 @@ namespace Mappalachia
 			}
 		}
 
-		static async Task DrawVerboseInformation(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
+		static async Task DrawLookup(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
 		{
-			if (!settings.MapSettings.VerboseEnabled)
+			if (!settings.MapSettings.LookupEnabled)
 			{
 				return;
 			}
 
+			// TODO source font, pens/brushes
 			Font font = GetFont(21);
 			List<SolidBrush> brushes = settings.PlotSettings.PlotStyleSettings.Palette.Select(c => new SolidBrush(c)).ToList();
-			Coord centerPoint = settings.MapSettings.VerboseLocation;
+			Coord centerPoint = settings.MapSettings.LookupLocation;
 
-			graphics.DrawEllipse(new Pen(Color.Blue), new RectangleF((float)centerPoint.X - (VerboseRange / 2f), (float)centerPoint.Y + (VerboseRange / 2f), VerboseRange, VerboseRange).AsImageRectangle(settings));
+			graphics.DrawEllipse(new Pen(Color.White, 4), new RectangleF((float)centerPoint.X - LookupRange, (float)centerPoint.Y + LookupRange, LookupRange * 2, LookupRange * 2).AsImageRectangle(settings));
 
+			UpdateProgress(progressInfo, 50, "Searching lookup range");
+			List<Instance> instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, LookupRange, settings);
+
+			// TODO hack
+			instances = instances.OrderBy(i => GetAngle(i.Coord.AsImagePoint(settings), centerPoint.AsImagePoint(settings))).ToList();
+
+			UpdateProgress(progressInfo, 75, "Plotting lookup data");
 			int i = 0;
-			foreach (Instance instance in await Database.GetInstancesInRange(settings.MapSettings.VerboseLocation, VerboseRange, settings.Space))
+			foreach (Instance instance in instances)
 			{
-				PointF point = instance.Coord.AsImagePoint(settings);
 				Entity entity = instance.Entity;
-				SolidBrush brush = brushes[i++ % brushes.Count];
+				SolidBrush brush = brushes[i % brushes.Count];
+
+				// TODO measurestring to replace LookupLabelOffset
+				// TODO mult Y by y diff from center to elongate circle
+				PointF labelLocation = GetPointFromTop(centerPoint.AsImagePoint(settings), (LookupRange / 4) + LookupLabelOffset, (365d / instances.Count) * i);
+
+				graphics.DrawLine(new Pen(brush.Color, 2), instance.Coord.AsImagePoint(settings), labelLocation);
 
 				string data =
-					$"{entity.EditorID} [{entity.Signature}:{entity.FormID}]\n" +
-					$"Reference {instance.InstanceFormID.ToHex()}\n" +
-					$"{(entity.DisplayName.IsNullOrWhiteSpace() ? $"{entity.DisplayName}\n" : string.Empty)}" +
-					$"{(instance.Label.IsNullOrWhiteSpace() ? $"{instance.Label}\n" : string.Empty)}" +
-					$"{(instance.LockLevel != LockLevel.None ? $"{instance.LockLevel.ToFriendlyNameWithContext()}\n" : string.Empty)}";
+					$"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n" +
+					$"{entity.EditorID}";
 
-				if (instance.PrimitiveShape is not null)
+				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
 				{
 					DrawPrimitiveShape(settings, graphics, instance, brush.Color);
 				}
 
-				graphics.DrawStringCentered(data, font, brush, point, false);
+				graphics.DrawStringCentered(data, font, brush, labelLocation, false);
+				i++;
 			}
+		}
+
+		// TODO refactor and move to GeometryHelper
+		public static PointF GetPointFromTop(PointF center, float radius, double angle)
+		{
+			angle *= Math.PI / 180d; // Rads
+
+			float x = (float)(center.X + (radius * Math.Sin(angle)));
+			float y = (float)(center.Y - (radius * Math.Cos(angle)));
+
+			return new PointF(x, y);
+		}
+
+		// TODO refactor and move to GeometryHelper
+		public static double GetAngle(PointF a, PointF b)
+		{
+			float xDiff = a.X - b.X;
+			float yDiff = a.Y - b.Y;
+			double angle = Math.Atan2(yDiff, xDiff) * 180d / Math.PI;
+			return (((angle + 90) % 360) + 360) % 360;
 		}
 
 		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)

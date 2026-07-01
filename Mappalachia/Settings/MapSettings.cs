@@ -99,23 +99,28 @@ namespace Mappalachia
 		// The size of the spotlight in tiles
 		public double SpotlightSize { get; set; } = 2;
 
-		bool verboseEnabled = false;
+		bool lookupEnabled = false;
 
-		public bool VerboseEnabled
+		public bool LookupEnabled
 		{
-			get => verboseEnabled;
+			get => lookupEnabled;
 			set
 			{
-				verboseEnabled = value;
+				lookupEnabled = value;
 
-				if (value)
-				{
-					SpotlightEnabled = true;
-				}
+				// TODO FormMain is doing this, but should live here
+				//if (value)
+				//{
+				//	SpotlightEnabled = true;
+				//}
 			}
 		}
 
-		public Coord VerboseLocation { get; set; } = default;
+		public bool LookupDrawVolumes { get; set; } = false;
+
+		public Coord LookupLocation { get; set; } = default;
+
+		public bool LookupRespectCategoryFilters { get; set; } = true;
 
 		public bool GrayscaleBackground { get; set; } = false;
 

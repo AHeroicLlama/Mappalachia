@@ -454,18 +454,23 @@ namespace Mappalachia
 		}
 
 		// Return all instances within range of the coord
-		public static async Task<List<Instance>> GetInstancesInRange(Coord coord, double range, Space space)
+		public static async Task<List<Instance>> GetInstancesInRange(Coord coord, double range, Settings settings)
 		{
 			List<Instance> instances = new List<Instance>();
 
-			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
+			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, " +
+				$"boundX, boundY, boundZ, rotZ, (x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) as distanceSquared FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
-				$"WHERE spaceFormID = {space.FormID} AND " +
+				$"WHERE spaceFormID = {settings.Space.FormID} AND " +
+				(settings.MapSettings.LookupRespectCategoryFilters ? $"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " : string.Empty) +
 				$"x BETWEEN {coord.X - range} AND {coord.X + range} AND " +
 				$"y BETWEEN {coord.Y - range} AND {coord.Y + range} AND " +
-				$"(x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) <= {range * range};";
+				$"distanceSquared <= {range * range} " +
+				$"ORDER BY distanceSquared, z;";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			Console.WriteLine(query);
 
 			while (reader.Read())
 			{
@@ -475,7 +480,7 @@ namespace Mappalachia
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
 						reader.GetSignature()),
-					space,
+					settings.Space,
 					reader.GetCoord(),
 					reader.GetUInt("instanceFormID"),
 					reader.GetString("label"),

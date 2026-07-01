@@ -160,7 +160,7 @@ namespace Mappalachia
 			Hide();
 		}
 
-		// On right click, show a context menu, when selected pass the click location to Spotlight and verbose via the main form
+		// On right click, show a context menu, when selected pass the click location to Spotlight and lookup via the main form
 		private void PictureBoxMapDisplay_MouseClick(object sender, MouseEventArgs e)
 		{
 			if (e.Button != MouseButtons.Right)
@@ -201,27 +201,29 @@ namespace Mappalachia
 					contextMenu.Items.Add(setSize);
 					contextMenu.Items.Add(turnOff);
 				}
+
+				contextMenu.Items.Add("-");
 			}
 
-			ToolStripMenuItem verbose = new ToolStripMenuItem() { Text = "What's Here?" };
+			ToolStripMenuItem lookup = new ToolStripMenuItem() { Text = "Lookup Here" };
 
-			verbose.Click += async (s, args) =>
+			lookup.Click += async (s, args) =>
 			{
-				await FormMain.SetVerboseLocation(GetClickPoint(e));
+				await FormMain.SetLookupLocation(GetClickPoint(e));
 			};
 
-			contextMenu.Items.Add(verbose);
+			contextMenu.Items.Add(lookup);
 
-			if (FormMain.Settings.MapSettings.VerboseEnabled)
+			if (FormMain.Settings.MapSettings.LookupEnabled)
 			{
-				ToolStripMenuItem turnOffVerbose = new ToolStripMenuItem() { Text = "Turn Off 'What's Here?'" };
+				ToolStripMenuItem turnOffLookup = new ToolStripMenuItem() { Text = "Turn Off Lookup" };
 
-				turnOffVerbose.Click += async (s, args) =>
+				turnOffLookup.Click += async (s, args) =>
 				{
-					await FormMain.ToggleVerbose(false);
+					await FormMain.ToggleLookup(false);
 				};
 
-				contextMenu.Items.Add(turnOffVerbose);
+				contextMenu.Items.Add(turnOffLookup);
 			}
 
 			if (contextMenu.Items.Count > 0)
