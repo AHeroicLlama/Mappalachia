@@ -48,17 +48,17 @@ namespace Mappalachia
 		Large,
 	}
 
+	public enum LookupArrangement
+	{
+		ArrangeLabels,
+		ArrangeLines,
+	}
+
 	public static class Map
 	{
 		public static int CompassSize { get; } = MapImageResolution / 8;
 
 		public static double IconScale { get; } = 1.5;
-
-		// TODO allow to be customised
-		static float LookupRange { get; } = 1024; // The Radius in game units of the lookup circle
-
-		// TODO perhaps account for font size
-		static int LookupLabelOffset { get; } = 150; // Value in Px at which the Lookup labels are drawn from the edge of the lookup circle
 
 		static int LegendWidth { get; } = MapImageResolution / 7;
 
@@ -415,18 +415,19 @@ namespace Mappalachia
 				return;
 			}
 
+			int lookupRange = settings.MapSettings.LookupRange;
+
 			// TODO source font, pens/brushes
 			Font font = GetFont(21);
 			List<SolidBrush> brushes = settings.PlotSettings.PlotStyleSettings.Palette.Select(c => new SolidBrush(c)).ToList();
 			Coord centerPoint = settings.MapSettings.LookupLocation;
 
-			graphics.DrawEllipse(new Pen(Color.White, 4), new RectangleF((float)centerPoint.X - LookupRange, (float)centerPoint.Y + LookupRange, LookupRange * 2, LookupRange * 2).AsImageRectangle(settings));
+			graphics.DrawEllipse(new Pen(Color.White, 4), new RectangleF((float)centerPoint.X - lookupRange, (float)centerPoint.Y + lookupRange, lookupRange * 2, lookupRange * 2).AsImageRectangle(settings));
 
 			UpdateProgress(progressInfo, 50, "Searching lookup range");
-			List<Instance> instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, LookupRange, settings);
+			List<Instance> instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, lookupRange, settings);
 
-			// TODO hack
-			instances = instances.OrderBy(i => GetAngle(i.Coord.AsImagePoint(settings), centerPoint.AsImagePoint(settings))).ToList();
+			instances = instances.OrderBy(i => GeometryHelper.GetAngleFrom(centerPoint, i.Coord)).ToList();
 
 			UpdateProgress(progressInfo, 75, "Plotting lookup data");
 			int i = 0;
@@ -435,10 +436,16 @@ namespace Mappalachia
 				Entity entity = instance.Entity;
 				SolidBrush brush = brushes[i % brushes.Count];
 
-				// TODO measurestring to replace LookupLabelOffset
-				// TODO mult Y by y diff from center to elongate circle
-				PointF labelLocation = GetPointFromTop(centerPoint.AsImagePoint(settings), (LookupRange / 4) + LookupLabelOffset, (365d / instances.Count) * i);
+				double angle = settings.MapSettings.LookupArrangement switch
+				{
+					LookupArrangement.ArrangeLines => GeometryHelper.GetAngleFrom(centerPoint, instance.Coord),
+					LookupArrangement.ArrangeLabels => (365d / instances.Count) * i,
+					_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupArrangement)} value {settings.MapSettings.LookupArrangement}"),
+				};
 
+				// TODO measurestring to offset label location
+				// TODO mult Y by y diff from center to elongate circle?
+				PointF labelLocation = GeometryHelper.GetPositionFromAngle(centerPoint, lookupRange * 2, angle).AsImagePoint(settings);
 				graphics.DrawLine(new Pen(brush.Color, 2), instance.Coord.AsImagePoint(settings), labelLocation);
 
 				string data =
@@ -450,29 +457,9 @@ namespace Mappalachia
 					DrawPrimitiveShape(settings, graphics, instance, brush.Color);
 				}
 
-				graphics.DrawStringCentered(data, font, brush, labelLocation, false);
+				graphics.DrawStringCentered(data, font, brush, labelLocation, true);
 				i++;
 			}
-		}
-
-		// TODO refactor and move to GeometryHelper
-		public static PointF GetPointFromTop(PointF center, float radius, double angle)
-		{
-			angle *= Math.PI / 180d; // Rads
-
-			float x = (float)(center.X + (radius * Math.Sin(angle)));
-			float y = (float)(center.Y - (radius * Math.Cos(angle)));
-
-			return new PointF(x, y);
-		}
-
-		// TODO refactor and move to GeometryHelper
-		public static double GetAngle(PointF a, PointF b)
-		{
-			float xDiff = a.X - b.X;
-			float yDiff = a.Y - b.Y;
-			double angle = Math.Atan2(yDiff, xDiff) * 180d / Math.PI;
-			return (((angle + 90) % 360) + 360) % 360;
 		}
 
 		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)

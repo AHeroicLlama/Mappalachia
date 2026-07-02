@@ -109,5 +109,28 @@ namespace Library
 		{
 			return instances.Select(instance => instance.Coord).GetCentroid();
 		}
+
+		// Returns a new point which is the given distance away from the origin at the given angle
+		// In degrees where 0/360 is directly up
+		public static Coord GetPositionFromAngle(Coord origin, float distance, double angle)
+		{
+			angle *= Math.PI / 180d;
+
+			double x = origin.X + (distance * Math.Sin(angle));
+			double y = origin.Y + (distance * Math.Cos(angle));
+
+			return new Coord(x, y);
+		}
+
+		// Return the angle from a to b in degrees
+		// Normalized 0->360, where 0/360 is directly up
+		public static double GetAngleFrom(Coord a, Coord b)
+		{
+			double xDiff = b.X - a.X;
+			double yDiff = a.Y - b.Y;
+
+			double angle = (Math.Atan2(yDiff, xDiff) * 180d / Math.PI) + 90;
+			return ((angle % 360d) + 360) % 360d;
+		}
 	}
 }

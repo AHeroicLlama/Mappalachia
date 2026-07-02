@@ -116,11 +116,15 @@ namespace Mappalachia
 			}
 		}
 
+		public int LookupRange { get; set; } = 1024; // The Radius in game units of the lookup circle
+
 		public bool LookupDrawVolumes { get; set; } = false;
 
 		public Coord LookupLocation { get; set; } = default;
 
 		public bool LookupRespectCategoryFilters { get; set; } = true;
+
+		public LookupArrangement LookupArrangement { get; set; } = LookupArrangement.ArrangeLabels;
 
 		public bool GrayscaleBackground { get; set; } = false;
 
