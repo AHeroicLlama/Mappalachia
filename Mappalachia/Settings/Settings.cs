@@ -28,6 +28,7 @@ namespace Mappalachia
 				{
 					MapSettings.SpotlightEnabled = false;
 					MapSettings.SetSpotlightToMapCenter();
+					MapSettings.LookupEnabled = false;
 				}
 
 				MapSettings.CapSpotlightSizeToSpace();

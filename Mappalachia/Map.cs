@@ -54,6 +54,14 @@ namespace Mappalachia
 		ArrangeLines,
 	}
 
+	public enum LookupRange
+	{
+		Small,
+		Medium,
+		Large,
+		ExtraLarge,
+	}
+
 	public static class Map
 	{
 		public static int CompassSize { get; } = MapImageResolution / 8;
@@ -415,7 +423,14 @@ namespace Mappalachia
 				return;
 			}
 
-			int lookupRange = settings.MapSettings.LookupRange;
+			int lookupRange = settings.MapSettings.LookupRange switch
+			{
+				LookupRange.Small => 256,
+				LookupRange.Medium => 512,
+				LookupRange.Large => 1024,
+				LookupRange.ExtraLarge => 2048,
+				_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupRange)} value {settings.MapSettings.LookupRange}"),
+			};
 
 			// TODO source font, pens/brushes
 			Font font = GetFont(21);

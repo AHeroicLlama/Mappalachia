@@ -116,7 +116,7 @@ namespace Mappalachia
 			}
 		}
 
-		public int LookupRange { get; set; } = 1024; // The Radius in game units of the lookup circle
+		public LookupRange LookupRange { get; set; } = LookupRange.Medium;
 
 		public bool LookupDrawVolumes { get; set; } = false;
 
