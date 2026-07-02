@@ -8,9 +8,9 @@ namespace Mappalachia
 		// The factor by which the map changes size for each scroll tick
 		double ZoomRate { get; } = 1.2;
 
-		int MaxDimension { get; } = (int)Math.Pow(2, 14); // 16k
+		int MaxDimension { get; } = 16384;
 
-		int MinDimension { get; } = (int)Math.Pow(2, 7); // 128
+		int MinDimension { get; } = 128;
 
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public Image MapImage

@@ -27,13 +27,13 @@ namespace Library
 
 		public static string BackgroundMilitaryAddendum { get; } = "_military";
 
-		public static int MapImageResolution { get; } = (int)Math.Pow(2, 12); // 4096
+		public static int MapImageResolution { get; } = 4096;
 
 		public static int SpotlightMaxSize { get; } = 16; // The maximum user-selectable spotlight size, in tiles.
 
 		public static double SpotlightMinTileResolution { get; } = 2; // Number of effective tiles (counted across width of the space) required to bother rendering spotlight tiles per space.
 
-		public static int SpotlightTileSize { get; } = (int)Math.Pow(2, 12); // 4096
+		public static int SpotlightTileSize { get; } = 4096;
 
 		public static int SpotlightScale { get; } = 2; // The ratios of game coordinates to pixels, or the width in cells for each tile (x*x arrangement) used for spotlight
 
@@ -44,7 +44,7 @@ namespace Library
 
 		static Regex FormID { get; } = new Regex("^(0[Xx])?([0-9A-Fa-f]{1,8})$");
 
-		public static int CellSize { get; } = (int)Math.Pow(2, 12); // 4096
+		public static int CellSize { get; } = 4096;
 
 		public enum FluxColor
 		{
