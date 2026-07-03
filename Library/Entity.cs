@@ -49,7 +49,7 @@ namespace Library
 	[JsonDerivedType(typeof(DerivedRawFlux), "DerivedRawFlux")]
 	[JsonDerivedType(typeof(Region), "Region")]
 	[JsonDerivedType(typeof(Location), "Location")]
-	public class Entity(uint formID, string editorID, string displayName, Signature signature)
+	public class Entity(uint formID, string editorID, string displayName, Signature signature, ObjectBounds? bounds = null)
 	{
 		public uint FormID { get; } = formID;
 
@@ -60,6 +60,9 @@ namespace Library
 
 		[JsonIgnore]
 		public Signature Signature { get; } = signature;
+
+		[JsonIgnore]
+		public ObjectBounds? Bounds { get; } = bounds;
 
 		// Return a representation of the FormID suitable for display in the UI
 		public virtual string GetFriendlyFormID()

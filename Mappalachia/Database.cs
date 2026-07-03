@@ -459,7 +459,7 @@ namespace Mappalachia
 			List<Instance> instances = new List<Instance>();
 
 			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, " +
-				$"boundX, boundY, boundZ, rotZ, (x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) as distanceSquared FROM Position " +
+				$"boundX, boundY, boundZ, rotZ, boundX1, boundY1, boundX2, boundY2, (x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) as distanceSquared FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {settings.Space.FormID} AND " +
 				(settings.MapSettings.LookupRespectCategoryFilters ? $"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " : string.Empty) +
@@ -479,14 +479,18 @@ namespace Mappalachia
 						reader.GetUInt("entityFormID"),
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
-						reader.GetSignature()),
+						reader.GetSignature(),
+						reader.GetBounds()),
 					settings.Space,
 					reader.GetCoord(),
 					reader.GetUInt("instanceFormID"),
 					reader.GetString("label"),
 					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
 					reader.GetLockLevel(),
-					reader.GetShape()));
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetFloat("rotZ")));
 			}
 
 			return instances;

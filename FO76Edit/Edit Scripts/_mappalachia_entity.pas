@@ -2,7 +2,7 @@
 // This is later cross referenced between the location data to assign names/EditorID's to FormIDs in the location data
 // CONT and their contents are additionally exported here to another file
 // Headers:
-// Entity: 'entityFormID,displayName,editorID,signature'
+// Entity: 'entityFormID,displayName,editorID,signature,boundX1,boundY1,boundX2,boundY2'
 // Container: 'containerFormID,contentsFormID,count'
 unit _mappalachia_entity;
 
@@ -58,7 +58,7 @@ unit _mappalachia_entity;
 		displayName = DisplayName(item);
 	var
 		i, j : Integer;
-		containerItems, containerItem : IInterface;
+		containerItems, containerItem, boundsEntry : IInterface;
 	begin
 		if(FixedFormId(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
@@ -80,12 +80,18 @@ unit _mappalachia_entity;
 				end;
 			end
 
+			boundsEntry := ElementBySignature(item, 'OBND');
+
 			// The main entity export for all entities
 			outputStrings.Add(
 				IntToStr(FixedFormId(item)) + ',' +
 				sanitize(displayName) + ',' +
 				editorId + ',' +
-				signature
+				signature + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'X1')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Y1')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'X2')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Y2'))
 			);
 		end;
 	end;

@@ -98,7 +98,7 @@ namespace Preprocessor
 			SimpleQuery($"INSERT INTO Meta (key, value) VALUES('GameVersion', '{gameVersion}');");
 
 			// Create new tables
-			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT);");
+			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, boundX1 INTEGER, boundY1 INTEGER, boundX2 INTEGER, boundY2 INTEGER);");
 			SimpleQuery($"CREATE TABLE Container(containerFormID INTEGER REFERENCES Entity(entityFormID), contentFormID INTEGER REFERENCES Entity(entityFormID), quantity INTEGER);");
 			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, isInstanceable INTEGER);");
@@ -353,7 +353,6 @@ namespace Preprocessor
 			// Add NorthAngle column to Space
 			SimpleQuery("ALTER TABLE Space ADD COLUMN northAngle REAL;");
 			TransformColumn(GetNorthAngle, "Space", "spaceFormID", "northAngle");
-			SimpleQuery("UPDATE Position SET rotZ = '' WHERE primitiveShape = '';"); // Delete rotZ data except for shapes
 
 			// Create the Flux table
 			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER, editorID STRING, color STRING);");
@@ -426,6 +425,7 @@ namespace Preprocessor
 			AddToSummaryReport("X-Table Entity Sum", $"{SimpleQuery("SELECT COUNT(*) FROM (SELECT contentFormID FROM Container UNION SELECT referenceFormID FROM Position);").First()} = {SimpleQuery("SELECT COUNT(*) FROM (SELECT contentFormID FROM Container UNION SELECT referenceFormID FROM Position_PreGrouped);").First()} = {SimpleQuery("SELECT count(DISTINCT entityFormID) FROM Entity;").First()}");
 			AddToSummaryReport("Avg Length Entity DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(displayName) AS length FROM Entity);"));
 			AddToSummaryReport("Avg Length Entity EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(editorID) AS length FROM Entity);"));
+			AddToSummaryReport("Avg Entity Bounds X1/Y1/X2/Y2", SimpleQuery("SELECT AVG(boundX1), AVG(boundY1), AVG(boundX2), AVG(boundY2) FROM Entity;"));
 			AddToSummaryReport("Avg Length Space DisplayName", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceDisplayName) AS length FROM Space);"));
 			AddToSummaryReport("Avg Length Space EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(spaceEditorID) AS length FROM Space);"));
 			AddToSummaryReport("Avg Length Region EditorID", SimpleQuery("SELECT AVG(length) FROM (SELECT LENGTH(regionEditorID) AS length FROM Region);"));
@@ -662,8 +662,8 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Entity;");
 			SimpleQuery("DROP TABLE Entity;");
-			SimpleQuery("CREATE TABLE Entity (entityFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, displayName TEXT, editorID TEXT NOT NULL UNIQUE, signature TEXT NOT NULL) STRICT;");
-			SimpleQuery("INSERT INTO Entity (entityFormID, displayName, editorID, signature) SELECT entityFormID, displayName, editorID, signature FROM temp;");
+			SimpleQuery("CREATE TABLE Entity (entityFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, displayName TEXT, editorID TEXT NOT NULL UNIQUE, signature TEXT NOT NULL, boundX1 INTEGER, boundY1 INTEGER, boundX2 INTEGER, boundY2 INTEGER) STRICT;");
+			SimpleQuery("INSERT INTO Entity (entityFormID, displayName, editorID, signature, boundX1, boundY1, boundX2, boundY2) SELECT entityFormID, displayName, editorID, signature, boundX1, boundY1, boundX2, boundY2 FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM MapMarker;");

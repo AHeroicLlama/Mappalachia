@@ -107,5 +107,14 @@ namespace Library
 
 			return Enum.Parse<FluxColor>(color);
 		}
+
+		public static ObjectBounds GetBounds(this SqliteDataReader reader)
+		{
+			return new ObjectBounds(
+				reader.GetInt("boundX1"),
+				reader.GetInt("boundY1"),
+				reader.GetInt("boundX2"),
+				reader.GetInt("boundY2"));
+		}
 	}
 }

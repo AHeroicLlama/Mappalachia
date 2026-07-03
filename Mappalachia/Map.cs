@@ -467,6 +467,23 @@ namespace Mappalachia
 					$"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n" +
 					$"{entity.EditorID}";
 
+				if (entity.Bounds.HasValue)
+				{
+					ObjectBounds bounds = entity.Bounds.Value;
+					int width = bounds.Width;
+					int height = bounds.Height;
+					RectangleF rectangle = new RectangleF(new PointF(bounds.X1 + (float)instance.Coord.X, -bounds.Y1 + (float)instance.Coord.Y), new SizeF(width, height)).AsImageRectangle(settings);
+
+					PointF center = instance.Coord.AsImagePoint(settings);
+
+					graphics.TranslateTransform(center.X, center.Y);
+					graphics.RotateTransform(instance.RotZ);
+					graphics.TranslateTransform(-center.X, -center.Y);
+
+					graphics.DrawRectangle(new Pen(brush.Color, 1), rectangle);
+					graphics.ResetTransform();
+				}
+
 				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
 				{
 					DrawPrimitiveShape(settings, graphics, instance, brush.Color);

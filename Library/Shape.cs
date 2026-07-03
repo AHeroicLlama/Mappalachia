@@ -22,6 +22,6 @@
 		public double BoundZ { get; } = boundZ;
 
 		// The rotation of the shape in degrees around the Z axis
-		public double RotZ { get; } = rotZ;
+		public double RotZ { get; } = rotZ; // TODO we store this at instance level now?
 	}
 }
