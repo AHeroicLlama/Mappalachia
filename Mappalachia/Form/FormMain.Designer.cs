@@ -61,6 +61,18 @@ namespace Mappalachia
 			spotlightEnabledToolStripMenuItem = new ToolStripMenuItem();
 			spotlightSetRangeToolStripMenuItem = new ToolStripMenuItem();
 			spotlightCoordToolStripMenuItem = new ToolStripMenuItem();
+			lookupToolStripMenuItem = new ToolStripMenuItem();
+			lookupEnabledToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeSmallToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeMediumToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeLargeToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeExtraLargeToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementArrangeLabelsToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementArrangeLinesToolStripMenuItem = new ToolStripMenuItem();
+			lookupDrawVolumesToolStripMenuItem = new ToolStripMenuItem();
+			lookupRespectCategoryFiltersToolStripMenuItem = new ToolStripMenuItem();
 			legendToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleCompactToolStripMenuItem = new ToolStripMenuItem();
@@ -153,7 +165,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showInfestationsToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showInfestationsToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, lookupToolStripMenuItem, legendToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -391,6 +403,90 @@ namespace Mappalachia
 			spotlightCoordToolStripMenuItem.Size = new Size(116, 22);
 			spotlightCoordToolStripMenuItem.Text = "Coord";
 			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
+			// 
+			// lookupToolStripMenuItem
+			// 
+			lookupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupEnabledToolStripMenuItem, lookupRangeToolStripMenuItem, this.lookupArrangementToolStripMenuItem, this.lookupDrawVolumesToolStripMenuItem, lookupRespectCategoryFiltersToolStripMenuItem });
+			lookupToolStripMenuItem.Name = "lookupToolStripMenuItem";
+			lookupToolStripMenuItem.Size = new Size(240, 22);
+			lookupToolStripMenuItem.Text = "Lookup";
+			// 
+			// lookupEnabledToolStripMenuItem
+			// 
+			lookupEnabledToolStripMenuItem.Name = "lookupEnabledToolStripMenuItem";
+			lookupEnabledToolStripMenuItem.Size = new Size(200, 22);
+			lookupEnabledToolStripMenuItem.Text = "Enabled";
+			lookupEnabledToolStripMenuItem.Click += Map_Lookup_Enabled_Click;
+			// 
+			// lookupRangeToolStripMenuItem
+			// 
+			lookupRangeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeSmallToolStripMenuItem, lookupRangeMediumToolStripMenuItem, lookupRangeLargeToolStripMenuItem, lookupRangeExtraLargeToolStripMenuItem });
+			lookupRangeToolStripMenuItem.Name = "lookupRangeToolStripMenuItem";
+			lookupRangeToolStripMenuItem.Size = new Size(200, 22);
+			lookupRangeToolStripMenuItem.Text = "Range";
+			// 
+			// lookupRangeSmallToolStripMenuItem
+			// 
+			lookupRangeSmallToolStripMenuItem.Name = "lookupRangeSmallToolStripMenuItem";
+			lookupRangeSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeSmallToolStripMenuItem.Text = "Small";
+			lookupRangeSmallToolStripMenuItem.Click += Map_Lookup_Range_Small_Click;
+			// 
+			// lookupRangeMediumToolStripMenuItem
+			// 
+			lookupRangeMediumToolStripMenuItem.Name = "lookupRangeMediumToolStripMenuItem";
+			lookupRangeMediumToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeMediumToolStripMenuItem.Text = "Medium";
+			lookupRangeMediumToolStripMenuItem.Click += Map_Lookup_Range_Medium_Click;
+			// 
+			// lookupRangeLargeToolStripMenuItem
+			// 
+			lookupRangeLargeToolStripMenuItem.Name = "lookupRangeLargeToolStripMenuItem";
+			lookupRangeLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeLargeToolStripMenuItem.Text = "Large";
+			lookupRangeLargeToolStripMenuItem.Click += Map_Lookup_Range_Large_Click;
+			// 
+			// lookupRangeExtraLargeToolStripMenuItem
+			// 
+			lookupRangeExtraLargeToolStripMenuItem.Name = "lookupRangeExtraLargeToolStripMenuItem";
+			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraLargeToolStripMenuItem.Text = "Extra Large";
+			lookupRangeExtraLargeToolStripMenuItem.Click += Map_Lookup_Range_ExtraLarge_Click;
+			// 
+			// lookupArrangementToolStripMenuItem
+			// 
+			this.lookupArrangementToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupArrangementArrangeLabelsToolStripMenuItem, lookupArrangementArrangeLinesToolStripMenuItem });
+			this.lookupArrangementToolStripMenuItem.Name = "lookupArrangementToolStripMenuItem";
+			this.lookupArrangementToolStripMenuItem.Size = new Size(200, 22);
+			this.lookupArrangementToolStripMenuItem.Text = "Arrangement";
+			// 
+			// lookupArrangementArrangeLabelsToolStripMenuItem
+			// 
+			lookupArrangementArrangeLabelsToolStripMenuItem.Name = "lookupArrangementArrangeLabelsToolStripMenuItem";
+			lookupArrangementArrangeLabelsToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementArrangeLabelsToolStripMenuItem.Text = "Arrange Labels";
+			lookupArrangementArrangeLabelsToolStripMenuItem.Click += Map_Lookup_Arrangement_ArrangeLabels_Click;
+			// 
+			// lookupArrangementArrangeLinesToolStripMenuItem
+			// 
+			lookupArrangementArrangeLinesToolStripMenuItem.Name = "lookupArrangementArrangeLinesToolStripMenuItem";
+			lookupArrangementArrangeLinesToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementArrangeLinesToolStripMenuItem.Text = "Arrange Lines";
+			lookupArrangementArrangeLinesToolStripMenuItem.Click += Map_Lookup_Arrangement_ArrangeLines_Click;
+			// 
+			// lookupDrawVolumesToolStripMenuItem
+			// 
+			this.lookupDrawVolumesToolStripMenuItem.Name = "lookupDrawVolumesToolStripMenuItem";
+			this.lookupDrawVolumesToolStripMenuItem.Size = new Size(200, 22);
+			this.lookupDrawVolumesToolStripMenuItem.Text = "Draw Volumes";
+			this.lookupDrawVolumesToolStripMenuItem.Click += this.Map_Lookup_DrawVolumes_Click;
+			// 
+			// lookupRespectCategoryFiltersToolStripMenuItem
+			// 
+			lookupRespectCategoryFiltersToolStripMenuItem.Name = "lookupRespectCategoryFiltersToolStripMenuItem";
+			lookupRespectCategoryFiltersToolStripMenuItem.Size = new Size(200, 22);
+			lookupRespectCategoryFiltersToolStripMenuItem.Text = "Respect Category Filters";
+			lookupRespectCategoryFiltersToolStripMenuItem.Click += Map_Lookup_RespectCategoryFilters_Click;
 			// 
 			// legendToolStripMenuItem
 			// 
@@ -814,7 +910,6 @@ namespace Mappalachia
 			// buttonAddToMap
 			// 
 			buttonAddToMap.Anchor = AnchorStyles.Bottom;
-			buttonAddToMap.ContextMenuStrip = null;
 			buttonAddToMap.Location = new Point(363, 501);
 			buttonAddToMap.Name = "buttonAddToMap";
 			buttonAddToMap.Padding = new Padding(0, 0, 15, 0);
@@ -1203,5 +1298,17 @@ namespace Mappalachia
 		private ToolStripMenuItem legendVerticalCenterToolStripMenuItem;
 		private ToolStripMenuItem legendVerticalBottomToolStripMenuItem;
 		private ToolStripMenuItem showInfestationsToolStripMenuItem;
+		private ToolStripMenuItem lookupToolStripMenuItem;
+		private ToolStripMenuItem lookupEnabledToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeSmallToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeMediumToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeLargeToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeExtraLargeToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementArrangeLabelsToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementArrangeLinesToolStripMenuItem;
+		private ToolStripMenuItem lookupDrawVolumesToolStripMenuItem;
+		private ToolStripMenuItem lookupRespectCategoryFiltersToolStripMenuItem;
 	}
 }

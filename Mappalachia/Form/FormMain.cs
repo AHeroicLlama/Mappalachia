@@ -77,7 +77,8 @@ namespace Mappalachia
 
 			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "PlotIcon", FillWeight = 2, ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
-			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem, coordinateGridToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendVerticalToolStripMenuItem, legendHorizontalToolStripMenuItem })
+			// Disable closing the menu upon selection for these toolstrip items
+			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem, coordinateGridToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendVerticalToolStripMenuItem, legendHorizontalToolStripMenuItem, lookupToolStripMenuItem, lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem })
 			{
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
@@ -280,6 +281,9 @@ namespace Mappalachia
 			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
 			spotlightEnabledToolStripMenuItem.Checked = Settings.MapSettings.SpotlightEnabled;
 			coordinateGridEnabledToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
+			lookupEnabledToolStripMenuItem.Checked = Settings.MapSettings.LookupEnabled;
+			lookupDrawVolumesToolStripMenuItem.Checked = Settings.MapSettings.LookupDrawVolumes;
+			lookupRespectCategoryFiltersToolStripMenuItem.Checked = Settings.MapSettings.LookupRespectCategoryFilters;
 
 			// Update the text of some items
 			setBrightnessToolStripMenuItem.Text = $"Set Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
@@ -287,7 +291,7 @@ namespace Mappalachia
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
 			// Set all members of list items which are "pick only one" lists to be unchecked
-			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendHorizontalToolStripMenuItem, legendVerticalToolStripMenuItem, })
+			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendHorizontalToolStripMenuItem, legendVerticalToolStripMenuItem, lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem })
 			{
 				foreach (ToolStripMenuItem subItem in item.DropDownItems)
 				{
@@ -417,6 +421,36 @@ namespace Mappalachia
 					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.MapSettings.CoordinateGridPrecision)} value {Settings.MapSettings.CoordinateGridPrecision}");
+			}
+
+			switch (Settings.MapSettings.LookupRange)
+			{
+				case LookupRange.Small:
+					lookupRangeSmallToolStripMenuItem.Checked = true;
+					break;
+				case LookupRange.Medium:
+					lookupRangeMediumToolStripMenuItem.Checked = true;
+					break;
+				case LookupRange.Large:
+					lookupRangeLargeToolStripMenuItem.Checked = true;
+					break;
+				case LookupRange.ExtraLarge:
+					lookupRangeExtraLargeToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.LookupRange)} value {Settings.MapSettings.LookupRange}");
+			}
+
+			switch (Settings.MapSettings.LookupArrangement)
+			{
+				case LookupArrangement.ArrangeLines:
+					lookupArrangementArrangeLinesToolStripMenuItem.Checked = true;
+					break;
+				case LookupArrangement.ArrangeLabels:
+					lookupArrangementArrangeLabelsToolStripMenuItem.Checked = true;
+					break;
+				default:
+					throw new Exception($"Invalid {nameof(Settings.MapSettings.LookupArrangement)} value {Settings.MapSettings.LookupArrangement}");
 			}
 
 			// Update the multi-selectable checkboxes of the list view filters
@@ -955,6 +989,51 @@ namespace Mappalachia
 		private async void Map_Spotlight_Enabled_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.SpotlightEnabled = !Settings.MapSettings.SpotlightEnabled);
+		}
+
+		private async void Map_Lookup_Enabled_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupEnabled = !Settings.MapSettings.LookupEnabled);
+		}
+
+		private async void Map_Lookup_Range_Small_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupRange = LookupRange.Small);
+		}
+
+		private async void Map_Lookup_Range_Medium_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupRange = LookupRange.Medium);
+		}
+
+		private async void Map_Lookup_Range_Large_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupRange = LookupRange.Large);
+		}
+
+		private async void Map_Lookup_Range_ExtraLarge_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupRange = LookupRange.ExtraLarge);
+		}
+
+		private async void Map_Lookup_Arrangement_ArrangeLabels_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.ArrangeLabels);
+		}
+
+		private async void Map_Lookup_Arrangement_ArrangeLines_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.ArrangeLines);
+		}
+
+		private async void Map_Lookup_DrawVolumes_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupDrawVolumes = !Settings.MapSettings.LookupDrawVolumes);
+		}
+
+		private async void Map_Lookup_RespectCategoryFilters_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupRespectCategoryFilters = !Settings.MapSettings.LookupRespectCategoryFilters);
 		}
 
 		private async void Map_Grayscale_Click(object sender, EventArgs e)
