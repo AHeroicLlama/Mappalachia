@@ -1,11 +1,11 @@
 MD5 Checksum
-0D8996BD4CF94F8892C9F4D73EA8D784
+E9C1BBB9D450E867956C7E5C59C22AAB
 
 Size
 469440 KB
 
 Built At UTC
-29/06/2026 21:27:04
+21/07/2026 15:22:47
 
 CSV Imported with SQLite Version
 3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
@@ -18,7 +18,7 @@ Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
 
 Game Version
-1.7.25.15
+1.7.25.39
 
 Spaces
 APPALACHIA,Appalachia,2480661,1,0,-500,135,582550,0
@@ -230,7 +230,7 @@ Avg northAngle
 82.61289622470625
 
 Avg X/Y/Z
--13917.643809578984,-3170.627697106642,11072.88364791291
+-13917.636530584827,-3170.5976369131595,11072.884408380853
 
 Avg Bounds X/Y/Z
 770.1904827656264,552.889496417093,574.158054389112
@@ -242,7 +242,7 @@ Avg Rotation
 150.12507138074824
 
 Lock Levels
-,4486183
+,4486184
 Barred,1
 Chained,10
 Inaccessible,171
@@ -255,7 +255,7 @@ RequiresTerminal,46
 Unknown,1
 
 Primitive Shapes
-,4341498
+,4341499
 Box,141370
 Cylinder,181
 Ellipsoid,5
@@ -289,7 +289,7 @@ PROJ,2
 SCOL,13016
 SECH,14
 SOUN,400
-STAT,23266
+STAT,23267
 TACT,92
 TERM,664
 TRAP,1
@@ -297,19 +297,19 @@ TXST,564
 WEAP,96
 
 Position PreGrouped Count
-207456
+207459
 
 Avg Num Instances per Reference
-21.636727788061084
+21.636419726307366
 
 X-Table Entity Sum
-51276 = 51276 = 51276
+51277 = 51277 = 51277
 
 Avg Length Entity DisplayName
-2.787541929947734
+2.7874875675254014
 
 Avg Length Entity EditorID
-25.287190888524847
+25.287438812723053
 
 Avg Length Space DisplayName
 18.11764705882353
@@ -321,7 +321,7 @@ Avg Length Region EditorID
 20.867088607594937
 
 Avg Length Label
-0.07990297346496256
+0.08019480157819577
 
 Avg Count Regions, Coords from RegionPoints
 0.13924050632911392,8.882911392405063
@@ -957,7 +957,7 @@ Avg spaceFormID as Dec
 4893428.93627451
 
 Avg entityFormID as Dec
-3468669.815644746
+3468785.3782397565
 
 Avg containerFormID as Dec
 3304656.018492176
@@ -969,13 +969,13 @@ Avg MapMarker spaceFormID as Dec
 2480661
 
 Avg Psn spaceFormID as Dec
-3003460.737251288
+3003460.6207803204
 
 Avg Psn referenceFormID as Dec
-1207352.1506101252
+1207351.555583057
 
 Avg Psn instanceFormID as Dec
-3736291.7834585262
+3736293.2615329265
 
 Avg Psn teleportsToFormID as Dec
 3163883.0142857144
@@ -1001,7 +1001,7 @@ Avg junkFormID as Dec
 1674372.2608012569
 
 Avg X, Y per Space
-APPALACHIA,-18324.161212627194,-3991.2903112355857
+APPALACHIA,-18324.150187718373,-3991.2499403114243
 AMSHQ01,-38.43107245542495,296.0722459583898
 AMSHQ02,-722.9602360281565,-2598.814839831561
 AVRMedicalCenter01,2853.161347693978,-733.9409282763781
@@ -1020,7 +1020,7 @@ BurnChopShopBasement,-1051.8056831819465,604.4368692797096
 BurnHWTEugeneINT,1207.9099205930258,2432.1349249291143
 BurnHWTLoanSharkInt,1418.7269027385307,2524.818996407308
 BurnHWTMooseINT,1314.1674783549793,2268.0356545716654
-BurnHWTownInt,-4209.549036256511,13885.790853125836
+BurnHWTownInt,-4209.549022462369,13885.791068189039
 BurnRailroadServiceYardInt,2058.8131216311594,2114.3811792142574
 BurnRustKingdomInterior,-884.9938547266315,1743.8052649719123
 BurningMine01,-847.4090803790401,-4704.235601675881
@@ -1199,7 +1199,7 @@ XPDAC02Pier,689.8492137251934,3596.830483676068
 XPDAC03CityHall,-17.849135642288463,4111.699885357225
 XPDAC03CommunityCenter,1076.9254620146473,1928.9127193356685
 XPDAC03CommunityCenterDungeon,1088.9699534218594,1910.969661164231
-XPDAC03FloodedCityCenter,-2040.7993691088507,-2199.055570210451
+XPDAC03FloodedCityCenter,-2040.7989466517186,-2199.0556662700237
 XPDPitt01Foundry,1988.5664843186014,6080.280369030158
 XPDPitt01FoundryDungeon,1820.186469920726,5963.459405086142
 XPDPitt01Industrial,-7339.281441393323,-4092.1321112482738
@@ -2575,58 +2575,41 @@ Vault96ExteriorLocation,APPALACHIA,2
 W05_JP_Community_SwampLocation,APPALACHIA,1
 
 Infestation locations
-LocCranberryAbandonedBogTownLocation
 LocCranberryAlleghenyAsylumLocation
 LocCranberryAppalachianAntiquesLocation
 LocCranberryGeneralsSteakhouseLocation
 LocCranberryRangerDistrictOfficeLocation
 LocForestAaronholtHomesteadLocation
 LocForestBoltonGreensLocation
-LocForestCharlestonLandfillLocation
 LocForestCharlestonTrainyardLocation
 LocForestGiantTeapotLocation
-LocForestGorgeJunkyardLocation
 LocForestGregsMineSupplyLocation
-LocForestHelvetiaLocation
 LocForestMorgantownLocation
 LocForestMorgantownTrainyardLocation
 LocForestNewGadLocation
 LocForestSummersvilleDamLocation
 LocForestSummersvilleDocksLocation
-LocForestSunshineMeadowsLocation
 LocForestTylerCountyFairgroundsLocation
-LocForestTylerCountyTrackLocation
-LocForestWadeAirportLocation
 LocMTRAMSTestSiteLocation
 LocMTRBeckleyLocation
 LocMTRBrimQuarryLocation
-LocMTRGarrahanEstateLocation
 LocMTRLewisburgLocation
-LocMTRMountBlairLocation
 LocMTRMountBlairTrainyardLocation
 LocMTRWelchLocation
 LocMountainSonsOfDaneCompoundLocation
-LocMountainsConvertedMunitionsFactoryLocation
 LocMountainsHuntersvilleLocation
-LocMountainsMonongahLocation
 LocMountainsNewAppalachianCentralTrainyardLocation
 LocMountainsPalaceoftheWindingPathLocation
 LocMountainsPleasantValleyCabinsLocation
 LocMountainsPleasantValleySkiResortLocation
-LocMountainsRedRocketMegaStopLocation
 LocMountainsSenecaRocksVisitorCenterLocation
 LocMountainsSunnytopSkiLanesLocation
 LocSwampBerkeleySpringsLocation
-LocSwampBerkeleySpringsWorkshopLocation
-LocSwampDabneyHomesteadLocation
 LocSwampDyerChemicalLocation
 LocSwampHarpersFerryLocation
-LocToxicClarksburgLocation
 LocToxicGraftonLocation
 LocToxicGraftonSteelLocation
-LocToxicWavyWillardsWaterparkLocation
 LocWhitespringTheWhitespringGolfLocation
-SubForestCampAdamsLocation
 
 Globals
 HTO_LCP_HostileTakeOver_TargetRadius_Location,20000
@@ -2839,7 +2822,7 @@ XPDPitt02Sanctum:0
 XPDPitt02Trench:237
 
 Space Coordinate Checksums
-APPALACHIA:-6396939638481126071
+APPALACHIA:-3975524347824601688
 AMSHQ01:-5003531309026812394
 AMSHQ02:-8426578450065187914
 AVRMedicalCenter01:5512355906186978031
@@ -2858,7 +2841,7 @@ BurnChopShopBasement:6714789111411865326
 BurnHWTEugeneINT:-4595363222955775940
 BurnHWTLoanSharkInt:4222893296845283322
 BurnHWTMooseINT:7833258191086976913
-BurnHWTownInt:7309267040644251646
+BurnHWTownInt:1210927668023921662
 BurnRailroadServiceYardInt:8711136723755463896
 BurnRustKingdomInterior:-6143616095521952846
 BurningMine01:-2907074520306969020
@@ -3037,7 +3020,7 @@ XPDAC02Pier:6253628948588168811
 XPDAC03CityHall:931010511221550957
 XPDAC03CommunityCenter:4449087876693947514
 XPDAC03CommunityCenterDungeon:6308578229028992541
-XPDAC03FloodedCityCenter:-942295280980867460
+XPDAC03FloodedCityCenter:7728236121131914876
 XPDPitt01Foundry:3796058547388971107
 XPDPitt01FoundryDungeon:1259272584191239600
 XPDPitt01Industrial:-8785833526279195182
