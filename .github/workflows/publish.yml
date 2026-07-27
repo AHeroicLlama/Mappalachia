@@ -1,0 +1,28 @@
+name: Publish
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Publish
+      run: dotnet publish Mappalachia/Mappalachia.csproj -p:PublishProfile=PublishProfile.pubxml -p:SolutionDir="${{ github.workspace }}\\"
+
+    - name: Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mappalachia_Publish
+        path: ./Mappalachia/publish/
