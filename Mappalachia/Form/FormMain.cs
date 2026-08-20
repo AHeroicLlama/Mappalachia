@@ -263,7 +263,7 @@ namespace Mappalachia
 			coordinateGridEnabledToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
 
 			// Update the text of some items
-			setBrightnessToolStripMenuItem.Text = $"Set Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
+			backgroundBrightnessToolStripMenuItem.Text = $"Background Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
 			spotlightSetRangeToolStripMenuItem.Text = $"Set Range ({Settings.MapSettings.SpotlightSize})";
 			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
@@ -943,7 +943,7 @@ namespace Mappalachia
 			await SetSetting(() => Settings.MapSettings.GrayscaleBackground = !Settings.MapSettings.GrayscaleBackground);
 		}
 
-		private async void Map_SetBrightness_Click(object sender, EventArgs e)
+		private async void Map_BackgroundBrightness_Click(object sender, EventArgs e)
 		{
 			FormSetBrightness brightnessForm = new FormSetBrightness(Settings);
 
