@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "SignTest" ]
   workflow_dispatch:
 
 jobs:
@@ -21,8 +21,26 @@ jobs:
     - name: Publish
       run: dotnet publish Mappalachia/Mappalachia.csproj -p:PublishProfile=PublishProfile.pubxml -p:SolutionDir="${{ github.workspace }}\\"
 
-    - name: Artifact
+    - name: Artifact (Unsigned)
+      id: upload-unsigned-artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Mappalachia_Publish
+        name: Mappalachia_Publish_Unsigned
         path: ./Mappalachia/publish/
+
+    - name: Submit to SignPath
+      uses: signpath/github-action-submit-signing-request@v2
+      with:
+        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+        organization-id: 'a23cbdf3-167a-4730-a806-764a58de08d1'
+        project-slug: 'Mappalachia'
+        signing-policy-slug: 'test-signing'
+        github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
+        wait-for-completion: true
+        output-artifact-directory: './Mappalachia/publish-signed/'
+
+    - name: Artifact (Signed)
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mappalachia_Publish_Signed
+        path: ./Mappalachia/publish-signed/
