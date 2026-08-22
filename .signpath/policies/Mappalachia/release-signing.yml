@@ -1,0 +1,14 @@
+github-policies:
+  runners:
+    require_github_hosted: true
+  build:
+    disallow_reruns: true
+  branch_rulesets:
+    - condition:
+        rules:
+          - block_force_pushes: true
+        allow_bypass_actors: false
+    - condition:
+        rules:
+          - require_pull_request: true
+        allow_bypass_actors: true

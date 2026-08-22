@@ -2,7 +2,7 @@ name: Publish
 
 on:
   push:
-    branches: [ "SignTest" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
