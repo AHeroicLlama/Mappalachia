@@ -2485,6 +2485,14 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 9593,PackInPACKToxicBasinSm01StorageCell,,0,0
 9594,PackInPACKToxicBasinGroupSm03BridgeStorageCell,,0,0
 9598,PackInPACKToxicBasinGroupSm01StorageCell,,0,0
+9606809,PackInSDOWPackInSetDressing01StorageCell,,0,0
+9606812,PackInSDOWPackInSetDressing02StorageCell,,0,0
+9606813,PackInSDOWPackInSetDressing03StorageCell,,0,0
+9606815,PackInSDOWPackInSetDressing04StorageCell,,0,0
+9606817,PackInSDOWPackInSetDressing05StorageCell,,0,0
+9606819,PackInSDOWPackInSetDressing06StorageCell,,0,0
+9606821,PackInSDOWPackInSetDressing07StorageCell,,0,0
+9606823,PackInSDOWPackInSetDressing08StorageCell,,0,0
 9614,,,0,0
 9615,PackInPACKToxicBasinGroupSm02StorageCell,,0,0
 964469,WarehouseTraps,Warehouse Traps,0,0
