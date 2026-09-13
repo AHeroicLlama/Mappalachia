@@ -8,11 +8,11 @@ namespace Mappalachia
 {
 	static class Database
 	{
-		public static SqliteConnection Connection { get; } = GetNewConnection(Paths.DatabasePath);
+		public static SqliteConnection Connection { get; private set; } = null!;
 
-		public static List<Space> AllSpaces { get; } = GetSpaces(Connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceDisplayName ASC").Result;
+		public static List<Space> AllSpaces { get; private set; } = null!;
 
-		public static List<MapMarker> AllMapMarkers { get; } = GetMapMarkers(Connection, "SELECT * FROM MapMarker").Result;
+		static List<MapMarker>? AllMapMarkers { get; set; }
 
 		static Regex SubstituteScrap { get; } = new Regex("derived|scrap", RegexOptions.IgnoreCase);
 
@@ -21,6 +21,12 @@ namespace Mappalachia
 		static Regex SubstituteFlux { get; } = new Regex("derived|raw|flux", RegexOptions.IgnoreCase);
 
 		static char EscapeChar { get; } = '`';
+
+		public static async Task Initialize()
+		{
+			Connection = GetNewConnection(Paths.DatabasePath);
+			AllSpaces = await GetSpaces(Connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceDisplayName ASC");
+		}
 
 		// The core database search function - returns a collection of GroupedInstance from the given search params
 		public static async Task<List<GroupedSearchResult>> Search(Settings settings)
@@ -808,6 +814,9 @@ namespace Mappalachia
 
 			return instances;
 		}
+
+		public static async Task<List<MapMarker>> GetMapMarkersForSpace(Space space) =>
+			await GetMapMarkers(Connection, $"SELECT * FROM MapMarker WHERE SpaceFormID = {space.FormID} ORDER BY Y");
 
 		public static async Task<float> GetBlastRadius() => await GetGlobal("EN07_NukeBlastRadius");
 
