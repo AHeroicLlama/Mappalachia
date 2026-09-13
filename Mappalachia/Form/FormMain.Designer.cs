@@ -99,6 +99,7 @@ namespace Mappalachia
 			showPlotsInOtherSpacesToolStripMenuItem = new ToolStripMenuItem();
 			showRegionLevelsToolStripMenuItem = new ToolStripMenuItem();
 			drawInstanceFormIDToolStripMenuItem = new ToolStripMenuItem();
+			includeCountInLegendTextToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
@@ -562,7 +563,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, includeCountInLegendTextToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -688,6 +689,14 @@ namespace Mappalachia
 			drawInstanceFormIDToolStripMenuItem.Text = "Show Instance FormID";
 			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot. Generally only applies to Standard or Topographic plot mode.";
 			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
+			// 
+			// includeCountInLegendTextToolStripMenuItem
+			// 
+			includeCountInLegendTextToolStripMenuItem.Name = "includeCountInLegendTextToolStripMenuItem";
+			includeCountInLegendTextToolStripMenuItem.Size = new Size(240, 22);
+			includeCountInLegendTextToolStripMenuItem.Text = "Include Count in legend text";
+			includeCountInLegendTextToolStripMenuItem.ToolTipText = "When adding an item to the legend, specify the count of entities being plotted.";
+			includeCountInLegendTextToolStripMenuItem.Click += Plot_IncludeCountInLegend_Click;
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -1202,5 +1211,6 @@ namespace Mappalachia
 		private ToolStripMenuItem legendVerticalCenterToolStripMenuItem;
 		private ToolStripMenuItem legendVerticalBottomToolStripMenuItem;
 		private ToolStripMenuItem showInfestationsToolStripMenuItem;
+		private ToolStripMenuItem includeCountInLegendTextToolStripMenuItem;
 	}
 }

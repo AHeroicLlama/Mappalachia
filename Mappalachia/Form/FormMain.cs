@@ -257,6 +257,7 @@ namespace Mappalachia
 			searchInInstancesOnlyToolStripMenuItem.Checked = Settings.SearchSettings.SearchInInstancesOnly;
 			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
 			drawInstanceFormIDToolStripMenuItem.Checked = Settings.PlotSettings.DrawInstanceFormID;
+			includeCountInLegendTextToolStripMenuItem.Checked = Settings.PlotSettings.IncludeCountInLegend;
 			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.AutoFindPlotsInConnectedSpaces;
 			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
 			spotlightEnabledToolStripMenuItem.Checked = Settings.MapSettings.SpotlightEnabled;
@@ -1287,6 +1288,11 @@ namespace Mappalachia
 			await SetSetting(() => Settings.PlotSettings.DrawInstanceFormID = !Settings.PlotSettings.DrawInstanceFormID);
 		}
 
+		private async void Plot_IncludeCountInLegend_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.PlotSettings.IncludeCountInLegend = !Settings.PlotSettings.IncludeCountInLegend);
+		}
+
 		private void Help_About_Click(object sender, EventArgs e)
 		{
 			new FormAbout().ShowDialog();
@@ -1404,7 +1410,7 @@ namespace Mappalachia
 			// We do this in 2 loops to avoid checking the new items against themselves with the contains check
 			foreach (GroupedSearchResult result in itemsToAdd)
 			{
-				result.GenerateLegendText();
+				result.GenerateLegendText(Settings);
 
 				if (addAsGroup)
 				{
