@@ -1290,7 +1290,7 @@ namespace Mappalachia
 
 		private async void Plot_IncludeCountInLegend_Click(object sender, EventArgs e)
 		{
-			await SetSetting(() => Settings.PlotSettings.IncludeCountInLegend = !Settings.PlotSettings.IncludeCountInLegend);
+			await SetSetting(() => Settings.PlotSettings.IncludeCountInLegend = !Settings.PlotSettings.IncludeCountInLegend, false);
 		}
 
 		private void Help_About_Click(object sender, EventArgs e)

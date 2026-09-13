@@ -695,7 +695,7 @@ namespace Mappalachia
 			includeCountInLegendTextToolStripMenuItem.Name = "includeCountInLegendTextToolStripMenuItem";
 			includeCountInLegendTextToolStripMenuItem.Size = new Size(240, 22);
 			includeCountInLegendTextToolStripMenuItem.Text = "Include Count in legend text";
-			includeCountInLegendTextToolStripMenuItem.ToolTipText = "When adding an item to the legend, specify the count of entities being plotted.";
+			includeCountInLegendTextToolStripMenuItem.ToolTipText = "When adding an item to the legend, includes the count of entities being plotted.";
 			includeCountInLegendTextToolStripMenuItem.Click += Plot_IncludeCountInLegend_Click;
 			// 
 			// helpToolStripMenuItem
