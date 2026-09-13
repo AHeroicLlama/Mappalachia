@@ -832,8 +832,7 @@ namespace Mappalachia
 				return (0, 0);
 			}
 
-			List<Instance> allInstances = (await Task.WhenAll(itemsToPlot.Select(async item => await GetInstances(item, settings.Space))))
-				.SelectMany(instance => instance).ToList();
+			List<Instance> allInstances = await GetAllInstances(itemsToPlot, settings);
 
 			if (allInstances.Count == 0)
 			{
@@ -841,6 +840,14 @@ namespace Mappalachia
 			}
 
 			return (allInstances.Min(i => i.HeightForTopograph), allInstances.Max(i => i.HeightForTopograph));
+		}
+
+		// Returns all instances for all items to plot, for the current space
+		public static async Task<List<Instance>> GetAllInstances(List<GroupedSearchResult> itemsToPlot, Settings settings)
+		{
+			return (await Task.WhenAll(itemsToPlot.Select(item => GetInstances(item, settings.Space))))
+				.SelectMany(instances => instances)
+				.ToList();
 		}
 
 		// Return the fully-populated version of the same space from the database

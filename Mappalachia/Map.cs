@@ -153,7 +153,7 @@ namespace Mappalachia
 
 			await DrawInfestations(settings, graphics);
 
-			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
+			DrawMapMarkerIconsAndLabels(itemsToPlot, settings, graphics, progressInfo);
 
 			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
 
@@ -1057,8 +1057,10 @@ namespace Mappalachia
 			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, legendLeft ? BottomRight : BottomLeft);
 		}
 
-		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
+		static async void DrawMapMarkerIconsAndLabels(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
+			int mapMarkerLabelOcclusionRange = 20000;
+
 			if (!settings.MapSettings.MapMarkerIcons && !settings.MapSettings.MapMarkerLabels)
 			{
 				return;
@@ -1071,6 +1073,12 @@ namespace Mappalachia
 			List<MapMarker> mapMarkers = Database.AllMapMarkers
 				.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
 				.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
+
+			if (true)
+			{
+				List<Instance> instances = await Database.GetAllInstances(itemsToPlot, settings);
+				mapMarkers = mapMarkers.Where(marker => !instances.Any(i => GeometryHelper.Pythagoras(i.Coord, marker.Coord) < mapMarkerLabelOcclusionRange)).ToList();
+			}
 
 			foreach (MapMarker marker in mapMarkers)
 			{
