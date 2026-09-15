@@ -1070,9 +1070,7 @@ namespace Mappalachia
 
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeMapMarkerLabel);
 
-			List<MapMarker> mapMarkers = Database.AllMapMarkers
-				.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
-				.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
+			List<MapMarker> mapMarkers = await Database.GetMapMarkersForSpace(settings.Space);
 
 			if (true)
 			{
