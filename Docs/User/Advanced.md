@@ -29,6 +29,10 @@ Whenever you edit an icon in the 'items to plot' list, all items of that legend 
 Items sharing a legend group will not by default share the same legend text, however you may edit the legend text directly in the grid; similarly to when icons are changed - if you change the legend text, all other items sharing that group will inherit the same text.<br/>
 Finally, you may change the legend group value of an item directly, in order to change its group membership.
 
+## Include Count in legend text
+Under 'Plot Settings' > 'Include Count in legend text' you can specify an option to include the count of items in the respective legend text, when adding items to the map.<br/>
+Note that changes to this setting only apply when an item is added to the 'Items to plot' list.
+
 ## Advanced
 A feature for data miners: by toggling 'Search Settings' > 'Advanced Mode' you can enable searching by FormID. You can search the form ID of the instance or its reference. FormIDs can be given with or without the `0x` prefix. This mode will also swap the signature names for their underlying 4-character IDs, and spaces will be named by their EditorID.
 

@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json.Serialization;
 using Library;
 
@@ -32,19 +33,24 @@ namespace Mappalachia
 
 		public string LegendText { get; set; } = string.Empty;
 
-		public void GenerateLegendText()
+		public void GenerateLegendText(Settings settings)
 		{
-			string text;
+			StringBuilder builder = new StringBuilder();
+
+			if (settings.PlotSettings.IncludeCountInLegend && Count != 1)
+			{
+				builder.Append($"{Count.ToString("N0")}x ");
+			}
 
 			List<string> additionalInfo = new List<string>();
 
 			if (Entity is DerivedNPC || Entity is DerivedScrap || Entity is DerivedRawFlux)
 			{
-				text = Entity.DisplayName;
+				builder.Append(Entity.DisplayName);
 			}
 			else
 			{
-				text = $"{Entity.EditorID}";
+				builder.Append($"{Entity.EditorID}");
 
 				if (!Entity.DisplayName.IsNullOrWhiteSpace())
 				{
@@ -64,20 +70,20 @@ namespace Mappalachia
 
 			if (additionalInfo.Count > 0)
 			{
-				text += $" ({string.Join(", ", additionalInfo)})";
+				builder.Append($" ({string.Join(", ", additionalInfo)})");
 			}
 
 			if (Entity is DerivedNPC)
 			{
-				text += $" [{Math.Round(SpawnWeight * 100, 2)}%]";
+				builder.Append($" [{Math.Round(SpawnWeight * 100, 2)}%]");
 			}
 
 			if (Entity is DerivedScrap)
 			{
-				text += $" [x{SpawnWeight}]";
+				builder.Append($" [x{SpawnWeight}]");
 			}
 
-			LegendText = text;
+			LegendText = builder.ToString();
 		}
 
 		bool LockLevelRelevant()
