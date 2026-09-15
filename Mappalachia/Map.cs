@@ -1057,7 +1057,7 @@ namespace Mappalachia
 			DrawStringWithDropShadow(graphics, text, font, BrushGenericTransparent, textBounds, legendLeft ? BottomRight : BottomLeft);
 		}
 
-		static void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
+		static async void DrawMapMarkerIconsAndLabels(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo = null)
 		{
 			if (!settings.MapSettings.MapMarkerIcons && !settings.MapSettings.MapMarkerLabels)
 			{
@@ -1068,9 +1068,7 @@ namespace Mappalachia
 
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeMapMarkerLabel);
 
-			List<MapMarker> mapMarkers = Database.AllMapMarkers
-				.Where(mapMarker => mapMarker.SpaceFormID == settings.Space.FormID)
-				.OrderBy(mapMarker => mapMarker.Coord.Y).ToList();
+			List<MapMarker> mapMarkers = await Database.GetMapMarkersForSpace(settings.Space);
 
 			foreach (MapMarker marker in mapMarkers)
 			{

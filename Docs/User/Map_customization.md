@@ -22,7 +22,7 @@ Change the background image of the map.
 ## Grayscale
 This toggles the underlying map image to be in grayscale (black and white) or full color.
 
-## Brightness
+## Background Brightness
 This option allows you to tweak the percentage brightness of the underlying map image. Enter any value from 10% to 200%.
 
 ## Highlight Water

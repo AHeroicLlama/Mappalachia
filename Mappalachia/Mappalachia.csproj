@@ -10,7 +10,7 @@
 	<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
 	<ApplicationIcon>favicon_small.ico</ApplicationIcon>
 	<StartupObject>Mappalachia.Mappalachia</StartupObject>
-	<Version>2.0.5.1</Version>
+	<Version>2.0.5.2</Version>
 	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	<Authors>AHeroicLlama</Authors>
 	<Copyright>$(Authors)</Copyright>
@@ -53,12 +53,12 @@ Mappalachia is a Windows application for generating and exporting complex maps o
 
   <ItemGroup>
 	<PackageReference Include="KGySoft.CoreLibraries" Version="10.5.1" />
-	<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.10" />
+	<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.12" />
 	<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="Svg" Version="3.4.7" />
+	<PackageReference Include="Svg" Version="3.4.8" />
   </ItemGroup>
 
   <ItemGroup>
