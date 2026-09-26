@@ -1,5 +1,5 @@
 // Rip the location data of every placed entity inside valid cells and worldspaces. Gets FormID, coordinates, name(Inc FormID of referenced object), and information on lock levels and primitive boundaries where relevant
-// Header 'spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotZ,mapMarkerName,shortName,teleportsTo'
+// Header 'spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotX,rotY,rotZ,mapMarkerName,shortName,teleportsTo'
 unit _mappalachia_position;
 
 	uses _mappalachia_lib;
@@ -128,6 +128,7 @@ unit _mappalachia_position;
 		displayName = DisplayName(item);
 		shortName = ShortName(item);
 		position = GetPosition(item);
+		rotation = GetRotation(item);
 	var
 		primitiveEntry, boundsEntry, location, teleportTarget : IInterface;
 		primitiveShape : String;
@@ -161,7 +162,9 @@ unit _mappalachia_position;
 				GetEditValue(ElementByName(boundsEntry, 'X')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Y')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Z')) + ',' +
-				FloatToStr(GetRotation(item).z) + ',' +
+				FloatToStr(rotation.x) + ',' +
+				FloatToStr(rotation.y) + ',' +
+				FloatToStr(rotation.z) + ',' +
 				GetEditValue(ElementByName(ElementByName(item, 'Map Marker'), 'TNAM - Type')) + ',' +
 				sanitize(shortName) + ',' +
 				sanitize(GetEditValue(teleportTarget))

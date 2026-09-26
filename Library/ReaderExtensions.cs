@@ -65,6 +65,14 @@ namespace Library
 				reader.GetDouble("z"));
 		}
 
+		public static Rotation GetRotation(this SqliteDataReader reader)
+		{
+			return new Rotation(
+				reader.GetFloat("rotX"),
+				reader.GetFloat("rotY"),
+				reader.GetFloat("rotZ"));
+		}
+
 		public static LockLevel GetLockLevel(this SqliteDataReader reader)
 		{
 			int ordinal = reader.GetOrdinal("lockLevel");
@@ -107,13 +115,15 @@ namespace Library
 			return Enum.Parse<FluxColor>(color);
 		}
 
-		public static ObjectBounds GetBounds(this SqliteDataReader reader)
+		public static Bounds GetBounds(this SqliteDataReader reader)
 		{
-			return new ObjectBounds(
+			return new Bounds(
 				reader.GetInt("boundX1"),
 				reader.GetInt("boundY1"),
+				reader.GetInt("boundZ1"),
 				reader.GetInt("boundX2"),
-				reader.GetInt("boundY2"));
+				reader.GetInt("boundY2"),
+				reader.GetInt("boundZ2"));
 		}
 	}
 }

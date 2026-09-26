@@ -1,10 +1,12 @@
 namespace Library
 {
-	public class Instance(Entity entity, Space space, Coord coord, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape, double spawnWeight = 1, bool inContainer = false, float rotZ = 0)
+	public class Instance(Entity entity, Space space, Coord coord, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape, double spawnWeight = 1, bool inContainer = false, Rotation rotation = default)
 		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
 	{
 		// The coordinates of this instance
 		public Coord Coord { get; } = coord;
+
+		public Rotation Rotation { get; set; } = rotation;
 
 		// The Instance Form ID of this entity, in base-10. This should be unique
 		public uint InstanceFormID { get; } = instanceFormID;
@@ -21,9 +23,6 @@ namespace Library
 		public Cluster? Cluster { get; set; } = null;
 
 		public bool IsMemberOfCluster => Cluster is not null;
-
-		// The rotation of the instance in degrees around the Z axis
-		public float RotZ { get; set; } = rotZ;
 
 		public override bool Equals(object? obj)
 		{

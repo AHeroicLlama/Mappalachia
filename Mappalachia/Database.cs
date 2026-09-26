@@ -63,7 +63,7 @@ namespace Mappalachia
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
-			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, boundX1, boundY1, boundX2, boundY2 " +
+			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2 " +
 				"FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
@@ -351,7 +351,7 @@ namespace Mappalachia
 			}
 
 			string query =
-				"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, boundX1, boundY1, boundX2, boundY2  " +
+				"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2 " +
 				"FROM Position " +
 				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE instanceFormID = '{HexToInt(searchTerm)}';";
@@ -434,7 +434,7 @@ namespace Mappalachia
 		{
 			List<Instance> teleporters = new List<Instance>();
 
-			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ, " +
+			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, " +
 				"referenceFormID, editorID, displayName, signature FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {space.FormID} AND teleportsToFormID IS NOT NULL AND teleportsToFormID != {space.FormID}";
@@ -458,7 +458,7 @@ namespace Mappalachia
 					reader.GetShape(),
 					1,
 					false,
-					reader.GetFloat("rotZ")));
+					reader.GetRotation()));
 			}
 
 			return teleporters;
@@ -470,7 +470,7 @@ namespace Mappalachia
 			List<Instance> instances = new List<Instance>();
 
 			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, " +
-				$"boundX, boundY, boundZ, rotZ, boundX1, boundY1, boundX2, boundY2, (x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) as distanceSquared FROM Position " +
+				$"boundX, boundY, boundZ, rotX, rotY, rotZ, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2, (x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) as distanceSquared FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {settings.Space.FormID} AND " +
 				(settings.MapSettings.LookupRespectCategoryFilters ? $"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " : string.Empty) +
@@ -501,7 +501,7 @@ namespace Mappalachia
 					reader.GetShape(),
 					1,
 					false,
-					reader.GetFloat("rotZ")));
+					reader.GetRotation()));
 			}
 
 			return instances;
@@ -512,7 +512,7 @@ namespace Mappalachia
 		{
 			List<Instance> instances = new List<Instance>();
 
-			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
+			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ FROM Position " +
 				$"WHERE referenceFormID = {searchResult.Entity.FormID} AND spaceFormID = {space.FormID} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND label = '{searchResult.Label}'";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
@@ -530,7 +530,7 @@ namespace Mappalachia
 					reader.GetShape(),
 					1,
 					false,
-					reader.GetFloat("rotZ")));
+					reader.GetRotation()));
 			}
 
 			return instances;
@@ -541,7 +541,7 @@ namespace Mappalachia
 		{
 			Instance? instance = null;
 
-			string query = "SELECT x, y, z, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ, spaceFormID FROM Position " +
+			string query = "SELECT x, y, z, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, spaceFormID FROM Position " +
 				$"WHERE instanceFormID = {searchResult.InstanceFormID} AND spaceFormID = {space.FormID}";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
@@ -559,7 +559,7 @@ namespace Mappalachia
 					reader.GetShape(),
 					1,
 					false,
-					reader.GetFloat("rotZ"));
+					reader.GetRotation());
 			}
 
 			return instance;

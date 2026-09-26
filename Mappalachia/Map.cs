@@ -497,15 +497,15 @@ namespace Mappalachia
 				return;
 			}
 
-			ObjectBounds bounds = instance.Entity.Bounds.Value;
-			int width = bounds.Width;
-			int height = bounds.Height;
+			Bounds bounds = instance.Entity.Bounds.Value;
+			int width = bounds.XRange;
+			int height = bounds.YRange;
 			RectangleF rectangle = new RectangleF(new PointF(bounds.X1 + (float)instance.Coord.X, -bounds.Y1 + (float)instance.Coord.Y), new SizeF(width, height)).AsImageRectangle(settings);
 
 			PointF center = instance.Coord.AsImagePoint(settings);
 
 			graphics.TranslateTransform(center.X, center.Y);
-			graphics.RotateTransform(instance.RotZ);
+			graphics.RotateTransform(instance.Rotation.Z);
 			graphics.TranslateTransform(-center.X, -center.Y);
 
 			using Pen pen = new Pen(color, 1);
@@ -1057,7 +1057,7 @@ namespace Mappalachia
 
 			// Rotate the graphics 'canvas' around the center of the shape
 			graphics.TranslateTransform(center.X, center.Y);
-			graphics.RotateTransform(instance.RotZ);
+			graphics.RotateTransform(instance.Rotation.Z);
 			graphics.TranslateTransform(-center.X, -center.Y);
 
 			VolumeDrawMode drawMode = settings.PlotSettings.VolumeDrawMode;

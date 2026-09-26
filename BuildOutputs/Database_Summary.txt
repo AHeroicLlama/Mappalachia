@@ -1,21 +1,20 @@
 MD5 Checksum
-9254D4649FE4E2E9AF02DAB6ECA78904
+46FAB13B803B1B8ECD6443E97CA713FA
 
 Size
-500436 KB
+555448 KB
 
 Built At UTC
-26/09/2026 12:04:20
+26/09/2026 16:59:49
 
 CSV Imported with SQLite Version
 3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
 
 Tables
-Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
-Container     Flux       Location     Meta          Position     Region                  Scrap
+Cell  Container  Entity  Flux  Global  Location  MapMarker  Meta  NPC  Position  Position_PreGrouped  Region  RegionPoints  Scrap  Space
 
 Indices
-indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
+indexComponent     indexCount     indexGeneral     indexNPC     indexReference     indexSpaceTeleportsTo     indexTeleportsTo
 
 Game Version
 1.7.26.10
@@ -240,7 +239,7 @@ Avg CenterX, CenterY
 364.63646167886935,-176.907911425681
 
 Avg Rotation
-165.7442125444739
+118.79816013007859,116.94396397744978,165.7442125444739
 
 Lock Levels
 ,4490081
@@ -312,8 +311,8 @@ Avg Length Entity DisplayName
 Avg Length Entity EditorID
 25.29212300736641
 
-Avg Entity Bounds X1/Y1/X2/Y2
--208.95716568577777,-199.0035078146315,205.7478271037144,192.73689441477958
+Avg Entity Bounds X1/Y1/Z1/X2/Y2/Z2
+-208.95716568577777,-199.0035078146315,-59.60406516740071,205.7478271037144,192.73689441477958,193.92479635187277
 
 Avg Length Space DisplayName
 18.146341463414632

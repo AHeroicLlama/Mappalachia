@@ -2,7 +2,7 @@
 // This is later cross referenced between the location data to assign names/EditorID's to FormIDs in the location data
 // CONT and their contents are additionally exported here to another file
 // Headers:
-// Entity: 'entityFormID,displayName,editorID,signature,boundX1,boundY1,boundX2,boundY2'
+// Entity: 'entityFormID,displayName,editorID,signature,boundX1,boundY1,boundZ1,boundX2,boundY2,boundZ2'
 // Container: 'containerFormID,contentsFormID,count'
 unit _mappalachia_entity;
 
@@ -90,8 +90,10 @@ unit _mappalachia_entity;
 				signature + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'X1')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'Y1')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Z1')) + ',' +
 				GetEditValue(ElementByName(boundsEntry, 'X2')) + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'Y2'))
+				GetEditValue(ElementByName(boundsEntry, 'Y2')) + ',' +
+				GetEditValue(ElementByName(boundsEntry, 'Z2'))
 			);
 		end;
 	end;
