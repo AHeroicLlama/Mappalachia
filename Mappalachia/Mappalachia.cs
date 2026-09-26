@@ -7,7 +7,7 @@ namespace Mappalachia
 	{
 		static FormMain? FormMain { get; set; } = null;
 
-		public static bool GUILaunched => FormMain is null;
+		public static bool UsingCLI { get; set; } = false;
 
 		[STAThread]
 		static void Main(string[] args)
@@ -18,8 +18,9 @@ namespace Mappalachia
 				// see https://aka.ms/applicationconfiguration.
 				ApplicationConfiguration.Initialize();
 
+				Database.Initialize().GetAwaiter().GetResult();
+
 				Directory.SetCurrentDirectory(AppContext.BaseDirectory);
-				bool passedRecipesAsArgs = false;
 
 				foreach (string arg in args)
 				{
@@ -30,7 +31,7 @@ namespace Mappalachia
 							continue;
 						}
 
-						passedRecipesAsArgs = true;
+						UsingCLI = true;
 
 						Recipe? recipe = Recipe.LoadFromFile(arg);
 
@@ -66,7 +67,7 @@ namespace Mappalachia
 				}
 
 				// The user had passed recipes as arguments, so we don't launch the GUI
-				if (passedRecipesAsArgs)
+				if (UsingCLI)
 				{
 					return;
 				}

@@ -1,4 +1,4 @@
-﻿using Library;
+using Library;
 
 namespace Mappalachia
 {
@@ -10,7 +10,7 @@ namespace Mappalachia
 		{
 			title ??= $"{Common.ApplicationName}: Error";
 
-			if (Mappalachia.GUILaunched)
+			if (Mappalachia.UsingCLI)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine(summary);
@@ -55,7 +55,7 @@ namespace Mappalachia
 
 		public static void Info(string title, string summary, string body)
 		{
-			if (Mappalachia.GUILaunched)
+			if (Mappalachia.UsingCLI)
 			{
 				Console.WriteLine(summary);
 				Console.WriteLine(body);
@@ -86,7 +86,7 @@ namespace Mappalachia
 				return;
 			}
 
-			if (Mappalachia.GUILaunched)
+			if (Mappalachia.UsingCLI)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Spotlight is not installed! Unable to be used. Please install it and try again.");
@@ -119,7 +119,7 @@ namespace Mappalachia
 
 		public static void FatalException(Exception exception)
 		{
-			if (Mappalachia.GUILaunched)
+			if (Mappalachia.UsingCLI)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine($"Fatal!\n{exception}");

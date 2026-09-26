@@ -33,5 +33,7 @@
 		public bool AutoFindPlotsInConnectedSpaces { get; set; } = false;
 
 		public bool ShowRegionLevels { get; set; } = true;
+
+		public bool IncludeCountInLegend { get; set; } = false;
 	}
 }
