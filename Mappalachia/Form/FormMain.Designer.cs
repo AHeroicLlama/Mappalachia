@@ -44,7 +44,7 @@ namespace Mappalachia
 			backgroundMilitaryToolStripMenuItem = new ToolStripMenuItem();
 			backgroundNoneToolStripMenuItem = new ToolStripMenuItem();
 			grayscaleToolStripMenuItem = new ToolStripMenuItem();
-			setBrightnessToolStripMenuItem = new ToolStripMenuItem();
+			backgroundBrightnessToolStripMenuItem = new ToolStripMenuItem();
 			highlightWaterToolStripMenuItem = new ToolStripMenuItem();
 			showInfestationsToolStripMenuItem = new ToolStripMenuItem();
 			coordinateGridToolStripMenuItem = new ToolStripMenuItem();
@@ -111,6 +111,7 @@ namespace Mappalachia
 			showPlotsInOtherSpacesToolStripMenuItem = new ToolStripMenuItem();
 			showRegionLevelsToolStripMenuItem = new ToolStripMenuItem();
 			drawInstanceFormIDToolStripMenuItem = new ToolStripMenuItem();
+			includeCountInLegendTextToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			openUserGuidesToolStripMenuItem = new ToolStripMenuItem();
@@ -165,7 +166,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, setBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showInfestationsToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, lookupToolStripMenuItem, legendToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, backgroundBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showInfestationsToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, lookupToolStripMenuItem, legendToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -274,13 +275,13 @@ namespace Mappalachia
 			grayscaleToolStripMenuItem.ToolTipText = "Set the background to black and white, making plots more visible.";
 			grayscaleToolStripMenuItem.Click += Map_Grayscale_Click;
 			// 
-			// setBrightnessToolStripMenuItem
+			// backgroundBrightnessToolStripMenuItem
 			// 
-			setBrightnessToolStripMenuItem.Name = "setBrightnessToolStripMenuItem";
-			setBrightnessToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.B;
-			setBrightnessToolStripMenuItem.Size = new Size(240, 22);
-			setBrightnessToolStripMenuItem.Text = "Set Brightness";
-			setBrightnessToolStripMenuItem.Click += Map_SetBrightness_Click;
+			backgroundBrightnessToolStripMenuItem.Name = "backgroundBrightnessToolStripMenuItem";
+			backgroundBrightnessToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.B;
+			backgroundBrightnessToolStripMenuItem.Size = new Size(240, 22);
+			backgroundBrightnessToolStripMenuItem.Text = "Background Brightness";
+			backgroundBrightnessToolStripMenuItem.Click += Map_BackgroundBrightness_Click;
 			// 
 			// highlightWaterToolStripMenuItem
 			// 
@@ -658,7 +659,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, includeCountInLegendTextToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -784,6 +785,14 @@ namespace Mappalachia
 			drawInstanceFormIDToolStripMenuItem.Text = "Show Instance FormID";
 			drawInstanceFormIDToolStripMenuItem.ToolTipText = "(Advanced) Show the Form ID of the instance against its plot. Generally only applies to Standard or Topographic plot mode.";
 			drawInstanceFormIDToolStripMenuItem.Click += Plot_DrawInstanceFormIDs_Click;
+			// 
+			// includeCountInLegendTextToolStripMenuItem
+			// 
+			includeCountInLegendTextToolStripMenuItem.Name = "includeCountInLegendTextToolStripMenuItem";
+			includeCountInLegendTextToolStripMenuItem.Size = new Size(240, 22);
+			includeCountInLegendTextToolStripMenuItem.Text = "Include Count in legend text";
+			includeCountInLegendTextToolStripMenuItem.ToolTipText = "When adding an item to the legend, includes the count of entities being plotted.";
+			includeCountInLegendTextToolStripMenuItem.Click += Plot_IncludeCountInLegend_Click;
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -1244,7 +1253,7 @@ namespace Mappalachia
 		private Button buttonSelectAllSignature;
 		private Button buttonUnselectAllLockLevel;
 		private Button buttonSelectAllLockLevel;
-		private ToolStripMenuItem setBrightnessToolStripMenuItem;
+		private ToolStripMenuItem backgroundBrightnessToolStripMenuItem;
 		private ToolStripMenuItem plotSettingsMenuItem;
 		private ToolStripMenuItem plotModeMenuItem;
 		private ToolStripMenuItem plotModeStandardToolStripMenuItem;
@@ -1310,5 +1319,6 @@ namespace Mappalachia
 		private ToolStripMenuItem lookupArrangementArrangeLinesToolStripMenuItem;
 		private ToolStripMenuItem lookupDrawVolumesToolStripMenuItem;
 		private ToolStripMenuItem lookupRespectCategoryFiltersToolStripMenuItem;
+		private ToolStripMenuItem includeCountInLegendTextToolStripMenuItem;
 	}
 }
