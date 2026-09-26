@@ -90,8 +90,7 @@ namespace Library
 				Enum.Parse<ShapeType>(reader.GetString(shapeOrdinal)),
 				reader.GetDouble("boundX"),
 				reader.GetDouble("boundY"),
-				reader.GetDouble("boundZ"),
-				reader.GetDouble("rotZ"));
+				reader.GetDouble("boundZ"));
 		}
 
 		public static Signature GetSignature(this SqliteDataReader reader)

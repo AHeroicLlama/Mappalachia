@@ -467,22 +467,7 @@ namespace Mappalachia
 					$"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n" +
 					$"{entity.EditorID}";
 
-				if (entity.Bounds.HasValue)
-				{
-					ObjectBounds bounds = entity.Bounds.Value;
-					int width = bounds.Width;
-					int height = bounds.Height;
-					RectangleF rectangle = new RectangleF(new PointF(bounds.X1 + (float)instance.Coord.X, -bounds.Y1 + (float)instance.Coord.Y), new SizeF(width, height)).AsImageRectangle(settings);
-
-					PointF center = instance.Coord.AsImagePoint(settings);
-
-					graphics.TranslateTransform(center.X, center.Y);
-					graphics.RotateTransform(instance.RotZ);
-					graphics.TranslateTransform(-center.X, -center.Y);
-
-					graphics.DrawRectangle(new Pen(brush.Color, 1), rectangle);
-					graphics.ResetTransform();
-				}
+				DrawBounds(instance, settings, graphics, brush.Color, true);
 
 				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
 				{
@@ -492,6 +477,40 @@ namespace Mappalachia
 				graphics.DrawStringCentered(data, font, brush, labelLocation, true);
 				i++;
 			}
+		}
+
+		static void DrawBounds(Instance instance, Settings settings, Graphics graphics, Color color, bool skipConfigCheck = false)
+		{
+			if (!skipConfigCheck && !settings.PlotSettings.DrawBounds)
+			{
+				return;
+			}
+
+			// No value in doing this without spotlight on a worldspace - too small
+			if (!settings.MapSettings.SpotlightEnabled && settings.Space.IsWorldspace)
+			{
+				return;
+			}
+
+			if (instance.Entity.Bounds is null)
+			{
+				return;
+			}
+
+			ObjectBounds bounds = instance.Entity.Bounds.Value;
+			int width = bounds.Width;
+			int height = bounds.Height;
+			RectangleF rectangle = new RectangleF(new PointF(bounds.X1 + (float)instance.Coord.X, -bounds.Y1 + (float)instance.Coord.Y), new SizeF(width, height)).AsImageRectangle(settings);
+
+			PointF center = instance.Coord.AsImagePoint(settings);
+
+			graphics.TranslateTransform(center.X, center.Y);
+			graphics.RotateTransform(instance.RotZ);
+			graphics.TranslateTransform(-center.X, -center.Y);
+
+			using Pen pen = new Pen(color, 1);
+			graphics.DrawRectangle(pen, rectangle);
+			graphics.ResetTransform();
 		}
 
 		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
@@ -554,7 +573,6 @@ namespace Mappalachia
 
 				foreach (Instance instance in instances)
 				{
-					Image? iconImage = null;
 					Color color = item.PlotIcon.Color;
 
 					// If this is topographic plot mode, and this is not a volume/Cell
@@ -573,12 +591,6 @@ namespace Mappalachia
 
 						// Overrides the image and color
 						color = LerpColors(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray(), range);
-
-						// If this is not a shape (therefore a normal topograph plot)
-						if (instance.PrimitiveShape is null)
-						{
-							iconImage = item.PlotIcon.GetImage(color);
-						}
 					}
 
 					if (instance.Entity is Library.Region region)
@@ -595,8 +607,10 @@ namespace Mappalachia
 					}
 					else
 					{
-						graphics.DrawImageCentered(iconImage ?? item.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
+						graphics.DrawImageCentered(item.PlotIcon.GetImage(color), instance.Coord.AsImagePoint(settings));
 					}
+
+					DrawBounds(instance, settings, graphics, color);
 				}
 			}
 		}
@@ -634,6 +648,7 @@ namespace Mappalachia
 					}
 
 					heatmapOverlay.DrawImageCentered(heatBlob, instance.Coord.AsImagePoint(settings));
+					DrawBounds(instance, settings, graphics, item.PlotIcon.Color);
 				}
 			}
 
@@ -738,6 +753,8 @@ namespace Mappalachia
 					{
 						return;
 					}
+
+					DrawBounds(outerInstance, settings, graphics, leadItem.PlotIcon.Color);
 
 					if (outerInstance.IsMemberOfCluster)
 					{
@@ -1029,7 +1046,7 @@ namespace Mappalachia
 				throw new Exception("Instance has no shape");
 			}
 
-			Shape shape = (Shape)instance.PrimitiveShape;
+			Shape shape = instance.PrimitiveShape.Value;
 
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
@@ -1040,7 +1057,7 @@ namespace Mappalachia
 
 			// Rotate the graphics 'canvas' around the center of the shape
 			graphics.TranslateTransform(center.X, center.Y);
-			graphics.RotateTransform((float)shape.RotZ);
+			graphics.RotateTransform(instance.RotZ);
 			graphics.TranslateTransform(-center.X, -center.Y);
 
 			VolumeDrawMode drawMode = settings.PlotSettings.VolumeDrawMode;

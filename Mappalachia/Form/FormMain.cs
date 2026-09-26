@@ -280,6 +280,7 @@ namespace Mappalachia
 			includeCountInLegendTextToolStripMenuItem.Checked = Settings.PlotSettings.IncludeCountInLegend;
 			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.AutoFindPlotsInConnectedSpaces;
 			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
+			drawBoundsToolStripMenuItem.Checked = Settings.PlotSettings.DrawBounds;
 			spotlightEnabledToolStripMenuItem.Checked = Settings.MapSettings.SpotlightEnabled;
 			coordinateGridEnabledToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
 			lookupEnabledToolStripMenuItem.Checked = Settings.MapSettings.LookupEnabled;
@@ -1344,6 +1345,11 @@ namespace Mappalachia
 			}
 
 			plotSettingsMenuItem.DropDown.Close();
+		}
+
+		private async void Plot_DrawBounds_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.PlotSettings.DrawBounds = !Settings.PlotSettings.DrawBounds);
 		}
 
 		private async void Plot_PlotStyles_Click(object sender, EventArgs e)

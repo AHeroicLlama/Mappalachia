@@ -22,6 +22,7 @@ namespace Library
 
 		public bool IsMemberOfCluster => Cluster is not null;
 
+		// The rotation of the instance in degrees around the Z axis
 		public float RotZ { get; set; } = rotZ;
 
 		public override bool Equals(object? obj)

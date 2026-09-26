@@ -11,7 +11,7 @@
 	}
 
 	// Represents a Primitive Shape
-	public readonly struct Shape(ShapeType shapeType, double boundX, double boundY, double boundZ, double rotZ)
+	public readonly struct Shape(ShapeType shapeType, double boundX, double boundY, double boundZ)
 	{
 		public ShapeType ShapeType { get; } = shapeType;
 
@@ -20,8 +20,5 @@
 		public double BoundY { get; } = boundY;
 
 		public double BoundZ { get; } = boundZ;
-
-		// The rotation of the shape in degrees around the Z axis
-		public double RotZ { get; } = rotZ; // TODO we store this at instance level now?
 	}
 }

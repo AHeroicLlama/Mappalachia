@@ -104,6 +104,7 @@ namespace Mappalachia
 			plotStylesToolStripMenuItem = new ToolStripMenuItem();
 			heatmapSettingsToolStripMenuItem = new ToolStripMenuItem();
 			clusterSettingsToolStripMenuItem = new ToolStripMenuItem();
+			drawBoundsToolStripMenuItem = new ToolStripMenuItem();
 			volumeDrawStyleToolStripMenuItem = new ToolStripMenuItem();
 			volumeFillToolStripMenuItem = new ToolStripMenuItem();
 			volumeBorderToolStripMenuItem = new ToolStripMenuItem();
@@ -407,7 +408,7 @@ namespace Mappalachia
 			// 
 			// lookupToolStripMenuItem
 			// 
-			lookupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupEnabledToolStripMenuItem, lookupRangeToolStripMenuItem, this.lookupArrangementToolStripMenuItem, this.lookupDrawVolumesToolStripMenuItem, lookupRespectCategoryFiltersToolStripMenuItem });
+			lookupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupEnabledToolStripMenuItem, lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem, lookupDrawVolumesToolStripMenuItem, lookupRespectCategoryFiltersToolStripMenuItem });
 			lookupToolStripMenuItem.Name = "lookupToolStripMenuItem";
 			lookupToolStripMenuItem.Size = new Size(240, 22);
 			lookupToolStripMenuItem.Text = "Lookup";
@@ -429,58 +430,58 @@ namespace Mappalachia
 			// lookupRangeSmallToolStripMenuItem
 			// 
 			lookupRangeSmallToolStripMenuItem.Name = "lookupRangeSmallToolStripMenuItem";
-			lookupRangeSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeSmallToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeSmallToolStripMenuItem.Text = "Small";
 			lookupRangeSmallToolStripMenuItem.Click += Map_Lookup_Range_Small_Click;
 			// 
 			// lookupRangeMediumToolStripMenuItem
 			// 
 			lookupRangeMediumToolStripMenuItem.Name = "lookupRangeMediumToolStripMenuItem";
-			lookupRangeMediumToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeMediumToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeMediumToolStripMenuItem.Text = "Medium";
 			lookupRangeMediumToolStripMenuItem.Click += Map_Lookup_Range_Medium_Click;
 			// 
 			// lookupRangeLargeToolStripMenuItem
 			// 
 			lookupRangeLargeToolStripMenuItem.Name = "lookupRangeLargeToolStripMenuItem";
-			lookupRangeLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeLargeToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeLargeToolStripMenuItem.Text = "Large";
 			lookupRangeLargeToolStripMenuItem.Click += Map_Lookup_Range_Large_Click;
 			// 
 			// lookupRangeExtraLargeToolStripMenuItem
 			// 
 			lookupRangeExtraLargeToolStripMenuItem.Name = "lookupRangeExtraLargeToolStripMenuItem";
-			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeExtraLargeToolStripMenuItem.Text = "Extra Large";
 			lookupRangeExtraLargeToolStripMenuItem.Click += Map_Lookup_Range_ExtraLarge_Click;
 			// 
 			// lookupArrangementToolStripMenuItem
 			// 
-			this.lookupArrangementToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupArrangementArrangeLabelsToolStripMenuItem, lookupArrangementArrangeLinesToolStripMenuItem });
-			this.lookupArrangementToolStripMenuItem.Name = "lookupArrangementToolStripMenuItem";
-			this.lookupArrangementToolStripMenuItem.Size = new Size(200, 22);
-			this.lookupArrangementToolStripMenuItem.Text = "Arrangement";
+			lookupArrangementToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupArrangementArrangeLabelsToolStripMenuItem, lookupArrangementArrangeLinesToolStripMenuItem });
+			lookupArrangementToolStripMenuItem.Name = "lookupArrangementToolStripMenuItem";
+			lookupArrangementToolStripMenuItem.Size = new Size(200, 22);
+			lookupArrangementToolStripMenuItem.Text = "Arrangement";
 			// 
 			// lookupArrangementArrangeLabelsToolStripMenuItem
 			// 
 			lookupArrangementArrangeLabelsToolStripMenuItem.Name = "lookupArrangementArrangeLabelsToolStripMenuItem";
-			lookupArrangementArrangeLabelsToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementArrangeLabelsToolStripMenuItem.Size = new Size(152, 22);
 			lookupArrangementArrangeLabelsToolStripMenuItem.Text = "Arrange Labels";
 			lookupArrangementArrangeLabelsToolStripMenuItem.Click += Map_Lookup_Arrangement_ArrangeLabels_Click;
 			// 
 			// lookupArrangementArrangeLinesToolStripMenuItem
 			// 
 			lookupArrangementArrangeLinesToolStripMenuItem.Name = "lookupArrangementArrangeLinesToolStripMenuItem";
-			lookupArrangementArrangeLinesToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementArrangeLinesToolStripMenuItem.Size = new Size(152, 22);
 			lookupArrangementArrangeLinesToolStripMenuItem.Text = "Arrange Lines";
 			lookupArrangementArrangeLinesToolStripMenuItem.Click += Map_Lookup_Arrangement_ArrangeLines_Click;
 			// 
 			// lookupDrawVolumesToolStripMenuItem
 			// 
-			this.lookupDrawVolumesToolStripMenuItem.Name = "lookupDrawVolumesToolStripMenuItem";
-			this.lookupDrawVolumesToolStripMenuItem.Size = new Size(200, 22);
-			this.lookupDrawVolumesToolStripMenuItem.Text = "Draw Volumes";
-			this.lookupDrawVolumesToolStripMenuItem.Click += this.Map_Lookup_DrawVolumes_Click;
+			lookupDrawVolumesToolStripMenuItem.Name = "lookupDrawVolumesToolStripMenuItem";
+			lookupDrawVolumesToolStripMenuItem.Size = new Size(200, 22);
+			lookupDrawVolumesToolStripMenuItem.Text = "Draw Volumes";
+			lookupDrawVolumesToolStripMenuItem.Click += Map_Lookup_DrawVolumes_Click;
 			// 
 			// lookupRespectCategoryFiltersToolStripMenuItem
 			// 
@@ -659,7 +660,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, includeCountInLegendTextToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, drawBoundsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, includeCountInLegendTextToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -730,6 +731,14 @@ namespace Mappalachia
 			clusterSettingsToolStripMenuItem.Text = "Cluster Settings";
 			clusterSettingsToolStripMenuItem.ToolTipText = "Adjust settings relevant to Cluster plot mode.";
 			clusterSettingsToolStripMenuItem.Click += Plot_ClusterSettings_Click;
+			// 
+			// drawBoundsToolStripMenuItem
+			// 
+			drawBoundsToolStripMenuItem.Name = "drawBoundsToolStripMenuItem";
+			drawBoundsToolStripMenuItem.Size = new Size(240, 22);
+			drawBoundsToolStripMenuItem.Text = "Draw Bounds";
+			drawBoundsToolStripMenuItem.ToolTipText = "Draw the bounding box of plotted items (Where applicable).";
+			drawBoundsToolStripMenuItem.Click += Plot_DrawBounds_Click;
 			// 
 			// volumeDrawStyleToolStripMenuItem
 			// 
@@ -1320,5 +1329,6 @@ namespace Mappalachia
 		private ToolStripMenuItem lookupDrawVolumesToolStripMenuItem;
 		private ToolStripMenuItem lookupRespectCategoryFiltersToolStripMenuItem;
 		private ToolStripMenuItem includeCountInLegendTextToolStripMenuItem;
+		private ToolStripMenuItem drawBoundsToolStripMenuItem;
 	}
 }

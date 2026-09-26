@@ -63,7 +63,7 @@ namespace Mappalachia
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
-			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel " +
+			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, boundX1, boundY1, boundX2, boundY2 " +
 				"FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
@@ -83,7 +83,8 @@ namespace Mappalachia
 						reader.GetUInt("referenceFormID"),
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
-						reader.GetSignature()),
+						reader.GetSignature(),
+						reader.GetBounds()),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					1,
@@ -350,7 +351,7 @@ namespace Mappalachia
 			}
 
 			string query =
-				"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel " +
+				"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, boundX1, boundY1, boundX2, boundY2  " +
 				"FROM Position " +
 				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE instanceFormID = '{HexToInt(searchTerm)}';";
@@ -365,7 +366,8 @@ namespace Mappalachia
 						reader.GetUInt("referenceFormID"),
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
-						reader.GetSignature()),
+						reader.GetSignature(),
+						reader.GetBounds()),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetString("label"),
 					reader.GetLockLevel()));
@@ -453,7 +455,10 @@ namespace Mappalachia
 					string.Empty,
 					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
 					LockLevel.None,
-					reader.GetShape()));
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetFloat("rotZ")));
 			}
 
 			return teleporters;
@@ -522,7 +527,10 @@ namespace Mappalachia
 					searchResult.Label,
 					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
 					searchResult.LockLevel,
-					reader.GetShape()));
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetFloat("rotZ")));
 			}
 
 			return instances;
@@ -548,7 +556,10 @@ namespace Mappalachia
 					searchResult.Label,
 					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
 					searchResult.LockLevel,
-					reader.GetShape());
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetFloat("rotZ"));
 			}
 
 			return instance;

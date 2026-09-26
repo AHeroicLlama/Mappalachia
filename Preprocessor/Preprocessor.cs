@@ -680,7 +680,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Position;");
 			SimpleQuery("DROP TABLE Position;");
-			SimpleQuery("CREATE TABLE Position (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), x REAL NOT NULL, y REAL NOT NULL, z REAL NOT NULL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL, referenceFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), teleportsToFormID INTEGER REFERENCES Space (spaceFormID), label TEXT NOT NULL, instanceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY) STRICT;");
+			SimpleQuery("CREATE TABLE Position (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), x REAL NOT NULL, y REAL NOT NULL, z REAL NOT NULL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotZ REAL NOT NULL, referenceFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), teleportsToFormID INTEGER REFERENCES Space (spaceFormID), label TEXT NOT NULL, instanceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY) STRICT;");
 			SimpleQuery("INSERT INTO Position (spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID) SELECT spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
