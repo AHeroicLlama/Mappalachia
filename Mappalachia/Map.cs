@@ -1,4 +1,5 @@
 using System.Drawing.Drawing2D;
+using System.Numerics;
 using Library;
 using static Library.Common;
 using static Mappalachia.FormsHelper;
@@ -479,6 +480,7 @@ namespace Mappalachia
 			}
 		}
 
+		// Draw the 3D bounding box of an instance
 		static void DrawBounds(Instance instance, Settings settings, Graphics graphics, Color color, bool skipConfigCheck = false)
 		{
 			if (!skipConfigCheck && !settings.PlotSettings.DrawBounds)
@@ -498,19 +500,48 @@ namespace Mappalachia
 			}
 
 			Bounds bounds = instance.Entity.Bounds.Value;
-			int width = bounds.XRange;
-			int height = bounds.YRange;
-			RectangleF rectangle = new RectangleF(new PointF(bounds.X1 + (float)instance.Coord.X, -bounds.Y1 + (float)instance.Coord.Y), new SizeF(width, height)).AsImageRectangle(settings);
+			Rotation rotation = instance.Rotation;
 
-			PointF center = instance.Coord.AsImagePoint(settings);
+			Vector3[] corners =
+			[
+				new Vector3(bounds.X1, bounds.Y1, bounds.Z1),
+				new Vector3(bounds.X2, bounds.Y1, bounds.Z1),
+				new Vector3(bounds.X2, bounds.Y2, bounds.Z1),
+				new Vector3(bounds.X1, bounds.Y2, bounds.Z1),
 
-			graphics.TranslateTransform(center.X, center.Y);
-			graphics.RotateTransform(instance.Rotation.Z);
-			graphics.TranslateTransform(-center.X, -center.Y);
+				new Vector3(bounds.X1, bounds.Y1, bounds.Z2),
+				new Vector3(bounds.X2, bounds.Y1, bounds.Z2),
+				new Vector3(bounds.X2, bounds.Y2, bounds.Z2),
+				new Vector3(bounds.X1, bounds.Y2, bounds.Z2),
+			];
 
+			Matrix4x4 rotationMatrix =
+				Matrix4x4.CreateRotationZ(float.DegreesToRadians(-rotation.Z)) *
+				Matrix4x4.CreateRotationY(float.DegreesToRadians(-rotation.Y)) *
+				Matrix4x4.CreateRotationX(float.DegreesToRadians(-rotation.X));
+
+			rotationMatrix.Translation = instance.Coord.AsVec3;
+
+			// Apply the rotation matrix to each vertex of the bounding box, also mapping to image space
+			PointF[] points = new PointF[corners.Length];
+			for (int i = 0; i < corners.Length; i++)
+			{
+				Vector3 transformedPos = Vector3.Transform(corners[i], rotationMatrix);
+				points[i] = new Coord(transformedPos.X, transformedPos.Y).AsImagePoint(settings);
+			}
+
+			// TODO var for width
 			using Pen pen = new Pen(color, 1);
-			graphics.DrawRectangle(pen, rectangle);
-			graphics.ResetTransform();
+
+			// Draw bottom and top faces
+			graphics.DrawPolygon(pen, points[0], points[1], points[2], points[3]);
+			graphics.DrawPolygon(pen, points[4], points[5], points[6], points[7]);
+
+			// Draw side edges
+			for (int i = 0; i < 4; i++)
+			{
+				graphics.DrawLine(pen, points[i], points[i + 4]);
+			}
 		}
 
 		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)

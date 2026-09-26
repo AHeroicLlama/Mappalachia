@@ -1,4 +1,6 @@
-﻿namespace Library
+﻿using System.Numerics;
+
+namespace Library
 {
 	public struct Coord
 	{
@@ -23,5 +25,7 @@
 		{
 			return $"{{X={X}, Y={Y}, Z={Z}}}";
 		}
+
+		public readonly Vector3 AsVec3 => new Vector3((float)X, (float)Y, (float)Z);
 	}
 }

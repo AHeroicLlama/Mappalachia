@@ -1,19 +1,12 @@
 ﻿namespace Library
 {
-	public struct Rotation
+	public readonly struct Rotation(float x, float y, float z)
 	{
-		public Rotation(float x, float y, float z)
-		{
-			X = x;
-			Y = y;
-			Z = z;
-		}
+		public float X { get; } = x;
 
-		public float X { get; }
+		public float Y { get; } = y;
 
-		public float Y { get; }
-
-		public float Z { get; }
+		public float Z { get; } = z;
 
 		public override readonly string ToString()
 		{
