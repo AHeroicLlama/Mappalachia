@@ -114,8 +114,9 @@ namespace Mappalachia
 			{
 				lookupEnabled = value;
 
-				// Turn on spotlight if lookup is being turned on
-				if (value)
+				// Turn on spotlight if off and lookup is being turned on
+				if (value && !SpotlightEnabled &&
+					(RootSettings != null && RootSettings.Space.IsSuitableForSpotlight()))
 				{
 					SpotlightEnabled = true;
 					SpotlightLocation = LookupLocation;
@@ -185,14 +186,17 @@ namespace Mappalachia
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
 
-		public void SetSpotlightToMapCenter()
+		public void SetSettingsToMapCenter()
 		{
 			if (RootSettings is null)
 			{
 				return;
 			}
 
-			SpotlightLocation = RootSettings.Space.GetCenter();
+			Coord center = RootSettings.Space.GetCenter();
+
+			SpotlightLocation = center;
+			LookupLocation = center;
 		}
 
 		public void CapSpotlightSizeToSpace()

@@ -623,7 +623,7 @@ namespace Mappalachia
 				location.AddCell(cell);
 			}
 
-			if (location.Cells.Count() == 0)
+			if (location.Cells.Count == 0)
 			{
 				// If there are no cells, location probably not at this space
 				return new List<Instance>();
