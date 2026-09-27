@@ -27,5 +27,7 @@
 		public int SizeRegionLevel { get; set; } = 32;
 
 		public int SizeCoordinateGrid { get; set; } = 32;
+
+		public int SizeLookupLabel { get; set; } = 21;
 	}
 }

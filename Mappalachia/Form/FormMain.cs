@@ -135,12 +135,6 @@ namespace Mappalachia
 			Settings.MapSettings.LookupLocation = point.AsWorldCoord(Settings);
 			Settings.MapSettings.LookupEnabled = true;
 
-			if (!Settings.MapSettings.SpotlightEnabled)
-			{
-				Settings.MapSettings.SpotlightLocation = Settings.MapSettings.LookupLocation;
-				Settings.MapSettings.SpotlightEnabled = true;
-			}
-
 			await UpdateFromSettings();
 		}
 

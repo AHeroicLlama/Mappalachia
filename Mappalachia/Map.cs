@@ -69,6 +69,12 @@ namespace Mappalachia
 
 		public static double IconScale { get; } = 1.5;
 
+		static Pen LookupRangePen { get; } = new Pen(Color.White, 4);
+
+		static int LookupLabelPadding { get; } = MapImageResolution / 40;
+
+		static int LookupLabelLineThickness { get; } = 2;
+
 		static int LegendWidth { get; } = MapImageResolution / 7;
 
 		static int LegendXPadding { get; } = 5;
@@ -433,12 +439,13 @@ namespace Mappalachia
 				_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupRange)} value {settings.MapSettings.LookupRange}"),
 			};
 
-			// TODO source font, pens/brushes
-			Font font = GetFont(21);
-			List<SolidBrush> brushes = settings.PlotSettings.PlotStyleSettings.Palette.Select(c => new SolidBrush(c)).ToList();
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeLookupLabel);
+			List<Color> colors = settings.PlotSettings.PlotStyleSettings.Palette;
 			Coord centerPoint = settings.MapSettings.LookupLocation;
 
-			graphics.DrawEllipse(new Pen(Color.White, 4), new RectangleF((float)centerPoint.X - lookupRange, (float)centerPoint.Y + lookupRange, lookupRange * 2, lookupRange * 2).AsImageRectangle(settings));
+			graphics.DrawEllipse(
+				LookupRangePen,
+				new RectangleF((float)centerPoint.X - lookupRange, (float)centerPoint.Y + lookupRange, lookupRange * 2, lookupRange * 2).AsImageRectangle(settings));
 
 			UpdateProgress(progressInfo, 50, "Searching lookup range");
 			List<Instance> instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, lookupRange, settings);
@@ -450,7 +457,8 @@ namespace Mappalachia
 			foreach (Instance instance in instances)
 			{
 				Entity entity = instance.Entity;
-				SolidBrush brush = brushes[i % brushes.Count];
+				Color color = colors[i % colors.Count];
+				using Brush brush = new SolidBrush(color);
 
 				double angle = settings.MapSettings.LookupArrangement switch
 				{
@@ -459,23 +467,32 @@ namespace Mappalachia
 					_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupArrangement)} value {settings.MapSettings.LookupArrangement}"),
 				};
 
-				// TODO measurestring to offset label location
-				// TODO mult Y by y diff from center to elongate circle?
-				PointF labelLocation = GeometryHelper.GetPositionFromAngle(centerPoint, lookupRange * 2, angle).AsImagePoint(settings);
-				graphics.DrawLine(new Pen(brush.Color, 2), instance.Coord.AsImagePoint(settings), labelLocation);
+				string text = $"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n{entity.EditorID}";
 
-				string data =
-					$"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n" +
-					$"{entity.EditorID}";
+				SizeF bounds = graphics.MeasureString(text, font);
 
-				DrawBounds(instance, settings, graphics, brush.Color, true);
+				// Position the label around the circle given the desired angle
+				// accounting for offsetting by text bounds, converting to image space
+				angle *= Math.PI / 180d;
+				double x = centerPoint.X + ((lookupRange + LookupLabelPadding + (bounds.Width * 2)) * Math.Sin(angle));
+				double y = centerPoint.Y + ((lookupRange + LookupLabelPadding + (bounds.Height * 2)) * Math.Cos(angle));
+				PointF labelLocation = new Coord(x, y).AsImagePoint(settings);
+
+				// Clamp label location within image bounds
+				labelLocation.X = Math.Min(MapImageResolution - (bounds.Width / 2), Math.Max(bounds.Width / 2, labelLocation.X));
+				labelLocation.Y = Math.Min(MapImageResolution - (bounds.Height / 2), Math.Max(bounds.Height / 2, labelLocation.Y));
+
+				using Pen pen = new Pen(color, LookupLabelLineThickness);
+				graphics.DrawLine(pen, instance.Coord.AsImagePoint(settings), labelLocation);
+
+				DrawBounds(instance, settings, graphics, color, true);
 
 				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
 				{
-					DrawPrimitiveShape(settings, graphics, instance, brush.Color);
+					DrawPrimitiveShape(settings, graphics, instance, color);
 				}
 
-				graphics.DrawStringCentered(data, font, brush, labelLocation, true);
+				graphics.DrawStringCentered(text, font, brush, labelLocation, true);
 				i++;
 			}
 		}

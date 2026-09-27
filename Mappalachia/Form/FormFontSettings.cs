@@ -15,6 +15,7 @@
 			SizeInstanceFormID = (int)numericUpDownInstanceFormID.Value,
 			SizeRegionLevel = (int)numericUpDownRegionLevel.Value,
 			SizeCoordinateGrid = (int)numericUpDownCoordinateGrid.Value,
+			SizeLookupLabel = (int)numericUpDownLookupLabels.Value,
 		};
 
 		public FormFontSettings(FontSettings fontSettings)
@@ -55,6 +56,9 @@
 			numericUpDownCoordinateGrid.Minimum = FontSettings.MinSizePlotted;
 			numericUpDownCoordinateGrid.Maximum = FontSettings.MaxSizePlotted;
 
+			numericUpDownLookupLabels.Minimum = FontSettings.MinSizePlotted;
+			numericUpDownLookupLabels.Maximum = FontSettings.MaxSizePlotted;
+
 			numericUpDownTitle.Value = Math.Clamp(InitialFontSettings.SizeTitle, numericUpDownTitle.Minimum, numericUpDownTitle.Maximum);
 			numericUpDownLegend.Value = Math.Clamp(InitialFontSettings.SizeLegend, numericUpDownLegend.Minimum, numericUpDownLegend.Maximum);
 			numericUpDownItemsInOtherSpaces.Value = Math.Clamp(InitialFontSettings.SizeItemsInOtherSpaces, numericUpDownItemsInOtherSpaces.Minimum, numericUpDownItemsInOtherSpaces.Maximum);
@@ -64,6 +68,7 @@
 			numericUpDownInstanceFormID.Value = Math.Clamp(InitialFontSettings.SizeInstanceFormID, numericUpDownInstanceFormID.Minimum, numericUpDownInstanceFormID.Maximum);
 			numericUpDownRegionLevel.Value = Math.Clamp(InitialFontSettings.SizeRegionLevel, numericUpDownRegionLevel.Minimum, numericUpDownRegionLevel.Maximum);
 			numericUpDownCoordinateGrid.Value = Math.Clamp(InitialFontSettings.SizeCoordinateGrid, numericUpDownCoordinateGrid.Minimum, numericUpDownCoordinateGrid.Maximum);
+			numericUpDownLookupLabels.Value = Math.Clamp(InitialFontSettings.SizeLookupLabel, numericUpDownLookupLabels.Minimum, numericUpDownLookupLabels.Maximum);
 		}
 
 		private void ButtonOK_Click(object sender, EventArgs e)

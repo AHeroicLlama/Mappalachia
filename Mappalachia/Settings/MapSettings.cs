@@ -80,6 +80,12 @@ namespace Mappalachia
 					backgroundImage = backgroundImagePreSpotlight;
 				}
 
+				// Turn off lookup if spotlight is being turned off
+				if (!value && SpotlightEnabled)
+				{
+					lookupEnabled = value;
+				}
+
 				// We assume for the majority of cases, turning on spotlight implies wanting the high res render too
 				// But if it's already on or not installed, we leave as-is
 				if (value && !SpotlightEnabled && FileIO.IsSpotlightInstalled())
@@ -108,11 +114,12 @@ namespace Mappalachia
 			{
 				lookupEnabled = value;
 
-				// TODO FormMain is doing this, but should live here
-				//if (value)
-				//{
-				//	SpotlightEnabled = true;
-				//}
+				// Turn on spotlight if lookup is being turned on
+				if (value)
+				{
+					SpotlightEnabled = true;
+					SpotlightLocation = LookupLocation;
+				}
 			}
 		}
 
