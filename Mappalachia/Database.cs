@@ -600,7 +600,7 @@ namespace Mappalachia
 		}
 
 		// Return the instance of the Location, with Cells populated
-		static async Task<Instance> GetLocationInstance(GroupedSearchResult searchResult, Space space)
+		static async Task<List<Instance>> GetLocationInstance(GroupedSearchResult searchResult, Space space)
 		{
 			string query = "SELECT x, y FROM Cell " +
 				$"WHERE locationFormId = '{searchResult.Entity.FormID}' AND spaceFormID = {space.FormID};";
@@ -623,6 +623,12 @@ namespace Mappalachia
 				location.AddCell(cell);
 			}
 
+			if (location.Cells.Count() == 0)
+			{
+				// If there are no cells, location probably not at this space
+				return new List<Instance>();
+			}
+
 			Instance instance = new Instance(
 				location,
 				space,
@@ -633,7 +639,7 @@ namespace Mappalachia
 				LockLevel.None,
 				null);
 
-			return instance;
+			return new List<Instance> { instance };
 		}
 
 		// Return all locations in the given space which are available for infestations
