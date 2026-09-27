@@ -432,10 +432,10 @@ namespace Mappalachia
 
 			int lookupRange = settings.MapSettings.LookupRange switch
 			{
-				LookupRange.Small => 256,
-				LookupRange.Medium => 512,
-				LookupRange.Large => 1024,
-				LookupRange.ExtraLarge => 2048,
+				LookupRange.Small => 128,
+				LookupRange.Medium => 256,
+				LookupRange.Large => 512,
+				LookupRange.ExtraLarge => 1024,
 				_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupRange)} value {settings.MapSettings.LookupRange}"),
 			};
 
