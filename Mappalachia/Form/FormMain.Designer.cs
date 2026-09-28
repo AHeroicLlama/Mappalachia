@@ -66,6 +66,7 @@ namespace Mappalachia
 			lookupArrangementToolStripMenuItem = new ToolStripMenuItem();
 			lookupArrangementArrangeLabelsToolStripMenuItem = new ToolStripMenuItem();
 			lookupArrangementArrangeLinesToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementBesideToolStripMenuItem = new ToolStripMenuItem();
 			lookupDrawVolumesToolStripMenuItem = new ToolStripMenuItem();
 			legendToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleToolStripMenuItem = new ToolStripMenuItem();
@@ -390,34 +391,34 @@ namespace Mappalachia
 			// lookupRangeSmallToolStripMenuItem
 			// 
 			lookupRangeSmallToolStripMenuItem.Name = "lookupRangeSmallToolStripMenuItem";
-			lookupRangeSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeSmallToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeSmallToolStripMenuItem.Text = "Small";
 			lookupRangeSmallToolStripMenuItem.Click += Map_Lookup_Range_Small_Click;
 			// 
 			// lookupRangeMediumToolStripMenuItem
 			// 
 			lookupRangeMediumToolStripMenuItem.Name = "lookupRangeMediumToolStripMenuItem";
-			lookupRangeMediumToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeMediumToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeMediumToolStripMenuItem.Text = "Medium";
 			lookupRangeMediumToolStripMenuItem.Click += Map_Lookup_Range_Medium_Click;
 			// 
 			// lookupRangeLargeToolStripMenuItem
 			// 
 			lookupRangeLargeToolStripMenuItem.Name = "lookupRangeLargeToolStripMenuItem";
-			lookupRangeLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeLargeToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeLargeToolStripMenuItem.Text = "Large";
 			lookupRangeLargeToolStripMenuItem.Click += Map_Lookup_Range_Large_Click;
 			// 
 			// lookupRangeExtraLargeToolStripMenuItem
 			// 
 			lookupRangeExtraLargeToolStripMenuItem.Name = "lookupRangeExtraLargeToolStripMenuItem";
-			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeExtraLargeToolStripMenuItem.Text = "Extra Large";
 			lookupRangeExtraLargeToolStripMenuItem.Click += Map_Lookup_Range_ExtraLarge_Click;
 			// 
 			// lookupArrangementToolStripMenuItem
 			// 
-			lookupArrangementToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupArrangementArrangeLabelsToolStripMenuItem, lookupArrangementArrangeLinesToolStripMenuItem });
+			lookupArrangementToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupArrangementArrangeLabelsToolStripMenuItem, lookupArrangementArrangeLinesToolStripMenuItem, lookupArrangementBesideToolStripMenuItem });
 			lookupArrangementToolStripMenuItem.Name = "lookupArrangementToolStripMenuItem";
 			lookupArrangementToolStripMenuItem.Size = new Size(180, 22);
 			lookupArrangementToolStripMenuItem.Text = "Arrangement";
@@ -437,6 +438,14 @@ namespace Mappalachia
 			lookupArrangementArrangeLinesToolStripMenuItem.Text = "Arrange Lines";
 			lookupArrangementArrangeLinesToolStripMenuItem.ToolTipText = "Prioritize the arrows not overlapping. Label text may overlap.";
 			lookupArrangementArrangeLinesToolStripMenuItem.Click += Map_Lookup_Arrangement_ArrangeLines_Click;
+			// 
+			// lookupArrangementBesideToolStripMenuItem
+			// 
+			lookupArrangementBesideToolStripMenuItem.Name = "lookupArrangementBesideToolStripMenuItem";
+			lookupArrangementBesideToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementBesideToolStripMenuItem.Text = "Beside";
+			lookupArrangementBesideToolStripMenuItem.ToolTipText = "Arrange columns of labels either side of the area.";
+			lookupArrangementBesideToolStripMenuItem.Click += Map_Lookup_Arrangement_Beside_Click;
 			// 
 			// lookupDrawVolumesToolStripMenuItem
 			// 
@@ -1280,5 +1289,6 @@ namespace Mappalachia
 		private ToolStripMenuItem lookupDrawVolumesToolStripMenuItem;
 		private ToolStripMenuItem includeCountInLegendTextToolStripMenuItem;
 		private ToolStripMenuItem drawBoundsToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementBesideToolStripMenuItem;
 	}
 }

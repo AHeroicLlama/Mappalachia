@@ -440,6 +440,9 @@ namespace Mappalachia
 				case LookupArrangement.ArrangeLabels:
 					lookupArrangementArrangeLabelsToolStripMenuItem.Checked = true;
 					break;
+				case LookupArrangement.Beside:
+					lookupArrangementBesideToolStripMenuItem.Checked = true;
+					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.MapSettings.LookupArrangement)} value {Settings.MapSettings.LookupArrangement}");
 			}
@@ -1003,6 +1006,11 @@ namespace Mappalachia
 		private async void Map_Lookup_Arrangement_ArrangeLines_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.ArrangeLines);
+		}
+
+		private async void Map_Lookup_Arrangement_Beside_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.Beside);
 		}
 
 		private async void Map_Lookup_DrawVolumes_Click(object sender, EventArgs e)

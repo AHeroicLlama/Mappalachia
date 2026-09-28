@@ -53,6 +53,7 @@ namespace Mappalachia
 	{
 		ArrangeLabels,
 		ArrangeLines,
+		Beside,
 	}
 
 	public enum LookupRange
@@ -460,23 +461,38 @@ namespace Mappalachia
 				Color color = colors[i % colors.Count];
 				using Brush brush = new SolidBrush(color);
 
-				double angle = settings.MapSettings.LookupArrangement switch
-				{
-					LookupArrangement.ArrangeLines => GeometryHelper.GetAngleFrom(centerPoint, instance.Coord),
-					LookupArrangement.ArrangeLabels => (365d / instances.Count) * i,
-					_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupArrangement)} value {settings.MapSettings.LookupArrangement}"),
-				};
-
 				string text = $"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n{entity.EditorID}";
-
 				SizeF bounds = graphics.MeasureString(text, font);
+				PointF labelLocation;
 
-				// Position the label around the circle given the desired angle
-				// accounting for offsetting by text bounds, converting to image space
-				angle *= Math.PI / 180d;
-				double x = centerPoint.X + ((lookupRange + LookupLabelPadding + (bounds.Width * 2)) * Math.Sin(angle));
-				double y = centerPoint.Y + ((lookupRange + LookupLabelPadding + (bounds.Height * 2)) * Math.Cos(angle));
-				PointF labelLocation = new Coord(x, y).AsImagePoint(settings);
+				// TODO Beside
+				if (settings.MapSettings.LookupArrangement == LookupArrangement.Beside)
+				{
+					double angle = GeometryHelper.GetAngleFrom(centerPoint, instance.Coord);
+					int count = instances.Count();
+					var boundsEst = 50; // TODO
+
+					labelLocation = new Coord(
+						(i <= count / 2) ? centerPoint.X + lookupRange + (bounds.Width / 2) : centerPoint.X - lookupRange - (bounds.Width / 2),
+						centerPoint.Y + ((i - (count / 2)) * boundsEst))
+						.AsImagePoint(settings);
+				}
+				else
+				{
+					double angle = settings.MapSettings.LookupArrangement switch
+					{
+						LookupArrangement.ArrangeLines => GeometryHelper.GetAngleFrom(centerPoint, instance.Coord),
+						LookupArrangement.ArrangeLabels => (365d / instances.Count) * i,
+						_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupArrangement)} value {settings.MapSettings.LookupArrangement}"),
+					};
+
+					// Position the label around the circle given the desired angle
+					// accounting for offsetting by text bounds, converting to image space
+					angle *= Math.PI / 180d;
+					double x = centerPoint.X + ((lookupRange + LookupLabelPadding + (bounds.Width * 2)) * Math.Sin(angle));
+					double y = centerPoint.Y + ((lookupRange + LookupLabelPadding + (bounds.Height * 2)) * Math.Cos(angle));
+					labelLocation = new Coord(x, y).AsImagePoint(settings);
+				}
 
 				// Clamp label location within image bounds
 				labelLocation.X = Math.Min(MapImageResolution - (bounds.Width / 2), Math.Max(bounds.Width / 2, labelLocation.X));
