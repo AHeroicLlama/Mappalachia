@@ -2169,7 +2169,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 7619819,PackInStormREPackInAssaultStorageCell,,0,0
 7623095,PackInF1S15SurvivalTentGazeboPKINCStorageCell,,0,0
 7642569,WarehouseCrowds,The Neapolitan Casino,0,0
-7695054,StormVault63AtriumUpperOLD,Atrium Upper Level,0,0
+7695054,zzzStormVault63AtriumUpperOLD,Atrium Upper Level,0,0
 7732714,PackInStormE01HarvesterPartsBoxPKNStorageCell,,0,0
 7737444,PackInDRIVEEncounterPointPackInStorageCell,,0,0
 7774037,MILEBlueRidgeHQ,Milepost Zero,0,1
@@ -2205,7 +2205,6 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 7971311,DebugJamieR,Quick Test Cell,0,0
 79723,PackInForestPackTree03aStorageCell,,0,0
 7973508,PackInSSELandminePackinStorageCell,,0,0
-7977117,DebugGRoyer,Quick Test Cell,0,0
 7983446,DebugJeffU06GD,Gleaming Depths,0,0
 8008300,DebugJeffU07GD,Gleaming Depths,0,0
 8031568,,,0,0
@@ -2448,22 +2447,61 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 8686697,DebugRaihanS,Quick Test Cell,0,0
 8686950,PackInBurnBountyHuntGruntStackPackInStorageCell,,0,0
 8701871,PackInBurnAbraxodyneTrainCar03aStorageCell,,0,0
+8728500,zzzTechTestEggTest,Quick Test Cell,0,0
+8733480,RD02Enc03TestCellMax,Quick Test Cell,0,0
+8735891,DebugRk,,0,0
+8738173,zzz76Testcell03,Quick Test Cell,0,0
+8738174,zzz76DSTestCell,Quick Test Cell,0,0
+8738175,zzz76Testcell04,Quick Test Cell,0,0
+8738176,zzz76Testcell05,Quick Test Cell,0,0
+8738177,zzz76Testcell06,Quick Test Cell,0,0
+8738178,76DSDebugCell,Quick Test Cell,0,0
+8738179,76TestCellHub,Quick Test Cell,0,0
 87451,PackInPACKForestTrees030104StorageCell,,0,0
+8747082,zzzTechTest,Quick Test Cell,0,0
 87638,zCUTTestRender01,Quick Test Cell,0,0
+8764138,zzzSecurityRoom,Quick Test Cell,0,0
 8769097,PackInSCORES23CollectronpackinCornbotStorageCell,,0,0
+8773043,TestMineshaft,Quick Test Cell,0,0
+8802544,zzzTechTestCellDB,Tunnel Test Cell,0,0
+8811061,zzzTechTestDB01,Quick Test Cell,0,0
+8825053,PackInPathOfAshesPupaPodAndFurnitureStorageCell,,0,0
 8838127,PackInATXCollectronpackinPeppinoStorageCell,,0,0
+8844024,zzz76TestCell,Quick Test Cell,0,0
+8861982,Safezonezoo,Quick Test Cell,0,0
+8861983,TheSafezoneAsh,Quick Test Cell,0,0
+8877838,,,0,0
+8877854,zzzTechTestDB02,76 Overload Encounter,0,0
+8888431,DebugLRowlandTest2,Quick Test Cell,0,0
 89026,,,0,0
+8906710,zzzTechTest08,Quick Test Cell,0,0
+8915454,zzzTechTestKTDebug,Quick Test Cell,0,0
 8926860,PackInWorkshopSlipperCactus03packinStorageCell,,0,0
 8926861,PackInWorkshopSlipperCactus01packinStorageCell,,0,0
 8926862,PackInWorkshopSlipperCactus02packinStorageCell,,0,0
+8931320,DebugLRowlandTest3,Quick Test Cell,0,0
+8945051,DebugLRowlandTest5,Quick Test Cell,0,0
+8948462,PackInPathOfAshesOutOfBoxGeneratorSetupStorageCell,,0,0
+8950781,zzzRKTest,,0,0
+8968768,,,0,0
+8970459,zzzTechTestAFDebug,Quick Test Cell,0,0
+8982180,DebugLRowlandTest4,Quick Test Cell,0,0
+8988899,zzzTechTestDS,Quick Test Cell,0,0
+8996715,76DebugCellCW,Quick Test Cell,0,0
 8999648,DebugBarbaraF,Test Cell: Research Facility,0,0
+9013750,DebugGeorgeS,Quick Test Cell,0,0
 9017,PackInPACKToxicBasinGroupMed02StorageCell,,0,0
+9022914,PackInPathOfAshesPupaPod1StorageCell,,0,0
+9022915,PackInPathOfAshesPupaPodClusterStorageCell,,0,0
 9061850,DebugBarbaraFInstanced,Test Cell: Basement,0,1
 9069467,PackInSCORES24AmmoConstructionMachineRipArmCoStorageCell,,0,0
 9077,PackInPACKToxicBasinGroupMed01StorageCell,,0,0
+9087560,zzzTechTestCB,The Nest,0,0
 9094337,PackInATXCollectronpackinEvidenceCollectionAssistantCollectronECTStorageCell,,0,0
 9097,PackInPACKToxicBasinGroupMed03StorageCell,,0,0
+9098308,DebugChloeB,Quick Test Cell,0,0
 9099,PackInPACKToxicBasinSm02StorageCell,,0,0
+9099590,DebugGRoyerCopy01,Quick Test Cell,0,0
 9125308,,,0,0
 9125309,,,0,0
 9125310,,,0,0
@@ -2474,8 +2512,17 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 9125315,,,0,0
 9125316,,,0,0
 9125317,,,0,0
+9125700,zzzTechTest01,Quick Test Cell,0,0
+9125701,zzzTechTest02,Quick Test Cell,0,0
+9125702,zzzTechTest03,Quick Test Cell,0,0
+9125703,zzzTechTest04,Quick Test Cell,0,0
+9125704,zzzTechTest05,Quick Test Cell,0,0
+9125705,zzzTechTest06,Quick Test Cell,0,0
+9125706,zzzTechTest07,Quick Test Cell,0,0
+9127185,PackInHIDEHideoutQuestPackInStorageCell,,0,0
 9140770,PackInF1SurvivalTentGNNVanStorageCell,,0,0
 917871,,,0,0
+9189216,zzzrktest1,,0,0
 9228637,PackInATXCollectronpackinSirLoinStorageCell,,0,0
 927749,zCUT76AITestCellMoleMiner,Quick Test Cell,0,0
 9363948,PackInF1S25SurvivalTentHuntersBlindPKINStorageCell,,0,0
@@ -2496,6 +2543,7 @@ spaceFormID,spaceEditorID,spaceDisplayName,isWorldspace,isInstanceable
 9614,,,0,0
 9615,PackInPACKToxicBasinGroupSm02StorageCell,,0,0
 964469,WarehouseTraps,Warehouse Traps,0,0
+9677258,PackInF1SurvivalTentMotherlodeStorageCell,,0,0
 96798,zCUTTESTDanny2,Quick Test Cell,0,0
 96850,COPY0255,,0,0
 96852,COPY0254,,0,0

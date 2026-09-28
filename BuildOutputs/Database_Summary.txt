@@ -1,11 +1,11 @@
 MD5 Checksum
-D64F0B29E935AF6D9E840783B8300833
+71BBCA3C4F0D9D6AB6C521AAEACE8C72
 
 Size
-470000 KB
+475844 KB
 
 Built At UTC
-08/09/2026 15:11:33
+28/09/2026 19:59:26
 
 CSV Imported with SQLite Version
 3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
@@ -18,7 +18,7 @@ Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
 
 Game Version
-0.1.2422.0
+0.1.2439.0
 
 Spaces
 Appalachia,Appalachia,2480661,1,0,-500,135,582550,0
@@ -85,6 +85,10 @@ GlassedCavern01,Glassed Cavern,19523,0,0,-2826.5986328125,-324.71630859375,22421
 GlassedCavernDungeon,Glassed Cavern,7747429,0,1,-2826.5986328125,-324.71630859375,22421.4326171875,314.873291015625
 GraftonPawnShop01,Grafton Pawn Shop,5661109,0,1,-766.4721530340591,-351.9710343908517,1789.7396981604352,0
 GraftonSteelUnderground01,Grafton Steel Underground,4272165,0,1,-68.708251953125,-3794.86474609375,24781.3837890625,270
+HIDE01ForeverFarm,Forever Farm,7977117,0,1,-3928.6537170410156,6686.0107421875,15780.6640625,0
+HIDE02Tunnel,HIDEOUT TUNNEL,9396356,0,1,3125.012347459793,1146.7346992492676,15924.703867435457,0
+HIDE03ImmortalityCenter,Vault 63 Immortality Sector,9106430,0,1,-73.40417152643204,-7492.407479465008,14369.449996829033,180.000106811523
+HIDE04SkylineCaverns,Black Pool Caverns,9136936,0,1,2864.91563808918,1052.184197306633,17147.125536203384,0
 HarpersFerryDungeon01,Harpers Ferry Tunnel,6235848,0,1,-2291.383653640747,-535.7153068184853,15565.658330440521,0
 HornwrightHQ01,Hornwright Industrial HQ,1929778,0,0,742.47900390625,404.642333984375,6019.18066406249,45
 HornwrightSafeRoom01,Hornwright Estate Safe Room,4189733,0,1,75.1669921875,896,3569.478515625,90
@@ -168,6 +172,7 @@ SugarGrove01,Sugar Grove,299465,0,0,1284.001098632815,4656.063720703125,6668.127
 SugarGrove02,Sugar Grove Data Center,5685042,0,1,512.6552389487628,-294.3861841112388,1631.2275097072106,0
 SugarGroveMissileSilo01,Missile Silo Alpha,17140,0,0,-8233.950439453125,-30161.0849609375,15433.830078125,280.129699707031
 SurlysShack01,Surly's Shack,7623495,0,1,21.309873044490644,-12.858872078359255,1135.313034042716,0
+TheClimb,The Climb,8735890,0,0,10309.121515562758,25102.661427103914,29787.2247081846,0
 TheCraterCore01,The Crater Core,4235969,0,1,-4084.940008878708,-313.9677684307086,5442.428575992584,30
 TheNukashine01,The Nukashine,4667615,0,0,564.242935180664,899.784569382665,2102.88838076591,350.317108154297
 TheRoseRoom01,The Rose Room,6956891,0,1,779.998565673828,753.8679641932249,2644.0028686523438,0
@@ -214,8 +219,8 @@ WhitespringRefuge01,Whitespring Refuge,6439099,0,1,-8840,10959.841796875,15292,1
 XPDAC01Casino,The Neapolitan Casino,6964088,0,1,-2261,1290.41491699219,11031.17016601562,180
 XPDAC01EntertainmentDistrict,Casino Quarter,5499103,0,1,-864.2465357780457,-1716.3233966827388,25450.90898990631,90.0001983642578
 XPDAC01NightClub,Quentino's Night Club,6901873,0,1,-768.00396728516,1389.2497558593775,5676.00134277344,0
-XPDAC02Aquarium,Aquarium of the Atlantic,6868079,0,1,-2001.327880859375,-2492.39697265625,19103.8115234375,180.000106811523
-XPDAC02AquariumDungeon,Aquarium of the Atlantic,7601415,0,1,-2001.327880859375,-2492.39697265625,19103.8115234375,180.000106811523
+XPDAC02Aquarium,Aquarium of the Atlantic,6868079,0,1,-2001.327880859375,-1841.87353515625,20404.8583984375,180.000106811523
+XPDAC02AquariumDungeon,Aquarium of the Atlantic,7601415,0,1,-2001.327880859375,-1841.87353515625,20404.8583984375,180.000106811523
 XPDAC02Boardwalk,The Boardwalk,6868081,0,1,-56.90353465080261,-9554.447897076607,25868.278342008587,0
 XPDAC02Pier,Showman's Pier,6868080,0,1,647.2490234375,4351.75146484375,10894.5,270
 XPDAC03CityHall,City Hall,6901870,0,1,-21.442487239837646,4347.021221160889,7445.957557678223,0
@@ -229,104 +234,104 @@ XPDPitt02Sanctum,Sanctum,6518991,0,1,3368.4931640625,103.282470703125,13310.5722
 XPDPitt02Trench,The Pitt - Trench,6518990,0,1,-5392.374269723892,-8488.09703540802,27426.539948940277,0
 
 Avg northAngle
-81.81082927106831
+80.7252651026142
 
 Avg X/Y/Z
--13907.993300916603,-3158.0601167781056,11064.880551373102
+-13750.111841661765,-2873.034430037024,10979.408373217237
 
 Avg Bounds X/Y/Z
-768.9302214778738,550.9985525241988,573.5001179569332
+768.9401187660361,552.7377508907321,568.4153718347025
 
 Avg CenterX, CenterY
-379.5089812254829,-176.04432167532116
+428.7954585070794,-40.136965894473256
 
 Avg Rotation
-150.08720900990008
+149.99668425086236
 
 Lock Levels
-,4490967
+,4542353
 Barred,1
 Chained,10
-Inaccessible,171
-Level0,749
-Level1,683
-Level2,435
-Level3,190
-RequiresKey,200
-RequiresTerminal,46
+Inaccessible,178
+Level0,776
+Level1,701
+Level2,460
+Level3,203
+RequiresKey,201
+RequiresTerminal,48
 Unknown,1
 
 Primitive Shapes
-,4345822
-Box,141830
-Cylinder,181
+,4394101
+Box,145085
+Cylinder,193
 Ellipsoid,5
 Line,2272
-Plane,392
-Sphere,2951
+Plane,313
+Sphere,2963
 
 Entity Category Count
-ACTI,1836
-ALCH,106
+ACTI,1857
+ALCH,107
 AMMO,17
-ARMO,127
+ARMO,128
 ASPC,172
 BNDS,18
-BOOK,1104
+BOOK,1114
 CNCY,1
-CONT,680
-DOOR,376
-FLOR,156
-FURN,794
+CONT,687
+DOOR,377
+FLOR,153
+FURN,793
 HAZD,55
 IDLM,25
 KEYM,103
-LIGH,2446
-LVLI,883
+LIGH,2564
+LVLI,890
 MISC,961
-MSTT,1130
-NOTE,359
-NPC_,1835
+MSTT,1156
+NOTE,363
+NPC_,1841
 PROJ,2
-SCOL,13018
+SCOL,13658
 SECH,14
 SOUN,401
-STAT,23291
+STAT,23555
 TACT,92
-TERM,665
+TERM,671
 TRAP,1
-TXST,569
-WEAP,96
+TXST,576
+WEAP,97
 
 Position PreGrouped Count
-208201
+215248
 
 Avg Num Instances per Reference
-21.582283466457895
+21.11486285586858
 
 X-Table Entity Sum
-51331 = 51331 = 51331
+52449 = 52449 = 52449
 
 Avg Length Entity DisplayName
-2.7869318735267186
+2.7413678049152512
 
 Avg Length Entity EditorID
-25.294013364243828
+25.31102594901714
 
 Avg Length Space DisplayName
-18.184466019417474
+18.13270142180095
 
 Avg Length Space EditorID
-17.975728155339805
+17.928909952606634
 
 Avg Length Region EditorID
-20.867088607594937
+20.871069182389938
 
 Avg Length Label
-0.08175160617013241
+0.0823772500886702
 
 Avg Count Regions, Coords from RegionPoints
-0.13924050632911392,8.882911392405063
+0.14779874213836477,8.864779874213836
 
 Scrap with Avg component qty
 Acid,2.4285714285714284
@@ -348,14 +353,14 @@ Crystal,1.7777777777777777
 Fertilizer,6
 Fiber Optics,1.25
 Fiberglass,1.8235294117647058
-Gear,1.5384615384615385
+Gear,1.8518518518518519
 Glass,1.5339805825242718
-Gold,1.0909090909090908
+Gold,1
 Gunpowder,1
 Lead,2.4782608695652173
 Leather,2.2452830188679247
 Nuclear Material,1.7857142857142858
-Oil,2.1714285714285713
+Oil,2.176470588235294
 Plastic,1.7049180327868851
 Rubber,1.9047619047619047
 Screw,1.6
@@ -368,7 +373,7 @@ Ultracite,1
 Wood,1.7738095238095237
 
 Avg Map Marker X/Y
-4360.4106855756345,-7374.539992217352
+4943.620387692123,-9883.612690735521
 
 Map Markers
 Appalachia,AgriculturalCenterMarker,Honey Well Apiary
@@ -433,7 +438,7 @@ Appalachia,CabinMarker,Alpine River Cabins
 Appalachia,CabinMarker,Autumn Acre Cabin
 Appalachia,CabinMarker,Bailey Family Cabin
 Appalachia,CabinMarker,Camp Adams
-Appalachia,CabinMarker,Camp Liberty
+Appalachia,CabinMarker,Camp Liberty South
 Appalachia,CabinMarker,Groves Family Cabin
 Appalachia,CabinMarker,Investigator's Cabin
 Appalachia,CabinMarker,Isolated Cabin
@@ -509,9 +514,11 @@ Appalachia,ElevatedHighwayMarker,New River Gorge Bridge - West
 Appalachia,EncampmentMarker,Blue Ridge Bunkhouse
 Appalachia,EncampmentMarker,Checkpoint Canyon
 Appalachia,EncampmentMarker,Hamley Run Camp
+Appalachia,EncampmentMarker,Mary's Rock Tunnel
 Appalachia,EncampmentMarker,Milepost Zero
 Appalachia,EncampmentMarker,Overseer's Camp
 Appalachia,EncampmentMarker,Overseer's Home
+Appalachia,EncampmentMarker,Skyline Raider Camp
 Appalachia,EncampmentMarker,Striker Row
 Appalachia,EncampmentMarker,Sylvie & Sons Logging Camp
 Appalachia,EncampmentMarker,The Trading Post
@@ -662,6 +669,7 @@ Appalachia,OverlookMarker,Scenic Overlook
 Appalachia,PalaceWindingPathMarker,Palace of the Winding Path
 Appalachia,PierMarker,Summersville Docks
 Appalachia,PondLakeMarker,Big Maw
+Appalachia,PondLakeMarker,Camp Liberty North
 Appalachia,PondLakeMarker,Fisherman's Rest
 Appalachia,PondLakeMarker,Gnarled Shallows
 Appalachia,PondLakeMarker,Gulper Lagoon
@@ -720,6 +728,7 @@ Appalachia,QuarryMarker,Kerwood Mine
 Appalachia,QuarryMarker,Monongah Mine
 Appalachia,QuarryMarker,Old Crimora Mines
 Appalachia,QuarryMarker,Old Mold Quarry
+Appalachia,QuarryMarker,Pioneer Spelunking Camp
 Appalachia,QuarryMarker,Quarry X3
 Appalachia,QuarryMarker,The Burning Mine
 Appalachia,RadioTowerMarker,KMAX Transmission
@@ -815,6 +824,7 @@ Appalachia,Vault96Marker,Vault 96
 Appalachia,VaultMarker,Vault-Tec University
 Appalachia,WhitespringResort,The Whitespring North Entrance
 Appalachia,WhitespringResort,The Whitespring Resort
+Appalachia,WoodShackMarker,Abandoned Farm
 Appalachia,WoodShackMarker,Big Fred's BBQ Shack
 Appalachia,WoodShackMarker,Bootlegger's Shack
 Appalachia,WoodShackMarker,Darling Sister's Lab
@@ -831,9 +841,9 @@ Appalachia,WoodShackMarker,Treetops
 Appalachia,WoodShackMarker,Westbrook Horse Ranch
 
 NPCs by Space and Weight
-Appalachia,Angler,0.1393373361471521
+Appalachia,Angler,0.13881752070431316
 Appalachia,Beaver,0.125
-Appalachia,Bloatfly,0.17089118030451655
+Appalachia,Bloatfly,0.17102319461123797
 Appalachia,Bloodbug,0.2794465260549635
 Appalachia,Cat,0.08333333333333333
 Appalachia,Cave Cricket,0.11884788528929269
@@ -845,33 +855,33 @@ Appalachia,Fox,0.08333333333333333
 Appalachia,Frog,0.10416666666666666
 Appalachia,Ghoul,0.4102388036604533
 Appalachia,Grafton Monster,0.125
-Appalachia,Gulper,0.1400412745653121
+Appalachia,Gulper,0.1397817341819671
 Appalachia,Honey Beast,0.1550599447699872
-Appalachia,Insect,0.19425232864311953
+Appalachia,Insect,0.1846434712921697
 Appalachia,Liberator,0.14536262345971043
-Appalachia,Lost,0.23358268675132754
+Appalachia,Lost,0.22079874985903994
 Appalachia,Mega Sloth,0.11603090396193845
-Appalachia,Mirelurk,0.25707405336791606
+Appalachia,Mirelurk,0.2547937475392126
 Appalachia,Mole Miner,0.5252667905145593
-Appalachia,Mole Rat,0.16398529675045237
+Appalachia,Mole Rat,0.16294194634555442
 Appalachia,Opposum,0.2619047619047619
 Appalachia,Rabbit,0.08333333333333333
 Appalachia,Rad Ant,0.23008030875235624
-Appalachia,Rad Rat,0.12011431072709187
+Appalachia,Rad Rat,0.11859679132919744
 Appalachia,Rad Scorpion,0.12255983738543866
-Appalachia,Rad Toad,0.2571039412936646
-Appalachia,Radroach,0.1329827814798356
+Appalachia,Rad Toad,0.2595874239573576
+Appalachia,Radroach,0.13284824220349034
 Appalachia,Radstag,0.20833333333333334
 Appalachia,Robot,0.3185533890679699
 Appalachia,Scorched,0.45285865649299567
 Appalachia,Snallygaster,0.6703296703296703
 Appalachia,Squirrel,0.08333333333333333
-Appalachia,Stingwing,0.12797018587032244
+Appalachia,Stingwing,0.1271812866913403
 Appalachia,Super Mutant,0.3642547524880893
-Appalachia,Thrasher,0.19879744795073584
-Appalachia,Tick,0.21797404821701494
-Appalachia,Vicious Dog,0.16253076826863322
-Appalachia,Wolf,0.172145796903174
+Appalachia,Thrasher,0.19299172014957866
+Appalachia,Tick,0.22208113700675206
+Appalachia,Vicious Dog,0.16251324277273785
+Appalachia,Wolf,0.17215009637032083
 Appalachia,Yao Guai,0.09643560346022725
 AMS Headquarters,Robot,1
 AVR Medical Center,Scorched,1
@@ -956,43 +966,43 @@ Worldspaces
 2480661,Appalachia,Appalachia,0
 
 Avg spaceFormID as Dec
-4937507.796116505
+5030707.748815166
 
 Avg entityFormID as Dec
-3474472.0935691884
+3569066.2610917273
 
 Avg containerFormID as Dec
-3313370.8011363638
+3345030.1016949154
 
 Avg contentFormID as Dec
-2915864.428977273
+2955970.6172316386
 
 Avg MapMarker spaceFormID as Dec
 2480661
 
 Avg Psn spaceFormID as Dec
-3008390.6312419423
+3077781.33942356
 
 Avg Psn referenceFormID as Dec
-1211722.496517489
+1227140.4165131624
 
 Avg Psn instanceFormID as Dec
-3742382.418095616
+3814469.756656425
 
 Avg Psn teleportsToFormID as Dec
-3163883.0142857144
+3184675.0368271954
 
 Avg regionFormID as Dec
-4809661.303797469
+4836782.632075472
 
 Avg region spaceFormID as Dec
 2480661
 
 Avg region minLevel
-6.794303797468355
+6.751572327044025
 
 Avg region maxLevel
-27.36392405063291
+27.19182389937107
 
 Nuke-safe zones
 NonNukableZone
@@ -1000,15 +1010,15 @@ BigBloomWeatherRegion
 BurningSpringsHighwayTownNukeExclusionRegion
 
 Avg junkFormID as Dec
-1674372.2608012569
+1677835.5974842766
 
 Avg X, Y per Space
-Appalachia,-18324.257645176072,-3978.437817158616
+Appalachia,-18389.901284328345,-3707.166243389071
 AMSHQ01,-38.43107245542495,296.0722459583898
 AMSHQ02,-722.9602360281565,-2598.814839831561
 AVRMedicalCenter01,2853.161347693978,-733.9409282763781
-AlleghenyAsylum01,-159.9532255056772,1522.9571083932012
-ArktosPharmaLab01,-4201.181785544593,-1920.562582135626
+AlleghenyAsylum01,-159.98093724621722,1522.960503319305
+ArktosPharmaLab01,-4200.482440787898,-1920.1455199529364
 ArktosPharmaLabDungeon,-4352.619284134937,-1905.8563356823033
 BelchingBetty01,-214.62835281588312,15605.537261809066
 BigBendTunnel01,-1741.8185597575753,17763.466501019004
@@ -1022,11 +1032,11 @@ BurnChopShopBasement,-1051.8056831819465,604.4368692797096
 BurnHWTEugeneINT,1207.9099205930258,2432.1349249291143
 BurnHWTLoanSharkInt,1418.7269027385307,2524.818996407308
 BurnHWTMooseINT,1314.1674783549793,2268.0356545716654
-BurnHWTownInt,-4209.549022462369,13885.791068189039
+BurnHWTownInt,-4208.425509077466,13885.32835587325
 BurnRailroadServiceYardInt,2058.8131216311594,2114.3811792142574
 BurnRustKingdomInterior,-884.9938547266315,1743.8052649719123
 BurningMine01,-847.4090803790401,-4704.235601675881
-Burrows01,-1767.822624451506,3067.4180348444597
+Burrows01,-1767.9809540579763,3067.7688649016554
 CharGen01,1863.332809732759,1424.757049428937
 CharGen02,1866.644073016244,1394.4765624860947
 CharGen03,1866.657677700616,1394.47797076379
@@ -1043,8 +1053,8 @@ DaggersDen02,1224.0473816214408,-1494.456142807787
 DuncanDuncanRobotics01,-2777.4458732632925,787.7488402412052
 DyerChemical01,9496.60854437461,2521.193915922348
 EasternRegionalPen01,1817.6771712921295,-630.5635023090531
-EmmettMountainDisposalSite01,1531.3383238646925,2199.5624861329434
-EnclaveResearchFacility01,927.413201946383,3410.7160233632912
+EmmettMountainDisposalSite01,1531.4376642513512,2200.411334400711
+EnclaveResearchFacility01,926.8337479579365,3409.3355633564734
 FortAtlas01,2031.3033812586316,-28.173129366965334
 FortAtlasDungeon01,1778.908687445911,-6176.262988716503
 FoundationInt01,-641.7281768188391,-1498.5904187370713
@@ -1067,6 +1077,10 @@ GlassedCavern01,-177.16876645024277,-1546.0155729121961
 GlassedCavernDungeon,-47.33149485149121,-1869.8008429409595
 GraftonPawnShop01,-717.25531402815,-436.66259789091816
 GraftonSteelUnderground01,-678.7678007753135,-3555.2778075765723
+HIDE01ForeverFarm,-3460.4366587472978,5661.279607749521
+HIDE02Tunnel,3748.8095698925235,1508.4309066468331
+HIDE03ImmortalityCenter,531.3144324772986,-6977.771597978865
+HIDE04SkylineCaverns,2717.9812839214674,3136.088285557245
 HarpersFerryDungeon01,-1495.9265001577096,654.7987195510693
 HornwrightHQ01,748.3360919896047,469.51741933090835
 HornwrightSafeRoom01,-34.87212408165285,926.5457514237387
@@ -1100,7 +1114,7 @@ RadioResearchCenter01,-868.3376606597413,-55.2942852379448
 RaiderCave02,1750.978804542517,2974.3768139394397
 RaiderRaidTrailerInt,-135.51578262195272,-30.123324916047853
 RiversideManor01,2948.6814174486362,1594.8415703323274
-RobCoResearchCenter01,-1541.8567982480608,2005.1920126470275
+RobCoResearchCenter01,-1541.1220088502505,2004.8460436714372
 RobcoExperimentalCache01,-3747.0721599176,2254.03709493187
 RollinsLaborCamp01,131.6420298070715,-76.93431543183802
 SamBlackwellBunker02,580.1526965790185,1710.3770181246973
@@ -1131,25 +1145,26 @@ SheltersVaultReception01,6108.746159845065,-7540.913658339742
 SheltersVaultServerRoom01,1721.5643589387203,583.02510291196
 SheltersVaultStorageFacility,506.39081056254935,-26.27892386248266
 SheltersVaultStorageRoom01,1929.3812026682208,-32.62744832192698
-SheltersVaultTecTrainingCenter,-1449.0988409157633,948.1522202825572
+SheltersVaultTecTrainingCenter,-1449.092908398151,948.146965510907
 SheltersWranglerCasino,4499.056496047973,-2646.9391461372375
 SpruceKnobCampground01,-832.4398255135832,460.6521221088762
 SpruceKnobMissileSilo01,-7981.033640180315,-30221.122560586733
-StormBrownHouse,2126.8733565968314,-708.207534649114
+StormBrownHouse,2293.0180176828494,-367.045227305504
 StormCultistTunnels,3428.917431985343,10621.854760212236
 StormHallucinogeniccave,-1250.0755805133483,724.831727002166
-StormHighKnobFireTower01,1514.0537495341002,4619.982188468341
+StormHighKnobFireTower01,1514.0527814217435,4619.965551734975
 StormRadioBunkerInt,-656.9621528361538,-174.00445977782218
-StormStolzManor,4411.257721896954,-969.3657708517685
+StormStolzManor,4411.636140402951,-970.0033626288383
 StormVault63AtriumLower,5031.434584670802,637.1386100044547
-StormVault63AtriumUpper,6104.584320464692,-10728.991432883522
+StormVault63AtriumUpper,6104.565961820139,-10728.858187902042
 StormVault63Entrance,5359.124192270353,480.4875893230217
-StormVisitorCenterInt,1139.9918328371957,2736.911977730983
+StormVisitorCenterInt,1139.9918328371957,2736.9121659915236
 StormWeatherLab01,5392.18571742777,4926.569995591143
 SugarGrove01,1429.451004029815,5024.447008802511
 SugarGrove02,494.66690547703814,-302.2691560161071
 SugarGroveMissileSilo01,-7983.373026150042,-30221.393987671076
 SurlysShack01,9.500166201856306,103.15987344221634
+TheClimb,14686.423408321343,17258.76537666653
 TheCraterCore01,-3969.80930604728,-435.5676017912918
 TheNukashine01,608.3035801017802,840.1524752907935
 TheRoseRoom01,927.363345250153,712.5567195214495
@@ -1189,14 +1204,14 @@ WatogaUnderground01,1384.1101481416504,6210.182427449242
 WendigoCave01,10957.407665834991,-1990.912902997613
 WestTek01,10402.146317416453,1376.874521123634
 WestTek02,8494.590983025326,2291.0882303984404
-WestTek02Arena,6995.014274620936,3240.3841318385994
+WestTek02Arena,6995.776736106027,3240.6365875177403
 WhitespringBunker01,-15001.655939207623,-8897.797920471352
 WhitespringMall01,-7080.779698146259,8306.253951615985
 WhitespringRefuge01,-9600.31513019135,9741.394957472925
 XPDAC01Casino,-2529.380923100643,205.918440116874
 XPDAC01EntertainmentDistrict,-2447.393442624257,-835.7244400179263
 XPDAC01NightClub,-297.7381923546294,1312.8674795573584
-XPDAC02Aquarium,-1880.9314337112412,-783.3484684535748
+XPDAC02Aquarium,-1877.4125651339432,-775.1179621798609
 XPDAC02AquariumDungeon,-237.69820542996095,-2408.7802666435236
 XPDAC02Boardwalk,-1792.5269125738812,-5471.854553935617
 XPDAC02Pier,689.8492137251934,3596.830483676068
@@ -1211,13 +1226,13 @@ XPDPitt02Sanctum,2017.7484034381619,363.1871312081117
 XPDPitt02Trench,-8555.705636982708,-7125.709669865219
 
 Avg Container items per container
-1.4545454545454546
+1.4478527607361964
 
 Avg Container quantity per item
-4.458806818181818
+4.4392655367231635
 
 Unique Container count
-484
+489
 
 Flux-producing entities count
 Cobalt,15
@@ -1260,6 +1275,7 @@ Locations
 8349691,LocBurnCornhengeLocation,World of Corn,Appalachia
 8329527,LocBurnDinoGolf,Dino Peaks Mini Golf,Appalachia
 8312752,LocBurnDriveinWorkshopLocation,Starlight Drive-in,Appalachia
+9491344,LocBurnForeverFarmExteriorLocation,Forever Farm,Appalachia
 8167820,LocBurnFrontierFortLocation,Fort Steuben,Appalachia
 8290436,LocBurnHighwayTownExtLocation,Highway Town,Appalachia
 8706916,LocBurnPOI101WildwoodRanchLocation,Westbrook Horse Ranch,Appalachia
@@ -1597,6 +1613,9 @@ Locations
 6270221,LocMountainsWendigoCaveLocationDUPLICATE000,Wendigo Cave,Appalachia
 6270220,LocMountainsWestTekResearchLocation,West Tek Research Center,Appalachia
 3742126,LocMountainsYellowSandysStillLocation,Yellow Sandy's Still,Appalachia
+9080240,LocRTSVAbandonedFarm,Moorman's Run Outpost,Appalachia
+9076579,LocRTSVPioneerSpelunkingCampLocation,Riprap Overlook,Appalachia
+9074566,LocRTSVSummerCampNORTHLocation,White Rock Falls,Appalachia
 399019,LocSacramentalGladeLocation,Sacramental Glade,Appalachia
 8027757,LocStormBigBloomSiteLocation,Susan's Cabin,Appalachia
 7061130,LocStormBlueRidgeCampLocation,Naked Creek,Appalachia
@@ -1614,6 +1633,7 @@ Locations
 7525831,LocStormLightningHarvesterSiteB,Research Site Bavaria,Appalachia
 7525830,LocStormLightningHarvesterSiteC,Research Site Rhineland,Appalachia
 7050886,LocStormMakeoutPointLocation,Makeout Point,Appalachia
+7717869,LocStormMarysRockTunnelLocation,Mary's Rock Tunnel,Appalachia
 7216684,LocStormNaturalBridge,Grindstone Arch,Appalachia
 7096968,LocStormRadioactiveWasteSiteLocation,Hemlock Springs Dump,Appalachia
 7310013,LocStormRangerStationBunkerLocation,Park Ranger Radio Bunker,Appalachia
@@ -1621,12 +1641,14 @@ Locations
 7769818,LocStormRoadLocation,Shenandoah National Park,Appalachia
 7050880,LocStormRobinsonRangerStationLocation,Shenandoah Visitor Center,Appalachia
 7096969,LocStormSkyboundTowerLocation,Old Rag Lookout,Appalachia
+9642061,LocStormSkylineCavernsExteriorLocation,Black Pool Caverns,Appalachia
 7050881,LocStormSkylineDriveEntranceLocation,Skyline Drive Entrance,Appalachia
+9073765,LocStormSkylineRaiderCamp,Skyline Blockade,Appalachia
 7771668,LocStormSubstationThunderMtTM03Location,Thunder Mountain Substation TM-03,Appalachia
 7050888,LocStormSummerCampLocation,Camp Liberty,Appalachia
 7797099,LocStormThreePondsLocation,Three Ponds,Appalachia
 7050889,LocStormTradingPostLocation,The Trading Post,Appalachia
-7050884,LocStormVaultCovoyLocation,Abandoned Convoy,Appalachia
+7050884,LocStormVaultConvoyLocation,Abandoned Convoy,Appalachia
 7050883,LocStormWeatherStationLocation,Hawksbill Weather Station,Appalachia
 7050885,LocStormWoodstockTowerLocation,Stony Man Lookout,Appalachia
 6182464,LocSubToxicValleyMakeshiftVaultLocation,Enclave Research Facility,Appalachia
@@ -1757,7 +1779,6 @@ Locations
 3076108,SF_BloodbugSwarmLocation02,,Appalachia
 3076109,SF_BloodbugSwarmLocation03,,Appalachia
 3076110,SF_BloodbugSwarmLocation04,,Appalachia
-7717869,StormMarysRockTunnelLocation,Mary's Rock Tunnel,Appalachia
 3824054,SubForestCampAdamsLocation,Camp Adams,Appalachia
 77675,SubMTRENz04POI04Location,Bot Patrol Location POI 04,Appalachia
 8219275,SubRegionBurningSprings01Location,Burning Springs,Appalachia
@@ -1934,6 +1955,7 @@ LocBurnChopShop,Appalachia,4
 LocBurnCornhengeLocation,Appalachia,9
 LocBurnDinoGolf,Appalachia,5
 LocBurnDriveinWorkshopLocation,Appalachia,6
+LocBurnForeverFarmExteriorLocation,Appalachia,1
 LocBurnFrontierFortLocation,Appalachia,4
 LocBurnHighwayTownExtLocation,Appalachia,4
 LocBurnPOI101WildwoodRanchLocation,Appalachia,1
@@ -2271,11 +2293,14 @@ LocMountainsUncannyCavernsLocation,Appalachia,4
 LocMountainsWendigoCaveLocationDUPLICATE000,Appalachia,1
 LocMountainsWestTekResearchLocation,Appalachia,8
 LocMountainsYellowSandysStillLocation,Appalachia,4
+LocRTSVAbandonedFarm,Appalachia,1
+LocRTSVPioneerSpelunkingCampLocation,Appalachia,3
+LocRTSVSummerCampNORTHLocation,Appalachia,2
 LocSacramentalGladeLocation,Appalachia,7
 LocStormBigBloomSiteLocation,Appalachia,8
-LocStormBlueRidgeCampLocation,Appalachia,2
+LocStormBlueRidgeCampLocation,Appalachia,3
 LocStormCampRapidanLocation,Appalachia,13
-LocStormCrashedScoutsBusLocation,Appalachia,2
+LocStormCrashedScoutsBusLocation,Appalachia,6
 LocStormCrossroadLocation,Appalachia,1
 LocStormCultistTunnelsLocation,Appalachia,3
 LocStormDarkWoodManorGateLocation,Appalachia,2
@@ -2287,7 +2312,8 @@ LocStormHighKnobFireTowerLocation,Appalachia,3
 LocStormLightningHarvesterSiteA,Appalachia,1
 LocStormLightningHarvesterSiteB,Appalachia,1
 LocStormLightningHarvesterSiteC,Appalachia,1
-LocStormMakeoutPointLocation,Appalachia,2
+LocStormMakeoutPointLocation,Appalachia,3
+LocStormMarysRockTunnelLocation,Appalachia,3
 LocStormNaturalBridge,Appalachia,4
 LocStormRadioactiveWasteSiteLocation,Appalachia,2
 LocStormRangerStationBunkerLocation,Appalachia,1
@@ -2295,12 +2321,14 @@ LocStormRedRocketMotelLocation,Appalachia,7
 LocStormRoadLocation,Appalachia,1
 LocStormRobinsonRangerStationLocation,Appalachia,5
 LocStormSkyboundTowerLocation,Appalachia,1
+LocStormSkylineCavernsExteriorLocation,Appalachia,1
 LocStormSkylineDriveEntranceLocation,Appalachia,2
-LocStormSubstationThunderMtTM03Location,Appalachia,14
-LocStormSummerCampLocation,Appalachia,13
+LocStormSkylineRaiderCamp,Appalachia,2
+LocStormSubstationThunderMtTM03Location,Appalachia,13
+LocStormSummerCampLocation,Appalachia,11
 LocStormThreePondsLocation,Appalachia,4
 LocStormTradingPostLocation,Appalachia,2
-LocStormVaultCovoyLocation,Appalachia,3
+LocStormVaultConvoyLocation,Appalachia,4
 LocStormWeatherStationLocation,Appalachia,8
 LocStormWoodstockTowerLocation,Appalachia,2
 LocSubToxicValleyMakeshiftVaultLocation,Appalachia,2
@@ -2409,8 +2437,8 @@ RegionBurningSpringsLocation,Appalachia,237
 RegionCranberryBogLocation,Appalachia,203
 RegionForestFloodlandsLocation,Appalachia,265
 RegionMTRLocation,Appalachia,2
-RegionMountainLocation,Appalachia,360
-RegionStormLocation,Appalachia,118
+RegionMountainLocation,Appalachia,344
+RegionStormLocation,Appalachia,312
 RegionSwampForestLocation,Appalachia,108
 RegionToxicValleyLocation,Appalachia,83
 SFL02_Track_HardballLocation,Appalachia,1
@@ -2431,7 +2459,6 @@ SF_BloodbugSwarmLocation01,Appalachia,1
 SF_BloodbugSwarmLocation02,Appalachia,1
 SF_BloodbugSwarmLocation03,Appalachia,1
 SF_BloodbugSwarmLocation04,Appalachia,1
-StormMarysRockTunnelLocation,Appalachia,3
 SubForestCampAdamsLocation,Appalachia,3
 SubMTRENz04POI04Location,Appalachia,1
 SubRegionBurningSprings01Location,Appalachia,32
@@ -2452,7 +2479,7 @@ SubRegionBurningSprings15Location,Appalachia,46
 SubRegionBurningSprings16Location,Appalachia,38
 SubRegionBurningSprings17Location,Appalachia,46
 SubRegionBurningSprings18Location,Appalachia,28
-SubRegionBurningSprings19Location,Appalachia,36
+SubRegionBurningSprings19Location,Appalachia,35
 SubRegionBurningSprings20Location,Appalachia,47
 SubRegionCranberry01Location,Appalachia,41
 SubRegionCranberry02Location,Appalachia,62
@@ -2527,30 +2554,30 @@ SubRegionMountains25Location,Appalachia,57
 SubRegionMountains26Location,Appalachia,131
 SubRegionMountains27Location,Appalachia,94
 SubRegionMountains28Location,Appalachia,102
-SubRegionMountains29Location,Appalachia,76
-SubRegionMountains30Location,Appalachia,106
+SubRegionMountains29Location,Appalachia,75
+SubRegionMountains30Location,Appalachia,99
 SubRegionMountains31Location,Appalachia,67
-SubRegionMountains32Location,Appalachia,75
-SubRegionMountains33Location,Appalachia,66
-SubRegionMountains34Location,Appalachia,56
+SubRegionMountains32Location,Appalachia,70
+SubRegionMountains33Location,Appalachia,58
+SubRegionMountains34Location,Appalachia,54
 SubRegionStorm01Location,Appalachia,35
 SubRegionStorm02Location,Appalachia,26
 SubRegionStorm03Location,Appalachia,28
 SubRegionStorm04Location,Appalachia,29
 SubRegionStorm05Location,Appalachia,15
-SubRegionStorm06Location,Appalachia,29
+SubRegionStorm06Location,Appalachia,28
 SubRegionStorm07Location,Appalachia,32
 SubRegionStorm08Location,Appalachia,30
 SubRegionStorm09Location,Appalachia,26
 SubRegionStorm10Location,Appalachia,21
-SubRegionStorm11Location,Appalachia,32
+SubRegionStorm11Location,Appalachia,31
 SubRegionStorm12Location,Appalachia,31
-SubRegionStorm13Location,Appalachia,31
+SubRegionStorm13Location,Appalachia,30
 SubRegionStorm14Location,Appalachia,30
-SubRegionStorm15Location,Appalachia,29
+SubRegionStorm15Location,Appalachia,27
 SubRegionStorm16Location,Appalachia,28
-SubRegionStorm17Location,Appalachia,25
-SubRegionStorm18Location,Appalachia,32
+SubRegionStorm17Location,Appalachia,21
+SubRegionStorm18Location,Appalachia,31
 SubRegionSwamp01Location,Appalachia,75
 SubRegionSwamp02Location,Appalachia,53
 SubRegionSwamp03Location,Appalachia,98
@@ -2684,6 +2711,10 @@ GlassedCavern01:0
 GlassedCavernDungeon:0
 GraftonPawnShop01:1
 GraftonSteelUnderground01:0
+HIDE01ForeverFarm:13
+HIDE02Tunnel:2316
+HIDE03ImmortalityCenter:12
+HIDE04SkylineCaverns:19
 HarpersFerryDungeon01:5
 HornwrightHQ01:0
 HornwrightSafeRoom01:0
@@ -2752,7 +2783,7 @@ SheltersVaultTecTrainingCenter:0
 SheltersWranglerCasino:0
 SpruceKnobCampground01:0
 SpruceKnobMissileSilo01:0
-StormBrownHouse:19
+StormBrownHouse:272
 StormCultistTunnels:0
 StormHallucinogeniccave:3
 StormHighKnobFireTower01:1
@@ -2767,6 +2798,7 @@ SugarGrove01:0
 SugarGrove02:19
 SugarGroveMissileSilo01:0
 SurlysShack01:4
+TheClimb:3377
 TheCraterCore01:78
 TheNukashine01:0
 TheRoseRoom01:1
@@ -2828,12 +2860,12 @@ XPDPitt02Sanctum:0
 XPDPitt02Trench:237
 
 Space Coordinate Checksums
-Appalachia:-4855565823411544539
+Appalachia:-5992312428406015503
 AMSHQ01:-5003531309026812394
 AMSHQ02:-8426578450065187914
 AVRMedicalCenter01:5512355906186978031
-AlleghenyAsylum01:-9002147127855990116
-ArktosPharmaLab01:-3032608838977110447
+AlleghenyAsylum01:5936759798070159933
+ArktosPharmaLab01:-186879225048516089
 ArktosPharmaLabDungeon:-6624164816614785281
 BelchingBetty01:6481340754658242780
 BigBendTunnel01:-3781278844718623339
@@ -2847,11 +2879,11 @@ BurnChopShopBasement:6714789111411865326
 BurnHWTEugeneINT:-4595363222955775940
 BurnHWTLoanSharkInt:4222893296845283322
 BurnHWTMooseINT:7833258191086976913
-BurnHWTownInt:1210927668023921662
+BurnHWTownInt:-2522716709644929765
 BurnRailroadServiceYardInt:8711136723755463896
 BurnRustKingdomInterior:-6143616095521952846
 BurningMine01:-2907074520306969020
-Burrows01:-8826589080768175566
+Burrows01:247042650323840467
 CharGen01:-9021491138983520076
 CharGen02:-8605542639630874580
 CharGen03:-9091321098200933332
@@ -2868,8 +2900,8 @@ DaggersDen02:3069160779387263382
 DuncanDuncanRobotics01:-3386654173901922646
 DyerChemical01:5210098301995501587
 EasternRegionalPen01:1903495790408157741
-EmmettMountainDisposalSite01:-5595724048286547322
-EnclaveResearchFacility01:-3641811696960178391
+EmmettMountainDisposalSite01:32944970005585447
+EnclaveResearchFacility01:4233562808649026461
 FortAtlas01:6872186317763331134
 FortAtlasDungeon01:7048612856044721063
 FoundationInt01:-3014597443083142369
@@ -2892,6 +2924,10 @@ GlassedCavern01:-2205006287307965270
 GlassedCavernDungeon:1030563466240988932
 GraftonPawnShop01:103058719182242969
 GraftonSteelUnderground01:-6637633022065937399
+HIDE01ForeverFarm:-7423297175427951364
+HIDE02Tunnel:-8593861510304087811
+HIDE03ImmortalityCenter:-1029532879150434034
+HIDE04SkylineCaverns:8659153645610462674
 HarpersFerryDungeon01:-4425959405164923121
 HornwrightHQ01:-3088637210916663907
 HornwrightSafeRoom01:1408427700453331851
@@ -2925,7 +2961,7 @@ RadioResearchCenter01:1198659847534221455
 RaiderCave02:-5694236682991174771
 RaiderRaidTrailerInt:-1630920671147923595
 RiversideManor01:7006532414841342772
-RobCoResearchCenter01:-5101976405896395033
+RobCoResearchCenter01:3754291974030556354
 RobcoExperimentalCache01:606309532030730915
 RollinsLaborCamp01:7030510615630526314
 SamBlackwellBunker02:-5030983862917552066
@@ -2956,25 +2992,26 @@ SheltersVaultReception01:-3405645801426255593
 SheltersVaultServerRoom01:-4082115097947562015
 SheltersVaultStorageFacility:4482765274454311450
 SheltersVaultStorageRoom01:5855127319899376568
-SheltersVaultTecTrainingCenter:5031888653833586934
+SheltersVaultTecTrainingCenter:5094243712544248054
 SheltersWranglerCasino:6088588148801591711
 SpruceKnobCampground01:-7546985003345963796
 SpruceKnobMissileSilo01:3527629452290527967
-StormBrownHouse:-8801076002070957379
+StormBrownHouse:-4094829169147607811
 StormCultistTunnels:-3427766622582120420
 StormHallucinogeniccave:-7209715829656654404
-StormHighKnobFireTower01:-5759731188775157550
+StormHighKnobFireTower01:-6402395315552984878
 StormRadioBunkerInt:5872085590633439066
-StormStolzManor:-2326960393121630442
+StormStolzManor:6005802668012127188
 StormVault63AtriumLower:2313962489790540237
-StormVault63AtriumUpper:992046219802252795
+StormVault63AtriumUpper:-7547840344819623524
 StormVault63Entrance:-1975516634988660807
-StormVisitorCenterInt:-5525153636980081904
+StormVisitorCenterInt:8100635902162444048
 StormWeatherLab01:8589312972890252924
 SugarGrove01:3460528894955338761
 SugarGrove02:2383875065215458480
 SugarGroveMissileSilo01:9047578217620311796
 SurlysShack01:-4240305842693672698
+TheClimb:8860007578928882089
 TheCraterCore01:3381886822035420051
 TheNukashine01:-2713144026403941139
 TheRoseRoom01:863939594533182553
@@ -3014,14 +3051,14 @@ WatogaUnderground01:8130837386014328349
 WendigoCave01:2353946814707463594
 WestTek01:-2579431043775692331
 WestTek02:1016210469918491605
-WestTek02Arena:7784509353191186261
+WestTek02Arena:2814352253095648254
 WhitespringBunker01:-2471826667644771022
 WhitespringMall01:-7019942782544187306
 WhitespringRefuge01:-1791160485392776461
 XPDAC01Casino:3527091448670129484
 XPDAC01EntertainmentDistrict:-6099235982236417802
 XPDAC01NightClub:-5839196656772664341
-XPDAC02Aquarium:-6539494919911727746
+XPDAC02Aquarium:-5970877684812876281
 XPDAC02AquariumDungeon:-1627912942906574171
 XPDAC02Boardwalk:1763815686191144859
 XPDAC02Pier:6253628948588168811
