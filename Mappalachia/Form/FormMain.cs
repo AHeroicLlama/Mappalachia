@@ -78,7 +78,7 @@ namespace Mappalachia
 			dataGridViewItemsToPlot.Columns.Add(new DataGridViewTextBoxColumn() { Name = "PlotIcon", FillWeight = 2, ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle() { BackColor = Color.DarkGray } });
 
 			// Disable closing the menu upon selection for these toolstrip items
-			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, spotlightToolStripMenuItem, coordinateGridToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendVerticalToolStripMenuItem, legendHorizontalToolStripMenuItem, lookupToolStripMenuItem, lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem })
+			foreach (ToolStripMenuItem item in new[] { mapMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, legendToolStripMenuItem, plotSettingsMenuItem, plotModeMenuItem, volumeDrawStyleToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, coordinateGridToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendVerticalToolStripMenuItem, legendHorizontalToolStripMenuItem, lookupToolStripMenuItem, lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem })
 			{
 				item.DropDown.Closing += DontCloseClickedDropDown;
 			}
@@ -275,16 +275,11 @@ namespace Mappalachia
 			showPlotsInOtherSpacesToolStripMenuItem.Checked = Settings.PlotSettings.AutoFindPlotsInConnectedSpaces;
 			showRegionLevelsToolStripMenuItem.Checked = Settings.PlotSettings.ShowRegionLevels;
 			drawBoundsToolStripMenuItem.Checked = Settings.PlotSettings.DrawBounds;
-			spotlightEnabledToolStripMenuItem.Checked = Settings.MapSettings.SpotlightEnabled;
 			coordinateGridEnabledToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
-			lookupEnabledToolStripMenuItem.Checked = Settings.MapSettings.LookupEnabled;
 			lookupDrawVolumesToolStripMenuItem.Checked = Settings.MapSettings.LookupDrawVolumes;
-			lookupRespectCategoryFiltersToolStripMenuItem.Checked = Settings.MapSettings.LookupRespectCategoryFilters;
 
 			// Update the text of some items
 			backgroundBrightnessToolStripMenuItem.Text = $"Background Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
-			spotlightSetRangeToolStripMenuItem.Text = $"Set Range ({Settings.MapSettings.SpotlightSize})";
-			spotlightCoordToolStripMenuItem.Text = $"Coord ({Math.Round(Settings.MapSettings.SpotlightLocation.X, 2)}, {Math.Round(Settings.MapSettings.SpotlightLocation.Y, 2)})";
 
 			// Set all members of list items which are "pick only one" lists to be unchecked
 			foreach (ToolStripMenuItem item in new[] { backgroundImageMenuItem, legendToolStripMenuItem, volumeDrawStyleToolStripMenuItem, plotModeMenuItem, showCompassToolStripMenuItem, coordinateGridPrecisionToolStripMenuItem, legendStyleToolStripMenuItem, legendHorizontalToolStripMenuItem, legendVerticalToolStripMenuItem, lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem })
@@ -471,8 +466,6 @@ namespace Mappalachia
 			highlightWaterToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
 			mapMapMarkersToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
 			showInfestationsToolStripMenuItem.Enabled = Settings.Space.IsWorldspace;
-
-			spotlightToolStripMenuItem.Enabled = Settings.Space.IsSuitableForSpotlight();
 
 			UpdateDataGridAppearances();
 
@@ -982,16 +975,6 @@ namespace Mappalachia
 			await SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.None);
 		}
 
-		private async void Map_Spotlight_Enabled_Click(object sender, EventArgs e)
-		{
-			await SetSetting(() => Settings.MapSettings.SpotlightEnabled = !Settings.MapSettings.SpotlightEnabled);
-		}
-
-		private async void Map_Lookup_Enabled_Click(object sender, EventArgs e)
-		{
-			await SetSetting(() => Settings.MapSettings.LookupEnabled = !Settings.MapSettings.LookupEnabled);
-		}
-
 		private async void Map_Lookup_Range_Small_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.LookupRange = LookupRange.Small);
@@ -1025,11 +1008,6 @@ namespace Mappalachia
 		private async void Map_Lookup_DrawVolumes_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.LookupDrawVolumes = !Settings.MapSettings.LookupDrawVolumes);
-		}
-
-		private async void Map_Lookup_RespectCategoryFilters_Click(object sender, EventArgs e)
-		{
-			await SetSetting(() => Settings.MapSettings.LookupRespectCategoryFilters = !Settings.MapSettings.LookupRespectCategoryFilters);
 		}
 
 		private async void Map_Grayscale_Click(object sender, EventArgs e)
@@ -1090,21 +1068,6 @@ namespace Mappalachia
 		private async void Map_Compass_Never_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.CompassStyle = CompassStyle.Off);
-		}
-
-		private async void Map_Spotlight_SetRange_Click(object sender, EventArgs e)
-		{
-			await OpenSpotlightSetSizeDialog();
-		}
-
-		private void Map_Spotlight_Coord_Click(object sender, EventArgs e)
-		{
-			mapMenuItem.DropDown.Close();
-			spotlightToolStripMenuItem.DropDown.Close();
-
-			spotlightCoordToolStripMenuItem.Enabled = false;
-			Notify.Info("Spotlight", "Spotlight location", "Right click the map preview to choose the spotlighted area.");
-			ShowMapPreview();
 		}
 
 		private async void Map_Legend_Style_Compact_Click(object sender, EventArgs e)

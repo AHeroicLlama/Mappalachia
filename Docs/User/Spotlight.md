@@ -22,8 +22,6 @@ If you don't have the latest spotlight installed, you may still update it by rep
 ## Using Spotlight
 To use spotlight, simply right-click the map preview at the location you would like and select 'Spotlight Here'. Mappalachia will render the selected area in super high detail. You may amend the effective level of detail by right-clicking again with spotlight on, and selecting 'Set Spotlight Size...'. (Note that using large spotlight sizes can be slow.)<br/>
 
-You may also turn spotlight on/off and set the size at 'Map' > 'Spotlight', however you must use the map preview to select the location of the spotlight.<br/>
-
 If your spotlight maps are blurry and/or without increased clarity, this indicates you have selected an area outside the playable space, otherwise spotlight may be incorrectly installed.
 
 ## Next guide

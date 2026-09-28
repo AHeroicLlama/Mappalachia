@@ -130,8 +130,6 @@ namespace Mappalachia
 
 		public Coord LookupLocation { get; set; } = default;
 
-		public bool LookupRespectCategoryFilters { get; set; } = true;
-
 		public LookupArrangement LookupArrangement { get; set; } = LookupArrangement.ArrangeLabels;
 
 		public bool GrayscaleBackground { get; set; } = false;

@@ -473,7 +473,7 @@ namespace Mappalachia
 				$"boundX, boundY, boundZ, rotX, rotY, rotZ, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2, (x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) as distanceSquared FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {settings.Space.FormID} AND " +
-				(settings.MapSettings.LookupRespectCategoryFilters ? $"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " : string.Empty) +
+				$"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " +
 				$"x BETWEEN {coord.X - range} AND {coord.X + range} AND " +
 				$"y BETWEEN {coord.Y - range} AND {coord.Y + range} AND " +
 				$"distanceSquared <= {range * range} " +

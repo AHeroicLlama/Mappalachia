@@ -485,7 +485,7 @@ namespace Mappalachia
 				using Pen pen = new Pen(color, LookupLabelLineThickness);
 				graphics.DrawLine(pen, instance.Coord.AsImagePoint(settings), labelLocation);
 
-				DrawBounds(instance, settings, graphics, color, true);
+				DrawBounds(instance, settings, graphics, color);
 
 				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
 				{
@@ -498,9 +498,9 @@ namespace Mappalachia
 		}
 
 		// Draw the 3D bounding box of an instance
-		static void DrawBounds(Instance instance, Settings settings, Graphics graphics, Color color, bool skipConfigCheck = false)
+		static void DrawBounds(Instance instance, Settings settings, Graphics graphics, Color color)
 		{
-			if (!skipConfigCheck && !settings.PlotSettings.DrawBounds)
+			if (!settings.PlotSettings.DrawBounds)
 			{
 				return;
 			}
