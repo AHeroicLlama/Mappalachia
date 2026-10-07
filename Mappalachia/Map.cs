@@ -465,24 +465,34 @@ namespace Mappalachia
 				SizeF bounds = graphics.MeasureString(text, font);
 				PointF labelLocation;
 
-				// TODO Beside
 				if (settings.MapSettings.LookupArrangement == LookupArrangement.Beside)
 				{
-					double angle = GeometryHelper.GetAngleFrom(centerPoint, instance.Coord);
-					int count = instances.Count();
-					var boundsEst = 50; // TODO
+					int halfCount = instances.Count / 2;
+					bool right = i < halfCount;
 
-					labelLocation = new Coord(
-						(i <= count / 2) ? centerPoint.X + lookupRange + (bounds.Width / 2) : centerPoint.X - lookupRange - (bounds.Width / 2),
-						centerPoint.Y + ((i - (count / 2)) * boundsEst))
-						.AsImagePoint(settings);
+					int countThisSide = right ? halfCount : instances.Count - halfCount;
+					int indexThisSide = right ? i : i - halfCount;
+					int visualIndex = right ? indexThisSide : (countThisSide - indexThisSide - 1);
+
+					double worldX = right ? centerPoint.X + lookupRange : centerPoint.X - lookupRange;
+					PointF baseImagePos = new Coord(worldX, centerPoint.Y).AsImagePoint(settings);
+
+					float totalHeightPixels = countThisSide * bounds.Height;
+
+					float x = right
+						? baseImagePos.X + (bounds.Width / 2f)
+						: baseImagePos.X - (bounds.Width / 2f);
+
+					float y = baseImagePos.Y - (totalHeightPixels / 2f) + (bounds.Height / 2f) + (visualIndex * bounds.Height);
+
+					labelLocation = new PointF(x, y);
 				}
 				else
 				{
 					double angle = settings.MapSettings.LookupArrangement switch
 					{
 						LookupArrangement.ArrangeLines => GeometryHelper.GetAngleFrom(centerPoint, instance.Coord),
-						LookupArrangement.ArrangeLabels => (365d / instances.Count) * i,
+						LookupArrangement.ArrangeLabels => (360d / instances.Count) * i,
 						_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupArrangement)} value {settings.MapSettings.LookupArrangement}"),
 					};
 
@@ -491,6 +501,7 @@ namespace Mappalachia
 					angle *= Math.PI / 180d;
 					double x = centerPoint.X + ((lookupRange + LookupLabelPadding + (bounds.Width * 2)) * Math.Sin(angle));
 					double y = centerPoint.Y + ((lookupRange + LookupLabelPadding + (bounds.Height * 2)) * Math.Cos(angle));
+
 					labelLocation = new Coord(x, y).AsImagePoint(settings);
 				}
 
