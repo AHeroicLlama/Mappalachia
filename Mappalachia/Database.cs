@@ -22,6 +22,8 @@ namespace Mappalachia
 
 		static char EscapeChar { get; } = '`';
 
+		static float LookupFuzzyOptimizationClampRange { get; } = 65536; // 2^16
+
 		public static async Task Initialize()
 		{
 			Connection = GetNewConnection(Paths.DatabasePath);
@@ -469,15 +471,23 @@ namespace Mappalachia
 		{
 			List<Instance> instances = new List<Instance>();
 
+			double xBoundMin = coord.X - range - LookupFuzzyOptimizationClampRange;
+			double xBoundMax = coord.X + range + LookupFuzzyOptimizationClampRange;
+			double yBoundMin = coord.Y - range - LookupFuzzyOptimizationClampRange;
+			double yBoundMax = coord.Y + range + LookupFuzzyOptimizationClampRange;
+
 			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, " +
-				$"boundX, boundY, boundZ, rotX, rotY, rotZ, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2, (x - {coord.X}) * (x - {coord.X}) + (y - {coord.Y}) * (y - {coord.Y}) as distanceSquared FROM Position " +
+				$"boundX, boundY, boundZ, rotX, rotY, rotZ, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2, " +
+				$"SQRT(((x - {coord.X}) * (x - {coord.X})) + ((y - {coord.Y}) * (y - {coord.Y}))) as distance, " +
+				$"MAX(ABS(boundX2 - boundX1), ABS(boundY2 - boundY1)) / 2 AS maxRange " +
+				$"FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {settings.Space.FormID} AND " +
 				$"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " +
-				$"x BETWEEN {coord.X - range} AND {coord.X + range} AND " +
-				$"y BETWEEN {coord.Y - range} AND {coord.Y + range} AND " +
-				$"distanceSquared <= {range * range} " +
-				$"ORDER BY distanceSquared, z;";
+				$"x BETWEEN {xBoundMin} AND {xBoundMax} AND " +
+				$"y BETWEEN {yBoundMin} AND {yBoundMax} AND " +
+				$"distance <= {range} + (SQRT(((boundX2 - boundX1) * (boundX2 - boundX1)) + ((boundY2 - boundY1) * (boundY2 - boundY1))) / 2) " +
+				$"ORDER BY distance, z;";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
 

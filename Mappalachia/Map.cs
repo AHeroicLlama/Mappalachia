@@ -177,8 +177,6 @@ namespace Mappalachia
 
 			DrawMapMarkerIconsAndLabels(settings, graphics, progressInfo);
 
-			await DrawLookup(settings, graphics, progressInfo);
-
 			itemsToPlot = itemsToPlot.OrderBy(i => i.LegendGroup).ToList();
 
 			if (itemsToPlot.Count > 0)
@@ -215,6 +213,8 @@ namespace Mappalachia
 				await DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
 				await DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
 			}
+
+			await DrawLookup(settings, graphics, progressInfo);
 
 			await DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
@@ -451,9 +451,11 @@ namespace Mappalachia
 			UpdateProgress(progressInfo, 50, "Searching lookup range");
 			List<Instance> instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, lookupRange, settings);
 
+			UpdateProgress(progressInfo, 75, "Plotting lookup data");
+
+			// Arrange instances in clockwise order around the point
 			instances = instances.OrderBy(i => GeometryHelper.GetAngleFrom(centerPoint, i.Coord)).ToList();
 
-			UpdateProgress(progressInfo, 75, "Plotting lookup data");
 			int i = 0;
 			foreach (Instance instance in instances)
 			{
@@ -472,18 +474,23 @@ namespace Mappalachia
 
 					int countThisSide = right ? halfCount : instances.Count - halfCount;
 					int indexThisSide = right ? i : i - halfCount;
-					int visualIndex = right ? indexThisSide : (countThisSide - indexThisSide - 1);
+
+					// Flip the order for the left-hand-side, so labels are plotted top-down, despite being processed bottom-up.
+					// Prevents connecting lines being crossed-over
+					int correctedIndex = right ?
+						indexThisSide :
+						countThisSide - indexThisSide - 1;
 
 					double worldX = right ? centerPoint.X + lookupRange : centerPoint.X - lookupRange;
 					PointF baseImagePos = new Coord(worldX, centerPoint.Y).AsImagePoint(settings);
 
-					float totalHeightPixels = countThisSide * bounds.Height;
+					float totalHeightPx = countThisSide * bounds.Height;
 
 					float x = right
 						? baseImagePos.X + (bounds.Width / 2f)
 						: baseImagePos.X - (bounds.Width / 2f);
 
-					float y = baseImagePos.Y - (totalHeightPixels / 2f) + (bounds.Height / 2f) + (visualIndex * bounds.Height);
+					float y = baseImagePos.Y - (totalHeightPx / 2f) + (bounds.Height / 2f) + (correctedIndex * bounds.Height);
 
 					labelLocation = new PointF(x, y);
 				}
