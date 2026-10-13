@@ -130,7 +130,7 @@ namespace Mappalachia
 
 		public Coord LookupLocation { get; set; } = default;
 
-		public LookupArrangement LookupArrangement { get; set; } = LookupArrangement.ArrangeLabels;
+		public LookupArrangement LookupArrangement { get; set; } = LookupArrangement.Columns;
 
 		public bool LookupFuzzySearch { get; set; } = false;
 

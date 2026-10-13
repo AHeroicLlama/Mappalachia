@@ -435,14 +435,14 @@ namespace Mappalachia
 
 			switch (Settings.MapSettings.LookupArrangement)
 			{
-				case LookupArrangement.ArrangeLines:
-					lookupArrangementArrangeLinesToolStripMenuItem.Checked = true;
+				case LookupArrangement.Nearest:
+					lookupArrangementNearestToolStripMenuItem.Checked = true;
 					break;
-				case LookupArrangement.ArrangeLabels:
-					lookupArrangementArrangeLabelsToolStripMenuItem.Checked = true;
+				case LookupArrangement.Circular:
+					lookupArrangementCircularToolStripMenuItem.Checked = true;
 					break;
-				case LookupArrangement.Beside:
-					lookupArrangementBesideToolStripMenuItem.Checked = true;
+				case LookupArrangement.Columns:
+					lookupArrangementColumnsToolStripMenuItem.Checked = true;
 					break;
 				default:
 					throw new Exception($"Invalid {nameof(Settings.MapSettings.LookupArrangement)} value {Settings.MapSettings.LookupArrangement}");
@@ -999,19 +999,19 @@ namespace Mappalachia
 			await SetSetting(() => Settings.MapSettings.LookupRange = LookupRange.ExtraLarge);
 		}
 
-		private async void Map_Lookup_Arrangement_ArrangeLabels_Click(object sender, EventArgs e)
+		private async void Map_Lookup_Arrangement_Circular_Click(object sender, EventArgs e)
 		{
-			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.ArrangeLabels);
+			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.Circular);
 		}
 
-		private async void Map_Lookup_Arrangement_ArrangeLines_Click(object sender, EventArgs e)
+		private async void Map_Lookup_Arrangement_Nearest_Click(object sender, EventArgs e)
 		{
-			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.ArrangeLines);
+			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.Nearest);
 		}
 
-		private async void Map_Lookup_Arrangement_Beside_Click(object sender, EventArgs e)
+		private async void Map_Lookup_Arrangement_Columns_Click(object sender, EventArgs e)
 		{
-			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.Beside);
+			await SetSetting(() => Settings.MapSettings.LookupArrangement = LookupArrangement.Columns);
 		}
 
 		private async void Map_Lookup_DrawVolumes_Click(object sender, EventArgs e)

@@ -51,9 +51,9 @@ namespace Mappalachia
 
 	public enum LookupArrangement
 	{
-		ArrangeLabels,
-		ArrangeLines,
-		Beside,
+		Circular,
+		Nearest,
+		Columns,
 	}
 
 	public enum LookupRange
@@ -101,6 +101,8 @@ namespace Mappalachia
 		static Pen CoordinateGridLinePenMajor { get; } = new Pen(Color.DarkGray, 3);
 
 		static int CoordinateGridMajorLineInterval { get; } = 4;
+
+		static int BoundsEdgeThickness { get; } = 2;
 
 		static Color InfestationZoneEdgeColor { get; } = Color.FromArgb(128, 255, 120, 100);
 
@@ -443,6 +445,7 @@ namespace Mappalachia
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeLookupLabel);
 			List<Color> colors = settings.PlotSettings.PlotStyleSettings.Palette;
 			Coord centerPoint = settings.MapSettings.LookupLocation;
+			PointF centerPointImageSpace = centerPoint.AsImagePoint(settings);
 
 			graphics.DrawEllipse(
 				LookupRangePen,
@@ -455,10 +458,12 @@ namespace Mappalachia
 
 			// Arrange instances in clockwise order around the point
 			instances = instances.OrderBy(i => GeometryHelper.GetAngleFrom(centerPoint, i.Coord)).ToList();
+			Dictionary<Instance, PointF> plots = instances.ToDictionary(instance => instance, instance => PointF.Empty);
 
 			int i = 0;
-			foreach (Instance instance in instances)
+			foreach (KeyValuePair<Instance, PointF> plot in plots)
 			{
+				Instance instance = plot.Key;
 				Entity entity = instance.Entity;
 				Color color = colors[i % colors.Count];
 				using Brush brush = new SolidBrush(color);
@@ -467,10 +472,12 @@ namespace Mappalachia
 				SizeF bounds = graphics.MeasureString(text, font);
 				PointF labelLocation;
 
-				if (settings.MapSettings.LookupArrangement == LookupArrangement.Beside)
+				if (settings.MapSettings.LookupArrangement == LookupArrangement.Columns)
 				{
 					int halfCount = instances.Count / 2;
 					bool right = i < halfCount;
+
+					bounds = graphics.MeasureString(text, font, MapImageResolution, right ? CenterRight : CenterLeft);
 
 					int countThisSide = right ? halfCount : instances.Count - halfCount;
 					int indexThisSide = right ? i : i - halfCount;
@@ -498,8 +505,8 @@ namespace Mappalachia
 				{
 					double angle = settings.MapSettings.LookupArrangement switch
 					{
-						LookupArrangement.ArrangeLines => GeometryHelper.GetAngleFrom(centerPoint, instance.Coord),
-						LookupArrangement.ArrangeLabels => (360d / instances.Count) * i,
+						LookupArrangement.Nearest => GeometryHelper.GetAngleFrom(centerPoint, instance.Coord),
+						LookupArrangement.Circular => (360d / instances.Count) * i,
 						_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupArrangement)} value {settings.MapSettings.LookupArrangement}"),
 					};
 
@@ -516,8 +523,27 @@ namespace Mappalachia
 				labelLocation.X = Math.Min(MapImageResolution - (bounds.Width / 2), Math.Max(bounds.Width / 2, labelLocation.X));
 				labelLocation.Y = Math.Min(MapImageResolution - (bounds.Height / 2), Math.Max(bounds.Height / 2, labelLocation.Y));
 
+				plots[instance] = labelLocation;
+				i++;
+			}
+
+			// Draw connecting lines only
+			foreach (KeyValuePair<Instance, PointF> plot in plots)
+			{
+				Instance instance = plot.Key;
+				PointF labelLocation = plot.Value;
+				Color color = colors[instances.IndexOf(instance) % colors.Count];
+
 				using Pen pen = new Pen(color, LookupLabelLineThickness);
 				graphics.DrawLine(pen, instance.Coord.AsImagePoint(settings), labelLocation);
+			}
+
+			// Draw labels, bounds, and optionally primitive shapes
+			foreach (KeyValuePair<Instance, PointF> plot in plots)
+			{
+				Instance instance = plot.Key;
+				PointF labelLocation = plot.Value;
+				Color color = colors[instances.IndexOf(instance) % colors.Count];
 
 				DrawBounds(instance, settings, graphics, color);
 
@@ -526,8 +552,25 @@ namespace Mappalachia
 					DrawPrimitiveShape(settings, graphics, instance, color);
 				}
 
-				graphics.DrawStringCentered(text, font, brush, labelLocation, true);
-				i++;
+				Entity entity = instance.Entity;
+				using Brush brush = new SolidBrush(color);
+				string text = $"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n{entity.EditorID}";
+
+				SizeF bounds = graphics.MeasureString(text, font);
+				RectangleF textBounds = new RectangleF(
+					labelLocation.X - (bounds.Width / 2),
+					labelLocation.Y - (bounds.Height / 2),
+					bounds.Width,
+					bounds.Height);
+
+				StringFormat stringFormat = Center;
+
+				if (settings.MapSettings.LookupArrangement == LookupArrangement.Columns)
+				{
+					stringFormat = plot.Value.X < centerPointImageSpace.X ? CenterRight : CenterLeft;
+				}
+
+				DrawStringWithDropShadow(graphics, text, font, brush, textBounds, stringFormat);
 			}
 		}
 
@@ -581,8 +624,7 @@ namespace Mappalachia
 				points[i] = new Coord(transformedPos.X, transformedPos.Y).AsImagePoint(settings);
 			}
 
-			// TODO var for width
-			using Pen pen = new Pen(color, 1);
+			using Pen pen = new Pen(color, BoundsEdgeThickness);
 
 			// Draw bottom and top faces
 			graphics.DrawPolygon(pen, points[0], points[1], points[2], points[3]);
