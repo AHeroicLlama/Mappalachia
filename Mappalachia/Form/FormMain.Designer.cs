@@ -68,6 +68,7 @@ namespace Mappalachia
 			lookupArrangementArrangeLinesToolStripMenuItem = new ToolStripMenuItem();
 			lookupArrangementBesideToolStripMenuItem = new ToolStripMenuItem();
 			lookupDrawVolumesToolStripMenuItem = new ToolStripMenuItem();
+			lookupFuzzySearchToolStripMenuItem = new ToolStripMenuItem();
 			legendToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleCompactToolStripMenuItem = new ToolStripMenuItem();
@@ -352,7 +353,7 @@ namespace Mappalachia
 			// compassAlwaysToolStripMenuItem
 			// 
 			compassAlwaysToolStripMenuItem.Name = "compassAlwaysToolStripMenuItem";
-			compassAlwaysToolStripMenuItem.Size = new Size(141, 22);
+			compassAlwaysToolStripMenuItem.Size = new Size(180, 22);
 			compassAlwaysToolStripMenuItem.Text = "Always";
 			compassAlwaysToolStripMenuItem.ToolTipText = "The compass rose is always drawn.";
 			compassAlwaysToolStripMenuItem.Click += Map_Compass_Always_Click;
@@ -360,7 +361,7 @@ namespace Mappalachia
 			// compassWhenUsefulToolStripMenuItem
 			// 
 			compassWhenUsefulToolStripMenuItem.Name = "compassWhenUsefulToolStripMenuItem";
-			compassWhenUsefulToolStripMenuItem.Size = new Size(141, 22);
+			compassWhenUsefulToolStripMenuItem.Size = new Size(180, 22);
 			compassWhenUsefulToolStripMenuItem.Text = "When Useful";
 			compassWhenUsefulToolStripMenuItem.ToolTipText = "The compass is drawn only when North is not 'up' on the map already.";
 			compassWhenUsefulToolStripMenuItem.Click += Map_Compass_WhenUseful_Click;
@@ -368,14 +369,14 @@ namespace Mappalachia
 			// compassNeverToolStripMenuItem
 			// 
 			compassNeverToolStripMenuItem.Name = "compassNeverToolStripMenuItem";
-			compassNeverToolStripMenuItem.Size = new Size(141, 22);
+			compassNeverToolStripMenuItem.Size = new Size(180, 22);
 			compassNeverToolStripMenuItem.Text = "Never";
 			compassNeverToolStripMenuItem.ToolTipText = "The compass is never drawn.";
 			compassNeverToolStripMenuItem.Click += Map_Compass_Never_Click;
 			// 
 			// lookupToolStripMenuItem
 			// 
-			lookupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem, lookupDrawVolumesToolStripMenuItem });
+			lookupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem, lookupDrawVolumesToolStripMenuItem, lookupFuzzySearchToolStripMenuItem });
 			lookupToolStripMenuItem.Name = "lookupToolStripMenuItem";
 			lookupToolStripMenuItem.Size = new Size(240, 22);
 			lookupToolStripMenuItem.Text = "Lookup";
@@ -426,7 +427,7 @@ namespace Mappalachia
 			// lookupArrangementArrangeLabelsToolStripMenuItem
 			// 
 			lookupArrangementArrangeLabelsToolStripMenuItem.Name = "lookupArrangementArrangeLabelsToolStripMenuItem";
-			lookupArrangementArrangeLabelsToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementArrangeLabelsToolStripMenuItem.Size = new Size(152, 22);
 			lookupArrangementArrangeLabelsToolStripMenuItem.Text = "Arrange Labels";
 			lookupArrangementArrangeLabelsToolStripMenuItem.ToolTipText = "Prioritize arranging the labels neatly around the circle. Arrows may overlap.";
 			lookupArrangementArrangeLabelsToolStripMenuItem.Click += Map_Lookup_Arrangement_ArrangeLabels_Click;
@@ -434,7 +435,7 @@ namespace Mappalachia
 			// lookupArrangementArrangeLinesToolStripMenuItem
 			// 
 			lookupArrangementArrangeLinesToolStripMenuItem.Name = "lookupArrangementArrangeLinesToolStripMenuItem";
-			lookupArrangementArrangeLinesToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementArrangeLinesToolStripMenuItem.Size = new Size(152, 22);
 			lookupArrangementArrangeLinesToolStripMenuItem.Text = "Arrange Lines";
 			lookupArrangementArrangeLinesToolStripMenuItem.ToolTipText = "Prioritize the arrows not overlapping. Label text may overlap.";
 			lookupArrangementArrangeLinesToolStripMenuItem.Click += Map_Lookup_Arrangement_ArrangeLines_Click;
@@ -442,7 +443,7 @@ namespace Mappalachia
 			// lookupArrangementBesideToolStripMenuItem
 			// 
 			lookupArrangementBesideToolStripMenuItem.Name = "lookupArrangementBesideToolStripMenuItem";
-			lookupArrangementBesideToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementBesideToolStripMenuItem.Size = new Size(152, 22);
 			lookupArrangementBesideToolStripMenuItem.Text = "Beside";
 			lookupArrangementBesideToolStripMenuItem.ToolTipText = "Arrange columns of labels either side of the area.";
 			lookupArrangementBesideToolStripMenuItem.Click += Map_Lookup_Arrangement_Beside_Click;
@@ -454,6 +455,14 @@ namespace Mappalachia
 			lookupDrawVolumesToolStripMenuItem.Text = "Draw Volumes";
 			lookupDrawVolumesToolStripMenuItem.ToolTipText = "Control if volumes found by the lookup are drawn as well as being labeled.";
 			lookupDrawVolumesToolStripMenuItem.Click += Map_Lookup_DrawVolumes_Click;
+			// 
+			// lookupFuzzySearchToolStripMenuItem
+			// 
+			lookupFuzzySearchToolStripMenuItem.Name = "lookupFuzzySearchToolStripMenuItem";
+			lookupFuzzySearchToolStripMenuItem.Size = new Size(180, 22);
+			lookupFuzzySearchToolStripMenuItem.Text = "Fuzzy Search";
+			lookupFuzzySearchToolStripMenuItem.ToolTipText = "Extend the search to include nearby entities whose origin is not in the range, but whose bounds might overlap with it.";
+			lookupFuzzySearchToolStripMenuItem.Click += Map_Lookup_FuzzySearch_Click;
 			// 
 			// legendToolStripMenuItem
 			// 
@@ -1290,5 +1299,6 @@ namespace Mappalachia
 		private ToolStripMenuItem includeCountInLegendTextToolStripMenuItem;
 		private ToolStripMenuItem drawBoundsToolStripMenuItem;
 		private ToolStripMenuItem lookupArrangementBesideToolStripMenuItem;
+		private ToolStripMenuItem lookupFuzzySearchToolStripMenuItem;
 	}
 }

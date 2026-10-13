@@ -467,26 +467,38 @@ namespace Mappalachia
 		}
 
 		// Return all instances within range of the coord
+		// Fuzzy generously includes entities whose bounds *may* overlap with the range, regardless of their rotation however
 		public static async Task<List<Instance>> GetInstancesInRange(Coord coord, double range, Settings settings)
 		{
+			bool fuzzy = settings.MapSettings.LookupFuzzySearch;
+
 			List<Instance> instances = new List<Instance>();
 
-			double xBoundMin = coord.X - range - LookupFuzzyOptimizationClampRange;
-			double xBoundMax = coord.X + range + LookupFuzzyOptimizationClampRange;
-			double yBoundMin = coord.Y - range - LookupFuzzyOptimizationClampRange;
-			double yBoundMax = coord.Y + range + LookupFuzzyOptimizationClampRange;
+			double xBoundMin = coord.X - range;
+			double yBoundMin = coord.Y - range;
+			double xBoundMax = coord.X + range;
+			double yBoundMax = coord.Y + range;
+
+			if (fuzzy)
+			{
+				xBoundMin -= LookupFuzzyOptimizationClampRange;
+				yBoundMin -= LookupFuzzyOptimizationClampRange;
+				xBoundMax += LookupFuzzyOptimizationClampRange;
+				yBoundMax += LookupFuzzyOptimizationClampRange;
+			}
+
+			string boundsRangeClause = fuzzy ? "+ (SQRT(((boundX2 - boundX1) * (boundX2 - boundX1)) + ((boundY2 - boundY1) * (boundY2 - boundY1))) / 2) " : string.Empty;
 
 			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, " +
 				$"boundX, boundY, boundZ, rotX, rotY, rotZ, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2, " +
-				$"SQRT(((x - {coord.X}) * (x - {coord.X})) + ((y - {coord.Y}) * (y - {coord.Y}))) as distance, " +
-				$"MAX(ABS(boundX2 - boundX1), ABS(boundY2 - boundY1)) / 2 AS maxRange " +
+				$"SQRT(((x - {coord.X}) * (x - {coord.X})) + ((y - {coord.Y}) * (y - {coord.Y}))) as distance " +
 				$"FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {settings.Space.FormID} AND " +
 				$"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " +
 				$"x BETWEEN {xBoundMin} AND {xBoundMax} AND " +
 				$"y BETWEEN {yBoundMin} AND {yBoundMax} AND " +
-				$"distance <= {range} + (SQRT(((boundX2 - boundX1) * (boundX2 - boundX1)) + ((boundY2 - boundY1) * (boundY2 - boundY1))) / 2) " +
+				$"distance <= {range} " + boundsRangeClause +
 				$"ORDER BY distance, z;";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);

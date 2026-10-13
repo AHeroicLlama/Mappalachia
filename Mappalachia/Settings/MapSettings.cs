@@ -132,6 +132,8 @@ namespace Mappalachia
 
 		public LookupArrangement LookupArrangement { get; set; } = LookupArrangement.ArrangeLabels;
 
+		public bool LookupFuzzySearch { get; set; } = false;
+
 		public bool GrayscaleBackground { get; set; } = false;
 
 		public bool HighlightWater { get; set; } = false;

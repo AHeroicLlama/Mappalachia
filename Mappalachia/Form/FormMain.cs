@@ -277,6 +277,7 @@ namespace Mappalachia
 			drawBoundsToolStripMenuItem.Checked = Settings.PlotSettings.DrawBounds;
 			coordinateGridEnabledToolStripMenuItem.Checked = Settings.MapSettings.ShowCoordinateGrid;
 			lookupDrawVolumesToolStripMenuItem.Checked = Settings.MapSettings.LookupDrawVolumes;
+			lookupFuzzySearchToolStripMenuItem.Checked = Settings.MapSettings.LookupFuzzySearch;
 
 			// Update the text of some items
 			backgroundBrightnessToolStripMenuItem.Text = $"Background Brightness ({Math.Round(Settings.MapSettings.Brightness * 100, 2)}%)";
@@ -1016,6 +1017,11 @@ namespace Mappalachia
 		private async void Map_Lookup_DrawVolumes_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.LookupDrawVolumes = !Settings.MapSettings.LookupDrawVolumes);
+		}
+
+		private async void Map_Lookup_FuzzySearch_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupFuzzySearch = !Settings.MapSettings.LookupFuzzySearch);
 		}
 
 		private async void Map_Grayscale_Click(object sender, EventArgs e)
