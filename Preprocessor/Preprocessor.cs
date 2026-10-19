@@ -237,7 +237,7 @@ namespace Preprocessor
 				double centerY = double.Parse(values[1]);
 				double maxRange = double.Parse(values[2]);
 
-				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE spaceEditorID = '{Path.GetFileNameWithoutExtension(file)}';");
+				SimpleQuery($"UPDATE Space SET centerX = {centerX}, centerY = {centerY}, maxRange = {maxRange} WHERE UPPER(spaceEditorID) = '{Path.GetFileNameWithoutExtension(file).ToUpper()}';");
 			}
 
 			// For spaces which are sister spaces, we copy the scaling of the first onto the others
