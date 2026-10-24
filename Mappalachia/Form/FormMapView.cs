@@ -216,14 +216,20 @@ namespace Mappalachia
 
 			if (FormMain.Settings.MapSettings.LookupEnabled)
 			{
+				ToolStripMenuItem lookupCopyToClipboard = new ToolStripMenuItem() { Text = "Copy Lookup to clipboard" };
 				ToolStripMenuItem turnOffLookup = new ToolStripMenuItem() { Text = "Turn Off Lookup" };
+
+				lookupCopyToClipboard.Click += async (s, args) =>
+				{
+					await Map.LookupCopyToClipboard(FormMain.Settings);
+				};
 
 				turnOffLookup.Click += async (s, args) =>
 				{
 					await FormMain.ToggleLookup(false);
 				};
 
-				contextMenu.Items.Add(turnOffLookup);
+				contextMenu.Items.AddRange(lookupCopyToClipboard, turnOffLookup);
 			}
 
 			if (contextMenu.Items.Count > 0)

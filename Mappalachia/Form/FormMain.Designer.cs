@@ -59,6 +59,7 @@ namespace Mappalachia
 			compassNeverToolStripMenuItem = new ToolStripMenuItem();
 			lookupToolStripMenuItem = new ToolStripMenuItem();
 			lookupRangeToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeExtraSmallToolStripMenuItem = new ToolStripMenuItem();
 			lookupRangeSmallToolStripMenuItem = new ToolStripMenuItem();
 			lookupRangeMediumToolStripMenuItem = new ToolStripMenuItem();
 			lookupRangeLargeToolStripMenuItem = new ToolStripMenuItem();
@@ -353,7 +354,7 @@ namespace Mappalachia
 			// compassAlwaysToolStripMenuItem
 			// 
 			compassAlwaysToolStripMenuItem.Name = "compassAlwaysToolStripMenuItem";
-			compassAlwaysToolStripMenuItem.Size = new Size(180, 22);
+			compassAlwaysToolStripMenuItem.Size = new Size(141, 22);
 			compassAlwaysToolStripMenuItem.Text = "Always";
 			compassAlwaysToolStripMenuItem.ToolTipText = "The compass rose is always drawn.";
 			compassAlwaysToolStripMenuItem.Click += Map_Compass_Always_Click;
@@ -361,7 +362,7 @@ namespace Mappalachia
 			// compassWhenUsefulToolStripMenuItem
 			// 
 			compassWhenUsefulToolStripMenuItem.Name = "compassWhenUsefulToolStripMenuItem";
-			compassWhenUsefulToolStripMenuItem.Size = new Size(180, 22);
+			compassWhenUsefulToolStripMenuItem.Size = new Size(141, 22);
 			compassWhenUsefulToolStripMenuItem.Text = "When Useful";
 			compassWhenUsefulToolStripMenuItem.ToolTipText = "The compass is drawn only when North is not 'up' on the map already.";
 			compassWhenUsefulToolStripMenuItem.Click += Map_Compass_WhenUseful_Click;
@@ -369,7 +370,7 @@ namespace Mappalachia
 			// compassNeverToolStripMenuItem
 			// 
 			compassNeverToolStripMenuItem.Name = "compassNeverToolStripMenuItem";
-			compassNeverToolStripMenuItem.Size = new Size(180, 22);
+			compassNeverToolStripMenuItem.Size = new Size(141, 22);
 			compassNeverToolStripMenuItem.Text = "Never";
 			compassNeverToolStripMenuItem.ToolTipText = "The compass is never drawn.";
 			compassNeverToolStripMenuItem.Click += Map_Compass_Never_Click;
@@ -383,37 +384,44 @@ namespace Mappalachia
 			// 
 			// lookupRangeToolStripMenuItem
 			// 
-			lookupRangeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeSmallToolStripMenuItem, lookupRangeMediumToolStripMenuItem, lookupRangeLargeToolStripMenuItem, lookupRangeExtraLargeToolStripMenuItem });
+			lookupRangeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeExtraSmallToolStripMenuItem, lookupRangeSmallToolStripMenuItem, lookupRangeMediumToolStripMenuItem, lookupRangeLargeToolStripMenuItem, lookupRangeExtraLargeToolStripMenuItem });
 			lookupRangeToolStripMenuItem.Name = "lookupRangeToolStripMenuItem";
 			lookupRangeToolStripMenuItem.Size = new Size(180, 22);
 			lookupRangeToolStripMenuItem.Text = "Range";
 			lookupRangeToolStripMenuItem.ToolTipText = "Select the size of the area searched by lookup.";
 			// 
+			// lookupRangeExtraSmallToolStripMenuItem
+			// 
+			lookupRangeExtraSmallToolStripMenuItem.Name = "lookupRangeExtraSmallToolStripMenuItem";
+			lookupRangeExtraSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraSmallToolStripMenuItem.Text = "Extra Small";
+			lookupRangeExtraSmallToolStripMenuItem.Click += Map_Lookup_Range_ExtraSmall_Click;
+			// 
 			// lookupRangeSmallToolStripMenuItem
 			// 
 			lookupRangeSmallToolStripMenuItem.Name = "lookupRangeSmallToolStripMenuItem";
-			lookupRangeSmallToolStripMenuItem.Size = new Size(131, 22);
+			lookupRangeSmallToolStripMenuItem.Size = new Size(180, 22);
 			lookupRangeSmallToolStripMenuItem.Text = "Small";
 			lookupRangeSmallToolStripMenuItem.Click += Map_Lookup_Range_Small_Click;
 			// 
 			// lookupRangeMediumToolStripMenuItem
 			// 
 			lookupRangeMediumToolStripMenuItem.Name = "lookupRangeMediumToolStripMenuItem";
-			lookupRangeMediumToolStripMenuItem.Size = new Size(131, 22);
+			lookupRangeMediumToolStripMenuItem.Size = new Size(180, 22);
 			lookupRangeMediumToolStripMenuItem.Text = "Medium";
 			lookupRangeMediumToolStripMenuItem.Click += Map_Lookup_Range_Medium_Click;
 			// 
 			// lookupRangeLargeToolStripMenuItem
 			// 
 			lookupRangeLargeToolStripMenuItem.Name = "lookupRangeLargeToolStripMenuItem";
-			lookupRangeLargeToolStripMenuItem.Size = new Size(131, 22);
+			lookupRangeLargeToolStripMenuItem.Size = new Size(180, 22);
 			lookupRangeLargeToolStripMenuItem.Text = "Large";
 			lookupRangeLargeToolStripMenuItem.Click += Map_Lookup_Range_Large_Click;
 			// 
 			// lookupRangeExtraLargeToolStripMenuItem
 			// 
 			lookupRangeExtraLargeToolStripMenuItem.Name = "lookupRangeExtraLargeToolStripMenuItem";
-			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(131, 22);
+			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(180, 22);
 			lookupRangeExtraLargeToolStripMenuItem.Text = "Extra Large";
 			lookupRangeExtraLargeToolStripMenuItem.Click += Map_Lookup_Range_ExtraLarge_Click;
 			// 
@@ -427,7 +435,7 @@ namespace Mappalachia
 			// lookupArrangementCircularToolStripMenuItem
 			// 
 			lookupArrangementCircularToolStripMenuItem.Name = "lookupArrangementCircularToolStripMenuItem";
-			lookupArrangementCircularToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementCircularToolStripMenuItem.Size = new Size(122, 22);
 			lookupArrangementCircularToolStripMenuItem.Text = "Circular";
 			lookupArrangementCircularToolStripMenuItem.ToolTipText = "Arrange the labels neatly around the circle.";
 			lookupArrangementCircularToolStripMenuItem.Click += Map_Lookup_Arrangement_Circular_Click;
@@ -435,7 +443,7 @@ namespace Mappalachia
 			// lookupArrangementNearestToolStripMenuItem
 			// 
 			lookupArrangementNearestToolStripMenuItem.Name = "lookupArrangementNearestToolStripMenuItem";
-			lookupArrangementNearestToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementNearestToolStripMenuItem.Size = new Size(122, 22);
 			lookupArrangementNearestToolStripMenuItem.Text = "Nearest";
 			lookupArrangementNearestToolStripMenuItem.ToolTipText = "Plot labels at the edge of the range at the nearest point.";
 			lookupArrangementNearestToolStripMenuItem.Click += Map_Lookup_Arrangement_Nearest_Click;
@@ -443,7 +451,7 @@ namespace Mappalachia
 			// lookupArrangementColumnsToolStripMenuItem
 			// 
 			lookupArrangementColumnsToolStripMenuItem.Name = "lookupArrangementColumnsToolStripMenuItem";
-			lookupArrangementColumnsToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementColumnsToolStripMenuItem.Size = new Size(122, 22);
 			lookupArrangementColumnsToolStripMenuItem.Text = "Columns";
 			lookupArrangementColumnsToolStripMenuItem.ToolTipText = "Arrange columns of labels either side of the area.";
 			lookupArrangementColumnsToolStripMenuItem.Click += Map_Lookup_Arrangement_Columns_Click;
@@ -1300,5 +1308,6 @@ namespace Mappalachia
 		private ToolStripMenuItem drawBoundsToolStripMenuItem;
 		private ToolStripMenuItem lookupArrangementColumnsToolStripMenuItem;
 		private ToolStripMenuItem lookupFuzzySearchToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeExtraSmallToolStripMenuItem;
 	}
 }

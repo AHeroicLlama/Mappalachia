@@ -44,7 +44,7 @@ namespace Mappalachia
 					AllowCloseDialog = false,
 				};
 
-				copyDetailsButton.Click += (sender, e) => { Clipboard.SetText(exception.ToString()); };
+				copyDetailsButton.Click += (sender, e) => { ClipboardHelper.SetText(exception.ToString()); };
 				page.Buttons.Add(copyDetailsButton);
 			}
 
@@ -106,7 +106,7 @@ namespace Mappalachia
 				Buttons = new TaskDialogButtonCollection()
 				{
 					openInstallGuide,
-					TaskDialogButton.Cancel,
+					TaskDialogButton.OK,
 				},
 			};
 
@@ -138,7 +138,7 @@ namespace Mappalachia
 			TaskDialogButton resetSettingsButton = new TaskDialogButton("Try again with reset settings");
 
 			discordButton.Click += (sender, e) => { Common.OpenURI(URLs.DiscordInvite); };
-			copyDetailsButton.Click += (sender, e) => { Clipboard.SetText(exception.ToString()); };
+			copyDetailsButton.Click += (sender, e) => { ClipboardHelper.SetText(exception.ToString()); };
 			resetSettingsButton.Click += (sender, e) =>
 			{
 				if (File.Exists(Paths.SettingsPath))

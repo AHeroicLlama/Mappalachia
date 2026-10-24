@@ -417,6 +417,9 @@ namespace Mappalachia
 
 			switch (Settings.MapSettings.LookupRange)
 			{
+				case LookupRange.ExtraSmall:
+					lookupRangeExtraSmallToolStripMenuItem.Checked = true;
+					break;
 				case LookupRange.Small:
 					lookupRangeSmallToolStripMenuItem.Checked = true;
 					break;
@@ -977,6 +980,11 @@ namespace Mappalachia
 		private async void Map_Background_None_Click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.MapSettings.BackgroundImage = BackgroundImageType.None);
+		}
+
+		private async void Map_Lookup_Range_ExtraSmall_Click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.MapSettings.LookupRange = LookupRange.ExtraSmall);
 		}
 
 		private async void Map_Lookup_Range_Small_Click(object sender, EventArgs e)

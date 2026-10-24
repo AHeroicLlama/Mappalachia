@@ -58,6 +58,7 @@ namespace Mappalachia
 
 	public enum LookupRange
 	{
+		ExtraSmall,
 		Small,
 		Medium,
 		Large,
@@ -426,6 +427,19 @@ namespace Mappalachia
 			}
 		}
 
+		static int GetLookupRangeValue(LookupRange lookupRange)
+		{
+			return lookupRange switch
+			{
+				LookupRange.ExtraSmall => 64,
+				LookupRange.Small => 128,
+				LookupRange.Medium => 256,
+				LookupRange.Large => 512,
+				LookupRange.ExtraLarge => 1024,
+				_ => throw new Exception($"Invalid {nameof(lookupRange)} value {lookupRange}"),
+			};
+		}
+
 		static async Task DrawLookup(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
 		{
 			if (!settings.MapSettings.LookupEnabled)
@@ -433,19 +447,12 @@ namespace Mappalachia
 				return;
 			}
 
-			int lookupRange = settings.MapSettings.LookupRange switch
-			{
-				LookupRange.Small => 128,
-				LookupRange.Medium => 256,
-				LookupRange.Large => 512,
-				LookupRange.ExtraLarge => 1024,
-				_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupRange)} value {settings.MapSettings.LookupRange}"),
-			};
-
 			Font font = GetFont(settings.MapSettings.FontSettings.SizeLookupLabel);
 			List<Color> colors = settings.PlotSettings.PlotStyleSettings.Palette;
 			Coord centerPoint = settings.MapSettings.LookupLocation;
 			PointF centerPointImageSpace = centerPoint.AsImagePoint(settings);
+
+			int lookupRange = GetLookupRangeValue(settings.MapSettings.LookupRange);
 
 			graphics.DrawEllipse(
 				LookupRangePen,
@@ -527,7 +534,7 @@ namespace Mappalachia
 				i++;
 			}
 
-			// Draw connecting lines only
+			// Draw connecting lines, bounds, and optionally primitive shapes
 			foreach (KeyValuePair<Instance, PointF> plot in plots)
 			{
 				Instance instance = plot.Key;
@@ -536,21 +543,19 @@ namespace Mappalachia
 
 				using Pen pen = new Pen(color, LookupLabelLineThickness);
 				graphics.DrawLine(pen, instance.Coord.AsImagePoint(settings), labelLocation);
+
+				DrawBounds(instance, settings, graphics, color);
+				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
+				{
+					DrawPrimitiveShape(settings, graphics, instance, color);
+				}
 			}
 
-			// Draw labels, bounds, and optionally primitive shapes
 			foreach (KeyValuePair<Instance, PointF> plot in plots)
 			{
 				Instance instance = plot.Key;
 				PointF labelLocation = plot.Value;
 				Color color = colors[instances.IndexOf(instance) % colors.Count];
-
-				DrawBounds(instance, settings, graphics, color);
-
-				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
-				{
-					DrawPrimitiveShape(settings, graphics, instance, color);
-				}
 
 				Entity entity = instance.Entity;
 				using Brush brush = new SolidBrush(color);
@@ -572,6 +577,23 @@ namespace Mappalachia
 
 				DrawStringWithDropShadow(graphics, text, font, brush, textBounds, stringFormat);
 			}
+		}
+
+		public static async Task LookupCopyToClipboard(Settings settings)
+		{
+			int lookupRange = GetLookupRangeValue(settings.MapSettings.LookupRange);
+			var instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, lookupRange, settings);
+
+			if (instances.Count <= 0)
+			{
+				return;
+			}
+
+			string text = $"Lookup results within {lookupRange} units of {settings.MapSettings.LookupLocation} in {settings.Space.EditorID}:\n" +
+				$"Instance Of\t\tReference\tEditor ID\n";
+
+			ClipboardHelper.SetText(text + string.Join("\n", instances.Select(p =>
+				$"{p.Entity.Signature}:{p.Entity.FormID.ToHex()}\t{p.InstanceFormID.ToHex()}\t{p.Entity.EditorID}")));
 		}
 
 		// Draw the 3D bounding box of an instance

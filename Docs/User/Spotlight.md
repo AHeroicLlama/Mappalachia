@@ -25,4 +25,4 @@ To use spotlight, simply right-click the map preview at the location you would l
 If your spotlight maps are blurry and/or without increased clarity, this indicates you have selected an area outside the playable space, otherwise spotlight may be incorrectly installed.
 
 ## Next guide
-[Recipes](Recipes.md)
+[Lookup](Lookup.md)
