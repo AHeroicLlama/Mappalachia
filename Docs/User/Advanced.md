@@ -19,7 +19,6 @@ Some Regions affect the level of NPCs spawned inside them. This level range can 
 
 ## Bounding Boxes
 Under 'Plot Settings' > 'Draw Bounds' you can toggle the drawing of the bounding boxes of plotted items. Many but not all items have a bounding box, which is simply a virtual cuboid entirely surrounding them.<br/>
-Drawing bounds does not apply when plotting Appalachia outside of Spotlight mode, as they are too small to see.
 
 ## Show Instance FormIDs
 An advanced option for data miners, selecting 'Plot Settings' > 'Show Instance FormID' will annotate the FormID of the plotted entities onto the map against their plot.<br/>

@@ -103,7 +103,7 @@ namespace Mappalachia
 
 		static int CoordinateGridMajorLineInterval { get; } = 4;
 
-		static int BoundsEdgeThickness { get; } = 2;
+		static int BoundsEdgeThickness { get; } = 1;
 
 		static Color InfestationZoneEdgeColor { get; } = Color.FromArgb(128, 255, 120, 100);
 
@@ -589,23 +589,17 @@ namespace Mappalachia
 				return;
 			}
 
-			string text = $"Lookup results within {lookupRange} units of {settings.MapSettings.LookupLocation} in {settings.Space.EditorID}:\n" +
-				$"Instance Of\t\tReference\tEditor ID\n";
+			string text = $"Mappalachia Lookup results within {lookupRange} units of ({settings.MapSettings.LookupLocation.X}, {settings.MapSettings.LookupLocation.Y}) in {settings.Space.EditorID}:\n" +
+				$"Instance Of\tReference\tEditor ID\tX\tY\tZ\n";
 
 			ClipboardHelper.SetText(text + string.Join("\n", instances.Select(p =>
-				$"{p.Entity.Signature}:{p.Entity.FormID.ToHex()}\t{p.InstanceFormID.ToHex()}\t{p.Entity.EditorID}")));
+				$"{p.Entity.Signature}:{p.Entity.FormID.ToHex()}\t{p.InstanceFormID.ToHex()}\t{p.Entity.EditorID}\t{p.Coord.X}\t{p.Coord.Y}\t{p.Coord.Z}")));
 		}
 
 		// Draw the 3D bounding box of an instance
 		static void DrawBounds(Instance instance, Settings settings, Graphics graphics, Color color)
 		{
 			if (!settings.PlotSettings.DrawBounds)
-			{
-				return;
-			}
-
-			// No value in doing this without spotlight on a worldspace - too small
-			if (!settings.MapSettings.SpotlightEnabled && settings.Space.IsWorldspace)
 			{
 				return;
 			}
