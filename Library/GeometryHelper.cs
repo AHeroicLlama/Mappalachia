@@ -109,5 +109,16 @@ namespace Library
 		{
 			return instances.Select(instance => instance.Coord).GetCentroid();
 		}
+
+		// Return the angle from a to b in degrees
+		// Normalized 0->360, where 0/360 is directly up
+		public static double GetAngleFrom(Coord a, Coord b)
+		{
+			double xDiff = b.X - a.X;
+			double yDiff = a.Y - b.Y;
+
+			double angle = (Math.Atan2(yDiff, xDiff) * 180d / Math.PI) + 90;
+			return ((angle % 360d) + 360) % 360d;
+		}
 	}
 }

@@ -35,5 +35,7 @@
 		public bool ShowRegionLevels { get; set; } = true;
 
 		public bool IncludeCountInLegend { get; set; } = false;
+
+		public bool DrawBounds { get; set; } = true;
 	}
 }

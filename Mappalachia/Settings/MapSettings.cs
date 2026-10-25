@@ -80,6 +80,12 @@ namespace Mappalachia
 					backgroundImage = backgroundImagePreSpotlight;
 				}
 
+				// Turn off lookup if spotlight is being turned off
+				if (!value && SpotlightEnabled)
+				{
+					lookupEnabled = value;
+				}
+
 				// We assume for the majority of cases, turning on spotlight implies wanting the high res render too
 				// But if it's already on or not installed, we leave as-is
 				if (value && !SpotlightEnabled && FileIO.IsSpotlightInstalled())
@@ -98,6 +104,35 @@ namespace Mappalachia
 
 		// The size of the spotlight in tiles
 		public double SpotlightSize { get; set; } = 2;
+
+		bool lookupEnabled = false;
+
+		public bool LookupEnabled
+		{
+			get => lookupEnabled;
+			set
+			{
+				lookupEnabled = value;
+
+				// Turn on spotlight if off and lookup is being turned on
+				if (value && !SpotlightEnabled &&
+					(RootSettings != null && RootSettings.Space.IsSuitableForSpotlight()))
+				{
+					SpotlightEnabled = true;
+					SpotlightLocation = LookupLocation;
+				}
+			}
+		}
+
+		public LookupRange LookupRange { get; set; } = LookupRange.Medium;
+
+		public bool LookupDrawVolumes { get; set; } = false;
+
+		public Coord LookupLocation { get; set; } = default;
+
+		public LookupArrangement LookupArrangement { get; set; } = LookupArrangement.Columns;
+
+		public bool LookupFuzzySearch { get; set; } = false;
 
 		public bool GrayscaleBackground { get; set; } = false;
 
@@ -151,14 +186,17 @@ namespace Mappalachia
 		[JsonIgnore]
 		public Settings RootSettings { get; set; } = rootSettings;
 
-		public void SetSpotlightToMapCenter()
+		public void SetSettingsToMapCenter()
 		{
 			if (RootSettings is null)
 			{
 				return;
 			}
 
-			SpotlightLocation = RootSettings.Space.GetCenter();
+			Coord center = RootSettings.Space.GetCenter();
+
+			SpotlightLocation = center;
+			LookupLocation = center;
 		}
 
 		public void CapSpotlightSizeToSpace()
