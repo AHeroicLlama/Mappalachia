@@ -596,7 +596,7 @@ namespace Mappalachia
 				return;
 			}
 
-			string text = $"Mappalachia Lookup results within {lookupRange} units of ({settings.MapSettings.LookupLocation.X}, {settings.MapSettings.LookupLocation.Y}) in {settings.Space.EditorID}:\n" +
+			string text = $"{ApplicationName} Lookup results within {lookupRange} units of ({settings.MapSettings.LookupLocation.X}, {settings.MapSettings.LookupLocation.Y}) in {settings.Space.EditorID}:\n" +
 				$"Instance Of\tReference\tEditor ID\tX\tY\tZ\n" +
 				string.Join("\n", instances.Select(p =>
 					$"{p.Entity.Signature}:{p.Entity.FormID.ToHex()}\t{p.InstanceFormID.ToHex()}\t{p.Entity.EditorID}\t{p.Coord.X}\t{p.Coord.Y}\t{p.Coord.Z}"));

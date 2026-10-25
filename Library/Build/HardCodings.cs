@@ -305,9 +305,8 @@ namespace Library
 		// Empty list if not known or doesn't exist
 		public static async Task<List<Region>> GetWorldBorders(this Space space)
 		{
-			switch (space.EditorID)
+			switch (space.EditorID.ToUpper())
 			{
-				case "Appalachia":
 				case "APPALACHIA":
 					List<Region> borderRegions = new List<Region>();
 					borderRegions.AddRange(await CommonDatabase.GetRegionsByLikeTerm(GetNewConnection(), space, $"'76Border%'"));
