@@ -247,7 +247,7 @@ namespace Mappalachia
 			if (FormMain.Settings.MapSettings.LegendStyle == LegendStyle.Extended)
 			{
 				return new PointF(
-					(e.X * zoomFactor) - (MapImage.Width - Common.MapImageResolution),
+					e.X * zoomFactor,
 					(e.Y * zoomFactor) - ((MapImage.Width - Common.MapImageResolution) / 2));
 			}
 			else

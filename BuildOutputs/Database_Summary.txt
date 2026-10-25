@@ -5,16 +5,17 @@ Size
 555564 KB
 
 Built At UTC
-22/10/2026 16:48:56
+25/10/2026 16:23:18
 
 CSV Imported with SQLite Version
-3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
+3.54.1 2026-10-16 14:45:20 555e07ef33f69a0957d24d8e555b702464a131d6f1607f4c3c1e4551e8e6ca76 (64-bit)
 
 Tables
-Cell  Container  Entity  Flux  Global  Location  MapMarker  Meta  NPC  Position  Position_PreGrouped  Region  RegionPoints  Scrap  Space
+Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
+Container     Flux       Location     Meta          Position     Region                  Scrap
 
 Indices
-indexComponent     indexCount     indexGeneral     indexNPC     indexReference     indexSpaceTeleportsTo     indexTeleportsTo
+indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
 
 Game Version
 1.7.27.11
