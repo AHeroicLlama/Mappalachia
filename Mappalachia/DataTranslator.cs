@@ -136,6 +136,7 @@ namespace Mappalachia
 				Signature.CONT or
 				Signature.FLOR or
 				Signature.FURN or
+				Signature.HAZD or
 				Signature.KEYM or
 				Signature.LVLI or
 				Signature.MISC or
@@ -144,6 +145,7 @@ namespace Mappalachia
 				Signature.PROJ or
 				Signature.REGN or
 				Signature.LCTN or
+				Signature.TACT or
 				Signature.TERM or
 				Signature.TRAP or
 				Signature.WEAP => true,

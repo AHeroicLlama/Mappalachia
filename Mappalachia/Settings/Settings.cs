@@ -27,7 +27,8 @@ namespace Mappalachia
 				else
 				{
 					MapSettings.SpotlightEnabled = false;
-					MapSettings.SetSpotlightToMapCenter();
+					MapSettings.SetSettingsToMapCenter();
+					MapSettings.LookupEnabled = false;
 				}
 
 				MapSettings.CapSpotlightSizeToSpace();
@@ -91,7 +92,7 @@ namespace Mappalachia
 			MapSettings ??= new MapSettings(this);
 
 			ResolveConflictingSettings();
-			MapSettings.SetSpotlightToMapCenter();
+			MapSettings.SetSettingsToMapCenter();
 		}
 
 		// Check for and amend settings which shouldn't be used together
