@@ -73,8 +73,6 @@ namespace Mappalachia
 
 		static Pen LookupRangePen { get; } = new Pen(Color.White, 4);
 
-		static int LookupLabelPadding { get; } = MapImageResolution / 40;
-
 		static int LookupLabelLineThickness { get; } = 2;
 
 		static int LegendWidth { get; } = MapImageResolution / 7;
@@ -508,6 +506,8 @@ namespace Mappalachia
 
 					labelLocation = new PointF(x, y);
 				}
+
+				// Circular and Nearest arrangements
 				else
 				{
 					double angle = settings.MapSettings.LookupArrangement switch
@@ -520,8 +520,14 @@ namespace Mappalachia
 					// Position the label around the circle given the desired angle
 					// accounting for offsetting by text bounds, converting to image space
 					angle *= Math.PI / 180d;
-					double x = centerPoint.X + ((lookupRange + LookupLabelPadding + (bounds.Width * 2)) * Math.Sin(angle));
-					double y = centerPoint.Y + ((lookupRange + LookupLabelPadding + (bounds.Height * 2)) * Math.Cos(angle));
+
+					double boundsWorldWidth = bounds.Width.AsWorldLength(settings);
+					double boundsWorldHeight = bounds.Height.AsWorldLength(settings);
+
+					double diagonalOffset = Math.Sqrt(Math.Pow(boundsWorldWidth, 2) + Math.Pow(boundsWorldHeight, 2));
+
+					double x = centerPoint.X + ((lookupRange + ((boundsWorldWidth + diagonalOffset) / 4)) * Math.Sin(angle));
+					double y = centerPoint.Y + ((lookupRange + ((boundsWorldHeight + diagonalOffset) / 4)) * Math.Cos(angle));
 
 					labelLocation = new Coord(x, y).AsImagePoint(settings);
 				}
@@ -551,6 +557,7 @@ namespace Mappalachia
 				}
 			}
 
+			// Draw the labels
 			foreach (KeyValuePair<Instance, PointF> plot in plots)
 			{
 				Instance instance = plot.Key;
@@ -590,10 +597,11 @@ namespace Mappalachia
 			}
 
 			string text = $"Mappalachia Lookup results within {lookupRange} units of ({settings.MapSettings.LookupLocation.X}, {settings.MapSettings.LookupLocation.Y}) in {settings.Space.EditorID}:\n" +
-				$"Instance Of\tReference\tEditor ID\tX\tY\tZ\n";
+				$"Instance Of\tReference\tEditor ID\tX\tY\tZ\n" +
+				string.Join("\n", instances.Select(p =>
+					$"{p.Entity.Signature}:{p.Entity.FormID.ToHex()}\t{p.InstanceFormID.ToHex()}\t{p.Entity.EditorID}\t{p.Coord.X}\t{p.Coord.Y}\t{p.Coord.Z}"));
 
-			ClipboardHelper.SetText(text + string.Join("\n", instances.Select(p =>
-				$"{p.Entity.Signature}:{p.Entity.FormID.ToHex()}\t{p.InstanceFormID.ToHex()}\t{p.Entity.EditorID}\t{p.Coord.X}\t{p.Coord.Y}\t{p.Coord.Z}")));
+			ClipboardHelper.SetText(text);
 		}
 
 		// Draw the 3D bounding box of an instance
@@ -1510,9 +1518,9 @@ namespace Mappalachia
 			return (float)(value / GetWorldToImageFactor(settings));
 		}
 
-		static int AsImageLength(this int value, Settings settings)
+		static double AsWorldLength(this float value, Settings settings)
 		{
-			return (int)(value / GetWorldToImageFactor(settings));
+			return value * GetWorldToImageFactor(settings);
 		}
 
 		// Returns the given World Coord as an Image PointF, considering spotlight scaling
