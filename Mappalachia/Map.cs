@@ -1,4 +1,5 @@
 using System.Drawing.Drawing2D;
+using System.Numerics;
 using Library;
 using static Library.Common;
 using static Mappalachia.FormsHelper;
@@ -48,11 +49,31 @@ namespace Mappalachia
 		Large,
 	}
 
+	public enum LookupArrangement
+	{
+		Circular,
+		Nearest,
+		Columns,
+	}
+
+	public enum LookupRange
+	{
+		ExtraSmall,
+		Small,
+		Medium,
+		Large,
+		ExtraLarge,
+	}
+
 	public static class Map
 	{
 		public static int CompassSize { get; } = MapImageResolution / 8;
 
 		public static double IconScale { get; } = 1.5;
+
+		static Pen LookupRangePen { get; } = new Pen(Color.White, 4);
+
+		static int LookupLabelLineThickness { get; } = 2;
 
 		static int LegendWidth { get; } = MapImageResolution / 7;
 
@@ -79,6 +100,8 @@ namespace Mappalachia
 		static Pen CoordinateGridLinePenMajor { get; } = new Pen(Color.DarkGray, 3);
 
 		static int CoordinateGridMajorLineInterval { get; } = 4;
+
+		static int BoundsEdgeThickness { get; } = 1;
 
 		static Color InfestationZoneEdgeColor { get; } = Color.FromArgb(128, 255, 120, 100);
 
@@ -191,6 +214,8 @@ namespace Mappalachia
 				await DrawInstanceFormIDs(itemsToPlot, settings, graphics, progressInfo);
 				await DrawConnectingSpacePlots(itemsToPlot, settings, graphics, progressInfo);
 			}
+
+			await DrawLookup(settings, graphics, progressInfo);
 
 			await DrawWaterMark(settings, graphics);
 			DrawTitle(settings, graphics);
@@ -400,6 +425,242 @@ namespace Mappalachia
 			}
 		}
 
+		static int GetLookupRangeValue(LookupRange lookupRange)
+		{
+			return lookupRange switch
+			{
+				LookupRange.ExtraSmall => 64,
+				LookupRange.Small => 128,
+				LookupRange.Medium => 256,
+				LookupRange.Large => 512,
+				LookupRange.ExtraLarge => 1024,
+				_ => throw new Exception($"Invalid {nameof(lookupRange)} value {lookupRange}"),
+			};
+		}
+
+		static async Task DrawLookup(Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
+		{
+			if (!settings.MapSettings.LookupEnabled)
+			{
+				return;
+			}
+
+			Font font = GetFont(settings.MapSettings.FontSettings.SizeLookupLabel);
+			List<Color> colors = settings.PlotSettings.PlotStyleSettings.Palette;
+			Coord centerPoint = settings.MapSettings.LookupLocation;
+			PointF centerPointImageSpace = centerPoint.AsImagePoint(settings);
+
+			int lookupRange = GetLookupRangeValue(settings.MapSettings.LookupRange);
+
+			graphics.DrawEllipse(
+				LookupRangePen,
+				new RectangleF((float)centerPoint.X - lookupRange, (float)centerPoint.Y + lookupRange, lookupRange * 2, lookupRange * 2).AsImageRectangle(settings));
+
+			UpdateProgress(progressInfo, 50, "Searching lookup range");
+			List<Instance> instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, lookupRange, settings);
+
+			UpdateProgress(progressInfo, 75, "Plotting lookup data");
+
+			// Arrange instances in clockwise order around the point
+			instances = instances.OrderBy(i => GeometryHelper.GetAngleFrom(centerPoint, i.Coord)).ToList();
+			Dictionary<Instance, PointF> plots = instances.ToDictionary(instance => instance, instance => PointF.Empty);
+
+			int i = 0;
+			foreach (KeyValuePair<Instance, PointF> plot in plots)
+			{
+				Instance instance = plot.Key;
+				Entity entity = instance.Entity;
+				Color color = colors[i % colors.Count];
+				using Brush brush = new SolidBrush(color);
+
+				string text = $"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n{entity.EditorID}";
+				SizeF bounds = graphics.MeasureString(text, font);
+				PointF labelLocation;
+
+				if (settings.MapSettings.LookupArrangement == LookupArrangement.Columns)
+				{
+					int halfCount = instances.Count / 2;
+					bool right = i < halfCount;
+
+					bounds = graphics.MeasureString(text, font, MapImageResolution, right ? CenterRight : CenterLeft);
+
+					int countThisSide = right ? halfCount : instances.Count - halfCount;
+					int indexThisSide = right ? i : i - halfCount;
+
+					// Flip the order for the left-hand-side, so labels are plotted top-down, despite being processed bottom-up.
+					// Prevents connecting lines being crossed-over
+					int correctedIndex = right ?
+						indexThisSide :
+						countThisSide - indexThisSide - 1;
+
+					double worldX = right ? centerPoint.X + lookupRange : centerPoint.X - lookupRange;
+					PointF baseImagePos = new Coord(worldX, centerPoint.Y).AsImagePoint(settings);
+
+					float totalHeightPx = countThisSide * bounds.Height;
+
+					float x = right
+						? baseImagePos.X + (bounds.Width / 2f)
+						: baseImagePos.X - (bounds.Width / 2f);
+
+					float y = baseImagePos.Y - (totalHeightPx / 2f) + (bounds.Height / 2f) + (correctedIndex * bounds.Height);
+
+					labelLocation = new PointF(x, y);
+				}
+
+				// Circular and Nearest arrangements
+				else
+				{
+					double angle = settings.MapSettings.LookupArrangement switch
+					{
+						LookupArrangement.Nearest => GeometryHelper.GetAngleFrom(centerPoint, instance.Coord),
+						LookupArrangement.Circular => (360d / instances.Count) * i,
+						_ => throw new Exception($"Invalid {nameof(settings.MapSettings.LookupArrangement)} value {settings.MapSettings.LookupArrangement}"),
+					};
+
+					// Position the label around the circle given the desired angle
+					// accounting for offsetting by text bounds, converting to image space
+					angle *= Math.PI / 180d;
+
+					double boundsWorldWidth = bounds.Width.AsWorldLength(settings);
+					double boundsWorldHeight = bounds.Height.AsWorldLength(settings);
+
+					double diagonalOffset = Math.Sqrt(Math.Pow(boundsWorldWidth, 2) + Math.Pow(boundsWorldHeight, 2));
+
+					double x = centerPoint.X + ((lookupRange + ((boundsWorldWidth + diagonalOffset) / 4)) * Math.Sin(angle));
+					double y = centerPoint.Y + ((lookupRange + ((boundsWorldHeight + diagonalOffset) / 4)) * Math.Cos(angle));
+
+					labelLocation = new Coord(x, y).AsImagePoint(settings);
+				}
+
+				// Clamp label location within image bounds
+				labelLocation.X = Math.Min(MapImageResolution - (bounds.Width / 2), Math.Max(bounds.Width / 2, labelLocation.X));
+				labelLocation.Y = Math.Min(MapImageResolution - (bounds.Height / 2), Math.Max(bounds.Height / 2, labelLocation.Y));
+
+				plots[instance] = labelLocation;
+				i++;
+			}
+
+			// Draw connecting lines, bounds, and optionally primitive shapes
+			foreach (KeyValuePair<Instance, PointF> plot in plots)
+			{
+				Instance instance = plot.Key;
+				PointF labelLocation = plot.Value;
+				Color color = colors[instances.IndexOf(instance) % colors.Count];
+
+				using Pen pen = new Pen(color, LookupLabelLineThickness);
+				graphics.DrawLine(pen, instance.Coord.AsImagePoint(settings), labelLocation);
+
+				DrawBounds(instance, settings, graphics, color);
+				if (settings.MapSettings.LookupDrawVolumes && instance.PrimitiveShape is not null)
+				{
+					DrawPrimitiveShape(settings, graphics, instance, color);
+				}
+			}
+
+			// Draw the labels
+			foreach (KeyValuePair<Instance, PointF> plot in plots)
+			{
+				Instance instance = plot.Key;
+				PointF labelLocation = plot.Value;
+				Color color = colors[instances.IndexOf(instance) % colors.Count];
+
+				Entity entity = instance.Entity;
+				using Brush brush = new SolidBrush(color);
+				string text = $"{entity.Signature}:{entity.FormID.ToHex()} ({instance.InstanceFormID.ToHex()})\n{entity.EditorID}";
+
+				SizeF bounds = graphics.MeasureString(text, font);
+				RectangleF textBounds = new RectangleF(
+					labelLocation.X - (bounds.Width / 2),
+					labelLocation.Y - (bounds.Height / 2),
+					bounds.Width,
+					bounds.Height);
+
+				StringFormat stringFormat = Center;
+
+				if (settings.MapSettings.LookupArrangement == LookupArrangement.Columns)
+				{
+					stringFormat = plot.Value.X < centerPointImageSpace.X ? CenterRight : CenterLeft;
+				}
+
+				DrawStringWithDropShadow(graphics, text, font, brush, textBounds, stringFormat);
+			}
+		}
+
+		public static async Task LookupCopyToClipboard(Settings settings)
+		{
+			int lookupRange = GetLookupRangeValue(settings.MapSettings.LookupRange);
+			var instances = await Database.GetInstancesInRange(settings.MapSettings.LookupLocation, lookupRange, settings);
+
+			if (instances.Count <= 0)
+			{
+				return;
+			}
+
+			string text = $"Mappalachia Lookup results within {lookupRange} units of ({settings.MapSettings.LookupLocation.X}, {settings.MapSettings.LookupLocation.Y}) in {settings.Space.EditorID}:\n" +
+				$"Instance Of\tReference\tEditor ID\tX\tY\tZ\n" +
+				string.Join("\n", instances.Select(p =>
+					$"{p.Entity.Signature}:{p.Entity.FormID.ToHex()}\t{p.InstanceFormID.ToHex()}\t{p.Entity.EditorID}\t{p.Coord.X}\t{p.Coord.Y}\t{p.Coord.Z}"));
+
+			ClipboardHelper.SetText(text);
+		}
+
+		// Draw the 3D bounding box of an instance
+		static void DrawBounds(Instance instance, Settings settings, Graphics graphics, Color color)
+		{
+			if (!settings.PlotSettings.DrawBounds)
+			{
+				return;
+			}
+
+			if (instance.Entity.Bounds is null)
+			{
+				return;
+			}
+
+			Bounds bounds = instance.Entity.Bounds.Value;
+			Rotation rotation = instance.Rotation;
+
+			Vector3[] corners =
+			[
+				new Vector3(bounds.X1, bounds.Y1, bounds.Z1),
+				new Vector3(bounds.X2, bounds.Y1, bounds.Z1),
+				new Vector3(bounds.X2, bounds.Y2, bounds.Z1),
+				new Vector3(bounds.X1, bounds.Y2, bounds.Z1),
+
+				new Vector3(bounds.X1, bounds.Y1, bounds.Z2),
+				new Vector3(bounds.X2, bounds.Y1, bounds.Z2),
+				new Vector3(bounds.X2, bounds.Y2, bounds.Z2),
+				new Vector3(bounds.X1, bounds.Y2, bounds.Z2),
+			];
+
+			Matrix4x4 rotationMatrix =
+				Matrix4x4.CreateRotationZ(float.DegreesToRadians(-rotation.Z)) *
+				Matrix4x4.CreateRotationY(float.DegreesToRadians(-rotation.Y)) *
+				Matrix4x4.CreateRotationX(float.DegreesToRadians(-rotation.X));
+
+			rotationMatrix.Translation = instance.Coord.AsVec3;
+
+			// Apply the rotation matrix to each vertex of the bounding box, also mapping to image space
+			PointF[] points = new PointF[corners.Length];
+			for (int i = 0; i < corners.Length; i++)
+			{
+				Vector3 transformedPos = Vector3.Transform(corners[i], rotationMatrix);
+				points[i] = new Coord(transformedPos.X, transformedPos.Y).AsImagePoint(settings);
+			}
+
+			using Pen pen = new Pen(color, BoundsEdgeThickness);
+
+			// Draw bottom and top faces
+			graphics.DrawPolygon(pen, points[0], points[1], points[2], points[3]);
+			graphics.DrawPolygon(pen, points[4], points[5], points[6], points[7]);
+
+			// Draw side edges
+			for (int i = 0; i < 4; i++)
+			{
+				graphics.DrawLine(pen, points[i], points[i + 4]);
+			}
+		}
+
 		static async Task DrawInstanceFormIDs(List<GroupedSearchResult> itemsToPlot, Settings settings, Graphics graphics, Progress<ProgressInfo>? progressInfo)
 		{
 			if (!settings.PlotSettings.DrawInstanceFormID)
@@ -460,7 +721,6 @@ namespace Mappalachia
 
 				foreach (Instance instance in instances)
 				{
-					Image? iconImage = null;
 					Color color = item.PlotIcon.Color;
 
 					// If this is topographic plot mode, and this is not a volume/Cell
@@ -479,12 +739,6 @@ namespace Mappalachia
 
 						// Overrides the image and color
 						color = LerpColors(settings.PlotSettings.PlotStyleSettings.SecondaryPalette.ToArray(), range);
-
-						// If this is not a shape (therefore a normal topograph plot)
-						if (instance.PrimitiveShape is null)
-						{
-							iconImage = item.PlotIcon.GetImage(color);
-						}
 					}
 
 					if (instance.Entity is Library.Region region)
@@ -501,8 +755,10 @@ namespace Mappalachia
 					}
 					else
 					{
-						graphics.DrawImageCentered(iconImage ?? item.PlotIcon.GetImage(), instance.Coord.AsImagePoint(settings));
+						graphics.DrawImageCentered(item.PlotIcon.GetImage(color), instance.Coord.AsImagePoint(settings));
 					}
+
+					DrawBounds(instance, settings, graphics, color);
 				}
 			}
 		}
@@ -540,6 +796,7 @@ namespace Mappalachia
 					}
 
 					heatmapOverlay.DrawImageCentered(heatBlob, instance.Coord.AsImagePoint(settings));
+					DrawBounds(instance, settings, graphics, item.PlotIcon.Color);
 				}
 			}
 
@@ -644,6 +901,8 @@ namespace Mappalachia
 					{
 						return;
 					}
+
+					DrawBounds(outerInstance, settings, graphics, leadItem.PlotIcon.Color);
 
 					if (outerInstance.IsMemberOfCluster)
 					{
@@ -935,7 +1194,7 @@ namespace Mappalachia
 				throw new Exception("Instance has no shape");
 			}
 
-			Shape shape = (Shape)instance.PrimitiveShape;
+			Shape shape = instance.PrimitiveShape.Value;
 
 			Pen pen = new Pen(color, VolumeEdgeThickness);
 			Brush brush = new SolidBrush(color.WithAlpha(VolumeFillAlpha));
@@ -946,7 +1205,7 @@ namespace Mappalachia
 
 			// Rotate the graphics 'canvas' around the center of the shape
 			graphics.TranslateTransform(center.X, center.Y);
-			graphics.RotateTransform((float)shape.RotZ);
+			graphics.RotateTransform(instance.Rotation.Z);
 			graphics.TranslateTransform(-center.X, -center.Y);
 
 			VolumeDrawMode drawMode = settings.PlotSettings.VolumeDrawMode;
@@ -1259,9 +1518,9 @@ namespace Mappalachia
 			return (float)(value / GetWorldToImageFactor(settings));
 		}
 
-		static int AsImageLength(this int value, Settings settings)
+		static double AsWorldLength(this float value, Settings settings)
 		{
-			return (int)(value / GetWorldToImageFactor(settings));
+			return value * GetWorldToImageFactor(settings);
 		}
 
 		// Returns the given World Coord as an Image PointF, considering spotlight scaling

@@ -8,6 +8,8 @@ namespace BackgroundRenderer
 {
 	static class BackgroundRenderer
 	{
+		const int MaxCameraHeight = 65536;
+
 		static int JpgQualityStandard { get; } = 85;
 
 		static int JpgQualityHigh { get; } = 100;
@@ -553,7 +555,7 @@ namespace BackgroundRenderer
 			}
 			else
 			{
-				return (int)Math.Pow(2, 16);
+				return MaxCameraHeight;
 			}
 		}
 

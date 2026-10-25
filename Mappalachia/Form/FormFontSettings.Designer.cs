@@ -51,6 +51,8 @@
 			toolTip = new ToolTip(components);
 			labelCoordinateGrid = new Label();
 			numericUpDownCoordinateGrid = new NumericUpDown();
+			labelLookupLabels = new Label();
+			numericUpDownLookupLabels = new NumericUpDown();
 			((System.ComponentModel.ISupportInitialize)numericUpDownTitle).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownLegend).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownItemsInOtherSpaces).BeginInit();
@@ -60,12 +62,13 @@
 			((System.ComponentModel.ISupportInitialize)numericUpDownClusterLabel).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownWatermark).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownCoordinateGrid).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownLookupLabels).BeginInit();
 			SuspendLayout();
 			// 
 			// buttonOK
 			// 
 			buttonOK.Anchor = AnchorStyles.Bottom;
-			buttonOK.Location = new Point(46, 323);
+			buttonOK.Location = new Point(53, 339);
 			buttonOK.Name = "buttonOK";
 			buttonOK.Size = new Size(75, 23);
 			buttonOK.TabIndex = 17;
@@ -76,7 +79,7 @@
 			// buttonCancel
 			// 
 			buttonCancel.Anchor = AnchorStyles.Bottom;
-			buttonCancel.Location = new Point(127, 323);
+			buttonCancel.Location = new Point(134, 339);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(75, 23);
 			buttonCancel.TabIndex = 18;
@@ -86,7 +89,7 @@
 			// numericUpDownTitle
 			// 
 			numericUpDownTitle.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownTitle.Location = new Point(168, 12);
+			numericUpDownTitle.Location = new Point(181, 12);
 			numericUpDownTitle.Name = "numericUpDownTitle";
 			numericUpDownTitle.Size = new Size(69, 23);
 			numericUpDownTitle.TabIndex = 1;
@@ -103,7 +106,7 @@
 			// numericUpDownLegend
 			// 
 			numericUpDownLegend.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownLegend.Location = new Point(168, 41);
+			numericUpDownLegend.Location = new Point(181, 41);
 			numericUpDownLegend.Name = "numericUpDownLegend";
 			numericUpDownLegend.Size = new Size(69, 23);
 			numericUpDownLegend.TabIndex = 3;
@@ -111,7 +114,7 @@
 			// numericUpDownItemsInOtherSpaces
 			// 
 			numericUpDownItemsInOtherSpaces.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownItemsInOtherSpaces.Location = new Point(168, 70);
+			numericUpDownItemsInOtherSpaces.Location = new Point(181, 70);
 			numericUpDownItemsInOtherSpaces.Name = "numericUpDownItemsInOtherSpaces";
 			numericUpDownItemsInOtherSpaces.Size = new Size(69, 23);
 			numericUpDownItemsInOtherSpaces.TabIndex = 5;
@@ -119,7 +122,7 @@
 			// numericUpDownMapMarkerLabel
 			// 
 			numericUpDownMapMarkerLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownMapMarkerLabel.Location = new Point(168, 99);
+			numericUpDownMapMarkerLabel.Location = new Point(181, 99);
 			numericUpDownMapMarkerLabel.Name = "numericUpDownMapMarkerLabel";
 			numericUpDownMapMarkerLabel.Size = new Size(69, 23);
 			numericUpDownMapMarkerLabel.TabIndex = 7;
@@ -127,7 +130,7 @@
 			// numericUpDownRegionLevel
 			// 
 			numericUpDownRegionLevel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownRegionLevel.Location = new Point(168, 215);
+			numericUpDownRegionLevel.Location = new Point(181, 215);
 			numericUpDownRegionLevel.Name = "numericUpDownRegionLevel";
 			numericUpDownRegionLevel.Size = new Size(69, 23);
 			numericUpDownRegionLevel.TabIndex = 15;
@@ -135,7 +138,7 @@
 			// numericUpDownInstanceFormID
 			// 
 			numericUpDownInstanceFormID.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownInstanceFormID.Location = new Point(168, 186);
+			numericUpDownInstanceFormID.Location = new Point(181, 186);
 			numericUpDownInstanceFormID.Name = "numericUpDownInstanceFormID";
 			numericUpDownInstanceFormID.Size = new Size(69, 23);
 			numericUpDownInstanceFormID.TabIndex = 13;
@@ -143,7 +146,7 @@
 			// numericUpDownClusterLabel
 			// 
 			numericUpDownClusterLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownClusterLabel.Location = new Point(168, 157);
+			numericUpDownClusterLabel.Location = new Point(181, 157);
 			numericUpDownClusterLabel.Name = "numericUpDownClusterLabel";
 			numericUpDownClusterLabel.Size = new Size(69, 23);
 			numericUpDownClusterLabel.TabIndex = 11;
@@ -151,7 +154,7 @@
 			// numericUpDownWatermark
 			// 
 			numericUpDownWatermark.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownWatermark.Location = new Point(168, 128);
+			numericUpDownWatermark.Location = new Point(181, 128);
 			numericUpDownWatermark.Name = "numericUpDownWatermark";
 			numericUpDownWatermark.Size = new Size(69, 23);
 			numericUpDownWatermark.TabIndex = 9;
@@ -222,7 +225,7 @@
 			// buttonResetAll
 			// 
 			buttonResetAll.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			buttonResetAll.Location = new Point(168, 273);
+			buttonResetAll.Location = new Point(181, 302);
 			buttonResetAll.Name = "buttonResetAll";
 			buttonResetAll.Size = new Size(69, 23);
 			buttonResetAll.TabIndex = 16;
@@ -243,10 +246,27 @@
 			// numericUpDownCoordinateGrid
 			// 
 			numericUpDownCoordinateGrid.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			numericUpDownCoordinateGrid.Location = new Point(168, 244);
+			numericUpDownCoordinateGrid.Location = new Point(181, 244);
 			numericUpDownCoordinateGrid.Name = "numericUpDownCoordinateGrid";
 			numericUpDownCoordinateGrid.Size = new Size(69, 23);
 			numericUpDownCoordinateGrid.TabIndex = 20;
+			// 
+			// labelLookupLabels
+			// 
+			labelLookupLabels.AutoSize = true;
+			labelLookupLabels.Location = new Point(12, 275);
+			labelLookupLabels.Name = "labelLookupLabels";
+			labelLookupLabels.Size = new Size(83, 15);
+			labelLookupLabels.TabIndex = 21;
+			labelLookupLabels.Text = "Lookup Labels";
+			// 
+			// numericUpDownLookupLabels
+			// 
+			numericUpDownLookupLabels.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			numericUpDownLookupLabels.Location = new Point(181, 273);
+			numericUpDownLookupLabels.Name = "numericUpDownLookupLabels";
+			numericUpDownLookupLabels.Size = new Size(69, 23);
+			numericUpDownLookupLabels.TabIndex = 22;
 			// 
 			// FormFontSettings
 			// 
@@ -254,7 +274,9 @@
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			CancelButton = buttonCancel;
-			ClientSize = new Size(249, 358);
+			ClientSize = new Size(262, 374);
+			Controls.Add(labelLookupLabels);
+			Controls.Add(numericUpDownLookupLabels);
 			Controls.Add(labelCoordinateGrid);
 			Controls.Add(numericUpDownCoordinateGrid);
 			Controls.Add(buttonResetAll);
@@ -287,6 +309,7 @@
 			((System.ComponentModel.ISupportInitialize)numericUpDownClusterLabel).EndInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownWatermark).EndInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownCoordinateGrid).EndInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownLookupLabels).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -315,5 +338,7 @@
 		private ToolTip toolTip;
 		private Label labelCoordinateGrid;
 		private NumericUpDown numericUpDownCoordinateGrid;
+		private Label labelLookupLabels;
+		private NumericUpDown numericUpDownLookupLabels;
 	}
 }

@@ -22,6 +22,8 @@ namespace Mappalachia
 
 		static char EscapeChar { get; } = '`';
 
+		static float LookupFuzzyOptimizationClampRange { get; } = 65536; // 2^16
+
 		public static async Task Initialize()
 		{
 			Connection = GetNewConnection(Paths.DatabasePath);
@@ -63,7 +65,7 @@ namespace Mappalachia
 		{
 			List<GroupedSearchResult> results = new List<GroupedSearchResult>();
 
-			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel " +
+			string query = "SELECT referenceFormID, editorID, displayName, signature, spaceFormID, count, label, lockLevel, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2 " +
 				"FROM Position_PreGrouped " +
 				"JOIN Entity ON Entity.entityFormID = Position_PreGrouped.referenceFormID " +
 				$"WHERE (label LIKE '%{searchTerm}%' ESCAPE '{EscapeChar}' " +
@@ -83,7 +85,8 @@ namespace Mappalachia
 						reader.GetUInt("referenceFormID"),
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
-						reader.GetSignature()),
+						reader.GetSignature(),
+						reader.GetBounds()),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetInt("count"),
 					1,
@@ -350,7 +353,7 @@ namespace Mappalachia
 			}
 
 			string query =
-				"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel " +
+				"SELECT instanceFormID, referenceFormID, editorID, displayName, signature, spaceFormID, label, lockLevel, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2 " +
 				"FROM Position " +
 				"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE instanceFormID = '{HexToInt(searchTerm)}';";
@@ -365,7 +368,8 @@ namespace Mappalachia
 						reader.GetUInt("referenceFormID"),
 						reader.GetString("editorID"),
 						reader.GetString("displayName"),
-						reader.GetSignature()),
+						reader.GetSignature(),
+						reader.GetBounds()),
 					GetSpaceByFormID(reader.GetUInt("spaceFormID")),
 					reader.GetString("label"),
 					reader.GetLockLevel()));
@@ -432,7 +436,7 @@ namespace Mappalachia
 		{
 			List<Instance> teleporters = new List<Instance>();
 
-			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ, " +
+			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, " +
 				"referenceFormID, editorID, displayName, signature FROM Position " +
 				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
 				$"WHERE spaceFormID = {space.FormID} AND teleportsToFormID IS NOT NULL AND teleportsToFormID != {space.FormID}";
@@ -453,10 +457,76 @@ namespace Mappalachia
 					string.Empty,
 					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
 					LockLevel.None,
-					reader.GetShape()));
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetRotation()));
 			}
 
 			return teleporters;
+		}
+
+		// Return all instances within range of the coord
+		// Fuzzy generously includes entities whose bounds *may* overlap with the range, regardless of their rotation however
+		public static async Task<List<Instance>> GetInstancesInRange(Coord coord, double range, Settings settings)
+		{
+			bool fuzzy = settings.MapSettings.LookupFuzzySearch;
+
+			List<Instance> instances = new List<Instance>();
+
+			double xBoundMin = coord.X - range;
+			double yBoundMin = coord.Y - range;
+			double xBoundMax = coord.X + range;
+			double yBoundMax = coord.Y + range;
+
+			if (fuzzy)
+			{
+				xBoundMin -= LookupFuzzyOptimizationClampRange;
+				yBoundMin -= LookupFuzzyOptimizationClampRange;
+				xBoundMax += LookupFuzzyOptimizationClampRange;
+				yBoundMax += LookupFuzzyOptimizationClampRange;
+			}
+
+			string boundsRangeClause = fuzzy ? "+ (SQRT(((boundX2 - boundX1) * (boundX2 - boundX1)) + ((boundY2 - boundY1) * (boundY2 - boundY1))) / 2) " : string.Empty;
+
+			string query = $"SELECT x, y, z, signature, entityFormID, editorID, displayName, label, instanceFormID, lockLevel, teleportsToFormID, primitiveShape, " +
+				$"boundX, boundY, boundZ, rotX, rotY, rotZ, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2, " +
+				$"SQRT(((x - {coord.X}) * (x - {coord.X})) + ((y - {coord.Y}) * (y - {coord.Y}))) as distance " +
+				$"FROM Position " +
+				$"JOIN Entity ON Entity.entityFormID = Position.referenceFormID " +
+				$"WHERE spaceFormID = {settings.Space.FormID} AND " +
+				$"signature IN {settings.SearchSettings.SelectedSignatures.ToSqliteCollection()} AND " +
+				$"x BETWEEN {xBoundMin} AND {xBoundMax} AND " +
+				$"y BETWEEN {yBoundMin} AND {yBoundMax} AND " +
+				$"distance <= {range} " + boundsRangeClause +
+				$"ORDER BY distance, z;";
+
+			using SqliteDataReader reader = await GetReader(Connection, query);
+
+			Console.WriteLine(query);
+
+			while (reader.Read())
+			{
+				instances.Add(new Instance(
+					new Entity(
+						reader.GetUInt("entityFormID"),
+						reader.GetString("editorID"),
+						reader.GetString("displayName"),
+						reader.GetSignature(),
+						reader.GetBounds()),
+					settings.Space,
+					reader.GetCoord(),
+					reader.GetUInt("instanceFormID"),
+					reader.GetString("label"),
+					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
+					reader.GetLockLevel(),
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetRotation()));
+			}
+
+			return instances;
 		}
 
 		// Return all 'standard' instances of the given GroupedSearchResult in the given space
@@ -464,7 +534,7 @@ namespace Mappalachia
 		{
 			List<Instance> instances = new List<Instance>();
 
-			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ FROM Position " +
+			string query = "SELECT x, y, z, instanceFormID, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ FROM Position " +
 				$"WHERE referenceFormID = {searchResult.Entity.FormID} AND spaceFormID = {space.FormID} AND lockLevel = '{searchResult.LockLevel.ToStringForQuery()}' AND label = '{searchResult.Label}'";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
@@ -479,7 +549,10 @@ namespace Mappalachia
 					searchResult.Label,
 					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
 					searchResult.LockLevel,
-					reader.GetShape()));
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetRotation()));
 			}
 
 			return instances;
@@ -490,7 +563,7 @@ namespace Mappalachia
 		{
 			Instance? instance = null;
 
-			string query = "SELECT x, y, z, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotZ, spaceFormID FROM Position " +
+			string query = "SELECT x, y, z, teleportsToFormID, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, spaceFormID FROM Position " +
 				$"WHERE instanceFormID = {searchResult.InstanceFormID} AND spaceFormID = {space.FormID}";
 
 			using SqliteDataReader reader = await GetReader(Connection, query);
@@ -505,7 +578,10 @@ namespace Mappalachia
 					searchResult.Label,
 					GetSpaceByFormID(reader.GetUInt("teleportsToFormID")),
 					searchResult.LockLevel,
-					reader.GetShape());
+					reader.GetShape(),
+					1,
+					false,
+					reader.GetRotation());
 			}
 
 			return instance;
@@ -546,7 +622,7 @@ namespace Mappalachia
 		}
 
 		// Return the instance of the Location, with Cells populated
-		static async Task<Instance> GetLocationInstance(GroupedSearchResult searchResult, Space space)
+		static async Task<List<Instance>> GetLocationInstance(GroupedSearchResult searchResult, Space space)
 		{
 			string query = "SELECT x, y FROM Cell " +
 				$"WHERE locationFormId = '{searchResult.Entity.FormID}' AND spaceFormID = {space.FormID};";
@@ -569,6 +645,12 @@ namespace Mappalachia
 				location.AddCell(cell);
 			}
 
+			if (location.Cells.Count == 0)
+			{
+				// If there are no cells, location probably not at this space
+				return new List<Instance>();
+			}
+
 			Instance instance = new Instance(
 				location,
 				space,
@@ -579,7 +661,7 @@ namespace Mappalachia
 				LockLevel.None,
 				null);
 
-			return instance;
+			return new List<Instance> { instance };
 		}
 
 		// Return all locations in the given space which are available for infestations
