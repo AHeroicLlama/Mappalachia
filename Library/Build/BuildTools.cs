@@ -9,6 +9,8 @@ namespace Library
 	// Intended for use only by pre-production preprocessor & build projects.
 	public static partial class BuildTools
 	{
+		public const int Kilobyte = 1024;
+
 		static string? solutionPath = null;
 
 		static string SolutionFile { get; } = "Mappalachia.sln";
@@ -85,11 +87,9 @@ namespace Library
 
 		public static ConsoleColor ColorError { get; } = ConsoleColor.Red;
 
-		public static int Kilobyte { get; } = (int)Math.Pow(2, 10);
-
 		public static int HashPrime { get; } = 31;
 
-		public static int WorldspaceRenderResolution { get; } = (int)Math.Pow(2, 14); // 16k
+		public static int WorldspaceRenderResolution { get; } = 16384;
 
 		public static int PlotIconSize { get; } = 256;
 

@@ -8,7 +8,7 @@ Built At UTC
 19/10/2026 20:39:24
 
 CSV Imported with SQLite Version
-3.53.1 2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9 (64-bit)
+3.54.1 2026-10-16 14:45:20 555e07ef33f69a0957d24d8e555b702464a131d6f1607f4c3c1e4551e8e6ca76 (64-bit)
 
 Tables
 Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
@@ -317,6 +317,9 @@ Avg Length Entity DisplayName
 
 Avg Length Entity EditorID
 25.312676271057246
+
+Avg Entity Bounds X1/Y1/Z1/X2/Y2/Z2
+-208.8782607001617,-198.9126843427948,-59.642301922814674,205.66328339599852,192.64629561083945,193.80078315248096
 
 Avg Length Space DisplayName
 18.13270142180095

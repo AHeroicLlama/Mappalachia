@@ -17,6 +17,9 @@ Items classified as Regions, Locations, and a few instances of Activators are re
 
 Some Regions affect the level of NPCs spawned inside them. This level range can be labelled against the Region by selecting 'Plot Settings' > 'Show Region Levels'.
 
+## Bounding Boxes
+Under 'Plot Settings' > 'Draw Bounds' you can toggle the drawing of the bounding boxes of plotted items. Many but not all items have a bounding box, which is simply a virtual cuboid entirely surrounding them.<br/>
+
 ## Show Instance FormIDs
 An advanced option for data miners, selecting 'Plot Settings' > 'Show Instance FormID' will annotate the FormID of the plotted entities onto the map against their plot.<br/>
 This only applies to Standard or Topographic plot mode.

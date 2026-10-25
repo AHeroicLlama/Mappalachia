@@ -57,10 +57,19 @@ namespace Mappalachia
 			compassAlwaysToolStripMenuItem = new ToolStripMenuItem();
 			compassWhenUsefulToolStripMenuItem = new ToolStripMenuItem();
 			compassNeverToolStripMenuItem = new ToolStripMenuItem();
-			spotlightToolStripMenuItem = new ToolStripMenuItem();
-			spotlightEnabledToolStripMenuItem = new ToolStripMenuItem();
-			spotlightSetRangeToolStripMenuItem = new ToolStripMenuItem();
-			spotlightCoordToolStripMenuItem = new ToolStripMenuItem();
+			lookupToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeExtraSmallToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeSmallToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeMediumToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeLargeToolStripMenuItem = new ToolStripMenuItem();
+			lookupRangeExtraLargeToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementCircularToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementNearestToolStripMenuItem = new ToolStripMenuItem();
+			lookupArrangementColumnsToolStripMenuItem = new ToolStripMenuItem();
+			lookupDrawVolumesToolStripMenuItem = new ToolStripMenuItem();
+			lookupFuzzySearchToolStripMenuItem = new ToolStripMenuItem();
 			legendToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleToolStripMenuItem = new ToolStripMenuItem();
 			legendStyleCompactToolStripMenuItem = new ToolStripMenuItem();
@@ -92,6 +101,7 @@ namespace Mappalachia
 			plotStylesToolStripMenuItem = new ToolStripMenuItem();
 			heatmapSettingsToolStripMenuItem = new ToolStripMenuItem();
 			clusterSettingsToolStripMenuItem = new ToolStripMenuItem();
+			drawBoundsToolStripMenuItem = new ToolStripMenuItem();
 			volumeDrawStyleToolStripMenuItem = new ToolStripMenuItem();
 			volumeFillToolStripMenuItem = new ToolStripMenuItem();
 			volumeBorderToolStripMenuItem = new ToolStripMenuItem();
@@ -153,7 +163,7 @@ namespace Mappalachia
 			// 
 			// mapMenuItem
 			// 
-			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, backgroundBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showInfestationsToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, spotlightToolStripMenuItem, legendToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
+			mapMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showPreviewToolStripMenuItem, openExternallyToolStripMenuItem, setTitleToolStripMenuItem, fontSizesToolStripMenuItem, mapMapMarkersToolStripMenuItem, backgroundImageMenuItem, grayscaleToolStripMenuItem, backgroundBrightnessToolStripMenuItem, highlightWaterToolStripMenuItem, showInfestationsToolStripMenuItem, coordinateGridToolStripMenuItem, showCompassToolStripMenuItem, lookupToolStripMenuItem, legendToolStripMenuItem, loadRecipeToolStripMenuItem, saveAsRecipeToolStripMenuItem, exportToFileToolStripMenuItem, quickSaveToolStripMenuItem, clearPlotsToolStripMenuItem, resetToolStripMenuItem });
 			mapMenuItem.Name = "mapMenuItem";
 			mapMenuItem.Size = new Size(43, 20);
 			mapMenuItem.Text = "Map";
@@ -364,33 +374,102 @@ namespace Mappalachia
 			compassNeverToolStripMenuItem.ToolTipText = "The compass is never drawn.";
 			compassNeverToolStripMenuItem.Click += Map_Compass_Never_Click;
 			// 
-			// spotlightToolStripMenuItem
+			// lookupToolStripMenuItem
 			// 
-			spotlightToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { spotlightEnabledToolStripMenuItem, spotlightSetRangeToolStripMenuItem, spotlightCoordToolStripMenuItem });
-			spotlightToolStripMenuItem.Name = "spotlightToolStripMenuItem";
-			spotlightToolStripMenuItem.Size = new Size(240, 22);
-			spotlightToolStripMenuItem.Text = "Spotlight";
+			lookupToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeToolStripMenuItem, lookupArrangementToolStripMenuItem, lookupDrawVolumesToolStripMenuItem, lookupFuzzySearchToolStripMenuItem });
+			lookupToolStripMenuItem.Name = "lookupToolStripMenuItem";
+			lookupToolStripMenuItem.Size = new Size(240, 22);
+			lookupToolStripMenuItem.Text = "Lookup";
 			// 
-			// spotlightEnabledToolStripMenuItem
+			// lookupRangeToolStripMenuItem
 			// 
-			spotlightEnabledToolStripMenuItem.Name = "spotlightEnabledToolStripMenuItem";
-			spotlightEnabledToolStripMenuItem.Size = new Size(116, 22);
-			spotlightEnabledToolStripMenuItem.Text = "Enabled";
-			spotlightEnabledToolStripMenuItem.Click += Map_Spotlight_Enabled_Click;
+			lookupRangeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeExtraSmallToolStripMenuItem, lookupRangeSmallToolStripMenuItem, lookupRangeMediumToolStripMenuItem, lookupRangeLargeToolStripMenuItem, lookupRangeExtraLargeToolStripMenuItem });
+			lookupRangeToolStripMenuItem.Name = "lookupRangeToolStripMenuItem";
+			lookupRangeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeToolStripMenuItem.Text = "Range";
+			lookupRangeToolStripMenuItem.ToolTipText = "Select the size of the area searched by lookup.";
 			// 
-			// spotlightSetRangeToolStripMenuItem
+			// lookupRangeExtraSmallToolStripMenuItem
 			// 
-			spotlightSetRangeToolStripMenuItem.Name = "spotlightSetRangeToolStripMenuItem";
-			spotlightSetRangeToolStripMenuItem.Size = new Size(116, 22);
-			spotlightSetRangeToolStripMenuItem.Text = "Set Size";
-			spotlightSetRangeToolStripMenuItem.Click += Map_Spotlight_SetRange_Click;
+			lookupRangeExtraSmallToolStripMenuItem.Name = "lookupRangeExtraSmallToolStripMenuItem";
+			lookupRangeExtraSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraSmallToolStripMenuItem.Text = "Extra Small";
+			lookupRangeExtraSmallToolStripMenuItem.Click += Map_Lookup_Range_ExtraSmall_Click;
 			// 
-			// spotlightCoordToolStripMenuItem
+			// lookupRangeSmallToolStripMenuItem
 			// 
-			spotlightCoordToolStripMenuItem.Name = "spotlightCoordToolStripMenuItem";
-			spotlightCoordToolStripMenuItem.Size = new Size(116, 22);
-			spotlightCoordToolStripMenuItem.Text = "Coord";
-			spotlightCoordToolStripMenuItem.Click += Map_Spotlight_Coord_Click;
+			lookupRangeSmallToolStripMenuItem.Name = "lookupRangeSmallToolStripMenuItem";
+			lookupRangeSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeSmallToolStripMenuItem.Text = "Small";
+			lookupRangeSmallToolStripMenuItem.Click += Map_Lookup_Range_Small_Click;
+			// 
+			// lookupRangeMediumToolStripMenuItem
+			// 
+			lookupRangeMediumToolStripMenuItem.Name = "lookupRangeMediumToolStripMenuItem";
+			lookupRangeMediumToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeMediumToolStripMenuItem.Text = "Medium";
+			lookupRangeMediumToolStripMenuItem.Click += Map_Lookup_Range_Medium_Click;
+			// 
+			// lookupRangeLargeToolStripMenuItem
+			// 
+			lookupRangeLargeToolStripMenuItem.Name = "lookupRangeLargeToolStripMenuItem";
+			lookupRangeLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeLargeToolStripMenuItem.Text = "Large";
+			lookupRangeLargeToolStripMenuItem.Click += Map_Lookup_Range_Large_Click;
+			// 
+			// lookupRangeExtraLargeToolStripMenuItem
+			// 
+			lookupRangeExtraLargeToolStripMenuItem.Name = "lookupRangeExtraLargeToolStripMenuItem";
+			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraLargeToolStripMenuItem.Text = "Extra Large";
+			lookupRangeExtraLargeToolStripMenuItem.Click += Map_Lookup_Range_ExtraLarge_Click;
+			// 
+			// lookupArrangementToolStripMenuItem
+			// 
+			lookupArrangementToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupArrangementCircularToolStripMenuItem, lookupArrangementNearestToolStripMenuItem, lookupArrangementColumnsToolStripMenuItem });
+			lookupArrangementToolStripMenuItem.Name = "lookupArrangementToolStripMenuItem";
+			lookupArrangementToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementToolStripMenuItem.Text = "Arrangement";
+			// 
+			// lookupArrangementCircularToolStripMenuItem
+			// 
+			lookupArrangementCircularToolStripMenuItem.Name = "lookupArrangementCircularToolStripMenuItem";
+			lookupArrangementCircularToolStripMenuItem.Size = new Size(122, 22);
+			lookupArrangementCircularToolStripMenuItem.Text = "Circular";
+			lookupArrangementCircularToolStripMenuItem.ToolTipText = "Arrange the labels neatly around the circle.";
+			lookupArrangementCircularToolStripMenuItem.Click += Map_Lookup_Arrangement_Circular_Click;
+			// 
+			// lookupArrangementNearestToolStripMenuItem
+			// 
+			lookupArrangementNearestToolStripMenuItem.Name = "lookupArrangementNearestToolStripMenuItem";
+			lookupArrangementNearestToolStripMenuItem.Size = new Size(122, 22);
+			lookupArrangementNearestToolStripMenuItem.Text = "Nearest";
+			lookupArrangementNearestToolStripMenuItem.ToolTipText = "Plot labels at the edge of the range at the nearest point.";
+			lookupArrangementNearestToolStripMenuItem.Click += Map_Lookup_Arrangement_Nearest_Click;
+			// 
+			// lookupArrangementColumnsToolStripMenuItem
+			// 
+			lookupArrangementColumnsToolStripMenuItem.Name = "lookupArrangementColumnsToolStripMenuItem";
+			lookupArrangementColumnsToolStripMenuItem.Size = new Size(122, 22);
+			lookupArrangementColumnsToolStripMenuItem.Text = "Columns";
+			lookupArrangementColumnsToolStripMenuItem.ToolTipText = "Arrange columns of labels either side of the area.";
+			lookupArrangementColumnsToolStripMenuItem.Click += Map_Lookup_Arrangement_Columns_Click;
+			// 
+			// lookupDrawVolumesToolStripMenuItem
+			// 
+			lookupDrawVolumesToolStripMenuItem.Name = "lookupDrawVolumesToolStripMenuItem";
+			lookupDrawVolumesToolStripMenuItem.Size = new Size(180, 22);
+			lookupDrawVolumesToolStripMenuItem.Text = "Draw Volumes";
+			lookupDrawVolumesToolStripMenuItem.ToolTipText = "Control if volumes found by the lookup are drawn as well as being labeled.";
+			lookupDrawVolumesToolStripMenuItem.Click += Map_Lookup_DrawVolumes_Click;
+			// 
+			// lookupFuzzySearchToolStripMenuItem
+			// 
+			lookupFuzzySearchToolStripMenuItem.Name = "lookupFuzzySearchToolStripMenuItem";
+			lookupFuzzySearchToolStripMenuItem.Size = new Size(180, 22);
+			lookupFuzzySearchToolStripMenuItem.Text = "Fuzzy Search";
+			lookupFuzzySearchToolStripMenuItem.ToolTipText = "Extend the search to include nearby entities whose origin is not in the range, but whose bounds might overlap with it.";
+			lookupFuzzySearchToolStripMenuItem.Click += Map_Lookup_FuzzySearch_Click;
 			// 
 			// legendToolStripMenuItem
 			// 
@@ -562,7 +641,7 @@ namespace Mappalachia
 			// 
 			// plotSettingsMenuItem
 			// 
-			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, includeCountInLegendTextToolStripMenuItem });
+			plotSettingsMenuItem.DropDownItems.AddRange(new ToolStripItem[] { plotModeMenuItem, plotStylesToolStripMenuItem, heatmapSettingsToolStripMenuItem, clusterSettingsToolStripMenuItem, drawBoundsToolStripMenuItem, volumeDrawStyleToolStripMenuItem, showPlotsInOtherSpacesToolStripMenuItem, showRegionLevelsToolStripMenuItem, drawInstanceFormIDToolStripMenuItem, includeCountInLegendTextToolStripMenuItem });
 			plotSettingsMenuItem.Name = "plotSettingsMenuItem";
 			plotSettingsMenuItem.Size = new Size(85, 20);
 			plotSettingsMenuItem.Text = "Plot Settings";
@@ -633,6 +712,14 @@ namespace Mappalachia
 			clusterSettingsToolStripMenuItem.Text = "Cluster Settings";
 			clusterSettingsToolStripMenuItem.ToolTipText = "Adjust settings relevant to Cluster plot mode.";
 			clusterSettingsToolStripMenuItem.Click += Plot_ClusterSettings_Click;
+			// 
+			// drawBoundsToolStripMenuItem
+			// 
+			drawBoundsToolStripMenuItem.Name = "drawBoundsToolStripMenuItem";
+			drawBoundsToolStripMenuItem.Size = new Size(240, 22);
+			drawBoundsToolStripMenuItem.Text = "Draw Bounds";
+			drawBoundsToolStripMenuItem.ToolTipText = "Draw the bounding box of plotted items (Where applicable).";
+			drawBoundsToolStripMenuItem.Click += Plot_DrawBounds_Click;
 			// 
 			// volumeDrawStyleToolStripMenuItem
 			// 
@@ -1162,10 +1249,6 @@ namespace Mappalachia
 		private ToolStripMenuItem showPlotsInOtherSpacesToolStripMenuItem;
 		private ToolStripMenuItem showRegionLevelsToolStripMenuItem;
 		private Button buttonUpdateMap;
-		private ToolStripMenuItem spotlightToolStripMenuItem;
-		private ToolStripMenuItem spotlightEnabledToolStripMenuItem;
-		private ToolStripMenuItem spotlightSetRangeToolStripMenuItem;
-		private ToolStripMenuItem spotlightCoordToolStripMenuItem;
 		private ProgressBar progressBarMain;
 		private Label labelProgressStatus;
 		private Label labelSearchResults;
@@ -1201,6 +1284,20 @@ namespace Mappalachia
 		private ToolStripMenuItem legendVerticalCenterToolStripMenuItem;
 		private ToolStripMenuItem legendVerticalBottomToolStripMenuItem;
 		private ToolStripMenuItem showInfestationsToolStripMenuItem;
+		private ToolStripMenuItem lookupToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeSmallToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeMediumToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeLargeToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeExtraLargeToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementCircularToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementNearestToolStripMenuItem;
+		private ToolStripMenuItem lookupDrawVolumesToolStripMenuItem;
 		private ToolStripMenuItem includeCountInLegendTextToolStripMenuItem;
+		private ToolStripMenuItem drawBoundsToolStripMenuItem;
+		private ToolStripMenuItem lookupArrangementColumnsToolStripMenuItem;
+		private ToolStripMenuItem lookupFuzzySearchToolStripMenuItem;
+		private ToolStripMenuItem lookupRangeExtraSmallToolStripMenuItem;
 	}
 }
