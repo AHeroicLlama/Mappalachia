@@ -21,8 +21,8 @@ unit _mappalachia_lib;
 		createDir('Output\');
 		createDir('Output\' + IntToStr(esmNumber));
 		AddMessage('Writing output to file: ' + outputFile);
-		outputStrings.SaveToFile(outputFile);
-		outputStrings.Free;
+		strings.SaveToFile(outputFile);
+		strings.Free;
 	end;
 
 	// Handle the pulling of every record from a given signature group and write it to the output file.
@@ -39,7 +39,7 @@ unit _mappalachia_lib;
 			targetESM := FileByIndex(esmNumber);
 			fileName := GetFileName(targetESM);
 
-			if (pos('.esm', fileName) = 0) then begin
+			if (GetIsEsm(targetESM) = false) then begin
 				AddMessage('Skipping ' + fileName + ' - not an ESM');
 				continue
 			end;

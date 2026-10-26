@@ -27,7 +27,7 @@ unit _mappalachia_entity;
 			targetESM := FileByIndex(esmNumber);
 			fileName := GetFileName(targetESM);
 
-			if (pos('.esm', fileName) = 0) then begin
+			if (GetIsEsm(targetESM) = false) then begin
 				AddMessage('Skipping ' + fileName + ' - not an ESM');
 				continue
 			end;

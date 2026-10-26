@@ -5,6 +5,7 @@ uses
 	_mappalachia_component,
 	_mappalachia_global,
 	_mappalachia_entity,
+	_mappalachia_esm,
 	_mappalachia_scrap,
 	_mappalachia_location,
 	_mappalachia_locationCell,
@@ -14,6 +15,7 @@ uses
 
 	function initialize: Integer;
 	begin
+		_mappalachia_esm.initialize();
 		_mappalachia_global.initialize();
 		_mappalachia_space.initialize();
 		_mappalachia_location.initialize();
