@@ -6,8 +6,6 @@ namespace Mappalachia
 {
 	static class UpdateChecker
 	{
-		static string UserAgent { get; } = "AHeroicLlama/Mappalachia";
-
 		static TaskDialogButton GetViewReleasesButton()
 		{
 			TaskDialogButton button = new TaskDialogButton("View releases on GitHub");
@@ -23,7 +21,7 @@ namespace Mappalachia
 			{
 				// Get the response from the GitHub API
 				using HttpClient httpClient = new HttpClient();
-				httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
+				httpClient.DefaultRequestHeaders.Add("User-Agent", Common.RepositoryName);
 				using HttpResponseMessage response = await httpClient.GetAsync(URLs.LatestReleaseAPI);
 
 				if (!response.IsSuccessStatusCode)
@@ -115,7 +113,7 @@ namespace Mappalachia
 				buttonSkipThisVersion.Click += (sender, e) => { settings.LastDeclinedUpdateVersion = latestVersion; };
 				buttonRemindMeLater.Click += (sender, e) => { settings.LastDeclinedUpdateVersion = null; };
 
-				page.Heading = $"A new Mappalachia version, {latestVersion} is available.";
+				page.Heading = $"A new {Common.ApplicationName} version, {latestVersion} is available.";
 				page.Text = patchNotes;
 				page.DefaultButton = buttonRemindMeLater;
 				page.Buttons =

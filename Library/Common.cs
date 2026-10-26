@@ -5,6 +5,10 @@ namespace Library
 {
 	public static class Common
 	{
+		public static string ApplicationName { get; } = "Mappalachia"; // User-friendly name
+
+		public static string RepositoryName { get; } = "AHeroicLlama/Mappalachia";
+
 		public static string DistributableFileName { get; } = "Mappalachia.zip";
 
 		public static string MapMarkerImageFileType { get; } = ".svg";
@@ -19,7 +23,7 @@ namespace Library
 
 		public static string RecipeFileType { get; } = ".json";
 
-		public static string RecipeFileFilter { get; } = $"Mappalachia JSON Recipe|*{RecipeFileType}";
+		public static string RecipeFileFilter { get; } = $"{ApplicationName} JSON Recipe|*{RecipeFileType}";
 
 		public static string WaterMaskAddendum { get; } = "_waterMask";
 
