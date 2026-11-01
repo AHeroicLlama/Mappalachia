@@ -9,8 +9,8 @@ namespace Mappalachia
 
 	// Represents an amount of BaseInstances which share the same basic properties
 	// This is used to represent a row on the search results
-	public class GroupedSearchResult(Entity entity, Space space, int count = 1, double spawnWeight = 1, string label = "", LockLevel lockLevel = LockLevel.None, bool inContainer = false)
-		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
+	public class GroupedSearchResult(Entity entity, Space space, int count = 1, double spawnWeight = 1, string label = "", LockLevel lockLevel = LockLevel.None, bool inContainer = false, bool initiallyDisabled = false)
+		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer, initiallyDisabled)
 	{
 		PlotIcon? plotIcon;
 
@@ -122,5 +122,8 @@ namespace Mappalachia
 
 		[JsonIgnore]
 		public string DataValueLocation => Mappalachia.GetIsAdvanced() ? Space.EditorID : Space.DisplayName;
+
+		[JsonIgnore]
+		public string DataValueInitiallyDisabled => InitiallyDisabled ? "Yes" : "No";
 	}
 }
