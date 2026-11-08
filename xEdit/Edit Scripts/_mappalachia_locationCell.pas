@@ -15,7 +15,7 @@ unit _mappalachia_locationCell;
 	const
 		formID = IntToStr(GetLoadOrderFormID(item));
 		editorID = EditorID(item);
-		displayName = DisplayName(item);
+		displayName = sanitize(DisplayName(item));
 		worldspacesEntry = ElementByName(item, 'Master Worldspace Cells');
 		keywordsEntry = ElementBySignature(ElementByName(item, 'Keywords'), 'KWDA');
 	var
