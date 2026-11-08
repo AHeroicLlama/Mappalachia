@@ -9,6 +9,8 @@ namespace Library
 
 		public static string ApplicationSystemName { get; } = "Mappalachia"; // File/URL-friendly name
 
+		public static string GameTargetName { get; } = "Fallout 76"; // User-friendly game title
+
 		public static string RepositoryName { get; } = $"AHeroicLlama/{ApplicationSystemName}";
 
 		public static string DistributableFileName { get; } = $"{ApplicationSystemName}.zip";
