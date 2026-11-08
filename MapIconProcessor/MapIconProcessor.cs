@@ -20,7 +20,7 @@ class MapIconProcessor
 
 	static async Task Main()
 	{
-		Console.Title = $"{Common.ApplicationName} Map Icon Extractor";
+		Console.Title = $"{Common.ApplicationTitleName} Map Icon Extractor";
 
 		GeneratePlotIconShapes();
 

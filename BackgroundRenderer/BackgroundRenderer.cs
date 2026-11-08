@@ -18,7 +18,7 @@ namespace BackgroundRenderer
 
 		static async Task Main()
 		{
-			Console.Title = $"{ApplicationName} Background Renderer";
+			Console.Title = $"{ApplicationTitleName} Background Renderer";
 
 			// Ensure the output directories exist
 			foreach (string directory in new string[] { CellPath, WorldPath, SpotlightPath })

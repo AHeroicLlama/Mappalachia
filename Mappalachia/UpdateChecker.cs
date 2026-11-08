@@ -113,7 +113,7 @@ namespace Mappalachia
 				buttonSkipThisVersion.Click += (sender, e) => { settings.LastDeclinedUpdateVersion = latestVersion; };
 				buttonRemindMeLater.Click += (sender, e) => { settings.LastDeclinedUpdateVersion = null; };
 
-				page.Heading = $"A new {Common.ApplicationName} version, {latestVersion} is available.";
+				page.Heading = $"A new {Common.ApplicationTitleName} version, {latestVersion} is available.";
 				page.Text = patchNotes;
 				page.DefaultButton = buttonRemindMeLater;
 				page.Buttons =

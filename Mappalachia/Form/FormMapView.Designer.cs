@@ -93,7 +93,7 @@ namespace Mappalachia
 			MainMenuStrip = menuStripPreview;
 			MinimumSize = new Size(256, 256);
 			Name = "FormMapView";
-			Text = Common.ApplicationName + ": Preview";
+			Text = Common.ApplicationTitleName + ": Preview";
 			FormClosing += FormMapView_FormClosing;
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
 			menuStripPreview.ResumeLayout(false);

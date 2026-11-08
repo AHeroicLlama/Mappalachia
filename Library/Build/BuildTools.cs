@@ -51,7 +51,7 @@ namespace Library
 
 		public static string DataPath { get; } = AssetsPath + @"data\";
 
-		public static string DatabasePath { get; } = DataPath + @"mappalachia.db";
+		public static string DatabasePath { get; } = DataPath + @$"{Common.ApplicationSystemName}.db";
 
 		public static string ImagePath { get; } = AssetsPath + @"img\";
 

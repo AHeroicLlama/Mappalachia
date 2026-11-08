@@ -7,7 +7,7 @@ namespace Mappalachia
 	{
 		static string ImgPath { get; } = @"img\";
 
-		public static string DatabasePath { get; } = @"data\mappalachia.db";
+		public static string DatabasePath { get; } = @$"data\{Common.ApplicationSystemName}.db";
 
 		public static string SpotlightTilePath { get; } = @$"{ImgPath}spotlight\";
 
