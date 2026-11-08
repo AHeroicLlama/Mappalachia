@@ -43,7 +43,7 @@ namespace Library
 
 		public static string TempPath { get; } = OutputsPath + @"Temp\";
 
-		public static string Fo76EditOutputPath { get; } = GetRepoRoot() + @"FO76Edit\Output\";
+		public static string XEditOutputPath { get; } = GetRepoRoot() + @"xEdit\Output\";
 
 		public static string CellXYScaleCorrectionPath { get; } = BGRendererCorrectionsPath + @"XY_Scale\";
 

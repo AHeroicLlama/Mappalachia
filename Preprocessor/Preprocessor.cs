@@ -565,11 +565,11 @@ namespace Preprocessor
 
 			if (!useEsmNumbers)
 			{
-				Import(Path.Combine(Fo76EditOutputPath, $"{tableName}.csv"), tableName);
+				Import(Path.Combine(XEditOutputPath, $"{tableName}.csv"), tableName);
 				return;
 			}
 
-			foreach (string directory in Directory.GetDirectories(Fo76EditOutputPath))
+			foreach (string directory in Directory.GetDirectories(XEditOutputPath))
 			{
 				string csvPath = Path.Combine(directory, $"{tableName}.csv");
 
