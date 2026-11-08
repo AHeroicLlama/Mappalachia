@@ -13,7 +13,7 @@ unit _mappalachia_locationCell;
 
 	procedure ripItem(item : IInterface);
 	const
-		formID = IntToStr(FixedFormId(item));
+		formID = IntToStr(GetLoadOrderFormID(item));
 		editorID = EditorID(item);
 		displayName = DisplayName(item);
 		worldspacesEntry = ElementByName(item, 'Master Worldspace Cells');

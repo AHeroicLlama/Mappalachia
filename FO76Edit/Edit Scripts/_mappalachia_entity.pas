@@ -34,8 +34,8 @@ unit _mappalachia_entity;
 
 			AddMessage('Running Entity export on ' + fileName);
 
-			outputFile := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Entity.csv';
-			outputFileContainer := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Container.csv';
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Entity.csv';
+			outputFileContainer := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Container.csv';
 
 			outputStrings := TStringList.Create;
 			outputStringsContainer := TStringList.Create;
@@ -69,41 +69,43 @@ unit _mappalachia_entity;
 		i, j : Integer;
 		containerItems, containerItem, boundsEntry : IInterface;
 	begin
-		if(FixedFormId(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
+		if(GetLoadOrderFormID(item) = 0) then begin // This is a GRUP and not an end-node, so pass each of its children back through
 			for i := 0 to ElementCount(item) -1 do begin
 				ripItem(elementByIndex(item, i), signature); // Recursive
 			end;
 		end
 		else begin // This is an end-node
-			if (signature = 'CONT') then begin
-				containerItems := ElementByName(item, 'Items');
+			if IsWinningOverride(item) then begin
+				if (signature = 'CONT') then begin
+					containerItems := ElementByName(item, 'Items');
 
-				for j := 0 to ElementCount(containerItems) -1 do begin
-					containerItem := ElementBySignature(ElementByIndex(containerItems, j), 'CNTO');
+					for j := 0 to ElementCount(containerItems) -1 do begin
+						containerItem := ElementBySignature(ElementByIndex(containerItems, j), 'CNTO');
 
-					outputStringsContainer.Add(
-						IntToStr(FixedFormId(item)) + ',' +
-						sanitize(GetEditValue(ElementByName(containerItem, 'Item'))) + ',' +
-						GetEditValue(ElementByName(containerItem, 'Count'))
-					);
-				end;
-			end
+						outputStringsContainer.Add(
+							IntToStr(GetLoadOrderFormID(item)) + ',' +
+							sanitize(GetEditValue(ElementByName(containerItem, 'Item'))) + ',' +
+							GetEditValue(ElementByName(containerItem, 'Count'))
+						);
+					end;
+				end
 
-			boundsEntry := ElementBySignature(item, 'OBND');
+				boundsEntry := ElementBySignature(item, 'OBND');
 
-			// The main entity export for all entities
-			outputStrings.Add(
-				IntToStr(FixedFormId(item)) + ',' +
-				sanitize(displayName) + ',' +
-				editorId + ',' +
-				signature + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'X1')) + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'Y1')) + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'Z1')) + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'X2')) + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'Y2')) + ',' +
-				GetEditValue(ElementByName(boundsEntry, 'Z2'))
-			);
+				// The main entity export for all entities
+				outputStrings.Add(
+					IntToStr(GetLoadOrderFormID(item)) + ',' +
+					sanitize(displayName) + ',' +
+					editorId + ',' +
+					signature + ',' +
+					GetEditValue(ElementByName(boundsEntry, 'X1')) + ',' +
+					GetEditValue(ElementByName(boundsEntry, 'Y1')) + ',' +
+					GetEditValue(ElementByName(boundsEntry, 'Z1')) + ',' +
+					GetEditValue(ElementByName(boundsEntry, 'X2')) + ',' +
+					GetEditValue(ElementByName(boundsEntry, 'Y2')) + ',' +
+					GetEditValue(ElementByName(boundsEntry, 'Z2'))
+				);
+			end;
 		end;
 	end;
 end.

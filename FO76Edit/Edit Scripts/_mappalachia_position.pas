@@ -23,7 +23,7 @@ unit _mappalachia_position;
 
 			AddMessage('Running Position export on ' + fileName);
 
-			outputFile := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Position.csv';
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Position.csv';
 
 			outputStrings := TStringList.Create;
 
@@ -57,8 +57,8 @@ unit _mappalachia_position;
 				for l := 0 to ElementCount(subBlock) -1 do begin // Iterate over every cell within the subBlock
 					cell := elementByIndex(subBlock, l);
 
-					if(FixedFormId(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
-						cellFormID := IntToStr(FixedFormId(cell));
+					if(GetLoadOrderFormID(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
+						cellFormID := IntToStr(GetLoadOrderFormID(cell));
 
 						// Rip persistent items...
 						cellChild := FindChildGroup(ChildGroup(ElementByIndex(subBlock, l)), 8, ElementByIndex(subBlock, l));
@@ -89,7 +89,7 @@ unit _mappalachia_position;
 			worldspace := elementByIndex(category, i);
 			spaceEditorID := EditorID(worldspace);
 			spaceDisplayName := sanitize(DisplayName(worldspace));
-			if(FixedFormId(worldspace) <> 0) then begin
+			if(GetLoadOrderFormID(worldspace) <> 0) then begin
 				ripWorldspace(spaceEditorID);
 			end;
 		end;
@@ -98,7 +98,7 @@ unit _mappalachia_position;
 	procedure ripWorldspace(worldspaceEditorID: String); // Primary block for iterating down worldspace tree
 	const
 		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
-		worldspaceID = IntToStr(FixedFormId(worldspace));
+		worldspaceID = IntToStr(GetLoadOrderFormID(worldspace));
 		blocks = ChildGroup(worldspace);
 		blockCount = ElementCount(blocks);
 	var
@@ -145,7 +145,7 @@ unit _mappalachia_position;
 		primitiveShape : String;
 		i : Integer;
 	begin
-		if(Assigned(displayName) and Assigned(position)) then begin // Skip records missing key data
+		if(Assigned(displayName) and Assigned(position) and IsWinningOverride(item)) then begin // Skip records missing key data
 			primitiveEntry := ElementBySignature(item, 'XPRM');
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
 			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));

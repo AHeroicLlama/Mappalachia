@@ -23,7 +23,7 @@ unit _mappalachia_space;
 
 			AddMessage('Running Space export on ' + fileName);
 
-			outputFile := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\Space.csv';
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Space.csv';
 			outputStrings := TStringList.Create;
 
 			ripWorldSpaces();
@@ -41,7 +41,7 @@ unit _mappalachia_space;
 		category := GroupBySignature(targetESM, 'WRLD');
 		for i := 0 to ElementCount(category) -1 do begin // Iterate over every worldspace within the worldspace category
 			worldspace := elementByIndex(category, i);
-			if(FixedFormId(worldspace) <> 0) then begin
+			if(GetLoadOrderFormID(worldspace) <> 0) then begin
 				ripSpace(worldspace, 1);
 			end;
 
@@ -63,7 +63,7 @@ unit _mappalachia_space;
 				for l := 0 to ElementCount(subBlock) -1 do begin // Iterate over every cell within the subBlock
 					cell := elementByIndex(subBlock, l);
 
-					if(FixedFormId(cell) <> 0) then begin
+					if(GetLoadOrderFormID(cell) <> 0) then begin
 						ripSpace(cell, 0);
 					end;
 				end;
@@ -78,9 +78,11 @@ unit _mappalachia_space;
 	var
 		entry, isInstanceable : String;
 	begin
-		isInstanceable := GetEditValue(ElementByName(ElementByName(ElementByName(space, 'Record Header'), 'Record Flags'), 'Is Instancable'));
+		if IsWinningOverride(space) then begin
+			isInstanceable := GetEditValue(ElementByName(ElementByName(ElementByName(space, 'Record Header'), 'Record Flags'), 'Is Instancable'));
 
-		entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace) + ',' + isInstanceable;
-		outputStrings.Add(entry);
+			entry := IntToStr(GetLoadOrderFormID(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace) + ',' + isInstanceable;
+			outputStrings.Add(entry);
+		end;
 	end;
 end.

@@ -19,7 +19,7 @@ unit _mappalachia_lib;
 	procedure outputToFile(esmNumber: Integer; outputFile: String; strings: TStringList);
 	begin
 		createDir('Output\');
-		createDir('Output\' + IntToStr(esmNumber));
+		createDir('Output\ESM_' + IntToStr(esmNumber));
 		AddMessage('Writing output to file: ' + outputFile);
 		strings.SaveToFile(outputFile);
 		strings.Free;
@@ -32,7 +32,7 @@ unit _mappalachia_lib;
 	var
 		i : Integer;
 		outputFile : string;
-		category : IInterface;
+		category, element : IInterface;
 	begin
 		for i := 0 to FileCount() -1 do begin
 			esmNumber := i;
@@ -46,13 +46,17 @@ unit _mappalachia_lib;
 
 			AddMessage('Running ' + outputFileName + ' export on ' + fileName);
 
-			outputFile := ProgramPath + 'Output\' + IntToStr(esmNumber) + '\' + outputFileName + '.csv';
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\' + outputFileName + '.csv';
 			category := GroupBySignature(targetESM, signature);
 
 			outputStrings := TStringList.Create;
 
 			for i := 0 to ElementCount(category) -1 do begin // Iterate over every item within the category
-				goToRipItem(elementByIndex(category, i), outputFileName);
+				element := elementByIndex(category, i);
+
+				if IsWinningOverride(element) then begin
+					goToRipItem(element, outputFileName);
+				end;
 			end;
 
 			outputToFile(esmNumber, outputFile, outputStrings);
