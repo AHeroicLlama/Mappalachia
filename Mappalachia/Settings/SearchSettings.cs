@@ -31,7 +31,7 @@ namespace Mappalachia
 			}
 		}
 
-		public bool IncludeInitiallyDisabled { get; set; } = true;
+		public bool IncludeInitiallyDisabled { get; set; } = false;
 
 		public List<Signature> SelectedSignatures { get; set; } = Enum.GetValues<Signature>().ToList().Where(s => s.IsRecommendedSelection()).ToList();
 
