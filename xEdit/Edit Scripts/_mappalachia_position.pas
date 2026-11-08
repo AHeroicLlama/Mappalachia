@@ -96,43 +96,45 @@ unit _mappalachia_position;
 	end;
 
 	procedure ripWorldspace(worldspaceEditorID: String); // Primary block for iterating down worldspace tree
-	const
-		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
-		worldspaceID = IntToStr(GetLoadOrderFormID(worldspace));
-		blocks = ChildGroup(worldspace);
-		blockCount = ElementCount(blocks);
-	var
-		i, j, k, l : Integer; // Iterators
-		block, subBlock, cell, cellItem : IInterface;
-		friendlyBlockName : String;
-	begin
-		for i := 0 to blockCount - 1 do begin // Iterate over all blocks within the worldspace
-			block := elementByIndex(blocks, i);
-			friendlyBlockName := Trim(StringReplace(BaseName(block), 'GRUP', '', [rfReplaceAll]));
+    var
+        worldspace, blocks : IInterface;
+        blockCount : Integer;
+        i, j, k, l : Integer; // Iterators
+        block, subBlock, cell, cellItem : IInterface;
+        friendlyBlockName, worldspaceID : String;
+    begin
+        worldspace := MainRecordByEditorID(GroupBySignature(targetESM, 'WRLD'), worldspaceEditorID);
+        worldspaceID := IntToStr(GetLoadOrderFormID(worldspace));
+        blocks := ChildGroup(worldspace);
+        blockCount := ElementCount(blocks);
 
-			for j := 0 to ElementCount(block) - 1 do begin // Iterate over all subBlocks within the block
-				subBlock := elementByIndex(block, j);
-				AddMessage(worldspaceEditorID + ' ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
+        for i := 0 to blockCount - 1 do begin // Iterate over all blocks within the worldspace
+            block := elementByIndex(blocks, i);
+            friendlyBlockName := Trim(StringReplace(BaseName(block), 'GRUP', '', [rfReplaceAll]));
 
-				if(Signature(subBlock) = 'GRUP') then begin
-					for k := 0 to ElementCount(subBlock) - 1 do begin // Iterate over all cells within the subBlock
-						cell := FindChildGroup(ChildGroup(ElementByIndex(subBlock, k)), 9, ElementByIndex(subBlock, k));
+            for j := 0 to ElementCount(block) - 1 do begin // Iterate over all subBlocks within the block
+                subBlock := elementByIndex(block, j);
+                AddMessage(worldspaceEditorID + ' ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
 
-						if(groupType(cell) = 9) then begin // Check that this isn't the persistent worldspace cell (which has a hierarchy one-less deep than normal worldspace blocks)
-							for l := 0 to ElementCount(cell) - 1 do begin // Iterate over all cellElements within the cell
-								cellItem := elementByIndex(cell, l);
-								ripItem(cellItem, worldspaceID);
-							end;
-						end
-						else begin // This is not a standard worldspace block (presumably the persistent worldspace cell)
-							cell := elementByIndex(subBlock, k);
-							ripItem(cell, worldspaceID);
-						end;
-					end;
-				end;
-			end;
-		end;
-	end;
+                if(Signature(subBlock) = 'GRUP') then begin
+                    for k := 0 to ElementCount(subBlock) - 1 do begin // Iterate over all cells within the subBlock
+                        cell := FindChildGroup(ChildGroup(ElementByIndex(subBlock, k)), 9, ElementByIndex(subBlock, k));
+
+                        if(groupType(cell) = 9) then begin // Check that this isn't the persistent worldspace cell (which has a hierarchy one-less deep than normal worldspace blocks)
+                            for l := 0 to ElementCount(cell) - 1 do begin // Iterate over all cellElements within the cell
+                                cellItem := elementByIndex(cell, l);
+                                ripItem(cellItem, worldspaceID);
+                            end;
+                        end
+                        else begin // This is not a standard worldspace block (presumably the persistent worldspace cell)
+                            cell := elementByIndex(subBlock, k);
+                            ripItem(cell, worldspaceID);
+                        end;
+                    end;
+                end;
+            end;
+        end;
+    end;
 
 	procedure ripItem(item : IInterface; spaceFormID : String);
 	const
