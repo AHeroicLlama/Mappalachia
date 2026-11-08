@@ -24,6 +24,7 @@ A number of User guides exist for Mappalachia in document form;<br/>
 * [**Scrap, NPCs, and Flux**](Docs/User/Derived_results.md)
 * [**Space Selection and Misc Advanced Features**](Docs/User/Advanced.md)
 * [**Spotlight Mode**](Docs/User/Spotlight.md)
+* [**Lookup**](Docs/User/Lookup.md)
 * [**Map Recipes**](Docs/User/Recipes.md)
 * [**In-Game Map mod**](Docs/User/Game_map_mod.md)
 
