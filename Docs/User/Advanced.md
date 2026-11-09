@@ -10,7 +10,8 @@ Use the 'Selected Space' drop down to change the space for your map. By default 
 If you plot an item which is not in the currently selected space, it will typically not show up. However, if there is a door connecting the two spaces, then these items will be plotted at that doorway, indicating your search results exist in a connecting space.<br/>
 Use 'Plot Settings' > 'Auto-find items in other spaces' to automatically find and plot your selected items, wherever they may exist in all connected spaces.<br/>
 
-Additionally, you may filter your search results to only show spaces which are instances ('Search Settings' > 'Search in instances only').
+Additionally, you may filter your search results to only show spaces which are instances ('Search Settings' > 'Search in instances only').<br/>
+You can also hide search results for entities which are disabled by default (for example, event objects) at 'Search Settings' > 'Show Initially Disabled'.
 
 ## Volumes and Regions
 Items classified as Regions, Locations, and a few instances of Activators are represented by a volume. You can choose to show these as filled shapes, or just their border, or both, by selecting 'Plot Settings' > 'Volume Draw Style'.<br/>

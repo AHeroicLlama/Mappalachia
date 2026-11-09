@@ -5,6 +5,7 @@ uses
 	_mappalachia_component,
 	_mappalachia_global,
 	_mappalachia_entity,
+	_mappalachia_esm,
 	_mappalachia_scrap,
 	_mappalachia_location,
 	_mappalachia_locationCell,
@@ -14,33 +15,17 @@ uses
 
 	function initialize: Integer;
 	begin
-		AddMessage('Now running _mappalachia_global...');
+		_mappalachia_esm.initialize();
 		_mappalachia_global.initialize();
-
-		AddMessage('Now running _mappalachia_space...');
 		_mappalachia_space.initialize();
-
-		AddMessage('Now running _mappalachia_location...');
 		_mappalachia_location.initialize();
-
-		AddMessage('Now running _mappalachia_locationCell...');
 		_mappalachia_locationCell.initialize();
-
-		AddMessage('Now running _mappalachia_region...');
 		_mappalachia_region.initialize();
-
-		AddMessage('Now running _mappalachia_scrap...');
 		_mappalachia_scrap.initialize();
-
-		AddMessage('Now running _mappalachia_component...');
 		_mappalachia_component.initialize();
-
-		AddMessage('Now running _mappalachia_entity...');
 		_mappalachia_entity.initialize();
-
-		AddMessage('Now running _mappalachia_position...');
 		_mappalachia_position.initialize();
 
-		AddMessage('Mappalachia export finished.');
+		AddMessage('Full Mappalachia export finished.');
 	end;
 end.

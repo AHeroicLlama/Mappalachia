@@ -1,3 +1,5 @@
+using Library;
+
 namespace Mappalachia
 {
 	partial class FormMain
@@ -91,6 +93,7 @@ namespace Mappalachia
 			searchSettingsToolStripMenuItem = new ToolStripMenuItem();
 			searchInAllSpacesToolStripMenuItem = new ToolStripMenuItem();
 			searchInInstancesOnlyToolStripMenuItem = new ToolStripMenuItem();
+			showInitiallyDisabledToolStripMenuItem = new ToolStripMenuItem();
 			advancedModeToolStripMenuItem = new ToolStripMenuItem();
 			plotSettingsMenuItem = new ToolStripMenuItem();
 			plotModeMenuItem = new ToolStripMenuItem();
@@ -386,42 +389,42 @@ namespace Mappalachia
 			// 
 			lookupRangeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupRangeExtraSmallToolStripMenuItem, lookupRangeSmallToolStripMenuItem, lookupRangeMediumToolStripMenuItem, lookupRangeLargeToolStripMenuItem, lookupRangeExtraLargeToolStripMenuItem });
 			lookupRangeToolStripMenuItem.Name = "lookupRangeToolStripMenuItem";
-			lookupRangeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeToolStripMenuItem.Size = new Size(149, 22);
 			lookupRangeToolStripMenuItem.Text = "Range";
 			lookupRangeToolStripMenuItem.ToolTipText = "Select the size of the area searched by lookup.";
 			// 
 			// lookupRangeExtraSmallToolStripMenuItem
 			// 
 			lookupRangeExtraSmallToolStripMenuItem.Name = "lookupRangeExtraSmallToolStripMenuItem";
-			lookupRangeExtraSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraSmallToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeExtraSmallToolStripMenuItem.Text = "Extra Small";
 			lookupRangeExtraSmallToolStripMenuItem.Click += Map_Lookup_Range_ExtraSmall_Click;
 			// 
 			// lookupRangeSmallToolStripMenuItem
 			// 
 			lookupRangeSmallToolStripMenuItem.Name = "lookupRangeSmallToolStripMenuItem";
-			lookupRangeSmallToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeSmallToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeSmallToolStripMenuItem.Text = "Small";
 			lookupRangeSmallToolStripMenuItem.Click += Map_Lookup_Range_Small_Click;
 			// 
 			// lookupRangeMediumToolStripMenuItem
 			// 
 			lookupRangeMediumToolStripMenuItem.Name = "lookupRangeMediumToolStripMenuItem";
-			lookupRangeMediumToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeMediumToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeMediumToolStripMenuItem.Text = "Medium";
 			lookupRangeMediumToolStripMenuItem.Click += Map_Lookup_Range_Medium_Click;
 			// 
 			// lookupRangeLargeToolStripMenuItem
 			// 
 			lookupRangeLargeToolStripMenuItem.Name = "lookupRangeLargeToolStripMenuItem";
-			lookupRangeLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeLargeToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeLargeToolStripMenuItem.Text = "Large";
 			lookupRangeLargeToolStripMenuItem.Click += Map_Lookup_Range_Large_Click;
 			// 
 			// lookupRangeExtraLargeToolStripMenuItem
 			// 
 			lookupRangeExtraLargeToolStripMenuItem.Name = "lookupRangeExtraLargeToolStripMenuItem";
-			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(180, 22);
+			lookupRangeExtraLargeToolStripMenuItem.Size = new Size(131, 22);
 			lookupRangeExtraLargeToolStripMenuItem.Text = "Extra Large";
 			lookupRangeExtraLargeToolStripMenuItem.Click += Map_Lookup_Range_ExtraLarge_Click;
 			// 
@@ -429,7 +432,7 @@ namespace Mappalachia
 			// 
 			lookupArrangementToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lookupArrangementCircularToolStripMenuItem, lookupArrangementNearestToolStripMenuItem, lookupArrangementColumnsToolStripMenuItem });
 			lookupArrangementToolStripMenuItem.Name = "lookupArrangementToolStripMenuItem";
-			lookupArrangementToolStripMenuItem.Size = new Size(180, 22);
+			lookupArrangementToolStripMenuItem.Size = new Size(149, 22);
 			lookupArrangementToolStripMenuItem.Text = "Arrangement";
 			// 
 			// lookupArrangementCircularToolStripMenuItem
@@ -459,7 +462,7 @@ namespace Mappalachia
 			// lookupDrawVolumesToolStripMenuItem
 			// 
 			lookupDrawVolumesToolStripMenuItem.Name = "lookupDrawVolumesToolStripMenuItem";
-			lookupDrawVolumesToolStripMenuItem.Size = new Size(180, 22);
+			lookupDrawVolumesToolStripMenuItem.Size = new Size(149, 22);
 			lookupDrawVolumesToolStripMenuItem.Text = "Draw Volumes";
 			lookupDrawVolumesToolStripMenuItem.ToolTipText = "Control if volumes found by the lookup are drawn as well as being labeled.";
 			lookupDrawVolumesToolStripMenuItem.Click += Map_Lookup_DrawVolumes_Click;
@@ -467,7 +470,7 @@ namespace Mappalachia
 			// lookupFuzzySearchToolStripMenuItem
 			// 
 			lookupFuzzySearchToolStripMenuItem.Name = "lookupFuzzySearchToolStripMenuItem";
-			lookupFuzzySearchToolStripMenuItem.Size = new Size(180, 22);
+			lookupFuzzySearchToolStripMenuItem.Size = new Size(149, 22);
 			lookupFuzzySearchToolStripMenuItem.Text = "Fuzzy Search";
 			lookupFuzzySearchToolStripMenuItem.ToolTipText = "Extend the search to include nearby entities whose origin is not in the range, but whose bounds might overlap with it.";
 			lookupFuzzySearchToolStripMenuItem.Click += Map_Lookup_FuzzySearch_Click;
@@ -611,7 +614,7 @@ namespace Mappalachia
 			// 
 			// searchSettingsToolStripMenuItem
 			// 
-			searchSettingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchInAllSpacesToolStripMenuItem, searchInInstancesOnlyToolStripMenuItem, advancedModeToolStripMenuItem });
+			searchSettingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { searchInAllSpacesToolStripMenuItem, searchInInstancesOnlyToolStripMenuItem, showInitiallyDisabledToolStripMenuItem, advancedModeToolStripMenuItem });
 			searchSettingsToolStripMenuItem.Name = "searchSettingsToolStripMenuItem";
 			searchSettingsToolStripMenuItem.Size = new Size(99, 20);
 			searchSettingsToolStripMenuItem.Text = "Search Settings";
@@ -631,6 +634,14 @@ namespace Mappalachia
 			searchInInstancesOnlyToolStripMenuItem.Text = "Search in instances only";
 			searchInInstancesOnlyToolStripMenuItem.ToolTipText = "Only show results for spaces which are (or may be) instances.";
 			searchInInstancesOnlyToolStripMenuItem.Click += Search_SearchInInstancesOnly_click;
+			// 
+			// showInitiallyDisabledToolStripMenuItem
+			// 
+			showInitiallyDisabledToolStripMenuItem.Name = "showInitiallyDisabledToolStripMenuItem";
+			showInitiallyDisabledToolStripMenuItem.Size = new Size(200, 22);
+			showInitiallyDisabledToolStripMenuItem.Text = "Show Initially Disabled";
+			showInitiallyDisabledToolStripMenuItem.ToolTipText = "Include search results which are disabled by default.";
+			showInitiallyDisabledToolStripMenuItem.Click += Search_IncludeInitiallyDisabled_click;
 			// 
 			// advancedModeToolStripMenuItem
 			// 
@@ -1177,9 +1188,10 @@ namespace Mappalachia
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MainMenuStrip = menuStripMain;
 			Name = "FormMain";
-			Text = "Mappalachia";
+			Text = Common.ApplicationTitleName;
 			FormClosing += FormMain_FormClosing;
 			Shown += FormMain_Shown;
+			Click += Search_IncludeInitiallyDisabled_click;
 			menuStripMain.ResumeLayout(false);
 			menuStripMain.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)dataGridViewSearchResults).EndInit();
@@ -1309,5 +1321,6 @@ namespace Mappalachia
 		private ToolStripMenuItem lookupArrangementColumnsToolStripMenuItem;
 		private ToolStripMenuItem lookupFuzzySearchToolStripMenuItem;
 		private ToolStripMenuItem lookupRangeExtraSmallToolStripMenuItem;
+		private ToolStripMenuItem showInitiallyDisabledToolStripMenuItem;
 	}
 }

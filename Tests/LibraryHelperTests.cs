@@ -66,15 +66,15 @@ namespace Tests
 		{
 			uint zero = uint.MinValue;
 			uint max = uint.MaxValue;
-			uint appalachia = 2480661;
+			uint demoInt = 2480661;
 
 			string zeroHex = zero.ToHex();
 			string maxHex = max.ToHex();
-			string appalachiaHex = appalachia.ToHex();
+			string demoHex = demoInt.ToHex();
 
 			Assert.AreEqual("00000000", zeroHex);
 			Assert.AreEqual("FFFFFFFF", maxHex);
-			Assert.AreEqual("0025DA15", appalachiaHex);
+			Assert.AreEqual("0025DA15", demoHex);
 		}
 	}
 }

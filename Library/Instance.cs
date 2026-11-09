@@ -1,7 +1,7 @@
 namespace Library
 {
-	public class Instance(Entity entity, Space space, Coord coord, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape, double spawnWeight = 1, bool inContainer = false, Rotation rotation = default)
-		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer)
+	public class Instance(Entity entity, Space space, Coord coord, uint instanceFormID, string label, Space? teleportsTo, LockLevel lockLevel, Shape? primitiveShape, double spawnWeight = 1, bool inContainer = false, Rotation rotation = default, bool initiallyDisabled = false)
+		: BaseInstance(entity, space, label, lockLevel, spawnWeight, inContainer, initiallyDisabled)
 	{
 		// The coordinates of this instance
 		public Coord Coord { get; } = coord;

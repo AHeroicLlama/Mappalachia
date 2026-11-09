@@ -1,18 +1,18 @@
 MD5 Checksum
-B539D9A79AD08AE54DF9FF1437EC7CFD
+B0FBA16E475DD863075B2DC2CE8FCC83
 
 Size
-555564 KB
+560360 KB
 
 Built At UTC
-25/10/2026 16:23:18
+08/11/2026 18:46:09
 
 CSV Imported with SQLite Version
 3.54.1 2026-10-16 14:45:20 555e07ef33f69a0957d24d8e555b702464a131d6f1607f4c3c1e4551e8e6ca76 (64-bit)
 
 Tables
-Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
-Container     Flux       Location     Meta          Position     Region                  Scrap
+Cell          ESM        Flux       Location      Meta     Position                Region           Scrap
+Container     Entity     Global     MapMarker     NPC      Position_PreGrouped     RegionPoints     Space
 
 Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
@@ -265,6 +265,9 @@ Line,2272
 Plane,392
 Sphere,2951
 
+Initially Disabled True/False
+10279,4483174
+
 Entity Category Count
 ACTI,1836
 ALCH,106
@@ -299,10 +302,10 @@ TXST,569
 WEAP,96
 
 Position PreGrouped Count
-208201
+209121
 
 Avg Num Instances per Reference
-21.582283466457895
+21.487335083516243
 
 X-Table Entity Sum
 51331 = 51331 = 51331
@@ -2621,6 +2624,9 @@ LocWhitespringTheWhitespringGolfLocation
 Globals
 HTO_LCP_HostileTakeOver_TargetRadius_Location,20000
 EN07_NukeBlastRadius,20460
+
+ESMs
+0,SeventySix.esm
 
 Entities outside of space range
 APPALACHIA:342116

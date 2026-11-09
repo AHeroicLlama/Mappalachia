@@ -14,7 +14,7 @@ unit _mappalachia_scrap;
 	procedure ripItem(item : IInterface);
 	const
 		MCQPEntry = ElementBySignature(item, 'MCQP');
-		formID = IntToStr(FixedFormId(item));
+		formID = IntToStr(GetLoadOrderFormID(item));
 	var
 		i : Integer;
 		currentComponent : IInterface;

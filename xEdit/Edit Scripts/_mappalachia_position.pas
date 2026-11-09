@@ -1,5 +1,5 @@
 // Rip the location data of every placed entity inside valid cells and worldspaces. Gets FormID, coordinates, name(Inc FormID of referenced object), and information on lock levels and primitive boundaries where relevant
-// Header 'spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotX,rotY,rotZ,mapMarkerName,shortName,teleportsTo'
+// Header 'spaceFormID,referenceFormID,x,y,z,locationFormID,lockLevel,primitiveShape,boundX,boundY,boundZ,rotX,rotY,rotZ,mapMarkerName,shortName,teleportsTo,initiallyDisabled'
 unit _mappalachia_position;
 
 	uses _mappalachia_lib;
@@ -7,22 +7,33 @@ unit _mappalachia_position;
 	var	outputStrings : TStringList;
 
 	procedure Initialize;
-	const
-		outputFile = ProgramPath + 'Output\Position.csv';
+	var
+		outputFile : string;
+		i : integer;
 	begin
-		outputStrings := TStringList.Create;
+		for i := 0 to FileCount() -1 do begin
+			esmNumber := i;
+			targetESM := FileByIndex(esmNumber);
+			fileName := GetFileName(targetESM);
 
-		AddMessage('Beginning Mappalachia exterior position export...');
-		ripWorldspaces();
-		AddMessage('Finished Mappalachia exterior position export.');
-		AddMessage('Beginning Mappalachia interior position export...');
-		ripInteriors();
-		AddMessage('Finished Mappalachia interior position export.');
+			if (GetIsEsm(targetESM) = false) then begin
+				AddMessage('Skipping ' + fileName + ' - not an ESM');
+				continue
+			end;
 
-		AddMessage('Writing position output to file: ' + outputFile);
-		createDir('Output');
-		outputStrings.SaveToFile(outputFile);
-		outputStrings.Free;
+			AddMessage('Running Position export on ' + fileName);
+
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Position.csv';
+
+			outputStrings := TStringList.Create;
+
+			AddMessage('Mappalachia exterior position  (' + fileName + ')');
+			ripWorldspaces();
+			AddMessage('Mappalachia interior position  (' + fileName + ')');
+			ripInteriors();
+
+			outputToFile(esmNumber, outputFile, outputStrings);
+		end;
 	end;
 
 	// Rips all interiors
@@ -46,8 +57,8 @@ unit _mappalachia_position;
 				for l := 0 to ElementCount(subBlock) -1 do begin // Iterate over every cell within the subBlock
 					cell := elementByIndex(subBlock, l);
 
-					if(FixedFormId(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
-						cellFormID := IntToStr(FixedFormId(cell));
+					if(GetLoadOrderFormID(cell) <> 0) then begin // Make sure we get actual cell entries and not other stuff like headers and GRUPs
+						cellFormID := IntToStr(GetLoadOrderFormID(cell));
 
 						// Rip persistent items...
 						cellChild := FindChildGroup(ChildGroup(ElementByIndex(subBlock, l)), 8, ElementByIndex(subBlock, l));
@@ -78,50 +89,52 @@ unit _mappalachia_position;
 			worldspace := elementByIndex(category, i);
 			spaceEditorID := EditorID(worldspace);
 			spaceDisplayName := sanitize(DisplayName(worldspace));
-			if(FixedFormId(worldspace) <> 0) then begin
+			if(GetLoadOrderFormID(worldspace) <> 0) then begin
 				ripWorldspace(spaceEditorID);
 			end;
 		end;
 	end;
 
 	procedure ripWorldspace(worldspaceEditorID: String); // Primary block for iterating down worldspace tree
-	const
-		worldspace = MainRecordByEditorID(GroupBySignature(FileByIndex(0), 'WRLD'), worldspaceEditorID);
-		worldspaceID = IntToStr(FixedFormId(worldspace));
-		blocks = ChildGroup(worldspace);
-		blockCount = ElementCount(blocks);
-	var
-		i, j, k, l : Integer; // Iterators
-		block, subBlock, cell, cellItem : IInterface;
-		friendlyBlockName : String;
-	begin
-		for i := 0 to blockCount - 1 do begin // Iterate over all blocks within the worldspace
-			block := elementByIndex(blocks, i);
-			friendlyBlockName := Trim(StringReplace(BaseName(block), 'GRUP', '', [rfReplaceAll]));
+    var
+        worldspace, blocks : IInterface;
+        blockCount : Integer;
+        i, j, k, l : Integer; // Iterators
+        block, subBlock, cell, cellItem : IInterface;
+        friendlyBlockName, worldspaceID : String;
+    begin
+        worldspace := MainRecordByEditorID(GroupBySignature(targetESM, 'WRLD'), worldspaceEditorID);
+        worldspaceID := IntToStr(GetLoadOrderFormID(worldspace));
+        blocks := ChildGroup(worldspace);
+        blockCount := ElementCount(blocks);
 
-			for j := 0 to ElementCount(block) - 1 do begin // Iterate over all subBlocks within the block
-				subBlock := elementByIndex(block, j);
-				AddMessage(worldspaceEditorID + ' ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
+        for i := 0 to blockCount - 1 do begin // Iterate over all blocks within the worldspace
+            block := elementByIndex(blocks, i);
+            friendlyBlockName := Trim(StringReplace(BaseName(block), 'GRUP', '', [rfReplaceAll]));
 
-				if(Signature(subBlock) = 'GRUP') then begin
-					for k := 0 to ElementCount(subBlock) - 1 do begin // Iterate over all cells within the subBlock
-						cell := FindChildGroup(ChildGroup(ElementByIndex(subBlock, k)), 9, ElementByIndex(subBlock, k));
+            for j := 0 to ElementCount(block) - 1 do begin // Iterate over all subBlocks within the block
+                subBlock := elementByIndex(block, j);
+                AddMessage(worldspaceEditorID + ' ' + friendlyBlockName + ' : ' + Trim(StringReplace(BaseName(subBlock), 'GRUP', '', [rfReplaceAll])));
 
-						if(groupType(cell) = 9) then begin // Check that this isn't the persistent worldspace cell (which has a hierarchy one-less deep than normal worldspace blocks)
-							for l := 0 to ElementCount(cell) - 1 do begin // Iterate over all cellElements within the cell
-								cellItem := elementByIndex(cell, l);
-								ripItem(cellItem, worldspaceID);
-							end;
-						end
-						else begin // This is not a standard worldspace block (presumably the persistent worldspace cell)
-							cell := elementByIndex(subBlock, k);
-							ripItem(cell, worldspaceID);
-						end;
-					end;
-				end;
-			end;
-		end;
-	end;
+                if(Signature(subBlock) = 'GRUP') then begin
+                    for k := 0 to ElementCount(subBlock) - 1 do begin // Iterate over all cells within the subBlock
+                        cell := FindChildGroup(ChildGroup(ElementByIndex(subBlock, k)), 9, ElementByIndex(subBlock, k));
+
+                        if(groupType(cell) = 9) then begin // Check that this isn't the persistent worldspace cell (which has a hierarchy one-less deep than normal worldspace blocks)
+                            for l := 0 to ElementCount(cell) - 1 do begin // Iterate over all cellElements within the cell
+                                cellItem := elementByIndex(cell, l);
+                                ripItem(cellItem, worldspaceID);
+                            end;
+                        end
+                        else begin // This is not a standard worldspace block (presumably the persistent worldspace cell)
+                            cell := elementByIndex(subBlock, k);
+                            ripItem(cell, worldspaceID);
+                        end;
+                    end;
+                end;
+            end;
+        end;
+    end;
 
 	procedure ripItem(item : IInterface; spaceFormID : String);
 	const
@@ -134,7 +147,7 @@ unit _mappalachia_position;
 		primitiveShape : String;
 		i : Integer;
 	begin
-		if(Assigned(displayName) and Assigned(position)) then begin // Skip records missing key data
+		if(Assigned(displayName) and Assigned(position) and IsWinningOverride(item)) then begin // Skip records missing key data
 			primitiveEntry := ElementBySignature(item, 'XPRM');
 			boundsEntry := ElementByName(primitiveEntry, 'Bounds');
 			primitiveShape := GetEditValue(ElementByName(primitiveEntry, 'Type'));
@@ -167,7 +180,8 @@ unit _mappalachia_position;
 				FloatToStr(rotation.z) + ',' +
 				GetEditValue(ElementByName(ElementByName(item, 'Map Marker'), 'TNAM - Type')) + ',' +
 				sanitize(shortName) + ',' +
-				sanitize(GetEditValue(teleportTarget))
+				sanitize(GetEditValue(teleportTarget)) + ',' +
+				IntToStr(GetIsInitiallyDisabled(item))
 				);
 		end;
 	end;
