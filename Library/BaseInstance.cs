@@ -17,7 +17,7 @@
 	}
 
 	// Abstract of the shared properties of Instance or GroupedInstance
-	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel, double spawnWeight, bool inContainer = false)
+	public abstract class BaseInstance(Entity entity, Space space, string label, LockLevel lockLevel, double spawnWeight, bool inContainer = false, bool initiallyDisabled = false)
 	{
 		// The Entity which this is an instance of
 		public virtual Entity Entity { get; } = entity;
@@ -37,6 +37,8 @@
 
 		// If this instance actually exists within a container
 		public virtual bool InContainer { get; } = inContainer;
+
+		public virtual bool InitiallyDisabled { get; } = initiallyDisabled;
 
 		public override bool Equals(object? obj)
 		{
@@ -60,12 +62,13 @@
 				Label.Equals(other.Label) &&
 				LockLevel.Equals(other.LockLevel) &&
 				SpawnWeight.Equals(other.SpawnWeight) &&
-				InContainer.Equals(other.InContainer);
+				InContainer.Equals(other.InContainer) &&
+				InitiallyDisabled.Equals(other.InitiallyDisabled);
 		}
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Entity, Space, Label, LockLevel, SpawnWeight, InContainer);
+			return HashCode.Combine(Entity, Space, Label, LockLevel, SpawnWeight, InContainer, InitiallyDisabled);
 		}
 	}
 }
