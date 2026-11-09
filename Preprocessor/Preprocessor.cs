@@ -130,6 +130,7 @@ namespace Preprocessor
 			// Extract WorldSpace FormID from world on LocationCell
 			TransformColumn(CaptureSpaceFormID, "LocationCell", "spaceFormID");
 			ChangeColumnType("LocationCell", "spaceFormID", "INTEGER");
+			TransformColumn(UnescapeCharacters, "LocationCell", "locationDisplayName");
 
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
