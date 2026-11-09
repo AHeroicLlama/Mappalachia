@@ -17,7 +17,7 @@ namespace Preprocessor
 
 		static async Task Main()
 		{
-			Console.Title = "Mappalachia Preprocessor";
+			Console.Title = $"{Common.ApplicationTitleName} Preprocessor";
 
 			Stopwatch stopwatch = new Stopwatch();
 
@@ -85,7 +85,7 @@ namespace Preprocessor
 
 			string gameVersion = GetValidatedGameVersion();
 
-			StdOutWithColor($"Building Mappalachia database at {DatabasePath}\n", ColorInfo);
+			StdOutWithColor($"Building {Common.ApplicationTitleName} database at {DatabasePath}\n", ColorInfo);
 
 			Connection.Close();
 			Cleanup();
@@ -109,6 +109,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 			SimpleQuery($"CREATE TABLE LocationCell(locationFormID INTEGER, locationEditorId TEXT, locationDisplayName TEXT, spaceFormID TEXT, x INTEGER, y INTEGER, infestation INTEGER);");
 			SimpleQuery($"CREATE TABLE Global(key TEXT PRIMARY KEY, value REAL);");
+			SimpleQuery($"CREATE TABLE ESM(number INTEGER PRIMARY KEY, name TEXT);");
 
 			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
@@ -121,6 +122,7 @@ namespace Preprocessor
 			ImportTableFromCSV("Component");
 			ImportTableFromCSV("LocationCell");
 			ImportTableFromCSV("Global");
+			ImportTableFromCSV("ESM", false);
 
 			// Filter the Globals to only those we need
 			SimpleQuery($"DELETE FROM Global WHERE key NOT IN {GlobalsToKeep.ToSqliteCollection()};");
@@ -480,6 +482,7 @@ namespace Preprocessor
 			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, spaceEditorID, count(*) AS count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID JOIN Space ON Space.spaceFormID = Cell.spaceFormID GROUP BY Location.locationFormID, Cell.spaceFormID ORDER BY Location.locationEditorID;"));
 			AddToSummaryReport("Infestation locations", SimpleQuery("SELECT locationEditorID FROM Location WHERE infestation = 1 ORDER BY locationEditorID;"));
 			AddToSummaryReport("Globals", SimpleQuery("SELECT key, value FROM Global;"));
+			AddToSummaryReport("ESMs", SimpleQuery("SELECT number, name FROM ESM;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -556,14 +559,35 @@ namespace Preprocessor
 			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
 		}
 
-		static void ImportTableFromCSV(string tableName)
+		static void ImportTableFromCSV(string tableName, bool useEsmNumbers = true)
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {Fo76EditOutputPath}{tableName}.csv {tableName}" };
+			if (!useEsmNumbers)
+			{
+				Import(Path.Combine(XEditOutputPath, $"{tableName}.csv"), tableName);
+				return;
+			}
 
-			Process process = Process.Start(SqlitePath, args);
-			process.WaitForExit();
+			foreach (string directory in Directory.GetDirectories(XEditOutputPath))
+			{
+				string csvPath = Path.Combine(directory, $"{tableName}.csv");
+
+				if (!File.Exists(csvPath))
+				{
+					continue;
+				}
+
+				Import(csvPath, tableName);
+			}
+
+			static void Import(string path, string tableName)
+			{
+				List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {path} {tableName}" };
+
+				Process process = Process.Start(SqlitePath, args);
+				process.WaitForExit();
+			}
 		}
 
 		// Loops a table and amends a column according to the value of the other (or same) column, when passed to the method
@@ -669,7 +693,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Entity;");
 			SimpleQuery("DROP TABLE Entity;");
-			SimpleQuery("CREATE TABLE Entity (entityFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, displayName TEXT, editorID TEXT NOT NULL UNIQUE, signature TEXT NOT NULL, boundX1 INTEGER, boundY1 INTEGER, boundZ1 INTEGER, boundX2 INTEGER, boundY2 INTEGER, boundZ2 INTEGER) STRICT;");
+			SimpleQuery("CREATE TABLE Entity (entityFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, displayName TEXT, editorID TEXT NOT NULL, signature TEXT NOT NULL, boundX1 INTEGER, boundY1 INTEGER, boundZ1 INTEGER, boundX2 INTEGER, boundY2 INTEGER, boundZ2 INTEGER) STRICT;");
 			SimpleQuery("INSERT INTO Entity (entityFormID, displayName, editorID, signature, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2) SELECT entityFormID, displayName, editorID, signature, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2 FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -699,7 +723,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Region;");
 			SimpleQuery("DROP TABLE Region;");
-			SimpleQuery("CREATE TABLE Region (regionFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, regionEditorID TEXT NOT NULL UNIQUE, spaceFormID TEXT NOT NULL REFERENCES Space (spaceFormID), minLevel INTEGER NOT NULL, maxLevel INTEGER NOT NULL, nukable INTEGER NOT NULL) STRICT;");
+			SimpleQuery("CREATE TABLE Region (regionFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, regionEditorID TEXT NOT NULL, spaceFormID TEXT NOT NULL REFERENCES Space (spaceFormID), minLevel INTEGER NOT NULL, maxLevel INTEGER NOT NULL, nukable INTEGER NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Region (regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel, nukable) SELECT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel, nukable FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -717,7 +741,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Space;");
 			SimpleQuery("DROP TABLE Space;");
-			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL) STRICT;");
+			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -729,7 +753,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Location;");
 			SimpleQuery("DROP TABLE Location;");
-			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL UNIQUE, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), infestation INTEGER NOT NULL) STRICT;");
+			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), infestation INTEGER NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Location (locationFormID, locationEditorID, locationDisplayName, spaceFormID, infestation) SELECT locationFormID, locationEditorID, locationDisplayName, spaceFormID, infestation FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -743,6 +767,12 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Global;");
 			SimpleQuery("CREATE TABLE Global (key TEXT NOT NULL UNIQUE PRIMARY KEY, value REAL NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Global (key, value) SELECT key, value FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM ESM;");
+			SimpleQuery("DROP TABLE ESM;");
+			SimpleQuery("CREATE TABLE ESM (number INTEGER NOT NULL UNIQUE PRIMARY KEY, name TEXT NOT NULL UNIQUE) STRICT;");
+			SimpleQuery("INSERT INTO ESM (number, name) SELECT number, name FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
 
@@ -980,7 +1010,6 @@ namespace Preprocessor
 
 			Match match = LockLevelRegex.Match(lockLevel);
 
-			// Remove the novice/advanced etc from the levelled locks
 			if (match.Success)
 			{
 				lockLevel = match.Groups[2].Value;

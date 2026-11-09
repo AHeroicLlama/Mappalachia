@@ -7,18 +7,30 @@ unit _mappalachia_space;
 	var	outputStrings : TStringList;
 
 	procedure Initialize;
-	const
-		outputFile = ProgramPath + 'Output\Space.csv';
+	var
+		outputFile : string;
+		i : integer;
 	begin
-		outputStrings := TStringList.Create;
+		for i := 0 to FileCount() -1 do begin
+			esmNumber := i;
+			targetESM := FileByIndex(esmNumber);
+			fileName := GetFileName(targetESM);
 
-		ripWorldSpaces();
-		ripCells();
+			if (GetIsEsm(targetESM) = false) then begin
+				AddMessage('Skipping ' + fileName + ' - not an ESM');
+				continue
+			end;
 
-		createDir('Output');
-		AddMessage('Writing output to file: ' + outputFile);
-		outputStrings.SaveToFile(outputFile);
-		outputStrings.Free;
+			AddMessage('Running Space export on ' + fileName);
+
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Space.csv';
+			outputStrings := TStringList.Create;
+
+			ripWorldSpaces();
+			ripCells();
+
+			outputToFile(esmNumber, outputFile, outputStrings);
+		end;
 	end;
 
 	procedure ripWorldspaces();
@@ -29,7 +41,7 @@ unit _mappalachia_space;
 		category := GroupBySignature(targetESM, 'WRLD');
 		for i := 0 to ElementCount(category) -1 do begin // Iterate over every worldspace within the worldspace category
 			worldspace := elementByIndex(category, i);
-			if(FixedFormId(worldspace) <> 0) then begin
+			if(GetLoadOrderFormID(worldspace) <> 0) then begin
 				ripSpace(worldspace, 1);
 			end;
 
@@ -51,7 +63,7 @@ unit _mappalachia_space;
 				for l := 0 to ElementCount(subBlock) -1 do begin // Iterate over every cell within the subBlock
 					cell := elementByIndex(subBlock, l);
 
-					if(FixedFormId(cell) <> 0) then begin
+					if(GetLoadOrderFormID(cell) <> 0) then begin
 						ripSpace(cell, 0);
 					end;
 				end;
@@ -66,9 +78,11 @@ unit _mappalachia_space;
 	var
 		entry, isInstanceable : String;
 	begin
-		isInstanceable := GetEditValue(ElementByName(ElementByName(ElementByName(space, 'Record Header'), 'Record Flags'), 'Is Instancable'));
+		if IsWinningOverride(space) then begin
+			isInstanceable := GetEditValue(ElementByName(ElementByName(ElementByName(space, 'Record Header'), 'Record Flags'), 'Is Instancable'));
 
-		entry := IntToStr(FixedFormId(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace) + ',' + isInstanceable;
-		outputStrings.Add(entry);
+			entry := IntToStr(GetLoadOrderFormID(space)) + ',' + spaceEditorID + ',' + spaceDisplayName + ',' + intToStr(isWorldspace) + ',' + isInstanceable;
+			outputStrings.Add(entry);
+		end;
 	end;
 end.
