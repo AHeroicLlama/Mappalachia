@@ -14,7 +14,7 @@ unit _mappalachia_region;
 	procedure ripItem(item : IInterface);
 	const
 		REGNEntry = ElementByName(item, 'Region Areas');
-		formID = IntToStr(FixedFormId(item));
+		formID = IntToStr(GetLoadOrderFormID(item));
 		editorID =  EditorID(item);
 		spaceFormID = sanitize(GetEditValue(ElementBySignature(item, 'WNAM')));
 		location = sanitize(GetEditValue(ElementBySignature(item, 'LNAM')));

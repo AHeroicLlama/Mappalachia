@@ -17,7 +17,7 @@ namespace Preprocessor
 
 		static async Task Main()
 		{
-			Console.Title = "Mappalachia Preprocessor";
+			Console.Title = $"{Common.ApplicationTitleName} Preprocessor";
 
 			Stopwatch stopwatch = new Stopwatch();
 
@@ -85,7 +85,7 @@ namespace Preprocessor
 
 			string gameVersion = GetValidatedGameVersion();
 
-			StdOutWithColor($"Building Mappalachia database at {DatabasePath}\n", ColorInfo);
+			StdOutWithColor($"Building {Common.ApplicationTitleName} database at {DatabasePath}\n", ColorInfo);
 
 			Connection.Close();
 			Cleanup();
@@ -101,7 +101,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Entity(entityFormID INTEGER PRIMARY KEY, displayName TEXT, editorID TEXT, signature TEXT, boundX1 INTEGER, boundY1 INTEGER, boundZ1 INTEGER, " +
 				$"boundX2 INTEGER, boundY2 INTEGER, boundZ2 INTEGER);");
 			SimpleQuery($"CREATE TABLE Container(containerFormID INTEGER REFERENCES Entity(entityFormID), contentFormID INTEGER REFERENCES Entity(entityFormID), quantity INTEGER);");
-			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotX REAL, rotY REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT);");
+			SimpleQuery($"CREATE TABLE Position(spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID TEXT REFERENCES Entity(entityFormID), x REAL, y REAL, z REAL, locationFormID TEXT REFERENCES Location(locationFormID), lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotX REAL, rotY REAL, rotZ REAL, mapMarkerName TEXT, shortName TEXT, teleportsToFormID TEXT, initiallyDisabled INTEGER);");
 			SimpleQuery($"CREATE TABLE Space(spaceFormID INTEGER PRIMARY KEY, spaceEditorID TEXT, spaceDisplayName TEXT, isWorldspace INTEGER, isInstanceable INTEGER);");
 			SimpleQuery($"CREATE TABLE Location(locationFormID INTEGER, parentLocationFormID TEXT, minLevel INTEGER, maxLevel INTEGER, property TEXT, value INTEGER);");
 			SimpleQuery($"CREATE TABLE Region(spaceFormID TEXT REFERENCES Space(spaceFormID), regionFormID INTEGER, regionEditorID TEXT, locationFormID TEXT, subRegionIndex INTEGER, coordIndex INTEGER, x REAL, y REAL, nukable INTEGER);");
@@ -109,6 +109,7 @@ namespace Preprocessor
 			SimpleQuery($"CREATE TABLE Component(component TEXT PRIMARY KEY, singular INTEGER, rare INTEGER, medium INTEGER, low INTEGER, high INTEGER, bulk INTEGER);");
 			SimpleQuery($"CREATE TABLE LocationCell(locationFormID INTEGER, locationEditorId TEXT, locationDisplayName TEXT, spaceFormID TEXT, x INTEGER, y INTEGER, infestation INTEGER);");
 			SimpleQuery($"CREATE TABLE Global(key TEXT PRIMARY KEY, value REAL);");
+			SimpleQuery($"CREATE TABLE ESM(number INTEGER PRIMARY KEY, name TEXT);");
 
 			// Import to tables from xedit exports
 			ImportTableFromCSV("Entity");
@@ -121,6 +122,7 @@ namespace Preprocessor
 			ImportTableFromCSV("Component");
 			ImportTableFromCSV("LocationCell");
 			ImportTableFromCSV("Global");
+			ImportTableFromCSV("ESM", false);
 
 			// Filter the Globals to only those we need
 			SimpleQuery($"DELETE FROM Global WHERE key NOT IN {GlobalsToKeep.ToSqliteCollection()};");
@@ -172,6 +174,8 @@ namespace Preprocessor
 			TransformColumn(CaptureSpaceFormID, "Position", "teleportsToFormID");
 			ChangeColumnType("Position", "teleportsToFormID", "INTEGER");
 			AddForeignKey("Position", "teleportsToFormID", "INTEGER", "Space", "spaceFormID");
+
+			TransformColumn(ConvertBool, "Position", "initiallyDisabled");
 
 			// Capture and convert to int the parent location Form ID on Location
 			TransformColumn(CaptureFormID, "Location", "parentLocationFormID");
@@ -339,13 +343,13 @@ namespace Preprocessor
 
 			// Create a reduced semi-redundant copy of the Position table, which already has all the possible search results grouped and counted
 			// We can use this later to conduct the searches much faster, but the Position table remains to get non-grouped coordinates
-			SimpleQuery("CREATE TABLE Position_PreGrouped (spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID INTEGER REFERENCES Entity(EntityFormID), lockLevel TEXT, label TEXT, count INTEGER);");
-			SimpleQuery("INSERT INTO Position_PreGrouped (spaceFormID, referenceFormID, lockLevel, label, count) SELECT spaceFormID, referenceFormId, lockLevel, label, COUNT(*) as count FROM Position GROUP BY referenceFormID, label, spaceFormID, lockLevel;");
+			SimpleQuery("CREATE TABLE Position_PreGrouped (spaceFormID INTEGER REFERENCES Space(spaceFormID), referenceFormID INTEGER REFERENCES Entity(EntityFormID), lockLevel TEXT, label TEXT, count INTEGER, initiallyDisabled INTEGER);");
+			SimpleQuery("INSERT INTO Position_PreGrouped (spaceFormID, referenceFormID, lockLevel, label, count, initiallyDisabled) SELECT spaceFormID, referenceFormId, lockLevel, label, COUNT(*) as count, initiallyDisabled FROM Position GROUP BY referenceFormID, label, spaceFormID, lockLevel, initiallyDisabled;");
 
 			// Modify Position to assign instanceFormID as Primary Key
 			SimpleQuery("CREATE TABLE temp (spaceFormID INTEGER REFERENCES Space(spaceFormID), x REAL, y REAL, z REAL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, " +
-				"rotX REAL, rotY REAL, rotZ REAL, referenceFormID INTEGER REFERENCES Entity(entityFormID), teleportsToFormID INTEGER REFERENCES Space(spaceFormID), label TEXT, instanceFormID INTEGER PRIMARY KEY);");
-			SimpleQuery("INSERT INTO temp SELECT * FROM Position;");
+				"rotX REAL, rotY REAL, rotZ REAL, initiallyDisabled INTEGER, referenceFormID INTEGER REFERENCES Entity(entityFormID), teleportsToFormID INTEGER REFERENCES Space(spaceFormID), label TEXT, instanceFormID INTEGER PRIMARY KEY);");
+			SimpleQuery("INSERT INTO temp (spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID, initiallyDisabled) SELECT spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID, initiallyDisabled FROM Position;");
 			SimpleQuery("DROP TABLE Position;");
 			SimpleQuery("ALTER TABLE temp RENAME TO Position;");
 
@@ -423,6 +427,7 @@ namespace Preprocessor
 			AddToSummaryReport("Avg Rotation", SimpleQuery("SELECT AVG(rotX), AVG(rotY), AVG(rotZ) FROM Position;"));
 			AddToSummaryReport("Lock Levels", SimpleQuery("SELECT lockLevel, COUNT(lockLevel) FROM Position GROUP BY lockLevel;"));
 			AddToSummaryReport("Primitive Shapes", SimpleQuery("SELECT primitiveShape, COUNT(primitiveShape) FROM Position GROUP BY primitiveShape;"));
+			AddToSummaryReport("Initially Disabled True/False", SimpleQuery("SELECT COUNT(*) FILTER (WHERE initiallyDisabled = 1) AS disabled, COUNT(*) FILTER (WHERE initiallyDisabled = 0) AS notDisabled FROM Position;"));
 			AddToSummaryReport("Entity Category Count", SimpleQuery("SELECT signature, COUNT(signature) FROM Entity GROUP BY signature;"));
 			AddToSummaryReport("Position PreGrouped Count", SimpleQuery("SELECT COUNT(*) FROM Position_PreGrouped;"));
 			AddToSummaryReport("Avg Num Instances per Reference", SimpleQuery("SELECT AVG(count) FROM Position_PreGrouped;"));
@@ -477,6 +482,7 @@ namespace Preprocessor
 			AddToSummaryReport("Cell count by location", SimpleQuery("SELECT locationEditorID, spaceEditorID, count(*) AS count FROM Cell JOIN Location ON Location.locationFormID = Cell.locationFormID JOIN Space ON Space.spaceFormID = Cell.spaceFormID GROUP BY Location.locationFormID, Cell.spaceFormID ORDER BY Location.locationEditorID;"));
 			AddToSummaryReport("Infestation locations", SimpleQuery("SELECT locationEditorID FROM Location WHERE infestation = 1 ORDER BY locationEditorID;"));
 			AddToSummaryReport("Globals", SimpleQuery("SELECT key, value FROM Global;"));
+			AddToSummaryReport("ESMs", SimpleQuery("SELECT number, name FROM ESM;"));
 
 			List<string> spaceExterns = new List<string>();
 			List<string> spaceChecksums = new List<string>();
@@ -553,14 +559,35 @@ namespace Preprocessor
 			SimpleQuery($"ALTER TABLE {table} RENAME COLUMN {tempColumn} TO {column};", true); // Rename temp column to original
 		}
 
-		static void ImportTableFromCSV(string tableName)
+		static void ImportTableFromCSV(string tableName, bool useEsmNumbers = true)
 		{
 			Console.WriteLine($"Import {tableName} from CSV");
 
-			List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {Fo76EditOutputPath}{tableName}.csv {tableName}" };
+			if (!useEsmNumbers)
+			{
+				Import(Path.Combine(XEditOutputPath, $"{tableName}.csv"), tableName);
+				return;
+			}
 
-			Process process = Process.Start(SqlitePath, args);
-			process.WaitForExit();
+			foreach (string directory in Directory.GetDirectories(XEditOutputPath))
+			{
+				string csvPath = Path.Combine(directory, $"{tableName}.csv");
+
+				if (!File.Exists(csvPath))
+				{
+					continue;
+				}
+
+				Import(csvPath, tableName);
+			}
+
+			static void Import(string path, string tableName)
+			{
+				List<string> args = new List<string>() { DatabasePath, ".mode csv", $".import {path} {tableName}" };
+
+				Process process = Process.Start(SqlitePath, args);
+				process.WaitForExit();
+			}
 		}
 
 		// Loops a table and amends a column according to the value of the other (or same) column, when passed to the method
@@ -666,7 +693,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Entity;");
 			SimpleQuery("DROP TABLE Entity;");
-			SimpleQuery("CREATE TABLE Entity (entityFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, displayName TEXT, editorID TEXT NOT NULL UNIQUE, signature TEXT NOT NULL, boundX1 INTEGER, boundY1 INTEGER, boundZ1 INTEGER, boundX2 INTEGER, boundY2 INTEGER, boundZ2 INTEGER) STRICT;");
+			SimpleQuery("CREATE TABLE Entity (entityFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, displayName TEXT, editorID TEXT NOT NULL, signature TEXT NOT NULL, boundX1 INTEGER, boundY1 INTEGER, boundZ1 INTEGER, boundX2 INTEGER, boundY2 INTEGER, boundZ2 INTEGER) STRICT;");
 			SimpleQuery("INSERT INTO Entity (entityFormID, displayName, editorID, signature, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2) SELECT entityFormID, displayName, editorID, signature, boundX1, boundY1, boundZ1, boundX2, boundY2, boundZ2 FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -684,19 +711,19 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Position;");
 			SimpleQuery("DROP TABLE Position;");
-			SimpleQuery("CREATE TABLE Position (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), x REAL NOT NULL, y REAL NOT NULL, z REAL NOT NULL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotX REAL NOT NULL, rotY REAL NOT NULL, rotZ REAL NOT NULL, referenceFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), teleportsToFormID INTEGER REFERENCES Space (spaceFormID), label TEXT NOT NULL, instanceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY) STRICT;");
-			SimpleQuery("INSERT INTO Position (spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID) SELECT spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID FROM temp;");
+			SimpleQuery("CREATE TABLE Position (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), x REAL NOT NULL, y REAL NOT NULL, z REAL NOT NULL, lockLevel TEXT, primitiveShape TEXT, boundX REAL, boundY REAL, boundZ REAL, rotX REAL NOT NULL, rotY REAL NOT NULL, rotZ REAL NOT NULL, referenceFormID INTEGER NOT NULL REFERENCES Entity (entityFormID), teleportsToFormID INTEGER REFERENCES Space (spaceFormID), label TEXT NOT NULL, instanceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, initiallyDisabled INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Position (spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID, initiallyDisabled) SELECT spaceFormID, x, y, z, lockLevel, primitiveShape, boundX, boundY, boundZ, rotX, rotY, rotZ, referenceFormID, teleportsToFormID, label, instanceFormID, initiallyDisabled FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Position_PreGrouped;");
 			SimpleQuery("DROP TABLE Position_PreGrouped;");
-			SimpleQuery("CREATE TABLE Position_PreGrouped (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), referenceFormID INTEGER NOT NULL REFERENCES Entity (EntityFormID), lockLevel TEXT, label TEXT, count INTEGER NOT NULL) STRICT;");
-			SimpleQuery("INSERT INTO Position_PreGrouped (spaceFormID, referenceFormID, lockLevel, label, count) SELECT spaceFormID, referenceFormID, lockLevel, label, count FROM temp;");
+			SimpleQuery("CREATE TABLE Position_PreGrouped (spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), referenceFormID INTEGER NOT NULL REFERENCES Entity (EntityFormID), lockLevel TEXT, label TEXT, count INTEGER NOT NULL, initiallyDisabled INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Position_PreGrouped (spaceFormID, referenceFormID, lockLevel, label, count, initiallyDisabled) SELECT spaceFormID, referenceFormID, lockLevel, label, count, initiallyDisabled FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Region;");
 			SimpleQuery("DROP TABLE Region;");
-			SimpleQuery("CREATE TABLE Region (regionFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, regionEditorID TEXT NOT NULL UNIQUE, spaceFormID TEXT NOT NULL REFERENCES Space (spaceFormID), minLevel INTEGER NOT NULL, maxLevel INTEGER NOT NULL, nukable INTEGER NOT NULL) STRICT;");
+			SimpleQuery("CREATE TABLE Region (regionFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, regionEditorID TEXT NOT NULL, spaceFormID TEXT NOT NULL REFERENCES Space (spaceFormID), minLevel INTEGER NOT NULL, maxLevel INTEGER NOT NULL, nukable INTEGER NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Region (regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel, nukable) SELECT regionFormID, regionEditorID, spaceFormID, minLevel, maxLevel, nukable FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -714,7 +741,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Space;");
 			SimpleQuery("DROP TABLE Space;");
-			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL UNIQUE, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL) STRICT;");
+			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -726,7 +753,7 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Location;");
 			SimpleQuery("DROP TABLE Location;");
-			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL UNIQUE, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), infestation INTEGER NOT NULL) STRICT;");
+			SimpleQuery("CREATE TABLE Location (locationFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, locationEditorID TEXT NOT NULL, locationDisplayName TEXT NOT NULL, spaceFormID INTEGER NOT NULL REFERENCES Space (spaceFormID), infestation INTEGER NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Location (locationFormID, locationEditorID, locationDisplayName, spaceFormID, infestation) SELECT locationFormID, locationEditorID, locationDisplayName, spaceFormID, infestation FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
@@ -740,6 +767,12 @@ namespace Preprocessor
 			SimpleQuery("DROP TABLE Global;");
 			SimpleQuery("CREATE TABLE Global (key TEXT NOT NULL UNIQUE PRIMARY KEY, value REAL NOT NULL) STRICT;");
 			SimpleQuery("INSERT INTO Global (key, value) SELECT key, value FROM temp;");
+			SimpleQuery("DROP TABLE temp;");
+
+			SimpleQuery("CREATE TABLE temp AS SELECT * FROM ESM;");
+			SimpleQuery("DROP TABLE ESM;");
+			SimpleQuery("CREATE TABLE ESM (number INTEGER NOT NULL UNIQUE PRIMARY KEY, name TEXT NOT NULL UNIQUE) STRICT;");
+			SimpleQuery("INSERT INTO ESM (number, name) SELECT number, name FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 		}
 
@@ -977,7 +1010,6 @@ namespace Preprocessor
 
 			Match match = LockLevelRegex.Match(lockLevel);
 
-			// Remove the novice/advanced etc from the levelled locks
 			if (match.Success)
 			{
 				lockLevel = match.Groups[2].Value;
@@ -996,6 +1028,16 @@ namespace Preprocessor
 			}
 
 			return "1";
+		}
+
+		// Accounts for Delphi returning -1 when converting bools to ints
+		static string ConvertBool(string input)
+		{
+			return input switch
+			{
+				"-1" => "1",
+				_ => input
+			};
 		}
 
 		// Properly fetches the game version - tries the exe and asks if it was correct, otherwise asks for direct input

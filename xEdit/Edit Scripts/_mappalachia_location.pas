@@ -14,7 +14,7 @@ unit _mappalachia_location;
 	procedure ripItem(item : IInterface);
 	const
 		PropertyEntry = ElementBySignature(item, 'PRPS');
-		formID = IntToStr(FixedFormId(item));
+		formID = IntToStr(GetLoadOrderFormID(item));
 		parentLocation = sanitize(GetEditValue(ElementBySignature(item, 'PNAM')));
 		minLevel =	GetEditValue(ElementByName(ElementBySignature(item, 'DATA'), 'Min Location Level'));
 		maxLevel = GetEditValue(ElementByName(ElementBySignature(item, 'DATA'), 'Max Location Level'));

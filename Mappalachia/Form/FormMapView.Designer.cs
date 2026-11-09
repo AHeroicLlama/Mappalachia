@@ -1,4 +1,6 @@
-﻿namespace Mappalachia
+using Library;
+
+namespace Mappalachia
 {
 	partial class FormMapView
 	{
@@ -91,7 +93,7 @@
 			MainMenuStrip = menuStripPreview;
 			MinimumSize = new Size(256, 256);
 			Name = "FormMapView";
-			Text = "Mappalachia (PTS): Preview";
+			Text = Common.ApplicationTitleName + ": Preview";
 			FormClosing += FormMapView_FormClosing;
 			((System.ComponentModel.ISupportInitialize)pictureBoxMapDisplay).EndInit();
 			menuStripPreview.ResumeLayout(false);

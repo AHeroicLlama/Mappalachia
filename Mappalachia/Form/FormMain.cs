@@ -216,6 +216,9 @@ namespace Mappalachia
 				case "Label":
 					return "A unique developer tag for a particular instance of this entity";
 
+				case "Disabled":
+					return "If the entity is disabled by default. May be enabled later for example by an event starting";
+
 				default:
 					return string.Empty;
 			}
@@ -269,6 +272,7 @@ namespace Mappalachia
 			mapMarkerLabelsToolStripMenuItem.Checked = Settings.MapSettings.MapMarkerLabels;
 			searchInAllSpacesToolStripMenuItem.Checked = Settings.SearchSettings.SearchInAllSpaces;
 			searchInInstancesOnlyToolStripMenuItem.Checked = Settings.SearchSettings.SearchInInstancesOnly;
+			showInitiallyDisabledToolStripMenuItem.Checked = Settings.SearchSettings.IncludeInitiallyDisabled;
 			advancedModeToolStripMenuItem.Checked = Settings.SearchSettings.Advanced;
 			drawInstanceFormIDToolStripMenuItem.Checked = Settings.PlotSettings.DrawInstanceFormID;
 			includeCountInLegendTextToolStripMenuItem.Checked = Settings.PlotSettings.IncludeCountInLegend;
@@ -782,11 +786,12 @@ namespace Mappalachia
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayName", DataPropertyName = "DataValueDisplayName", FillWeight = 5 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Signature", DataPropertyName = "DataValueSignature", FillWeight = 3 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Label", DataPropertyName = "DataValueLabel", FillWeight = 3 });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer", FillWeight = 2 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InContainer", DataPropertyName = "DataValueInContainer", FillWeight = 3 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "LockLevel", DataPropertyName = "DataValueLockLevel", FillWeight = 2 });
-			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight", DefaultCellStyle = new DataGridViewCellStyle() { Format = "#,0.##" }, FillWeight = 2 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "SpawnWeight", DataPropertyName = "DataValueSpawnWeight", DefaultCellStyle = new DataGridViewCellStyle() { Format = "#,0.##" }, FillWeight = 3 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Count", DataPropertyName = "DataValueCount", DefaultCellStyle = new DataGridViewCellStyle() { Format = "N0" }, FillWeight = 2 });
 			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Location", DataPropertyName = "DataValueLocation", FillWeight = 4 });
+			dataGridView.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Disabled", DataPropertyName = "DataValueInitiallyDisabled", FillWeight = 3 });
 
 			UpdateDataGridAppearances();
 
@@ -876,6 +881,11 @@ namespace Mappalachia
 					if (column.Name.Equals("FormID"))
 					{
 						column.Visible = Settings.SearchSettings.Advanced;
+					}
+
+					if (column.Name.Equals("Disabled"))
+					{
+						column.Visible = Settings.SearchSettings.IncludeInitiallyDisabled;
 					}
 				}
 			}
@@ -1257,6 +1267,11 @@ namespace Mappalachia
 		private async void Search_SearchInInstancesOnly_click(object sender, EventArgs e)
 		{
 			await SetSetting(() => Settings.SearchSettings.SearchInInstancesOnly = !Settings.SearchSettings.SearchInInstancesOnly, false, true);
+		}
+
+		private async void Search_IncludeInitiallyDisabled_click(object sender, EventArgs e)
+		{
+			await SetSetting(() => Settings.SearchSettings.IncludeInitiallyDisabled = !Settings.SearchSettings.IncludeInitiallyDisabled, false, true);
 		}
 
 		private async void Search_AdvancedMode_Click(object sender, EventArgs e)

@@ -11,8 +11,8 @@ CSV Imported with SQLite Version
 3.54.1 2026-10-16 14:45:20 555e07ef33f69a0957d24d8e555b702464a131d6f1607f4c3c1e4551e8e6ca76 (64-bit)
 
 Tables
-Cell          Entity     Global       MapMarker     NPC          Position_PreGrouped     RegionPoints     Space
-Container     Flux       Location     Meta          Position     Region                  Scrap
+Cell          ESM        Flux       Location      Meta     Position                Region           Scrap
+Container     Entity     Global     MapMarker     NPC      Position_PreGrouped     RegionPoints     Space
 
 Indices
 indexComponent    indexCount    indexGeneral    indexNPC    indexReference    indexSpaceTeleportsTo    indexTeleportsTo
@@ -269,6 +269,9 @@ Ellipsoid,5
 Line,2272
 Plane,313
 Sphere,2963
+
+Initially Disabled True/False
+10279,4483174
 
 Entity Category Count
 ACTI,1857
@@ -2650,6 +2653,9 @@ LocWhitespringTheWhitespringGolfLocation
 Globals
 HTO_LCP_HostileTakeOver_TargetRadius_Location,20000
 EN07_NukeBlastRadius,20460
+
+ESMs
+0,SeventySix.esm
 
 Entities outside of space range
 APPALACHIA:342116

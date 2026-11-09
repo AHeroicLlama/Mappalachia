@@ -5,7 +5,15 @@ namespace Library
 {
 	public static class Common
 	{
-		public static string DistributableFileName { get; } = "Mappalachia.zip";
+		public static string ApplicationTitleName { get; } = "Mappalachia (PTS)"; // User-friendly name
+
+		public static string ApplicationSystemName { get; } = "Mappalachia"; // File/URL-friendly name
+
+		public static string GameTargetName { get; } = "Fallout 76"; // User-friendly game title
+
+		public static string RepositoryName { get; } = $"AHeroicLlama/{ApplicationSystemName}";
+
+		public static string DistributableFileName { get; } = $"{ApplicationSystemName}.zip";
 
 		public static string MapMarkerImageFileType { get; } = ".svg";
 
@@ -19,7 +27,7 @@ namespace Library
 
 		public static string RecipeFileType { get; } = ".json";
 
-		public static string RecipeFileFilter { get; } = $"Mappalachia JSON Recipe|*{RecipeFileType}";
+		public static string RecipeFileFilter { get; } = $"{ApplicationTitleName} JSON Recipe|*{RecipeFileType}";
 
 		public static string WaterMaskAddendum { get; } = "_waterMask";
 
