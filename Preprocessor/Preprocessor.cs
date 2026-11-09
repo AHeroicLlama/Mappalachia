@@ -1010,7 +1010,6 @@ namespace Preprocessor
 
 			Match match = LockLevelRegex.Match(lockLevel);
 
-			// Remove the novice/advanced etc from the levelled locks
 			if (match.Success)
 			{
 				lockLevel = match.Groups[2].Value;
