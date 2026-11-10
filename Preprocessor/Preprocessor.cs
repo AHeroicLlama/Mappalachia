@@ -139,6 +139,7 @@ namespace Preprocessor
 			SimpleQuery($"DELETE FROM MapMarker WHERE label LIKE '{MapMarkersToRemovePattern}';");
 			SimpleQuery(AddMissingMarkersQuery);
 			SimpleQuery(CorrectDuplicateMarkersQuery);
+			TransformColumn(CorrectIconsByDict, "MapMarker", "icon");
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
 			TransformColumn(CorrectFissureLabels, "MapMarker", "label");
 			TransformColumn(CorrectCommonBadLabels, "MapMarker", "label");
@@ -975,6 +976,17 @@ namespace Preprocessor
 			}
 
 			return label;
+		}
+
+		// Returns the corrected icon for the given map marker icon
+		static string? CorrectIconsByDict(string icon)
+		{
+			if (MarkerIconCorrection.TryGetValue(icon, out string? correctedIcon))
+			{
+				return correctedIcon;
+			}
+
+			return icon;
 		}
 
 		static string GetNorthAngle(string spaceFormID)

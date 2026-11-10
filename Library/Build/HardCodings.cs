@@ -46,6 +46,9 @@ namespace Library
 
 		public static string MapMarkerIconInitialFileName { get; } = "1.svg"; // Frame 1
 
+		public static readonly Dictionary<string, string> MarkerIconCorrection = new Dictionary<string, string>()
+		{ };
+
 		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()
 		{
 			{ "Abraxodyne Storage Depot", "Meadow Breeze Storage Depot" },
