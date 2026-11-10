@@ -130,6 +130,7 @@ namespace Preprocessor
 			// Extract WorldSpace FormID from world on LocationCell
 			TransformColumn(CaptureSpaceFormID, "LocationCell", "spaceFormID");
 			ChangeColumnType("LocationCell", "spaceFormID", "INTEGER");
+			TransformColumn(UnescapeCharacters, "LocationCell", "locationDisplayName");
 
 			// Pull the MapMarker data into a new table, then make some hardcoded amendments and corrections
 			SimpleQuery("CREATE TABLE MapMarker AS SELECT spaceFormID, x, y, referenceFormID as label, mapMarkerName as icon FROM Position WHERE mapMarkerName != '';");
@@ -138,6 +139,7 @@ namespace Preprocessor
 			SimpleQuery($"DELETE FROM MapMarker WHERE label LIKE '{MapMarkersToRemovePattern}';");
 			SimpleQuery(AddMissingMarkersQuery);
 			SimpleQuery(CorrectDuplicateMarkersQuery);
+			TransformColumn(CorrectIconsByDict, "MapMarker", "icon");
 			TransformColumn(CorrectLabelsByDict, "MapMarker", "label");
 			TransformColumn(CorrectFissureLabels, "MapMarker", "label");
 			TransformColumn(CorrectCommonBadLabels, "MapMarker", "label");
@@ -974,6 +976,17 @@ namespace Preprocessor
 			}
 
 			return label;
+		}
+
+		// Returns the corrected icon for the given map marker icon
+		static string? CorrectIconsByDict(string icon)
+		{
+			if (MarkerIconCorrection.TryGetValue(icon, out string? correctedIcon))
+			{
+				return correctedIcon;
+			}
+
+			return icon;
 		}
 
 		static string GetNorthAngle(string spaceFormID)

@@ -183,5 +183,15 @@ namespace Library
 
 			return $"({string.Join(",", elements.Select(e => "\'" + e?.ToString() + "\'"))})";
 		}
+
+		public static async Task<string> GetESMName(SqliteConnection connection, uint formId)
+		{
+			uint esmNumber = formId >> 24;
+			string queryText = $"SELECT name FROM ESM WHERE number = {esmNumber};";
+			using SqliteDataReader reader = await GetReader(connection, queryText);
+
+			reader.Read();
+			return reader.GetString(0);
+		}
 	}
 }
