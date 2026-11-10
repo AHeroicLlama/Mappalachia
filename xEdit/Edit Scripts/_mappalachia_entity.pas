@@ -23,8 +23,8 @@ unit _mappalachia_entity;
 
 	begin
 		for k := 0 to FileCount() -1 do begin
-			esmNumber := k;
-			targetESM := FileByIndex(esmNumber);
+			esmIndex := k;
+			targetESM := FileByIndex(esmIndex);
 			fileName := GetFileName(targetESM);
 
 			if (GetIsEsm(targetESM) = false) then begin
@@ -34,8 +34,8 @@ unit _mappalachia_entity;
 
 			AddMessage('Running Entity export on ' + fileName);
 
-			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Entity.csv';
-			outputFileContainer := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Container.csv';
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(GetLoadOrder(targetESM)) + '\Entity.csv';
+			outputFileContainer := ProgramPath + 'Output\ESM_' + IntToStr(GetLoadOrder(targetESM)) + '\Container.csv';
 
 			outputStrings := TStringList.Create;
 			outputStringsContainer := TStringList.Create;
@@ -57,8 +57,8 @@ unit _mappalachia_entity;
 				end;
 			end;
 
-			outputToFile(esmNumber, outputFile, outputStrings);
-			outputToFile(esmNumber, outputFileContainer, outputStringsContainer);
+			outputToFile(esmIndex, outputFile, outputStrings);
+			outputToFile(esmIndex, outputFileContainer, outputStringsContainer);
 		end;
 	end;
 

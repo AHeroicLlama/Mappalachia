@@ -84,6 +84,19 @@ namespace Library
 			return Convert.ToUInt32(FormID.Matches(hex)[0].Value, 16);
 		}
 
+		// Convert a load order FormID to a fixed FormID
+		public static uint ToFixedFormId(this uint loadOrderFormId)
+		{
+			// First byte 0x00 indicates base game record - no change
+			if (loadOrderFormId >> 24 == 0x00)
+			{
+				return loadOrderFormId;
+			}
+
+			// Set just the first byte to 0x01
+			return (loadOrderFormId & 0x00FFFFFF) | 0x01000000;
+		}
+
 		public static string WithoutWhitespace(this string input)
 		{
 			return new string(input.Where(character => !char.IsWhiteSpace(character)).ToArray());

@@ -3,7 +3,7 @@ unit _mappalachia_lib;
 
 	var
 		targetESM : IInterface;
-		esmNumber : Integer;
+		esmIndex : Integer;
 		fileName : string;
 
 	// Remove commas and replace them with something safe for CSV
@@ -16,10 +16,13 @@ unit _mappalachia_lib;
 		Result := StringReplace(input, '''', '''''', [rfReplaceAll]);
 	end;
 
-	procedure outputToFile(esmNumber: Integer; outputFile: String; strings: TStringList);
+	procedure outputToFile(esmIndex: Integer; outputFile: String; strings: TStringList);
 	begin
 		createDir('Output\');
-		createDir('Output\ESM_' + IntToStr(esmNumber));
+
+		if (GetIsEsm(targetESM) = false) then exit;
+
+		createDir('Output\ESM_' + IntToStr(GetLoadOrder(targetESM)));
 		AddMessage('Writing output to file: ' + outputFile);
 		strings.SaveToFile(outputFile);
 		strings.Free;
@@ -35,8 +38,8 @@ unit _mappalachia_lib;
 		category, element : IInterface;
 	begin
 		for i := 0 to FileCount() -1 do begin
-			esmNumber := i;
-			targetESM := FileByIndex(esmNumber);
+			esmIndex := i;
+			targetESM := FileByIndex(esmIndex);
 			fileName := GetFileName(targetESM);
 
 			if (GetIsEsm(targetESM) = false) then begin
@@ -46,7 +49,7 @@ unit _mappalachia_lib;
 
 			AddMessage('Running ' + outputFileName + ' export on ' + fileName);
 
-			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\' + outputFileName + '.csv';
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(GetLoadOrder(targetESM)) + '\' + outputFileName + '.csv';
 			category := GroupBySignature(targetESM, signature);
 
 			outputStrings := TStringList.Create;
@@ -59,7 +62,7 @@ unit _mappalachia_lib;
 				end;
 			end;
 
-			outputToFile(esmNumber, outputFile, outputStrings);
+			outputToFile(esmIndex, outputFile, outputStrings);
 		end;
 	end;
 
