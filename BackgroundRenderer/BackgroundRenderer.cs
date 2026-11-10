@@ -162,6 +162,8 @@ namespace BackgroundRenderer
 				string correctionPath = CellXYScaleCorrectionPath + space.EditorID;
 
 				StdOutWithColor($"Corrections:\nxCenter: {space.CenterX}->{correctedXCenter}\nyCenter:{space.CenterY}->{correctedYCenter}\nmaxRange: {space.MaxRange}->{correctedRange}", ColorInfo);
+
+				Directory.CreateDirectory(CellXYScaleCorrectionPath);
 				File.WriteAllText(correctionPath, $"{correctedXCenter}\n{correctedYCenter}\n{correctedRange}");
 
 				StdOutWithColor($"Correction file written to {correctionPath}.\nYou must rebuild the database and re-render the affected cell(s).\n\nPress any key to do another space.\n", ColorInfo);
@@ -232,6 +234,7 @@ namespace BackgroundRenderer
 				{
 					string correctionPath = CellZCorrectionPath + space.EditorID;
 
+					Directory.CreateDirectory(CellZCorrectionPath);
 					File.WriteAllText(correctionPath, height.ToString());
 					StdOutWithColor($"Correction file written to {correctionPath}.\n", ColorInfo);
 					return space;
