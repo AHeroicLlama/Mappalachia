@@ -22,12 +22,15 @@ unit _mappalachia_esm;
 
             if (GetIsEsm(targetESM) = true) then begin
                 outputStrings.Add(
-                    IntToStr(i) + ',' +
+                    IntToStr(GetLoadOrder(targetESM)) + ',' +
                     fileName
                 );
             end;
         end;
 
-        outputToFile(i, outputFile, outputStrings);
+        createDir('Output\');
+		AddMessage('Writing output to file: ' + outputFile);
+		outputStrings.SaveToFile(outputFile);
+		outputStrings.Free;
     end;
 end.

@@ -12,8 +12,8 @@ unit _mappalachia_space;
 		i : integer;
 	begin
 		for i := 0 to FileCount() -1 do begin
-			esmNumber := i;
-			targetESM := FileByIndex(esmNumber);
+			esmIndex := i;
+			targetESM := FileByIndex(esmIndex);
 			fileName := GetFileName(targetESM);
 
 			if (GetIsEsm(targetESM) = false) then begin
@@ -23,13 +23,13 @@ unit _mappalachia_space;
 
 			AddMessage('Running Space export on ' + fileName);
 
-			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(esmNumber) + '\Space.csv';
+			outputFile := ProgramPath + 'Output\ESM_' + IntToStr(GetLoadOrder(targetESM)) + '\Space.csv';
 			outputStrings := TStringList.Create;
 
 			ripWorldSpaces();
 			ripCells();
 
-			outputToFile(esmNumber, outputFile, outputStrings);
+			outputToFile(esmIndex, outputFile, outputStrings);
 		end;
 	end;
 
