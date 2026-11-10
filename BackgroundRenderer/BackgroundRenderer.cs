@@ -16,6 +16,8 @@ namespace BackgroundRenderer
 
 		static int RenderParallelism { get; } = 16; // Max cells or spotlight tiles to render in parallel
 
+		static readonly string ExcludeModelsParameter = RenderExcludeModels.Count > 0 ? $"-xm {string.Join(" -xm ", RenderExcludeModels)}" : string.Empty;
+
 		static async Task Main()
 		{
 			Console.Title = $"{ApplicationTitleName} Background Renderer";
@@ -84,7 +86,7 @@ namespace BackgroundRenderer
 			{
 				StdOutWithColor($"\nRendering {worldspace.EditorID} (0x{worldspace.FormID.ToHex()})", ColorInfo);
 				await SpotlightRenderSpace(worldspace);
-				RenderSpace(worldspace);
+				await RenderSpace(worldspace);
 				AnnounceRenderProgress(spaces, worldspace, ref spacesRendered);
 			}
 
@@ -94,7 +96,7 @@ namespace BackgroundRenderer
 			Parallel.ForEach(cells, new ParallelOptions() { MaxDegreeOfParallelism = RenderParallelism }, async cell =>
 			{
 				await SpotlightRenderSpace(cell);
-				RenderSpace(cell, true);
+				await RenderSpace(cell, true);
 				AnnounceRenderProgress(spaces, cell, ref spacesRendered, cellStopwatch);
 			});
 
@@ -115,10 +117,11 @@ namespace BackgroundRenderer
 				double cameraY = space.CenterY;
 				int cameraZ = GetSpaceCameraHeight(space);
 				string outputFile = TempPath + $"debug_{space.EditorID}.dds";
+				string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {resolution} {resolution} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {outputFile} {resolution} {resolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
+					$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
@@ -162,6 +165,8 @@ namespace BackgroundRenderer
 				string correctionPath = CellXYScaleCorrectionPath + space.EditorID;
 
 				StdOutWithColor($"Corrections:\nxCenter: {space.CenterX}->{correctedXCenter}\nyCenter:{space.CenterY}->{correctedYCenter}\nmaxRange: {space.MaxRange}->{correctedRange}", ColorInfo);
+
+				Directory.CreateDirectory(CellXYScaleCorrectionPath);
 				File.WriteAllText(correctionPath, $"{correctedXCenter}\n{correctedYCenter}\n{correctedRange}");
 
 				StdOutWithColor($"Correction file written to {correctionPath}.\nYou must rebuild the database and re-render the affected cell(s).\n\nPress any key to do another space.\n", ColorInfo);
@@ -208,15 +213,16 @@ namespace BackgroundRenderer
 		{
 			Space space = await GetSingleSpaceInput();
 			int height = GetSpaceCameraHeight(space);
+			string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
 
 			// Loop of user estimates new height, render, ask again.
 			while (true)
 			{
 				string outputFile = TempPath + $"debug_{space.EditorID}_Z{height}.dds";
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {MapImageResolution} {MapImageResolution} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {outputFile} {MapImageResolution} {MapImageResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
-					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
+					$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
 
 				Console.WriteLine($"Rendering {space.EditorID} to {outputFile}");
@@ -232,6 +238,7 @@ namespace BackgroundRenderer
 				{
 					string correctionPath = CellZCorrectionPath + space.EditorID;
 
+					Directory.CreateDirectory(CellZCorrectionPath);
 					File.WriteAllText(correctionPath, height.ToString());
 					StdOutWithColor($"Correction file written to {correctionPath}.\n", ColorInfo);
 					return space;
@@ -247,20 +254,21 @@ namespace BackgroundRenderer
 
 		// Renders a space in the normal way, and converts and moves it appropriately.
 		// Worldspaces also see the watermask generated.
-		static void RenderSpace(Space space, bool silent = false)
+		static async Task RenderSpace(Space space, bool silent = false)
 		{
 			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : MapImageResolution;
 			string ddsFile = TempPath + $"{space.EditorID}.dds";
 			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + BackgroundImageFileType;
 			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;
 			double scale = renderResolution / space.MaxRange;
+			string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
 
-			string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {ddsFile} {renderResolution} {renderResolution} " +
+			string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {ddsFile} {renderResolution} {renderResolution} " +
 				$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString}" +
-				$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
+				$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + (space.IsWorldspace ? 0 : 32) + 256 + 1024} -ssaa 2 " +
 				$"-ltxtres 512 -tc 4096 -mc 64 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
-				$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+				$"{ExcludeModelsParameter}";
 
 			string resizeCommand = $"magick {ddsFile} -resize {MapImageResolution}x{MapImageResolution} " +
 						$"-quality {(space.IsWorldspace ? JpgQualityHigh : JpgQualityStandard)} JPEG:{finalFile}";
@@ -277,10 +285,10 @@ namespace BackgroundRenderer
 				string waterMaskDDS = TempPath + space.EditorID + WaterMaskAddendum + ".dds";
 				string waterMaskFinalFile = WorldPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
 
-				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
-					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
+				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
+					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
-					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+					$"{ExcludeModelsParameter}";
 
 				string waterMaskResizeCommand = $"magick {waterMaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {MapImageResolution}x{MapImageResolution} PNG:{waterMaskFinalFile}";
 
@@ -310,6 +318,7 @@ namespace BackgroundRenderer
 
 			List<SpotlightTile> tiles = space.GetTiles();
 			List<Region> worldBorderRegions = await space.GetWorldBorders();
+			string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
 
 			if (worldBorderRegions.Count > 0)
 			{
@@ -372,13 +381,13 @@ namespace BackgroundRenderer
 				string outputFile = $"{outputPath}{tile.XId}.{tile.YId}.dds";
 				string finalFile = tile.GetFilePath();
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{GameESMPath}\" {outputFile} {SpotlightTileSize} {SpotlightTileSize} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {outputFile} {SpotlightTileSize} {SpotlightTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
 					$"-r {tile.XId * SpotlightScale} {tile.YId * SpotlightScale} {(tile.XId + 1) * SpotlightScale} {(tile.YId + 1) * SpotlightScale} " +
-					$"-w 0x{space.FormID.ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
+					$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 32 + 256 + 1024} -ssaa 1 " +
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
-					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+					$"{ExcludeModelsParameter}";
 
 				string convertCommand = $"magick {outputFile} -quality {JpgQualityStandard} JPEG:{finalFile}";
 
