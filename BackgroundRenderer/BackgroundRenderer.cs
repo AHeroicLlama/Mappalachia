@@ -16,6 +16,8 @@ namespace BackgroundRenderer
 
 		static int RenderParallelism { get; } = 16; // Max cells or spotlight tiles to render in parallel
 
+		static readonly string ExcludeModelsParameter = RenderExcludeModels.Count > 0 ? $"-xm {string.Join(" -xm ", RenderExcludeModels)}" : string.Empty;
+
 		static async Task Main()
 		{
 			Console.Title = $"{ApplicationTitleName} Background Renderer";
@@ -266,7 +268,7 @@ namespace BackgroundRenderer
 				$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + (space.IsWorldspace ? 0 : 32) + 256 + 1024} -ssaa 2 " +
 				$"-ltxtres 512 -tc 4096 -mc 64 -mip 1 -lmip 2 -mlod 0 -ndis 1 " +
-				$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+				$"{ExcludeModelsParameter}";
 
 			string resizeCommand = $"magick {ddsFile} -resize {MapImageResolution}x{MapImageResolution} " +
 						$"-quality {(space.IsWorldspace ? JpgQualityHigh : JpgQualityStandard)} JPEG:{finalFile}";
@@ -286,7 +288,7 @@ namespace BackgroundRenderer
 				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
-					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+					$"{ExcludeModelsParameter}";
 
 				string waterMaskResizeCommand = $"magick {waterMaskDDS} -fill #0000FF -fuzz 25% +opaque #000000 -transparent #000000 -resize {MapImageResolution}x{MapImageResolution} PNG:{waterMaskFinalFile}";
 
@@ -385,7 +387,7 @@ namespace BackgroundRenderer
 					$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
 					$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + 32 + 256 + 1024} -ssaa 1 " +
 					$"-ltxtres 4096 -tc 4096 -mc 64 -mip 0 -lmip 1 -mlod 0 -ndis 1 " +
-					$"-xm " + string.Join(" -xm ", RenderExcludeModels);
+					$"{ExcludeModelsParameter}";
 
 				string convertCommand = $"magick {outputFile} -quality {JpgQualityStandard} JPEG:{finalFile}";
 
