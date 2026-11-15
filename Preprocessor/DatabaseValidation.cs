@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
+using static Library.ReaderExtensions;
 
 namespace Preprocessor
 {
@@ -54,13 +55,13 @@ namespace Preprocessor
 				row++;
 
 				string? value;
-				if (reader.IsDBNull(0))
+				if (reader.IsDBNull(columnName))
 				{
 					value = null;
 				}
 				else
 				{
-					value = reader.GetString(0);
+					value = reader.GetString(columnName);
 				}
 
 				if (string.IsNullOrEmpty(value))

@@ -32,7 +32,7 @@ unit _mappalachia_position;
 			AddMessage('Mappalachia interior position  (' + fileName + ')');
 			ripInteriors();
 
-			outputToFile(esmIndex, outputFile, outputStrings);
+			outputToFile(outputFile, outputStrings);
 		end;
 	end;
 

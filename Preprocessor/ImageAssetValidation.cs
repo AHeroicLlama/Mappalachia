@@ -290,7 +290,7 @@ namespace Preprocessor
 
 			if (fileSizeKB < MinRenderedCellImageSizeKB || fileSizeKB > MaxRenderedCellImageSizeKB)
 			{
-				FailValidation($"Image for {space.DisplayName} ({path}) appears to be an improper file size ({fileSizeKB}KB)");
+				FailValidation($"Image for {space.EditorID} appears to be an improper file size ({fileSizeKB}KB)");
 			}
 		}
 
@@ -300,7 +300,7 @@ namespace Preprocessor
 
 			if (fileSizeKB < MinTileImageSizeKB || fileSizeKB > MaxTileImageSizeKB)
 			{
-				FailValidation($"Tile Image for {tile.Space.DisplayName} ({path}) appears to be an improper file size ({fileSizeKB}KB)");
+				FailValidation($"Tile Image for {tile.Space.EditorID} appears to be an improper file size ({fileSizeKB}KB)");
 			}
 		}
 
@@ -310,7 +310,7 @@ namespace Preprocessor
 
 			if (fileSize < MinMapMarkerImageSizeBytes || fileSize > MaxMapMarkerImageSizeBytes)
 			{
-				FailValidation($"Mapmarker {marker.Icon} ({path}) appears to be an improper file size ({fileSize} Bytes)");
+				FailValidation($"Mapmarker {marker.Icon} appears to be an improper file size ({fileSize} Bytes)");
 			}
 		}
 

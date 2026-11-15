@@ -16,7 +16,7 @@ unit _mappalachia_lib;
 		Result := StringReplace(input, '''', '''''', [rfReplaceAll]);
 	end;
 
-	procedure outputToFile(esmIndex: Integer; outputFile: String; strings: TStringList);
+	procedure outputToFile(outputFile: String; strings: TStringList);
 	begin
 		createDir('Output\');
 
@@ -62,7 +62,7 @@ unit _mappalachia_lib;
 				end;
 			end;
 
-			outputToFile(esmIndex, outputFile, outputStrings);
+			outputToFile(outputFile, outputStrings);
 		end;
 	end;
 
