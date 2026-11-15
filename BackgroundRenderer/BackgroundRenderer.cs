@@ -3,6 +3,7 @@ using Library;
 using Microsoft.Data.Sqlite;
 using static Library.BuildTools;
 using static Library.Common;
+using static Library.CommonDatabase;
 
 namespace BackgroundRenderer
 {
@@ -117,9 +118,9 @@ namespace BackgroundRenderer
 				double cameraY = space.CenterY;
 				int cameraZ = GetSpaceCameraHeight(space);
 				string outputFile = TempPath + $"debug_{space.EditorID}.dds";
-				string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
+				string esmPaths = await GetEsmPaths(space);
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {outputFile} {resolution} {resolution} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPaths}\" {outputFile} {resolution} {resolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
 					$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {cameraX} {cameraY} {cameraZ} " +
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
@@ -213,14 +214,14 @@ namespace BackgroundRenderer
 		{
 			Space space = await GetSingleSpaceInput();
 			int height = GetSpaceCameraHeight(space);
-			string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
+			string esmPaths = await GetEsmPaths(space);
 
 			// Loop of user estimates new height, render, ask again.
 			while (true)
 			{
 				string outputFile = TempPath + $"debug_{space.EditorID}_Z{height}.dds";
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {outputFile} {MapImageResolution} {MapImageResolution} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPaths}\" {outputFile} {MapImageResolution} {MapImageResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
 					$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {MapImageResolution / space.MaxRange} 180 0 0 {space.CenterX} {space.CenterY} {height} " +
 					$"-light 1.8 65 180 -rq 0 -scol 1 -ssaa 0 -ltxtres 64 -mlod 4 -xm effects";
@@ -261,9 +262,9 @@ namespace BackgroundRenderer
 			string finalFile = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + BackgroundImageFileType;
 			string terrainString = space.IsWorldspace ? $"-btd \"{GameTerrainPath}\" " : string.Empty;
 			double scale = renderResolution / space.MaxRange;
-			string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
+			string esmPaths = await GetEsmPaths(space);
 
-			string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {ddsFile} {renderResolution} {renderResolution} " +
+			string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPaths}\" {ddsFile} {renderResolution} {renderResolution} " +
 				$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString}" +
 				$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 				$"-light 1.8 65 180 -lcolor 1.1 0xD6CCC7 0.9 -1 -1 -rq {1 + 2 + 12 + (space.IsWorldspace ? 0 : 32) + 256 + 1024} -ssaa 2 " +
@@ -285,7 +286,7 @@ namespace BackgroundRenderer
 				string waterMaskDDS = TempPath + space.EditorID + WaterMaskAddendum + ".dds";
 				string waterMaskFinalFile = WorldPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
 
-				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
+				string waterMaskRenderCommand = $"{Fo76UtilsRenderPath} \"{esmPaths}\" {waterMaskDDS} {renderResolution} {renderResolution} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {terrainString} -w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {space.CenterX} {space.CenterY} {GetSpaceCameraHeight(space)} " +
 					$"-light 1 0 0 -ssaa 2 -watermask 1 -xm water " +
 					$"{ExcludeModelsParameter}";
@@ -318,7 +319,7 @@ namespace BackgroundRenderer
 
 			List<SpotlightTile> tiles = space.GetTiles();
 			List<Region> worldBorderRegions = await space.GetWorldBorders();
-			string esmPath = $"{GameDataPath}{await CommonDatabase.GetESMName(GetNewConnection(), space.FormID)}";
+			string esmPaths = await GetEsmPaths(space);
 
 			if (worldBorderRegions.Count > 0)
 			{
@@ -328,46 +329,6 @@ namespace BackgroundRenderer
 			if (!space.IsWorldspace)
 			{
 				tiles = tiles.Where(t => t.HasEntities().Result).ToList();
-			}
-
-			if (space.IsWorldspace)
-			{
-				StdOutWithColor($"Depending on your hardware, Spotlight rendering an entire worldspace ({space.EditorID}) may take a few hours. Would you like to:\n1:Render the whole space\n2:Render only missing tiles\n3:Define a target area to render", ColorQuestion);
-
-				switch (Console.ReadKey().KeyChar)
-				{
-					case '1':
-						break;
-
-					case '2':
-						tiles = tiles.Where(t => !File.Exists(t.GetFilePath())).ToList();
-						break;
-
-					case '3':
-						StdOutWithColor("\nEnter 3 values: X and Y coordinate of the center tile, and the radius of tiles around it.", ColorQuestion);
-
-						StdOutWithColor("Center X:", ColorQuestion);
-						int xCenter = int.Parse(Console.ReadLine() ?? "0");
-
-						StdOutWithColor("Center Y:", ColorQuestion);
-						int yCenter = int.Parse(Console.ReadLine() ?? "0");
-
-						StdOutWithColor("Radius (tiles):", ColorQuestion);
-						int radius = int.Parse(Console.ReadLine() ?? "0");
-
-						tiles = tiles.Where(t =>
-							Math.Abs(t.XId - xCenter) <= radius &&
-							Math.Abs(t.YId - yCenter) <= radius)
-							.ToList();
-
-						break;
-
-					default:
-						StdOutWithColor("Unrecognized input. Skipping this operation. Please try again.", ColorError);
-						return;
-				}
-
-				Console.WriteLine();
 			}
 
 			StdOutWithColor($"Spotlight Rendering {tiles.Count} tile{Pluralize(tiles)} of {space.EditorID}", ColorInfo);
@@ -381,7 +342,7 @@ namespace BackgroundRenderer
 				string outputFile = $"{outputPath}{tile.XId}.{tile.YId}.dds";
 				string finalFile = tile.GetFilePath();
 
-				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPath}\" {outputFile} {SpotlightTileSize} {SpotlightTileSize} " +
+				string renderCommand = $"{Fo76UtilsRenderPath} \"{esmPaths}\" {outputFile} {SpotlightTileSize} {SpotlightTileSize} " +
 					$"\"{GameDataPath.WithoutTrailingSlash()}\" {(space.IsWorldspace ? $"-btd \"{GameTerrainPath}\"" : string.Empty)} " +
 					$"-r {tile.XId * SpotlightScale} {tile.YId * SpotlightScale} {(tile.XId + 1) * SpotlightScale} {(tile.YId + 1) * SpotlightScale} " +
 					$"-w 0x{space.FormID.ToFixedFormId().ToHex()} -l 0 -cam {scale} 180 0 0 {tile.XCenter} {tile.YCenter} {GetSpaceCameraHeight(space)} " +
@@ -423,13 +384,20 @@ namespace BackgroundRenderer
 			});
 		}
 
+		static async Task<string> GetEsmPaths(Space space)
+		{
+			SqliteConnection connection = GetNewConnection();
+			List<string> esmNames = await CommonDatabase.GetEsmNameWithMasters(connection, GetEsmNumber(space.FormID));
+			return string.Join(",", esmNames.Select(n => $"\"{GameDataPath}{n}\""));
+		}
+
 		// Return if this tile contains any entities
 		static async Task<bool> HasEntities(this SpotlightTile tile)
 		{
 			string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {tile.Space.FormID} AND " +
 				$"x >= {tile.XCenter - TileRadius} AND x <= {tile.XCenter + TileRadius} AND y >= {tile.YCenter - TileRadius} AND y <= {tile.YCenter + TileRadius}";
 
-			SqliteDataReader reader = await CommonDatabase.GetReader(GetNewConnection(), countQuery);
+			SqliteDataReader reader = await GetReader(GetNewConnection(), countQuery);
 			reader.Read();
 
 			return Convert.ToInt32(reader["count"]) > 0;
@@ -493,19 +461,19 @@ namespace BackgroundRenderer
 			if (input.EqualsIgnoreCase("cell") || input.EqualsIgnoreCase("world"))
 			{
 				int worldspaceFlag = input.EqualsIgnoreCase("world") ? 1 : 0;
-				return await CommonDatabase.GetSpaces(GetNewConnection(), $"SELECT * FROM Space WHERE isWorldSpace == {worldspaceFlag} ORDER BY spaceEditorID ASC;");
+				return await GetSpaces(GetNewConnection(), $"SELECT * FROM Space WHERE isWorldSpace == {worldspaceFlag} ORDER BY spaceEditorID ASC;");
 			}
 
 			if (input.IsNullOrWhiteSpace())
 			{
-				return await CommonDatabase.GetAllSpaces(GetNewConnection());
+				return await GetAllSpaces(GetNewConnection());
 			}
 
 			List<string> requestedIDs = input.Split(" ").Where(space => !space.IsNullOrWhiteSpace()).ToList();
 
 			// Select spaces unconditionally if none provided, otherwise select only the list of provided spaces
 			string query = $"SELECT * FROM Space WHERE spaceEditorID IN {requestedIDs.ToSqliteCollection()} ORDER BY isWorldspace DESC, spaceEditorID ASC;";
-			List<Space> spaces = await CommonDatabase.GetSpaces(GetNewConnection(), query);
+			List<Space> spaces = await GetSpaces(GetNewConnection(), query);
 
 			// If we specified cells, ensure we found them all in the DB before proceeding
 			if (spaces.Count != requestedIDs.Count)
@@ -524,7 +492,7 @@ namespace BackgroundRenderer
 				StdOutWithColor("\nEnter the EditorID of the space:", ColorQuestion);
 				string input = Console.ReadLine() ?? string.Empty;
 
-				Space? space = await CommonDatabase.GetSpaceByEditorID(GetNewConnection(), input);
+				Space? space = await GetSpaceByEditorID(GetNewConnection(), input);
 
 				if (space is null)
 				{
