@@ -4,11 +4,14 @@ using System.Text.Json.Serialization;
 namespace Library
 {
 	// Represents a Worldspace (WRLD) or Cell (CELL)
-	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, bool isInstanceable, double centerX, double centerY, double maxRange, double northAngle)
+	public class Space(uint formID, string editorID, string displayName, bool isWorldspace, bool isPrimaryWorldspace, bool isInstanceable, double centerX, double centerY, double maxRange, double northAngle)
 		: Entity(formID, editorID, displayName, isWorldspace ? Signature.WRLD : Signature.CELL)
 	{
 		[JsonIgnore]
 		public bool IsWorldspace { get; } = isWorldspace;
+
+		[JsonIgnore]
+		public bool IsPrimaryWorldspace => IsWorldspace && isPrimaryWorldspace;
 
 		[JsonIgnore]
 		public bool IsInstanceable { get; } = isInstanceable;

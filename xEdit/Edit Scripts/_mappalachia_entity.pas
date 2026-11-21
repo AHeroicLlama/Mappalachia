@@ -57,8 +57,8 @@ unit _mappalachia_entity;
 				end;
 			end;
 
-			outputToFile(esmIndex, outputFile, outputStrings);
-			outputToFile(esmIndex, outputFileContainer, outputStringsContainer);
+			outputToFile(outputFile, outputStrings);
+			outputToFile(outputFileContainer, outputStringsContainer);
 		end;
 	end;
 

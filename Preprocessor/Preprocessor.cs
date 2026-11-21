@@ -362,6 +362,10 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Space ADD COLUMN northAngle REAL;");
 			TransformColumn(GetNorthAngle, "Space", "spaceFormID", "northAngle");
 
+			// Add PrimaryWorldspace flag column to Space
+			SimpleQuery("ALTER TABLE Space ADD COLUMN isPrimaryWorldspace INTEGER;");
+			TransformColumn(GetIsPrimaryWorldspace, "Space", "spaceEditorID", "isPrimaryWorldspace");
+
 			// Create the Flux table
 			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER, editorID STRING, color STRING);");
 			SimpleQuery("INSERT INTO Flux (referenceFormID, editorID) SELECT DISTINCT referenceFormID, editorID FROM Position JOIN Entity ON Entity.entityFormID = Position.referenceFormID;");
@@ -421,7 +425,7 @@ namespace Preprocessor
 			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", await CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle, isPrimaryWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
 			AddToSummaryReport("Avg northAngle", SimpleQuery("SELECT AVG(northAngle) FROM Space;"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
@@ -603,7 +607,7 @@ namespace Preprocessor
 
 			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumn});", true);
 
-			string readQuery = $"SELECT {sourceColumn}, ROWID FROM {tableName} ORDER BY ROWID";
+			string readQuery = $"SELECT ROWID, {sourceColumn} FROM {tableName} ORDER BY ROWID";
 			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE ROWID = @rowID";
 
 			Console.WriteLine($"Transform {tableName}.{sourceColumn} -> {targetColumn}: {method.Method.Name}");
@@ -618,8 +622,8 @@ namespace Preprocessor
 
 			while (reader.Read())
 			{
-				string originalValue = reader.GetString(0);
-				int rowID = reader.GetInt32(1);
+				int rowID = reader.GetInt32(0);
+				string originalValue = reader.GetString(sourceColumn);
 				string? newValue = method(originalValue);
 
 				// If the new value is null (method indicates value should not be changed), skip
@@ -646,7 +650,7 @@ namespace Preprocessor
 
 			SimpleQuery($"CREATE INDEX {tempIndex} ON {tableName} ({sourceColumnA}, {sourceColumnB});", true);
 
-			string readQuery = $"SELECT {sourceColumnA}, {sourceColumnB}, ROWID FROM {tableName} ORDER BY ROWID";
+			string readQuery = $"SELECT ROWID, {sourceColumnA}, {sourceColumnB} FROM {tableName} ORDER BY ROWID";
 			string updateQuery = $"UPDATE {tableName} SET {targetColumn} = @new WHERE ROWID = @rowID";
 
 			Console.WriteLine($"Transform {tableName}.{sourceColumnA},{sourceColumnB} -> {targetColumn}: {method.Method.Name}");
@@ -661,9 +665,9 @@ namespace Preprocessor
 
 			while (reader.Read())
 			{
-				string originalValueA = reader.GetString(0);
-				string originalValueB = reader.GetString(1);
-				int rowID = reader.GetInt32(2);
+				int rowID = reader.GetInt32(0);
+				string originalValueA = reader.GetString(sourceColumnA);
+				string originalValueB = reader.GetString(sourceColumnB);
 				string? newValue = method(originalValueA, originalValueB);
 
 				// If the new value is null (method indicates value should not be changed), skip.
@@ -743,8 +747,8 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Space;");
 			SimpleQuery("DROP TABLE Space;");
-			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL) STRICT;");
-			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM temp;");
+			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL, isPrimaryWorldspace INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle, isPrimaryWorldspace) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle, isPrimaryWorldspace FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Flux;");
@@ -1002,12 +1006,17 @@ namespace Preprocessor
 			using SqliteCommand command = new SqliteCommand(query, GetNewConnection());
 			using SqliteDataReader reader = command.ExecuteReader();
 
-			if (!reader.Read() || reader.IsDBNull(0))
+			if (!reader.Read() || reader.IsDBNull("rotation"))
 			{
 				return "0";
 			}
 
 			return reader.GetString("rotation");
+		}
+
+		static string GetIsPrimaryWorldspace(string spaceEditorId)
+		{
+			return (PrimaryWorldspaceEditorIds.Contains(spaceEditorId, StringComparer.OrdinalIgnoreCase) ? 1 : 0).ToString();
 		}
 
 		// Returns num/denom

@@ -167,7 +167,7 @@ namespace Mappalachia
 			mapImage.AdjustBrightnessOrGrayscale(settings.MapSettings.Brightness, settings.MapSettings.GrayscaleBackground);
 
 			// Overlay the water mask
-			if (settings.MapSettings.HighlightWater && settings.Space.IsWorldspace)
+			if (settings.MapSettings.HighlightWater && settings.Space.IsPrimaryWorldspace)
 			{
 				graphics.DrawImage(settings.Space.GetWaterMask(), backgroundRectangle);
 			}

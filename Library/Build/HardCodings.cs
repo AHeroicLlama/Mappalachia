@@ -46,7 +46,13 @@ namespace Library
 
 		public static string MapMarkerIconInitialFileName { get; } = "1.svg"; // Frame 1
 
-		public static readonly Dictionary<string, string> MarkerIconCorrection = new Dictionary<string, string>()
+		// Defines if the worldspace should have a menu background image, and a watermask
+		public static List<string> PrimaryWorldspaceEditorIds { get; } = new List<string>()
+		{
+			"APPALACHIA",
+		};
+
+		public static Dictionary<string, string> MarkerIconCorrection { get; } = new Dictionary<string, string>()
 		{ };
 
 		public static Dictionary<string, string> MarkerLabelCorrection { get; } = new Dictionary<string, string>()

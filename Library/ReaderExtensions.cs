@@ -6,6 +6,11 @@ namespace Library
 	// Extension methods for SqliteDataReader
 	public static class ReaderExtensions
 	{
+		public static bool IsDBNull(this SqliteDataReader reader, string columnName)
+		{
+			return reader.IsDBNull(reader.GetOrdinal(columnName));
+		}
+
 		public static double GetDouble(this SqliteDataReader reader, string columnName)
 		{
 			int ordinal = reader.GetOrdinal(columnName);

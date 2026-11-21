@@ -29,7 +29,7 @@ unit _mappalachia_space;
 			ripWorldSpaces();
 			ripCells();
 
-			outputToFile(esmIndex, outputFile, outputStrings);
+			outputToFile(outputFile, outputStrings);
 		end;
 	end;
 
