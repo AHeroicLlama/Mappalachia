@@ -362,6 +362,10 @@ namespace Preprocessor
 			SimpleQuery("ALTER TABLE Space ADD COLUMN northAngle REAL;");
 			TransformColumn(GetNorthAngle, "Space", "spaceFormID", "northAngle");
 
+			// Add PrimaryWorldspace flag column to Space
+			SimpleQuery("ALTER TABLE Space ADD COLUMN isPrimaryWorldspace INTEGER;");
+			TransformColumn(GetIsPrimaryWorldspace, "Space", "spaceEditorID", "isPrimaryWorldspace");
+
 			// Create the Flux table
 			SimpleQuery("CREATE TABLE Flux (referenceFormID INTEGER, editorID STRING, color STRING);");
 			SimpleQuery("INSERT INTO Flux (referenceFormID, editorID) SELECT DISTINCT referenceFormID, editorID FROM Position JOIN Entity ON Entity.entityFormID = Position.referenceFormID;");
@@ -421,7 +425,7 @@ namespace Preprocessor
 			AddToSummaryReport("Tables", SqliteTools(DatabasePath + " .tables"));
 			AddToSummaryReport("Indices", SqliteTools(DatabasePath + " .indices"));
 			AddToSummaryReport("Game Version", await CommonDatabase.GetGameVersion(Connection));
-			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
+			AddToSummaryReport("Spaces", SimpleQuery("SELECT spaceEditorID, spaceDisplayName, spaceFormID, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle, isPrimaryWorldspace FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC;"));
 			AddToSummaryReport("Avg northAngle", SimpleQuery("SELECT AVG(northAngle) FROM Space;"));
 			AddToSummaryReport("Avg X/Y/Z", SimpleQuery("SELECT AVG(x), AVG(y), AVG(z) FROM Position;"));
 			AddToSummaryReport("Avg Bounds X/Y/Z", SimpleQuery("SELECT AVG(boundX), AVG(boundY), AVG(boundZ) FROM Position;"));
@@ -743,8 +747,8 @@ namespace Preprocessor
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Space;");
 			SimpleQuery("DROP TABLE Space;");
-			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL) STRICT;");
-			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle FROM temp;");
+			SimpleQuery("CREATE TABLE Space (spaceFormID INTEGER NOT NULL UNIQUE PRIMARY KEY, spaceEditorID TEXT NOT NULL, spaceDisplayName TEXT NOT NULL, isWorldspace INTEGER NOT NULL, isInstanceable INTEGER NOT NULL, centerX REAL NOT NULL, centerY REAL NOT NULL, maxRange REAL NOT NULL, northAngle REAL NOT NULL, isPrimaryWorldspace INTEGER NOT NULL) STRICT;");
+			SimpleQuery("INSERT INTO Space (spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle, isPrimaryWorldspace) SELECT spaceFormID, spaceEditorID, spaceDisplayName, isWorldspace, isInstanceable, centerX, centerY, maxRange, northAngle, isPrimaryWorldspace FROM temp;");
 			SimpleQuery("DROP TABLE temp;");
 
 			SimpleQuery("CREATE TABLE temp AS SELECT * FROM Flux;");
@@ -1008,6 +1012,11 @@ namespace Preprocessor
 			}
 
 			return reader.GetString("rotation");
+		}
+
+		static string GetIsPrimaryWorldspace(string spaceEditorId)
+		{
+			return (PrimaryWorldspaceEditorIds.Contains(spaceEditorId, StringComparer.OrdinalIgnoreCase) ? 1 : 0).ToString();
 		}
 
 		// Returns num/denom
