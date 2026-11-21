@@ -226,7 +226,7 @@ namespace Mappalachia
 
 		public static Image GetWaterMask(this Space space)
 		{
-			if (!space.IsWorldspace)
+			if (!space.IsPrimaryWorldspace)
 			{
 				return EmptyMapImage;
 			}

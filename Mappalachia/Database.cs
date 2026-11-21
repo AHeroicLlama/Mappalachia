@@ -27,7 +27,7 @@ namespace Mappalachia
 		public static async Task Initialize()
 		{
 			Connection = GetNewConnection(Paths.DatabasePath);
-			AllSpaces = await GetSpaces(Connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceDisplayName ASC");
+			AllSpaces = await GetSpaces(Connection, "SELECT * FROM Space ORDER BY isPrimaryWorldspace DESC, spaceDisplayName ASC");
 		}
 
 		// The core database search function - returns a collection of GroupedInstance from the given search params

@@ -39,7 +39,7 @@ namespace Library
 		{
 			using SqliteDataReader reader = await GetReader(connection, "SELECT value FROM Meta WHERE Key = 'GameVersion';");
 			reader.Read();
-			return reader.GetString(0);
+			return reader.GetString("value");
 		}
 
 		// Returns the results of the given query as a collection of MapMarker
@@ -75,6 +75,7 @@ namespace Library
 					reader.GetString("spaceEditorID"),
 					reader.GetString("spaceDisplayName"),
 					reader.GetBool("isWorldspace"),
+					reader.GetBool("isPrimaryWorldspace"),
 					reader.GetBool("isInstanceable"),
 					reader.GetDouble("centerX"),
 					reader.GetDouble("centerY"),
@@ -85,10 +86,10 @@ namespace Library
 			return spaces;
 		}
 
-		// Returns a new List of all spaces, ordered by worldspace and editorID
+		// Returns a new List of all spaces, ordered by primary worldspace and editorID
 		public static async Task<List<Space>> GetAllSpaces(SqliteConnection connection)
 		{
-			return await GetSpaces(connection, "SELECT * FROM Space ORDER BY isWorldspace DESC, spaceEditorID ASC");
+			return await GetSpaces(connection, "SELECT * FROM Space ORDER BY isPrimaryWorldspace DESC, spaceEditorID ASC");
 		}
 
 		// Returns the Space instance with the editorID from the database
@@ -109,6 +110,7 @@ namespace Library
 				reader.GetString("spaceEditorID"),
 				reader.GetString("spaceDisplayName"),
 				reader.GetBool("isWorldspace"),
+				reader.GetBool("isPrimaryWorldspace"),
 				reader.GetBool("isInstanceable"),
 				reader.GetDouble("centerX"),
 				reader.GetDouble("centerY"),
@@ -184,14 +186,20 @@ namespace Library
 			return $"({string.Join(",", elements.Select(e => "\'" + e?.ToString() + "\'"))})";
 		}
 
-		public static async Task<string> GetESMName(SqliteConnection connection, uint formId)
+		// Return the name of the given ESM, plus all masters
+		public static async Task<List<string>> GetEsmNameWithMasters(SqliteConnection connection, uint esmNumber)
 		{
-			uint esmNumber = formId >> 24;
-			string queryText = $"SELECT name FROM ESM WHERE number = {esmNumber};";
+			List<string> masterEsmNames = new List<string>();
+
+			string queryText = $"SELECT name FROM ESM WHERE masterCount = 0 OR number = {esmNumber} ORDER BY number;";
 			using SqliteDataReader reader = await GetReader(connection, queryText);
 
-			reader.Read();
-			return reader.GetString(0);
+			while (reader.Read())
+			{
+				masterEsmNames.Add(reader.GetString("name"));
+			}
+
+			return masterEsmNames;
 		}
 	}
 }

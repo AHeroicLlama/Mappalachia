@@ -1,5 +1,5 @@
 // Gets indexed ESM file list
-// Header 'Index,fileName'
+// Header 'Index,fileName,masterCount'
 unit _mappalachia_esm;
 
     uses _mappalachia_lib;
@@ -23,7 +23,8 @@ unit _mappalachia_esm;
             if (GetIsEsm(targetESM) = true) then begin
                 outputStrings.Add(
                     IntToStr(GetLoadOrder(targetESM)) + ',' +
-                    fileName
+                    fileName + ',' +
+                    IntToStr(MasterCount(targetESM))
                 );
             end;
         end;
