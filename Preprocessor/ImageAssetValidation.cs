@@ -66,8 +66,12 @@ namespace Preprocessor
 				}
 			}
 
-			// Count 3 files per worldspace, plus 1 extra for Appalachia for the "military" map
-			int expectedWorldspaceImageFiles = (spaces.Where(space => space.IsWorldspace).Count() * 3) + spaces.Where(space => space.IsAppalachia()).Count();
+			// Count 3 files per primary worldspace, 1 per non-primary worldspace, plus 1 extra for Appalachia for the "military" map
+			int expectedWorldspaceImageFiles =
+				(spaces.Where(space => space.IsPrimaryWorldspace).Count() * 3) +
+				spaces.Where(space => !space.IsPrimaryWorldspace && space.IsWorldspace).Count() +
+				spaces.Where(space => space.IsAppalachia()).Count();
+
 			int actualWorldspaceImageFiles = Directory.GetFiles(WorldPath).Length;
 
 			if (actualWorldspaceImageFiles != expectedWorldspaceImageFiles)
@@ -290,7 +294,7 @@ namespace Preprocessor
 
 			if (fileSizeKB < MinRenderedCellImageSizeKB || fileSizeKB > MaxRenderedCellImageSizeKB)
 			{
-				FailValidation($"Image for {space.DisplayName} ({path}) appears to be an improper file size ({fileSizeKB}KB)");
+				FailValidation($"Image for {space.EditorID} appears to be an improper file size ({fileSizeKB}KB)");
 			}
 		}
 
@@ -300,7 +304,7 @@ namespace Preprocessor
 
 			if (fileSizeKB < MinTileImageSizeKB || fileSizeKB > MaxTileImageSizeKB)
 			{
-				FailValidation($"Tile Image for {tile.Space.DisplayName} ({path}) appears to be an improper file size ({fileSizeKB}KB)");
+				FailValidation($"Tile Image for {tile.Space.EditorID} appears to be an improper file size ({fileSizeKB}KB)");
 			}
 		}
 
@@ -310,7 +314,7 @@ namespace Preprocessor
 
 			if (fileSize < MinMapMarkerImageSizeBytes || fileSize > MaxMapMarkerImageSizeBytes)
 			{
-				FailValidation($"Mapmarker {marker.Icon} ({path}) appears to be an improper file size ({fileSize} Bytes)");
+				FailValidation($"Mapmarker {marker.Icon} appears to be an improper file size ({fileSize} Bytes)");
 			}
 		}
 
@@ -361,7 +365,7 @@ namespace Preprocessor
 			});
 
 			// There are several additional files for Worldspaces
-			if (space.IsWorldspace)
+			if (space.IsPrimaryWorldspace)
 			{
 				string watermaskFilePath = WorldPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
 				string menuMapPath = WorldPath + space.EditorID + BackgroundMenuAddendum + BackgroundImageFileType;
@@ -373,19 +377,19 @@ namespace Preprocessor
 
 				ValidateImageDimensions(watermaskFilePath);
 				ValidateImageDimensions(menuMapPath);
+			}
 
-				// Appalachia specifically also has the 'military' map
-				if (space.IsAppalachia())
+			// Appalachia specifically also has the 'military' map
+			if (space.IsAppalachia())
+			{
+				string militaryMapPath = WorldPath + space.EditorID + BackgroundMilitaryAddendum + BackgroundImageFileType;
+
+				if (!ValidateSpaceImageExists(space, militaryMapPath))
 				{
-					string militaryMapPath = WorldPath + space.EditorID + BackgroundMilitaryAddendum + BackgroundImageFileType;
-
-					if (!ValidateSpaceImageExists(space, militaryMapPath))
-					{
-						return;
-					}
-
-					ValidateImageDimensions(militaryMapPath);
+					return;
 				}
+
+				ValidateImageDimensions(militaryMapPath);
 			}
 		}
 

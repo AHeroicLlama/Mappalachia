@@ -97,6 +97,11 @@ namespace Library
 			return (loadOrderFormId & 0x00FFFFFF) | 0x01000000;
 		}
 
+		public static uint GetEsmNumber(uint formId)
+		{
+			return formId >> 24;
+		}
+
 		public static string WithoutWhitespace(this string input)
 		{
 			return new string(input.Where(character => !char.IsWhiteSpace(character)).ToArray());
