@@ -103,7 +103,7 @@ namespace Mappalachia
 				MapSettings.BackgroundImage = BackgroundImageType.Menu;
 			}
 
-			if (MapSettings.BackgroundImage == BackgroundImageType.Menu && !Space.IsWorldspace)
+			if (MapSettings.BackgroundImage == BackgroundImageType.Menu && !Space.IsPrimaryWorldspace)
 			{
 				MapSettings.BackgroundImage = BackgroundImageType.Render;
 			}

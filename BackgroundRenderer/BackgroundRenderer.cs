@@ -254,7 +254,7 @@ namespace BackgroundRenderer
 		}
 
 		// Renders a space in the normal way, and converts and moves it appropriately.
-		// Worldspaces also see the watermask generated.
+		// Primary Worldspaces also see the watermask generated.
 		static async Task RenderSpace(Space space, bool silent = false)
 		{
 			int renderResolution = space.IsWorldspace ? WorldspaceRenderResolution : MapImageResolution;
@@ -281,7 +281,7 @@ namespace BackgroundRenderer
 			magickResizeConvert.WaitForExit();
 
 			// Do the watermask
-			if (space.IsWorldspace)
+			if (space.IsPrimaryWorldspace)
 			{
 				string waterMaskDDS = TempPath + space.EditorID + WaterMaskAddendum + ".dds";
 				string waterMaskFinalFile = WorldPath + space.EditorID + WaterMaskAddendum + MaskImageFileType;
