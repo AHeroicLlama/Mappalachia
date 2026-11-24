@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Microsoft.Data.Sqlite;
+using static Library.Common;
 
 namespace Library
 {
@@ -228,7 +229,7 @@ namespace Library
 					continue;
 				}
 
-				List<SpotlightTile> tiles = space.GetTiles();
+				List<SpotlightTile> tiles = await GetInBoundsSpotlightTilesForSpace(space);
 
 				// Loop every candidate tile file in the space folder
 				foreach (string tilePath in Directory.GetFiles(directory))
@@ -254,6 +255,85 @@ namespace Library
 					}
 				}
 			}
+		}
+
+		public static async Task<List<SpotlightTile>> GetInBoundsSpotlightTilesForSpace(Space space)
+		{
+			List<SpotlightTile> tiles = space.GetTiles();
+			List<Region> worldBorderRegions = await space.GetWorldBorders();
+
+			if (worldBorderRegions.Count > 0)
+			{
+				tiles = tiles.Where(t => t.IntersectsRegions(worldBorderRegions)).ToList();
+			}
+
+			if (!space.IsWorldspace)
+			{
+				tiles = tiles.Where(t => t.HasEntities().Result).ToList();
+			}
+
+			return tiles;
+		}
+
+		// Return if this tile contains any entities
+		static async Task<bool> HasEntities(this SpotlightTile tile)
+		{
+			string countQuery = $"SELECT count(*) as count FROM Position WHERE SpaceFormID = {tile.Space.FormID} AND " +
+				$"x >= {tile.XCenter - TileRadius} AND x <= {tile.XCenter + TileRadius} AND y >= {tile.YCenter - TileRadius} AND y <= {tile.YCenter + TileRadius}";
+
+			using SqliteDataReader reader = await CommonDatabase.GetReader(GetNewConnection(), countQuery);
+			reader.Read();
+
+			return Convert.ToInt32(reader["count"]) > 0;
+		}
+
+		// Returns if the tile intersects any of the regions
+		static bool IntersectsRegions(this SpotlightTile tile, List<Region> regions)
+		{
+			foreach (Region region in regions)
+			{
+				if (region.Points.Count == 0)
+				{
+					throw new ArgumentException($"Region {region.EditorID} has no points");
+				}
+
+				// First case - The tile is at least partly within the region because the center of it is
+				// It may not be wholly contained
+				if (region.ContainsPoint(new Coord(tile.XCenter, tile.YCenter)))
+				{
+					return true;
+				}
+
+				// Edge cases
+				// Test if any of the 4 edges of the tile intersect any of the region's edges
+				for (int i = 0; i < region.Points.Count; i++)
+				{
+					int j = i + 1;
+
+					if (i == region.Points.Count - 1)
+					{
+						j = 0;
+					}
+
+					Coord regionPointA = region.Points[i].Coord;
+					Coord regionPointB = region.Points[j].Coord;
+
+					Coord topLeft = new Coord(tile.XCenter - TileRadius, tile.YCenter + TileRadius);
+					Coord topRight = new Coord(tile.XCenter + TileRadius, tile.YCenter + TileWidth);
+					Coord bottomLeft = new Coord(tile.XCenter - TileRadius, tile.YCenter - TileRadius);
+					Coord bottomRight = new Coord(tile.XCenter + TileRadius, tile.YCenter - TileRadius);
+
+					if (GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, topRight) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, bottomLeft, bottomRight) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, topLeft, bottomLeft) ||
+						GeometryHelper.LinesIntersect(regionPointA, regionPointB, topRight, bottomRight))
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
 		}
 	}
 }
