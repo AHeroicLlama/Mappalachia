@@ -37,9 +37,9 @@ namespace Preprocessor
 			List<Space> spaces = await CommonDatabase.GetAllSpaces(GetNewConnection());
 
 			// Perform file checks for all spaces
-			Parallel.ForEach(spaces, space =>
+			Parallel.ForEach(spaces, async space =>
 			{
-				ValidateSpace(space);
+				await ValidateSpace(space);
 			});
 
 			// Inverse of above (excluding spotlight), check there are no extraneous files
@@ -332,7 +332,7 @@ namespace Preprocessor
 		}
 
 		// Validates the background images for the given Space
-		static void ValidateSpace(Space space)
+		static async Task ValidateSpace(Space space)
 		{
 			Console.WriteLine($"Background image(s): {space.EditorID}");
 			string filePath = (space.IsWorldspace ? WorldPath : CellPath) + space.EditorID + BackgroundImageFileType;
@@ -344,25 +344,32 @@ namespace Preprocessor
 				ValidateBackgroundImageBlackPx(space, filePath);
 			}
 
-			int i = 0;
-			List<SpotlightTile> tiles = space.GetTiles();
-
-			// Validate spotlight tiles
-			Parallel.ForEach(tiles, tile =>
+			if (space.IsSuitableForSpotlight())
 			{
-				Interlocked.Increment(ref i);
+				int i = 0;
+				List<SpotlightTile> tiles = await GetInBoundsSpotlightTilesForSpace(space);
 
-				string file = tile.GetFilePath();
-
-				// We don't fail on a missing spotlight tile, because it may have been deleted due to being empty, or not rendered due to being outside the world border
-				if (File.Exists(file))
+				Parallel.ForEach(tiles, tile =>
 				{
-					Console.WriteLine($"Spotlight tile {i} of {tiles.Count}: {space.EditorID}");
-					ValidateTileImageFileSize(tile, file);
-					ValidateImageDimensions(file);
-					ValidateTileImageBlackPx(tile, file);
-				}
-			});
+					Interlocked.Increment(ref i);
+
+					string file = tile.GetFilePath();
+
+					if (File.Exists(file))
+					{
+						Console.WriteLine($"Spotlight tile {i} of {tiles.Count}: {space.EditorID}");
+						ValidateTileImageFileSize(tile, file);
+						ValidateImageDimensions(file);
+						ValidateTileImageBlackPx(tile, file);
+					}
+
+					// Missing spotlight tile may be valid for interiors, as a tile may be an invisible out of bounds object, leaving it black, which we delete.
+					else if (space.IsPrimaryWorldspace)
+					{
+						FailValidation($"Spotlight tile ({tile.XId}, {tile.YId}) for {space.EditorID} was not found at {file}");
+					}
+				});
+			}
 
 			// There are several additional files for Worldspaces
 			if (space.IsPrimaryWorldspace)
