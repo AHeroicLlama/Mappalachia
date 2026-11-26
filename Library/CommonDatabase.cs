@@ -183,7 +183,7 @@ namespace Library
 				throw new ArgumentException("Only string or enum collections are valid.");
 			}
 
-			return $"({string.Join(",", elements.Select(e => "\'" + e?.ToString() + "\'"))})";
+			return $"({string.Join(",", elements.Select(e => "\'" + e?.ToString()?.Replace("'", "''") + "\'"))})";
 		}
 
 		// Return the name of the given ESM, plus all masters
